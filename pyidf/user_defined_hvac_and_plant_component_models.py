@@ -174,8 +174,6 @@ class ZoneHvacForcedAirUserDefined(object):
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
         This is the name of the zone unit
-        
-        {u'note': [u'This is the name of the zone unit'], u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -211,8 +209,6 @@ class ZoneHvacForcedAirUserDefined(object):
     @overall_model_simulation_program_calling_manager_name.setter
     def overall_model_simulation_program_calling_manager_name(self, value=None):
         """  Corresponds to IDD Field `Overall Model Simulation Program Calling Manager Name`
-        
-        {u'type': u'object-list', u'object-list': u'ProgramNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Overall Model Simulation Program Calling Manager Name`
@@ -248,8 +244,6 @@ class ZoneHvacForcedAirUserDefined(object):
     @model_setup_and_sizing_program_calling_manager_name.setter
     def model_setup_and_sizing_program_calling_manager_name(self, value=None):
         """  Corresponds to IDD Field `Model Setup and Sizing Program Calling Manager Name`
-        
-        {u'type': u'object-list', u'object-list': u'ProgramNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Model Setup and Sizing Program Calling Manager Name`
@@ -286,8 +280,6 @@ class ZoneHvacForcedAirUserDefined(object):
     def primary_air_inlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Primary Air Inlet Node Name`
         Air inlet node for the unit must be a zone air exhaust Node.
-        
-        {u'note': [u'Air inlet node for the unit must be a zone air exhaust Node.'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Primary Air Inlet Node Name`
@@ -324,8 +316,6 @@ class ZoneHvacForcedAirUserDefined(object):
     def primary_air_outlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Primary Air Outlet Node Name`
         Air outlet node for the unit must be a zone air inlet node.
-        
-        {u'note': [u'Air outlet node for the unit must be a zone air inlet node.'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Primary Air Outlet Node Name`
@@ -362,8 +352,6 @@ class ZoneHvacForcedAirUserDefined(object):
     def secondary_air_inlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Secondary Air Inlet Node Name`
         Inlet air used for heat rejection or air source
-        
-        {u'note': [u'Inlet air used for heat rejection or air source'], u'type': u'node', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Secondary Air Inlet Node Name`
@@ -400,8 +388,6 @@ class ZoneHvacForcedAirUserDefined(object):
     def secondary_air_outlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Secondary Air Outlet Node Name`
         Outlet air used for heat rejection or air source
-        
-        {u'note': [u'Outlet air used for heat rejection or air source'], u'type': u'node', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Secondary Air Outlet Node Name`
@@ -437,8 +423,6 @@ class ZoneHvacForcedAirUserDefined(object):
     @number_of_plant_loop_connections.setter
     def number_of_plant_loop_connections(self, value=None):
         """  Corresponds to IDD Field `Number of Plant Loop Connections`
-        
-        {u'minimum': '0', u'type': u'integer', u'maximum': '3', u'required-field': True, 'pytype': 'int'}
 
         Args:
             value (int): value for IDD Field `Number of Plant Loop Connections`
@@ -476,8 +460,6 @@ class ZoneHvacForcedAirUserDefined(object):
     @plant_connection_1_inlet_node_name.setter
     def plant_connection_1_inlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Plant Connection 1 Inlet Node Name`
-        
-        {u'type': u'node', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Plant Connection 1 Inlet Node Name`
@@ -513,8 +495,6 @@ class ZoneHvacForcedAirUserDefined(object):
     @plant_connection_1_outlet_node_name.setter
     def plant_connection_1_outlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Plant Connection 1 Outlet Node Name`
-        
-        {u'type': u'node', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Plant Connection 1 Outlet Node Name`
@@ -550,8 +530,6 @@ class ZoneHvacForcedAirUserDefined(object):
     @plant_connection_2_inlet_node_name.setter
     def plant_connection_2_inlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Plant Connection 2 Inlet Node Name`
-        
-        {u'type': u'node', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Plant Connection 2 Inlet Node Name`
@@ -587,8 +565,6 @@ class ZoneHvacForcedAirUserDefined(object):
     @plant_connection_2_outlet_node_name.setter
     def plant_connection_2_outlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Plant Connection 2 Outlet Node Name`
-        
-        {u'type': u'node', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Plant Connection 2 Outlet Node Name`
@@ -624,8 +600,6 @@ class ZoneHvacForcedAirUserDefined(object):
     @plant_connection_3_inlet_node_name.setter
     def plant_connection_3_inlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Plant Connection 3 Inlet Node Name`
-        
-        {u'type': u'node', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Plant Connection 3 Inlet Node Name`
@@ -661,8 +635,6 @@ class ZoneHvacForcedAirUserDefined(object):
     @plant_connection_3_outlet_node_name.setter
     def plant_connection_3_outlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Plant Connection 3 Outlet Node Name`
-        
-        {u'type': u'node', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Plant Connection 3 Outlet Node Name`
@@ -699,8 +671,6 @@ class ZoneHvacForcedAirUserDefined(object):
     def supply_inlet_water_storage_tank_name(self, value=None):
         """  Corresponds to IDD Field `Supply Inlet Water Storage Tank Name`
         Water use storage tank for alternate source of water consumed by device
-        
-        {u'note': [u'Water use storage tank for alternate source of water consumed by device'], u'type': u'object-list', u'object-list': u'WaterStorageTankNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Supply Inlet Water Storage Tank Name`
@@ -737,8 +707,6 @@ class ZoneHvacForcedAirUserDefined(object):
     def collection_outlet_water_storage_tank_name(self, value=None):
         """  Corresponds to IDD Field `Collection Outlet Water Storage Tank Name`
         Water use storage tank for collection of condensate by device
-        
-        {u'note': [u'Water use storage tank for collection of condensate by device'], u'type': u'object-list', u'object-list': u'WaterStorageTankNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Collection Outlet Water Storage Tank Name`
@@ -775,8 +743,6 @@ class ZoneHvacForcedAirUserDefined(object):
     def ambient_zone_name(self, value=None):
         """  Corresponds to IDD Field `Ambient Zone Name`
         Used for modeling device losses to surrounding zone
-        
-        {u'note': [u'Used for modeling device losses to surrounding zone'], u'type': u'object-list', u'object-list': u'ZoneNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Ambient Zone Name`
@@ -992,8 +958,6 @@ class AirTerminalSingleDuctUserDefined(object):
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
         This is the name of the air terminal
-        
-        {u'note': [u'This is the name of the air terminal'], u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -1029,8 +993,6 @@ class AirTerminalSingleDuctUserDefined(object):
     @overall_model_simulation_program_calling_manager_name.setter
     def overall_model_simulation_program_calling_manager_name(self, value=None):
         """  Corresponds to IDD Field `Overall Model Simulation Program Calling Manager Name`
-        
-        {u'type': u'object-list', u'object-list': u'ProgramNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Overall Model Simulation Program Calling Manager Name`
@@ -1066,8 +1028,6 @@ class AirTerminalSingleDuctUserDefined(object):
     @model_setup_and_sizing_program_calling_manager_name.setter
     def model_setup_and_sizing_program_calling_manager_name(self, value=None):
         """  Corresponds to IDD Field `Model Setup and Sizing Program Calling Manager Name`
-        
-        {u'type': u'object-list', u'object-list': u'ProgramNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Model Setup and Sizing Program Calling Manager Name`
@@ -1104,8 +1064,6 @@ class AirTerminalSingleDuctUserDefined(object):
     def primary_air_inlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Primary Air Inlet Node Name`
         Air inlet node for the unit must be a zone splitter outlet.
-        
-        {u'note': [u'Air inlet node for the unit must be a zone splitter outlet.'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Primary Air Inlet Node Name`
@@ -1142,8 +1100,6 @@ class AirTerminalSingleDuctUserDefined(object):
     def primary_air_outlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Primary Air Outlet Node Name`
         Air outlet node for the unit must be a zone air inlet node.
-        
-        {u'note': [u'Air outlet node for the unit must be a zone air inlet node.'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Primary Air Outlet Node Name`
@@ -1180,8 +1136,6 @@ class AirTerminalSingleDuctUserDefined(object):
     def secondary_air_inlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Secondary Air Inlet Node Name`
         Inlet air used for heat rejection or air source
-        
-        {u'note': [u'Inlet air used for heat rejection or air source'], u'type': u'node', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Secondary Air Inlet Node Name`
@@ -1218,8 +1172,6 @@ class AirTerminalSingleDuctUserDefined(object):
     def secondary_air_outlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Secondary Air Outlet Node Name`
         Outlet air used for heat rejection or air source
-        
-        {u'note': [u'Outlet air used for heat rejection or air source'], u'type': u'node', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Secondary Air Outlet Node Name`
@@ -1255,8 +1207,6 @@ class AirTerminalSingleDuctUserDefined(object):
     @number_of_plant_loop_connections.setter
     def number_of_plant_loop_connections(self, value=None):
         """  Corresponds to IDD Field `Number of Plant Loop Connections`
-        
-        {u'minimum': '0', u'type': u'integer', u'maximum': '2', u'required-field': True, 'pytype': 'int'}
 
         Args:
             value (int): value for IDD Field `Number of Plant Loop Connections`
@@ -1294,8 +1244,6 @@ class AirTerminalSingleDuctUserDefined(object):
     @plant_connection_1_inlet_node_name.setter
     def plant_connection_1_inlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Plant Connection 1 Inlet Node Name`
-        
-        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Plant Connection 1 Inlet Node Name`
@@ -1331,8 +1279,6 @@ class AirTerminalSingleDuctUserDefined(object):
     @plant_connection_1_outlet_node_name.setter
     def plant_connection_1_outlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Plant Connection 1 Outlet Node Name`
-        
-        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Plant Connection 1 Outlet Node Name`
@@ -1368,8 +1314,6 @@ class AirTerminalSingleDuctUserDefined(object):
     @plant_connection_2_inlet_node_name.setter
     def plant_connection_2_inlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Plant Connection 2 Inlet Node Name`
-        
-        {u'type': u'node', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Plant Connection 2 Inlet Node Name`
@@ -1405,8 +1349,6 @@ class AirTerminalSingleDuctUserDefined(object):
     @plant_connection_2_outlet_node_name.setter
     def plant_connection_2_outlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Plant Connection 2 Outlet Node Name`
-        
-        {u'type': u'node', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Plant Connection 2 Outlet Node Name`
@@ -1443,8 +1385,6 @@ class AirTerminalSingleDuctUserDefined(object):
     def supply_inlet_water_storage_tank_name(self, value=None):
         """  Corresponds to IDD Field `Supply Inlet Water Storage Tank Name`
         Water use storage tank for alternate source of water consumed by device
-        
-        {u'note': [u'Water use storage tank for alternate source of water consumed by device'], u'type': u'object-list', u'object-list': u'WaterStorageTankNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Supply Inlet Water Storage Tank Name`
@@ -1481,8 +1421,6 @@ class AirTerminalSingleDuctUserDefined(object):
     def collection_outlet_water_storage_tank_name(self, value=None):
         """  Corresponds to IDD Field `Collection Outlet Water Storage Tank Name`
         Water use storage tank for collection of condensate by device
-        
-        {u'note': [u'Water use storage tank for collection of condensate by device'], u'type': u'object-list', u'object-list': u'WaterStorageTankNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Collection Outlet Water Storage Tank Name`
@@ -1519,8 +1457,6 @@ class AirTerminalSingleDuctUserDefined(object):
     def ambient_zone_name(self, value=None):
         """  Corresponds to IDD Field `Ambient Zone Name`
         Used for modeling device losses to surrounding zone
-        
-        {u'note': [u'Used for modeling device losses to surrounding zone'], u'type': u'object-list', u'object-list': u'ZoneNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Ambient Zone Name`
@@ -1728,8 +1664,6 @@ class CoilUserDefined(object):
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
         This is the name of the coil
-        
-        {u'note': [u'This is the name of the coil'], u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -1765,8 +1699,6 @@ class CoilUserDefined(object):
     @overall_model_simulation_program_calling_manager_name.setter
     def overall_model_simulation_program_calling_manager_name(self, value=None):
         """  Corresponds to IDD Field `Overall Model Simulation Program Calling Manager Name`
-        
-        {u'type': u'object-list', u'object-list': u'ProgramNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Overall Model Simulation Program Calling Manager Name`
@@ -1802,8 +1734,6 @@ class CoilUserDefined(object):
     @model_setup_and_sizing_program_calling_manager_name.setter
     def model_setup_and_sizing_program_calling_manager_name(self, value=None):
         """  Corresponds to IDD Field `Model Setup and Sizing Program Calling Manager Name`
-        
-        {u'type': u'object-list', u'object-list': u'ProgramNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Model Setup and Sizing Program Calling Manager Name`
@@ -1839,8 +1769,6 @@ class CoilUserDefined(object):
     @number_of_air_connections.setter
     def number_of_air_connections(self, value=None):
         """  Corresponds to IDD Field `Number of Air Connections`
-        
-        {u'minimum': '1', u'type': u'integer', u'maximum': '2', u'required-field': True, 'pytype': 'int'}
 
         Args:
             value (int): value for IDD Field `Number of Air Connections`
@@ -1879,8 +1807,6 @@ class CoilUserDefined(object):
     def air_connection_1_inlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Air Connection 1 Inlet Node Name`
         Inlet air for primary air stream
-        
-        {u'note': [u'Inlet air for primary air stream'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Air Connection 1 Inlet Node Name`
@@ -1917,8 +1843,6 @@ class CoilUserDefined(object):
     def air_connection_1_outlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Air Connection 1 Outlet Node Name`
         Outlet air for primary air stream
-        
-        {u'note': [u'Outlet air for primary air stream'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Air Connection 1 Outlet Node Name`
@@ -1955,8 +1879,6 @@ class CoilUserDefined(object):
     def air_connection_2_inlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Air Connection 2 Inlet Node Name`
         Inlet air for secondary air stream
-        
-        {u'note': [u'Inlet air for secondary air stream'], u'type': u'node', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Air Connection 2 Inlet Node Name`
@@ -1993,8 +1915,6 @@ class CoilUserDefined(object):
     def air_connection_2_outlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Air Connection 2 Outlet Node Name`
         Outlet air for secondary air stream
-        
-        {u'note': [u'Outlet air for secondary air stream'], u'type': u'node', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Air Connection 2 Outlet Node Name`
@@ -2030,8 +1950,6 @@ class CoilUserDefined(object):
     @plant_connection_is_used.setter
     def plant_connection_is_used(self, value=None):
         """  Corresponds to IDD Field `Plant Connection is Used`
-        
-        {u'type': u'choice', u'key': [u'Yes', u'No'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Plant Connection is Used`
@@ -2087,8 +2005,6 @@ class CoilUserDefined(object):
     @plant_connection_inlet_node_name.setter
     def plant_connection_inlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Plant Connection Inlet Node Name`
-        
-        {u'type': u'node', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Plant Connection Inlet Node Name`
@@ -2124,8 +2040,6 @@ class CoilUserDefined(object):
     @plant_connection_outlet_node_name.setter
     def plant_connection_outlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Plant Connection Outlet Node Name`
-        
-        {u'type': u'node', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Plant Connection Outlet Node Name`
@@ -2162,8 +2076,6 @@ class CoilUserDefined(object):
     def supply_inlet_water_storage_tank_name(self, value=None):
         """  Corresponds to IDD Field `Supply Inlet Water Storage Tank Name`
         Water use storage tank for alternate source of water consumed by device
-        
-        {u'note': [u'Water use storage tank for alternate source of water consumed by device'], u'type': u'object-list', u'object-list': u'WaterStorageTankNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Supply Inlet Water Storage Tank Name`
@@ -2200,8 +2112,6 @@ class CoilUserDefined(object):
     def collection_outlet_water_storage_tank_name(self, value=None):
         """  Corresponds to IDD Field `Collection Outlet Water Storage Tank Name`
         Water use storage tank for collection of condensate by device
-        
-        {u'note': [u'Water use storage tank for collection of condensate by device'], u'type': u'object-list', u'object-list': u'WaterStorageTankNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Collection Outlet Water Storage Tank Name`
@@ -2238,8 +2148,6 @@ class CoilUserDefined(object):
     def ambient_zone_name(self, value=None):
         """  Corresponds to IDD Field `Ambient Zone Name`
         Used for modeling device losses to surrounding zone
-        
-        {u'note': [u'Used for modeling device losses to surrounding zone'], u'type': u'object-list', u'object-list': u'ZoneNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Ambient Zone Name`
@@ -2591,8 +2499,6 @@ class PlantComponentUserDefined(object):
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
         This is the name of the plant component
-        
-        {u'note': [u'This is the name of the plant component'], u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -2628,8 +2534,6 @@ class PlantComponentUserDefined(object):
     @main_model_program_calling_manager_name.setter
     def main_model_program_calling_manager_name(self, value=None):
         """  Corresponds to IDD Field `Main Model Program Calling Manager Name`
-        
-        {u'type': u'object-list', u'object-list': u'ProgramNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Main Model Program Calling Manager Name`
@@ -2665,8 +2569,6 @@ class PlantComponentUserDefined(object):
     @number_of_plant_loop_connections.setter
     def number_of_plant_loop_connections(self, value=None):
         """  Corresponds to IDD Field `Number of Plant Loop Connections`
-        
-        {u'minimum': '1', u'type': u'integer', u'maximum': '4', u'required-field': True, 'pytype': 'int'}
 
         Args:
             value (int): value for IDD Field `Number of Plant Loop Connections`
@@ -2704,8 +2606,6 @@ class PlantComponentUserDefined(object):
     @plant_connection_1_inlet_node_name.setter
     def plant_connection_1_inlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Plant Connection 1 Inlet Node Name`
-        
-        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Plant Connection 1 Inlet Node Name`
@@ -2741,8 +2641,6 @@ class PlantComponentUserDefined(object):
     @plant_connection_1_outlet_node_name.setter
     def plant_connection_1_outlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Plant Connection 1 Outlet Node Name`
-        
-        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Plant Connection 1 Outlet Node Name`
@@ -2778,8 +2676,6 @@ class PlantComponentUserDefined(object):
     @plant_connection_1_loading_mode.setter
     def plant_connection_1_loading_mode(self, value=None):
         """  Corresponds to IDD Field `Plant Connection 1 Loading Mode`
-        
-        {u'type': u'choice', u'required-field': True, u'key': [u'DemandsLoad', u'MeetsLoadWithPassiveCapacity', u'MeetsLoadWithNominalCapacity', u'MeetsLoadWithNominalCapacityLowOutLimit', u'MeetsLoadWithNominalCapacityHiOutLimit'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Plant Connection 1 Loading Mode`
@@ -2841,8 +2737,6 @@ class PlantComponentUserDefined(object):
     @plant_connection_1_loop_flow_request_mode.setter
     def plant_connection_1_loop_flow_request_mode(self, value=None):
         """  Corresponds to IDD Field `Plant Connection 1 Loop Flow Request Mode`
-        
-        {u'type': u'Choice', u'required-field': True, u'key': [u'NeedsFlowIfLoopOn', u'NeedsFlowAndTurnsLoopOn', u'ReceivesWhateverFlowAvailable'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Plant Connection 1 Loop Flow Request Mode`
@@ -2878,8 +2772,6 @@ class PlantComponentUserDefined(object):
     @plant_connection_1_initialization_program_calling_manager_name.setter
     def plant_connection_1_initialization_program_calling_manager_name(self, value=None):
         """  Corresponds to IDD Field `Plant Connection 1 Initialization Program Calling Manager Name`
-        
-        {'type': 'alpha', u'object-list': u'ProgramNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Plant Connection 1 Initialization Program Calling Manager Name`
@@ -2915,8 +2807,6 @@ class PlantComponentUserDefined(object):
     @plant_connection_1_simulation_program_calling_manager_name.setter
     def plant_connection_1_simulation_program_calling_manager_name(self, value=None):
         """  Corresponds to IDD Field `Plant Connection 1 Simulation Program Calling Manager Name`
-        
-        {u'type': u'object-list', u'object-list': u'ProgramNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Plant Connection 1 Simulation Program Calling Manager Name`
@@ -2952,8 +2842,6 @@ class PlantComponentUserDefined(object):
     @plant_connection_2_inlet_node_name.setter
     def plant_connection_2_inlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Plant Connection 2 Inlet Node Name`
-        
-        {u'type': u'node', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Plant Connection 2 Inlet Node Name`
@@ -2989,8 +2877,6 @@ class PlantComponentUserDefined(object):
     @plant_connection_2_outlet_node_name.setter
     def plant_connection_2_outlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Plant Connection 2 Outlet Node Name`
-        
-        {u'type': u'node', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Plant Connection 2 Outlet Node Name`
@@ -3026,8 +2912,6 @@ class PlantComponentUserDefined(object):
     @plant_connection_2_loading_mode.setter
     def plant_connection_2_loading_mode(self, value=None):
         """  Corresponds to IDD Field `Plant Connection 2 Loading Mode`
-        
-        {u'type': u'choice', u'key': [u'DemandsLoad', u'MeetLoadWithPassiveCapacity', u'MeetLoadWithNominalCapacity', u'MeetLoadWithNominalCapacityLowOutLimit', u'MeetLoadWithNominalCapacityHiOutLimit'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Plant Connection 2 Loading Mode`
@@ -3089,8 +2973,6 @@ class PlantComponentUserDefined(object):
     @plant_connection_2_loop_flow_request_mode.setter
     def plant_connection_2_loop_flow_request_mode(self, value=None):
         """  Corresponds to IDD Field `Plant Connection 2 Loop Flow Request Mode`
-        
-        {u'type': u'Choice', u'key': [u'NeedsFlowIfLoopOn', u'NeedsFlowAndTurnsLoopOn', u'ReceivesWhateverFlowAvailable'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Plant Connection 2 Loop Flow Request Mode`
@@ -3126,8 +3008,6 @@ class PlantComponentUserDefined(object):
     @plant_connection_2_initialization_program_calling_manager_name.setter
     def plant_connection_2_initialization_program_calling_manager_name(self, value=None):
         """  Corresponds to IDD Field `Plant Connection 2 Initialization Program Calling Manager Name`
-        
-        {u'type': u'object-list', u'object-list': u'ProgramNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Plant Connection 2 Initialization Program Calling Manager Name`
@@ -3163,8 +3043,6 @@ class PlantComponentUserDefined(object):
     @plant_connection_2_simulation_program_calling_manager_name.setter
     def plant_connection_2_simulation_program_calling_manager_name(self, value=None):
         """  Corresponds to IDD Field `Plant Connection 2 Simulation Program Calling Manager Name`
-        
-        {u'type': u'object-list', u'object-list': u'ProgramNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Plant Connection 2 Simulation Program Calling Manager Name`
@@ -3200,8 +3078,6 @@ class PlantComponentUserDefined(object):
     @plant_connection_3_inlet_node_name.setter
     def plant_connection_3_inlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Plant Connection 3 Inlet Node Name`
-        
-        {u'type': u'node', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Plant Connection 3 Inlet Node Name`
@@ -3237,8 +3113,6 @@ class PlantComponentUserDefined(object):
     @plant_connection_3_outlet_node_name.setter
     def plant_connection_3_outlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Plant Connection 3 Outlet Node Name`
-        
-        {u'type': u'node', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Plant Connection 3 Outlet Node Name`
@@ -3274,8 +3148,6 @@ class PlantComponentUserDefined(object):
     @plant_connection_3_loading_mode.setter
     def plant_connection_3_loading_mode(self, value=None):
         """  Corresponds to IDD Field `Plant Connection 3 Loading Mode`
-        
-        {u'type': u'choice', u'key': [u'DemandsLoad', u'MeetLoadWithPassiveCapacity', u'MeetLoadWithNominalCapacity', u'MeetLoadWithNominalCapacityLowOutLimit', u'MeetLoadWithNominalCapacityHiOutLimit'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Plant Connection 3 Loading Mode`
@@ -3337,8 +3209,6 @@ class PlantComponentUserDefined(object):
     @plant_connection_3_loop_flow_request_mode.setter
     def plant_connection_3_loop_flow_request_mode(self, value=None):
         """  Corresponds to IDD Field `Plant Connection 3 Loop Flow Request Mode`
-        
-        {u'type': u'Choice', u'key': [u'NeedsFlowIfLoopOn', u'NeedsFlowAndTurnsLoopOn', u'ReceivesWhateverFlowAvailable'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Plant Connection 3 Loop Flow Request Mode`
@@ -3374,8 +3244,6 @@ class PlantComponentUserDefined(object):
     @plant_connection_3_initialization_program_calling_manager_name.setter
     def plant_connection_3_initialization_program_calling_manager_name(self, value=None):
         """  Corresponds to IDD Field `Plant Connection 3 Initialization Program Calling Manager Name`
-        
-        {u'type': u'object-list', u'object-list': u'ProgramNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Plant Connection 3 Initialization Program Calling Manager Name`
@@ -3411,8 +3279,6 @@ class PlantComponentUserDefined(object):
     @plant_connection_3_simulation_program_calling_manager_name.setter
     def plant_connection_3_simulation_program_calling_manager_name(self, value=None):
         """  Corresponds to IDD Field `Plant Connection 3 Simulation Program Calling Manager Name`
-        
-        {u'type': u'object-list', u'object-list': u'ProgramNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Plant Connection 3 Simulation Program Calling Manager Name`
@@ -3448,8 +3314,6 @@ class PlantComponentUserDefined(object):
     @plant_connection_4_inlet_node_name.setter
     def plant_connection_4_inlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Plant Connection 4 Inlet Node Name`
-        
-        {u'type': u'node', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Plant Connection 4 Inlet Node Name`
@@ -3485,8 +3349,6 @@ class PlantComponentUserDefined(object):
     @plant_connection_4_outlet_node_name.setter
     def plant_connection_4_outlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Plant Connection 4 Outlet Node Name`
-        
-        {u'type': u'node', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Plant Connection 4 Outlet Node Name`
@@ -3522,8 +3384,6 @@ class PlantComponentUserDefined(object):
     @plant_connection_4_loading_mode.setter
     def plant_connection_4_loading_mode(self, value=None):
         """  Corresponds to IDD Field `Plant Connection 4 Loading Mode`
-        
-        {u'type': u'choice', u'key': [u'DemandsLoad', u'MeetLoadWithPassiveCapacity', u'MeetLoadWithNominalCapacity', u'MeetLoadWithNominalCapacityLowOutLimit', u'MeetLoadWithNominalCapacityHiOutLimit'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Plant Connection 4 Loading Mode`
@@ -3585,8 +3445,6 @@ class PlantComponentUserDefined(object):
     @plant_connection_4_loop_flow_request_mode.setter
     def plant_connection_4_loop_flow_request_mode(self, value=None):
         """  Corresponds to IDD Field `Plant Connection 4 Loop Flow Request Mode`
-        
-        {u'type': u'Choice', u'key': [u'NeedsFlowIfLoopOn', u'NeedsFlowAndTurnsLoopOn', u'ReceivesWhateverFlowAvailable'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Plant Connection 4 Loop Flow Request Mode`
@@ -3622,8 +3480,6 @@ class PlantComponentUserDefined(object):
     @plant_connection_4_initialization_program_calling_manager_name.setter
     def plant_connection_4_initialization_program_calling_manager_name(self, value=None):
         """  Corresponds to IDD Field `Plant Connection 4 Initialization Program Calling Manager Name`
-        
-        {u'type': u'object-list', u'object-list': u'ProgramNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Plant Connection 4 Initialization Program Calling Manager Name`
@@ -3659,8 +3515,6 @@ class PlantComponentUserDefined(object):
     @plant_connection_4_simulation_program_calling_manager_name.setter
     def plant_connection_4_simulation_program_calling_manager_name(self, value=None):
         """  Corresponds to IDD Field `Plant Connection 4 Simulation Program Calling Manager Name`
-        
-        {u'type': u'object-list', u'object-list': u'ProgramNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Plant Connection 4 Simulation Program Calling Manager Name`
@@ -3697,8 +3551,6 @@ class PlantComponentUserDefined(object):
     def air_connection_inlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Air Connection Inlet Node Name`
         Inlet air used for heat rejection or air source
-        
-        {u'note': [u'Inlet air used for heat rejection or air source'], u'type': u'node', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Air Connection Inlet Node Name`
@@ -3735,8 +3587,6 @@ class PlantComponentUserDefined(object):
     def air_connection_outlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Air Connection Outlet Node Name`
         Outlet air used for heat rejection or air source
-        
-        {u'note': [u'Outlet air used for heat rejection or air source'], u'type': u'node', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Air Connection Outlet Node Name`
@@ -3773,8 +3623,6 @@ class PlantComponentUserDefined(object):
     def supply_inlet_water_storage_tank_name(self, value=None):
         """  Corresponds to IDD Field `Supply Inlet Water Storage Tank Name`
         Water use storage tank for alternate source of water consumed by device
-        
-        {u'note': [u'Water use storage tank for alternate source of water consumed by device'], u'type': u'object-list', u'object-list': u'WaterStorageTankNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Supply Inlet Water Storage Tank Name`
@@ -3811,8 +3659,6 @@ class PlantComponentUserDefined(object):
     def collection_outlet_water_storage_tank_name(self, value=None):
         """  Corresponds to IDD Field `Collection Outlet Water Storage Tank Name`
         Water use storage tank for collection of condensate by device
-        
-        {u'note': [u'Water use storage tank for collection of condensate by device'], u'type': u'object-list', u'object-list': u'WaterStorageTankNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Collection Outlet Water Storage Tank Name`
@@ -3849,8 +3695,6 @@ class PlantComponentUserDefined(object):
     def ambient_zone_name(self, value=None):
         """  Corresponds to IDD Field `Ambient Zone Name`
         Used for modeling device losses to surrounding zone
-        
-        {u'note': [u'Used for modeling device losses to surrounding zone'], u'type': u'object-list', u'object-list': u'ZoneNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Ambient Zone Name`
@@ -4130,8 +3974,6 @@ class PlantEquipmentOperationUserDefined(object):
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
         This is the name of the plant operation scheme
-        
-        {u'note': [u'This is the name of the plant operation scheme'], u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -4167,8 +4009,6 @@ class PlantEquipmentOperationUserDefined(object):
     @main_model_program_calling_manager_name.setter
     def main_model_program_calling_manager_name(self, value=None):
         """  Corresponds to IDD Field `Main Model Program Calling Manager Name`
-        
-        {u'type': u'object-list', u'object-list': u'ProgramNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Main Model Program Calling Manager Name`
@@ -4204,8 +4044,6 @@ class PlantEquipmentOperationUserDefined(object):
     @initialization_program_calling_manager_name.setter
     def initialization_program_calling_manager_name(self, value=None):
         """  Corresponds to IDD Field `Initialization Program Calling Manager Name`
-        
-        {u'type': u'object-list', u'object-list': u'ProgramNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Initialization Program Calling Manager Name`
@@ -4241,8 +4079,6 @@ class PlantEquipmentOperationUserDefined(object):
     @equipment_1_object_type.setter
     def equipment_1_object_type(self, value=None):
         """  Corresponds to IDD Field `Equipment 1 Object Type`
-        
-        {u'type': u'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Equipment 1 Object Type`
@@ -4278,8 +4114,6 @@ class PlantEquipmentOperationUserDefined(object):
     @equipment_1_name.setter
     def equipment_1_name(self, value=None):
         """  Corresponds to IDD Field `Equipment 1 Name`
-        
-        {u'type': u'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Equipment 1 Name`
@@ -4315,8 +4149,6 @@ class PlantEquipmentOperationUserDefined(object):
     @equipment_2_object_type.setter
     def equipment_2_object_type(self, value=None):
         """  Corresponds to IDD Field `Equipment 2 Object Type`
-        
-        {u'type': u'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Equipment 2 Object Type`
@@ -4352,8 +4184,6 @@ class PlantEquipmentOperationUserDefined(object):
     @equipment_2_name.setter
     def equipment_2_name(self, value=None):
         """  Corresponds to IDD Field `Equipment 2 Name`
-        
-        {u'type': u'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Equipment 2 Name`
@@ -4389,8 +4219,6 @@ class PlantEquipmentOperationUserDefined(object):
     @equipment_3_object_type.setter
     def equipment_3_object_type(self, value=None):
         """  Corresponds to IDD Field `Equipment 3 Object Type`
-        
-        {u'type': u'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Equipment 3 Object Type`
@@ -4426,8 +4254,6 @@ class PlantEquipmentOperationUserDefined(object):
     @equipment_3_name.setter
     def equipment_3_name(self, value=None):
         """  Corresponds to IDD Field `Equipment 3 Name`
-        
-        {u'type': u'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Equipment 3 Name`
@@ -4463,8 +4289,6 @@ class PlantEquipmentOperationUserDefined(object):
     @equipment_4_object_type.setter
     def equipment_4_object_type(self, value=None):
         """  Corresponds to IDD Field `Equipment 4 Object Type`
-        
-        {u'type': u'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Equipment 4 Object Type`
@@ -4500,8 +4324,6 @@ class PlantEquipmentOperationUserDefined(object):
     @equipment_4_name.setter
     def equipment_4_name(self, value=None):
         """  Corresponds to IDD Field `Equipment 4 Name`
-        
-        {u'type': u'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Equipment 4 Name`
@@ -4537,8 +4359,6 @@ class PlantEquipmentOperationUserDefined(object):
     @equipment_5_object_type.setter
     def equipment_5_object_type(self, value=None):
         """  Corresponds to IDD Field `Equipment 5 Object Type`
-        
-        {u'type': u'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Equipment 5 Object Type`
@@ -4574,8 +4394,6 @@ class PlantEquipmentOperationUserDefined(object):
     @equipment_5_name.setter
     def equipment_5_name(self, value=None):
         """  Corresponds to IDD Field `Equipment 5 Name`
-        
-        {u'type': u'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Equipment 5 Name`
@@ -4611,8 +4429,6 @@ class PlantEquipmentOperationUserDefined(object):
     @equipment_6_object_type.setter
     def equipment_6_object_type(self, value=None):
         """  Corresponds to IDD Field `Equipment 6 Object Type`
-        
-        {u'type': u'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Equipment 6 Object Type`
@@ -4648,8 +4464,6 @@ class PlantEquipmentOperationUserDefined(object):
     @equipment_6_name.setter
     def equipment_6_name(self, value=None):
         """  Corresponds to IDD Field `Equipment 6 Name`
-        
-        {u'type': u'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Equipment 6 Name`
@@ -4685,8 +4499,6 @@ class PlantEquipmentOperationUserDefined(object):
     @equipment_7_object_type.setter
     def equipment_7_object_type(self, value=None):
         """  Corresponds to IDD Field `Equipment 7 Object Type`
-        
-        {u'type': u'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Equipment 7 Object Type`
@@ -4722,8 +4534,6 @@ class PlantEquipmentOperationUserDefined(object):
     @equipment_7_name.setter
     def equipment_7_name(self, value=None):
         """  Corresponds to IDD Field `Equipment 7 Name`
-        
-        {u'type': u'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Equipment 7 Name`
@@ -4759,8 +4569,6 @@ class PlantEquipmentOperationUserDefined(object):
     @equipment_8_object_type.setter
     def equipment_8_object_type(self, value=None):
         """  Corresponds to IDD Field `Equipment 8 Object Type`
-        
-        {u'type': u'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Equipment 8 Object Type`
@@ -4796,8 +4604,6 @@ class PlantEquipmentOperationUserDefined(object):
     @equipment_8_name.setter
     def equipment_8_name(self, value=None):
         """  Corresponds to IDD Field `Equipment 8 Name`
-        
-        {u'type': u'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Equipment 8 Name`
@@ -4833,8 +4639,6 @@ class PlantEquipmentOperationUserDefined(object):
     @equipment_9_object_type.setter
     def equipment_9_object_type(self, value=None):
         """  Corresponds to IDD Field `Equipment 9 Object Type`
-        
-        {u'type': u'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Equipment 9 Object Type`
@@ -4870,8 +4674,6 @@ class PlantEquipmentOperationUserDefined(object):
     @equipment_9_name.setter
     def equipment_9_name(self, value=None):
         """  Corresponds to IDD Field `Equipment 9 Name`
-        
-        {u'type': u'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Equipment 9 Name`
@@ -4907,8 +4709,6 @@ class PlantEquipmentOperationUserDefined(object):
     @equipment_10_object_type.setter
     def equipment_10_object_type(self, value=None):
         """  Corresponds to IDD Field `Equipment 10 Object Type`
-        
-        {u'type': u'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Equipment 10 Object Type`
@@ -4944,8 +4744,6 @@ class PlantEquipmentOperationUserDefined(object):
     @equipment_10_name.setter
     def equipment_10_name(self, value=None):
         """  Corresponds to IDD Field `Equipment 10 Name`
-        
-        {u'type': u'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Equipment 10 Name`

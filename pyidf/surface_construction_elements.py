@@ -108,8 +108,6 @@ class Material(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'reference': u'MaterialName', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -145,8 +143,6 @@ class Material(object):
     @roughness.setter
     def roughness(self, value=None):
         """  Corresponds to IDD Field `Roughness`
-        
-        {u'type': u'choice', u'key': [u'VeryRough', u'Rough', u'MediumRough', u'MediumSmooth', u'Smooth', u'VerySmooth'], u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Roughness`
@@ -210,8 +206,6 @@ class Material(object):
     @thickness.setter
     def thickness(self, value=None):
         """  Corresponds to IDD Field `Thickness`
-        
-        {'pytype': 'float', u'minimum>': '0.0', u'maximum': '3.0', u'required-field': True, u'ip-units': u'in', u'units': u'm', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Thickness`
@@ -251,8 +245,6 @@ class Material(object):
     @conductivity.setter
     def conductivity(self, value=None):
         """  Corresponds to IDD Field `Conductivity`
-        
-        {u'units': u'W/m-K', u'minimum>': '0.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Conductivity`
@@ -287,8 +279,6 @@ class Material(object):
     @density.setter
     def density(self, value=None):
         """  Corresponds to IDD Field `Density`
-        
-        {u'units': u'kg/m3', u'minimum>': '0.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Density`
@@ -323,8 +313,6 @@ class Material(object):
     @specific_heat.setter
     def specific_heat(self, value=None):
         """  Corresponds to IDD Field `Specific Heat`
-        
-        {u'units': u'J/kg-K', u'minimum': '100.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Specific Heat`
@@ -357,10 +345,8 @@ class Material(object):
         return self._data["Thermal Absorptance"]
 
     @thermal_absorptance.setter
-    def thermal_absorptance(self, value=0.9 ):
+    def thermal_absorptance(self, value=0.9):
         """  Corresponds to IDD Field `Thermal Absorptance`
-        
-        {u'default': '0.9', u'minimum>': '0.0', u'type': u'real', u'maximum': '0.99999', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Thermal Absorptance`
@@ -397,10 +383,8 @@ class Material(object):
         return self._data["Solar Absorptance"]
 
     @solar_absorptance.setter
-    def solar_absorptance(self, value=0.7 ):
+    def solar_absorptance(self, value=0.7):
         """  Corresponds to IDD Field `Solar Absorptance`
-        
-        {u'default': '0.7', u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Solar Absorptance`
@@ -437,10 +421,8 @@ class Material(object):
         return self._data["Visible Absorptance"]
 
     @visible_absorptance.setter
-    def visible_absorptance(self, value=0.7 ):
+    def visible_absorptance(self, value=0.7):
         """  Corresponds to IDD Field `Visible Absorptance`
-        
-        {u'default': '0.7', u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Visible Absorptance`
@@ -585,8 +567,6 @@ class MaterialNoMass(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'reference': u'MaterialName', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -622,8 +602,6 @@ class MaterialNoMass(object):
     @roughness.setter
     def roughness(self, value=None):
         """  Corresponds to IDD Field `Roughness`
-        
-        {u'type': u'choice', u'key': [u'VeryRough', u'Rough', u'MediumRough', u'MediumSmooth', u'Smooth', u'VerySmooth'], u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Roughness`
@@ -687,8 +665,6 @@ class MaterialNoMass(object):
     @thermal_resistance.setter
     def thermal_resistance(self, value=None):
         """  Corresponds to IDD Field `Thermal Resistance`
-        
-        {u'units': u'm2-K/W', u'minimum': '0.001', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Thermal Resistance`
@@ -721,10 +697,8 @@ class MaterialNoMass(object):
         return self._data["Thermal Absorptance"]
 
     @thermal_absorptance.setter
-    def thermal_absorptance(self, value=0.9 ):
+    def thermal_absorptance(self, value=0.9):
         """  Corresponds to IDD Field `Thermal Absorptance`
-        
-        {u'default': '0.9', u'minimum>': '0.0', u'type': u'real', u'maximum': '0.99999', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Thermal Absorptance`
@@ -761,10 +735,8 @@ class MaterialNoMass(object):
         return self._data["Solar Absorptance"]
 
     @solar_absorptance.setter
-    def solar_absorptance(self, value=0.7 ):
+    def solar_absorptance(self, value=0.7):
         """  Corresponds to IDD Field `Solar Absorptance`
-        
-        {u'default': '0.7', u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Solar Absorptance`
@@ -801,10 +773,8 @@ class MaterialNoMass(object):
         return self._data["Visible Absorptance"]
 
     @visible_absorptance.setter
-    def visible_absorptance(self, value=0.7 ):
+    def visible_absorptance(self, value=0.7):
         """  Corresponds to IDD Field `Visible Absorptance`
-        
-        {u'default': '0.7', u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Visible Absorptance`
@@ -914,8 +884,6 @@ class MaterialInfraredTransparent(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'reference': u'MaterialName', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -1025,8 +993,6 @@ class MaterialAirGap(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'reference': u'MaterialName', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -1062,8 +1028,6 @@ class MaterialAirGap(object):
     @thermal_resistance.setter
     def thermal_resistance(self, value=None):
         """  Corresponds to IDD Field `Thermal Resistance`
-        
-        {u'units': u'm2-K/W', u'minimum>': '0.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Thermal Resistance`
@@ -1313,8 +1277,6 @@ class MaterialRoofVegetation(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'reference': u'MaterialName', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -1348,11 +1310,9 @@ class MaterialRoofVegetation(object):
         return self._data["Height of Plants"]
 
     @height_of_plants.setter
-    def height_of_plants(self, value=0.2 ):
+    def height_of_plants(self, value=0.2):
         """  Corresponds to IDD Field `Height of Plants`
         The ecoroof module is designed for short plants and shrubs.
-        
-        {'pytype': 'float', u'default': '0.2', u'minimum>': '0.005', u'maximum': '1.0', u'note': [u'The ecoroof module is designed for short plants and shrubs.'], u'units': u'm', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Height of Plants`
@@ -1390,11 +1350,9 @@ class MaterialRoofVegetation(object):
         return self._data["Leaf Area Index"]
 
     @leaf_area_index.setter
-    def leaf_area_index(self, value=1.0 ):
+    def leaf_area_index(self, value=1.0):
         """  Corresponds to IDD Field `Leaf Area Index`
         Entire surface is assumed covered, so decrease LAI accordingly.
-        
-        {'pytype': 'float', u'default': '1.0', u'minimum>': '0.001', u'maximum': '5.0', u'required-field': True, u'note': [u'Entire surface is assumed covered, so decrease LAI accordingly.'], u'units': u'dimensionless', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Leaf Area Index`
@@ -1432,11 +1390,9 @@ class MaterialRoofVegetation(object):
         return self._data["Leaf Reflectivity"]
 
     @leaf_reflectivity.setter
-    def leaf_reflectivity(self, value=0.22 ):
+    def leaf_reflectivity(self, value=0.22):
         """  Corresponds to IDD Field `Leaf Reflectivity`
         Leaf reflectivity (albedo) is typically 0.18-0.25
-        
-        {'pytype': 'float', u'default': '0.22', u'maximum': '0.5', u'required-field': True, u'note': [u'Leaf reflectivity (albedo) is typically 0.18-0.25'], u'minimum': '0.05', u'units': u'dimensionless', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Leaf Reflectivity`
@@ -1474,10 +1430,8 @@ class MaterialRoofVegetation(object):
         return self._data["Leaf Emissivity"]
 
     @leaf_emissivity.setter
-    def leaf_emissivity(self, value=0.95 ):
+    def leaf_emissivity(self, value=0.95):
         """  Corresponds to IDD Field `Leaf Emissivity`
-        
-        {'pytype': 'float', u'default': '0.95', u'maximum': '1.0', u'required-field': True, u'minimum': '0.8', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Leaf Emissivity`
@@ -1514,11 +1468,9 @@ class MaterialRoofVegetation(object):
         return self._data["Minimum Stomatal Resistance"]
 
     @minimum_stomatal_resistance.setter
-    def minimum_stomatal_resistance(self, value=180.0 ):
+    def minimum_stomatal_resistance(self, value=180.0):
         """  Corresponds to IDD Field `Minimum Stomatal Resistance`
         This depends upon plant type
-        
-        {'pytype': 'float', u'default': '180.0', u'maximum': '300.0', u'note': [u'This depends upon plant type'], u'minimum': '50.0', u'units': u's/m', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Minimum Stomatal Resistance`
@@ -1558,8 +1510,6 @@ class MaterialRoofVegetation(object):
     @soil_layer_name.setter
     def soil_layer_name(self, value="Green Roof Soil"):
         """  Corresponds to IDD Field `Soil Layer Name`
-        
-        {u'default': 'Green Roof Soil', u'type': u'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Soil Layer Name`
@@ -1596,8 +1546,6 @@ class MaterialRoofVegetation(object):
     @roughness.setter
     def roughness(self, value="MediumRough"):
         """  Corresponds to IDD Field `Roughness`
-        
-        {u'default': u'MediumRough', u'type': u'choice', u'key': [u'VeryRough', u'MediumRough', u'Rough', u'Smooth', u'MediumSmooth', u'VerySmooth'], u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Roughness`
@@ -1660,12 +1608,10 @@ class MaterialRoofVegetation(object):
         return self._data["Thickness"]
 
     @thickness.setter
-    def thickness(self, value=0.1 ):
+    def thickness(self, value=0.1):
         """  Corresponds to IDD Field `Thickness`
         thickness of the soil layer of the EcoRoof
         Soil depths of 0.15m (6in) and 0.30m (12in) are common.
-        
-        {'pytype': 'float', u'default': '0.1', u'minimum>': '0.05', u'maximum': '0.7', u'required-field': True, u'note': [u'thickness of the soil layer of the EcoRoof', u'Soil depths of 0.15m (6in) and 0.30m (12in) are common.'], u'ip-units': u'in', u'units': u'm', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Thickness`
@@ -1704,12 +1650,10 @@ class MaterialRoofVegetation(object):
         return self._data["Conductivity of Dry Soil"]
 
     @conductivity_of_dry_soil.setter
-    def conductivity_of_dry_soil(self, value=0.35 ):
+    def conductivity_of_dry_soil(self, value=0.35):
         """  Corresponds to IDD Field `Conductivity of Dry Soil`
         Thermal conductivity of dry soil.
         Typical ecoroof soils range from 0.3 to 0.5
-        
-        {'pytype': 'float', u'default': '0.35', u'maximum': '1.5', u'required-field': True, u'note': [u'Thermal conductivity of dry soil.', u'Typical ecoroof soils range from 0.3 to 0.5'], u'minimum': '0.2', u'units': u'W/m-K', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Conductivity of Dry Soil`
@@ -1747,12 +1691,10 @@ class MaterialRoofVegetation(object):
         return self._data["Density of Dry Soil"]
 
     @density_of_dry_soil.setter
-    def density_of_dry_soil(self, value=1100.0 ):
+    def density_of_dry_soil(self, value=1100.0):
         """  Corresponds to IDD Field `Density of Dry Soil`
         Density of dry soil (the code modifies this as the soil becomes moist)
         Typical ecoroof soils range from 400 to 1000 (dry to wet)
-        
-        {'pytype': 'float', u'default': '1100.0', u'maximum': '2000.0', u'required-field': True, u'note': [u'Density of dry soil (the code modifies this as the soil becomes moist)', u'Typical ecoroof soils range from 400 to 1000 (dry to wet)'], u'minimum': '300.0', u'units': u'kg/m3', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Density of Dry Soil`
@@ -1790,11 +1732,9 @@ class MaterialRoofVegetation(object):
         return self._data["Specific Heat of Dry Soil"]
 
     @specific_heat_of_dry_soil.setter
-    def specific_heat_of_dry_soil(self, value=1200.0 ):
+    def specific_heat_of_dry_soil(self, value=1200.0):
         """  Corresponds to IDD Field `Specific Heat of Dry Soil`
         Specific heat of dry soil
-        
-        {'pytype': 'float', u'default': '1200.0', u'minimum>': '500.0', u'maximum': '2000.0', u'required-field': True, u'note': [u'Specific heat of dry soil'], u'units': u'J/kg-K', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Specific Heat of Dry Soil`
@@ -1832,11 +1772,9 @@ class MaterialRoofVegetation(object):
         return self._data["Thermal Absorptance"]
 
     @thermal_absorptance.setter
-    def thermal_absorptance(self, value=0.9 ):
+    def thermal_absorptance(self, value=0.9):
         """  Corresponds to IDD Field `Thermal Absorptance`
         Soil emissivity is typically in range of 0.90 to 0.98
-        
-        {'pytype': 'float', u'default': '0.9', u'minimum>': '0.8', u'maximum': '1.0', u'note': [u'Soil emissivity is typically in range of 0.90 to 0.98'], u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Thermal Absorptance`
@@ -1873,12 +1811,10 @@ class MaterialRoofVegetation(object):
         return self._data["Solar Absorptance"]
 
     @solar_absorptance.setter
-    def solar_absorptance(self, value=0.7 ):
+    def solar_absorptance(self, value=0.7):
         """  Corresponds to IDD Field `Solar Absorptance`
         Solar absorptance of dry soil (1-albedo) is typically 0.60 to 0.85
         corresponding to a dry albedo of 0.15 to 0.40
-        
-        {'pytype': 'float', u'default': '0.7', u'maximum': '0.9', u'note': [u'Solar absorptance of dry soil (1-albedo) is typically 0.60 to 0.85', u'corresponding to a dry albedo of 0.15 to 0.40'], u'minimum': '0.4', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Solar Absorptance`
@@ -1915,10 +1851,8 @@ class MaterialRoofVegetation(object):
         return self._data["Visible Absorptance"]
 
     @visible_absorptance.setter
-    def visible_absorptance(self, value=0.75 ):
+    def visible_absorptance(self, value=0.75):
         """  Corresponds to IDD Field `Visible Absorptance`
-        
-        {u'default': '0.75', u'minimum>': '0.5', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Visible Absorptance`
@@ -1955,11 +1889,9 @@ class MaterialRoofVegetation(object):
         return self._data["Saturation Volumetric Moisture Content of the Soil Layer"]
 
     @saturation_volumetric_moisture_content_of_the_soil_layer.setter
-    def saturation_volumetric_moisture_content_of_the_soil_layer(self, value=0.3 ):
+    def saturation_volumetric_moisture_content_of_the_soil_layer(self, value=0.3):
         """  Corresponds to IDD Field `Saturation Volumetric Moisture Content of the Soil Layer`
         Maximum moisture content is typically less than 0.5
-        
-        {'pytype': 'float', u'default': '0.3', u'minimum>': '0.1', u'maximum': '0.5', u'note': [u'Maximum moisture content is typically less than 0.5'], u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Saturation Volumetric Moisture Content of the Soil Layer`
@@ -1996,10 +1928,8 @@ class MaterialRoofVegetation(object):
         return self._data["Residual Volumetric Moisture Content of the Soil Layer"]
 
     @residual_volumetric_moisture_content_of_the_soil_layer.setter
-    def residual_volumetric_moisture_content_of_the_soil_layer(self, value=0.01 ):
+    def residual_volumetric_moisture_content_of_the_soil_layer(self, value=0.01):
         """  Corresponds to IDD Field `Residual Volumetric Moisture Content of the Soil Layer`
-        
-        {u'default': '0.01', u'minimum': '0.01', u'type': u'real', u'maximum': '0.1', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Residual Volumetric Moisture Content of the Soil Layer`
@@ -2036,10 +1966,8 @@ class MaterialRoofVegetation(object):
         return self._data["Initial Volumetric Moisture Content of the Soil Layer"]
 
     @initial_volumetric_moisture_content_of_the_soil_layer.setter
-    def initial_volumetric_moisture_content_of_the_soil_layer(self, value=0.1 ):
+    def initial_volumetric_moisture_content_of_the_soil_layer(self, value=0.1):
         """  Corresponds to IDD Field `Initial Volumetric Moisture Content of the Soil Layer`
-        
-        {u'default': '0.1', u'minimum>': '0.05', u'type': u'real', u'maximum': '0.5', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Initial Volumetric Moisture Content of the Soil Layer`
@@ -2079,8 +2007,6 @@ class MaterialRoofVegetation(object):
     def moisture_diffusion_calculation_method(self, value="Advanced"):
         """  Corresponds to IDD Field `Moisture Diffusion Calculation Method`
         Advanced calculation requires increased number of timesteps (recommended >20).
-        
-        {u'note': [u'Advanced calculation requires increased number of timesteps (recommended >20).'], u'default': u'Advanced', u'type': u'choice', u'key': [u'Simple', u'Advanced'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Moisture Diffusion Calculation Method`
@@ -2229,8 +2155,6 @@ class WindowMaterialSimpleGlazingSystem(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'reference': u'GlazingMaterialName', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -2268,8 +2192,6 @@ class WindowMaterialSimpleGlazingSystem(object):
         """  Corresponds to IDD Field `U-Factor`
         Enter U-Factor including film coefficients
         Note that the effective upper limit for U-factor is 5.8 W/m2-K
-        
-        {'pytype': 'float', u'minimum>': '0.0', u'maximum': '7.0', u'required-field': True, u'note': [u'Enter U-Factor including film coefficients', u'Note that the effective upper limit for U-factor is 5.8 W/m2-K'], u'units': u'W/m2-K', 'type': 'real'}
 
         Args:
             value (float): value for IDD Field `U-Factor`
@@ -2309,8 +2231,6 @@ class WindowMaterialSimpleGlazingSystem(object):
     def solar_heat_gain_coefficient(self, value=None):
         """  Corresponds to IDD Field `Solar Heat Gain Coefficient`
         SHGC at Normal Incidence
-        
-        {'pytype': 'float', u'minimum>': '0.0', u'required-field': True, u'note': [u'SHGC at Normal Incidence'], 'type': 'real', u'maximum<': '1.0'}
 
         Args:
             value (float): value for IDD Field `Solar Heat Gain Coefficient`
@@ -2350,8 +2270,6 @@ class WindowMaterialSimpleGlazingSystem(object):
         """  Corresponds to IDD Field `Visible Transmittance`
         VT at Normal Incidence
         optional
-        
-        {u'note': [u'VT at Normal Incidence', u'optional'], u'minimum>': '0.0', 'type': 'real', u'maximum<': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Visible Transmittance`
@@ -2592,8 +2510,6 @@ class WindowMaterialGlazing(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'reference': u'CFSGlazingName', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -2629,8 +2545,6 @@ class WindowMaterialGlazing(object):
     @optical_data_type.setter
     def optical_data_type(self, value=None):
         """  Corresponds to IDD Field `Optical Data Type`
-        
-        {u'type': u'choice', u'key': [u'SpectralAverage', u'Spectral', u'BSDF'], u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Optical Data Type`
@@ -2689,8 +2603,6 @@ class WindowMaterialGlazing(object):
     def window_glass_spectral_data_set_name(self, value=None):
         """  Corresponds to IDD Field `Window Glass Spectral Data Set Name`
         Used only when Optical Data Type = Spectral
-        
-        {u'note': [u'Used only when Optical Data Type = Spectral'], 'type': 'alpha', u'object-list': u'SpectralDataSets', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Window Glass Spectral Data Set Name`
@@ -2726,8 +2638,6 @@ class WindowMaterialGlazing(object):
     @thickness.setter
     def thickness(self, value=None):
         """  Corresponds to IDD Field `Thickness`
-        
-        {'pytype': 'float', u'minimum>': '0.0', u'required-field': True, u'ip-units': u'in', u'units': u'm', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Thickness`
@@ -2764,8 +2674,6 @@ class WindowMaterialGlazing(object):
     def solar_transmittance_at_normal_incidence(self, value=None):
         """  Corresponds to IDD Field `Solar Transmittance at Normal Incidence`
         Used only when Optical Data Type = SpectralAverage
-        
-        {u'note': [u'Used only when Optical Data Type = SpectralAverage'], u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Solar Transmittance at Normal Incidence`
@@ -2805,8 +2713,6 @@ class WindowMaterialGlazing(object):
         """  Corresponds to IDD Field `Front Side Solar Reflectance at Normal Incidence`
         Used only when Optical Data Type = SpectralAverage
         Front Side is side closest to outdoor air
-        
-        {u'note': [u'Used only when Optical Data Type = SpectralAverage', u'Front Side is side closest to outdoor air'], u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Front Side Solar Reflectance at Normal Incidence`
@@ -2846,8 +2752,6 @@ class WindowMaterialGlazing(object):
         """  Corresponds to IDD Field `Back Side Solar Reflectance at Normal Incidence`
         Used only when Optical Data Type = SpectralAverage
         Back Side is side closest to zone air
-        
-        {u'note': [u'Used only when Optical Data Type = SpectralAverage', u'Back Side is side closest to zone air'], u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Back Side Solar Reflectance at Normal Incidence`
@@ -2886,8 +2790,6 @@ class WindowMaterialGlazing(object):
     def visible_transmittance_at_normal_incidence(self, value=None):
         """  Corresponds to IDD Field `Visible Transmittance at Normal Incidence`
         Used only when Optical Data Type = SpectralAverage
-        
-        {u'note': [u'Used only when Optical Data Type = SpectralAverage'], u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Visible Transmittance at Normal Incidence`
@@ -2926,8 +2828,6 @@ class WindowMaterialGlazing(object):
     def front_side_visible_reflectance_at_normal_incidence(self, value=None):
         """  Corresponds to IDD Field `Front Side Visible Reflectance at Normal Incidence`
         Used only when Optical Data Type = SpectralAverage
-        
-        {u'note': [u'Used only when Optical Data Type = SpectralAverage'], u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Front Side Visible Reflectance at Normal Incidence`
@@ -2966,8 +2866,6 @@ class WindowMaterialGlazing(object):
     def back_side_visible_reflectance_at_normal_incidence(self, value=None):
         """  Corresponds to IDD Field `Back Side Visible Reflectance at Normal Incidence`
         Used only when Optical Data Type = SpectralAverage
-        
-        {u'note': [u'Used only when Optical Data Type = SpectralAverage'], u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Back Side Visible Reflectance at Normal Incidence`
@@ -3003,10 +2901,8 @@ class WindowMaterialGlazing(object):
         return self._data["Infrared Transmittance at Normal Incidence"]
 
     @infrared_transmittance_at_normal_incidence.setter
-    def infrared_transmittance_at_normal_incidence(self, value=0.0 ):
+    def infrared_transmittance_at_normal_incidence(self, value=0.0):
         """  Corresponds to IDD Field `Infrared Transmittance at Normal Incidence`
-        
-        {u'default': '0.0', u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Infrared Transmittance at Normal Incidence`
@@ -3043,10 +2939,8 @@ class WindowMaterialGlazing(object):
         return self._data["Front Side Infrared Hemispherical Emissivity"]
 
     @front_side_infrared_hemispherical_emissivity.setter
-    def front_side_infrared_hemispherical_emissivity(self, value=0.84 ):
+    def front_side_infrared_hemispherical_emissivity(self, value=0.84):
         """  Corresponds to IDD Field `Front Side Infrared Hemispherical Emissivity`
-        
-        {u'default': '0.84', u'minimum>': '0.0', u'type': u'real', u'maximum<': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Front Side Infrared Hemispherical Emissivity`
@@ -3083,10 +2977,8 @@ class WindowMaterialGlazing(object):
         return self._data["Back Side Infrared Hemispherical Emissivity"]
 
     @back_side_infrared_hemispherical_emissivity.setter
-    def back_side_infrared_hemispherical_emissivity(self, value=0.84 ):
+    def back_side_infrared_hemispherical_emissivity(self, value=0.84):
         """  Corresponds to IDD Field `Back Side Infrared Hemispherical Emissivity`
-        
-        {u'default': '0.84', u'minimum>': '0.0', u'type': u'real', u'maximum<': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Back Side Infrared Hemispherical Emissivity`
@@ -3123,10 +3015,8 @@ class WindowMaterialGlazing(object):
         return self._data["Conductivity"]
 
     @conductivity.setter
-    def conductivity(self, value=0.9 ):
+    def conductivity(self, value=0.9):
         """  Corresponds to IDD Field `Conductivity`
-        
-        {u'units': u'W/m-K', u'default': '0.9', u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Conductivity`
@@ -3160,10 +3050,8 @@ class WindowMaterialGlazing(object):
         return self._data["Dirt Correction Factor for Solar and Visible Transmittance"]
 
     @dirt_correction_factor_for_solar_and_visible_transmittance.setter
-    def dirt_correction_factor_for_solar_and_visible_transmittance(self, value=1.0 ):
+    def dirt_correction_factor_for_solar_and_visible_transmittance(self, value=1.0):
         """  Corresponds to IDD Field `Dirt Correction Factor for Solar and Visible Transmittance`
-        
-        {u'default': '1.0', u'minimum>': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Dirt Correction Factor for Solar and Visible Transmittance`
@@ -3202,8 +3090,6 @@ class WindowMaterialGlazing(object):
     @solar_diffusing.setter
     def solar_diffusing(self, value="No"):
         """  Corresponds to IDD Field `Solar Diffusing`
-        
-        {u'default': u'No', u'type': u'choice', u'key': [u'No', u'Yes'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Solar Diffusing`
@@ -3258,12 +3144,10 @@ class WindowMaterialGlazing(object):
         return self._data["Youngs modulus"]
 
     @youngs_modulus.setter
-    def youngs_modulus(self, value=72000000000.0 ):
+    def youngs_modulus(self, value=72000000000.0):
         """  Corresponds to IDD Field `Youngs modulus`
         coefficient used for deflection calculations. Used only with complex
         fenestration when deflection model is set to TemperatureAndPressureInput
-        
-        {'pytype': 'float', u'default': '72000000000.0', u'minimum>': '0.0', u'note': [u'coefficient used for deflection calculations. Used only with complex', u'fenestration when deflection model is set to TemperatureAndPressureInput'], u'units': u'Pa', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Youngs modulus`
@@ -3297,12 +3181,10 @@ class WindowMaterialGlazing(object):
         return self._data["Poissons ratio"]
 
     @poissons_ratio.setter
-    def poissons_ratio(self, value=0.22 ):
+    def poissons_ratio(self, value=0.22):
         """  Corresponds to IDD Field `Poissons ratio`
         coefficient used for deflection calculations. Used only with complex
         fenestration when deflection model is set to TemperatureAndPressureInput
-        
-        {'pytype': 'float', u'default': '0.22', u'minimum>': '0.0', u'note': [u'coefficient used for deflection calculations. Used only with complex', u'fenestration when deflection model is set to TemperatureAndPressureInput'], u'type': u'real', u'maximum<': '1.0'}
 
         Args:
             value (float): value for IDD Field `Poissons ratio`
@@ -4127,8 +4009,6 @@ class WindowMaterialGlazingGroupThermochromic(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'reference': u'GlazingMaterialName', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -4164,8 +4044,6 @@ class WindowMaterialGlazingGroupThermochromic(object):
     @optical_data_temperature_1.setter
     def optical_data_temperature_1(self, value=None):
         """  Corresponds to IDD Field `Optical Data Temperature 1`
-        
-        {'pytype': 'float', u'begin-extensible': u'', u'required-field': True, u'ip-units': u'F', u'units': u'C', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Optical Data Temperature 1`
@@ -4197,8 +4075,6 @@ class WindowMaterialGlazingGroupThermochromic(object):
     @window_material_glazing_name_1.setter
     def window_material_glazing_name_1(self, value=None):
         """  Corresponds to IDD Field `Window Material Glazing Name 1`
-        
-        {u'type': u'object-list', u'object-list': u'GlazingMaterialName', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Window Material Glazing Name 1`
@@ -4234,8 +4110,6 @@ class WindowMaterialGlazingGroupThermochromic(object):
     @optical_data_temperature_2.setter
     def optical_data_temperature_2(self, value=None):
         """  Corresponds to IDD Field `Optical Data Temperature 2`
-        
-        {u'units': u'C', u'ip-units': u'F', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Optical Data Temperature 2`
@@ -4267,8 +4141,6 @@ class WindowMaterialGlazingGroupThermochromic(object):
     @window_material_glazing_name_2.setter
     def window_material_glazing_name_2(self, value=None):
         """  Corresponds to IDD Field `Window Material Glazing Name 2`
-        
-        {u'type': u'object-list', u'object-list': u'GlazingMaterialName', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Window Material Glazing Name 2`
@@ -4304,8 +4176,6 @@ class WindowMaterialGlazingGroupThermochromic(object):
     @optical_data_temperature_3.setter
     def optical_data_temperature_3(self, value=None):
         """  Corresponds to IDD Field `Optical Data Temperature 3`
-        
-        {u'units': u'C', u'ip-units': u'F', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Optical Data Temperature 3`
@@ -4337,8 +4207,6 @@ class WindowMaterialGlazingGroupThermochromic(object):
     @window_material_glazing_name_3.setter
     def window_material_glazing_name_3(self, value=None):
         """  Corresponds to IDD Field `Window Material Glazing Name 3`
-        
-        {u'type': u'object-list', u'object-list': u'GlazingMaterialName', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Window Material Glazing Name 3`
@@ -4374,8 +4242,6 @@ class WindowMaterialGlazingGroupThermochromic(object):
     @optical_data_temperature_4.setter
     def optical_data_temperature_4(self, value=None):
         """  Corresponds to IDD Field `Optical Data Temperature 4`
-        
-        {u'units': u'C', u'ip-units': u'F', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Optical Data Temperature 4`
@@ -4407,8 +4273,6 @@ class WindowMaterialGlazingGroupThermochromic(object):
     @window_material_glazing_name_4.setter
     def window_material_glazing_name_4(self, value=None):
         """  Corresponds to IDD Field `Window Material Glazing Name 4`
-        
-        {u'type': u'object-list', u'object-list': u'GlazingMaterialName', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Window Material Glazing Name 4`
@@ -4444,8 +4308,6 @@ class WindowMaterialGlazingGroupThermochromic(object):
     @optical_data_temperature_5.setter
     def optical_data_temperature_5(self, value=None):
         """  Corresponds to IDD Field `Optical Data Temperature 5`
-        
-        {u'units': u'C', u'ip-units': u'F', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Optical Data Temperature 5`
@@ -4477,8 +4339,6 @@ class WindowMaterialGlazingGroupThermochromic(object):
     @window_material_glazing_name_5.setter
     def window_material_glazing_name_5(self, value=None):
         """  Corresponds to IDD Field `Window Material Glazing Name 5`
-        
-        {u'type': u'object-list', u'object-list': u'GlazingMaterialName', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Window Material Glazing Name 5`
@@ -4514,8 +4374,6 @@ class WindowMaterialGlazingGroupThermochromic(object):
     @optical_data_temperature_6.setter
     def optical_data_temperature_6(self, value=None):
         """  Corresponds to IDD Field `Optical Data Temperature 6`
-        
-        {u'units': u'C', u'ip-units': u'F', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Optical Data Temperature 6`
@@ -4547,8 +4405,6 @@ class WindowMaterialGlazingGroupThermochromic(object):
     @window_material_glazing_name_6.setter
     def window_material_glazing_name_6(self, value=None):
         """  Corresponds to IDD Field `Window Material Glazing Name 6`
-        
-        {u'type': u'object-list', u'object-list': u'GlazingMaterialName', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Window Material Glazing Name 6`
@@ -4584,8 +4440,6 @@ class WindowMaterialGlazingGroupThermochromic(object):
     @optical_data_temperature_7.setter
     def optical_data_temperature_7(self, value=None):
         """  Corresponds to IDD Field `Optical Data Temperature 7`
-        
-        {u'units': u'C', u'ip-units': u'F', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Optical Data Temperature 7`
@@ -4617,8 +4471,6 @@ class WindowMaterialGlazingGroupThermochromic(object):
     @window_material_glazing_name_7.setter
     def window_material_glazing_name_7(self, value=None):
         """  Corresponds to IDD Field `Window Material Glazing Name 7`
-        
-        {u'type': u'object-list', u'object-list': u'GlazingMaterialName', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Window Material Glazing Name 7`
@@ -4654,8 +4506,6 @@ class WindowMaterialGlazingGroupThermochromic(object):
     @optical_data_temperature_8.setter
     def optical_data_temperature_8(self, value=None):
         """  Corresponds to IDD Field `Optical Data Temperature 8`
-        
-        {u'units': u'C', u'ip-units': u'F', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Optical Data Temperature 8`
@@ -4687,8 +4537,6 @@ class WindowMaterialGlazingGroupThermochromic(object):
     @window_material_glazing_name_8.setter
     def window_material_glazing_name_8(self, value=None):
         """  Corresponds to IDD Field `Window Material Glazing Name 8`
-        
-        {u'type': u'object-list', u'object-list': u'GlazingMaterialName', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Window Material Glazing Name 8`
@@ -4724,8 +4572,6 @@ class WindowMaterialGlazingGroupThermochromic(object):
     @optical_data_temperature_9.setter
     def optical_data_temperature_9(self, value=None):
         """  Corresponds to IDD Field `Optical Data Temperature 9`
-        
-        {u'units': u'C', u'ip-units': u'F', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Optical Data Temperature 9`
@@ -4757,8 +4603,6 @@ class WindowMaterialGlazingGroupThermochromic(object):
     @window_material_glazing_name_9.setter
     def window_material_glazing_name_9(self, value=None):
         """  Corresponds to IDD Field `Window Material Glazing Name 9`
-        
-        {u'type': u'object-list', u'object-list': u'GlazingMaterialName', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Window Material Glazing Name 9`
@@ -4794,8 +4638,6 @@ class WindowMaterialGlazingGroupThermochromic(object):
     @optical_data_temperature_10.setter
     def optical_data_temperature_10(self, value=None):
         """  Corresponds to IDD Field `Optical Data Temperature 10`
-        
-        {u'units': u'C', u'ip-units': u'F', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Optical Data Temperature 10`
@@ -4827,8 +4669,6 @@ class WindowMaterialGlazingGroupThermochromic(object):
     @window_material_glazing_name_10.setter
     def window_material_glazing_name_10(self, value=None):
         """  Corresponds to IDD Field `Window Material Glazing Name 10`
-        
-        {u'type': u'object-list', u'object-list': u'GlazingMaterialName', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Window Material Glazing Name 10`
@@ -4864,8 +4704,6 @@ class WindowMaterialGlazingGroupThermochromic(object):
     @optical_data_temperature_11.setter
     def optical_data_temperature_11(self, value=None):
         """  Corresponds to IDD Field `Optical Data Temperature 11`
-        
-        {u'units': u'C', u'ip-units': u'F', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Optical Data Temperature 11`
@@ -4897,8 +4735,6 @@ class WindowMaterialGlazingGroupThermochromic(object):
     @window_material_glazing_name_11.setter
     def window_material_glazing_name_11(self, value=None):
         """  Corresponds to IDD Field `Window Material Glazing Name 11`
-        
-        {u'type': u'object-list', u'object-list': u'GlazingMaterialName', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Window Material Glazing Name 11`
@@ -4934,8 +4770,6 @@ class WindowMaterialGlazingGroupThermochromic(object):
     @optical_data_temperature_12.setter
     def optical_data_temperature_12(self, value=None):
         """  Corresponds to IDD Field `Optical Data Temperature 12`
-        
-        {u'units': u'C', u'ip-units': u'F', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Optical Data Temperature 12`
@@ -4967,8 +4801,6 @@ class WindowMaterialGlazingGroupThermochromic(object):
     @window_material_glazing_name_12.setter
     def window_material_glazing_name_12(self, value=None):
         """  Corresponds to IDD Field `Window Material Glazing Name 12`
-        
-        {u'type': u'object-list', u'object-list': u'GlazingMaterialName', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Window Material Glazing Name 12`
@@ -5004,8 +4836,6 @@ class WindowMaterialGlazingGroupThermochromic(object):
     @optical_data_temperature_13.setter
     def optical_data_temperature_13(self, value=None):
         """  Corresponds to IDD Field `Optical Data Temperature 13`
-        
-        {u'units': u'C', u'ip-units': u'F', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Optical Data Temperature 13`
@@ -5037,8 +4867,6 @@ class WindowMaterialGlazingGroupThermochromic(object):
     @window_material_glazing_name_13.setter
     def window_material_glazing_name_13(self, value=None):
         """  Corresponds to IDD Field `Window Material Glazing Name 13`
-        
-        {u'type': u'object-list', u'object-list': u'GlazingMaterialName', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Window Material Glazing Name 13`
@@ -5074,8 +4902,6 @@ class WindowMaterialGlazingGroupThermochromic(object):
     @optical_data_temperature_14.setter
     def optical_data_temperature_14(self, value=None):
         """  Corresponds to IDD Field `Optical Data Temperature 14`
-        
-        {u'units': u'C', u'ip-units': u'F', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Optical Data Temperature 14`
@@ -5107,8 +4933,6 @@ class WindowMaterialGlazingGroupThermochromic(object):
     @window_material_glazing_name_14.setter
     def window_material_glazing_name_14(self, value=None):
         """  Corresponds to IDD Field `Window Material Glazing Name 14`
-        
-        {u'type': u'object-list', u'object-list': u'GlazingMaterialName', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Window Material Glazing Name 14`
@@ -5144,8 +4968,6 @@ class WindowMaterialGlazingGroupThermochromic(object):
     @optical_data_temperature_15.setter
     def optical_data_temperature_15(self, value=None):
         """  Corresponds to IDD Field `Optical Data Temperature 15`
-        
-        {u'units': u'C', u'ip-units': u'F', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Optical Data Temperature 15`
@@ -5177,8 +4999,6 @@ class WindowMaterialGlazingGroupThermochromic(object):
     @window_material_glazing_name_15.setter
     def window_material_glazing_name_15(self, value=None):
         """  Corresponds to IDD Field `Window Material Glazing Name 15`
-        
-        {u'type': u'object-list', u'object-list': u'GlazingMaterialName', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Window Material Glazing Name 15`
@@ -5214,8 +5034,6 @@ class WindowMaterialGlazingGroupThermochromic(object):
     @optical_data_temperature_16.setter
     def optical_data_temperature_16(self, value=None):
         """  Corresponds to IDD Field `Optical Data Temperature 16`
-        
-        {u'units': u'C', u'ip-units': u'F', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Optical Data Temperature 16`
@@ -5247,8 +5065,6 @@ class WindowMaterialGlazingGroupThermochromic(object):
     @window_material_glazing_name_16.setter
     def window_material_glazing_name_16(self, value=None):
         """  Corresponds to IDD Field `Window Material Glazing Name 16`
-        
-        {u'type': u'object-list', u'object-list': u'GlazingMaterialName', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Window Material Glazing Name 16`
@@ -5284,8 +5100,6 @@ class WindowMaterialGlazingGroupThermochromic(object):
     @optical_data_temperature_17.setter
     def optical_data_temperature_17(self, value=None):
         """  Corresponds to IDD Field `Optical Data Temperature 17`
-        
-        {u'units': u'C', u'ip-units': u'F', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Optical Data Temperature 17`
@@ -5317,8 +5131,6 @@ class WindowMaterialGlazingGroupThermochromic(object):
     @window_material_glazing_name_17.setter
     def window_material_glazing_name_17(self, value=None):
         """  Corresponds to IDD Field `Window Material Glazing Name 17`
-        
-        {u'type': u'object-list', u'object-list': u'GlazingMaterialName', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Window Material Glazing Name 17`
@@ -5354,8 +5166,6 @@ class WindowMaterialGlazingGroupThermochromic(object):
     @optical_data_temperature_18.setter
     def optical_data_temperature_18(self, value=None):
         """  Corresponds to IDD Field `Optical Data Temperature 18`
-        
-        {u'units': u'C', u'ip-units': u'F', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Optical Data Temperature 18`
@@ -5387,8 +5197,6 @@ class WindowMaterialGlazingGroupThermochromic(object):
     @window_material_glazing_name_18.setter
     def window_material_glazing_name_18(self, value=None):
         """  Corresponds to IDD Field `Window Material Glazing Name 18`
-        
-        {u'type': u'object-list', u'object-list': u'GlazingMaterialName', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Window Material Glazing Name 18`
@@ -5424,8 +5232,6 @@ class WindowMaterialGlazingGroupThermochromic(object):
     @optical_data_temperature_19.setter
     def optical_data_temperature_19(self, value=None):
         """  Corresponds to IDD Field `Optical Data Temperature 19`
-        
-        {u'units': u'C', u'ip-units': u'F', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Optical Data Temperature 19`
@@ -5457,8 +5263,6 @@ class WindowMaterialGlazingGroupThermochromic(object):
     @window_material_glazing_name_19.setter
     def window_material_glazing_name_19(self, value=None):
         """  Corresponds to IDD Field `Window Material Glazing Name 19`
-        
-        {u'type': u'object-list', u'object-list': u'GlazingMaterialName', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Window Material Glazing Name 19`
@@ -5494,8 +5298,6 @@ class WindowMaterialGlazingGroupThermochromic(object):
     @optical_data_temperature_20.setter
     def optical_data_temperature_20(self, value=None):
         """  Corresponds to IDD Field `Optical Data Temperature 20`
-        
-        {u'units': u'C', u'ip-units': u'F', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Optical Data Temperature 20`
@@ -5527,8 +5329,6 @@ class WindowMaterialGlazingGroupThermochromic(object):
     @window_material_glazing_name_20.setter
     def window_material_glazing_name_20(self, value=None):
         """  Corresponds to IDD Field `Window Material Glazing Name 20`
-        
-        {u'type': u'object-list', u'object-list': u'GlazingMaterialName', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Window Material Glazing Name 20`
@@ -5564,8 +5364,6 @@ class WindowMaterialGlazingGroupThermochromic(object):
     @optical_data_temperature_21.setter
     def optical_data_temperature_21(self, value=None):
         """  Corresponds to IDD Field `Optical Data Temperature 21`
-        
-        {u'units': u'C', u'ip-units': u'F', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Optical Data Temperature 21`
@@ -5597,8 +5395,6 @@ class WindowMaterialGlazingGroupThermochromic(object):
     @window_material_glazing_name_21.setter
     def window_material_glazing_name_21(self, value=None):
         """  Corresponds to IDD Field `Window Material Glazing Name 21`
-        
-        {u'type': u'object-list', u'object-list': u'GlazingMaterialName', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Window Material Glazing Name 21`
@@ -5634,8 +5430,6 @@ class WindowMaterialGlazingGroupThermochromic(object):
     @optical_data_temperature_22.setter
     def optical_data_temperature_22(self, value=None):
         """  Corresponds to IDD Field `Optical Data Temperature 22`
-        
-        {u'units': u'C', u'ip-units': u'F', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Optical Data Temperature 22`
@@ -5667,8 +5461,6 @@ class WindowMaterialGlazingGroupThermochromic(object):
     @window_material_glazing_name_22.setter
     def window_material_glazing_name_22(self, value=None):
         """  Corresponds to IDD Field `Window Material Glazing Name 22`
-        
-        {u'type': u'object-list', u'object-list': u'GlazingMaterialName', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Window Material Glazing Name 22`
@@ -5704,8 +5496,6 @@ class WindowMaterialGlazingGroupThermochromic(object):
     @optical_data_temperature_23.setter
     def optical_data_temperature_23(self, value=None):
         """  Corresponds to IDD Field `Optical Data Temperature 23`
-        
-        {u'units': u'C', u'ip-units': u'F', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Optical Data Temperature 23`
@@ -5737,8 +5527,6 @@ class WindowMaterialGlazingGroupThermochromic(object):
     @window_material_glazing_name_23.setter
     def window_material_glazing_name_23(self, value=None):
         """  Corresponds to IDD Field `Window Material Glazing Name 23`
-        
-        {u'type': u'object-list', u'object-list': u'GlazingMaterialName', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Window Material Glazing Name 23`
@@ -5774,8 +5562,6 @@ class WindowMaterialGlazingGroupThermochromic(object):
     @optical_data_temperature_24.setter
     def optical_data_temperature_24(self, value=None):
         """  Corresponds to IDD Field `Optical Data Temperature 24`
-        
-        {u'units': u'C', u'ip-units': u'F', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Optical Data Temperature 24`
@@ -5807,8 +5593,6 @@ class WindowMaterialGlazingGroupThermochromic(object):
     @window_material_glazing_name_24.setter
     def window_material_glazing_name_24(self, value=None):
         """  Corresponds to IDD Field `Window Material Glazing Name 24`
-        
-        {u'type': u'object-list', u'object-list': u'GlazingMaterialName', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Window Material Glazing Name 24`
@@ -5844,8 +5628,6 @@ class WindowMaterialGlazingGroupThermochromic(object):
     @optical_data_temperature_25.setter
     def optical_data_temperature_25(self, value=None):
         """  Corresponds to IDD Field `Optical Data Temperature 25`
-        
-        {u'units': u'C', u'ip-units': u'F', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Optical Data Temperature 25`
@@ -5877,8 +5659,6 @@ class WindowMaterialGlazingGroupThermochromic(object):
     @window_material_glazing_name_25.setter
     def window_material_glazing_name_25(self, value=None):
         """  Corresponds to IDD Field `Window Material Glazing Name 25`
-        
-        {u'type': u'object-list', u'object-list': u'GlazingMaterialName', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Window Material Glazing Name 25`
@@ -5914,8 +5694,6 @@ class WindowMaterialGlazingGroupThermochromic(object):
     @optical_data_temperature_26.setter
     def optical_data_temperature_26(self, value=None):
         """  Corresponds to IDD Field `Optical Data Temperature 26`
-        
-        {u'units': u'C', u'ip-units': u'F', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Optical Data Temperature 26`
@@ -5947,8 +5725,6 @@ class WindowMaterialGlazingGroupThermochromic(object):
     @window_material_glazing_name_26.setter
     def window_material_glazing_name_26(self, value=None):
         """  Corresponds to IDD Field `Window Material Glazing Name 26`
-        
-        {u'type': u'object-list', u'object-list': u'GlazingMaterialName', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Window Material Glazing Name 26`
@@ -5984,8 +5760,6 @@ class WindowMaterialGlazingGroupThermochromic(object):
     @optical_data_temperature_27.setter
     def optical_data_temperature_27(self, value=None):
         """  Corresponds to IDD Field `Optical Data Temperature 27`
-        
-        {u'units': u'C', u'ip-units': u'F', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Optical Data Temperature 27`
@@ -6017,8 +5791,6 @@ class WindowMaterialGlazingGroupThermochromic(object):
     @window_material_glazing_name_27.setter
     def window_material_glazing_name_27(self, value=None):
         """  Corresponds to IDD Field `Window Material Glazing Name 27`
-        
-        {u'type': u'object-list', u'object-list': u'GlazingMaterialName', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Window Material Glazing Name 27`
@@ -6054,8 +5826,6 @@ class WindowMaterialGlazingGroupThermochromic(object):
     @optical_data_temperature_28.setter
     def optical_data_temperature_28(self, value=None):
         """  Corresponds to IDD Field `Optical Data Temperature 28`
-        
-        {u'units': u'C', u'ip-units': u'F', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Optical Data Temperature 28`
@@ -6087,8 +5857,6 @@ class WindowMaterialGlazingGroupThermochromic(object):
     @window_material_glazing_name_28.setter
     def window_material_glazing_name_28(self, value=None):
         """  Corresponds to IDD Field `Window Material Glazing Name 28`
-        
-        {u'type': u'object-list', u'object-list': u'GlazingMaterialName', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Window Material Glazing Name 28`
@@ -6124,8 +5892,6 @@ class WindowMaterialGlazingGroupThermochromic(object):
     @optical_data_temperature_29.setter
     def optical_data_temperature_29(self, value=None):
         """  Corresponds to IDD Field `Optical Data Temperature 29`
-        
-        {u'units': u'C', u'ip-units': u'F', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Optical Data Temperature 29`
@@ -6157,8 +5923,6 @@ class WindowMaterialGlazingGroupThermochromic(object):
     @window_material_glazing_name_29.setter
     def window_material_glazing_name_29(self, value=None):
         """  Corresponds to IDD Field `Window Material Glazing Name 29`
-        
-        {u'type': u'object-list', u'object-list': u'GlazingMaterialName', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Window Material Glazing Name 29`
@@ -6194,8 +5958,6 @@ class WindowMaterialGlazingGroupThermochromic(object):
     @optical_data_temperature_30.setter
     def optical_data_temperature_30(self, value=None):
         """  Corresponds to IDD Field `Optical Data Temperature 30`
-        
-        {u'units': u'C', u'ip-units': u'F', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Optical Data Temperature 30`
@@ -6227,8 +5989,6 @@ class WindowMaterialGlazingGroupThermochromic(object):
     @window_material_glazing_name_30.setter
     def window_material_glazing_name_30(self, value=None):
         """  Corresponds to IDD Field `Window Material Glazing Name 30`
-        
-        {u'type': u'object-list', u'object-list': u'GlazingMaterialName', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Window Material Glazing Name 30`
@@ -6264,8 +6024,6 @@ class WindowMaterialGlazingGroupThermochromic(object):
     @optical_data_temperature_31.setter
     def optical_data_temperature_31(self, value=None):
         """  Corresponds to IDD Field `Optical Data Temperature 31`
-        
-        {u'units': u'C', u'ip-units': u'F', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Optical Data Temperature 31`
@@ -6297,8 +6055,6 @@ class WindowMaterialGlazingGroupThermochromic(object):
     @window_material_glazing_name_31.setter
     def window_material_glazing_name_31(self, value=None):
         """  Corresponds to IDD Field `Window Material Glazing Name 31`
-        
-        {u'type': u'object-list', u'object-list': u'GlazingMaterialName', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Window Material Glazing Name 31`
@@ -6334,8 +6090,6 @@ class WindowMaterialGlazingGroupThermochromic(object):
     @optical_data_temperature_32.setter
     def optical_data_temperature_32(self, value=None):
         """  Corresponds to IDD Field `Optical Data Temperature 32`
-        
-        {u'units': u'C', u'ip-units': u'F', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Optical Data Temperature 32`
@@ -6367,8 +6121,6 @@ class WindowMaterialGlazingGroupThermochromic(object):
     @window_material_glazing_name_32.setter
     def window_material_glazing_name_32(self, value=None):
         """  Corresponds to IDD Field `Window Material Glazing Name 32`
-        
-        {u'type': u'object-list', u'object-list': u'GlazingMaterialName', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Window Material Glazing Name 32`
@@ -6404,8 +6156,6 @@ class WindowMaterialGlazingGroupThermochromic(object):
     @optical_data_temperature_33.setter
     def optical_data_temperature_33(self, value=None):
         """  Corresponds to IDD Field `Optical Data Temperature 33`
-        
-        {u'units': u'C', u'ip-units': u'F', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Optical Data Temperature 33`
@@ -6437,8 +6187,6 @@ class WindowMaterialGlazingGroupThermochromic(object):
     @window_material_glazing_name_33.setter
     def window_material_glazing_name_33(self, value=None):
         """  Corresponds to IDD Field `Window Material Glazing Name 33`
-        
-        {u'type': u'object-list', u'object-list': u'GlazingMaterialName', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Window Material Glazing Name 33`
@@ -6474,8 +6222,6 @@ class WindowMaterialGlazingGroupThermochromic(object):
     @optical_data_temperature_34.setter
     def optical_data_temperature_34(self, value=None):
         """  Corresponds to IDD Field `Optical Data Temperature 34`
-        
-        {u'units': u'C', u'ip-units': u'F', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Optical Data Temperature 34`
@@ -6507,8 +6253,6 @@ class WindowMaterialGlazingGroupThermochromic(object):
     @window_material_glazing_name_34.setter
     def window_material_glazing_name_34(self, value=None):
         """  Corresponds to IDD Field `Window Material Glazing Name 34`
-        
-        {u'type': u'object-list', u'object-list': u'GlazingMaterialName', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Window Material Glazing Name 34`
@@ -6544,8 +6288,6 @@ class WindowMaterialGlazingGroupThermochromic(object):
     @optical_data_temperature_35.setter
     def optical_data_temperature_35(self, value=None):
         """  Corresponds to IDD Field `Optical Data Temperature 35`
-        
-        {u'units': u'C', u'ip-units': u'F', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Optical Data Temperature 35`
@@ -6577,8 +6319,6 @@ class WindowMaterialGlazingGroupThermochromic(object):
     @window_material_glazing_name_35.setter
     def window_material_glazing_name_35(self, value=None):
         """  Corresponds to IDD Field `Window Material Glazing Name 35`
-        
-        {u'type': u'object-list', u'object-list': u'GlazingMaterialName', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Window Material Glazing Name 35`
@@ -6614,8 +6354,6 @@ class WindowMaterialGlazingGroupThermochromic(object):
     @optical_data_temperature_36.setter
     def optical_data_temperature_36(self, value=None):
         """  Corresponds to IDD Field `Optical Data Temperature 36`
-        
-        {u'units': u'C', u'ip-units': u'F', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Optical Data Temperature 36`
@@ -6647,8 +6385,6 @@ class WindowMaterialGlazingGroupThermochromic(object):
     @window_material_glazing_name_36.setter
     def window_material_glazing_name_36(self, value=None):
         """  Corresponds to IDD Field `Window Material Glazing Name 36`
-        
-        {u'type': u'object-list', u'object-list': u'GlazingMaterialName', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Window Material Glazing Name 36`
@@ -6684,8 +6420,6 @@ class WindowMaterialGlazingGroupThermochromic(object):
     @optical_data_temperature_37.setter
     def optical_data_temperature_37(self, value=None):
         """  Corresponds to IDD Field `Optical Data Temperature 37`
-        
-        {u'units': u'C', u'ip-units': u'F', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Optical Data Temperature 37`
@@ -6717,8 +6451,6 @@ class WindowMaterialGlazingGroupThermochromic(object):
     @window_material_glazing_name_37.setter
     def window_material_glazing_name_37(self, value=None):
         """  Corresponds to IDD Field `Window Material Glazing Name 37`
-        
-        {u'type': u'object-list', u'object-list': u'GlazingMaterialName', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Window Material Glazing Name 37`
@@ -6754,8 +6486,6 @@ class WindowMaterialGlazingGroupThermochromic(object):
     @optical_data_temperature_38.setter
     def optical_data_temperature_38(self, value=None):
         """  Corresponds to IDD Field `Optical Data Temperature 38`
-        
-        {u'units': u'C', u'ip-units': u'F', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Optical Data Temperature 38`
@@ -6787,8 +6517,6 @@ class WindowMaterialGlazingGroupThermochromic(object):
     @window_material_glazing_name_38.setter
     def window_material_glazing_name_38(self, value=None):
         """  Corresponds to IDD Field `Window Material Glazing Name 38`
-        
-        {u'type': u'object-list', u'object-list': u'GlazingMaterialName', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Window Material Glazing Name 38`
@@ -6824,8 +6552,6 @@ class WindowMaterialGlazingGroupThermochromic(object):
     @optical_data_temperature_39.setter
     def optical_data_temperature_39(self, value=None):
         """  Corresponds to IDD Field `Optical Data Temperature 39`
-        
-        {u'units': u'C', u'ip-units': u'F', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Optical Data Temperature 39`
@@ -6857,8 +6583,6 @@ class WindowMaterialGlazingGroupThermochromic(object):
     @window_material_glazing_name_39.setter
     def window_material_glazing_name_39(self, value=None):
         """  Corresponds to IDD Field `Window Material Glazing Name 39`
-        
-        {u'type': u'object-list', u'object-list': u'GlazingMaterialName', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Window Material Glazing Name 39`
@@ -6894,8 +6618,6 @@ class WindowMaterialGlazingGroupThermochromic(object):
     @optical_data_temperature_40.setter
     def optical_data_temperature_40(self, value=None):
         """  Corresponds to IDD Field `Optical Data Temperature 40`
-        
-        {u'units': u'C', u'ip-units': u'F', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Optical Data Temperature 40`
@@ -6927,8 +6649,6 @@ class WindowMaterialGlazingGroupThermochromic(object):
     @window_material_glazing_name_40.setter
     def window_material_glazing_name_40(self, value=None):
         """  Corresponds to IDD Field `Window Material Glazing Name 40`
-        
-        {u'type': u'object-list', u'object-list': u'GlazingMaterialName', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Window Material Glazing Name 40`
@@ -6964,8 +6684,6 @@ class WindowMaterialGlazingGroupThermochromic(object):
     @optical_data_temperature_41.setter
     def optical_data_temperature_41(self, value=None):
         """  Corresponds to IDD Field `Optical Data Temperature 41`
-        
-        {u'units': u'C', u'ip-units': u'F', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Optical Data Temperature 41`
@@ -6997,8 +6715,6 @@ class WindowMaterialGlazingGroupThermochromic(object):
     @window_material_glazing_name_41.setter
     def window_material_glazing_name_41(self, value=None):
         """  Corresponds to IDD Field `Window Material Glazing Name 41`
-        
-        {u'type': u'object-list', u'object-list': u'GlazingMaterialName', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Window Material Glazing Name 41`
@@ -7034,8 +6750,6 @@ class WindowMaterialGlazingGroupThermochromic(object):
     @optical_data_temperature_42.setter
     def optical_data_temperature_42(self, value=None):
         """  Corresponds to IDD Field `Optical Data Temperature 42`
-        
-        {u'units': u'C', u'ip-units': u'F', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Optical Data Temperature 42`
@@ -7067,8 +6781,6 @@ class WindowMaterialGlazingGroupThermochromic(object):
     @window_material_glazing_name_42.setter
     def window_material_glazing_name_42(self, value=None):
         """  Corresponds to IDD Field `Window Material Glazing Name 42`
-        
-        {u'type': u'object-list', u'object-list': u'GlazingMaterialName', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Window Material Glazing Name 42`
@@ -7104,8 +6816,6 @@ class WindowMaterialGlazingGroupThermochromic(object):
     @optical_data_temperature_43.setter
     def optical_data_temperature_43(self, value=None):
         """  Corresponds to IDD Field `Optical Data Temperature 43`
-        
-        {u'units': u'C', u'ip-units': u'F', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Optical Data Temperature 43`
@@ -7137,8 +6847,6 @@ class WindowMaterialGlazingGroupThermochromic(object):
     @window_material_glazing_name_43.setter
     def window_material_glazing_name_43(self, value=None):
         """  Corresponds to IDD Field `Window Material Glazing Name 43`
-        
-        {u'type': u'object-list', u'object-list': u'GlazingMaterialName', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Window Material Glazing Name 43`
@@ -7174,8 +6882,6 @@ class WindowMaterialGlazingGroupThermochromic(object):
     @optical_data_temperature_44.setter
     def optical_data_temperature_44(self, value=None):
         """  Corresponds to IDD Field `Optical Data Temperature 44`
-        
-        {u'units': u'C', u'ip-units': u'F', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Optical Data Temperature 44`
@@ -7207,8 +6913,6 @@ class WindowMaterialGlazingGroupThermochromic(object):
     @window_material_glazing_name_44.setter
     def window_material_glazing_name_44(self, value=None):
         """  Corresponds to IDD Field `Window Material Glazing Name 44`
-        
-        {u'type': u'object-list', u'object-list': u'GlazingMaterialName', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Window Material Glazing Name 44`
@@ -7244,8 +6948,6 @@ class WindowMaterialGlazingGroupThermochromic(object):
     @optical_data_temperature_45.setter
     def optical_data_temperature_45(self, value=None):
         """  Corresponds to IDD Field `Optical Data Temperature 45`
-        
-        {u'units': u'C', u'ip-units': u'F', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Optical Data Temperature 45`
@@ -7277,8 +6979,6 @@ class WindowMaterialGlazingGroupThermochromic(object):
     @window_material_glazing_name_45.setter
     def window_material_glazing_name_45(self, value=None):
         """  Corresponds to IDD Field `Window Material Glazing Name 45`
-        
-        {u'type': u'object-list', u'object-list': u'GlazingMaterialName', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Window Material Glazing Name 45`
@@ -7462,8 +7162,6 @@ class WindowMaterialGlazingRefractionExtinctionMethod(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'reference': u'GlazingMaterialName', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -7499,8 +7197,6 @@ class WindowMaterialGlazingRefractionExtinctionMethod(object):
     @thickness.setter
     def thickness(self, value=None):
         """  Corresponds to IDD Field `Thickness`
-        
-        {'pytype': 'float', u'minimum>': '0.0', u'required-field': True, u'ip-units': u'in', u'units': u'm', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Thickness`
@@ -7536,8 +7232,6 @@ class WindowMaterialGlazingRefractionExtinctionMethod(object):
     @solar_index_of_refraction.setter
     def solar_index_of_refraction(self, value=None):
         """  Corresponds to IDD Field `Solar Index of Refraction`
-        
-        {u'minimum>': '1.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Solar Index of Refraction`
@@ -7571,8 +7265,6 @@ class WindowMaterialGlazingRefractionExtinctionMethod(object):
     @solar_extinction_coefficient.setter
     def solar_extinction_coefficient(self, value=None):
         """  Corresponds to IDD Field `Solar Extinction Coefficient`
-        
-        {u'units': u'1/m', u'minimum>': '0.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Solar Extinction Coefficient`
@@ -7607,8 +7299,6 @@ class WindowMaterialGlazingRefractionExtinctionMethod(object):
     @visible_index_of_refraction.setter
     def visible_index_of_refraction(self, value=None):
         """  Corresponds to IDD Field `Visible Index of Refraction`
-        
-        {u'minimum>': '1.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Visible Index of Refraction`
@@ -7642,8 +7332,6 @@ class WindowMaterialGlazingRefractionExtinctionMethod(object):
     @visible_extinction_coefficient.setter
     def visible_extinction_coefficient(self, value=None):
         """  Corresponds to IDD Field `Visible Extinction Coefficient`
-        
-        {u'units': u'1/m', u'minimum>': '0.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Visible Extinction Coefficient`
@@ -7676,10 +7364,8 @@ class WindowMaterialGlazingRefractionExtinctionMethod(object):
         return self._data["Infrared Transmittance at Normal Incidence"]
 
     @infrared_transmittance_at_normal_incidence.setter
-    def infrared_transmittance_at_normal_incidence(self, value=0.0 ):
+    def infrared_transmittance_at_normal_incidence(self, value=0.0):
         """  Corresponds to IDD Field `Infrared Transmittance at Normal Incidence`
-        
-        {u'default': '0.0', u'maximum<': '1.0', u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Infrared Transmittance at Normal Incidence`
@@ -7716,11 +7402,9 @@ class WindowMaterialGlazingRefractionExtinctionMethod(object):
         return self._data["Infrared Hemispherical Emissivity"]
 
     @infrared_hemispherical_emissivity.setter
-    def infrared_hemispherical_emissivity(self, value=0.84 ):
+    def infrared_hemispherical_emissivity(self, value=0.84):
         """  Corresponds to IDD Field `Infrared Hemispherical Emissivity`
         Emissivity of front and back side assumed equal
-        
-        {'pytype': 'float', u'default': '0.84', u'maximum<': '1.0', u'note': [u'Emissivity of front and back side assumed equal'], u'type': u'real', u'minimum>': '0.0'}
 
         Args:
             value (float): value for IDD Field `Infrared Hemispherical Emissivity`
@@ -7757,10 +7441,8 @@ class WindowMaterialGlazingRefractionExtinctionMethod(object):
         return self._data["Conductivity"]
 
     @conductivity.setter
-    def conductivity(self, value=0.9 ):
+    def conductivity(self, value=0.9):
         """  Corresponds to IDD Field `Conductivity`
-        
-        {u'units': u'W/m-K', u'default': '0.9', u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Conductivity`
@@ -7794,10 +7476,8 @@ class WindowMaterialGlazingRefractionExtinctionMethod(object):
         return self._data["Dirt Correction Factor for Solar and Visible Transmittance"]
 
     @dirt_correction_factor_for_solar_and_visible_transmittance.setter
-    def dirt_correction_factor_for_solar_and_visible_transmittance(self, value=1.0 ):
+    def dirt_correction_factor_for_solar_and_visible_transmittance(self, value=1.0):
         """  Corresponds to IDD Field `Dirt Correction Factor for Solar and Visible Transmittance`
-        
-        {u'default': '1.0', u'minimum>': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Dirt Correction Factor for Solar and Visible Transmittance`
@@ -7836,8 +7516,6 @@ class WindowMaterialGlazingRefractionExtinctionMethod(object):
     @solar_diffusing.setter
     def solar_diffusing(self, value="No"):
         """  Corresponds to IDD Field `Solar Diffusing`
-        
-        {u'default': u'No', u'type': u'choice', u'key': [u'No', u'Yes'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Solar Diffusing`
@@ -8064,8 +7742,6 @@ class WindowMaterialGas(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'reference': u'WindowGasAndGasMixtures', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -8101,8 +7777,6 @@ class WindowMaterialGas(object):
     @gas_type.setter
     def gas_type(self, value=None):
         """  Corresponds to IDD Field `Gas Type`
-        
-        {u'type': u'choice', u'key': [u'Air', u'Argon', u'Krypton', u'Xenon', u'Custom'], u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Gas Type`
@@ -8164,8 +7838,6 @@ class WindowMaterialGas(object):
     @thickness.setter
     def thickness(self, value=None):
         """  Corresponds to IDD Field `Thickness`
-        
-        {'pytype': 'float', u'minimum>': '0.0', u'required-field': True, u'ip-units': u'in', u'units': u'm', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Thickness`
@@ -8202,8 +7874,6 @@ class WindowMaterialGas(object):
     def conductivity_coefficient_a(self, value=None):
         """  Corresponds to IDD Field `Conductivity Coefficient A`
         Used only if Gas Type = Custom
-        
-        {u'units': u'W/m-K', u'note': [u'Used only if Gas Type = Custom'], u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Conductivity Coefficient A`
@@ -8235,8 +7905,6 @@ class WindowMaterialGas(object):
     def conductivity_coefficient_b(self, value=None):
         """  Corresponds to IDD Field `Conductivity Coefficient B`
         Used only if Gas Type = Custom
-        
-        {u'units': u'W/m-K2', u'note': [u'Used only if Gas Type = Custom'], u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Conductivity Coefficient B`
@@ -8268,8 +7936,6 @@ class WindowMaterialGas(object):
     def conductivity_coefficient_c(self, value=None):
         """  Corresponds to IDD Field `Conductivity Coefficient C`
         Used only if Gas Type = Custom
-        
-        {u'units': u'W/m-K3', u'note': [u'Used only if Gas Type = Custom'], u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Conductivity Coefficient C`
@@ -8301,8 +7967,6 @@ class WindowMaterialGas(object):
     def viscosity_coefficient_a(self, value=None):
         """  Corresponds to IDD Field `Viscosity Coefficient A`
         Used only if Gas Type = Custom
-        
-        {u'units': u'kg/m-s', u'note': [u'Used only if Gas Type = Custom'], u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Viscosity Coefficient A`
@@ -8338,8 +8002,6 @@ class WindowMaterialGas(object):
     def viscosity_coefficient_b(self, value=None):
         """  Corresponds to IDD Field `Viscosity Coefficient B`
         Used only if Gas Type = Custom
-        
-        {u'units': u'kg/m-s-K', u'note': [u'Used only if Gas Type = Custom'], u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Viscosity Coefficient B`
@@ -8371,8 +8033,6 @@ class WindowMaterialGas(object):
     def viscosity_coefficient_c(self, value=None):
         """  Corresponds to IDD Field `Viscosity Coefficient C`
         Used only if Gas Type = Custom
-        
-        {u'units': u'kg/m-s-K2', u'note': [u'Used only if Gas Type = Custom'], u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Viscosity Coefficient C`
@@ -8404,8 +8064,6 @@ class WindowMaterialGas(object):
     def specific_heat_coefficient_a(self, value=None):
         """  Corresponds to IDD Field `Specific Heat Coefficient A`
         Used only if Gas Type = Custom
-        
-        {u'units': u'J/kg-K', u'note': [u'Used only if Gas Type = Custom'], u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Specific Heat Coefficient A`
@@ -8441,8 +8099,6 @@ class WindowMaterialGas(object):
     def specific_heat_coefficient_b(self, value=None):
         """  Corresponds to IDD Field `Specific Heat Coefficient B`
         Used only if Gas Type = Custom
-        
-        {u'units': u'J/kg-K2', u'note': [u'Used only if Gas Type = Custom'], u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Specific Heat Coefficient B`
@@ -8474,8 +8130,6 @@ class WindowMaterialGas(object):
     def specific_heat_coefficient_c(self, value=None):
         """  Corresponds to IDD Field `Specific Heat Coefficient C`
         Used only if Gas Type = Custom
-        
-        {u'units': u'J/kg-K3', u'note': [u'Used only if Gas Type = Custom'], u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Specific Heat Coefficient C`
@@ -8507,8 +8161,6 @@ class WindowMaterialGas(object):
     def molecular_weight(self, value=None):
         """  Corresponds to IDD Field `Molecular Weight`
         Used only if Gas Type = Custom
-        
-        {'pytype': 'float', u'maximum': '200.0', u'note': [u'Used only if Gas Type = Custom'], u'minimum': '20.0', u'units': u'g/mol', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Molecular Weight`
@@ -8548,8 +8200,6 @@ class WindowMaterialGas(object):
     def specific_heat_ratio(self, value=None):
         """  Corresponds to IDD Field `Specific Heat Ratio`
         Used only if Gas Type = Custom
-        
-        {u'note': [u'Used only if Gas Type = Custom'], u'minimum>1.0': u'', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Specific Heat Ratio`
@@ -8661,8 +8311,6 @@ class WindowGapSupportPillar(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'reference': u'WindowGapSupportPillars', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -8696,10 +8344,8 @@ class WindowGapSupportPillar(object):
         return self._data["Spacing"]
 
     @spacing.setter
-    def spacing(self, value=0.04 ):
+    def spacing(self, value=0.04):
         """  Corresponds to IDD Field `Spacing`
-        
-        {u'units': u'm', u'default': '0.04', u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Spacing`
@@ -8733,10 +8379,8 @@ class WindowGapSupportPillar(object):
         return self._data["Radius"]
 
     @radius.setter
-    def radius(self, value=0.0004 ):
+    def radius(self, value=0.0004):
         """  Corresponds to IDD Field `Radius`
-        
-        {u'units': u'm', u'default': '0.0004', u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Radius`
@@ -8864,8 +8508,6 @@ class WindowGapDeflectionState(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'reference': u'WindowGapDeflectionStates', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -8899,11 +8541,9 @@ class WindowGapDeflectionState(object):
         return self._data["Deflected Thickness"]
 
     @deflected_thickness.setter
-    def deflected_thickness(self, value=0.0 ):
+    def deflected_thickness(self, value=0.0):
         """  Corresponds to IDD Field `Deflected Thickness`
         If left blank will be considered that gap has no deflection.
-        
-        {'pytype': 'float', u'default': '0.0', u'note': [u'If left blank will be considered that gap has no deflection.'], u'minimum': '0.0', u'units': u'm', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Deflected Thickness`
@@ -8937,10 +8577,8 @@ class WindowGapDeflectionState(object):
         return self._data["Initial Temperature"]
 
     @initial_temperature.setter
-    def initial_temperature(self, value=25.0 ):
+    def initial_temperature(self, value=25.0):
         """  Corresponds to IDD Field `Initial Temperature`
-        
-        {u'units': u'C', u'default': '25.0', u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Initial Temperature`
@@ -8974,10 +8612,8 @@ class WindowGapDeflectionState(object):
         return self._data["Initial Pressure"]
 
     @initial_pressure.setter
-    def initial_pressure(self, value=101325.0 ):
+    def initial_pressure(self, value=101325.0):
         """  Corresponds to IDD Field `Initial Pressure`
-        
-        {u'units': u'Pa', u'default': '101325.0', u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Initial Pressure`
@@ -9159,8 +8795,6 @@ class WindowMaterialGasMixture(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'reference': u'WindowGasAndGasMixtures', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -9196,8 +8830,6 @@ class WindowMaterialGasMixture(object):
     @thickness.setter
     def thickness(self, value=None):
         """  Corresponds to IDD Field `Thickness`
-        
-        {u'units': u'm', u'minimum>': '0.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Thickness`
@@ -9232,8 +8864,6 @@ class WindowMaterialGasMixture(object):
     @number_of_gases_in_mixture.setter
     def number_of_gases_in_mixture(self, value=None):
         """  Corresponds to IDD Field `Number of Gases in Mixture`
-        
-        {u'minimum': '1', u'type': u'integer', u'maximum': '4', u'required-field': True, 'pytype': 'int'}
 
         Args:
             value (int): value for IDD Field `Number of Gases in Mixture`
@@ -9271,8 +8901,6 @@ class WindowMaterialGasMixture(object):
     @gas_1_type.setter
     def gas_1_type(self, value=None):
         """  Corresponds to IDD Field `Gas 1 Type`
-        
-        {u'type': u'choice', u'key': [u'Air', u'Argon', u'Krypton', u'Xenon'], u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Gas 1 Type`
@@ -9332,8 +8960,6 @@ class WindowMaterialGasMixture(object):
     @gas_1_fraction.setter
     def gas_1_fraction(self, value=None):
         """  Corresponds to IDD Field `Gas 1 Fraction`
-        
-        {u'minimum>': '0.0', u'type': u'real', u'maximum': '1.0', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Gas 1 Fraction`
@@ -9371,8 +8997,6 @@ class WindowMaterialGasMixture(object):
     @gas_2_type.setter
     def gas_2_type(self, value=None):
         """  Corresponds to IDD Field `Gas 2 Type`
-        
-        {u'type': u'choice', u'key': [u'Air', u'Argon', u'Krypton', u'Xenon'], u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Gas 2 Type`
@@ -9432,8 +9056,6 @@ class WindowMaterialGasMixture(object):
     @gas_2_fraction.setter
     def gas_2_fraction(self, value=None):
         """  Corresponds to IDD Field `Gas 2 Fraction`
-        
-        {u'minimum>': '0.0', u'type': u'real', u'maximum': '1.0', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Gas 2 Fraction`
@@ -9471,8 +9093,6 @@ class WindowMaterialGasMixture(object):
     @gas_3_type.setter
     def gas_3_type(self, value=None):
         """  Corresponds to IDD Field `Gas 3 Type`
-        
-        {u'type': u'choice', u'key': [u'Air', u'Argon', u'Krypton', u'Xenon'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Gas 3 Type`
@@ -9532,8 +9152,6 @@ class WindowMaterialGasMixture(object):
     @gas_3_fraction.setter
     def gas_3_fraction(self, value=None):
         """  Corresponds to IDD Field `Gas 3 Fraction`
-        
-        {u'minimum>': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Gas 3 Fraction`
@@ -9571,8 +9189,6 @@ class WindowMaterialGasMixture(object):
     @gas_4_type.setter
     def gas_4_type(self, value=None):
         """  Corresponds to IDD Field `Gas 4 Type`
-        
-        {u'type': u'choice', u'key': [u'Air', u'Argon', u'Krypton', u'Xenon'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Gas 4 Type`
@@ -9632,8 +9248,6 @@ class WindowMaterialGasMixture(object):
     @gas_4_fraction.setter
     def gas_4_fraction(self, value=None):
         """  Corresponds to IDD Field `Gas 4 Fraction`
-        
-        {u'minimum>': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Gas 4 Fraction`
@@ -9780,8 +9394,6 @@ class WindowMaterialGap(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'reference': u'CFSGap', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -9817,8 +9429,6 @@ class WindowMaterialGap(object):
     @thickness.setter
     def thickness(self, value=None):
         """  Corresponds to IDD Field `Thickness`
-        
-        {u'units': u'm', 'pytype': 'float', u'type': u'real', u'required-field': True, u'minimum>0': u''}
 
         Args:
             value (float): value for IDD Field `Thickness`
@@ -9851,8 +9461,6 @@ class WindowMaterialGap(object):
         """  Corresponds to IDD Field `Gas (or Gas Mixture)`
         This field should reference only WindowMaterial:Gas
         or WindowMaterial:GasMixture objects
-        
-        {u'note': [u'This field should reference only WindowMaterial:Gas', u'or WindowMaterial:GasMixture objects'], u'type': u'object-list', u'object-list': u'WindowGasAndGasMixtures', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Gas (or Gas Mixture)`
@@ -9886,10 +9494,8 @@ class WindowMaterialGap(object):
         return self._data["Pressure"]
 
     @pressure.setter
-    def pressure(self, value=101325.0 ):
+    def pressure(self, value=101325.0):
         """  Corresponds to IDD Field `Pressure`
-        
-        {u'units': u'Pa', u'default': '101325.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Pressure`
@@ -9922,8 +9528,6 @@ class WindowMaterialGap(object):
     def deflection_state(self, value=None):
         """  Corresponds to IDD Field `Deflection State`
         If left blank, it will be considered that gap is not deflected
-        
-        {u'note': [u'If left blank, it will be considered that gap is not deflected'], u'type': u'object-list', u'object-list': u'WindowGapDeflectionStates', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Deflection State`
@@ -9961,8 +9565,6 @@ class WindowMaterialGap(object):
         """  Corresponds to IDD Field `Support Pillar`
         If left blank, it will be considered that gap does not have
         support pillars
-        
-        {u'note': [u'If left blank, it will be considered that gap does not have', u'support pillars'], u'type': u'object-list', u'object-list': u'WindowGapSupportPillars', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Support Pillar`
@@ -10179,8 +9781,6 @@ class WindowMaterialShade(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'reference': u'WindowShadesScreensAndBlinds', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -10217,8 +9817,6 @@ class WindowMaterialShade(object):
     def solar_transmittance(self, value=None):
         """  Corresponds to IDD Field `Solar Transmittance`
         Assumed independent of incidence angle
-        
-        {'pytype': 'float', u'maximum<': '1.0', u'required-field': True, u'note': [u'Assumed independent of incidence angle'], u'minimum': '0.0', u'units': u'dimensionless', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Solar Transmittance`
@@ -10259,8 +9857,6 @@ class WindowMaterialShade(object):
         """  Corresponds to IDD Field `Solar Reflectance`
         Assumed same for both sides
         Assumed independent of incidence angle
-        
-        {'pytype': 'float', u'maximum<': '1.0', u'required-field': True, u'note': [u'Assumed same for both sides', u'Assumed independent of incidence angle'], u'minimum': '0.0', u'units': u'dimensionless', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Solar Reflectance`
@@ -10300,8 +9896,6 @@ class WindowMaterialShade(object):
     def visible_transmittance(self, value=None):
         """  Corresponds to IDD Field `Visible Transmittance`
         Assumed independent of incidence angle
-        
-        {'pytype': 'float', u'maximum<': '1.0', u'required-field': True, u'note': [u'Assumed independent of incidence angle'], u'minimum': '0.0', u'units': u'dimensionless', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Visible Transmittance`
@@ -10342,8 +9936,6 @@ class WindowMaterialShade(object):
         """  Corresponds to IDD Field `Visible Reflectance`
         Assumed same for both sides
         Assumed independent of incidence angle
-        
-        {'pytype': 'float', u'maximum<': '1.0', u'required-field': True, u'note': [u'Assumed same for both sides', u'Assumed independent of incidence angle'], u'minimum': '0.0', u'units': u'dimensionless', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Visible Reflectance`
@@ -10382,8 +9974,6 @@ class WindowMaterialShade(object):
     @infrared_hemispherical_emissivity.setter
     def infrared_hemispherical_emissivity(self, value=None):
         """  Corresponds to IDD Field `Infrared Hemispherical Emissivity`
-        
-        {'pytype': 'float', u'maximum<': '1.0', u'required-field': True, u'units': u'dimensionless', u'type': u'real', u'minimum>': '0.0'}
 
         Args:
             value (float): value for IDD Field `Infrared Hemispherical Emissivity`
@@ -10422,8 +10012,6 @@ class WindowMaterialShade(object):
     @infrared_transmittance.setter
     def infrared_transmittance(self, value=None):
         """  Corresponds to IDD Field `Infrared Transmittance`
-        
-        {'pytype': 'float', u'maximum<': '1.0', u'required-field': True, u'minimum': '0.0', u'units': u'dimensionless', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Infrared Transmittance`
@@ -10462,8 +10050,6 @@ class WindowMaterialShade(object):
     @thickness.setter
     def thickness(self, value=None):
         """  Corresponds to IDD Field `Thickness`
-        
-        {'pytype': 'float', u'minimum>': '0.0', u'required-field': True, u'ip-units': u'in', u'units': u'm', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Thickness`
@@ -10499,8 +10085,6 @@ class WindowMaterialShade(object):
     @conductivity.setter
     def conductivity(self, value=None):
         """  Corresponds to IDD Field `Conductivity`
-        
-        {u'units': u'W/m-K', u'minimum>': '0.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Conductivity`
@@ -10533,10 +10117,8 @@ class WindowMaterialShade(object):
         return self._data["Shade to Glass Distance"]
 
     @shade_to_glass_distance.setter
-    def shade_to_glass_distance(self, value=0.05 ):
+    def shade_to_glass_distance(self, value=0.05):
         """  Corresponds to IDD Field `Shade to Glass Distance`
-        
-        {'pytype': 'float', u'default': '0.05', u'maximum': '1.0', u'ip-units': u'in', u'minimum': '0.001', u'units': u'm', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Shade to Glass Distance`
@@ -10575,10 +10157,8 @@ class WindowMaterialShade(object):
         return self._data["Top Opening Multiplier"]
 
     @top_opening_multiplier.setter
-    def top_opening_multiplier(self, value=0.5 ):
+    def top_opening_multiplier(self, value=0.5):
         """  Corresponds to IDD Field `Top Opening Multiplier`
-        
-        {u'default': '0.5', u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Top Opening Multiplier`
@@ -10615,10 +10195,8 @@ class WindowMaterialShade(object):
         return self._data["Bottom Opening Multiplier"]
 
     @bottom_opening_multiplier.setter
-    def bottom_opening_multiplier(self, value=0.5 ):
+    def bottom_opening_multiplier(self, value=0.5):
         """  Corresponds to IDD Field `Bottom Opening Multiplier`
-        
-        {u'default': '0.5', u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Bottom Opening Multiplier`
@@ -10655,10 +10233,8 @@ class WindowMaterialShade(object):
         return self._data["Left-Side Opening Multiplier"]
 
     @leftside_opening_multiplier.setter
-    def leftside_opening_multiplier(self, value=0.5 ):
+    def leftside_opening_multiplier(self, value=0.5):
         """  Corresponds to IDD Field `Left-Side Opening Multiplier`
-        
-        {u'default': '0.5', u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Left-Side Opening Multiplier`
@@ -10695,10 +10271,8 @@ class WindowMaterialShade(object):
         return self._data["Right-Side Opening Multiplier"]
 
     @rightside_opening_multiplier.setter
-    def rightside_opening_multiplier(self, value=0.5 ):
+    def rightside_opening_multiplier(self, value=0.5):
         """  Corresponds to IDD Field `Right-Side Opening Multiplier`
-        
-        {u'default': '0.5', u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Right-Side Opening Multiplier`
@@ -10735,10 +10309,8 @@ class WindowMaterialShade(object):
         return self._data["Airflow Permeability"]
 
     @airflow_permeability.setter
-    def airflow_permeability(self, value=0.0 ):
+    def airflow_permeability(self, value=0.0):
         """  Corresponds to IDD Field `Airflow Permeability`
-        
-        {'pytype': 'float', u'default': '0.0', u'maximum': '0.8', u'minimum': '0.0', u'units': u'dimensionless', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Airflow Permeability`
@@ -10980,8 +10552,6 @@ class WindowMaterialComplexShade(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'reference': u'WindowComplexShades', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -11017,8 +10587,6 @@ class WindowMaterialComplexShade(object):
     @layer_type.setter
     def layer_type(self, value="OtherShadingType"):
         """  Corresponds to IDD Field `Layer Type`
-        
-        {u'default': u'OtherShadingType', u'type': u'choice', u'key': [u'Venetian', u'Woven', u'Perforated', u'BSDF', u'OtherShadingType'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Layer Type`
@@ -11079,10 +10647,8 @@ class WindowMaterialComplexShade(object):
         return self._data["Thickness"]
 
     @thickness.setter
-    def thickness(self, value=0.002 ):
+    def thickness(self, value=0.002):
         """  Corresponds to IDD Field `Thickness`
-        
-        {u'units': u'm', u'default': '0.002', u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Thickness`
@@ -11116,10 +10682,8 @@ class WindowMaterialComplexShade(object):
         return self._data["Conductivity"]
 
     @conductivity.setter
-    def conductivity(self, value=1.0 ):
+    def conductivity(self, value=1.0):
         """  Corresponds to IDD Field `Conductivity`
-        
-        {u'units': u'W/m-K', u'default': '1.0', u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Conductivity`
@@ -11153,10 +10717,8 @@ class WindowMaterialComplexShade(object):
         return self._data["IR Transmittance"]
 
     @ir_transmittance.setter
-    def ir_transmittance(self, value=0.0 ):
+    def ir_transmittance(self, value=0.0):
         """  Corresponds to IDD Field `IR Transmittance`
-        
-        {u'default': '0.0', u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `IR Transmittance`
@@ -11193,10 +10755,8 @@ class WindowMaterialComplexShade(object):
         return self._data["Front Emissivity"]
 
     @front_emissivity.setter
-    def front_emissivity(self, value=0.84 ):
+    def front_emissivity(self, value=0.84):
         """  Corresponds to IDD Field `Front Emissivity`
-        
-        {u'default': '0.84', u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Front Emissivity`
@@ -11233,10 +10793,8 @@ class WindowMaterialComplexShade(object):
         return self._data["Back Emissivity"]
 
     @back_emissivity.setter
-    def back_emissivity(self, value=0.84 ):
+    def back_emissivity(self, value=0.84):
         """  Corresponds to IDD Field `Back Emissivity`
-        
-        {u'default': '0.84', u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Back Emissivity`
@@ -11273,10 +10831,8 @@ class WindowMaterialComplexShade(object):
         return self._data["Top Opening Multiplier"]
 
     @top_opening_multiplier.setter
-    def top_opening_multiplier(self, value=0.0 ):
+    def top_opening_multiplier(self, value=0.0):
         """  Corresponds to IDD Field `Top Opening Multiplier`
-        
-        {u'default': '0.0', u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Top Opening Multiplier`
@@ -11313,10 +10869,8 @@ class WindowMaterialComplexShade(object):
         return self._data["Bottom Opening Multiplier"]
 
     @bottom_opening_multiplier.setter
-    def bottom_opening_multiplier(self, value=0.0 ):
+    def bottom_opening_multiplier(self, value=0.0):
         """  Corresponds to IDD Field `Bottom Opening Multiplier`
-        
-        {u'default': '0.0', u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Bottom Opening Multiplier`
@@ -11353,10 +10907,8 @@ class WindowMaterialComplexShade(object):
         return self._data["Left Side Opening Multiplier"]
 
     @left_side_opening_multiplier.setter
-    def left_side_opening_multiplier(self, value=0.0 ):
+    def left_side_opening_multiplier(self, value=0.0):
         """  Corresponds to IDD Field `Left Side Opening Multiplier`
-        
-        {u'default': '0.0', u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Left Side Opening Multiplier`
@@ -11393,10 +10945,8 @@ class WindowMaterialComplexShade(object):
         return self._data["Right Side Opening Multiplier"]
 
     @right_side_opening_multiplier.setter
-    def right_side_opening_multiplier(self, value=0.0 ):
+    def right_side_opening_multiplier(self, value=0.0):
         """  Corresponds to IDD Field `Right Side Opening Multiplier`
-        
-        {u'default': '0.0', u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Right Side Opening Multiplier`
@@ -11433,10 +10983,8 @@ class WindowMaterialComplexShade(object):
         return self._data["Front Opening Multiplier"]
 
     @front_opening_multiplier.setter
-    def front_opening_multiplier(self, value=0.05 ):
+    def front_opening_multiplier(self, value=0.05):
         """  Corresponds to IDD Field `Front Opening Multiplier`
-        
-        {u'default': '0.05', u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Front Opening Multiplier`
@@ -11473,10 +11021,8 @@ class WindowMaterialComplexShade(object):
         return self._data["Slat Width"]
 
     @slat_width.setter
-    def slat_width(self, value=0.016 ):
+    def slat_width(self, value=0.016):
         """  Corresponds to IDD Field `Slat Width`
-        
-        {u'units': u'm', u'default': '0.016', u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Slat Width`
@@ -11510,11 +11056,9 @@ class WindowMaterialComplexShade(object):
         return self._data["Slat Spacing"]
 
     @slat_spacing.setter
-    def slat_spacing(self, value=0.012 ):
+    def slat_spacing(self, value=0.012):
         """  Corresponds to IDD Field `Slat Spacing`
         Distance between adjacent slat faces
-        
-        {'pytype': 'float', u'default': '0.012', u'minimum>': '0.0', u'note': [u'Distance between adjacent slat faces'], u'units': u'm', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Slat Spacing`
@@ -11548,12 +11092,10 @@ class WindowMaterialComplexShade(object):
         return self._data["Slat Thickness"]
 
     @slat_thickness.setter
-    def slat_thickness(self, value=0.0006 ):
+    def slat_thickness(self, value=0.0006):
         """  Corresponds to IDD Field `Slat Thickness`
         Distance between top and bottom surfaces of slat
         Slat is assumed to be rectangular in cross section and flat
-        
-        {'pytype': 'float', u'default': '0.0006', u'minimum>': '0.0', u'note': [u'Distance between top and bottom surfaces of slat', u'Slat is assumed to be rectangular in cross section and flat'], u'units': u'm', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Slat Thickness`
@@ -11587,10 +11129,8 @@ class WindowMaterialComplexShade(object):
         return self._data["Slat Angle"]
 
     @slat_angle.setter
-    def slat_angle(self, value=90.0 ):
+    def slat_angle(self, value=90.0):
         """  Corresponds to IDD Field `Slat Angle`
-        
-        {'pytype': 'float', u'default': '90.0', u'maximum': '90.0', u'minimum': '-90.0', u'units': u'deg', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Slat Angle`
@@ -11628,10 +11168,8 @@ class WindowMaterialComplexShade(object):
         return self._data["Slat Conductivity"]
 
     @slat_conductivity.setter
-    def slat_conductivity(self, value=160.0 ):
+    def slat_conductivity(self, value=160.0):
         """  Corresponds to IDD Field `Slat Conductivity`
-        
-        {u'units': u'W/m-K', u'default': '160.0', u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Slat Conductivity`
@@ -11665,13 +11203,11 @@ class WindowMaterialComplexShade(object):
         return self._data["Slat Curve"]
 
     @slat_curve.setter
-    def slat_curve(self, value=0.0 ):
+    def slat_curve(self, value=0.0):
         """  Corresponds to IDD Field `Slat Curve`
         this value represents curvature radius of the slat.
         if the slat is flat use zero.
         if this value is not zero, then it must be > SlatWidth/2.
-        
-        {'pytype': 'float', u'default': '0.0', u'note': [u'this value represents curvature radius of the slat.', u'if the slat is flat use zero.', u'if this value is not zero, then it must be > SlatWidth/2.'], u'minimum': '0.0', u'units': u'm', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Slat Curve`
@@ -11997,8 +11533,6 @@ class WindowMaterialBlind(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'reference': u'WindowShadesScreensAndBlinds', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -12034,8 +11568,6 @@ class WindowMaterialBlind(object):
     @slat_orientation.setter
     def slat_orientation(self, value="Horizontal"):
         """  Corresponds to IDD Field `Slat Orientation`
-        
-        {u'default': u'Horizontal', u'type': u'choice', u'key': [u'Horizontal', u'Vertical'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Slat Orientation`
@@ -12092,8 +11624,6 @@ class WindowMaterialBlind(object):
     @slat_width.setter
     def slat_width(self, value=None):
         """  Corresponds to IDD Field `Slat Width`
-        
-        {'pytype': 'float', u'minimum>': '0.0', u'maximum': '1.0', u'required-field': True, u'ip-units': u'in', u'units': u'm', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Slat Width`
@@ -12134,8 +11664,6 @@ class WindowMaterialBlind(object):
     def slat_separation(self, value=None):
         """  Corresponds to IDD Field `Slat Separation`
         Distance between adjacent slat faces
-        
-        {'pytype': 'float', u'minimum>': '0.0', u'maximum': '1.0', u'required-field': True, u'note': [u'Distance between adjacent slat faces'], u'ip-units': u'in', u'units': u'm', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Slat Separation`
@@ -12173,12 +11701,10 @@ class WindowMaterialBlind(object):
         return self._data["Slat Thickness"]
 
     @slat_thickness.setter
-    def slat_thickness(self, value=0.00025 ):
+    def slat_thickness(self, value=0.00025):
         """  Corresponds to IDD Field `Slat Thickness`
         Distance between top and bottom surfaces of slat
         Slat is assumed to be rectangular in cross section and flat
-        
-        {'pytype': 'float', u'default': '0.00025', u'minimum>': '0.0', u'maximum': '0.1', u'note': [u'Distance between top and bottom surfaces of slat', u'Slat is assumed to be rectangular in cross section and flat'], u'ip-units': u'in', u'units': u'm', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Slat Thickness`
@@ -12217,7 +11743,7 @@ class WindowMaterialBlind(object):
         return self._data["Slat Angle"]
 
     @slat_angle.setter
-    def slat_angle(self, value=45.0 ):
+    def slat_angle(self, value=45.0):
         """  Corresponds to IDD Field `Slat Angle`
         If WindowProperty:ShadingControl for the window that incorporates this blind
         has Type of Slat Angle Control for Blinds = FixedSlatAngle,
@@ -12228,8 +11754,6 @@ class WindowMaterialBlind(object):
         is not in effect (e.g., when there is no beam solar on the blind);
         Not used if WindowProperty:ShadingControl for the window that incorporates this blind
         has Type of Slat Angle Control for Blinds = ScheduledSlatAngle.
-        
-        {'pytype': 'float', u'default': '45.0', u'maximum': '180.0', u'note': [u'If WindowProperty:ShadingControl for the window that incorporates this blind', u'has Type of Slat Angle Control for Blinds = FixedSlatAngle,', u'then this is the fixed value of the slat angle;', u'If WindowProperty:ShadingControl for the window that incorporates this blind', u'has Type of Slat Angle Control for Blinds = BlockBeamSolar,', u'then this is the slat angle when slat angle control', u'is not in effect (e.g., when there is no beam solar on the blind);', u'Not used if WindowProperty:ShadingControl for the window that incorporates this blind', u'has Type of Slat Angle Control for Blinds = ScheduledSlatAngle.'], u'minimum': '0.0', u'units': u'deg', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Slat Angle`
@@ -12267,11 +11791,9 @@ class WindowMaterialBlind(object):
         return self._data["Slat Conductivity"]
 
     @slat_conductivity.setter
-    def slat_conductivity(self, value=221.0 ):
+    def slat_conductivity(self, value=221.0):
         """  Corresponds to IDD Field `Slat Conductivity`
         default is for aluminum
-        
-        {'pytype': 'float', u'default': '221.0', u'minimum>': '0.0', u'note': [u'default is for aluminum'], u'units': u'W/m-K', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Slat Conductivity`
@@ -12305,10 +11827,8 @@ class WindowMaterialBlind(object):
         return self._data["Slat Beam Solar Transmittance"]
 
     @slat_beam_solar_transmittance.setter
-    def slat_beam_solar_transmittance(self, value=0.0 ):
+    def slat_beam_solar_transmittance(self, value=0.0):
         """  Corresponds to IDD Field `Slat Beam Solar Transmittance`
-        
-        {u'default': '0.0', u'maximum<': '1.0', u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Slat Beam Solar Transmittance`
@@ -12347,8 +11867,6 @@ class WindowMaterialBlind(object):
     @front_side_slat_beam_solar_reflectance.setter
     def front_side_slat_beam_solar_reflectance(self, value=None):
         """  Corresponds to IDD Field `Front Side Slat Beam Solar Reflectance`
-        
-        {u'maximum<': '1.0', u'minimum': '0.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Front Side Slat Beam Solar Reflectance`
@@ -12386,8 +11904,6 @@ class WindowMaterialBlind(object):
     @back_side_slat_beam_solar_reflectance.setter
     def back_side_slat_beam_solar_reflectance(self, value=None):
         """  Corresponds to IDD Field `Back Side Slat Beam Solar Reflectance`
-        
-        {u'maximum<': '1.0', u'minimum': '0.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Back Side Slat Beam Solar Reflectance`
@@ -12423,11 +11939,9 @@ class WindowMaterialBlind(object):
         return self._data["Slat Diffuse Solar Transmittance"]
 
     @slat_diffuse_solar_transmittance.setter
-    def slat_diffuse_solar_transmittance(self, value=0.0 ):
+    def slat_diffuse_solar_transmittance(self, value=0.0):
         """  Corresponds to IDD Field `Slat Diffuse Solar Transmittance`
         Must equal "Slat beam solar transmittance"
-        
-        {'pytype': 'float', u'default': '0.0', u'maximum<': '1.0', u'note': [u'Must equal "Slat beam solar transmittance"'], u'minimum': '0.0', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Slat Diffuse Solar Transmittance`
@@ -12467,8 +11981,6 @@ class WindowMaterialBlind(object):
     def front_side_slat_diffuse_solar_reflectance(self, value=None):
         """  Corresponds to IDD Field `Front Side Slat Diffuse Solar Reflectance`
         Must equal "Front Side Slat Beam Solar Reflectance"
-        
-        {'pytype': 'float', u'maximum<': '1.0', u'required-field': True, u'note': [u'Must equal "Front Side Slat Beam Solar Reflectance"'], u'minimum': '0.0', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Front Side Slat Diffuse Solar Reflectance`
@@ -12507,8 +12019,6 @@ class WindowMaterialBlind(object):
     def back_side_slat_diffuse_solar_reflectance(self, value=None):
         """  Corresponds to IDD Field `Back Side Slat Diffuse Solar Reflectance`
         Must equal "Back Side Slat Beam Solar Reflectance"
-        
-        {'pytype': 'float', u'maximum<': '1.0', u'required-field': True, u'note': [u'Must equal "Back Side Slat Beam Solar Reflectance"'], u'minimum': '0.0', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Back Side Slat Diffuse Solar Reflectance`
@@ -12547,8 +12057,6 @@ class WindowMaterialBlind(object):
     def slat_beam_visible_transmittance(self, value=None):
         """  Corresponds to IDD Field `Slat Beam Visible Transmittance`
         Required for detailed daylighting calculation
-        
-        {'pytype': 'float', u'maximum<': '1.0', u'required-field': True, u'note': [u'Required for detailed daylighting calculation'], u'minimum': '0.0', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Slat Beam Visible Transmittance`
@@ -12587,8 +12095,6 @@ class WindowMaterialBlind(object):
     def front_side_slat_beam_visible_reflectance(self, value=None):
         """  Corresponds to IDD Field `Front Side Slat Beam Visible Reflectance`
         Required for detailed daylighting calculation
-        
-        {u'note': [u'Required for detailed daylighting calculation'], u'maximum<': '1.0', u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Front Side Slat Beam Visible Reflectance`
@@ -12627,8 +12133,6 @@ class WindowMaterialBlind(object):
     def back_side_slat_beam_visible_reflectance(self, value=None):
         """  Corresponds to IDD Field `Back Side Slat Beam Visible Reflectance`
         Required for detailed daylighting calculation
-        
-        {u'note': [u'Required for detailed daylighting calculation'], u'maximum<': '1.0', u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Back Side Slat Beam Visible Reflectance`
@@ -12664,12 +12168,10 @@ class WindowMaterialBlind(object):
         return self._data["Slat Diffuse Visible Transmittance"]
 
     @slat_diffuse_visible_transmittance.setter
-    def slat_diffuse_visible_transmittance(self, value=0.0 ):
+    def slat_diffuse_visible_transmittance(self, value=0.0):
         """  Corresponds to IDD Field `Slat Diffuse Visible Transmittance`
         Used only for detailed daylighting calculation
         Must equal "Slat Beam Visible Transmittance"
-        
-        {'pytype': 'float', u'default': '0.0', u'maximum<': '1.0', u'note': [u'Used only for detailed daylighting calculation', u'Must equal "Slat Beam Visible Transmittance"'], u'minimum': '0.0', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Slat Diffuse Visible Transmittance`
@@ -12710,8 +12212,6 @@ class WindowMaterialBlind(object):
         """  Corresponds to IDD Field `Front Side Slat Diffuse Visible Reflectance`
         Required for detailed daylighting calculation
         Must equal "Front Side Slat Beam Visible Reflectance"
-        
-        {u'note': [u'Required for detailed daylighting calculation', u'Must equal "Front Side Slat Beam Visible Reflectance"'], u'maximum<': '1.0', u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Front Side Slat Diffuse Visible Reflectance`
@@ -12751,8 +12251,6 @@ class WindowMaterialBlind(object):
         """  Corresponds to IDD Field `Back Side Slat Diffuse Visible Reflectance`
         Required for detailed daylighting calculation
         Must equal "Back Side Slat Beam Visible Reflectance"
-        
-        {u'note': [u'Required for detailed daylighting calculation', u'Must equal "Back Side Slat Beam Visible Reflectance"'], u'maximum<': '1.0', u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Back Side Slat Diffuse Visible Reflectance`
@@ -12788,10 +12286,8 @@ class WindowMaterialBlind(object):
         return self._data["Slat Infrared Hemispherical Transmittance"]
 
     @slat_infrared_hemispherical_transmittance.setter
-    def slat_infrared_hemispherical_transmittance(self, value=0.0 ):
+    def slat_infrared_hemispherical_transmittance(self, value=0.0):
         """  Corresponds to IDD Field `Slat Infrared Hemispherical Transmittance`
-        
-        {u'default': '0.0', u'maximum<': '1.0', u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Slat Infrared Hemispherical Transmittance`
@@ -12828,10 +12324,8 @@ class WindowMaterialBlind(object):
         return self._data["Front Side Slat Infrared Hemispherical Emissivity"]
 
     @front_side_slat_infrared_hemispherical_emissivity.setter
-    def front_side_slat_infrared_hemispherical_emissivity(self, value=0.9 ):
+    def front_side_slat_infrared_hemispherical_emissivity(self, value=0.9):
         """  Corresponds to IDD Field `Front Side Slat Infrared Hemispherical Emissivity`
-        
-        {u'default': '0.9', u'maximum<': '1.0', u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Front Side Slat Infrared Hemispherical Emissivity`
@@ -12868,10 +12362,8 @@ class WindowMaterialBlind(object):
         return self._data["Back Side Slat Infrared Hemispherical Emissivity"]
 
     @back_side_slat_infrared_hemispherical_emissivity.setter
-    def back_side_slat_infrared_hemispherical_emissivity(self, value=0.9 ):
+    def back_side_slat_infrared_hemispherical_emissivity(self, value=0.9):
         """  Corresponds to IDD Field `Back Side Slat Infrared Hemispherical Emissivity`
-        
-        {u'default': '0.9', u'maximum<': '1.0', u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Back Side Slat Infrared Hemispherical Emissivity`
@@ -12908,10 +12400,8 @@ class WindowMaterialBlind(object):
         return self._data["Blind to Glass Distance"]
 
     @blind_to_glass_distance.setter
-    def blind_to_glass_distance(self, value=0.05 ):
+    def blind_to_glass_distance(self, value=0.05):
         """  Corresponds to IDD Field `Blind to Glass Distance`
-        
-        {'pytype': 'float', u'default': '0.05', u'maximum': '1.0', u'ip-units': u'in', u'minimum': '0.01', u'units': u'm', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Blind to Glass Distance`
@@ -12950,10 +12440,8 @@ class WindowMaterialBlind(object):
         return self._data["Blind Top Opening Multiplier"]
 
     @blind_top_opening_multiplier.setter
-    def blind_top_opening_multiplier(self, value=0.5 ):
+    def blind_top_opening_multiplier(self, value=0.5):
         """  Corresponds to IDD Field `Blind Top Opening Multiplier`
-        
-        {u'default': '0.5', u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Blind Top Opening Multiplier`
@@ -12990,10 +12478,8 @@ class WindowMaterialBlind(object):
         return self._data["Blind Bottom Opening Multiplier"]
 
     @blind_bottom_opening_multiplier.setter
-    def blind_bottom_opening_multiplier(self, value=0.0 ):
+    def blind_bottom_opening_multiplier(self, value=0.0):
         """  Corresponds to IDD Field `Blind Bottom Opening Multiplier`
-        
-        {u'default': '0.0', u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Blind Bottom Opening Multiplier`
@@ -13030,10 +12516,8 @@ class WindowMaterialBlind(object):
         return self._data["Blind Left Side Opening Multiplier"]
 
     @blind_left_side_opening_multiplier.setter
-    def blind_left_side_opening_multiplier(self, value=0.5 ):
+    def blind_left_side_opening_multiplier(self, value=0.5):
         """  Corresponds to IDD Field `Blind Left Side Opening Multiplier`
-        
-        {u'default': '0.5', u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Blind Left Side Opening Multiplier`
@@ -13070,10 +12554,8 @@ class WindowMaterialBlind(object):
         return self._data["Blind Right Side Opening Multiplier"]
 
     @blind_right_side_opening_multiplier.setter
-    def blind_right_side_opening_multiplier(self, value=0.5 ):
+    def blind_right_side_opening_multiplier(self, value=0.5):
         """  Corresponds to IDD Field `Blind Right Side Opening Multiplier`
-        
-        {u'default': '0.5', u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Blind Right Side Opening Multiplier`
@@ -13110,14 +12592,12 @@ class WindowMaterialBlind(object):
         return self._data["Minimum Slat Angle"]
 
     @minimum_slat_angle.setter
-    def minimum_slat_angle(self, value=0.0 ):
+    def minimum_slat_angle(self, value=0.0):
         """  Corresponds to IDD Field `Minimum Slat Angle`
         Used only if WindowProperty:ShadingControl for the window that incorporates
         this blind varies the slat angle (i.e., WindowProperty:ShadingControl with
         Type of Slat Angle Control for Blinds = ScheduledSlatAngle
         or BlockBeamSolar)
-        
-        {'pytype': 'float', u'default': '0.0', u'maximum': '180.0', u'note': [u'Used only if WindowProperty:ShadingControl for the window that incorporates', u'this blind varies the slat angle (i.e., WindowProperty:ShadingControl with', u'Type of Slat Angle Control for Blinds = ScheduledSlatAngle', u'or BlockBeamSolar)'], u'minimum': '0.0', u'units': u'deg', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Minimum Slat Angle`
@@ -13155,14 +12635,12 @@ class WindowMaterialBlind(object):
         return self._data["Maximum Slat Angle"]
 
     @maximum_slat_angle.setter
-    def maximum_slat_angle(self, value=180.0 ):
+    def maximum_slat_angle(self, value=180.0):
         """  Corresponds to IDD Field `Maximum Slat Angle`
         Used only if WindowProperty:ShadingControl for the window that incorporates
         this blind varies the slat angle (i.e., WindowProperty:ShadingControl with
         Type of Slat Angle Control for Blinds = ScheduledSlatAngle
         or BlockBeamSolar)
-        
-        {'pytype': 'float', u'default': '180.0', u'maximum': '180.0', u'note': [u'Used only if WindowProperty:ShadingControl for the window that incorporates', u'this blind varies the slat angle (i.e., WindowProperty:ShadingControl with', u'Type of Slat Angle Control for Blinds = ScheduledSlatAngle', u'or BlockBeamSolar)'], u'minimum': '0.0', u'units': u'deg', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Maximum Slat Angle`
@@ -13373,8 +12851,6 @@ class WindowMaterialScreen(object):
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
         Enter a unique name for this window screen material.
-        
-        {u'note': [u'Enter a unique name for this window screen material.'], u'type': u'alpha', u'reference': u'WindowShadesScreensAndBlinds', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -13411,8 +12887,6 @@ class WindowMaterialScreen(object):
     def reflected_beam_transmittance_accounting_method(self, value="ModelAsDiffuse"):
         """  Corresponds to IDD Field `Reflected Beam Transmittance Accounting Method`
         Select the method used to account for the beam solar reflected off the material surface.
-        
-        {u'note': [u'Select the method used to account for the beam solar reflected off the material surface.'], u'default': u'ModelAsDiffuse', u'type': u'choice', u'key': [u'DoNotModel', u'ModelAsDirectBeam', u'ModelAsDiffuse'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Reflected Beam Transmittance Accounting Method`
@@ -13473,8 +12947,6 @@ class WindowMaterialScreen(object):
         """  Corresponds to IDD Field `Diffuse Solar Reflectance`
         Diffuse reflectance of the screen material over the entire solar radiation spectrum.
         Assumed to be the same for both sides of the screen.
-        
-        {'pytype': 'float', u'maximum<': '1.0', u'required-field': True, u'note': [u'Diffuse reflectance of the screen material over the entire solar radiation spectrum.', u'Assumed to be the same for both sides of the screen.'], u'minimum': '0.0', u'units': u'dimensionless', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Diffuse Solar Reflectance`
@@ -13516,8 +12988,6 @@ class WindowMaterialScreen(object):
         Diffuse visible reflectance of the screen material averaged over the solar spectrum
         and weighted by the response of the human eye.
         Assumed to be the same for both sides of the screen.
-        
-        {'pytype': 'float', u'maximum<': '1.0', u'required-field': True, u'note': [u'Diffuse visible reflectance of the screen material averaged over the solar spectrum', u'and weighted by the response of the human eye.', u'Assumed to be the same for both sides of the screen.'], u'minimum': '0.0', u'units': u'dimensionless', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Diffuse Visible Reflectance`
@@ -13554,12 +13024,10 @@ class WindowMaterialScreen(object):
         return self._data["Thermal Hemispherical Emissivity"]
 
     @thermal_hemispherical_emissivity.setter
-    def thermal_hemispherical_emissivity(self, value=0.9 ):
+    def thermal_hemispherical_emissivity(self, value=0.9):
         """  Corresponds to IDD Field `Thermal Hemispherical Emissivity`
         Long-wave emissivity of the screen material.
         Assumed to be the same for both sides of the screen.
-        
-        {'pytype': 'float', u'default': '0.9', u'maximum<': '1.0', u'note': [u'Long-wave emissivity of the screen material.', u'Assumed to be the same for both sides of the screen.'], u'units': u'dimensionless', u'type': u'real', u'minimum>': '0.0'}
 
         Args:
             value (float): value for IDD Field `Thermal Hemispherical Emissivity`
@@ -13597,12 +13065,10 @@ class WindowMaterialScreen(object):
         return self._data["Conductivity"]
 
     @conductivity.setter
-    def conductivity(self, value=221.0 ):
+    def conductivity(self, value=221.0):
         """  Corresponds to IDD Field `Conductivity`
         Thermal conductivity of the screen material.
         Default is for aluminum.
-        
-        {'pytype': 'float', u'default': '221.0', u'minimum>': '0.0', u'note': [u'Thermal conductivity of the screen material.', u'Default is for aluminum.'], u'units': u'W/m-K', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Conductivity`
@@ -13639,8 +13105,6 @@ class WindowMaterialScreen(object):
     def screen_material_spacing(self, value=None):
         """  Corresponds to IDD Field `Screen Material Spacing`
         Spacing assumed to be the same in both directions.
-        
-        {'pytype': 'float', u'minimum>': '0.0', u'required-field': True, u'note': [u'Spacing assumed to be the same in both directions.'], u'ip-units': u'in', u'units': u'm', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Screen Material Spacing`
@@ -13677,8 +13141,6 @@ class WindowMaterialScreen(object):
     def screen_material_diameter(self, value=None):
         """  Corresponds to IDD Field `Screen Material Diameter`
         Diameter assumed to be the same in both directions.
-        
-        {'pytype': 'float', u'minimum>': '0.0', u'required-field': True, u'note': [u'Diameter assumed to be the same in both directions.'], u'ip-units': u'in', u'units': u'm', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Screen Material Diameter`
@@ -13712,11 +13174,9 @@ class WindowMaterialScreen(object):
         return self._data["Screen to Glass Distance"]
 
     @screen_to_glass_distance.setter
-    def screen_to_glass_distance(self, value=0.025 ):
+    def screen_to_glass_distance(self, value=0.025):
         """  Corresponds to IDD Field `Screen to Glass Distance`
         Distance from the window screen to the adjacent glass surface.
-        
-        {'pytype': 'float', u'default': '0.025', u'maximum': '1.0', u'note': [u'Distance from the window screen to the adjacent glass surface.'], u'ip-units': u'in', u'minimum': '0.001', u'units': u'm', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Screen to Glass Distance`
@@ -13755,12 +13215,10 @@ class WindowMaterialScreen(object):
         return self._data["Top Opening Multiplier"]
 
     @top_opening_multiplier.setter
-    def top_opening_multiplier(self, value=0.0 ):
+    def top_opening_multiplier(self, value=0.0):
         """  Corresponds to IDD Field `Top Opening Multiplier`
         Effective area for air flow at the top of the screen divided by the perpendicular
         area between the glass and the top of the screen.
-        
-        {'pytype': 'float', u'default': '0.0', u'maximum': '1.0', u'note': [u'Effective area for air flow at the top of the screen divided by the perpendicular', u'area between the glass and the top of the screen.'], u'minimum': '0.0', u'units': u'dimensionless', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Top Opening Multiplier`
@@ -13798,12 +13256,10 @@ class WindowMaterialScreen(object):
         return self._data["Bottom Opening Multiplier"]
 
     @bottom_opening_multiplier.setter
-    def bottom_opening_multiplier(self, value=0.0 ):
+    def bottom_opening_multiplier(self, value=0.0):
         """  Corresponds to IDD Field `Bottom Opening Multiplier`
         Effective area for air flow at the bottom of the screen divided by the perpendicular
         area between the glass and the bottom of the screen.
-        
-        {'pytype': 'float', u'default': '0.0', u'maximum': '1.0', u'note': [u'Effective area for air flow at the bottom of the screen divided by the perpendicular', u'area between the glass and the bottom of the screen.'], u'minimum': '0.0', u'units': u'dimensionless', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Bottom Opening Multiplier`
@@ -13841,12 +13297,10 @@ class WindowMaterialScreen(object):
         return self._data["Left Side Opening Multiplier"]
 
     @left_side_opening_multiplier.setter
-    def left_side_opening_multiplier(self, value=0.0 ):
+    def left_side_opening_multiplier(self, value=0.0):
         """  Corresponds to IDD Field `Left Side Opening Multiplier`
         Effective area for air flow at the left side of the screen divided by the perpendicular
         area between the glass and the left side of the screen.
-        
-        {'pytype': 'float', u'default': '0.0', u'maximum': '1.0', u'note': [u'Effective area for air flow at the left side of the screen divided by the perpendicular', u'area between the glass and the left side of the screen.'], u'minimum': '0.0', u'units': u'dimensionless', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Left Side Opening Multiplier`
@@ -13884,12 +13338,10 @@ class WindowMaterialScreen(object):
         return self._data["Right Side Opening Multiplier"]
 
     @right_side_opening_multiplier.setter
-    def right_side_opening_multiplier(self, value=0.0 ):
+    def right_side_opening_multiplier(self, value=0.0):
         """  Corresponds to IDD Field `Right Side Opening Multiplier`
         Effective area for air flow at the right side of the screen divided by the perpendicular
         area between the glass and the right side of the screen.
-        
-        {'pytype': 'float', u'default': '0.0', u'maximum': '1.0', u'note': [u'Effective area for air flow at the right side of the screen divided by the perpendicular', u'area between the glass and the right side of the screen.'], u'minimum': '0.0', u'units': u'dimensionless', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Right Side Opening Multiplier`
@@ -13932,8 +13384,6 @@ class WindowMaterialScreen(object):
         Select the resolution of azimuth and altitude angles for the screen transmittance map.
         A value of 0 means no transmittance map will be generated.
         Valid values for this field are 0, 1, 2, 3 and 5.
-        
-        {'pytype': 'str', u'default': u'0', u'note': [u'Select the resolution of azimuth and altitude angles for the screen transmittance map.', u'A value of 0 means no transmittance map will be generated.', u'Valid values for this field are 0, 1, 2, 3 and 5.'], u'key': [u'0', u'1', u'2', u'3', u'5'], u'units': u'deg', u'type': u'choice'}
 
         Args:
             value (str): value for IDD Field `Angle of Resolution for Screen Transmittance Output Map`
@@ -14154,8 +13604,6 @@ class WindowMaterialShadeEquivalentLayer(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'reference': u'WindowEquivalentLayerMaterialNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -14189,13 +13637,11 @@ class WindowMaterialShadeEquivalentLayer(object):
         return self._data["Shade Beam-Beam Solar Transmittance"]
 
     @shade_beambeam_solar_transmittance.setter
-    def shade_beambeam_solar_transmittance(self, value=0.0 ):
+    def shade_beambeam_solar_transmittance(self, value=0.0):
         """  Corresponds to IDD Field `Shade Beam-Beam Solar Transmittance`
         The beam-beam solar transmittance at normal incidence.  This value is
         the same as the openness area fraction of the shade material. Assumed
         to be the same for front and back sides.
-        
-        {'pytype': 'float', u'default': '0.0', u'maximum': '0.8', u'note': [u'The beam-beam solar transmittance at normal incidence.  This value is', u'the same as the openness area fraction of the shade material. Assumed', u'to be the same for front and back sides.'], u'minimum': '0.0', u'units': u'dimensionless', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Shade Beam-Beam Solar Transmittance`
@@ -14237,8 +13683,6 @@ class WindowMaterialShadeEquivalentLayer(object):
         """  Corresponds to IDD Field `Front Side Shade Beam-Diffuse Solar Transmittance`
         The front side beam-diffuse solar transmittance at normal incidence averaged
         over the entire spectrum of solar radiation.
-        
-        {'pytype': 'float', u'maximum<': '1.0', u'required-field': True, u'note': [u'The front side beam-diffuse solar transmittance at normal incidence averaged', u'over the entire spectrum of solar radiation.'], u'minimum': '0.0', u'units': u'dimensionless', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Front Side Shade Beam-Diffuse Solar Transmittance`
@@ -14279,8 +13723,6 @@ class WindowMaterialShadeEquivalentLayer(object):
         """  Corresponds to IDD Field `Back Side Shade Beam-Diffuse Solar Transmittance`
         The back side beam-diffuse solar transmittance at normal incidence averaged
         over the entire spectrum of solar radiation.
-        
-        {'pytype': 'float', u'maximum<': '1.0', u'required-field': True, u'note': [u'The back side beam-diffuse solar transmittance at normal incidence averaged', u'over the entire spectrum of solar radiation.'], u'minimum': '0.0', u'units': u'dimensionless', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Back Side Shade Beam-Diffuse Solar Transmittance`
@@ -14321,8 +13763,6 @@ class WindowMaterialShadeEquivalentLayer(object):
         """  Corresponds to IDD Field `Front Side Shade Beam-Diffuse Solar Reflectance`
         The front side beam-diffuse solar reflectance at normal incidence averaged
         over the entire spectrum of solar radiation.
-        
-        {'pytype': 'float', u'maximum<': '1.0', u'required-field': True, u'note': [u'The front side beam-diffuse solar reflectance at normal incidence averaged', u'over the entire spectrum of solar radiation.'], u'minimum': '0.0', u'units': u'dimensionless', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Front Side Shade Beam-Diffuse Solar Reflectance`
@@ -14363,8 +13803,6 @@ class WindowMaterialShadeEquivalentLayer(object):
         """  Corresponds to IDD Field `Back Side Shade Beam-Diffuse Solar Reflectance`
         The back side beam-diffuse solar reflectance at normal incidence averaged
         over the entire spectrum of solar radiation.
-        
-        {'pytype': 'float', u'maximum<': '1.0', u'required-field': True, u'note': [u'The back side beam-diffuse solar reflectance at normal incidence averaged', u'over the entire spectrum of solar radiation.'], u'minimum': '0.0', u'units': u'dimensionless', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Back Side Shade Beam-Diffuse Solar Reflectance`
@@ -14406,8 +13844,6 @@ class WindowMaterialShadeEquivalentLayer(object):
         The beam-beam visible transmittance at nromal incidence averaged over the
         visible spectrum range of solar radiation. Assumed to be the same for
         front and back sides of the shade.
-        
-        {'pytype': 'float', u'maximum<': '1.0', u'note': [u'The beam-beam visible transmittance at nromal incidence averaged over the', u'visible spectrum range of solar radiation. Assumed to be the same for', u'front and back sides of the shade.'], u'minimum': '0.0', u'units': u'dimensionless', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Shade Beam-Beam Visible Transmittance at Normal Incidence`
@@ -14449,8 +13885,6 @@ class WindowMaterialShadeEquivalentLayer(object):
         The beam-diffuse visible transmittance at nromal incidence averaged over the
         visible spectrum range of solar radiation. Assumed to be the same for
         front and back sides of the shade.
-        
-        {'pytype': 'float', u'maximum<': '1.0', u'note': [u'The beam-diffuse visible transmittance at nromal incidence averaged over the', u'visible spectrum range of solar radiation. Assumed to be the same for', u'front and back sides of the shade.'], u'minimum': '0.0', u'units': u'dimensionless', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Shade Beam-Diffuse Visible Transmittance at Normal Incidence`
@@ -14492,8 +13926,6 @@ class WindowMaterialShadeEquivalentLayer(object):
         The beam-diffuse visible reflectance at nromal incidence averaged over the
         visible spectrum range of solar radiation. Assumed to be the same for
         front and back sides of the shade.
-        
-        {'pytype': 'float', u'maximum<': '1.0', u'note': [u'The beam-diffuse visible reflectance at nromal incidence averaged over the', u'visible spectrum range of solar radiation. Assumed to be the same for', u'front and back sides of the shade.'], u'minimum': '0.0', u'units': u'dimensionless', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Shade Beam-Diffuse Visible Reflectance at Normal Incidence`
@@ -14530,12 +13962,10 @@ class WindowMaterialShadeEquivalentLayer(object):
         return self._data["Shade Material Infrared Transmittance"]
 
     @shade_material_infrared_transmittance.setter
-    def shade_material_infrared_transmittance(self, value=0.05 ):
+    def shade_material_infrared_transmittance(self, value=0.05):
         """  Corresponds to IDD Field `Shade Material Infrared Transmittance`
         The long-wave transmittance of the shade material at zero shade openness.
         Assumed to be the same for front and back sides of the shade.
-        
-        {'pytype': 'float', u'default': '0.05', u'maximum<': '1.0', u'note': [u'The long-wave transmittance of the shade material at zero shade openness.', u'Assumed to be the same for front and back sides of the shade.'], u'minimum': '0.0', u'units': u'dimensionless', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Shade Material Infrared Transmittance`
@@ -14573,13 +14003,11 @@ class WindowMaterialShadeEquivalentLayer(object):
         return self._data["Front Side Shade Material Infrared Emissivity"]
 
     @front_side_shade_material_infrared_emissivity.setter
-    def front_side_shade_material_infrared_emissivity(self, value=0.91 ):
+    def front_side_shade_material_infrared_emissivity(self, value=0.91):
         """  Corresponds to IDD Field `Front Side Shade Material Infrared Emissivity`
         The front side long-wave emissivity of the shade material at zero shade
         openness. Openness fraction is used to calculate the effective emissivity
         value.
-        
-        {'pytype': 'float', u'default': '0.91', u'maximum<': '1.0', u'note': [u'The front side long-wave emissivity of the shade material at zero shade', u'openness. Openness fraction is used to calculate the effective emissivity', u'value.'], u'units': u'dimensionless', u'type': u'real', u'minimum>': '0.0'}
 
         Args:
             value (float): value for IDD Field `Front Side Shade Material Infrared Emissivity`
@@ -14617,13 +14045,11 @@ class WindowMaterialShadeEquivalentLayer(object):
         return self._data["Back Side Shade Material Infrared Emissivity"]
 
     @back_side_shade_material_infrared_emissivity.setter
-    def back_side_shade_material_infrared_emissivity(self, value=0.91 ):
+    def back_side_shade_material_infrared_emissivity(self, value=0.91):
         """  Corresponds to IDD Field `Back Side Shade Material Infrared Emissivity`
         The back side long-wave emissivity of the shade material at zero shade
         openness. Openness fraction is used to calculate the effective emissivity
         value.
-        
-        {'pytype': 'float', u'default': '0.91', u'maximum<': '1.0', u'note': [u'The back side long-wave emissivity of the shade material at zero shade', u'openness. Openness fraction is used to calculate the effective emissivity', u'value.'], u'units': u'dimensionless', u'type': u'real', u'minimum>': '0.0'}
 
         Args:
             value (float): value for IDD Field `Back Side Shade Material Infrared Emissivity`
@@ -14836,8 +14262,6 @@ class WindowMaterialDrapeEquivalentLayer(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'reference': u'WindowEquivalentLayerMaterialNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -14871,13 +14295,11 @@ class WindowMaterialDrapeEquivalentLayer(object):
         return self._data["Drape Beam-Beam Solar Transmittance at Normal Incidence"]
 
     @drape_beambeam_solar_transmittance_at_normal_incidence.setter
-    def drape_beambeam_solar_transmittance_at_normal_incidence(self, value=0.0 ):
+    def drape_beambeam_solar_transmittance_at_normal_incidence(self, value=0.0):
         """  Corresponds to IDD Field `Drape Beam-Beam Solar Transmittance at Normal Incidence`
         The beam-beam solar transmittance at normal incidence. This value is the
         same as the openness area fraction of the drape fabric. Assumed to be
         same for front and back sides.
-        
-        {'pytype': 'float', u'default': '0.0', u'maximum': '0.2', u'note': [u'The beam-beam solar transmittance at normal incidence. This value is the', u'same as the openness area fraction of the drape fabric. Assumed to be', u'same for front and back sides.'], u'minimum': '0.0', u'units': u'dimensionless', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Drape Beam-Beam Solar Transmittance at Normal Incidence`
@@ -14920,8 +14342,6 @@ class WindowMaterialDrapeEquivalentLayer(object):
         The front side beam-diffuse solar transmittance at normal incidence averaged
         over the entire spectrum of solar radiation. Assumed to be the same for front
         and back sides.
-        
-        {'pytype': 'float', u'maximum<': '1.0', u'required-field': True, u'note': [u'The front side beam-diffuse solar transmittance at normal incidence averaged', u'over the entire spectrum of solar radiation. Assumed to be the same for front', u'and back sides.'], u'minimum': '0.0', u'units': u'dimensionless', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Front Side Drape Beam-Diffuse Solar Transmittance`
@@ -14963,8 +14383,6 @@ class WindowMaterialDrapeEquivalentLayer(object):
         The back side beam-diffuse solar transmittance at normal incidence averaged
         over the entire spectrum of solar radiation. Assumed to be the same for front
         and back sides.
-        
-        {'pytype': 'float', u'maximum<': '1.0', u'required-field': True, u'note': [u'The back side beam-diffuse solar transmittance at normal incidence averaged', u'over the entire spectrum of solar radiation. Assumed to be the same for front', u'and back sides.'], u'minimum': '0.0', u'units': u'dimensionless', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Back Side Drape Beam-Diffuse Solar Transmittance`
@@ -15005,8 +14423,6 @@ class WindowMaterialDrapeEquivalentLayer(object):
         """  Corresponds to IDD Field `Front Side Drape Beam-Diffuse Solar Reflectance`
         The front side beam-diffuse solar reflectance at normal incidence averaged
         over the entire spectrum of solar radiation.
-        
-        {'pytype': 'float', u'maximum<': '1.0', u'required-field': True, u'note': [u'The front side beam-diffuse solar reflectance at normal incidence averaged', u'over the entire spectrum of solar radiation.'], u'minimum': '0.0', u'units': u'dimensionless', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Front Side Drape Beam-Diffuse Solar Reflectance`
@@ -15047,8 +14463,6 @@ class WindowMaterialDrapeEquivalentLayer(object):
         """  Corresponds to IDD Field `Back Side Drape Beam-Diffuse Solar Reflectance`
         The back side beam-diffuse solar reflectance at normal incidence averaged
         over the entire spectrum of solar radiation.
-        
-        {'pytype': 'float', u'maximum<': '1.0', u'required-field': True, u'note': [u'The back side beam-diffuse solar reflectance at normal incidence averaged', u'over the entire spectrum of solar radiation.'], u'minimum': '0.0', u'units': u'dimensionless', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Back Side Drape Beam-Diffuse Solar Reflectance`
@@ -15089,8 +14503,6 @@ class WindowMaterialDrapeEquivalentLayer(object):
         """  Corresponds to IDD Field `Drape Beam-Beam Visible Transmittance`
         The beam-beam visible transmittance at normal incidence averaged over the
         visible spectrum of solar radiation. Assumed same for front and back sides.
-        
-        {'pytype': 'float', u'maximum<': '1.0', u'note': [u'The beam-beam visible transmittance at normal incidence averaged over the', u'visible spectrum of solar radiation. Assumed same for front and back sides.'], u'minimum': '0.0', u'units': u'dimensionless', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Drape Beam-Beam Visible Transmittance`
@@ -15132,8 +14544,6 @@ class WindowMaterialDrapeEquivalentLayer(object):
         The beam-diffuse visible transmittance at normal incidence averaged over the
         visible spectrum range of solar radiation. Assumed to be the same for front
         and back sides.
-        
-        {'pytype': 'float', u'maximum<': '1.0', u'note': [u'The beam-diffuse visible transmittance at normal incidence averaged over the', u'visible spectrum range of solar radiation. Assumed to be the same for front', u'and back sides.'], u'minimum': '0.0', u'units': u'dimensionless', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Drape Beam-Diffuse Visible Transmittance`
@@ -15175,8 +14585,6 @@ class WindowMaterialDrapeEquivalentLayer(object):
         The beam-diffuse visible reflectance at normal incidence average over the
         visible spectrum range of solar radiation. Assumed to be the same for front
         and back sides.
-        
-        {'pytype': 'float', u'maximum<': '1.0', u'note': [u'The beam-diffuse visible reflectance at normal incidence average over the', u'visible spectrum range of solar radiation. Assumed to be the same for front', u'and back sides.'], u'minimum': '0.0', u'units': u'dimensionless', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Drape Beam-Diffuse Visible Reflectance`
@@ -15213,12 +14621,10 @@ class WindowMaterialDrapeEquivalentLayer(object):
         return self._data["Drape Material Infrared Transmittance"]
 
     @drape_material_infrared_transmittance.setter
-    def drape_material_infrared_transmittance(self, value=0.05 ):
+    def drape_material_infrared_transmittance(self, value=0.05):
         """  Corresponds to IDD Field `Drape Material Infrared Transmittance`
         Long-wave transmittance of the drape fabric at zero openness fraction.
         Assumed same for front and back sides.
-        
-        {'pytype': 'float', u'default': '0.05', u'maximum<': '1.0', u'note': [u'Long-wave transmittance of the drape fabric at zero openness fraction.', u'Assumed same for front and back sides.'], u'minimum': '0.0', u'units': u'dimensionless', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Drape Material Infrared Transmittance`
@@ -15256,13 +14662,11 @@ class WindowMaterialDrapeEquivalentLayer(object):
         return self._data["Front Side Drape Material Infrared Emissivity"]
 
     @front_side_drape_material_infrared_emissivity.setter
-    def front_side_drape_material_infrared_emissivity(self, value=0.87 ):
+    def front_side_drape_material_infrared_emissivity(self, value=0.87):
         """  Corresponds to IDD Field `Front Side Drape Material Infrared Emissivity`
         Front side long-wave emissivity of the drape fabric at zero shade openness.
         Openness fraction specified above is used to calculate the effective
         emissivity value.
-        
-        {'pytype': 'float', u'default': '0.87', u'maximum<': '1.0', u'note': [u'Front side long-wave emissivity of the drape fabric at zero shade openness.', u'Openness fraction specified above is used to calculate the effective', u'emissivity value.'], u'units': u'dimensionless', u'type': u'real', u'minimum>': '0.0'}
 
         Args:
             value (float): value for IDD Field `Front Side Drape Material Infrared Emissivity`
@@ -15300,13 +14704,11 @@ class WindowMaterialDrapeEquivalentLayer(object):
         return self._data["Back Side Drape Material Infrared Emissivity"]
 
     @back_side_drape_material_infrared_emissivity.setter
-    def back_side_drape_material_infrared_emissivity(self, value=0.87 ):
+    def back_side_drape_material_infrared_emissivity(self, value=0.87):
         """  Corresponds to IDD Field `Back Side Drape Material Infrared Emissivity`
         Back side long-wave emissivity of the drape fabric at zero shade openness.
         Openness fraction specified above is used to calculate the effective
         emissivity value.
-        
-        {'pytype': 'float', u'default': '0.87', u'maximum<': '1.0', u'note': [u'Back side long-wave emissivity of the drape fabric at zero shade openness.', u'Openness fraction specified above is used to calculate the effective', u'emissivity value.'], u'units': u'dimensionless', u'type': u'real', u'minimum>': '0.0'}
 
         Args:
             value (float): value for IDD Field `Back Side Drape Material Infrared Emissivity`
@@ -15344,12 +14746,10 @@ class WindowMaterialDrapeEquivalentLayer(object):
         return self._data["Width of Pleated Fabric"]
 
     @width_of_pleated_fabric.setter
-    def width_of_pleated_fabric(self, value=0.0 ):
+    def width_of_pleated_fabric(self, value=0.0):
         """  Corresponds to IDD Field `Width of Pleated Fabric`
         Width of the pleasted section of the draped fabric. If the drape fabric is
         unpleated or is flat, then the pleated section width is set to zero.
-        
-        {'pytype': 'float', u'default': '0.0', u'note': [u'Width of the pleasted section of the draped fabric. If the drape fabric is', u'unpleated or is flat, then the pleated section width is set to zero.'], u'ip-units': u'in', u'minimum': '0.0', u'units': u'm', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Width of Pleated Fabric`
@@ -15384,12 +14784,10 @@ class WindowMaterialDrapeEquivalentLayer(object):
         return self._data["Length of Pleated Fabric"]
 
     @length_of_pleated_fabric.setter
-    def length_of_pleated_fabric(self, value=0.0 ):
+    def length_of_pleated_fabric(self, value=0.0):
         """  Corresponds to IDD Field `Length of Pleated Fabric`
         Length of the pleasted section of the draped fabric. If the drape fabric is
         unpleated or is flat, then the pleated section length is set to zero.
-        
-        {'pytype': 'float', u'default': '0.0', u'note': [u'Length of the pleasted section of the draped fabric. If the drape fabric is', u'unpleated or is flat, then the pleated section length is set to zero.'], u'ip-units': u'in', u'minimum': '0.0', u'units': u'm', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Length of Pleated Fabric`
@@ -15679,8 +15077,6 @@ class WindowMaterialBlindEquivalentLayer(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'reference': u'WindowEquivalentLayerMaterialNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -15716,8 +15112,6 @@ class WindowMaterialBlindEquivalentLayer(object):
     @slat_orientation.setter
     def slat_orientation(self, value="Horizontal"):
         """  Corresponds to IDD Field `Slat Orientation`
-        
-        {u'default': u'Horizontal', u'type': u'choice', u'key': [u'Horizontal', u'Vertical'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Slat Orientation`
@@ -15774,8 +15168,6 @@ class WindowMaterialBlindEquivalentLayer(object):
     @slat_width.setter
     def slat_width(self, value=None):
         """  Corresponds to IDD Field `Slat Width`
-        
-        {'pytype': 'float', u'minimum>': '0.0', u'maximum': '0.025', u'required-field': True, u'ip-units': u'in', u'units': u'm', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Slat Width`
@@ -15816,8 +15208,6 @@ class WindowMaterialBlindEquivalentLayer(object):
     def slat_separation(self, value=None):
         """  Corresponds to IDD Field `Slat Separation`
         Distance between adjacent slat faces
-        
-        {'pytype': 'float', u'minimum>': '0.0', u'maximum': '0.025', u'required-field': True, u'note': [u'Distance between adjacent slat faces'], u'ip-units': u'in', u'units': u'm', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Slat Separation`
@@ -15855,13 +15245,11 @@ class WindowMaterialBlindEquivalentLayer(object):
         return self._data["Slat Crown"]
 
     @slat_crown.setter
-    def slat_crown(self, value=0.0015 ):
+    def slat_crown(self, value=0.0015):
         """  Corresponds to IDD Field `Slat Crown`
         Perpendicular length between the cord and the curve.
         Slat is assumed to be rectangular in cross section
         and flat. Crown=0.0625xSlat width
-        
-        {'pytype': 'float', u'default': '0.0015', u'maximum': '0.00156', u'note': [u'Perpendicular length between the cord and the curve.', u'Slat is assumed to be rectangular in cross section', u'and flat. Crown=0.0625xSlat width'], u'ip-units': u'in', u'minimum': '0.0', u'units': u'm', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Slat Crown`
@@ -15900,10 +15288,8 @@ class WindowMaterialBlindEquivalentLayer(object):
         return self._data["Slat Angle"]
 
     @slat_angle.setter
-    def slat_angle(self, value=45.0 ):
+    def slat_angle(self, value=45.0):
         """  Corresponds to IDD Field `Slat Angle`
-        
-        {'pytype': 'float', u'default': '45.0', u'maximum': '180.0', u'minimum': '0.0', u'units': u'deg', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Slat Angle`
@@ -15941,12 +15327,10 @@ class WindowMaterialBlindEquivalentLayer(object):
         return self._data["Front Side Slat Beam-Diffuse Solar Transmittance"]
 
     @front_side_slat_beamdiffuse_solar_transmittance.setter
-    def front_side_slat_beamdiffuse_solar_transmittance(self, value=0.0 ):
+    def front_side_slat_beamdiffuse_solar_transmittance(self, value=0.0):
         """  Corresponds to IDD Field `Front Side Slat Beam-Diffuse Solar Transmittance`
         The front side beam-diffuse solar transmittance of the slat at normal
         incidence averaged over the entire spectrum of solar radiation.
-        
-        {'pytype': 'float', u'default': '0.0', u'maximum<': '1.0', u'note': [u'The front side beam-diffuse solar transmittance of the slat at normal', u'incidence averaged over the entire spectrum of solar radiation.'], u'minimum': '0.0', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Front Side Slat Beam-Diffuse Solar Transmittance`
@@ -15983,12 +15367,10 @@ class WindowMaterialBlindEquivalentLayer(object):
         return self._data["Back Side Slat Beam-Diffuse Solar Transmittance"]
 
     @back_side_slat_beamdiffuse_solar_transmittance.setter
-    def back_side_slat_beamdiffuse_solar_transmittance(self, value=0.0 ):
+    def back_side_slat_beamdiffuse_solar_transmittance(self, value=0.0):
         """  Corresponds to IDD Field `Back Side Slat Beam-Diffuse Solar Transmittance`
         The back side beam-diffuse solar transmittance of the slat at normal
         incidence averaged over the entire spectrum of solar radiation.
-        
-        {'pytype': 'float', u'default': '0.0', u'maximum<': '1.0', u'note': [u'The back side beam-diffuse solar transmittance of the slat at normal', u'incidence averaged over the entire spectrum of solar radiation.'], u'minimum': '0.0', u'units': u'dimensionless', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Back Side Slat Beam-Diffuse Solar Transmittance`
@@ -16030,8 +15412,6 @@ class WindowMaterialBlindEquivalentLayer(object):
         """  Corresponds to IDD Field `Front Side Slat Beam-Diffuse Solar Reflectance`
         The front side beam-diffuse solar reflectance of the slat at normal
         incidence averaged over the entire spectrum of solar radiation.
-        
-        {'pytype': 'float', u'maximum<': '1.0', u'required-field': True, u'note': [u'The front side beam-diffuse solar reflectance of the slat at normal', u'incidence averaged over the entire spectrum of solar radiation.'], u'minimum': '0.0', u'units': u'dimensionless', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Front Side Slat Beam-Diffuse Solar Reflectance`
@@ -16072,8 +15452,6 @@ class WindowMaterialBlindEquivalentLayer(object):
         """  Corresponds to IDD Field `Back Side Slat Beam-Diffuse Solar Reflectance`
         The back side beam-diffuse solar reflectance of the slat at normal
         incidence averaged over the entire spectrum of solar radiation.
-        
-        {'pytype': 'float', u'maximum<': '1.0', u'required-field': True, u'note': [u'The back side beam-diffuse solar reflectance of the slat at normal', u'incidence averaged over the entire spectrum of solar radiation.'], u'minimum': '0.0', u'units': u'dimensionless', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Back Side Slat Beam-Diffuse Solar Reflectance`
@@ -16110,13 +15488,11 @@ class WindowMaterialBlindEquivalentLayer(object):
         return self._data["Front Side Slat Beam-Diffuse Visible Transmittance"]
 
     @front_side_slat_beamdiffuse_visible_transmittance.setter
-    def front_side_slat_beamdiffuse_visible_transmittance(self, value=0.0 ):
+    def front_side_slat_beamdiffuse_visible_transmittance(self, value=0.0):
         """  Corresponds to IDD Field `Front Side Slat Beam-Diffuse Visible Transmittance`
         The front side beam-diffuse visible transmittance of the slat
         at normal incidence averaged over the visible spectrum range
         of solar radiation.
-        
-        {'pytype': 'float', u'default': '0.0', u'maximum<': '1.0', u'note': [u'The front side beam-diffuse visible transmittance of the slat', u'at normal incidence averaged over the visible spectrum range', u'of solar radiation.'], u'minimum': '0.0', u'units': u'dimensionless', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Front Side Slat Beam-Diffuse Visible Transmittance`
@@ -16154,13 +15530,11 @@ class WindowMaterialBlindEquivalentLayer(object):
         return self._data["Back Side Slat Beam-Diffuse Visible Transmittance"]
 
     @back_side_slat_beamdiffuse_visible_transmittance.setter
-    def back_side_slat_beamdiffuse_visible_transmittance(self, value=0.0 ):
+    def back_side_slat_beamdiffuse_visible_transmittance(self, value=0.0):
         """  Corresponds to IDD Field `Back Side Slat Beam-Diffuse Visible Transmittance`
         The back side beam-diffuse visible transmittance of the slat
         at normal incidence averaged over the visible spectrum range
         of solar radiation.
-        
-        {'pytype': 'float', u'default': '0.0', u'maximum<': '1.0', u'note': [u'The back side beam-diffuse visible transmittance of the slat', u'at normal incidence averaged over the visible spectrum range', u'of solar radiation.'], u'minimum': '0.0', u'units': u'dimensionless', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Back Side Slat Beam-Diffuse Visible Transmittance`
@@ -16203,8 +15577,6 @@ class WindowMaterialBlindEquivalentLayer(object):
         The front side beam-diffuse visible reflectance of the slat
         at normal incidence averaged over the visible spectrum range
         of solar radiation.
-        
-        {'pytype': 'float', u'maximum<': '1.0', u'note': [u'The front side beam-diffuse visible reflectance of the slat', u'at normal incidence averaged over the visible spectrum range', u'of solar radiation.'], u'minimum': '0.0', u'units': u'dimensionless', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Front Side Slat Beam-Diffuse Visible Reflectance`
@@ -16246,8 +15618,6 @@ class WindowMaterialBlindEquivalentLayer(object):
         The back side beam-diffuse visible reflectance of the slat
         at normal incidence averaged over the visible spectrum range
         of solar radiation.
-        
-        {'pytype': 'float', u'maximum<': '1.0', u'note': [u'The back side beam-diffuse visible reflectance of the slat', u'at normal incidence averaged over the visible spectrum range', u'of solar radiation.'], u'minimum': '0.0', u'units': u'dimensionless', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Back Side Slat Beam-Diffuse Visible Reflectance`
@@ -16284,12 +15654,10 @@ class WindowMaterialBlindEquivalentLayer(object):
         return self._data["Slat Diffuse-Diffuse Solar Transmittance"]
 
     @slat_diffusediffuse_solar_transmittance.setter
-    def slat_diffusediffuse_solar_transmittance(self, value=0.0 ):
+    def slat_diffusediffuse_solar_transmittance(self, value=0.0):
         """  Corresponds to IDD Field `Slat Diffuse-Diffuse Solar Transmittance`
         The beam-diffuse solar transmittance of the slat averaged
         over the entire solar spectrum of solar radiation.
-        
-        {'pytype': 'float', u'default': '0.0', u'maximum<': '1.0', u'note': [u'The beam-diffuse solar transmittance of the slat averaged', u'over the entire solar spectrum of solar radiation.'], u'minimum': '0.0', u'units': u'dimensionless', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Slat Diffuse-Diffuse Solar Transmittance`
@@ -16331,8 +15699,6 @@ class WindowMaterialBlindEquivalentLayer(object):
         """  Corresponds to IDD Field `Front Side Slat Diffuse-Diffuse Solar Reflectance`
         The front side beam-diffuse solar reflectance of the slat
         averaged over the entire solar spectrum of solar radiation.
-        
-        {'pytype': 'float', u'maximum<': '1.0', u'required-field': True, u'note': [u'The front side beam-diffuse solar reflectance of the slat', u'averaged over the entire solar spectrum of solar radiation.'], u'minimum': '0.0', u'units': u'dimensionless', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Front Side Slat Diffuse-Diffuse Solar Reflectance`
@@ -16373,8 +15739,6 @@ class WindowMaterialBlindEquivalentLayer(object):
         """  Corresponds to IDD Field `Back Side Slat Diffuse-Diffuse Solar Reflectance`
         The back side beam-diffuse solar reflectance of the slat
         averaged over the entire solar spectrum of solar radiation.
-        
-        {'pytype': 'float', u'maximum<': '1.0', u'required-field': True, u'note': [u'The back side beam-diffuse solar reflectance of the slat', u'averaged over the entire solar spectrum of solar radiation.'], u'minimum': '0.0', u'units': u'dimensionless', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Back Side Slat Diffuse-Diffuse Solar Reflectance`
@@ -16415,8 +15779,6 @@ class WindowMaterialBlindEquivalentLayer(object):
         """  Corresponds to IDD Field `Slat Diffuse-Diffuse Visible Transmittance`
         The beam-diffuse visible transmittance of the slat averaged
         over the visible spectrum range of solar radiation.
-        
-        {u'note': [u'The beam-diffuse visible transmittance of the slat averaged', u'over the visible spectrum range of solar radiation.'], u'maximum<': '1.0', u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Slat Diffuse-Diffuse Visible Transmittance`
@@ -16456,8 +15818,6 @@ class WindowMaterialBlindEquivalentLayer(object):
         """  Corresponds to IDD Field `Front Side Slat Diffuse-Diffuse Visible Reflectance`
         The front side beam-diffuse visible reflectance of the slat
         averaged over the visible spectrum range of solar radiation.
-        
-        {'pytype': 'float', u'maximum<': '1.0', u'note': [u'The front side beam-diffuse visible reflectance of the slat', u'averaged over the visible spectrum range of solar radiation.'], u'minimum': '0.0', u'units': u'dimensionless', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Front Side Slat Diffuse-Diffuse Visible Reflectance`
@@ -16498,8 +15858,6 @@ class WindowMaterialBlindEquivalentLayer(object):
         """  Corresponds to IDD Field `Back Side Slat Diffuse-Diffuse Visible Reflectance`
         The back side beam-diffuse visible reflectance of the slat
         averaged over the visible spectrum range of solar radiation.
-        
-        {'pytype': 'float', u'maximum<': '1.0', u'note': [u'The back side beam-diffuse visible reflectance of the slat', u'averaged over the visible spectrum range of solar radiation.'], u'minimum': '0.0', u'units': u'dimensionless', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Back Side Slat Diffuse-Diffuse Visible Reflectance`
@@ -16536,12 +15894,10 @@ class WindowMaterialBlindEquivalentLayer(object):
         return self._data["Slat Infrared Transmittance"]
 
     @slat_infrared_transmittance.setter
-    def slat_infrared_transmittance(self, value=0.0 ):
+    def slat_infrared_transmittance(self, value=0.0):
         """  Corresponds to IDD Field `Slat Infrared Transmittance`
         Long-wave hemispherical transmittance of the slat material.
         Assumed to be the same for both sides of the slat.
-        
-        {'pytype': 'float', u'default': '0.0', u'maximum<': '1.0', u'note': [u'Long-wave hemispherical transmittance of the slat material.', u'Assumed to be the same for both sides of the slat.'], u'minimum': '0.0', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Slat Infrared Transmittance`
@@ -16578,11 +15934,9 @@ class WindowMaterialBlindEquivalentLayer(object):
         return self._data["Front Side Slat Infrared Emissivity"]
 
     @front_side_slat_infrared_emissivity.setter
-    def front_side_slat_infrared_emissivity(self, value=0.9 ):
+    def front_side_slat_infrared_emissivity(self, value=0.9):
         """  Corresponds to IDD Field `Front Side Slat Infrared Emissivity`
         Front side long-wave hemispherical emissivity of the slat material.
-        
-        {'pytype': 'float', u'default': '0.9', u'maximum<': '1.0', u'note': [u'Front side long-wave hemispherical emissivity of the slat material.'], u'minimum': '0.0', u'units': u'dimensionless', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Front Side Slat Infrared Emissivity`
@@ -16620,11 +15974,9 @@ class WindowMaterialBlindEquivalentLayer(object):
         return self._data["Back Side Slat Infrared Emissivity"]
 
     @back_side_slat_infrared_emissivity.setter
-    def back_side_slat_infrared_emissivity(self, value=0.9 ):
+    def back_side_slat_infrared_emissivity(self, value=0.9):
         """  Corresponds to IDD Field `Back Side Slat Infrared Emissivity`
         Back side long-wave hemispherical emissivity of the slat material.
-        
-        {'pytype': 'float', u'default': '0.9', u'maximum<': '1.0', u'note': [u'Back side long-wave hemispherical emissivity of the slat material.'], u'minimum': '0.0', u'units': u'dimensionless', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Back Side Slat Infrared Emissivity`
@@ -16668,8 +16020,6 @@ class WindowMaterialBlindEquivalentLayer(object):
         gain (MaximizeSolar), maximize visibiity while eliminating beam solar
         radiation (BlockBeamSolar), or fixed slate angle (FixedSlatAngle).
         If FixedSlatAngle is selected, the slat angle entered above is used.
-        
-        {u'note': [u'Used only if slat angle control is deired to either maximize solar', u'gain (MaximizeSolar), maximize visibiity while eliminating beam solar', u'radiation (BlockBeamSolar), or fixed slate angle (FixedSlatAngle).', u'If FixedSlatAngle is selected, the slat angle entered above is used.'], u'default': u'FixedSlatAngle', u'type': u'choice', u'key': [u'FixedSlatAngle', u'MaximizeSolar', u'BlockBeamSolar'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Slat Angle Control`
@@ -16876,8 +16226,6 @@ class WindowMaterialScreenEquivalentLayer(object):
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
         Enter a unique name for this window screen material.
-        
-        {u'note': [u'Enter a unique name for this window screen material.'], u'type': u'alpha', u'reference': u'WindowEquivalentLayerMaterialNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -16911,14 +16259,12 @@ class WindowMaterialScreenEquivalentLayer(object):
         return self._data["Screen Beam-Beam Solar Transmittance"]
 
     @screen_beambeam_solar_transmittance.setter
-    def screen_beambeam_solar_transmittance(self, value="autocalculate" ):
+    def screen_beambeam_solar_transmittance(self, value="autocalculate"):
         """  Corresponds to IDD Field `Screen Beam-Beam Solar Transmittance`
         The beam-beam transmittance of the screen material at normal incidence.
         This input field is the same as the material oppenness area fraction
         and can be autocalculated from the wire spacing and wire and diameter.
         Assumed to be the same for both sides of the screen.
-        
-        {'pytype': 'float', u'default': '"autocalculate"', u'maximum<': '1.0', u'required-field': True, u'note': [u'The beam-beam transmittance of the screen material at normal incidence.', u'This input field is the same as the material oppenness area fraction', u'and can be autocalculated from the wire spacing and wire and diameter.', u'Assumed to be the same for both sides of the screen.'], u'minimum': '0.0', u'units': u'dimensionless', u'autocalculatable': True, u'type': u'real'}
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `Screen Beam-Beam Solar Transmittance`
@@ -16936,7 +16282,7 @@ class WindowMaterialScreenEquivalentLayer(object):
             try:
                 value_lower = str(value).lower()
                 if value_lower == "autocalculate":
-                    self._data["Screen Beam-Beam Solar Transmittance"] = value
+                    self._data["Screen Beam-Beam Solar Transmittance"] = "Autocalculate"
                     return
             except ValueError:
                 pass
@@ -16968,8 +16314,6 @@ class WindowMaterialScreenEquivalentLayer(object):
         The beam-diffuse solar transmittance of the screen material at normal
         incidence averaged over the entire spectrum of solar radiation.
         Assumed to be the same for both sides of the screen.
-        
-        {'pytype': 'float', u'maximum<': '1.0', u'required-field': True, u'note': [u'The beam-diffuse solar transmittance of the screen material at normal', u'incidence averaged over the entire spectrum of solar radiation.', u'Assumed to be the same for both sides of the screen.'], u'minimum': '0.0', u'units': u'dimensionless', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Screen Beam-Diffuse Solar Transmittance`
@@ -17011,8 +16355,6 @@ class WindowMaterialScreenEquivalentLayer(object):
         The beam-diffuse solar reflectance of the screen material at normal
         incidence averaged over the entire spectrum of solar radiation.
         Assumed to be the same for both sides of the screen.
-        
-        {'pytype': 'float', u'maximum<': '1.0', u'required-field': True, u'note': [u'The beam-diffuse solar reflectance of the screen material at normal', u'incidence averaged over the entire spectrum of solar radiation.', u'Assumed to be the same for both sides of the screen.'], u'minimum': '0.0', u'units': u'dimensionless', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Screen Beam-Diffuse Solar Reflectance`
@@ -17054,8 +16396,6 @@ class WindowMaterialScreenEquivalentLayer(object):
         The beam-beam visible transmittance of the screen material at normal
         incidence averaged over the visible spectrum range of solar radiation.
         Assumed to be the same for both sides of the screen.
-        
-        {'pytype': 'float', u'maximum<': '1.0', u'required-field': True, u'note': [u'The beam-beam visible transmittance of the screen material at normal', u'incidence averaged over the visible spectrum range of solar radiation.', u'Assumed to be the same for both sides of the screen.'], u'minimum': '0.0', u'units': u'dimensionless', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Screen Beam-Beam Visible Transmittance`
@@ -17097,8 +16437,6 @@ class WindowMaterialScreenEquivalentLayer(object):
         The beam-diffuse visible transmittance of the screen material at normal
         incidence averaged over the visible spectrum range of solar radiation.
         Assumed to be the same for both sides of the screen.
-        
-        {'pytype': 'float', u'maximum<': '1.0', u'required-field': True, u'note': [u'The beam-diffuse visible transmittance of the screen material at normal', u'incidence averaged over the visible spectrum range of solar radiation.', u'Assumed to be the same for both sides of the screen.'], u'minimum': '0.0', u'units': u'dimensionless', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Screen Beam-Diffuse Visible Transmittance`
@@ -17140,8 +16478,6 @@ class WindowMaterialScreenEquivalentLayer(object):
         Beam-diffuse visible reflectance of the screen material at normal
         incidence averaged over the visible spectrum range of solar radiation.
         Assumed to be the same for both sides of the screen.
-        
-        {'pytype': 'float', u'maximum<': '1.0', u'required-field': True, u'note': [u'Beam-diffuse visible reflectance of the screen material at normal', u'incidence averaged over the visible spectrum range of solar radiation.', u'Assumed to be the same for both sides of the screen.'], u'minimum': '0.0', u'units': u'dimensionless', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Screen Beam-Diffuse Visible Reflectance`
@@ -17178,12 +16514,10 @@ class WindowMaterialScreenEquivalentLayer(object):
         return self._data["Screen Infrared Transmittance"]
 
     @screen_infrared_transmittance.setter
-    def screen_infrared_transmittance(self, value=0.02 ):
+    def screen_infrared_transmittance(self, value=0.02):
         """  Corresponds to IDD Field `Screen Infrared Transmittance`
         The long-wave hemispherical transmittance of the screen material.
         Assumed to be the same for both sides of the screen.
-        
-        {'pytype': 'float', u'default': '0.02', u'maximum<': '1.0', u'required-field': True, u'note': [u'The long-wave hemispherical transmittance of the screen material.', u'Assumed to be the same for both sides of the screen.'], u'minimum': '0.0', u'units': u'dimensionless', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Screen Infrared Transmittance`
@@ -17221,12 +16555,10 @@ class WindowMaterialScreenEquivalentLayer(object):
         return self._data["Screen Infrared Emissivity"]
 
     @screen_infrared_emissivity.setter
-    def screen_infrared_emissivity(self, value=0.93 ):
+    def screen_infrared_emissivity(self, value=0.93):
         """  Corresponds to IDD Field `Screen Infrared Emissivity`
         The long-wave hemispherical emissivity of the screen material.
         Assumed to be the same for both sides of the screen.
-        
-        {'pytype': 'float', u'default': '0.93', u'maximum<': '1.0', u'note': [u'The long-wave hemispherical emissivity of the screen material.', u'Assumed to be the same for both sides of the screen.'], u'units': u'dimensionless', u'type': u'real', u'minimum>': '0.0'}
 
         Args:
             value (float): value for IDD Field `Screen Infrared Emissivity`
@@ -17264,11 +16596,9 @@ class WindowMaterialScreenEquivalentLayer(object):
         return self._data["Screen Wire Spacing"]
 
     @screen_wire_spacing.setter
-    def screen_wire_spacing(self, value=0.025 ):
+    def screen_wire_spacing(self, value=0.025):
         """  Corresponds to IDD Field `Screen Wire Spacing`
         Spacing assumed to be the same in both directions.
-        
-        {'pytype': 'float', u'default': '0.025', u'minimum>': '0.0', u'note': [u'Spacing assumed to be the same in both directions.'], u'ip-units': u'in', u'units': u'm', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Screen Wire Spacing`
@@ -17303,11 +16633,9 @@ class WindowMaterialScreenEquivalentLayer(object):
         return self._data["Screen Wire Diameter"]
 
     @screen_wire_diameter.setter
-    def screen_wire_diameter(self, value=0.005 ):
+    def screen_wire_diameter(self, value=0.005):
         """  Corresponds to IDD Field `Screen Wire Diameter`
         Diameter assumed to be the same in both directions.
-        
-        {'pytype': 'float', u'default': '0.005', u'minimum>': '0.0', u'note': [u'Diameter assumed to be the same in both directions.'], u'ip-units': u'in', u'units': u'm', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Screen Wire Diameter`
@@ -17627,8 +16955,6 @@ class WindowMaterialGlazingEquivalentLayer(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'reference': u'WindowEquivalentLayerMaterialNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -17664,8 +16990,6 @@ class WindowMaterialGlazingEquivalentLayer(object):
     @optical_data_type.setter
     def optical_data_type(self, value=None):
         """  Corresponds to IDD Field `Optical Data Type`
-        
-        {u'type': u'choice', u'key': [u'SpectralAverage', u'Spectral (not supported now)'], u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Optical Data Type`
@@ -17722,8 +17046,6 @@ class WindowMaterialGlazingEquivalentLayer(object):
     def window_glass_spectral_data_set_name(self, value=None):
         """  Corresponds to IDD Field `Window Glass Spectral Data Set Name`
         Used only when Optical Data Type = Spectral
-        
-        {u'note': [u'Used only when Optical Data Type = Spectral'], 'type': 'alpha', u'object-list': u'SpectralDataSets', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Window Glass Spectral Data Set Name`
@@ -17760,8 +17082,6 @@ class WindowMaterialGlazingEquivalentLayer(object):
     def front_side_beambeam_solar_transmittance(self, value=None):
         """  Corresponds to IDD Field `Front Side Beam-Beam Solar Transmittance`
         Used only when Optical Data Type = SpectralAverage
-        
-        {'pytype': 'float', u'maximum': '1.0', u'required-field': True, u'note': [u'Used only when Optical Data Type = SpectralAverage'], u'minimum': '0.0', u'units': u'dimensionless', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Front Side Beam-Beam Solar Transmittance`
@@ -17801,8 +17121,6 @@ class WindowMaterialGlazingEquivalentLayer(object):
     def back_side_beambeam_solar_transmittance(self, value=None):
         """  Corresponds to IDD Field `Back Side Beam-Beam Solar Transmittance`
         Used only when Optical Data Type = SpectralAverage
-        
-        {'pytype': 'float', u'maximum': '1.0', u'required-field': True, u'note': [u'Used only when Optical Data Type = SpectralAverage'], u'minimum': '0.0', u'units': u'dimensionless', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Back Side Beam-Beam Solar Transmittance`
@@ -17843,8 +17161,6 @@ class WindowMaterialGlazingEquivalentLayer(object):
         """  Corresponds to IDD Field `Front Side Beam-Beam Solar Reflectance`
         Used only when Optical Data Type = SpectralAverage
         Front Side is side closest to outdoor air
-        
-        {'pytype': 'float', u'maximum': '1.0', u'required-field': True, u'note': [u'Used only when Optical Data Type = SpectralAverage', u'Front Side is side closest to outdoor air'], u'minimum': '0.0', u'units': u'dimensionless', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Front Side Beam-Beam Solar Reflectance`
@@ -17885,8 +17201,6 @@ class WindowMaterialGlazingEquivalentLayer(object):
         """  Corresponds to IDD Field `Back Side Beam-Beam Solar Reflectance`
         Used only when Optical Data Type = SpectralAverage
         Back Side is side closest to zone air
-        
-        {'pytype': 'float', u'maximum': '1.0', u'required-field': True, u'note': [u'Used only when Optical Data Type = SpectralAverage', u'Back Side is side closest to zone air'], u'minimum': '0.0', u'units': u'dimensionless', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Back Side Beam-Beam Solar Reflectance`
@@ -17926,8 +17240,6 @@ class WindowMaterialGlazingEquivalentLayer(object):
     def front_side_beambeam_visible_solar_transmittance(self, value=None):
         """  Corresponds to IDD Field `Front Side Beam-Beam Visible Solar Transmittance`
         Used only when Optical Data Type = SpectralAverage
-        
-        {'pytype': 'float', u'maximum': '1.0', u'note': [u'Used only when Optical Data Type = SpectralAverage'], u'minimum': '0.0', u'units': u'dimensionless', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Front Side Beam-Beam Visible Solar Transmittance`
@@ -17967,8 +17279,6 @@ class WindowMaterialGlazingEquivalentLayer(object):
     def back_side_beambeam_visible_solar_transmittance(self, value=None):
         """  Corresponds to IDD Field `Back Side Beam-Beam Visible Solar Transmittance`
         Used only when Optical Data Type = SpectralAverage
-        
-        {'pytype': 'float', u'maximum': '1.0', u'note': [u'Used only when Optical Data Type = SpectralAverage'], u'minimum': '0.0', u'units': u'dimensionless', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Back Side Beam-Beam Visible Solar Transmittance`
@@ -18009,8 +17319,6 @@ class WindowMaterialGlazingEquivalentLayer(object):
         """  Corresponds to IDD Field `Front Side Beam-Beam Visible Solar Reflectance`
         Used only when Optical Data Type = SpectralAverage
         Front Side is side closest to outdoor air
-        
-        {'pytype': 'float', u'maximum': '1.0', u'note': [u'Used only when Optical Data Type = SpectralAverage', u'Front Side is side closest to outdoor air'], u'minimum': '0.0', u'units': u'dimensionless', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Front Side Beam-Beam Visible Solar Reflectance`
@@ -18051,8 +17359,6 @@ class WindowMaterialGlazingEquivalentLayer(object):
         """  Corresponds to IDD Field `Back Side Beam-Beam Visible Solar Reflectance`
         Used only when Optical Data Type = SpectralAverage
         Back Side is side closest to zone air
-        
-        {'pytype': 'float', u'maximum': '1.0', u'note': [u'Used only when Optical Data Type = SpectralAverage', u'Back Side is side closest to zone air'], u'minimum': '0.0', u'units': u'dimensionless', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Back Side Beam-Beam Visible Solar Reflectance`
@@ -18089,11 +17395,9 @@ class WindowMaterialGlazingEquivalentLayer(object):
         return self._data["Front Side Beam-Diffuse Solar Transmittance"]
 
     @front_side_beamdiffuse_solar_transmittance.setter
-    def front_side_beamdiffuse_solar_transmittance(self, value=0.0 ):
+    def front_side_beamdiffuse_solar_transmittance(self, value=0.0):
         """  Corresponds to IDD Field `Front Side Beam-Diffuse Solar Transmittance`
         Used only when Optical Data Type = SpectralAverage
-        
-        {'pytype': 'float', u'default': '0.0', u'maximum': '1.0', u'note': [u'Used only when Optical Data Type = SpectralAverage'], u'minimum': '0.0', u'units': u'dimensionless', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Front Side Beam-Diffuse Solar Transmittance`
@@ -18131,11 +17435,9 @@ class WindowMaterialGlazingEquivalentLayer(object):
         return self._data["Back Side Beam-Diffuse Solar Transmittance"]
 
     @back_side_beamdiffuse_solar_transmittance.setter
-    def back_side_beamdiffuse_solar_transmittance(self, value=0.0 ):
+    def back_side_beamdiffuse_solar_transmittance(self, value=0.0):
         """  Corresponds to IDD Field `Back Side Beam-Diffuse Solar Transmittance`
         Used only when Optical Data Type = SpectralAverage
-        
-        {'pytype': 'float', u'default': '0.0', u'maximum': '1.0', u'note': [u'Used only when Optical Data Type = SpectralAverage'], u'minimum': '0.0', u'units': u'dimensionless', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Back Side Beam-Diffuse Solar Transmittance`
@@ -18173,12 +17475,10 @@ class WindowMaterialGlazingEquivalentLayer(object):
         return self._data["Front Side Beam-Diffuse Solar Reflectance"]
 
     @front_side_beamdiffuse_solar_reflectance.setter
-    def front_side_beamdiffuse_solar_reflectance(self, value=0.0 ):
+    def front_side_beamdiffuse_solar_reflectance(self, value=0.0):
         """  Corresponds to IDD Field `Front Side Beam-Diffuse Solar Reflectance`
         Used only when Optical Data Type = SpectralAverage
         Front Side is side closest to outdoor air
-        
-        {'pytype': 'float', u'default': '0.0', u'maximum': '1.0', u'note': [u'Used only when Optical Data Type = SpectralAverage', u'Front Side is side closest to outdoor air'], u'minimum': '0.0', u'units': u'dimensionless', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Front Side Beam-Diffuse Solar Reflectance`
@@ -18216,12 +17516,10 @@ class WindowMaterialGlazingEquivalentLayer(object):
         return self._data["Back Side Beam-Diffuse Solar Reflectance"]
 
     @back_side_beamdiffuse_solar_reflectance.setter
-    def back_side_beamdiffuse_solar_reflectance(self, value=0.0 ):
+    def back_side_beamdiffuse_solar_reflectance(self, value=0.0):
         """  Corresponds to IDD Field `Back Side Beam-Diffuse Solar Reflectance`
         Used only when Optical Data Type = SpectralAverage
         Back Side is side closest to zone air
-        
-        {'pytype': 'float', u'default': '0.0', u'maximum': '1.0', u'note': [u'Used only when Optical Data Type = SpectralAverage', u'Back Side is side closest to zone air'], u'minimum': '0.0', u'units': u'dimensionless', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Back Side Beam-Diffuse Solar Reflectance`
@@ -18259,11 +17557,9 @@ class WindowMaterialGlazingEquivalentLayer(object):
         return self._data["Front Side Beam-Diffuse Visible Solar Transmittance"]
 
     @front_side_beamdiffuse_visible_solar_transmittance.setter
-    def front_side_beamdiffuse_visible_solar_transmittance(self, value=0.0 ):
+    def front_side_beamdiffuse_visible_solar_transmittance(self, value=0.0):
         """  Corresponds to IDD Field `Front Side Beam-Diffuse Visible Solar Transmittance`
         Used only when Optical Data Type = SpectralAverage
-        
-        {'pytype': 'float', u'default': '0.0', u'maximum': '1.0', u'note': [u'Used only when Optical Data Type = SpectralAverage'], u'minimum': '0.0', u'units': u'dimensionless', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Front Side Beam-Diffuse Visible Solar Transmittance`
@@ -18301,11 +17597,9 @@ class WindowMaterialGlazingEquivalentLayer(object):
         return self._data["Back Side Beam-Diffuse Visible Solar Transmittance"]
 
     @back_side_beamdiffuse_visible_solar_transmittance.setter
-    def back_side_beamdiffuse_visible_solar_transmittance(self, value=0.0 ):
+    def back_side_beamdiffuse_visible_solar_transmittance(self, value=0.0):
         """  Corresponds to IDD Field `Back Side Beam-Diffuse Visible Solar Transmittance`
         Used only when Optical Data Type = SpectralAverage
-        
-        {'pytype': 'float', u'default': '0.0', u'maximum': '1.0', u'note': [u'Used only when Optical Data Type = SpectralAverage'], u'minimum': '0.0', u'units': u'dimensionless', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Back Side Beam-Diffuse Visible Solar Transmittance`
@@ -18343,12 +17637,10 @@ class WindowMaterialGlazingEquivalentLayer(object):
         return self._data["Front Side Beam-Diffuse Visible Solar Reflectance"]
 
     @front_side_beamdiffuse_visible_solar_reflectance.setter
-    def front_side_beamdiffuse_visible_solar_reflectance(self, value=0.0 ):
+    def front_side_beamdiffuse_visible_solar_reflectance(self, value=0.0):
         """  Corresponds to IDD Field `Front Side Beam-Diffuse Visible Solar Reflectance`
         Used only when Optical Data Type = SpectralAverage
         Front Side is side closest to outdoor air
-        
-        {'pytype': 'float', u'default': '0.0', u'maximum': '1.0', u'note': [u'Used only when Optical Data Type = SpectralAverage', u'Front Side is side closest to outdoor air'], u'minimum': '0.0', u'units': u'dimensionless', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Front Side Beam-Diffuse Visible Solar Reflectance`
@@ -18386,12 +17678,10 @@ class WindowMaterialGlazingEquivalentLayer(object):
         return self._data["Back Side Beam-Diffuse Visible Solar Reflectance"]
 
     @back_side_beamdiffuse_visible_solar_reflectance.setter
-    def back_side_beamdiffuse_visible_solar_reflectance(self, value=0.0 ):
+    def back_side_beamdiffuse_visible_solar_reflectance(self, value=0.0):
         """  Corresponds to IDD Field `Back Side Beam-Diffuse Visible Solar Reflectance`
         Used only when Optical Data Type = SpectralAverage
         Back Side is side closest to zone air
-        
-        {'pytype': 'float', u'default': '0.0', u'maximum': '1.0', u'note': [u'Used only when Optical Data Type = SpectralAverage', u'Back Side is side closest to zone air'], u'minimum': '0.0', u'units': u'dimensionless', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Back Side Beam-Diffuse Visible Solar Reflectance`
@@ -18429,15 +17719,13 @@ class WindowMaterialGlazingEquivalentLayer(object):
         return self._data["Diffuse-Diffuse Solar Transmittance"]
 
     @diffusediffuse_solar_transmittance.setter
-    def diffusediffuse_solar_transmittance(self, value="autocalculate" ):
+    def diffusediffuse_solar_transmittance(self, value="autocalculate"):
         """  Corresponds to IDD Field `Diffuse-Diffuse Solar Transmittance`
         Used only when Optical Data Type = SpectralAverage
         If this field is autocalculate, then the diffuse-diffuse solar
         transmittance is automatically estimated from other inputs and used
         in subsequent calculations. If this field is zero or positive, then
         the value entered here will be used.
-        
-        {'pytype': 'float', u'default': '"autocalculate"', u'maximum': '1.0', u'note': [u'Used only when Optical Data Type = SpectralAverage', u'If this field is autocalculate, then the diffuse-diffuse solar', u'transmittance is automatically estimated from other inputs and used', u'in subsequent calculations. If this field is zero or positive, then', u'the value entered here will be used.'], u'minimum': '0.0', u'units': u'dimensionless', u'autocalculatable': True, u'type': u'real'}
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `Diffuse-Diffuse Solar Transmittance`
@@ -18455,7 +17743,7 @@ class WindowMaterialGlazingEquivalentLayer(object):
             try:
                 value_lower = str(value).lower()
                 if value_lower == "autocalculate":
-                    self._data["Diffuse-Diffuse Solar Transmittance"] = value
+                    self._data["Diffuse-Diffuse Solar Transmittance"] = "Autocalculate"
                     return
             except ValueError:
                 pass
@@ -18482,15 +17770,13 @@ class WindowMaterialGlazingEquivalentLayer(object):
         return self._data["Front Side Diffuse-Diffuse Solar Reflectance"]
 
     @front_side_diffusediffuse_solar_reflectance.setter
-    def front_side_diffusediffuse_solar_reflectance(self, value="autocalculate" ):
+    def front_side_diffusediffuse_solar_reflectance(self, value="autocalculate"):
         """  Corresponds to IDD Field `Front Side Diffuse-Diffuse Solar Reflectance`
         Used only when Optical Data Type = SpectralAverage
         If this field is autocalculate, then the front diffuse-diffuse solar
         reflectance is automatically estimated from other inputs and used in
         subsequent calculations. If this field is zero or positive, then the value
         entered here will be used.  Front Side is side closest to outdoor air.
-        
-        {'pytype': 'float', u'default': '"autocalculate"', u'maximum': '1.0', u'note': [u'Used only when Optical Data Type = SpectralAverage', u'If this field is autocalculate, then the front diffuse-diffuse solar', u'reflectance is automatically estimated from other inputs and used in', u'subsequent calculations. If this field is zero or positive, then the value', u'entered here will be used.  Front Side is side closest to outdoor air.'], u'minimum': '0.0', u'units': u'dimensionless', u'autocalculatable': True, u'type': u'real'}
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `Front Side Diffuse-Diffuse Solar Reflectance`
@@ -18508,7 +17794,7 @@ class WindowMaterialGlazingEquivalentLayer(object):
             try:
                 value_lower = str(value).lower()
                 if value_lower == "autocalculate":
-                    self._data["Front Side Diffuse-Diffuse Solar Reflectance"] = value
+                    self._data["Front Side Diffuse-Diffuse Solar Reflectance"] = "Autocalculate"
                     return
             except ValueError:
                 pass
@@ -18535,15 +17821,13 @@ class WindowMaterialGlazingEquivalentLayer(object):
         return self._data["Back Side Diffuse-Diffuse Solar Reflectance"]
 
     @back_side_diffusediffuse_solar_reflectance.setter
-    def back_side_diffusediffuse_solar_reflectance(self, value="autocalculate" ):
+    def back_side_diffusediffuse_solar_reflectance(self, value="autocalculate"):
         """  Corresponds to IDD Field `Back Side Diffuse-Diffuse Solar Reflectance`
         Used only when Optical Data Type = SpectralAverage
         If this field is autocalculate, then the back diffuse-diffuse solar
         reflectance is automatically estimated from other inputs and used in
         subsequent calculations. If this field is zero or positive, then the value
         entered here will be used.  Back side is side closest to indoor air.
-        
-        {'pytype': 'float', u'default': '"autocalculate"', u'maximum': '1.0', u'note': [u'Used only when Optical Data Type = SpectralAverage', u'If this field is autocalculate, then the back diffuse-diffuse solar', u'reflectance is automatically estimated from other inputs and used in', u'subsequent calculations. If this field is zero or positive, then the value', u'entered here will be used.  Back side is side closest to indoor air.'], u'minimum': '0.0', u'units': u'dimensionless', u'autocalculatable': True, u'type': u'real'}
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `Back Side Diffuse-Diffuse Solar Reflectance`
@@ -18561,7 +17845,7 @@ class WindowMaterialGlazingEquivalentLayer(object):
             try:
                 value_lower = str(value).lower()
                 if value_lower == "autocalculate":
-                    self._data["Back Side Diffuse-Diffuse Solar Reflectance"] = value
+                    self._data["Back Side Diffuse-Diffuse Solar Reflectance"] = "Autocalculate"
                     return
             except ValueError:
                 pass
@@ -18588,12 +17872,10 @@ class WindowMaterialGlazingEquivalentLayer(object):
         return self._data["Diffuse-Diffuse Visible Solar Transmittance"]
 
     @diffusediffuse_visible_solar_transmittance.setter
-    def diffusediffuse_visible_solar_transmittance(self, value="autocalculate" ):
+    def diffusediffuse_visible_solar_transmittance(self, value="autocalculate"):
         """  Corresponds to IDD Field `Diffuse-Diffuse Visible Solar Transmittance`
         Used only when Optical Data Type = SpectralAverage
         This input field is not used currently.
-        
-        {'pytype': 'float', u'default': '"autocalculate"', u'maximum': '1.0', u'note': [u'Used only when Optical Data Type = SpectralAverage', u'This input field is not used currently.'], u'minimum': '0.0', u'units': u'dimensionless', u'autocalculatable': True, u'type': u'real'}
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `Diffuse-Diffuse Visible Solar Transmittance`
@@ -18611,7 +17893,7 @@ class WindowMaterialGlazingEquivalentLayer(object):
             try:
                 value_lower = str(value).lower()
                 if value_lower == "autocalculate":
-                    self._data["Diffuse-Diffuse Visible Solar Transmittance"] = value
+                    self._data["Diffuse-Diffuse Visible Solar Transmittance"] = "Autocalculate"
                     return
             except ValueError:
                 pass
@@ -18638,12 +17920,10 @@ class WindowMaterialGlazingEquivalentLayer(object):
         return self._data["Front Side Diffuse-Diffuse Visible Solar Reflectance"]
 
     @front_side_diffusediffuse_visible_solar_reflectance.setter
-    def front_side_diffusediffuse_visible_solar_reflectance(self, value="autocalculate" ):
+    def front_side_diffusediffuse_visible_solar_reflectance(self, value="autocalculate"):
         """  Corresponds to IDD Field `Front Side Diffuse-Diffuse Visible Solar Reflectance`
         Used only when Optical Data Type = SpectralAverage
         This input field is not used currently.
-        
-        {'pytype': 'float', u'default': '"autocalculate"', u'maximum': '1.0', u'note': [u'Used only when Optical Data Type = SpectralAverage', u'This input field is not used currently.'], u'minimum': '0.0', u'units': u'dimensionless', u'autocalculatable': True, u'type': u'real'}
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `Front Side Diffuse-Diffuse Visible Solar Reflectance`
@@ -18661,7 +17941,7 @@ class WindowMaterialGlazingEquivalentLayer(object):
             try:
                 value_lower = str(value).lower()
                 if value_lower == "autocalculate":
-                    self._data["Front Side Diffuse-Diffuse Visible Solar Reflectance"] = value
+                    self._data["Front Side Diffuse-Diffuse Visible Solar Reflectance"] = "Autocalculate"
                     return
             except ValueError:
                 pass
@@ -18688,12 +17968,10 @@ class WindowMaterialGlazingEquivalentLayer(object):
         return self._data["Back Side Diffuse-Diffuse Visible Solar Reflectance"]
 
     @back_side_diffusediffuse_visible_solar_reflectance.setter
-    def back_side_diffusediffuse_visible_solar_reflectance(self, value="autocalculate" ):
+    def back_side_diffusediffuse_visible_solar_reflectance(self, value="autocalculate"):
         """  Corresponds to IDD Field `Back Side Diffuse-Diffuse Visible Solar Reflectance`
         Used only when Optical Data Type = SpectralAverage
         This input field is not used currently.
-        
-        {'pytype': 'float', u'default': '"autocalculate"', u'maximum': '1.0', u'note': [u'Used only when Optical Data Type = SpectralAverage', u'This input field is not used currently.'], u'minimum': '0.0', u'units': u'dimensionless', u'autocalculatable': True, u'type': u'real'}
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `Back Side Diffuse-Diffuse Visible Solar Reflectance`
@@ -18711,7 +17989,7 @@ class WindowMaterialGlazingEquivalentLayer(object):
             try:
                 value_lower = str(value).lower()
                 if value_lower == "autocalculate":
-                    self._data["Back Side Diffuse-Diffuse Visible Solar Reflectance"] = value
+                    self._data["Back Side Diffuse-Diffuse Visible Solar Reflectance"] = "Autocalculate"
                     return
             except ValueError:
                 pass
@@ -18738,12 +18016,10 @@ class WindowMaterialGlazingEquivalentLayer(object):
         return self._data["Infrared Transmittance (applies to front and back)"]
 
     @infrared_transmittance_applies_to_front_and_back.setter
-    def infrared_transmittance_applies_to_front_and_back(self, value=0.0 ):
+    def infrared_transmittance_applies_to_front_and_back(self, value=0.0):
         """  Corresponds to IDD Field `Infrared Transmittance (applies to front and back)`
         The long-wave hemispherical transmittance of the glazing.
         Assumed to be the same for both sides of the glazing.
-        
-        {'pytype': 'float', u'default': '0.0', u'maximum': '1.0', u'note': [u'The long-wave hemispherical transmittance of the glazing.', u'Assumed to be the same for both sides of the glazing.'], u'minimum': '0.0', u'units': u'dimensionless', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Infrared Transmittance (applies to front and back)`
@@ -18781,11 +18057,9 @@ class WindowMaterialGlazingEquivalentLayer(object):
         return self._data["Front Side Infrared Emissivity"]
 
     @front_side_infrared_emissivity.setter
-    def front_side_infrared_emissivity(self, value=0.84 ):
+    def front_side_infrared_emissivity(self, value=0.84):
         """  Corresponds to IDD Field `Front Side Infrared Emissivity`
         The front side long-wave hemispherical emissivity of the glazing.
-        
-        {'pytype': 'float', u'default': '0.84', u'minimum>': '0.0', u'note': [u'The front side long-wave hemispherical emissivity of the glazing.'], u'units': u'dimensionless', u'type': u'real', u'maximum<': '1.0'}
 
         Args:
             value (float): value for IDD Field `Front Side Infrared Emissivity`
@@ -18823,11 +18097,9 @@ class WindowMaterialGlazingEquivalentLayer(object):
         return self._data["Back Side Infrared Emissivity"]
 
     @back_side_infrared_emissivity.setter
-    def back_side_infrared_emissivity(self, value=0.84 ):
+    def back_side_infrared_emissivity(self, value=0.84):
         """  Corresponds to IDD Field `Back Side Infrared Emissivity`
         The back side long-wave hemispherical emissivity of the glazing.
-        
-        {'pytype': 'float', u'default': '0.84', u'minimum>': '0.0', u'note': [u'The back side long-wave hemispherical emissivity of the glazing.'], u'units': u'dimensionless', u'type': u'real', u'maximum<': '1.0'}
 
         Args:
             value (float): value for IDD Field `Back Side Infrared Emissivity`
@@ -19023,8 +18295,6 @@ class ConstructionWindowEquivalentLayer(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'reference': u'ConstructionNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -19060,8 +18330,6 @@ class ConstructionWindowEquivalentLayer(object):
     @outside_layer.setter
     def outside_layer(self, value=None):
         """  Corresponds to IDD Field `Outside Layer`
-        
-        {u'type': u'object-list', u'object-list': u'MaterialName', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Outside Layer`
@@ -19097,8 +18365,6 @@ class ConstructionWindowEquivalentLayer(object):
     @layer_2.setter
     def layer_2(self, value=None):
         """  Corresponds to IDD Field `Layer 2`
-        
-        {u'type': u'object-list', u'object-list': u'MaterialName', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Layer 2`
@@ -19134,8 +18400,6 @@ class ConstructionWindowEquivalentLayer(object):
     @layer_3.setter
     def layer_3(self, value=None):
         """  Corresponds to IDD Field `Layer 3`
-        
-        {u'type': u'object-list', u'object-list': u'MaterialName', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Layer 3`
@@ -19171,8 +18435,6 @@ class ConstructionWindowEquivalentLayer(object):
     @layer_4.setter
     def layer_4(self, value=None):
         """  Corresponds to IDD Field `Layer 4`
-        
-        {u'type': u'object-list', u'object-list': u'MaterialName', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Layer 4`
@@ -19208,8 +18470,6 @@ class ConstructionWindowEquivalentLayer(object):
     @layer_5.setter
     def layer_5(self, value=None):
         """  Corresponds to IDD Field `Layer 5`
-        
-        {u'type': u'object-list', u'object-list': u'MaterialName', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Layer 5`
@@ -19245,8 +18505,6 @@ class ConstructionWindowEquivalentLayer(object):
     @layer_6.setter
     def layer_6(self, value=None):
         """  Corresponds to IDD Field `Layer 6`
-        
-        {u'type': u'object-list', u'object-list': u'MaterialName', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Layer 6`
@@ -19282,8 +18540,6 @@ class ConstructionWindowEquivalentLayer(object):
     @layer_7.setter
     def layer_7(self, value=None):
         """  Corresponds to IDD Field `Layer 7`
-        
-        {u'type': u'object-list', u'object-list': u'MaterialName', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Layer 7`
@@ -19319,8 +18575,6 @@ class ConstructionWindowEquivalentLayer(object):
     @layer_8.setter
     def layer_8(self, value=None):
         """  Corresponds to IDD Field `Layer 8`
-        
-        {u'type': u'object-list', u'object-list': u'MaterialName', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Layer 8`
@@ -19356,8 +18610,6 @@ class ConstructionWindowEquivalentLayer(object):
     @layer_9.setter
     def layer_9(self, value=None):
         """  Corresponds to IDD Field `Layer 9`
-        
-        {u'type': u'object-list', u'object-list': u'MaterialName', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Layer 9`
@@ -19393,8 +18645,6 @@ class ConstructionWindowEquivalentLayer(object):
     @layer_10.setter
     def layer_10(self, value=None):
         """  Corresponds to IDD Field `Layer 10`
-        
-        {u'type': u'object-list', u'object-list': u'MaterialName', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Layer 10`
@@ -19430,8 +18680,6 @@ class ConstructionWindowEquivalentLayer(object):
     @layer_11.setter
     def layer_11(self, value=None):
         """  Corresponds to IDD Field `Layer 11`
-        
-        {u'type': u'object-list', u'object-list': u'MaterialName', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Layer 11`
@@ -19646,8 +18894,6 @@ class WindowMaterialGapEquivalentLayer(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'reference': u'WindowEquivalentLayerMaterialNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -19683,8 +18929,6 @@ class WindowMaterialGapEquivalentLayer(object):
     @gas_type.setter
     def gas_type(self, value=None):
         """  Corresponds to IDD Field `Gas Type`
-        
-        {u'type': u'choice', u'key': [u'AIR', u'ARGON', u'KRYPTON', u'XENON', u'CUSTOM'], u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Gas Type`
@@ -19746,8 +18990,6 @@ class WindowMaterialGapEquivalentLayer(object):
     @thickness.setter
     def thickness(self, value=None):
         """  Corresponds to IDD Field `Thickness`
-        
-        {'pytype': 'float', u'minimum>': '0.0', u'required-field': True, u'ip-units': u'in', u'units': u'm', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Thickness`
@@ -19787,8 +19029,6 @@ class WindowMaterialGapEquivalentLayer(object):
         outdoor environment.  VentedIndoor means the gap is vented to indoor environment, and
         VentedOutdoor means the gap is vented to the outdoor environment. The gap types
         VentedIndoor and VentedOutdoor are used with gas type Air only.
-        
-        {u'reference': u'GapVentTypeName', 'pytype': 'str', u'required-field': True, u'note': [u'Sealed means the gap is enclosed and gas tight, i.e., no venting to indoor or', u'outdoor environment.  VentedIndoor means the gap is vented to indoor environment, and', u'VentedOutdoor means the gap is vented to the outdoor environment. The gap types', u'VentedIndoor and VentedOutdoor are used with gas type Air only.'], u'key': [u'Sealed', u'VentedIndoor', u'VentedOutdoor'], u'type': u'choice'}
 
         Args:
             value (str): value for IDD Field `Gap Vent Type`
@@ -19847,8 +19087,6 @@ class WindowMaterialGapEquivalentLayer(object):
     def conductivity_coefficient_a(self, value=None):
         """  Corresponds to IDD Field `Conductivity Coefficient A`
         Used only if Gas Type = Custom
-        
-        {u'units': u'W/m-K', u'note': [u'Used only if Gas Type = Custom'], u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Conductivity Coefficient A`
@@ -19880,8 +19118,6 @@ class WindowMaterialGapEquivalentLayer(object):
     def conductivity_coefficient_b(self, value=None):
         """  Corresponds to IDD Field `Conductivity Coefficient B`
         Used only if Gas Type = Custom
-        
-        {u'units': u'W/m-K2', u'note': [u'Used only if Gas Type = Custom'], u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Conductivity Coefficient B`
@@ -19913,8 +19149,6 @@ class WindowMaterialGapEquivalentLayer(object):
     def conductivity_coefficient_c(self, value=None):
         """  Corresponds to IDD Field `Conductivity Coefficient C`
         Used only if Gas Type = Custom
-        
-        {u'units': u'W/m-K3', u'note': [u'Used only if Gas Type = Custom'], u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Conductivity Coefficient C`
@@ -19946,8 +19180,6 @@ class WindowMaterialGapEquivalentLayer(object):
     def viscosity_coefficient_a(self, value=None):
         """  Corresponds to IDD Field `Viscosity Coefficient A`
         Used only if Gas Type = Custom
-        
-        {u'units': u'kg/m-s', u'note': [u'Used only if Gas Type = Custom'], u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Viscosity Coefficient A`
@@ -19983,8 +19215,6 @@ class WindowMaterialGapEquivalentLayer(object):
     def viscosity_coefficient_b(self, value=None):
         """  Corresponds to IDD Field `Viscosity Coefficient B`
         Used only if Gas Type = Custom
-        
-        {u'units': u'kg/m-s-K', u'note': [u'Used only if Gas Type = Custom'], u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Viscosity Coefficient B`
@@ -20016,8 +19246,6 @@ class WindowMaterialGapEquivalentLayer(object):
     def viscosity_coefficient_c(self, value=None):
         """  Corresponds to IDD Field `Viscosity Coefficient C`
         Used only if Gas Type = Custom
-        
-        {u'units': u'kg/m-s-K2', u'note': [u'Used only if Gas Type = Custom'], u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Viscosity Coefficient C`
@@ -20049,8 +19277,6 @@ class WindowMaterialGapEquivalentLayer(object):
     def specific_heat_coefficient_a(self, value=None):
         """  Corresponds to IDD Field `Specific Heat Coefficient A`
         Used only if Gas Type = Custom
-        
-        {u'units': u'J/kg-K', u'note': [u'Used only if Gas Type = Custom'], u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Specific Heat Coefficient A`
@@ -20086,8 +19312,6 @@ class WindowMaterialGapEquivalentLayer(object):
     def specific_heat_coefficient_b(self, value=None):
         """  Corresponds to IDD Field `Specific Heat Coefficient B`
         Used only if Gas Type = Custom
-        
-        {u'units': u'J/kg-K2', u'note': [u'Used only if Gas Type = Custom'], u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Specific Heat Coefficient B`
@@ -20119,8 +19343,6 @@ class WindowMaterialGapEquivalentLayer(object):
     def specific_heat_coefficient_c(self, value=None):
         """  Corresponds to IDD Field `Specific Heat Coefficient C`
         Used only if Gas Type = Custom
-        
-        {u'units': u'J/kg-K3', u'note': [u'Used only if Gas Type = Custom'], u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Specific Heat Coefficient C`
@@ -20152,8 +19374,6 @@ class WindowMaterialGapEquivalentLayer(object):
     def molecular_weight(self, value=None):
         """  Corresponds to IDD Field `Molecular Weight`
         Used only if Gas Type = Custom
-        
-        {'pytype': 'float', u'maximum': '200.0', u'note': [u'Used only if Gas Type = Custom'], u'minimum': '20.0', u'units': u'g/mol', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Molecular Weight`
@@ -20193,8 +19413,6 @@ class WindowMaterialGapEquivalentLayer(object):
     def specific_heat_ratio(self, value=None):
         """  Corresponds to IDD Field `Specific Heat Ratio`
         Used only if Gas Type = Custom
-        
-        {u'note': [u'Used only if Gas Type = Custom'], u'minimum>1.0': u'', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Specific Heat Ratio`
@@ -20335,8 +19553,6 @@ class MaterialPropertyMoisturePenetrationDepthSettings(object):
         Material Name that the moisture properties will be added to.
         Additional material properties required to perform the EMPD model.
         Effective Mean Penetration Depth (EMPD)
-        
-        {u'note': [u'Material Name that the moisture properties will be added to.', u'Additional material properties required to perform the EMPD model.', u'Effective Mean Penetration Depth (EMPD)'], u'type': u'object-list', u'object-list': u'MaterialName', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -20373,8 +19589,6 @@ class MaterialPropertyMoisturePenetrationDepthSettings(object):
     def moisture_penetration_depth(self, value=None):
         """  Corresponds to IDD Field `Moisture Penetration Depth`
         This is the penetration depth
-        
-        {'pytype': 'float', u'required-field': True, u'note': [u'This is the penetration depth'], u'minimum': '0.0', u'units': u'm', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Moisture Penetration Depth`
@@ -20409,8 +19623,6 @@ class MaterialPropertyMoisturePenetrationDepthSettings(object):
     @moisture_equation_coefficient_a.setter
     def moisture_equation_coefficient_a(self, value=None):
         """  Corresponds to IDD Field `Moisture Equation Coefficient a`
-        
-        {u'units': u'dimensionless', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Moisture Equation Coefficient a`
@@ -20441,8 +19653,6 @@ class MaterialPropertyMoisturePenetrationDepthSettings(object):
     @moisture_equation_coefficient_b.setter
     def moisture_equation_coefficient_b(self, value=None):
         """  Corresponds to IDD Field `Moisture Equation Coefficient b`
-        
-        {u'units': u'dimensionless', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Moisture Equation Coefficient b`
@@ -20473,8 +19683,6 @@ class MaterialPropertyMoisturePenetrationDepthSettings(object):
     @moisture_equation_coefficient_c.setter
     def moisture_equation_coefficient_c(self, value=None):
         """  Corresponds to IDD Field `Moisture Equation Coefficient c`
-        
-        {u'units': u'dimensionless', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Moisture Equation Coefficient c`
@@ -20505,8 +19713,6 @@ class MaterialPropertyMoisturePenetrationDepthSettings(object):
     @moisture_equation_coefficient_d.setter
     def moisture_equation_coefficient_d(self, value=None):
         """  Corresponds to IDD Field `Moisture Equation Coefficient d`
-        
-        {u'units': u'dimensionless', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Moisture Equation Coefficient d`
@@ -20873,8 +20079,6 @@ class MaterialPropertyPhaseChange(object):
         """  Corresponds to IDD Field `Name`
         Regular Material Name to which the additional properties will be added.
         this the material name for the basic material properties.
-        
-        {u'note': [u'Regular Material Name to which the additional properties will be added.', u'this the material name for the basic material properties.'], u'type': u'object-list', u'object-list': u'MaterialName', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -20908,13 +20112,11 @@ class MaterialPropertyPhaseChange(object):
         return self._data["Temperature Coefficient for Thermal Conductivity"]
 
     @temperature_coefficient_for_thermal_conductivity.setter
-    def temperature_coefficient_for_thermal_conductivity(self, value=0.0 ):
+    def temperature_coefficient_for_thermal_conductivity(self, value=0.0):
         """  Corresponds to IDD Field `Temperature Coefficient for Thermal Conductivity`
         The base temperature is 20C.
         This is the thermal conductivity change per degree excursion from 20C.
         This variable conductivity function is overridden by the VariableThermalConductivity object, if present.
-        
-        {u'note': [u'The base temperature is 20C.', u'This is the thermal conductivity change per degree excursion from 20C.', u'This variable conductivity function is overridden by the VariableThermalConductivity object, if present.'], u'units': u'W/m-K2', u'default': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Temperature Coefficient for Thermal Conductivity`
@@ -20944,11 +20146,9 @@ class MaterialPropertyPhaseChange(object):
         return self._data["Temperature 1"]
 
     @temperature_1.setter
-    def temperature_1(self, value=0.0 ):
+    def temperature_1(self, value=0.0):
         """  Corresponds to IDD Field `Temperature 1`
         for Temperature-enthalpy function
-        
-        {'pytype': 'float', u'default': '0.0', u'required-field': True, u'note': [u'for Temperature-enthalpy function'], u'units': u'C', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Temperature 1`
@@ -20978,11 +20178,9 @@ class MaterialPropertyPhaseChange(object):
         return self._data["Enthalpy 1"]
 
     @enthalpy_1.setter
-    def enthalpy_1(self, value=0.0 ):
+    def enthalpy_1(self, value=0.0):
         """  Corresponds to IDD Field `Enthalpy 1`
         for Temperature-enthalpy function corresponding to temperature 1
-        
-        {'pytype': 'float', u'default': '0.0', u'required-field': True, u'note': [u'for Temperature-enthalpy function corresponding to temperature 1'], u'units': u'J/kg', 'type': 'real'}
 
         Args:
             value (float): value for IDD Field `Enthalpy 1`
@@ -21012,11 +20210,9 @@ class MaterialPropertyPhaseChange(object):
         return self._data["Temperature 2"]
 
     @temperature_2.setter
-    def temperature_2(self, value=0.0 ):
+    def temperature_2(self, value=0.0):
         """  Corresponds to IDD Field `Temperature 2`
         for Temperature-enthalpy function
-        
-        {'pytype': 'float', u'default': '0.0', u'required-field': True, u'note': [u'for Temperature-enthalpy function'], u'units': u'C', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Temperature 2`
@@ -21046,11 +20242,9 @@ class MaterialPropertyPhaseChange(object):
         return self._data["Enthalpy 2"]
 
     @enthalpy_2.setter
-    def enthalpy_2(self, value=0.0 ):
+    def enthalpy_2(self, value=0.0):
         """  Corresponds to IDD Field `Enthalpy 2`
         for Temperature-enthalpy function corresponding to temperature 2
-        
-        {'pytype': 'float', u'default': '0.0', u'required-field': True, u'note': [u'for Temperature-enthalpy function corresponding to temperature 2'], u'units': u'J/kg', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Enthalpy 2`
@@ -21080,11 +20274,9 @@ class MaterialPropertyPhaseChange(object):
         return self._data["Temperature 3"]
 
     @temperature_3.setter
-    def temperature_3(self, value=0.0 ):
+    def temperature_3(self, value=0.0):
         """  Corresponds to IDD Field `Temperature 3`
         for Temperature-enthalpy function
-        
-        {'pytype': 'float', u'default': '0.0', u'required-field': True, u'note': [u'for Temperature-enthalpy function'], u'units': u'C', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Temperature 3`
@@ -21114,11 +20306,9 @@ class MaterialPropertyPhaseChange(object):
         return self._data["Enthalpy 3"]
 
     @enthalpy_3.setter
-    def enthalpy_3(self, value=0.0 ):
+    def enthalpy_3(self, value=0.0):
         """  Corresponds to IDD Field `Enthalpy 3`
         for Temperature-enthalpy function corresponding to temperature 3
-        
-        {'pytype': 'float', u'default': '0.0', u'required-field': True, u'note': [u'for Temperature-enthalpy function corresponding to temperature 3'], u'units': u'J/kg', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Enthalpy 3`
@@ -21148,11 +20338,9 @@ class MaterialPropertyPhaseChange(object):
         return self._data["Temperature 4"]
 
     @temperature_4.setter
-    def temperature_4(self, value=0.0 ):
+    def temperature_4(self, value=0.0):
         """  Corresponds to IDD Field `Temperature 4`
         for Temperature-enthalpy function
-        
-        {u'note': [u'for Temperature-enthalpy function'], u'units': u'C', u'default': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Temperature 4`
@@ -21182,11 +20370,9 @@ class MaterialPropertyPhaseChange(object):
         return self._data["Enthalpy 4"]
 
     @enthalpy_4.setter
-    def enthalpy_4(self, value=0.0 ):
+    def enthalpy_4(self, value=0.0):
         """  Corresponds to IDD Field `Enthalpy 4`
         for Temperature-enthalpy function corresponding to temperature 4
-        
-        {u'note': [u'for Temperature-enthalpy function corresponding to temperature 4'], u'units': u'J/kg', u'default': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Enthalpy 4`
@@ -21216,11 +20402,9 @@ class MaterialPropertyPhaseChange(object):
         return self._data["Temperature 5"]
 
     @temperature_5.setter
-    def temperature_5(self, value=0.0 ):
+    def temperature_5(self, value=0.0):
         """  Corresponds to IDD Field `Temperature 5`
         for Temperature-enthalpy function
-        
-        {u'note': [u'for Temperature-enthalpy function'], u'units': u'C', u'default': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Temperature 5`
@@ -21250,11 +20434,9 @@ class MaterialPropertyPhaseChange(object):
         return self._data["Enthalpy 5"]
 
     @enthalpy_5.setter
-    def enthalpy_5(self, value=0.0 ):
+    def enthalpy_5(self, value=0.0):
         """  Corresponds to IDD Field `Enthalpy 5`
         for Temperature-enthalpy function corresponding to temperature 5
-        
-        {u'note': [u'for Temperature-enthalpy function corresponding to temperature 5'], u'units': u'J/kg', u'default': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Enthalpy 5`
@@ -21284,11 +20466,9 @@ class MaterialPropertyPhaseChange(object):
         return self._data["Temperature 6"]
 
     @temperature_6.setter
-    def temperature_6(self, value=0.0 ):
+    def temperature_6(self, value=0.0):
         """  Corresponds to IDD Field `Temperature 6`
         for Temperature-enthalpy function
-        
-        {u'note': [u'for Temperature-enthalpy function'], u'units': u'C', u'default': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Temperature 6`
@@ -21318,11 +20498,9 @@ class MaterialPropertyPhaseChange(object):
         return self._data["Enthalpy 6"]
 
     @enthalpy_6.setter
-    def enthalpy_6(self, value=0.0 ):
+    def enthalpy_6(self, value=0.0):
         """  Corresponds to IDD Field `Enthalpy 6`
         for Temperature-enthalpy function corresponding to temperature 6
-        
-        {u'note': [u'for Temperature-enthalpy function corresponding to temperature 6'], u'units': u'J/kg', u'default': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Enthalpy 6`
@@ -21352,11 +20530,9 @@ class MaterialPropertyPhaseChange(object):
         return self._data["Temperature 7"]
 
     @temperature_7.setter
-    def temperature_7(self, value=0.0 ):
+    def temperature_7(self, value=0.0):
         """  Corresponds to IDD Field `Temperature 7`
         for Temperature-enthalpy function
-        
-        {u'note': [u'for Temperature-enthalpy function'], u'units': u'C', u'default': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Temperature 7`
@@ -21386,11 +20562,9 @@ class MaterialPropertyPhaseChange(object):
         return self._data["Enthalpy 7"]
 
     @enthalpy_7.setter
-    def enthalpy_7(self, value=0.0 ):
+    def enthalpy_7(self, value=0.0):
         """  Corresponds to IDD Field `Enthalpy 7`
         for Temperature-enthalpy function corresponding to temperature 7
-        
-        {u'note': [u'for Temperature-enthalpy function corresponding to temperature 7'], u'units': u'J/kg', u'default': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Enthalpy 7`
@@ -21420,11 +20594,9 @@ class MaterialPropertyPhaseChange(object):
         return self._data["Temperature 8"]
 
     @temperature_8.setter
-    def temperature_8(self, value=0.0 ):
+    def temperature_8(self, value=0.0):
         """  Corresponds to IDD Field `Temperature 8`
         for Temperature-enthalpy function
-        
-        {u'note': [u'for Temperature-enthalpy function'], u'units': u'C', u'default': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Temperature 8`
@@ -21454,11 +20626,9 @@ class MaterialPropertyPhaseChange(object):
         return self._data["Enthalpy 8"]
 
     @enthalpy_8.setter
-    def enthalpy_8(self, value=0.0 ):
+    def enthalpy_8(self, value=0.0):
         """  Corresponds to IDD Field `Enthalpy 8`
         for Temperature-enthalpy function corresponding to temperature 8
-        
-        {u'note': [u'for Temperature-enthalpy function corresponding to temperature 8'], u'units': u'J/kg', u'default': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Enthalpy 8`
@@ -21488,11 +20658,9 @@ class MaterialPropertyPhaseChange(object):
         return self._data["Temperature 9"]
 
     @temperature_9.setter
-    def temperature_9(self, value=0.0 ):
+    def temperature_9(self, value=0.0):
         """  Corresponds to IDD Field `Temperature 9`
         for Temperature-enthalpy function
-        
-        {u'note': [u'for Temperature-enthalpy function'], u'units': u'C', u'default': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Temperature 9`
@@ -21522,11 +20690,9 @@ class MaterialPropertyPhaseChange(object):
         return self._data["Enthalpy 9"]
 
     @enthalpy_9.setter
-    def enthalpy_9(self, value=0.0 ):
+    def enthalpy_9(self, value=0.0):
         """  Corresponds to IDD Field `Enthalpy 9`
         for Temperature-enthalpy function corresponding to temperature 1
-        
-        {u'note': [u'for Temperature-enthalpy function corresponding to temperature 1'], u'units': u'J/kg', u'default': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Enthalpy 9`
@@ -21556,11 +20722,9 @@ class MaterialPropertyPhaseChange(object):
         return self._data["Temperature 10"]
 
     @temperature_10.setter
-    def temperature_10(self, value=0.0 ):
+    def temperature_10(self, value=0.0):
         """  Corresponds to IDD Field `Temperature 10`
         for Temperature-enthalpy function
-        
-        {u'note': [u'for Temperature-enthalpy function'], u'units': u'C', u'default': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Temperature 10`
@@ -21590,11 +20754,9 @@ class MaterialPropertyPhaseChange(object):
         return self._data["Enthalpy 10"]
 
     @enthalpy_10.setter
-    def enthalpy_10(self, value=0.0 ):
+    def enthalpy_10(self, value=0.0):
         """  Corresponds to IDD Field `Enthalpy 10`
         for Temperature-enthalpy function corresponding to temperature 2
-        
-        {u'note': [u'for Temperature-enthalpy function corresponding to temperature 2'], u'units': u'J/kg', u'default': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Enthalpy 10`
@@ -21624,11 +20786,9 @@ class MaterialPropertyPhaseChange(object):
         return self._data["Temperature 11"]
 
     @temperature_11.setter
-    def temperature_11(self, value=0.0 ):
+    def temperature_11(self, value=0.0):
         """  Corresponds to IDD Field `Temperature 11`
         for Temperature-enthalpy function
-        
-        {u'note': [u'for Temperature-enthalpy function'], u'units': u'C', u'default': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Temperature 11`
@@ -21658,11 +20818,9 @@ class MaterialPropertyPhaseChange(object):
         return self._data["Enthalpy 11"]
 
     @enthalpy_11.setter
-    def enthalpy_11(self, value=0.0 ):
+    def enthalpy_11(self, value=0.0):
         """  Corresponds to IDD Field `Enthalpy 11`
         for Temperature-enthalpy function corresponding to temperature 3
-        
-        {u'note': [u'for Temperature-enthalpy function corresponding to temperature 3'], u'units': u'J/kg', u'default': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Enthalpy 11`
@@ -21692,11 +20850,9 @@ class MaterialPropertyPhaseChange(object):
         return self._data["Temperature 12"]
 
     @temperature_12.setter
-    def temperature_12(self, value=0.0 ):
+    def temperature_12(self, value=0.0):
         """  Corresponds to IDD Field `Temperature 12`
         for Temperature-enthalpy function
-        
-        {u'note': [u'for Temperature-enthalpy function'], u'units': u'C', u'default': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Temperature 12`
@@ -21726,11 +20882,9 @@ class MaterialPropertyPhaseChange(object):
         return self._data["Enthalpy 12"]
 
     @enthalpy_12.setter
-    def enthalpy_12(self, value=0.0 ):
+    def enthalpy_12(self, value=0.0):
         """  Corresponds to IDD Field `Enthalpy 12`
         for Temperature-enthalpy function corresponding to temperature 14
-        
-        {u'note': [u'for Temperature-enthalpy function corresponding to temperature 14'], u'units': u'J/kg', u'default': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Enthalpy 12`
@@ -21760,11 +20914,9 @@ class MaterialPropertyPhaseChange(object):
         return self._data["Temperature 13"]
 
     @temperature_13.setter
-    def temperature_13(self, value=0.0 ):
+    def temperature_13(self, value=0.0):
         """  Corresponds to IDD Field `Temperature 13`
         for Temperature-enthalpy function
-        
-        {u'note': [u'for Temperature-enthalpy function'], u'units': u'C', u'default': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Temperature 13`
@@ -21794,11 +20946,9 @@ class MaterialPropertyPhaseChange(object):
         return self._data["Enthalpy 13"]
 
     @enthalpy_13.setter
-    def enthalpy_13(self, value=0.0 ):
+    def enthalpy_13(self, value=0.0):
         """  Corresponds to IDD Field `Enthalpy 13`
         for Temperature-enthalpy function corresponding to temperature 15
-        
-        {u'note': [u'for Temperature-enthalpy function corresponding to temperature 15'], u'units': u'J/kg', u'default': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Enthalpy 13`
@@ -21828,11 +20978,9 @@ class MaterialPropertyPhaseChange(object):
         return self._data["Temperature 14"]
 
     @temperature_14.setter
-    def temperature_14(self, value=0.0 ):
+    def temperature_14(self, value=0.0):
         """  Corresponds to IDD Field `Temperature 14`
         for Temperature-enthalpy function
-        
-        {u'note': [u'for Temperature-enthalpy function'], u'units': u'C', u'default': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Temperature 14`
@@ -21862,11 +21010,9 @@ class MaterialPropertyPhaseChange(object):
         return self._data["Enthalpy 14"]
 
     @enthalpy_14.setter
-    def enthalpy_14(self, value=0.0 ):
+    def enthalpy_14(self, value=0.0):
         """  Corresponds to IDD Field `Enthalpy 14`
         for Temperature-enthalpy function corresponding to temperature 16
-        
-        {u'note': [u'for Temperature-enthalpy function corresponding to temperature 16'], u'units': u'J/kg', u'default': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Enthalpy 14`
@@ -21896,11 +21042,9 @@ class MaterialPropertyPhaseChange(object):
         return self._data["Temperature 15"]
 
     @temperature_15.setter
-    def temperature_15(self, value=0.0 ):
+    def temperature_15(self, value=0.0):
         """  Corresponds to IDD Field `Temperature 15`
         for Temperature-enthalpy function
-        
-        {u'note': [u'for Temperature-enthalpy function'], u'units': u'C', u'default': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Temperature 15`
@@ -21930,11 +21074,9 @@ class MaterialPropertyPhaseChange(object):
         return self._data["Enthalpy 15"]
 
     @enthalpy_15.setter
-    def enthalpy_15(self, value=0.0 ):
+    def enthalpy_15(self, value=0.0):
         """  Corresponds to IDD Field `Enthalpy 15`
         for Temperature-enthalpy function corresponding to temperature 17
-        
-        {u'note': [u'for Temperature-enthalpy function corresponding to temperature 17'], u'units': u'J/kg', u'default': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Enthalpy 15`
@@ -21964,11 +21106,9 @@ class MaterialPropertyPhaseChange(object):
         return self._data["Temperature 16"]
 
     @temperature_16.setter
-    def temperature_16(self, value=0.0 ):
+    def temperature_16(self, value=0.0):
         """  Corresponds to IDD Field `Temperature 16`
         for Temperature-enthalpy function
-        
-        {u'note': [u'for Temperature-enthalpy function'], u'units': u'C', u'default': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Temperature 16`
@@ -21998,11 +21138,9 @@ class MaterialPropertyPhaseChange(object):
         return self._data["Enthalpy 16"]
 
     @enthalpy_16.setter
-    def enthalpy_16(self, value=0.0 ):
+    def enthalpy_16(self, value=0.0):
         """  Corresponds to IDD Field `Enthalpy 16`
         for Temperature-enthalpy function corresponding to temperature 16
-        
-        {u'note': [u'for Temperature-enthalpy function corresponding to temperature 16'], u'units': u'J/kg', u'default': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Enthalpy 16`
@@ -22265,8 +21403,6 @@ class MaterialPropertyVariableThermalConductivity(object):
         """  Corresponds to IDD Field `Name`
         Regular Material Name to which the additional properties will be added.
         this the material name for the basic material properties.
-        
-        {u'note': [u'Regular Material Name to which the additional properties will be added.', u'this the material name for the basic material properties.'], u'type': u'object-list', u'object-list': u'MaterialName', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -22300,11 +21436,9 @@ class MaterialPropertyVariableThermalConductivity(object):
         return self._data["Temperature 1"]
 
     @temperature_1.setter
-    def temperature_1(self, value=0.0 ):
+    def temperature_1(self, value=0.0):
         """  Corresponds to IDD Field `Temperature 1`
         for Temperature-Thermal Conductivity function
-        
-        {'pytype': 'float', u'default': '0.0', u'required-field': True, u'note': [u'for Temperature-Thermal Conductivity function'], u'units': u'C', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Temperature 1`
@@ -22334,11 +21468,9 @@ class MaterialPropertyVariableThermalConductivity(object):
         return self._data["Thermal Conductivity 1"]
 
     @thermal_conductivity_1.setter
-    def thermal_conductivity_1(self, value=0.0 ):
+    def thermal_conductivity_1(self, value=0.0):
         """  Corresponds to IDD Field `Thermal Conductivity 1`
         for Temperature-Thermal Conductivity function corresponding to temperature 1
-        
-        {'pytype': 'float', u'default': '0.0', u'required-field': True, u'note': [u'for Temperature-Thermal Conductivity function corresponding to temperature 1'], u'units': u'W/m-K', 'type': 'real'}
 
         Args:
             value (float): value for IDD Field `Thermal Conductivity 1`
@@ -22368,11 +21500,9 @@ class MaterialPropertyVariableThermalConductivity(object):
         return self._data["Temperature 2"]
 
     @temperature_2.setter
-    def temperature_2(self, value=0.0 ):
+    def temperature_2(self, value=0.0):
         """  Corresponds to IDD Field `Temperature 2`
         for Temperature-Thermal Conductivity function
-        
-        {'pytype': 'float', u'default': '0.0', u'required-field': True, u'note': [u'for Temperature-Thermal Conductivity function'], u'units': u'C', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Temperature 2`
@@ -22402,11 +21532,9 @@ class MaterialPropertyVariableThermalConductivity(object):
         return self._data["Thermal Conductivity 2"]
 
     @thermal_conductivity_2.setter
-    def thermal_conductivity_2(self, value=0.0 ):
+    def thermal_conductivity_2(self, value=0.0):
         """  Corresponds to IDD Field `Thermal Conductivity 2`
         for Temperature-Thermal Conductivity function corresponding to temperature 2
-        
-        {'pytype': 'float', u'default': '0.0', u'required-field': True, u'note': [u'for Temperature-Thermal Conductivity function corresponding to temperature 2'], u'units': u'W/m-K', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Thermal Conductivity 2`
@@ -22436,11 +21564,9 @@ class MaterialPropertyVariableThermalConductivity(object):
         return self._data["Temperature 3"]
 
     @temperature_3.setter
-    def temperature_3(self, value=0.0 ):
+    def temperature_3(self, value=0.0):
         """  Corresponds to IDD Field `Temperature 3`
         for Temperature-Thermal Conductivity function
-        
-        {'pytype': 'float', u'default': '0.0', u'required-field': True, u'note': [u'for Temperature-Thermal Conductivity function'], u'units': u'C', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Temperature 3`
@@ -22470,11 +21596,9 @@ class MaterialPropertyVariableThermalConductivity(object):
         return self._data["Thermal Conductivity 3"]
 
     @thermal_conductivity_3.setter
-    def thermal_conductivity_3(self, value=0.0 ):
+    def thermal_conductivity_3(self, value=0.0):
         """  Corresponds to IDD Field `Thermal Conductivity 3`
         for Temperature-Thermal Conductivity function corresponding to temperature 3
-        
-        {'pytype': 'float', u'default': '0.0', u'required-field': True, u'note': [u'for Temperature-Thermal Conductivity function corresponding to temperature 3'], u'units': u'W/m-K', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Thermal Conductivity 3`
@@ -22504,11 +21628,9 @@ class MaterialPropertyVariableThermalConductivity(object):
         return self._data["Temperature 4"]
 
     @temperature_4.setter
-    def temperature_4(self, value=0.0 ):
+    def temperature_4(self, value=0.0):
         """  Corresponds to IDD Field `Temperature 4`
         for Temperature-Thermal Conductivity function
-        
-        {u'note': [u'for Temperature-Thermal Conductivity function'], u'units': u'C', u'default': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Temperature 4`
@@ -22538,11 +21660,9 @@ class MaterialPropertyVariableThermalConductivity(object):
         return self._data["Thermal Conductivity 4"]
 
     @thermal_conductivity_4.setter
-    def thermal_conductivity_4(self, value=0.0 ):
+    def thermal_conductivity_4(self, value=0.0):
         """  Corresponds to IDD Field `Thermal Conductivity 4`
         for Temperature-Thermal Conductivity function corresponding to temperature 4
-        
-        {u'note': [u'for Temperature-Thermal Conductivity function corresponding to temperature 4'], u'units': u'W/m-K', u'default': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Thermal Conductivity 4`
@@ -22572,11 +21692,9 @@ class MaterialPropertyVariableThermalConductivity(object):
         return self._data["Temperature 5"]
 
     @temperature_5.setter
-    def temperature_5(self, value=0.0 ):
+    def temperature_5(self, value=0.0):
         """  Corresponds to IDD Field `Temperature 5`
         for Temperature-Thermal Conductivity function
-        
-        {u'note': [u'for Temperature-Thermal Conductivity function'], u'units': u'C', u'default': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Temperature 5`
@@ -22606,11 +21724,9 @@ class MaterialPropertyVariableThermalConductivity(object):
         return self._data["Thermal Conductivity 5"]
 
     @thermal_conductivity_5.setter
-    def thermal_conductivity_5(self, value=0.0 ):
+    def thermal_conductivity_5(self, value=0.0):
         """  Corresponds to IDD Field `Thermal Conductivity 5`
         for Temperature-Thermal Conductivity function corresponding to temperature 5
-        
-        {u'note': [u'for Temperature-Thermal Conductivity function corresponding to temperature 5'], u'units': u'W/m-K', u'default': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Thermal Conductivity 5`
@@ -22640,11 +21756,9 @@ class MaterialPropertyVariableThermalConductivity(object):
         return self._data["Temperature 6"]
 
     @temperature_6.setter
-    def temperature_6(self, value=0.0 ):
+    def temperature_6(self, value=0.0):
         """  Corresponds to IDD Field `Temperature 6`
         for Temperature-Thermal Conductivity function
-        
-        {u'note': [u'for Temperature-Thermal Conductivity function'], u'units': u'C', u'default': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Temperature 6`
@@ -22674,11 +21788,9 @@ class MaterialPropertyVariableThermalConductivity(object):
         return self._data["Thermal Conductivity 6"]
 
     @thermal_conductivity_6.setter
-    def thermal_conductivity_6(self, value=0.0 ):
+    def thermal_conductivity_6(self, value=0.0):
         """  Corresponds to IDD Field `Thermal Conductivity 6`
         for Temperature-Thermal Conductivity function corresponding to temperature 6
-        
-        {u'note': [u'for Temperature-Thermal Conductivity function corresponding to temperature 6'], u'units': u'W/m-K', u'default': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Thermal Conductivity 6`
@@ -22708,11 +21820,9 @@ class MaterialPropertyVariableThermalConductivity(object):
         return self._data["Temperature 7"]
 
     @temperature_7.setter
-    def temperature_7(self, value=0.0 ):
+    def temperature_7(self, value=0.0):
         """  Corresponds to IDD Field `Temperature 7`
         for Temperature-Thermal Conductivity function
-        
-        {u'note': [u'for Temperature-Thermal Conductivity function'], u'units': u'C', u'default': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Temperature 7`
@@ -22742,11 +21852,9 @@ class MaterialPropertyVariableThermalConductivity(object):
         return self._data["Thermal Conductivity 7"]
 
     @thermal_conductivity_7.setter
-    def thermal_conductivity_7(self, value=0.0 ):
+    def thermal_conductivity_7(self, value=0.0):
         """  Corresponds to IDD Field `Thermal Conductivity 7`
         for Temperature-Thermal Conductivity function corresponding to temperature 7
-        
-        {u'note': [u'for Temperature-Thermal Conductivity function corresponding to temperature 7'], u'units': u'W/m-K', u'default': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Thermal Conductivity 7`
@@ -22776,11 +21884,9 @@ class MaterialPropertyVariableThermalConductivity(object):
         return self._data["Temperature 8"]
 
     @temperature_8.setter
-    def temperature_8(self, value=0.0 ):
+    def temperature_8(self, value=0.0):
         """  Corresponds to IDD Field `Temperature 8`
         for Temperature-Thermal Conductivity function
-        
-        {u'note': [u'for Temperature-Thermal Conductivity function'], u'units': u'C', u'default': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Temperature 8`
@@ -22810,11 +21916,9 @@ class MaterialPropertyVariableThermalConductivity(object):
         return self._data["Thermal Conductivity 8"]
 
     @thermal_conductivity_8.setter
-    def thermal_conductivity_8(self, value=0.0 ):
+    def thermal_conductivity_8(self, value=0.0):
         """  Corresponds to IDD Field `Thermal Conductivity 8`
         for Temperature-Thermal Conductivity function corresponding to temperature 8
-        
-        {u'note': [u'for Temperature-Thermal Conductivity function corresponding to temperature 8'], u'units': u'W/m-K', u'default': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Thermal Conductivity 8`
@@ -22844,11 +21948,9 @@ class MaterialPropertyVariableThermalConductivity(object):
         return self._data["Temperature 9"]
 
     @temperature_9.setter
-    def temperature_9(self, value=0.0 ):
+    def temperature_9(self, value=0.0):
         """  Corresponds to IDD Field `Temperature 9`
         for Temperature-Thermal Conductivity function
-        
-        {u'note': [u'for Temperature-Thermal Conductivity function'], u'units': u'C', u'default': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Temperature 9`
@@ -22878,11 +21980,9 @@ class MaterialPropertyVariableThermalConductivity(object):
         return self._data["Thermal Conductivity 9"]
 
     @thermal_conductivity_9.setter
-    def thermal_conductivity_9(self, value=0.0 ):
+    def thermal_conductivity_9(self, value=0.0):
         """  Corresponds to IDD Field `Thermal Conductivity 9`
         for Temperature-Thermal Conductivity function corresponding to temperature 9
-        
-        {u'note': [u'for Temperature-Thermal Conductivity function corresponding to temperature 9'], u'units': u'W/m-K', u'default': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Thermal Conductivity 9`
@@ -22912,11 +22012,9 @@ class MaterialPropertyVariableThermalConductivity(object):
         return self._data["Temperature 10"]
 
     @temperature_10.setter
-    def temperature_10(self, value=0.0 ):
+    def temperature_10(self, value=0.0):
         """  Corresponds to IDD Field `Temperature 10`
         for Temperature-Thermal Conductivity function
-        
-        {u'note': [u'for Temperature-Thermal Conductivity function'], u'units': u'C', u'default': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Temperature 10`
@@ -22946,11 +22044,9 @@ class MaterialPropertyVariableThermalConductivity(object):
         return self._data["Thermal Conductivity 10"]
 
     @thermal_conductivity_10.setter
-    def thermal_conductivity_10(self, value=0.0 ):
+    def thermal_conductivity_10(self, value=0.0):
         """  Corresponds to IDD Field `Thermal Conductivity 10`
         for Temperature-Thermal Conductivity function corresponding to temperature 10
-        
-        {u'note': [u'for Temperature-Thermal Conductivity function corresponding to temperature 10'], u'units': u'W/m-K', u'default': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Thermal Conductivity 10`
@@ -23068,8 +22164,6 @@ class MaterialPropertyHeatAndMoistureTransferSettings(object):
         """  Corresponds to IDD Field `Material Name`
         Material Name that the moisture properties will be added to.
         This augments material properties needed for combined heat and moisture transfer for surfaces.
-        
-        {u'note': [u'Material Name that the moisture properties will be added to.', u'This augments material properties needed for combined heat and moisture transfer for surfaces.'], u'type': u'object-list', u'object-list': u'MaterialName', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Material Name`
@@ -23105,8 +22199,6 @@ class MaterialPropertyHeatAndMoistureTransferSettings(object):
     @porosity.setter
     def porosity(self, value=None):
         """  Corresponds to IDD Field `Porosity`
-        
-        {'pytype': 'float', u'maximum': '1.0', u'required-field': True, u'minimum': '0.0', u'units': u'm3/m3', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Porosity`
@@ -23143,11 +22235,9 @@ class MaterialPropertyHeatAndMoistureTransferSettings(object):
         return self._data["Initial Water Content Ratio"]
 
     @initial_water_content_ratio.setter
-    def initial_water_content_ratio(self, value=0.2 ):
+    def initial_water_content_ratio(self, value=0.2):
         """  Corresponds to IDD Field `Initial Water Content Ratio`
         units are the water/material density ratio at the begining of each run period.
-        
-        {'pytype': 'float', u'default': '0.2', u'required-field': True, u'note': [u'units are the water/material density ratio at the begining of each run period.'], u'minimum': '0.0', u'units': u'kg/kg', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Initial Water Content Ratio`
@@ -23660,8 +22750,6 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
     def material_name(self, value=None):
         """  Corresponds to IDD Field `Material Name`
         The Material Name that the moisture sorption isotherm will be added to.
-        
-        {u'note': [u'The Material Name that the moisture sorption isotherm will be added to.'], u'type': u'object-list', u'object-list': u'MaterialName', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Material Name`
@@ -23698,8 +22786,6 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
     def number_of_isotherm_coordinates(self, value=None):
         """  Corresponds to IDD Field `Number of Isotherm Coordinates`
         Number of data Coordinates
-        
-        {'pytype': 'int', u'maximum': '25', u'required-field': True, u'note': [u'Number of data Coordinates'], u'minimum': '1', u'type': u'integer'}
 
         Args:
             value (int): value for IDD Field `Number of Isotherm Coordinates`
@@ -23738,8 +22824,6 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
     def relative_humidity_fraction_1(self, value=None):
         """  Corresponds to IDD Field `Relative Humidity Fraction 1`
         The relative humidity is entered as a fraction.
-        
-        {'pytype': 'float', u'maximum': '1.0', u'required-field': True, u'note': [u'The relative humidity is entered as a fraction.'], u'minimum': '0.0', u'units': u'dimensionless', 'type': 'real'}
 
         Args:
             value (float): value for IDD Field `Relative Humidity Fraction 1`
@@ -23778,8 +22862,6 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
     @moisture_content_1.setter
     def moisture_content_1(self, value=None):
         """  Corresponds to IDD Field `Moisture Content 1`
-        
-        {u'units': u'kg/m3', u'minimum': '0.0', 'type': 'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Moisture Content 1`
@@ -23815,8 +22897,6 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
     def relative_humidity_fraction_2(self, value=None):
         """  Corresponds to IDD Field `Relative Humidity Fraction 2`
         The relative humidity is entered as a fraction.
-        
-        {'pytype': 'float', u'maximum': '1.0', u'note': [u'The relative humidity is entered as a fraction.'], u'minimum': '0.0', u'units': u'dimensionless', 'type': 'real'}
 
         Args:
             value (float): value for IDD Field `Relative Humidity Fraction 2`
@@ -23855,8 +22935,6 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
     @moisture_content_2.setter
     def moisture_content_2(self, value=None):
         """  Corresponds to IDD Field `Moisture Content 2`
-        
-        {u'units': u'kg/m3', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Moisture Content 2`
@@ -23892,8 +22970,6 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
     def relative_humidity_fraction_3(self, value=None):
         """  Corresponds to IDD Field `Relative Humidity Fraction 3`
         The relative humidity is entered as a fraction.
-        
-        {'pytype': 'float', u'maximum': '1.0', u'note': [u'The relative humidity is entered as a fraction.'], u'minimum': '0.0', u'units': u'dimensionless', 'type': 'real'}
 
         Args:
             value (float): value for IDD Field `Relative Humidity Fraction 3`
@@ -23932,8 +23008,6 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
     @moisture_content_3.setter
     def moisture_content_3(self, value=None):
         """  Corresponds to IDD Field `Moisture Content 3`
-        
-        {u'units': u'kg/m3', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Moisture Content 3`
@@ -23969,8 +23043,6 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
     def relative_humidity_fraction_4(self, value=None):
         """  Corresponds to IDD Field `Relative Humidity Fraction 4`
         The relative humidity is entered as a fraction.
-        
-        {'pytype': 'float', u'maximum': '1.0', u'note': [u'The relative humidity is entered as a fraction.'], u'minimum': '0.0', u'units': u'dimensionless', 'type': 'real'}
 
         Args:
             value (float): value for IDD Field `Relative Humidity Fraction 4`
@@ -24009,8 +23081,6 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
     @moisture_content_4.setter
     def moisture_content_4(self, value=None):
         """  Corresponds to IDD Field `Moisture Content 4`
-        
-        {u'units': u'kg/m3', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Moisture Content 4`
@@ -24046,8 +23116,6 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
     def relative_humidity_fraction_5(self, value=None):
         """  Corresponds to IDD Field `Relative Humidity Fraction 5`
         The relative humidity is entered as a fraction.
-        
-        {'pytype': 'float', u'maximum': '1.0', u'note': [u'The relative humidity is entered as a fraction.'], u'minimum': '0.0', u'units': u'dimensionless', 'type': 'real'}
 
         Args:
             value (float): value for IDD Field `Relative Humidity Fraction 5`
@@ -24086,8 +23154,6 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
     @moisture_content_5.setter
     def moisture_content_5(self, value=None):
         """  Corresponds to IDD Field `Moisture Content 5`
-        
-        {u'units': u'kg/m3', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Moisture Content 5`
@@ -24123,8 +23189,6 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
     def relative_humidity_fraction_6(self, value=None):
         """  Corresponds to IDD Field `Relative Humidity Fraction 6`
         The relative humidity is entered as a fraction.
-        
-        {'pytype': 'float', u'maximum': '1.0', u'note': [u'The relative humidity is entered as a fraction.'], u'minimum': '0.0', u'units': u'dimensionless', 'type': 'real'}
 
         Args:
             value (float): value for IDD Field `Relative Humidity Fraction 6`
@@ -24163,8 +23227,6 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
     @moisture_content_6.setter
     def moisture_content_6(self, value=None):
         """  Corresponds to IDD Field `Moisture Content 6`
-        
-        {u'units': u'kg/m3', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Moisture Content 6`
@@ -24200,8 +23262,6 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
     def relative_humidity_fraction_7(self, value=None):
         """  Corresponds to IDD Field `Relative Humidity Fraction 7`
         The relative humidity is entered as a fraction.
-        
-        {'pytype': 'float', u'maximum': '1.0', u'note': [u'The relative humidity is entered as a fraction.'], u'minimum': '0.0', u'units': u'dimensionless', 'type': 'real'}
 
         Args:
             value (float): value for IDD Field `Relative Humidity Fraction 7`
@@ -24240,8 +23300,6 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
     @moisture_content_7.setter
     def moisture_content_7(self, value=None):
         """  Corresponds to IDD Field `Moisture Content 7`
-        
-        {u'units': u'kg/m3', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Moisture Content 7`
@@ -24277,8 +23335,6 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
     def relative_humidity_fraction_8(self, value=None):
         """  Corresponds to IDD Field `Relative Humidity Fraction 8`
         The relative humidity is entered as a fraction.
-        
-        {'pytype': 'float', u'maximum': '1.0', u'note': [u'The relative humidity is entered as a fraction.'], u'minimum': '0.0', u'units': u'dimensionless', 'type': 'real'}
 
         Args:
             value (float): value for IDD Field `Relative Humidity Fraction 8`
@@ -24317,8 +23373,6 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
     @moisture_content_8.setter
     def moisture_content_8(self, value=None):
         """  Corresponds to IDD Field `Moisture Content 8`
-        
-        {u'units': u'kg/m3', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Moisture Content 8`
@@ -24354,8 +23408,6 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
     def relative_humidity_fraction_9(self, value=None):
         """  Corresponds to IDD Field `Relative Humidity Fraction 9`
         The relative humidity is entered as a fraction.
-        
-        {'pytype': 'float', u'maximum': '1.0', u'note': [u'The relative humidity is entered as a fraction.'], u'minimum': '0.0', u'units': u'dimensionless', 'type': 'real'}
 
         Args:
             value (float): value for IDD Field `Relative Humidity Fraction 9`
@@ -24394,8 +23446,6 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
     @moisture_content_9.setter
     def moisture_content_9(self, value=None):
         """  Corresponds to IDD Field `Moisture Content 9`
-        
-        {u'units': u'kg/m3', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Moisture Content 9`
@@ -24431,8 +23481,6 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
     def relative_humidity_fraction_10(self, value=None):
         """  Corresponds to IDD Field `Relative Humidity Fraction 10`
         The relative humidity is entered as a fraction.
-        
-        {'pytype': 'float', u'maximum': '1.0', u'note': [u'The relative humidity is entered as a fraction.'], u'minimum': '0.0', u'units': u'dimensionless', 'type': 'real'}
 
         Args:
             value (float): value for IDD Field `Relative Humidity Fraction 10`
@@ -24471,8 +23519,6 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
     @moisture_content_10.setter
     def moisture_content_10(self, value=None):
         """  Corresponds to IDD Field `Moisture Content 10`
-        
-        {u'units': u'kg/m3', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Moisture Content 10`
@@ -24508,8 +23554,6 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
     def relative_humidity_fraction_11(self, value=None):
         """  Corresponds to IDD Field `Relative Humidity Fraction 11`
         The relative humidity is entered as a fraction.
-        
-        {'pytype': 'float', u'maximum': '1.0', u'note': [u'The relative humidity is entered as a fraction.'], u'minimum': '0.0', u'units': u'dimensionless', 'type': 'real'}
 
         Args:
             value (float): value for IDD Field `Relative Humidity Fraction 11`
@@ -24548,8 +23592,6 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
     @moisture_content_11.setter
     def moisture_content_11(self, value=None):
         """  Corresponds to IDD Field `Moisture Content 11`
-        
-        {u'units': u'kg/m3', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Moisture Content 11`
@@ -24585,8 +23627,6 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
     def relative_humidity_fraction_12(self, value=None):
         """  Corresponds to IDD Field `Relative Humidity Fraction 12`
         The relative humidity is entered as a fraction.
-        
-        {'pytype': 'float', u'maximum': '1.0', u'note': [u'The relative humidity is entered as a fraction.'], u'minimum': '0.0', u'units': u'dimensionless', 'type': 'real'}
 
         Args:
             value (float): value for IDD Field `Relative Humidity Fraction 12`
@@ -24625,8 +23665,6 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
     @moisture_content_12.setter
     def moisture_content_12(self, value=None):
         """  Corresponds to IDD Field `Moisture Content 12`
-        
-        {u'units': u'kg/m3', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Moisture Content 12`
@@ -24662,8 +23700,6 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
     def relative_humidity_fraction_13(self, value=None):
         """  Corresponds to IDD Field `Relative Humidity Fraction 13`
         The relative humidity is entered as a fraction.
-        
-        {'pytype': 'float', u'maximum': '1.0', u'note': [u'The relative humidity is entered as a fraction.'], u'minimum': '0.0', u'units': u'dimensionless', 'type': 'real'}
 
         Args:
             value (float): value for IDD Field `Relative Humidity Fraction 13`
@@ -24702,8 +23738,6 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
     @moisture_content_13.setter
     def moisture_content_13(self, value=None):
         """  Corresponds to IDD Field `Moisture Content 13`
-        
-        {u'units': u'kg/m3', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Moisture Content 13`
@@ -24739,8 +23773,6 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
     def relative_humidity_fraction_14(self, value=None):
         """  Corresponds to IDD Field `Relative Humidity Fraction 14`
         The relative humidity is entered as a fraction.
-        
-        {'pytype': 'float', u'maximum': '1.0', u'note': [u'The relative humidity is entered as a fraction.'], u'minimum': '0.0', u'units': u'dimensionless', 'type': 'real'}
 
         Args:
             value (float): value for IDD Field `Relative Humidity Fraction 14`
@@ -24779,8 +23811,6 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
     @moisture_content_14.setter
     def moisture_content_14(self, value=None):
         """  Corresponds to IDD Field `Moisture Content 14`
-        
-        {u'units': u'kg/m3', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Moisture Content 14`
@@ -24816,8 +23846,6 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
     def relative_humidity_fraction_15(self, value=None):
         """  Corresponds to IDD Field `Relative Humidity Fraction 15`
         The relative humidity is entered as a fraction.
-        
-        {'pytype': 'float', u'maximum': '1.0', u'note': [u'The relative humidity is entered as a fraction.'], u'minimum': '0.0', u'units': u'dimensionless', 'type': 'real'}
 
         Args:
             value (float): value for IDD Field `Relative Humidity Fraction 15`
@@ -24856,8 +23884,6 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
     @moisture_content_15.setter
     def moisture_content_15(self, value=None):
         """  Corresponds to IDD Field `Moisture Content 15`
-        
-        {u'units': u'kg/m3', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Moisture Content 15`
@@ -24893,8 +23919,6 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
     def relative_humidity_fraction_16(self, value=None):
         """  Corresponds to IDD Field `Relative Humidity Fraction 16`
         The relative humidity is entered as a fraction.
-        
-        {'pytype': 'float', u'maximum': '1.0', u'note': [u'The relative humidity is entered as a fraction.'], u'minimum': '0.0', u'units': u'dimensionless', 'type': 'real'}
 
         Args:
             value (float): value for IDD Field `Relative Humidity Fraction 16`
@@ -24933,8 +23957,6 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
     @moisture_content_16.setter
     def moisture_content_16(self, value=None):
         """  Corresponds to IDD Field `Moisture Content 16`
-        
-        {u'units': u'kg/m3', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Moisture Content 16`
@@ -24970,8 +23992,6 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
     def relative_humidity_fraction_17(self, value=None):
         """  Corresponds to IDD Field `Relative Humidity Fraction 17`
         The relative humidity is entered as a fraction.
-        
-        {'pytype': 'float', u'maximum': '1.0', u'note': [u'The relative humidity is entered as a fraction.'], u'minimum': '0.0', u'units': u'dimensionless', 'type': 'real'}
 
         Args:
             value (float): value for IDD Field `Relative Humidity Fraction 17`
@@ -25010,8 +24030,6 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
     @moisture_content_17.setter
     def moisture_content_17(self, value=None):
         """  Corresponds to IDD Field `Moisture Content 17`
-        
-        {u'units': u'kg/m3', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Moisture Content 17`
@@ -25047,8 +24065,6 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
     def relative_humidity_fraction_18(self, value=None):
         """  Corresponds to IDD Field `Relative Humidity Fraction 18`
         The relative humidity is entered as a fraction.
-        
-        {'pytype': 'float', u'maximum': '1.0', u'note': [u'The relative humidity is entered as a fraction.'], u'minimum': '0.0', u'units': u'dimensionless', 'type': 'real'}
 
         Args:
             value (float): value for IDD Field `Relative Humidity Fraction 18`
@@ -25087,8 +24103,6 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
     @moisture_content_18.setter
     def moisture_content_18(self, value=None):
         """  Corresponds to IDD Field `Moisture Content 18`
-        
-        {u'units': u'kg/m3', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Moisture Content 18`
@@ -25124,8 +24138,6 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
     def relative_humidity_fraction_19(self, value=None):
         """  Corresponds to IDD Field `Relative Humidity Fraction 19`
         The relative humidity is entered as a fraction.
-        
-        {'pytype': 'float', u'maximum': '1.0', u'note': [u'The relative humidity is entered as a fraction.'], u'minimum': '0.0', u'units': u'dimensionless', 'type': 'real'}
 
         Args:
             value (float): value for IDD Field `Relative Humidity Fraction 19`
@@ -25164,8 +24176,6 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
     @moisture_content_19.setter
     def moisture_content_19(self, value=None):
         """  Corresponds to IDD Field `Moisture Content 19`
-        
-        {u'units': u'kg/m3', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Moisture Content 19`
@@ -25201,8 +24211,6 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
     def relative_humidity_fraction_20(self, value=None):
         """  Corresponds to IDD Field `Relative Humidity Fraction 20`
         The relative humidity is entered as a fraction.
-        
-        {'pytype': 'float', u'maximum': '1.0', u'note': [u'The relative humidity is entered as a fraction.'], u'minimum': '0.0', u'units': u'dimensionless', 'type': 'real'}
 
         Args:
             value (float): value for IDD Field `Relative Humidity Fraction 20`
@@ -25241,8 +24249,6 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
     @moisture_content_20.setter
     def moisture_content_20(self, value=None):
         """  Corresponds to IDD Field `Moisture Content 20`
-        
-        {u'units': u'kg/m3', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Moisture Content 20`
@@ -25278,8 +24284,6 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
     def relative_humidity_fraction_21(self, value=None):
         """  Corresponds to IDD Field `Relative Humidity Fraction 21`
         The relative humidity is entered as a fraction.
-        
-        {'pytype': 'float', u'maximum': '1.0', u'note': [u'The relative humidity is entered as a fraction.'], u'minimum': '0.0', u'units': u'dimensionless', 'type': 'real'}
 
         Args:
             value (float): value for IDD Field `Relative Humidity Fraction 21`
@@ -25318,8 +24322,6 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
     @moisture_content_21.setter
     def moisture_content_21(self, value=None):
         """  Corresponds to IDD Field `Moisture Content 21`
-        
-        {u'units': u'kg/m3', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Moisture Content 21`
@@ -25355,8 +24357,6 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
     def relative_humidity_fraction_22(self, value=None):
         """  Corresponds to IDD Field `Relative Humidity Fraction 22`
         The relative humidity is entered as a fraction.
-        
-        {'pytype': 'float', u'maximum': '1.0', u'note': [u'The relative humidity is entered as a fraction.'], u'minimum': '0.0', u'units': u'dimensionless', 'type': 'real'}
 
         Args:
             value (float): value for IDD Field `Relative Humidity Fraction 22`
@@ -25395,8 +24395,6 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
     @moisture_content_22.setter
     def moisture_content_22(self, value=None):
         """  Corresponds to IDD Field `Moisture Content 22`
-        
-        {u'units': u'kg/m3', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Moisture Content 22`
@@ -25432,8 +24430,6 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
     def relative_humidity_fraction_23(self, value=None):
         """  Corresponds to IDD Field `Relative Humidity Fraction 23`
         The relative humidity is entered as a fraction.
-        
-        {'pytype': 'float', u'maximum': '1.0', u'note': [u'The relative humidity is entered as a fraction.'], u'minimum': '0.0', u'units': u'dimensionless', 'type': 'real'}
 
         Args:
             value (float): value for IDD Field `Relative Humidity Fraction 23`
@@ -25472,8 +24468,6 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
     @moisture_content_23.setter
     def moisture_content_23(self, value=None):
         """  Corresponds to IDD Field `Moisture Content 23`
-        
-        {u'units': u'kg/m3', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Moisture Content 23`
@@ -25509,8 +24503,6 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
     def relative_humidity_fraction_24(self, value=None):
         """  Corresponds to IDD Field `Relative Humidity Fraction 24`
         The relative humidity is entered as a fraction.
-        
-        {'pytype': 'float', u'maximum': '1.0', u'note': [u'The relative humidity is entered as a fraction.'], u'minimum': '0.0', u'units': u'dimensionless', 'type': 'real'}
 
         Args:
             value (float): value for IDD Field `Relative Humidity Fraction 24`
@@ -25549,8 +24541,6 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
     @moisture_content_24.setter
     def moisture_content_24(self, value=None):
         """  Corresponds to IDD Field `Moisture Content 24`
-        
-        {u'units': u'kg/m3', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Moisture Content 24`
@@ -25586,8 +24576,6 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
     def relative_humidity_fraction_25(self, value=None):
         """  Corresponds to IDD Field `Relative Humidity Fraction 25`
         The relative humidity is entered as a fraction.
-        
-        {'pytype': 'float', u'maximum': '1.0', u'note': [u'The relative humidity is entered as a fraction.'], u'minimum': '0.0', u'units': u'dimensionless', 'type': 'real'}
 
         Args:
             value (float): value for IDD Field `Relative Humidity Fraction 25`
@@ -25626,8 +24614,6 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
     @moisture_content_25.setter
     def moisture_content_25(self, value=None):
         """  Corresponds to IDD Field `Moisture Content 25`
-        
-        {u'units': u'kg/m3', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Moisture Content 25`
@@ -26139,8 +25125,6 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
     def material_name(self, value=None):
         """  Corresponds to IDD Field `Material Name`
         Material Name that the moisture properties will be added to.
-        
-        {u'note': [u'Material Name that the moisture properties will be added to.'], u'type': u'object-list', u'object-list': u'MaterialName', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Material Name`
@@ -26177,8 +25161,6 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
     def number_of_suction_points(self, value=None):
         """  Corresponds to IDD Field `Number of Suction points`
         Number of Suction Liquid Transport Coefficient coordinates
-        
-        {'pytype': 'int', u'maximum': '25', u'required-field': True, u'note': [u'Number of Suction Liquid Transport Coefficient coordinates'], u'minimum': '1', u'type': u'integer'}
 
         Args:
             value (int): value for IDD Field `Number of Suction points`
@@ -26216,8 +25198,6 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
     @moisture_content_1.setter
     def moisture_content_1(self, value=None):
         """  Corresponds to IDD Field `Moisture Content 1`
-        
-        {u'units': u'kg/m3', u'minimum': '0.0', 'type': 'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Moisture Content 1`
@@ -26252,8 +25232,6 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
     @liquid_transport_coefficient_1.setter
     def liquid_transport_coefficient_1(self, value=None):
         """  Corresponds to IDD Field `Liquid Transport Coefficient 1`
-        
-        {u'units': u'm2/s', u'minimum': '0.0', 'type': 'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 1`
@@ -26288,8 +25266,6 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
     @moisture_content_2.setter
     def moisture_content_2(self, value=None):
         """  Corresponds to IDD Field `Moisture Content 2`
-        
-        {u'units': u'kg/m3', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Moisture Content 2`
@@ -26324,8 +25300,6 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
     @liquid_transport_coefficient_2.setter
     def liquid_transport_coefficient_2(self, value=None):
         """  Corresponds to IDD Field `Liquid Transport Coefficient 2`
-        
-        {u'units': u'm2/s', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 2`
@@ -26360,8 +25334,6 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
     @moisture_content_3.setter
     def moisture_content_3(self, value=None):
         """  Corresponds to IDD Field `Moisture Content 3`
-        
-        {u'units': u'kg/m3', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Moisture Content 3`
@@ -26396,8 +25368,6 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
     @liquid_transport_coefficient_3.setter
     def liquid_transport_coefficient_3(self, value=None):
         """  Corresponds to IDD Field `Liquid Transport Coefficient 3`
-        
-        {u'units': u'm2/s', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 3`
@@ -26432,8 +25402,6 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
     @moisture_content_4.setter
     def moisture_content_4(self, value=None):
         """  Corresponds to IDD Field `Moisture Content 4`
-        
-        {u'units': u'kg/m3', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Moisture Content 4`
@@ -26468,8 +25436,6 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
     @liquid_transport_coefficient_4.setter
     def liquid_transport_coefficient_4(self, value=None):
         """  Corresponds to IDD Field `Liquid Transport Coefficient 4`
-        
-        {u'units': u'm2/s', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 4`
@@ -26504,8 +25470,6 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
     @moisture_content_5.setter
     def moisture_content_5(self, value=None):
         """  Corresponds to IDD Field `Moisture Content 5`
-        
-        {u'units': u'kg/m3', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Moisture Content 5`
@@ -26540,8 +25504,6 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
     @liquid_transport_coefficient_5.setter
     def liquid_transport_coefficient_5(self, value=None):
         """  Corresponds to IDD Field `Liquid Transport Coefficient 5`
-        
-        {u'units': u'm2/s', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 5`
@@ -26576,8 +25538,6 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
     @moisture_content_6.setter
     def moisture_content_6(self, value=None):
         """  Corresponds to IDD Field `Moisture Content 6`
-        
-        {u'units': u'kg/m3', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Moisture Content 6`
@@ -26612,8 +25572,6 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
     @liquid_transport_coefficient_6.setter
     def liquid_transport_coefficient_6(self, value=None):
         """  Corresponds to IDD Field `Liquid Transport Coefficient 6`
-        
-        {u'units': u'm2/s', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 6`
@@ -26648,8 +25606,6 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
     @moisture_content_7.setter
     def moisture_content_7(self, value=None):
         """  Corresponds to IDD Field `Moisture Content 7`
-        
-        {u'units': u'kg/m3', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Moisture Content 7`
@@ -26684,8 +25640,6 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
     @liquid_transport_coefficient_7.setter
     def liquid_transport_coefficient_7(self, value=None):
         """  Corresponds to IDD Field `Liquid Transport Coefficient 7`
-        
-        {u'units': u'm2/s', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 7`
@@ -26720,8 +25674,6 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
     @moisture_content_8.setter
     def moisture_content_8(self, value=None):
         """  Corresponds to IDD Field `Moisture Content 8`
-        
-        {u'units': u'kg/m3', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Moisture Content 8`
@@ -26756,8 +25708,6 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
     @liquid_transport_coefficient_8.setter
     def liquid_transport_coefficient_8(self, value=None):
         """  Corresponds to IDD Field `Liquid Transport Coefficient 8`
-        
-        {u'units': u'm2/s', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 8`
@@ -26792,8 +25742,6 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
     @moisture_content_9.setter
     def moisture_content_9(self, value=None):
         """  Corresponds to IDD Field `Moisture Content 9`
-        
-        {u'units': u'kg/m3', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Moisture Content 9`
@@ -26828,8 +25776,6 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
     @liquid_transport_coefficient_9.setter
     def liquid_transport_coefficient_9(self, value=None):
         """  Corresponds to IDD Field `Liquid Transport Coefficient 9`
-        
-        {u'units': u'm2/s', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 9`
@@ -26864,8 +25810,6 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
     @moisture_content_10.setter
     def moisture_content_10(self, value=None):
         """  Corresponds to IDD Field `Moisture Content 10`
-        
-        {u'units': u'kg/m3', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Moisture Content 10`
@@ -26900,8 +25844,6 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
     @liquid_transport_coefficient_10.setter
     def liquid_transport_coefficient_10(self, value=None):
         """  Corresponds to IDD Field `Liquid Transport Coefficient 10`
-        
-        {u'units': u'm2/s', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 10`
@@ -26936,8 +25878,6 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
     @moisture_content_11.setter
     def moisture_content_11(self, value=None):
         """  Corresponds to IDD Field `Moisture Content 11`
-        
-        {u'units': u'kg/m3', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Moisture Content 11`
@@ -26972,8 +25912,6 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
     @liquid_transport_coefficient_11.setter
     def liquid_transport_coefficient_11(self, value=None):
         """  Corresponds to IDD Field `Liquid Transport Coefficient 11`
-        
-        {u'units': u'm2/s', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 11`
@@ -27008,8 +25946,6 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
     @moisture_content_12.setter
     def moisture_content_12(self, value=None):
         """  Corresponds to IDD Field `Moisture Content 12`
-        
-        {u'units': u'kg/m3', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Moisture Content 12`
@@ -27044,8 +25980,6 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
     @liquid_transport_coefficient_12.setter
     def liquid_transport_coefficient_12(self, value=None):
         """  Corresponds to IDD Field `Liquid Transport Coefficient 12`
-        
-        {u'units': u'm2/s', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 12`
@@ -27080,8 +26014,6 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
     @moisture_content_13.setter
     def moisture_content_13(self, value=None):
         """  Corresponds to IDD Field `Moisture Content 13`
-        
-        {u'units': u'kg/m3', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Moisture Content 13`
@@ -27116,8 +26048,6 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
     @liquid_transport_coefficient_13.setter
     def liquid_transport_coefficient_13(self, value=None):
         """  Corresponds to IDD Field `Liquid Transport Coefficient 13`
-        
-        {u'units': u'm2/s', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 13`
@@ -27152,8 +26082,6 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
     @moisture_content_14.setter
     def moisture_content_14(self, value=None):
         """  Corresponds to IDD Field `Moisture Content 14`
-        
-        {u'units': u'kg/m3', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Moisture Content 14`
@@ -27188,8 +26116,6 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
     @liquid_transport_coefficient_14.setter
     def liquid_transport_coefficient_14(self, value=None):
         """  Corresponds to IDD Field `Liquid Transport Coefficient 14`
-        
-        {u'units': u'm2/s', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 14`
@@ -27224,8 +26150,6 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
     @moisture_content_15.setter
     def moisture_content_15(self, value=None):
         """  Corresponds to IDD Field `Moisture Content 15`
-        
-        {u'units': u'kg/m3', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Moisture Content 15`
@@ -27260,8 +26184,6 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
     @liquid_transport_coefficient_15.setter
     def liquid_transport_coefficient_15(self, value=None):
         """  Corresponds to IDD Field `Liquid Transport Coefficient 15`
-        
-        {u'units': u'm2/s', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 15`
@@ -27296,8 +26218,6 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
     @moisture_content_16.setter
     def moisture_content_16(self, value=None):
         """  Corresponds to IDD Field `Moisture Content 16`
-        
-        {u'units': u'kg/m3', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Moisture Content 16`
@@ -27332,8 +26252,6 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
     @liquid_transport_coefficient_16.setter
     def liquid_transport_coefficient_16(self, value=None):
         """  Corresponds to IDD Field `Liquid Transport Coefficient 16`
-        
-        {u'units': u'm2/s', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 16`
@@ -27368,8 +26286,6 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
     @moisture_content_17.setter
     def moisture_content_17(self, value=None):
         """  Corresponds to IDD Field `Moisture Content 17`
-        
-        {u'units': u'kg/m3', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Moisture Content 17`
@@ -27404,8 +26320,6 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
     @liquid_transport_coefficient_17.setter
     def liquid_transport_coefficient_17(self, value=None):
         """  Corresponds to IDD Field `Liquid Transport Coefficient 17`
-        
-        {u'units': u'm2/s', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 17`
@@ -27440,8 +26354,6 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
     @moisture_content_18.setter
     def moisture_content_18(self, value=None):
         """  Corresponds to IDD Field `Moisture Content 18`
-        
-        {u'units': u'kg/m3', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Moisture Content 18`
@@ -27476,8 +26388,6 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
     @liquid_transport_coefficient_18.setter
     def liquid_transport_coefficient_18(self, value=None):
         """  Corresponds to IDD Field `Liquid Transport Coefficient 18`
-        
-        {u'units': u'm2/s', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 18`
@@ -27512,8 +26422,6 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
     @moisture_content_19.setter
     def moisture_content_19(self, value=None):
         """  Corresponds to IDD Field `Moisture Content 19`
-        
-        {u'units': u'kg/m3', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Moisture Content 19`
@@ -27548,8 +26456,6 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
     @liquid_transport_coefficient_19.setter
     def liquid_transport_coefficient_19(self, value=None):
         """  Corresponds to IDD Field `Liquid Transport Coefficient 19`
-        
-        {u'units': u'm2/s', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 19`
@@ -27584,8 +26490,6 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
     @moisture_content_20.setter
     def moisture_content_20(self, value=None):
         """  Corresponds to IDD Field `Moisture Content 20`
-        
-        {u'units': u'kg/m3', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Moisture Content 20`
@@ -27620,8 +26524,6 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
     @liquid_transport_coefficient_20.setter
     def liquid_transport_coefficient_20(self, value=None):
         """  Corresponds to IDD Field `Liquid Transport Coefficient 20`
-        
-        {u'units': u'm2/s', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 20`
@@ -27656,8 +26558,6 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
     @moisture_content_21.setter
     def moisture_content_21(self, value=None):
         """  Corresponds to IDD Field `Moisture Content 21`
-        
-        {u'units': u'kg/m3', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Moisture Content 21`
@@ -27692,8 +26592,6 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
     @liquid_transport_coefficient_21.setter
     def liquid_transport_coefficient_21(self, value=None):
         """  Corresponds to IDD Field `Liquid Transport Coefficient 21`
-        
-        {u'units': u'm2/s', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 21`
@@ -27728,8 +26626,6 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
     @moisture_content_22.setter
     def moisture_content_22(self, value=None):
         """  Corresponds to IDD Field `Moisture Content 22`
-        
-        {u'units': u'kg/m3', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Moisture Content 22`
@@ -27764,8 +26660,6 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
     @liquid_transport_coefficient_22.setter
     def liquid_transport_coefficient_22(self, value=None):
         """  Corresponds to IDD Field `Liquid Transport Coefficient 22`
-        
-        {u'units': u'm2/s', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 22`
@@ -27800,8 +26694,6 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
     @moisture_content_23.setter
     def moisture_content_23(self, value=None):
         """  Corresponds to IDD Field `Moisture Content 23`
-        
-        {u'units': u'kg/m3', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Moisture Content 23`
@@ -27836,8 +26728,6 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
     @liquid_transport_coefficient_23.setter
     def liquid_transport_coefficient_23(self, value=None):
         """  Corresponds to IDD Field `Liquid Transport Coefficient 23`
-        
-        {u'units': u'm2/s', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 23`
@@ -27872,8 +26762,6 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
     @moisture_content_24.setter
     def moisture_content_24(self, value=None):
         """  Corresponds to IDD Field `Moisture Content 24`
-        
-        {u'units': u'kg/m3', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Moisture Content 24`
@@ -27908,8 +26796,6 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
     @liquid_transport_coefficient_24.setter
     def liquid_transport_coefficient_24(self, value=None):
         """  Corresponds to IDD Field `Liquid Transport Coefficient 24`
-        
-        {u'units': u'm2/s', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 24`
@@ -27944,8 +26830,6 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
     @moisture_content_25.setter
     def moisture_content_25(self, value=None):
         """  Corresponds to IDD Field `Moisture Content 25`
-        
-        {u'units': u'kg/m3', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Moisture Content 25`
@@ -27980,8 +26864,6 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
     @liquid_transport_coefficient_25.setter
     def liquid_transport_coefficient_25(self, value=None):
         """  Corresponds to IDD Field `Liquid Transport Coefficient 25`
-        
-        {u'units': u'm2/s', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 25`
@@ -28493,8 +27375,6 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
     def material_name(self, value=None):
         """  Corresponds to IDD Field `Material Name`
         Moisture Material Name that the moisture properties will be added to.
-        
-        {u'note': [u'Moisture Material Name that the moisture properties will be added to.'], u'type': u'object-list', u'object-list': u'MaterialName', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Material Name`
@@ -28531,8 +27411,6 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
     def number_of_redistribution_points(self, value=None):
         """  Corresponds to IDD Field `Number of Redistribution points`
         number of data points
-        
-        {'pytype': 'int', u'maximum': '25', u'required-field': True, u'note': [u'number of data points'], u'minimum': '1', u'type': u'integer'}
 
         Args:
             value (int): value for IDD Field `Number of Redistribution points`
@@ -28570,8 +27448,6 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
     @moisture_content_1.setter
     def moisture_content_1(self, value=None):
         """  Corresponds to IDD Field `Moisture Content 1`
-        
-        {u'units': u'kg/m3', u'minimum': '0.0', 'type': 'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Moisture Content 1`
@@ -28606,8 +27482,6 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
     @liquid_transport_coefficient_1.setter
     def liquid_transport_coefficient_1(self, value=None):
         """  Corresponds to IDD Field `Liquid Transport Coefficient 1`
-        
-        {u'units': u'm2/s', u'minimum': '0.0', 'type': 'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 1`
@@ -28642,8 +27516,6 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
     @moisture_content_2.setter
     def moisture_content_2(self, value=None):
         """  Corresponds to IDD Field `Moisture Content 2`
-        
-        {u'units': u'kg/m3', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Moisture Content 2`
@@ -28678,8 +27550,6 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
     @liquid_transport_coefficient_2.setter
     def liquid_transport_coefficient_2(self, value=None):
         """  Corresponds to IDD Field `Liquid Transport Coefficient 2`
-        
-        {u'units': u'm2/s', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 2`
@@ -28714,8 +27584,6 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
     @moisture_content_3.setter
     def moisture_content_3(self, value=None):
         """  Corresponds to IDD Field `Moisture Content 3`
-        
-        {u'units': u'kg/m3', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Moisture Content 3`
@@ -28750,8 +27618,6 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
     @liquid_transport_coefficient_3.setter
     def liquid_transport_coefficient_3(self, value=None):
         """  Corresponds to IDD Field `Liquid Transport Coefficient 3`
-        
-        {u'units': u'm2/s', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 3`
@@ -28786,8 +27652,6 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
     @moisture_content_4.setter
     def moisture_content_4(self, value=None):
         """  Corresponds to IDD Field `Moisture Content 4`
-        
-        {u'units': u'kg/m3', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Moisture Content 4`
@@ -28822,8 +27686,6 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
     @liquid_transport_coefficient_4.setter
     def liquid_transport_coefficient_4(self, value=None):
         """  Corresponds to IDD Field `Liquid Transport Coefficient 4`
-        
-        {u'units': u'm2/s', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 4`
@@ -28858,8 +27720,6 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
     @moisture_content_5.setter
     def moisture_content_5(self, value=None):
         """  Corresponds to IDD Field `Moisture Content 5`
-        
-        {u'units': u'kg/m3', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Moisture Content 5`
@@ -28894,8 +27754,6 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
     @liquid_transport_coefficient_5.setter
     def liquid_transport_coefficient_5(self, value=None):
         """  Corresponds to IDD Field `Liquid Transport Coefficient 5`
-        
-        {u'units': u'm2/s', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 5`
@@ -28930,8 +27788,6 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
     @moisture_content_6.setter
     def moisture_content_6(self, value=None):
         """  Corresponds to IDD Field `Moisture Content 6`
-        
-        {u'units': u'kg/m3', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Moisture Content 6`
@@ -28966,8 +27822,6 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
     @liquid_transport_coefficient_6.setter
     def liquid_transport_coefficient_6(self, value=None):
         """  Corresponds to IDD Field `Liquid Transport Coefficient 6`
-        
-        {u'units': u'm2/s', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 6`
@@ -29002,8 +27856,6 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
     @moisture_content_7.setter
     def moisture_content_7(self, value=None):
         """  Corresponds to IDD Field `Moisture Content 7`
-        
-        {u'units': u'kg/m3', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Moisture Content 7`
@@ -29038,8 +27890,6 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
     @liquid_transport_coefficient_7.setter
     def liquid_transport_coefficient_7(self, value=None):
         """  Corresponds to IDD Field `Liquid Transport Coefficient 7`
-        
-        {u'units': u'm2/s', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 7`
@@ -29074,8 +27924,6 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
     @moisture_content_8.setter
     def moisture_content_8(self, value=None):
         """  Corresponds to IDD Field `Moisture Content 8`
-        
-        {u'units': u'kg/m3', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Moisture Content 8`
@@ -29110,8 +27958,6 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
     @liquid_transport_coefficient_8.setter
     def liquid_transport_coefficient_8(self, value=None):
         """  Corresponds to IDD Field `Liquid Transport Coefficient 8`
-        
-        {u'units': u'm2/s', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 8`
@@ -29146,8 +27992,6 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
     @moisture_content_9.setter
     def moisture_content_9(self, value=None):
         """  Corresponds to IDD Field `Moisture Content 9`
-        
-        {u'units': u'kg/m3', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Moisture Content 9`
@@ -29182,8 +28026,6 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
     @liquid_transport_coefficient_9.setter
     def liquid_transport_coefficient_9(self, value=None):
         """  Corresponds to IDD Field `Liquid Transport Coefficient 9`
-        
-        {u'units': u'm2/s', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 9`
@@ -29218,8 +28060,6 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
     @moisture_content_10.setter
     def moisture_content_10(self, value=None):
         """  Corresponds to IDD Field `Moisture Content 10`
-        
-        {u'units': u'kg/m3', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Moisture Content 10`
@@ -29254,8 +28094,6 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
     @liquid_transport_coefficient_10.setter
     def liquid_transport_coefficient_10(self, value=None):
         """  Corresponds to IDD Field `Liquid Transport Coefficient 10`
-        
-        {u'units': u'm2/s', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 10`
@@ -29290,8 +28128,6 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
     @moisture_content_11.setter
     def moisture_content_11(self, value=None):
         """  Corresponds to IDD Field `Moisture Content 11`
-        
-        {u'units': u'kg/m3', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Moisture Content 11`
@@ -29326,8 +28162,6 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
     @liquid_transport_coefficient_11.setter
     def liquid_transport_coefficient_11(self, value=None):
         """  Corresponds to IDD Field `Liquid Transport Coefficient 11`
-        
-        {u'units': u'm2/s', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 11`
@@ -29362,8 +28196,6 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
     @moisture_content_12.setter
     def moisture_content_12(self, value=None):
         """  Corresponds to IDD Field `Moisture Content 12`
-        
-        {u'units': u'kg/m3', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Moisture Content 12`
@@ -29398,8 +28230,6 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
     @liquid_transport_coefficient_12.setter
     def liquid_transport_coefficient_12(self, value=None):
         """  Corresponds to IDD Field `Liquid Transport Coefficient 12`
-        
-        {u'units': u'm2/s', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 12`
@@ -29434,8 +28264,6 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
     @moisture_content_13.setter
     def moisture_content_13(self, value=None):
         """  Corresponds to IDD Field `Moisture Content 13`
-        
-        {u'units': u'kg/m3', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Moisture Content 13`
@@ -29470,8 +28298,6 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
     @liquid_transport_coefficient_13.setter
     def liquid_transport_coefficient_13(self, value=None):
         """  Corresponds to IDD Field `Liquid Transport Coefficient 13`
-        
-        {u'units': u'm2/s', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 13`
@@ -29506,8 +28332,6 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
     @moisture_content_14.setter
     def moisture_content_14(self, value=None):
         """  Corresponds to IDD Field `Moisture Content 14`
-        
-        {u'units': u'kg/m3', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Moisture Content 14`
@@ -29542,8 +28366,6 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
     @liquid_transport_coefficient_14.setter
     def liquid_transport_coefficient_14(self, value=None):
         """  Corresponds to IDD Field `Liquid Transport Coefficient 14`
-        
-        {u'units': u'm2/s', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 14`
@@ -29578,8 +28400,6 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
     @moisture_content_15.setter
     def moisture_content_15(self, value=None):
         """  Corresponds to IDD Field `Moisture Content 15`
-        
-        {u'units': u'kg/m3', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Moisture Content 15`
@@ -29614,8 +28434,6 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
     @liquid_transport_coefficient_15.setter
     def liquid_transport_coefficient_15(self, value=None):
         """  Corresponds to IDD Field `Liquid Transport Coefficient 15`
-        
-        {u'units': u'm2/s', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 15`
@@ -29650,8 +28468,6 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
     @moisture_content_16.setter
     def moisture_content_16(self, value=None):
         """  Corresponds to IDD Field `Moisture Content 16`
-        
-        {u'units': u'kg/m3', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Moisture Content 16`
@@ -29686,8 +28502,6 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
     @liquid_transport_coefficient_16.setter
     def liquid_transport_coefficient_16(self, value=None):
         """  Corresponds to IDD Field `Liquid Transport Coefficient 16`
-        
-        {u'units': u'm2/s', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 16`
@@ -29722,8 +28536,6 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
     @moisture_content_17.setter
     def moisture_content_17(self, value=None):
         """  Corresponds to IDD Field `Moisture Content 17`
-        
-        {u'units': u'kg/m3', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Moisture Content 17`
@@ -29758,8 +28570,6 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
     @liquid_transport_coefficient_17.setter
     def liquid_transport_coefficient_17(self, value=None):
         """  Corresponds to IDD Field `Liquid Transport Coefficient 17`
-        
-        {u'units': u'm2/s', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 17`
@@ -29794,8 +28604,6 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
     @moisture_content_18.setter
     def moisture_content_18(self, value=None):
         """  Corresponds to IDD Field `Moisture Content 18`
-        
-        {u'units': u'kg/m3', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Moisture Content 18`
@@ -29830,8 +28638,6 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
     @liquid_transport_coefficient_18.setter
     def liquid_transport_coefficient_18(self, value=None):
         """  Corresponds to IDD Field `Liquid Transport Coefficient 18`
-        
-        {u'units': u'm2/s', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 18`
@@ -29866,8 +28672,6 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
     @moisture_content_19.setter
     def moisture_content_19(self, value=None):
         """  Corresponds to IDD Field `Moisture Content 19`
-        
-        {u'units': u'kg/m3', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Moisture Content 19`
@@ -29902,8 +28706,6 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
     @liquid_transport_coefficient_19.setter
     def liquid_transport_coefficient_19(self, value=None):
         """  Corresponds to IDD Field `Liquid Transport Coefficient 19`
-        
-        {u'units': u'm2/s', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 19`
@@ -29938,8 +28740,6 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
     @moisture_content_20.setter
     def moisture_content_20(self, value=None):
         """  Corresponds to IDD Field `Moisture Content 20`
-        
-        {u'units': u'kg/m3', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Moisture Content 20`
@@ -29974,8 +28774,6 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
     @liquid_transport_coefficient_20.setter
     def liquid_transport_coefficient_20(self, value=None):
         """  Corresponds to IDD Field `Liquid Transport Coefficient 20`
-        
-        {u'units': u'm2/s', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 20`
@@ -30010,8 +28808,6 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
     @moisture_content_21.setter
     def moisture_content_21(self, value=None):
         """  Corresponds to IDD Field `Moisture Content 21`
-        
-        {u'units': u'kg/m3', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Moisture Content 21`
@@ -30046,8 +28842,6 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
     @liquid_transport_coefficient_21.setter
     def liquid_transport_coefficient_21(self, value=None):
         """  Corresponds to IDD Field `Liquid Transport Coefficient 21`
-        
-        {u'units': u'm2/s', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 21`
@@ -30082,8 +28876,6 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
     @moisture_content_22.setter
     def moisture_content_22(self, value=None):
         """  Corresponds to IDD Field `Moisture Content 22`
-        
-        {u'units': u'kg/m3', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Moisture Content 22`
@@ -30118,8 +28910,6 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
     @liquid_transport_coefficient_22.setter
     def liquid_transport_coefficient_22(self, value=None):
         """  Corresponds to IDD Field `Liquid Transport Coefficient 22`
-        
-        {u'units': u'm2/s', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 22`
@@ -30154,8 +28944,6 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
     @moisture_content_23.setter
     def moisture_content_23(self, value=None):
         """  Corresponds to IDD Field `Moisture Content 23`
-        
-        {u'units': u'kg/m3', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Moisture Content 23`
@@ -30190,8 +28978,6 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
     @liquid_transport_coefficient_23.setter
     def liquid_transport_coefficient_23(self, value=None):
         """  Corresponds to IDD Field `Liquid Transport Coefficient 23`
-        
-        {u'units': u'm2/s', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 23`
@@ -30226,8 +29012,6 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
     @moisture_content_24.setter
     def moisture_content_24(self, value=None):
         """  Corresponds to IDD Field `Moisture Content 24`
-        
-        {u'units': u'kg/m3', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Moisture Content 24`
@@ -30262,8 +29046,6 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
     @liquid_transport_coefficient_24.setter
     def liquid_transport_coefficient_24(self, value=None):
         """  Corresponds to IDD Field `Liquid Transport Coefficient 24`
-        
-        {u'units': u'm2/s', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 24`
@@ -30298,8 +29080,6 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
     @moisture_content_25.setter
     def moisture_content_25(self, value=None):
         """  Corresponds to IDD Field `Moisture Content 25`
-        
-        {u'units': u'kg/m3', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Moisture Content 25`
@@ -30334,8 +29114,6 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
     @liquid_transport_coefficient_25.setter
     def liquid_transport_coefficient_25(self, value=None):
         """  Corresponds to IDD Field `Liquid Transport Coefficient 25`
-        
-        {u'units': u'm2/s', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 25`
@@ -30847,8 +29625,6 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
     def material_name(self, value=None):
         """  Corresponds to IDD Field `Material Name`
         Moisture Material Name that the moisture properties will be added to.
-        
-        {u'note': [u'Moisture Material Name that the moisture properties will be added to.'], u'type': u'object-list', u'object-list': u'MaterialName', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Material Name`
@@ -30885,8 +29661,6 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
     def number_of_data_pairs(self, value=None):
         """  Corresponds to IDD Field `Number of Data Pairs`
         Water Vapor Diffusion Resistance Factor
-        
-        {'pytype': 'int', u'maximum': '25', u'required-field': True, u'note': [u'Water Vapor Diffusion Resistance Factor'], u'minimum': '1', u'type': u'integer'}
 
         Args:
             value (int): value for IDD Field `Number of Data Pairs`
@@ -30925,8 +29699,6 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
     def relative_humidity_fraction_1(self, value=None):
         """  Corresponds to IDD Field `Relative Humidity Fraction 1`
         The relative humidity is entered as a fraction.
-        
-        {'pytype': 'float', u'maximum': '1.0', u'required-field': True, u'note': [u'The relative humidity is entered as a fraction.'], u'minimum': '0.0', u'units': u'dimensionless', 'type': 'real'}
 
         Args:
             value (float): value for IDD Field `Relative Humidity Fraction 1`
@@ -30965,8 +29737,6 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
     @water_vapor_diffusion_resistance_factor_1.setter
     def water_vapor_diffusion_resistance_factor_1(self, value=None):
         """  Corresponds to IDD Field `Water Vapor Diffusion Resistance Factor 1`
-        
-        {u'units': u'dimensionless', u'minimum': '0.0', 'type': 'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Water Vapor Diffusion Resistance Factor 1`
@@ -31002,8 +29772,6 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
     def relative_humidity_fraction_2(self, value=None):
         """  Corresponds to IDD Field `Relative Humidity Fraction 2`
         The relative humidity is entered as a fraction.
-        
-        {'pytype': 'float', u'maximum': '1.0', u'note': [u'The relative humidity is entered as a fraction.'], u'minimum': '0.0', u'units': u'dimensionless', 'type': 'real'}
 
         Args:
             value (float): value for IDD Field `Relative Humidity Fraction 2`
@@ -31042,8 +29810,6 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
     @water_vapor_diffusion_resistance_factor_2.setter
     def water_vapor_diffusion_resistance_factor_2(self, value=None):
         """  Corresponds to IDD Field `Water Vapor Diffusion Resistance Factor 2`
-        
-        {u'units': u'dimensionless', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Water Vapor Diffusion Resistance Factor 2`
@@ -31079,8 +29845,6 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
     def relative_humidity_fraction_3(self, value=None):
         """  Corresponds to IDD Field `Relative Humidity Fraction 3`
         The relative humidity is entered as a fraction.
-        
-        {'pytype': 'float', u'maximum': '1.0', u'note': [u'The relative humidity is entered as a fraction.'], u'minimum': '0.0', u'units': u'dimensionless', 'type': 'real'}
 
         Args:
             value (float): value for IDD Field `Relative Humidity Fraction 3`
@@ -31119,8 +29883,6 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
     @water_vapor_diffusion_resistance_factor_3.setter
     def water_vapor_diffusion_resistance_factor_3(self, value=None):
         """  Corresponds to IDD Field `Water Vapor Diffusion Resistance Factor 3`
-        
-        {u'units': u'dimensionless', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Water Vapor Diffusion Resistance Factor 3`
@@ -31156,8 +29918,6 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
     def relative_humidity_fraction_4(self, value=None):
         """  Corresponds to IDD Field `Relative Humidity Fraction 4`
         The relative humidity is entered as a fraction.
-        
-        {'pytype': 'float', u'maximum': '1.0', u'note': [u'The relative humidity is entered as a fraction.'], u'minimum': '0.0', u'units': u'dimensionless', 'type': 'real'}
 
         Args:
             value (float): value for IDD Field `Relative Humidity Fraction 4`
@@ -31196,8 +29956,6 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
     @water_vapor_diffusion_resistance_factor_4.setter
     def water_vapor_diffusion_resistance_factor_4(self, value=None):
         """  Corresponds to IDD Field `Water Vapor Diffusion Resistance Factor 4`
-        
-        {u'units': u'dimensionless', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Water Vapor Diffusion Resistance Factor 4`
@@ -31233,8 +29991,6 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
     def relative_humidity_fraction_5(self, value=None):
         """  Corresponds to IDD Field `Relative Humidity Fraction 5`
         The relative humidity is entered as a fraction.
-        
-        {'pytype': 'float', u'maximum': '1.0', u'note': [u'The relative humidity is entered as a fraction.'], u'minimum': '0.0', u'units': u'dimensionless', 'type': 'real'}
 
         Args:
             value (float): value for IDD Field `Relative Humidity Fraction 5`
@@ -31273,8 +30029,6 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
     @water_vapor_diffusion_resistance_factor_5.setter
     def water_vapor_diffusion_resistance_factor_5(self, value=None):
         """  Corresponds to IDD Field `Water Vapor Diffusion Resistance Factor 5`
-        
-        {u'units': u'dimensionless', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Water Vapor Diffusion Resistance Factor 5`
@@ -31310,8 +30064,6 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
     def relative_humidity_fraction_6(self, value=None):
         """  Corresponds to IDD Field `Relative Humidity Fraction 6`
         The relative humidity is entered as a fraction.
-        
-        {'pytype': 'float', u'maximum': '1.0', u'note': [u'The relative humidity is entered as a fraction.'], u'minimum': '0.0', u'units': u'dimensionless', 'type': 'real'}
 
         Args:
             value (float): value for IDD Field `Relative Humidity Fraction 6`
@@ -31350,8 +30102,6 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
     @water_vapor_diffusion_resistance_factor_6.setter
     def water_vapor_diffusion_resistance_factor_6(self, value=None):
         """  Corresponds to IDD Field `Water Vapor Diffusion Resistance Factor 6`
-        
-        {u'units': u'dimensionless', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Water Vapor Diffusion Resistance Factor 6`
@@ -31387,8 +30137,6 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
     def relative_humidity_fraction_7(self, value=None):
         """  Corresponds to IDD Field `Relative Humidity Fraction 7`
         The relative humidity is entered as a fraction.
-        
-        {'pytype': 'float', u'maximum': '1.0', u'note': [u'The relative humidity is entered as a fraction.'], u'minimum': '0.0', u'units': u'dimensionless', 'type': 'real'}
 
         Args:
             value (float): value for IDD Field `Relative Humidity Fraction 7`
@@ -31427,8 +30175,6 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
     @water_vapor_diffusion_resistance_factor_7.setter
     def water_vapor_diffusion_resistance_factor_7(self, value=None):
         """  Corresponds to IDD Field `Water Vapor Diffusion Resistance Factor 7`
-        
-        {u'units': u'dimensionless', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Water Vapor Diffusion Resistance Factor 7`
@@ -31464,8 +30210,6 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
     def relative_humidity_fraction_8(self, value=None):
         """  Corresponds to IDD Field `Relative Humidity Fraction 8`
         The relative humidity is entered as a fraction.
-        
-        {'pytype': 'float', u'maximum': '1.0', u'note': [u'The relative humidity is entered as a fraction.'], u'minimum': '0.0', u'units': u'dimensionless', 'type': 'real'}
 
         Args:
             value (float): value for IDD Field `Relative Humidity Fraction 8`
@@ -31504,8 +30248,6 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
     @water_vapor_diffusion_resistance_factor_8.setter
     def water_vapor_diffusion_resistance_factor_8(self, value=None):
         """  Corresponds to IDD Field `Water Vapor Diffusion Resistance Factor 8`
-        
-        {u'units': u'dimensionless', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Water Vapor Diffusion Resistance Factor 8`
@@ -31541,8 +30283,6 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
     def relative_humidity_fraction_9(self, value=None):
         """  Corresponds to IDD Field `Relative Humidity Fraction 9`
         The relative humidity is entered as a fraction.
-        
-        {'pytype': 'float', u'maximum': '1.0', u'note': [u'The relative humidity is entered as a fraction.'], u'minimum': '0.0', u'units': u'dimensionless', 'type': 'real'}
 
         Args:
             value (float): value for IDD Field `Relative Humidity Fraction 9`
@@ -31581,8 +30321,6 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
     @water_vapor_diffusion_resistance_factor_9.setter
     def water_vapor_diffusion_resistance_factor_9(self, value=None):
         """  Corresponds to IDD Field `Water Vapor Diffusion Resistance Factor 9`
-        
-        {u'units': u'dimensionless', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Water Vapor Diffusion Resistance Factor 9`
@@ -31618,8 +30356,6 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
     def relative_humidity_fraction_10(self, value=None):
         """  Corresponds to IDD Field `Relative Humidity Fraction 10`
         The relative humidity is entered as a fraction.
-        
-        {'pytype': 'float', u'maximum': '1.0', u'note': [u'The relative humidity is entered as a fraction.'], u'minimum': '0.0', u'units': u'dimensionless', 'type': 'real'}
 
         Args:
             value (float): value for IDD Field `Relative Humidity Fraction 10`
@@ -31658,8 +30394,6 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
     @water_vapor_diffusion_resistance_factor_10.setter
     def water_vapor_diffusion_resistance_factor_10(self, value=None):
         """  Corresponds to IDD Field `Water Vapor Diffusion Resistance Factor 10`
-        
-        {u'units': u'dimensionless', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Water Vapor Diffusion Resistance Factor 10`
@@ -31695,8 +30429,6 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
     def relative_humidity_fraction_11(self, value=None):
         """  Corresponds to IDD Field `Relative Humidity Fraction 11`
         The relative humidity is entered as a fraction.
-        
-        {'pytype': 'float', u'maximum': '1.0', u'note': [u'The relative humidity is entered as a fraction.'], u'minimum': '0.0', u'units': u'dimensionless', 'type': 'real'}
 
         Args:
             value (float): value for IDD Field `Relative Humidity Fraction 11`
@@ -31735,8 +30467,6 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
     @water_vapor_diffusion_resistance_factor_11.setter
     def water_vapor_diffusion_resistance_factor_11(self, value=None):
         """  Corresponds to IDD Field `Water Vapor Diffusion Resistance Factor 11`
-        
-        {u'units': u'dimensionless', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Water Vapor Diffusion Resistance Factor 11`
@@ -31772,8 +30502,6 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
     def relative_humidity_fraction_12(self, value=None):
         """  Corresponds to IDD Field `Relative Humidity Fraction 12`
         The relative humidity is entered as a fraction.
-        
-        {'pytype': 'float', u'maximum': '1.0', u'note': [u'The relative humidity is entered as a fraction.'], u'minimum': '0.0', u'units': u'dimensionless', 'type': 'real'}
 
         Args:
             value (float): value for IDD Field `Relative Humidity Fraction 12`
@@ -31812,8 +30540,6 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
     @water_vapor_diffusion_resistance_factor_12.setter
     def water_vapor_diffusion_resistance_factor_12(self, value=None):
         """  Corresponds to IDD Field `Water Vapor Diffusion Resistance Factor 12`
-        
-        {u'units': u'dimensionless', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Water Vapor Diffusion Resistance Factor 12`
@@ -31849,8 +30575,6 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
     def relative_humidity_fraction_13(self, value=None):
         """  Corresponds to IDD Field `Relative Humidity Fraction 13`
         The relative humidity is entered as a fraction.
-        
-        {'pytype': 'float', u'maximum': '1.0', u'note': [u'The relative humidity is entered as a fraction.'], u'minimum': '0.0', u'units': u'dimensionless', 'type': 'real'}
 
         Args:
             value (float): value for IDD Field `Relative Humidity Fraction 13`
@@ -31889,8 +30613,6 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
     @water_vapor_diffusion_resistance_factor_13.setter
     def water_vapor_diffusion_resistance_factor_13(self, value=None):
         """  Corresponds to IDD Field `Water Vapor Diffusion Resistance Factor 13`
-        
-        {u'units': u'dimensionless', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Water Vapor Diffusion Resistance Factor 13`
@@ -31926,8 +30648,6 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
     def relative_humidity_fraction_14(self, value=None):
         """  Corresponds to IDD Field `Relative Humidity Fraction 14`
         The relative humidity is entered as a fraction.
-        
-        {'pytype': 'float', u'maximum': '1.0', u'note': [u'The relative humidity is entered as a fraction.'], u'minimum': '0.0', u'units': u'dimensionless', 'type': 'real'}
 
         Args:
             value (float): value for IDD Field `Relative Humidity Fraction 14`
@@ -31966,8 +30686,6 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
     @water_vapor_diffusion_resistance_factor_14.setter
     def water_vapor_diffusion_resistance_factor_14(self, value=None):
         """  Corresponds to IDD Field `Water Vapor Diffusion Resistance Factor 14`
-        
-        {u'units': u'dimensionless', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Water Vapor Diffusion Resistance Factor 14`
@@ -32003,8 +30721,6 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
     def relative_humidity_fraction_15(self, value=None):
         """  Corresponds to IDD Field `Relative Humidity Fraction 15`
         The relative humidity is entered as a fraction.
-        
-        {'pytype': 'float', u'maximum': '1.0', u'note': [u'The relative humidity is entered as a fraction.'], u'minimum': '0.0', u'units': u'dimensionless', 'type': 'real'}
 
         Args:
             value (float): value for IDD Field `Relative Humidity Fraction 15`
@@ -32043,8 +30759,6 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
     @water_vapor_diffusion_resistance_factor_15.setter
     def water_vapor_diffusion_resistance_factor_15(self, value=None):
         """  Corresponds to IDD Field `Water Vapor Diffusion Resistance Factor 15`
-        
-        {u'units': u'dimensionless', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Water Vapor Diffusion Resistance Factor 15`
@@ -32080,8 +30794,6 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
     def relative_humidity_fraction_16(self, value=None):
         """  Corresponds to IDD Field `Relative Humidity Fraction 16`
         The relative humidity is entered as a fraction.
-        
-        {'pytype': 'float', u'maximum': '1.0', u'note': [u'The relative humidity is entered as a fraction.'], u'minimum': '0.0', u'units': u'dimensionless', 'type': 'real'}
 
         Args:
             value (float): value for IDD Field `Relative Humidity Fraction 16`
@@ -32120,8 +30832,6 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
     @water_vapor_diffusion_resistance_factor_16.setter
     def water_vapor_diffusion_resistance_factor_16(self, value=None):
         """  Corresponds to IDD Field `Water Vapor Diffusion Resistance Factor 16`
-        
-        {u'units': u'dimensionless', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Water Vapor Diffusion Resistance Factor 16`
@@ -32157,8 +30867,6 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
     def relative_humidity_fraction_17(self, value=None):
         """  Corresponds to IDD Field `Relative Humidity Fraction 17`
         The relative humidity is entered as a fraction.
-        
-        {'pytype': 'float', u'maximum': '1.0', u'note': [u'The relative humidity is entered as a fraction.'], u'minimum': '0.0', u'units': u'dimensionless', 'type': 'real'}
 
         Args:
             value (float): value for IDD Field `Relative Humidity Fraction 17`
@@ -32197,8 +30905,6 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
     @water_vapor_diffusion_resistance_factor_17.setter
     def water_vapor_diffusion_resistance_factor_17(self, value=None):
         """  Corresponds to IDD Field `Water Vapor Diffusion Resistance Factor 17`
-        
-        {u'units': u'dimensionless', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Water Vapor Diffusion Resistance Factor 17`
@@ -32234,8 +30940,6 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
     def relative_humidity_fraction_18(self, value=None):
         """  Corresponds to IDD Field `Relative Humidity Fraction 18`
         The relative humidity is entered as a fraction.
-        
-        {'pytype': 'float', u'maximum': '1.0', u'note': [u'The relative humidity is entered as a fraction.'], u'minimum': '0.0', u'units': u'dimensionless', 'type': 'real'}
 
         Args:
             value (float): value for IDD Field `Relative Humidity Fraction 18`
@@ -32274,8 +30978,6 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
     @water_vapor_diffusion_resistance_factor_18.setter
     def water_vapor_diffusion_resistance_factor_18(self, value=None):
         """  Corresponds to IDD Field `Water Vapor Diffusion Resistance Factor 18`
-        
-        {u'units': u'dimensionless', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Water Vapor Diffusion Resistance Factor 18`
@@ -32311,8 +31013,6 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
     def relative_humidity_fraction_19(self, value=None):
         """  Corresponds to IDD Field `Relative Humidity Fraction 19`
         The relative humidity is entered as a fraction.
-        
-        {'pytype': 'float', u'maximum': '1.0', u'note': [u'The relative humidity is entered as a fraction.'], u'minimum': '0.0', u'units': u'dimensionless', 'type': 'real'}
 
         Args:
             value (float): value for IDD Field `Relative Humidity Fraction 19`
@@ -32351,8 +31051,6 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
     @water_vapor_diffusion_resistance_factor_19.setter
     def water_vapor_diffusion_resistance_factor_19(self, value=None):
         """  Corresponds to IDD Field `Water Vapor Diffusion Resistance Factor 19`
-        
-        {u'units': u'dimensionless', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Water Vapor Diffusion Resistance Factor 19`
@@ -32388,8 +31086,6 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
     def relative_humidity_fraction_20(self, value=None):
         """  Corresponds to IDD Field `Relative Humidity Fraction 20`
         The relative humidity is entered as a fraction.
-        
-        {'pytype': 'float', u'maximum': '1.0', u'note': [u'The relative humidity is entered as a fraction.'], u'minimum': '0.0', u'units': u'dimensionless', 'type': 'real'}
 
         Args:
             value (float): value for IDD Field `Relative Humidity Fraction 20`
@@ -32428,8 +31124,6 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
     @water_vapor_diffusion_resistance_factor_20.setter
     def water_vapor_diffusion_resistance_factor_20(self, value=None):
         """  Corresponds to IDD Field `Water Vapor Diffusion Resistance Factor 20`
-        
-        {u'units': u'dimensionless', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Water Vapor Diffusion Resistance Factor 20`
@@ -32465,8 +31159,6 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
     def relative_humidity_fraction_21(self, value=None):
         """  Corresponds to IDD Field `Relative Humidity Fraction 21`
         The relative humidity is entered as a fraction.
-        
-        {'pytype': 'float', u'maximum': '1.0', u'note': [u'The relative humidity is entered as a fraction.'], u'minimum': '0.0', u'units': u'dimensionless', 'type': 'real'}
 
         Args:
             value (float): value for IDD Field `Relative Humidity Fraction 21`
@@ -32505,8 +31197,6 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
     @water_vapor_diffusion_resistance_factor_21.setter
     def water_vapor_diffusion_resistance_factor_21(self, value=None):
         """  Corresponds to IDD Field `Water Vapor Diffusion Resistance Factor 21`
-        
-        {u'units': u'dimensionless', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Water Vapor Diffusion Resistance Factor 21`
@@ -32542,8 +31232,6 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
     def relative_humidity_fraction_22(self, value=None):
         """  Corresponds to IDD Field `Relative Humidity Fraction 22`
         The relative humidity is entered as a fraction.
-        
-        {'pytype': 'float', u'maximum': '1.0', u'note': [u'The relative humidity is entered as a fraction.'], u'minimum': '0.0', u'units': u'dimensionless', 'type': 'real'}
 
         Args:
             value (float): value for IDD Field `Relative Humidity Fraction 22`
@@ -32582,8 +31270,6 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
     @water_vapor_diffusion_resistance_factor_22.setter
     def water_vapor_diffusion_resistance_factor_22(self, value=None):
         """  Corresponds to IDD Field `Water Vapor Diffusion Resistance Factor 22`
-        
-        {u'units': u'dimensionless', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Water Vapor Diffusion Resistance Factor 22`
@@ -32619,8 +31305,6 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
     def relative_humidity_fraction_23(self, value=None):
         """  Corresponds to IDD Field `Relative Humidity Fraction 23`
         The relative humidity is entered as a fraction.
-        
-        {'pytype': 'float', u'maximum': '1.0', u'note': [u'The relative humidity is entered as a fraction.'], u'minimum': '0.0', u'units': u'dimensionless', 'type': 'real'}
 
         Args:
             value (float): value for IDD Field `Relative Humidity Fraction 23`
@@ -32659,8 +31343,6 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
     @water_vapor_diffusion_resistance_factor_23.setter
     def water_vapor_diffusion_resistance_factor_23(self, value=None):
         """  Corresponds to IDD Field `Water Vapor Diffusion Resistance Factor 23`
-        
-        {u'units': u'dimensionless', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Water Vapor Diffusion Resistance Factor 23`
@@ -32696,8 +31378,6 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
     def relative_humidity_fraction_24(self, value=None):
         """  Corresponds to IDD Field `Relative Humidity Fraction 24`
         The relative humidity is entered as a fraction.
-        
-        {'pytype': 'float', u'maximum': '1.0', u'note': [u'The relative humidity is entered as a fraction.'], u'minimum': '0.0', u'units': u'dimensionless', 'type': 'real'}
 
         Args:
             value (float): value for IDD Field `Relative Humidity Fraction 24`
@@ -32736,8 +31416,6 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
     @water_vapor_diffusion_resistance_factor_24.setter
     def water_vapor_diffusion_resistance_factor_24(self, value=None):
         """  Corresponds to IDD Field `Water Vapor Diffusion Resistance Factor 24`
-        
-        {u'units': u'dimensionless', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Water Vapor Diffusion Resistance Factor 24`
@@ -32773,8 +31451,6 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
     def relative_humidity_fraction_25(self, value=None):
         """  Corresponds to IDD Field `Relative Humidity Fraction 25`
         The relative humidity is entered as a fraction.
-        
-        {'pytype': 'float', u'maximum': '1.0', u'note': [u'The relative humidity is entered as a fraction.'], u'minimum': '0.0', u'units': u'dimensionless', 'type': 'real'}
 
         Args:
             value (float): value for IDD Field `Relative Humidity Fraction 25`
@@ -32813,8 +31489,6 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
     @water_vapor_diffusion_resistance_factor_25.setter
     def water_vapor_diffusion_resistance_factor_25(self, value=None):
         """  Corresponds to IDD Field `Water Vapor Diffusion Resistance Factor 25`
-        
-        {u'units': u'dimensionless', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Water Vapor Diffusion Resistance Factor 25`
@@ -33326,8 +32000,6 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
     def material_name(self, value=None):
         """  Corresponds to IDD Field `Material Name`
         Moisture Material Name that the Thermal Conductivity will be added to.
-        
-        {u'note': [u'Moisture Material Name that the Thermal Conductivity will be added to.'], u'type': u'object-list', u'object-list': u'MaterialName', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Material Name`
@@ -33364,8 +32036,6 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
     def number_of_thermal_coordinates(self, value=None):
         """  Corresponds to IDD Field `Number of Thermal Coordinates`
         number of data coordinates
-        
-        {'pytype': 'int', u'maximum': '25', u'required-field': True, u'note': [u'number of data coordinates'], u'minimum': '1', u'type': u'integer'}
 
         Args:
             value (int): value for IDD Field `Number of Thermal Coordinates`
@@ -33403,8 +32073,6 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
     @moisture_content_1.setter
     def moisture_content_1(self, value=None):
         """  Corresponds to IDD Field `Moisture Content 1`
-        
-        {u'units': u'kg/m3', u'minimum': '0.0', 'type': 'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Moisture Content 1`
@@ -33439,8 +32107,6 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
     @thermal_conductivity_1.setter
     def thermal_conductivity_1(self, value=None):
         """  Corresponds to IDD Field `Thermal Conductivity 1`
-        
-        {u'units': u'W/m-K', u'minimum>': '0.0', 'type': 'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Thermal Conductivity 1`
@@ -33475,8 +32141,6 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
     @moisture_content_2.setter
     def moisture_content_2(self, value=None):
         """  Corresponds to IDD Field `Moisture Content 2`
-        
-        {u'units': u'kg/m3', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Moisture Content 2`
@@ -33511,8 +32175,6 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
     @thermal_conductivity_2.setter
     def thermal_conductivity_2(self, value=None):
         """  Corresponds to IDD Field `Thermal Conductivity 2`
-        
-        {u'units': u'W/m-K', u'minimum>': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Thermal Conductivity 2`
@@ -33547,8 +32209,6 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
     @moisture_content_3.setter
     def moisture_content_3(self, value=None):
         """  Corresponds to IDD Field `Moisture Content 3`
-        
-        {u'units': u'kg/m3', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Moisture Content 3`
@@ -33583,8 +32243,6 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
     @thermal_conductivity_3.setter
     def thermal_conductivity_3(self, value=None):
         """  Corresponds to IDD Field `Thermal Conductivity 3`
-        
-        {u'units': u'W/m-K', u'minimum>': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Thermal Conductivity 3`
@@ -33619,8 +32277,6 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
     @moisture_content_4.setter
     def moisture_content_4(self, value=None):
         """  Corresponds to IDD Field `Moisture Content 4`
-        
-        {u'units': u'kg/m3', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Moisture Content 4`
@@ -33655,8 +32311,6 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
     @thermal_conductivity_4.setter
     def thermal_conductivity_4(self, value=None):
         """  Corresponds to IDD Field `Thermal Conductivity 4`
-        
-        {u'units': u'W/m-K', u'minimum>': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Thermal Conductivity 4`
@@ -33691,8 +32345,6 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
     @moisture_content_5.setter
     def moisture_content_5(self, value=None):
         """  Corresponds to IDD Field `Moisture Content 5`
-        
-        {u'units': u'kg/m3', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Moisture Content 5`
@@ -33727,8 +32379,6 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
     @thermal_conductivity_5.setter
     def thermal_conductivity_5(self, value=None):
         """  Corresponds to IDD Field `Thermal Conductivity 5`
-        
-        {u'units': u'W/m-K', u'minimum>': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Thermal Conductivity 5`
@@ -33763,8 +32413,6 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
     @moisture_content_6.setter
     def moisture_content_6(self, value=None):
         """  Corresponds to IDD Field `Moisture Content 6`
-        
-        {u'units': u'kg/m3', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Moisture Content 6`
@@ -33799,8 +32447,6 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
     @thermal_conductivity_6.setter
     def thermal_conductivity_6(self, value=None):
         """  Corresponds to IDD Field `Thermal Conductivity 6`
-        
-        {u'units': u'W/m-K', u'minimum>': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Thermal Conductivity 6`
@@ -33835,8 +32481,6 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
     @moisture_content_7.setter
     def moisture_content_7(self, value=None):
         """  Corresponds to IDD Field `Moisture Content 7`
-        
-        {u'units': u'kg/m3', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Moisture Content 7`
@@ -33871,8 +32515,6 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
     @thermal_conductivity_7.setter
     def thermal_conductivity_7(self, value=None):
         """  Corresponds to IDD Field `Thermal Conductivity 7`
-        
-        {u'units': u'W/m-K', u'minimum>': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Thermal Conductivity 7`
@@ -33907,8 +32549,6 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
     @moisture_content_8.setter
     def moisture_content_8(self, value=None):
         """  Corresponds to IDD Field `Moisture Content 8`
-        
-        {u'units': u'kg/m3', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Moisture Content 8`
@@ -33943,8 +32583,6 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
     @thermal_conductivity_8.setter
     def thermal_conductivity_8(self, value=None):
         """  Corresponds to IDD Field `Thermal Conductivity 8`
-        
-        {u'units': u'W/m-K', u'minimum>': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Thermal Conductivity 8`
@@ -33979,8 +32617,6 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
     @moisture_content_9.setter
     def moisture_content_9(self, value=None):
         """  Corresponds to IDD Field `Moisture Content 9`
-        
-        {u'units': u'kg/m3', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Moisture Content 9`
@@ -34015,8 +32651,6 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
     @thermal_conductivity_9.setter
     def thermal_conductivity_9(self, value=None):
         """  Corresponds to IDD Field `Thermal Conductivity 9`
-        
-        {u'units': u'W/m-K', u'minimum>': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Thermal Conductivity 9`
@@ -34051,8 +32685,6 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
     @moisture_content_10.setter
     def moisture_content_10(self, value=None):
         """  Corresponds to IDD Field `Moisture Content 10`
-        
-        {u'units': u'kg/m3', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Moisture Content 10`
@@ -34087,8 +32719,6 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
     @thermal_conductivity_10.setter
     def thermal_conductivity_10(self, value=None):
         """  Corresponds to IDD Field `Thermal Conductivity 10`
-        
-        {u'units': u'W/m-K', u'minimum>': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Thermal Conductivity 10`
@@ -34123,8 +32753,6 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
     @moisture_content_11.setter
     def moisture_content_11(self, value=None):
         """  Corresponds to IDD Field `Moisture Content 11`
-        
-        {u'units': u'kg/m3', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Moisture Content 11`
@@ -34159,8 +32787,6 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
     @thermal_conductivity_11.setter
     def thermal_conductivity_11(self, value=None):
         """  Corresponds to IDD Field `Thermal Conductivity 11`
-        
-        {u'units': u'W/m-K', u'minimum>': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Thermal Conductivity 11`
@@ -34195,8 +32821,6 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
     @moisture_content_12.setter
     def moisture_content_12(self, value=None):
         """  Corresponds to IDD Field `Moisture Content 12`
-        
-        {u'units': u'kg/m3', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Moisture Content 12`
@@ -34231,8 +32855,6 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
     @thermal_conductivity_12.setter
     def thermal_conductivity_12(self, value=None):
         """  Corresponds to IDD Field `Thermal Conductivity 12`
-        
-        {u'units': u'W/m-K', u'minimum>': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Thermal Conductivity 12`
@@ -34267,8 +32889,6 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
     @moisture_content_13.setter
     def moisture_content_13(self, value=None):
         """  Corresponds to IDD Field `Moisture Content 13`
-        
-        {u'units': u'kg/m3', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Moisture Content 13`
@@ -34303,8 +32923,6 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
     @thermal_conductivity_13.setter
     def thermal_conductivity_13(self, value=None):
         """  Corresponds to IDD Field `Thermal Conductivity 13`
-        
-        {u'units': u'W/m-K', u'minimum>': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Thermal Conductivity 13`
@@ -34339,8 +32957,6 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
     @moisture_content_14.setter
     def moisture_content_14(self, value=None):
         """  Corresponds to IDD Field `Moisture Content 14`
-        
-        {u'units': u'kg/m3', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Moisture Content 14`
@@ -34375,8 +32991,6 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
     @thermal_conductivity_14.setter
     def thermal_conductivity_14(self, value=None):
         """  Corresponds to IDD Field `Thermal Conductivity 14`
-        
-        {u'units': u'W/m-K', u'minimum>': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Thermal Conductivity 14`
@@ -34411,8 +33025,6 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
     @moisture_content_15.setter
     def moisture_content_15(self, value=None):
         """  Corresponds to IDD Field `Moisture Content 15`
-        
-        {u'units': u'kg/m3', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Moisture Content 15`
@@ -34447,8 +33059,6 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
     @thermal_conductivity_15.setter
     def thermal_conductivity_15(self, value=None):
         """  Corresponds to IDD Field `Thermal Conductivity 15`
-        
-        {u'units': u'W/m-K', u'minimum>': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Thermal Conductivity 15`
@@ -34483,8 +33093,6 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
     @moisture_content_16.setter
     def moisture_content_16(self, value=None):
         """  Corresponds to IDD Field `Moisture Content 16`
-        
-        {u'units': u'kg/m3', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Moisture Content 16`
@@ -34519,8 +33127,6 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
     @thermal_conductivity_16.setter
     def thermal_conductivity_16(self, value=None):
         """  Corresponds to IDD Field `Thermal Conductivity 16`
-        
-        {u'units': u'W/m-K', u'minimum>': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Thermal Conductivity 16`
@@ -34555,8 +33161,6 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
     @moisture_content_17.setter
     def moisture_content_17(self, value=None):
         """  Corresponds to IDD Field `Moisture Content 17`
-        
-        {u'units': u'kg/m3', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Moisture Content 17`
@@ -34591,8 +33195,6 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
     @thermal_conductivity_17.setter
     def thermal_conductivity_17(self, value=None):
         """  Corresponds to IDD Field `Thermal Conductivity 17`
-        
-        {u'units': u'W/m-K', u'minimum>': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Thermal Conductivity 17`
@@ -34627,8 +33229,6 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
     @moisture_content_18.setter
     def moisture_content_18(self, value=None):
         """  Corresponds to IDD Field `Moisture Content 18`
-        
-        {u'units': u'kg/m3', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Moisture Content 18`
@@ -34663,8 +33263,6 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
     @thermal_conductivity_18.setter
     def thermal_conductivity_18(self, value=None):
         """  Corresponds to IDD Field `Thermal Conductivity 18`
-        
-        {u'units': u'W/m-K', u'minimum>': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Thermal Conductivity 18`
@@ -34699,8 +33297,6 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
     @moisture_content_19.setter
     def moisture_content_19(self, value=None):
         """  Corresponds to IDD Field `Moisture Content 19`
-        
-        {u'units': u'kg/m3', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Moisture Content 19`
@@ -34735,8 +33331,6 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
     @thermal_conductivity_19.setter
     def thermal_conductivity_19(self, value=None):
         """  Corresponds to IDD Field `Thermal Conductivity 19`
-        
-        {u'units': u'W/m-K', u'minimum>': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Thermal Conductivity 19`
@@ -34771,8 +33365,6 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
     @moisture_content_20.setter
     def moisture_content_20(self, value=None):
         """  Corresponds to IDD Field `Moisture Content 20`
-        
-        {u'units': u'kg/m3', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Moisture Content 20`
@@ -34807,8 +33399,6 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
     @thermal_conductivity_20.setter
     def thermal_conductivity_20(self, value=None):
         """  Corresponds to IDD Field `Thermal Conductivity 20`
-        
-        {u'units': u'W/m-K', u'minimum>': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Thermal Conductivity 20`
@@ -34843,8 +33433,6 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
     @moisture_content_21.setter
     def moisture_content_21(self, value=None):
         """  Corresponds to IDD Field `Moisture Content 21`
-        
-        {u'units': u'kg/m3', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Moisture Content 21`
@@ -34879,8 +33467,6 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
     @thermal_conductivity_21.setter
     def thermal_conductivity_21(self, value=None):
         """  Corresponds to IDD Field `Thermal Conductivity 21`
-        
-        {u'units': u'W/m-K', u'minimum>': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Thermal Conductivity 21`
@@ -34915,8 +33501,6 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
     @moisture_content_22.setter
     def moisture_content_22(self, value=None):
         """  Corresponds to IDD Field `Moisture Content 22`
-        
-        {u'units': u'kg/m3', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Moisture Content 22`
@@ -34951,8 +33535,6 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
     @thermal_conductivity_22.setter
     def thermal_conductivity_22(self, value=None):
         """  Corresponds to IDD Field `Thermal Conductivity 22`
-        
-        {u'units': u'W/m-K', u'minimum>': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Thermal Conductivity 22`
@@ -34987,8 +33569,6 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
     @moisture_content_23.setter
     def moisture_content_23(self, value=None):
         """  Corresponds to IDD Field `Moisture Content 23`
-        
-        {u'units': u'kg/m3', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Moisture Content 23`
@@ -35023,8 +33603,6 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
     @thermal_conductivity_23.setter
     def thermal_conductivity_23(self, value=None):
         """  Corresponds to IDD Field `Thermal Conductivity 23`
-        
-        {u'units': u'W/m-K', u'minimum>': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Thermal Conductivity 23`
@@ -35059,8 +33637,6 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
     @moisture_content_24.setter
     def moisture_content_24(self, value=None):
         """  Corresponds to IDD Field `Moisture Content 24`
-        
-        {u'units': u'kg/m3', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Moisture Content 24`
@@ -35095,8 +33671,6 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
     @thermal_conductivity_24.setter
     def thermal_conductivity_24(self, value=None):
         """  Corresponds to IDD Field `Thermal Conductivity 24`
-        
-        {u'units': u'W/m-K', u'minimum>': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Thermal Conductivity 24`
@@ -35131,8 +33705,6 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
     @moisture_content_25.setter
     def moisture_content_25(self, value=None):
         """  Corresponds to IDD Field `Moisture Content 25`
-        
-        {u'units': u'kg/m3', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Moisture Content 25`
@@ -35167,8 +33739,6 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
     @thermal_conductivity_25.setter
     def thermal_conductivity_25(self, value=None):
         """  Corresponds to IDD Field `Thermal Conductivity 25`
-        
-        {u'units': u'W/m-K', u'minimum>': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Thermal Conductivity 25`
@@ -35351,8 +33921,6 @@ class Construction(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'reference': u'ConstructionNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -35388,8 +33956,6 @@ class Construction(object):
     @outside_layer.setter
     def outside_layer(self, value=None):
         """  Corresponds to IDD Field `Outside Layer`
-        
-        {u'type': u'object-list', u'object-list': u'MaterialName', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Outside Layer`
@@ -35425,8 +33991,6 @@ class Construction(object):
     @layer_2.setter
     def layer_2(self, value=None):
         """  Corresponds to IDD Field `Layer 2`
-        
-        {u'type': u'object-list', u'object-list': u'MaterialName', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Layer 2`
@@ -35462,8 +34026,6 @@ class Construction(object):
     @layer_3.setter
     def layer_3(self, value=None):
         """  Corresponds to IDD Field `Layer 3`
-        
-        {u'type': u'object-list', u'object-list': u'MaterialName', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Layer 3`
@@ -35499,8 +34061,6 @@ class Construction(object):
     @layer_4.setter
     def layer_4(self, value=None):
         """  Corresponds to IDD Field `Layer 4`
-        
-        {u'type': u'object-list', u'object-list': u'MaterialName', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Layer 4`
@@ -35536,8 +34096,6 @@ class Construction(object):
     @layer_5.setter
     def layer_5(self, value=None):
         """  Corresponds to IDD Field `Layer 5`
-        
-        {u'type': u'object-list', u'object-list': u'MaterialName', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Layer 5`
@@ -35573,8 +34131,6 @@ class Construction(object):
     @layer_6.setter
     def layer_6(self, value=None):
         """  Corresponds to IDD Field `Layer 6`
-        
-        {u'type': u'object-list', u'object-list': u'MaterialName', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Layer 6`
@@ -35610,8 +34166,6 @@ class Construction(object):
     @layer_7.setter
     def layer_7(self, value=None):
         """  Corresponds to IDD Field `Layer 7`
-        
-        {u'type': u'object-list', u'object-list': u'MaterialName', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Layer 7`
@@ -35647,8 +34201,6 @@ class Construction(object):
     @layer_8.setter
     def layer_8(self, value=None):
         """  Corresponds to IDD Field `Layer 8`
-        
-        {u'type': u'object-list', u'object-list': u'MaterialName', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Layer 8`
@@ -35684,8 +34236,6 @@ class Construction(object):
     @layer_9.setter
     def layer_9(self, value=None):
         """  Corresponds to IDD Field `Layer 9`
-        
-        {u'type': u'object-list', u'object-list': u'MaterialName', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Layer 9`
@@ -35721,8 +34271,6 @@ class Construction(object):
     @layer_10.setter
     def layer_10(self, value=None):
         """  Corresponds to IDD Field `Layer 10`
-        
-        {u'type': u'object-list', u'object-list': u'MaterialName', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Layer 10`
@@ -35840,8 +34388,6 @@ class ConstructionCfactorUndergroundWall(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'reference': u'ConstructionNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -35878,8 +34424,6 @@ class ConstructionCfactorUndergroundWall(object):
     def cfactor(self, value=None):
         """  Corresponds to IDD Field `C-Factor`
         Enter C-Factor without film coefficients or soil
-        
-        {'pytype': 'float', u'minimum>': '0.0', u'required-field': True, u'note': [u'Enter C-Factor without film coefficients or soil'], u'units': u'W/m2-K', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `C-Factor`
@@ -35915,8 +34459,6 @@ class ConstructionCfactorUndergroundWall(object):
     def height(self, value=None):
         """  Corresponds to IDD Field `Height`
         Enter height of the underground wall
-        
-        {'pytype': 'float', u'minimum>': '0.0', u'required-field': True, u'note': [u'Enter height of the underground wall'], u'units': u'm', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Height`
@@ -36041,8 +34583,6 @@ class ConstructionFfactorGroundFloor(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'reference': u'ConstructionNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -36078,8 +34618,6 @@ class ConstructionFfactorGroundFloor(object):
     @ffactor.setter
     def ffactor(self, value=None):
         """  Corresponds to IDD Field `F-Factor`
-        
-        {'pytype': 'float', u'minimum>': '0.0', u'required-field': True, u'ip-units': u'Btu/h-ft-F', u'units': u'W/m-K', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `F-Factor`
@@ -36116,8 +34654,6 @@ class ConstructionFfactorGroundFloor(object):
     def area(self, value=None):
         """  Corresponds to IDD Field `Area`
         Enter area of the floor
-        
-        {'pytype': 'float', u'minimum>': '0.0', u'required-field': True, u'note': [u'Enter area of the floor'], u'units': u'm2', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Area`
@@ -36153,8 +34689,6 @@ class ConstructionFfactorGroundFloor(object):
     def perimeterexposed(self, value=None):
         """  Corresponds to IDD Field `PerimeterExposed`
         Enter exposed perimeter of the floor
-        
-        {'pytype': 'float', u'required-field': True, u'note': [u'Enter exposed perimeter of the floor'], u'minimum': '0.0', u'units': u'm', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `PerimeterExposed`
@@ -36369,8 +34903,6 @@ class ConstructionInternalSource(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'reference': u'ConstructionNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -36407,8 +34939,6 @@ class ConstructionInternalSource(object):
     def source_present_after_layer_number(self, value=None):
         """  Corresponds to IDD Field `Source Present After Layer Number`
         refers to the list of materials which follows
-        
-        {u'note': [u'refers to the list of materials which follows'], u'minimum': '1', u'type': u'integer', u'required-field': True, 'pytype': 'int'}
 
         Args:
             value (int): value for IDD Field `Source Present After Layer Number`
@@ -36443,8 +34973,6 @@ class ConstructionInternalSource(object):
     def temperature_calculation_requested_after_layer_number(self, value=None):
         """  Corresponds to IDD Field `Temperature Calculation Requested After Layer Number`
         refers to the list of materials which follows
-        
-        {u'note': [u'refers to the list of materials which follows'], u'type': u'integer', u'required-field': True, 'pytype': 'int'}
 
         Args:
             value (int): value for IDD Field `Temperature Calculation Requested After Layer Number`
@@ -36475,8 +35003,6 @@ class ConstructionInternalSource(object):
     def dimensions_for_the_ctf_calculation(self, value=None):
         """  Corresponds to IDD Field `Dimensions for the CTF Calculation`
         1 = 1-dimensional calculation, 2 = 2-dimensional calculation
-        
-        {'pytype': 'int', u'maximum': '2', u'required-field': True, u'note': [u'1 = 1-dimensional calculation, 2 = 2-dimensional calculation'], u'minimum': '1', u'type': u'integer'}
 
         Args:
             value (int): value for IDD Field `Dimensions for the CTF Calculation`
@@ -36516,8 +35042,6 @@ class ConstructionInternalSource(object):
         """  Corresponds to IDD Field `Tube Spacing`
         uniform spacing between tubes or resistance wires in direction
         perpendicular to main intended direction of heat transfer
-        
-        {u'units': u'm', u'note': [u'uniform spacing between tubes or resistance wires in direction', u'perpendicular to main intended direction of heat transfer'], u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Tube Spacing`
@@ -36548,8 +35072,6 @@ class ConstructionInternalSource(object):
     @outside_layer.setter
     def outside_layer(self, value=None):
         """  Corresponds to IDD Field `Outside Layer`
-        
-        {u'type': u'object-list', u'object-list': u'MaterialName', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Outside Layer`
@@ -36585,8 +35107,6 @@ class ConstructionInternalSource(object):
     @layer_2.setter
     def layer_2(self, value=None):
         """  Corresponds to IDD Field `Layer 2`
-        
-        {u'type': u'object-list', u'object-list': u'MaterialName', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Layer 2`
@@ -36622,8 +35142,6 @@ class ConstructionInternalSource(object):
     @layer_3.setter
     def layer_3(self, value=None):
         """  Corresponds to IDD Field `Layer 3`
-        
-        {u'type': u'object-list', u'object-list': u'MaterialName', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Layer 3`
@@ -36659,8 +35177,6 @@ class ConstructionInternalSource(object):
     @layer_4.setter
     def layer_4(self, value=None):
         """  Corresponds to IDD Field `Layer 4`
-        
-        {u'type': u'object-list', u'object-list': u'MaterialName', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Layer 4`
@@ -36696,8 +35212,6 @@ class ConstructionInternalSource(object):
     @layer_5.setter
     def layer_5(self, value=None):
         """  Corresponds to IDD Field `Layer 5`
-        
-        {u'type': u'object-list', u'object-list': u'MaterialName', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Layer 5`
@@ -36733,8 +35247,6 @@ class ConstructionInternalSource(object):
     @layer_6.setter
     def layer_6(self, value=None):
         """  Corresponds to IDD Field `Layer 6`
-        
-        {u'type': u'object-list', u'object-list': u'MaterialName', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Layer 6`
@@ -36770,8 +35282,6 @@ class ConstructionInternalSource(object):
     @layer_7.setter
     def layer_7(self, value=None):
         """  Corresponds to IDD Field `Layer 7`
-        
-        {u'type': u'object-list', u'object-list': u'MaterialName', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Layer 7`
@@ -36807,8 +35317,6 @@ class ConstructionInternalSource(object):
     @layer_8.setter
     def layer_8(self, value=None):
         """  Corresponds to IDD Field `Layer 8`
-        
-        {u'type': u'object-list', u'object-list': u'MaterialName', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Layer 8`
@@ -36844,8 +35352,6 @@ class ConstructionInternalSource(object):
     @layer_9.setter
     def layer_9(self, value=None):
         """  Corresponds to IDD Field `Layer 9`
-        
-        {u'type': u'object-list', u'object-list': u'MaterialName', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Layer 9`
@@ -36881,8 +35387,6 @@ class ConstructionInternalSource(object):
     @layer_10.setter
     def layer_10(self, value=None):
         """  Corresponds to IDD Field `Layer 10`
-        
-        {u'type': u'object-list', u'object-list': u'MaterialName', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Layer 10`
@@ -37040,8 +35544,6 @@ class WindowThermalModelParams(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'reference': u'WindowThermalModelParameters', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -37077,8 +35579,6 @@ class WindowThermalModelParams(object):
     @standard.setter
     def standard(self, value="ISO15099"):
         """  Corresponds to IDD Field `standard`
-        
-        {u'default': u'ISO15099', u'type': u'choice', u'key': [u'ISO15099', u'EN673Declared', u'EN673Design'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `standard`
@@ -37137,8 +35637,6 @@ class WindowThermalModelParams(object):
     @thermal_model.setter
     def thermal_model(self, value="ISO15099"):
         """  Corresponds to IDD Field `Thermal Model`
-        
-        {u'default': u'ISO15099', u'type': u'choice', u'key': [u'ISO15099', u'ScaledCavityWidth', u'ConvectiveScalarModel_NoSDThickness', u'ConvectiveScalarModel_withSDThickness'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Thermal Model`
@@ -37197,10 +35695,8 @@ class WindowThermalModelParams(object):
         return self._data["SDScalar"]
 
     @sdscalar.setter
-    def sdscalar(self, value=1.0 ):
+    def sdscalar(self, value=1.0):
         """  Corresponds to IDD Field `SDScalar`
-        
-        {u'default': '1.0', u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `SDScalar`
@@ -37239,8 +35735,6 @@ class WindowThermalModelParams(object):
     @deflection_model.setter
     def deflection_model(self, value="NoDeflection"):
         """  Corresponds to IDD Field `Deflection Model`
-        
-        {u'default': u'NoDeflection', u'type': u'choice', u'key': [u'NoDeflection', u'TemperatureAndPressureInput', u'MeasuredDeflection'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Deflection Model`
@@ -37297,10 +35791,8 @@ class WindowThermalModelParams(object):
         return self._data["Vacuum Pressure Limit"]
 
     @vacuum_pressure_limit.setter
-    def vacuum_pressure_limit(self, value=13.238 ):
+    def vacuum_pressure_limit(self, value=13.238):
         """  Corresponds to IDD Field `Vacuum Pressure Limit`
-        
-        {u'units': u'Pa', u'default': '13.238', 'pytype': 'float', u'type': u'real', u'minimum>0': u''}
 
         Args:
             value (float): value for IDD Field `Vacuum Pressure Limit`
@@ -37330,11 +35822,9 @@ class WindowThermalModelParams(object):
         return self._data["Initial temperature"]
 
     @initial_temperature.setter
-    def initial_temperature(self, value=25.0 ):
+    def initial_temperature(self, value=25.0):
         """  Corresponds to IDD Field `Initial temperature`
         This is temperature in time of window fabrication
-        
-        {'pytype': 'float', u'default': '25.0', u'note': [u'This is temperature in time of window fabrication'], u'units': u'C', u'type': u'real', u'minimum>0': u''}
 
         Args:
             value (float): value for IDD Field `Initial temperature`
@@ -37364,11 +35854,9 @@ class WindowThermalModelParams(object):
         return self._data["Initial pressure"]
 
     @initial_pressure.setter
-    def initial_pressure(self, value=101325.0 ):
+    def initial_pressure(self, value=101325.0):
         """  Corresponds to IDD Field `Initial pressure`
         This is pressure in time of window fabrication
-        
-        {'pytype': 'float', u'default': '101325.0', u'note': [u'This is pressure in time of window fabrication'], u'units': u'Pa', u'type': u'real', u'minimum>0': u''}
 
         Args:
             value (float): value for IDD Field `Initial pressure`
@@ -37747,8 +36235,6 @@ class ConstructionComplexFenestrationState(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'reference': u'ComplexFenestrationStates', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -37784,8 +36270,6 @@ class ConstructionComplexFenestrationState(object):
     @basis_type.setter
     def basis_type(self, value="LBNLWINDOW"):
         """  Corresponds to IDD Field `Basis Type`
-        
-        {u'default': u'LBNLWINDOW', u'type': u'choice', u'key': [u'LBNLWINDOW', u'UserDefined'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Basis Type`
@@ -37842,8 +36326,6 @@ class ConstructionComplexFenestrationState(object):
     @basis_symmetry_type.setter
     def basis_symmetry_type(self, value="None"):
         """  Corresponds to IDD Field `Basis Symmetry Type`
-        
-        {u'default': u'None', u'type': u'choice', u'key': [u'Axisymmetric', u'None'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Basis Symmetry Type`
@@ -37900,8 +36382,6 @@ class ConstructionComplexFenestrationState(object):
     @window_thermal_model.setter
     def window_thermal_model(self, value=None):
         """  Corresponds to IDD Field `Window Thermal Model`
-        
-        {u'type': u'object-list', u'object-list': u'WindowThermalModelParameters', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Window Thermal Model`
@@ -37937,8 +36417,6 @@ class ConstructionComplexFenestrationState(object):
     @basis_matrix_name.setter
     def basis_matrix_name(self, value=None):
         """  Corresponds to IDD Field `Basis Matrix Name`
-        
-        {u'type': u'object-list', u'object-list': u'DataMatrices', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Basis Matrix Name`
@@ -37974,8 +36452,6 @@ class ConstructionComplexFenestrationState(object):
     @solar_optical_complex_front_transmittance_matrix_name.setter
     def solar_optical_complex_front_transmittance_matrix_name(self, value=None):
         """  Corresponds to IDD Field `Solar Optical Complex Front Transmittance Matrix Name`
-        
-        {u'type': u'object-list', u'object-list': u'DataMatrices', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Solar Optical Complex Front Transmittance Matrix Name`
@@ -38011,8 +36487,6 @@ class ConstructionComplexFenestrationState(object):
     @solar_optical_complex_back_reflectance_matrix_name.setter
     def solar_optical_complex_back_reflectance_matrix_name(self, value=None):
         """  Corresponds to IDD Field `Solar Optical Complex Back Reflectance Matrix Name`
-        
-        {u'type': u'object-list', u'object-list': u'DataMatrices', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Solar Optical Complex Back Reflectance Matrix Name`
@@ -38048,8 +36522,6 @@ class ConstructionComplexFenestrationState(object):
     @visible_optical_complex_front_transmittance_matrix_name.setter
     def visible_optical_complex_front_transmittance_matrix_name(self, value=None):
         """  Corresponds to IDD Field `Visible Optical Complex Front Transmittance Matrix Name`
-        
-        {u'type': u'object-list', u'object-list': u'DataMatrices', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Visible Optical Complex Front Transmittance Matrix Name`
@@ -38085,8 +36557,6 @@ class ConstructionComplexFenestrationState(object):
     @visible_optical_complex_back_transmittance_matrix_name.setter
     def visible_optical_complex_back_transmittance_matrix_name(self, value=None):
         """  Corresponds to IDD Field `Visible Optical Complex Back Transmittance Matrix Name`
-        
-        {u'type': u'object-list', u'object-list': u'DataMatrices', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Visible Optical Complex Back Transmittance Matrix Name`
@@ -38122,8 +36592,6 @@ class ConstructionComplexFenestrationState(object):
     @outside_layer_name.setter
     def outside_layer_name(self, value=None):
         """  Corresponds to IDD Field `Outside Layer Name`
-        
-        {u'type': u'object-list', u'object-list': u'WindowComplexShades', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Outside Layer Name`
@@ -38159,8 +36627,6 @@ class ConstructionComplexFenestrationState(object):
     @outside_layer_directional_front_absoptance_matrix_name.setter
     def outside_layer_directional_front_absoptance_matrix_name(self, value=None):
         """  Corresponds to IDD Field `Outside Layer Directional Front Absoptance Matrix Name`
-        
-        {u'type': u'object-list', u'object-list': u'DataMatrices', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Outside Layer Directional Front Absoptance Matrix Name`
@@ -38196,8 +36662,6 @@ class ConstructionComplexFenestrationState(object):
     @outside_layer_directional_back_absoptance_matrix_name.setter
     def outside_layer_directional_back_absoptance_matrix_name(self, value=None):
         """  Corresponds to IDD Field `Outside Layer Directional Back Absoptance Matrix Name`
-        
-        {u'type': u'object-list', u'object-list': u'DataMatrices', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Outside Layer Directional Back Absoptance Matrix Name`
@@ -38233,8 +36697,6 @@ class ConstructionComplexFenestrationState(object):
     @gap_1_name.setter
     def gap_1_name(self, value=None):
         """  Corresponds to IDD Field `Gap 1 Name`
-        
-        {u'type': u'object-list', u'object-list': u'CFSGap', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Gap 1 Name`
@@ -38271,8 +36733,6 @@ class ConstructionComplexFenestrationState(object):
     def cfs_gap_1_directional_front_absoptance_matrix_name(self, value=None):
         """  Corresponds to IDD Field `CFS Gap 1 Directional Front Absoptance Matrix Name`
         Reserved for future use. Leave it blank for this version
-        
-        {u'note': [u'Reserved for future use. Leave it blank for this version'], u'type': u'object-list', u'object-list': u'DataMatrices', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `CFS Gap 1 Directional Front Absoptance Matrix Name`
@@ -38309,8 +36769,6 @@ class ConstructionComplexFenestrationState(object):
     def cfs_gap_1_directional_back_absoptance_matrix_name(self, value=None):
         """  Corresponds to IDD Field `CFS Gap 1 Directional Back Absoptance Matrix Name`
         Reserved for future use. Leave it blank for this version
-        
-        {u'note': [u'Reserved for future use. Leave it blank for this version'], u'type': u'object-list', u'object-list': u'DataMatrices', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `CFS Gap 1 Directional Back Absoptance Matrix Name`
@@ -38346,8 +36804,6 @@ class ConstructionComplexFenestrationState(object):
     @layer_2_name.setter
     def layer_2_name(self, value=None):
         """  Corresponds to IDD Field `Layer 2 Name`
-        
-        {u'type': u'object-list', u'object-list': u'WindowComplexShades', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Layer 2 Name`
@@ -38383,8 +36839,6 @@ class ConstructionComplexFenestrationState(object):
     @layer_2_directional_front_absoptance_matrix_name.setter
     def layer_2_directional_front_absoptance_matrix_name(self, value=None):
         """  Corresponds to IDD Field `Layer 2 Directional Front Absoptance Matrix Name`
-        
-        {u'type': u'object-list', u'object-list': u'DataMatrices', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Layer 2 Directional Front Absoptance Matrix Name`
@@ -38420,8 +36874,6 @@ class ConstructionComplexFenestrationState(object):
     @layer_2_directional_back_absoptance_matrix_name.setter
     def layer_2_directional_back_absoptance_matrix_name(self, value=None):
         """  Corresponds to IDD Field `Layer 2 Directional Back Absoptance Matrix Name`
-        
-        {u'type': u'object-list', u'object-list': u'DataMatrices', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Layer 2 Directional Back Absoptance Matrix Name`
@@ -38457,8 +36909,6 @@ class ConstructionComplexFenestrationState(object):
     @gap_2_name.setter
     def gap_2_name(self, value=None):
         """  Corresponds to IDD Field `Gap 2 Name`
-        
-        {u'type': u'object-list', u'object-list': u'CFSGap', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Gap 2 Name`
@@ -38495,8 +36945,6 @@ class ConstructionComplexFenestrationState(object):
     def gap_2_directional_front_absoptance_matrix_name(self, value=None):
         """  Corresponds to IDD Field `Gap 2 Directional Front Absoptance Matrix Name`
         Reserved for future use. Leave it blank for this version
-        
-        {u'note': [u'Reserved for future use. Leave it blank for this version'], u'type': u'object-list', u'object-list': u'DataMatrices', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Gap 2 Directional Front Absoptance Matrix Name`
@@ -38533,8 +36981,6 @@ class ConstructionComplexFenestrationState(object):
     def gap_2_directional_back_absoptance_matrix_name(self, value=None):
         """  Corresponds to IDD Field `Gap 2 Directional Back Absoptance Matrix Name`
         Reserved for future use. Leave it blank for this version
-        
-        {u'note': [u'Reserved for future use. Leave it blank for this version'], u'type': u'object-list', u'object-list': u'DataMatrices', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Gap 2 Directional Back Absoptance Matrix Name`
@@ -38570,8 +37016,6 @@ class ConstructionComplexFenestrationState(object):
     @layer_3_material.setter
     def layer_3_material(self, value=None):
         """  Corresponds to IDD Field `Layer 3 Material`
-        
-        {u'type': u'object-list', u'object-list': u'WindowComplexShades', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Layer 3 Material`
@@ -38607,8 +37051,6 @@ class ConstructionComplexFenestrationState(object):
     @layer_3_directional_front_absoptance_matrix_name.setter
     def layer_3_directional_front_absoptance_matrix_name(self, value=None):
         """  Corresponds to IDD Field `Layer 3 Directional Front Absoptance Matrix Name`
-        
-        {u'type': u'object-list', u'object-list': u'DataMatrices', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Layer 3 Directional Front Absoptance Matrix Name`
@@ -38644,8 +37086,6 @@ class ConstructionComplexFenestrationState(object):
     @layer_3_directional_back_absoptance_matrix_name.setter
     def layer_3_directional_back_absoptance_matrix_name(self, value=None):
         """  Corresponds to IDD Field `Layer 3 Directional Back Absoptance Matrix Name`
-        
-        {u'type': u'object-list', u'object-list': u'DataMatrices', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Layer 3 Directional Back Absoptance Matrix Name`
@@ -38681,8 +37121,6 @@ class ConstructionComplexFenestrationState(object):
     @gap_3_name.setter
     def gap_3_name(self, value=None):
         """  Corresponds to IDD Field `Gap 3 Name`
-        
-        {u'type': u'object-list', u'object-list': u'CFSGap', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Gap 3 Name`
@@ -38719,8 +37157,6 @@ class ConstructionComplexFenestrationState(object):
     def gap_3_directional_front_absoptance_matrix_name(self, value=None):
         """  Corresponds to IDD Field `Gap 3 Directional Front Absoptance Matrix Name`
         Reserved for future use. Leave it blank for this version
-        
-        {u'note': [u'Reserved for future use. Leave it blank for this version'], u'type': u'object-list', u'object-list': u'DataMatrices', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Gap 3 Directional Front Absoptance Matrix Name`
@@ -38757,8 +37193,6 @@ class ConstructionComplexFenestrationState(object):
     def gap_3_directional_back_absoptance_matrix_name(self, value=None):
         """  Corresponds to IDD Field `Gap 3 Directional Back Absoptance Matrix Name`
         Reserved for future use. Leave it blank for this version
-        
-        {u'note': [u'Reserved for future use. Leave it blank for this version'], u'type': u'object-list', u'object-list': u'DataMatrices', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Gap 3 Directional Back Absoptance Matrix Name`
@@ -38794,8 +37228,6 @@ class ConstructionComplexFenestrationState(object):
     @layer_4_name.setter
     def layer_4_name(self, value=None):
         """  Corresponds to IDD Field `Layer 4 Name`
-        
-        {u'type': u'object-list', u'object-list': u'WindowComplexShades', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Layer 4 Name`
@@ -38831,8 +37263,6 @@ class ConstructionComplexFenestrationState(object):
     @layer_4_directional_front_absoptance_matrix_name.setter
     def layer_4_directional_front_absoptance_matrix_name(self, value=None):
         """  Corresponds to IDD Field `Layer 4 Directional Front Absoptance Matrix Name`
-        
-        {u'type': u'object-list', u'object-list': u'DataMatrices', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Layer 4 Directional Front Absoptance Matrix Name`
@@ -38868,8 +37298,6 @@ class ConstructionComplexFenestrationState(object):
     @layer_4_directional_back_absoptance_matrix_name.setter
     def layer_4_directional_back_absoptance_matrix_name(self, value=None):
         """  Corresponds to IDD Field `Layer 4 Directional Back Absoptance Matrix Name`
-        
-        {u'type': u'object-list', u'object-list': u'DataMatrices', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Layer 4 Directional Back Absoptance Matrix Name`
@@ -38905,8 +37333,6 @@ class ConstructionComplexFenestrationState(object):
     @gap_4_name.setter
     def gap_4_name(self, value=None):
         """  Corresponds to IDD Field `Gap 4 Name`
-        
-        {u'type': u'object-list', u'object-list': u'CFSGap', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Gap 4 Name`
@@ -38943,8 +37369,6 @@ class ConstructionComplexFenestrationState(object):
     def gap_4_directional_front_absoptance_matrix_name(self, value=None):
         """  Corresponds to IDD Field `Gap 4 Directional Front Absoptance Matrix Name`
         Reserved for future use. Leave it blank for this version
-        
-        {u'note': [u'Reserved for future use. Leave it blank for this version'], u'type': u'object-list', u'object-list': u'DataMatrices', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Gap 4 Directional Front Absoptance Matrix Name`
@@ -38981,8 +37405,6 @@ class ConstructionComplexFenestrationState(object):
     def gap_4_directional_back_absoptance_matrix_name(self, value=None):
         """  Corresponds to IDD Field `Gap 4 Directional Back Absoptance Matrix Name`
         Reserved for future use. Leave it blank for this version
-        
-        {u'note': [u'Reserved for future use. Leave it blank for this version'], u'type': u'object-list', u'object-list': u'DataMatrices', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Gap 4 Directional Back Absoptance Matrix Name`
@@ -39018,8 +37440,6 @@ class ConstructionComplexFenestrationState(object):
     @layer_5_name.setter
     def layer_5_name(self, value=None):
         """  Corresponds to IDD Field `Layer 5 Name`
-        
-        {u'type': u'object-list', u'object-list': u'WindowComplexShades', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Layer 5 Name`
@@ -39055,8 +37475,6 @@ class ConstructionComplexFenestrationState(object):
     @layer_5_directional_front_absoptance_matrix_name.setter
     def layer_5_directional_front_absoptance_matrix_name(self, value=None):
         """  Corresponds to IDD Field `Layer 5 Directional Front Absoptance Matrix Name`
-        
-        {u'type': u'object-list', u'object-list': u'DataMatrices', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Layer 5 Directional Front Absoptance Matrix Name`
@@ -39092,8 +37510,6 @@ class ConstructionComplexFenestrationState(object):
     @layer_5_directional_back_absoptance_matrix_name.setter
     def layer_5_directional_back_absoptance_matrix_name(self, value=None):
         """  Corresponds to IDD Field `Layer 5 Directional Back Absoptance Matrix Name`
-        
-        {'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Layer 5 Directional Back Absoptance Matrix Name`
@@ -39203,8 +37619,6 @@ class ConstructionWindowDataFile(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'reference': u'ConstructionNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -39242,8 +37656,6 @@ class ConstructionWindowDataFile(object):
         """  Corresponds to IDD Field `File Name`
         default file name is "Window5DataFile.dat"
         limit on this field is 100 characters.
-        
-        {u'note': [u'default file name is "Window5DataFile.dat"', u'limit on this field is 100 characters.'], u'retaincase': u'', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `File Name`

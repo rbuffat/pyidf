@@ -70,8 +70,6 @@ class RoomAirModelType(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -107,8 +105,6 @@ class RoomAirModelType(object):
     @zone_name.setter
     def zone_name(self, value=None):
         """  Corresponds to IDD Field `Zone Name`
-        
-        {u'type': u'object-list', u'object-list': u'ZoneNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Zone Name`
@@ -157,8 +153,6 @@ class RoomAirModelType(object):
         needs RoomAirSettings:UnderFloorAirDistributionInterior object referencing this Zone
         (2-Node UFAD model for exterior zones)
         needs RoomAirSettings:UnderFloorAirDistributionExterior object referencing this Zone
-        
-        {'pytype': 'str', u'default': u'Mixing', u'required-field': True, u'note': [u'Complete mixing air model', u'UserDefined Room Air Temperature Patterns', u'needs RoomAir:TemperaturePattern:UserDefined object referencing this Zone', u'Mundt roomair model for displacement ventilation with single floor air node', u'needs RoomAirSettings:OneNodeDisplacementVentilation object referencing this Zone', u'(UCSD three-node displacement ventilation model)', u'needs RoomAirSettings:ThreeNodeDisplacementVentilation object referencing this Zone', u'(UCSD two-zone cross ventilation model)', u'needs RoomAirSettings:CrossVentilation object referencing this Zone', u'2-Node UFAD model for interior zones', u'needs RoomAirSettings:UnderFloorAirDistributionInterior object referencing this Zone', u'(2-Node UFAD model for exterior zones)', u'needs RoomAirSettings:UnderFloorAirDistributionExterior object referencing this Zone'], u'key': [u'Mixing', u'UserDefined', u'OneNodeDisplacementVentilation', u'ThreeNodeDisplacementVentilation', u'CrossVentilation', u'UnderFloorAirDistributionInterior', u'UnderFloorAirDistributionExterior'], u'type': u'choice'}
 
         Args:
             value (str): value for IDD Field `Room-Air Modeling Type`
@@ -225,8 +219,6 @@ class RoomAirModelType(object):
     @air_temperature_coupling_strategy.setter
     def air_temperature_coupling_strategy(self, value="Direct"):
         """  Corresponds to IDD Field `Air Temperature Coupling Strategy`
-        
-        {u'default': u'Direct', u'type': u'choice', u'key': [u'Direct', u'Indirect'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Air Temperature Coupling Strategy`
@@ -374,8 +366,6 @@ class RoomAirTemperaturePatternUserDefined(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -411,8 +401,6 @@ class RoomAirTemperaturePatternUserDefined(object):
     @zone_name.setter
     def zone_name(self, value=None):
         """  Corresponds to IDD Field `Zone Name`
-        
-        {u'type': u'object-list', u'object-list': u'ZoneNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Zone Name`
@@ -451,8 +439,6 @@ class RoomAirTemperaturePatternUserDefined(object):
         Availability schedule name for this model. Schedule value > 0 means the model is
         active. Schedule value = 0 means the model is inactive and the zone will be modeled
         as fully mixed (Mixing). If this field is blank, the model is always active.
-        
-        {u'note': [u'Availability schedule name for this model. Schedule value > 0 means the model is', u'active. Schedule value = 0 means the model is inactive and the zone will be modeled', u'as fully mixed (Mixing). If this field is blank, the model is always active.'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Availability Schedule Name`
@@ -491,8 +477,6 @@ class RoomAirTemperaturePatternUserDefined(object):
         The schedule should contain integer values that
         correspond to unique Control Integer fields in
         one of the RoomAir:TemperaturePattern:* objects.
-        
-        {u'note': [u'The schedule should contain integer values that', u'correspond to unique Control Integer fields in', u'one of the RoomAir:TemperaturePattern:* objects.'], u'type': u'object-list', u'object-list': u'ScheduleNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Pattern Control Schedule Name`
@@ -635,8 +619,6 @@ class RoomAirTemperaturePatternConstantGradient(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -673,8 +655,6 @@ class RoomAirTemperaturePatternConstantGradient(object):
     def control_integer_for_pattern_control_schedule_name(self, value=None):
         """  Corresponds to IDD Field `Control Integer for Pattern Control Schedule Name`
         reference this entry in Schedule Name
-        
-        {u'note': [u'reference this entry in Schedule Name'], u'type': u'integer', u'required-field': True, 'pytype': 'int'}
 
         Args:
             value (int): value for IDD Field `Control Integer for Pattern Control Schedule Name`
@@ -705,8 +685,6 @@ class RoomAirTemperaturePatternConstantGradient(object):
     def thermostat_offset(self, value=None):
         """  Corresponds to IDD Field `Thermostat Offset`
         = (Temp at thermostat- Mean Air Temp)
-        
-        {u'note': [u'= (Temp at thermostat- Mean Air Temp)'], u'units': u'deltaC', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Thermostat Offset`
@@ -738,8 +716,6 @@ class RoomAirTemperaturePatternConstantGradient(object):
     def return_air_offset(self, value=None):
         """  Corresponds to IDD Field `Return Air Offset`
         = (Tleaving - Mean Air Temp )
-        
-        {u'note': [u'= (Tleaving - Mean Air Temp )'], u'units': u'deltaC', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Return Air Offset`
@@ -771,8 +747,6 @@ class RoomAirTemperaturePatternConstantGradient(object):
     def exhaust_air_offset(self, value=None):
         """  Corresponds to IDD Field `Exhaust Air Offset`
         = (Texhaust - Mean Air Temp) deg C
-        
-        {u'note': [u'= (Texhaust - Mean Air Temp) deg C'], u'units': u'deltaC', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Exhaust Air Offset`
@@ -804,8 +778,6 @@ class RoomAirTemperaturePatternConstantGradient(object):
     def temperature_gradient(self, value=None):
         """  Corresponds to IDD Field `Temperature Gradient`
         Slope of temperature change in vertical direction
-        
-        {u'note': [u'Slope of temperature change in vertical direction'], u'units': u'K/m', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Temperature Gradient`
@@ -991,8 +963,6 @@ class RoomAirTemperaturePatternTwoGradient(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -1029,8 +999,6 @@ class RoomAirTemperaturePatternTwoGradient(object):
     def control_integer_for_pattern_control_schedule_name(self, value=None):
         """  Corresponds to IDD Field `Control Integer for Pattern Control Schedule Name`
         reference this entry in Schedule Name
-        
-        {u'note': [u'reference this entry in Schedule Name'], u'type': u'integer', u'required-field': True, 'pytype': 'int'}
 
         Args:
             value (int): value for IDD Field `Control Integer for Pattern Control Schedule Name`
@@ -1061,8 +1029,6 @@ class RoomAirTemperaturePatternTwoGradient(object):
     def thermostat_height(self, value=None):
         """  Corresponds to IDD Field `Thermostat Height`
         = Distance from floor of zone
-        
-        {u'note': [u'= Distance from floor of zone'], u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Thermostat Height`
@@ -1094,8 +1060,6 @@ class RoomAirTemperaturePatternTwoGradient(object):
     def return_air_height(self, value=None):
         """  Corresponds to IDD Field `Return Air Height`
         = Distance from floor of zone
-        
-        {u'note': [u'= Distance from floor of zone'], u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Return Air Height`
@@ -1127,8 +1091,6 @@ class RoomAirTemperaturePatternTwoGradient(object):
     def exhaust_air_height(self, value=None):
         """  Corresponds to IDD Field `Exhaust Air Height`
         = Distance from floor of zone
-        
-        {u'note': [u'= Distance from floor of zone'], u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Exhaust Air Height`
@@ -1160,8 +1122,6 @@ class RoomAirTemperaturePatternTwoGradient(object):
     def temperature_gradient_lower_bound(self, value=None):
         """  Corresponds to IDD Field `Temperature Gradient Lower Bound`
         Slope of temperature change in vertical direction
-        
-        {u'note': [u'Slope of temperature change in vertical direction'], u'units': u'K/m', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Temperature Gradient Lower Bound`
@@ -1193,8 +1153,6 @@ class RoomAirTemperaturePatternTwoGradient(object):
     def temperature_gradient_upper_bound(self, value=None):
         """  Corresponds to IDD Field `Temperature Gradient Upper  Bound`
         Slope of temperature change in vertical direction
-        
-        {u'note': [u'Slope of temperature change in vertical direction'], u'units': u'K/m', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Temperature Gradient Upper  Bound`
@@ -1225,8 +1183,6 @@ class RoomAirTemperaturePatternTwoGradient(object):
     @gradient_interpolation_mode.setter
     def gradient_interpolation_mode(self, value=None):
         """  Corresponds to IDD Field `Gradient Interpolation Mode`
-        
-        {u'type': u'choice', u'key': [u'OutdoorDryBulbTemperature', u'ZoneDryBulbTemperature', u'ZoneAndOutdoorTemperatureDifference', u'SensibleCoolingLoad', u'SensibleHeatingLoad'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Gradient Interpolation Mode`
@@ -1288,8 +1244,6 @@ class RoomAirTemperaturePatternTwoGradient(object):
     @upper_temperature_bound.setter
     def upper_temperature_bound(self, value=None):
         """  Corresponds to IDD Field `Upper Temperature Bound`
-        
-        {u'units': u'C', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Upper Temperature Bound`
@@ -1320,8 +1274,6 @@ class RoomAirTemperaturePatternTwoGradient(object):
     @lower_temperature_bound.setter
     def lower_temperature_bound(self, value=None):
         """  Corresponds to IDD Field `Lower Temperature Bound`
-        
-        {u'units': u'C', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Lower Temperature Bound`
@@ -1352,8 +1304,6 @@ class RoomAirTemperaturePatternTwoGradient(object):
     @upper_heat_rate_bound.setter
     def upper_heat_rate_bound(self, value=None):
         """  Corresponds to IDD Field `Upper Heat Rate Bound`
-        
-        {u'units': u'W', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Upper Heat Rate Bound`
@@ -1384,8 +1334,6 @@ class RoomAirTemperaturePatternTwoGradient(object):
     @lower_heat_rate_bound.setter
     def lower_heat_rate_bound(self, value=None):
         """  Corresponds to IDD Field `Lower Heat Rate Bound`
-        
-        {u'units': u'W', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Lower Heat Rate Bound`
@@ -1821,8 +1769,6 @@ class RoomAirTemperaturePatternNondimensionalHeight(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -1859,8 +1805,6 @@ class RoomAirTemperaturePatternNondimensionalHeight(object):
     def control_integer_for_pattern_control_schedule_name(self, value=None):
         """  Corresponds to IDD Field `Control Integer for Pattern Control Schedule Name`
         this value should appear in as a schedule value
-        
-        {u'note': [u'this value should appear in as a schedule value'], u'type': u'integer', u'required-field': True, 'pytype': 'int'}
 
         Args:
             value (int): value for IDD Field `Control Integer for Pattern Control Schedule Name`
@@ -1891,8 +1835,6 @@ class RoomAirTemperaturePatternNondimensionalHeight(object):
     def thermostat_offset(self, value=None):
         """  Corresponds to IDD Field `Thermostat Offset`
         = (Temp at thermostat- Mean Air Temp)
-        
-        {u'note': [u'= (Temp at thermostat- Mean Air Temp)'], u'units': u'deltaC', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Thermostat Offset`
@@ -1924,8 +1866,6 @@ class RoomAirTemperaturePatternNondimensionalHeight(object):
     def return_air_offset(self, value=None):
         """  Corresponds to IDD Field `Return Air Offset`
         = (Temp leaving - Mean Air Temp ) deg C
-        
-        {u'note': [u'= (Temp leaving - Mean Air Temp ) deg C'], u'units': u'deltaC', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Return Air Offset`
@@ -1962,8 +1902,6 @@ class RoomAirTemperaturePatternNondimensionalHeight(object):
         Zeta is the nondimensional height (in z-direction). on [0..1]
         DeltaTai =  (Tai - MAT) in units of deg. C
         relative deg C on [-10.0 .. 20.0 ]
-        
-        {u'note': [u'= (Temp exhaust - Mean Air Temp) deg C', u'the remaining fields have pairs that describe the relative', u'temperature pattern in the vertical direction of a zone', u'Zeta is the nondimensional height (in z-direction). on [0..1]', u'DeltaTai =  (Tai - MAT) in units of deg. C', u'relative deg C on [-10.0 .. 20.0 ]'], u'units': u'deltaC', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Exhaust Air Offset`
@@ -1994,8 +1932,6 @@ class RoomAirTemperaturePatternNondimensionalHeight(object):
     @pair_1_zeta_nondimensional_height.setter
     def pair_1_zeta_nondimensional_height(self, value=None):
         """  Corresponds to IDD Field `Pair 1 Zeta Nondimensional Height`
-        
-        {'pytype': 'float', u'type': u'real', u'required-field': True, u'begin-extensible': u''}
 
         Args:
             value (float): value for IDD Field `Pair 1 Zeta Nondimensional Height`
@@ -2025,8 +1961,6 @@ class RoomAirTemperaturePatternNondimensionalHeight(object):
     @pair_1_delta_adjacent_air_temperature.setter
     def pair_1_delta_adjacent_air_temperature(self, value=None):
         """  Corresponds to IDD Field `Pair 1 Delta Adjacent Air Temperature`
-        
-        {'pytype': 'float', u'maximum': '20.0', u'required-field': True, u'minimum': '-10.0', u'units': u'deltaC', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Pair 1 Delta Adjacent Air Temperature`
@@ -2065,8 +1999,6 @@ class RoomAirTemperaturePatternNondimensionalHeight(object):
     @pair_2_zeta_nondimensional_height.setter
     def pair_2_zeta_nondimensional_height(self, value=None):
         """  Corresponds to IDD Field `Pair 2 Zeta Nondimensional Height`
-        
-        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Pair 2 Zeta Nondimensional Height`
@@ -2096,8 +2028,6 @@ class RoomAirTemperaturePatternNondimensionalHeight(object):
     @pair_2_delta_adjacent_air_temperature.setter
     def pair_2_delta_adjacent_air_temperature(self, value=None):
         """  Corresponds to IDD Field `Pair 2 Delta Adjacent Air Temperature`
-        
-        {'pytype': 'float', u'maximum': '20.0', u'required-field': True, u'minimum': '-10.0', u'units': u'deltaC', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Pair 2 Delta Adjacent Air Temperature`
@@ -2136,8 +2066,6 @@ class RoomAirTemperaturePatternNondimensionalHeight(object):
     @pair_3_zeta_nondimensional_height.setter
     def pair_3_zeta_nondimensional_height(self, value=None):
         """  Corresponds to IDD Field `Pair 3 Zeta Nondimensional Height`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Pair 3 Zeta Nondimensional Height`
@@ -2167,8 +2095,6 @@ class RoomAirTemperaturePatternNondimensionalHeight(object):
     @pair_3_delta_adjacent_air_temperature.setter
     def pair_3_delta_adjacent_air_temperature(self, value=None):
         """  Corresponds to IDD Field `Pair 3 Delta Adjacent Air Temperature`
-        
-        {u'units': u'deltaC', u'minimum': '-10.0', u'type': u'real', u'maximum': '20.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Pair 3 Delta Adjacent Air Temperature`
@@ -2207,8 +2133,6 @@ class RoomAirTemperaturePatternNondimensionalHeight(object):
     @pair_4_zeta_nondimensional_height.setter
     def pair_4_zeta_nondimensional_height(self, value=None):
         """  Corresponds to IDD Field `Pair 4 Zeta Nondimensional Height`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Pair 4 Zeta Nondimensional Height`
@@ -2238,8 +2162,6 @@ class RoomAirTemperaturePatternNondimensionalHeight(object):
     @pair_4_delta_adjacent_air_temperature.setter
     def pair_4_delta_adjacent_air_temperature(self, value=None):
         """  Corresponds to IDD Field `Pair 4 Delta Adjacent Air Temperature`
-        
-        {u'units': u'deltaC', u'minimum': '-10.0', u'type': u'real', u'maximum': '20.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Pair 4 Delta Adjacent Air Temperature`
@@ -2278,8 +2200,6 @@ class RoomAirTemperaturePatternNondimensionalHeight(object):
     @pair_5_zeta_nondimensional_height.setter
     def pair_5_zeta_nondimensional_height(self, value=None):
         """  Corresponds to IDD Field `Pair 5 Zeta Nondimensional Height`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Pair 5 Zeta Nondimensional Height`
@@ -2309,8 +2229,6 @@ class RoomAirTemperaturePatternNondimensionalHeight(object):
     @pair_5_delta_adjacent_air_temperature.setter
     def pair_5_delta_adjacent_air_temperature(self, value=None):
         """  Corresponds to IDD Field `Pair 5 Delta Adjacent Air Temperature`
-        
-        {u'units': u'deltaC', u'minimum': '-10.0', u'type': u'real', u'maximum': '20.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Pair 5 Delta Adjacent Air Temperature`
@@ -2349,8 +2267,6 @@ class RoomAirTemperaturePatternNondimensionalHeight(object):
     @pair_6_zeta_nondimensional_height.setter
     def pair_6_zeta_nondimensional_height(self, value=None):
         """  Corresponds to IDD Field `Pair 6 Zeta Nondimensional Height`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Pair 6 Zeta Nondimensional Height`
@@ -2380,8 +2296,6 @@ class RoomAirTemperaturePatternNondimensionalHeight(object):
     @pair_6_delta_adjacent_air_temperature.setter
     def pair_6_delta_adjacent_air_temperature(self, value=None):
         """  Corresponds to IDD Field `Pair 6 Delta Adjacent Air Temperature`
-        
-        {u'units': u'deltaC', u'minimum': '-10.0', u'type': u'real', u'maximum': '20.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Pair 6 Delta Adjacent Air Temperature`
@@ -2420,8 +2334,6 @@ class RoomAirTemperaturePatternNondimensionalHeight(object):
     @pair_7_zeta_nondimensional_height.setter
     def pair_7_zeta_nondimensional_height(self, value=None):
         """  Corresponds to IDD Field `Pair 7 Zeta Nondimensional Height`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Pair 7 Zeta Nondimensional Height`
@@ -2451,8 +2363,6 @@ class RoomAirTemperaturePatternNondimensionalHeight(object):
     @pair_7_delta_adjacent_air_temperature.setter
     def pair_7_delta_adjacent_air_temperature(self, value=None):
         """  Corresponds to IDD Field `Pair 7 Delta Adjacent Air Temperature`
-        
-        {u'units': u'deltaC', u'minimum': '-10.0', u'type': u'real', u'maximum': '20.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Pair 7 Delta Adjacent Air Temperature`
@@ -2491,8 +2401,6 @@ class RoomAirTemperaturePatternNondimensionalHeight(object):
     @pair_8_zeta_nondimensional_height.setter
     def pair_8_zeta_nondimensional_height(self, value=None):
         """  Corresponds to IDD Field `Pair 8 Zeta Nondimensional Height`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Pair 8 Zeta Nondimensional Height`
@@ -2522,8 +2430,6 @@ class RoomAirTemperaturePatternNondimensionalHeight(object):
     @pair_8_delta_adjacent_air_temperature.setter
     def pair_8_delta_adjacent_air_temperature(self, value=None):
         """  Corresponds to IDD Field `Pair 8 Delta Adjacent Air Temperature`
-        
-        {u'units': u'deltaC', u'minimum': '-10.0', u'type': u'real', u'maximum': '20.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Pair 8 Delta Adjacent Air Temperature`
@@ -2562,8 +2468,6 @@ class RoomAirTemperaturePatternNondimensionalHeight(object):
     @pair_9_zeta_nondimensional_height.setter
     def pair_9_zeta_nondimensional_height(self, value=None):
         """  Corresponds to IDD Field `Pair 9 Zeta Nondimensional Height`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Pair 9 Zeta Nondimensional Height`
@@ -2593,8 +2497,6 @@ class RoomAirTemperaturePatternNondimensionalHeight(object):
     @pair_9_delta_adjacent_air_temperature.setter
     def pair_9_delta_adjacent_air_temperature(self, value=None):
         """  Corresponds to IDD Field `Pair 9 Delta Adjacent Air Temperature`
-        
-        {u'units': u'deltaC', u'minimum': '-10.0', u'type': u'real', u'maximum': '20.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Pair 9 Delta Adjacent Air Temperature`
@@ -2633,8 +2535,6 @@ class RoomAirTemperaturePatternNondimensionalHeight(object):
     @pair_10_zeta_nondimensional_height.setter
     def pair_10_zeta_nondimensional_height(self, value=None):
         """  Corresponds to IDD Field `Pair 10 Zeta Nondimensional Height`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Pair 10 Zeta Nondimensional Height`
@@ -2664,8 +2564,6 @@ class RoomAirTemperaturePatternNondimensionalHeight(object):
     @pair_10_delta_adjacent_air_temperature.setter
     def pair_10_delta_adjacent_air_temperature(self, value=None):
         """  Corresponds to IDD Field `Pair 10 Delta Adjacent Air Temperature`
-        
-        {u'units': u'deltaC', u'minimum': '-10.0', u'type': u'real', u'maximum': '20.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Pair 10 Delta Adjacent Air Temperature`
@@ -2704,8 +2602,6 @@ class RoomAirTemperaturePatternNondimensionalHeight(object):
     @pair_11_zeta_nondimensional_height.setter
     def pair_11_zeta_nondimensional_height(self, value=None):
         """  Corresponds to IDD Field `Pair 11 Zeta Nondimensional Height`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Pair 11 Zeta Nondimensional Height`
@@ -2735,8 +2631,6 @@ class RoomAirTemperaturePatternNondimensionalHeight(object):
     @pair_11_delta_adjacent_air_temperature.setter
     def pair_11_delta_adjacent_air_temperature(self, value=None):
         """  Corresponds to IDD Field `Pair 11 Delta Adjacent Air Temperature`
-        
-        {u'units': u'deltaC', u'minimum': '-10.0', u'type': u'real', u'maximum': '20.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Pair 11 Delta Adjacent Air Temperature`
@@ -2775,8 +2669,6 @@ class RoomAirTemperaturePatternNondimensionalHeight(object):
     @pair_12_zeta_nondimensional_height.setter
     def pair_12_zeta_nondimensional_height(self, value=None):
         """  Corresponds to IDD Field `Pair 12 Zeta Nondimensional Height`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Pair 12 Zeta Nondimensional Height`
@@ -2806,8 +2698,6 @@ class RoomAirTemperaturePatternNondimensionalHeight(object):
     @pair_12_delta_adjacent_air_temperature.setter
     def pair_12_delta_adjacent_air_temperature(self, value=None):
         """  Corresponds to IDD Field `Pair 12 Delta Adjacent Air Temperature`
-        
-        {u'units': u'deltaC', u'minimum': '-10.0', u'type': u'real', u'maximum': '20.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Pair 12 Delta Adjacent Air Temperature`
@@ -2846,8 +2736,6 @@ class RoomAirTemperaturePatternNondimensionalHeight(object):
     @pair_13_zeta_nondimensional_height.setter
     def pair_13_zeta_nondimensional_height(self, value=None):
         """  Corresponds to IDD Field `Pair 13 Zeta Nondimensional Height`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Pair 13 Zeta Nondimensional Height`
@@ -2877,8 +2765,6 @@ class RoomAirTemperaturePatternNondimensionalHeight(object):
     @pair_13_delta_adjacent_air_temperature.setter
     def pair_13_delta_adjacent_air_temperature(self, value=None):
         """  Corresponds to IDD Field `Pair 13 Delta Adjacent Air Temperature`
-        
-        {u'units': u'deltaC', u'minimum': '-10.0', u'type': u'real', u'maximum': '20.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Pair 13 Delta Adjacent Air Temperature`
@@ -2917,8 +2803,6 @@ class RoomAirTemperaturePatternNondimensionalHeight(object):
     @pair_14_zeta_nondimensional_height.setter
     def pair_14_zeta_nondimensional_height(self, value=None):
         """  Corresponds to IDD Field `Pair 14 Zeta Nondimensional Height`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Pair 14 Zeta Nondimensional Height`
@@ -2948,8 +2832,6 @@ class RoomAirTemperaturePatternNondimensionalHeight(object):
     @pair_14_delta_adjacent_air_temperature.setter
     def pair_14_delta_adjacent_air_temperature(self, value=None):
         """  Corresponds to IDD Field `Pair 14 Delta Adjacent Air Temperature`
-        
-        {u'units': u'deltaC', u'minimum': '-10.0', u'type': u'real', u'maximum': '20.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Pair 14 Delta Adjacent Air Temperature`
@@ -2988,8 +2870,6 @@ class RoomAirTemperaturePatternNondimensionalHeight(object):
     @pair_15_zeta_nondimensional_height.setter
     def pair_15_zeta_nondimensional_height(self, value=None):
         """  Corresponds to IDD Field `Pair 15 Zeta Nondimensional Height`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Pair 15 Zeta Nondimensional Height`
@@ -3019,8 +2899,6 @@ class RoomAirTemperaturePatternNondimensionalHeight(object):
     @pair_15_delta_adjacent_air_temperature.setter
     def pair_15_delta_adjacent_air_temperature(self, value=None):
         """  Corresponds to IDD Field `Pair 15 Delta Adjacent Air Temperature`
-        
-        {u'units': u'deltaC', u'minimum': '-10.0', u'type': u'real', u'maximum': '20.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Pair 15 Delta Adjacent Air Temperature`
@@ -3059,8 +2937,6 @@ class RoomAirTemperaturePatternNondimensionalHeight(object):
     @pair_16_zeta_nondimensional_height.setter
     def pair_16_zeta_nondimensional_height(self, value=None):
         """  Corresponds to IDD Field `Pair 16 Zeta Nondimensional Height`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Pair 16 Zeta Nondimensional Height`
@@ -3090,8 +2966,6 @@ class RoomAirTemperaturePatternNondimensionalHeight(object):
     @pair_16_delta_adjacent_air_temperature.setter
     def pair_16_delta_adjacent_air_temperature(self, value=None):
         """  Corresponds to IDD Field `Pair 16 Delta Adjacent Air Temperature`
-        
-        {u'units': u'deltaC', u'minimum': '-10.0', u'type': u'real', u'maximum': '20.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Pair 16 Delta Adjacent Air Temperature`
@@ -3130,8 +3004,6 @@ class RoomAirTemperaturePatternNondimensionalHeight(object):
     @pair_17_zeta_nondimensional_height.setter
     def pair_17_zeta_nondimensional_height(self, value=None):
         """  Corresponds to IDD Field `Pair 17 Zeta Nondimensional Height`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Pair 17 Zeta Nondimensional Height`
@@ -3161,8 +3033,6 @@ class RoomAirTemperaturePatternNondimensionalHeight(object):
     @pair_17_delta_adjacent_air_temperature.setter
     def pair_17_delta_adjacent_air_temperature(self, value=None):
         """  Corresponds to IDD Field `Pair 17 Delta Adjacent Air Temperature`
-        
-        {u'units': u'deltaC', u'minimum': '-10.0', u'type': u'real', u'maximum': '20.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Pair 17 Delta Adjacent Air Temperature`
@@ -3201,8 +3071,6 @@ class RoomAirTemperaturePatternNondimensionalHeight(object):
     @pair_18_zeta_nondimensional_height.setter
     def pair_18_zeta_nondimensional_height(self, value=None):
         """  Corresponds to IDD Field `Pair 18 Zeta Nondimensional Height`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Pair 18 Zeta Nondimensional Height`
@@ -3232,8 +3100,6 @@ class RoomAirTemperaturePatternNondimensionalHeight(object):
     @pair_18_delta_adjacent_air_temperature.setter
     def pair_18_delta_adjacent_air_temperature(self, value=None):
         """  Corresponds to IDD Field `Pair 18 Delta Adjacent Air Temperature`
-        
-        {u'units': u'deltaC', u'minimum': '-10.0', u'type': u'real', u'maximum': '20.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Pair 18 Delta Adjacent Air Temperature`
@@ -3272,8 +3138,6 @@ class RoomAirTemperaturePatternNondimensionalHeight(object):
     @pair_19_zeta_nondimensional_height.setter
     def pair_19_zeta_nondimensional_height(self, value=None):
         """  Corresponds to IDD Field `Pair 19 Zeta Nondimensional Height`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Pair 19 Zeta Nondimensional Height`
@@ -3303,8 +3167,6 @@ class RoomAirTemperaturePatternNondimensionalHeight(object):
     @pair_19_delta_adjacent_air_temperature.setter
     def pair_19_delta_adjacent_air_temperature(self, value=None):
         """  Corresponds to IDD Field `Pair 19 Delta Adjacent Air Temperature`
-        
-        {u'units': u'deltaC', u'minimum': '-10.0', u'type': u'real', u'maximum': '20.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Pair 19 Delta Adjacent Air Temperature`
@@ -3781,8 +3643,6 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -3819,8 +3679,6 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
     def control_integer_for_pattern_control_schedule_name(self, value=None):
         """  Corresponds to IDD Field `Control Integer for Pattern Control Schedule Name`
         reference this entry in schedule
-        
-        {u'note': [u'reference this entry in schedule'], u'type': u'integer', u'required-field': True, 'pytype': 'int'}
 
         Args:
             value (int): value for IDD Field `Control Integer for Pattern Control Schedule Name`
@@ -3851,8 +3709,6 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
     def thermostat_offset(self, value=None):
         """  Corresponds to IDD Field `Thermostat Offset`
         = (Temp at thermostat- Mean Air Temp)
-        
-        {u'note': [u'= (Temp at thermostat- Mean Air Temp)'], u'units': u'deltaC', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Thermostat Offset`
@@ -3884,8 +3740,6 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
     def return_air_offset(self, value=None):
         """  Corresponds to IDD Field `Return Air Offset`
         = (Tleaving - Mean Air Temp ) deg C
-        
-        {u'note': [u'= (Tleaving - Mean Air Temp ) deg C'], u'units': u'deltaC', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Return Air Offset`
@@ -3917,8 +3771,6 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
     def exhaust_air_offset(self, value=None):
         """  Corresponds to IDD Field `Exhaust Air Offset`
         = (Texhaust - Mean Air Temp) deg C
-        
-        {u'note': [u'= (Texhaust - Mean Air Temp) deg C'], u'units': u'deltaC', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Exhaust Air Offset`
@@ -3949,8 +3801,6 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
     @surface_name_pair_1.setter
     def surface_name_pair_1(self, value=None):
         """  Corresponds to IDD Field `Surface Name Pair 1`
-        
-        {'pytype': 'str', u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', u'required-field': True, u'begin-extensible': u''}
 
         Args:
             value (str): value for IDD Field `Surface Name Pair 1`
@@ -3986,8 +3836,6 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
     @delta_adjacent_air_temperature_pair_1.setter
     def delta_adjacent_air_temperature_pair_1(self, value=None):
         """  Corresponds to IDD Field `Delta Adjacent Air Temperature Pair 1`
-        
-        {u'units': u'deltaC', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Delta Adjacent Air Temperature Pair 1`
@@ -4018,8 +3866,6 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
     @surface_name_pair_2.setter
     def surface_name_pair_2(self, value=None):
         """  Corresponds to IDD Field `Surface Name Pair 2`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface Name Pair 2`
@@ -4055,8 +3901,6 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
     @delta_adjacent_air_temperature_pair_2.setter
     def delta_adjacent_air_temperature_pair_2(self, value=None):
         """  Corresponds to IDD Field `Delta Adjacent Air Temperature Pair 2`
-        
-        {u'units': u'deltaC', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Delta Adjacent Air Temperature Pair 2`
@@ -4087,8 +3931,6 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
     @surface_name_pair_3.setter
     def surface_name_pair_3(self, value=None):
         """  Corresponds to IDD Field `Surface Name Pair 3`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface Name Pair 3`
@@ -4124,8 +3966,6 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
     @delta_adjacent_air_temperature_pair_3.setter
     def delta_adjacent_air_temperature_pair_3(self, value=None):
         """  Corresponds to IDD Field `Delta Adjacent Air Temperature Pair 3`
-        
-        {u'units': u'deltaC', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Delta Adjacent Air Temperature Pair 3`
@@ -4156,8 +3996,6 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
     @surface_name_pair_4.setter
     def surface_name_pair_4(self, value=None):
         """  Corresponds to IDD Field `Surface Name Pair 4`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface Name Pair 4`
@@ -4193,8 +4031,6 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
     @delta_adjacent_air_temperature_pair_4.setter
     def delta_adjacent_air_temperature_pair_4(self, value=None):
         """  Corresponds to IDD Field `Delta Adjacent Air Temperature Pair 4`
-        
-        {u'units': u'deltaC', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Delta Adjacent Air Temperature Pair 4`
@@ -4225,8 +4061,6 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
     @surface_name_pair_5.setter
     def surface_name_pair_5(self, value=None):
         """  Corresponds to IDD Field `Surface Name Pair 5`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface Name Pair 5`
@@ -4262,8 +4096,6 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
     @delta_adjacent_air_temperature_pair_5.setter
     def delta_adjacent_air_temperature_pair_5(self, value=None):
         """  Corresponds to IDD Field `Delta Adjacent Air Temperature Pair 5`
-        
-        {u'units': u'deltaC', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Delta Adjacent Air Temperature Pair 5`
@@ -4294,8 +4126,6 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
     @surface_name_pair_6.setter
     def surface_name_pair_6(self, value=None):
         """  Corresponds to IDD Field `Surface Name Pair 6`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface Name Pair 6`
@@ -4331,8 +4161,6 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
     @delta_adjacent_air_temperature_pair_6.setter
     def delta_adjacent_air_temperature_pair_6(self, value=None):
         """  Corresponds to IDD Field `Delta Adjacent Air Temperature Pair 6`
-        
-        {u'units': u'deltaC', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Delta Adjacent Air Temperature Pair 6`
@@ -4363,8 +4191,6 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
     @surface_name_pair_7.setter
     def surface_name_pair_7(self, value=None):
         """  Corresponds to IDD Field `Surface Name Pair 7`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface Name Pair 7`
@@ -4400,8 +4226,6 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
     @delta_adjacent_air_temperature_pair_7.setter
     def delta_adjacent_air_temperature_pair_7(self, value=None):
         """  Corresponds to IDD Field `Delta Adjacent Air Temperature Pair 7`
-        
-        {u'units': u'deltaC', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Delta Adjacent Air Temperature Pair 7`
@@ -4432,8 +4256,6 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
     @surface_name_pair_8.setter
     def surface_name_pair_8(self, value=None):
         """  Corresponds to IDD Field `Surface Name Pair 8`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface Name Pair 8`
@@ -4469,8 +4291,6 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
     @delta_adjacent_air_temperature_pair_8.setter
     def delta_adjacent_air_temperature_pair_8(self, value=None):
         """  Corresponds to IDD Field `Delta Adjacent Air Temperature Pair 8`
-        
-        {u'units': u'deltaC', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Delta Adjacent Air Temperature Pair 8`
@@ -4501,8 +4321,6 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
     @surface_name_pair_9.setter
     def surface_name_pair_9(self, value=None):
         """  Corresponds to IDD Field `Surface Name Pair 9`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface Name Pair 9`
@@ -4538,8 +4356,6 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
     @delta_adjacent_air_temperature_pair_9.setter
     def delta_adjacent_air_temperature_pair_9(self, value=None):
         """  Corresponds to IDD Field `Delta Adjacent Air Temperature Pair 9`
-        
-        {u'units': u'deltaC', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Delta Adjacent Air Temperature Pair 9`
@@ -4570,8 +4386,6 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
     @surface_name_pair_10.setter
     def surface_name_pair_10(self, value=None):
         """  Corresponds to IDD Field `Surface Name Pair 10`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface Name Pair 10`
@@ -4607,8 +4421,6 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
     @delta_adjacent_air_temperature_pair_10.setter
     def delta_adjacent_air_temperature_pair_10(self, value=None):
         """  Corresponds to IDD Field `Delta Adjacent Air Temperature Pair 10`
-        
-        {u'units': u'deltaC', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Delta Adjacent Air Temperature Pair 10`
@@ -4639,8 +4451,6 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
     @surface_name_pair_11.setter
     def surface_name_pair_11(self, value=None):
         """  Corresponds to IDD Field `Surface Name Pair 11`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface Name Pair 11`
@@ -4676,8 +4486,6 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
     @delta_adjacent_air_temperature_pair_11.setter
     def delta_adjacent_air_temperature_pair_11(self, value=None):
         """  Corresponds to IDD Field `Delta Adjacent Air Temperature Pair 11`
-        
-        {u'units': u'deltaC', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Delta Adjacent Air Temperature Pair 11`
@@ -4708,8 +4516,6 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
     @surface_name_pair_12.setter
     def surface_name_pair_12(self, value=None):
         """  Corresponds to IDD Field `Surface Name Pair 12`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface Name Pair 12`
@@ -4745,8 +4551,6 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
     @delta_adjacent_air_temperature_pair_12.setter
     def delta_adjacent_air_temperature_pair_12(self, value=None):
         """  Corresponds to IDD Field `Delta Adjacent Air Temperature Pair 12`
-        
-        {u'units': u'deltaC', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Delta Adjacent Air Temperature Pair 12`
@@ -4777,8 +4581,6 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
     @surface_name_pair_13.setter
     def surface_name_pair_13(self, value=None):
         """  Corresponds to IDD Field `Surface Name Pair 13`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface Name Pair 13`
@@ -4814,8 +4616,6 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
     @delta_adjacent_air_temperature_pair_13.setter
     def delta_adjacent_air_temperature_pair_13(self, value=None):
         """  Corresponds to IDD Field `Delta Adjacent Air Temperature Pair 13`
-        
-        {u'units': u'deltaC', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Delta Adjacent Air Temperature Pair 13`
@@ -4846,8 +4646,6 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
     @surface_name_pair_14.setter
     def surface_name_pair_14(self, value=None):
         """  Corresponds to IDD Field `Surface Name Pair 14`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface Name Pair 14`
@@ -4883,8 +4681,6 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
     @delta_adjacent_air_temperature_pair_14.setter
     def delta_adjacent_air_temperature_pair_14(self, value=None):
         """  Corresponds to IDD Field `Delta Adjacent Air Temperature Pair 14`
-        
-        {u'units': u'deltaC', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Delta Adjacent Air Temperature Pair 14`
@@ -4915,8 +4711,6 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
     @surface_name_pair_15.setter
     def surface_name_pair_15(self, value=None):
         """  Corresponds to IDD Field `Surface Name Pair 15`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface Name Pair 15`
@@ -4952,8 +4746,6 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
     @delta_adjacent_air_temperature_pair_15.setter
     def delta_adjacent_air_temperature_pair_15(self, value=None):
         """  Corresponds to IDD Field `Delta Adjacent Air Temperature Pair 15`
-        
-        {u'units': u'deltaC', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Delta Adjacent Air Temperature Pair 15`
@@ -4984,8 +4776,6 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
     @surface_name_pair_16.setter
     def surface_name_pair_16(self, value=None):
         """  Corresponds to IDD Field `Surface Name Pair 16`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface Name Pair 16`
@@ -5021,8 +4811,6 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
     @delta_adjacent_air_temperature_pair_16.setter
     def delta_adjacent_air_temperature_pair_16(self, value=None):
         """  Corresponds to IDD Field `Delta Adjacent Air Temperature Pair 16`
-        
-        {u'units': u'deltaC', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Delta Adjacent Air Temperature Pair 16`
@@ -5053,8 +4841,6 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
     @surface_name_pair_17.setter
     def surface_name_pair_17(self, value=None):
         """  Corresponds to IDD Field `Surface Name Pair 17`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface Name Pair 17`
@@ -5090,8 +4876,6 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
     @delta_adjacent_air_temperature_pair_17.setter
     def delta_adjacent_air_temperature_pair_17(self, value=None):
         """  Corresponds to IDD Field `Delta Adjacent Air Temperature Pair 17`
-        
-        {u'units': u'deltaC', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Delta Adjacent Air Temperature Pair 17`
@@ -5122,8 +4906,6 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
     @surface_name_pair_18.setter
     def surface_name_pair_18(self, value=None):
         """  Corresponds to IDD Field `Surface Name Pair 18`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface Name Pair 18`
@@ -5159,8 +4941,6 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
     @delta_adjacent_air_temperature_pair_18.setter
     def delta_adjacent_air_temperature_pair_18(self, value=None):
         """  Corresponds to IDD Field `Delta Adjacent Air Temperature Pair 18`
-        
-        {u'units': u'deltaC', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Delta Adjacent Air Temperature Pair 18`
@@ -5191,8 +4971,6 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
     @surface_name_pair_19.setter
     def surface_name_pair_19(self, value=None):
         """  Corresponds to IDD Field `Surface Name Pair 19`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface Name Pair 19`
@@ -5228,8 +5006,6 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
     @delta_adjacent_air_temperature_pair_19.setter
     def delta_adjacent_air_temperature_pair_19(self, value=None):
         """  Corresponds to IDD Field `Delta Adjacent Air Temperature Pair 19`
-        
-        {u'units': u'deltaC', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Delta Adjacent Air Temperature Pair 19`
@@ -5260,8 +5036,6 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
     @surface_name_pair_20.setter
     def surface_name_pair_20(self, value=None):
         """  Corresponds to IDD Field `Surface Name Pair 20`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface Name Pair 20`
@@ -5297,8 +5071,6 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
     @delta_adjacent_air_temperature_pair_20.setter
     def delta_adjacent_air_temperature_pair_20(self, value=None):
         """  Corresponds to IDD Field `Delta Adjacent Air Temperature Pair 20`
-        
-        {u'units': u'deltaC', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Delta Adjacent Air Temperature Pair 20`
@@ -5329,8 +5101,6 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
     @surface_name_pair_21.setter
     def surface_name_pair_21(self, value=None):
         """  Corresponds to IDD Field `Surface Name Pair 21`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface Name Pair 21`
@@ -5366,8 +5136,6 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
     @delta_adjacent_air_temperature_pair_21.setter
     def delta_adjacent_air_temperature_pair_21(self, value=None):
         """  Corresponds to IDD Field `Delta Adjacent Air Temperature Pair 21`
-        
-        {u'units': u'deltaC', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Delta Adjacent Air Temperature Pair 21`
@@ -5656,8 +5424,6 @@ class RoomAirNode(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'Alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -5693,8 +5459,6 @@ class RoomAirNode(object):
     @node_type.setter
     def node_type(self, value=None):
         """  Corresponds to IDD Field `Node Type`
-        
-        {u'type': u'choice', u'key': [u'Inlet', u'Floor', u'Control', u'Ceiling', u'MundtRoom', u'Return'], u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Node Type`
@@ -5758,8 +5522,6 @@ class RoomAirNode(object):
     @zone_name.setter
     def zone_name(self, value=None):
         """  Corresponds to IDD Field `Zone Name`
-        
-        {u'type': u'object-list', u'object-list': u'ZoneNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Zone Name`
@@ -5795,8 +5557,6 @@ class RoomAirNode(object):
     @height_of_nodal_control_volume_center.setter
     def height_of_nodal_control_volume_center(self, value=None):
         """  Corresponds to IDD Field `Height of Nodal Control Volume Center`
-        
-        {u'units': u'm', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Height of Nodal Control Volume Center`
@@ -5827,8 +5587,6 @@ class RoomAirNode(object):
     @surface_1_name.setter
     def surface_1_name(self, value=None):
         """  Corresponds to IDD Field `Surface 1 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 1 Name`
@@ -5864,8 +5622,6 @@ class RoomAirNode(object):
     @surface_2_name.setter
     def surface_2_name(self, value=None):
         """  Corresponds to IDD Field `Surface 2 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 2 Name`
@@ -5901,8 +5657,6 @@ class RoomAirNode(object):
     @surface_3_name.setter
     def surface_3_name(self, value=None):
         """  Corresponds to IDD Field `Surface 3 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 3 Name`
@@ -5938,8 +5692,6 @@ class RoomAirNode(object):
     @surface_4_name.setter
     def surface_4_name(self, value=None):
         """  Corresponds to IDD Field `Surface 4 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 4 Name`
@@ -5975,8 +5727,6 @@ class RoomAirNode(object):
     @surface_5_name.setter
     def surface_5_name(self, value=None):
         """  Corresponds to IDD Field `Surface 5 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 5 Name`
@@ -6012,8 +5762,6 @@ class RoomAirNode(object):
     @surface_6_name.setter
     def surface_6_name(self, value=None):
         """  Corresponds to IDD Field `Surface 6 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 6 Name`
@@ -6049,8 +5797,6 @@ class RoomAirNode(object):
     @surface_7_name.setter
     def surface_7_name(self, value=None):
         """  Corresponds to IDD Field `Surface 7 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 7 Name`
@@ -6086,8 +5832,6 @@ class RoomAirNode(object):
     @surface_8_name.setter
     def surface_8_name(self, value=None):
         """  Corresponds to IDD Field `Surface 8 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 8 Name`
@@ -6123,8 +5867,6 @@ class RoomAirNode(object):
     @surface_9_name.setter
     def surface_9_name(self, value=None):
         """  Corresponds to IDD Field `Surface 9 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 9 Name`
@@ -6160,8 +5902,6 @@ class RoomAirNode(object):
     @surface_10_name.setter
     def surface_10_name(self, value=None):
         """  Corresponds to IDD Field `Surface 10 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 10 Name`
@@ -6197,8 +5937,6 @@ class RoomAirNode(object):
     @surface_11_name.setter
     def surface_11_name(self, value=None):
         """  Corresponds to IDD Field `Surface 11 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 11 Name`
@@ -6234,8 +5972,6 @@ class RoomAirNode(object):
     @surface_12_name.setter
     def surface_12_name(self, value=None):
         """  Corresponds to IDD Field `Surface 12 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 12 Name`
@@ -6271,8 +6007,6 @@ class RoomAirNode(object):
     @surface_13_name.setter
     def surface_13_name(self, value=None):
         """  Corresponds to IDD Field `Surface 13 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 13 Name`
@@ -6308,8 +6042,6 @@ class RoomAirNode(object):
     @surface_14_name.setter
     def surface_14_name(self, value=None):
         """  Corresponds to IDD Field `Surface 14 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 14 Name`
@@ -6345,8 +6077,6 @@ class RoomAirNode(object):
     @surface_15_name.setter
     def surface_15_name(self, value=None):
         """  Corresponds to IDD Field `Surface 15 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 15 Name`
@@ -6382,8 +6112,6 @@ class RoomAirNode(object):
     @surface_16_name.setter
     def surface_16_name(self, value=None):
         """  Corresponds to IDD Field `Surface 16 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 16 Name`
@@ -6419,8 +6147,6 @@ class RoomAirNode(object):
     @surface_17_name.setter
     def surface_17_name(self, value=None):
         """  Corresponds to IDD Field `Surface 17 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 17 Name`
@@ -6456,8 +6182,6 @@ class RoomAirNode(object):
     @surface_18_name.setter
     def surface_18_name(self, value=None):
         """  Corresponds to IDD Field `Surface 18 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 18 Name`
@@ -6493,8 +6217,6 @@ class RoomAirNode(object):
     @surface_19_name.setter
     def surface_19_name(self, value=None):
         """  Corresponds to IDD Field `Surface 19 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 19 Name`
@@ -6530,8 +6252,6 @@ class RoomAirNode(object):
     @surface_20_name.setter
     def surface_20_name(self, value=None):
         """  Corresponds to IDD Field `Surface 20 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 20 Name`
@@ -6567,8 +6287,6 @@ class RoomAirNode(object):
     @surface_21_name.setter
     def surface_21_name(self, value=None):
         """  Corresponds to IDD Field `Surface 21 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 21 Name`
@@ -6686,8 +6404,6 @@ class RoomAirSettingsOneNodeDisplacementVentilation(object):
     @zone_name.setter
     def zone_name(self, value=None):
         """  Corresponds to IDD Field `Zone Name`
-        
-        {u'type': u'object-list', u'object-list': u'ZoneNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Zone Name`
@@ -6723,8 +6439,6 @@ class RoomAirSettingsOneNodeDisplacementVentilation(object):
     @fraction_of_convective_internal_loads_added_to_floor_air.setter
     def fraction_of_convective_internal_loads_added_to_floor_air(self, value=None):
         """  Corresponds to IDD Field `Fraction of Convective Internal Loads Added to Floor Air`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Convective Internal Loads Added to Floor Air`
@@ -6762,8 +6476,6 @@ class RoomAirSettingsOneNodeDisplacementVentilation(object):
     @fraction_of_infiltration_internal_loads_added_to_floor_air.setter
     def fraction_of_infiltration_internal_loads_added_to_floor_air(self, value=None):
         """  Corresponds to IDD Field `Fraction of Infiltration Internal Loads Added to Floor Air`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Infiltration Internal Loads Added to Floor Air`
@@ -6908,8 +6620,6 @@ class RoomAirSettingsThreeNodeDisplacementVentilation(object):
     def zone_name(self, value=None):
         """  Corresponds to IDD Field `Zone Name`
         Name of Zone being described. Any existing zone name
-        
-        {u'note': [u'Name of Zone being described. Any existing zone name'], u'type': u'object-list', u'object-list': u'ZoneNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Zone Name`
@@ -6948,8 +6658,6 @@ class RoomAirSettingsThreeNodeDisplacementVentilation(object):
         Distribution of the convective heat gains between the occupied and mixed zones.
         0<= Accepted Value <= 1.
         In the DV model 1 means all convective gains in the lower layer.
-        
-        {u'note': [u'Distribution of the convective heat gains between the occupied and mixed zones.', u'0<= Accepted Value <= 1.', u'In the DV model 1 means all convective gains in the lower layer.'], u'type': u'object-list', u'object-list': u'ScheduleNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Gain Distribution Schedule Name`
@@ -6983,13 +6691,11 @@ class RoomAirSettingsThreeNodeDisplacementVentilation(object):
         return self._data["Number of Plumes per Occupant"]
 
     @number_of_plumes_per_occupant.setter
-    def number_of_plumes_per_occupant(self, value=1.0 ):
+    def number_of_plumes_per_occupant(self, value=1.0):
         """  Corresponds to IDD Field `Number of Plumes per Occupant`
         Used only in the UCSD displacement ventilation model.
         Effective number of separate plumes per occupant in the occupied zone.
         Plumes that merge together in the occupied zone count as one.
-        
-        {'pytype': 'float', u'default': '1.0', u'minimum>': '0.0', u'required-field': True, u'note': [u'Used only in the UCSD displacement ventilation model.', u'Effective number of separate plumes per occupant in the occupied zone.', u'Plumes that merge together in the occupied zone count as one.'], u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Number of Plumes per Occupant`
@@ -7022,11 +6728,9 @@ class RoomAirSettingsThreeNodeDisplacementVentilation(object):
         return self._data["Thermostat Height"]
 
     @thermostat_height.setter
-    def thermostat_height(self, value=1.1 ):
+    def thermostat_height(self, value=1.1):
         """  Corresponds to IDD Field `Thermostat Height`
         Height of thermostat/temperature control sensor above floor
-        
-        {'pytype': 'float', u'default': '1.1', u'minimum>': '0.0', u'note': [u'Height of thermostat/temperature control sensor above floor'], u'units': u'm', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Thermostat Height`
@@ -7060,11 +6764,9 @@ class RoomAirSettingsThreeNodeDisplacementVentilation(object):
         return self._data["Comfort Height"]
 
     @comfort_height.setter
-    def comfort_height(self, value=1.1 ):
+    def comfort_height(self, value=1.1):
         """  Corresponds to IDD Field `Comfort Height`
         Height at which air temperature is calculated for comfort purposes
-        
-        {'pytype': 'float', u'default': '1.1', u'minimum>': '0.0', u'note': [u'Height at which air temperature is calculated for comfort purposes'], u'units': u'm', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Comfort Height`
@@ -7098,7 +6800,7 @@ class RoomAirSettingsThreeNodeDisplacementVentilation(object):
         return self._data["Temperature Difference Threshold for Reporting"]
 
     @temperature_difference_threshold_for_reporting.setter
-    def temperature_difference_threshold_for_reporting(self, value=0.4 ):
+    def temperature_difference_threshold_for_reporting(self, value=0.4):
         """  Corresponds to IDD Field `Temperature Difference Threshold for Reporting`
         Minimum temperature difference between predicted upper and lower layer
         temperatures above which DV auxilliary outputs are calculated.
@@ -7106,8 +6808,6 @@ class RoomAirSettingsThreeNodeDisplacementVentilation(object):
         'DV Average Temp Gradient' and 'DV Maximum Temp Gradient'.  They
         are set to negative values when the temperature difference is less than the
         threshold and the output 'DV Zone Is Mixed' is set to 1
-        
-        {'pytype': 'float', u'default': '0.4', u'required-field': True, u'note': [u'Minimum temperature difference between predicted upper and lower layer', u'temperatures above which DV auxilliary outputs are calculated.', u"These outputs are 'DV Transition Height', 'DV Fraction Min Recommended Flow Rate'", u"'DV Average Temp Gradient' and 'DV Maximum Temp Gradient'.  They", u'are set to negative values when the temperature difference is less than the', u"threshold and the output 'DV Zone Is Mixed' is set to 1"], u'minimum': '0.0', u'units': u'deltaC', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Temperature Difference Threshold for Reporting`
@@ -7230,8 +6930,6 @@ class RoomAirSettingsCrossVentilation(object):
     def zone_name(self, value=None):
         """  Corresponds to IDD Field `Zone Name`
         Name of Zone being described. Any existing zone name
-        
-        {u'note': [u'Name of Zone being described. Any existing zone name'], u'type': u'object-list', u'object-list': u'ZoneNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Zone Name`
@@ -7270,8 +6968,6 @@ class RoomAirSettingsCrossVentilation(object):
         Distribution of the convective heat gains between the jet and recirculation zones.
         0<= Accepted Value <= 1.
         In the CV model 1 means all convective gains in the jet region.
-        
-        {u'note': [u'Distribution of the convective heat gains between the jet and recirculation zones.', u'0<= Accepted Value <= 1.', u'In the CV model 1 means all convective gains in the jet region.'], u'type': u'object-list', u'object-list': u'ScheduleNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Gain Distribution Schedule Name`
@@ -7310,8 +7006,6 @@ class RoomAirSettingsCrossVentilation(object):
         Required field whenever thermal comfort is predicted
         defines Air temperature and Airflow velocity that will be used in the Fanger model
         conditions must refer to one of the two regions: jet or recirculation
-        
-        {u'note': [u'Required field whenever thermal comfort is predicted', u'defines Air temperature and Airflow velocity that will be used in the Fanger model', u'conditions must refer to one of the two regions: jet or recirculation'], u'type': u'choice', u'key': [u'Jet', u'Recirculation'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Airflow Region Used for Thermal Comfort Evaluation`
@@ -7551,8 +7245,6 @@ class RoomAirSettingsUnderFloorAirDistributionInterior(object):
     def zone_name(self, value=None):
         """  Corresponds to IDD Field `Zone Name`
         Name of Zone with underfloor air distribution
-        
-        {u'note': [u'Name of Zone with underfloor air distribution'], u'type': u'object-list', u'object-list': u'ZoneNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Zone Name`
@@ -7586,11 +7278,9 @@ class RoomAirSettingsUnderFloorAirDistributionInterior(object):
         return self._data["Number of Diffusers"]
 
     @number_of_diffusers.setter
-    def number_of_diffusers(self, value="autocalculate" ):
+    def number_of_diffusers(self, value="autocalculate"):
         """  Corresponds to IDD Field `Number of Diffusers`
         Total number of diffusers in this zone
-        
-        {'pytype': 'float', u'default': '"autocalculate"', u'minimum>': '0.0', u'note': [u'Total number of diffusers in this zone'], u'autocalculatable': True, u'type': u'real'}
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `Number of Diffusers`
@@ -7606,7 +7296,7 @@ class RoomAirSettingsUnderFloorAirDistributionInterior(object):
             try:
                 value_lower = str(value).lower()
                 if value_lower == "autocalculate":
-                    self._data["Number of Diffusers"] = value
+                    self._data["Number of Diffusers"] = "Autocalculate"
                     return
             except ValueError:
                 pass
@@ -7630,10 +7320,8 @@ class RoomAirSettingsUnderFloorAirDistributionInterior(object):
         return self._data["Power per Plume"]
 
     @power_per_plume.setter
-    def power_per_plume(self, value="autocalculate" ):
+    def power_per_plume(self, value="autocalculate"):
         """  Corresponds to IDD Field `Power per Plume`
-        
-        {'pytype': 'float', u'default': '"autocalculate"', u'minimum': '0.0', u'units': u'W', u'autocalculatable': True, u'type': u'real'}
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `Power per Plume`
@@ -7650,7 +7338,7 @@ class RoomAirSettingsUnderFloorAirDistributionInterior(object):
             try:
                 value_lower = str(value).lower()
                 if value_lower == "autocalculate":
-                    self._data["Power per Plume"] = value
+                    self._data["Power per Plume"] = "Autocalculate"
                     return
             except ValueError:
                 pass
@@ -7674,10 +7362,8 @@ class RoomAirSettingsUnderFloorAirDistributionInterior(object):
         return self._data["Design Effective Area of Diffuser"]
 
     @design_effective_area_of_diffuser.setter
-    def design_effective_area_of_diffuser(self, value="Autocalculate" ):
+    def design_effective_area_of_diffuser(self, value="Autocalculate"):
         """  Corresponds to IDD Field `Design Effective Area of Diffuser`
-        
-        {'pytype': 'float', u'default': '"Autocalculate"', u'minimum>': '0.0', u'units': u'm2', u'autocalculatable': True, u'type': u'real'}
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `Design Effective Area of Diffuser`
@@ -7694,7 +7380,7 @@ class RoomAirSettingsUnderFloorAirDistributionInterior(object):
             try:
                 value_lower = str(value).lower()
                 if value_lower == "autocalculate":
-                    self._data["Design Effective Area of Diffuser"] = value
+                    self._data["Design Effective Area of Diffuser"] = "Autocalculate"
                     return
             except ValueError:
                 pass
@@ -7718,10 +7404,8 @@ class RoomAirSettingsUnderFloorAirDistributionInterior(object):
         return self._data["Diffuser Slot Angle from Vertical"]
 
     @diffuser_slot_angle_from_vertical.setter
-    def diffuser_slot_angle_from_vertical(self, value="Autocalculate" ):
+    def diffuser_slot_angle_from_vertical(self, value="Autocalculate"):
         """  Corresponds to IDD Field `Diffuser Slot Angle from Vertical`
-        
-        {'pytype': 'float', u'default': '"Autocalculate"', u'maximum': '90.0', u'minimum': '0.0', u'units': u'deg', u'autocalculatable': True, u'type': u'real'}
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `Diffuser Slot Angle from Vertical`
@@ -7739,7 +7423,7 @@ class RoomAirSettingsUnderFloorAirDistributionInterior(object):
             try:
                 value_lower = str(value).lower()
                 if value_lower == "autocalculate":
-                    self._data["Diffuser Slot Angle from Vertical"] = value
+                    self._data["Diffuser Slot Angle from Vertical"] = "Autocalculate"
                     return
             except ValueError:
                 pass
@@ -7766,11 +7450,9 @@ class RoomAirSettingsUnderFloorAirDistributionInterior(object):
         return self._data["Thermostat Height"]
 
     @thermostat_height.setter
-    def thermostat_height(self, value=1.2 ):
+    def thermostat_height(self, value=1.2):
         """  Corresponds to IDD Field `Thermostat Height`
         Height of thermostat/temperature control sensor above floor
-        
-        {'pytype': 'float', u'default': '1.2', u'minimum>': '0.0', u'note': [u'Height of thermostat/temperature control sensor above floor'], u'units': u'm', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Thermostat Height`
@@ -7804,11 +7486,9 @@ class RoomAirSettingsUnderFloorAirDistributionInterior(object):
         return self._data["Comfort Height"]
 
     @comfort_height.setter
-    def comfort_height(self, value=1.1 ):
+    def comfort_height(self, value=1.1):
         """  Corresponds to IDD Field `Comfort Height`
         Height at which air temperature is calculated for comfort purposes
-        
-        {'pytype': 'float', u'default': '1.1', u'minimum>': '0.0', u'note': [u'Height at which air temperature is calculated for comfort purposes'], u'units': u'm', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Comfort Height`
@@ -7842,15 +7522,13 @@ class RoomAirSettingsUnderFloorAirDistributionInterior(object):
         return self._data["Temperature Difference Threshold for Reporting"]
 
     @temperature_difference_threshold_for_reporting.setter
-    def temperature_difference_threshold_for_reporting(self, value=0.4 ):
+    def temperature_difference_threshold_for_reporting(self, value=0.4):
         """  Corresponds to IDD Field `Temperature Difference Threshold for Reporting`
         Minimum temperature difference between predicted upper and lower layer
         temperatures above which UFAD auxilliary outputs are calculated.
         These outputs are 'UF Transition Height'and 'UF Average Temp Gradient'.  They
         are set to zero values when the temperature difference is less than the
         threshold and the output 'UF Zone Is Mixed' is set to 1
-        
-        {'pytype': 'float', u'default': '0.4', u'required-field': True, u'note': [u'Minimum temperature difference between predicted upper and lower layer', u'temperatures above which UFAD auxilliary outputs are calculated.', u"These outputs are 'UF Transition Height'and 'UF Average Temp Gradient'.  They", u'are set to zero values when the temperature difference is less than the', u"threshold and the output 'UF Zone Is Mixed' is set to 1"], u'minimum': '0.0', u'units': u'deltaC', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Temperature Difference Threshold for Reporting`
@@ -7886,8 +7564,6 @@ class RoomAirSettingsUnderFloorAirDistributionInterior(object):
     @floor_diffuser_type.setter
     def floor_diffuser_type(self, value="Swirl"):
         """  Corresponds to IDD Field `Floor Diffuser Type`
-        
-        {u'default': u'Swirl', u'type': u'choice', u'key': [u'Custom', u'Swirl', u'VariableArea', u'HorizontalSwirl', u'LinearBarGrille'], u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Floor Diffuser Type`
@@ -7948,11 +7624,9 @@ class RoomAirSettingsUnderFloorAirDistributionInterior(object):
         return self._data["Transition Height"]
 
     @transition_height.setter
-    def transition_height(self, value=1.7 ):
+    def transition_height(self, value=1.7):
         """  Corresponds to IDD Field `Transition Height`
         user-specified height above floor of boundary between occupied and upper subzones
-        
-        {'pytype': 'float', u'default': '1.7', u'minimum>': '0.0', u'note': [u'user-specified height above floor of boundary between occupied and upper subzones'], u'units': u'm', u'autocalculatable': True, u'type': u'real'}
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `Transition Height`
@@ -7969,7 +7643,7 @@ class RoomAirSettingsUnderFloorAirDistributionInterior(object):
             try:
                 value_lower = str(value).lower()
                 if value_lower == "autocalculate":
-                    self._data["Transition Height"] = value
+                    self._data["Transition Height"] = "Autocalculate"
                     return
             except ValueError:
                 pass
@@ -7993,12 +7667,10 @@ class RoomAirSettingsUnderFloorAirDistributionInterior(object):
         return self._data["Coefficient A"]
 
     @coefficient_a.setter
-    def coefficient_a(self, value="Autocalculate" ):
+    def coefficient_a(self, value="Autocalculate"):
         """  Corresponds to IDD Field `Coefficient A`
         Coefficient A in Formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2
         Kc is the fraction of the total zone load attributable to the lower subzone
-        
-        {u'note': [u'Coefficient A in Formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2', u'Kc is the fraction of the total zone load attributable to the lower subzone'], u'default': '"Autocalculate"', u'autocalculatable': True, u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `Coefficient A`
@@ -8013,7 +7685,7 @@ class RoomAirSettingsUnderFloorAirDistributionInterior(object):
             try:
                 value_lower = str(value).lower()
                 if value_lower == "autocalculate":
-                    self._data["Coefficient A"] = value
+                    self._data["Coefficient A"] = "Autocalculate"
                     return
             except ValueError:
                 pass
@@ -8034,12 +7706,10 @@ class RoomAirSettingsUnderFloorAirDistributionInterior(object):
         return self._data["Coefficient B"]
 
     @coefficient_b.setter
-    def coefficient_b(self, value="Autocalculate" ):
+    def coefficient_b(self, value="Autocalculate"):
         """  Corresponds to IDD Field `Coefficient B`
         Coefficient B in Formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2
         Kc is the fraction of the total zone load attributable to the lower subzone
-        
-        {u'note': [u'Coefficient B in Formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2', u'Kc is the fraction of the total zone load attributable to the lower subzone'], u'default': '"Autocalculate"', u'autocalculatable': True, u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `Coefficient B`
@@ -8054,7 +7724,7 @@ class RoomAirSettingsUnderFloorAirDistributionInterior(object):
             try:
                 value_lower = str(value).lower()
                 if value_lower == "autocalculate":
-                    self._data["Coefficient B"] = value
+                    self._data["Coefficient B"] = "Autocalculate"
                     return
             except ValueError:
                 pass
@@ -8075,12 +7745,10 @@ class RoomAirSettingsUnderFloorAirDistributionInterior(object):
         return self._data["Coefficient C"]
 
     @coefficient_c.setter
-    def coefficient_c(self, value="Autocalculate" ):
+    def coefficient_c(self, value="Autocalculate"):
         """  Corresponds to IDD Field `Coefficient C`
         Coefficient C in Formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2
         Kc is the fraction of the total zone load attributable to the lower subzone
-        
-        {u'note': [u'Coefficient C in Formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2', u'Kc is the fraction of the total zone load attributable to the lower subzone'], u'default': '"Autocalculate"', u'autocalculatable': True, u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `Coefficient C`
@@ -8095,7 +7763,7 @@ class RoomAirSettingsUnderFloorAirDistributionInterior(object):
             try:
                 value_lower = str(value).lower()
                 if value_lower == "autocalculate":
-                    self._data["Coefficient C"] = value
+                    self._data["Coefficient C"] = "Autocalculate"
                     return
             except ValueError:
                 pass
@@ -8116,12 +7784,10 @@ class RoomAirSettingsUnderFloorAirDistributionInterior(object):
         return self._data["Coefficient D"]
 
     @coefficient_d.setter
-    def coefficient_d(self, value="Autocalculate" ):
+    def coefficient_d(self, value="Autocalculate"):
         """  Corresponds to IDD Field `Coefficient D`
         Coefficient D in Formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2
         Kc is the fraction of the total zone load attributable to the lower subzone
-        
-        {u'note': [u'Coefficient D in Formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2', u'Kc is the fraction of the total zone load attributable to the lower subzone'], u'default': '"Autocalculate"', u'autocalculatable': True, u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `Coefficient D`
@@ -8136,7 +7802,7 @@ class RoomAirSettingsUnderFloorAirDistributionInterior(object):
             try:
                 value_lower = str(value).lower()
                 if value_lower == "autocalculate":
-                    self._data["Coefficient D"] = value
+                    self._data["Coefficient D"] = "Autocalculate"
                     return
             except ValueError:
                 pass
@@ -8157,12 +7823,10 @@ class RoomAirSettingsUnderFloorAirDistributionInterior(object):
         return self._data["Coefficient E"]
 
     @coefficient_e.setter
-    def coefficient_e(self, value="Autocalculate" ):
+    def coefficient_e(self, value="Autocalculate"):
         """  Corresponds to IDD Field `Coefficient E`
         Coefficient E in Formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2
         Kc is the fraction of the total zone load attributable to the lower subzone
-        
-        {u'note': [u'Coefficient E in Formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2', u'Kc is the fraction of the total zone load attributable to the lower subzone'], u'default': '"Autocalculate"', u'autocalculatable': True, u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `Coefficient E`
@@ -8177,7 +7841,7 @@ class RoomAirSettingsUnderFloorAirDistributionInterior(object):
             try:
                 value_lower = str(value).lower()
                 if value_lower == "autocalculate":
-                    self._data["Coefficient E"] = value
+                    self._data["Coefficient E"] = "Autocalculate"
                     return
             except ValueError:
                 pass
@@ -8382,8 +8046,6 @@ class RoomAirSettingsUnderFloorAirDistributionExterior(object):
     def zone_name(self, value=None):
         """  Corresponds to IDD Field `Zone Name`
         Name of Zone being described. Any existing zone name
-        
-        {u'note': [u'Name of Zone being described. Any existing zone name'], u'type': u'object-list', u'object-list': u'ZoneNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Zone Name`
@@ -8417,10 +8079,8 @@ class RoomAirSettingsUnderFloorAirDistributionExterior(object):
         return self._data["Number of Diffusers per Zone"]
 
     @number_of_diffusers_per_zone.setter
-    def number_of_diffusers_per_zone(self, value="Autocalculate" ):
+    def number_of_diffusers_per_zone(self, value="Autocalculate"):
         """  Corresponds to IDD Field `Number of Diffusers per Zone`
-        
-        {u'default': '"Autocalculate"', u'minimum>': '0.0', u'type': u'real', u'autocalculatable': True, 'pytype': 'float'}
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `Number of Diffusers per Zone`
@@ -8436,7 +8096,7 @@ class RoomAirSettingsUnderFloorAirDistributionExterior(object):
             try:
                 value_lower = str(value).lower()
                 if value_lower == "autocalculate":
-                    self._data["Number of Diffusers per Zone"] = value
+                    self._data["Number of Diffusers per Zone"] = "Autocalculate"
                     return
             except ValueError:
                 pass
@@ -8460,10 +8120,8 @@ class RoomAirSettingsUnderFloorAirDistributionExterior(object):
         return self._data["Power per Plume"]
 
     @power_per_plume.setter
-    def power_per_plume(self, value="autocalculate" ):
+    def power_per_plume(self, value="autocalculate"):
         """  Corresponds to IDD Field `Power per Plume`
-        
-        {'pytype': 'float', u'default': '"autocalculate"', u'minimum': '0.0', u'units': u'W', u'autocalculatable': True, u'type': u'real'}
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `Power per Plume`
@@ -8480,7 +8138,7 @@ class RoomAirSettingsUnderFloorAirDistributionExterior(object):
             try:
                 value_lower = str(value).lower()
                 if value_lower == "autocalculate":
-                    self._data["Power per Plume"] = value
+                    self._data["Power per Plume"] = "Autocalculate"
                     return
             except ValueError:
                 pass
@@ -8504,10 +8162,8 @@ class RoomAirSettingsUnderFloorAirDistributionExterior(object):
         return self._data["Design Effective Area of Diffuser"]
 
     @design_effective_area_of_diffuser.setter
-    def design_effective_area_of_diffuser(self, value="Autocalculate" ):
+    def design_effective_area_of_diffuser(self, value="Autocalculate"):
         """  Corresponds to IDD Field `Design Effective Area of Diffuser`
-        
-        {'pytype': 'float', u'default': '"Autocalculate"', u'minimum>': '0.0', u'units': u'm2', u'autocalculatable': True, u'type': u'real'}
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `Design Effective Area of Diffuser`
@@ -8524,7 +8180,7 @@ class RoomAirSettingsUnderFloorAirDistributionExterior(object):
             try:
                 value_lower = str(value).lower()
                 if value_lower == "autocalculate":
-                    self._data["Design Effective Area of Diffuser"] = value
+                    self._data["Design Effective Area of Diffuser"] = "Autocalculate"
                     return
             except ValueError:
                 pass
@@ -8548,10 +8204,8 @@ class RoomAirSettingsUnderFloorAirDistributionExterior(object):
         return self._data["Diffuser Slot Angle from Vertical"]
 
     @diffuser_slot_angle_from_vertical.setter
-    def diffuser_slot_angle_from_vertical(self, value="autocalculate" ):
+    def diffuser_slot_angle_from_vertical(self, value="autocalculate"):
         """  Corresponds to IDD Field `Diffuser Slot Angle from Vertical`
-        
-        {'pytype': 'float', u'default': '"autocalculate"', u'maximum': '90.0', u'minimum': '0.0', u'units': u'deg', u'autocalculatable': True, u'type': u'real'}
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `Diffuser Slot Angle from Vertical`
@@ -8569,7 +8223,7 @@ class RoomAirSettingsUnderFloorAirDistributionExterior(object):
             try:
                 value_lower = str(value).lower()
                 if value_lower == "autocalculate":
-                    self._data["Diffuser Slot Angle from Vertical"] = value
+                    self._data["Diffuser Slot Angle from Vertical"] = "Autocalculate"
                     return
             except ValueError:
                 pass
@@ -8596,11 +8250,9 @@ class RoomAirSettingsUnderFloorAirDistributionExterior(object):
         return self._data["Thermostat Height"]
 
     @thermostat_height.setter
-    def thermostat_height(self, value=1.2 ):
+    def thermostat_height(self, value=1.2):
         """  Corresponds to IDD Field `Thermostat Height`
         Height of thermostat/temperature control sensor above floor
-        
-        {'pytype': 'float', u'default': '1.2', u'minimum>': '0.0', u'note': [u'Height of thermostat/temperature control sensor above floor'], u'units': u'm', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Thermostat Height`
@@ -8634,11 +8286,9 @@ class RoomAirSettingsUnderFloorAirDistributionExterior(object):
         return self._data["Comfort Height"]
 
     @comfort_height.setter
-    def comfort_height(self, value=1.1 ):
+    def comfort_height(self, value=1.1):
         """  Corresponds to IDD Field `Comfort Height`
         Height at which Air temperature is calculated for comfort purposes
-        
-        {'pytype': 'float', u'default': '1.1', u'minimum>': '0.0', u'note': [u'Height at which Air temperature is calculated for comfort purposes'], u'units': u'm', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Comfort Height`
@@ -8672,15 +8322,13 @@ class RoomAirSettingsUnderFloorAirDistributionExterior(object):
         return self._data["Temperature Difference Threshold for Reporting"]
 
     @temperature_difference_threshold_for_reporting.setter
-    def temperature_difference_threshold_for_reporting(self, value=0.4 ):
+    def temperature_difference_threshold_for_reporting(self, value=0.4):
         """  Corresponds to IDD Field `Temperature Difference Threshold for Reporting`
         Minimum temperature difference between upper and lower layer
         temperatures above which UFAD auxilliary outputs are calculated.
         These outputs are 'UF Transition Height'and 'UF Average Temp Gradient'.  They
         are set to zero values when the temperature difference is less than the
         threshold and the output 'UF Zone Is Mixed' is set to 1
-        
-        {'pytype': 'float', u'default': '0.4', u'required-field': True, u'note': [u'Minimum temperature difference between upper and lower layer', u'temperatures above which UFAD auxilliary outputs are calculated.', u"These outputs are 'UF Transition Height'and 'UF Average Temp Gradient'.  They", u'are set to zero values when the temperature difference is less than the', u"threshold and the output 'UF Zone Is Mixed' is set to 1"], u'minimum': '0.0', u'units': u'deltaC', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Temperature Difference Threshold for Reporting`
@@ -8716,8 +8364,6 @@ class RoomAirSettingsUnderFloorAirDistributionExterior(object):
     @floor_diffuser_type.setter
     def floor_diffuser_type(self, value="Swirl"):
         """  Corresponds to IDD Field `Floor Diffuser Type`
-        
-        {u'default': u'Swirl', u'type': u'choice', u'key': [u'Custom', u'Swirl', u'VariableArea', u'HorizontalSwirl', u'LinearBarGrille'], u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Floor Diffuser Type`
@@ -8778,11 +8424,9 @@ class RoomAirSettingsUnderFloorAirDistributionExterior(object):
         return self._data["Transition Height"]
 
     @transition_height.setter
-    def transition_height(self, value=1.7 ):
+    def transition_height(self, value=1.7):
         """  Corresponds to IDD Field `Transition Height`
         User-specified height above floor of boundary between occupied and upper subzones
-        
-        {'pytype': 'float', u'default': '1.7', u'minimum>': '0.0', u'note': [u'User-specified height above floor of boundary between occupied and upper subzones'], u'units': u'm', u'autocalculatable': True, u'type': u'real'}
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `Transition Height`
@@ -8799,7 +8443,7 @@ class RoomAirSettingsUnderFloorAirDistributionExterior(object):
             try:
                 value_lower = str(value).lower()
                 if value_lower == "autocalculate":
-                    self._data["Transition Height"] = value
+                    self._data["Transition Height"] = "Autocalculate"
                     return
             except ValueError:
                 pass
@@ -8823,11 +8467,9 @@ class RoomAirSettingsUnderFloorAirDistributionExterior(object):
         return self._data["Coefficient A in formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2"]
 
     @coefficient_a_in_formula_kc_agammab_c_dgamma_egamma2.setter
-    def coefficient_a_in_formula_kc_agammab_c_dgamma_egamma2(self, value="Autocalculate" ):
+    def coefficient_a_in_formula_kc_agammab_c_dgamma_egamma2(self, value="Autocalculate"):
         """  Corresponds to IDD Field `Coefficient A in formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2`
         Kc is the fraction of the total zone load attributable to the lower subzone
-        
-        {u'note': [u'Kc is the fraction of the total zone load attributable to the lower subzone'], u'default': '"Autocalculate"', u'autocalculatable': True, u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `Coefficient A in formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2`
@@ -8842,7 +8484,7 @@ class RoomAirSettingsUnderFloorAirDistributionExterior(object):
             try:
                 value_lower = str(value).lower()
                 if value_lower == "autocalculate":
-                    self._data["Coefficient A in formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2"] = value
+                    self._data["Coefficient A in formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2"] = "Autocalculate"
                     return
             except ValueError:
                 pass
@@ -8863,11 +8505,9 @@ class RoomAirSettingsUnderFloorAirDistributionExterior(object):
         return self._data["Coefficient B in formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2"]
 
     @coefficient_b_in_formula_kc_agammab_c_dgamma_egamma2.setter
-    def coefficient_b_in_formula_kc_agammab_c_dgamma_egamma2(self, value="Autocalculate" ):
+    def coefficient_b_in_formula_kc_agammab_c_dgamma_egamma2(self, value="Autocalculate"):
         """  Corresponds to IDD Field `Coefficient B in formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2`
         Kc is the fraction of the total zone load attributable to the lower subzone
-        
-        {u'note': [u'Kc is the fraction of the total zone load attributable to the lower subzone'], u'default': '"Autocalculate"', u'autocalculatable': True, u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `Coefficient B in formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2`
@@ -8882,7 +8522,7 @@ class RoomAirSettingsUnderFloorAirDistributionExterior(object):
             try:
                 value_lower = str(value).lower()
                 if value_lower == "autocalculate":
-                    self._data["Coefficient B in formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2"] = value
+                    self._data["Coefficient B in formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2"] = "Autocalculate"
                     return
             except ValueError:
                 pass
@@ -8903,11 +8543,9 @@ class RoomAirSettingsUnderFloorAirDistributionExterior(object):
         return self._data["Coefficient C in formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2"]
 
     @coefficient_c_in_formula_kc_agammab_c_dgamma_egamma2.setter
-    def coefficient_c_in_formula_kc_agammab_c_dgamma_egamma2(self, value="Autocalculate" ):
+    def coefficient_c_in_formula_kc_agammab_c_dgamma_egamma2(self, value="Autocalculate"):
         """  Corresponds to IDD Field `Coefficient C in formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2`
         Kc is the fraction of the total zone load attributable to the lower subzone
-        
-        {u'note': [u'Kc is the fraction of the total zone load attributable to the lower subzone'], u'default': '"Autocalculate"', u'autocalculatable': True, u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `Coefficient C in formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2`
@@ -8922,7 +8560,7 @@ class RoomAirSettingsUnderFloorAirDistributionExterior(object):
             try:
                 value_lower = str(value).lower()
                 if value_lower == "autocalculate":
-                    self._data["Coefficient C in formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2"] = value
+                    self._data["Coefficient C in formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2"] = "Autocalculate"
                     return
             except ValueError:
                 pass
@@ -8943,11 +8581,9 @@ class RoomAirSettingsUnderFloorAirDistributionExterior(object):
         return self._data["Coefficient D in formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2"]
 
     @coefficient_d_in_formula_kc_agammab_c_dgamma_egamma2.setter
-    def coefficient_d_in_formula_kc_agammab_c_dgamma_egamma2(self, value="Autocalculate" ):
+    def coefficient_d_in_formula_kc_agammab_c_dgamma_egamma2(self, value="Autocalculate"):
         """  Corresponds to IDD Field `Coefficient D in formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2`
         Kc is the fraction of the total zone load attributable to the lower subzone
-        
-        {u'note': [u'Kc is the fraction of the total zone load attributable to the lower subzone'], u'default': '"Autocalculate"', u'autocalculatable': True, u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `Coefficient D in formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2`
@@ -8962,7 +8598,7 @@ class RoomAirSettingsUnderFloorAirDistributionExterior(object):
             try:
                 value_lower = str(value).lower()
                 if value_lower == "autocalculate":
-                    self._data["Coefficient D in formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2"] = value
+                    self._data["Coefficient D in formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2"] = "Autocalculate"
                     return
             except ValueError:
                 pass
@@ -8983,11 +8619,9 @@ class RoomAirSettingsUnderFloorAirDistributionExterior(object):
         return self._data["Coefficient E in formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2"]
 
     @coefficient_e_in_formula_kc_agammab_c_dgamma_egamma2.setter
-    def coefficient_e_in_formula_kc_agammab_c_dgamma_egamma2(self, value="Autocalculate" ):
+    def coefficient_e_in_formula_kc_agammab_c_dgamma_egamma2(self, value="Autocalculate"):
         """  Corresponds to IDD Field `Coefficient E in formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2`
         Kc is the fraction of the total zone load attributable to the lower subzone
-        
-        {u'note': [u'Kc is the fraction of the total zone load attributable to the lower subzone'], u'default': '"Autocalculate"', u'autocalculatable': True, u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `Coefficient E in formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2`
@@ -9002,7 +8636,7 @@ class RoomAirSettingsUnderFloorAirDistributionExterior(object):
             try:
                 value_lower = str(value).lower()
                 if value_lower == "autocalculate":
-                    self._data["Coefficient E in formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2"] = value
+                    self._data["Coefficient E in formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2"] = "Autocalculate"
                     return
             except ValueError:
                 pass

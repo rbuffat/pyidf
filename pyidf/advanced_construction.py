@@ -57,8 +57,6 @@ class SurfacePropertyHeatTransferAlgorithm(object):
     @surface_name.setter
     def surface_name(self, value=None):
         """  Corresponds to IDD Field `Surface Name`
-        
-        {u'type': u'object-list', u'object-list': u'SurfaceNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface Name`
@@ -94,8 +92,6 @@ class SurfacePropertyHeatTransferAlgorithm(object):
     @algorithm.setter
     def algorithm(self, value="ConductionTransferFunction"):
         """  Corresponds to IDD Field `Algorithm`
-        
-        {u'default': u'ConductionTransferFunction', u'type': u'choice', u'key': [u'ConductionTransferFunction', u'MoisturePenetrationDepthConductionTransferFunction', u'ConductionFiniteDifference', u'CombinedHeatAndMoistureFiniteElement'], u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Algorithm`
@@ -243,8 +239,6 @@ class SurfacePropertyHeatTransferAlgorithmMultipleSurface(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -280,8 +274,6 @@ class SurfacePropertyHeatTransferAlgorithmMultipleSurface(object):
     @surface_type.setter
     def surface_type(self, value=None):
         """  Corresponds to IDD Field `Surface Type`
-        
-        {u'type': u'choice', u'key': [u'AllExteriorSurfaces', u'AllExteriorWalls', u'AllExteriorRoofs', u'AllExteriorFloors', u'AllGroundContactSurfaces', u'AllInteriorSurfaces', u'AllInteriorWalls', u'AllInteriorCeilings', u'AllInteriorFloors'], u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface Type`
@@ -351,8 +343,6 @@ class SurfacePropertyHeatTransferAlgorithmMultipleSurface(object):
     @algorithm.setter
     def algorithm(self, value="ConductionTransferFunction"):
         """  Corresponds to IDD Field `Algorithm`
-        
-        {u'default': u'ConductionTransferFunction', u'type': u'choice', u'key': [u'ConductionTransferFunction', u'MoisturePenetrationDepthConductionTransferFunction', u'ConductionFiniteDifference', u'CombinedHeatAndMoistureFiniteElement'], u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Algorithm`
@@ -540,8 +530,6 @@ class SurfacePropertyHeatTransferAlgorithmSurfaceList(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -577,8 +565,6 @@ class SurfacePropertyHeatTransferAlgorithmSurfaceList(object):
     @algorithm.setter
     def algorithm(self, value="ConductionTransferFunction"):
         """  Corresponds to IDD Field `Algorithm`
-        
-        {u'default': u'ConductionTransferFunction', u'type': u'choice', u'key': [u'ConductionTransferFunction', u'MoisturePenetrationDepthConductionTransferFunction', u'ConductionFiniteDifference', u'CombinedHeatAndMoistureFiniteElement'], u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Algorithm`
@@ -639,8 +625,6 @@ class SurfacePropertyHeatTransferAlgorithmSurfaceList(object):
     @surface_name_1.setter
     def surface_name_1(self, value=None):
         """  Corresponds to IDD Field `Surface Name 1`
-        
-        {'pytype': 'str', u'type': u'object-list', u'object-list': u'SurfaceNames', u'required-field': True, u'begin-extensible': u''}
 
         Args:
             value (str): value for IDD Field `Surface Name 1`
@@ -676,8 +660,6 @@ class SurfacePropertyHeatTransferAlgorithmSurfaceList(object):
     @surface_name_2.setter
     def surface_name_2(self, value=None):
         """  Corresponds to IDD Field `Surface Name 2`
-        
-        {u'type': u'object-list', u'object-list': u'SurfaceNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface Name 2`
@@ -713,8 +695,6 @@ class SurfacePropertyHeatTransferAlgorithmSurfaceList(object):
     @surface_name_3.setter
     def surface_name_3(self, value=None):
         """  Corresponds to IDD Field `Surface Name 3`
-        
-        {u'type': u'object-list', u'object-list': u'SurfaceNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface Name 3`
@@ -750,8 +730,6 @@ class SurfacePropertyHeatTransferAlgorithmSurfaceList(object):
     @surface_name_4.setter
     def surface_name_4(self, value=None):
         """  Corresponds to IDD Field `Surface Name 4`
-        
-        {u'type': u'object-list', u'object-list': u'SurfaceNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface Name 4`
@@ -787,8 +765,6 @@ class SurfacePropertyHeatTransferAlgorithmSurfaceList(object):
     @surface_name_5.setter
     def surface_name_5(self, value=None):
         """  Corresponds to IDD Field `Surface Name 5`
-        
-        {u'type': u'object-list', u'object-list': u'SurfaceNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface Name 5`
@@ -824,8 +800,6 @@ class SurfacePropertyHeatTransferAlgorithmSurfaceList(object):
     @surface_name_6.setter
     def surface_name_6(self, value=None):
         """  Corresponds to IDD Field `Surface Name 6`
-        
-        {u'type': u'object-list', u'object-list': u'SurfaceNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface Name 6`
@@ -948,8 +922,6 @@ class SurfacePropertyHeatTransferAlgorithmConstruction(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -985,8 +957,6 @@ class SurfacePropertyHeatTransferAlgorithmConstruction(object):
     @algorithm.setter
     def algorithm(self, value="ConductionTransferFunction"):
         """  Corresponds to IDD Field `Algorithm`
-        
-        {u'default': u'ConductionTransferFunction', u'type': u'choice', u'key': [u'ConductionTransferFunction', u'MoisturePenetrationDepthConductionTransferFunction', u'ConductionFiniteDifference', u'CombinedHeatAndMoistureFiniteElement'], u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Algorithm`
@@ -1047,8 +1017,6 @@ class SurfacePropertyHeatTransferAlgorithmConstruction(object):
     @construction_name.setter
     def construction_name(self, value=None):
         """  Corresponds to IDD Field `Construction Name`
-        
-        {u'type': u'object-list', u'object-list': u'ConstructionNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Construction Name`
@@ -1174,8 +1142,6 @@ class SurfaceControlMovableInsulation(object):
     @insulation_type.setter
     def insulation_type(self, value=None):
         """  Corresponds to IDD Field `Insulation Type`
-        
-        {u'type': u'choice', u'key': [u'Outside', u'Inside'], u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Insulation Type`
@@ -1231,8 +1197,6 @@ class SurfaceControlMovableInsulation(object):
     @surface_name.setter
     def surface_name(self, value=None):
         """  Corresponds to IDD Field `Surface Name`
-        
-        {u'type': u'object-list', u'object-list': u'SurfaceNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface Name`
@@ -1268,8 +1232,6 @@ class SurfaceControlMovableInsulation(object):
     @material_name.setter
     def material_name(self, value=None):
         """  Corresponds to IDD Field `Material Name`
-        
-        {'type': 'alpha', u'object-list': u'MaterialName', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Material Name`
@@ -1305,8 +1267,6 @@ class SurfaceControlMovableInsulation(object):
     @schedule_name.setter
     def schedule_name(self, value=None):
         """  Corresponds to IDD Field `Schedule Name`
-        
-        {u'type': u'object-list', u'object-list': u'ScheduleNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Schedule Name`
@@ -1512,8 +1472,6 @@ class SurfacePropertyOtherSideCoefficients(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {'type': 'alpha', u'reference': u'OutFaceEnvNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -1555,8 +1513,6 @@ class SurfacePropertyOtherSideCoefficients(object):
         if<=0, then remaining fields calculate the outside surface temperature
         The following fields are used in the equation:
         OtherSideTemp=N2*N3 + N4*OutdoorDry-bulb + N5*GroundTemp + N6*WindSpeed*OutdoorDry-bulb + N7*TempZone + N9*TempPrev
-        
-        {u'units': u'W/m2-K', u'note': [u'if>0, this field becomes the exterior convective/radiative film coefficient', u'and the other fields are used to calculate the outdoor air temperature', u'then exterior surface temperature based on outdoor air and specified coefficient', u'if<=0, then remaining fields calculate the outside surface temperature', u'The following fields are used in the equation:', u'OtherSideTemp=N2*N3 + N4*OutdoorDry-bulb + N5*GroundTemp + N6*WindSpeed*OutdoorDry-bulb + N7*TempZone + N9*TempPrev'], u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Combined Convective/Radiative Film Coefficient`
@@ -1585,11 +1541,9 @@ class SurfacePropertyOtherSideCoefficients(object):
         return self._data["Constant Temperature"]
 
     @constant_temperature.setter
-    def constant_temperature(self, value=0.0 ):
+    def constant_temperature(self, value=0.0):
         """  Corresponds to IDD Field `Constant Temperature`
         This parameter will be overwritten by the values from the Constant Temperature Schedule Name (below) if one is present
-        
-        {u'units': u'C', u'default': '0.0', u'note': [u'This parameter will be overwritten by the values from the Constant Temperature Schedule Name (below) if one is present'], u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Constant Temperature`
@@ -1619,12 +1573,10 @@ class SurfacePropertyOtherSideCoefficients(object):
         return self._data["Constant Temperature Coefficient"]
 
     @constant_temperature_coefficient.setter
-    def constant_temperature_coefficient(self, value=1.0 ):
+    def constant_temperature_coefficient(self, value=1.0):
         """  Corresponds to IDD Field `Constant Temperature Coefficient`
         This coefficient is used even with a Schedule.  It should normally be 1.0 in that case.
         This field is ignored if Sinusoidal Variation of Constant Temperature Coefficient = Yes.
-        
-        {u'note': [u'This coefficient is used even with a Schedule.  It should normally be 1.0 in that case.', u'This field is ignored if Sinusoidal Variation of Constant Temperature Coefficient = Yes.'], u'default': '1.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Constant Temperature Coefficient`
@@ -1653,10 +1605,8 @@ class SurfacePropertyOtherSideCoefficients(object):
         return self._data["External Dry-Bulb Temperature Coefficient"]
 
     @external_drybulb_temperature_coefficient.setter
-    def external_drybulb_temperature_coefficient(self, value=0.0 ):
+    def external_drybulb_temperature_coefficient(self, value=0.0):
         """  Corresponds to IDD Field `External Dry-Bulb Temperature Coefficient`
-        
-        {u'default': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `External Dry-Bulb Temperature Coefficient`
@@ -1685,10 +1635,8 @@ class SurfacePropertyOtherSideCoefficients(object):
         return self._data["Ground Temperature Coefficient"]
 
     @ground_temperature_coefficient.setter
-    def ground_temperature_coefficient(self, value=0.0 ):
+    def ground_temperature_coefficient(self, value=0.0):
         """  Corresponds to IDD Field `Ground Temperature Coefficient`
-        
-        {u'default': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Ground Temperature Coefficient`
@@ -1717,10 +1665,8 @@ class SurfacePropertyOtherSideCoefficients(object):
         return self._data["Wind Speed Coefficient"]
 
     @wind_speed_coefficient.setter
-    def wind_speed_coefficient(self, value=0.0 ):
+    def wind_speed_coefficient(self, value=0.0):
         """  Corresponds to IDD Field `Wind Speed Coefficient`
-        
-        {u'default': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Wind Speed Coefficient`
@@ -1749,10 +1695,8 @@ class SurfacePropertyOtherSideCoefficients(object):
         return self._data["Zone Air Temperature Coefficient"]
 
     @zone_air_temperature_coefficient.setter
-    def zone_air_temperature_coefficient(self, value=0.0 ):
+    def zone_air_temperature_coefficient(self, value=0.0):
         """  Corresponds to IDD Field `Zone Air Temperature Coefficient`
-        
-        {u'default': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Zone Air Temperature Coefficient`
@@ -1785,8 +1729,6 @@ class SurfacePropertyOtherSideCoefficients(object):
         """  Corresponds to IDD Field `Constant Temperature Schedule Name`
         Name of schedule for values of constant temperature.
         Schedule values replace any value specified in the field Constant Temperature.
-        
-        {u'note': [u'Name of schedule for values of constant temperature.', u'Schedule values replace any value specified in the field Constant Temperature.'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Constant Temperature Schedule Name`
@@ -1823,8 +1765,6 @@ class SurfacePropertyOtherSideCoefficients(object):
     def sinusoidal_variation_of_constant_temperature_coefficient(self, value="No"):
         """  Corresponds to IDD Field `Sinusoidal Variation of Constant Temperature Coefficient`
         Optionally used to vary Constant Temperature Coefficient with unitary sine wave
-        
-        {u'note': [u'Optionally used to vary Constant Temperature Coefficient with unitary sine wave'], u'default': u'No', u'type': u'choice', u'key': [u'Yes', u'No'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Sinusoidal Variation of Constant Temperature Coefficient`
@@ -1879,11 +1819,9 @@ class SurfacePropertyOtherSideCoefficients(object):
         return self._data["Period of Sinusoidal Variation"]
 
     @period_of_sinusoidal_variation.setter
-    def period_of_sinusoidal_variation(self, value=24.0 ):
+    def period_of_sinusoidal_variation(self, value=24.0):
         """  Corresponds to IDD Field `Period of Sinusoidal Variation`
         Use with sinusoidal variation to define the time period
-        
-        {'pytype': 'float', u'default': '24.0', u'minimum>': '0.0', u'note': [u'Use with sinusoidal variation to define the time period'], u'units': u'hr', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Period of Sinusoidal Variation`
@@ -1917,12 +1855,10 @@ class SurfacePropertyOtherSideCoefficients(object):
         return self._data["Previous Other Side Temperature Coefficient"]
 
     @previous_other_side_temperature_coefficient.setter
-    def previous_other_side_temperature_coefficient(self, value=0.0 ):
+    def previous_other_side_temperature_coefficient(self, value=0.0):
         """  Corresponds to IDD Field `Previous Other Side Temperature Coefficient`
         This coefficient multiplies the other side temperature result from the
         previous zone timestep
-        
-        {u'note': [u'This coefficient multiplies the other side temperature result from the', u'previous zone timestep'], u'default': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Previous Other Side Temperature Coefficient`
@@ -1955,8 +1891,6 @@ class SurfacePropertyOtherSideCoefficients(object):
         """  Corresponds to IDD Field `Minimum Other Side Temperature Limit`
         This field specifies a lower limit for the other side temperature result.
         Blank indicates no limit
-        
-        {u'note': [u'This field specifies a lower limit for the other side temperature result.', u'Blank indicates no limit'], u'units': u'C', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Minimum Other Side Temperature Limit`
@@ -1989,8 +1923,6 @@ class SurfacePropertyOtherSideCoefficients(object):
         """  Corresponds to IDD Field `Maximum Other Side Temperature Limit`
         This field specifies an upper limit for the other side temperature result.
         Blank indicates no limit
-        
-        {u'note': [u'This field specifies an upper limit for the other side temperature result.', u'Blank indicates no limit'], u'units': u'C', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Maximum Other Side Temperature Limit`
@@ -2095,8 +2027,6 @@ class SurfacePropertyOtherSideConditionsModel(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {'type': 'alpha', u'reference': u'OutFaceEnvNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -2139,8 +2069,6 @@ class SurfacePropertyOtherSideConditionsModel(object):
         surfaces in contact with PipingSystem:Underground domains
         GroundCoupledSurface provides boundary conditions for surfaces
         in contact with GroundDomain objects
-        
-        {u'note': [u'GapConvectionRadiation provides boundary conditions for convection', u'and linearized thermal radiation across a gap or cavity', u'on the other side of the surface that are modeled sperately.', u'UndergroundPipingSystemSurface provides boundary conditions for', u'surfaces in contact with PipingSystem:Underground domains', u'GroundCoupledSurface provides boundary conditions for surfaces', u'in contact with GroundDomain objects'], u'default': u'GapConvectionRadiation', u'type': u'choice', u'key': [u'GapConvectionRadiation', u'UndergroundPipingSystemSurface', u'GroundCoupledSurface'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Type of Modeling`
@@ -2987,8 +2915,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -3026,8 +2952,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
         """  Corresponds to IDD Field `Simple Bouyancy Vertical Wall Equation Source`
         Applies to zone with no HVAC or when HVAC is off
         This is for vertical walls
-        
-        {u'note': [u'Applies to zone with no HVAC or when HVAC is off', u'This is for vertical walls'], u'default': u'FohannoPolidoriVerticalWall', u'type': u'choice', u'key': [u'ASHRAEVerticalWall', u'AlamdariHammondVerticalWall', u'KhalifaEq3WallAwayFromHeat', u'KhalifaEq6NonHeatedWalls', u'FohannoPolidoriVerticalWall', u'ISO15099Windows', u'UserCurve'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Simple Bouyancy Vertical Wall Equation Source`
@@ -3095,8 +3019,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
     def simple_bouyancy_vertical_wall_user_curve_name(self, value=None):
         """  Corresponds to IDD Field `Simple Bouyancy Vertical Wall User Curve Name`
         The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
-        
-        {u'note': [u'The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve'], u'type': u'object-list', u'object-list': u'UserConvectionInsideModels', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Simple Bouyancy Vertical Wall User Curve Name`
@@ -3134,8 +3056,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
         """  Corresponds to IDD Field `Simple Bouyancy Stable Horizontal Equation Source`
         Applies to zone with no HVAC or when HVAC is off
         This is for horizontal surfaces with heat flow directed for stable thermal stratification
-        
-        {u'note': [u'Applies to zone with no HVAC or when HVAC is off', u'This is for horizontal surfaces with heat flow directed for stable thermal stratification'], u'default': u'AlamdariHammondStableHorizontal', u'type': u'choice', u'key': [u'WaltonStableHorizontalOrTilt', u'AlamdariHammondStableHorizontal', u'UserCurve'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Simple Bouyancy Stable Horizontal Equation Source`
@@ -3195,8 +3115,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
     def simple_bouyancy_stable_horizontal_equation_user_curve_name(self, value=None):
         """  Corresponds to IDD Field `Simple Bouyancy Stable Horizontal Equation User Curve Name`
         The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
-        
-        {u'note': [u'The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve'], u'type': u'object-list', u'object-list': u'UserConvectionInsideModels', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Simple Bouyancy Stable Horizontal Equation User Curve Name`
@@ -3234,8 +3152,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
         """  Corresponds to IDD Field `Simple Bouyancy Unstable Horizontal Equation Source`
         Applies to zone with no HVAC or when HVAC is off
         This is for passive horizontal surfaces with heat flow for unstable thermal stratification
-        
-        {u'note': [u'Applies to zone with no HVAC or when HVAC is off', u'This is for passive horizontal surfaces with heat flow for unstable thermal stratification'], u'default': u'AlamdariHammondUnstableHorizontal', u'type': u'choice', u'key': [u'WaltonUnstableHorizontalOrTilt', u'AlamdariHammondUnstableHorizontal', u'UserCurve'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Simple Bouyancy Unstable Horizontal Equation Source`
@@ -3295,8 +3211,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
     def simple_bouyancy_unstable_horizontal_equation_user_curve_name(self, value=None):
         """  Corresponds to IDD Field `Simple Bouyancy Unstable Horizontal Equation User Curve Name`
         The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
-        
-        {u'note': [u'The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve'], u'type': u'object-list', u'object-list': u'UserConvectionInsideModels', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Simple Bouyancy Unstable Horizontal Equation User Curve Name`
@@ -3334,8 +3248,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
         """  Corresponds to IDD Field `Simple Bouyancy Stable Tilted Equation Source`
         Applies to zone with no HVAC or when HVAC is off
         This is for tilted surfaces with heat flow for stable thermal stratification
-        
-        {u'note': [u'Applies to zone with no HVAC or when HVAC is off', u'This is for tilted surfaces with heat flow for stable thermal stratification'], u'default': u'WaltonStableHorizontalOrTilt', u'type': u'choice', u'key': [u'WaltonStableHorizontalOrTilt', u'AlamdariHammondStableHorizontal', u'UserCurve'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Simple Bouyancy Stable Tilted Equation Source`
@@ -3395,8 +3307,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
     def simple_bouyancy_stable_tilted_equation_user_curve_name(self, value=None):
         """  Corresponds to IDD Field `Simple Bouyancy Stable Tilted Equation User Curve Name`
         The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
-        
-        {u'note': [u'The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve'], u'type': u'object-list', u'object-list': u'UserConvectionInsideModels', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Simple Bouyancy Stable Tilted Equation User Curve Name`
@@ -3434,8 +3344,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
         """  Corresponds to IDD Field `Simple Bouyancy Unstable Tilted Equation Source`
         Applies to zone with no HVAC or when HVAC is off
         This is for tilted surfaces with heat flow for unstable thermal stratification
-        
-        {u'note': [u'Applies to zone with no HVAC or when HVAC is off', u'This is for tilted surfaces with heat flow for unstable thermal stratification'], u'default': u'WaltonUnstableHorizontalOrTilt', u'type': u'choice', u'key': [u'WaltonUnstableHorizontalOrTilt', u'AlamdariHammondUnstableHorizontal', u'UserCurve'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Simple Bouyancy Unstable Tilted Equation Source`
@@ -3495,8 +3403,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
     def simple_bouyancy_unstable_tilted_equation_user_curve_name(self, value=None):
         """  Corresponds to IDD Field `Simple Bouyancy Unstable Tilted Equation User Curve Name`
         The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
-        
-        {u'note': [u'The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve'], u'type': u'object-list', u'object-list': u'UserConvectionInsideModels', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Simple Bouyancy Unstable Tilted Equation User Curve Name`
@@ -3534,8 +3440,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
         """  Corresponds to IDD Field `Simple Bouyancy Windows Equation Source`
         Applies to zone with no HVAC or when HVAC is off
         This is for all window surfaces
-        
-        {u'note': [u'Applies to zone with no HVAC or when HVAC is off', u'This is for all window surfaces'], u'default': u'ISO15099Windows', u'type': u'choice', u'key': [u'ASHRAEVerticalWall', u'AlamdariHammondVerticalWall', u'FohannoPolidoriVerticalWall', u'KaradagChilledCeiling', u'ISO15099Windows', u'UserCurve'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Simple Bouyancy Windows Equation Source`
@@ -3601,8 +3505,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
     def simple_bouyancy_windows_equation_user_curve_name(self, value=None):
         """  Corresponds to IDD Field `Simple Bouyancy Windows Equation User Curve Name`
         The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
-        
-        {u'note': [u'The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve'], u'type': u'object-list', u'object-list': u'UserConvectionInsideModels', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Simple Bouyancy Windows Equation User Curve Name`
@@ -3640,8 +3542,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
         """  Corresponds to IDD Field `Floor Heat Ceiling Cool Vertical Wall Equation Source`
         Applies to zone with in-floor heating and/or in-ceiling cooling
         This is for vertical walls
-        
-        {u'note': [u'Applies to zone with in-floor heating and/or in-ceiling cooling', u'This is for vertical walls'], u'default': u'KhalifaEq3WallAwayFromHeat', u'type': u'choice', u'key': [u'ASHRAEVerticalWall', u'AlamdariHammondVerticalWall', u'KhalifaEq3WallAwayFromHeat', u'FohannoPolidoriVerticalWall', u'ISO15099Windows', u'UserCurve'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Floor Heat Ceiling Cool Vertical Wall Equation Source`
@@ -3707,8 +3607,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
     def floor_heat_ceiling_cool_vertical_wall_equation_user_curve_name(self, value=None):
         """  Corresponds to IDD Field `Floor Heat Ceiling Cool Vertical Wall Equation User Curve Name`
         The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
-        
-        {u'note': [u'The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve'], u'type': u'object-list', u'object-list': u'UserConvectionInsideModels', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Floor Heat Ceiling Cool Vertical Wall Equation User Curve Name`
@@ -3746,8 +3644,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
         """  Corresponds to IDD Field `Floor Heat Ceiling Cool Stable Horizontal Equation Source`
         Applies to zone with in-floor heating and/or in-ceiling cooling
         This is for passive horizontal surfaces with heat flow for stable thermal stratification
-        
-        {u'note': [u'Applies to zone with in-floor heating and/or in-ceiling cooling', u'This is for passive horizontal surfaces with heat flow for stable thermal stratification'], u'default': u'AlamdariHammondStableHorizontal', u'type': u'choice', u'key': [u'WaltonStableHorizontalOrTilt', u'AlamdariHammondStableHorizontal', u'UserCurve'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Floor Heat Ceiling Cool Stable Horizontal Equation Source`
@@ -3807,8 +3703,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
     def floor_heat_ceiling_cool_stable_horizontal_equation_user_curve_name(self, value=None):
         """  Corresponds to IDD Field `Floor Heat Ceiling Cool Stable Horizontal Equation User Curve Name`
         The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
-        
-        {u'note': [u'The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve'], u'type': u'object-list', u'object-list': u'UserConvectionInsideModels', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Floor Heat Ceiling Cool Stable Horizontal Equation User Curve Name`
@@ -3846,8 +3740,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
         """  Corresponds to IDD Field `Floor Heat Ceiling Cool Unstable Horizontal Equation Source`
         Applies to zone with in-floor heating and/or in-ceiling cooling
         This is for passive horizontal surfaces with heat flow for unstable thermal stratification
-        
-        {u'note': [u'Applies to zone with in-floor heating and/or in-ceiling cooling', u'This is for passive horizontal surfaces with heat flow for unstable thermal stratification'], u'default': u'KhalifaEq4CeilingAwayFromHeat', u'type': u'choice', u'key': [u'WaltonUnstableHorizontalOrTilt', u'AlamdariHammondUnstableHorizontal', u'KhalifaEq4CeilingAwayFromHeat', u'UserCurve'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Floor Heat Ceiling Cool Unstable Horizontal Equation Source`
@@ -3909,8 +3801,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
     def floor_heat_ceiling_cool_unstable_horizontal_equation_user_curve_name(self, value=None):
         """  Corresponds to IDD Field `Floor Heat Ceiling Cool Unstable Horizontal Equation User Curve Name`
         The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
-        
-        {u'note': [u'The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve'], u'type': u'object-list', u'object-list': u'UserConvectionInsideModels', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Floor Heat Ceiling Cool Unstable Horizontal Equation User Curve Name`
@@ -3948,8 +3838,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
         """  Corresponds to IDD Field `Floor Heat Ceiling Cool Heated Floor Equation Source`
         Applies to zone with in-floor heating and/or in-ceiling cooling
         This is for a floor with active heating elements
-        
-        {u'note': [u'Applies to zone with in-floor heating and/or in-ceiling cooling', u'This is for a floor with active heating elements'], u'default': u'AwbiHattonHeatedFloor', u'type': u'choice', u'key': [u'WaltonUnstableHorizontalOrTilt', u'AlamdariHammondUnstableHorizontal', u'AwbiHattonHeatedFloor', u'UserCurve'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Floor Heat Ceiling Cool Heated Floor Equation Source`
@@ -4011,8 +3899,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
     def floor_heat_ceiling_cool_heated_floor_equation_user_curve_name(self, value=None):
         """  Corresponds to IDD Field `Floor Heat Ceiling Cool Heated Floor Equation User Curve Name`
         The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
-        
-        {u'note': [u'The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve'], u'type': u'object-list', u'object-list': u'UserConvectionInsideModels', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Floor Heat Ceiling Cool Heated Floor Equation User Curve Name`
@@ -4050,8 +3936,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
         """  Corresponds to IDD Field `Floor Heat Ceiling Cool Chilled Ceiling Equation Source`
         Applies to zone with in-floor heating and/or in-ceiling cooling
         This is for a ceiling with active cooling elements
-        
-        {u'note': [u'Applies to zone with in-floor heating and/or in-ceiling cooling', u'This is for a ceiling with active cooling elements'], u'default': u'KaradagChilledCeiling', u'type': u'choice', u'key': [u'WaltonUnstableHorizontalOrTilt', u'AlamdariHammondUnstableHorizontal', u'KaradagChilledCeiling', u'UserCurve'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Floor Heat Ceiling Cool Chilled Ceiling Equation Source`
@@ -4113,8 +3997,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
     def floor_heat_ceiling_cool_chilled_ceiling_equation_user_curve_name(self, value=None):
         """  Corresponds to IDD Field `Floor Heat Ceiling Cool Chilled Ceiling Equation User Curve Name`
         The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
-        
-        {u'note': [u'The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve'], u'type': u'object-list', u'object-list': u'UserConvectionInsideModels', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Floor Heat Ceiling Cool Chilled Ceiling Equation User Curve Name`
@@ -4152,8 +4034,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
         """  Corresponds to IDD Field `Floor Heat Ceiling Cool Stable Tilted Equation Source`
         Applies to zone with in-floor heating and/or in-ceiling cooling
         This is for tilted surfaces with heat flow for stable thermal stratification
-        
-        {u'note': [u'Applies to zone with in-floor heating and/or in-ceiling cooling', u'This is for tilted surfaces with heat flow for stable thermal stratification'], u'default': u'WaltonStableHorizontalOrTilt', u'type': u'choice', u'key': [u'WaltonStableHorizontalOrTilt', u'AlamdariHammondStableHorizontal', u'ISO15099Windows', u'UserCurve'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Floor Heat Ceiling Cool Stable Tilted Equation Source`
@@ -4215,8 +4095,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
     def floor_heat_ceiling_cool_stable_tilted_equation_user_curve_name(self, value=None):
         """  Corresponds to IDD Field `Floor Heat Ceiling Cool Stable Tilted Equation User Curve Name`
         The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
-        
-        {u'note': [u'The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve'], u'type': u'object-list', u'object-list': u'UserConvectionInsideModels', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Floor Heat Ceiling Cool Stable Tilted Equation User Curve Name`
@@ -4254,8 +4132,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
         """  Corresponds to IDD Field `Floor Heat Ceiling Cool Unstable Tilted Equation Source`
         Applies to zone with in-floor heating and/or in-ceiling cooling
         This is for tilted surfaces with heat flow for unstable thermal stratification
-        
-        {u'note': [u'Applies to zone with in-floor heating and/or in-ceiling cooling', u'This is for tilted surfaces with heat flow for unstable thermal stratification'], u'default': u'WaltonUnstableHorizontalOrTilt', u'type': u'choice', u'key': [u'WaltonUnstableHorizontalOrTilt', u'AlamdariHammondUnstableHorizontal', u'ISO15099Windows', u'UserCurve'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Floor Heat Ceiling Cool Unstable Tilted Equation Source`
@@ -4317,8 +4193,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
     def floor_heat_ceiling_cool_unstable_tilted_equation_user_curve_name(self, value=None):
         """  Corresponds to IDD Field `Floor Heat Ceiling Cool Unstable Tilted Equation User Curve Name`
         The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
-        
-        {u'note': [u'The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve'], u'type': u'object-list', u'object-list': u'UserConvectionInsideModels', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Floor Heat Ceiling Cool Unstable Tilted Equation User Curve Name`
@@ -4356,8 +4230,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
         """  Corresponds to IDD Field `Floor Heat Ceiling Cool Window Equation Source`
         Applies to zone with in-floor heating and/or in-ceiling cooling
         This is for all window surfaces
-        
-        {u'note': [u'Applies to zone with in-floor heating and/or in-ceiling cooling', u'This is for all window surfaces'], u'default': u'ISO15099Windows', u'type': u'choice', u'key': [u'ASHRAEVerticalWall', u'AlamdariHammondVerticalWall', u'ISO15099Windows', u'UserCurve'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Floor Heat Ceiling Cool Window Equation Source`
@@ -4419,8 +4291,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
     def floor_heat_ceiling_cool_window_equation_user_curve_name(self, value=None):
         """  Corresponds to IDD Field `Floor Heat Ceiling Cool Window Equation User Curve Name`
         The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
-        
-        {u'note': [u'The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve'], u'type': u'object-list', u'object-list': u'UserConvectionInsideModels', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Floor Heat Ceiling Cool Window Equation User Curve Name`
@@ -4458,8 +4328,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
         """  Corresponds to IDD Field `Wall Panel Heating Vertical Wall Equation Source`
         Applies to zone with in-wall panel heating
         This is for vertical walls that are not actively heated
-        
-        {u'note': [u'Applies to zone with in-wall panel heating', u'This is for vertical walls that are not actively heated'], u'default': u'KhalifaEq6NonHeatedWalls', u'type': u'choice', u'key': [u'ASHRAEVerticalWall', u'AlamdariHammondVerticalWall', u'KhalifaEq6NonHeatedWalls', u'FohannoPolidoriVerticalWall', u'ISO15099Windows', u'UserCurve'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Wall Panel Heating Vertical Wall Equation Source`
@@ -4525,8 +4393,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
     def wall_panel_heating_vertical_wall_equation_user_curve_name(self, value=None):
         """  Corresponds to IDD Field `Wall Panel Heating Vertical Wall Equation User Curve Name`
         The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
-        
-        {u'note': [u'The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve'], u'type': u'object-list', u'object-list': u'UserConvectionInsideModels', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Wall Panel Heating Vertical Wall Equation User Curve Name`
@@ -4564,8 +4430,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
         """  Corresponds to IDD Field `Wall Panel Heating Heated Wall Equation Source`
         Applies to zone with in-wall panel heating
         This is for vertical walls that are being actively heated
-        
-        {u'note': [u'Applies to zone with in-wall panel heating', u'This is for vertical walls that are being actively heated'], u'default': u'AwbiHattonHeatedWall', u'type': u'choice', u'key': [u'ASHRAEVerticalWall', u'AlamdariHammondVerticalWall', u'KhalifaEq5WallNearHeat', u'AwbiHattonHeatedWall', u'FohannoPolidoriVerticalWall', u'ISO15099Windows', u'UserCurve'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Wall Panel Heating Heated Wall Equation Source`
@@ -4633,8 +4497,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
     def wall_panel_heating_heated_wall_equation_user_curve_name(self, value=None):
         """  Corresponds to IDD Field `Wall Panel Heating Heated Wall Equation User Curve Name`
         The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
-        
-        {u'note': [u'The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve'], u'type': u'object-list', u'object-list': u'UserConvectionInsideModels', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Wall Panel Heating Heated Wall Equation User Curve Name`
@@ -4672,8 +4534,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
         """  Corresponds to IDD Field `Wall Panel Heating Stable Horizontal Equation Source`
         Applies to zone with in-wall panel heating
         This is for horizontal surfaces with heat flow directed for stable thermal stratification
-        
-        {u'note': [u'Applies to zone with in-wall panel heating', u'This is for horizontal surfaces with heat flow directed for stable thermal stratification'], u'default': u'AlamdariHammondStableHorizontal', u'type': u'choice', u'key': [u'WaltonStableHorizontalOrTilt', u'AlamdariHammondStableHorizontal', u'UserCurve'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Wall Panel Heating Stable Horizontal Equation Source`
@@ -4733,8 +4593,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
     def wall_panel_heating_stable_horizontal_equation_user_curve_name(self, value=None):
         """  Corresponds to IDD Field `Wall Panel Heating Stable Horizontal Equation User Curve Name`
         The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
-        
-        {u'note': [u'The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve'], u'type': u'object-list', u'object-list': u'UserConvectionInsideModels', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Wall Panel Heating Stable Horizontal Equation User Curve Name`
@@ -4772,8 +4630,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
         """  Corresponds to IDD Field `Wall Panel Heating Unstable Horizontal Equation Source`
         Applies to zone with in-wall panel heating
         This is for horizontal surfaces with heat flow directed for unstable thermal stratification
-        
-        {u'note': [u'Applies to zone with in-wall panel heating', u'This is for horizontal surfaces with heat flow directed for unstable thermal stratification'], u'default': u'KhalifaEq7Ceiling', u'type': u'choice', u'key': [u'ASHRAEVerticalWall', u'WaltonUnstableHorizontalOrTilt', u'AlamdariHammondUnstableHorizontal', u'KhalifaEq7Ceiling', u'KaradagChilledCeiling', u'UserCurve'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Wall Panel Heating Unstable Horizontal Equation Source`
@@ -4839,8 +4695,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
     def wall_panel_heating_unstable_horizontal_equation_user_curve_name(self, value=None):
         """  Corresponds to IDD Field `Wall Panel Heating Unstable Horizontal Equation User Curve Name`
         The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
-        
-        {u'note': [u'The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve'], u'type': u'object-list', u'object-list': u'UserConvectionInsideModels', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Wall Panel Heating Unstable Horizontal Equation User Curve Name`
@@ -4878,8 +4732,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
         """  Corresponds to IDD Field `Wall Panel Heating Stable Tilted Equation Source`
         Applies to zone with in-wall panel heating
         This is for tilted surfaces with heat flow for stable thermal stratification
-        
-        {u'note': [u'Applies to zone with in-wall panel heating', u'This is for tilted surfaces with heat flow for stable thermal stratification'], u'default': u'WaltonStableHorizontalOrTilt', u'type': u'choice', u'key': [u'WaltonStableHorizontalOrTilt', u'AlamdariHammondStableHorizontal', u'ISO15099Windows', u'UserCurve'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Wall Panel Heating Stable Tilted Equation Source`
@@ -4941,8 +4793,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
     def wall_panel_heating_stable_tilted_equation_user_curve_name(self, value=None):
         """  Corresponds to IDD Field `Wall Panel Heating Stable Tilted Equation User Curve Name`
         The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
-        
-        {u'note': [u'The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve'], u'type': u'object-list', u'object-list': u'UserConvectionInsideModels', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Wall Panel Heating Stable Tilted Equation User Curve Name`
@@ -4980,8 +4830,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
         """  Corresponds to IDD Field `Wall Panel Heating Unstable Tilted Equation Source`
         Applies to zone with in-wall panel heating
         This is for tilted surfaces with heat flow for unstable thermal stratification
-        
-        {u'note': [u'Applies to zone with in-wall panel heating', u'This is for tilted surfaces with heat flow for unstable thermal stratification'], u'default': u'WaltonUnstableHorizontalOrTilt', u'type': u'choice', u'key': [u'WaltonUnstableHorizontalOrTilt', u'AlamdariHammondUnstableHorizontal', u'ISO15099Windows', u'UserCurve'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Wall Panel Heating Unstable Tilted Equation Source`
@@ -5043,8 +4891,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
     def wall_panel_heating_unstable_tilted_equation_user_curve_name(self, value=None):
         """  Corresponds to IDD Field `Wall Panel Heating Unstable Tilted Equation User Curve Name`
         The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
-        
-        {u'note': [u'The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve'], u'type': u'object-list', u'object-list': u'UserConvectionInsideModels', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Wall Panel Heating Unstable Tilted Equation User Curve Name`
@@ -5082,8 +4928,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
         """  Corresponds to IDD Field `Wall Panel Heating Window Equation Source`
         Applies to zone with in-wall panel heating
         This is for all window surfaces
-        
-        {u'note': [u'Applies to zone with in-wall panel heating', u'This is for all window surfaces'], u'default': u'ISO15099Windows', u'type': u'choice', u'key': [u'ASHRAEVerticalWall', u'AlamdariHammondVerticalWall', u'FohannoPolidoriVerticalWall', u'ISO15099Windows', u'UserCurve'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Wall Panel Heating Window Equation Source`
@@ -5147,8 +4991,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
     def wall_panel_heating_window_equation_user_curve_name(self, value=None):
         """  Corresponds to IDD Field `Wall Panel Heating Window Equation User Curve Name`
         The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
-        
-        {u'note': [u'The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve'], u'type': u'object-list', u'object-list': u'UserConvectionInsideModels', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Wall Panel Heating Window Equation User Curve Name`
@@ -5186,8 +5028,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
         """  Corresponds to IDD Field `Convective Zone Heater Vertical Wall Equation Source`
         Applies to zone with convective heater
         This is for vertical walls not directly affected by heater
-        
-        {u'note': [u'Applies to zone with convective heater', u'This is for vertical walls not directly affected by heater'], u'default': u'FohannoPolidoriVerticalWall', u'type': u'choice', u'key': [u'ASHRAEVerticalWall', u'AlamdariHammondVerticalWall', u'KhalifaEq3WallAwayFromHeat', u'KhalifaEq6NonHeatedWalls', u'FohannoPolidoriVerticalWall', u'ISO15099Windows', u'UserCurve'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Convective Zone Heater Vertical Wall Equation Source`
@@ -5255,8 +5095,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
     def convective_zone_heater_vertical_wall_equation_user_curve_name(self, value=None):
         """  Corresponds to IDD Field `Convective Zone Heater Vertical Wall Equation User Curve Name`
         The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
-        
-        {u'note': [u'The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve'], u'type': u'object-list', u'object-list': u'UserConvectionInsideModels', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Convective Zone Heater Vertical Wall Equation User Curve Name`
@@ -5295,8 +5133,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
         Applies to zone with convective heater
         This is for vertical walls that are directly affected by heater
         Walls are considered "near" when listed in field set for Fraction of Radiant Energy to Surface
-        
-        {u'note': [u'Applies to zone with convective heater', u'This is for vertical walls that are directly affected by heater', u'Walls are considered "near" when listed in field set for Fraction of Radiant Energy to Surface'], u'default': u'KhalifaEq5WallNearHeat', u'type': u'choice', u'key': [u'ASHRAEVerticalWall', u'AlamdariHammondVerticalWall', u'KhalifaEq5WallNearHeat', u'AwbiHattonHeatedWall', u'FohannoPolidoriVerticalWall', u'ISO15099Windows', u'UserCurve'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Convective Zone Heater Vertical Walls Near Heater Equation Source`
@@ -5364,8 +5200,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
     def convective_zone_heater_vertical_walls_near_heater_equation_user_curve_name(self, value=None):
         """  Corresponds to IDD Field `Convective Zone Heater Vertical Walls Near Heater Equation User Curve Name`
         The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
-        
-        {u'note': [u'The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve'], u'type': u'object-list', u'object-list': u'UserConvectionInsideModels', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Convective Zone Heater Vertical Walls Near Heater Equation User Curve Name`
@@ -5403,8 +5237,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
         """  Corresponds to IDD Field `Convective Zone Heater Stable Horizontal Equation Source`
         Applies to zone with convective heater
         This is for horizontal surfaces with heat flow directed for stable thermal stratification
-        
-        {u'note': [u'Applies to zone with convective heater', u'This is for horizontal surfaces with heat flow directed for stable thermal stratification'], u'default': u'AlamdariHammondStableHorizontal', u'type': u'choice', u'key': [u'WaltonStableHorizontalOrTilt', u'AlamdariHammondStableHorizontal', u'UserCurve'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Convective Zone Heater Stable Horizontal Equation Source`
@@ -5464,8 +5296,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
     def convective_zone_heater_stable_horizontal_equation_user_curve_name(self, value=None):
         """  Corresponds to IDD Field `Convective Zone Heater Stable Horizontal Equation User Curve Name`
         The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
-        
-        {u'note': [u'The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve'], u'type': u'object-list', u'object-list': u'UserConvectionInsideModels', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Convective Zone Heater Stable Horizontal Equation User Curve Name`
@@ -5503,8 +5333,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
         """  Corresponds to IDD Field `Convective Zone Heater Unstable Horizontal Equation Source`
         Applies to zone with convective heater
         This is for horizontal surfaces with heat flow directed for unstable thermal stratification
-        
-        {u'note': [u'Applies to zone with convective heater', u'This is for horizontal surfaces with heat flow directed for unstable thermal stratification'], u'default': u'KhalifaEq7Ceiling', u'type': u'choice', u'key': [u'WaltonUnstableHorizontalOrTilt', u'AlamdariHammondUnstableHorizontal', u'KhalifaEq4CeilingAwayFromHeat', u'KhalifaEq7Ceiling', u'UserCurve'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Convective Zone Heater Unstable Horizontal Equation Source`
@@ -5568,8 +5396,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
     def convective_zone_heater_unstable_horizontal_equation_user_curve_name(self, value=None):
         """  Corresponds to IDD Field `Convective Zone Heater Unstable Horizontal Equation User Curve Name`
         The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
-        
-        {u'note': [u'The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve'], u'type': u'object-list', u'object-list': u'UserConvectionInsideModels', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Convective Zone Heater Unstable Horizontal Equation User Curve Name`
@@ -5607,8 +5433,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
         """  Corresponds to IDD Field `Convective Zone Heater Stable Tilted Equation Source`
         Applies to zone with convective heater
         This is for tilted surfaces with heat flow for stable thermal stratification
-        
-        {u'note': [u'Applies to zone with convective heater', u'This is for tilted surfaces with heat flow for stable thermal stratification'], u'default': u'WaltonStableHorizontalOrTilt', u'type': u'choice', u'key': [u'WaltonStableHorizontalOrTilt', u'AlamdariHammondStableHorizontal', u'UserCurve'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Convective Zone Heater Stable Tilted Equation Source`
@@ -5668,8 +5492,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
     def convective_zone_heater_stable_tilted_equation_user_curve_name(self, value=None):
         """  Corresponds to IDD Field `Convective Zone Heater Stable Tilted Equation User Curve Name`
         The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
-        
-        {u'note': [u'The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve'], u'type': u'object-list', u'object-list': u'UserConvectionInsideModels', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Convective Zone Heater Stable Tilted Equation User Curve Name`
@@ -5707,8 +5529,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
         """  Corresponds to IDD Field `Convective Zone Heater Unstable Tilted Equation Source`
         Applies to zone with convective heater
         This is for tilted surfaces with heat flow for unstable thermal stratification
-        
-        {u'note': [u'Applies to zone with convective heater', u'This is for tilted surfaces with heat flow for unstable thermal stratification'], u'default': u'WaltonUnstableHorizontalOrTilt', u'type': u'choice', u'key': [u'WaltonUnstableHorizontalOrTilt', u'AlamdariHammondUnstableHorizontal', u'UserCurve'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Convective Zone Heater Unstable Tilted Equation Source`
@@ -5768,8 +5588,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
     def convective_zone_heater_unstable_tilted_equation_user_curve_name(self, value=None):
         """  Corresponds to IDD Field `Convective Zone Heater Unstable Tilted Equation User Curve Name`
         The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
-        
-        {u'note': [u'The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve'], u'type': u'object-list', u'object-list': u'UserConvectionInsideModels', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Convective Zone Heater Unstable Tilted Equation User Curve Name`
@@ -5807,8 +5625,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
         """  Corresponds to IDD Field `Convective Zone Heater Windows Equation Source`
         Applies to zone with convective heater
         This is for all window surfaces
-        
-        {u'note': [u'Applies to zone with convective heater', u'This is for all window surfaces'], u'default': u'ISO15099Windows', u'type': u'choice', u'key': [u'ASHRAEVerticalWall', u'AlamdariHammondVerticalWall', u'KhalifaEq3WallAwayFromHeat', u'FohannoPolidoriVerticalWall', u'ISO15099Windows', u'UserCurve'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Convective Zone Heater Windows Equation Source`
@@ -5874,8 +5690,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
     def convective_zone_heater_windows_equation_user_curve_name(self, value=None):
         """  Corresponds to IDD Field `Convective Zone Heater Windows Equation User Curve Name`
         The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
-        
-        {u'note': [u'The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve'], u'type': u'object-list', u'object-list': u'UserConvectionInsideModels', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Convective Zone Heater Windows Equation User Curve Name`
@@ -5913,8 +5727,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
         """  Corresponds to IDD Field `Central Air Diffuser Wall Equation Source`
         Applies to zone with mechanical forced central air with diffusers
         This is for all wall surfaces
-        
-        {u'note': [u'Applies to zone with mechanical forced central air with diffusers', u'This is for all wall surfaces'], u'default': u'GoldsteinNovoselacCeilingDiffuserWalls', u'type': u'choice', u'key': [u'ASHRAEVerticalWall', u'FisherPedersenCeilingDiffuserWalls', u'AlamdariHammondVerticalWall', u'BeausoleilMorrisonMixedAssistedWall', u'BeausoleilMorrisonMixedOpposingWall', u'FohannoPolidoriVerticalWall', u'ISO15099Windows', u'GoldsteinNovoselacCeilingDiffuserWalls', u'UserCurve'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Central Air Diffuser Wall Equation Source`
@@ -5986,8 +5798,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
     def central_air_diffuser_wall_equation_user_curve_name(self, value=None):
         """  Corresponds to IDD Field `Central Air Diffuser Wall Equation User Curve Name`
         The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
-        
-        {u'note': [u'The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve'], u'type': u'object-list', u'object-list': u'UserConvectionInsideModels', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Central Air Diffuser Wall Equation User Curve Name`
@@ -6025,8 +5835,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
         """  Corresponds to IDD Field `Central Air Diffuser Ceiling Equation Source`
         Applies to zone with mechanical forced central air with diffusers
         This is for all ceiling surfaces
-        
-        {u'note': [u'Applies to zone with mechanical forced central air with diffusers', u'This is for all ceiling surfaces'], u'default': u'FisherPedersenCeilingDiffuserCeiling', u'type': u'choice', u'key': [u'FisherPedersenCeilingDiffuserCeiling', u'BeausoleilMorrisonMixedStableCeiling', u'BeausoleilMorrisonMixedUnstableCeiling', u'UserCurve'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Central Air Diffuser Ceiling Equation Source`
@@ -6088,8 +5896,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
     def central_air_diffuser_ceiling_equation_user_curve_name(self, value=None):
         """  Corresponds to IDD Field `Central Air Diffuser Ceiling Equation User Curve Name`
         The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
-        
-        {u'note': [u'The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve'], u'type': u'object-list', u'object-list': u'UserConvectionInsideModels', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Central Air Diffuser Ceiling Equation User Curve Name`
@@ -6127,8 +5933,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
         """  Corresponds to IDD Field `Central Air Diffuser Floor Equation Source`
         Applies to zone with mechanical forced central air with diffusers
         This is for all floor surfaces
-        
-        {u'note': [u'Applies to zone with mechanical forced central air with diffusers', u'This is for all floor surfaces'], u'default': u'GoldsteinNovoselacCeilingDiffuserFloor', u'type': u'choice', u'key': [u'FisherPedersenCeilingDiffuserFloor', u'BeausoleilMorrisonMixedStableFloor', u'BeausoleilMorrisonMixedUnstableFloor', u'GoldsteinNovoselacCeilingDiffuserFloor', u'UserCurve'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Central Air Diffuser Floor Equation Source`
@@ -6192,8 +5996,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
     def central_air_diffuser_floor_equation_user_curve_name(self, value=None):
         """  Corresponds to IDD Field `Central Air Diffuser Floor Equation User Curve Name`
         The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
-        
-        {u'note': [u'The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve'], u'type': u'object-list', u'object-list': u'UserConvectionInsideModels', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Central Air Diffuser Floor Equation User Curve Name`
@@ -6231,8 +6033,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
         """  Corresponds to IDD Field `Central Air Diffuser Window Equation Source`
         Applies to zone with mechanical forced central air with diffusers
         This is for all window surfaces
-        
-        {u'note': [u'Applies to zone with mechanical forced central air with diffusers', u'This is for all window surfaces'], u'default': u'GoldsteinNovoselacCeilingDiffuserWindow', u'type': u'choice', u'key': [u'ASHRAEVerticalWall', u'FisherPedersenCeilingDiffuserWalls', u'BeausoleilMorrisonMixedAssistedWall', u'BeausoleilMorrisonMixedOpposingWall', u'FohannoPolidoriVerticalWall', u'AlamdariHammondVerticalWall', u'ISO15099Windows', u'GoldsteinNovoselacCeilingDiffuserWindow', u'UserCurve'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Central Air Diffuser Window Equation Source`
@@ -6304,8 +6104,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
     def central_air_diffuser_window_equation_user_curve_name(self, value=None):
         """  Corresponds to IDD Field `Central Air Diffuser Window Equation User Curve Name`
         The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
-        
-        {u'note': [u'The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve'], u'type': u'object-list', u'object-list': u'UserConvectionInsideModels', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Central Air Diffuser Window Equation User Curve Name`
@@ -6342,8 +6140,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
     def mechanical_zone_fan_circulation_vertical_wall_equation_source(self, value="KhalifaEq3WallAwayFromHeat"):
         """  Corresponds to IDD Field `Mechanical Zone Fan Circulation Vertical Wall Equation Source`
         reference choice fields
-        
-        {u'note': [u'reference choice fields'], u'default': u'KhalifaEq3WallAwayFromHeat', u'type': u'choice', u'key': [u'KhalifaEq3WallAwayFromHeat', u'ASHRAEVerticalWall', u'FisherPedersenCeilingDiffuserWalls', u'AlamdariHammondVerticalWall', u'BeausoleilMorrisonMixedAssistedWall', u'BeausoleilMorrisonMixedOpposingWall', u'FohannoPolidoriVerticalWall', u'ISO15099Windows', u'GoldsteinNovoselacCeilingDiffuserWalls', u'UserCurve'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Mechanical Zone Fan Circulation Vertical Wall Equation Source`
@@ -6417,8 +6213,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
     def mechanical_zone_fan_circulation_vertical_wall_equation_user_curve_name(self, value=None):
         """  Corresponds to IDD Field `Mechanical Zone Fan Circulation Vertical Wall Equation User Curve Name`
         The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
-        
-        {u'note': [u'The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve'], u'type': u'object-list', u'object-list': u'UserConvectionInsideModels', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Mechanical Zone Fan Circulation Vertical Wall Equation User Curve Name`
@@ -6455,8 +6249,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
     def mechanical_zone_fan_circulation_stable_horizontal_equation_source(self, value="AlamdariHammondStableHorizontal"):
         """  Corresponds to IDD Field `Mechanical Zone Fan Circulation Stable Horizontal Equation Source`
         reference choice fields
-        
-        {u'note': [u'reference choice fields'], u'default': u'AlamdariHammondStableHorizontal', u'type': u'choice', u'key': [u'WaltonStableHorizontalOrTilt', u'AlamdariHammondStableHorizontal', u'UserCurve'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Mechanical Zone Fan Circulation Stable Horizontal Equation Source`
@@ -6516,8 +6308,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
     def mechanical_zone_fan_circulation_stable_horizontal_equation_user_curve_name(self, value=None):
         """  Corresponds to IDD Field `Mechanical Zone Fan Circulation Stable Horizontal Equation User Curve Name`
         The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
-        
-        {u'note': [u'The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve'], u'type': u'object-list', u'object-list': u'UserConvectionInsideModels', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Mechanical Zone Fan Circulation Stable Horizontal Equation User Curve Name`
@@ -6554,8 +6344,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
     def mechanical_zone_fan_circulation_unstable_horizontal_equation_source(self, value="KhalifaEq4CeilingAwayFromHeat"):
         """  Corresponds to IDD Field `Mechanical Zone Fan Circulation Unstable Horizontal Equation Source`
         reference choice fields
-        
-        {u'note': [u'reference choice fields'], u'default': u'KhalifaEq4CeilingAwayFromHeat', u'type': u'choice', u'key': [u'KhalifaEq4CeilingAwayFromHeat', u'WaltonUnstableHorizontalOrTilt', u'AlamdariHammondUnstableHorizontal', u'UserCurve'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Mechanical Zone Fan Circulation Unstable Horizontal Equation Source`
@@ -6617,8 +6405,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
     def mechanical_zone_fan_circulation_unstable_horizontal_equation_user_curve_name(self, value=None):
         """  Corresponds to IDD Field `Mechanical Zone Fan Circulation Unstable Horizontal Equation User Curve Name`
         The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
-        
-        {u'note': [u'The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve'], u'type': u'object-list', u'object-list': u'UserConvectionInsideModels', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Mechanical Zone Fan Circulation Unstable Horizontal Equation User Curve Name`
@@ -6655,8 +6441,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
     def mechanical_zone_fan_circulation_stable_tilted_equation_source(self, value="WaltonStableHorizontalOrTilt"):
         """  Corresponds to IDD Field `Mechanical Zone Fan Circulation Stable Tilted Equation Source`
         reference choice fields
-        
-        {u'note': [u'reference choice fields'], u'default': u'WaltonStableHorizontalOrTilt', u'type': u'choice', u'key': [u'WaltonStableHorizontalOrTilt', u'UserCurve'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Mechanical Zone Fan Circulation Stable Tilted Equation Source`
@@ -6714,8 +6498,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
     def mechanical_zone_fan_circulation_stable_tilted_equation_user_curve_name(self, value=None):
         """  Corresponds to IDD Field `Mechanical Zone Fan Circulation Stable Tilted Equation User Curve Name`
         The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
-        
-        {u'note': [u'The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve'], u'type': u'object-list', u'object-list': u'UserConvectionInsideModels', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Mechanical Zone Fan Circulation Stable Tilted Equation User Curve Name`
@@ -6752,8 +6534,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
     def mechanical_zone_fan_circulation_unstable_tilted_equation_source(self, value="WaltonUnstableHorizontalOrTilt"):
         """  Corresponds to IDD Field `Mechanical Zone Fan Circulation Unstable Tilted Equation Source`
         reference choice fields
-        
-        {u'note': [u'reference choice fields'], u'default': u'WaltonUnstableHorizontalOrTilt', u'type': u'choice', u'key': [u'WaltonUnstableHorizontalOrTilt', u'AlamdariHammondUnstableHorizontal', u'UserCurve'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Mechanical Zone Fan Circulation Unstable Tilted Equation Source`
@@ -6813,8 +6593,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
     def mechanical_zone_fan_circulation_unstable_tilted_equation_user_curve_name(self, value=None):
         """  Corresponds to IDD Field `Mechanical Zone Fan Circulation Unstable Tilted Equation User Curve Name`
         The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
-        
-        {u'note': [u'The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve'], u'type': u'object-list', u'object-list': u'UserConvectionInsideModels', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Mechanical Zone Fan Circulation Unstable Tilted Equation User Curve Name`
@@ -6851,8 +6629,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
     def mechanical_zone_fan_circulation_window_equation_source(self, value="ISO15099Windows"):
         """  Corresponds to IDD Field `Mechanical Zone Fan Circulation Window Equation Source`
         reference choice fields
-        
-        {u'note': [u'reference choice fields'], u'default': u'ISO15099Windows', u'type': u'choice', u'key': [u'ASHRAEVerticalWall', u'AlamdariHammondVerticalWall', u'FohannoPolidoriVerticalWall', u'ISO15099Windows', u'GoldsteinNovoselacCeilingDiffuserWindow', u'UserCurve'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Mechanical Zone Fan Circulation Window Equation Source`
@@ -6918,8 +6694,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
     def mechanical_zone_fan_circulation_window_equation_user_curve_name(self, value=None):
         """  Corresponds to IDD Field `Mechanical Zone Fan Circulation Window Equation User Curve Name`
         The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
-        
-        {u'note': [u'The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve'], u'type': u'object-list', u'object-list': u'UserConvectionInsideModels', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Mechanical Zone Fan Circulation Window Equation User Curve Name`
@@ -6956,8 +6730,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
     def mixed_regime_bouyancy_assisting_flow_on_walls_equation_source(self, value="BeausoleilMorrisonMixedAssistedWall"):
         """  Corresponds to IDD Field `Mixed Regime Bouyancy Assisting Flow on Walls Equation Source`
         reference choice fields
-        
-        {u'note': [u'reference choice fields'], u'default': u'BeausoleilMorrisonMixedAssistedWall', u'type': u'choice', u'key': [u'BeausoleilMorrisonMixedAssistedWall', u'AlamdariHammondVerticalWall', u'FohannoPolidoriVerticalWall', u'ASHRAEVerticalWall', u'FisherPedersenCeilingDiffuserWalls', u'GoldsteinNovoselacCeilingDiffuserWalls', u'UserCurve'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Mixed Regime Bouyancy Assisting Flow on Walls Equation Source`
@@ -7025,8 +6797,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
     def mixed_regime_bouyancy_assisting_flow_on_walls_equation_user_curve_name(self, value=None):
         """  Corresponds to IDD Field `Mixed Regime Bouyancy Assisting Flow on Walls Equation User Curve Name`
         The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
-        
-        {u'note': [u'The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve'], u'type': u'object-list', u'object-list': u'UserConvectionInsideModels', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Mixed Regime Bouyancy Assisting Flow on Walls Equation User Curve Name`
@@ -7063,8 +6833,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
     def mixed_regime_bouyancy_oppossing_flow_on_walls_equation_source(self, value="BeausoleilMorrisonMixedOpposingWall"):
         """  Corresponds to IDD Field `Mixed Regime Bouyancy Oppossing Flow on Walls Equation Source`
         reference choice fields
-        
-        {u'note': [u'reference choice fields'], u'default': u'BeausoleilMorrisonMixedOpposingWall', u'type': u'choice', u'key': [u'BeausoleilMorrisonMixedOpposingWall', u'AlamdariHammondVerticalWall', u'FohannoPolidoriVerticalWall', u'ASHRAEVerticalWall', u'FisherPedersenCeilingDiffuserWalls', u'GoldsteinNovoselacCeilingDiffuserWalls', u'UserCurve'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Mixed Regime Bouyancy Oppossing Flow on Walls Equation Source`
@@ -7132,8 +6900,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
     def mixed_regime_bouyancy_oppossing_flow_on_walls_equation_user_curve_name(self, value=None):
         """  Corresponds to IDD Field `Mixed Regime Bouyancy Oppossing Flow on Walls Equation User Curve Name`
         The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
-        
-        {u'note': [u'The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve'], u'type': u'object-list', u'object-list': u'UserConvectionInsideModels', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Mixed Regime Bouyancy Oppossing Flow on Walls Equation User Curve Name`
@@ -7170,8 +6936,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
     def mixed_regime_stable_floor_equation_source(self, value="BeausoleilMorrisonMixedStableFloor"):
         """  Corresponds to IDD Field `Mixed Regime Stable Floor Equation Source`
         reference choice fields
-        
-        {u'note': [u'reference choice fields'], u'default': u'BeausoleilMorrisonMixedStableFloor', u'type': u'choice', u'key': [u'BeausoleilMorrisonMixedStableFloor', u'WaltonStableHorizontalOrTilt', u'AlamdariHammondStableHorizontal', u'UserCurve'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Mixed Regime Stable Floor Equation Source`
@@ -7233,8 +6997,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
     def mixed_regime_stable_floor_equation_user_curve_name(self, value=None):
         """  Corresponds to IDD Field `Mixed Regime Stable Floor Equation User Curve Name`
         The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
-        
-        {u'note': [u'The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve'], u'type': u'object-list', u'object-list': u'UserConvectionInsideModels', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Mixed Regime Stable Floor Equation User Curve Name`
@@ -7271,8 +7033,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
     def mixed_regime_unstable_floor_equation_source(self, value="BeausoleilMorrisonMixedUnstableFloor"):
         """  Corresponds to IDD Field `Mixed Regime Unstable Floor Equation Source`
         reference choice fields
-        
-        {u'note': [u'reference choice fields'], u'default': u'BeausoleilMorrisonMixedUnstableFloor', u'type': u'choice', u'key': [u'BeausoleilMorrisonMixedUnstableFloor', u'WaltonUnstableHorizontalOrTilt', u'AlamdariHammondUnstableHorizontal', u'UserCurve'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Mixed Regime Unstable Floor Equation Source`
@@ -7334,8 +7094,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
     def mixed_regime_unstable_floor_equation_user_curve_name(self, value=None):
         """  Corresponds to IDD Field `Mixed Regime Unstable Floor Equation User Curve Name`
         The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
-        
-        {u'note': [u'The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve'], u'type': u'object-list', u'object-list': u'UserConvectionInsideModels', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Mixed Regime Unstable Floor Equation User Curve Name`
@@ -7372,8 +7130,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
     def mixed_regime_stable_ceiling_equation_source(self, value="BeausoleilMorrisonMixedStableCeiling"):
         """  Corresponds to IDD Field `Mixed Regime Stable Ceiling Equation Source`
         reference choice fields
-        
-        {u'note': [u'reference choice fields'], u'default': u'BeausoleilMorrisonMixedStableCeiling', u'type': u'choice', u'key': [u'BeausoleilMorrisonMixedStableCeiling', u'WaltonStableHorizontalOrTilt', u'AlamdariHammondStableHorizontal', u'UserCurve'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Mixed Regime Stable Ceiling Equation Source`
@@ -7435,8 +7191,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
     def mixed_regime_stable_ceiling_equation_user_curve_name(self, value=None):
         """  Corresponds to IDD Field `Mixed Regime Stable Ceiling Equation User Curve Name`
         The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
-        
-        {u'note': [u'The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve'], u'type': u'object-list', u'object-list': u'UserConvectionInsideModels', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Mixed Regime Stable Ceiling Equation User Curve Name`
@@ -7473,8 +7227,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
     def mixed_regime_unstable_ceiling_equation_source(self, value="BeausoleilMorrisonMixedUnstableCeiling"):
         """  Corresponds to IDD Field `Mixed Regime Unstable Ceiling Equation Source`
         reference choice fields
-        
-        {u'note': [u'reference choice fields'], u'default': u'BeausoleilMorrisonMixedUnstableCeiling', u'type': u'choice', u'key': [u'BeausoleilMorrisonMixedUnstableCeiling', u'WaltonUnstableHorizontalOrTilt', u'AlamdariHammondUnstableHorizontal', u'UserCurve'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Mixed Regime Unstable Ceiling Equation Source`
@@ -7536,8 +7288,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
     def mixed_regime_unstable_ceiling_equation_user_curve_name(self, value=None):
         """  Corresponds to IDD Field `Mixed Regime Unstable Ceiling Equation User Curve Name`
         The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
-        
-        {u'note': [u'The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve'], u'type': u'object-list', u'object-list': u'UserConvectionInsideModels', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Mixed Regime Unstable Ceiling Equation User Curve Name`
@@ -7574,8 +7324,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
     def mixed_regime_window_equation_source(self, value="GoldsteinNovoselacCeilingDiffuserWindow"):
         """  Corresponds to IDD Field `Mixed Regime Window Equation Source`
         reference choice fields
-        
-        {u'note': [u'reference choice fields'], u'default': u'GoldsteinNovoselacCeilingDiffuserWindow', u'type': u'choice', u'key': [u'GoldsteinNovoselacCeilingDiffuserWindow', u'ISO15099Windows', u'UserCurve'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Mixed Regime Window Equation Source`
@@ -7635,8 +7383,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
     def mixed_regime_window_equation_user_curve_name(self, value=None):
         """  Corresponds to IDD Field `Mixed Regime Window Equation User Curve Name`
         The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
-        
-        {u'note': [u'The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve'], u'type': u'object-list', u'object-list': u'UserConvectionInsideModels', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Mixed Regime Window Equation User Curve Name`
@@ -7836,8 +7582,6 @@ class SurfaceConvectionAlgorithmOutsideAdaptiveModelSelections(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -7873,8 +7617,6 @@ class SurfaceConvectionAlgorithmOutsideAdaptiveModelSelections(object):
     @wind_convection_windward_vertical_wall_equation_source.setter
     def wind_convection_windward_vertical_wall_equation_source(self, value="TARPWindward"):
         """  Corresponds to IDD Field `Wind Convection Windward Vertical Wall Equation Source`
-        
-        {u'default': u'TARPWindward', u'type': u'choice', u'key': [u'SimpleCombined', u'TARPWindward', u'MoWiTTWindward', u'DOE2Windward', u'NusseltJurges', u'McAdams', u'Mitchell', u'BlockenWindward', u'EmmelVertical', u'UserCurve'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Wind Convection Windward Vertical Wall Equation Source`
@@ -7948,8 +7690,6 @@ class SurfaceConvectionAlgorithmOutsideAdaptiveModelSelections(object):
     def wind_convection_windward_equation_vertical_wall_user_curve_name(self, value=None):
         """  Corresponds to IDD Field `Wind Convection Windward Equation Vertical Wall User Curve Name`
         The SurfaceConvectionAlgorithm:Outside:UserCurve named in this field is used when the previous field is set to UserCurve
-        
-        {u'note': [u'The SurfaceConvectionAlgorithm:Outside:UserCurve named in this field is used when the previous field is set to UserCurve'], u'type': u'object-list', u'object-list': u'UserConvectionOutsideModels', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Wind Convection Windward Equation Vertical Wall User Curve Name`
@@ -7985,8 +7725,6 @@ class SurfaceConvectionAlgorithmOutsideAdaptiveModelSelections(object):
     @wind_convection_leeward_vertical_wall_equation_source.setter
     def wind_convection_leeward_vertical_wall_equation_source(self, value="TARPLeeward"):
         """  Corresponds to IDD Field `Wind Convection Leeward Vertical Wall Equation Source`
-        
-        {u'default': u'TARPLeeward', u'type': u'choice', u'key': [u'SimpleCombined', u'TARPLeeward', u'MoWiTTLeeward', u'DOE2Leeward', u'EmmelVertical', u'NusseltJurges', u'McAdams', u'Mitchell', u'UserCurve'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Wind Convection Leeward Vertical Wall Equation Source`
@@ -8058,8 +7796,6 @@ class SurfaceConvectionAlgorithmOutsideAdaptiveModelSelections(object):
     def wind_convection_leeward_vertical_wall_equation_user_curve_name(self, value=None):
         """  Corresponds to IDD Field `Wind Convection Leeward Vertical Wall Equation User Curve Name`
         The SurfaceConvectionAlgorithm:Outside:UserCurve named in this field is used when the previous field is set to UserCurve
-        
-        {u'note': [u'The SurfaceConvectionAlgorithm:Outside:UserCurve named in this field is used when the previous field is set to UserCurve'], u'type': u'object-list', u'object-list': u'UserConvectionOutsideModels', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Wind Convection Leeward Vertical Wall Equation User Curve Name`
@@ -8095,8 +7831,6 @@ class SurfaceConvectionAlgorithmOutsideAdaptiveModelSelections(object):
     @wind_convection_horizontal_roof_equation_source.setter
     def wind_convection_horizontal_roof_equation_source(self, value="ClearRoof"):
         """  Corresponds to IDD Field `Wind Convection Horizontal Roof Equation Source`
-        
-        {u'default': u'ClearRoof', u'type': u'choice', u'key': [u'SimpleCombined', u'TARPWindward', u'MoWiTTWindward', u'DOE2Windward', u'NusseltJurges', u'McAdams', u'Mitchell', u'BlockenWindward', u'EmmelRoof', u'ClearRoof', u'UserCurve'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Wind Convection Horizontal Roof Equation Source`
@@ -8172,8 +7906,6 @@ class SurfaceConvectionAlgorithmOutsideAdaptiveModelSelections(object):
     def wind_convection_horizontal_roof_user_curve_name(self, value=None):
         """  Corresponds to IDD Field `Wind Convection Horizontal Roof User Curve Name`
         The SurfaceConvectionAlgorithm:Outside:UserCurve named in this field is used when the previous field is set to UserCurve
-        
-        {u'note': [u'The SurfaceConvectionAlgorithm:Outside:UserCurve named in this field is used when the previous field is set to UserCurve'], u'type': u'object-list', u'object-list': u'UserConvectionOutsideModels', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Wind Convection Horizontal Roof User Curve Name`
@@ -8210,8 +7942,6 @@ class SurfaceConvectionAlgorithmOutsideAdaptiveModelSelections(object):
     def natural_convection_vertical_wall_equation_source(self, value="ASHRAEVerticalWall"):
         """  Corresponds to IDD Field `Natural Convection Vertical Wall Equation Source`
         This is for vertical walls
-        
-        {u'note': [u'This is for vertical walls'], u'default': u'ASHRAEVerticalWall', u'type': u'choice', u'key': [u'ASHRAEVerticalWall', u'AlamdariHammondVerticalWall', u'FohannoPolidoriVerticalWall', u'ISO15099Windows', u'UserCurve', u'None'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Natural Convection Vertical Wall Equation Source`
@@ -8277,8 +8007,6 @@ class SurfaceConvectionAlgorithmOutsideAdaptiveModelSelections(object):
     def natural_convection_vertical_wall_equation_user_curve_name(self, value=None):
         """  Corresponds to IDD Field `Natural Convection Vertical Wall Equation User Curve Name`
         The SurfaceConvectionAlgorithm:Outside:UserCurve named in this field is used when the previous field is set to UserCurve
-        
-        {u'note': [u'The SurfaceConvectionAlgorithm:Outside:UserCurve named in this field is used when the previous field is set to UserCurve'], u'type': u'object-list', u'object-list': u'UserConvectionOutsideModels', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Natural Convection Vertical Wall Equation User Curve Name`
@@ -8315,8 +8043,6 @@ class SurfaceConvectionAlgorithmOutsideAdaptiveModelSelections(object):
     def natural_convection_stable_horizontal_equation_source(self, value="WaltonStableHorizontalOrTilt"):
         """  Corresponds to IDD Field `Natural Convection Stable Horizontal Equation Source`
         This is for horizontal surfaces with heat flow directed for stable thermal stratification
-        
-        {u'note': [u'This is for horizontal surfaces with heat flow directed for stable thermal stratification'], u'default': u'WaltonStableHorizontalOrTilt', u'type': u'choice', u'key': [u'WaltonStableHorizontalOrTilt', u'AlamdariHammondStableHorizontal', u'UserCurve', u'None'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Natural Convection Stable Horizontal Equation Source`
@@ -8378,8 +8104,6 @@ class SurfaceConvectionAlgorithmOutsideAdaptiveModelSelections(object):
     def natural_convection_stable_horizontal_equation_user_curve_name(self, value=None):
         """  Corresponds to IDD Field `Natural Convection Stable Horizontal Equation User Curve Name`
         The SurfaceConvectionAlgorithm:Outside:UserCurve named in this field is used when the previous field is set to UserCurve
-        
-        {u'note': [u'The SurfaceConvectionAlgorithm:Outside:UserCurve named in this field is used when the previous field is set to UserCurve'], u'type': u'object-list', u'object-list': u'UserConvectionOutsideModels', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Natural Convection Stable Horizontal Equation User Curve Name`
@@ -8415,8 +8139,6 @@ class SurfaceConvectionAlgorithmOutsideAdaptiveModelSelections(object):
     @natural_convection_unstable_horizontal_equation_source.setter
     def natural_convection_unstable_horizontal_equation_source(self, value="WaltonUnstableHorizontalOrTilt"):
         """  Corresponds to IDD Field `Natural Convection Unstable Horizontal Equation Source`
-        
-        {u'default': u'WaltonUnstableHorizontalOrTilt', u'type': u'choice', u'key': [u'WaltonUnstableHorizontalOrTilt', u'AlamdariHammondUnstableHorizontal', u'UserCurve', u'None'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Natural Convection Unstable Horizontal Equation Source`
@@ -8478,8 +8200,6 @@ class SurfaceConvectionAlgorithmOutsideAdaptiveModelSelections(object):
     def natural_convection_unstable_horizontal_equation_user_curve_name(self, value=None):
         """  Corresponds to IDD Field `Natural Convection Unstable Horizontal Equation User Curve Name`
         The SurfaceConvectionAlgorithm:Outside:UserCurve named in this field is used when the previous field is set to UserCurve
-        
-        {u'note': [u'The SurfaceConvectionAlgorithm:Outside:UserCurve named in this field is used when the previous field is set to UserCurve'], u'type': u'object-list', u'object-list': u'UserConvectionOutsideModels', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Natural Convection Unstable Horizontal Equation User Curve Name`
@@ -8622,8 +8342,6 @@ class SurfaceConvectionAlgorithmInsideUserCurve(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {'type': 'alpha', u'reference': u'UserConvectionModels', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -8660,8 +8378,6 @@ class SurfaceConvectionAlgorithmInsideUserCurve(object):
     def reference_temperature_for_convection_heat_transfer(self, value=None):
         """  Corresponds to IDD Field `Reference Temperature for Convection Heat Transfer`
         Controls which temperature is differenced from surface temperature when using the Hc value
-        
-        {u'note': [u'Controls which temperature is differenced from surface temperature when using the Hc value'], u'type': u'choice', u'key': [u'MeanAirTemperature', u'AdjacentAirTemperature', u'SupplyAirTemperature'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Reference Temperature for Convection Heat Transfer`
@@ -8721,8 +8437,6 @@ class SurfaceConvectionAlgorithmInsideUserCurve(object):
         """  Corresponds to IDD Field `Hc Function of Temperature Difference Curve Name`
         Curve's "x" is absolute value of delta-T (Surface temperature minus reference temperature, (C))
         Table:OneIndependentVariable objects can also be used
-        
-        {u'note': [u'Curve\'s "x" is absolute value of delta-T (Surface temperature minus reference temperature, (C))', u'Table:OneIndependentVariable objects can also be used'], u'type': u'alpha', u'object-list': u'ExponentCurves', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Hc Function of Temperature Difference Curve Name`
@@ -8761,8 +8475,6 @@ class SurfaceConvectionAlgorithmInsideUserCurve(object):
         Curve's "x" is absolute value of delta-T/Height (Surface temp minus Air temp)/(vertical length scale), (C/m)
         when used for an inside face the vertical length scale is the zone's interior height
         Table:OneIndependentVariable object can also be used
-        
-        {u'note': [u'Curve\'s "x" is absolute value of delta-T/Height (Surface temp minus Air temp)/(vertical length scale), (C/m)', u"when used for an inside face the vertical length scale is the zone's interior height", u'Table:OneIndependentVariable object can also be used'], 'type': 'alpha', u'object-list': u'ExponentCurves', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Hc Function of Temperature Difference Divided by Height Curve Name`
@@ -8800,8 +8512,6 @@ class SurfaceConvectionAlgorithmInsideUserCurve(object):
         """  Corresponds to IDD Field `Hc Function of Air Change Rate Curve Name`
         Curve's "x" is mechanical ACH (Air Changes per hour from mechanical air system), (1/hr)
         Table:OneIndependentVariable objects can also be used
-        
-        {u'note': [u'Curve\'s "x" is mechanical ACH (Air Changes per hour from mechanical air system), (1/hr)', u'Table:OneIndependentVariable objects can also be used'], 'type': 'alpha', u'object-list': u'ExponentCurves', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Hc Function of Air Change Rate Curve Name`
@@ -8840,8 +8550,6 @@ class SurfaceConvectionAlgorithmInsideUserCurve(object):
         Curve's "x" is mechanical system air flow rate (m3/s) divided by zone's length along
         exterior walls (m).
         Table:OneIndependentVariable object can also be used
-        
-        {u'note': [u'Curve\'s "x" is mechanical system air flow rate (m3/s) divided by zone\'s length along', u'exterior walls (m).', u'Table:OneIndependentVariable object can also be used'], 'type': 'alpha', u'object-list': u'ExponentCurves', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Hc Function of Air System Volume Flow Rate Divided by Zone Perimeter Length Curve Name`
@@ -8976,8 +8684,6 @@ class SurfaceConvectionAlgorithmOutsideUserCurve(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {'type': 'alpha', u'reference': u'UserConvectionModels', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -9013,8 +8719,6 @@ class SurfaceConvectionAlgorithmOutsideUserCurve(object):
     @wind_speed_type_for_curve.setter
     def wind_speed_type_for_curve(self, value="HeightAdjust"):
         """  Corresponds to IDD Field `Wind Speed Type for Curve`
-        
-        {u'default': u'HeightAdjust', u'type': u'choice', u'key': [u'WeatherFile', u'HeightAdjust', u'ParallelComponent', u'ParallelComponentHeightAdjust'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Wind Speed Type for Curve`
@@ -9077,8 +8781,6 @@ class SurfaceConvectionAlgorithmOutsideUserCurve(object):
         """  Corresponds to IDD Field `Hf Function of Wind Speed Curve Name`
         Curve's "x" is wind speed of the type determined in the previous field (m/s)
         Table:OneIndependentVariable objects can also be used
-        
-        {u'note': [u'Curve\'s "x" is wind speed of the type determined in the previous field (m/s)', u'Table:OneIndependentVariable objects can also be used'], 'type': 'alpha', u'object-list': u'ExponentCurves', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Hf Function of Wind Speed Curve Name`
@@ -9116,8 +8818,6 @@ class SurfaceConvectionAlgorithmOutsideUserCurve(object):
         """  Corresponds to IDD Field `Hn Function of Temperature Difference Curve Name`
         Curve's "x" is absolute value of delta-T (Surface temperature minus air temperature, (C))
         Table:OneIndependentVariable object can also be used
-        
-        {u'note': [u'Curve\'s "x" is absolute value of delta-T (Surface temperature minus air temperature, (C))', u'Table:OneIndependentVariable object can also be used'], 'type': 'alpha', u'object-list': u'ExponentCurves', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Hn Function of Temperature Difference Curve Name`
@@ -9156,8 +8856,6 @@ class SurfaceConvectionAlgorithmOutsideUserCurve(object):
         Curve's "x" is absolute value of delta-T/Height (Surface temp minus Air temp)/(vertical length scale), (C/m)
         when used for an outside face the vertical length scale is the exterior facade's overall height
         Table:OneIndependentVariable object can also be used
-        
-        {u'note': [u'Curve\'s "x" is absolute value of delta-T/Height (Surface temp minus Air temp)/(vertical length scale), (C/m)', u"when used for an outside face the vertical length scale is the exterior facade's overall height", u'Table:OneIndependentVariable object can also be used'], 'type': 'alpha', u'object-list': u'ExponentCurves', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Hn Function of Temperature Difference Divided by Height Curve Name`
@@ -9345,8 +9043,6 @@ class SurfacePropertyConvectionCoefficients(object):
     @surface_name.setter
     def surface_name(self, value=None):
         """  Corresponds to IDD Field `Surface Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface Name`
@@ -9382,8 +9078,6 @@ class SurfacePropertyConvectionCoefficients(object):
     @convection_coefficient_1_location.setter
     def convection_coefficient_1_location(self, value=None):
         """  Corresponds to IDD Field `Convection Coefficient 1 Location`
-        
-        {u'type': u'choice', u'key': [u'Outside', u'Inside'], u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Convection Coefficient 1 Location`
@@ -9439,8 +9133,6 @@ class SurfacePropertyConvectionCoefficients(object):
     @convection_coefficient_1_type.setter
     def convection_coefficient_1_type(self, value=None):
         """  Corresponds to IDD Field `Convection Coefficient 1 Type`
-        
-        {u'type': u'choice', u'key': [u'Value', u'Schedule', u'UserCurve', u'Simple', u'SimpleCombined', u'TARP', u'DOE-2', u'MoWitt', u'AdaptiveConvectionAlgorithm', u'ASHRAEVerticalWall', u'WaltonUnstableHorizontalOrTilt', u'WaltonStableHorizontalOrTilt', u'FisherPedersenCeilingDiffuserWalls', u'FisherPedersenCeilingDiffuserCeiling', u'FisherPedersenCeilingDiffuserFloor', u'AlamdariHammondStableHorizontal', u'AlamdariHammondUnstableHorizontal', u'AlamdariHammondVerticalWall', u'KhalifaEq3WallAwayFromHeat', u'KhalifaEq4CeilingAwayFromHeat', u'KhalifaEq5WallNearHeat', u'KhalifaEq6NonHeatedWalls', u'KhalifaEq7Ceiling', u'AwbiHattonHeatedFloor', u'AwbiHattonHeatedWall', u'BeausoleilMorrisonMixedAssistedWall', u'BeausoleilMorrisonMixedOpposingWall', u'BeausoleilMorrisonMixedStableFloor', u'BeausoleilMorrisonMixedUnstableFloor', u'BeausoleilMorrisonMixedStableCeiling', u'BeausoleilMorrisonMixedUnstableCeiling', u'FohannoPolidoriVerticalWall', u'KaradagChilledCeiling', u'ISO15099Windows', u'GoldsteinNovoselacCeilingDiffuserWindow', u'GoldsteinNovoselacCeilingDiffuserWalls', u'GoldsteinNovoselacCeilingDiffuserFloor', u'NusseltJurges', u'McAdams', u'Mitchell', u'EmmelVertical', u'EmmelRoof', u'ClearRoof'], u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Convection Coefficient 1 Type`
@@ -9580,8 +9272,6 @@ class SurfacePropertyConvectionCoefficients(object):
         """  Corresponds to IDD Field `Convection Coefficient 1`
         used if Convection Type=Value, min and max limits are set in HeatBalanceAlgorithm object.
         Default limits are Minimum >= 0.1 and Maximum <= 1000
-        
-        {u'note': [u'used if Convection Type=Value, min and max limits are set in HeatBalanceAlgorithm object.', u'Default limits are Minimum >= 0.1 and Maximum <= 1000'], u'units': u'W/m2-K', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Convection Coefficient 1`
@@ -9614,8 +9304,6 @@ class SurfacePropertyConvectionCoefficients(object):
         """  Corresponds to IDD Field `Convection Coefficient 1 Schedule Name`
         used if Convection Type=Schedule,  min and max limits are set in HeatBalanceAlgorithm object.
         Default limits are Minimum >= 0.1 and Maximum <= 1000
-        
-        {u'note': [u'used if Convection Type=Schedule,  min and max limits are set in HeatBalanceAlgorithm object.', u'Default limits are Minimum >= 0.1 and Maximum <= 1000'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Convection Coefficient 1 Schedule Name`
@@ -9652,8 +9340,6 @@ class SurfacePropertyConvectionCoefficients(object):
     def convection_coefficient_1_user_curve_name(self, value=None):
         """  Corresponds to IDD Field `Convection Coefficient 1 User Curve Name`
         used if Convection Type = UserCurve
-        
-        {u'note': [u'used if Convection Type = UserCurve'], u'type': u'object-list', u'object-list': u'UserConvectionModels', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Convection Coefficient 1 User Curve Name`
@@ -9689,8 +9375,6 @@ class SurfacePropertyConvectionCoefficients(object):
     @convection_coefficient_2_location.setter
     def convection_coefficient_2_location(self, value=None):
         """  Corresponds to IDD Field `Convection Coefficient 2 Location`
-        
-        {u'type': u'choice', u'key': [u'Outside', u'Inside'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Convection Coefficient 2 Location`
@@ -9746,8 +9430,6 @@ class SurfacePropertyConvectionCoefficients(object):
     @convection_coefficient_2_type.setter
     def convection_coefficient_2_type(self, value=None):
         """  Corresponds to IDD Field `Convection Coefficient 2 Type`
-        
-        {u'type': u'choice', u'key': [u'Value', u'Schedule', u'UserCurve', u'Simple', u'SimpleCombined', u'TARP', u'DOE-2', u'MoWitt', u'AdaptiveConvectionAlgorithm', u'ASHRAEVerticalWall', u'WaltonUnstableHorizontalOrTilt', u'WaltonStableHorizontalOrTilt', u'FisherPedersenCeilingDiffuserWalls', u'FisherPedersenCeilingDiffuserCeiling', u'FisherPedersenCeilingDiffuserFloor', u'AlamdariHammondStableHorizontal', u'AlamdariHammondUnstableHorizontal', u'AlamdariHammondVerticalWall', u'KhalifaEq3WallAwayFromHeat', u'KhalifaEq4CeilingAwayFromHeat', u'KhalifaEq5WallNearHeat', u'KhalifaEq6NonHeatedWalls', u'KhalifaEq7Ceiling', u'AwbiHattonHeatedFloor', u'AwbiHattonHeatedWall', u'BeausoleilMorrisonMixedAssistedWall', u'BeausoleilMorrisonMixedOpposingWall', u'BeausoleilMorrisonMixedStableFloor', u'BeausoleilMorrisonMixedUnstableFloor', u'BeausoleilMorrisonMixedStableCeiling', u'BeausoleilMorrisonMixedUnstableCeiling', u'FohannoPolidoriVerticalWall', u'KaradagChilledCeiling', u'ISO15099Windows', u'GoldsteinNovoselacCeilingDiffuserWindow', u'GoldsteinNovoselacCeilingDiffuserWalls', u'GoldsteinNovoselacCeilingDiffuserFloor', u'NusseltJurges', u'McAdams', u'Mitchell', u'EmmelVertical', u'EmmelRoof', u'ClearRoof'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Convection Coefficient 2 Type`
@@ -9883,12 +9565,10 @@ class SurfacePropertyConvectionCoefficients(object):
         return self._data["Convection Coefficient 2"]
 
     @convection_coefficient_2.setter
-    def convection_coefficient_2(self, value=0.1 ):
+    def convection_coefficient_2(self, value=0.1):
         """  Corresponds to IDD Field `Convection Coefficient 2`
         used if Convection Type=Value, min and max limits are set in HeatBalanceAlgorithm object.
         Default limits are Minimum >= 0.1 and Maximum <= 1000
-        
-        {u'note': [u'used if Convection Type=Value, min and max limits are set in HeatBalanceAlgorithm object.', u'Default limits are Minimum >= 0.1 and Maximum <= 1000'], u'default': '0.1', u'units': u'W/m2-K', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Convection Coefficient 2`
@@ -9922,8 +9602,6 @@ class SurfacePropertyConvectionCoefficients(object):
         """  Corresponds to IDD Field `Convection Coefficient 2 Schedule Name`
         used if Convection Type=Schedule,  min and max limits are set in HeatBalanceAlgorithm object.
         Default limits are Minimum >= 0.1 and Maximum <= 1000
-        
-        {u'note': [u'used if Convection Type=Schedule,  min and max limits are set in HeatBalanceAlgorithm object.', u'Default limits are Minimum >= 0.1 and Maximum <= 1000'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Convection Coefficient 2 Schedule Name`
@@ -9960,8 +9638,6 @@ class SurfacePropertyConvectionCoefficients(object):
     def convection_coefficient_2_user_curve_name(self, value=None):
         """  Corresponds to IDD Field `Convection Coefficient 2 User Curve Name`
         used if Convection Type = UserCurve
-        
-        {u'note': [u'used if Convection Type = UserCurve'], u'type': u'object-list', u'object-list': u'UserConvectionModels', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Convection Coefficient 2 User Curve Name`
@@ -10149,8 +9825,6 @@ class SurfacePropertyConvectionCoefficientsMultipleSurface(object):
     @surface_type.setter
     def surface_type(self, value=None):
         """  Corresponds to IDD Field `Surface Type`
-        
-        {u'type': u'choice', u'key': [u'AllExteriorSurfaces', u'AllExteriorWindows', u'AllExteriorWalls', u'AllExteriorRoofs', u'AllExteriorFloors', u'AllInteriorSurfaces', u'AllInteriorWalls', u'AllInteriorWindows', u'AllInteriorCeilings', u'AllInteriorFloors'], u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface Type`
@@ -10222,8 +9896,6 @@ class SurfacePropertyConvectionCoefficientsMultipleSurface(object):
     @convection_coefficient_1_location.setter
     def convection_coefficient_1_location(self, value=None):
         """  Corresponds to IDD Field `Convection Coefficient 1 Location`
-        
-        {u'type': u'choice', u'key': [u'Outside', u'Inside'], u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Convection Coefficient 1 Location`
@@ -10279,8 +9951,6 @@ class SurfacePropertyConvectionCoefficientsMultipleSurface(object):
     @convection_coefficient_1_type.setter
     def convection_coefficient_1_type(self, value=None):
         """  Corresponds to IDD Field `Convection Coefficient 1 Type`
-        
-        {u'type': u'choice', u'key': [u'Value', u'Schedule', u'Simple', u'SimpleCombined', u'TARP', u'DOE-2', u'MoWitt', u'AdaptiveConvectionAlgorithm', u'ASHRAEVerticalWall', u'WaltonUnstableHorizontalOrTilt', u'WaltonStableHorizontalOrTilt', u'FisherPedersenCeilingDiffuserWalls', u'FisherPedersenCeilingDiffuserCeiling', u'FisherPedersenCeilingDiffuserFloor', u'AlamdariHammondStableHorizontal', u'AlamdariHammondUnstableHorizontal', u'AlamdariHammondVerticalWall', u'KhalifaEq3WallAwayFromHeat', u'KhalifaEq4CeilingAwayFromHeat', u'KhalifaEq5WallNearHeat', u'KhalifaEq6NonHeatedWalls', u'KhalifaEq7Ceiling', u'AwbiHattonHeatedFloor', u'AwbiHattonHeatedWall', u'BeausoleilMorrisonMixedAssistedWall', u'BeausoleilMorrisonMixedOpposingWall', u'BeausoleilMorrisonMixedStableFloor', u'BeausoleilMorrisonMixedUnstableFloor', u'BeausoleilMorrisonMixedStableCeiling', u'BeausoleilMorrisonMixedUnstableCeiling', u'FohannoPolidoriVerticalWall', u'KaradagChilledCeiling', u'ISO15099Windows', u'GoldsteinNovoselacCeilingDiffuserWindow', u'GoldsteinNovoselacCeilingDiffuserWalls', u'GoldsteinNovoselacCeilingDiffuserFloor', u'NusseltJurges', u'McAdams', u'Mitchell', u'BlockenWindard', u'EmmelVertical', u'EmmelRoof', u'ClearRoof', u'UserCurve'], u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Convection Coefficient 1 Type`
@@ -10422,8 +10092,6 @@ class SurfacePropertyConvectionCoefficientsMultipleSurface(object):
         """  Corresponds to IDD Field `Convection Coefficient 1`
         used if Convection Type=Value, min and max limits are set in HeatBalanceAlgorithm object.
         Default limits are Minimum >= 0.1 and Maximum <= 1000
-        
-        {u'note': [u'used if Convection Type=Value, min and max limits are set in HeatBalanceAlgorithm object.', u'Default limits are Minimum >= 0.1 and Maximum <= 1000'], u'units': u'W/m2-K', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Convection Coefficient 1`
@@ -10456,8 +10124,6 @@ class SurfacePropertyConvectionCoefficientsMultipleSurface(object):
         """  Corresponds to IDD Field `Convection Coefficient 1 Schedule Name`
         used if Convection Type=Schedule,  min and max limits are set in HeatBalanceAlgorithm object.
         Default limits are Minimum >= 0.1 and Maximum <= 1000
-        
-        {u'note': [u'used if Convection Type=Schedule,  min and max limits are set in HeatBalanceAlgorithm object.', u'Default limits are Minimum >= 0.1 and Maximum <= 1000'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Convection Coefficient 1 Schedule Name`
@@ -10494,8 +10160,6 @@ class SurfacePropertyConvectionCoefficientsMultipleSurface(object):
     def convection_coefficient_1_user_curve_name(self, value=None):
         """  Corresponds to IDD Field `Convection Coefficient 1 User Curve Name`
         used if Convection Type = UserCurve
-        
-        {u'note': [u'used if Convection Type = UserCurve'], u'type': u'object-list', u'object-list': u'UserConvectionModels', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Convection Coefficient 1 User Curve Name`
@@ -10531,8 +10195,6 @@ class SurfacePropertyConvectionCoefficientsMultipleSurface(object):
     @convection_coefficient_2_location.setter
     def convection_coefficient_2_location(self, value=None):
         """  Corresponds to IDD Field `Convection Coefficient 2 Location`
-        
-        {u'type': u'choice', u'key': [u'Outside', u'Inside'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Convection Coefficient 2 Location`
@@ -10588,8 +10250,6 @@ class SurfacePropertyConvectionCoefficientsMultipleSurface(object):
     @convection_coefficient_2_type.setter
     def convection_coefficient_2_type(self, value=None):
         """  Corresponds to IDD Field `Convection Coefficient 2 Type`
-        
-        {u'type': u'choice', u'key': [u'Value', u'Schedule', u'Simple', u'SimpleCombined', u'TARP', u'DOE-2', u'MoWitt', u'AdaptiveConvectionAlgorithm', u'ASHRAEVerticalWall', u'WaltonUnstableHorizontalOrTilt', u'WaltonStableHorizontalOrTilt', u'FisherPedersenCeilingDiffuserWalls', u'FisherPedersenCeilingDiffuserCeiling', u'FisherPedersenCeilingDiffuserFloor', u'AlamdariHammondStableHorizontal', u'AlamdariHammondUnstableHorizontal', u'AlamdariHammondVerticalWall', u'KhalifaEq3WallAwayFromHeat', u'KhalifaEq4CeilingAwayFromHeat', u'KhalifaEq5WallNearHeat', u'KhalifaEq6NonHeatedWalls', u'KhalifaEq7Ceiling', u'AwbiHattonHeatedFloor', u'AwbiHattonHeatedWall', u'BeausoleilMorrisonMixedAssistedWall', u'BeausoleilMorrisonMixedOpposingWall', u'BeausoleilMorrisonMixedStableFloor', u'BeausoleilMorrisonMixedUnstableFloor', u'BeausoleilMorrisonMixedStableCeiling', u'BeausoleilMorrisonMixedUnstableCeiling', u'FohannoPolidoriVerticalWall', u'KaradagChilledCeiling', u'ISO15099Windows', u'GoldsteinNovoselacCeilingDiffuserWindow', u'GoldsteinNovoselacCeilingDiffuserWalls', u'GoldsteinNovoselacCeilingDiffuserFloor', u'NusseltJurges', u'McAdams', u'Mitchell', u'BlockenWindard', u'EmmelVertical', u'EmmelRoof', u'ClearRoof', u'UserCurve'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Convection Coefficient 2 Type`
@@ -10727,12 +10387,10 @@ class SurfacePropertyConvectionCoefficientsMultipleSurface(object):
         return self._data["Convection Coefficient 2"]
 
     @convection_coefficient_2.setter
-    def convection_coefficient_2(self, value=0.1 ):
+    def convection_coefficient_2(self, value=0.1):
         """  Corresponds to IDD Field `Convection Coefficient 2`
         used if Convection Type=Value, min and max limits are set in HeatBalanceAlgorithm object.
         Default limits are Minimum >= 0.1 and Maximum <= 1000
-        
-        {u'note': [u'used if Convection Type=Value, min and max limits are set in HeatBalanceAlgorithm object.', u'Default limits are Minimum >= 0.1 and Maximum <= 1000'], u'default': '0.1', u'units': u'W/m2-K', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Convection Coefficient 2`
@@ -10766,8 +10424,6 @@ class SurfacePropertyConvectionCoefficientsMultipleSurface(object):
         """  Corresponds to IDD Field `Convection Coefficient 2 Schedule Name`
         used if Convection Type=Schedule,  min and max limits are set in HeatBalanceAlgorithm object.
         Default limits are Minimum >= 0.1 and Maximum <= 1000
-        
-        {u'note': [u'used if Convection Type=Schedule,  min and max limits are set in HeatBalanceAlgorithm object.', u'Default limits are Minimum >= 0.1 and Maximum <= 1000'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Convection Coefficient 2 Schedule Name`
@@ -10804,8 +10460,6 @@ class SurfacePropertyConvectionCoefficientsMultipleSurface(object):
     def convection_coefficient_2_user_curve_name(self, value=None):
         """  Corresponds to IDD Field `Convection Coefficient 2 User Curve Name`
         used if Convection Type = UserCurve
-        
-        {u'note': [u'used if Convection Type = UserCurve'], u'type': u'object-list', u'object-list': u'UserConvectionModels', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Convection Coefficient 2 User Curve Name`
@@ -10944,8 +10598,6 @@ class SurfacePropertiesVaporCoefficients(object):
     @surface_name.setter
     def surface_name(self, value=None):
         """  Corresponds to IDD Field `Surface Name`
-        
-        {u'type': u'object-list', u'object-list': u'SurfaceNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface Name`
@@ -10981,8 +10633,6 @@ class SurfacePropertiesVaporCoefficients(object):
     @constant_external_vapor_transfer_coefficient.setter
     def constant_external_vapor_transfer_coefficient(self, value="No"):
         """  Corresponds to IDD Field `Constant External Vapor Transfer Coefficient`
-        
-        {u'default': u'No', u'type': u'choice', u'key': [u'Yes', u'No'], u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Constant External Vapor Transfer Coefficient`
@@ -11037,10 +10687,8 @@ class SurfacePropertiesVaporCoefficients(object):
         return self._data["External Vapor Coefficient Value"]
 
     @external_vapor_coefficient_value.setter
-    def external_vapor_coefficient_value(self, value=0.0 ):
+    def external_vapor_coefficient_value(self, value=0.0):
         """  Corresponds to IDD Field `External Vapor Coefficient Value`
-        
-        {u'units': u'kg/Pa-s-m2', u'default': '0.0', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `External Vapor Coefficient Value`
@@ -11076,8 +10724,6 @@ class SurfacePropertiesVaporCoefficients(object):
     @constant_internal_vapor_transfer_coefficient.setter
     def constant_internal_vapor_transfer_coefficient(self, value="No"):
         """  Corresponds to IDD Field `Constant Internal vapor Transfer Coefficient`
-        
-        {u'default': u'No', u'type': u'choice', u'key': [u'Yes', u'No'], u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Constant Internal vapor Transfer Coefficient`
@@ -11132,10 +10778,8 @@ class SurfacePropertiesVaporCoefficients(object):
         return self._data["Internal Vapor Coefficient Value"]
 
     @internal_vapor_coefficient_value.setter
-    def internal_vapor_coefficient_value(self, value=0.0 ):
+    def internal_vapor_coefficient_value(self, value=0.0):
         """  Corresponds to IDD Field `Internal Vapor Coefficient Value`
-        
-        {u'units': u'kg/Pa-s-m2', u'default': '0.0', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Internal Vapor Coefficient Value`
@@ -11399,8 +11043,6 @@ class SurfacePropertyExteriorNaturalVentedCavity(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'reference': u'VentedCavityNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -11437,8 +11079,6 @@ class SurfacePropertyExteriorNaturalVentedCavity(object):
     def boundary_conditions_model_name(self, value=None):
         """  Corresponds to IDD Field `Boundary Conditions Model Name`
         Enter the name of a SurfaceProperty:OtherSideConditionsModel object
-        
-        {u'note': [u'Enter the name of a SurfaceProperty:OtherSideConditionsModel object'], u'type': u'object-list', u'object-list': u'OSCMNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Boundary Conditions Model Name`
@@ -11474,8 +11114,6 @@ class SurfacePropertyExteriorNaturalVentedCavity(object):
     @area_fraction_of_openings.setter
     def area_fraction_of_openings(self, value=None):
         """  Corresponds to IDD Field `Area Fraction of Openings`
-        
-        {u'units': u'dimensionless', u'minimum>': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Area Fraction of Openings`
@@ -11514,8 +11152,6 @@ class SurfacePropertyExteriorNaturalVentedCavity(object):
     @thermal_emissivity_of_exterior_baffle_material.setter
     def thermal_emissivity_of_exterior_baffle_material(self, value=None):
         """  Corresponds to IDD Field `Thermal Emissivity of Exterior Baffle Material`
-        
-        {u'units': u'dimensionless', u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Thermal Emissivity of Exterior Baffle Material`
@@ -11554,8 +11190,6 @@ class SurfacePropertyExteriorNaturalVentedCavity(object):
     @solar_absorbtivity_of_exterior_baffle.setter
     def solar_absorbtivity_of_exterior_baffle(self, value=None):
         """  Corresponds to IDD Field `Solar Absorbtivity of Exterior Baffle`
-        
-        {u'units': u'dimensionless', u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Solar Absorbtivity of Exterior Baffle`
@@ -11594,8 +11228,6 @@ class SurfacePropertyExteriorNaturalVentedCavity(object):
     @height_scale_for_buoyancydriven_ventilation.setter
     def height_scale_for_buoyancydriven_ventilation(self, value=None):
         """  Corresponds to IDD Field `Height Scale for Buoyancy-Driven Ventilation`
-        
-        {u'units': u'm', u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Height Scale for Buoyancy-Driven Ventilation`
@@ -11631,8 +11263,6 @@ class SurfacePropertyExteriorNaturalVentedCavity(object):
     def effective_thickness_of_cavity_behind_exterior_baffle(self, value=None):
         """  Corresponds to IDD Field `Effective Thickness of Cavity Behind Exterior Baffle`
         if corrugated, use average depth
-        
-        {u'units': u'm', u'note': [u'if corrugated, use average depth'], u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Effective Thickness of Cavity Behind Exterior Baffle`
@@ -11665,11 +11295,9 @@ class SurfacePropertyExteriorNaturalVentedCavity(object):
         return self._data["Ratio of Actual Surface Area to Projected Surface Area"]
 
     @ratio_of_actual_surface_area_to_projected_surface_area.setter
-    def ratio_of_actual_surface_area_to_projected_surface_area(self, value=1.0 ):
+    def ratio_of_actual_surface_area_to_projected_surface_area(self, value=1.0):
         """  Corresponds to IDD Field `Ratio of Actual Surface Area to Projected Surface Area`
         this parameter is used to help account for corrugations in the collector
-        
-        {'pytype': 'float', u'default': '1.0', u'maximum': '2.0', u'note': [u'this parameter is used to help account for corrugations in the collector'], u'minimum': '0.8', u'units': u'dimensionless', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Ratio of Actual Surface Area to Projected Surface Area`
@@ -11709,8 +11337,6 @@ class SurfacePropertyExteriorNaturalVentedCavity(object):
     @roughness_of_exterior_surface.setter
     def roughness_of_exterior_surface(self, value=None):
         """  Corresponds to IDD Field `Roughness of Exterior Surface`
-        
-        {u'type': u'choice', u'key': [u'VeryRough', u'Rough', u'MediumRough', u'MediumSmooth', u'Smooth', u'VerySmooth'], u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Roughness of Exterior Surface`
@@ -11772,10 +11398,8 @@ class SurfacePropertyExteriorNaturalVentedCavity(object):
         return self._data["Effectiveness for Perforations with Respect to Wind"]
 
     @effectiveness_for_perforations_with_respect_to_wind.setter
-    def effectiveness_for_perforations_with_respect_to_wind(self, value=0.25 ):
+    def effectiveness_for_perforations_with_respect_to_wind(self, value=0.25):
         """  Corresponds to IDD Field `Effectiveness for Perforations with Respect to Wind`
-        
-        {'pytype': 'float', u'default': '0.25', u'minimum>': '0.0', u'maximum': '1.5', u'units': u'dimensionless', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Effectiveness for Perforations with Respect to Wind`
@@ -11813,10 +11437,8 @@ class SurfacePropertyExteriorNaturalVentedCavity(object):
         return self._data["Discharge Coefficient for Openings with Respect to Buoyancy Driven Flow"]
 
     @discharge_coefficient_for_openings_with_respect_to_buoyancy_driven_flow.setter
-    def discharge_coefficient_for_openings_with_respect_to_buoyancy_driven_flow(self, value=0.65 ):
+    def discharge_coefficient_for_openings_with_respect_to_buoyancy_driven_flow(self, value=0.65):
         """  Corresponds to IDD Field `Discharge Coefficient for Openings with Respect to Buoyancy Driven Flow`
-        
-        {'pytype': 'float', u'default': '0.65', u'minimum>': '0.0', u'maximum': '1.5', u'units': u'dimensionless', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Discharge Coefficient for Openings with Respect to Buoyancy Driven Flow`
@@ -11856,8 +11478,6 @@ class SurfacePropertyExteriorNaturalVentedCavity(object):
     @surface_1_name.setter
     def surface_1_name(self, value=None):
         """  Corresponds to IDD Field `Surface 1 Name`
-        
-        {'pytype': 'str', u'type': u'object-list', u'object-list': u'AllShadingAndHTSurfNames', u'required-field': True, u'begin-extensible': u''}
 
         Args:
             value (str): value for IDD Field `Surface 1 Name`
@@ -11893,8 +11513,6 @@ class SurfacePropertyExteriorNaturalVentedCavity(object):
     @surface_2_name.setter
     def surface_2_name(self, value=None):
         """  Corresponds to IDD Field `Surface 2 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllShadingAndHTSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 2 Name`
@@ -11930,8 +11548,6 @@ class SurfacePropertyExteriorNaturalVentedCavity(object):
     @surface_3_name.setter
     def surface_3_name(self, value=None):
         """  Corresponds to IDD Field `Surface 3 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllShadingAndHTSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 3 Name`
@@ -11967,8 +11583,6 @@ class SurfacePropertyExteriorNaturalVentedCavity(object):
     @surface_4_name.setter
     def surface_4_name(self, value=None):
         """  Corresponds to IDD Field `Surface 4 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllShadingAndHTSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 4 Name`
@@ -12004,8 +11618,6 @@ class SurfacePropertyExteriorNaturalVentedCavity(object):
     @surface_5_name.setter
     def surface_5_name(self, value=None):
         """  Corresponds to IDD Field `Surface 5 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllShadingAndHTSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 5 Name`
@@ -12041,8 +11653,6 @@ class SurfacePropertyExteriorNaturalVentedCavity(object):
     @surface_6_name.setter
     def surface_6_name(self, value=None):
         """  Corresponds to IDD Field `Surface 6 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllShadingAndHTSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 6 Name`
@@ -12078,8 +11688,6 @@ class SurfacePropertyExteriorNaturalVentedCavity(object):
     @surface_7_name.setter
     def surface_7_name(self, value=None):
         """  Corresponds to IDD Field `Surface 7 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllShadingAndHTSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 7 Name`
@@ -12115,8 +11723,6 @@ class SurfacePropertyExteriorNaturalVentedCavity(object):
     @surface_8_name.setter
     def surface_8_name(self, value=None):
         """  Corresponds to IDD Field `Surface 8 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllShadingAndHTSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 8 Name`
@@ -12152,8 +11758,6 @@ class SurfacePropertyExteriorNaturalVentedCavity(object):
     @surface_9_name.setter
     def surface_9_name(self, value=None):
         """  Corresponds to IDD Field `Surface 9 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllShadingAndHTSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 9 Name`
@@ -12189,8 +11793,6 @@ class SurfacePropertyExteriorNaturalVentedCavity(object):
     @surface_10_name.setter
     def surface_10_name(self, value=None):
         """  Corresponds to IDD Field `Surface 10 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllShadingAndHTSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 10 Name`
@@ -12317,8 +11919,6 @@ class SurfacePropertySolarIncidentInside(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {'type': 'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -12354,8 +11954,6 @@ class SurfacePropertySolarIncidentInside(object):
     @surface_name.setter
     def surface_name(self, value=None):
         """  Corresponds to IDD Field `Surface Name`
-        
-        {u'type': u'object-list', u'object-list': u'SurfaceNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface Name`
@@ -12391,8 +11989,6 @@ class SurfacePropertySolarIncidentInside(object):
     @construction_name.setter
     def construction_name(self, value=None):
         """  Corresponds to IDD Field `Construction Name`
-        
-        {u'type': u'object-list', u'object-list': u'ConstructionNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Construction Name`
@@ -12428,8 +12024,6 @@ class SurfacePropertySolarIncidentInside(object):
     @inside_surface_incident_sun_solar_radiation_schedule_name.setter
     def inside_surface_incident_sun_solar_radiation_schedule_name(self, value=None):
         """  Corresponds to IDD Field `Inside Surface Incident Sun Solar Radiation Schedule Name`
-        
-        {u'memo': [u'Values in schedule are expected to be in W/m2'], u'type': u'object-list', u'object-list': u'ScheduleNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Inside Surface Incident Sun Solar Radiation Schedule Name`
@@ -12588,8 +12182,6 @@ class ComplexFenestrationPropertySolarAbsorbedLayers(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {'type': 'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -12625,8 +12217,6 @@ class ComplexFenestrationPropertySolarAbsorbedLayers(object):
     @fenestration_surface.setter
     def fenestration_surface(self, value=None):
         """  Corresponds to IDD Field `Fenestration Surface`
-        
-        {u'type': u'object-list', u'object-list': u'SubSurfNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Fenestration Surface`
@@ -12662,8 +12252,6 @@ class ComplexFenestrationPropertySolarAbsorbedLayers(object):
     @construction_name.setter
     def construction_name(self, value=None):
         """  Corresponds to IDD Field `Construction Name`
-        
-        {u'type': u'object-list', u'object-list': u'ComplexFenestrationStates', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Construction Name`
@@ -12699,8 +12287,6 @@ class ComplexFenestrationPropertySolarAbsorbedLayers(object):
     @layer_1_solar_radiation_absorbed_schedule_name.setter
     def layer_1_solar_radiation_absorbed_schedule_name(self, value=None):
         """  Corresponds to IDD Field `Layer 1 Solar Radiation Absorbed Schedule Name`
-        
-        {u'memo': [u'Values in schedule are expected to be in W/m2'], u'type': u'object-list', u'object-list': u'ScheduleNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Layer 1 Solar Radiation Absorbed Schedule Name`
@@ -12736,8 +12322,6 @@ class ComplexFenestrationPropertySolarAbsorbedLayers(object):
     @layer_2_solar_radiation_absorbed_schedule_name.setter
     def layer_2_solar_radiation_absorbed_schedule_name(self, value=None):
         """  Corresponds to IDD Field `Layer 2 Solar Radiation Absorbed Schedule Name`
-        
-        {u'memo': [u'Values in schedule are expected to be in W/m2'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Layer 2 Solar Radiation Absorbed Schedule Name`
@@ -12773,8 +12357,6 @@ class ComplexFenestrationPropertySolarAbsorbedLayers(object):
     @layer_3_solar_radiation_absorbed_schedule_name.setter
     def layer_3_solar_radiation_absorbed_schedule_name(self, value=None):
         """  Corresponds to IDD Field `Layer 3 Solar Radiation Absorbed Schedule Name`
-        
-        {u'memo': [u'Values in schedule are expected to be in W/m2'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Layer 3 Solar Radiation Absorbed Schedule Name`
@@ -12810,8 +12392,6 @@ class ComplexFenestrationPropertySolarAbsorbedLayers(object):
     @layer_4_solar_radiation_absorbed_schedule_name.setter
     def layer_4_solar_radiation_absorbed_schedule_name(self, value=None):
         """  Corresponds to IDD Field `Layer 4 Solar Radiation Absorbed Schedule Name`
-        
-        {u'memo': [u'Values in schedule are expected to be in W/m2'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Layer 4 Solar Radiation Absorbed Schedule Name`
@@ -12847,8 +12427,6 @@ class ComplexFenestrationPropertySolarAbsorbedLayers(object):
     @layer_5_solar_radiation_absorbed_schedule_name.setter
     def layer_5_solar_radiation_absorbed_schedule_name(self, value=None):
         """  Corresponds to IDD Field `Layer 5 Solar Radiation Absorbed Schedule Name`
-        
-        {u'memo': [u'Values in schedule are expected to be in W/m2'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Layer 5 Solar Radiation Absorbed Schedule Name`
@@ -15855,8 +15433,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @zone_name.setter
     def zone_name(self, value=None):
         """  Corresponds to IDD Field `Zone Name`
-        
-        {u'type': u'object-list', u'object-list': u'ZoneNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Zone Name`
@@ -15892,8 +15468,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @from_surface_1.setter
     def from_surface_1(self, value=None):
         """  Corresponds to IDD Field `From Surface 1`
-        
-        {'pytype': 'str', u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', u'begin-extensible': u''}
 
         Args:
             value (str): value for IDD Field `From Surface 1`
@@ -15929,8 +15503,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @to_surface_1.setter
     def to_surface_1(self, value=None):
         """  Corresponds to IDD Field `To Surface 1`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `To Surface 1`
@@ -15967,8 +15539,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     def view_factor_1(self, value=None):
         """  Corresponds to IDD Field `View Factor 1`
         This value is the view factor value From Surface => To Surface
-        
-        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `View Factor 1`
@@ -16002,8 +15572,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @from_surface_2.setter
     def from_surface_2(self, value=None):
         """  Corresponds to IDD Field `From Surface 2`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `From Surface 2`
@@ -16039,8 +15607,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @to_surface_2.setter
     def to_surface_2(self, value=None):
         """  Corresponds to IDD Field `To Surface 2`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `To Surface 2`
@@ -16077,8 +15643,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     def view_factor_2(self, value=None):
         """  Corresponds to IDD Field `View Factor 2`
         This value is the view factor value From Surface => To Surface
-        
-        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `View Factor 2`
@@ -16112,8 +15676,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @from_surface_3.setter
     def from_surface_3(self, value=None):
         """  Corresponds to IDD Field `From Surface 3`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `From Surface 3`
@@ -16149,8 +15711,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @to_surface_3.setter
     def to_surface_3(self, value=None):
         """  Corresponds to IDD Field `To Surface 3`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `To Surface 3`
@@ -16187,8 +15747,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     def view_factor_3(self, value=None):
         """  Corresponds to IDD Field `View Factor 3`
         This value is the view factor value From Surface => To Surface
-        
-        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `View Factor 3`
@@ -16222,8 +15780,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @from_surface_4.setter
     def from_surface_4(self, value=None):
         """  Corresponds to IDD Field `From Surface 4`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `From Surface 4`
@@ -16259,8 +15815,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @to_surface_4.setter
     def to_surface_4(self, value=None):
         """  Corresponds to IDD Field `To Surface 4`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `To Surface 4`
@@ -16297,8 +15851,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     def view_factor_4(self, value=None):
         """  Corresponds to IDD Field `View Factor 4`
         This value is the view factor value From Surface => To Surface
-        
-        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `View Factor 4`
@@ -16332,8 +15884,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @from_surface_5.setter
     def from_surface_5(self, value=None):
         """  Corresponds to IDD Field `From Surface 5`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `From Surface 5`
@@ -16369,8 +15919,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @to_surface_5.setter
     def to_surface_5(self, value=None):
         """  Corresponds to IDD Field `To Surface 5`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `To Surface 5`
@@ -16407,8 +15955,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     def view_factor_5(self, value=None):
         """  Corresponds to IDD Field `View Factor 5`
         This value is the view factor value From Surface => To Surface
-        
-        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `View Factor 5`
@@ -16442,8 +15988,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @from_surface_6.setter
     def from_surface_6(self, value=None):
         """  Corresponds to IDD Field `From Surface 6`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `From Surface 6`
@@ -16479,8 +16023,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @to_surface_6.setter
     def to_surface_6(self, value=None):
         """  Corresponds to IDD Field `To Surface 6`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `To Surface 6`
@@ -16517,8 +16059,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     def view_factor_6(self, value=None):
         """  Corresponds to IDD Field `View Factor 6`
         This value is the view factor value From Surface => To Surface
-        
-        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `View Factor 6`
@@ -16552,8 +16092,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @from_surface_7.setter
     def from_surface_7(self, value=None):
         """  Corresponds to IDD Field `From Surface 7`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `From Surface 7`
@@ -16589,8 +16127,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @to_surface_7.setter
     def to_surface_7(self, value=None):
         """  Corresponds to IDD Field `To Surface 7`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `To Surface 7`
@@ -16627,8 +16163,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     def view_factor_7(self, value=None):
         """  Corresponds to IDD Field `View Factor 7`
         This value is the view factor value From Surface => To Surface
-        
-        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `View Factor 7`
@@ -16662,8 +16196,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @from_surface_8.setter
     def from_surface_8(self, value=None):
         """  Corresponds to IDD Field `From Surface 8`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `From Surface 8`
@@ -16699,8 +16231,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @to_surface_8.setter
     def to_surface_8(self, value=None):
         """  Corresponds to IDD Field `To Surface 8`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `To Surface 8`
@@ -16737,8 +16267,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     def view_factor_8(self, value=None):
         """  Corresponds to IDD Field `View Factor 8`
         This value is the view factor value From Surface => To Surface
-        
-        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `View Factor 8`
@@ -16772,8 +16300,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @from_surface_9.setter
     def from_surface_9(self, value=None):
         """  Corresponds to IDD Field `From Surface 9`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `From Surface 9`
@@ -16809,8 +16335,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @to_surface_9.setter
     def to_surface_9(self, value=None):
         """  Corresponds to IDD Field `To Surface 9`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `To Surface 9`
@@ -16847,8 +16371,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     def view_factor_9(self, value=None):
         """  Corresponds to IDD Field `View Factor 9`
         This value is the view factor value From Surface => To Surface
-        
-        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `View Factor 9`
@@ -16882,8 +16404,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @from_surface_10.setter
     def from_surface_10(self, value=None):
         """  Corresponds to IDD Field `From Surface 10`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `From Surface 10`
@@ -16919,8 +16439,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @to_surface_10.setter
     def to_surface_10(self, value=None):
         """  Corresponds to IDD Field `To Surface 10`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `To Surface 10`
@@ -16957,8 +16475,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     def view_factor_10(self, value=None):
         """  Corresponds to IDD Field `View Factor 10`
         This value is the view factor value From Surface => To Surface
-        
-        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `View Factor 10`
@@ -16992,8 +16508,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @from_surface_11.setter
     def from_surface_11(self, value=None):
         """  Corresponds to IDD Field `From Surface 11`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `From Surface 11`
@@ -17029,8 +16543,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @to_surface_11.setter
     def to_surface_11(self, value=None):
         """  Corresponds to IDD Field `To Surface 11`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `To Surface 11`
@@ -17067,8 +16579,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     def view_factor_11(self, value=None):
         """  Corresponds to IDD Field `View Factor 11`
         This value is the view factor value From Surface => To Surface
-        
-        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `View Factor 11`
@@ -17102,8 +16612,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @from_surface_12.setter
     def from_surface_12(self, value=None):
         """  Corresponds to IDD Field `From Surface 12`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `From Surface 12`
@@ -17139,8 +16647,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @to_surface_12.setter
     def to_surface_12(self, value=None):
         """  Corresponds to IDD Field `To Surface 12`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `To Surface 12`
@@ -17177,8 +16683,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     def view_factor_12(self, value=None):
         """  Corresponds to IDD Field `View Factor 12`
         This value is the view factor value From Surface => To Surface
-        
-        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `View Factor 12`
@@ -17212,8 +16716,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @from_surface_13.setter
     def from_surface_13(self, value=None):
         """  Corresponds to IDD Field `From Surface 13`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `From Surface 13`
@@ -17249,8 +16751,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @to_surface_13.setter
     def to_surface_13(self, value=None):
         """  Corresponds to IDD Field `To Surface 13`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `To Surface 13`
@@ -17287,8 +16787,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     def view_factor_13(self, value=None):
         """  Corresponds to IDD Field `View Factor 13`
         This value is the view factor value From Surface => To Surface
-        
-        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `View Factor 13`
@@ -17322,8 +16820,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @from_surface_14.setter
     def from_surface_14(self, value=None):
         """  Corresponds to IDD Field `From Surface 14`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `From Surface 14`
@@ -17359,8 +16855,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @to_surface_14.setter
     def to_surface_14(self, value=None):
         """  Corresponds to IDD Field `To Surface 14`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `To Surface 14`
@@ -17397,8 +16891,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     def view_factor_14(self, value=None):
         """  Corresponds to IDD Field `View Factor 14`
         This value is the view factor value From Surface => To Surface
-        
-        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `View Factor 14`
@@ -17432,8 +16924,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @from_surface_15.setter
     def from_surface_15(self, value=None):
         """  Corresponds to IDD Field `From Surface 15`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `From Surface 15`
@@ -17469,8 +16959,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @to_surface_15.setter
     def to_surface_15(self, value=None):
         """  Corresponds to IDD Field `To Surface 15`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `To Surface 15`
@@ -17507,8 +16995,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     def view_factor_15(self, value=None):
         """  Corresponds to IDD Field `View Factor 15`
         This value is the view factor value From Surface => To Surface
-        
-        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `View Factor 15`
@@ -17542,8 +17028,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @from_surface_16.setter
     def from_surface_16(self, value=None):
         """  Corresponds to IDD Field `From Surface 16`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `From Surface 16`
@@ -17579,8 +17063,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @to_surface_16.setter
     def to_surface_16(self, value=None):
         """  Corresponds to IDD Field `To Surface 16`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `To Surface 16`
@@ -17617,8 +17099,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     def view_factor_16(self, value=None):
         """  Corresponds to IDD Field `View Factor 16`
         This value is the view factor value From Surface => To Surface
-        
-        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `View Factor 16`
@@ -17652,8 +17132,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @from_surface_17.setter
     def from_surface_17(self, value=None):
         """  Corresponds to IDD Field `From Surface 17`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `From Surface 17`
@@ -17689,8 +17167,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @to_surface_17.setter
     def to_surface_17(self, value=None):
         """  Corresponds to IDD Field `To Surface 17`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `To Surface 17`
@@ -17727,8 +17203,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     def view_factor_17(self, value=None):
         """  Corresponds to IDD Field `View Factor 17`
         This value is the view factor value From Surface => To Surface
-        
-        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `View Factor 17`
@@ -17762,8 +17236,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @from_surface_18.setter
     def from_surface_18(self, value=None):
         """  Corresponds to IDD Field `From Surface 18`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `From Surface 18`
@@ -17799,8 +17271,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @to_surface_18.setter
     def to_surface_18(self, value=None):
         """  Corresponds to IDD Field `To Surface 18`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `To Surface 18`
@@ -17837,8 +17307,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     def view_factor_18(self, value=None):
         """  Corresponds to IDD Field `View Factor 18`
         This value is the view factor value From Surface => To Surface
-        
-        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `View Factor 18`
@@ -17872,8 +17340,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @from_surface_19.setter
     def from_surface_19(self, value=None):
         """  Corresponds to IDD Field `From Surface 19`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `From Surface 19`
@@ -17909,8 +17375,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @to_surface_19.setter
     def to_surface_19(self, value=None):
         """  Corresponds to IDD Field `To Surface 19`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `To Surface 19`
@@ -17947,8 +17411,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     def view_factor_19(self, value=None):
         """  Corresponds to IDD Field `View Factor 19`
         This value is the view factor value From Surface => To Surface
-        
-        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `View Factor 19`
@@ -17982,8 +17444,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @from_surface_20.setter
     def from_surface_20(self, value=None):
         """  Corresponds to IDD Field `From Surface 20`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `From Surface 20`
@@ -18019,8 +17479,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @to_surface_20.setter
     def to_surface_20(self, value=None):
         """  Corresponds to IDD Field `To Surface 20`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `To Surface 20`
@@ -18057,8 +17515,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     def view_factor_20(self, value=None):
         """  Corresponds to IDD Field `View Factor 20`
         This value is the view factor value From Surface => To Surface
-        
-        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `View Factor 20`
@@ -18092,8 +17548,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @from_surface_21.setter
     def from_surface_21(self, value=None):
         """  Corresponds to IDD Field `From Surface 21`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `From Surface 21`
@@ -18129,8 +17583,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @to_surface_21.setter
     def to_surface_21(self, value=None):
         """  Corresponds to IDD Field `To Surface 21`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `To Surface 21`
@@ -18167,8 +17619,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     def view_factor_21(self, value=None):
         """  Corresponds to IDD Field `View Factor 21`
         This value is the view factor value From Surface => To Surface
-        
-        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `View Factor 21`
@@ -18202,8 +17652,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @from_surface_22.setter
     def from_surface_22(self, value=None):
         """  Corresponds to IDD Field `From Surface 22`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `From Surface 22`
@@ -18239,8 +17687,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @to_surface_22.setter
     def to_surface_22(self, value=None):
         """  Corresponds to IDD Field `To Surface 22`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `To Surface 22`
@@ -18277,8 +17723,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     def view_factor_22(self, value=None):
         """  Corresponds to IDD Field `View Factor 22`
         This value is the view factor value From Surface => To Surface
-        
-        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `View Factor 22`
@@ -18312,8 +17756,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @from_surface_23.setter
     def from_surface_23(self, value=None):
         """  Corresponds to IDD Field `From Surface 23`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `From Surface 23`
@@ -18349,8 +17791,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @to_surface_23.setter
     def to_surface_23(self, value=None):
         """  Corresponds to IDD Field `To Surface 23`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `To Surface 23`
@@ -18387,8 +17827,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     def view_factor_23(self, value=None):
         """  Corresponds to IDD Field `View Factor 23`
         This value is the view factor value From Surface => To Surface
-        
-        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `View Factor 23`
@@ -18422,8 +17860,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @from_surface_24.setter
     def from_surface_24(self, value=None):
         """  Corresponds to IDD Field `From Surface 24`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `From Surface 24`
@@ -18459,8 +17895,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @to_surface_24.setter
     def to_surface_24(self, value=None):
         """  Corresponds to IDD Field `To Surface 24`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `To Surface 24`
@@ -18497,8 +17931,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     def view_factor_24(self, value=None):
         """  Corresponds to IDD Field `View Factor 24`
         This value is the view factor value From Surface => To Surface
-        
-        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `View Factor 24`
@@ -18532,8 +17964,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @from_surface_25.setter
     def from_surface_25(self, value=None):
         """  Corresponds to IDD Field `From Surface 25`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `From Surface 25`
@@ -18569,8 +17999,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @to_surface_25.setter
     def to_surface_25(self, value=None):
         """  Corresponds to IDD Field `To Surface 25`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `To Surface 25`
@@ -18607,8 +18035,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     def view_factor_25(self, value=None):
         """  Corresponds to IDD Field `View Factor 25`
         This value is the view factor value From Surface => To Surface
-        
-        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `View Factor 25`
@@ -18642,8 +18068,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @from_surface_26.setter
     def from_surface_26(self, value=None):
         """  Corresponds to IDD Field `From Surface 26`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `From Surface 26`
@@ -18679,8 +18103,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @to_surface_26.setter
     def to_surface_26(self, value=None):
         """  Corresponds to IDD Field `To Surface 26`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `To Surface 26`
@@ -18717,8 +18139,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     def view_factor_26(self, value=None):
         """  Corresponds to IDD Field `View Factor 26`
         This value is the view factor value From Surface => To Surface
-        
-        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `View Factor 26`
@@ -18752,8 +18172,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @from_surface_27.setter
     def from_surface_27(self, value=None):
         """  Corresponds to IDD Field `From Surface 27`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `From Surface 27`
@@ -18789,8 +18207,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @to_surface_27.setter
     def to_surface_27(self, value=None):
         """  Corresponds to IDD Field `To Surface 27`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `To Surface 27`
@@ -18827,8 +18243,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     def view_factor_27(self, value=None):
         """  Corresponds to IDD Field `View Factor 27`
         This value is the view factor value From Surface => To Surface
-        
-        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `View Factor 27`
@@ -18862,8 +18276,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @from_surface_28.setter
     def from_surface_28(self, value=None):
         """  Corresponds to IDD Field `From Surface 28`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `From Surface 28`
@@ -18899,8 +18311,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @to_surface_28.setter
     def to_surface_28(self, value=None):
         """  Corresponds to IDD Field `To Surface 28`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `To Surface 28`
@@ -18937,8 +18347,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     def view_factor_28(self, value=None):
         """  Corresponds to IDD Field `View Factor 28`
         This value is the view factor value From Surface => To Surface
-        
-        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `View Factor 28`
@@ -18972,8 +18380,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @from_surface_29.setter
     def from_surface_29(self, value=None):
         """  Corresponds to IDD Field `From Surface 29`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `From Surface 29`
@@ -19009,8 +18415,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @to_surface_29.setter
     def to_surface_29(self, value=None):
         """  Corresponds to IDD Field `To Surface 29`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `To Surface 29`
@@ -19047,8 +18451,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     def view_factor_29(self, value=None):
         """  Corresponds to IDD Field `View Factor 29`
         This value is the view factor value From Surface => To Surface
-        
-        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `View Factor 29`
@@ -19082,8 +18484,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @from_surface_30.setter
     def from_surface_30(self, value=None):
         """  Corresponds to IDD Field `From Surface 30`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `From Surface 30`
@@ -19119,8 +18519,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @to_surface_30.setter
     def to_surface_30(self, value=None):
         """  Corresponds to IDD Field `To Surface 30`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `To Surface 30`
@@ -19157,8 +18555,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     def view_factor_30(self, value=None):
         """  Corresponds to IDD Field `View Factor 30`
         This value is the view factor value From Surface => To Surface
-        
-        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `View Factor 30`
@@ -19192,8 +18588,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @from_surface_31.setter
     def from_surface_31(self, value=None):
         """  Corresponds to IDD Field `From Surface 31`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `From Surface 31`
@@ -19229,8 +18623,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @to_surface_31.setter
     def to_surface_31(self, value=None):
         """  Corresponds to IDD Field `To Surface 31`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `To Surface 31`
@@ -19267,8 +18659,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     def view_factor_31(self, value=None):
         """  Corresponds to IDD Field `View Factor 31`
         This value is the view factor value From Surface => To Surface
-        
-        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `View Factor 31`
@@ -19302,8 +18692,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @from_surface_32.setter
     def from_surface_32(self, value=None):
         """  Corresponds to IDD Field `From Surface 32`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `From Surface 32`
@@ -19339,8 +18727,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @to_surface_32.setter
     def to_surface_32(self, value=None):
         """  Corresponds to IDD Field `To Surface 32`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `To Surface 32`
@@ -19377,8 +18763,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     def view_factor_32(self, value=None):
         """  Corresponds to IDD Field `View Factor 32`
         This value is the view factor value From Surface => To Surface
-        
-        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `View Factor 32`
@@ -19412,8 +18796,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @from_surface_33.setter
     def from_surface_33(self, value=None):
         """  Corresponds to IDD Field `From Surface 33`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `From Surface 33`
@@ -19449,8 +18831,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @to_surface_33.setter
     def to_surface_33(self, value=None):
         """  Corresponds to IDD Field `To Surface 33`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `To Surface 33`
@@ -19487,8 +18867,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     def view_factor_33(self, value=None):
         """  Corresponds to IDD Field `View Factor 33`
         This value is the view factor value From Surface => To Surface
-        
-        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `View Factor 33`
@@ -19522,8 +18900,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @from_surface_34.setter
     def from_surface_34(self, value=None):
         """  Corresponds to IDD Field `From Surface 34`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `From Surface 34`
@@ -19559,8 +18935,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @to_surface_34.setter
     def to_surface_34(self, value=None):
         """  Corresponds to IDD Field `To Surface 34`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `To Surface 34`
@@ -19597,8 +18971,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     def view_factor_34(self, value=None):
         """  Corresponds to IDD Field `View Factor 34`
         This value is the view factor value From Surface => To Surface
-        
-        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `View Factor 34`
@@ -19632,8 +19004,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @from_surface_35.setter
     def from_surface_35(self, value=None):
         """  Corresponds to IDD Field `From Surface 35`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `From Surface 35`
@@ -19669,8 +19039,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @to_surface_35.setter
     def to_surface_35(self, value=None):
         """  Corresponds to IDD Field `To Surface 35`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `To Surface 35`
@@ -19707,8 +19075,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     def view_factor_35(self, value=None):
         """  Corresponds to IDD Field `View Factor 35`
         This value is the view factor value From Surface => To Surface
-        
-        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `View Factor 35`
@@ -19742,8 +19108,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @from_surface_36.setter
     def from_surface_36(self, value=None):
         """  Corresponds to IDD Field `From Surface 36`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `From Surface 36`
@@ -19779,8 +19143,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @to_surface_36.setter
     def to_surface_36(self, value=None):
         """  Corresponds to IDD Field `To Surface 36`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `To Surface 36`
@@ -19817,8 +19179,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     def view_factor_36(self, value=None):
         """  Corresponds to IDD Field `View Factor 36`
         This value is the view factor value From Surface => To Surface
-        
-        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `View Factor 36`
@@ -19852,8 +19212,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @from_surface_37.setter
     def from_surface_37(self, value=None):
         """  Corresponds to IDD Field `From Surface 37`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `From Surface 37`
@@ -19889,8 +19247,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @to_surface_37.setter
     def to_surface_37(self, value=None):
         """  Corresponds to IDD Field `To Surface 37`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `To Surface 37`
@@ -19927,8 +19283,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     def view_factor_37(self, value=None):
         """  Corresponds to IDD Field `View Factor 37`
         This value is the view factor value From Surface => To Surface
-        
-        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `View Factor 37`
@@ -19962,8 +19316,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @from_surface_38.setter
     def from_surface_38(self, value=None):
         """  Corresponds to IDD Field `From Surface 38`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `From Surface 38`
@@ -19999,8 +19351,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @to_surface_38.setter
     def to_surface_38(self, value=None):
         """  Corresponds to IDD Field `To Surface 38`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `To Surface 38`
@@ -20037,8 +19387,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     def view_factor_38(self, value=None):
         """  Corresponds to IDD Field `View Factor 38`
         This value is the view factor value From Surface => To Surface
-        
-        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `View Factor 38`
@@ -20072,8 +19420,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @from_surface_39.setter
     def from_surface_39(self, value=None):
         """  Corresponds to IDD Field `From Surface 39`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `From Surface 39`
@@ -20109,8 +19455,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @to_surface_39.setter
     def to_surface_39(self, value=None):
         """  Corresponds to IDD Field `To Surface 39`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `To Surface 39`
@@ -20147,8 +19491,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     def view_factor_39(self, value=None):
         """  Corresponds to IDD Field `View Factor 39`
         This value is the view factor value From Surface => To Surface
-        
-        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `View Factor 39`
@@ -20182,8 +19524,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @from_surface_40.setter
     def from_surface_40(self, value=None):
         """  Corresponds to IDD Field `From Surface 40`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `From Surface 40`
@@ -20219,8 +19559,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @to_surface_40.setter
     def to_surface_40(self, value=None):
         """  Corresponds to IDD Field `To Surface 40`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `To Surface 40`
@@ -20257,8 +19595,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     def view_factor_40(self, value=None):
         """  Corresponds to IDD Field `View Factor 40`
         This value is the view factor value From Surface => To Surface
-        
-        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `View Factor 40`
@@ -20292,8 +19628,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @from_surface_41.setter
     def from_surface_41(self, value=None):
         """  Corresponds to IDD Field `From Surface 41`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `From Surface 41`
@@ -20329,8 +19663,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @to_surface_41.setter
     def to_surface_41(self, value=None):
         """  Corresponds to IDD Field `To Surface 41`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `To Surface 41`
@@ -20367,8 +19699,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     def view_factor_41(self, value=None):
         """  Corresponds to IDD Field `View Factor 41`
         This value is the view factor value From Surface => To Surface
-        
-        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `View Factor 41`
@@ -20402,8 +19732,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @from_surface_42.setter
     def from_surface_42(self, value=None):
         """  Corresponds to IDD Field `From Surface 42`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `From Surface 42`
@@ -20439,8 +19767,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @to_surface_42.setter
     def to_surface_42(self, value=None):
         """  Corresponds to IDD Field `To Surface 42`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `To Surface 42`
@@ -20477,8 +19803,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     def view_factor_42(self, value=None):
         """  Corresponds to IDD Field `View Factor 42`
         This value is the view factor value From Surface => To Surface
-        
-        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `View Factor 42`
@@ -20512,8 +19836,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @from_surface_43.setter
     def from_surface_43(self, value=None):
         """  Corresponds to IDD Field `From Surface 43`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `From Surface 43`
@@ -20549,8 +19871,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @to_surface_43.setter
     def to_surface_43(self, value=None):
         """  Corresponds to IDD Field `To Surface 43`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `To Surface 43`
@@ -20587,8 +19907,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     def view_factor_43(self, value=None):
         """  Corresponds to IDD Field `View Factor 43`
         This value is the view factor value From Surface => To Surface
-        
-        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `View Factor 43`
@@ -20622,8 +19940,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @from_surface_44.setter
     def from_surface_44(self, value=None):
         """  Corresponds to IDD Field `From Surface 44`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `From Surface 44`
@@ -20659,8 +19975,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @to_surface_44.setter
     def to_surface_44(self, value=None):
         """  Corresponds to IDD Field `To Surface 44`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `To Surface 44`
@@ -20697,8 +20011,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     def view_factor_44(self, value=None):
         """  Corresponds to IDD Field `View Factor 44`
         This value is the view factor value From Surface => To Surface
-        
-        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `View Factor 44`
@@ -20732,8 +20044,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @from_surface_45.setter
     def from_surface_45(self, value=None):
         """  Corresponds to IDD Field `From Surface 45`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `From Surface 45`
@@ -20769,8 +20079,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @to_surface_45.setter
     def to_surface_45(self, value=None):
         """  Corresponds to IDD Field `To Surface 45`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `To Surface 45`
@@ -20807,8 +20115,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     def view_factor_45(self, value=None):
         """  Corresponds to IDD Field `View Factor 45`
         This value is the view factor value From Surface => To Surface
-        
-        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `View Factor 45`
@@ -20842,8 +20148,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @from_surface_46.setter
     def from_surface_46(self, value=None):
         """  Corresponds to IDD Field `From Surface 46`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `From Surface 46`
@@ -20879,8 +20183,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @to_surface_46.setter
     def to_surface_46(self, value=None):
         """  Corresponds to IDD Field `To Surface 46`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `To Surface 46`
@@ -20917,8 +20219,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     def view_factor_46(self, value=None):
         """  Corresponds to IDD Field `View Factor 46`
         This value is the view factor value From Surface => To Surface
-        
-        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `View Factor 46`
@@ -20952,8 +20252,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @from_surface_47.setter
     def from_surface_47(self, value=None):
         """  Corresponds to IDD Field `From Surface 47`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `From Surface 47`
@@ -20989,8 +20287,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @to_surface_47.setter
     def to_surface_47(self, value=None):
         """  Corresponds to IDD Field `To Surface 47`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `To Surface 47`
@@ -21027,8 +20323,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     def view_factor_47(self, value=None):
         """  Corresponds to IDD Field `View Factor 47`
         This value is the view factor value From Surface => To Surface
-        
-        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `View Factor 47`
@@ -21062,8 +20356,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @from_surface_48.setter
     def from_surface_48(self, value=None):
         """  Corresponds to IDD Field `From Surface 48`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `From Surface 48`
@@ -21099,8 +20391,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @to_surface_48.setter
     def to_surface_48(self, value=None):
         """  Corresponds to IDD Field `To Surface 48`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `To Surface 48`
@@ -21137,8 +20427,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     def view_factor_48(self, value=None):
         """  Corresponds to IDD Field `View Factor 48`
         This value is the view factor value From Surface => To Surface
-        
-        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `View Factor 48`
@@ -21172,8 +20460,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @from_surface_49.setter
     def from_surface_49(self, value=None):
         """  Corresponds to IDD Field `From Surface 49`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `From Surface 49`
@@ -21209,8 +20495,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @to_surface_49.setter
     def to_surface_49(self, value=None):
         """  Corresponds to IDD Field `To Surface 49`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `To Surface 49`
@@ -21247,8 +20531,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     def view_factor_49(self, value=None):
         """  Corresponds to IDD Field `View Factor 49`
         This value is the view factor value From Surface => To Surface
-        
-        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `View Factor 49`
@@ -21282,8 +20564,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @from_surface_50.setter
     def from_surface_50(self, value=None):
         """  Corresponds to IDD Field `From Surface 50`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `From Surface 50`
@@ -21319,8 +20599,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @to_surface_50.setter
     def to_surface_50(self, value=None):
         """  Corresponds to IDD Field `To Surface 50`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `To Surface 50`
@@ -21357,8 +20635,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     def view_factor_50(self, value=None):
         """  Corresponds to IDD Field `View Factor 50`
         This value is the view factor value From Surface => To Surface
-        
-        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `View Factor 50`
@@ -21392,8 +20668,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @from_surface_51.setter
     def from_surface_51(self, value=None):
         """  Corresponds to IDD Field `From Surface 51`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `From Surface 51`
@@ -21429,8 +20703,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @to_surface_51.setter
     def to_surface_51(self, value=None):
         """  Corresponds to IDD Field `To Surface 51`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `To Surface 51`
@@ -21467,8 +20739,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     def view_factor_51(self, value=None):
         """  Corresponds to IDD Field `View Factor 51`
         This value is the view factor value From Surface => To Surface
-        
-        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `View Factor 51`
@@ -21502,8 +20772,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @from_surface_52.setter
     def from_surface_52(self, value=None):
         """  Corresponds to IDD Field `From Surface 52`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `From Surface 52`
@@ -21539,8 +20807,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @to_surface_52.setter
     def to_surface_52(self, value=None):
         """  Corresponds to IDD Field `To Surface 52`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `To Surface 52`
@@ -21577,8 +20843,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     def view_factor_52(self, value=None):
         """  Corresponds to IDD Field `View Factor 52`
         This value is the view factor value From Surface => To Surface
-        
-        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `View Factor 52`
@@ -21612,8 +20876,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @from_surface_53.setter
     def from_surface_53(self, value=None):
         """  Corresponds to IDD Field `From Surface 53`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `From Surface 53`
@@ -21649,8 +20911,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @to_surface_53.setter
     def to_surface_53(self, value=None):
         """  Corresponds to IDD Field `To Surface 53`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `To Surface 53`
@@ -21687,8 +20947,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     def view_factor_53(self, value=None):
         """  Corresponds to IDD Field `View Factor 53`
         This value is the view factor value From Surface => To Surface
-        
-        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `View Factor 53`
@@ -21722,8 +20980,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @from_surface_54.setter
     def from_surface_54(self, value=None):
         """  Corresponds to IDD Field `From Surface 54`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `From Surface 54`
@@ -21759,8 +21015,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @to_surface_54.setter
     def to_surface_54(self, value=None):
         """  Corresponds to IDD Field `To Surface 54`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `To Surface 54`
@@ -21797,8 +21051,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     def view_factor_54(self, value=None):
         """  Corresponds to IDD Field `View Factor 54`
         This value is the view factor value From Surface => To Surface
-        
-        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `View Factor 54`
@@ -21832,8 +21084,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @from_surface_55.setter
     def from_surface_55(self, value=None):
         """  Corresponds to IDD Field `From Surface 55`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `From Surface 55`
@@ -21869,8 +21119,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @to_surface_55.setter
     def to_surface_55(self, value=None):
         """  Corresponds to IDD Field `To Surface 55`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `To Surface 55`
@@ -21907,8 +21155,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     def view_factor_55(self, value=None):
         """  Corresponds to IDD Field `View Factor 55`
         This value is the view factor value From Surface => To Surface
-        
-        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `View Factor 55`
@@ -21942,8 +21188,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @from_surface_56.setter
     def from_surface_56(self, value=None):
         """  Corresponds to IDD Field `From Surface 56`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `From Surface 56`
@@ -21979,8 +21223,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @to_surface_56.setter
     def to_surface_56(self, value=None):
         """  Corresponds to IDD Field `To Surface 56`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `To Surface 56`
@@ -22017,8 +21259,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     def view_factor_56(self, value=None):
         """  Corresponds to IDD Field `View Factor 56`
         This value is the view factor value From Surface => To Surface
-        
-        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `View Factor 56`
@@ -22052,8 +21292,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @from_surface_57.setter
     def from_surface_57(self, value=None):
         """  Corresponds to IDD Field `From Surface 57`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `From Surface 57`
@@ -22089,8 +21327,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @to_surface_57.setter
     def to_surface_57(self, value=None):
         """  Corresponds to IDD Field `To Surface 57`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `To Surface 57`
@@ -22127,8 +21363,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     def view_factor_57(self, value=None):
         """  Corresponds to IDD Field `View Factor 57`
         This value is the view factor value From Surface => To Surface
-        
-        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `View Factor 57`
@@ -22162,8 +21396,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @from_surface_58.setter
     def from_surface_58(self, value=None):
         """  Corresponds to IDD Field `From Surface 58`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `From Surface 58`
@@ -22199,8 +21431,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @to_surface_58.setter
     def to_surface_58(self, value=None):
         """  Corresponds to IDD Field `To Surface 58`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `To Surface 58`
@@ -22237,8 +21467,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     def view_factor_58(self, value=None):
         """  Corresponds to IDD Field `View Factor 58`
         This value is the view factor value From Surface => To Surface
-        
-        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `View Factor 58`
@@ -22272,8 +21500,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @from_surface_59.setter
     def from_surface_59(self, value=None):
         """  Corresponds to IDD Field `From Surface 59`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `From Surface 59`
@@ -22309,8 +21535,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @to_surface_59.setter
     def to_surface_59(self, value=None):
         """  Corresponds to IDD Field `To Surface 59`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `To Surface 59`
@@ -22347,8 +21571,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     def view_factor_59(self, value=None):
         """  Corresponds to IDD Field `View Factor 59`
         This value is the view factor value From Surface => To Surface
-        
-        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `View Factor 59`
@@ -22382,8 +21604,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @from_surface_60.setter
     def from_surface_60(self, value=None):
         """  Corresponds to IDD Field `From Surface 60`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `From Surface 60`
@@ -22419,8 +21639,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @to_surface_60.setter
     def to_surface_60(self, value=None):
         """  Corresponds to IDD Field `To Surface 60`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `To Surface 60`
@@ -22457,8 +21675,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     def view_factor_60(self, value=None):
         """  Corresponds to IDD Field `View Factor 60`
         This value is the view factor value From Surface => To Surface
-        
-        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `View Factor 60`
@@ -22492,8 +21708,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @from_surface_61.setter
     def from_surface_61(self, value=None):
         """  Corresponds to IDD Field `From Surface 61`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `From Surface 61`
@@ -22529,8 +21743,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @to_surface_61.setter
     def to_surface_61(self, value=None):
         """  Corresponds to IDD Field `To Surface 61`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `To Surface 61`
@@ -22567,8 +21779,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     def view_factor_61(self, value=None):
         """  Corresponds to IDD Field `View Factor 61`
         This value is the view factor value From Surface => To Surface
-        
-        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `View Factor 61`
@@ -22602,8 +21812,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @from_surface_62.setter
     def from_surface_62(self, value=None):
         """  Corresponds to IDD Field `From Surface 62`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `From Surface 62`
@@ -22639,8 +21847,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @to_surface_62.setter
     def to_surface_62(self, value=None):
         """  Corresponds to IDD Field `To Surface 62`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `To Surface 62`
@@ -22677,8 +21883,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     def view_factor_62(self, value=None):
         """  Corresponds to IDD Field `View Factor 62`
         This value is the view factor value From Surface => To Surface
-        
-        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `View Factor 62`
@@ -22712,8 +21916,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @from_surface_63.setter
     def from_surface_63(self, value=None):
         """  Corresponds to IDD Field `From Surface 63`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `From Surface 63`
@@ -22749,8 +21951,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @to_surface_63.setter
     def to_surface_63(self, value=None):
         """  Corresponds to IDD Field `To Surface 63`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `To Surface 63`
@@ -22787,8 +21987,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     def view_factor_63(self, value=None):
         """  Corresponds to IDD Field `View Factor 63`
         This value is the view factor value From Surface => To Surface
-        
-        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `View Factor 63`
@@ -22822,8 +22020,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @from_surface_64.setter
     def from_surface_64(self, value=None):
         """  Corresponds to IDD Field `From Surface 64`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `From Surface 64`
@@ -22859,8 +22055,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @to_surface_64.setter
     def to_surface_64(self, value=None):
         """  Corresponds to IDD Field `To Surface 64`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `To Surface 64`
@@ -22897,8 +22091,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     def view_factor_64(self, value=None):
         """  Corresponds to IDD Field `View Factor 64`
         This value is the view factor value From Surface => To Surface
-        
-        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `View Factor 64`
@@ -22932,8 +22124,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @from_surface_65.setter
     def from_surface_65(self, value=None):
         """  Corresponds to IDD Field `From Surface 65`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `From Surface 65`
@@ -22969,8 +22159,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @to_surface_65.setter
     def to_surface_65(self, value=None):
         """  Corresponds to IDD Field `To Surface 65`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `To Surface 65`
@@ -23007,8 +22195,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     def view_factor_65(self, value=None):
         """  Corresponds to IDD Field `View Factor 65`
         This value is the view factor value From Surface => To Surface
-        
-        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `View Factor 65`
@@ -23042,8 +22228,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @from_surface_66.setter
     def from_surface_66(self, value=None):
         """  Corresponds to IDD Field `From Surface 66`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `From Surface 66`
@@ -23079,8 +22263,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @to_surface_66.setter
     def to_surface_66(self, value=None):
         """  Corresponds to IDD Field `To Surface 66`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `To Surface 66`
@@ -23117,8 +22299,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     def view_factor_66(self, value=None):
         """  Corresponds to IDD Field `View Factor 66`
         This value is the view factor value From Surface => To Surface
-        
-        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `View Factor 66`
@@ -23152,8 +22332,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @from_surface_67.setter
     def from_surface_67(self, value=None):
         """  Corresponds to IDD Field `From Surface 67`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `From Surface 67`
@@ -23189,8 +22367,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @to_surface_67.setter
     def to_surface_67(self, value=None):
         """  Corresponds to IDD Field `To Surface 67`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `To Surface 67`
@@ -23227,8 +22403,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     def view_factor_67(self, value=None):
         """  Corresponds to IDD Field `View Factor 67`
         This value is the view factor value From Surface => To Surface
-        
-        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `View Factor 67`
@@ -23262,8 +22436,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @from_surface_68.setter
     def from_surface_68(self, value=None):
         """  Corresponds to IDD Field `From Surface 68`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `From Surface 68`
@@ -23299,8 +22471,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @to_surface_68.setter
     def to_surface_68(self, value=None):
         """  Corresponds to IDD Field `To Surface 68`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `To Surface 68`
@@ -23337,8 +22507,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     def view_factor_68(self, value=None):
         """  Corresponds to IDD Field `View Factor 68`
         This value is the view factor value From Surface => To Surface
-        
-        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `View Factor 68`
@@ -23372,8 +22540,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @from_surface_69.setter
     def from_surface_69(self, value=None):
         """  Corresponds to IDD Field `From Surface 69`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `From Surface 69`
@@ -23409,8 +22575,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @to_surface_69.setter
     def to_surface_69(self, value=None):
         """  Corresponds to IDD Field `To Surface 69`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `To Surface 69`
@@ -23447,8 +22611,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     def view_factor_69(self, value=None):
         """  Corresponds to IDD Field `View Factor 69`
         This value is the view factor value From Surface => To Surface
-        
-        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `View Factor 69`
@@ -23482,8 +22644,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @from_surface_70.setter
     def from_surface_70(self, value=None):
         """  Corresponds to IDD Field `From Surface 70`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `From Surface 70`
@@ -23519,8 +22679,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @to_surface_70.setter
     def to_surface_70(self, value=None):
         """  Corresponds to IDD Field `To Surface 70`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `To Surface 70`
@@ -23557,8 +22715,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     def view_factor_70(self, value=None):
         """  Corresponds to IDD Field `View Factor 70`
         This value is the view factor value From Surface => To Surface
-        
-        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `View Factor 70`
@@ -23592,8 +22748,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @from_surface_71.setter
     def from_surface_71(self, value=None):
         """  Corresponds to IDD Field `From Surface 71`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `From Surface 71`
@@ -23629,8 +22783,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @to_surface_71.setter
     def to_surface_71(self, value=None):
         """  Corresponds to IDD Field `To Surface 71`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `To Surface 71`
@@ -23667,8 +22819,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     def view_factor_71(self, value=None):
         """  Corresponds to IDD Field `View Factor 71`
         This value is the view factor value From Surface => To Surface
-        
-        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `View Factor 71`
@@ -23702,8 +22852,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @from_surface_72.setter
     def from_surface_72(self, value=None):
         """  Corresponds to IDD Field `From Surface 72`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `From Surface 72`
@@ -23739,8 +22887,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @to_surface_72.setter
     def to_surface_72(self, value=None):
         """  Corresponds to IDD Field `To Surface 72`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `To Surface 72`
@@ -23777,8 +22923,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     def view_factor_72(self, value=None):
         """  Corresponds to IDD Field `View Factor 72`
         This value is the view factor value From Surface => To Surface
-        
-        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `View Factor 72`
@@ -23812,8 +22956,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @from_surface_73.setter
     def from_surface_73(self, value=None):
         """  Corresponds to IDD Field `From Surface 73`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `From Surface 73`
@@ -23849,8 +22991,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @to_surface_73.setter
     def to_surface_73(self, value=None):
         """  Corresponds to IDD Field `To Surface 73`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `To Surface 73`
@@ -23887,8 +23027,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     def view_factor_73(self, value=None):
         """  Corresponds to IDD Field `View Factor 73`
         This value is the view factor value From Surface => To Surface
-        
-        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `View Factor 73`
@@ -23922,8 +23060,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @from_surface_74.setter
     def from_surface_74(self, value=None):
         """  Corresponds to IDD Field `From Surface 74`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `From Surface 74`
@@ -23959,8 +23095,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @to_surface_74.setter
     def to_surface_74(self, value=None):
         """  Corresponds to IDD Field `To Surface 74`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `To Surface 74`
@@ -23997,8 +23131,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     def view_factor_74(self, value=None):
         """  Corresponds to IDD Field `View Factor 74`
         This value is the view factor value From Surface => To Surface
-        
-        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `View Factor 74`
@@ -24032,8 +23164,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @from_surface_75.setter
     def from_surface_75(self, value=None):
         """  Corresponds to IDD Field `From Surface 75`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `From Surface 75`
@@ -24069,8 +23199,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @to_surface_75.setter
     def to_surface_75(self, value=None):
         """  Corresponds to IDD Field `To Surface 75`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `To Surface 75`
@@ -24107,8 +23235,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     def view_factor_75(self, value=None):
         """  Corresponds to IDD Field `View Factor 75`
         This value is the view factor value From Surface => To Surface
-        
-        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `View Factor 75`
@@ -24142,8 +23268,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @from_surface_76.setter
     def from_surface_76(self, value=None):
         """  Corresponds to IDD Field `From Surface 76`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `From Surface 76`
@@ -24179,8 +23303,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @to_surface_76.setter
     def to_surface_76(self, value=None):
         """  Corresponds to IDD Field `To Surface 76`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `To Surface 76`
@@ -24217,8 +23339,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     def view_factor_76(self, value=None):
         """  Corresponds to IDD Field `View Factor 76`
         This value is the view factor value From Surface => To Surface
-        
-        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `View Factor 76`
@@ -24252,8 +23372,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @from_surface_77.setter
     def from_surface_77(self, value=None):
         """  Corresponds to IDD Field `From Surface 77`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `From Surface 77`
@@ -24289,8 +23407,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @to_surface_77.setter
     def to_surface_77(self, value=None):
         """  Corresponds to IDD Field `To Surface 77`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `To Surface 77`
@@ -24327,8 +23443,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     def view_factor_77(self, value=None):
         """  Corresponds to IDD Field `View Factor 77`
         This value is the view factor value From Surface => To Surface
-        
-        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `View Factor 77`
@@ -24362,8 +23476,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @from_surface_78.setter
     def from_surface_78(self, value=None):
         """  Corresponds to IDD Field `From Surface 78`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `From Surface 78`
@@ -24399,8 +23511,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @to_surface_78.setter
     def to_surface_78(self, value=None):
         """  Corresponds to IDD Field `To Surface 78`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `To Surface 78`
@@ -24437,8 +23547,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     def view_factor_78(self, value=None):
         """  Corresponds to IDD Field `View Factor 78`
         This value is the view factor value From Surface => To Surface
-        
-        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `View Factor 78`
@@ -24472,8 +23580,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @from_surface_79.setter
     def from_surface_79(self, value=None):
         """  Corresponds to IDD Field `From Surface 79`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `From Surface 79`
@@ -24509,8 +23615,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @to_surface_79.setter
     def to_surface_79(self, value=None):
         """  Corresponds to IDD Field `To Surface 79`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `To Surface 79`
@@ -24547,8 +23651,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     def view_factor_79(self, value=None):
         """  Corresponds to IDD Field `View Factor 79`
         This value is the view factor value From Surface => To Surface
-        
-        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `View Factor 79`
@@ -24582,8 +23684,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @from_surface_80.setter
     def from_surface_80(self, value=None):
         """  Corresponds to IDD Field `From Surface 80`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `From Surface 80`
@@ -24619,8 +23719,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @to_surface_80.setter
     def to_surface_80(self, value=None):
         """  Corresponds to IDD Field `To Surface 80`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `To Surface 80`
@@ -24657,8 +23755,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     def view_factor_80(self, value=None):
         """  Corresponds to IDD Field `View Factor 80`
         This value is the view factor value From Surface => To Surface
-        
-        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `View Factor 80`
@@ -24692,8 +23788,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @from_surface_81.setter
     def from_surface_81(self, value=None):
         """  Corresponds to IDD Field `From Surface 81`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `From Surface 81`
@@ -24729,8 +23823,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @to_surface_81.setter
     def to_surface_81(self, value=None):
         """  Corresponds to IDD Field `To Surface 81`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `To Surface 81`
@@ -24767,8 +23859,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     def view_factor_81(self, value=None):
         """  Corresponds to IDD Field `View Factor 81`
         This value is the view factor value From Surface => To Surface
-        
-        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `View Factor 81`
@@ -24802,8 +23892,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @from_surface_82.setter
     def from_surface_82(self, value=None):
         """  Corresponds to IDD Field `From Surface 82`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `From Surface 82`
@@ -24839,8 +23927,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @to_surface_82.setter
     def to_surface_82(self, value=None):
         """  Corresponds to IDD Field `To Surface 82`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `To Surface 82`
@@ -24877,8 +23963,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     def view_factor_82(self, value=None):
         """  Corresponds to IDD Field `View Factor 82`
         This value is the view factor value From Surface => To Surface
-        
-        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `View Factor 82`
@@ -24912,8 +23996,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @from_surface_83.setter
     def from_surface_83(self, value=None):
         """  Corresponds to IDD Field `From Surface 83`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `From Surface 83`
@@ -24949,8 +24031,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @to_surface_83.setter
     def to_surface_83(self, value=None):
         """  Corresponds to IDD Field `To Surface 83`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `To Surface 83`
@@ -24987,8 +24067,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     def view_factor_83(self, value=None):
         """  Corresponds to IDD Field `View Factor 83`
         This value is the view factor value From Surface => To Surface
-        
-        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `View Factor 83`
@@ -25022,8 +24100,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @from_surface_84.setter
     def from_surface_84(self, value=None):
         """  Corresponds to IDD Field `From Surface 84`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `From Surface 84`
@@ -25059,8 +24135,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @to_surface_84.setter
     def to_surface_84(self, value=None):
         """  Corresponds to IDD Field `To Surface 84`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `To Surface 84`
@@ -25097,8 +24171,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     def view_factor_84(self, value=None):
         """  Corresponds to IDD Field `View Factor 84`
         This value is the view factor value From Surface => To Surface
-        
-        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `View Factor 84`
@@ -25132,8 +24204,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @from_surface_85.setter
     def from_surface_85(self, value=None):
         """  Corresponds to IDD Field `From Surface 85`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `From Surface 85`
@@ -25169,8 +24239,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @to_surface_85.setter
     def to_surface_85(self, value=None):
         """  Corresponds to IDD Field `To Surface 85`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `To Surface 85`
@@ -25207,8 +24275,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     def view_factor_85(self, value=None):
         """  Corresponds to IDD Field `View Factor 85`
         This value is the view factor value From Surface => To Surface
-        
-        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `View Factor 85`
@@ -25242,8 +24308,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @from_surface_86.setter
     def from_surface_86(self, value=None):
         """  Corresponds to IDD Field `From Surface 86`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `From Surface 86`
@@ -25279,8 +24343,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @to_surface_86.setter
     def to_surface_86(self, value=None):
         """  Corresponds to IDD Field `To Surface 86`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `To Surface 86`
@@ -25317,8 +24379,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     def view_factor_86(self, value=None):
         """  Corresponds to IDD Field `View Factor 86`
         This value is the view factor value From Surface => To Surface
-        
-        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `View Factor 86`
@@ -25352,8 +24412,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @from_surface_87.setter
     def from_surface_87(self, value=None):
         """  Corresponds to IDD Field `From Surface 87`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `From Surface 87`
@@ -25389,8 +24447,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @to_surface_87.setter
     def to_surface_87(self, value=None):
         """  Corresponds to IDD Field `To Surface 87`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `To Surface 87`
@@ -25427,8 +24483,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     def view_factor_87(self, value=None):
         """  Corresponds to IDD Field `View Factor 87`
         This value is the view factor value From Surface => To Surface
-        
-        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `View Factor 87`
@@ -25462,8 +24516,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @from_surface_88.setter
     def from_surface_88(self, value=None):
         """  Corresponds to IDD Field `From Surface 88`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `From Surface 88`
@@ -25499,8 +24551,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @to_surface_88.setter
     def to_surface_88(self, value=None):
         """  Corresponds to IDD Field `To Surface 88`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `To Surface 88`
@@ -25537,8 +24587,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     def view_factor_88(self, value=None):
         """  Corresponds to IDD Field `View Factor 88`
         This value is the view factor value From Surface => To Surface
-        
-        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `View Factor 88`
@@ -25572,8 +24620,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @from_surface_89.setter
     def from_surface_89(self, value=None):
         """  Corresponds to IDD Field `From Surface 89`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `From Surface 89`
@@ -25609,8 +24655,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @to_surface_89.setter
     def to_surface_89(self, value=None):
         """  Corresponds to IDD Field `To Surface 89`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `To Surface 89`
@@ -25647,8 +24691,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     def view_factor_89(self, value=None):
         """  Corresponds to IDD Field `View Factor 89`
         This value is the view factor value From Surface => To Surface
-        
-        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `View Factor 89`
@@ -25682,8 +24724,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @from_surface_90.setter
     def from_surface_90(self, value=None):
         """  Corresponds to IDD Field `From Surface 90`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `From Surface 90`
@@ -25719,8 +24759,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @to_surface_90.setter
     def to_surface_90(self, value=None):
         """  Corresponds to IDD Field `To Surface 90`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `To Surface 90`
@@ -25757,8 +24795,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     def view_factor_90(self, value=None):
         """  Corresponds to IDD Field `View Factor 90`
         This value is the view factor value From Surface => To Surface
-        
-        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `View Factor 90`
@@ -25792,8 +24828,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @from_surface_91.setter
     def from_surface_91(self, value=None):
         """  Corresponds to IDD Field `From Surface 91`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `From Surface 91`
@@ -25829,8 +24863,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @to_surface_91.setter
     def to_surface_91(self, value=None):
         """  Corresponds to IDD Field `To Surface 91`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `To Surface 91`
@@ -25867,8 +24899,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     def view_factor_91(self, value=None):
         """  Corresponds to IDD Field `View Factor 91`
         This value is the view factor value From Surface => To Surface
-        
-        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `View Factor 91`
@@ -25902,8 +24932,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @from_surface_92.setter
     def from_surface_92(self, value=None):
         """  Corresponds to IDD Field `From Surface 92`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `From Surface 92`
@@ -25939,8 +24967,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @to_surface_92.setter
     def to_surface_92(self, value=None):
         """  Corresponds to IDD Field `To Surface 92`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `To Surface 92`
@@ -25977,8 +25003,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     def view_factor_92(self, value=None):
         """  Corresponds to IDD Field `View Factor 92`
         This value is the view factor value From Surface => To Surface
-        
-        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `View Factor 92`
@@ -26012,8 +25036,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @from_surface_93.setter
     def from_surface_93(self, value=None):
         """  Corresponds to IDD Field `From Surface 93`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `From Surface 93`
@@ -26049,8 +25071,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @to_surface_93.setter
     def to_surface_93(self, value=None):
         """  Corresponds to IDD Field `To Surface 93`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `To Surface 93`
@@ -26087,8 +25107,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     def view_factor_93(self, value=None):
         """  Corresponds to IDD Field `View Factor 93`
         This value is the view factor value From Surface => To Surface
-        
-        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `View Factor 93`
@@ -26122,8 +25140,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @from_surface_94.setter
     def from_surface_94(self, value=None):
         """  Corresponds to IDD Field `From Surface 94`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `From Surface 94`
@@ -26159,8 +25175,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @to_surface_94.setter
     def to_surface_94(self, value=None):
         """  Corresponds to IDD Field `To Surface 94`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `To Surface 94`
@@ -26197,8 +25211,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     def view_factor_94(self, value=None):
         """  Corresponds to IDD Field `View Factor 94`
         This value is the view factor value From Surface => To Surface
-        
-        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `View Factor 94`
@@ -26232,8 +25244,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @from_surface_95.setter
     def from_surface_95(self, value=None):
         """  Corresponds to IDD Field `From Surface 95`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `From Surface 95`
@@ -26269,8 +25279,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @to_surface_95.setter
     def to_surface_95(self, value=None):
         """  Corresponds to IDD Field `To Surface 95`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `To Surface 95`
@@ -26307,8 +25315,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     def view_factor_95(self, value=None):
         """  Corresponds to IDD Field `View Factor 95`
         This value is the view factor value From Surface => To Surface
-        
-        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `View Factor 95`
@@ -26342,8 +25348,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @from_surface_96.setter
     def from_surface_96(self, value=None):
         """  Corresponds to IDD Field `From Surface 96`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `From Surface 96`
@@ -26379,8 +25383,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @to_surface_96.setter
     def to_surface_96(self, value=None):
         """  Corresponds to IDD Field `To Surface 96`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `To Surface 96`
@@ -26417,8 +25419,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     def view_factor_96(self, value=None):
         """  Corresponds to IDD Field `View Factor 96`
         This value is the view factor value From Surface => To Surface
-        
-        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `View Factor 96`
@@ -26452,8 +25452,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @from_surface_97.setter
     def from_surface_97(self, value=None):
         """  Corresponds to IDD Field `From Surface 97`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `From Surface 97`
@@ -26489,8 +25487,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @to_surface_97.setter
     def to_surface_97(self, value=None):
         """  Corresponds to IDD Field `To Surface 97`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `To Surface 97`
@@ -26527,8 +25523,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     def view_factor_97(self, value=None):
         """  Corresponds to IDD Field `View Factor 97`
         This value is the view factor value From Surface => To Surface
-        
-        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `View Factor 97`
@@ -26562,8 +25556,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @from_surface_98.setter
     def from_surface_98(self, value=None):
         """  Corresponds to IDD Field `From Surface 98`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `From Surface 98`
@@ -26599,8 +25591,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @to_surface_98.setter
     def to_surface_98(self, value=None):
         """  Corresponds to IDD Field `To Surface 98`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `To Surface 98`
@@ -26637,8 +25627,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     def view_factor_98(self, value=None):
         """  Corresponds to IDD Field `View Factor 98`
         This value is the view factor value From Surface => To Surface
-        
-        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `View Factor 98`
@@ -26672,8 +25660,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @from_surface_99.setter
     def from_surface_99(self, value=None):
         """  Corresponds to IDD Field `From Surface 99`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `From Surface 99`
@@ -26709,8 +25695,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @to_surface_99.setter
     def to_surface_99(self, value=None):
         """  Corresponds to IDD Field `To Surface 99`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `To Surface 99`
@@ -26747,8 +25731,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     def view_factor_99(self, value=None):
         """  Corresponds to IDD Field `View Factor 99`
         This value is the view factor value From Surface => To Surface
-        
-        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `View Factor 99`
@@ -26782,8 +25764,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @from_surface_100.setter
     def from_surface_100(self, value=None):
         """  Corresponds to IDD Field `From Surface 100`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `From Surface 100`
@@ -26819,8 +25799,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @to_surface_100.setter
     def to_surface_100(self, value=None):
         """  Corresponds to IDD Field `To Surface 100`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `To Surface 100`
@@ -26857,8 +25835,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     def view_factor_100(self, value=None):
         """  Corresponds to IDD Field `View Factor 100`
         This value is the view factor value From Surface => To Surface
-        
-        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `View Factor 100`
@@ -26892,8 +25868,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @from_surface_101.setter
     def from_surface_101(self, value=None):
         """  Corresponds to IDD Field `From Surface 101`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `From Surface 101`
@@ -26929,8 +25903,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @to_surface_101.setter
     def to_surface_101(self, value=None):
         """  Corresponds to IDD Field `To Surface 101`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `To Surface 101`
@@ -26967,8 +25939,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     def view_factor_101(self, value=None):
         """  Corresponds to IDD Field `View Factor 101`
         This value is the view factor value From Surface => To Surface
-        
-        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `View Factor 101`
@@ -27002,8 +25972,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @from_surface_102.setter
     def from_surface_102(self, value=None):
         """  Corresponds to IDD Field `From Surface 102`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `From Surface 102`
@@ -27039,8 +26007,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @to_surface_102.setter
     def to_surface_102(self, value=None):
         """  Corresponds to IDD Field `To Surface 102`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `To Surface 102`
@@ -27077,8 +26043,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     def view_factor_102(self, value=None):
         """  Corresponds to IDD Field `View Factor 102`
         This value is the view factor value From Surface => To Surface
-        
-        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `View Factor 102`
@@ -27112,8 +26076,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @from_surface_103.setter
     def from_surface_103(self, value=None):
         """  Corresponds to IDD Field `From Surface 103`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `From Surface 103`
@@ -27149,8 +26111,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @to_surface_103.setter
     def to_surface_103(self, value=None):
         """  Corresponds to IDD Field `To Surface 103`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `To Surface 103`
@@ -27187,8 +26147,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     def view_factor_103(self, value=None):
         """  Corresponds to IDD Field `View Factor 103`
         This value is the view factor value From Surface => To Surface
-        
-        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `View Factor 103`
@@ -27222,8 +26180,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @from_surface_104.setter
     def from_surface_104(self, value=None):
         """  Corresponds to IDD Field `From Surface 104`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `From Surface 104`
@@ -27259,8 +26215,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @to_surface_104.setter
     def to_surface_104(self, value=None):
         """  Corresponds to IDD Field `To Surface 104`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `To Surface 104`
@@ -27297,8 +26251,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     def view_factor_104(self, value=None):
         """  Corresponds to IDD Field `View Factor 104`
         This value is the view factor value From Surface => To Surface
-        
-        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `View Factor 104`
@@ -27332,8 +26284,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @from_surface_105.setter
     def from_surface_105(self, value=None):
         """  Corresponds to IDD Field `From Surface 105`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `From Surface 105`
@@ -27369,8 +26319,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @to_surface_105.setter
     def to_surface_105(self, value=None):
         """  Corresponds to IDD Field `To Surface 105`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `To Surface 105`
@@ -27407,8 +26355,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     def view_factor_105(self, value=None):
         """  Corresponds to IDD Field `View Factor 105`
         This value is the view factor value From Surface => To Surface
-        
-        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `View Factor 105`
@@ -27442,8 +26388,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @from_surface_106.setter
     def from_surface_106(self, value=None):
         """  Corresponds to IDD Field `From Surface 106`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `From Surface 106`
@@ -27479,8 +26423,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @to_surface_106.setter
     def to_surface_106(self, value=None):
         """  Corresponds to IDD Field `To Surface 106`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `To Surface 106`
@@ -27517,8 +26459,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     def view_factor_106(self, value=None):
         """  Corresponds to IDD Field `View Factor 106`
         This value is the view factor value From Surface => To Surface
-        
-        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `View Factor 106`
@@ -27552,8 +26492,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @from_surface_107.setter
     def from_surface_107(self, value=None):
         """  Corresponds to IDD Field `From Surface 107`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `From Surface 107`
@@ -27589,8 +26527,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @to_surface_107.setter
     def to_surface_107(self, value=None):
         """  Corresponds to IDD Field `To Surface 107`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `To Surface 107`
@@ -27627,8 +26563,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     def view_factor_107(self, value=None):
         """  Corresponds to IDD Field `View Factor 107`
         This value is the view factor value From Surface => To Surface
-        
-        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `View Factor 107`
@@ -27662,8 +26596,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @from_surface_108.setter
     def from_surface_108(self, value=None):
         """  Corresponds to IDD Field `From Surface 108`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `From Surface 108`
@@ -27699,8 +26631,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @to_surface_108.setter
     def to_surface_108(self, value=None):
         """  Corresponds to IDD Field `To Surface 108`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `To Surface 108`
@@ -27737,8 +26667,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     def view_factor_108(self, value=None):
         """  Corresponds to IDD Field `View Factor 108`
         This value is the view factor value From Surface => To Surface
-        
-        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `View Factor 108`
@@ -27772,8 +26700,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @from_surface_109.setter
     def from_surface_109(self, value=None):
         """  Corresponds to IDD Field `From Surface 109`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `From Surface 109`
@@ -27809,8 +26735,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @to_surface_109.setter
     def to_surface_109(self, value=None):
         """  Corresponds to IDD Field `To Surface 109`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `To Surface 109`
@@ -27847,8 +26771,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     def view_factor_109(self, value=None):
         """  Corresponds to IDD Field `View Factor 109`
         This value is the view factor value From Surface => To Surface
-        
-        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `View Factor 109`
@@ -27882,8 +26804,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @from_surface_110.setter
     def from_surface_110(self, value=None):
         """  Corresponds to IDD Field `From Surface 110`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `From Surface 110`
@@ -27919,8 +26839,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @to_surface_110.setter
     def to_surface_110(self, value=None):
         """  Corresponds to IDD Field `To Surface 110`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `To Surface 110`
@@ -27957,8 +26875,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     def view_factor_110(self, value=None):
         """  Corresponds to IDD Field `View Factor 110`
         This value is the view factor value From Surface => To Surface
-        
-        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `View Factor 110`
@@ -27992,8 +26908,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @from_surface_111.setter
     def from_surface_111(self, value=None):
         """  Corresponds to IDD Field `From Surface 111`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `From Surface 111`
@@ -28029,8 +26943,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @to_surface_111.setter
     def to_surface_111(self, value=None):
         """  Corresponds to IDD Field `To Surface 111`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `To Surface 111`
@@ -28067,8 +26979,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     def view_factor_111(self, value=None):
         """  Corresponds to IDD Field `View Factor 111`
         This value is the view factor value From Surface => To Surface
-        
-        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `View Factor 111`
@@ -28102,8 +27012,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @from_surface_112.setter
     def from_surface_112(self, value=None):
         """  Corresponds to IDD Field `From Surface 112`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `From Surface 112`
@@ -28139,8 +27047,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @to_surface_112.setter
     def to_surface_112(self, value=None):
         """  Corresponds to IDD Field `To Surface 112`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `To Surface 112`
@@ -28177,8 +27083,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     def view_factor_112(self, value=None):
         """  Corresponds to IDD Field `View Factor 112`
         This value is the view factor value From Surface => To Surface
-        
-        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `View Factor 112`
@@ -28212,8 +27116,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @from_surface_113.setter
     def from_surface_113(self, value=None):
         """  Corresponds to IDD Field `From Surface 113`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `From Surface 113`
@@ -28249,8 +27151,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @to_surface_113.setter
     def to_surface_113(self, value=None):
         """  Corresponds to IDD Field `To Surface 113`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `To Surface 113`
@@ -28287,8 +27187,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     def view_factor_113(self, value=None):
         """  Corresponds to IDD Field `View Factor 113`
         This value is the view factor value From Surface => To Surface
-        
-        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `View Factor 113`
@@ -28322,8 +27220,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @from_surface_114.setter
     def from_surface_114(self, value=None):
         """  Corresponds to IDD Field `From Surface 114`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `From Surface 114`
@@ -28359,8 +27255,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @to_surface_114.setter
     def to_surface_114(self, value=None):
         """  Corresponds to IDD Field `To Surface 114`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `To Surface 114`
@@ -28397,8 +27291,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     def view_factor_114(self, value=None):
         """  Corresponds to IDD Field `View Factor 114`
         This value is the view factor value From Surface => To Surface
-        
-        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `View Factor 114`
@@ -28432,8 +27324,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @from_surface_115.setter
     def from_surface_115(self, value=None):
         """  Corresponds to IDD Field `From Surface 115`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `From Surface 115`
@@ -28469,8 +27359,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @to_surface_115.setter
     def to_surface_115(self, value=None):
         """  Corresponds to IDD Field `To Surface 115`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `To Surface 115`
@@ -28507,8 +27395,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     def view_factor_115(self, value=None):
         """  Corresponds to IDD Field `View Factor 115`
         This value is the view factor value From Surface => To Surface
-        
-        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `View Factor 115`
@@ -28542,8 +27428,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @from_surface_116.setter
     def from_surface_116(self, value=None):
         """  Corresponds to IDD Field `From Surface 116`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `From Surface 116`
@@ -28579,8 +27463,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @to_surface_116.setter
     def to_surface_116(self, value=None):
         """  Corresponds to IDD Field `To Surface 116`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `To Surface 116`
@@ -28617,8 +27499,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     def view_factor_116(self, value=None):
         """  Corresponds to IDD Field `View Factor 116`
         This value is the view factor value From Surface => To Surface
-        
-        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `View Factor 116`
@@ -28652,8 +27532,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @from_surface_117.setter
     def from_surface_117(self, value=None):
         """  Corresponds to IDD Field `From Surface 117`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `From Surface 117`
@@ -28689,8 +27567,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @to_surface_117.setter
     def to_surface_117(self, value=None):
         """  Corresponds to IDD Field `To Surface 117`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `To Surface 117`
@@ -28727,8 +27603,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     def view_factor_117(self, value=None):
         """  Corresponds to IDD Field `View Factor 117`
         This value is the view factor value From Surface => To Surface
-        
-        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `View Factor 117`
@@ -28762,8 +27636,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @from_surface_118.setter
     def from_surface_118(self, value=None):
         """  Corresponds to IDD Field `From Surface 118`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `From Surface 118`
@@ -28799,8 +27671,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @to_surface_118.setter
     def to_surface_118(self, value=None):
         """  Corresponds to IDD Field `To Surface 118`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `To Surface 118`
@@ -28837,8 +27707,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     def view_factor_118(self, value=None):
         """  Corresponds to IDD Field `View Factor 118`
         This value is the view factor value From Surface => To Surface
-        
-        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `View Factor 118`
@@ -28872,8 +27740,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @from_surface_119.setter
     def from_surface_119(self, value=None):
         """  Corresponds to IDD Field `From Surface 119`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `From Surface 119`
@@ -28909,8 +27775,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @to_surface_119.setter
     def to_surface_119(self, value=None):
         """  Corresponds to IDD Field `To Surface 119`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `To Surface 119`
@@ -28947,8 +27811,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     def view_factor_119(self, value=None):
         """  Corresponds to IDD Field `View Factor 119`
         This value is the view factor value From Surface => To Surface
-        
-        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `View Factor 119`
@@ -28982,8 +27844,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @from_surface_120.setter
     def from_surface_120(self, value=None):
         """  Corresponds to IDD Field `From Surface 120`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `From Surface 120`
@@ -29019,8 +27879,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @to_surface_120.setter
     def to_surface_120(self, value=None):
         """  Corresponds to IDD Field `To Surface 120`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `To Surface 120`
@@ -29057,8 +27915,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     def view_factor_120(self, value=None):
         """  Corresponds to IDD Field `View Factor 120`
         This value is the view factor value From Surface => To Surface
-        
-        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `View Factor 120`
@@ -29092,8 +27948,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @from_surface_121.setter
     def from_surface_121(self, value=None):
         """  Corresponds to IDD Field `From Surface 121`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `From Surface 121`
@@ -29129,8 +27983,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     @to_surface_121.setter
     def to_surface_121(self, value=None):
         """  Corresponds to IDD Field `To Surface 121`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `To Surface 121`
@@ -29167,8 +28019,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     def view_factor_121(self, value=None):
         """  Corresponds to IDD Field `View Factor 121`
         This value is the view factor value From Surface => To Surface
-        
-        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `View Factor 121`

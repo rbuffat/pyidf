@@ -1749,8 +1749,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {'type': 'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -1788,8 +1786,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
         """  Corresponds to IDD Field `Availability Schedule Name`
         Availability schedule name for this system. Schedule value > 0 means the system is available.
         If this field is blank, the system is always available.
-        
-        {u'note': [u'Availability schedule name for this system. Schedule value > 0 means the system is available.', u'If this field is blank, the system is always available.'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Availability Schedule Name`
@@ -1825,8 +1821,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @inlet_node_name.setter
     def inlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Inlet Node Name`
-        
-        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Inlet Node Name`
@@ -1862,8 +1856,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @outlet_node_name.setter
     def outlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Outlet Node Name`
-        
-        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Outlet Node Name`
@@ -1897,12 +1889,10 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
         return self._data["Rated Average Water Temperature"]
 
     @rated_average_water_temperature.setter
-    def rated_average_water_temperature(self, value=87.78 ):
+    def rated_average_water_temperature(self, value=87.78):
         """  Corresponds to IDD Field `Rated Average Water Temperature`
         Rated average water temperature is the average of the inlet and outlet water temperatures
         at rated conditions.
-        
-        {'pytype': 'float', u'default': '87.78', u'maximum': '150.0', u'note': [u'Rated average water temperature is the average of the inlet and outlet water temperatures', u'at rated conditions.'], u'minimum': '20.0', u'units': u'C', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Rated Average Water Temperature`
@@ -1940,14 +1930,12 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
         return self._data["Rated Water Mass Flow Rate"]
 
     @rated_water_mass_flow_rate.setter
-    def rated_water_mass_flow_rate(self, value=0.063 ):
+    def rated_water_mass_flow_rate(self, value=0.063):
         """  Corresponds to IDD Field `Rated Water Mass Flow Rate`
         Standard is I=B=R Rating document where all baseboards are rated at either 0.063 kg/s (1 gpm)
         or 0.252 kg/s (4 gpm).  It is recommended that users find data for the baseboard heater that
         corresponds to performance at 0.063 kg/s unless the flow rate is expected to be above 0.252 kg/s.
         If the flow rate is expected to be above 0.252 kg/s, this field should be 0.252 kg/s.
-        
-        {'pytype': 'float', u'default': '0.063', u'minimum>': '0.0', u'maximum': '10.0', u'note': [u'Standard is I=B=R Rating document where all baseboards are rated at either 0.063 kg/s (1 gpm)', u'or 0.252 kg/s (4 gpm).  It is recommended that users find data for the baseboard heater that', u'corresponds to performance at 0.063 kg/s unless the flow rate is expected to be above 0.252 kg/s.', u'If the flow rate is expected to be above 0.252 kg/s, this field should be 0.252 kg/s.'], u'units': u'Kg/s', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Rated Water Mass Flow Rate`
@@ -1993,8 +1981,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
         determine from user specified heating capacity per floor area and zone floor area.
         FractionOfAutosizedHeatingCapacity = > is selected when the design heating capacity is
         determined from a user specified fraction and the auto-sized design heating capacity.
-        
-        {'pytype': 'str', u'default': u'HeatingDesignCapacity', u'required-field': True, u'note': [u'Enter the method used to determine the heating design capacity.', u'HeatingDesignCapacity = > selected when the design heating capacity value or autosize', u'is specified. CapacityPerFloorArea = > selected when the design heating capacity is', u'determine from user specified heating capacity per floor area and zone floor area.', u'FractionOfAutosizedHeatingCapacity = > is selected when the design heating capacity is', u'determined from a user specified fraction and the auto-sized design heating capacity.'], u'key': [u'HeatingDesignCapacity', u'CapacityPerFloorArea', u'FractionOfAutosizedHeatingCapacity'], u'type': u'choice'}
 
         Args:
             value (str): value for IDD Field `Heating Design Capacity Method`
@@ -2051,18 +2037,16 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
         return self._data["Heating Design Capacity"]
 
     @heating_design_capacity.setter
-    def heating_design_capacity(self, value="autosize" ):
+    def heating_design_capacity(self, value="autosize"):
         """  Corresponds to IDD Field `Heating Design Capacity`
         Enter the design heating capacity. Required field when the heating design capacity method
         HeatingDesignCapacity. This input field is rated heating capacity. Users must multiply the
         actual finned length published in the literature to determine the rated capacity. Rated
         Capacity is for an inlet air dry-bulb temperature of 18.0C, the Rated Water Mass Flow Rate
         of 0.063kg/s or 0.252kg/s, and the Rated Average Water Temperature between 32.2C and 115.6C.
-        
-        {'pytype': 'float', u'default': '"autosize"', u'note': [u'Enter the design heating capacity. Required field when the heating design capacity method', u'HeatingDesignCapacity. This input field is rated heating capacity. Users must multiply the', u'actual finned length published in the literature to determine the rated capacity. Rated', u'Capacity is for an inlet air dry-bulb temperature of 18.0C, the Rated Water Mass Flow Rate', u'of 0.063kg/s or 0.252kg/s, and the Rated Average Water Temperature between 32.2C and 115.6C.'], u'ip-units': u'W', u'autosizable': u'', u'minimum': '0.0', u'units': u'W', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `Heating Design Capacity`
+            value (float or "Autosize"): value for IDD Field `Heating Design Capacity`
                 Units: W
                 IP-Units: W
                 Default value: "autosize"
@@ -2074,6 +2058,13 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             ValueError: if `value` is not a valid value
         """
         if value is not None:
+            try:
+                value_lower = str(value).lower()
+                if value_lower == "autosize":
+                    self._data["Heating Design Capacity"] = "Autosize"
+                    return
+            except ValueError:
+                pass
             try:
                 value = float(value)
             except ValueError:
@@ -2098,8 +2089,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
         """  Corresponds to IDD Field `Heating Design Capacity Per Floor Area`
         Enter the heating design capacity per zone floor area.Required field when the heating design
         capacity method field is CapacityPerFloorArea.
-        
-        {u'units': u'W/m2', u'note': [u'Enter the heating design capacity per zone floor area.Required field when the heating design', u'capacity method field is CapacityPerFloorArea.'], u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Heating Design Capacity Per Floor Area`
@@ -2132,12 +2121,10 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
         return self._data["Fraction of Autosized Heating Design Capacity"]
 
     @fraction_of_autosized_heating_design_capacity.setter
-    def fraction_of_autosized_heating_design_capacity(self, value=1.0 ):
+    def fraction_of_autosized_heating_design_capacity(self, value=1.0):
         """  Corresponds to IDD Field `Fraction of Autosized Heating Design Capacity`
         Enter the fraction of auto - sized heating design capacity.Required field when capacity the
         heating design capacity method field is FractionOfAutosizedHeatingCapacity.
-        
-        {u'default': '1.0', u'note': [u'Enter the fraction of auto - sized heating design capacity.Required field when capacity the', u'heating design capacity method field is FractionOfAutosizedHeatingCapacity.'], u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Autosized Heating Design Capacity`
@@ -2172,11 +2159,9 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @maximum_water_flow_rate.setter
     def maximum_water_flow_rate(self, value=None):
         """  Corresponds to IDD Field `Maximum Water Flow Rate`
-        
-        {u'units': u'm3/s', u'autosizable': u'', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `Maximum Water Flow Rate`
+            value (float or "Autosize"): value for IDD Field `Maximum Water Flow Rate`
                 Units: m3/s
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -2185,6 +2170,13 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             ValueError: if `value` is not a valid value
         """
         if value is not None:
+            try:
+                value_lower = str(value).lower()
+                if value_lower == "autosize":
+                    self._data["Maximum Water Flow Rate"] = "Autosize"
+                    return
+            except ValueError:
+                pass
             try:
                 value = float(value)
             except ValueError:
@@ -2202,10 +2194,8 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
         return self._data["Convergence Tolerance"]
 
     @convergence_tolerance.setter
-    def convergence_tolerance(self, value=0.001 ):
+    def convergence_tolerance(self, value=0.001):
         """  Corresponds to IDD Field `Convergence Tolerance`
-        
-        {u'default': '0.001', u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Convergence Tolerance`
@@ -2240,8 +2230,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @fraction_radiant.setter
     def fraction_radiant(self, value=None):
         """  Corresponds to IDD Field `Fraction Radiant`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction Radiant`
@@ -2279,8 +2267,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @fraction_of_radiant_energy_incident_on_people.setter
     def fraction_of_radiant_energy_incident_on_people(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy Incident on People`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy Incident on People`
@@ -2319,8 +2305,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     def surface_1_name(self, value=None):
         """  Corresponds to IDD Field `Surface 1 Name`
         Radiant energy may be distributed to specific surfaces
-        
-        {u'note': [u'Radiant energy may be distributed to specific surfaces'], 'pytype': 'str', u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', u'begin-extensible': u''}
 
         Args:
             value (str): value for IDD Field `Surface 1 Name`
@@ -2356,8 +2340,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @fraction_of_radiant_energy_to_surface_1.setter
     def fraction_of_radiant_energy_to_surface_1(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 1`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 1`
@@ -2395,8 +2377,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @surface_2_name.setter
     def surface_2_name(self, value=None):
         """  Corresponds to IDD Field `Surface 2 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 2 Name`
@@ -2432,8 +2412,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @fraction_of_radiant_energy_to_surface_2.setter
     def fraction_of_radiant_energy_to_surface_2(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 2`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 2`
@@ -2471,8 +2449,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @surface_3_name.setter
     def surface_3_name(self, value=None):
         """  Corresponds to IDD Field `Surface 3 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 3 Name`
@@ -2508,8 +2484,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @fraction_of_radiant_energy_to_surface_3.setter
     def fraction_of_radiant_energy_to_surface_3(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 3`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 3`
@@ -2547,8 +2521,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @surface_4_name.setter
     def surface_4_name(self, value=None):
         """  Corresponds to IDD Field `Surface 4 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 4 Name`
@@ -2584,8 +2556,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @fraction_of_radiant_energy_to_surface_4.setter
     def fraction_of_radiant_energy_to_surface_4(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 4`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 4`
@@ -2623,8 +2593,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @surface_5_name.setter
     def surface_5_name(self, value=None):
         """  Corresponds to IDD Field `Surface 5 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 5 Name`
@@ -2660,8 +2628,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @fraction_of_radiant_energy_to_surface_5.setter
     def fraction_of_radiant_energy_to_surface_5(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 5`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 5`
@@ -2699,8 +2665,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @surface_6_name.setter
     def surface_6_name(self, value=None):
         """  Corresponds to IDD Field `Surface 6 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 6 Name`
@@ -2736,8 +2700,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @fraction_of_radiant_energy_to_surface_6.setter
     def fraction_of_radiant_energy_to_surface_6(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 6`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 6`
@@ -2775,8 +2737,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @surface_7_name.setter
     def surface_7_name(self, value=None):
         """  Corresponds to IDD Field `Surface 7 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 7 Name`
@@ -2812,8 +2772,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @fraction_of_radiant_energy_to_surface_7.setter
     def fraction_of_radiant_energy_to_surface_7(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 7`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 7`
@@ -2851,8 +2809,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @surface_8_name.setter
     def surface_8_name(self, value=None):
         """  Corresponds to IDD Field `Surface 8 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 8 Name`
@@ -2888,8 +2844,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @fraction_of_radiant_energy_to_surface_8.setter
     def fraction_of_radiant_energy_to_surface_8(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 8`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 8`
@@ -2927,8 +2881,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @surface_9_name.setter
     def surface_9_name(self, value=None):
         """  Corresponds to IDD Field `Surface 9 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 9 Name`
@@ -2964,8 +2916,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @fraction_of_radiant_energy_to_surface_9.setter
     def fraction_of_radiant_energy_to_surface_9(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 9`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 9`
@@ -3003,8 +2953,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @surface_10_name.setter
     def surface_10_name(self, value=None):
         """  Corresponds to IDD Field `Surface 10 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 10 Name`
@@ -3040,8 +2988,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @fraction_of_radiant_energy_to_surface_10.setter
     def fraction_of_radiant_energy_to_surface_10(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 10`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 10`
@@ -3079,8 +3025,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @surface_11_name.setter
     def surface_11_name(self, value=None):
         """  Corresponds to IDD Field `Surface 11 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 11 Name`
@@ -3116,8 +3060,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @fraction_of_radiant_energy_to_surface_11.setter
     def fraction_of_radiant_energy_to_surface_11(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 11`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 11`
@@ -3155,8 +3097,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @surface_12_name.setter
     def surface_12_name(self, value=None):
         """  Corresponds to IDD Field `Surface 12 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 12 Name`
@@ -3192,8 +3132,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @fraction_of_radiant_energy_to_surface_12.setter
     def fraction_of_radiant_energy_to_surface_12(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 12`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 12`
@@ -3231,8 +3169,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @surface_13_name.setter
     def surface_13_name(self, value=None):
         """  Corresponds to IDD Field `Surface 13 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 13 Name`
@@ -3268,8 +3204,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @fraction_of_radiant_energy_to_surface_13.setter
     def fraction_of_radiant_energy_to_surface_13(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 13`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 13`
@@ -3307,8 +3241,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @surface_14_name.setter
     def surface_14_name(self, value=None):
         """  Corresponds to IDD Field `Surface 14 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 14 Name`
@@ -3344,8 +3276,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @fraction_of_radiant_energy_to_surface_14.setter
     def fraction_of_radiant_energy_to_surface_14(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 14`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 14`
@@ -3383,8 +3313,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @surface_15_name.setter
     def surface_15_name(self, value=None):
         """  Corresponds to IDD Field `Surface 15 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 15 Name`
@@ -3420,8 +3348,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @fraction_of_radiant_energy_to_surface_15.setter
     def fraction_of_radiant_energy_to_surface_15(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 15`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 15`
@@ -3459,8 +3385,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @surface_16_name.setter
     def surface_16_name(self, value=None):
         """  Corresponds to IDD Field `Surface 16 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 16 Name`
@@ -3496,8 +3420,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @fraction_of_radiant_energy_to_surface_16.setter
     def fraction_of_radiant_energy_to_surface_16(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 16`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 16`
@@ -3535,8 +3457,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @surface_17_name.setter
     def surface_17_name(self, value=None):
         """  Corresponds to IDD Field `Surface 17 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 17 Name`
@@ -3572,8 +3492,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @fraction_of_radiant_energy_to_surface_17.setter
     def fraction_of_radiant_energy_to_surface_17(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 17`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 17`
@@ -3611,8 +3529,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @surface_18_name.setter
     def surface_18_name(self, value=None):
         """  Corresponds to IDD Field `Surface 18 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 18 Name`
@@ -3648,8 +3564,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @fraction_of_radiant_energy_to_surface_18.setter
     def fraction_of_radiant_energy_to_surface_18(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 18`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 18`
@@ -3687,8 +3601,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @surface_19_name.setter
     def surface_19_name(self, value=None):
         """  Corresponds to IDD Field `Surface 19 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 19 Name`
@@ -3724,8 +3636,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @fraction_of_radiant_energy_to_surface_19.setter
     def fraction_of_radiant_energy_to_surface_19(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 19`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 19`
@@ -3763,8 +3673,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @surface_20_name.setter
     def surface_20_name(self, value=None):
         """  Corresponds to IDD Field `Surface 20 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 20 Name`
@@ -3800,8 +3708,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @fraction_of_radiant_energy_to_surface_20.setter
     def fraction_of_radiant_energy_to_surface_20(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 20`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 20`
@@ -3839,8 +3745,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @surface_21_name.setter
     def surface_21_name(self, value=None):
         """  Corresponds to IDD Field `Surface 21 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 21 Name`
@@ -3876,8 +3780,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @fraction_of_radiant_energy_to_surface_21.setter
     def fraction_of_radiant_energy_to_surface_21(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 21`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 21`
@@ -3915,8 +3817,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @surface_22_name.setter
     def surface_22_name(self, value=None):
         """  Corresponds to IDD Field `Surface 22 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 22 Name`
@@ -3952,8 +3852,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @fraction_of_radiant_energy_to_surface_22.setter
     def fraction_of_radiant_energy_to_surface_22(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 22`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 22`
@@ -3991,8 +3889,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @surface_23_name.setter
     def surface_23_name(self, value=None):
         """  Corresponds to IDD Field `Surface 23 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 23 Name`
@@ -4028,8 +3924,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @fraction_of_radiant_energy_to_surface_23.setter
     def fraction_of_radiant_energy_to_surface_23(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 23`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 23`
@@ -4067,8 +3961,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @surface_24_name.setter
     def surface_24_name(self, value=None):
         """  Corresponds to IDD Field `Surface 24 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 24 Name`
@@ -4104,8 +3996,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @fraction_of_radiant_energy_to_surface_24.setter
     def fraction_of_radiant_energy_to_surface_24(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 24`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 24`
@@ -4143,8 +4033,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @surface_25_name.setter
     def surface_25_name(self, value=None):
         """  Corresponds to IDD Field `Surface 25 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 25 Name`
@@ -4180,8 +4068,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @fraction_of_radiant_energy_to_surface_25.setter
     def fraction_of_radiant_energy_to_surface_25(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 25`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 25`
@@ -4219,8 +4105,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @surface_26_name.setter
     def surface_26_name(self, value=None):
         """  Corresponds to IDD Field `Surface 26 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 26 Name`
@@ -4256,8 +4140,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @fraction_of_radiant_energy_to_surface_26.setter
     def fraction_of_radiant_energy_to_surface_26(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 26`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 26`
@@ -4295,8 +4177,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @surface_27_name.setter
     def surface_27_name(self, value=None):
         """  Corresponds to IDD Field `Surface 27 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 27 Name`
@@ -4332,8 +4212,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @fraction_of_radiant_energy_to_surface_27.setter
     def fraction_of_radiant_energy_to_surface_27(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 27`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 27`
@@ -4371,8 +4249,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @surface_28_name.setter
     def surface_28_name(self, value=None):
         """  Corresponds to IDD Field `Surface 28 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 28 Name`
@@ -4408,8 +4284,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @fraction_of_radiant_energy_to_surface_28.setter
     def fraction_of_radiant_energy_to_surface_28(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 28`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 28`
@@ -4447,8 +4321,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @surface_29_name.setter
     def surface_29_name(self, value=None):
         """  Corresponds to IDD Field `Surface 29 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 29 Name`
@@ -4484,8 +4356,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @fraction_of_radiant_energy_to_surface_29.setter
     def fraction_of_radiant_energy_to_surface_29(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 29`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 29`
@@ -4523,8 +4393,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @surface_30_name.setter
     def surface_30_name(self, value=None):
         """  Corresponds to IDD Field `Surface 30 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 30 Name`
@@ -4560,8 +4428,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @fraction_of_radiant_energy_to_surface_30.setter
     def fraction_of_radiant_energy_to_surface_30(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 30`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 30`
@@ -4599,8 +4465,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @surface_31_name.setter
     def surface_31_name(self, value=None):
         """  Corresponds to IDD Field `Surface 31 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 31 Name`
@@ -4636,8 +4500,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @fraction_of_radiant_energy_to_surface_31.setter
     def fraction_of_radiant_energy_to_surface_31(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 31`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 31`
@@ -4675,8 +4537,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @surface_32_name.setter
     def surface_32_name(self, value=None):
         """  Corresponds to IDD Field `Surface 32 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 32 Name`
@@ -4712,8 +4572,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @fraction_of_radiant_energy_to_surface_32.setter
     def fraction_of_radiant_energy_to_surface_32(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 32`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 32`
@@ -4751,8 +4609,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @surface_33_name.setter
     def surface_33_name(self, value=None):
         """  Corresponds to IDD Field `Surface 33 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 33 Name`
@@ -4788,8 +4644,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @fraction_of_radiant_energy_to_surface_33.setter
     def fraction_of_radiant_energy_to_surface_33(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 33`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 33`
@@ -4827,8 +4681,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @surface_34_name.setter
     def surface_34_name(self, value=None):
         """  Corresponds to IDD Field `Surface 34 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 34 Name`
@@ -4864,8 +4716,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @fraction_of_radiant_energy_to_surface_34.setter
     def fraction_of_radiant_energy_to_surface_34(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 34`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 34`
@@ -4903,8 +4753,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @surface_35_name.setter
     def surface_35_name(self, value=None):
         """  Corresponds to IDD Field `Surface 35 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 35 Name`
@@ -4940,8 +4788,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @fraction_of_radiant_energy_to_surface_35.setter
     def fraction_of_radiant_energy_to_surface_35(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 35`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 35`
@@ -4979,8 +4825,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @surface_36_name.setter
     def surface_36_name(self, value=None):
         """  Corresponds to IDD Field `Surface 36 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 36 Name`
@@ -5016,8 +4860,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @fraction_of_radiant_energy_to_surface_36.setter
     def fraction_of_radiant_energy_to_surface_36(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 36`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 36`
@@ -5055,8 +4897,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @surface_37_name.setter
     def surface_37_name(self, value=None):
         """  Corresponds to IDD Field `Surface 37 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 37 Name`
@@ -5092,8 +4932,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @fraction_of_radiant_energy_to_surface_37.setter
     def fraction_of_radiant_energy_to_surface_37(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 37`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 37`
@@ -5131,8 +4969,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @surface_38_name.setter
     def surface_38_name(self, value=None):
         """  Corresponds to IDD Field `Surface 38 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 38 Name`
@@ -5168,8 +5004,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @fraction_of_radiant_energy_to_surface_38.setter
     def fraction_of_radiant_energy_to_surface_38(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 38`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 38`
@@ -5207,8 +5041,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @surface_39_name.setter
     def surface_39_name(self, value=None):
         """  Corresponds to IDD Field `Surface 39 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 39 Name`
@@ -5244,8 +5076,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @fraction_of_radiant_energy_to_surface_39.setter
     def fraction_of_radiant_energy_to_surface_39(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 39`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 39`
@@ -5283,8 +5113,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @surface_40_name.setter
     def surface_40_name(self, value=None):
         """  Corresponds to IDD Field `Surface 40 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 40 Name`
@@ -5320,8 +5148,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @fraction_of_radiant_energy_to_surface_40.setter
     def fraction_of_radiant_energy_to_surface_40(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 40`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 40`
@@ -5359,8 +5185,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @surface_41_name.setter
     def surface_41_name(self, value=None):
         """  Corresponds to IDD Field `Surface 41 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 41 Name`
@@ -5396,8 +5220,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @fraction_of_radiant_energy_to_surface_41.setter
     def fraction_of_radiant_energy_to_surface_41(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 41`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 41`
@@ -5435,8 +5257,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @surface_42_name.setter
     def surface_42_name(self, value=None):
         """  Corresponds to IDD Field `Surface 42 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 42 Name`
@@ -5472,8 +5292,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @fraction_of_radiant_energy_to_surface_42.setter
     def fraction_of_radiant_energy_to_surface_42(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 42`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 42`
@@ -5511,8 +5329,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @surface_43_name.setter
     def surface_43_name(self, value=None):
         """  Corresponds to IDD Field `Surface 43 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 43 Name`
@@ -5548,8 +5364,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @fraction_of_radiant_energy_to_surface_43.setter
     def fraction_of_radiant_energy_to_surface_43(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 43`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 43`
@@ -5587,8 +5401,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @surface_44_name.setter
     def surface_44_name(self, value=None):
         """  Corresponds to IDD Field `Surface 44 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 44 Name`
@@ -5624,8 +5436,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @fraction_of_radiant_energy_to_surface_44.setter
     def fraction_of_radiant_energy_to_surface_44(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 44`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 44`
@@ -5663,8 +5473,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @surface_45_name.setter
     def surface_45_name(self, value=None):
         """  Corresponds to IDD Field `Surface 45 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 45 Name`
@@ -5700,8 +5508,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @fraction_of_radiant_energy_to_surface_45.setter
     def fraction_of_radiant_energy_to_surface_45(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 45`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 45`
@@ -5739,8 +5545,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @surface_46_name.setter
     def surface_46_name(self, value=None):
         """  Corresponds to IDD Field `Surface 46 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 46 Name`
@@ -5776,8 +5580,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @fraction_of_radiant_energy_to_surface_46.setter
     def fraction_of_radiant_energy_to_surface_46(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 46`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 46`
@@ -5815,8 +5617,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @surface_47_name.setter
     def surface_47_name(self, value=None):
         """  Corresponds to IDD Field `Surface 47 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 47 Name`
@@ -5852,8 +5652,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @fraction_of_radiant_energy_to_surface_47.setter
     def fraction_of_radiant_energy_to_surface_47(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 47`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 47`
@@ -5891,8 +5689,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @surface_48_name.setter
     def surface_48_name(self, value=None):
         """  Corresponds to IDD Field `Surface 48 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 48 Name`
@@ -5928,8 +5724,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @fraction_of_radiant_energy_to_surface_48.setter
     def fraction_of_radiant_energy_to_surface_48(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 48`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 48`
@@ -5967,8 +5761,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @surface_49_name.setter
     def surface_49_name(self, value=None):
         """  Corresponds to IDD Field `Surface 49 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 49 Name`
@@ -6004,8 +5796,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @fraction_of_radiant_energy_to_surface_49.setter
     def fraction_of_radiant_energy_to_surface_49(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 49`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 49`
@@ -6043,8 +5833,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @surface_50_name.setter
     def surface_50_name(self, value=None):
         """  Corresponds to IDD Field `Surface 50 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 50 Name`
@@ -6080,8 +5868,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @fraction_of_radiant_energy_to_surface_50.setter
     def fraction_of_radiant_energy_to_surface_50(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 50`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 50`
@@ -6119,8 +5905,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @surface_51_name.setter
     def surface_51_name(self, value=None):
         """  Corresponds to IDD Field `Surface 51 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 51 Name`
@@ -6156,8 +5940,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @fraction_of_radiant_energy_to_surface_51.setter
     def fraction_of_radiant_energy_to_surface_51(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 51`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 51`
@@ -6195,8 +5977,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @surface_52_name.setter
     def surface_52_name(self, value=None):
         """  Corresponds to IDD Field `Surface 52 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 52 Name`
@@ -6232,8 +6012,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @fraction_of_radiant_energy_to_surface_52.setter
     def fraction_of_radiant_energy_to_surface_52(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 52`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 52`
@@ -6271,8 +6049,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @surface_53_name.setter
     def surface_53_name(self, value=None):
         """  Corresponds to IDD Field `Surface 53 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 53 Name`
@@ -6308,8 +6084,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @fraction_of_radiant_energy_to_surface_53.setter
     def fraction_of_radiant_energy_to_surface_53(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 53`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 53`
@@ -6347,8 +6121,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @surface_54_name.setter
     def surface_54_name(self, value=None):
         """  Corresponds to IDD Field `Surface 54 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 54 Name`
@@ -6384,8 +6156,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @fraction_of_radiant_energy_to_surface_54.setter
     def fraction_of_radiant_energy_to_surface_54(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 54`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 54`
@@ -6423,8 +6193,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @surface_55_name.setter
     def surface_55_name(self, value=None):
         """  Corresponds to IDD Field `Surface 55 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 55 Name`
@@ -6460,8 +6228,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @fraction_of_radiant_energy_to_surface_55.setter
     def fraction_of_radiant_energy_to_surface_55(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 55`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 55`
@@ -6499,8 +6265,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @surface_56_name.setter
     def surface_56_name(self, value=None):
         """  Corresponds to IDD Field `Surface 56 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 56 Name`
@@ -6536,8 +6300,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @fraction_of_radiant_energy_to_surface_56.setter
     def fraction_of_radiant_energy_to_surface_56(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 56`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 56`
@@ -6575,8 +6337,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @surface_57_name.setter
     def surface_57_name(self, value=None):
         """  Corresponds to IDD Field `Surface 57 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 57 Name`
@@ -6612,8 +6372,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @fraction_of_radiant_energy_to_surface_57.setter
     def fraction_of_radiant_energy_to_surface_57(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 57`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 57`
@@ -6651,8 +6409,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @surface_58_name.setter
     def surface_58_name(self, value=None):
         """  Corresponds to IDD Field `Surface 58 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 58 Name`
@@ -6688,8 +6444,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @fraction_of_radiant_energy_to_surface_58.setter
     def fraction_of_radiant_energy_to_surface_58(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 58`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 58`
@@ -6727,8 +6481,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @surface_59_name.setter
     def surface_59_name(self, value=None):
         """  Corresponds to IDD Field `Surface 59 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 59 Name`
@@ -6764,8 +6516,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @fraction_of_radiant_energy_to_surface_59.setter
     def fraction_of_radiant_energy_to_surface_59(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 59`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 59`
@@ -6803,8 +6553,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @surface_60_name.setter
     def surface_60_name(self, value=None):
         """  Corresponds to IDD Field `Surface 60 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 60 Name`
@@ -6840,8 +6588,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @fraction_of_radiant_energy_to_surface_60.setter
     def fraction_of_radiant_energy_to_surface_60(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 60`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 60`
@@ -6879,8 +6625,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @surface_61_name.setter
     def surface_61_name(self, value=None):
         """  Corresponds to IDD Field `Surface 61 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 61 Name`
@@ -6916,8 +6660,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @fraction_of_radiant_energy_to_surface_61.setter
     def fraction_of_radiant_energy_to_surface_61(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 61`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 61`
@@ -6955,8 +6697,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @surface_62_name.setter
     def surface_62_name(self, value=None):
         """  Corresponds to IDD Field `Surface 62 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 62 Name`
@@ -6992,8 +6732,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @fraction_of_radiant_energy_to_surface_62.setter
     def fraction_of_radiant_energy_to_surface_62(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 62`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 62`
@@ -7031,8 +6769,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @surface_63_name.setter
     def surface_63_name(self, value=None):
         """  Corresponds to IDD Field `Surface 63 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 63 Name`
@@ -7068,8 +6804,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @fraction_of_radiant_energy_to_surface_63.setter
     def fraction_of_radiant_energy_to_surface_63(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 63`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 63`
@@ -7107,8 +6841,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @surface_64_name.setter
     def surface_64_name(self, value=None):
         """  Corresponds to IDD Field `Surface 64 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 64 Name`
@@ -7144,8 +6876,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @fraction_of_radiant_energy_to_surface_64.setter
     def fraction_of_radiant_energy_to_surface_64(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 64`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 64`
@@ -7183,8 +6913,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @surface_65_name.setter
     def surface_65_name(self, value=None):
         """  Corresponds to IDD Field `Surface 65 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 65 Name`
@@ -7220,8 +6948,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @fraction_of_radiant_energy_to_surface_65.setter
     def fraction_of_radiant_energy_to_surface_65(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 65`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 65`
@@ -7259,8 +6985,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @surface_66_name.setter
     def surface_66_name(self, value=None):
         """  Corresponds to IDD Field `Surface 66 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 66 Name`
@@ -7296,8 +7020,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @fraction_of_radiant_energy_to_surface_66.setter
     def fraction_of_radiant_energy_to_surface_66(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 66`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 66`
@@ -7335,8 +7057,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @surface_67_name.setter
     def surface_67_name(self, value=None):
         """  Corresponds to IDD Field `Surface 67 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 67 Name`
@@ -7372,8 +7092,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @fraction_of_radiant_energy_to_surface_67.setter
     def fraction_of_radiant_energy_to_surface_67(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 67`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 67`
@@ -7411,8 +7129,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @surface_68_name.setter
     def surface_68_name(self, value=None):
         """  Corresponds to IDD Field `Surface 68 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 68 Name`
@@ -7448,8 +7164,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @fraction_of_radiant_energy_to_surface_68.setter
     def fraction_of_radiant_energy_to_surface_68(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 68`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 68`
@@ -7487,8 +7201,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @surface_69_name.setter
     def surface_69_name(self, value=None):
         """  Corresponds to IDD Field `Surface 69 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 69 Name`
@@ -7524,8 +7236,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @fraction_of_radiant_energy_to_surface_69.setter
     def fraction_of_radiant_energy_to_surface_69(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 69`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 69`
@@ -7563,8 +7273,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @surface_70_name.setter
     def surface_70_name(self, value=None):
         """  Corresponds to IDD Field `Surface 70 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 70 Name`
@@ -7600,8 +7308,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @fraction_of_radiant_energy_to_surface_70.setter
     def fraction_of_radiant_energy_to_surface_70(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 70`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 70`
@@ -7639,8 +7345,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @surface_71_name.setter
     def surface_71_name(self, value=None):
         """  Corresponds to IDD Field `Surface 71 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 71 Name`
@@ -7676,8 +7380,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @fraction_of_radiant_energy_to_surface_71.setter
     def fraction_of_radiant_energy_to_surface_71(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 71`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 71`
@@ -7715,8 +7417,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @surface_72_name.setter
     def surface_72_name(self, value=None):
         """  Corresponds to IDD Field `Surface 72 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 72 Name`
@@ -7752,8 +7452,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @fraction_of_radiant_energy_to_surface_72.setter
     def fraction_of_radiant_energy_to_surface_72(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 72`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 72`
@@ -7791,8 +7489,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @surface_73_name.setter
     def surface_73_name(self, value=None):
         """  Corresponds to IDD Field `Surface 73 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 73 Name`
@@ -7828,8 +7524,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @fraction_of_radiant_energy_to_surface_73.setter
     def fraction_of_radiant_energy_to_surface_73(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 73`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 73`
@@ -7867,8 +7561,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @surface_74_name.setter
     def surface_74_name(self, value=None):
         """  Corresponds to IDD Field `Surface 74 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 74 Name`
@@ -7904,8 +7596,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @fraction_of_radiant_energy_to_surface_74.setter
     def fraction_of_radiant_energy_to_surface_74(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 74`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 74`
@@ -7943,8 +7633,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @surface_75_name.setter
     def surface_75_name(self, value=None):
         """  Corresponds to IDD Field `Surface 75 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 75 Name`
@@ -7980,8 +7668,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @fraction_of_radiant_energy_to_surface_75.setter
     def fraction_of_radiant_energy_to_surface_75(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 75`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 75`
@@ -8019,8 +7705,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @surface_76_name.setter
     def surface_76_name(self, value=None):
         """  Corresponds to IDD Field `Surface 76 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 76 Name`
@@ -8056,8 +7740,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @fraction_of_radiant_energy_to_surface_76.setter
     def fraction_of_radiant_energy_to_surface_76(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 76`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 76`
@@ -8095,8 +7777,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @surface_77_name.setter
     def surface_77_name(self, value=None):
         """  Corresponds to IDD Field `Surface 77 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 77 Name`
@@ -8132,8 +7812,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @fraction_of_radiant_energy_to_surface_77.setter
     def fraction_of_radiant_energy_to_surface_77(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 77`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 77`
@@ -8171,8 +7849,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @surface_78_name.setter
     def surface_78_name(self, value=None):
         """  Corresponds to IDD Field `Surface 78 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 78 Name`
@@ -8208,8 +7884,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @fraction_of_radiant_energy_to_surface_78.setter
     def fraction_of_radiant_energy_to_surface_78(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 78`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 78`
@@ -8247,8 +7921,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @surface_79_name.setter
     def surface_79_name(self, value=None):
         """  Corresponds to IDD Field `Surface 79 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 79 Name`
@@ -8284,8 +7956,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @fraction_of_radiant_energy_to_surface_79.setter
     def fraction_of_radiant_energy_to_surface_79(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 79`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 79`
@@ -8323,8 +7993,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @surface_80_name.setter
     def surface_80_name(self, value=None):
         """  Corresponds to IDD Field `Surface 80 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 80 Name`
@@ -8360,8 +8028,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @fraction_of_radiant_energy_to_surface_80.setter
     def fraction_of_radiant_energy_to_surface_80(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 80`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 80`
@@ -8399,8 +8065,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @surface_81_name.setter
     def surface_81_name(self, value=None):
         """  Corresponds to IDD Field `Surface 81 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 81 Name`
@@ -8436,8 +8100,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @fraction_of_radiant_energy_to_surface_81.setter
     def fraction_of_radiant_energy_to_surface_81(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 81`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 81`
@@ -8475,8 +8137,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @surface_82_name.setter
     def surface_82_name(self, value=None):
         """  Corresponds to IDD Field `Surface 82 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 82 Name`
@@ -8512,8 +8172,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @fraction_of_radiant_energy_to_surface_82.setter
     def fraction_of_radiant_energy_to_surface_82(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 82`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 82`
@@ -8551,8 +8209,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @surface_83_name.setter
     def surface_83_name(self, value=None):
         """  Corresponds to IDD Field `Surface 83 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 83 Name`
@@ -8588,8 +8244,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @fraction_of_radiant_energy_to_surface_83.setter
     def fraction_of_radiant_energy_to_surface_83(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 83`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 83`
@@ -8627,8 +8281,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @surface_84_name.setter
     def surface_84_name(self, value=None):
         """  Corresponds to IDD Field `Surface 84 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 84 Name`
@@ -8664,8 +8316,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @fraction_of_radiant_energy_to_surface_84.setter
     def fraction_of_radiant_energy_to_surface_84(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 84`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 84`
@@ -8703,8 +8353,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @surface_85_name.setter
     def surface_85_name(self, value=None):
         """  Corresponds to IDD Field `Surface 85 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 85 Name`
@@ -8740,8 +8388,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @fraction_of_radiant_energy_to_surface_85.setter
     def fraction_of_radiant_energy_to_surface_85(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 85`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 85`
@@ -8779,8 +8425,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @surface_86_name.setter
     def surface_86_name(self, value=None):
         """  Corresponds to IDD Field `Surface 86 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 86 Name`
@@ -8816,8 +8460,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @fraction_of_radiant_energy_to_surface_86.setter
     def fraction_of_radiant_energy_to_surface_86(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 86`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 86`
@@ -8855,8 +8497,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @surface_87_name.setter
     def surface_87_name(self, value=None):
         """  Corresponds to IDD Field `Surface 87 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 87 Name`
@@ -8892,8 +8532,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @fraction_of_radiant_energy_to_surface_87.setter
     def fraction_of_radiant_energy_to_surface_87(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 87`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 87`
@@ -8931,8 +8569,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @surface_88_name.setter
     def surface_88_name(self, value=None):
         """  Corresponds to IDD Field `Surface 88 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 88 Name`
@@ -8968,8 +8604,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @fraction_of_radiant_energy_to_surface_88.setter
     def fraction_of_radiant_energy_to_surface_88(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 88`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 88`
@@ -9007,8 +8641,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @surface_89_name.setter
     def surface_89_name(self, value=None):
         """  Corresponds to IDD Field `Surface 89 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 89 Name`
@@ -9044,8 +8676,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @fraction_of_radiant_energy_to_surface_89.setter
     def fraction_of_radiant_energy_to_surface_89(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 89`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 89`
@@ -9083,8 +8713,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @surface_90_name.setter
     def surface_90_name(self, value=None):
         """  Corresponds to IDD Field `Surface 90 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 90 Name`
@@ -9120,8 +8748,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @fraction_of_radiant_energy_to_surface_90.setter
     def fraction_of_radiant_energy_to_surface_90(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 90`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 90`
@@ -9159,8 +8785,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @surface_91_name.setter
     def surface_91_name(self, value=None):
         """  Corresponds to IDD Field `Surface 91 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 91 Name`
@@ -9196,8 +8820,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @fraction_of_radiant_energy_to_surface_91.setter
     def fraction_of_radiant_energy_to_surface_91(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 91`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 91`
@@ -9235,8 +8857,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @surface_92_name.setter
     def surface_92_name(self, value=None):
         """  Corresponds to IDD Field `Surface 92 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 92 Name`
@@ -9272,8 +8892,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @fraction_of_radiant_energy_to_surface_92.setter
     def fraction_of_radiant_energy_to_surface_92(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 92`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 92`
@@ -9311,8 +8929,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @surface_93_name.setter
     def surface_93_name(self, value=None):
         """  Corresponds to IDD Field `Surface 93 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 93 Name`
@@ -9348,8 +8964,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @fraction_of_radiant_energy_to_surface_93.setter
     def fraction_of_radiant_energy_to_surface_93(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 93`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 93`
@@ -9387,8 +9001,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @surface_94_name.setter
     def surface_94_name(self, value=None):
         """  Corresponds to IDD Field `Surface 94 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 94 Name`
@@ -9424,8 +9036,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @fraction_of_radiant_energy_to_surface_94.setter
     def fraction_of_radiant_energy_to_surface_94(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 94`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 94`
@@ -9463,8 +9073,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @surface_95_name.setter
     def surface_95_name(self, value=None):
         """  Corresponds to IDD Field `Surface 95 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 95 Name`
@@ -9500,8 +9108,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @fraction_of_radiant_energy_to_surface_95.setter
     def fraction_of_radiant_energy_to_surface_95(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 95`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 95`
@@ -9539,8 +9145,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @surface_96_name.setter
     def surface_96_name(self, value=None):
         """  Corresponds to IDD Field `Surface 96 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 96 Name`
@@ -9576,8 +9180,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @fraction_of_radiant_energy_to_surface_96.setter
     def fraction_of_radiant_energy_to_surface_96(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 96`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 96`
@@ -9615,8 +9217,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @surface_97_name.setter
     def surface_97_name(self, value=None):
         """  Corresponds to IDD Field `Surface 97 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 97 Name`
@@ -9652,8 +9252,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @fraction_of_radiant_energy_to_surface_97.setter
     def fraction_of_radiant_energy_to_surface_97(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 97`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 97`
@@ -9691,8 +9289,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @surface_98_name.setter
     def surface_98_name(self, value=None):
         """  Corresponds to IDD Field `Surface 98 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 98 Name`
@@ -9728,8 +9324,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @fraction_of_radiant_energy_to_surface_98.setter
     def fraction_of_radiant_energy_to_surface_98(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 98`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 98`
@@ -9767,8 +9361,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @surface_99_name.setter
     def surface_99_name(self, value=None):
         """  Corresponds to IDD Field `Surface 99 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 99 Name`
@@ -9804,8 +9396,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @fraction_of_radiant_energy_to_surface_99.setter
     def fraction_of_radiant_energy_to_surface_99(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 99`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 99`
@@ -9843,8 +9433,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @surface_100_name.setter
     def surface_100_name(self, value=None):
         """  Corresponds to IDD Field `Surface 100 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 100 Name`
@@ -9880,8 +9468,6 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     @fraction_of_radiant_energy_to_surface_100.setter
     def fraction_of_radiant_energy_to_surface_100(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 100`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 100`
@@ -11682,8 +11268,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {'type': 'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -11721,8 +11305,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
         """  Corresponds to IDD Field `Availability Schedule Name`
         Availability schedule name for this system. Schedule value > 0 means the system is available.
         If this field is blank, the system is always available.
-        
-        {u'note': [u'Availability schedule name for this system. Schedule value > 0 means the system is available.', u'If this field is blank, the system is always available.'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Availability Schedule Name`
@@ -11758,8 +11340,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @inlet_node_name.setter
     def inlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Inlet Node Name`
-        
-        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Inlet Node Name`
@@ -11795,8 +11375,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @outlet_node_name.setter
     def outlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Outlet Node Name`
-        
-        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Outlet Node Name`
@@ -11838,8 +11416,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
         determine from user specified heating capacity per floor area and zone floor area.
         FractionOfAutosizedHeatingCapacity = > is selected when the design heating capacity is
         determined from a user specified fraction and the auto-sized design heating capacity.
-        
-        {'pytype': 'str', u'default': u'HeatingDesignCapacity', u'required-field': True, u'note': [u'Enter the method used to determine the heating design capacity.', u'HeatingDesignCapacity = > selected when the design heating capacity value or autosize', u'is specified. CapacityPerFloorArea = > selected when the design heating capacity is', u'determine from user specified heating capacity per floor area and zone floor area.', u'FractionOfAutosizedHeatingCapacity = > is selected when the design heating capacity is', u'determined from a user specified fraction and the auto-sized design heating capacity.'], u'key': [u'HeatingDesignCapacity', u'CapacityPerFloorArea', u'FractionOfAutosizedHeatingCapacity'], u'type': u'choice'}
 
         Args:
             value (str): value for IDD Field `Heating Design Capacity Method`
@@ -11896,15 +11472,13 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
         return self._data["Heating Design Capacity"]
 
     @heating_design_capacity.setter
-    def heating_design_capacity(self, value="autosize" ):
+    def heating_design_capacity(self, value="autosize"):
         """  Corresponds to IDD Field `Heating Design Capacity`
         Enter the design heating capacity.Required field when the heating design capacity method
         HeatingDesignCapacity.
-        
-        {'pytype': 'float', u'default': '"autosize"', u'note': [u'Enter the design heating capacity.Required field when the heating design capacity method', u'HeatingDesignCapacity.'], u'ip-units': u'W', u'autosizable': u'', u'minimum': '0.0', u'units': u'W', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `Heating Design Capacity`
+            value (float or "Autosize"): value for IDD Field `Heating Design Capacity`
                 Units: W
                 IP-Units: W
                 Default value: "autosize"
@@ -11916,6 +11490,13 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             ValueError: if `value` is not a valid value
         """
         if value is not None:
+            try:
+                value_lower = str(value).lower()
+                if value_lower == "autosize":
+                    self._data["Heating Design Capacity"] = "Autosize"
+                    return
+            except ValueError:
+                pass
             try:
                 value = float(value)
             except ValueError:
@@ -11940,8 +11521,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
         """  Corresponds to IDD Field `Heating Design Capacity Per Floor Area`
         Enter the heating design capacity per zone floor area.Required field when the heating design
         capacity method field is CapacityPerFloorArea.
-        
-        {u'units': u'W/m2', u'note': [u'Enter the heating design capacity per zone floor area.Required field when the heating design', u'capacity method field is CapacityPerFloorArea.'], u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Heating Design Capacity Per Floor Area`
@@ -11974,12 +11553,10 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
         return self._data["Fraction of Autosized Heating Design Capacity"]
 
     @fraction_of_autosized_heating_design_capacity.setter
-    def fraction_of_autosized_heating_design_capacity(self, value=1.0 ):
+    def fraction_of_autosized_heating_design_capacity(self, value=1.0):
         """  Corresponds to IDD Field `Fraction of Autosized Heating Design Capacity`
         Enter the fraction of auto - sized heating design capacity.Required field when capacity the
         heating design capacity method field is FractionOfAutosizedHeatingCapacity.
-        
-        {u'default': '1.0', u'note': [u'Enter the fraction of auto - sized heating design capacity.Required field when capacity the', u'heating design capacity method field is FractionOfAutosizedHeatingCapacity.'], u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Autosized Heating Design Capacity`
@@ -12012,10 +11589,8 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
         return self._data["Degree of SubCooling"]
 
     @degree_of_subcooling.setter
-    def degree_of_subcooling(self, value=5.0 ):
+    def degree_of_subcooling(self, value=5.0):
         """  Corresponds to IDD Field `Degree of SubCooling`
-        
-        {u'default': '5.0', u'units': u'deltaC', u'minimum': '1.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Degree of SubCooling`
@@ -12051,11 +11626,9 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @maximum_steam_flow_rate.setter
     def maximum_steam_flow_rate(self, value=None):
         """  Corresponds to IDD Field `Maximum Steam Flow Rate`
-        
-        {'pytype': 'float', u'minimum>': '0.0', u'required-field': True, u'autosizable': u'', u'units': u'm3/s', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `Maximum Steam Flow Rate`
+            value (float or "Autosize"): value for IDD Field `Maximum Steam Flow Rate`
                 Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -12065,6 +11638,13 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             ValueError: if `value` is not a valid value
         """
         if value is not None:
+            try:
+                value_lower = str(value).lower()
+                if value_lower == "autosize":
+                    self._data["Maximum Steam Flow Rate"] = "Autosize"
+                    return
+            except ValueError:
+                pass
             try:
                 value = float(value)
             except ValueError:
@@ -12085,10 +11665,8 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
         return self._data["Convergence Tolerance"]
 
     @convergence_tolerance.setter
-    def convergence_tolerance(self, value=0.001 ):
+    def convergence_tolerance(self, value=0.001):
         """  Corresponds to IDD Field `Convergence Tolerance`
-        
-        {u'default': '0.001', u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Convergence Tolerance`
@@ -12123,8 +11701,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @fraction_radiant.setter
     def fraction_radiant(self, value=None):
         """  Corresponds to IDD Field `Fraction Radiant`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction Radiant`
@@ -12162,8 +11738,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @fraction_of_radiant_energy_incident_on_people.setter
     def fraction_of_radiant_energy_incident_on_people(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy Incident on People`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy Incident on People`
@@ -12202,8 +11776,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     def surface_1_name(self, value=None):
         """  Corresponds to IDD Field `Surface 1 Name`
         Radiant energy may be distributed to specific surfaces
-        
-        {u'note': [u'Radiant energy may be distributed to specific surfaces'], 'pytype': 'str', u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', u'begin-extensible': u''}
 
         Args:
             value (str): value for IDD Field `Surface 1 Name`
@@ -12239,8 +11811,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @fraction_of_radiant_energy_to_surface_1.setter
     def fraction_of_radiant_energy_to_surface_1(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 1`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 1`
@@ -12278,8 +11848,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @surface_2_name.setter
     def surface_2_name(self, value=None):
         """  Corresponds to IDD Field `Surface 2 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 2 Name`
@@ -12315,8 +11883,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @fraction_of_radiant_energy_to_surface_2.setter
     def fraction_of_radiant_energy_to_surface_2(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 2`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 2`
@@ -12354,8 +11920,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @surface_3_name.setter
     def surface_3_name(self, value=None):
         """  Corresponds to IDD Field `Surface 3 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 3 Name`
@@ -12391,8 +11955,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @fraction_of_radiant_energy_to_surface_3.setter
     def fraction_of_radiant_energy_to_surface_3(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 3`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 3`
@@ -12430,8 +11992,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @surface_4_name.setter
     def surface_4_name(self, value=None):
         """  Corresponds to IDD Field `Surface 4 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 4 Name`
@@ -12467,8 +12027,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @fraction_of_radiant_energy_to_surface_4.setter
     def fraction_of_radiant_energy_to_surface_4(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 4`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 4`
@@ -12506,8 +12064,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @surface_5_name.setter
     def surface_5_name(self, value=None):
         """  Corresponds to IDD Field `Surface 5 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 5 Name`
@@ -12543,8 +12099,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @fraction_of_radiant_energy_to_surface_5.setter
     def fraction_of_radiant_energy_to_surface_5(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 5`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 5`
@@ -12582,8 +12136,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @surface_6_name.setter
     def surface_6_name(self, value=None):
         """  Corresponds to IDD Field `Surface 6 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 6 Name`
@@ -12619,8 +12171,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @fraction_of_radiant_energy_to_surface_6.setter
     def fraction_of_radiant_energy_to_surface_6(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 6`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 6`
@@ -12658,8 +12208,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @surface_7_name.setter
     def surface_7_name(self, value=None):
         """  Corresponds to IDD Field `Surface 7 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 7 Name`
@@ -12695,8 +12243,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @fraction_of_radiant_energy_to_surface_7.setter
     def fraction_of_radiant_energy_to_surface_7(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 7`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 7`
@@ -12734,8 +12280,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @surface_8_name.setter
     def surface_8_name(self, value=None):
         """  Corresponds to IDD Field `Surface 8 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 8 Name`
@@ -12771,8 +12315,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @fraction_of_radiant_energy_to_surface_8.setter
     def fraction_of_radiant_energy_to_surface_8(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 8`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 8`
@@ -12810,8 +12352,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @surface_9_name.setter
     def surface_9_name(self, value=None):
         """  Corresponds to IDD Field `Surface 9 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 9 Name`
@@ -12847,8 +12387,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @fraction_of_radiant_energy_to_surface_9.setter
     def fraction_of_radiant_energy_to_surface_9(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 9`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 9`
@@ -12886,8 +12424,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @surface_10_name.setter
     def surface_10_name(self, value=None):
         """  Corresponds to IDD Field `Surface 10 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 10 Name`
@@ -12923,8 +12459,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @fraction_of_radiant_energy_to_surface_10.setter
     def fraction_of_radiant_energy_to_surface_10(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 10`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 10`
@@ -12962,8 +12496,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @surface_11_name.setter
     def surface_11_name(self, value=None):
         """  Corresponds to IDD Field `Surface 11 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 11 Name`
@@ -12999,8 +12531,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @fraction_of_radiant_energy_to_surface_11.setter
     def fraction_of_radiant_energy_to_surface_11(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 11`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 11`
@@ -13038,8 +12568,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @surface_12_name.setter
     def surface_12_name(self, value=None):
         """  Corresponds to IDD Field `Surface 12 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 12 Name`
@@ -13075,8 +12603,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @fraction_of_radiant_energy_to_surface_12.setter
     def fraction_of_radiant_energy_to_surface_12(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 12`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 12`
@@ -13114,8 +12640,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @surface_13_name.setter
     def surface_13_name(self, value=None):
         """  Corresponds to IDD Field `Surface 13 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 13 Name`
@@ -13151,8 +12675,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @fraction_of_radiant_energy_to_surface_13.setter
     def fraction_of_radiant_energy_to_surface_13(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 13`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 13`
@@ -13190,8 +12712,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @surface_14_name.setter
     def surface_14_name(self, value=None):
         """  Corresponds to IDD Field `Surface 14 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 14 Name`
@@ -13227,8 +12747,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @fraction_of_radiant_energy_to_surface_14.setter
     def fraction_of_radiant_energy_to_surface_14(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 14`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 14`
@@ -13266,8 +12784,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @surface_15_name.setter
     def surface_15_name(self, value=None):
         """  Corresponds to IDD Field `Surface 15 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 15 Name`
@@ -13303,8 +12819,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @fraction_of_radiant_energy_to_surface_15.setter
     def fraction_of_radiant_energy_to_surface_15(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 15`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 15`
@@ -13342,8 +12856,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @surface_16_name.setter
     def surface_16_name(self, value=None):
         """  Corresponds to IDD Field `Surface 16 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 16 Name`
@@ -13379,8 +12891,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @fraction_of_radiant_energy_to_surface_16.setter
     def fraction_of_radiant_energy_to_surface_16(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 16`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 16`
@@ -13418,8 +12928,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @surface_17_name.setter
     def surface_17_name(self, value=None):
         """  Corresponds to IDD Field `Surface 17 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 17 Name`
@@ -13455,8 +12963,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @fraction_of_radiant_energy_to_surface_17.setter
     def fraction_of_radiant_energy_to_surface_17(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 17`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 17`
@@ -13494,8 +13000,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @surface_18_name.setter
     def surface_18_name(self, value=None):
         """  Corresponds to IDD Field `Surface 18 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 18 Name`
@@ -13531,8 +13035,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @fraction_of_radiant_energy_to_surface_18.setter
     def fraction_of_radiant_energy_to_surface_18(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 18`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 18`
@@ -13570,8 +13072,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @surface_19_name.setter
     def surface_19_name(self, value=None):
         """  Corresponds to IDD Field `Surface 19 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 19 Name`
@@ -13607,8 +13107,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @fraction_of_radiant_energy_to_surface_19.setter
     def fraction_of_radiant_energy_to_surface_19(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 19`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 19`
@@ -13646,8 +13144,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @surface_20_name.setter
     def surface_20_name(self, value=None):
         """  Corresponds to IDD Field `Surface 20 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 20 Name`
@@ -13683,8 +13179,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @fraction_of_radiant_energy_to_surface_20.setter
     def fraction_of_radiant_energy_to_surface_20(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 20`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 20`
@@ -13722,8 +13216,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @surface_21_name.setter
     def surface_21_name(self, value=None):
         """  Corresponds to IDD Field `Surface 21 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 21 Name`
@@ -13759,8 +13251,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @fraction_of_radiant_energy_to_surface_21.setter
     def fraction_of_radiant_energy_to_surface_21(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 21`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 21`
@@ -13798,8 +13288,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @surface_22_name.setter
     def surface_22_name(self, value=None):
         """  Corresponds to IDD Field `Surface 22 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 22 Name`
@@ -13835,8 +13323,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @fraction_of_radiant_energy_to_surface_22.setter
     def fraction_of_radiant_energy_to_surface_22(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 22`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 22`
@@ -13874,8 +13360,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @surface_23_name.setter
     def surface_23_name(self, value=None):
         """  Corresponds to IDD Field `Surface 23 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 23 Name`
@@ -13911,8 +13395,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @fraction_of_radiant_energy_to_surface_23.setter
     def fraction_of_radiant_energy_to_surface_23(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 23`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 23`
@@ -13950,8 +13432,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @surface_24_name.setter
     def surface_24_name(self, value=None):
         """  Corresponds to IDD Field `Surface 24 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 24 Name`
@@ -13987,8 +13467,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @fraction_of_radiant_energy_to_surface_24.setter
     def fraction_of_radiant_energy_to_surface_24(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 24`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 24`
@@ -14026,8 +13504,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @surface_25_name.setter
     def surface_25_name(self, value=None):
         """  Corresponds to IDD Field `Surface 25 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 25 Name`
@@ -14063,8 +13539,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @fraction_of_radiant_energy_to_surface_25.setter
     def fraction_of_radiant_energy_to_surface_25(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 25`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 25`
@@ -14102,8 +13576,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @surface_26_name.setter
     def surface_26_name(self, value=None):
         """  Corresponds to IDD Field `Surface 26 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 26 Name`
@@ -14139,8 +13611,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @fraction_of_radiant_energy_to_surface_26.setter
     def fraction_of_radiant_energy_to_surface_26(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 26`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 26`
@@ -14178,8 +13648,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @surface_27_name.setter
     def surface_27_name(self, value=None):
         """  Corresponds to IDD Field `Surface 27 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 27 Name`
@@ -14215,8 +13683,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @fraction_of_radiant_energy_to_surface_27.setter
     def fraction_of_radiant_energy_to_surface_27(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 27`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 27`
@@ -14254,8 +13720,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @surface_28_name.setter
     def surface_28_name(self, value=None):
         """  Corresponds to IDD Field `Surface 28 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 28 Name`
@@ -14291,8 +13755,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @fraction_of_radiant_energy_to_surface_28.setter
     def fraction_of_radiant_energy_to_surface_28(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 28`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 28`
@@ -14330,8 +13792,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @surface_29_name.setter
     def surface_29_name(self, value=None):
         """  Corresponds to IDD Field `Surface 29 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 29 Name`
@@ -14367,8 +13827,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @fraction_of_radiant_energy_to_surface_29.setter
     def fraction_of_radiant_energy_to_surface_29(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 29`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 29`
@@ -14406,8 +13864,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @surface_30_name.setter
     def surface_30_name(self, value=None):
         """  Corresponds to IDD Field `Surface 30 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 30 Name`
@@ -14443,8 +13899,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @fraction_of_radiant_energy_to_surface_30.setter
     def fraction_of_radiant_energy_to_surface_30(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 30`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 30`
@@ -14482,8 +13936,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @surface_31_name.setter
     def surface_31_name(self, value=None):
         """  Corresponds to IDD Field `Surface 31 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 31 Name`
@@ -14519,8 +13971,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @fraction_of_radiant_energy_to_surface_31.setter
     def fraction_of_radiant_energy_to_surface_31(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 31`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 31`
@@ -14558,8 +14008,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @surface_32_name.setter
     def surface_32_name(self, value=None):
         """  Corresponds to IDD Field `Surface 32 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 32 Name`
@@ -14595,8 +14043,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @fraction_of_radiant_energy_to_surface_32.setter
     def fraction_of_radiant_energy_to_surface_32(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 32`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 32`
@@ -14634,8 +14080,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @surface_33_name.setter
     def surface_33_name(self, value=None):
         """  Corresponds to IDD Field `Surface 33 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 33 Name`
@@ -14671,8 +14115,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @fraction_of_radiant_energy_to_surface_33.setter
     def fraction_of_radiant_energy_to_surface_33(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 33`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 33`
@@ -14710,8 +14152,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @surface_34_name.setter
     def surface_34_name(self, value=None):
         """  Corresponds to IDD Field `Surface 34 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 34 Name`
@@ -14747,8 +14187,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @fraction_of_radiant_energy_to_surface_34.setter
     def fraction_of_radiant_energy_to_surface_34(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 34`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 34`
@@ -14786,8 +14224,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @surface_35_name.setter
     def surface_35_name(self, value=None):
         """  Corresponds to IDD Field `Surface 35 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 35 Name`
@@ -14823,8 +14259,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @fraction_of_radiant_energy_to_surface_35.setter
     def fraction_of_radiant_energy_to_surface_35(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 35`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 35`
@@ -14862,8 +14296,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @surface_36_name.setter
     def surface_36_name(self, value=None):
         """  Corresponds to IDD Field `Surface 36 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 36 Name`
@@ -14899,8 +14331,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @fraction_of_radiant_energy_to_surface_36.setter
     def fraction_of_radiant_energy_to_surface_36(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 36`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 36`
@@ -14938,8 +14368,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @surface_37_name.setter
     def surface_37_name(self, value=None):
         """  Corresponds to IDD Field `Surface 37 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 37 Name`
@@ -14975,8 +14403,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @fraction_of_radiant_energy_to_surface_37.setter
     def fraction_of_radiant_energy_to_surface_37(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 37`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 37`
@@ -15014,8 +14440,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @surface_38_name.setter
     def surface_38_name(self, value=None):
         """  Corresponds to IDD Field `Surface 38 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 38 Name`
@@ -15051,8 +14475,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @fraction_of_radiant_energy_to_surface_38.setter
     def fraction_of_radiant_energy_to_surface_38(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 38`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 38`
@@ -15090,8 +14512,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @surface_39_name.setter
     def surface_39_name(self, value=None):
         """  Corresponds to IDD Field `Surface 39 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 39 Name`
@@ -15127,8 +14547,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @fraction_of_radiant_energy_to_surface_39.setter
     def fraction_of_radiant_energy_to_surface_39(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 39`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 39`
@@ -15166,8 +14584,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @surface_40_name.setter
     def surface_40_name(self, value=None):
         """  Corresponds to IDD Field `Surface 40 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 40 Name`
@@ -15203,8 +14619,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @fraction_of_radiant_energy_to_surface_40.setter
     def fraction_of_radiant_energy_to_surface_40(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 40`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 40`
@@ -15242,8 +14656,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @surface_41_name.setter
     def surface_41_name(self, value=None):
         """  Corresponds to IDD Field `Surface 41 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 41 Name`
@@ -15279,8 +14691,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @fraction_of_radiant_energy_to_surface_41.setter
     def fraction_of_radiant_energy_to_surface_41(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 41`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 41`
@@ -15318,8 +14728,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @surface_42_name.setter
     def surface_42_name(self, value=None):
         """  Corresponds to IDD Field `Surface 42 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 42 Name`
@@ -15355,8 +14763,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @fraction_of_radiant_energy_to_surface_42.setter
     def fraction_of_radiant_energy_to_surface_42(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 42`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 42`
@@ -15394,8 +14800,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @surface_43_name.setter
     def surface_43_name(self, value=None):
         """  Corresponds to IDD Field `Surface 43 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 43 Name`
@@ -15431,8 +14835,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @fraction_of_radiant_energy_to_surface_43.setter
     def fraction_of_radiant_energy_to_surface_43(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 43`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 43`
@@ -15470,8 +14872,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @surface_44_name.setter
     def surface_44_name(self, value=None):
         """  Corresponds to IDD Field `Surface 44 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 44 Name`
@@ -15507,8 +14907,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @fraction_of_radiant_energy_to_surface_44.setter
     def fraction_of_radiant_energy_to_surface_44(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 44`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 44`
@@ -15546,8 +14944,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @surface_45_name.setter
     def surface_45_name(self, value=None):
         """  Corresponds to IDD Field `Surface 45 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 45 Name`
@@ -15583,8 +14979,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @fraction_of_radiant_energy_to_surface_45.setter
     def fraction_of_radiant_energy_to_surface_45(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 45`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 45`
@@ -15622,8 +15016,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @surface_46_name.setter
     def surface_46_name(self, value=None):
         """  Corresponds to IDD Field `Surface 46 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 46 Name`
@@ -15659,8 +15051,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @fraction_of_radiant_energy_to_surface_46.setter
     def fraction_of_radiant_energy_to_surface_46(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 46`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 46`
@@ -15698,8 +15088,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @surface_47_name.setter
     def surface_47_name(self, value=None):
         """  Corresponds to IDD Field `Surface 47 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 47 Name`
@@ -15735,8 +15123,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @fraction_of_radiant_energy_to_surface_47.setter
     def fraction_of_radiant_energy_to_surface_47(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 47`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 47`
@@ -15774,8 +15160,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @surface_48_name.setter
     def surface_48_name(self, value=None):
         """  Corresponds to IDD Field `Surface 48 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 48 Name`
@@ -15811,8 +15195,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @fraction_of_radiant_energy_to_surface_48.setter
     def fraction_of_radiant_energy_to_surface_48(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 48`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 48`
@@ -15850,8 +15232,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @surface_49_name.setter
     def surface_49_name(self, value=None):
         """  Corresponds to IDD Field `Surface 49 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 49 Name`
@@ -15887,8 +15267,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @fraction_of_radiant_energy_to_surface_49.setter
     def fraction_of_radiant_energy_to_surface_49(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 49`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 49`
@@ -15926,8 +15304,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @surface_50_name.setter
     def surface_50_name(self, value=None):
         """  Corresponds to IDD Field `Surface 50 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 50 Name`
@@ -15963,8 +15339,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @fraction_of_radiant_energy_to_surface_50.setter
     def fraction_of_radiant_energy_to_surface_50(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 50`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 50`
@@ -16002,8 +15376,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @surface_51_name.setter
     def surface_51_name(self, value=None):
         """  Corresponds to IDD Field `Surface 51 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 51 Name`
@@ -16039,8 +15411,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @fraction_of_radiant_energy_to_surface_51.setter
     def fraction_of_radiant_energy_to_surface_51(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 51`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 51`
@@ -16078,8 +15448,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @surface_52_name.setter
     def surface_52_name(self, value=None):
         """  Corresponds to IDD Field `Surface 52 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 52 Name`
@@ -16115,8 +15483,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @fraction_of_radiant_energy_to_surface_52.setter
     def fraction_of_radiant_energy_to_surface_52(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 52`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 52`
@@ -16154,8 +15520,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @surface_53_name.setter
     def surface_53_name(self, value=None):
         """  Corresponds to IDD Field `Surface 53 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 53 Name`
@@ -16191,8 +15555,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @fraction_of_radiant_energy_to_surface_53.setter
     def fraction_of_radiant_energy_to_surface_53(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 53`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 53`
@@ -16230,8 +15592,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @surface_54_name.setter
     def surface_54_name(self, value=None):
         """  Corresponds to IDD Field `Surface 54 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 54 Name`
@@ -16267,8 +15627,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @fraction_of_radiant_energy_to_surface_54.setter
     def fraction_of_radiant_energy_to_surface_54(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 54`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 54`
@@ -16306,8 +15664,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @surface_55_name.setter
     def surface_55_name(self, value=None):
         """  Corresponds to IDD Field `Surface 55 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 55 Name`
@@ -16343,8 +15699,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @fraction_of_radiant_energy_to_surface_55.setter
     def fraction_of_radiant_energy_to_surface_55(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 55`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 55`
@@ -16382,8 +15736,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @surface_56_name.setter
     def surface_56_name(self, value=None):
         """  Corresponds to IDD Field `Surface 56 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 56 Name`
@@ -16419,8 +15771,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @fraction_of_radiant_energy_to_surface_56.setter
     def fraction_of_radiant_energy_to_surface_56(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 56`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 56`
@@ -16458,8 +15808,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @surface_57_name.setter
     def surface_57_name(self, value=None):
         """  Corresponds to IDD Field `Surface 57 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 57 Name`
@@ -16495,8 +15843,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @fraction_of_radiant_energy_to_surface_57.setter
     def fraction_of_radiant_energy_to_surface_57(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 57`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 57`
@@ -16534,8 +15880,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @surface_58_name.setter
     def surface_58_name(self, value=None):
         """  Corresponds to IDD Field `Surface 58 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 58 Name`
@@ -16571,8 +15915,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @fraction_of_radiant_energy_to_surface_58.setter
     def fraction_of_radiant_energy_to_surface_58(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 58`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 58`
@@ -16610,8 +15952,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @surface_59_name.setter
     def surface_59_name(self, value=None):
         """  Corresponds to IDD Field `Surface 59 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 59 Name`
@@ -16647,8 +15987,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @fraction_of_radiant_energy_to_surface_59.setter
     def fraction_of_radiant_energy_to_surface_59(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 59`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 59`
@@ -16686,8 +16024,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @surface_60_name.setter
     def surface_60_name(self, value=None):
         """  Corresponds to IDD Field `Surface 60 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 60 Name`
@@ -16723,8 +16059,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @fraction_of_radiant_energy_to_surface_60.setter
     def fraction_of_radiant_energy_to_surface_60(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 60`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 60`
@@ -16762,8 +16096,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @surface_61_name.setter
     def surface_61_name(self, value=None):
         """  Corresponds to IDD Field `Surface 61 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 61 Name`
@@ -16799,8 +16131,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @fraction_of_radiant_energy_to_surface_61.setter
     def fraction_of_radiant_energy_to_surface_61(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 61`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 61`
@@ -16838,8 +16168,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @surface_62_name.setter
     def surface_62_name(self, value=None):
         """  Corresponds to IDD Field `Surface 62 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 62 Name`
@@ -16875,8 +16203,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @fraction_of_radiant_energy_to_surface_62.setter
     def fraction_of_radiant_energy_to_surface_62(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 62`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 62`
@@ -16914,8 +16240,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @surface_63_name.setter
     def surface_63_name(self, value=None):
         """  Corresponds to IDD Field `Surface 63 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 63 Name`
@@ -16951,8 +16275,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @fraction_of_radiant_energy_to_surface_63.setter
     def fraction_of_radiant_energy_to_surface_63(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 63`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 63`
@@ -16990,8 +16312,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @surface_64_name.setter
     def surface_64_name(self, value=None):
         """  Corresponds to IDD Field `Surface 64 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 64 Name`
@@ -17027,8 +16347,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @fraction_of_radiant_energy_to_surface_64.setter
     def fraction_of_radiant_energy_to_surface_64(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 64`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 64`
@@ -17066,8 +16384,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @surface_65_name.setter
     def surface_65_name(self, value=None):
         """  Corresponds to IDD Field `Surface 65 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 65 Name`
@@ -17103,8 +16419,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @fraction_of_radiant_energy_to_surface_65.setter
     def fraction_of_radiant_energy_to_surface_65(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 65`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 65`
@@ -17142,8 +16456,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @surface_66_name.setter
     def surface_66_name(self, value=None):
         """  Corresponds to IDD Field `Surface 66 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 66 Name`
@@ -17179,8 +16491,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @fraction_of_radiant_energy_to_surface_66.setter
     def fraction_of_radiant_energy_to_surface_66(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 66`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 66`
@@ -17218,8 +16528,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @surface_67_name.setter
     def surface_67_name(self, value=None):
         """  Corresponds to IDD Field `Surface 67 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 67 Name`
@@ -17255,8 +16563,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @fraction_of_radiant_energy_to_surface_67.setter
     def fraction_of_radiant_energy_to_surface_67(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 67`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 67`
@@ -17294,8 +16600,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @surface_68_name.setter
     def surface_68_name(self, value=None):
         """  Corresponds to IDD Field `Surface 68 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 68 Name`
@@ -17331,8 +16635,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @fraction_of_radiant_energy_to_surface_68.setter
     def fraction_of_radiant_energy_to_surface_68(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 68`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 68`
@@ -17370,8 +16672,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @surface_69_name.setter
     def surface_69_name(self, value=None):
         """  Corresponds to IDD Field `Surface 69 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 69 Name`
@@ -17407,8 +16707,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @fraction_of_radiant_energy_to_surface_69.setter
     def fraction_of_radiant_energy_to_surface_69(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 69`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 69`
@@ -17446,8 +16744,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @surface_70_name.setter
     def surface_70_name(self, value=None):
         """  Corresponds to IDD Field `Surface 70 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 70 Name`
@@ -17483,8 +16779,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @fraction_of_radiant_energy_to_surface_70.setter
     def fraction_of_radiant_energy_to_surface_70(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 70`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 70`
@@ -17522,8 +16816,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @surface_71_name.setter
     def surface_71_name(self, value=None):
         """  Corresponds to IDD Field `Surface 71 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 71 Name`
@@ -17559,8 +16851,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @fraction_of_radiant_energy_to_surface_71.setter
     def fraction_of_radiant_energy_to_surface_71(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 71`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 71`
@@ -17598,8 +16888,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @surface_72_name.setter
     def surface_72_name(self, value=None):
         """  Corresponds to IDD Field `Surface 72 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 72 Name`
@@ -17635,8 +16923,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @fraction_of_radiant_energy_to_surface_72.setter
     def fraction_of_radiant_energy_to_surface_72(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 72`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 72`
@@ -17674,8 +16960,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @surface_73_name.setter
     def surface_73_name(self, value=None):
         """  Corresponds to IDD Field `Surface 73 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 73 Name`
@@ -17711,8 +16995,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @fraction_of_radiant_energy_to_surface_73.setter
     def fraction_of_radiant_energy_to_surface_73(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 73`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 73`
@@ -17750,8 +17032,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @surface_74_name.setter
     def surface_74_name(self, value=None):
         """  Corresponds to IDD Field `Surface 74 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 74 Name`
@@ -17787,8 +17067,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @fraction_of_radiant_energy_to_surface_74.setter
     def fraction_of_radiant_energy_to_surface_74(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 74`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 74`
@@ -17826,8 +17104,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @surface_75_name.setter
     def surface_75_name(self, value=None):
         """  Corresponds to IDD Field `Surface 75 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 75 Name`
@@ -17863,8 +17139,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @fraction_of_radiant_energy_to_surface_75.setter
     def fraction_of_radiant_energy_to_surface_75(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 75`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 75`
@@ -17902,8 +17176,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @surface_76_name.setter
     def surface_76_name(self, value=None):
         """  Corresponds to IDD Field `Surface 76 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 76 Name`
@@ -17939,8 +17211,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @fraction_of_radiant_energy_to_surface_76.setter
     def fraction_of_radiant_energy_to_surface_76(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 76`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 76`
@@ -17978,8 +17248,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @surface_77_name.setter
     def surface_77_name(self, value=None):
         """  Corresponds to IDD Field `Surface 77 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 77 Name`
@@ -18015,8 +17283,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @fraction_of_radiant_energy_to_surface_77.setter
     def fraction_of_radiant_energy_to_surface_77(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 77`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 77`
@@ -18054,8 +17320,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @surface_78_name.setter
     def surface_78_name(self, value=None):
         """  Corresponds to IDD Field `Surface 78 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 78 Name`
@@ -18091,8 +17355,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @fraction_of_radiant_energy_to_surface_78.setter
     def fraction_of_radiant_energy_to_surface_78(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 78`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 78`
@@ -18130,8 +17392,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @surface_79_name.setter
     def surface_79_name(self, value=None):
         """  Corresponds to IDD Field `Surface 79 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 79 Name`
@@ -18167,8 +17427,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @fraction_of_radiant_energy_to_surface_79.setter
     def fraction_of_radiant_energy_to_surface_79(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 79`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 79`
@@ -18206,8 +17464,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @surface_80_name.setter
     def surface_80_name(self, value=None):
         """  Corresponds to IDD Field `Surface 80 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 80 Name`
@@ -18243,8 +17499,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @fraction_of_radiant_energy_to_surface_80.setter
     def fraction_of_radiant_energy_to_surface_80(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 80`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 80`
@@ -18282,8 +17536,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @surface_81_name.setter
     def surface_81_name(self, value=None):
         """  Corresponds to IDD Field `Surface 81 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 81 Name`
@@ -18319,8 +17571,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @fraction_of_radiant_energy_to_surface_81.setter
     def fraction_of_radiant_energy_to_surface_81(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 81`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 81`
@@ -18358,8 +17608,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @surface_82_name.setter
     def surface_82_name(self, value=None):
         """  Corresponds to IDD Field `Surface 82 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 82 Name`
@@ -18395,8 +17643,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @fraction_of_radiant_energy_to_surface_82.setter
     def fraction_of_radiant_energy_to_surface_82(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 82`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 82`
@@ -18434,8 +17680,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @surface_83_name.setter
     def surface_83_name(self, value=None):
         """  Corresponds to IDD Field `Surface 83 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 83 Name`
@@ -18471,8 +17715,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @fraction_of_radiant_energy_to_surface_83.setter
     def fraction_of_radiant_energy_to_surface_83(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 83`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 83`
@@ -18510,8 +17752,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @surface_84_name.setter
     def surface_84_name(self, value=None):
         """  Corresponds to IDD Field `Surface 84 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 84 Name`
@@ -18547,8 +17787,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @fraction_of_radiant_energy_to_surface_84.setter
     def fraction_of_radiant_energy_to_surface_84(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 84`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 84`
@@ -18586,8 +17824,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @surface_85_name.setter
     def surface_85_name(self, value=None):
         """  Corresponds to IDD Field `Surface 85 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 85 Name`
@@ -18623,8 +17859,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @fraction_of_radiant_energy_to_surface_85.setter
     def fraction_of_radiant_energy_to_surface_85(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 85`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 85`
@@ -18662,8 +17896,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @surface_86_name.setter
     def surface_86_name(self, value=None):
         """  Corresponds to IDD Field `Surface 86 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 86 Name`
@@ -18699,8 +17931,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @fraction_of_radiant_energy_to_surface_86.setter
     def fraction_of_radiant_energy_to_surface_86(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 86`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 86`
@@ -18738,8 +17968,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @surface_87_name.setter
     def surface_87_name(self, value=None):
         """  Corresponds to IDD Field `Surface 87 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 87 Name`
@@ -18775,8 +18003,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @fraction_of_radiant_energy_to_surface_87.setter
     def fraction_of_radiant_energy_to_surface_87(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 87`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 87`
@@ -18814,8 +18040,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @surface_88_name.setter
     def surface_88_name(self, value=None):
         """  Corresponds to IDD Field `Surface 88 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 88 Name`
@@ -18851,8 +18075,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @fraction_of_radiant_energy_to_surface_88.setter
     def fraction_of_radiant_energy_to_surface_88(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 88`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 88`
@@ -18890,8 +18112,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @surface_89_name.setter
     def surface_89_name(self, value=None):
         """  Corresponds to IDD Field `Surface 89 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 89 Name`
@@ -18927,8 +18147,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @fraction_of_radiant_energy_to_surface_89.setter
     def fraction_of_radiant_energy_to_surface_89(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 89`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 89`
@@ -18966,8 +18184,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @surface_90_name.setter
     def surface_90_name(self, value=None):
         """  Corresponds to IDD Field `Surface 90 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 90 Name`
@@ -19003,8 +18219,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @fraction_of_radiant_energy_to_surface_90.setter
     def fraction_of_radiant_energy_to_surface_90(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 90`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 90`
@@ -19042,8 +18256,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @surface_91_name.setter
     def surface_91_name(self, value=None):
         """  Corresponds to IDD Field `Surface 91 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 91 Name`
@@ -19079,8 +18291,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @fraction_of_radiant_energy_to_surface_91.setter
     def fraction_of_radiant_energy_to_surface_91(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 91`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 91`
@@ -19118,8 +18328,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @surface_92_name.setter
     def surface_92_name(self, value=None):
         """  Corresponds to IDD Field `Surface 92 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 92 Name`
@@ -19155,8 +18363,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @fraction_of_radiant_energy_to_surface_92.setter
     def fraction_of_radiant_energy_to_surface_92(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 92`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 92`
@@ -19194,8 +18400,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @surface_93_name.setter
     def surface_93_name(self, value=None):
         """  Corresponds to IDD Field `Surface 93 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 93 Name`
@@ -19231,8 +18435,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @fraction_of_radiant_energy_to_surface_93.setter
     def fraction_of_radiant_energy_to_surface_93(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 93`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 93`
@@ -19270,8 +18472,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @surface_94_name.setter
     def surface_94_name(self, value=None):
         """  Corresponds to IDD Field `Surface 94 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 94 Name`
@@ -19307,8 +18507,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @fraction_of_radiant_energy_to_surface_94.setter
     def fraction_of_radiant_energy_to_surface_94(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 94`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 94`
@@ -19346,8 +18544,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @surface_95_name.setter
     def surface_95_name(self, value=None):
         """  Corresponds to IDD Field `Surface 95 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 95 Name`
@@ -19383,8 +18579,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @fraction_of_radiant_energy_to_surface_95.setter
     def fraction_of_radiant_energy_to_surface_95(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 95`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 95`
@@ -19422,8 +18616,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @surface_96_name.setter
     def surface_96_name(self, value=None):
         """  Corresponds to IDD Field `Surface 96 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 96 Name`
@@ -19459,8 +18651,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @fraction_of_radiant_energy_to_surface_96.setter
     def fraction_of_radiant_energy_to_surface_96(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 96`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 96`
@@ -19498,8 +18688,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @surface_97_name.setter
     def surface_97_name(self, value=None):
         """  Corresponds to IDD Field `Surface 97 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 97 Name`
@@ -19535,8 +18723,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @fraction_of_radiant_energy_to_surface_97.setter
     def fraction_of_radiant_energy_to_surface_97(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 97`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 97`
@@ -19574,8 +18760,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @surface_98_name.setter
     def surface_98_name(self, value=None):
         """  Corresponds to IDD Field `Surface 98 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 98 Name`
@@ -19611,8 +18795,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @fraction_of_radiant_energy_to_surface_98.setter
     def fraction_of_radiant_energy_to_surface_98(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 98`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 98`
@@ -19650,8 +18832,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @surface_99_name.setter
     def surface_99_name(self, value=None):
         """  Corresponds to IDD Field `Surface 99 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 99 Name`
@@ -19687,8 +18867,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @fraction_of_radiant_energy_to_surface_99.setter
     def fraction_of_radiant_energy_to_surface_99(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 99`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 99`
@@ -19726,8 +18904,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @surface_100_name.setter
     def surface_100_name(self, value=None):
         """  Corresponds to IDD Field `Surface 100 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 100 Name`
@@ -19763,8 +18939,6 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     @fraction_of_radiant_energy_to_surface_100.setter
     def fraction_of_radiant_energy_to_surface_100(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 100`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 100`
@@ -21533,8 +20707,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {'type': 'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -21572,8 +20744,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
         """  Corresponds to IDD Field `Availability Schedule Name`
         Availability schedule name for this system. Schedule value > 0 means the system is available.
         If this field is blank, the system is always available.
-        
-        {u'note': [u'Availability schedule name for this system. Schedule value > 0 means the system is available.', u'If this field is blank, the system is always available.'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Availability Schedule Name`
@@ -21615,8 +20785,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
         determine from user specified heating capacity per floor area and zone floor area.
         FractionOfAutosizedHeatingCapacity = > is selected when the design heating capacity is
         determined from a user specified fraction and the auto-sized design heating capacity.
-        
-        {'pytype': 'str', u'default': u'HeatingDesignCapacity', u'required-field': True, u'note': [u'Enter the method used to determine the heating design capacity.', u'HeatingDesignCapacity = > selected when the design heating capacity value or autosize', u'is specified. CapacityPerFloorArea = > selected when the design heating capacity is', u'determine from user specified heating capacity per floor area and zone floor area.', u'FractionOfAutosizedHeatingCapacity = > is selected when the design heating capacity is', u'determined from a user specified fraction and the auto-sized design heating capacity.'], u'key': [u'HeatingDesignCapacity', u'CapacityPerFloorArea', u'FractionOfAutosizedHeatingCapacity'], u'type': u'choice'}
 
         Args:
             value (str): value for IDD Field `Heating Design Capacity Method`
@@ -21673,15 +20841,13 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
         return self._data["Heating Design Capacity"]
 
     @heating_design_capacity.setter
-    def heating_design_capacity(self, value="autosize" ):
+    def heating_design_capacity(self, value="autosize"):
         """  Corresponds to IDD Field `Heating Design Capacity`
         Enter the design heating capacity.Required field when the heating design capacity method
         HeatingDesignCapacity.
-        
-        {'pytype': 'float', u'default': '"autosize"', u'note': [u'Enter the design heating capacity.Required field when the heating design capacity method', u'HeatingDesignCapacity.'], u'ip-units': u'W', u'autosizable': u'', u'minimum': '0.0', u'units': u'W', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `Heating Design Capacity`
+            value (float or "Autosize"): value for IDD Field `Heating Design Capacity`
                 Units: W
                 IP-Units: W
                 Default value: "autosize"
@@ -21693,6 +20859,13 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             ValueError: if `value` is not a valid value
         """
         if value is not None:
+            try:
+                value_lower = str(value).lower()
+                if value_lower == "autosize":
+                    self._data["Heating Design Capacity"] = "Autosize"
+                    return
+            except ValueError:
+                pass
             try:
                 value = float(value)
             except ValueError:
@@ -21717,8 +20890,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
         """  Corresponds to IDD Field `Heating Design Capacity Per Floor Area`
         Enter the heating design capacity per zone floor area.Required field when the heating design
         capacity method field is CapacityPerFloorArea.
-        
-        {u'units': u'W/m2', u'note': [u'Enter the heating design capacity per zone floor area.Required field when the heating design', u'capacity method field is CapacityPerFloorArea.'], u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Heating Design Capacity Per Floor Area`
@@ -21751,12 +20922,10 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
         return self._data["Fraction of Autosized Heating Design Capacity"]
 
     @fraction_of_autosized_heating_design_capacity.setter
-    def fraction_of_autosized_heating_design_capacity(self, value=1.0 ):
+    def fraction_of_autosized_heating_design_capacity(self, value=1.0):
         """  Corresponds to IDD Field `Fraction of Autosized Heating Design Capacity`
         Enter the fraction of auto - sized heating design capacity.Required field when capacity the
         heating design capacity method field is FractionOfAutosizedHeatingCapacity.
-        
-        {u'default': '1.0', u'note': [u'Enter the fraction of auto - sized heating design capacity.Required field when capacity the', u'heating design capacity method field is FractionOfAutosizedHeatingCapacity.'], u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Autosized Heating Design Capacity`
@@ -21789,10 +20958,8 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
         return self._data["Efficiency"]
 
     @efficiency.setter
-    def efficiency(self, value=1.0 ):
+    def efficiency(self, value=1.0):
         """  Corresponds to IDD Field `Efficiency`
-        
-        {'pytype': 'float', u'default': '1.0', u'minimum>': '0.0', u'maximum': '1.0', u'required-field': True, 'type': 'real'}
 
         Args:
             value (float): value for IDD Field `Efficiency`
@@ -21831,8 +20998,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @fraction_radiant.setter
     def fraction_radiant(self, value=None):
         """  Corresponds to IDD Field `Fraction Radiant`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction Radiant`
@@ -21870,8 +21035,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @fraction_of_radiant_energy_incident_on_people.setter
     def fraction_of_radiant_energy_incident_on_people(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy Incident on People`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy Incident on People`
@@ -21910,8 +21073,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     def surface_1_name(self, value=None):
         """  Corresponds to IDD Field `Surface 1 Name`
         Radiant energy may be distributed to specific surfaces
-        
-        {u'note': [u'Radiant energy may be distributed to specific surfaces'], 'pytype': 'str', u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', u'begin-extensible': u''}
 
         Args:
             value (str): value for IDD Field `Surface 1 Name`
@@ -21947,8 +21108,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @fraction_of_radiant_energy_to_surface_1.setter
     def fraction_of_radiant_energy_to_surface_1(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 1`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 1`
@@ -21986,8 +21145,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @surface_2_name.setter
     def surface_2_name(self, value=None):
         """  Corresponds to IDD Field `Surface 2 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 2 Name`
@@ -22023,8 +21180,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @fraction_of_radiant_energy_to_surface_2.setter
     def fraction_of_radiant_energy_to_surface_2(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 2`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 2`
@@ -22062,8 +21217,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @surface_3_name.setter
     def surface_3_name(self, value=None):
         """  Corresponds to IDD Field `Surface 3 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 3 Name`
@@ -22099,8 +21252,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @fraction_of_radiant_energy_to_surface_3.setter
     def fraction_of_radiant_energy_to_surface_3(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 3`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 3`
@@ -22138,8 +21289,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @surface_4_name.setter
     def surface_4_name(self, value=None):
         """  Corresponds to IDD Field `Surface 4 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 4 Name`
@@ -22175,8 +21324,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @fraction_of_radiant_energy_to_surface_4.setter
     def fraction_of_radiant_energy_to_surface_4(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 4`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 4`
@@ -22214,8 +21361,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @surface_5_name.setter
     def surface_5_name(self, value=None):
         """  Corresponds to IDD Field `Surface 5 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 5 Name`
@@ -22251,8 +21396,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @fraction_of_radiant_energy_to_surface_5.setter
     def fraction_of_radiant_energy_to_surface_5(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 5`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 5`
@@ -22290,8 +21433,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @surface_6_name.setter
     def surface_6_name(self, value=None):
         """  Corresponds to IDD Field `Surface 6 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 6 Name`
@@ -22327,8 +21468,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @fraction_of_radiant_energy_to_surface_6.setter
     def fraction_of_radiant_energy_to_surface_6(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 6`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 6`
@@ -22366,8 +21505,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @surface_7_name.setter
     def surface_7_name(self, value=None):
         """  Corresponds to IDD Field `Surface 7 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 7 Name`
@@ -22403,8 +21540,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @fraction_of_radiant_energy_to_surface_7.setter
     def fraction_of_radiant_energy_to_surface_7(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 7`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 7`
@@ -22442,8 +21577,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @surface_8_name.setter
     def surface_8_name(self, value=None):
         """  Corresponds to IDD Field `Surface 8 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 8 Name`
@@ -22479,8 +21612,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @fraction_of_radiant_energy_to_surface_8.setter
     def fraction_of_radiant_energy_to_surface_8(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 8`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 8`
@@ -22518,8 +21649,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @surface_9_name.setter
     def surface_9_name(self, value=None):
         """  Corresponds to IDD Field `Surface 9 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 9 Name`
@@ -22555,8 +21684,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @fraction_of_radiant_energy_to_surface_9.setter
     def fraction_of_radiant_energy_to_surface_9(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 9`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 9`
@@ -22594,8 +21721,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @surface_10_name.setter
     def surface_10_name(self, value=None):
         """  Corresponds to IDD Field `Surface 10 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 10 Name`
@@ -22631,8 +21756,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @fraction_of_radiant_energy_to_surface_10.setter
     def fraction_of_radiant_energy_to_surface_10(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 10`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 10`
@@ -22670,8 +21793,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @surface_11_name.setter
     def surface_11_name(self, value=None):
         """  Corresponds to IDD Field `Surface 11 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 11 Name`
@@ -22707,8 +21828,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @fraction_of_radiant_energy_to_surface_11.setter
     def fraction_of_radiant_energy_to_surface_11(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 11`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 11`
@@ -22746,8 +21865,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @surface_12_name.setter
     def surface_12_name(self, value=None):
         """  Corresponds to IDD Field `Surface 12 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 12 Name`
@@ -22783,8 +21900,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @fraction_of_radiant_energy_to_surface_12.setter
     def fraction_of_radiant_energy_to_surface_12(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 12`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 12`
@@ -22822,8 +21937,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @surface_13_name.setter
     def surface_13_name(self, value=None):
         """  Corresponds to IDD Field `Surface 13 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 13 Name`
@@ -22859,8 +21972,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @fraction_of_radiant_energy_to_surface_13.setter
     def fraction_of_radiant_energy_to_surface_13(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 13`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 13`
@@ -22898,8 +22009,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @surface_14_name.setter
     def surface_14_name(self, value=None):
         """  Corresponds to IDD Field `Surface 14 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 14 Name`
@@ -22935,8 +22044,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @fraction_of_radiant_energy_to_surface_14.setter
     def fraction_of_radiant_energy_to_surface_14(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 14`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 14`
@@ -22974,8 +22081,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @surface_15_name.setter
     def surface_15_name(self, value=None):
         """  Corresponds to IDD Field `Surface 15 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 15 Name`
@@ -23011,8 +22116,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @fraction_of_radiant_energy_to_surface_15.setter
     def fraction_of_radiant_energy_to_surface_15(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 15`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 15`
@@ -23050,8 +22153,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @surface_16_name.setter
     def surface_16_name(self, value=None):
         """  Corresponds to IDD Field `Surface 16 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 16 Name`
@@ -23087,8 +22188,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @fraction_of_radiant_energy_to_surface_16.setter
     def fraction_of_radiant_energy_to_surface_16(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 16`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 16`
@@ -23126,8 +22225,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @surface_17_name.setter
     def surface_17_name(self, value=None):
         """  Corresponds to IDD Field `Surface 17 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 17 Name`
@@ -23163,8 +22260,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @fraction_of_radiant_energy_to_surface_17.setter
     def fraction_of_radiant_energy_to_surface_17(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 17`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 17`
@@ -23202,8 +22297,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @surface_18_name.setter
     def surface_18_name(self, value=None):
         """  Corresponds to IDD Field `Surface 18 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 18 Name`
@@ -23239,8 +22332,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @fraction_of_radiant_energy_to_surface_18.setter
     def fraction_of_radiant_energy_to_surface_18(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 18`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 18`
@@ -23278,8 +22369,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @surface_19_name.setter
     def surface_19_name(self, value=None):
         """  Corresponds to IDD Field `Surface 19 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 19 Name`
@@ -23315,8 +22404,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @fraction_of_radiant_energy_to_surface_19.setter
     def fraction_of_radiant_energy_to_surface_19(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 19`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 19`
@@ -23354,8 +22441,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @surface_20_name.setter
     def surface_20_name(self, value=None):
         """  Corresponds to IDD Field `Surface 20 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 20 Name`
@@ -23391,8 +22476,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @fraction_of_radiant_energy_to_surface_20.setter
     def fraction_of_radiant_energy_to_surface_20(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 20`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 20`
@@ -23430,8 +22513,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @surface_21_name.setter
     def surface_21_name(self, value=None):
         """  Corresponds to IDD Field `Surface 21 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 21 Name`
@@ -23467,8 +22548,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @fraction_of_radiant_energy_to_surface_21.setter
     def fraction_of_radiant_energy_to_surface_21(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 21`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 21`
@@ -23506,8 +22585,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @surface_22_name.setter
     def surface_22_name(self, value=None):
         """  Corresponds to IDD Field `Surface 22 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 22 Name`
@@ -23543,8 +22620,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @fraction_of_radiant_energy_to_surface_22.setter
     def fraction_of_radiant_energy_to_surface_22(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 22`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 22`
@@ -23582,8 +22657,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @surface_23_name.setter
     def surface_23_name(self, value=None):
         """  Corresponds to IDD Field `Surface 23 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 23 Name`
@@ -23619,8 +22692,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @fraction_of_radiant_energy_to_surface_23.setter
     def fraction_of_radiant_energy_to_surface_23(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 23`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 23`
@@ -23658,8 +22729,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @surface_24_name.setter
     def surface_24_name(self, value=None):
         """  Corresponds to IDD Field `Surface 24 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 24 Name`
@@ -23695,8 +22764,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @fraction_of_radiant_energy_to_surface_24.setter
     def fraction_of_radiant_energy_to_surface_24(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 24`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 24`
@@ -23734,8 +22801,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @surface_25_name.setter
     def surface_25_name(self, value=None):
         """  Corresponds to IDD Field `Surface 25 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 25 Name`
@@ -23771,8 +22836,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @fraction_of_radiant_energy_to_surface_25.setter
     def fraction_of_radiant_energy_to_surface_25(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 25`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 25`
@@ -23810,8 +22873,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @surface_26_name.setter
     def surface_26_name(self, value=None):
         """  Corresponds to IDD Field `Surface 26 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 26 Name`
@@ -23847,8 +22908,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @fraction_of_radiant_energy_to_surface_26.setter
     def fraction_of_radiant_energy_to_surface_26(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 26`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 26`
@@ -23886,8 +22945,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @surface_27_name.setter
     def surface_27_name(self, value=None):
         """  Corresponds to IDD Field `Surface 27 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 27 Name`
@@ -23923,8 +22980,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @fraction_of_radiant_energy_to_surface_27.setter
     def fraction_of_radiant_energy_to_surface_27(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 27`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 27`
@@ -23962,8 +23017,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @surface_28_name.setter
     def surface_28_name(self, value=None):
         """  Corresponds to IDD Field `Surface 28 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 28 Name`
@@ -23999,8 +23052,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @fraction_of_radiant_energy_to_surface_28.setter
     def fraction_of_radiant_energy_to_surface_28(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 28`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 28`
@@ -24038,8 +23089,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @surface_29_name.setter
     def surface_29_name(self, value=None):
         """  Corresponds to IDD Field `Surface 29 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 29 Name`
@@ -24075,8 +23124,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @fraction_of_radiant_energy_to_surface_29.setter
     def fraction_of_radiant_energy_to_surface_29(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 29`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 29`
@@ -24114,8 +23161,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @surface_30_name.setter
     def surface_30_name(self, value=None):
         """  Corresponds to IDD Field `Surface 30 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 30 Name`
@@ -24151,8 +23196,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @fraction_of_radiant_energy_to_surface_30.setter
     def fraction_of_radiant_energy_to_surface_30(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 30`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 30`
@@ -24190,8 +23233,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @surface_31_name.setter
     def surface_31_name(self, value=None):
         """  Corresponds to IDD Field `Surface 31 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 31 Name`
@@ -24227,8 +23268,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @fraction_of_radiant_energy_to_surface_31.setter
     def fraction_of_radiant_energy_to_surface_31(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 31`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 31`
@@ -24266,8 +23305,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @surface_32_name.setter
     def surface_32_name(self, value=None):
         """  Corresponds to IDD Field `Surface 32 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 32 Name`
@@ -24303,8 +23340,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @fraction_of_radiant_energy_to_surface_32.setter
     def fraction_of_radiant_energy_to_surface_32(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 32`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 32`
@@ -24342,8 +23377,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @surface_33_name.setter
     def surface_33_name(self, value=None):
         """  Corresponds to IDD Field `Surface 33 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 33 Name`
@@ -24379,8 +23412,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @fraction_of_radiant_energy_to_surface_33.setter
     def fraction_of_radiant_energy_to_surface_33(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 33`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 33`
@@ -24418,8 +23449,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @surface_34_name.setter
     def surface_34_name(self, value=None):
         """  Corresponds to IDD Field `Surface 34 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 34 Name`
@@ -24455,8 +23484,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @fraction_of_radiant_energy_to_surface_34.setter
     def fraction_of_radiant_energy_to_surface_34(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 34`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 34`
@@ -24494,8 +23521,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @surface_35_name.setter
     def surface_35_name(self, value=None):
         """  Corresponds to IDD Field `Surface 35 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 35 Name`
@@ -24531,8 +23556,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @fraction_of_radiant_energy_to_surface_35.setter
     def fraction_of_radiant_energy_to_surface_35(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 35`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 35`
@@ -24570,8 +23593,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @surface_36_name.setter
     def surface_36_name(self, value=None):
         """  Corresponds to IDD Field `Surface 36 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 36 Name`
@@ -24607,8 +23628,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @fraction_of_radiant_energy_to_surface_36.setter
     def fraction_of_radiant_energy_to_surface_36(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 36`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 36`
@@ -24646,8 +23665,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @surface_37_name.setter
     def surface_37_name(self, value=None):
         """  Corresponds to IDD Field `Surface 37 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 37 Name`
@@ -24683,8 +23700,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @fraction_of_radiant_energy_to_surface_37.setter
     def fraction_of_radiant_energy_to_surface_37(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 37`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 37`
@@ -24722,8 +23737,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @surface_38_name.setter
     def surface_38_name(self, value=None):
         """  Corresponds to IDD Field `Surface 38 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 38 Name`
@@ -24759,8 +23772,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @fraction_of_radiant_energy_to_surface_38.setter
     def fraction_of_radiant_energy_to_surface_38(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 38`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 38`
@@ -24798,8 +23809,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @surface_39_name.setter
     def surface_39_name(self, value=None):
         """  Corresponds to IDD Field `Surface 39 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 39 Name`
@@ -24835,8 +23844,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @fraction_of_radiant_energy_to_surface_39.setter
     def fraction_of_radiant_energy_to_surface_39(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 39`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 39`
@@ -24874,8 +23881,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @surface_40_name.setter
     def surface_40_name(self, value=None):
         """  Corresponds to IDD Field `Surface 40 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 40 Name`
@@ -24911,8 +23916,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @fraction_of_radiant_energy_to_surface_40.setter
     def fraction_of_radiant_energy_to_surface_40(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 40`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 40`
@@ -24950,8 +23953,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @surface_41_name.setter
     def surface_41_name(self, value=None):
         """  Corresponds to IDD Field `Surface 41 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 41 Name`
@@ -24987,8 +23988,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @fraction_of_radiant_energy_to_surface_41.setter
     def fraction_of_radiant_energy_to_surface_41(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 41`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 41`
@@ -25026,8 +24025,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @surface_42_name.setter
     def surface_42_name(self, value=None):
         """  Corresponds to IDD Field `Surface 42 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 42 Name`
@@ -25063,8 +24060,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @fraction_of_radiant_energy_to_surface_42.setter
     def fraction_of_radiant_energy_to_surface_42(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 42`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 42`
@@ -25102,8 +24097,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @surface_43_name.setter
     def surface_43_name(self, value=None):
         """  Corresponds to IDD Field `Surface 43 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 43 Name`
@@ -25139,8 +24132,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @fraction_of_radiant_energy_to_surface_43.setter
     def fraction_of_radiant_energy_to_surface_43(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 43`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 43`
@@ -25178,8 +24169,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @surface_44_name.setter
     def surface_44_name(self, value=None):
         """  Corresponds to IDD Field `Surface 44 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 44 Name`
@@ -25215,8 +24204,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @fraction_of_radiant_energy_to_surface_44.setter
     def fraction_of_radiant_energy_to_surface_44(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 44`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 44`
@@ -25254,8 +24241,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @surface_45_name.setter
     def surface_45_name(self, value=None):
         """  Corresponds to IDD Field `Surface 45 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 45 Name`
@@ -25291,8 +24276,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @fraction_of_radiant_energy_to_surface_45.setter
     def fraction_of_radiant_energy_to_surface_45(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 45`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 45`
@@ -25330,8 +24313,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @surface_46_name.setter
     def surface_46_name(self, value=None):
         """  Corresponds to IDD Field `Surface 46 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 46 Name`
@@ -25367,8 +24348,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @fraction_of_radiant_energy_to_surface_46.setter
     def fraction_of_radiant_energy_to_surface_46(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 46`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 46`
@@ -25406,8 +24385,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @surface_47_name.setter
     def surface_47_name(self, value=None):
         """  Corresponds to IDD Field `Surface 47 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 47 Name`
@@ -25443,8 +24420,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @fraction_of_radiant_energy_to_surface_47.setter
     def fraction_of_radiant_energy_to_surface_47(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 47`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 47`
@@ -25482,8 +24457,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @surface_48_name.setter
     def surface_48_name(self, value=None):
         """  Corresponds to IDD Field `Surface 48 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 48 Name`
@@ -25519,8 +24492,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @fraction_of_radiant_energy_to_surface_48.setter
     def fraction_of_radiant_energy_to_surface_48(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 48`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 48`
@@ -25558,8 +24529,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @surface_49_name.setter
     def surface_49_name(self, value=None):
         """  Corresponds to IDD Field `Surface 49 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 49 Name`
@@ -25595,8 +24564,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @fraction_of_radiant_energy_to_surface_49.setter
     def fraction_of_radiant_energy_to_surface_49(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 49`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 49`
@@ -25634,8 +24601,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @surface_50_name.setter
     def surface_50_name(self, value=None):
         """  Corresponds to IDD Field `Surface 50 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 50 Name`
@@ -25671,8 +24636,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @fraction_of_radiant_energy_to_surface_50.setter
     def fraction_of_radiant_energy_to_surface_50(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 50`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 50`
@@ -25710,8 +24673,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @surface_51_name.setter
     def surface_51_name(self, value=None):
         """  Corresponds to IDD Field `Surface 51 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 51 Name`
@@ -25747,8 +24708,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @fraction_of_radiant_energy_to_surface_51.setter
     def fraction_of_radiant_energy_to_surface_51(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 51`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 51`
@@ -25786,8 +24745,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @surface_52_name.setter
     def surface_52_name(self, value=None):
         """  Corresponds to IDD Field `Surface 52 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 52 Name`
@@ -25823,8 +24780,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @fraction_of_radiant_energy_to_surface_52.setter
     def fraction_of_radiant_energy_to_surface_52(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 52`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 52`
@@ -25862,8 +24817,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @surface_53_name.setter
     def surface_53_name(self, value=None):
         """  Corresponds to IDD Field `Surface 53 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 53 Name`
@@ -25899,8 +24852,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @fraction_of_radiant_energy_to_surface_53.setter
     def fraction_of_radiant_energy_to_surface_53(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 53`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 53`
@@ -25938,8 +24889,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @surface_54_name.setter
     def surface_54_name(self, value=None):
         """  Corresponds to IDD Field `Surface 54 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 54 Name`
@@ -25975,8 +24924,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @fraction_of_radiant_energy_to_surface_54.setter
     def fraction_of_radiant_energy_to_surface_54(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 54`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 54`
@@ -26014,8 +24961,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @surface_55_name.setter
     def surface_55_name(self, value=None):
         """  Corresponds to IDD Field `Surface 55 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 55 Name`
@@ -26051,8 +24996,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @fraction_of_radiant_energy_to_surface_55.setter
     def fraction_of_radiant_energy_to_surface_55(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 55`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 55`
@@ -26090,8 +25033,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @surface_56_name.setter
     def surface_56_name(self, value=None):
         """  Corresponds to IDD Field `Surface 56 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 56 Name`
@@ -26127,8 +25068,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @fraction_of_radiant_energy_to_surface_56.setter
     def fraction_of_radiant_energy_to_surface_56(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 56`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 56`
@@ -26166,8 +25105,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @surface_57_name.setter
     def surface_57_name(self, value=None):
         """  Corresponds to IDD Field `Surface 57 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 57 Name`
@@ -26203,8 +25140,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @fraction_of_radiant_energy_to_surface_57.setter
     def fraction_of_radiant_energy_to_surface_57(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 57`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 57`
@@ -26242,8 +25177,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @surface_58_name.setter
     def surface_58_name(self, value=None):
         """  Corresponds to IDD Field `Surface 58 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 58 Name`
@@ -26279,8 +25212,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @fraction_of_radiant_energy_to_surface_58.setter
     def fraction_of_radiant_energy_to_surface_58(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 58`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 58`
@@ -26318,8 +25249,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @surface_59_name.setter
     def surface_59_name(self, value=None):
         """  Corresponds to IDD Field `Surface 59 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 59 Name`
@@ -26355,8 +25284,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @fraction_of_radiant_energy_to_surface_59.setter
     def fraction_of_radiant_energy_to_surface_59(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 59`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 59`
@@ -26394,8 +25321,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @surface_60_name.setter
     def surface_60_name(self, value=None):
         """  Corresponds to IDD Field `Surface 60 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 60 Name`
@@ -26431,8 +25356,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @fraction_of_radiant_energy_to_surface_60.setter
     def fraction_of_radiant_energy_to_surface_60(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 60`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 60`
@@ -26470,8 +25393,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @surface_61_name.setter
     def surface_61_name(self, value=None):
         """  Corresponds to IDD Field `Surface 61 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 61 Name`
@@ -26507,8 +25428,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @fraction_of_radiant_energy_to_surface_61.setter
     def fraction_of_radiant_energy_to_surface_61(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 61`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 61`
@@ -26546,8 +25465,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @surface_62_name.setter
     def surface_62_name(self, value=None):
         """  Corresponds to IDD Field `Surface 62 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 62 Name`
@@ -26583,8 +25500,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @fraction_of_radiant_energy_to_surface_62.setter
     def fraction_of_radiant_energy_to_surface_62(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 62`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 62`
@@ -26622,8 +25537,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @surface_63_name.setter
     def surface_63_name(self, value=None):
         """  Corresponds to IDD Field `Surface 63 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 63 Name`
@@ -26659,8 +25572,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @fraction_of_radiant_energy_to_surface_63.setter
     def fraction_of_radiant_energy_to_surface_63(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 63`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 63`
@@ -26698,8 +25609,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @surface_64_name.setter
     def surface_64_name(self, value=None):
         """  Corresponds to IDD Field `Surface 64 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 64 Name`
@@ -26735,8 +25644,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @fraction_of_radiant_energy_to_surface_64.setter
     def fraction_of_radiant_energy_to_surface_64(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 64`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 64`
@@ -26774,8 +25681,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @surface_65_name.setter
     def surface_65_name(self, value=None):
         """  Corresponds to IDD Field `Surface 65 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 65 Name`
@@ -26811,8 +25716,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @fraction_of_radiant_energy_to_surface_65.setter
     def fraction_of_radiant_energy_to_surface_65(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 65`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 65`
@@ -26850,8 +25753,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @surface_66_name.setter
     def surface_66_name(self, value=None):
         """  Corresponds to IDD Field `Surface 66 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 66 Name`
@@ -26887,8 +25788,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @fraction_of_radiant_energy_to_surface_66.setter
     def fraction_of_radiant_energy_to_surface_66(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 66`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 66`
@@ -26926,8 +25825,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @surface_67_name.setter
     def surface_67_name(self, value=None):
         """  Corresponds to IDD Field `Surface 67 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 67 Name`
@@ -26963,8 +25860,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @fraction_of_radiant_energy_to_surface_67.setter
     def fraction_of_radiant_energy_to_surface_67(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 67`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 67`
@@ -27002,8 +25897,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @surface_68_name.setter
     def surface_68_name(self, value=None):
         """  Corresponds to IDD Field `Surface 68 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 68 Name`
@@ -27039,8 +25932,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @fraction_of_radiant_energy_to_surface_68.setter
     def fraction_of_radiant_energy_to_surface_68(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 68`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 68`
@@ -27078,8 +25969,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @surface_69_name.setter
     def surface_69_name(self, value=None):
         """  Corresponds to IDD Field `Surface 69 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 69 Name`
@@ -27115,8 +26004,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @fraction_of_radiant_energy_to_surface_69.setter
     def fraction_of_radiant_energy_to_surface_69(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 69`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 69`
@@ -27154,8 +26041,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @surface_70_name.setter
     def surface_70_name(self, value=None):
         """  Corresponds to IDD Field `Surface 70 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 70 Name`
@@ -27191,8 +26076,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @fraction_of_radiant_energy_to_surface_70.setter
     def fraction_of_radiant_energy_to_surface_70(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 70`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 70`
@@ -27230,8 +26113,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @surface_71_name.setter
     def surface_71_name(self, value=None):
         """  Corresponds to IDD Field `Surface 71 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 71 Name`
@@ -27267,8 +26148,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @fraction_of_radiant_energy_to_surface_71.setter
     def fraction_of_radiant_energy_to_surface_71(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 71`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 71`
@@ -27306,8 +26185,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @surface_72_name.setter
     def surface_72_name(self, value=None):
         """  Corresponds to IDD Field `Surface 72 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 72 Name`
@@ -27343,8 +26220,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @fraction_of_radiant_energy_to_surface_72.setter
     def fraction_of_radiant_energy_to_surface_72(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 72`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 72`
@@ -27382,8 +26257,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @surface_73_name.setter
     def surface_73_name(self, value=None):
         """  Corresponds to IDD Field `Surface 73 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 73 Name`
@@ -27419,8 +26292,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @fraction_of_radiant_energy_to_surface_73.setter
     def fraction_of_radiant_energy_to_surface_73(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 73`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 73`
@@ -27458,8 +26329,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @surface_74_name.setter
     def surface_74_name(self, value=None):
         """  Corresponds to IDD Field `Surface 74 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 74 Name`
@@ -27495,8 +26364,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @fraction_of_radiant_energy_to_surface_74.setter
     def fraction_of_radiant_energy_to_surface_74(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 74`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 74`
@@ -27534,8 +26401,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @surface_75_name.setter
     def surface_75_name(self, value=None):
         """  Corresponds to IDD Field `Surface 75 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 75 Name`
@@ -27571,8 +26436,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @fraction_of_radiant_energy_to_surface_75.setter
     def fraction_of_radiant_energy_to_surface_75(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 75`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 75`
@@ -27610,8 +26473,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @surface_76_name.setter
     def surface_76_name(self, value=None):
         """  Corresponds to IDD Field `Surface 76 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 76 Name`
@@ -27647,8 +26508,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @fraction_of_radiant_energy_to_surface_76.setter
     def fraction_of_radiant_energy_to_surface_76(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 76`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 76`
@@ -27686,8 +26545,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @surface_77_name.setter
     def surface_77_name(self, value=None):
         """  Corresponds to IDD Field `Surface 77 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 77 Name`
@@ -27723,8 +26580,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @fraction_of_radiant_energy_to_surface_77.setter
     def fraction_of_radiant_energy_to_surface_77(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 77`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 77`
@@ -27762,8 +26617,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @surface_78_name.setter
     def surface_78_name(self, value=None):
         """  Corresponds to IDD Field `Surface 78 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 78 Name`
@@ -27799,8 +26652,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @fraction_of_radiant_energy_to_surface_78.setter
     def fraction_of_radiant_energy_to_surface_78(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 78`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 78`
@@ -27838,8 +26689,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @surface_79_name.setter
     def surface_79_name(self, value=None):
         """  Corresponds to IDD Field `Surface 79 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 79 Name`
@@ -27875,8 +26724,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @fraction_of_radiant_energy_to_surface_79.setter
     def fraction_of_radiant_energy_to_surface_79(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 79`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 79`
@@ -27914,8 +26761,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @surface_80_name.setter
     def surface_80_name(self, value=None):
         """  Corresponds to IDD Field `Surface 80 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 80 Name`
@@ -27951,8 +26796,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @fraction_of_radiant_energy_to_surface_80.setter
     def fraction_of_radiant_energy_to_surface_80(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 80`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 80`
@@ -27990,8 +26833,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @surface_81_name.setter
     def surface_81_name(self, value=None):
         """  Corresponds to IDD Field `Surface 81 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 81 Name`
@@ -28027,8 +26868,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @fraction_of_radiant_energy_to_surface_81.setter
     def fraction_of_radiant_energy_to_surface_81(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 81`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 81`
@@ -28066,8 +26905,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @surface_82_name.setter
     def surface_82_name(self, value=None):
         """  Corresponds to IDD Field `Surface 82 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 82 Name`
@@ -28103,8 +26940,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @fraction_of_radiant_energy_to_surface_82.setter
     def fraction_of_radiant_energy_to_surface_82(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 82`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 82`
@@ -28142,8 +26977,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @surface_83_name.setter
     def surface_83_name(self, value=None):
         """  Corresponds to IDD Field `Surface 83 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 83 Name`
@@ -28179,8 +27012,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @fraction_of_radiant_energy_to_surface_83.setter
     def fraction_of_radiant_energy_to_surface_83(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 83`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 83`
@@ -28218,8 +27049,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @surface_84_name.setter
     def surface_84_name(self, value=None):
         """  Corresponds to IDD Field `Surface 84 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 84 Name`
@@ -28255,8 +27084,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @fraction_of_radiant_energy_to_surface_84.setter
     def fraction_of_radiant_energy_to_surface_84(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 84`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 84`
@@ -28294,8 +27121,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @surface_85_name.setter
     def surface_85_name(self, value=None):
         """  Corresponds to IDD Field `Surface 85 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 85 Name`
@@ -28331,8 +27156,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @fraction_of_radiant_energy_to_surface_85.setter
     def fraction_of_radiant_energy_to_surface_85(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 85`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 85`
@@ -28370,8 +27193,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @surface_86_name.setter
     def surface_86_name(self, value=None):
         """  Corresponds to IDD Field `Surface 86 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 86 Name`
@@ -28407,8 +27228,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @fraction_of_radiant_energy_to_surface_86.setter
     def fraction_of_radiant_energy_to_surface_86(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 86`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 86`
@@ -28446,8 +27265,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @surface_87_name.setter
     def surface_87_name(self, value=None):
         """  Corresponds to IDD Field `Surface 87 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 87 Name`
@@ -28483,8 +27300,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @fraction_of_radiant_energy_to_surface_87.setter
     def fraction_of_radiant_energy_to_surface_87(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 87`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 87`
@@ -28522,8 +27337,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @surface_88_name.setter
     def surface_88_name(self, value=None):
         """  Corresponds to IDD Field `Surface 88 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 88 Name`
@@ -28559,8 +27372,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @fraction_of_radiant_energy_to_surface_88.setter
     def fraction_of_radiant_energy_to_surface_88(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 88`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 88`
@@ -28598,8 +27409,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @surface_89_name.setter
     def surface_89_name(self, value=None):
         """  Corresponds to IDD Field `Surface 89 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 89 Name`
@@ -28635,8 +27444,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @fraction_of_radiant_energy_to_surface_89.setter
     def fraction_of_radiant_energy_to_surface_89(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 89`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 89`
@@ -28674,8 +27481,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @surface_90_name.setter
     def surface_90_name(self, value=None):
         """  Corresponds to IDD Field `Surface 90 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 90 Name`
@@ -28711,8 +27516,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @fraction_of_radiant_energy_to_surface_90.setter
     def fraction_of_radiant_energy_to_surface_90(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 90`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 90`
@@ -28750,8 +27553,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @surface_91_name.setter
     def surface_91_name(self, value=None):
         """  Corresponds to IDD Field `Surface 91 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 91 Name`
@@ -28787,8 +27588,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @fraction_of_radiant_energy_to_surface_91.setter
     def fraction_of_radiant_energy_to_surface_91(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 91`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 91`
@@ -28826,8 +27625,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @surface_92_name.setter
     def surface_92_name(self, value=None):
         """  Corresponds to IDD Field `Surface 92 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 92 Name`
@@ -28863,8 +27660,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @fraction_of_radiant_energy_to_surface_92.setter
     def fraction_of_radiant_energy_to_surface_92(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 92`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 92`
@@ -28902,8 +27697,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @surface_93_name.setter
     def surface_93_name(self, value=None):
         """  Corresponds to IDD Field `Surface 93 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 93 Name`
@@ -28939,8 +27732,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @fraction_of_radiant_energy_to_surface_93.setter
     def fraction_of_radiant_energy_to_surface_93(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 93`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 93`
@@ -28978,8 +27769,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @surface_94_name.setter
     def surface_94_name(self, value=None):
         """  Corresponds to IDD Field `Surface 94 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 94 Name`
@@ -29015,8 +27804,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @fraction_of_radiant_energy_to_surface_94.setter
     def fraction_of_radiant_energy_to_surface_94(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 94`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 94`
@@ -29054,8 +27841,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @surface_95_name.setter
     def surface_95_name(self, value=None):
         """  Corresponds to IDD Field `Surface 95 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 95 Name`
@@ -29091,8 +27876,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @fraction_of_radiant_energy_to_surface_95.setter
     def fraction_of_radiant_energy_to_surface_95(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 95`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 95`
@@ -29130,8 +27913,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @surface_96_name.setter
     def surface_96_name(self, value=None):
         """  Corresponds to IDD Field `Surface 96 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 96 Name`
@@ -29167,8 +27948,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @fraction_of_radiant_energy_to_surface_96.setter
     def fraction_of_radiant_energy_to_surface_96(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 96`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 96`
@@ -29206,8 +27985,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @surface_97_name.setter
     def surface_97_name(self, value=None):
         """  Corresponds to IDD Field `Surface 97 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 97 Name`
@@ -29243,8 +28020,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @fraction_of_radiant_energy_to_surface_97.setter
     def fraction_of_radiant_energy_to_surface_97(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 97`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 97`
@@ -29282,8 +28057,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @surface_98_name.setter
     def surface_98_name(self, value=None):
         """  Corresponds to IDD Field `Surface 98 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 98 Name`
@@ -29319,8 +28092,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @fraction_of_radiant_energy_to_surface_98.setter
     def fraction_of_radiant_energy_to_surface_98(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 98`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 98`
@@ -29358,8 +28129,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @surface_99_name.setter
     def surface_99_name(self, value=None):
         """  Corresponds to IDD Field `Surface 99 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 99 Name`
@@ -29395,8 +28164,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @fraction_of_radiant_energy_to_surface_99.setter
     def fraction_of_radiant_energy_to_surface_99(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 99`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 99`
@@ -29434,8 +28201,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @surface_100_name.setter
     def surface_100_name(self, value=None):
         """  Corresponds to IDD Field `Surface 100 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 100 Name`
@@ -29471,8 +28236,6 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     @fraction_of_radiant_energy_to_surface_100.setter
     def fraction_of_radiant_energy_to_surface_100(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 100`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 100`
@@ -29656,8 +28419,6 @@ class ZoneHvacBaseboardConvectiveWater(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {'type': 'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -29695,8 +28456,6 @@ class ZoneHvacBaseboardConvectiveWater(object):
         """  Corresponds to IDD Field `Availability Schedule Name`
         Availability schedule name for this system. Schedule value > 0 means the system is available.
         If this field is blank, the system is always available.
-        
-        {u'note': [u'Availability schedule name for this system. Schedule value > 0 means the system is available.', u'If this field is blank, the system is always available.'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Availability Schedule Name`
@@ -29732,8 +28491,6 @@ class ZoneHvacBaseboardConvectiveWater(object):
     @inlet_node_name.setter
     def inlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Inlet Node Name`
-        
-        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Inlet Node Name`
@@ -29769,8 +28526,6 @@ class ZoneHvacBaseboardConvectiveWater(object):
     @outlet_node_name.setter
     def outlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Outlet Node Name`
-        
-        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Outlet Node Name`
@@ -29812,8 +28567,6 @@ class ZoneHvacBaseboardConvectiveWater(object):
         determine from user specified heating capacity per floor area and zone floor area.
         FractionOfAutosizedHeatingCapacity = > is selected when the design heating capacity is
         determined from a user specified fraction and the auto-sized design heating capacity.
-        
-        {'pytype': 'str', u'default': u'HeatingDesignCapacity', u'required-field': True, u'note': [u'Enter the method used to determine the heating design capacity.', u'HeatingDesignCapacity = > selected when the design heating capacity value or autosize', u'is specified. CapacityPerFloorArea = > selected when the design heating capacity is', u'determine from user specified heating capacity per floor area and zone floor area.', u'FractionOfAutosizedHeatingCapacity = > is selected when the design heating capacity is', u'determined from a user specified fraction and the auto-sized design heating capacity.'], u'key': [u'HeatingDesignCapacity', u'CapacityPerFloorArea', u'FractionOfAutosizedHeatingCapacity'], u'type': u'choice'}
 
         Args:
             value (str): value for IDD Field `Heating Design Capacity Method`
@@ -29870,15 +28623,13 @@ class ZoneHvacBaseboardConvectiveWater(object):
         return self._data["Heating Design Capacity"]
 
     @heating_design_capacity.setter
-    def heating_design_capacity(self, value="autosize" ):
+    def heating_design_capacity(self, value="autosize"):
         """  Corresponds to IDD Field `Heating Design Capacity`
         Enter the design heating capacity.Required field when the heating design capacity method
         HeatingDesignCapacity.
-        
-        {'pytype': 'float', u'default': '"autosize"', u'note': [u'Enter the design heating capacity.Required field when the heating design capacity method', u'HeatingDesignCapacity.'], u'ip-units': u'W', u'autosizable': u'', u'minimum': '0.0', u'units': u'W', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `Heating Design Capacity`
+            value (float or "Autosize"): value for IDD Field `Heating Design Capacity`
                 Units: W
                 IP-Units: W
                 Default value: "autosize"
@@ -29890,6 +28641,13 @@ class ZoneHvacBaseboardConvectiveWater(object):
             ValueError: if `value` is not a valid value
         """
         if value is not None:
+            try:
+                value_lower = str(value).lower()
+                if value_lower == "autosize":
+                    self._data["Heating Design Capacity"] = "Autosize"
+                    return
+            except ValueError:
+                pass
             try:
                 value = float(value)
             except ValueError:
@@ -29914,8 +28672,6 @@ class ZoneHvacBaseboardConvectiveWater(object):
         """  Corresponds to IDD Field `Heating Design Capacity Per Floor Area`
         Enter the heating design capacity per zone floor area.Required field when the heating design
         capacity method field is CapacityPerFloorArea.
-        
-        {u'units': u'W/m2', u'note': [u'Enter the heating design capacity per zone floor area.Required field when the heating design', u'capacity method field is CapacityPerFloorArea.'], u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Heating Design Capacity Per Floor Area`
@@ -29948,12 +28704,10 @@ class ZoneHvacBaseboardConvectiveWater(object):
         return self._data["Fraction of Autosized Heating Design Capacity"]
 
     @fraction_of_autosized_heating_design_capacity.setter
-    def fraction_of_autosized_heating_design_capacity(self, value=1.0 ):
+    def fraction_of_autosized_heating_design_capacity(self, value=1.0):
         """  Corresponds to IDD Field `Fraction of Autosized Heating Design Capacity`
         Enter the fraction of auto - sized heating design capacity.Required field when capacity the
         heating design capacity method field is FractionOfAutosizedHeatingCapacity.
-        
-        {u'default': '1.0', u'note': [u'Enter the fraction of auto - sized heating design capacity.Required field when capacity the', u'heating design capacity method field is FractionOfAutosizedHeatingCapacity.'], u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Autosized Heating Design Capacity`
@@ -29988,11 +28742,9 @@ class ZoneHvacBaseboardConvectiveWater(object):
     @ufactor_times_area_value.setter
     def ufactor_times_area_value(self, value=None):
         """  Corresponds to IDD Field `U-Factor Times Area Value`
-        
-        {u'units': u'W/K', u'autosizable': u'', 'type': 'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `U-Factor Times Area Value`
+            value (float or "Autosize"): value for IDD Field `U-Factor Times Area Value`
                 Units: W/K
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -30001,6 +28753,13 @@ class ZoneHvacBaseboardConvectiveWater(object):
             ValueError: if `value` is not a valid value
         """
         if value is not None:
+            try:
+                value_lower = str(value).lower()
+                if value_lower == "autosize":
+                    self._data["U-Factor Times Area Value"] = "Autosize"
+                    return
+            except ValueError:
+                pass
             try:
                 value = float(value)
             except ValueError:
@@ -30020,11 +28779,9 @@ class ZoneHvacBaseboardConvectiveWater(object):
     @maximum_water_flow_rate.setter
     def maximum_water_flow_rate(self, value=None):
         """  Corresponds to IDD Field `Maximum Water Flow Rate`
-        
-        {'pytype': 'float', u'required-field': True, u'ip-units': u'gal/min', u'autosizable': u'', u'units': u'm3/s', 'type': 'real'}
 
         Args:
-            value (float): value for IDD Field `Maximum Water Flow Rate`
+            value (float or "Autosize"): value for IDD Field `Maximum Water Flow Rate`
                 Units: m3/s
                 IP-Units: gal/min
                 if `value` is None it will not be checked against the
@@ -30034,6 +28791,13 @@ class ZoneHvacBaseboardConvectiveWater(object):
             ValueError: if `value` is not a valid value
         """
         if value is not None:
+            try:
+                value_lower = str(value).lower()
+                if value_lower == "autosize":
+                    self._data["Maximum Water Flow Rate"] = "Autosize"
+                    return
+            except ValueError:
+                pass
             try:
                 value = float(value)
             except ValueError:
@@ -30051,10 +28815,8 @@ class ZoneHvacBaseboardConvectiveWater(object):
         return self._data["Convergence Tolerance"]
 
     @convergence_tolerance.setter
-    def convergence_tolerance(self, value=0.001 ):
+    def convergence_tolerance(self, value=0.001):
         """  Corresponds to IDD Field `Convergence Tolerance`
-        
-        {u'default': '0.001', u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Convergence Tolerance`
@@ -30203,8 +28965,6 @@ class ZoneHvacBaseboardConvectiveElectric(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {'type': 'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -30242,8 +29002,6 @@ class ZoneHvacBaseboardConvectiveElectric(object):
         """  Corresponds to IDD Field `Availability Schedule Name`
         Availability schedule name for this system. Schedule value > 0 means the system is available.
         If this field is blank, the system is always available.
-        
-        {u'note': [u'Availability schedule name for this system. Schedule value > 0 means the system is available.', u'If this field is blank, the system is always available.'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Availability Schedule Name`
@@ -30285,8 +29043,6 @@ class ZoneHvacBaseboardConvectiveElectric(object):
         determine from user specified heating capacity per floor area and zone floor area.
         FractionOfAutosizedHeatingCapacity = > is selected when the design heating capacity is
         determined from a user specified fraction and the auto-sized design heating capacity.
-        
-        {'pytype': 'str', u'default': u'HeatingDesignCapacity', u'required-field': True, u'note': [u'Enter the method used to determine the heating design capacity.', u'HeatingDesignCapacity = > selected when the design heating capacity value or autosize', u'is specified. CapacityPerFloorArea = > selected when the design heating capacity is', u'determine from user specified heating capacity per floor area and zone floor area.', u'FractionOfAutosizedHeatingCapacity = > is selected when the design heating capacity is', u'determined from a user specified fraction and the auto-sized design heating capacity.'], u'key': [u'HeatingDesignCapacity', u'CapacityPerFloorArea', u'FractionOfAutosizedHeatingCapacity'], u'type': u'choice'}
 
         Args:
             value (str): value for IDD Field `Heating Design Capacity Method`
@@ -30343,15 +29099,13 @@ class ZoneHvacBaseboardConvectiveElectric(object):
         return self._data["Heating Design Capacity"]
 
     @heating_design_capacity.setter
-    def heating_design_capacity(self, value="autosize" ):
+    def heating_design_capacity(self, value="autosize"):
         """  Corresponds to IDD Field `Heating Design Capacity`
         Enter the design heating capacity.Required field when the heating design capacity method
         HeatingDesignCapacity.
-        
-        {'pytype': 'float', u'default': '"autosize"', u'note': [u'Enter the design heating capacity.Required field when the heating design capacity method', u'HeatingDesignCapacity.'], u'ip-units': u'W', u'autosizable': u'', u'minimum': '0.0', u'units': u'W', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `Heating Design Capacity`
+            value (float or "Autosize"): value for IDD Field `Heating Design Capacity`
                 Units: W
                 IP-Units: W
                 Default value: "autosize"
@@ -30363,6 +29117,13 @@ class ZoneHvacBaseboardConvectiveElectric(object):
             ValueError: if `value` is not a valid value
         """
         if value is not None:
+            try:
+                value_lower = str(value).lower()
+                if value_lower == "autosize":
+                    self._data["Heating Design Capacity"] = "Autosize"
+                    return
+            except ValueError:
+                pass
             try:
                 value = float(value)
             except ValueError:
@@ -30387,8 +29148,6 @@ class ZoneHvacBaseboardConvectiveElectric(object):
         """  Corresponds to IDD Field `Heating Design Capacity Per Floor Area`
         Enter the heating design capacity per zone floor area.Required field when the heating design
         capacity method field is CapacityPerFloorArea.
-        
-        {u'units': u'W/m2', u'note': [u'Enter the heating design capacity per zone floor area.Required field when the heating design', u'capacity method field is CapacityPerFloorArea.'], u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Heating Design Capacity Per Floor Area`
@@ -30421,12 +29180,10 @@ class ZoneHvacBaseboardConvectiveElectric(object):
         return self._data["Fraction of Autosized Heating Design Capacity"]
 
     @fraction_of_autosized_heating_design_capacity.setter
-    def fraction_of_autosized_heating_design_capacity(self, value=1.0 ):
+    def fraction_of_autosized_heating_design_capacity(self, value=1.0):
         """  Corresponds to IDD Field `Fraction of Autosized Heating Design Capacity`
         Enter the fraction of auto - sized heating design capacity.Required field when capacity the
         heating design capacity method field is FractionOfAutosizedHeatingCapacity.
-        
-        {u'default': '1.0', u'note': [u'Enter the fraction of auto - sized heating design capacity.Required field when capacity the', u'heating design capacity method field is FractionOfAutosizedHeatingCapacity.'], u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Autosized Heating Design Capacity`
@@ -30459,10 +29216,8 @@ class ZoneHvacBaseboardConvectiveElectric(object):
         return self._data["Efficiency"]
 
     @efficiency.setter
-    def efficiency(self, value=1.0 ):
+    def efficiency(self, value=1.0):
         """  Corresponds to IDD Field `Efficiency`
-        
-        {'pytype': 'float', u'default': '1.0', u'maximum': '1.0', u'required-field': True, u'minimum': '0.0', 'type': 'real'}
 
         Args:
             value (float): value for IDD Field `Efficiency`
@@ -30793,8 +29548,6 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {'type': 'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -30832,8 +29585,6 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(object):
         """  Corresponds to IDD Field `Availability Schedule Name`
         Availability schedule name for this system. Schedule value > 0 means the system is available.
         If this field is blank, the system is always available.
-        
-        {u'note': [u'Availability schedule name for this system. Schedule value > 0 means the system is available.', u'If this field is blank, the system is always available.'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Availability Schedule Name`
@@ -30870,8 +29621,6 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(object):
     def zone_name(self, value=None):
         """  Corresponds to IDD Field `Zone Name`
         Name of zone system is serving
-        
-        {u'note': [u'Name of zone system is serving'], u'type': u'object-list', u'object-list': u'ZoneNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Zone Name`
@@ -30910,8 +29659,6 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(object):
         Identifies surfaces that radiant system is embedded in.
         For a system with multiple surfaces, enter the name of
         a ZoneHVAC:LowTemperatureRadiant:SurfaceGroup object.
-        
-        {u'note': [u'Identifies surfaces that radiant system is embedded in.', u'For a system with multiple surfaces, enter the name of', u'a ZoneHVAC:LowTemperatureRadiant:SurfaceGroup object.'], u'type': u'object-list', u'object-list': u'RadGroupAndSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface Name or Radiant Surface Group Name`
@@ -30945,10 +29692,8 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(object):
         return self._data["Hydronic Tubing Inside Diameter"]
 
     @hydronic_tubing_inside_diameter.setter
-    def hydronic_tubing_inside_diameter(self, value=0.013 ):
+    def hydronic_tubing_inside_diameter(self, value=0.013):
         """  Corresponds to IDD Field `Hydronic Tubing Inside Diameter`
-        
-        {'pytype': 'float', u'default': '0.013', u'minimum>': '0.0', u'ip-units': u'in', u'units': u'm', 'type': 'real'}
 
         Args:
             value (float): value for IDD Field `Hydronic Tubing Inside Diameter`
@@ -30986,11 +29731,9 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(object):
     def hydronic_tubing_length(self, value=None):
         """  Corresponds to IDD Field `Hydronic Tubing Length`
         (total length of pipe embedded in surface)
-        
-        {'pytype': 'float', u'minimum>': '0.0', u'note': [u'(total length of pipe embedded in surface)'], u'autosizable': u'', u'units': u'm', 'type': 'real'}
 
         Args:
-            value (float): value for IDD Field `Hydronic Tubing Length`
+            value (float or "Autosize"): value for IDD Field `Hydronic Tubing Length`
                 Units: m
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -31000,6 +29743,13 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(object):
             ValueError: if `value` is not a valid value
         """
         if value is not None:
+            try:
+                value_lower = str(value).lower()
+                if value_lower == "autosize":
+                    self._data["Hydronic Tubing Length"] = "Autosize"
+                    return
+            except ValueError:
+                pass
             try:
                 value = float(value)
             except ValueError:
@@ -31023,8 +29773,6 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(object):
     def temperature_control_type(self, value="MeanAirTemperature"):
         """  Corresponds to IDD Field `Temperature Control Type`
         (Temperature on which unit is controlled)
-        
-        {u'note': [u'(Temperature on which unit is controlled)'], u'default': u'MeanAirTemperature', u'type': u'choice', u'key': [u'MeanAirTemperature', u'MeanRadiantTemperature', u'OperativeTemperature', u'OutdoorDryBulbTemperature', u'OutdoorWetBulbTemperature'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Temperature Control Type`
@@ -31093,8 +29841,6 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(object):
         determine from user specified heating capacity per floor area and zone floor area.
         FractionOfAutosizedHeatingCapacity = > is selected when the design heating capacity is
         determined from a user specified fraction and the auto-sized design heating capacity.
-        
-        {'pytype': 'str', u'default': u'HeatingDesignCapacity', u'required-field': True, u'note': [u'Enter the method used to determine the heating design capacity.', u'HeatingDesignCapacity = > selected when the design heating capacity value or autosize', u'is specified. CapacityPerFloorArea = > selected when the design heating capacity is', u'determine from user specified heating capacity per floor area and zone floor area.', u'FractionOfAutosizedHeatingCapacity = > is selected when the design heating capacity is', u'determined from a user specified fraction and the auto-sized design heating capacity.'], u'key': [u'HeatingDesignCapacity', u'CapacityPerFloorArea', u'FractionOfAutosizedHeatingCapacity'], u'type': u'choice'}
 
         Args:
             value (str): value for IDD Field `Heating Design Capacity Method`
@@ -31151,15 +29897,13 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(object):
         return self._data["Heating Design Capacity"]
 
     @heating_design_capacity.setter
-    def heating_design_capacity(self, value="autosize" ):
+    def heating_design_capacity(self, value="autosize"):
         """  Corresponds to IDD Field `Heating Design Capacity`
         Enter the design heating capacity.Required field when the heating design capacity method
         HeatingDesignCapacity.
-        
-        {'pytype': 'float', u'default': '"autosize"', u'note': [u'Enter the design heating capacity.Required field when the heating design capacity method', u'HeatingDesignCapacity.'], u'ip-units': u'W', u'autosizable': u'', u'minimum': '0.0', u'units': u'W', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `Heating Design Capacity`
+            value (float or "Autosize"): value for IDD Field `Heating Design Capacity`
                 Units: W
                 IP-Units: W
                 Default value: "autosize"
@@ -31171,6 +29915,13 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(object):
             ValueError: if `value` is not a valid value
         """
         if value is not None:
+            try:
+                value_lower = str(value).lower()
+                if value_lower == "autosize":
+                    self._data["Heating Design Capacity"] = "Autosize"
+                    return
+            except ValueError:
+                pass
             try:
                 value = float(value)
             except ValueError:
@@ -31195,8 +29946,6 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(object):
         """  Corresponds to IDD Field `Heating Design Capacity Per Floor Area`
         Enter the heating design capacity per zone floor area.Required field when the heating design
         capacity method field is CapacityPerFloorArea.
-        
-        {u'units': u'W/m2', u'note': [u'Enter the heating design capacity per zone floor area.Required field when the heating design', u'capacity method field is CapacityPerFloorArea.'], u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Heating Design Capacity Per Floor Area`
@@ -31229,12 +29978,10 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(object):
         return self._data["Fraction of Autosized Heating Design Capacity"]
 
     @fraction_of_autosized_heating_design_capacity.setter
-    def fraction_of_autosized_heating_design_capacity(self, value=1.0 ):
+    def fraction_of_autosized_heating_design_capacity(self, value=1.0):
         """  Corresponds to IDD Field `Fraction of Autosized Heating Design Capacity`
         Enter the fraction of auto - sized heating design capacity.Required field when capacity the
         heating design capacity method field is FractionOfAutosizedHeatingCapacity.
-        
-        {u'default': '1.0', u'note': [u'Enter the fraction of auto - sized heating design capacity.Required field when capacity the', u'heating design capacity method field is FractionOfAutosizedHeatingCapacity.'], u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Autosized Heating Design Capacity`
@@ -31269,11 +30016,9 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(object):
     @maximum_hot_water_flow.setter
     def maximum_hot_water_flow(self, value=None):
         """  Corresponds to IDD Field `Maximum Hot Water Flow`
-        
-        {'pytype': 'float', u'ip-units': u'gal/min', u'autosizable': u'', u'minimum': '0.0', u'units': u'm3/s', 'type': 'real'}
 
         Args:
-            value (float): value for IDD Field `Maximum Hot Water Flow`
+            value (float or "Autosize"): value for IDD Field `Maximum Hot Water Flow`
                 Units: m3/s
                 IP-Units: gal/min
                 value >= 0.0
@@ -31284,6 +30029,13 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(object):
             ValueError: if `value` is not a valid value
         """
         if value is not None:
+            try:
+                value_lower = str(value).lower()
+                if value_lower == "autosize":
+                    self._data["Maximum Hot Water Flow"] = "Autosize"
+                    return
+            except ValueError:
+                pass
             try:
                 value = float(value)
             except ValueError:
@@ -31306,8 +30058,6 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(object):
     @heating_water_inlet_node_name.setter
     def heating_water_inlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Heating Water Inlet Node Name`
-        
-        {u'type': u'node', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Heating Water Inlet Node Name`
@@ -31343,8 +30093,6 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(object):
     @heating_water_outlet_node_name.setter
     def heating_water_outlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Heating Water Outlet Node Name`
-        
-        {u'type': u'node', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Heating Water Outlet Node Name`
@@ -31378,10 +30126,8 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(object):
         return self._data["Heating Control Throttling Range"]
 
     @heating_control_throttling_range.setter
-    def heating_control_throttling_range(self, value=0.5 ):
+    def heating_control_throttling_range(self, value=0.5):
         """  Corresponds to IDD Field `Heating Control Throttling Range`
-        
-        {u'units': u'deltaC', u'default': '0.5', u'minimum': '0.5', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Heating Control Throttling Range`
@@ -31417,8 +30163,6 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(object):
     @heating_control_temperature_schedule_name.setter
     def heating_control_temperature_schedule_name(self, value=None):
         """  Corresponds to IDD Field `Heating Control Temperature Schedule Name`
-        
-        {u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Heating Control Temperature Schedule Name`
@@ -31461,8 +30205,6 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(object):
         served by the hydrolic unit. FractionOfAutosizedCoolingCapacity => is selected when the
         design cooling capacity is determined from a user specified fraction and the auto-sized
         design cooling capacity of the system.
-        
-        {u'default': u'CoolingDesignCapacity', u'note': [u'Enter the method used to determine the cooling design capacity for scalable sizing.', u'CoolingDesignCapacity => selected when the design cooling capacity value is specified or', u'auto-sized. CapacityPerFloorArea => selected when the design cooling capacity is determined', u'from user specified cooling capacity per floor area and total floor area of cooled zone', u'served by the hydrolic unit. FractionOfAutosizedCoolingCapacity => is selected when the', u'design cooling capacity is determined from a user specified fraction and the auto-sized', u'design cooling capacity of the system.'], u'type': u'choice', u'key': [u'None', u'CoolingDesignCapacity', u'CapacityPerFloorArea', u'FractionOfAutosizedCoolingCapacity'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Cooling Design Capacity Method`
@@ -31525,11 +30267,9 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(object):
         """  Corresponds to IDD Field `Cooling Design Capacity`
         Enter the design cooling capacity. Required field when the cooling design capacity method
         CoolingDesignCapacity.
-        
-        {'pytype': 'float', u'note': [u'Enter the design cooling capacity. Required field when the cooling design capacity method', u'CoolingDesignCapacity.'], u'autosizable': u'', u'minimum': '0.0', u'units': u'W', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `Cooling Design Capacity`
+            value (float or "Autosize"): value for IDD Field `Cooling Design Capacity`
                 Units: W
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -31539,6 +30279,13 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(object):
             ValueError: if `value` is not a valid value
         """
         if value is not None:
+            try:
+                value_lower = str(value).lower()
+                if value_lower == "autosize":
+                    self._data["Cooling Design Capacity"] = "Autosize"
+                    return
+            except ValueError:
+                pass
             try:
                 value = float(value)
             except ValueError:
@@ -31563,8 +30310,6 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(object):
         """  Corresponds to IDD Field `Cooling Design Capacity Per Floor Area`
         Enter the cooling design capacity per total floor area of cooled zones served by the unit.
         Required field when the cooling design capacity method field is CapacityPerFloorArea.
-        
-        {u'units': u'W/m2', u'note': [u'Enter the cooling design capacity per total floor area of cooled zones served by the unit.', u'Required field when the cooling design capacity method field is CapacityPerFloorArea.'], u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Cooling Design Capacity Per Floor Area`
@@ -31601,8 +30346,6 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(object):
         """  Corresponds to IDD Field `Fraction of Autosized Cooling Design Capacity`
         Enter the fraction of auto-sized cooling design capacity. Required field when the cooling
         design capacity method field is FractionOfAutosizedCoolingCapacity.
-        
-        {u'note': [u'Enter the fraction of auto-sized cooling design capacity. Required field when the cooling', u'design capacity method field is FractionOfAutosizedCoolingCapacity.'], u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Autosized Cooling Design Capacity`
@@ -31636,11 +30379,9 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(object):
     @maximum_cold_water_flow.setter
     def maximum_cold_water_flow(self, value=None):
         """  Corresponds to IDD Field `Maximum Cold Water Flow`
-        
-        {'pytype': 'float', u'ip-units': u'gal/min', u'autosizable': u'', u'minimum': '0.0', u'units': u'm3/s', 'type': 'real'}
 
         Args:
-            value (float): value for IDD Field `Maximum Cold Water Flow`
+            value (float or "Autosize"): value for IDD Field `Maximum Cold Water Flow`
                 Units: m3/s
                 IP-Units: gal/min
                 value >= 0.0
@@ -31651,6 +30392,13 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(object):
             ValueError: if `value` is not a valid value
         """
         if value is not None:
+            try:
+                value_lower = str(value).lower()
+                if value_lower == "autosize":
+                    self._data["Maximum Cold Water Flow"] = "Autosize"
+                    return
+            except ValueError:
+                pass
             try:
                 value = float(value)
             except ValueError:
@@ -31673,8 +30421,6 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(object):
     @cooling_water_inlet_node_name.setter
     def cooling_water_inlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Cooling Water Inlet Node Name`
-        
-        {u'type': u'node', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Cooling Water Inlet Node Name`
@@ -31710,8 +30456,6 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(object):
     @cooling_water_outlet_node_name.setter
     def cooling_water_outlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Cooling Water Outlet Node Name`
-        
-        {u'type': u'node', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Cooling Water Outlet Node Name`
@@ -31745,10 +30489,8 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(object):
         return self._data["Cooling Control Throttling Range"]
 
     @cooling_control_throttling_range.setter
-    def cooling_control_throttling_range(self, value=0.5 ):
+    def cooling_control_throttling_range(self, value=0.5):
         """  Corresponds to IDD Field `Cooling Control Throttling Range`
-        
-        {u'units': u'deltaC', u'default': '0.5', u'minimum': '0.5', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Cooling Control Throttling Range`
@@ -31784,8 +30526,6 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(object):
     @cooling_control_temperature_schedule_name.setter
     def cooling_control_temperature_schedule_name(self, value=None):
         """  Corresponds to IDD Field `Cooling Control Temperature Schedule Name`
-        
-        {u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Cooling Control Temperature Schedule Name`
@@ -31821,8 +30561,6 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(object):
     @condensation_control_type.setter
     def condensation_control_type(self, value="SimpleOff"):
         """  Corresponds to IDD Field `Condensation Control Type`
-        
-        {u'default': u'SimpleOff', u'type': u'choice', u'key': [u'Off', u'SimpleOff', u'VariableOff'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Condensation Control Type`
@@ -31879,10 +30617,8 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(object):
         return self._data["Condensation Control Dewpoint Offset"]
 
     @condensation_control_dewpoint_offset.setter
-    def condensation_control_dewpoint_offset(self, value=1.0 ):
+    def condensation_control_dewpoint_offset(self, value=1.0):
         """  Corresponds to IDD Field `Condensation Control Dewpoint Offset`
-        
-        {u'units': u'C', u'default': '1.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Condensation Control Dewpoint Offset`
@@ -31914,8 +30650,6 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(object):
     @number_of_circuits.setter
     def number_of_circuits(self, value="OnePerSurface"):
         """  Corresponds to IDD Field `Number of Circuits`
-        
-        {u'default': u'OnePerSurface', u'type': u'choice', u'key': [u'OnePerSurface', u'CalculateFromCircuitLength'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Number of Circuits`
@@ -31970,10 +30704,8 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(object):
         return self._data["Circuit Length"]
 
     @circuit_length.setter
-    def circuit_length(self, value=106.7 ):
+    def circuit_length(self, value=106.7):
         """  Corresponds to IDD Field `Circuit Length`
-        
-        {u'units': u'm', u'default': '106.7', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Circuit Length`
@@ -32297,8 +31029,6 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {'type': 'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -32336,8 +31066,6 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(object):
         """  Corresponds to IDD Field `Availability Schedule Name`
         Availability schedule name for this system. Schedule value > 0 means the system is available.
         If this field is blank, the system is always available.
-        
-        {u'note': [u'Availability schedule name for this system. Schedule value > 0 means the system is available.', u'If this field is blank, the system is always available.'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Availability Schedule Name`
@@ -32374,8 +31102,6 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(object):
     def zone_name(self, value=None):
         """  Corresponds to IDD Field `Zone Name`
         Name of zone system is serving
-        
-        {u'note': [u'Name of zone system is serving'], u'type': u'object-list', u'object-list': u'ZoneNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Zone Name`
@@ -32414,8 +31140,6 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(object):
         Identifies surfaces that radiant system is embedded in.
         For a system with multiple surfaces, enter the name of
         a ZoneHVAC:LowTemperatureRadiant:SurfaceGroup object.
-        
-        {u'note': [u'Identifies surfaces that radiant system is embedded in.', u'For a system with multiple surfaces, enter the name of', u'a ZoneHVAC:LowTemperatureRadiant:SurfaceGroup object.'], u'type': u'object-list', u'object-list': u'RadGroupAndSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface Name or Radiant Surface Group Name`
@@ -32449,10 +31173,8 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(object):
         return self._data["Hydronic Tubing Inside Diameter"]
 
     @hydronic_tubing_inside_diameter.setter
-    def hydronic_tubing_inside_diameter(self, value=0.013 ):
+    def hydronic_tubing_inside_diameter(self, value=0.013):
         """  Corresponds to IDD Field `Hydronic Tubing Inside Diameter`
-        
-        {u'units': u'm', u'default': '0.013', u'minimum>': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Hydronic Tubing Inside Diameter`
@@ -32489,8 +31211,6 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(object):
     def hydronic_tubing_length(self, value=None):
         """  Corresponds to IDD Field `Hydronic Tubing Length`
         Total length of pipe embedded in surface
-        
-        {u'note': [u'Total length of pipe embedded in surface'], u'units': u'm', u'minimum>': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Hydronic Tubing Length`
@@ -32526,8 +31246,6 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(object):
     def temperature_control_type(self, value="MeanAirTemperature"):
         """  Corresponds to IDD Field `Temperature Control Type`
         Temperature used to control system
-        
-        {u'note': [u'Temperature used to control system'], u'default': u'MeanAirTemperature', u'type': u'choice', u'key': [u'MeanAirTemperature', u'MeanRadiantTemperature', u'OperativeTemperature', u'OutdoorDryBulbTemperature', u'OutdoorWetBulbTemperature'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Temperature Control Type`
@@ -32590,8 +31308,6 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(object):
     @rated_flow_rate.setter
     def rated_flow_rate(self, value=None):
         """  Corresponds to IDD Field `Rated Flow Rate`
-        
-        {u'units': u'm3/s', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Rated Flow Rate`
@@ -32627,8 +31343,6 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(object):
         operational requirements specified above.  The schedule is for special
         pump operations. Values here are between 0 and 1 and are multipliers
         on the previous field (Rated Flow Rate).
-        
-        {u'note': [u'Modifies the Rated Flow Rate of the pump on a time basis', u'the default is that the pump is ON and runs according to its other', u'operational requirements specified above.  The schedule is for special', u'pump operations. Values here are between 0 and 1 and are multipliers', u'on the previous field (Rated Flow Rate).'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Pump Flow Rate Schedule Name`
@@ -32662,11 +31376,9 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(object):
         return self._data["Rated Pump Head"]
 
     @rated_pump_head.setter
-    def rated_pump_head(self, value=179352.0 ):
+    def rated_pump_head(self, value=179352.0):
         """  Corresponds to IDD Field `Rated Pump Head`
         default head is 60 feet
-        
-        {u'units': u'Pa', u'default': '179352.0', u'note': [u'default head is 60 feet'], 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Rated Pump Head`
@@ -32698,8 +31410,6 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(object):
     @rated_power_consumption.setter
     def rated_power_consumption(self, value=None):
         """  Corresponds to IDD Field `Rated Power Consumption`
-        
-        {u'units': u'W', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Rated Power Consumption`
@@ -32728,10 +31438,8 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(object):
         return self._data["Motor Efficiency"]
 
     @motor_efficiency.setter
-    def motor_efficiency(self, value=0.9 ):
+    def motor_efficiency(self, value=0.9):
         """  Corresponds to IDD Field `Motor Efficiency`
-        
-        {u'default': '0.9', u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Motor Efficiency`
@@ -32768,10 +31476,8 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(object):
         return self._data["Fraction of Motor Inefficiencies to Fluid Stream"]
 
     @fraction_of_motor_inefficiencies_to_fluid_stream.setter
-    def fraction_of_motor_inefficiencies_to_fluid_stream(self, value=0.0 ):
+    def fraction_of_motor_inefficiencies_to_fluid_stream(self, value=0.0):
         """  Corresponds to IDD Field `Fraction of Motor Inefficiencies to Fluid Stream`
-        
-        {u'default': '0.0', u'minimum': '0.0', 'type': 'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Motor Inefficiencies to Fluid Stream`
@@ -32810,8 +31516,6 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(object):
     @heating_water_inlet_node_name.setter
     def heating_water_inlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Heating Water Inlet Node Name`
-        
-        {u'type': u'node', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Heating Water Inlet Node Name`
@@ -32847,8 +31551,6 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(object):
     @heating_water_outlet_node_name.setter
     def heating_water_outlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Heating Water Outlet Node Name`
-        
-        {u'type': u'node', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Heating Water Outlet Node Name`
@@ -32895,8 +31597,6 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(object):
         temperature is between the high and low value, then the inlet water
         temperature is linearly interpolated between the low and high water
         temperature values.
-        
-        {u'note': [u'Water and control temperatures for heating work together to provide', u'a linear function that determines the water temperature sent to the', u'radiant system.  The current control temperature (see Temperature Control Type above) is', u'compared to the high and low control temperatures at the current time.', u'If the control temperature is above the high temperature, then the', u'inlet water temperature is set to the low water temperature.  If the', u'control temperature is below the low temperature, then the inlet', u'water temperature is set to the high water temperature.  If the control', u'temperature is between the high and low value, then the inlet water', u'temperature is linearly interpolated between the low and high water', u'temperature values.'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Heating High Water Temperature Schedule Name`
@@ -32932,8 +31632,6 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(object):
     @heating_low_water_temperature_schedule_name.setter
     def heating_low_water_temperature_schedule_name(self, value=None):
         """  Corresponds to IDD Field `Heating Low Water Temperature Schedule Name`
-        
-        {u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Heating Low Water Temperature Schedule Name`
@@ -32969,8 +31667,6 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(object):
     @heating_high_control_temperature_schedule_name.setter
     def heating_high_control_temperature_schedule_name(self, value=None):
         """  Corresponds to IDD Field `Heating High Control Temperature Schedule Name`
-        
-        {u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Heating High Control Temperature Schedule Name`
@@ -33006,8 +31702,6 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(object):
     @heating_low_control_temperature_schedule_name.setter
     def heating_low_control_temperature_schedule_name(self, value=None):
         """  Corresponds to IDD Field `Heating Low Control Temperature Schedule Name`
-        
-        {u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Heating Low Control Temperature Schedule Name`
@@ -33043,8 +31737,6 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(object):
     @cooling_water_inlet_node_name.setter
     def cooling_water_inlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Cooling Water Inlet Node Name`
-        
-        {u'type': u'node', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Cooling Water Inlet Node Name`
@@ -33080,8 +31772,6 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(object):
     @cooling_water_outlet_node_name.setter
     def cooling_water_outlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Cooling Water Outlet Node Name`
-        
-        {u'type': u'node', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Cooling Water Outlet Node Name`
@@ -33119,8 +31809,6 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(object):
         """  Corresponds to IDD Field `Cooling High Water Temperature Schedule Name`
         See note for Heating High Water Temperature Schedule above for
         interpretation information (or see the Input/Output Reference).
-        
-        {u'note': [u'See note for Heating High Water Temperature Schedule above for', u'interpretation information (or see the Input/Output Reference).'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Cooling High Water Temperature Schedule Name`
@@ -33156,8 +31844,6 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(object):
     @cooling_low_water_temperature_schedule_name.setter
     def cooling_low_water_temperature_schedule_name(self, value=None):
         """  Corresponds to IDD Field `Cooling Low Water Temperature Schedule Name`
-        
-        {u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Cooling Low Water Temperature Schedule Name`
@@ -33193,8 +31879,6 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(object):
     @cooling_high_control_temperature_schedule_name.setter
     def cooling_high_control_temperature_schedule_name(self, value=None):
         """  Corresponds to IDD Field `Cooling High Control Temperature Schedule Name`
-        
-        {u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Cooling High Control Temperature Schedule Name`
@@ -33230,8 +31914,6 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(object):
     @cooling_low_control_temperature_schedule_name.setter
     def cooling_low_control_temperature_schedule_name(self, value=None):
         """  Corresponds to IDD Field `Cooling Low Control Temperature Schedule Name`
-        
-        {u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Cooling Low Control Temperature Schedule Name`
@@ -33267,8 +31949,6 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(object):
     @condensation_control_type.setter
     def condensation_control_type(self, value="SimpleOff"):
         """  Corresponds to IDD Field `Condensation Control Type`
-        
-        {u'default': u'SimpleOff', u'type': u'choice', u'key': [u'Off', u'SimpleOff', u'VariableOff'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Condensation Control Type`
@@ -33325,10 +32005,8 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(object):
         return self._data["Condensation Control Dewpoint Offset"]
 
     @condensation_control_dewpoint_offset.setter
-    def condensation_control_dewpoint_offset(self, value=1.0 ):
+    def condensation_control_dewpoint_offset(self, value=1.0):
         """  Corresponds to IDD Field `Condensation Control Dewpoint Offset`
-        
-        {u'units': u'C', u'default': '1.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Condensation Control Dewpoint Offset`
@@ -33360,8 +32038,6 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(object):
     @number_of_circuits.setter
     def number_of_circuits(self, value="OnePerSurface"):
         """  Corresponds to IDD Field `Number of Circuits`
-        
-        {u'default': u'OnePerSurface', u'type': u'choice', u'key': [u'OnePerSurface', u'CalculateFromCircuitLength'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Number of Circuits`
@@ -33416,10 +32092,8 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(object):
         return self._data["Circuit Length"]
 
     @circuit_length.setter
-    def circuit_length(self, value=106.7 ):
+    def circuit_length(self, value=106.7):
         """  Corresponds to IDD Field `Circuit Length`
-        
-        {u'units': u'm', u'default': '106.7', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Circuit Length`
@@ -33597,8 +32271,6 @@ class ZoneHvacLowTemperatureRadiantElectric(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {'type': 'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -33636,8 +32308,6 @@ class ZoneHvacLowTemperatureRadiantElectric(object):
         """  Corresponds to IDD Field `Availability Schedule Name`
         Availability schedule name for this system. Schedule value > 0 means the system is available.
         If this field is blank, the system is always available.
-        
-        {u'note': [u'Availability schedule name for this system. Schedule value > 0 means the system is available.', u'If this field is blank, the system is always available.'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Availability Schedule Name`
@@ -33674,8 +32344,6 @@ class ZoneHvacLowTemperatureRadiantElectric(object):
     def zone_name(self, value=None):
         """  Corresponds to IDD Field `Zone Name`
         Name of zone system is serving
-        
-        {u'note': [u'Name of zone system is serving'], u'type': u'object-list', u'object-list': u'ZoneNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Zone Name`
@@ -33714,8 +32382,6 @@ class ZoneHvacLowTemperatureRadiantElectric(object):
         Identifies surfaces that radiant system is embedded in.
         For a system with multiple surfaces, enter the name of
         a ZoneHVAC:LowTemperatureRadiant:SurfaceGroup object.
-        
-        {u'note': [u'Identifies surfaces that radiant system is embedded in.', u'For a system with multiple surfaces, enter the name of', u'a ZoneHVAC:LowTemperatureRadiant:SurfaceGroup object.'], u'type': u'object-list', u'object-list': u'RadGroupAndSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface Name or Radiant Surface Group Name`
@@ -33757,8 +32423,6 @@ class ZoneHvacLowTemperatureRadiantElectric(object):
         determine from user specified heating capacity per floor area and zone floor area.
         FractionOfAutosizedHeatingCapacity = > is selected when the design heating capacity is
         determined from a user specified fraction and the auto-sized design heating capacity.
-        
-        {'pytype': 'str', u'default': u'HeatingDesignCapacity', u'required-field': True, u'note': [u'Enter the method used to determine the maximum electrical heating design capacity.', u'HeatingDesignCapacity = > selected when the design heating capacity value or autosize', u'is specified. CapacityPerFloorArea = > selected when the design heating capacity is', u'determine from user specified heating capacity per floor area and zone floor area.', u'FractionOfAutosizedHeatingCapacity = > is selected when the design heating capacity is', u'determined from a user specified fraction and the auto-sized design heating capacity.'], u'key': [u'HeatingDesignCapacity', u'CapacityPerFloorArea', u'FractionOfAutosizedHeatingCapacity'], u'type': u'choice'}
 
         Args:
             value (str): value for IDD Field `Heating Design Capacity Method`
@@ -33815,15 +32479,13 @@ class ZoneHvacLowTemperatureRadiantElectric(object):
         return self._data["Heating Design Capacity"]
 
     @heating_design_capacity.setter
-    def heating_design_capacity(self, value="autosize" ):
+    def heating_design_capacity(self, value="autosize"):
         """  Corresponds to IDD Field `Heating Design Capacity`
         Enter the design heating capacity.Required field when the heating design capacity method
         HeatingDesignCapacity.
-        
-        {'pytype': 'float', u'default': '"autosize"', u'note': [u'Enter the design heating capacity.Required field when the heating design capacity method', u'HeatingDesignCapacity.'], u'ip-units': u'W', u'autosizable': u'', u'minimum': '0.0', u'units': u'W', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `Heating Design Capacity`
+            value (float or "Autosize"): value for IDD Field `Heating Design Capacity`
                 Units: W
                 IP-Units: W
                 Default value: "autosize"
@@ -33835,6 +32497,13 @@ class ZoneHvacLowTemperatureRadiantElectric(object):
             ValueError: if `value` is not a valid value
         """
         if value is not None:
+            try:
+                value_lower = str(value).lower()
+                if value_lower == "autosize":
+                    self._data["Heating Design Capacity"] = "Autosize"
+                    return
+            except ValueError:
+                pass
             try:
                 value = float(value)
             except ValueError:
@@ -33859,8 +32528,6 @@ class ZoneHvacLowTemperatureRadiantElectric(object):
         """  Corresponds to IDD Field `Heating Design Capacity Per Floor Area`
         Enter the heating design capacity per zone floor area.Required field when the heating design
         capacity method field is CapacityPerFloorArea.
-        
-        {u'units': u'W/m2', u'note': [u'Enter the heating design capacity per zone floor area.Required field when the heating design', u'capacity method field is CapacityPerFloorArea.'], u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Heating Design Capacity Per Floor Area`
@@ -33893,12 +32560,10 @@ class ZoneHvacLowTemperatureRadiantElectric(object):
         return self._data["Fraction of Autosized Heating Design Capacity"]
 
     @fraction_of_autosized_heating_design_capacity.setter
-    def fraction_of_autosized_heating_design_capacity(self, value=1.0 ):
+    def fraction_of_autosized_heating_design_capacity(self, value=1.0):
         """  Corresponds to IDD Field `Fraction of Autosized Heating Design Capacity`
         Enter the fraction of auto - sized heating design capacity.Required field when capacity the
         heating design capacity method field is FractionOfAutosizedHeatingCapacity.
-        
-        {u'default': '1.0', u'note': [u'Enter the fraction of auto - sized heating design capacity.Required field when capacity the', u'heating design capacity method field is FractionOfAutosizedHeatingCapacity.'], u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Autosized Heating Design Capacity`
@@ -33934,8 +32599,6 @@ class ZoneHvacLowTemperatureRadiantElectric(object):
     def temperature_control_type(self, value="MeanAirTemperature"):
         """  Corresponds to IDD Field `Temperature Control Type`
         Temperature used to control unit
-        
-        {u'note': [u'Temperature used to control unit'], u'default': u'MeanAirTemperature', u'type': u'choice', u'key': [u'MeanAirTemperature', u'MeanRadiantTemperature', u'OperativeTemperature', u'OutdoorDryBulbTemperature', u'OutdoorWetBulbTemperature'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Temperature Control Type`
@@ -33996,10 +32659,8 @@ class ZoneHvacLowTemperatureRadiantElectric(object):
         return self._data["Heating Throttling Range"]
 
     @heating_throttling_range.setter
-    def heating_throttling_range(self, value=0.0 ):
+    def heating_throttling_range(self, value=0.0):
         """  Corresponds to IDD Field `Heating Throttling Range`
-        
-        {u'units': u'deltaC', u'default': '0.0', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Heating Throttling Range`
@@ -34035,8 +32696,6 @@ class ZoneHvacLowTemperatureRadiantElectric(object):
     @heating_setpoint_temperature_schedule_name.setter
     def heating_setpoint_temperature_schedule_name(self, value=None):
         """  Corresponds to IDD Field `Heating Setpoint Temperature Schedule Name`
-        
-        {u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Heating Setpoint Temperature Schedule Name`
@@ -35741,8 +34400,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'reference': u'RadGroupAndSurfNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -35778,8 +34435,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @surface_1_name.setter
     def surface_1_name(self, value=None):
         """  Corresponds to IDD Field `Surface 1 Name`
-        
-        {'pytype': 'str', u'type': u'object-list', u'object-list': u'SurfaceNames', u'required-field': True, u'begin-extensible': u''}
 
         Args:
             value (str): value for IDD Field `Surface 1 Name`
@@ -35815,8 +34470,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @flow_fraction_for_surface_1.setter
     def flow_fraction_for_surface_1(self, value=None):
         """  Corresponds to IDD Field `Flow Fraction for Surface 1`
-        
-        {u'minimum': '0.0', 'type': 'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Flow Fraction for Surface 1`
@@ -35850,8 +34503,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @surface_2_name.setter
     def surface_2_name(self, value=None):
         """  Corresponds to IDD Field `Surface 2 Name`
-        
-        {u'type': u'object-list', u'object-list': u'SurfaceNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 2 Name`
@@ -35887,8 +34538,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @flow_fraction_for_surface_2.setter
     def flow_fraction_for_surface_2(self, value=None):
         """  Corresponds to IDD Field `Flow Fraction for Surface 2`
-        
-        {u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Flow Fraction for Surface 2`
@@ -35922,8 +34571,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @surface_3_name.setter
     def surface_3_name(self, value=None):
         """  Corresponds to IDD Field `Surface 3 Name`
-        
-        {u'type': u'object-list', u'object-list': u'SurfaceNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 3 Name`
@@ -35959,8 +34606,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @flow_fraction_for_surface_3.setter
     def flow_fraction_for_surface_3(self, value=None):
         """  Corresponds to IDD Field `Flow Fraction for Surface 3`
-        
-        {u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Flow Fraction for Surface 3`
@@ -35994,8 +34639,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @surface_4_name.setter
     def surface_4_name(self, value=None):
         """  Corresponds to IDD Field `Surface 4 Name`
-        
-        {u'type': u'object-list', u'object-list': u'SurfaceNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 4 Name`
@@ -36031,8 +34674,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @flow_fraction_for_surface_4.setter
     def flow_fraction_for_surface_4(self, value=None):
         """  Corresponds to IDD Field `Flow Fraction for Surface 4`
-        
-        {u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Flow Fraction for Surface 4`
@@ -36066,8 +34707,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @surface_5_name.setter
     def surface_5_name(self, value=None):
         """  Corresponds to IDD Field `Surface 5 Name`
-        
-        {u'type': u'object-list', u'object-list': u'SurfaceNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 5 Name`
@@ -36103,8 +34742,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @flow_fraction_for_surface_5.setter
     def flow_fraction_for_surface_5(self, value=None):
         """  Corresponds to IDD Field `Flow Fraction for Surface 5`
-        
-        {u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Flow Fraction for Surface 5`
@@ -36138,8 +34775,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @surface_6_name.setter
     def surface_6_name(self, value=None):
         """  Corresponds to IDD Field `Surface 6 Name`
-        
-        {u'type': u'object-list', u'object-list': u'SurfaceNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 6 Name`
@@ -36175,8 +34810,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @flow_fraction_for_surface_6.setter
     def flow_fraction_for_surface_6(self, value=None):
         """  Corresponds to IDD Field `Flow Fraction for Surface 6`
-        
-        {u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Flow Fraction for Surface 6`
@@ -36210,8 +34843,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @surface_7_name.setter
     def surface_7_name(self, value=None):
         """  Corresponds to IDD Field `Surface 7 Name`
-        
-        {u'type': u'object-list', u'object-list': u'SurfaceNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 7 Name`
@@ -36247,8 +34878,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @flow_fraction_for_surface_7.setter
     def flow_fraction_for_surface_7(self, value=None):
         """  Corresponds to IDD Field `Flow Fraction for Surface 7`
-        
-        {u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Flow Fraction for Surface 7`
@@ -36282,8 +34911,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @surface_8_name.setter
     def surface_8_name(self, value=None):
         """  Corresponds to IDD Field `Surface 8 Name`
-        
-        {u'type': u'object-list', u'object-list': u'SurfaceNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 8 Name`
@@ -36319,8 +34946,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @flow_fraction_for_surface_8.setter
     def flow_fraction_for_surface_8(self, value=None):
         """  Corresponds to IDD Field `Flow Fraction for Surface 8`
-        
-        {u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Flow Fraction for Surface 8`
@@ -36354,8 +34979,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @surface_9_name.setter
     def surface_9_name(self, value=None):
         """  Corresponds to IDD Field `Surface 9 Name`
-        
-        {u'type': u'object-list', u'object-list': u'SurfaceNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 9 Name`
@@ -36391,8 +35014,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @flow_fraction_for_surface_9.setter
     def flow_fraction_for_surface_9(self, value=None):
         """  Corresponds to IDD Field `Flow Fraction for Surface 9`
-        
-        {u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Flow Fraction for Surface 9`
@@ -36426,8 +35047,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @surface_10_name.setter
     def surface_10_name(self, value=None):
         """  Corresponds to IDD Field `Surface 10 Name`
-        
-        {u'type': u'object-list', u'object-list': u'SurfaceNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 10 Name`
@@ -36463,8 +35082,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @flow_fraction_for_surface_10.setter
     def flow_fraction_for_surface_10(self, value=None):
         """  Corresponds to IDD Field `Flow Fraction for Surface 10`
-        
-        {u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Flow Fraction for Surface 10`
@@ -36498,8 +35115,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @surface_11_name.setter
     def surface_11_name(self, value=None):
         """  Corresponds to IDD Field `Surface 11 Name`
-        
-        {u'type': u'object-list', u'object-list': u'SurfaceNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 11 Name`
@@ -36535,8 +35150,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @flow_fraction_for_surface_11.setter
     def flow_fraction_for_surface_11(self, value=None):
         """  Corresponds to IDD Field `Flow Fraction for Surface 11`
-        
-        {u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Flow Fraction for Surface 11`
@@ -36570,8 +35183,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @surface_12_name.setter
     def surface_12_name(self, value=None):
         """  Corresponds to IDD Field `Surface 12 Name`
-        
-        {u'type': u'object-list', u'object-list': u'SurfaceNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 12 Name`
@@ -36607,8 +35218,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @flow_fraction_for_surface_12.setter
     def flow_fraction_for_surface_12(self, value=None):
         """  Corresponds to IDD Field `Flow Fraction for Surface 12`
-        
-        {u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Flow Fraction for Surface 12`
@@ -36642,8 +35251,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @surface_13_name.setter
     def surface_13_name(self, value=None):
         """  Corresponds to IDD Field `Surface 13 Name`
-        
-        {u'type': u'object-list', u'object-list': u'SurfaceNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 13 Name`
@@ -36679,8 +35286,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @flow_fraction_for_surface_13.setter
     def flow_fraction_for_surface_13(self, value=None):
         """  Corresponds to IDD Field `Flow Fraction for Surface 13`
-        
-        {u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Flow Fraction for Surface 13`
@@ -36714,8 +35319,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @surface_14_name.setter
     def surface_14_name(self, value=None):
         """  Corresponds to IDD Field `Surface 14 Name`
-        
-        {u'type': u'object-list', u'object-list': u'SurfaceNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 14 Name`
@@ -36751,8 +35354,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @flow_fraction_for_surface_14.setter
     def flow_fraction_for_surface_14(self, value=None):
         """  Corresponds to IDD Field `Flow Fraction for Surface 14`
-        
-        {u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Flow Fraction for Surface 14`
@@ -36786,8 +35387,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @surface_15_name.setter
     def surface_15_name(self, value=None):
         """  Corresponds to IDD Field `Surface 15 Name`
-        
-        {u'type': u'object-list', u'object-list': u'SurfaceNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 15 Name`
@@ -36823,8 +35422,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @flow_fraction_for_surface_15.setter
     def flow_fraction_for_surface_15(self, value=None):
         """  Corresponds to IDD Field `Flow Fraction for Surface 15`
-        
-        {u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Flow Fraction for Surface 15`
@@ -36858,8 +35455,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @surface_16_name.setter
     def surface_16_name(self, value=None):
         """  Corresponds to IDD Field `Surface 16 Name`
-        
-        {u'type': u'object-list', u'object-list': u'SurfaceNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 16 Name`
@@ -36895,8 +35490,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @flow_fraction_for_surface_16.setter
     def flow_fraction_for_surface_16(self, value=None):
         """  Corresponds to IDD Field `Flow Fraction for Surface 16`
-        
-        {u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Flow Fraction for Surface 16`
@@ -36930,8 +35523,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @surface_17_name.setter
     def surface_17_name(self, value=None):
         """  Corresponds to IDD Field `Surface 17 Name`
-        
-        {u'type': u'object-list', u'object-list': u'SurfaceNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 17 Name`
@@ -36967,8 +35558,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @flow_fraction_for_surface_17.setter
     def flow_fraction_for_surface_17(self, value=None):
         """  Corresponds to IDD Field `Flow Fraction for Surface 17`
-        
-        {u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Flow Fraction for Surface 17`
@@ -37002,8 +35591,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @surface_18_name.setter
     def surface_18_name(self, value=None):
         """  Corresponds to IDD Field `Surface 18 Name`
-        
-        {u'type': u'object-list', u'object-list': u'SurfaceNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 18 Name`
@@ -37039,8 +35626,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @flow_fraction_for_surface_18.setter
     def flow_fraction_for_surface_18(self, value=None):
         """  Corresponds to IDD Field `Flow Fraction for Surface 18`
-        
-        {u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Flow Fraction for Surface 18`
@@ -37074,8 +35659,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @surface_19_name.setter
     def surface_19_name(self, value=None):
         """  Corresponds to IDD Field `Surface 19 Name`
-        
-        {u'type': u'object-list', u'object-list': u'SurfaceNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 19 Name`
@@ -37111,8 +35694,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @flow_fraction_for_surface_19.setter
     def flow_fraction_for_surface_19(self, value=None):
         """  Corresponds to IDD Field `Flow Fraction for Surface 19`
-        
-        {u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Flow Fraction for Surface 19`
@@ -37146,8 +35727,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @surface_20_name.setter
     def surface_20_name(self, value=None):
         """  Corresponds to IDD Field `Surface 20 Name`
-        
-        {u'type': u'object-list', u'object-list': u'SurfaceNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 20 Name`
@@ -37183,8 +35762,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @flow_fraction_for_surface_20.setter
     def flow_fraction_for_surface_20(self, value=None):
         """  Corresponds to IDD Field `Flow Fraction for Surface 20`
-        
-        {u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Flow Fraction for Surface 20`
@@ -37218,8 +35795,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @surface_21_name.setter
     def surface_21_name(self, value=None):
         """  Corresponds to IDD Field `Surface 21 Name`
-        
-        {u'type': u'object-list', u'object-list': u'SurfaceNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 21 Name`
@@ -37255,8 +35830,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @flow_fraction_for_surface_21.setter
     def flow_fraction_for_surface_21(self, value=None):
         """  Corresponds to IDD Field `Flow Fraction for Surface 21`
-        
-        {u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Flow Fraction for Surface 21`
@@ -37290,8 +35863,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @surface_22_name.setter
     def surface_22_name(self, value=None):
         """  Corresponds to IDD Field `Surface 22 Name`
-        
-        {u'type': u'object-list', u'object-list': u'SurfaceNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 22 Name`
@@ -37327,8 +35898,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @flow_fraction_for_surface_22.setter
     def flow_fraction_for_surface_22(self, value=None):
         """  Corresponds to IDD Field `Flow Fraction for Surface 22`
-        
-        {u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Flow Fraction for Surface 22`
@@ -37362,8 +35931,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @surface_23_name.setter
     def surface_23_name(self, value=None):
         """  Corresponds to IDD Field `Surface 23 Name`
-        
-        {u'type': u'object-list', u'object-list': u'SurfaceNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 23 Name`
@@ -37399,8 +35966,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @flow_fraction_for_surface_23.setter
     def flow_fraction_for_surface_23(self, value=None):
         """  Corresponds to IDD Field `Flow Fraction for Surface 23`
-        
-        {u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Flow Fraction for Surface 23`
@@ -37434,8 +35999,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @surface_24_name.setter
     def surface_24_name(self, value=None):
         """  Corresponds to IDD Field `Surface 24 Name`
-        
-        {u'type': u'object-list', u'object-list': u'SurfaceNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 24 Name`
@@ -37471,8 +36034,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @flow_fraction_for_surface_24.setter
     def flow_fraction_for_surface_24(self, value=None):
         """  Corresponds to IDD Field `Flow Fraction for Surface 24`
-        
-        {u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Flow Fraction for Surface 24`
@@ -37506,8 +36067,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @surface_25_name.setter
     def surface_25_name(self, value=None):
         """  Corresponds to IDD Field `Surface 25 Name`
-        
-        {u'type': u'object-list', u'object-list': u'SurfaceNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 25 Name`
@@ -37543,8 +36102,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @flow_fraction_for_surface_25.setter
     def flow_fraction_for_surface_25(self, value=None):
         """  Corresponds to IDD Field `Flow Fraction for Surface 25`
-        
-        {u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Flow Fraction for Surface 25`
@@ -37578,8 +36135,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @surface_26_name.setter
     def surface_26_name(self, value=None):
         """  Corresponds to IDD Field `Surface 26 Name`
-        
-        {u'type': u'object-list', u'object-list': u'SurfaceNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 26 Name`
@@ -37615,8 +36170,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @flow_fraction_for_surface_26.setter
     def flow_fraction_for_surface_26(self, value=None):
         """  Corresponds to IDD Field `Flow Fraction for Surface 26`
-        
-        {u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Flow Fraction for Surface 26`
@@ -37650,8 +36203,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @surface_27_name.setter
     def surface_27_name(self, value=None):
         """  Corresponds to IDD Field `Surface 27 Name`
-        
-        {u'type': u'object-list', u'object-list': u'SurfaceNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 27 Name`
@@ -37687,8 +36238,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @flow_fraction_for_surface_27.setter
     def flow_fraction_for_surface_27(self, value=None):
         """  Corresponds to IDD Field `Flow Fraction for Surface 27`
-        
-        {u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Flow Fraction for Surface 27`
@@ -37722,8 +36271,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @surface_28_name.setter
     def surface_28_name(self, value=None):
         """  Corresponds to IDD Field `Surface 28 Name`
-        
-        {u'type': u'object-list', u'object-list': u'SurfaceNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 28 Name`
@@ -37759,8 +36306,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @flow_fraction_for_surface_28.setter
     def flow_fraction_for_surface_28(self, value=None):
         """  Corresponds to IDD Field `Flow Fraction for Surface 28`
-        
-        {u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Flow Fraction for Surface 28`
@@ -37794,8 +36339,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @surface_29_name.setter
     def surface_29_name(self, value=None):
         """  Corresponds to IDD Field `Surface 29 Name`
-        
-        {u'type': u'object-list', u'object-list': u'SurfaceNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 29 Name`
@@ -37831,8 +36374,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @flow_fraction_for_surface_29.setter
     def flow_fraction_for_surface_29(self, value=None):
         """  Corresponds to IDD Field `Flow Fraction for Surface 29`
-        
-        {u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Flow Fraction for Surface 29`
@@ -37866,8 +36407,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @surface_30_name.setter
     def surface_30_name(self, value=None):
         """  Corresponds to IDD Field `Surface 30 Name`
-        
-        {u'type': u'object-list', u'object-list': u'SurfaceNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 30 Name`
@@ -37903,8 +36442,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @flow_fraction_for_surface_30.setter
     def flow_fraction_for_surface_30(self, value=None):
         """  Corresponds to IDD Field `Flow Fraction for Surface 30`
-        
-        {u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Flow Fraction for Surface 30`
@@ -37938,8 +36475,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @surface_31_name.setter
     def surface_31_name(self, value=None):
         """  Corresponds to IDD Field `Surface 31 Name`
-        
-        {u'type': u'object-list', u'object-list': u'SurfaceNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 31 Name`
@@ -37975,8 +36510,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @flow_fraction_for_surface_31.setter
     def flow_fraction_for_surface_31(self, value=None):
         """  Corresponds to IDD Field `Flow Fraction for Surface 31`
-        
-        {u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Flow Fraction for Surface 31`
@@ -38010,8 +36543,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @surface_32_name.setter
     def surface_32_name(self, value=None):
         """  Corresponds to IDD Field `Surface 32 Name`
-        
-        {u'type': u'object-list', u'object-list': u'SurfaceNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 32 Name`
@@ -38047,8 +36578,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @flow_fraction_for_surface_32.setter
     def flow_fraction_for_surface_32(self, value=None):
         """  Corresponds to IDD Field `Flow Fraction for Surface 32`
-        
-        {u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Flow Fraction for Surface 32`
@@ -38082,8 +36611,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @surface_33_name.setter
     def surface_33_name(self, value=None):
         """  Corresponds to IDD Field `Surface 33 Name`
-        
-        {u'type': u'object-list', u'object-list': u'SurfaceNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 33 Name`
@@ -38119,8 +36646,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @flow_fraction_for_surface_33.setter
     def flow_fraction_for_surface_33(self, value=None):
         """  Corresponds to IDD Field `Flow Fraction for Surface 33`
-        
-        {u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Flow Fraction for Surface 33`
@@ -38154,8 +36679,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @surface_34_name.setter
     def surface_34_name(self, value=None):
         """  Corresponds to IDD Field `Surface 34 Name`
-        
-        {u'type': u'object-list', u'object-list': u'SurfaceNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 34 Name`
@@ -38191,8 +36714,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @flow_fraction_for_surface_34.setter
     def flow_fraction_for_surface_34(self, value=None):
         """  Corresponds to IDD Field `Flow Fraction for Surface 34`
-        
-        {u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Flow Fraction for Surface 34`
@@ -38226,8 +36747,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @surface_35_name.setter
     def surface_35_name(self, value=None):
         """  Corresponds to IDD Field `Surface 35 Name`
-        
-        {u'type': u'object-list', u'object-list': u'SurfaceNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 35 Name`
@@ -38263,8 +36782,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @flow_fraction_for_surface_35.setter
     def flow_fraction_for_surface_35(self, value=None):
         """  Corresponds to IDD Field `Flow Fraction for Surface 35`
-        
-        {u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Flow Fraction for Surface 35`
@@ -38298,8 +36815,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @surface_36_name.setter
     def surface_36_name(self, value=None):
         """  Corresponds to IDD Field `Surface 36 Name`
-        
-        {u'type': u'object-list', u'object-list': u'SurfaceNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 36 Name`
@@ -38335,8 +36850,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @flow_fraction_for_surface_36.setter
     def flow_fraction_for_surface_36(self, value=None):
         """  Corresponds to IDD Field `Flow Fraction for Surface 36`
-        
-        {u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Flow Fraction for Surface 36`
@@ -38370,8 +36883,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @surface_37_name.setter
     def surface_37_name(self, value=None):
         """  Corresponds to IDD Field `Surface 37 Name`
-        
-        {u'type': u'object-list', u'object-list': u'SurfaceNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 37 Name`
@@ -38407,8 +36918,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @flow_fraction_for_surface_37.setter
     def flow_fraction_for_surface_37(self, value=None):
         """  Corresponds to IDD Field `Flow Fraction for Surface 37`
-        
-        {u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Flow Fraction for Surface 37`
@@ -38442,8 +36951,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @surface_38_name.setter
     def surface_38_name(self, value=None):
         """  Corresponds to IDD Field `Surface 38 Name`
-        
-        {u'type': u'object-list', u'object-list': u'SurfaceNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 38 Name`
@@ -38479,8 +36986,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @flow_fraction_for_surface_38.setter
     def flow_fraction_for_surface_38(self, value=None):
         """  Corresponds to IDD Field `Flow Fraction for Surface 38`
-        
-        {u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Flow Fraction for Surface 38`
@@ -38514,8 +37019,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @surface_39_name.setter
     def surface_39_name(self, value=None):
         """  Corresponds to IDD Field `Surface 39 Name`
-        
-        {u'type': u'object-list', u'object-list': u'SurfaceNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 39 Name`
@@ -38551,8 +37054,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @flow_fraction_for_surface_39.setter
     def flow_fraction_for_surface_39(self, value=None):
         """  Corresponds to IDD Field `Flow Fraction for Surface 39`
-        
-        {u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Flow Fraction for Surface 39`
@@ -38586,8 +37087,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @surface_40_name.setter
     def surface_40_name(self, value=None):
         """  Corresponds to IDD Field `Surface 40 Name`
-        
-        {u'type': u'object-list', u'object-list': u'SurfaceNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 40 Name`
@@ -38623,8 +37122,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @flow_fraction_for_surface_40.setter
     def flow_fraction_for_surface_40(self, value=None):
         """  Corresponds to IDD Field `Flow Fraction for Surface 40`
-        
-        {u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Flow Fraction for Surface 40`
@@ -38658,8 +37155,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @surface_41_name.setter
     def surface_41_name(self, value=None):
         """  Corresponds to IDD Field `Surface 41 Name`
-        
-        {u'type': u'object-list', u'object-list': u'SurfaceNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 41 Name`
@@ -38695,8 +37190,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @flow_fraction_for_surface_41.setter
     def flow_fraction_for_surface_41(self, value=None):
         """  Corresponds to IDD Field `Flow Fraction for Surface 41`
-        
-        {u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Flow Fraction for Surface 41`
@@ -38730,8 +37223,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @surface_42_name.setter
     def surface_42_name(self, value=None):
         """  Corresponds to IDD Field `Surface 42 Name`
-        
-        {u'type': u'object-list', u'object-list': u'SurfaceNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 42 Name`
@@ -38767,8 +37258,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @flow_fraction_for_surface_42.setter
     def flow_fraction_for_surface_42(self, value=None):
         """  Corresponds to IDD Field `Flow Fraction for Surface 42`
-        
-        {u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Flow Fraction for Surface 42`
@@ -38802,8 +37291,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @surface_43_name.setter
     def surface_43_name(self, value=None):
         """  Corresponds to IDD Field `Surface 43 Name`
-        
-        {u'type': u'object-list', u'object-list': u'SurfaceNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 43 Name`
@@ -38839,8 +37326,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @flow_fraction_for_surface_43.setter
     def flow_fraction_for_surface_43(self, value=None):
         """  Corresponds to IDD Field `Flow Fraction for Surface 43`
-        
-        {u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Flow Fraction for Surface 43`
@@ -38874,8 +37359,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @surface_44_name.setter
     def surface_44_name(self, value=None):
         """  Corresponds to IDD Field `Surface 44 Name`
-        
-        {u'type': u'object-list', u'object-list': u'SurfaceNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 44 Name`
@@ -38911,8 +37394,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @flow_fraction_for_surface_44.setter
     def flow_fraction_for_surface_44(self, value=None):
         """  Corresponds to IDD Field `Flow Fraction for Surface 44`
-        
-        {u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Flow Fraction for Surface 44`
@@ -38946,8 +37427,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @surface_45_name.setter
     def surface_45_name(self, value=None):
         """  Corresponds to IDD Field `Surface 45 Name`
-        
-        {u'type': u'object-list', u'object-list': u'SurfaceNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 45 Name`
@@ -38983,8 +37462,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @flow_fraction_for_surface_45.setter
     def flow_fraction_for_surface_45(self, value=None):
         """  Corresponds to IDD Field `Flow Fraction for Surface 45`
-        
-        {u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Flow Fraction for Surface 45`
@@ -39018,8 +37495,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @surface_46_name.setter
     def surface_46_name(self, value=None):
         """  Corresponds to IDD Field `Surface 46 Name`
-        
-        {u'type': u'object-list', u'object-list': u'SurfaceNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 46 Name`
@@ -39055,8 +37530,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @flow_fraction_for_surface_46.setter
     def flow_fraction_for_surface_46(self, value=None):
         """  Corresponds to IDD Field `Flow Fraction for Surface 46`
-        
-        {u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Flow Fraction for Surface 46`
@@ -39090,8 +37563,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @surface_47_name.setter
     def surface_47_name(self, value=None):
         """  Corresponds to IDD Field `Surface 47 Name`
-        
-        {u'type': u'object-list', u'object-list': u'SurfaceNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 47 Name`
@@ -39127,8 +37598,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @flow_fraction_for_surface_47.setter
     def flow_fraction_for_surface_47(self, value=None):
         """  Corresponds to IDD Field `Flow Fraction for Surface 47`
-        
-        {u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Flow Fraction for Surface 47`
@@ -39162,8 +37631,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @surface_48_name.setter
     def surface_48_name(self, value=None):
         """  Corresponds to IDD Field `Surface 48 Name`
-        
-        {u'type': u'object-list', u'object-list': u'SurfaceNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 48 Name`
@@ -39199,8 +37666,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @flow_fraction_for_surface_48.setter
     def flow_fraction_for_surface_48(self, value=None):
         """  Corresponds to IDD Field `Flow Fraction for Surface 48`
-        
-        {u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Flow Fraction for Surface 48`
@@ -39234,8 +37699,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @surface_49_name.setter
     def surface_49_name(self, value=None):
         """  Corresponds to IDD Field `Surface 49 Name`
-        
-        {u'type': u'object-list', u'object-list': u'SurfaceNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 49 Name`
@@ -39271,8 +37734,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @flow_fraction_for_surface_49.setter
     def flow_fraction_for_surface_49(self, value=None):
         """  Corresponds to IDD Field `Flow Fraction for Surface 49`
-        
-        {u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Flow Fraction for Surface 49`
@@ -39306,8 +37767,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @surface_50_name.setter
     def surface_50_name(self, value=None):
         """  Corresponds to IDD Field `Surface 50 Name`
-        
-        {u'type': u'object-list', u'object-list': u'SurfaceNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 50 Name`
@@ -39343,8 +37802,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @flow_fraction_for_surface_50.setter
     def flow_fraction_for_surface_50(self, value=None):
         """  Corresponds to IDD Field `Flow Fraction for Surface 50`
-        
-        {u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Flow Fraction for Surface 50`
@@ -39378,8 +37835,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @surface_51_name.setter
     def surface_51_name(self, value=None):
         """  Corresponds to IDD Field `Surface 51 Name`
-        
-        {u'type': u'object-list', u'object-list': u'SurfaceNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 51 Name`
@@ -39415,8 +37870,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @flow_fraction_for_surface_51.setter
     def flow_fraction_for_surface_51(self, value=None):
         """  Corresponds to IDD Field `Flow Fraction for Surface 51`
-        
-        {u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Flow Fraction for Surface 51`
@@ -39450,8 +37903,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @surface_52_name.setter
     def surface_52_name(self, value=None):
         """  Corresponds to IDD Field `Surface 52 Name`
-        
-        {u'type': u'object-list', u'object-list': u'SurfaceNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 52 Name`
@@ -39487,8 +37938,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @flow_fraction_for_surface_52.setter
     def flow_fraction_for_surface_52(self, value=None):
         """  Corresponds to IDD Field `Flow Fraction for Surface 52`
-        
-        {u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Flow Fraction for Surface 52`
@@ -39522,8 +37971,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @surface_53_name.setter
     def surface_53_name(self, value=None):
         """  Corresponds to IDD Field `Surface 53 Name`
-        
-        {u'type': u'object-list', u'object-list': u'SurfaceNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 53 Name`
@@ -39559,8 +38006,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @flow_fraction_for_surface_53.setter
     def flow_fraction_for_surface_53(self, value=None):
         """  Corresponds to IDD Field `Flow Fraction for Surface 53`
-        
-        {u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Flow Fraction for Surface 53`
@@ -39594,8 +38039,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @surface_54_name.setter
     def surface_54_name(self, value=None):
         """  Corresponds to IDD Field `Surface 54 Name`
-        
-        {u'type': u'object-list', u'object-list': u'SurfaceNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 54 Name`
@@ -39631,8 +38074,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @flow_fraction_for_surface_54.setter
     def flow_fraction_for_surface_54(self, value=None):
         """  Corresponds to IDD Field `Flow Fraction for Surface 54`
-        
-        {u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Flow Fraction for Surface 54`
@@ -39666,8 +38107,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @surface_55_name.setter
     def surface_55_name(self, value=None):
         """  Corresponds to IDD Field `Surface 55 Name`
-        
-        {u'type': u'object-list', u'object-list': u'SurfaceNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 55 Name`
@@ -39703,8 +38142,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @flow_fraction_for_surface_55.setter
     def flow_fraction_for_surface_55(self, value=None):
         """  Corresponds to IDD Field `Flow Fraction for Surface 55`
-        
-        {u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Flow Fraction for Surface 55`
@@ -39738,8 +38175,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @surface_56_name.setter
     def surface_56_name(self, value=None):
         """  Corresponds to IDD Field `Surface 56 Name`
-        
-        {u'type': u'object-list', u'object-list': u'SurfaceNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 56 Name`
@@ -39775,8 +38210,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @flow_fraction_for_surface_56.setter
     def flow_fraction_for_surface_56(self, value=None):
         """  Corresponds to IDD Field `Flow Fraction for Surface 56`
-        
-        {u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Flow Fraction for Surface 56`
@@ -39810,8 +38243,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @surface_57_name.setter
     def surface_57_name(self, value=None):
         """  Corresponds to IDD Field `Surface 57 Name`
-        
-        {u'type': u'object-list', u'object-list': u'SurfaceNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 57 Name`
@@ -39847,8 +38278,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @flow_fraction_for_surface_57.setter
     def flow_fraction_for_surface_57(self, value=None):
         """  Corresponds to IDD Field `Flow Fraction for Surface 57`
-        
-        {u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Flow Fraction for Surface 57`
@@ -39882,8 +38311,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @surface_58_name.setter
     def surface_58_name(self, value=None):
         """  Corresponds to IDD Field `Surface 58 Name`
-        
-        {u'type': u'object-list', u'object-list': u'SurfaceNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 58 Name`
@@ -39919,8 +38346,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @flow_fraction_for_surface_58.setter
     def flow_fraction_for_surface_58(self, value=None):
         """  Corresponds to IDD Field `Flow Fraction for Surface 58`
-        
-        {u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Flow Fraction for Surface 58`
@@ -39954,8 +38379,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @surface_59_name.setter
     def surface_59_name(self, value=None):
         """  Corresponds to IDD Field `Surface 59 Name`
-        
-        {u'type': u'object-list', u'object-list': u'SurfaceNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 59 Name`
@@ -39991,8 +38414,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @flow_fraction_for_surface_59.setter
     def flow_fraction_for_surface_59(self, value=None):
         """  Corresponds to IDD Field `Flow Fraction for Surface 59`
-        
-        {u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Flow Fraction for Surface 59`
@@ -40026,8 +38447,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @surface_60_name.setter
     def surface_60_name(self, value=None):
         """  Corresponds to IDD Field `Surface 60 Name`
-        
-        {u'type': u'object-list', u'object-list': u'SurfaceNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 60 Name`
@@ -40063,8 +38482,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @flow_fraction_for_surface_60.setter
     def flow_fraction_for_surface_60(self, value=None):
         """  Corresponds to IDD Field `Flow Fraction for Surface 60`
-        
-        {u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Flow Fraction for Surface 60`
@@ -40098,8 +38515,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @surface_61_name.setter
     def surface_61_name(self, value=None):
         """  Corresponds to IDD Field `Surface 61 Name`
-        
-        {u'type': u'object-list', u'object-list': u'SurfaceNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 61 Name`
@@ -40135,8 +38550,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @flow_fraction_for_surface_61.setter
     def flow_fraction_for_surface_61(self, value=None):
         """  Corresponds to IDD Field `Flow Fraction for Surface 61`
-        
-        {u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Flow Fraction for Surface 61`
@@ -40170,8 +38583,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @surface_62_name.setter
     def surface_62_name(self, value=None):
         """  Corresponds to IDD Field `Surface 62 Name`
-        
-        {u'type': u'object-list', u'object-list': u'SurfaceNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 62 Name`
@@ -40207,8 +38618,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @flow_fraction_for_surface_62.setter
     def flow_fraction_for_surface_62(self, value=None):
         """  Corresponds to IDD Field `Flow Fraction for Surface 62`
-        
-        {u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Flow Fraction for Surface 62`
@@ -40242,8 +38651,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @surface_63_name.setter
     def surface_63_name(self, value=None):
         """  Corresponds to IDD Field `Surface 63 Name`
-        
-        {u'type': u'object-list', u'object-list': u'SurfaceNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 63 Name`
@@ -40279,8 +38686,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @flow_fraction_for_surface_63.setter
     def flow_fraction_for_surface_63(self, value=None):
         """  Corresponds to IDD Field `Flow Fraction for Surface 63`
-        
-        {u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Flow Fraction for Surface 63`
@@ -40314,8 +38719,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @surface_64_name.setter
     def surface_64_name(self, value=None):
         """  Corresponds to IDD Field `Surface 64 Name`
-        
-        {u'type': u'object-list', u'object-list': u'SurfaceNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 64 Name`
@@ -40351,8 +38754,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @flow_fraction_for_surface_64.setter
     def flow_fraction_for_surface_64(self, value=None):
         """  Corresponds to IDD Field `Flow Fraction for Surface 64`
-        
-        {u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Flow Fraction for Surface 64`
@@ -40386,8 +38787,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @surface_65_name.setter
     def surface_65_name(self, value=None):
         """  Corresponds to IDD Field `Surface 65 Name`
-        
-        {u'type': u'object-list', u'object-list': u'SurfaceNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 65 Name`
@@ -40423,8 +38822,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @flow_fraction_for_surface_65.setter
     def flow_fraction_for_surface_65(self, value=None):
         """  Corresponds to IDD Field `Flow Fraction for Surface 65`
-        
-        {u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Flow Fraction for Surface 65`
@@ -40458,8 +38855,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @surface_66_name.setter
     def surface_66_name(self, value=None):
         """  Corresponds to IDD Field `Surface 66 Name`
-        
-        {u'type': u'object-list', u'object-list': u'SurfaceNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 66 Name`
@@ -40495,8 +38890,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @flow_fraction_for_surface_66.setter
     def flow_fraction_for_surface_66(self, value=None):
         """  Corresponds to IDD Field `Flow Fraction for Surface 66`
-        
-        {u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Flow Fraction for Surface 66`
@@ -40530,8 +38923,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @surface_67_name.setter
     def surface_67_name(self, value=None):
         """  Corresponds to IDD Field `Surface 67 Name`
-        
-        {u'type': u'object-list', u'object-list': u'SurfaceNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 67 Name`
@@ -40567,8 +38958,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @flow_fraction_for_surface_67.setter
     def flow_fraction_for_surface_67(self, value=None):
         """  Corresponds to IDD Field `Flow Fraction for Surface 67`
-        
-        {u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Flow Fraction for Surface 67`
@@ -40602,8 +38991,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @surface_68_name.setter
     def surface_68_name(self, value=None):
         """  Corresponds to IDD Field `Surface 68 Name`
-        
-        {u'type': u'object-list', u'object-list': u'SurfaceNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 68 Name`
@@ -40639,8 +39026,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @flow_fraction_for_surface_68.setter
     def flow_fraction_for_surface_68(self, value=None):
         """  Corresponds to IDD Field `Flow Fraction for Surface 68`
-        
-        {u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Flow Fraction for Surface 68`
@@ -40674,8 +39059,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @surface_69_name.setter
     def surface_69_name(self, value=None):
         """  Corresponds to IDD Field `Surface 69 Name`
-        
-        {u'type': u'object-list', u'object-list': u'SurfaceNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 69 Name`
@@ -40711,8 +39094,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @flow_fraction_for_surface_69.setter
     def flow_fraction_for_surface_69(self, value=None):
         """  Corresponds to IDD Field `Flow Fraction for Surface 69`
-        
-        {u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Flow Fraction for Surface 69`
@@ -40746,8 +39127,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @surface_70_name.setter
     def surface_70_name(self, value=None):
         """  Corresponds to IDD Field `Surface 70 Name`
-        
-        {u'type': u'object-list', u'object-list': u'SurfaceNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 70 Name`
@@ -40783,8 +39162,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @flow_fraction_for_surface_70.setter
     def flow_fraction_for_surface_70(self, value=None):
         """  Corresponds to IDD Field `Flow Fraction for Surface 70`
-        
-        {u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Flow Fraction for Surface 70`
@@ -40818,8 +39195,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @surface_71_name.setter
     def surface_71_name(self, value=None):
         """  Corresponds to IDD Field `Surface 71 Name`
-        
-        {u'type': u'object-list', u'object-list': u'SurfaceNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 71 Name`
@@ -40855,8 +39230,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @flow_fraction_for_surface_71.setter
     def flow_fraction_for_surface_71(self, value=None):
         """  Corresponds to IDD Field `Flow Fraction for Surface 71`
-        
-        {u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Flow Fraction for Surface 71`
@@ -40890,8 +39263,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @surface_72_name.setter
     def surface_72_name(self, value=None):
         """  Corresponds to IDD Field `Surface 72 Name`
-        
-        {u'type': u'object-list', u'object-list': u'SurfaceNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 72 Name`
@@ -40927,8 +39298,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @flow_fraction_for_surface_72.setter
     def flow_fraction_for_surface_72(self, value=None):
         """  Corresponds to IDD Field `Flow Fraction for Surface 72`
-        
-        {u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Flow Fraction for Surface 72`
@@ -40962,8 +39331,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @surface_73_name.setter
     def surface_73_name(self, value=None):
         """  Corresponds to IDD Field `Surface 73 Name`
-        
-        {u'type': u'object-list', u'object-list': u'SurfaceNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 73 Name`
@@ -40999,8 +39366,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @flow_fraction_for_surface_73.setter
     def flow_fraction_for_surface_73(self, value=None):
         """  Corresponds to IDD Field `Flow Fraction for Surface 73`
-        
-        {u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Flow Fraction for Surface 73`
@@ -41034,8 +39399,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @surface_74_name.setter
     def surface_74_name(self, value=None):
         """  Corresponds to IDD Field `Surface 74 Name`
-        
-        {u'type': u'object-list', u'object-list': u'SurfaceNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 74 Name`
@@ -41071,8 +39434,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @flow_fraction_for_surface_74.setter
     def flow_fraction_for_surface_74(self, value=None):
         """  Corresponds to IDD Field `Flow Fraction for Surface 74`
-        
-        {u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Flow Fraction for Surface 74`
@@ -41106,8 +39467,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @surface_75_name.setter
     def surface_75_name(self, value=None):
         """  Corresponds to IDD Field `Surface 75 Name`
-        
-        {u'type': u'object-list', u'object-list': u'SurfaceNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 75 Name`
@@ -41143,8 +39502,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @flow_fraction_for_surface_75.setter
     def flow_fraction_for_surface_75(self, value=None):
         """  Corresponds to IDD Field `Flow Fraction for Surface 75`
-        
-        {u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Flow Fraction for Surface 75`
@@ -41178,8 +39535,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @surface_76_name.setter
     def surface_76_name(self, value=None):
         """  Corresponds to IDD Field `Surface 76 Name`
-        
-        {u'type': u'object-list', u'object-list': u'SurfaceNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 76 Name`
@@ -41215,8 +39570,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @flow_fraction_for_surface_76.setter
     def flow_fraction_for_surface_76(self, value=None):
         """  Corresponds to IDD Field `Flow Fraction for Surface 76`
-        
-        {u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Flow Fraction for Surface 76`
@@ -41250,8 +39603,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @surface_77_name.setter
     def surface_77_name(self, value=None):
         """  Corresponds to IDD Field `Surface 77 Name`
-        
-        {u'type': u'object-list', u'object-list': u'SurfaceNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 77 Name`
@@ -41287,8 +39638,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @flow_fraction_for_surface_77.setter
     def flow_fraction_for_surface_77(self, value=None):
         """  Corresponds to IDD Field `Flow Fraction for Surface 77`
-        
-        {u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Flow Fraction for Surface 77`
@@ -41322,8 +39671,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @surface_78_name.setter
     def surface_78_name(self, value=None):
         """  Corresponds to IDD Field `Surface 78 Name`
-        
-        {u'type': u'object-list', u'object-list': u'SurfaceNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 78 Name`
@@ -41359,8 +39706,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @flow_fraction_for_surface_78.setter
     def flow_fraction_for_surface_78(self, value=None):
         """  Corresponds to IDD Field `Flow Fraction for Surface 78`
-        
-        {u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Flow Fraction for Surface 78`
@@ -41394,8 +39739,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @surface_79_name.setter
     def surface_79_name(self, value=None):
         """  Corresponds to IDD Field `Surface 79 Name`
-        
-        {u'type': u'object-list', u'object-list': u'SurfaceNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 79 Name`
@@ -41431,8 +39774,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @flow_fraction_for_surface_79.setter
     def flow_fraction_for_surface_79(self, value=None):
         """  Corresponds to IDD Field `Flow Fraction for Surface 79`
-        
-        {u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Flow Fraction for Surface 79`
@@ -41466,8 +39807,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @surface_80_name.setter
     def surface_80_name(self, value=None):
         """  Corresponds to IDD Field `Surface 80 Name`
-        
-        {u'type': u'object-list', u'object-list': u'SurfaceNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 80 Name`
@@ -41503,8 +39842,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @flow_fraction_for_surface_80.setter
     def flow_fraction_for_surface_80(self, value=None):
         """  Corresponds to IDD Field `Flow Fraction for Surface 80`
-        
-        {u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Flow Fraction for Surface 80`
@@ -41538,8 +39875,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @surface_81_name.setter
     def surface_81_name(self, value=None):
         """  Corresponds to IDD Field `Surface 81 Name`
-        
-        {u'type': u'object-list', u'object-list': u'SurfaceNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 81 Name`
@@ -41575,8 +39910,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @flow_fraction_for_surface_81.setter
     def flow_fraction_for_surface_81(self, value=None):
         """  Corresponds to IDD Field `Flow Fraction for Surface 81`
-        
-        {u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Flow Fraction for Surface 81`
@@ -41610,8 +39943,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @surface_82_name.setter
     def surface_82_name(self, value=None):
         """  Corresponds to IDD Field `Surface 82 Name`
-        
-        {u'type': u'object-list', u'object-list': u'SurfaceNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 82 Name`
@@ -41647,8 +39978,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @flow_fraction_for_surface_82.setter
     def flow_fraction_for_surface_82(self, value=None):
         """  Corresponds to IDD Field `Flow Fraction for Surface 82`
-        
-        {u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Flow Fraction for Surface 82`
@@ -41682,8 +40011,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @surface_83_name.setter
     def surface_83_name(self, value=None):
         """  Corresponds to IDD Field `Surface 83 Name`
-        
-        {u'type': u'object-list', u'object-list': u'SurfaceNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 83 Name`
@@ -41719,8 +40046,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @flow_fraction_for_surface_83.setter
     def flow_fraction_for_surface_83(self, value=None):
         """  Corresponds to IDD Field `Flow Fraction for Surface 83`
-        
-        {u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Flow Fraction for Surface 83`
@@ -41754,8 +40079,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @surface_84_name.setter
     def surface_84_name(self, value=None):
         """  Corresponds to IDD Field `Surface 84 Name`
-        
-        {u'type': u'object-list', u'object-list': u'SurfaceNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 84 Name`
@@ -41791,8 +40114,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @flow_fraction_for_surface_84.setter
     def flow_fraction_for_surface_84(self, value=None):
         """  Corresponds to IDD Field `Flow Fraction for Surface 84`
-        
-        {u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Flow Fraction for Surface 84`
@@ -41826,8 +40147,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @surface_85_name.setter
     def surface_85_name(self, value=None):
         """  Corresponds to IDD Field `Surface 85 Name`
-        
-        {u'type': u'object-list', u'object-list': u'SurfaceNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 85 Name`
@@ -41863,8 +40182,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @flow_fraction_for_surface_85.setter
     def flow_fraction_for_surface_85(self, value=None):
         """  Corresponds to IDD Field `Flow Fraction for Surface 85`
-        
-        {u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Flow Fraction for Surface 85`
@@ -41898,8 +40215,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @surface_86_name.setter
     def surface_86_name(self, value=None):
         """  Corresponds to IDD Field `Surface 86 Name`
-        
-        {u'type': u'object-list', u'object-list': u'SurfaceNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 86 Name`
@@ -41935,8 +40250,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @flow_fraction_for_surface_86.setter
     def flow_fraction_for_surface_86(self, value=None):
         """  Corresponds to IDD Field `Flow Fraction for Surface 86`
-        
-        {u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Flow Fraction for Surface 86`
@@ -41970,8 +40283,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @surface_87_name.setter
     def surface_87_name(self, value=None):
         """  Corresponds to IDD Field `Surface 87 Name`
-        
-        {u'type': u'object-list', u'object-list': u'SurfaceNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 87 Name`
@@ -42007,8 +40318,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @flow_fraction_for_surface_87.setter
     def flow_fraction_for_surface_87(self, value=None):
         """  Corresponds to IDD Field `Flow Fraction for Surface 87`
-        
-        {u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Flow Fraction for Surface 87`
@@ -42042,8 +40351,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @surface_88_name.setter
     def surface_88_name(self, value=None):
         """  Corresponds to IDD Field `Surface 88 Name`
-        
-        {u'type': u'object-list', u'object-list': u'SurfaceNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 88 Name`
@@ -42079,8 +40386,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @flow_fraction_for_surface_88.setter
     def flow_fraction_for_surface_88(self, value=None):
         """  Corresponds to IDD Field `Flow Fraction for Surface 88`
-        
-        {u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Flow Fraction for Surface 88`
@@ -42114,8 +40419,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @surface_89_name.setter
     def surface_89_name(self, value=None):
         """  Corresponds to IDD Field `Surface 89 Name`
-        
-        {u'type': u'object-list', u'object-list': u'SurfaceNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 89 Name`
@@ -42151,8 +40454,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @flow_fraction_for_surface_89.setter
     def flow_fraction_for_surface_89(self, value=None):
         """  Corresponds to IDD Field `Flow Fraction for Surface 89`
-        
-        {u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Flow Fraction for Surface 89`
@@ -42186,8 +40487,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @surface_90_name.setter
     def surface_90_name(self, value=None):
         """  Corresponds to IDD Field `Surface 90 Name`
-        
-        {u'type': u'object-list', u'object-list': u'SurfaceNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 90 Name`
@@ -42223,8 +40522,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @flow_fraction_for_surface_90.setter
     def flow_fraction_for_surface_90(self, value=None):
         """  Corresponds to IDD Field `Flow Fraction for Surface 90`
-        
-        {u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Flow Fraction for Surface 90`
@@ -42258,8 +40555,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @surface_91_name.setter
     def surface_91_name(self, value=None):
         """  Corresponds to IDD Field `Surface 91 Name`
-        
-        {u'type': u'object-list', u'object-list': u'SurfaceNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 91 Name`
@@ -42295,8 +40590,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @flow_fraction_for_surface_91.setter
     def flow_fraction_for_surface_91(self, value=None):
         """  Corresponds to IDD Field `Flow Fraction for Surface 91`
-        
-        {u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Flow Fraction for Surface 91`
@@ -42330,8 +40623,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @surface_92_name.setter
     def surface_92_name(self, value=None):
         """  Corresponds to IDD Field `Surface 92 Name`
-        
-        {u'type': u'object-list', u'object-list': u'SurfaceNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 92 Name`
@@ -42367,8 +40658,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @flow_fraction_for_surface_92.setter
     def flow_fraction_for_surface_92(self, value=None):
         """  Corresponds to IDD Field `Flow Fraction for Surface 92`
-        
-        {u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Flow Fraction for Surface 92`
@@ -42402,8 +40691,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @surface_93_name.setter
     def surface_93_name(self, value=None):
         """  Corresponds to IDD Field `Surface 93 Name`
-        
-        {u'type': u'object-list', u'object-list': u'SurfaceNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 93 Name`
@@ -42439,8 +40726,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @flow_fraction_for_surface_93.setter
     def flow_fraction_for_surface_93(self, value=None):
         """  Corresponds to IDD Field `Flow Fraction for Surface 93`
-        
-        {u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Flow Fraction for Surface 93`
@@ -42474,8 +40759,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @surface_94_name.setter
     def surface_94_name(self, value=None):
         """  Corresponds to IDD Field `Surface 94 Name`
-        
-        {u'type': u'object-list', u'object-list': u'SurfaceNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 94 Name`
@@ -42511,8 +40794,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @flow_fraction_for_surface_94.setter
     def flow_fraction_for_surface_94(self, value=None):
         """  Corresponds to IDD Field `Flow Fraction for Surface 94`
-        
-        {u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Flow Fraction for Surface 94`
@@ -42546,8 +40827,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @surface_95_name.setter
     def surface_95_name(self, value=None):
         """  Corresponds to IDD Field `Surface 95 Name`
-        
-        {u'type': u'object-list', u'object-list': u'SurfaceNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 95 Name`
@@ -42583,8 +40862,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @flow_fraction_for_surface_95.setter
     def flow_fraction_for_surface_95(self, value=None):
         """  Corresponds to IDD Field `Flow Fraction for Surface 95`
-        
-        {u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Flow Fraction for Surface 95`
@@ -42618,8 +40895,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @surface_96_name.setter
     def surface_96_name(self, value=None):
         """  Corresponds to IDD Field `Surface 96 Name`
-        
-        {u'type': u'object-list', u'object-list': u'SurfaceNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 96 Name`
@@ -42655,8 +40930,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @flow_fraction_for_surface_96.setter
     def flow_fraction_for_surface_96(self, value=None):
         """  Corresponds to IDD Field `Flow Fraction for Surface 96`
-        
-        {u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Flow Fraction for Surface 96`
@@ -42690,8 +40963,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @surface_97_name.setter
     def surface_97_name(self, value=None):
         """  Corresponds to IDD Field `Surface 97 Name`
-        
-        {u'type': u'object-list', u'object-list': u'SurfaceNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 97 Name`
@@ -42727,8 +40998,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @flow_fraction_for_surface_97.setter
     def flow_fraction_for_surface_97(self, value=None):
         """  Corresponds to IDD Field `Flow Fraction for Surface 97`
-        
-        {u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Flow Fraction for Surface 97`
@@ -42762,8 +41031,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @surface_98_name.setter
     def surface_98_name(self, value=None):
         """  Corresponds to IDD Field `Surface 98 Name`
-        
-        {u'type': u'object-list', u'object-list': u'SurfaceNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 98 Name`
@@ -42799,8 +41066,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @flow_fraction_for_surface_98.setter
     def flow_fraction_for_surface_98(self, value=None):
         """  Corresponds to IDD Field `Flow Fraction for Surface 98`
-        
-        {u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Flow Fraction for Surface 98`
@@ -42834,8 +41099,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @surface_99_name.setter
     def surface_99_name(self, value=None):
         """  Corresponds to IDD Field `Surface 99 Name`
-        
-        {u'type': u'object-list', u'object-list': u'SurfaceNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 99 Name`
@@ -42871,8 +41134,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @flow_fraction_for_surface_99.setter
     def flow_fraction_for_surface_99(self, value=None):
         """  Corresponds to IDD Field `Flow Fraction for Surface 99`
-        
-        {u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Flow Fraction for Surface 99`
@@ -42906,8 +41167,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @surface_100_name.setter
     def surface_100_name(self, value=None):
         """  Corresponds to IDD Field `Surface 100 Name`
-        
-        {u'type': u'object-list', u'object-list': u'SurfaceNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 100 Name`
@@ -42943,8 +41202,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     @flow_fraction_for_surface_100.setter
     def flow_fraction_for_surface_100(self, value=None):
         """  Corresponds to IDD Field `Flow Fraction for Surface 100`
-        
-        {u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Flow Fraction for Surface 100`
@@ -44765,8 +43022,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {'type': 'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -44804,8 +43059,6 @@ class ZoneHvacHighTemperatureRadiant(object):
         """  Corresponds to IDD Field `Availability Schedule Name`
         Availability schedule name for this system. Schedule value > 0 means the system is available.
         If this field is blank, the system is always available.
-        
-        {u'note': [u'Availability schedule name for this system. Schedule value > 0 means the system is available.', u'If this field is blank, the system is always available.'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Availability Schedule Name`
@@ -44842,8 +43095,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     def zone_name(self, value=None):
         """  Corresponds to IDD Field `Zone Name`
         Name of zone system is serving
-        
-        {u'note': [u'Name of zone system is serving'], u'type': u'object-list', u'object-list': u'ZoneNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Zone Name`
@@ -44885,8 +43136,6 @@ class ZoneHvacHighTemperatureRadiant(object):
         determine from user specified heating capacity per floor area and zone floor area.
         FractionOfAutosizedHeatingCapacity = > is selected when the design heating capacity is
         determined from a user specified fraction and the auto-sized design heating capacity.
-        
-        {'pytype': 'str', u'default': u'HeatingDesignCapacity', u'required-field': True, u'note': [u'Enter the method used to determine the maximum heating power input capacity.', u'HeatingDesignCapacity = > selected when the design heating capacity value or autosize', u'is specified. CapacityPerFloorArea = > selected when the design heating capacity is', u'determine from user specified heating capacity per floor area and zone floor area.', u'FractionOfAutosizedHeatingCapacity = > is selected when the design heating capacity is', u'determined from a user specified fraction and the auto-sized design heating capacity.'], u'key': [u'HeatingDesignCapacity', u'CapacityPerFloorArea', u'FractionOfAutosizedHeatingCapacity'], u'type': u'choice'}
 
         Args:
             value (str): value for IDD Field `Heating Design Capacity Method`
@@ -44943,15 +43192,13 @@ class ZoneHvacHighTemperatureRadiant(object):
         return self._data["Heating Design Capacity"]
 
     @heating_design_capacity.setter
-    def heating_design_capacity(self, value="autosize" ):
+    def heating_design_capacity(self, value="autosize"):
         """  Corresponds to IDD Field `Heating Design Capacity`
         Enter the design heating capacity.Required field when the heating design capacity method
         HeatingDesignCapacity.
-        
-        {'pytype': 'float', u'default': '"autosize"', u'note': [u'Enter the design heating capacity.Required field when the heating design capacity method', u'HeatingDesignCapacity.'], u'autosizable': u'', u'minimum': '0.0', u'units': u'W', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `Heating Design Capacity`
+            value (float or "Autosize"): value for IDD Field `Heating Design Capacity`
                 Units: W
                 Default value: "autosize"
                 value >= 0.0
@@ -44962,6 +43209,13 @@ class ZoneHvacHighTemperatureRadiant(object):
             ValueError: if `value` is not a valid value
         """
         if value is not None:
+            try:
+                value_lower = str(value).lower()
+                if value_lower == "autosize":
+                    self._data["Heating Design Capacity"] = "Autosize"
+                    return
+            except ValueError:
+                pass
             try:
                 value = float(value)
             except ValueError:
@@ -44986,8 +43240,6 @@ class ZoneHvacHighTemperatureRadiant(object):
         """  Corresponds to IDD Field `Heating Design Capacity Per Floor Area`
         Enter the heating design capacity per zone floor area.Required field when the heating design
         capacity method field is CapacityPerFloorArea.
-        
-        {u'units': u'W/m2', u'note': [u'Enter the heating design capacity per zone floor area.Required field when the heating design', u'capacity method field is CapacityPerFloorArea.'], u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Heating Design Capacity Per Floor Area`
@@ -45020,12 +43272,10 @@ class ZoneHvacHighTemperatureRadiant(object):
         return self._data["Fraction of Autosized Heating Design Capacity"]
 
     @fraction_of_autosized_heating_design_capacity.setter
-    def fraction_of_autosized_heating_design_capacity(self, value=1.0 ):
+    def fraction_of_autosized_heating_design_capacity(self, value=1.0):
         """  Corresponds to IDD Field `Fraction of Autosized Heating Design Capacity`
         Enter the fraction of auto - sized heating design capacity.Required field when capacity the
         heating design capacity method field is FractionOfAutosizedHeatingCapacity.
-        
-        {u'default': '1.0', u'note': [u'Enter the fraction of auto - sized heating design capacity.Required field when capacity the', u'heating design capacity method field is FractionOfAutosizedHeatingCapacity.'], u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Autosized Heating Design Capacity`
@@ -45061,8 +43311,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     def fuel_type(self, value=None):
         """  Corresponds to IDD Field `Fuel Type`
         Natural gas or electricity
-        
-        {u'note': [u'Natural gas or electricity'], u'type': u'choice', u'key': [u'NaturalGas', u'Electricity'], u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Fuel Type`
@@ -45116,11 +43364,9 @@ class ZoneHvacHighTemperatureRadiant(object):
         return self._data["Combustion Efficiency"]
 
     @combustion_efficiency.setter
-    def combustion_efficiency(self, value=0.9 ):
+    def combustion_efficiency(self, value=0.9):
         """  Corresponds to IDD Field `Combustion Efficiency`
         Not used for non-gas radiant heaters
-        
-        {'pytype': 'float', u'default': '0.9', u'maximum': '1.0', u'required-field': True, u'note': [u'Not used for non-gas radiant heaters'], u'minimum': '0.0', 'type': 'real'}
 
         Args:
             value (float): value for IDD Field `Combustion Efficiency`
@@ -45157,11 +43403,9 @@ class ZoneHvacHighTemperatureRadiant(object):
         return self._data["Fraction of Input Converted to Radiant Energy"]
 
     @fraction_of_input_converted_to_radiant_energy.setter
-    def fraction_of_input_converted_to_radiant_energy(self, value=0.7 ):
+    def fraction_of_input_converted_to_radiant_energy(self, value=0.7):
         """  Corresponds to IDD Field `Fraction of Input Converted to Radiant Energy`
         Radiant+latent+lost fractions must sum to 1 or less, remainder is considered convective heat
-        
-        {'pytype': 'float', u'default': '0.7', u'maximum': '1.0', u'required-field': True, u'note': [u'Radiant+latent+lost fractions must sum to 1 or less, remainder is considered convective heat'], u'minimum': '0.0', 'type': 'real'}
 
         Args:
             value (float): value for IDD Field `Fraction of Input Converted to Radiant Energy`
@@ -45198,10 +43442,8 @@ class ZoneHvacHighTemperatureRadiant(object):
         return self._data["Fraction of Input Converted to Latent Energy"]
 
     @fraction_of_input_converted_to_latent_energy.setter
-    def fraction_of_input_converted_to_latent_energy(self, value=0.0 ):
+    def fraction_of_input_converted_to_latent_energy(self, value=0.0):
         """  Corresponds to IDD Field `Fraction of Input Converted to Latent Energy`
-        
-        {'pytype': 'float', u'default': '0.0', u'maximum': '1.0', u'required-field': True, u'minimum': '0.0', 'type': 'real'}
 
         Args:
             value (float): value for IDD Field `Fraction of Input Converted to Latent Energy`
@@ -45238,11 +43480,9 @@ class ZoneHvacHighTemperatureRadiant(object):
         return self._data["Fraction of Input that Is Lost"]
 
     @fraction_of_input_that_is_lost.setter
-    def fraction_of_input_that_is_lost(self, value=0.0 ):
+    def fraction_of_input_that_is_lost(self, value=0.0):
         """  Corresponds to IDD Field `Fraction of Input that Is Lost`
         Fraction of input vented to outdoor environment
-        
-        {'pytype': 'float', u'default': '0.0', u'maximum': '1.0', u'required-field': True, u'note': [u'Fraction of input vented to outdoor environment'], u'minimum': '0.0', 'type': 'real'}
 
         Args:
             value (float): value for IDD Field `Fraction of Input that Is Lost`
@@ -45282,8 +43522,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     def temperature_control_type(self, value="OperativeTemperature"):
         """  Corresponds to IDD Field `Temperature Control Type`
         Temperature type used to control unit
-        
-        {u'note': [u'Temperature type used to control unit'], u'default': u'OperativeTemperature', u'type': u'choice', u'key': [u'MeanAirTemperature', u'MeanRadiantTemperature', u'OperativeTemperature', u'MeanAirTemperatureSetpoint', u'MeanRadiantTemperatureSetpoint', u'OperativeTemperatureSetpoint'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Temperature Control Type`
@@ -45346,10 +43584,8 @@ class ZoneHvacHighTemperatureRadiant(object):
         return self._data["Heating Throttling Range"]
 
     @heating_throttling_range.setter
-    def heating_throttling_range(self, value=2.0 ):
+    def heating_throttling_range(self, value=2.0):
         """  Corresponds to IDD Field `Heating Throttling Range`
-        
-        {'pytype': 'float', u'default': '2.0', u'required-field': True, u'minimum': '0.0', u'units': u'deltaC', 'type': 'real'}
 
         Args:
             value (float): value for IDD Field `Heating Throttling Range`
@@ -45386,8 +43622,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     def heating_setpoint_temperature_schedule_name(self, value=None):
         """  Corresponds to IDD Field `Heating Setpoint Temperature Schedule Name`
         This setpoint is an "operative temperature" setpoint
-        
-        {u'note': [u'This setpoint is an "operative temperature" setpoint'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Heating Setpoint Temperature Schedule Name`
@@ -45425,8 +43659,6 @@ class ZoneHvacHighTemperatureRadiant(object):
         """  Corresponds to IDD Field `Fraction of Radiant Energy Incident on People`
         This will affect thermal comfort but from an energy balance standpoint this value
         gets added to the convective gains from the radiant heater
-        
-        {u'note': [u'This will affect thermal comfort but from an energy balance standpoint this value', u'gets added to the convective gains from the radiant heater'], u'minimum': '0.0', 'type': 'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy Incident on People`
@@ -45465,8 +43697,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     def surface_1_name(self, value=None):
         """  Corresponds to IDD Field `Surface 1 Name`
         Radiant energy may be distributed to specific surfaces
-        
-        {u'note': [u'Radiant energy may be distributed to specific surfaces'], 'pytype': 'str', u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', u'begin-extensible': u''}
 
         Args:
             value (str): value for IDD Field `Surface 1 Name`
@@ -45502,8 +43732,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @fraction_of_radiant_energy_to_surface_1.setter
     def fraction_of_radiant_energy_to_surface_1(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 1`
-        
-        {u'minimum': '0.0', 'type': 'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 1`
@@ -45541,8 +43769,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @surface_2_name.setter
     def surface_2_name(self, value=None):
         """  Corresponds to IDD Field `Surface 2 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 2 Name`
@@ -45578,8 +43804,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @fraction_of_radiant_energy_to_surface_2.setter
     def fraction_of_radiant_energy_to_surface_2(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 2`
-        
-        {u'minimum': '0.0', 'type': 'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 2`
@@ -45617,8 +43841,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @surface_3_name.setter
     def surface_3_name(self, value=None):
         """  Corresponds to IDD Field `Surface 3 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 3 Name`
@@ -45654,8 +43876,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @fraction_of_radiant_energy_to_surface_3.setter
     def fraction_of_radiant_energy_to_surface_3(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 3`
-        
-        {u'minimum': '0.0', 'type': 'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 3`
@@ -45693,8 +43913,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @surface_4_name.setter
     def surface_4_name(self, value=None):
         """  Corresponds to IDD Field `Surface 4 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 4 Name`
@@ -45730,8 +43948,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @fraction_of_radiant_energy_to_surface_4.setter
     def fraction_of_radiant_energy_to_surface_4(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 4`
-        
-        {u'minimum': '0.0', 'type': 'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 4`
@@ -45769,8 +43985,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @surface_5_name.setter
     def surface_5_name(self, value=None):
         """  Corresponds to IDD Field `Surface 5 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 5 Name`
@@ -45806,8 +44020,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @fraction_of_radiant_energy_to_surface_5.setter
     def fraction_of_radiant_energy_to_surface_5(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 5`
-        
-        {u'minimum': '0.0', 'type': 'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 5`
@@ -45845,8 +44057,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @surface_6_name.setter
     def surface_6_name(self, value=None):
         """  Corresponds to IDD Field `Surface 6 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 6 Name`
@@ -45882,8 +44092,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @fraction_of_radiant_energy_to_surface_6.setter
     def fraction_of_radiant_energy_to_surface_6(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 6`
-        
-        {u'minimum': '0.0', 'type': 'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 6`
@@ -45921,8 +44129,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @surface_7_name.setter
     def surface_7_name(self, value=None):
         """  Corresponds to IDD Field `Surface 7 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 7 Name`
@@ -45958,8 +44164,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @fraction_of_radiant_energy_to_surface_7.setter
     def fraction_of_radiant_energy_to_surface_7(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 7`
-        
-        {u'minimum': '0.0', 'type': 'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 7`
@@ -45997,8 +44201,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @surface_8_name.setter
     def surface_8_name(self, value=None):
         """  Corresponds to IDD Field `Surface 8 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 8 Name`
@@ -46034,8 +44236,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @fraction_of_radiant_energy_to_surface_8.setter
     def fraction_of_radiant_energy_to_surface_8(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 8`
-        
-        {u'minimum': '0.0', 'type': 'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 8`
@@ -46073,8 +44273,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @surface_9_name.setter
     def surface_9_name(self, value=None):
         """  Corresponds to IDD Field `Surface 9 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 9 Name`
@@ -46110,8 +44308,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @fraction_of_radiant_energy_to_surface_9.setter
     def fraction_of_radiant_energy_to_surface_9(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 9`
-        
-        {u'minimum': '0.0', 'type': 'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 9`
@@ -46149,8 +44345,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @surface_10_name.setter
     def surface_10_name(self, value=None):
         """  Corresponds to IDD Field `Surface 10 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 10 Name`
@@ -46186,8 +44380,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @fraction_of_radiant_energy_to_surface_10.setter
     def fraction_of_radiant_energy_to_surface_10(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 10`
-        
-        {u'minimum': '0.0', 'type': 'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 10`
@@ -46225,8 +44417,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @surface_11_name.setter
     def surface_11_name(self, value=None):
         """  Corresponds to IDD Field `Surface 11 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 11 Name`
@@ -46262,8 +44452,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @fraction_of_radiant_energy_to_surface_11.setter
     def fraction_of_radiant_energy_to_surface_11(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 11`
-        
-        {u'minimum': '0.0', 'type': 'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 11`
@@ -46301,8 +44489,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @surface_12_name.setter
     def surface_12_name(self, value=None):
         """  Corresponds to IDD Field `Surface 12 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 12 Name`
@@ -46338,8 +44524,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @fraction_of_radiant_energy_to_surface_12.setter
     def fraction_of_radiant_energy_to_surface_12(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 12`
-        
-        {u'minimum': '0.0', 'type': 'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 12`
@@ -46377,8 +44561,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @surface_13_name.setter
     def surface_13_name(self, value=None):
         """  Corresponds to IDD Field `Surface 13 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 13 Name`
@@ -46414,8 +44596,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @fraction_of_radiant_energy_to_surface_13.setter
     def fraction_of_radiant_energy_to_surface_13(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 13`
-        
-        {u'minimum': '0.0', 'type': 'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 13`
@@ -46453,8 +44633,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @surface_14_name.setter
     def surface_14_name(self, value=None):
         """  Corresponds to IDD Field `Surface 14 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 14 Name`
@@ -46490,8 +44668,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @fraction_of_radiant_energy_to_surface_14.setter
     def fraction_of_radiant_energy_to_surface_14(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 14`
-        
-        {u'minimum': '0.0', 'type': 'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 14`
@@ -46529,8 +44705,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @surface_15_name.setter
     def surface_15_name(self, value=None):
         """  Corresponds to IDD Field `Surface 15 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 15 Name`
@@ -46566,8 +44740,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @fraction_of_radiant_energy_to_surface_15.setter
     def fraction_of_radiant_energy_to_surface_15(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 15`
-        
-        {u'minimum': '0.0', 'type': 'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 15`
@@ -46605,8 +44777,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @surface_16_name.setter
     def surface_16_name(self, value=None):
         """  Corresponds to IDD Field `Surface 16 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 16 Name`
@@ -46642,8 +44812,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @fraction_of_radiant_energy_to_surface_16.setter
     def fraction_of_radiant_energy_to_surface_16(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 16`
-        
-        {u'minimum': '0.0', 'type': 'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 16`
@@ -46681,8 +44849,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @surface_17_name.setter
     def surface_17_name(self, value=None):
         """  Corresponds to IDD Field `Surface 17 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 17 Name`
@@ -46718,8 +44884,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @fraction_of_radiant_energy_to_surface_17.setter
     def fraction_of_radiant_energy_to_surface_17(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 17`
-        
-        {u'minimum': '0.0', 'type': 'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 17`
@@ -46757,8 +44921,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @surface_18_name.setter
     def surface_18_name(self, value=None):
         """  Corresponds to IDD Field `Surface 18 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 18 Name`
@@ -46794,8 +44956,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @fraction_of_radiant_energy_to_surface_18.setter
     def fraction_of_radiant_energy_to_surface_18(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 18`
-        
-        {u'minimum': '0.0', 'type': 'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 18`
@@ -46833,8 +44993,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @surface_19_name.setter
     def surface_19_name(self, value=None):
         """  Corresponds to IDD Field `Surface 19 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 19 Name`
@@ -46870,8 +45028,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @fraction_of_radiant_energy_to_surface_19.setter
     def fraction_of_radiant_energy_to_surface_19(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 19`
-        
-        {u'minimum': '0.0', 'type': 'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 19`
@@ -46909,8 +45065,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @surface_20_name.setter
     def surface_20_name(self, value=None):
         """  Corresponds to IDD Field `Surface 20 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 20 Name`
@@ -46946,8 +45100,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @fraction_of_radiant_energy_to_surface_20.setter
     def fraction_of_radiant_energy_to_surface_20(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 20`
-        
-        {u'minimum': '0.0', 'type': 'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 20`
@@ -46985,8 +45137,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @surface_21_name.setter
     def surface_21_name(self, value=None):
         """  Corresponds to IDD Field `Surface 21 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 21 Name`
@@ -47022,8 +45172,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @fraction_of_radiant_energy_to_surface_21.setter
     def fraction_of_radiant_energy_to_surface_21(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 21`
-        
-        {u'minimum': '0.0', 'type': 'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 21`
@@ -47061,8 +45209,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @surface_22_name.setter
     def surface_22_name(self, value=None):
         """  Corresponds to IDD Field `Surface 22 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 22 Name`
@@ -47098,8 +45244,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @fraction_of_radiant_energy_to_surface_22.setter
     def fraction_of_radiant_energy_to_surface_22(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 22`
-        
-        {u'minimum': '0.0', 'type': 'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 22`
@@ -47137,8 +45281,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @surface_23_name.setter
     def surface_23_name(self, value=None):
         """  Corresponds to IDD Field `Surface 23 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 23 Name`
@@ -47174,8 +45316,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @fraction_of_radiant_energy_to_surface_23.setter
     def fraction_of_radiant_energy_to_surface_23(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 23`
-        
-        {u'minimum': '0.0', 'type': 'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 23`
@@ -47213,8 +45353,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @surface_24_name.setter
     def surface_24_name(self, value=None):
         """  Corresponds to IDD Field `Surface 24 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 24 Name`
@@ -47250,8 +45388,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @fraction_of_radiant_energy_to_surface_24.setter
     def fraction_of_radiant_energy_to_surface_24(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 24`
-        
-        {u'minimum': '0.0', 'type': 'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 24`
@@ -47289,8 +45425,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @surface_25_name.setter
     def surface_25_name(self, value=None):
         """  Corresponds to IDD Field `Surface 25 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 25 Name`
@@ -47326,8 +45460,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @fraction_of_radiant_energy_to_surface_25.setter
     def fraction_of_radiant_energy_to_surface_25(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 25`
-        
-        {u'minimum': '0.0', 'type': 'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 25`
@@ -47365,8 +45497,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @surface_26_name.setter
     def surface_26_name(self, value=None):
         """  Corresponds to IDD Field `Surface 26 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 26 Name`
@@ -47402,8 +45532,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @fraction_of_radiant_energy_to_surface_26.setter
     def fraction_of_radiant_energy_to_surface_26(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 26`
-        
-        {u'minimum': '0.0', 'type': 'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 26`
@@ -47441,8 +45569,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @surface_27_name.setter
     def surface_27_name(self, value=None):
         """  Corresponds to IDD Field `Surface 27 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 27 Name`
@@ -47478,8 +45604,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @fraction_of_radiant_energy_to_surface_27.setter
     def fraction_of_radiant_energy_to_surface_27(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 27`
-        
-        {u'minimum': '0.0', 'type': 'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 27`
@@ -47517,8 +45641,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @surface_28_name.setter
     def surface_28_name(self, value=None):
         """  Corresponds to IDD Field `Surface 28 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 28 Name`
@@ -47554,8 +45676,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @fraction_of_radiant_energy_to_surface_28.setter
     def fraction_of_radiant_energy_to_surface_28(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 28`
-        
-        {u'minimum': '0.0', 'type': 'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 28`
@@ -47593,8 +45713,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @surface_29_name.setter
     def surface_29_name(self, value=None):
         """  Corresponds to IDD Field `Surface 29 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 29 Name`
@@ -47630,8 +45748,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @fraction_of_radiant_energy_to_surface_29.setter
     def fraction_of_radiant_energy_to_surface_29(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 29`
-        
-        {u'minimum': '0.0', 'type': 'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 29`
@@ -47669,8 +45785,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @surface_30_name.setter
     def surface_30_name(self, value=None):
         """  Corresponds to IDD Field `Surface 30 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 30 Name`
@@ -47706,8 +45820,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @fraction_of_radiant_energy_to_surface_30.setter
     def fraction_of_radiant_energy_to_surface_30(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 30`
-        
-        {u'minimum': '0.0', 'type': 'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 30`
@@ -47745,8 +45857,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @surface_31_name.setter
     def surface_31_name(self, value=None):
         """  Corresponds to IDD Field `Surface 31 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 31 Name`
@@ -47782,8 +45892,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @fraction_of_radiant_energy_to_surface_31.setter
     def fraction_of_radiant_energy_to_surface_31(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 31`
-        
-        {u'minimum': '0.0', 'type': 'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 31`
@@ -47821,8 +45929,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @surface_32_name.setter
     def surface_32_name(self, value=None):
         """  Corresponds to IDD Field `Surface 32 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 32 Name`
@@ -47858,8 +45964,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @fraction_of_radiant_energy_to_surface_32.setter
     def fraction_of_radiant_energy_to_surface_32(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 32`
-        
-        {u'minimum': '0.0', 'type': 'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 32`
@@ -47897,8 +46001,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @surface_33_name.setter
     def surface_33_name(self, value=None):
         """  Corresponds to IDD Field `Surface 33 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 33 Name`
@@ -47934,8 +46036,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @fraction_of_radiant_energy_to_surface_33.setter
     def fraction_of_radiant_energy_to_surface_33(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 33`
-        
-        {u'minimum': '0.0', 'type': 'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 33`
@@ -47973,8 +46073,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @surface_34_name.setter
     def surface_34_name(self, value=None):
         """  Corresponds to IDD Field `Surface 34 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 34 Name`
@@ -48010,8 +46108,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @fraction_of_radiant_energy_to_surface_34.setter
     def fraction_of_radiant_energy_to_surface_34(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 34`
-        
-        {u'minimum': '0.0', 'type': 'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 34`
@@ -48049,8 +46145,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @surface_35_name.setter
     def surface_35_name(self, value=None):
         """  Corresponds to IDD Field `Surface 35 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 35 Name`
@@ -48086,8 +46180,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @fraction_of_radiant_energy_to_surface_35.setter
     def fraction_of_radiant_energy_to_surface_35(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 35`
-        
-        {u'minimum': '0.0', 'type': 'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 35`
@@ -48125,8 +46217,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @surface_36_name.setter
     def surface_36_name(self, value=None):
         """  Corresponds to IDD Field `Surface 36 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 36 Name`
@@ -48162,8 +46252,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @fraction_of_radiant_energy_to_surface_36.setter
     def fraction_of_radiant_energy_to_surface_36(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 36`
-        
-        {u'minimum': '0.0', 'type': 'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 36`
@@ -48201,8 +46289,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @surface_37_name.setter
     def surface_37_name(self, value=None):
         """  Corresponds to IDD Field `Surface 37 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 37 Name`
@@ -48238,8 +46324,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @fraction_of_radiant_energy_to_surface_37.setter
     def fraction_of_radiant_energy_to_surface_37(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 37`
-        
-        {u'minimum': '0.0', 'type': 'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 37`
@@ -48277,8 +46361,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @surface_38_name.setter
     def surface_38_name(self, value=None):
         """  Corresponds to IDD Field `Surface 38 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 38 Name`
@@ -48314,8 +46396,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @fraction_of_radiant_energy_to_surface_38.setter
     def fraction_of_radiant_energy_to_surface_38(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 38`
-        
-        {u'minimum': '0.0', 'type': 'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 38`
@@ -48353,8 +46433,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @surface_39_name.setter
     def surface_39_name(self, value=None):
         """  Corresponds to IDD Field `Surface 39 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 39 Name`
@@ -48390,8 +46468,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @fraction_of_radiant_energy_to_surface_39.setter
     def fraction_of_radiant_energy_to_surface_39(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 39`
-        
-        {u'minimum': '0.0', 'type': 'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 39`
@@ -48429,8 +46505,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @surface_40_name.setter
     def surface_40_name(self, value=None):
         """  Corresponds to IDD Field `Surface 40 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 40 Name`
@@ -48466,8 +46540,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @fraction_of_radiant_energy_to_surface_40.setter
     def fraction_of_radiant_energy_to_surface_40(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 40`
-        
-        {u'minimum': '0.0', 'type': 'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 40`
@@ -48505,8 +46577,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @surface_41_name.setter
     def surface_41_name(self, value=None):
         """  Corresponds to IDD Field `Surface 41 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 41 Name`
@@ -48542,8 +46612,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @fraction_of_radiant_energy_to_surface_41.setter
     def fraction_of_radiant_energy_to_surface_41(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 41`
-        
-        {u'minimum': '0.0', 'type': 'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 41`
@@ -48581,8 +46649,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @surface_42_name.setter
     def surface_42_name(self, value=None):
         """  Corresponds to IDD Field `Surface 42 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 42 Name`
@@ -48618,8 +46684,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @fraction_of_radiant_energy_to_surface_42.setter
     def fraction_of_radiant_energy_to_surface_42(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 42`
-        
-        {u'minimum': '0.0', 'type': 'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 42`
@@ -48657,8 +46721,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @surface_43_name.setter
     def surface_43_name(self, value=None):
         """  Corresponds to IDD Field `Surface 43 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 43 Name`
@@ -48694,8 +46756,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @fraction_of_radiant_energy_to_surface_43.setter
     def fraction_of_radiant_energy_to_surface_43(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 43`
-        
-        {u'minimum': '0.0', 'type': 'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 43`
@@ -48733,8 +46793,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @surface_44_name.setter
     def surface_44_name(self, value=None):
         """  Corresponds to IDD Field `Surface 44 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 44 Name`
@@ -48770,8 +46828,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @fraction_of_radiant_energy_to_surface_44.setter
     def fraction_of_radiant_energy_to_surface_44(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 44`
-        
-        {u'minimum': '0.0', 'type': 'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 44`
@@ -48809,8 +46865,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @surface_45_name.setter
     def surface_45_name(self, value=None):
         """  Corresponds to IDD Field `Surface 45 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 45 Name`
@@ -48846,8 +46900,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @fraction_of_radiant_energy_to_surface_45.setter
     def fraction_of_radiant_energy_to_surface_45(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 45`
-        
-        {u'minimum': '0.0', 'type': 'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 45`
@@ -48885,8 +46937,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @surface_46_name.setter
     def surface_46_name(self, value=None):
         """  Corresponds to IDD Field `Surface 46 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 46 Name`
@@ -48922,8 +46972,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @fraction_of_radiant_energy_to_surface_46.setter
     def fraction_of_radiant_energy_to_surface_46(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 46`
-        
-        {u'minimum': '0.0', 'type': 'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 46`
@@ -48961,8 +47009,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @surface_47_name.setter
     def surface_47_name(self, value=None):
         """  Corresponds to IDD Field `Surface 47 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 47 Name`
@@ -48998,8 +47044,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @fraction_of_radiant_energy_to_surface_47.setter
     def fraction_of_radiant_energy_to_surface_47(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 47`
-        
-        {u'minimum': '0.0', 'type': 'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 47`
@@ -49037,8 +47081,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @surface_48_name.setter
     def surface_48_name(self, value=None):
         """  Corresponds to IDD Field `Surface 48 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 48 Name`
@@ -49074,8 +47116,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @fraction_of_radiant_energy_to_surface_48.setter
     def fraction_of_radiant_energy_to_surface_48(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 48`
-        
-        {u'minimum': '0.0', 'type': 'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 48`
@@ -49113,8 +47153,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @surface_49_name.setter
     def surface_49_name(self, value=None):
         """  Corresponds to IDD Field `Surface 49 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 49 Name`
@@ -49150,8 +47188,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @fraction_of_radiant_energy_to_surface_49.setter
     def fraction_of_radiant_energy_to_surface_49(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 49`
-        
-        {u'minimum': '0.0', 'type': 'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 49`
@@ -49189,8 +47225,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @surface_50_name.setter
     def surface_50_name(self, value=None):
         """  Corresponds to IDD Field `Surface 50 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 50 Name`
@@ -49226,8 +47260,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @fraction_of_radiant_energy_to_surface_50.setter
     def fraction_of_radiant_energy_to_surface_50(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 50`
-        
-        {u'minimum': '0.0', 'type': 'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 50`
@@ -49265,8 +47297,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @surface_51_name.setter
     def surface_51_name(self, value=None):
         """  Corresponds to IDD Field `Surface 51 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 51 Name`
@@ -49302,8 +47332,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @fraction_of_radiant_energy_to_surface_51.setter
     def fraction_of_radiant_energy_to_surface_51(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 51`
-        
-        {u'minimum': '0.0', 'type': 'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 51`
@@ -49341,8 +47369,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @surface_52_name.setter
     def surface_52_name(self, value=None):
         """  Corresponds to IDD Field `Surface 52 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 52 Name`
@@ -49378,8 +47404,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @fraction_of_radiant_energy_to_surface_52.setter
     def fraction_of_radiant_energy_to_surface_52(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 52`
-        
-        {u'minimum': '0.0', 'type': 'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 52`
@@ -49417,8 +47441,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @surface_53_name.setter
     def surface_53_name(self, value=None):
         """  Corresponds to IDD Field `Surface 53 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 53 Name`
@@ -49454,8 +47476,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @fraction_of_radiant_energy_to_surface_53.setter
     def fraction_of_radiant_energy_to_surface_53(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 53`
-        
-        {u'minimum': '0.0', 'type': 'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 53`
@@ -49493,8 +47513,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @surface_54_name.setter
     def surface_54_name(self, value=None):
         """  Corresponds to IDD Field `Surface 54 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 54 Name`
@@ -49530,8 +47548,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @fraction_of_radiant_energy_to_surface_54.setter
     def fraction_of_radiant_energy_to_surface_54(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 54`
-        
-        {u'minimum': '0.0', 'type': 'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 54`
@@ -49569,8 +47585,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @surface_55_name.setter
     def surface_55_name(self, value=None):
         """  Corresponds to IDD Field `Surface 55 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 55 Name`
@@ -49606,8 +47620,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @fraction_of_radiant_energy_to_surface_55.setter
     def fraction_of_radiant_energy_to_surface_55(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 55`
-        
-        {u'minimum': '0.0', 'type': 'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 55`
@@ -49645,8 +47657,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @surface_56_name.setter
     def surface_56_name(self, value=None):
         """  Corresponds to IDD Field `Surface 56 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 56 Name`
@@ -49682,8 +47692,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @fraction_of_radiant_energy_to_surface_56.setter
     def fraction_of_radiant_energy_to_surface_56(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 56`
-        
-        {u'minimum': '0.0', 'type': 'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 56`
@@ -49721,8 +47729,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @surface_57_name.setter
     def surface_57_name(self, value=None):
         """  Corresponds to IDD Field `Surface 57 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 57 Name`
@@ -49758,8 +47764,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @fraction_of_radiant_energy_to_surface_57.setter
     def fraction_of_radiant_energy_to_surface_57(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 57`
-        
-        {u'minimum': '0.0', 'type': 'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 57`
@@ -49797,8 +47801,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @surface_58_name.setter
     def surface_58_name(self, value=None):
         """  Corresponds to IDD Field `Surface 58 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 58 Name`
@@ -49834,8 +47836,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @fraction_of_radiant_energy_to_surface_58.setter
     def fraction_of_radiant_energy_to_surface_58(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 58`
-        
-        {u'minimum': '0.0', 'type': 'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 58`
@@ -49873,8 +47873,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @surface_59_name.setter
     def surface_59_name(self, value=None):
         """  Corresponds to IDD Field `Surface 59 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 59 Name`
@@ -49910,8 +47908,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @fraction_of_radiant_energy_to_surface_59.setter
     def fraction_of_radiant_energy_to_surface_59(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 59`
-        
-        {u'minimum': '0.0', 'type': 'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 59`
@@ -49949,8 +47945,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @surface_60_name.setter
     def surface_60_name(self, value=None):
         """  Corresponds to IDD Field `Surface 60 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 60 Name`
@@ -49986,8 +47980,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @fraction_of_radiant_energy_to_surface_60.setter
     def fraction_of_radiant_energy_to_surface_60(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 60`
-        
-        {u'minimum': '0.0', 'type': 'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 60`
@@ -50025,8 +48017,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @surface_61_name.setter
     def surface_61_name(self, value=None):
         """  Corresponds to IDD Field `Surface 61 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 61 Name`
@@ -50062,8 +48052,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @fraction_of_radiant_energy_to_surface_61.setter
     def fraction_of_radiant_energy_to_surface_61(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 61`
-        
-        {u'minimum': '0.0', 'type': 'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 61`
@@ -50101,8 +48089,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @surface_62_name.setter
     def surface_62_name(self, value=None):
         """  Corresponds to IDD Field `Surface 62 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 62 Name`
@@ -50138,8 +48124,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @fraction_of_radiant_energy_to_surface_62.setter
     def fraction_of_radiant_energy_to_surface_62(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 62`
-        
-        {u'minimum': '0.0', 'type': 'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 62`
@@ -50177,8 +48161,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @surface_63_name.setter
     def surface_63_name(self, value=None):
         """  Corresponds to IDD Field `Surface 63 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 63 Name`
@@ -50214,8 +48196,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @fraction_of_radiant_energy_to_surface_63.setter
     def fraction_of_radiant_energy_to_surface_63(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 63`
-        
-        {u'minimum': '0.0', 'type': 'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 63`
@@ -50253,8 +48233,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @surface_64_name.setter
     def surface_64_name(self, value=None):
         """  Corresponds to IDD Field `Surface 64 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 64 Name`
@@ -50290,8 +48268,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @fraction_of_radiant_energy_to_surface_64.setter
     def fraction_of_radiant_energy_to_surface_64(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 64`
-        
-        {u'minimum': '0.0', 'type': 'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 64`
@@ -50329,8 +48305,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @surface_65_name.setter
     def surface_65_name(self, value=None):
         """  Corresponds to IDD Field `Surface 65 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 65 Name`
@@ -50366,8 +48340,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @fraction_of_radiant_energy_to_surface_65.setter
     def fraction_of_radiant_energy_to_surface_65(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 65`
-        
-        {u'minimum': '0.0', 'type': 'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 65`
@@ -50405,8 +48377,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @surface_66_name.setter
     def surface_66_name(self, value=None):
         """  Corresponds to IDD Field `Surface 66 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 66 Name`
@@ -50442,8 +48412,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @fraction_of_radiant_energy_to_surface_66.setter
     def fraction_of_radiant_energy_to_surface_66(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 66`
-        
-        {u'minimum': '0.0', 'type': 'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 66`
@@ -50481,8 +48449,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @surface_67_name.setter
     def surface_67_name(self, value=None):
         """  Corresponds to IDD Field `Surface 67 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 67 Name`
@@ -50518,8 +48484,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @fraction_of_radiant_energy_to_surface_67.setter
     def fraction_of_radiant_energy_to_surface_67(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 67`
-        
-        {u'minimum': '0.0', 'type': 'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 67`
@@ -50557,8 +48521,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @surface_68_name.setter
     def surface_68_name(self, value=None):
         """  Corresponds to IDD Field `Surface 68 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 68 Name`
@@ -50594,8 +48556,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @fraction_of_radiant_energy_to_surface_68.setter
     def fraction_of_radiant_energy_to_surface_68(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 68`
-        
-        {u'minimum': '0.0', 'type': 'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 68`
@@ -50633,8 +48593,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @surface_69_name.setter
     def surface_69_name(self, value=None):
         """  Corresponds to IDD Field `Surface 69 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 69 Name`
@@ -50670,8 +48628,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @fraction_of_radiant_energy_to_surface_69.setter
     def fraction_of_radiant_energy_to_surface_69(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 69`
-        
-        {u'minimum': '0.0', 'type': 'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 69`
@@ -50709,8 +48665,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @surface_70_name.setter
     def surface_70_name(self, value=None):
         """  Corresponds to IDD Field `Surface 70 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 70 Name`
@@ -50746,8 +48700,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @fraction_of_radiant_energy_to_surface_70.setter
     def fraction_of_radiant_energy_to_surface_70(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 70`
-        
-        {u'minimum': '0.0', 'type': 'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 70`
@@ -50785,8 +48737,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @surface_71_name.setter
     def surface_71_name(self, value=None):
         """  Corresponds to IDD Field `Surface 71 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 71 Name`
@@ -50822,8 +48772,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @fraction_of_radiant_energy_to_surface_71.setter
     def fraction_of_radiant_energy_to_surface_71(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 71`
-        
-        {u'minimum': '0.0', 'type': 'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 71`
@@ -50861,8 +48809,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @surface_72_name.setter
     def surface_72_name(self, value=None):
         """  Corresponds to IDD Field `Surface 72 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 72 Name`
@@ -50898,8 +48844,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @fraction_of_radiant_energy_to_surface_72.setter
     def fraction_of_radiant_energy_to_surface_72(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 72`
-        
-        {u'minimum': '0.0', 'type': 'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 72`
@@ -50937,8 +48881,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @surface_73_name.setter
     def surface_73_name(self, value=None):
         """  Corresponds to IDD Field `Surface 73 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 73 Name`
@@ -50974,8 +48916,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @fraction_of_radiant_energy_to_surface_73.setter
     def fraction_of_radiant_energy_to_surface_73(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 73`
-        
-        {u'minimum': '0.0', 'type': 'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 73`
@@ -51013,8 +48953,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @surface_74_name.setter
     def surface_74_name(self, value=None):
         """  Corresponds to IDD Field `Surface 74 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 74 Name`
@@ -51050,8 +48988,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @fraction_of_radiant_energy_to_surface_74.setter
     def fraction_of_radiant_energy_to_surface_74(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 74`
-        
-        {u'minimum': '0.0', 'type': 'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 74`
@@ -51089,8 +49025,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @surface_75_name.setter
     def surface_75_name(self, value=None):
         """  Corresponds to IDD Field `Surface 75 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 75 Name`
@@ -51126,8 +49060,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @fraction_of_radiant_energy_to_surface_75.setter
     def fraction_of_radiant_energy_to_surface_75(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 75`
-        
-        {u'minimum': '0.0', 'type': 'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 75`
@@ -51165,8 +49097,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @surface_76_name.setter
     def surface_76_name(self, value=None):
         """  Corresponds to IDD Field `Surface 76 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 76 Name`
@@ -51202,8 +49132,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @fraction_of_radiant_energy_to_surface_76.setter
     def fraction_of_radiant_energy_to_surface_76(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 76`
-        
-        {u'minimum': '0.0', 'type': 'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 76`
@@ -51241,8 +49169,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @surface_77_name.setter
     def surface_77_name(self, value=None):
         """  Corresponds to IDD Field `Surface 77 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 77 Name`
@@ -51278,8 +49204,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @fraction_of_radiant_energy_to_surface_77.setter
     def fraction_of_radiant_energy_to_surface_77(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 77`
-        
-        {u'minimum': '0.0', 'type': 'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 77`
@@ -51317,8 +49241,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @surface_78_name.setter
     def surface_78_name(self, value=None):
         """  Corresponds to IDD Field `Surface 78 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 78 Name`
@@ -51354,8 +49276,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @fraction_of_radiant_energy_to_surface_78.setter
     def fraction_of_radiant_energy_to_surface_78(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 78`
-        
-        {u'minimum': '0.0', 'type': 'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 78`
@@ -51393,8 +49313,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @surface_79_name.setter
     def surface_79_name(self, value=None):
         """  Corresponds to IDD Field `Surface 79 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 79 Name`
@@ -51430,8 +49348,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @fraction_of_radiant_energy_to_surface_79.setter
     def fraction_of_radiant_energy_to_surface_79(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 79`
-        
-        {u'minimum': '0.0', 'type': 'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 79`
@@ -51469,8 +49385,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @surface_80_name.setter
     def surface_80_name(self, value=None):
         """  Corresponds to IDD Field `Surface 80 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 80 Name`
@@ -51506,8 +49420,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @fraction_of_radiant_energy_to_surface_80.setter
     def fraction_of_radiant_energy_to_surface_80(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 80`
-        
-        {u'minimum': '0.0', 'type': 'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 80`
@@ -51545,8 +49457,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @surface_81_name.setter
     def surface_81_name(self, value=None):
         """  Corresponds to IDD Field `Surface 81 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 81 Name`
@@ -51582,8 +49492,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @fraction_of_radiant_energy_to_surface_81.setter
     def fraction_of_radiant_energy_to_surface_81(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 81`
-        
-        {u'minimum': '0.0', 'type': 'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 81`
@@ -51621,8 +49529,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @surface_82_name.setter
     def surface_82_name(self, value=None):
         """  Corresponds to IDD Field `Surface 82 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 82 Name`
@@ -51658,8 +49564,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @fraction_of_radiant_energy_to_surface_82.setter
     def fraction_of_radiant_energy_to_surface_82(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 82`
-        
-        {u'minimum': '0.0', 'type': 'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 82`
@@ -51697,8 +49601,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @surface_83_name.setter
     def surface_83_name(self, value=None):
         """  Corresponds to IDD Field `Surface 83 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 83 Name`
@@ -51734,8 +49636,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @fraction_of_radiant_energy_to_surface_83.setter
     def fraction_of_radiant_energy_to_surface_83(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 83`
-        
-        {u'minimum': '0.0', 'type': 'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 83`
@@ -51773,8 +49673,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @surface_84_name.setter
     def surface_84_name(self, value=None):
         """  Corresponds to IDD Field `Surface 84 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 84 Name`
@@ -51810,8 +49708,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @fraction_of_radiant_energy_to_surface_84.setter
     def fraction_of_radiant_energy_to_surface_84(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 84`
-        
-        {u'minimum': '0.0', 'type': 'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 84`
@@ -51849,8 +49745,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @surface_85_name.setter
     def surface_85_name(self, value=None):
         """  Corresponds to IDD Field `Surface 85 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 85 Name`
@@ -51886,8 +49780,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @fraction_of_radiant_energy_to_surface_85.setter
     def fraction_of_radiant_energy_to_surface_85(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 85`
-        
-        {u'minimum': '0.0', 'type': 'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 85`
@@ -51925,8 +49817,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @surface_86_name.setter
     def surface_86_name(self, value=None):
         """  Corresponds to IDD Field `Surface 86 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 86 Name`
@@ -51962,8 +49852,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @fraction_of_radiant_energy_to_surface_86.setter
     def fraction_of_radiant_energy_to_surface_86(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 86`
-        
-        {u'minimum': '0.0', 'type': 'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 86`
@@ -52001,8 +49889,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @surface_87_name.setter
     def surface_87_name(self, value=None):
         """  Corresponds to IDD Field `Surface 87 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 87 Name`
@@ -52038,8 +49924,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @fraction_of_radiant_energy_to_surface_87.setter
     def fraction_of_radiant_energy_to_surface_87(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 87`
-        
-        {u'minimum': '0.0', 'type': 'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 87`
@@ -52077,8 +49961,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @surface_88_name.setter
     def surface_88_name(self, value=None):
         """  Corresponds to IDD Field `Surface 88 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 88 Name`
@@ -52114,8 +49996,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @fraction_of_radiant_energy_to_surface_88.setter
     def fraction_of_radiant_energy_to_surface_88(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 88`
-        
-        {u'minimum': '0.0', 'type': 'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 88`
@@ -52153,8 +50033,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @surface_89_name.setter
     def surface_89_name(self, value=None):
         """  Corresponds to IDD Field `Surface 89 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 89 Name`
@@ -52190,8 +50068,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @fraction_of_radiant_energy_to_surface_89.setter
     def fraction_of_radiant_energy_to_surface_89(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 89`
-        
-        {u'minimum': '0.0', 'type': 'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 89`
@@ -52229,8 +50105,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @surface_90_name.setter
     def surface_90_name(self, value=None):
         """  Corresponds to IDD Field `Surface 90 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 90 Name`
@@ -52266,8 +50140,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @fraction_of_radiant_energy_to_surface_90.setter
     def fraction_of_radiant_energy_to_surface_90(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 90`
-        
-        {u'minimum': '0.0', 'type': 'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 90`
@@ -52305,8 +50177,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @surface_91_name.setter
     def surface_91_name(self, value=None):
         """  Corresponds to IDD Field `Surface 91 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 91 Name`
@@ -52342,8 +50212,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @fraction_of_radiant_energy_to_surface_91.setter
     def fraction_of_radiant_energy_to_surface_91(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 91`
-        
-        {u'minimum': '0.0', 'type': 'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 91`
@@ -52381,8 +50249,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @surface_92_name.setter
     def surface_92_name(self, value=None):
         """  Corresponds to IDD Field `Surface 92 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 92 Name`
@@ -52418,8 +50284,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @fraction_of_radiant_energy_to_surface_92.setter
     def fraction_of_radiant_energy_to_surface_92(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 92`
-        
-        {u'minimum': '0.0', 'type': 'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 92`
@@ -52457,8 +50321,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @surface_93_name.setter
     def surface_93_name(self, value=None):
         """  Corresponds to IDD Field `Surface 93 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 93 Name`
@@ -52494,8 +50356,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @fraction_of_radiant_energy_to_surface_93.setter
     def fraction_of_radiant_energy_to_surface_93(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 93`
-        
-        {u'minimum': '0.0', 'type': 'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 93`
@@ -52533,8 +50393,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @surface_94_name.setter
     def surface_94_name(self, value=None):
         """  Corresponds to IDD Field `Surface 94 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 94 Name`
@@ -52570,8 +50428,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @fraction_of_radiant_energy_to_surface_94.setter
     def fraction_of_radiant_energy_to_surface_94(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 94`
-        
-        {u'minimum': '0.0', 'type': 'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 94`
@@ -52609,8 +50465,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @surface_95_name.setter
     def surface_95_name(self, value=None):
         """  Corresponds to IDD Field `Surface 95 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 95 Name`
@@ -52646,8 +50500,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @fraction_of_radiant_energy_to_surface_95.setter
     def fraction_of_radiant_energy_to_surface_95(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 95`
-        
-        {u'minimum': '0.0', 'type': 'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 95`
@@ -52685,8 +50537,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @surface_96_name.setter
     def surface_96_name(self, value=None):
         """  Corresponds to IDD Field `Surface 96 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 96 Name`
@@ -52722,8 +50572,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @fraction_of_radiant_energy_to_surface_96.setter
     def fraction_of_radiant_energy_to_surface_96(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 96`
-        
-        {u'minimum': '0.0', 'type': 'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 96`
@@ -52761,8 +50609,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @surface_97_name.setter
     def surface_97_name(self, value=None):
         """  Corresponds to IDD Field `Surface 97 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 97 Name`
@@ -52798,8 +50644,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @fraction_of_radiant_energy_to_surface_97.setter
     def fraction_of_radiant_energy_to_surface_97(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 97`
-        
-        {u'minimum': '0.0', 'type': 'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 97`
@@ -52837,8 +50681,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @surface_98_name.setter
     def surface_98_name(self, value=None):
         """  Corresponds to IDD Field `Surface 98 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 98 Name`
@@ -52874,8 +50716,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @fraction_of_radiant_energy_to_surface_98.setter
     def fraction_of_radiant_energy_to_surface_98(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 98`
-        
-        {u'minimum': '0.0', 'type': 'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 98`
@@ -52913,8 +50753,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @surface_99_name.setter
     def surface_99_name(self, value=None):
         """  Corresponds to IDD Field `Surface 99 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 99 Name`
@@ -52950,8 +50788,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @fraction_of_radiant_energy_to_surface_99.setter
     def fraction_of_radiant_energy_to_surface_99(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 99`
-        
-        {u'minimum': '0.0', 'type': 'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 99`
@@ -52989,8 +50825,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @surface_100_name.setter
     def surface_100_name(self, value=None):
         """  Corresponds to IDD Field `Surface 100 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 100 Name`
@@ -53026,8 +50860,6 @@ class ZoneHvacHighTemperatureRadiant(object):
     @fraction_of_radiant_energy_to_surface_100.setter
     def fraction_of_radiant_energy_to_surface_100(self, value=None):
         """  Corresponds to IDD Field `Fraction of Radiant Energy to Surface 100`
-        
-        {u'minimum': '0.0', 'type': 'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Radiant Energy to Surface 100`
@@ -53444,8 +51276,6 @@ class ZoneHvacVentilatedSlab(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {'type': 'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -53483,8 +51313,6 @@ class ZoneHvacVentilatedSlab(object):
         """  Corresponds to IDD Field `Availability Schedule Name`
         Availability schedule name for this system. Schedule value > 0 means the system is available.
         If this field is blank, the system is always available.
-        
-        {u'note': [u'Availability schedule name for this system. Schedule value > 0 means the system is available.', u'If this field is blank, the system is always available.'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Availability Schedule Name`
@@ -53521,8 +51349,6 @@ class ZoneHvacVentilatedSlab(object):
     def zone_name(self, value=None):
         """  Corresponds to IDD Field `Zone Name`
         (name of zone system is serving)
-        
-        {u'note': [u'(name of zone system is serving)'], u'type': u'object-list', u'object-list': u'ZoneNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Zone Name`
@@ -53559,8 +51385,6 @@ class ZoneHvacVentilatedSlab(object):
     def surface_name_or_radiant_surface_group_name(self, value=None):
         """  Corresponds to IDD Field `Surface Name or Radiant Surface Group Name`
         (name of surface system is embedded in) or list of surfaces
-        
-        {u'note': [u'(name of surface system is embedded in) or list of surfaces'], u'type': u'object-list', u'object-list': u'RadGroupAndSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface Name or Radiant Surface Group Name`
@@ -53596,11 +51420,9 @@ class ZoneHvacVentilatedSlab(object):
     @maximum_air_flow_rate.setter
     def maximum_air_flow_rate(self, value=None):
         """  Corresponds to IDD Field `Maximum Air Flow Rate`
-        
-        {'pytype': 'float', u'minimum>': '0.0', u'required-field': True, u'autosizable': u'', u'units': u'm3/s', 'type': 'real'}
 
         Args:
-            value (float): value for IDD Field `Maximum Air Flow Rate`
+            value (float or "Autosize"): value for IDD Field `Maximum Air Flow Rate`
                 Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -53610,6 +51432,13 @@ class ZoneHvacVentilatedSlab(object):
             ValueError: if `value` is not a valid value
         """
         if value is not None:
+            try:
+                value_lower = str(value).lower()
+                if value_lower == "autosize":
+                    self._data["Maximum Air Flow Rate"] = "Autosize"
+                    return
+            except ValueError:
+                pass
             try:
                 value = float(value)
             except ValueError:
@@ -53632,8 +51461,6 @@ class ZoneHvacVentilatedSlab(object):
     @outdoor_air_control_type.setter
     def outdoor_air_control_type(self, value=None):
         """  Corresponds to IDD Field `Outdoor Air Control Type`
-        
-        {u'type': u'choice', u'key': [u'VariablePercent', u'FixedTemperature', u'FixedAmount'], u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Outdoor Air Control Type`
@@ -53691,11 +51518,9 @@ class ZoneHvacVentilatedSlab(object):
     @minimum_outdoor_air_flow_rate.setter
     def minimum_outdoor_air_flow_rate(self, value=None):
         """  Corresponds to IDD Field `Minimum Outdoor Air Flow Rate`
-        
-        {'pytype': 'float', u'required-field': True, u'autosizable': u'', u'minimum': '0.0', u'units': u'm3/s', 'type': 'real'}
 
         Args:
-            value (float): value for IDD Field `Minimum Outdoor Air Flow Rate`
+            value (float or "Autosize"): value for IDD Field `Minimum Outdoor Air Flow Rate`
                 Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -53705,6 +51530,13 @@ class ZoneHvacVentilatedSlab(object):
             ValueError: if `value` is not a valid value
         """
         if value is not None:
+            try:
+                value_lower = str(value).lower()
+                if value_lower == "autosize":
+                    self._data["Minimum Outdoor Air Flow Rate"] = "Autosize"
+                    return
+            except ValueError:
+                pass
             try:
                 value = float(value)
             except ValueError:
@@ -53727,8 +51559,6 @@ class ZoneHvacVentilatedSlab(object):
     @minimum_outdoor_air_schedule_name.setter
     def minimum_outdoor_air_schedule_name(self, value=None):
         """  Corresponds to IDD Field `Minimum Outdoor Air Schedule Name`
-        
-        {u'type': u'object-list', u'object-list': u'ScheduleNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Minimum Outdoor Air Schedule Name`
@@ -53765,11 +51595,9 @@ class ZoneHvacVentilatedSlab(object):
     def maximum_outdoor_air_flow_rate(self, value=None):
         """  Corresponds to IDD Field `Maximum Outdoor Air Flow Rate`
         schedule values multiply the minimum outdoor air flow rate
-        
-        {'pytype': 'float', u'required-field': True, u'note': [u'schedule values multiply the minimum outdoor air flow rate'], u'autosizable': u'', u'minimum': '0.0', u'units': u'm3/s', 'type': 'real'}
 
         Args:
-            value (float): value for IDD Field `Maximum Outdoor Air Flow Rate`
+            value (float or "Autosize"): value for IDD Field `Maximum Outdoor Air Flow Rate`
                 Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -53779,6 +51607,13 @@ class ZoneHvacVentilatedSlab(object):
             ValueError: if `value` is not a valid value
         """
         if value is not None:
+            try:
+                value_lower = str(value).lower()
+                if value_lower == "autosize":
+                    self._data["Maximum Outdoor Air Flow Rate"] = "Autosize"
+                    return
+            except ValueError:
+                pass
             try:
                 value = float(value)
             except ValueError:
@@ -53802,8 +51637,6 @@ class ZoneHvacVentilatedSlab(object):
     def maximum_outdoor_air_fraction_or_temperature_schedule_name(self, value=None):
         """  Corresponds to IDD Field `Maximum Outdoor Air Fraction or Temperature Schedule Name`
         Note that this depends on the control type as to whether schedule values are a fraction or temperature
-        
-        {u'note': [u'Note that this depends on the control type as to whether schedule values are a fraction or temperature'], u'type': u'object-list', u'object-list': u'ScheduleNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Maximum Outdoor Air Fraction or Temperature Schedule Name`
@@ -53839,8 +51672,6 @@ class ZoneHvacVentilatedSlab(object):
     @system_configuration_type.setter
     def system_configuration_type(self, value="SlabOnly"):
         """  Corresponds to IDD Field `System Configuration Type`
-        
-        {u'default': u'SlabOnly', u'type': u'choice', u'key': [u'SlabOnly', u'SlabAndZone', u'SeriesSlabs'], u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `System Configuration Type`
@@ -53897,10 +51728,8 @@ class ZoneHvacVentilatedSlab(object):
         return self._data["Hollow Core Inside Diameter"]
 
     @hollow_core_inside_diameter.setter
-    def hollow_core_inside_diameter(self, value=0.05 ):
+    def hollow_core_inside_diameter(self, value=0.05):
         """  Corresponds to IDD Field `Hollow Core Inside Diameter`
-        
-        {'pytype': 'float', u'default': '0.05', u'ip-units': u'in', u'minimum': '0.0', u'units': u'm', 'type': 'real'}
 
         Args:
             value (float): value for IDD Field `Hollow Core Inside Diameter`
@@ -53938,8 +51767,6 @@ class ZoneHvacVentilatedSlab(object):
     def hollow_core_length(self, value=None):
         """  Corresponds to IDD Field `Hollow Core Length`
         (length of core cavity embedded in surface)
-        
-        {u'note': [u'(length of core cavity embedded in surface)'], u'units': u'm', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Hollow Core Length`
@@ -53975,8 +51802,6 @@ class ZoneHvacVentilatedSlab(object):
     def number_of_cores(self, value=None):
         """  Corresponds to IDD Field `Number of Cores`
         flow will be divided evenly among the cores
-        
-        {u'note': [u'flow will be divided evenly among the cores'], u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Number of Cores`
@@ -54011,8 +51836,6 @@ class ZoneHvacVentilatedSlab(object):
     def temperature_control_type(self, value="OutdoorDryBulbTemperature"):
         """  Corresponds to IDD Field `Temperature Control Type`
         (temperature on which unit is controlled)
-        
-        {'pytype': 'str', u'default': u'OutdoorDryBulbTemperature', u'required-field': True, u'note': [u'(temperature on which unit is controlled)'], u'key': [u'MeanAirTemperature', u'MeanRadiantTemperature', u'OperativeTemperature', u'OutdoorDryBulbTemperature', u'OutdoorWetBulbTemperature', u'SurfaceTemperature', u'ZoneAirDewPointTemperature'], u'type': u'choice'}
 
         Args:
             value (str): value for IDD Field `Temperature Control Type`
@@ -54090,8 +51913,6 @@ class ZoneHvacVentilatedSlab(object):
         temperature is between the high and low value, then the inlet air
         temperature is linearly interpolated between the low and high air
         temperature values.
-        
-        {u'note': [u'Air and control temperatures for heating work together to provide', u'a linear function that determines the air temperature sent to the', u'radiant system. The current control temperature (see A14) is', u'compared to the high and low control temperatures at the current time.', u'If the control temperature is above the high temperature, then the', u'inlet air temperature is set to the low air temperature. If the', u'control temperature is below the low temperature, then the inlet', u'air temperature is set to the high air temperature. If the control', u'temperature is between the high and low value, then the inlet air', u'temperature is linearly interpolated between the low and high air', u'temperature values.'], u'type': u'object-list', u'object-list': u'ScheduleNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Heating High Air Temperature Schedule Name`
@@ -54127,8 +51948,6 @@ class ZoneHvacVentilatedSlab(object):
     @heating_low_air_temperature_schedule_name.setter
     def heating_low_air_temperature_schedule_name(self, value=None):
         """  Corresponds to IDD Field `Heating Low Air Temperature Schedule Name`
-        
-        {u'type': u'object-list', u'object-list': u'ScheduleNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Heating Low Air Temperature Schedule Name`
@@ -54164,8 +51983,6 @@ class ZoneHvacVentilatedSlab(object):
     @heating_high_control_temperature_schedule_name.setter
     def heating_high_control_temperature_schedule_name(self, value=None):
         """  Corresponds to IDD Field `Heating High Control Temperature Schedule Name`
-        
-        {u'type': u'object-list', u'object-list': u'ScheduleNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Heating High Control Temperature Schedule Name`
@@ -54201,8 +52018,6 @@ class ZoneHvacVentilatedSlab(object):
     @heating_low_control_temperature_schedule_name.setter
     def heating_low_control_temperature_schedule_name(self, value=None):
         """  Corresponds to IDD Field `Heating Low Control Temperature Schedule Name`
-        
-        {u'type': u'object-list', u'object-list': u'ScheduleNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Heating Low Control Temperature Schedule Name`
@@ -54240,8 +52055,6 @@ class ZoneHvacVentilatedSlab(object):
         """  Corresponds to IDD Field `Cooling High Air Temperature Schedule Name`
         See note for heating high air temperature schedule above for
         interpretation information (or see the Input/Output Reference).
-        
-        {u'note': [u'See note for heating high air temperature schedule above for', u'interpretation information (or see the Input/Output Reference).'], u'type': u'object-list', u'object-list': u'ScheduleNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Cooling High Air Temperature Schedule Name`
@@ -54277,8 +52090,6 @@ class ZoneHvacVentilatedSlab(object):
     @cooling_low_air_temperature_schedule_name.setter
     def cooling_low_air_temperature_schedule_name(self, value=None):
         """  Corresponds to IDD Field `Cooling Low Air Temperature Schedule Name`
-        
-        {u'type': u'object-list', u'object-list': u'ScheduleNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Cooling Low Air Temperature Schedule Name`
@@ -54314,8 +52125,6 @@ class ZoneHvacVentilatedSlab(object):
     @cooling_high_control_temperature_schedule_name.setter
     def cooling_high_control_temperature_schedule_name(self, value=None):
         """  Corresponds to IDD Field `Cooling High Control Temperature Schedule Name`
-        
-        {u'type': u'object-list', u'object-list': u'ScheduleNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Cooling High Control Temperature Schedule Name`
@@ -54351,8 +52160,6 @@ class ZoneHvacVentilatedSlab(object):
     @cooling_low_control_temperature_schedule_name.setter
     def cooling_low_control_temperature_schedule_name(self, value=None):
         """  Corresponds to IDD Field `Cooling Low Control Temperature Schedule Name`
-        
-        {u'type': u'object-list', u'object-list': u'ScheduleNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Cooling Low Control Temperature Schedule Name`
@@ -54390,8 +52197,6 @@ class ZoneHvacVentilatedSlab(object):
         """  Corresponds to IDD Field `Return Air Node Name`
         This is the zone return air inlet to the ventilated slab system outdoor air mixer.
         This node is typically a zone exhaust node (do not connect to "Zone Return Air Node").
-        
-        {u'note': [u'This is the zone return air inlet to the ventilated slab system outdoor air mixer.', u'This node is typically a zone exhaust node (do not connect to "Zone Return Air Node").'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Return Air Node Name`
@@ -54428,8 +52233,6 @@ class ZoneHvacVentilatedSlab(object):
     def slab_in_node_name(self, value=None):
         """  Corresponds to IDD Field `Slab In Node Name`
         This is the node entering the slab or series of slabs after the fan and coil(s).
-        
-        {u'note': [u'This is the node entering the slab or series of slabs after the fan and coil(s).'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Slab In Node Name`
@@ -54468,8 +52271,6 @@ class ZoneHvacVentilatedSlab(object):
         This is the node name exiting the slab.
         This node is typically a zone inlet node.
         Leave blank when the system configuration is SlabOnly or SeriesSlabs.
-        
-        {u'note': [u'This is the node name exiting the slab.', u'This node is typically a zone inlet node.', u'Leave blank when the system configuration is SlabOnly or SeriesSlabs.'], u'type': u'node', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Zone Supply Air Node Name`
@@ -54507,8 +52308,6 @@ class ZoneHvacVentilatedSlab(object):
         """  Corresponds to IDD Field `Outdoor Air Node Name`
         This node is the outdoor air inlet to the ventilated slab oa mixer.
         This node should also be specified in an OutdoorAir:Node or OutdoorAir:NodeList object.
-        
-        {u'note': [u'This node is the outdoor air inlet to the ventilated slab oa mixer.', u'This node should also be specified in an OutdoorAir:Node or OutdoorAir:NodeList object.'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Outdoor Air Node Name`
@@ -54545,8 +52344,6 @@ class ZoneHvacVentilatedSlab(object):
     def relief_air_node_name(self, value=None):
         """  Corresponds to IDD Field `Relief Air Node Name`
         This node is the relief air node from the ventilated slab outdoor air mixer.
-        
-        {u'note': [u'This node is the relief air node from the ventilated slab outdoor air mixer.'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Relief Air Node Name`
@@ -54583,8 +52380,6 @@ class ZoneHvacVentilatedSlab(object):
     def outdoor_air_mixer_outlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Outdoor Air Mixer Outlet Node Name`
         This is the node name leaving the outdoor air mixer and entering the fan and coil(s).
-        
-        {u'note': [u'This is the node name leaving the outdoor air mixer and entering the fan and coil(s).'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Outdoor Air Mixer Outlet Node Name`
@@ -54621,8 +52416,6 @@ class ZoneHvacVentilatedSlab(object):
     def fan_outlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Fan Outlet Node Name`
         This is the node name of the fan outlet.
-        
-        {u'note': [u'This is the node name of the fan outlet.'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Fan Outlet Node Name`
@@ -54659,8 +52452,6 @@ class ZoneHvacVentilatedSlab(object):
     def fan_name(self, value=None):
         """  Corresponds to IDD Field `Fan Name`
         Allowable fan type is Fan:ConstantVolume
-        
-        {u'note': [u'Allowable fan type is Fan:ConstantVolume'], u'type': u'object-list', u'object-list': u'FansCV', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Fan Name`
@@ -54696,8 +52487,6 @@ class ZoneHvacVentilatedSlab(object):
     @coil_option_type.setter
     def coil_option_type(self, value=None):
         """  Corresponds to IDD Field `Coil Option Type`
-        
-        {u'type': u'choice', u'key': [u'None', u'Heating', u'Cooling', u'HeatingAndCooling'], u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Coil Option Type`
@@ -54757,8 +52546,6 @@ class ZoneHvacVentilatedSlab(object):
     @heating_coil_object_type.setter
     def heating_coil_object_type(self, value=None):
         """  Corresponds to IDD Field `Heating Coil Object Type`
-        
-        {u'type': u'choice', u'key': [u'Coil:Heating:Water', u'Coil:Heating:Electric', u'Coil:Heating:Gas', u'Coil:Heating:Steam'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Heating Coil Object Type`
@@ -54818,8 +52605,6 @@ class ZoneHvacVentilatedSlab(object):
     @heating_coil_name.setter
     def heating_coil_name(self, value=None):
         """  Corresponds to IDD Field `Heating Coil Name`
-        
-        {u'type': u'object-list', u'object-list': u'HeatingCoilName', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Heating Coil Name`
@@ -54855,8 +52640,6 @@ class ZoneHvacVentilatedSlab(object):
     @hot_water_or_steam_inlet_node_name.setter
     def hot_water_or_steam_inlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Hot Water or Steam Inlet Node Name`
-        
-        {u'type': u'node', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Hot Water or Steam Inlet Node Name`
@@ -54892,8 +52675,6 @@ class ZoneHvacVentilatedSlab(object):
     @cooling_coil_object_type.setter
     def cooling_coil_object_type(self, value=None):
         """  Corresponds to IDD Field `Cooling Coil Object Type`
-        
-        {u'type': u'choice', u'key': [u'Coil:Cooling:Water', u'Coil:Cooling:Water:DetailedGeometry', u'CoilSystem:Cooling:Water:HeatExchangerAssisted'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Cooling Coil Object Type`
@@ -54951,8 +52732,6 @@ class ZoneHvacVentilatedSlab(object):
     @cooling_coil_name.setter
     def cooling_coil_name(self, value=None):
         """  Corresponds to IDD Field `Cooling Coil Name`
-        
-        {u'type': u'object-list', u'object-list': u'CoolingCoilsWater', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Cooling Coil Name`
@@ -54988,8 +52767,6 @@ class ZoneHvacVentilatedSlab(object):
     @cold_water_inlet_node_name.setter
     def cold_water_inlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Cold Water Inlet Node Name`
-        
-        {u'type': u'node', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Cold Water Inlet Node Name`
@@ -55026,8 +52803,6 @@ class ZoneHvacVentilatedSlab(object):
     def availability_manager_list_name(self, value=None):
         """  Corresponds to IDD Field `Availability Manager List Name`
         Enter the name of an AvailabilityManagerAssignmentList object.
-        
-        {u'note': [u'Enter the name of an AvailabilityManagerAssignmentList object.'], u'type': u'object-list', u'object-list': u'SystemAvailabilityManagerLists', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Availability Manager List Name`
@@ -55064,8 +52839,6 @@ class ZoneHvacVentilatedSlab(object):
     def design_specification_zonehvac_sizing_object_name(self, value=None):
         """  Corresponds to IDD Field `Design Specification ZoneHVAC Sizing Object Name`
         Enter the name of a DesignSpecificationZoneHVACSizing object.
-        
-        {u'note': [u'Enter the name of a DesignSpecificationZoneHVACSizing object.'], u'type': u'object-list', u'object-list': u'DesignSpecificationZoneHVACSizingName', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Design Specification ZoneHVAC Sizing Object Name`
@@ -55730,8 +53503,6 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'reference': u'RadGroupAndSurfNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -55767,8 +53538,6 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
     @zone_1_name.setter
     def zone_1_name(self, value=None):
         """  Corresponds to IDD Field `Zone 1 Name`
-        
-        {'pytype': 'str', u'type': u'object-list', u'object-list': u'ZoneNames', u'required-field': True, u'begin-extensible': u''}
 
         Args:
             value (str): value for IDD Field `Zone 1 Name`
@@ -55804,8 +53573,6 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
     @surface_1_name.setter
     def surface_1_name(self, value=None):
         """  Corresponds to IDD Field `Surface 1 Name`
-        
-        {u'type': u'object-list', u'object-list': u'SurfaceNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 1 Name`
@@ -55841,8 +53608,6 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
     @core_diameter_for_surface_1.setter
     def core_diameter_for_surface_1(self, value=None):
         """  Corresponds to IDD Field `Core Diameter for Surface 1`
-        
-        {u'units': u'm', u'minimum': '0.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Core Diameter for Surface 1`
@@ -55877,8 +53642,6 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
     @core_length_for_surface_1.setter
     def core_length_for_surface_1(self, value=None):
         """  Corresponds to IDD Field `Core Length for Surface 1`
-        
-        {u'units': u'm', u'minimum': '0.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Core Length for Surface 1`
@@ -55913,8 +53676,6 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
     @core_numbers_for_surface_1.setter
     def core_numbers_for_surface_1(self, value=None):
         """  Corresponds to IDD Field `Core Numbers for Surface 1`
-        
-        {u'minimum': '0.0', 'type': 'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Core Numbers for Surface 1`
@@ -55948,8 +53709,6 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
     @slab_inlet_node_name_for_surface_1.setter
     def slab_inlet_node_name_for_surface_1(self, value=None):
         """  Corresponds to IDD Field `Slab Inlet Node Name for Surface 1`
-        
-        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Slab Inlet Node Name for Surface 1`
@@ -55985,8 +53744,6 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
     @slab_outlet_node_name_for_surface_1.setter
     def slab_outlet_node_name_for_surface_1(self, value=None):
         """  Corresponds to IDD Field `Slab Outlet Node Name for Surface 1`
-        
-        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Slab Outlet Node Name for Surface 1`
@@ -56022,8 +53779,6 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
     @zone_2_name.setter
     def zone_2_name(self, value=None):
         """  Corresponds to IDD Field `Zone 2 Name`
-        
-        {u'type': u'object-list', u'object-list': u'ZoneNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Zone 2 Name`
@@ -56059,8 +53814,6 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
     @surface_2_name.setter
     def surface_2_name(self, value=None):
         """  Corresponds to IDD Field `Surface 2 Name`
-        
-        {u'type': u'object-list', u'object-list': u'SurfaceNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 2 Name`
@@ -56096,8 +53849,6 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
     @core_diameter_for_surface_2.setter
     def core_diameter_for_surface_2(self, value=None):
         """  Corresponds to IDD Field `Core Diameter for Surface 2`
-        
-        {u'units': u'm', u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Core Diameter for Surface 2`
@@ -56132,8 +53883,6 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
     @core_length_for_surface_2.setter
     def core_length_for_surface_2(self, value=None):
         """  Corresponds to IDD Field `Core Length for Surface 2`
-        
-        {u'units': u'm', u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Core Length for Surface 2`
@@ -56168,8 +53917,6 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
     @core_numbers_for_surface_2.setter
     def core_numbers_for_surface_2(self, value=None):
         """  Corresponds to IDD Field `Core Numbers for Surface 2`
-        
-        {u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Core Numbers for Surface 2`
@@ -56203,8 +53950,6 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
     @slab_inlet_node_name_for_surface_2.setter
     def slab_inlet_node_name_for_surface_2(self, value=None):
         """  Corresponds to IDD Field `Slab Inlet Node Name for Surface 2`
-        
-        {u'type': u'node', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Slab Inlet Node Name for Surface 2`
@@ -56240,8 +53985,6 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
     @slab_outlet_node_name_for_surface_2.setter
     def slab_outlet_node_name_for_surface_2(self, value=None):
         """  Corresponds to IDD Field `Slab Outlet Node Name for Surface 2`
-        
-        {u'type': u'node', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Slab Outlet Node Name for Surface 2`
@@ -56277,8 +54020,6 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
     @zone_3_name.setter
     def zone_3_name(self, value=None):
         """  Corresponds to IDD Field `Zone 3 Name`
-        
-        {u'type': u'object-list', u'object-list': u'ZoneNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Zone 3 Name`
@@ -56314,8 +54055,6 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
     @surface_3_name.setter
     def surface_3_name(self, value=None):
         """  Corresponds to IDD Field `Surface 3 Name`
-        
-        {u'type': u'object-list', u'object-list': u'SurfaceNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 3 Name`
@@ -56351,8 +54090,6 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
     @core_diameter_for_surface_3.setter
     def core_diameter_for_surface_3(self, value=None):
         """  Corresponds to IDD Field `Core Diameter for Surface 3`
-        
-        {u'units': u'm', u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Core Diameter for Surface 3`
@@ -56387,8 +54124,6 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
     @core_length_for_surface_3.setter
     def core_length_for_surface_3(self, value=None):
         """  Corresponds to IDD Field `Core Length for Surface 3`
-        
-        {u'units': u'm', u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Core Length for Surface 3`
@@ -56423,8 +54158,6 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
     @core_numbers_for_surface_3.setter
     def core_numbers_for_surface_3(self, value=None):
         """  Corresponds to IDD Field `Core Numbers for Surface 3`
-        
-        {u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Core Numbers for Surface 3`
@@ -56458,8 +54191,6 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
     @slab_inlet_node_name_for_surface_3.setter
     def slab_inlet_node_name_for_surface_3(self, value=None):
         """  Corresponds to IDD Field `Slab Inlet Node Name for Surface 3`
-        
-        {u'type': u'node', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Slab Inlet Node Name for Surface 3`
@@ -56495,8 +54226,6 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
     @slab_outlet_node_name_for_surface_3.setter
     def slab_outlet_node_name_for_surface_3(self, value=None):
         """  Corresponds to IDD Field `Slab Outlet Node Name for Surface 3`
-        
-        {u'type': u'node', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Slab Outlet Node Name for Surface 3`
@@ -56532,8 +54261,6 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
     @zone_4_name.setter
     def zone_4_name(self, value=None):
         """  Corresponds to IDD Field `Zone 4 Name`
-        
-        {u'type': u'object-list', u'object-list': u'ZoneNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Zone 4 Name`
@@ -56569,8 +54296,6 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
     @surface_4_name.setter
     def surface_4_name(self, value=None):
         """  Corresponds to IDD Field `Surface 4 Name`
-        
-        {u'type': u'object-list', u'object-list': u'SurfaceNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 4 Name`
@@ -56606,8 +54331,6 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
     @core_diameter_for_surface_4.setter
     def core_diameter_for_surface_4(self, value=None):
         """  Corresponds to IDD Field `Core Diameter for Surface 4`
-        
-        {u'units': u'm', u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Core Diameter for Surface 4`
@@ -56642,8 +54365,6 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
     @core_length_for_surface_4.setter
     def core_length_for_surface_4(self, value=None):
         """  Corresponds to IDD Field `Core Length for Surface 4`
-        
-        {u'units': u'm', u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Core Length for Surface 4`
@@ -56678,8 +54399,6 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
     @core_numbers_for_surface_4.setter
     def core_numbers_for_surface_4(self, value=None):
         """  Corresponds to IDD Field `Core Numbers for Surface 4`
-        
-        {u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Core Numbers for Surface 4`
@@ -56713,8 +54432,6 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
     @slab_inlet_node_name_for_surface_4.setter
     def slab_inlet_node_name_for_surface_4(self, value=None):
         """  Corresponds to IDD Field `Slab Inlet Node Name for Surface 4`
-        
-        {u'type': u'node', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Slab Inlet Node Name for Surface 4`
@@ -56750,8 +54467,6 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
     @slab_outlet_node_name_for_surface_4.setter
     def slab_outlet_node_name_for_surface_4(self, value=None):
         """  Corresponds to IDD Field `Slab Outlet Node Name for Surface 4`
-        
-        {u'type': u'node', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Slab Outlet Node Name for Surface 4`
@@ -56787,8 +54502,6 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
     @zone_5_name.setter
     def zone_5_name(self, value=None):
         """  Corresponds to IDD Field `Zone 5 Name`
-        
-        {u'type': u'object-list', u'object-list': u'ZoneNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Zone 5 Name`
@@ -56824,8 +54537,6 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
     @surface_5_name.setter
     def surface_5_name(self, value=None):
         """  Corresponds to IDD Field `Surface 5 Name`
-        
-        {u'type': u'object-list', u'object-list': u'SurfaceNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 5 Name`
@@ -56861,8 +54572,6 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
     @core_diameter_for_surface_5.setter
     def core_diameter_for_surface_5(self, value=None):
         """  Corresponds to IDD Field `Core Diameter for Surface 5`
-        
-        {u'units': u'm', u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Core Diameter for Surface 5`
@@ -56897,8 +54606,6 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
     @core_length_for_surface_5.setter
     def core_length_for_surface_5(self, value=None):
         """  Corresponds to IDD Field `Core Length for Surface 5`
-        
-        {u'units': u'm', u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Core Length for Surface 5`
@@ -56933,8 +54640,6 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
     @core_numbers_for_surface_5.setter
     def core_numbers_for_surface_5(self, value=None):
         """  Corresponds to IDD Field `Core Numbers for Surface 5`
-        
-        {u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Core Numbers for Surface 5`
@@ -56968,8 +54673,6 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
     @slab_inlet_node_name_for_surface_5.setter
     def slab_inlet_node_name_for_surface_5(self, value=None):
         """  Corresponds to IDD Field `Slab Inlet Node Name for Surface 5`
-        
-        {u'type': u'node', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Slab Inlet Node Name for Surface 5`
@@ -57005,8 +54708,6 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
     @slab_outlet_node_name_for_surface_5.setter
     def slab_outlet_node_name_for_surface_5(self, value=None):
         """  Corresponds to IDD Field `Slab Outlet Node Name for Surface 5`
-        
-        {u'type': u'node', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Slab Outlet Node Name for Surface 5`
@@ -57042,8 +54743,6 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
     @zone_6_name.setter
     def zone_6_name(self, value=None):
         """  Corresponds to IDD Field `Zone 6 Name`
-        
-        {u'type': u'object-list', u'object-list': u'ZoneNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Zone 6 Name`
@@ -57079,8 +54778,6 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
     @surface_6_name.setter
     def surface_6_name(self, value=None):
         """  Corresponds to IDD Field `Surface 6 Name`
-        
-        {u'type': u'object-list', u'object-list': u'SurfaceNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 6 Name`
@@ -57116,8 +54813,6 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
     @core_diameter_for_surface_6.setter
     def core_diameter_for_surface_6(self, value=None):
         """  Corresponds to IDD Field `Core Diameter for Surface 6`
-        
-        {u'units': u'm', u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Core Diameter for Surface 6`
@@ -57152,8 +54847,6 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
     @core_length_for_surface_6.setter
     def core_length_for_surface_6(self, value=None):
         """  Corresponds to IDD Field `Core Length for Surface 6`
-        
-        {u'units': u'm', u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Core Length for Surface 6`
@@ -57188,8 +54881,6 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
     @core_numbers_for_surface_6.setter
     def core_numbers_for_surface_6(self, value=None):
         """  Corresponds to IDD Field `Core Numbers for Surface 6`
-        
-        {u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Core Numbers for Surface 6`
@@ -57223,8 +54914,6 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
     @slab_inlet_node_name_for_surface_6.setter
     def slab_inlet_node_name_for_surface_6(self, value=None):
         """  Corresponds to IDD Field `Slab Inlet Node Name for Surface 6`
-        
-        {u'type': u'node', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Slab Inlet Node Name for Surface 6`
@@ -57260,8 +54949,6 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
     @slab_outlet_node_name_for_surface_6.setter
     def slab_outlet_node_name_for_surface_6(self, value=None):
         """  Corresponds to IDD Field `Slab Outlet Node Name for Surface 6`
-        
-        {u'type': u'node', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Slab Outlet Node Name for Surface 6`
@@ -57297,8 +54984,6 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
     @zone_7_name.setter
     def zone_7_name(self, value=None):
         """  Corresponds to IDD Field `Zone 7 Name`
-        
-        {u'type': u'object-list', u'object-list': u'ZoneNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Zone 7 Name`
@@ -57334,8 +55019,6 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
     @surface_7_name.setter
     def surface_7_name(self, value=None):
         """  Corresponds to IDD Field `Surface 7 Name`
-        
-        {u'type': u'object-list', u'object-list': u'SurfaceNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 7 Name`
@@ -57371,8 +55054,6 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
     @core_diameter_for_surface_7.setter
     def core_diameter_for_surface_7(self, value=None):
         """  Corresponds to IDD Field `Core Diameter for Surface 7`
-        
-        {u'units': u'm', u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Core Diameter for Surface 7`
@@ -57407,8 +55088,6 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
     @core_length_for_surface_7.setter
     def core_length_for_surface_7(self, value=None):
         """  Corresponds to IDD Field `Core Length for Surface 7`
-        
-        {u'units': u'm', u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Core Length for Surface 7`
@@ -57443,8 +55122,6 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
     @core_numbers_for_surface_7.setter
     def core_numbers_for_surface_7(self, value=None):
         """  Corresponds to IDD Field `Core Numbers for Surface 7`
-        
-        {u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Core Numbers for Surface 7`
@@ -57478,8 +55155,6 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
     @slab_inlet_node_name_for_surface_7.setter
     def slab_inlet_node_name_for_surface_7(self, value=None):
         """  Corresponds to IDD Field `Slab Inlet Node Name for Surface 7`
-        
-        {u'type': u'node', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Slab Inlet Node Name for Surface 7`
@@ -57515,8 +55190,6 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
     @slab_outlet_node_name_for_surface_7.setter
     def slab_outlet_node_name_for_surface_7(self, value=None):
         """  Corresponds to IDD Field `Slab Outlet Node Name for Surface 7`
-        
-        {u'type': u'node', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Slab Outlet Node Name for Surface 7`
@@ -57552,8 +55225,6 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
     @zone_8_name.setter
     def zone_8_name(self, value=None):
         """  Corresponds to IDD Field `Zone 8 Name`
-        
-        {u'type': u'object-list', u'object-list': u'ZoneNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Zone 8 Name`
@@ -57589,8 +55260,6 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
     @surface_8_name.setter
     def surface_8_name(self, value=None):
         """  Corresponds to IDD Field `Surface 8 Name`
-        
-        {u'type': u'object-list', u'object-list': u'SurfaceNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 8 Name`
@@ -57626,8 +55295,6 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
     @core_diameter_for_surface_8.setter
     def core_diameter_for_surface_8(self, value=None):
         """  Corresponds to IDD Field `Core Diameter for Surface 8`
-        
-        {u'units': u'm', u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Core Diameter for Surface 8`
@@ -57662,8 +55329,6 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
     @core_length_for_surface_8.setter
     def core_length_for_surface_8(self, value=None):
         """  Corresponds to IDD Field `Core Length for Surface 8`
-        
-        {u'units': u'm', u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Core Length for Surface 8`
@@ -57698,8 +55363,6 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
     @core_numbers_for_surface_8.setter
     def core_numbers_for_surface_8(self, value=None):
         """  Corresponds to IDD Field `Core Numbers for Surface 8`
-        
-        {u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Core Numbers for Surface 8`
@@ -57733,8 +55396,6 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
     @slab_inlet_node_name_for_surface_8.setter
     def slab_inlet_node_name_for_surface_8(self, value=None):
         """  Corresponds to IDD Field `Slab Inlet Node Name for Surface 8`
-        
-        {u'type': u'node', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Slab Inlet Node Name for Surface 8`
@@ -57770,8 +55431,6 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
     @slab_outlet_node_name_for_surface_8.setter
     def slab_outlet_node_name_for_surface_8(self, value=None):
         """  Corresponds to IDD Field `Slab Outlet Node Name for Surface 8`
-        
-        {u'type': u'node', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Slab Outlet Node Name for Surface 8`
@@ -57807,8 +55466,6 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
     @zone_9_name.setter
     def zone_9_name(self, value=None):
         """  Corresponds to IDD Field `Zone 9 Name`
-        
-        {u'type': u'object-list', u'object-list': u'ZoneNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Zone 9 Name`
@@ -57844,8 +55501,6 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
     @surface_9_name.setter
     def surface_9_name(self, value=None):
         """  Corresponds to IDD Field `Surface 9 Name`
-        
-        {u'type': u'object-list', u'object-list': u'SurfaceNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 9 Name`
@@ -57881,8 +55536,6 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
     @core_diameter_for_surface_9.setter
     def core_diameter_for_surface_9(self, value=None):
         """  Corresponds to IDD Field `Core Diameter for Surface 9`
-        
-        {u'units': u'm', u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Core Diameter for Surface 9`
@@ -57917,8 +55570,6 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
     @core_length_for_surface_9.setter
     def core_length_for_surface_9(self, value=None):
         """  Corresponds to IDD Field `Core Length for Surface 9`
-        
-        {u'units': u'm', u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Core Length for Surface 9`
@@ -57953,8 +55604,6 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
     @core_numbers_for_surface_9.setter
     def core_numbers_for_surface_9(self, value=None):
         """  Corresponds to IDD Field `Core Numbers for Surface 9`
-        
-        {u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Core Numbers for Surface 9`
@@ -57988,8 +55637,6 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
     @slab_inlet_node_name_for_surface_9.setter
     def slab_inlet_node_name_for_surface_9(self, value=None):
         """  Corresponds to IDD Field `Slab Inlet Node Name for Surface 9`
-        
-        {u'type': u'node', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Slab Inlet Node Name for Surface 9`
@@ -58025,8 +55672,6 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
     @slab_outlet_node_name_for_surface_9.setter
     def slab_outlet_node_name_for_surface_9(self, value=None):
         """  Corresponds to IDD Field `Slab Outlet Node Name for Surface 9`
-        
-        {u'type': u'node', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Slab Outlet Node Name for Surface 9`
@@ -58062,8 +55707,6 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
     @zone_10_name.setter
     def zone_10_name(self, value=None):
         """  Corresponds to IDD Field `Zone 10 Name`
-        
-        {u'type': u'object-list', u'object-list': u'ZoneNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Zone 10 Name`
@@ -58099,8 +55742,6 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
     @surface_10_name.setter
     def surface_10_name(self, value=None):
         """  Corresponds to IDD Field `Surface 10 Name`
-        
-        {u'type': u'object-list', u'object-list': u'SurfaceNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 10 Name`
@@ -58136,8 +55777,6 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
     @core_diameter_for_surface_10.setter
     def core_diameter_for_surface_10(self, value=None):
         """  Corresponds to IDD Field `Core Diameter for Surface 10`
-        
-        {u'units': u'm', u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Core Diameter for Surface 10`
@@ -58172,8 +55811,6 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
     @core_length_for_surface_10.setter
     def core_length_for_surface_10(self, value=None):
         """  Corresponds to IDD Field `Core Length for Surface 10`
-        
-        {u'units': u'm', u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Core Length for Surface 10`
@@ -58208,8 +55845,6 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
     @core_numbers_for_surface_10.setter
     def core_numbers_for_surface_10(self, value=None):
         """  Corresponds to IDD Field `Core Numbers for Surface 10`
-        
-        {u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Core Numbers for Surface 10`
@@ -58243,8 +55878,6 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
     @slab_inlet_node_name_for_surface_10.setter
     def slab_inlet_node_name_for_surface_10(self, value=None):
         """  Corresponds to IDD Field `Slab Inlet Node Name for Surface 10`
-        
-        {u'type': u'node', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Slab Inlet Node Name for Surface 10`
@@ -58280,8 +55913,6 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
     @slab_outlet_node_name_for_surface_10.setter
     def slab_outlet_node_name_for_surface_10(self, value=None):
         """  Corresponds to IDD Field `Slab Outlet Node Name for Surface 10`
-        
-        {u'type': u'node', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Slab Outlet Node Name for Surface 10`

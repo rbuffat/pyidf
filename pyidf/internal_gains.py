@@ -230,8 +230,6 @@ class People(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'reference': u'PeopleNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -267,8 +265,6 @@ class People(object):
     @zone_or_zonelist_name.setter
     def zone_or_zonelist_name(self, value=None):
         """  Corresponds to IDD Field `Zone or ZoneList Name`
-        
-        {u'type': u'object-list', u'object-list': u'ZoneAndZoneListNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Zone or ZoneList Name`
@@ -305,8 +301,6 @@ class People(object):
     def number_of_people_schedule_name(self, value=None):
         """  Corresponds to IDD Field `Number of People Schedule Name`
         units in schedule should be fraction applied to number of people (0.0 - 1.0)
-        
-        {u'note': [u'units in schedule should be fraction applied to number of people (0.0 - 1.0)'], u'type': u'object-list', u'object-list': u'ScheduleNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Number of People Schedule Name`
@@ -347,8 +341,6 @@ class People(object):
         Choices: People -- simply enter number of occupants.
         People per Zone Floor Area -- enter the number to apply.  Value * Floor Area = Number of people
         Zone Floor Area per Person -- enter the number to apply.  Floor Area / Value = Number of people
-        
-        {'pytype': 'str', u'default': u'People', u'required-field': True, u'note': [u'The entered calculation method is used to create the maximum number of people', u'for this set of attributes (i.e. sensible fraction, schedule, etc)', u'Choices: People -- simply enter number of occupants.', u'People per Zone Floor Area -- enter the number to apply.  Value * Floor Area = Number of people', u'Zone Floor Area per Person -- enter the number to apply.  Floor Area / Value = Number of people'], u'key': [u'People', u'People/Area', u'Area/Person'], u'type': u'choice'}
 
         Args:
             value (str): value for IDD Field `Number of People Calculation Method`
@@ -407,8 +399,6 @@ class People(object):
     @number_of_people.setter
     def number_of_people(self, value=None):
         """  Corresponds to IDD Field `Number of People`
-        
-        {u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Number of People`
@@ -442,8 +432,6 @@ class People(object):
     @people_per_zone_floor_area.setter
     def people_per_zone_floor_area(self, value=None):
         """  Corresponds to IDD Field `People per Zone Floor Area`
-        
-        {u'units': u'person/m2', u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `People per Zone Floor Area`
@@ -478,8 +466,6 @@ class People(object):
     @zone_floor_area_per_person.setter
     def zone_floor_area_per_person(self, value=None):
         """  Corresponds to IDD Field `Zone Floor Area per Person`
-        
-        {u'units': u'm2/person', u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Zone Floor Area per Person`
@@ -514,8 +500,6 @@ class People(object):
     @fraction_radiant.setter
     def fraction_radiant(self, value=None):
         """  Corresponds to IDD Field `Fraction Radiant`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction Radiant`
@@ -551,11 +535,9 @@ class People(object):
         return self._data["Sensible Heat Fraction"]
 
     @sensible_heat_fraction.setter
-    def sensible_heat_fraction(self, value="autocalculate" ):
+    def sensible_heat_fraction(self, value="autocalculate"):
         """  Corresponds to IDD Field `Sensible Heat Fraction`
         if input, overrides program calculated sensible/latent split
-        
-        {'pytype': 'float', u'default': '"autocalculate"', u'maximum': '1.0', u'note': [u'if input, overrides program calculated sensible/latent split'], u'minimum': '0.0', u'autocalculatable': True, 'type': 'real'}
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `Sensible Heat Fraction`
@@ -572,7 +554,7 @@ class People(object):
             try:
                 value_lower = str(value).lower()
                 if value_lower == "autocalculate":
-                    self._data["Sensible Heat Fraction"] = value
+                    self._data["Sensible Heat Fraction"] = "Autocalculate"
                     return
             except ValueError:
                 pass
@@ -603,8 +585,6 @@ class People(object):
         """  Corresponds to IDD Field `Activity Level Schedule Name`
         Note that W has to be converted to mets in TC routine
         units in schedule are W/person
-        
-        {u'note': [u'Note that W has to be converted to mets in TC routine', u'units in schedule are W/person'], u'type': u'object-list', u'object-list': u'ScheduleNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Activity Level Schedule Name`
@@ -638,13 +618,11 @@ class People(object):
         return self._data["Carbon Dioxide Generation Rate"]
 
     @carbon_dioxide_generation_rate.setter
-    def carbon_dioxide_generation_rate(self, value=3.82e-08 ):
+    def carbon_dioxide_generation_rate(self, value=3.82e-08):
         """  Corresponds to IDD Field `Carbon Dioxide Generation Rate`
         CO2 generation rate per unit of activity level.
         The default value is obtained from ASHRAE Std 62.1 at 0.0084 cfm/met/person over
         the general adult population.
-        
-        {'pytype': 'float', u'default': '3.82e-08', u'maximum': '3.82e-07', u'note': [u'CO2 generation rate per unit of activity level.', u'The default value is obtained from ASHRAE Std 62.1 at 0.0084 cfm/met/person over', u'the general adult population.'], u'minimum': '0.0', u'units': u'm3/s-W', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Carbon Dioxide Generation Rate`
@@ -684,8 +662,6 @@ class People(object):
     @enable_ashrae_55_comfort_warnings.setter
     def enable_ashrae_55_comfort_warnings(self, value="No"):
         """  Corresponds to IDD Field `Enable ASHRAE 55 Comfort Warnings`
-        
-        {u'default': u'No', u'type': u'choice', u'key': [u'Yes', u'No'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Enable ASHRAE 55 Comfort Warnings`
@@ -743,8 +719,6 @@ class People(object):
     def mean_radiant_temperature_calculation_type(self, value="ZoneAveraged"):
         """  Corresponds to IDD Field `Mean Radiant Temperature Calculation Type`
         optional (only required for thermal comfort runs)
-        
-        {u'note': [u'optional (only required for thermal comfort runs)'], u'default': u'ZoneAveraged', u'type': u'choice', u'key': [u'ZoneAveraged', u'SurfaceWeighted', u'AngleFactor'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Mean Radiant Temperature Calculation Type`
@@ -804,8 +778,6 @@ class People(object):
     def surface_name_or_angle_factor_list_name(self, value=None):
         """  Corresponds to IDD Field `Surface Name/Angle Factor List Name`
         optional (only required for thermal comfort runs)
-        
-        {u'note': [u'optional (only required for thermal comfort runs)'], u'type': u'object-list', u'object-list': u'AllHeatTranAngFacNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface Name/Angle Factor List Name`
@@ -843,8 +815,6 @@ class People(object):
         """  Corresponds to IDD Field `Work Efficiency Schedule Name`
         units in schedule are 0.0 to 1.0
         optional (only required for thermal comfort runs)
-        
-        {u'note': [u'units in schedule are 0.0 to 1.0', u'optional (only required for thermal comfort runs)'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Work Efficiency Schedule Name`
@@ -880,8 +850,6 @@ class People(object):
     @clothing_insulation_calculation_method.setter
     def clothing_insulation_calculation_method(self, value="ClothingInsulationSchedule"):
         """  Corresponds to IDD Field `Clothing Insulation Calculation Method`
-        
-        {u'default': u'ClothingInsulationSchedule', u'type': u'choice', u'key': [u'ClothingInsulationSchedule', u'DynamicClothingModelASHRAE55', u'CalculationMethodSchedule'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Clothing Insulation Calculation Method`
@@ -941,8 +909,6 @@ class People(object):
     def clothing_insulation_calculation_method_schedule_name(self, value=None):
         """  Corresponds to IDD Field `Clothing Insulation Calculation Method Schedule Name`
         a schedule value of 1 for the Scheduled method, and 2 for the DynamicClothingModelASHRAE55 method
-        
-        {u'note': [u'a schedule value of 1 for the Scheduled method, and 2 for the DynamicClothingModelASHRAE55 method'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Clothing Insulation Calculation Method Schedule Name`
@@ -980,8 +946,6 @@ class People(object):
         """  Corresponds to IDD Field `Clothing Insulation Schedule Name`
         use "Clo" from ASHRAE or Thermal Comfort guides
         optional (only required for thermal comfort runs)
-        
-        {u'note': [u'use "Clo" from ASHRAE or Thermal Comfort guides', u'optional (only required for thermal comfort runs)'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Clothing Insulation Schedule Name`
@@ -1019,8 +983,6 @@ class People(object):
         """  Corresponds to IDD Field `Air Velocity Schedule Name`
         units in the schedule are m/s
         optional (only required for thermal comfort runs)
-        
-        {u'note': [u'units in the schedule are m/s', u'optional (only required for thermal comfort runs)'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Air Velocity Schedule Name`
@@ -1057,8 +1019,6 @@ class People(object):
     def thermal_comfort_model_1_type(self, value=None):
         """  Corresponds to IDD Field `Thermal Comfort Model 1 Type`
         optional (only needed for people thermal comfort results reporting)
-        
-        {u'note': [u'optional (only needed for people thermal comfort results reporting)'], u'type': u'choice', u'key': [u'Fanger', u'Pierce', u'KSU', u'AdaptiveASH55', u'AdaptiveCEN15251'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Thermal Comfort Model 1 Type`
@@ -1121,8 +1081,6 @@ class People(object):
     def thermal_comfort_model_2_type(self, value=None):
         """  Corresponds to IDD Field `Thermal Comfort Model 2 Type`
         optional (second type of thermal comfort model and results reporting)
-        
-        {u'note': [u'optional (second type of thermal comfort model and results reporting)'], u'type': u'choice', u'key': [u'Fanger', u'Pierce', u'KSU', u'AdaptiveASH55', u'AdaptiveCEN15251'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Thermal Comfort Model 2 Type`
@@ -1185,8 +1143,6 @@ class People(object):
     def thermal_comfort_model_3_type(self, value=None):
         """  Corresponds to IDD Field `Thermal Comfort Model 3 Type`
         optional (third thermal comfort model and report type)
-        
-        {u'note': [u'optional (third thermal comfort model and report type)'], u'type': u'choice', u'key': [u'Fanger', u'Pierce', u'KSU', u'AdaptiveASH55', u'AdaptiveCEN15251'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Thermal Comfort Model 3 Type`
@@ -1249,8 +1205,6 @@ class People(object):
     def thermal_comfort_model_4_type(self, value=None):
         """  Corresponds to IDD Field `Thermal Comfort Model 4 Type`
         optional (fourth thermal comfort model and report type)
-        
-        {u'note': [u'optional (fourth thermal comfort model and report type)'], u'type': u'choice', u'key': [u'Fanger', u'Pierce', u'KSU', u'AdaptiveASH55', u'AdaptiveCEN15251'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Thermal Comfort Model 4 Type`
@@ -1313,8 +1267,6 @@ class People(object):
     def thermal_comfort_model_5_type(self, value=None):
         """  Corresponds to IDD Field `Thermal Comfort Model 5 Type`
         optional (fifth thermal comfort model and report type)
-        
-        {u'note': [u'optional (fifth thermal comfort model and report type)'], u'type': u'choice', u'key': [u'Fanger', u'Pierce', u'KSU', u'AdaptiveASH55', u'AdaptiveCEN15251'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Thermal Comfort Model 5 Type`
@@ -1770,8 +1722,6 @@ class ComfortViewFactorAngles(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'reference': u'AllHeatTranAngFacNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -1807,8 +1757,6 @@ class ComfortViewFactorAngles(object):
     @zone_name.setter
     def zone_name(self, value=None):
         """  Corresponds to IDD Field `Zone Name`
-        
-        {u'type': u'object-list', u'object-list': u'ZoneNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Zone Name`
@@ -1844,8 +1792,6 @@ class ComfortViewFactorAngles(object):
     @surface_1_name.setter
     def surface_1_name(self, value=None):
         """  Corresponds to IDD Field `Surface 1 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 1 Name`
@@ -1881,8 +1827,6 @@ class ComfortViewFactorAngles(object):
     @angle_factor_1.setter
     def angle_factor_1(self, value=None):
         """  Corresponds to IDD Field `Angle Factor 1`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Angle Factor 1`
@@ -1920,8 +1864,6 @@ class ComfortViewFactorAngles(object):
     @surface_2_name.setter
     def surface_2_name(self, value=None):
         """  Corresponds to IDD Field `Surface 2 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 2 Name`
@@ -1957,8 +1899,6 @@ class ComfortViewFactorAngles(object):
     @angle_factor_2.setter
     def angle_factor_2(self, value=None):
         """  Corresponds to IDD Field `Angle Factor 2`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Angle Factor 2`
@@ -1996,8 +1936,6 @@ class ComfortViewFactorAngles(object):
     @surface_3_name.setter
     def surface_3_name(self, value=None):
         """  Corresponds to IDD Field `Surface 3 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 3 Name`
@@ -2033,8 +1971,6 @@ class ComfortViewFactorAngles(object):
     @angle_factor_3.setter
     def angle_factor_3(self, value=None):
         """  Corresponds to IDD Field `Angle Factor 3`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Angle Factor 3`
@@ -2072,8 +2008,6 @@ class ComfortViewFactorAngles(object):
     @surface_4_name.setter
     def surface_4_name(self, value=None):
         """  Corresponds to IDD Field `Surface 4 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 4 Name`
@@ -2109,8 +2043,6 @@ class ComfortViewFactorAngles(object):
     @angle_factor_4.setter
     def angle_factor_4(self, value=None):
         """  Corresponds to IDD Field `Angle Factor 4`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Angle Factor 4`
@@ -2148,8 +2080,6 @@ class ComfortViewFactorAngles(object):
     @surface_5_name.setter
     def surface_5_name(self, value=None):
         """  Corresponds to IDD Field `Surface 5 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 5 Name`
@@ -2185,8 +2115,6 @@ class ComfortViewFactorAngles(object):
     @angle_factor_5.setter
     def angle_factor_5(self, value=None):
         """  Corresponds to IDD Field `Angle Factor 5`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Angle Factor 5`
@@ -2224,8 +2152,6 @@ class ComfortViewFactorAngles(object):
     @surface_6_name.setter
     def surface_6_name(self, value=None):
         """  Corresponds to IDD Field `Surface 6 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 6 Name`
@@ -2261,8 +2187,6 @@ class ComfortViewFactorAngles(object):
     @angle_factor_6.setter
     def angle_factor_6(self, value=None):
         """  Corresponds to IDD Field `Angle Factor 6`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Angle Factor 6`
@@ -2300,8 +2224,6 @@ class ComfortViewFactorAngles(object):
     @surface_7_name.setter
     def surface_7_name(self, value=None):
         """  Corresponds to IDD Field `Surface 7 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 7 Name`
@@ -2337,8 +2259,6 @@ class ComfortViewFactorAngles(object):
     @angle_factor_7.setter
     def angle_factor_7(self, value=None):
         """  Corresponds to IDD Field `Angle Factor 7`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Angle Factor 7`
@@ -2376,8 +2296,6 @@ class ComfortViewFactorAngles(object):
     @surface_8_name.setter
     def surface_8_name(self, value=None):
         """  Corresponds to IDD Field `Surface 8 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 8 Name`
@@ -2413,8 +2331,6 @@ class ComfortViewFactorAngles(object):
     @angle_factor_8.setter
     def angle_factor_8(self, value=None):
         """  Corresponds to IDD Field `Angle Factor 8`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Angle Factor 8`
@@ -2452,8 +2368,6 @@ class ComfortViewFactorAngles(object):
     @surface_9_name.setter
     def surface_9_name(self, value=None):
         """  Corresponds to IDD Field `Surface 9 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 9 Name`
@@ -2489,8 +2403,6 @@ class ComfortViewFactorAngles(object):
     @angle_factor_9.setter
     def angle_factor_9(self, value=None):
         """  Corresponds to IDD Field `Angle Factor 9`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Angle Factor 9`
@@ -2528,8 +2440,6 @@ class ComfortViewFactorAngles(object):
     @surface_10_name.setter
     def surface_10_name(self, value=None):
         """  Corresponds to IDD Field `Surface 10 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 10 Name`
@@ -2565,8 +2475,6 @@ class ComfortViewFactorAngles(object):
     @angle_factor_10.setter
     def angle_factor_10(self, value=None):
         """  Corresponds to IDD Field `Angle Factor 10`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Angle Factor 10`
@@ -2604,8 +2512,6 @@ class ComfortViewFactorAngles(object):
     @surface_11_name.setter
     def surface_11_name(self, value=None):
         """  Corresponds to IDD Field `Surface 11 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 11 Name`
@@ -2641,8 +2547,6 @@ class ComfortViewFactorAngles(object):
     @angle_factor_11.setter
     def angle_factor_11(self, value=None):
         """  Corresponds to IDD Field `Angle Factor 11`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Angle Factor 11`
@@ -2680,8 +2584,6 @@ class ComfortViewFactorAngles(object):
     @surface_12_name.setter
     def surface_12_name(self, value=None):
         """  Corresponds to IDD Field `Surface 12 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 12 Name`
@@ -2717,8 +2619,6 @@ class ComfortViewFactorAngles(object):
     @angle_factor_12.setter
     def angle_factor_12(self, value=None):
         """  Corresponds to IDD Field `Angle Factor 12`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Angle Factor 12`
@@ -2756,8 +2656,6 @@ class ComfortViewFactorAngles(object):
     @surface_13_name.setter
     def surface_13_name(self, value=None):
         """  Corresponds to IDD Field `Surface 13 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 13 Name`
@@ -2793,8 +2691,6 @@ class ComfortViewFactorAngles(object):
     @angle_factor_13.setter
     def angle_factor_13(self, value=None):
         """  Corresponds to IDD Field `Angle Factor 13`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Angle Factor 13`
@@ -2832,8 +2728,6 @@ class ComfortViewFactorAngles(object):
     @surface_14_name.setter
     def surface_14_name(self, value=None):
         """  Corresponds to IDD Field `Surface 14 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 14 Name`
@@ -2869,8 +2763,6 @@ class ComfortViewFactorAngles(object):
     @angle_factor_14.setter
     def angle_factor_14(self, value=None):
         """  Corresponds to IDD Field `Angle Factor 14`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Angle Factor 14`
@@ -2908,8 +2800,6 @@ class ComfortViewFactorAngles(object):
     @surface_15_name.setter
     def surface_15_name(self, value=None):
         """  Corresponds to IDD Field `Surface 15 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 15 Name`
@@ -2945,8 +2835,6 @@ class ComfortViewFactorAngles(object):
     @angle_factor_15.setter
     def angle_factor_15(self, value=None):
         """  Corresponds to IDD Field `Angle Factor 15`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Angle Factor 15`
@@ -2984,8 +2872,6 @@ class ComfortViewFactorAngles(object):
     @surface_16_name.setter
     def surface_16_name(self, value=None):
         """  Corresponds to IDD Field `Surface 16 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 16 Name`
@@ -3021,8 +2907,6 @@ class ComfortViewFactorAngles(object):
     @angle_factor_16.setter
     def angle_factor_16(self, value=None):
         """  Corresponds to IDD Field `Angle Factor 16`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Angle Factor 16`
@@ -3060,8 +2944,6 @@ class ComfortViewFactorAngles(object):
     @surface_17_name.setter
     def surface_17_name(self, value=None):
         """  Corresponds to IDD Field `Surface 17 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 17 Name`
@@ -3097,8 +2979,6 @@ class ComfortViewFactorAngles(object):
     @angle_factor_17.setter
     def angle_factor_17(self, value=None):
         """  Corresponds to IDD Field `Angle Factor 17`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Angle Factor 17`
@@ -3136,8 +3016,6 @@ class ComfortViewFactorAngles(object):
     @surface_18_name.setter
     def surface_18_name(self, value=None):
         """  Corresponds to IDD Field `Surface 18 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 18 Name`
@@ -3173,8 +3051,6 @@ class ComfortViewFactorAngles(object):
     @angle_factor_18.setter
     def angle_factor_18(self, value=None):
         """  Corresponds to IDD Field `Angle Factor 18`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Angle Factor 18`
@@ -3212,8 +3088,6 @@ class ComfortViewFactorAngles(object):
     @surface_19_name.setter
     def surface_19_name(self, value=None):
         """  Corresponds to IDD Field `Surface 19 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 19 Name`
@@ -3249,8 +3123,6 @@ class ComfortViewFactorAngles(object):
     @angle_factor_19.setter
     def angle_factor_19(self, value=None):
         """  Corresponds to IDD Field `Angle Factor 19`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Angle Factor 19`
@@ -3288,8 +3160,6 @@ class ComfortViewFactorAngles(object):
     @surface_20_name.setter
     def surface_20_name(self, value=None):
         """  Corresponds to IDD Field `Surface 20 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface 20 Name`
@@ -3325,8 +3195,6 @@ class ComfortViewFactorAngles(object):
     @angle_factor_20.setter
     def angle_factor_20(self, value=None):
         """  Corresponds to IDD Field `Angle Factor 20`
-        
-        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Angle Factor 20`
@@ -3544,8 +3412,6 @@ class Lights(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'reference': u'LightsNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -3581,8 +3447,6 @@ class Lights(object):
     @zone_or_zonelist_name.setter
     def zone_or_zonelist_name(self, value=None):
         """  Corresponds to IDD Field `Zone or ZoneList Name`
-        
-        {u'type': u'object-list', u'object-list': u'ZoneAndZoneListNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Zone or ZoneList Name`
@@ -3619,8 +3483,6 @@ class Lights(object):
     def schedule_name(self, value=None):
         """  Corresponds to IDD Field `Schedule Name`
         units in schedule should be fraction applied to design level of lights, generally (0.0 - 1.0)
-        
-        {u'note': [u'units in schedule should be fraction applied to design level of lights, generally (0.0 - 1.0)'], u'type': u'object-list', u'object-list': u'ScheduleNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Schedule Name`
@@ -3661,8 +3523,6 @@ class Lights(object):
         Choices: LightingLevel => Lighting Level -- simply enter watts of lights
         Watts/Area => Watts per Zone Floor Area -- enter the number to apply.  Value * Floor Area = Lights
         Watts/Person => Watts per Person -- enter the number to apply.  Value * Occupants = Lights
-        
-        {'pytype': 'str', u'default': u'LightingLevel', u'required-field': True, u'note': [u'The entered calculation method is used to create the maximum amount of lights', u'for this set of attributes', u'Choices: LightingLevel => Lighting Level -- simply enter watts of lights', u'Watts/Area => Watts per Zone Floor Area -- enter the number to apply.  Value * Floor Area = Lights', u'Watts/Person => Watts per Person -- enter the number to apply.  Value * Occupants = Lights'], u'key': [u'LightingLevel', u'Watts/Area', u'Watts/Person'], u'type': u'choice'}
 
         Args:
             value (str): value for IDD Field `Design Level Calculation Method`
@@ -3721,8 +3581,6 @@ class Lights(object):
     @lighting_level.setter
     def lighting_level(self, value=None):
         """  Corresponds to IDD Field `Lighting Level`
-        
-        {u'units': u'W', u'ip-units': u'W', u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Lighting Level`
@@ -3758,8 +3616,6 @@ class Lights(object):
     @watts_per_zone_floor_area.setter
     def watts_per_zone_floor_area(self, value=None):
         """  Corresponds to IDD Field `Watts per Zone Floor Area`
-        
-        {u'units': u'W/m2', u'ip-units': u'W/ft2', u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Watts per Zone Floor Area`
@@ -3795,8 +3651,6 @@ class Lights(object):
     @watts_per_person.setter
     def watts_per_person(self, value=None):
         """  Corresponds to IDD Field `Watts per Person`
-        
-        {u'units': u'W/person', u'ip-units': u'W/person', u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Watts per Person`
@@ -3830,12 +3684,10 @@ class Lights(object):
         return self._data["Return Air Fraction"]
 
     @return_air_fraction.setter
-    def return_air_fraction(self, value=0.0 ):
+    def return_air_fraction(self, value=0.0):
         """  Corresponds to IDD Field `Return Air Fraction`
         Used only for sizing calculation if return-air-fraction
         coefficients are specified.
-        
-        {'pytype': 'float', u'default': '0.0', u'maximum': '1.0', u'required-field': True, u'note': [u'Used only for sizing calculation if return-air-fraction', u'coefficients are specified.'], u'minimum': '0.0', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Return Air Fraction`
@@ -3872,10 +3724,8 @@ class Lights(object):
         return self._data["Fraction Radiant"]
 
     @fraction_radiant.setter
-    def fraction_radiant(self, value=0.0 ):
+    def fraction_radiant(self, value=0.0):
         """  Corresponds to IDD Field `Fraction Radiant`
-        
-        {'pytype': 'float', u'default': '0.0', u'maximum': '1.0', u'required-field': True, u'minimum': '0.0', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Fraction Radiant`
@@ -3912,10 +3762,8 @@ class Lights(object):
         return self._data["Fraction Visible"]
 
     @fraction_visible.setter
-    def fraction_visible(self, value=0.0 ):
+    def fraction_visible(self, value=0.0):
         """  Corresponds to IDD Field `Fraction Visible`
-        
-        {'pytype': 'float', u'default': '0.0', u'maximum': '1.0', u'required-field': True, u'minimum': '0.0', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Fraction Visible`
@@ -3952,12 +3800,10 @@ class Lights(object):
         return self._data["Fraction Replaceable"]
 
     @fraction_replaceable.setter
-    def fraction_replaceable(self, value=1.0 ):
+    def fraction_replaceable(self, value=1.0):
         """  Corresponds to IDD Field `Fraction Replaceable`
         For Daylighting:Controls and Daylighting:DElight:Controls,
         must be 0 or 1:  0 = no dimming control, 1 = full dimming control
-        
-        {'pytype': 'float', u'default': '1.0', u'maximum': '1.0', u'required-field': True, u'note': [u'For Daylighting:Controls and Daylighting:DElight:Controls,', u'must be 0 or 1:  0 = no dimming control, 1 = full dimming control'], u'minimum': '0.0', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Fraction Replaceable`
@@ -3996,8 +3842,6 @@ class Lights(object):
     @enduse_subcategory.setter
     def enduse_subcategory(self, value="General"):
         """  Corresponds to IDD Field `End-Use Subcategory`
-        
-        {u'default': 'General', u'retaincase': u'', u'type': u'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `End-Use Subcategory`
@@ -4034,8 +3878,6 @@ class Lights(object):
     @return_air_fraction_calculated_from_plenum_temperature.setter
     def return_air_fraction_calculated_from_plenum_temperature(self, value="No"):
         """  Corresponds to IDD Field `Return Air Fraction Calculated from Plenum Temperature`
-        
-        {u'default': u'No', u'type': u'choice', u'key': [u'Yes', u'No'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Return Air Fraction Calculated from Plenum Temperature`
@@ -4090,12 +3932,10 @@ class Lights(object):
         return self._data["Return Air Fraction Function of Plenum Temperature Coefficient 1"]
 
     @return_air_fraction_function_of_plenum_temperature_coefficient_1.setter
-    def return_air_fraction_function_of_plenum_temperature_coefficient_1(self, value=0.0 ):
+    def return_air_fraction_function_of_plenum_temperature_coefficient_1(self, value=0.0):
         """  Corresponds to IDD Field `Return Air Fraction Function of Plenum Temperature Coefficient 1`
         Used only if Return Air Fraction Is Calculated from Plenum Temperature = Yes
         Equation is Return Air Fraction = Coefficient#1 - Coefficient#2 X PlenumTemp(degC)
-        
-        {u'note': [u'Used only if Return Air Fraction Is Calculated from Plenum Temperature = Yes', u'Equation is Return Air Fraction = Coefficient#1 - Coefficient#2 X PlenumTemp(degC)'], u'default': '0.0', u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Return Air Fraction Function of Plenum Temperature Coefficient 1`
@@ -4128,12 +3968,10 @@ class Lights(object):
         return self._data["Return Air Fraction Function of Plenum Temperature Coefficient 2"]
 
     @return_air_fraction_function_of_plenum_temperature_coefficient_2.setter
-    def return_air_fraction_function_of_plenum_temperature_coefficient_2(self, value=0.0 ):
+    def return_air_fraction_function_of_plenum_temperature_coefficient_2(self, value=0.0):
         """  Corresponds to IDD Field `Return Air Fraction Function of Plenum Temperature Coefficient 2`
         Used only if Return Air Fraction Is Calculated from Plenum Temperature = Yes
         Equation is Return Air Fraction = Coefficient#1 - Coefficient#2 X PlenumTemp(degC)
-        
-        {'pytype': 'float', u'default': '0.0', u'note': [u'Used only if Return Air Fraction Is Calculated from Plenum Temperature = Yes', u'Equation is Return Air Fraction = Coefficient#1 - Coefficient#2 X PlenumTemp(degC)'], u'minimum': '0.0', u'units': u'1/K', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Return Air Fraction Function of Plenum Temperature Coefficient 2`
@@ -4317,8 +4155,6 @@ class ElectricEquipment(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'reference': u'ElectricEquipmentNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -4354,8 +4190,6 @@ class ElectricEquipment(object):
     @zone_or_zonelist_name.setter
     def zone_or_zonelist_name(self, value=None):
         """  Corresponds to IDD Field `Zone or ZoneList Name`
-        
-        {u'type': u'object-list', u'object-list': u'ZoneAndZoneListNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Zone or ZoneList Name`
@@ -4392,8 +4226,6 @@ class ElectricEquipment(object):
     def schedule_name(self, value=None):
         """  Corresponds to IDD Field `Schedule Name`
         units in schedule should be fraction applied to design level of electric equipment, generally (0.0 - 1.0)
-        
-        {u'note': [u'units in schedule should be fraction applied to design level of electric equipment, generally (0.0 - 1.0)'], u'type': u'object-list', u'object-list': u'ScheduleNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Schedule Name`
@@ -4434,8 +4266,6 @@ class ElectricEquipment(object):
         Choices: EquipmentLevel => Equipment Level -- simply enter watts of equipment
         Watts/Area => Watts per Zone Floor Area -- enter the number to apply.  Value * Floor Area = Equipment Level
         Watts/Person => Watts per Person -- enter the number to apply.  Value * Occupants = Equipment Level
-        
-        {'pytype': 'str', u'default': u'EquipmentLevel', u'required-field': True, u'note': [u'The entered calculation method is used to create the maximum amount of electric equipment', u'for this set of attributes', u'Choices: EquipmentLevel => Equipment Level -- simply enter watts of equipment', u'Watts/Area => Watts per Zone Floor Area -- enter the number to apply.  Value * Floor Area = Equipment Level', u'Watts/Person => Watts per Person -- enter the number to apply.  Value * Occupants = Equipment Level'], u'key': [u'EquipmentLevel', u'Watts/Area', u'Watts/Person'], u'type': u'choice'}
 
         Args:
             value (str): value for IDD Field `Design Level Calculation Method`
@@ -4494,8 +4324,6 @@ class ElectricEquipment(object):
     @design_level.setter
     def design_level(self, value=None):
         """  Corresponds to IDD Field `Design Level`
-        
-        {u'units': u'W', u'ip-units': u'W', u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Design Level`
@@ -4531,8 +4359,6 @@ class ElectricEquipment(object):
     @watts_per_zone_floor_area.setter
     def watts_per_zone_floor_area(self, value=None):
         """  Corresponds to IDD Field `Watts per Zone Floor Area`
-        
-        {u'units': u'W/m2', u'ip-units': u'W/ft2', u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Watts per Zone Floor Area`
@@ -4568,8 +4394,6 @@ class ElectricEquipment(object):
     @watts_per_person.setter
     def watts_per_person(self, value=None):
         """  Corresponds to IDD Field `Watts per Person`
-        
-        {u'units': u'W/person', u'ip-units': u'W/person', u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Watts per Person`
@@ -4603,10 +4427,8 @@ class ElectricEquipment(object):
         return self._data["Fraction Latent"]
 
     @fraction_latent.setter
-    def fraction_latent(self, value=0.0 ):
+    def fraction_latent(self, value=0.0):
         """  Corresponds to IDD Field `Fraction Latent`
-        
-        {'pytype': 'float', u'default': '0.0', u'maximum': '1.0', u'required-field': True, u'minimum': '0.0', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Fraction Latent`
@@ -4643,10 +4465,8 @@ class ElectricEquipment(object):
         return self._data["Fraction Radiant"]
 
     @fraction_radiant.setter
-    def fraction_radiant(self, value=0.0 ):
+    def fraction_radiant(self, value=0.0):
         """  Corresponds to IDD Field `Fraction Radiant`
-        
-        {'pytype': 'float', u'default': '0.0', u'maximum': '1.0', u'required-field': True, u'minimum': '0.0', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Fraction Radiant`
@@ -4683,10 +4503,8 @@ class ElectricEquipment(object):
         return self._data["Fraction Lost"]
 
     @fraction_lost.setter
-    def fraction_lost(self, value=0.0 ):
+    def fraction_lost(self, value=0.0):
         """  Corresponds to IDD Field `Fraction Lost`
-        
-        {'pytype': 'float', u'default': '0.0', u'maximum': '1.0', u'required-field': True, u'minimum': '0.0', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Fraction Lost`
@@ -4725,8 +4543,6 @@ class ElectricEquipment(object):
     @enduse_subcategory.setter
     def enduse_subcategory(self, value="General"):
         """  Corresponds to IDD Field `End-Use Subcategory`
-        
-        {u'default': 'General', u'retaincase': u'', u'type': u'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `End-Use Subcategory`
@@ -4918,8 +4734,6 @@ class GasEquipment(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'reference': u'GasEquipmentNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -4955,8 +4769,6 @@ class GasEquipment(object):
     @zone_or_zonelist_name.setter
     def zone_or_zonelist_name(self, value=None):
         """  Corresponds to IDD Field `Zone or ZoneList Name`
-        
-        {u'type': u'object-list', u'object-list': u'ZoneAndZoneListNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Zone or ZoneList Name`
@@ -4993,8 +4805,6 @@ class GasEquipment(object):
     def schedule_name(self, value=None):
         """  Corresponds to IDD Field `Schedule Name`
         units in Schedule should be fraction applied to design level of gas equipment, generally (0.0 - 1.0)
-        
-        {u'note': [u'units in Schedule should be fraction applied to design level of gas equipment, generally (0.0 - 1.0)'], u'type': u'object-list', u'object-list': u'ScheduleNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Schedule Name`
@@ -5035,8 +4845,6 @@ class GasEquipment(object):
         Choices: EquipmentLevel => Design Level -- simply enter power input of equipment
         Watts/Area or Power/Area => Power per Zone Floor Area -- enter the number to apply.  Value * Floor Area = Equipment Level
         Watts/Person or Power/Person => Power per Person -- enter the number to apply.  Value * Occupants = Equipment Level
-        
-        {'pytype': 'str', u'default': u'EquipmentLevel', u'required-field': True, u'note': [u'The entered calculation method is used to create the maximum amount of gas equipment', u'for this set of attributes', u'Choices: EquipmentLevel => Design Level -- simply enter power input of equipment', u'Watts/Area or Power/Area => Power per Zone Floor Area -- enter the number to apply.  Value * Floor Area = Equipment Level', u'Watts/Person or Power/Person => Power per Person -- enter the number to apply.  Value * Occupants = Equipment Level'], u'key': [u'EquipmentLevel', u'Watts/Area', u'Watts/Person', u'Power/Area', u'Power/Person'], u'type': u'choice'}
 
         Args:
             value (str): value for IDD Field `Design Level Calculation Method`
@@ -5099,8 +4907,6 @@ class GasEquipment(object):
     @design_level.setter
     def design_level(self, value=None):
         """  Corresponds to IDD Field `Design Level`
-        
-        {u'units': u'W', u'ip-units': u'Btu/h', u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Design Level`
@@ -5136,8 +4942,6 @@ class GasEquipment(object):
     @power_per_zone_floor_area.setter
     def power_per_zone_floor_area(self, value=None):
         """  Corresponds to IDD Field `Power per Zone Floor Area`
-        
-        {u'units': u'W/m2', u'ip-units': u'Btu/h-ft2', u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Power per Zone Floor Area`
@@ -5173,8 +4977,6 @@ class GasEquipment(object):
     @power_per_person.setter
     def power_per_person(self, value=None):
         """  Corresponds to IDD Field `Power per Person`
-        
-        {u'units': u'W/Person', u'ip-units': u'Btu/h-person', u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Power per Person`
@@ -5208,10 +5010,8 @@ class GasEquipment(object):
         return self._data["Fraction Latent"]
 
     @fraction_latent.setter
-    def fraction_latent(self, value=0.0 ):
+    def fraction_latent(self, value=0.0):
         """  Corresponds to IDD Field `Fraction Latent`
-        
-        {'pytype': 'float', u'default': '0.0', u'maximum': '1.0', u'required-field': True, u'minimum': '0.0', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Fraction Latent`
@@ -5248,10 +5048,8 @@ class GasEquipment(object):
         return self._data["Fraction Radiant"]
 
     @fraction_radiant.setter
-    def fraction_radiant(self, value=0.0 ):
+    def fraction_radiant(self, value=0.0):
         """  Corresponds to IDD Field `Fraction Radiant`
-        
-        {'pytype': 'float', u'default': '0.0', u'maximum': '1.0', u'required-field': True, u'minimum': '0.0', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Fraction Radiant`
@@ -5288,10 +5086,8 @@ class GasEquipment(object):
         return self._data["Fraction Lost"]
 
     @fraction_lost.setter
-    def fraction_lost(self, value=0.0 ):
+    def fraction_lost(self, value=0.0):
         """  Corresponds to IDD Field `Fraction Lost`
-        
-        {'pytype': 'float', u'default': '0.0', u'maximum': '1.0', u'required-field': True, u'minimum': '0.0', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Fraction Lost`
@@ -5328,15 +5124,13 @@ class GasEquipment(object):
         return self._data["Carbon Dioxide Generation Rate"]
 
     @carbon_dioxide_generation_rate.setter
-    def carbon_dioxide_generation_rate(self, value=0.0 ):
+    def carbon_dioxide_generation_rate(self, value=0.0):
         """  Corresponds to IDD Field `Carbon Dioxide Generation Rate`
         CO2 generation rate per unit of power input
         The default value assumes the equipment is fully vented.
         For unvented equipment, a suggested value is 3.45E-8 m3/s-W. This value is
         converted from a natural gas CO2 emission rate of 117 lbs CO2 per million Btu.
         The maximum value assumes to be 10 times of the recommended value.
-        
-        {'pytype': 'float', u'default': '0.0', u'maximum': '4e-07', u'note': [u'CO2 generation rate per unit of power input', u'The default value assumes the equipment is fully vented.', u'For unvented equipment, a suggested value is 3.45E-8 m3/s-W. This value is', u'converted from a natural gas CO2 emission rate of 117 lbs CO2 per million Btu.', u'The maximum value assumes to be 10 times of the recommended value.'], u'ip-units': u'(ft3/min)/(Btu/h)', u'minimum': '0.0', u'units': u'm3/s-W', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Carbon Dioxide Generation Rate`
@@ -5377,8 +5171,6 @@ class GasEquipment(object):
     @enduse_subcategory.setter
     def enduse_subcategory(self, value="General"):
         """  Corresponds to IDD Field `End-Use Subcategory`
-        
-        {u'default': 'General', u'retaincase': u'', u'type': u'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `End-Use Subcategory`
@@ -5562,8 +5354,6 @@ class HotWaterEquipment(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'reference': u'HotWaterEquipmentNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -5599,8 +5389,6 @@ class HotWaterEquipment(object):
     @zone_or_zonelist_name.setter
     def zone_or_zonelist_name(self, value=None):
         """  Corresponds to IDD Field `Zone or ZoneList Name`
-        
-        {u'type': u'object-list', u'object-list': u'ZoneAndZoneListNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Zone or ZoneList Name`
@@ -5637,8 +5425,6 @@ class HotWaterEquipment(object):
     def schedule_name(self, value=None):
         """  Corresponds to IDD Field `Schedule Name`
         units in Schedule should be fraction applied to design level of hot water equipment, generally (0.0 - 1.0)
-        
-        {u'note': [u'units in Schedule should be fraction applied to design level of hot water equipment, generally (0.0 - 1.0)'], u'type': u'object-list', u'object-list': u'ScheduleNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Schedule Name`
@@ -5679,8 +5465,6 @@ class HotWaterEquipment(object):
         Choices: EquipmentLevel => Design Level -- simply enter power input of equipment
         Watts/Area or Power/Area => Power per Zone Floor Area -- enter the number to apply.  Value * Floor Area = Equipment Level
         Watts/Person or Power/Person => Power per Person -- enter the number to apply.  Value * Occupants = Equipment Level
-        
-        {'pytype': 'str', u'default': u'EquipmentLevel', u'required-field': True, u'note': [u'The entered calculation method is used to create the maximum amount of hot water equipment', u'for this set of attributes', u'Choices: EquipmentLevel => Design Level -- simply enter power input of equipment', u'Watts/Area or Power/Area => Power per Zone Floor Area -- enter the number to apply.  Value * Floor Area = Equipment Level', u'Watts/Person or Power/Person => Power per Person -- enter the number to apply.  Value * Occupants = Equipment Level'], u'key': [u'EquipmentLevel', u'Watts/Area', u'Watts/Person', u'Power/Area', u'Power/Person'], u'type': u'choice'}
 
         Args:
             value (str): value for IDD Field `Design Level Calculation Method`
@@ -5743,8 +5527,6 @@ class HotWaterEquipment(object):
     @design_level.setter
     def design_level(self, value=None):
         """  Corresponds to IDD Field `Design Level`
-        
-        {u'units': u'W', u'ip-units': u'Btu/h', u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Design Level`
@@ -5780,8 +5562,6 @@ class HotWaterEquipment(object):
     @power_per_zone_floor_area.setter
     def power_per_zone_floor_area(self, value=None):
         """  Corresponds to IDD Field `Power per Zone Floor Area`
-        
-        {u'units': u'W/m2', u'ip-units': u'Btu/h-ft2', u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Power per Zone Floor Area`
@@ -5817,8 +5597,6 @@ class HotWaterEquipment(object):
     @power_per_person.setter
     def power_per_person(self, value=None):
         """  Corresponds to IDD Field `Power per Person`
-        
-        {u'units': u'W/Person', u'ip-units': u'Btu/h-person', u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Power per Person`
@@ -5852,10 +5630,8 @@ class HotWaterEquipment(object):
         return self._data["Fraction Latent"]
 
     @fraction_latent.setter
-    def fraction_latent(self, value=0.0 ):
+    def fraction_latent(self, value=0.0):
         """  Corresponds to IDD Field `Fraction Latent`
-        
-        {'pytype': 'float', u'default': '0.0', u'maximum': '1.0', u'required-field': True, u'minimum': '0.0', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Fraction Latent`
@@ -5892,10 +5668,8 @@ class HotWaterEquipment(object):
         return self._data["Fraction Radiant"]
 
     @fraction_radiant.setter
-    def fraction_radiant(self, value=0.0 ):
+    def fraction_radiant(self, value=0.0):
         """  Corresponds to IDD Field `Fraction Radiant`
-        
-        {'pytype': 'float', u'default': '0.0', u'maximum': '1.0', u'required-field': True, u'minimum': '0.0', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Fraction Radiant`
@@ -5932,10 +5706,8 @@ class HotWaterEquipment(object):
         return self._data["Fraction Lost"]
 
     @fraction_lost.setter
-    def fraction_lost(self, value=0.0 ):
+    def fraction_lost(self, value=0.0):
         """  Corresponds to IDD Field `Fraction Lost`
-        
-        {'pytype': 'float', u'default': '0.0', u'maximum': '1.0', u'required-field': True, u'minimum': '0.0', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Fraction Lost`
@@ -5974,8 +5746,6 @@ class HotWaterEquipment(object):
     @enduse_subcategory.setter
     def enduse_subcategory(self, value="General"):
         """  Corresponds to IDD Field `End-Use Subcategory`
-        
-        {u'default': 'General', u'retaincase': u'', u'type': u'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `End-Use Subcategory`
@@ -6158,8 +5928,6 @@ class SteamEquipment(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'reference': u'SteamEquipmentNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -6195,8 +5963,6 @@ class SteamEquipment(object):
     @zone_or_zonelist_name.setter
     def zone_or_zonelist_name(self, value=None):
         """  Corresponds to IDD Field `Zone or ZoneList Name`
-        
-        {u'type': u'object-list', u'object-list': u'ZoneAndZoneListNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Zone or ZoneList Name`
@@ -6233,8 +5999,6 @@ class SteamEquipment(object):
     def schedule_name(self, value=None):
         """  Corresponds to IDD Field `Schedule Name`
         units in Schedule should be fraction applied to design level of steam equipment, generally (0.0 - 1.0)
-        
-        {u'note': [u'units in Schedule should be fraction applied to design level of steam equipment, generally (0.0 - 1.0)'], u'type': u'object-list', u'object-list': u'ScheduleNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Schedule Name`
@@ -6275,8 +6039,6 @@ class SteamEquipment(object):
         Choices: EquipmentLevel => Design Level -- simply enter power input of equipment
         Watts/Area or Power/Area => Power per Zone Floor Area -- enter the number to apply.  Value * Floor Area = Equipment Level
         Watts/Person or Power/Person => Power per Person -- enter the number to apply.  Value * Occupants = Equipment Level
-        
-        {'pytype': 'str', u'default': u'EquipmentLevel', u'required-field': True, u'note': [u'The entered calculation method is used to create the maximum amount of steam equipment', u'for this set of attributes', u'Choices: EquipmentLevel => Design Level -- simply enter power input of equipment', u'Watts/Area or Power/Area => Power per Zone Floor Area -- enter the number to apply.  Value * Floor Area = Equipment Level', u'Watts/Person or Power/Person => Power per Person -- enter the number to apply.  Value * Occupants = Equipment Level'], u'key': [u'EquipmentLevel', u'Watts/Area', u'Watts/Person', u'Power/Area', u'Power/Person'], u'type': u'choice'}
 
         Args:
             value (str): value for IDD Field `Design Level Calculation Method`
@@ -6339,8 +6101,6 @@ class SteamEquipment(object):
     @design_level.setter
     def design_level(self, value=None):
         """  Corresponds to IDD Field `Design Level`
-        
-        {u'units': u'W', u'ip-units': u'Btu/h', u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Design Level`
@@ -6376,8 +6136,6 @@ class SteamEquipment(object):
     @power_per_zone_floor_area.setter
     def power_per_zone_floor_area(self, value=None):
         """  Corresponds to IDD Field `Power per Zone Floor Area`
-        
-        {u'units': u'W/m2', u'ip-units': u'Btu/h-ft2', u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Power per Zone Floor Area`
@@ -6413,8 +6171,6 @@ class SteamEquipment(object):
     @power_per_person.setter
     def power_per_person(self, value=None):
         """  Corresponds to IDD Field `Power per Person`
-        
-        {u'units': u'W/Person', u'ip-units': u'Btu/h-person', u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Power per Person`
@@ -6448,10 +6204,8 @@ class SteamEquipment(object):
         return self._data["Fraction Latent"]
 
     @fraction_latent.setter
-    def fraction_latent(self, value=0.0 ):
+    def fraction_latent(self, value=0.0):
         """  Corresponds to IDD Field `Fraction Latent`
-        
-        {'pytype': 'float', u'default': '0.0', u'maximum': '1.0', u'required-field': True, u'minimum': '0.0', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Fraction Latent`
@@ -6488,10 +6242,8 @@ class SteamEquipment(object):
         return self._data["Fraction Radiant"]
 
     @fraction_radiant.setter
-    def fraction_radiant(self, value=0.0 ):
+    def fraction_radiant(self, value=0.0):
         """  Corresponds to IDD Field `Fraction Radiant`
-        
-        {'pytype': 'float', u'default': '0.0', u'maximum': '1.0', u'required-field': True, u'minimum': '0.0', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Fraction Radiant`
@@ -6528,10 +6280,8 @@ class SteamEquipment(object):
         return self._data["Fraction Lost"]
 
     @fraction_lost.setter
-    def fraction_lost(self, value=0.0 ):
+    def fraction_lost(self, value=0.0):
         """  Corresponds to IDD Field `Fraction Lost`
-        
-        {'pytype': 'float', u'default': '0.0', u'maximum': '1.0', u'required-field': True, u'minimum': '0.0', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Fraction Lost`
@@ -6570,8 +6320,6 @@ class SteamEquipment(object):
     @enduse_subcategory.setter
     def enduse_subcategory(self, value="General"):
         """  Corresponds to IDD Field `End-Use Subcategory`
-        
-        {u'default': 'General', u'retaincase': u'', u'type': u'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `End-Use Subcategory`
@@ -6746,8 +6494,6 @@ class OtherEquipment(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'reference': u'OtherEquipmentNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -6783,8 +6529,6 @@ class OtherEquipment(object):
     @zone_or_zonelist_name.setter
     def zone_or_zonelist_name(self, value=None):
         """  Corresponds to IDD Field `Zone or ZoneList Name`
-        
-        {u'type': u'object-list', u'object-list': u'ZoneAndZoneListNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Zone or ZoneList Name`
@@ -6821,8 +6565,6 @@ class OtherEquipment(object):
     def schedule_name(self, value=None):
         """  Corresponds to IDD Field `Schedule Name`
         units in Schedule should be fraction applied to design level of other equipment, generally (0.0 - 1.0)
-        
-        {u'note': [u'units in Schedule should be fraction applied to design level of other equipment, generally (0.0 - 1.0)'], u'type': u'object-list', u'object-list': u'ScheduleNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Schedule Name`
@@ -6864,8 +6606,6 @@ class OtherEquipment(object):
         Choices: EquipmentLevel => Design Level -- simply enter power input of equipment
         Watts/Area or Power/Area => Power per Zone Floor Area -- enter the number to apply.  Value * Floor Area = Equipment Level
         Watts/Person or Power/Person => Power per Person -- enter the number to apply.  Value * Occupants = Equipment Level
-        
-        {'pytype': 'str', u'default': u'EquipmentLevel', u'required-field': True, u'note': [u'The entered calculation method is used to create the maximum amount of other equipment.', u'to set a loss, use a negative value in the following fields.', u'for this set of attributes', u'Choices: EquipmentLevel => Design Level -- simply enter power input of equipment', u'Watts/Area or Power/Area => Power per Zone Floor Area -- enter the number to apply.  Value * Floor Area = Equipment Level', u'Watts/Person or Power/Person => Power per Person -- enter the number to apply.  Value * Occupants = Equipment Level'], u'key': [u'EquipmentLevel', u'Watts/Area', u'Watts/Person', u'Power/Area', u'Power/Person'], u'type': u'choice'}
 
         Args:
             value (str): value for IDD Field `Design Level Calculation Method`
@@ -6928,8 +6668,6 @@ class OtherEquipment(object):
     @design_level.setter
     def design_level(self, value=None):
         """  Corresponds to IDD Field `Design Level`
-        
-        {u'units': u'W', u'ip-units': u'Btu/h', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Design Level`
@@ -6961,8 +6699,6 @@ class OtherEquipment(object):
     @power_per_zone_floor_area.setter
     def power_per_zone_floor_area(self, value=None):
         """  Corresponds to IDD Field `Power per Zone Floor Area`
-        
-        {u'units': u'W/m2', u'ip-units': u'Btu/h-ft2', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Power per Zone Floor Area`
@@ -6994,8 +6730,6 @@ class OtherEquipment(object):
     @power_per_person.setter
     def power_per_person(self, value=None):
         """  Corresponds to IDD Field `Power per Person`
-        
-        {u'units': u'W/Person', u'ip-units': u'Btu/h-person', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Power per Person`
@@ -7025,10 +6759,8 @@ class OtherEquipment(object):
         return self._data["Fraction Latent"]
 
     @fraction_latent.setter
-    def fraction_latent(self, value=0.0 ):
+    def fraction_latent(self, value=0.0):
         """  Corresponds to IDD Field `Fraction Latent`
-        
-        {'pytype': 'float', u'default': '0.0', u'maximum': '1.0', u'required-field': True, u'minimum': '0.0', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Fraction Latent`
@@ -7065,10 +6797,8 @@ class OtherEquipment(object):
         return self._data["Fraction Radiant"]
 
     @fraction_radiant.setter
-    def fraction_radiant(self, value=0.0 ):
+    def fraction_radiant(self, value=0.0):
         """  Corresponds to IDD Field `Fraction Radiant`
-        
-        {'pytype': 'float', u'default': '0.0', u'maximum': '1.0', u'required-field': True, u'minimum': '0.0', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Fraction Radiant`
@@ -7105,10 +6835,8 @@ class OtherEquipment(object):
         return self._data["Fraction Lost"]
 
     @fraction_lost.setter
-    def fraction_lost(self, value=0.0 ):
+    def fraction_lost(self, value=0.0):
         """  Corresponds to IDD Field `Fraction Lost`
-        
-        {'pytype': 'float', u'default': '0.0', u'maximum': '1.0', u'required-field': True, u'minimum': '0.0', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Fraction Lost`
@@ -7277,8 +7005,6 @@ class ZoneBaseboardOutdoorTemperatureControlled(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'reference': u'BaseboardHeatNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -7314,8 +7040,6 @@ class ZoneBaseboardOutdoorTemperatureControlled(object):
     @zone_name.setter
     def zone_name(self, value=None):
         """  Corresponds to IDD Field `Zone Name`
-        
-        {u'type': u'object-list', u'object-list': u'ZoneNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Zone Name`
@@ -7352,8 +7076,6 @@ class ZoneBaseboardOutdoorTemperatureControlled(object):
     def schedule_name(self, value=None):
         """  Corresponds to IDD Field `Schedule Name`
         units in Schedule should be fraction applied to capacity of the baseboard heat equipment, generally (0.0 - 1.0)
-        
-        {u'note': [u'units in Schedule should be fraction applied to capacity of the baseboard heat equipment, generally (0.0 - 1.0)'], u'type': u'object-list', u'object-list': u'ScheduleNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Schedule Name`
@@ -7389,8 +7111,6 @@ class ZoneBaseboardOutdoorTemperatureControlled(object):
     @capacity_at_low_temperature.setter
     def capacity_at_low_temperature(self, value=None):
         """  Corresponds to IDD Field `Capacity at Low Temperature`
-        
-        {u'units': u'W', u'minimum>': '0.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Capacity at Low Temperature`
@@ -7425,8 +7145,6 @@ class ZoneBaseboardOutdoorTemperatureControlled(object):
     @low_temperature.setter
     def low_temperature(self, value=None):
         """  Corresponds to IDD Field `Low Temperature`
-        
-        {u'units': u'C', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Low Temperature`
@@ -7457,8 +7175,6 @@ class ZoneBaseboardOutdoorTemperatureControlled(object):
     @capacity_at_high_temperature.setter
     def capacity_at_high_temperature(self, value=None):
         """  Corresponds to IDD Field `Capacity at High Temperature`
-        
-        {u'units': u'W', u'minimum': '0.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Capacity at High Temperature`
@@ -7493,8 +7209,6 @@ class ZoneBaseboardOutdoorTemperatureControlled(object):
     @high_temperature.setter
     def high_temperature(self, value=None):
         """  Corresponds to IDD Field `High Temperature`
-        
-        {u'units': u'C', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `High Temperature`
@@ -7523,10 +7237,8 @@ class ZoneBaseboardOutdoorTemperatureControlled(object):
         return self._data["Fraction Radiant"]
 
     @fraction_radiant.setter
-    def fraction_radiant(self, value=0.0 ):
+    def fraction_radiant(self, value=0.0):
         """  Corresponds to IDD Field `Fraction Radiant`
-        
-        {'pytype': 'float', u'default': '0.0', u'maximum': '1.0', u'required-field': True, u'minimum': '0.0', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Fraction Radiant`
@@ -7565,8 +7277,6 @@ class ZoneBaseboardOutdoorTemperatureControlled(object):
     @enduse_subcategory.setter
     def enduse_subcategory(self, value="General"):
         """  Corresponds to IDD Field `End-Use Subcategory`
-        
-        {u'default': 'General', u'retaincase': u'', u'type': u'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `End-Use Subcategory`
@@ -7693,8 +7403,6 @@ class ZoneContaminantSourceAndSinkCarbonDioxide(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'reference': u'CO2GenerationNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -7730,8 +7438,6 @@ class ZoneContaminantSourceAndSinkCarbonDioxide(object):
     @zone_name.setter
     def zone_name(self, value=None):
         """  Corresponds to IDD Field `Zone Name`
-        
-        {u'type': u'object-list', u'object-list': u'ZoneNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Zone Name`
@@ -7767,8 +7473,6 @@ class ZoneContaminantSourceAndSinkCarbonDioxide(object):
     @design_generation_rate.setter
     def design_generation_rate(self, value=None):
         """  Corresponds to IDD Field `Design Generation Rate`
-        
-        {u'units': u'm3/s', u'Note': u'Positive values represent sources and negative values represent sinks.', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Design Generation Rate`
@@ -7800,8 +7504,6 @@ class ZoneContaminantSourceAndSinkCarbonDioxide(object):
     def schedule_name(self, value=None):
         """  Corresponds to IDD Field `Schedule Name`
         Value in this schedule should be a fraction (generally 0.0 - 1.0) applied to the Design Generation Rate
-        
-        {u'note': [u'Value in this schedule should be a fraction (generally 0.0 - 1.0) applied to the Design Generation Rate'], u'type': u'object-list', u'object-list': u'ScheduleNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Schedule Name`
@@ -7943,8 +7645,6 @@ class ZoneContaminantSourceAndSinkGenericConstant(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'reference': u'GenericContaminantSourceAndSinkNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -7980,8 +7680,6 @@ class ZoneContaminantSourceAndSinkGenericConstant(object):
     @zone_name.setter
     def zone_name(self, value=None):
         """  Corresponds to IDD Field `Zone Name`
-        
-        {u'type': u'object-list', u'object-list': u'ZoneNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Zone Name`
@@ -8017,8 +7715,6 @@ class ZoneContaminantSourceAndSinkGenericConstant(object):
     @design_generation_rate.setter
     def design_generation_rate(self, value=None):
         """  Corresponds to IDD Field `Design Generation Rate`
-        
-        {u'units': u'm3/s', u'Note': u'The values represent source.', u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Design Generation Rate`
@@ -8054,8 +7750,6 @@ class ZoneContaminantSourceAndSinkGenericConstant(object):
     def generation_schedule_name(self, value=None):
         """  Corresponds to IDD Field `Generation Schedule Name`
         Value in this schedule should be a fraction (generally 0.0 - 1.0) applied to the Design Generation Rate
-        
-        {u'note': [u'Value in this schedule should be a fraction (generally 0.0 - 1.0) applied to the Design Generation Rate'], u'type': u'object-list', u'object-list': u'ScheduleNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Generation Schedule Name`
@@ -8091,8 +7785,6 @@ class ZoneContaminantSourceAndSinkGenericConstant(object):
     @design_removal_coefficient.setter
     def design_removal_coefficient(self, value=None):
         """  Corresponds to IDD Field `Design Removal Coefficient`
-        
-        {u'units': u'm3/s', u'Note': u'The value represent sink.', u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Design Removal Coefficient`
@@ -8129,8 +7821,6 @@ class ZoneContaminantSourceAndSinkGenericConstant(object):
         """  Corresponds to IDD Field `Removal Schedule Name`
         Value in this schedule should be a fraction (generally 0.0 - 1.0) applied to the
         Design removal Coefficient
-        
-        {u'note': [u'Value in this schedule should be a fraction (generally 0.0 - 1.0) applied to the', u'Design removal Coefficient'], u'type': u'object-list', u'object-list': u'ScheduleNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Removal Schedule Name`
@@ -8264,8 +7954,6 @@ class SurfaceContaminantSourceAndSinkGenericPressureDriven(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'reference': u'GenericContaminantGenerationNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -8301,8 +7989,6 @@ class SurfaceContaminantSourceAndSinkGenericPressureDriven(object):
     @surface_name.setter
     def surface_name(self, value=None):
         """  Corresponds to IDD Field `Surface Name`
-        
-        {u'type': u'object-list', u'object-list': u'SurfAndSubSurfNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface Name`
@@ -8338,8 +8024,6 @@ class SurfaceContaminantSourceAndSinkGenericPressureDriven(object):
     @design_generation_rate_coefficient.setter
     def design_generation_rate_coefficient(self, value=None):
         """  Corresponds to IDD Field `Design Generation Rate Coefficient`
-        
-        {u'units': u'm3/s', u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Design Generation Rate Coefficient`
@@ -8376,8 +8060,6 @@ class SurfaceContaminantSourceAndSinkGenericPressureDriven(object):
         """  Corresponds to IDD Field `Generation Schedule Name`
         Value in this schedule should be a fraction (generally 0.0 - 1.0) applied to the
         Design Generation Rate Coefficient
-        
-        {u'note': [u'Value in this schedule should be a fraction (generally 0.0 - 1.0) applied to the', u'Design Generation Rate Coefficient'], u'type': u'object-list', u'object-list': u'ScheduleNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Generation Schedule Name`
@@ -8413,8 +8095,6 @@ class SurfaceContaminantSourceAndSinkGenericPressureDriven(object):
     @generation_exponent.setter
     def generation_exponent(self, value=None):
         """  Corresponds to IDD Field `Generation Exponent`
-        
-        {u'units': u'dimensionless', u'minimum>': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Generation Exponent`
@@ -8551,8 +8231,6 @@ class ZoneContaminantSourceAndSinkGenericCutoffModel(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'reference': u'GenericContaminantGenerationNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -8588,8 +8266,6 @@ class ZoneContaminantSourceAndSinkGenericCutoffModel(object):
     @zone_name.setter
     def zone_name(self, value=None):
         """  Corresponds to IDD Field `Zone Name`
-        
-        {u'type': u'object-list', u'object-list': u'ZoneNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Zone Name`
@@ -8625,8 +8301,6 @@ class ZoneContaminantSourceAndSinkGenericCutoffModel(object):
     @design_generation_rate_coefficient.setter
     def design_generation_rate_coefficient(self, value=None):
         """  Corresponds to IDD Field `Design Generation Rate Coefficient`
-        
-        {u'units': u'm3/s', u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Design Generation Rate Coefficient`
@@ -8663,8 +8337,6 @@ class ZoneContaminantSourceAndSinkGenericCutoffModel(object):
         """  Corresponds to IDD Field `Schedule Name`
         Value in this schedule should be a fraction (generally 0.0 - 1.0) applied to the
         Design Generation Rate Coefficient
-        
-        {u'note': [u'Value in this schedule should be a fraction (generally 0.0 - 1.0) applied to the', u'Design Generation Rate Coefficient'], u'type': u'object-list', u'object-list': u'ScheduleNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Schedule Name`
@@ -8702,8 +8374,6 @@ class ZoneContaminantSourceAndSinkGenericCutoffModel(object):
         """  Corresponds to IDD Field `Cutoff Generic Contaminant at which Emission Ceases`
         When the zone concentration level is greater than the cutoff level, emission stops,
         and the source level is zero.
-        
-        {u'units': u'ppm', u'note': [u'When the zone concentration level is greater than the cutoff level, emission stops,', u'and the source level is zero.'], u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Cutoff Generic Contaminant at which Emission Ceases`
@@ -8836,8 +8506,6 @@ class ZoneContaminantSourceAndSinkGenericDecaySource(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'reference': u'GenericContaminantGenerationNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -8873,8 +8541,6 @@ class ZoneContaminantSourceAndSinkGenericDecaySource(object):
     @zone_name.setter
     def zone_name(self, value=None):
         """  Corresponds to IDD Field `Zone Name`
-        
-        {u'type': u'object-list', u'object-list': u'ZoneNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Zone Name`
@@ -8910,8 +8576,6 @@ class ZoneContaminantSourceAndSinkGenericDecaySource(object):
     @initial_emission_rate.setter
     def initial_emission_rate(self, value=None):
         """  Corresponds to IDD Field `Initial Emission Rate`
-        
-        {u'units': u'm3/s', u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Initial Emission Rate`
@@ -8949,8 +8613,6 @@ class ZoneContaminantSourceAndSinkGenericDecaySource(object):
         Value in this schedule should be a fraction (generally 0.0 - 1.0) applied to the
         Initial Emission Rate. When the value is equal to 1.0, the time will be reset to
         zero.
-        
-        {u'note': [u'Value in this schedule should be a fraction (generally 0.0 - 1.0) applied to the', u'Initial Emission Rate. When the value is equal to 1.0, the time will be reset to', u'zero.'], u'type': u'object-list', u'object-list': u'ScheduleNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Schedule Name`
@@ -8986,8 +8648,6 @@ class ZoneContaminantSourceAndSinkGenericDecaySource(object):
     @delay_time_constant.setter
     def delay_time_constant(self, value=None):
         """  Corresponds to IDD Field `Delay Time Constant`
-        
-        {u'units': u's', u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Delay Time Constant`
@@ -9120,8 +8780,6 @@ class SurfaceContaminantSourceAndSinkGenericBoundaryLayerDiffusion(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'reference': u'GenericContaminantGenerationNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -9157,8 +8815,6 @@ class SurfaceContaminantSourceAndSinkGenericBoundaryLayerDiffusion(object):
     @surface_name.setter
     def surface_name(self, value=None):
         """  Corresponds to IDD Field `Surface Name`
-        
-        {u'type': u'object-list', u'object-list': u'SurfaceNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface Name`
@@ -9194,8 +8850,6 @@ class SurfaceContaminantSourceAndSinkGenericBoundaryLayerDiffusion(object):
     @mass_transfer_coefficient.setter
     def mass_transfer_coefficient(self, value=None):
         """  Corresponds to IDD Field `Mass Transfer Coefficient`
-        
-        {u'units': u'm/s', u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Mass Transfer Coefficient`
@@ -9233,8 +8887,6 @@ class SurfaceContaminantSourceAndSinkGenericBoundaryLayerDiffusion(object):
         Value in this schedule should be a fraction (generally 0.0 - 1.0) applied to the
         Initial Emission Rate. When the value is equal to 1.0, the time will be reset to
         zero.
-        
-        {u'note': [u'Value in this schedule should be a fraction (generally 0.0 - 1.0) applied to the', u'Initial Emission Rate. When the value is equal to 1.0, the time will be reset to', u'zero.'], u'type': u'object-list', u'object-list': u'ScheduleNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Schedule Name`
@@ -9270,8 +8922,6 @@ class SurfaceContaminantSourceAndSinkGenericBoundaryLayerDiffusion(object):
     @henry_adsorption_constant_or_partition_coefficient.setter
     def henry_adsorption_constant_or_partition_coefficient(self, value=None):
         """  Corresponds to IDD Field `Henry adsorption constant or partition coefficient`
-        
-        {u'units': u'dimensionless', u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Henry adsorption constant or partition coefficient`
@@ -9396,8 +9046,6 @@ class SurfaceContaminantSourceAndSinkGenericDepositionVelocitySink(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'reference': u'GenericContaminantGenerationNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -9433,8 +9081,6 @@ class SurfaceContaminantSourceAndSinkGenericDepositionVelocitySink(object):
     @surface_name.setter
     def surface_name(self, value=None):
         """  Corresponds to IDD Field `Surface Name`
-        
-        {u'type': u'object-list', u'object-list': u'SurfaceNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface Name`
@@ -9470,8 +9116,6 @@ class SurfaceContaminantSourceAndSinkGenericDepositionVelocitySink(object):
     @deposition_velocity.setter
     def deposition_velocity(self, value=None):
         """  Corresponds to IDD Field `Deposition Velocity`
-        
-        {u'units': u'm/s', u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Deposition Velocity`
@@ -9509,8 +9153,6 @@ class SurfaceContaminantSourceAndSinkGenericDepositionVelocitySink(object):
         Value in this schedule should be a fraction (generally 0.0 - 1.0) applied to the
         Initial Emission Rate. When the value is equal to 1.0, the time will be reset to
         zero.
-        
-        {u'note': [u'Value in this schedule should be a fraction (generally 0.0 - 1.0) applied to the', u'Initial Emission Rate. When the value is equal to 1.0, the time will be reset to', u'zero.'], u'type': u'object-list', u'object-list': u'ScheduleNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Schedule Name`
@@ -9636,8 +9278,6 @@ class ZoneContaminantSourceAndSinkGenericDepositionRateSink(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'reference': u'GenericContaminantGenerationNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -9673,8 +9313,6 @@ class ZoneContaminantSourceAndSinkGenericDepositionRateSink(object):
     @zone_name.setter
     def zone_name(self, value=None):
         """  Corresponds to IDD Field `Zone Name`
-        
-        {u'type': u'object-list', u'object-list': u'ZoneNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Zone Name`
@@ -9710,8 +9348,6 @@ class ZoneContaminantSourceAndSinkGenericDepositionRateSink(object):
     @deposition_rate.setter
     def deposition_rate(self, value=None):
         """  Corresponds to IDD Field `Deposition Rate`
-        
-        {u'units': u'm/s', u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Deposition Rate`
@@ -9749,8 +9385,6 @@ class ZoneContaminantSourceAndSinkGenericDepositionRateSink(object):
         Value in this schedule should be a fraction (generally 0.0 - 1.0) applied to the
         Initial Emission Rate. When the value is equal to 1.0, the time will be reset to
         zero.
-        
-        {u'note': [u'Value in this schedule should be a fraction (generally 0.0 - 1.0) applied to the', u'Initial Emission Rate. When the value is equal to 1.0, the time will be reset to', u'zero.'], u'type': u'object-list', u'object-list': u'ScheduleNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Schedule Name`

@@ -42,12 +42,10 @@ class ComplianceBuilding(object):
         return self._data["Building Rotation for Appendix G"]
 
     @building_rotation_for_appendix_g.setter
-    def building_rotation_for_appendix_g(self, value=0.0 ):
+    def building_rotation_for_appendix_g(self, value=0.0):
         """  Corresponds to IDD Field `Building Rotation for Appendix G`
         Additional degrees of rotation to be used with the requirement in ASHRAE Standard 90.1 Appendix G
         that states that the baseline building should be rotated in four directions.
-        
-        {u'note': [u'Additional degrees of rotation to be used with the requirement in ASHRAE Standard 90.1 Appendix G', u'that states that the baseline building should be rotated in four directions.'], u'units': u'deg', u'default': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Building Rotation for Appendix G`

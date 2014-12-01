@@ -51,8 +51,6 @@ class ExternalInterface(object):
         """  Corresponds to IDD Field `Name of External Interface`
         Name of External Interface
         Currently, the only valid entries are PtolemyServer, FunctionalMockupUnitImport, and FunctionalMockupUnitExport.
-        
-        {u'note': [u'Name of External Interface', u'Currently, the only valid entries are PtolemyServer, FunctionalMockupUnitImport, and FunctionalMockupUnitExport.'], u'type': u'choice', u'key': [u'PtolemyServer', u'FunctionalMockupUnitImport', u'FunctionalMockupUnitExport'], u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name of External Interface`
@@ -193,8 +191,6 @@ class ExternalInterfaceSchedule(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'reference': u'ExternalInterfaceScheduleNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -230,8 +226,6 @@ class ExternalInterfaceSchedule(object):
     @schedule_type_limits_name.setter
     def schedule_type_limits_name(self, value=None):
         """  Corresponds to IDD Field `Schedule Type Limits Name`
-        
-        {u'type': u'object-list', u'object-list': u'ScheduleTypeLimitsNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Schedule Type Limits Name`
@@ -268,8 +262,6 @@ class ExternalInterfaceSchedule(object):
     def initial_value(self, value=None):
         """  Corresponds to IDD Field `Initial Value`
         Used during warm-up and system sizing.
-        
-        {u'note': [u'Used during warm-up and system sizing.'], u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Initial Value`
@@ -379,8 +371,6 @@ class ExternalInterfaceVariable(object):
         """  Corresponds to IDD Field `Name`
         This name becomes a variable for use in Erl programs
         no spaces allowed in name
-        
-        {u'note': [u'This name becomes a variable for use in Erl programs', u'no spaces allowed in name'], u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -417,8 +407,6 @@ class ExternalInterfaceVariable(object):
     def initial_value(self, value=None):
         """  Corresponds to IDD Field `Initial Value`
         Used during warm-up and system sizing.
-        
-        {u'note': [u'Used during warm-up and system sizing.'], u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Initial Value`
@@ -548,8 +536,6 @@ class ExternalInterfaceActuator(object):
         """  Corresponds to IDD Field `Name`
         This name becomes a variable for use in Erl programs
         no spaces allowed in name
-        
-        {u'note': [u'This name becomes a variable for use in Erl programs', u'no spaces allowed in name'], u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -585,8 +571,6 @@ class ExternalInterfaceActuator(object):
     @actuated_component_unique_name.setter
     def actuated_component_unique_name(self, value=None):
         """  Corresponds to IDD Field `Actuated Component Unique Name`
-        
-        {u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Actuated Component Unique Name`
@@ -622,8 +606,6 @@ class ExternalInterfaceActuator(object):
     @actuated_component_type.setter
     def actuated_component_type(self, value=None):
         """  Corresponds to IDD Field `Actuated Component Type`
-        
-        {u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Actuated Component Type`
@@ -659,8 +641,6 @@ class ExternalInterfaceActuator(object):
     @actuated_component_control_type.setter
     def actuated_component_control_type(self, value=None):
         """  Corresponds to IDD Field `Actuated Component Control Type`
-        
-        {u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Actuated Component Control Type`
@@ -699,8 +679,6 @@ class ExternalInterfaceActuator(object):
         If specified, it is used during warm-up and system sizing.
         If not specified, then the actuator only overwrites the
         actuated component after the warm-up and system sizing.
-        
-        {u'note': [u'If specified, it is used during warm-up and system sizing.', u'If not specified, then the actuator only overwrites the', u'actuated component after the warm-up and system sizing.'], u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Optional Initial Value`
@@ -812,8 +790,6 @@ class ExternalInterfaceFunctionalMockupUnitImport(object):
     @fmu_file_name.setter
     def fmu_file_name(self, value=None):
         """  Corresponds to IDD Field `FMU File Name`
-        
-        {u'retaincase': u'', u'type': u'alpha', u'reference': u'FMUFilename', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `FMU File Name`
@@ -847,11 +823,9 @@ class ExternalInterfaceFunctionalMockupUnitImport(object):
         return self._data["FMU Timeout"]
 
     @fmu_timeout.setter
-    def fmu_timeout(self, value=0.0 ):
+    def fmu_timeout(self, value=0.0):
         """  Corresponds to IDD Field `FMU Timeout`
         in milli-seconds
-        
-        {'pytype': 'float', u'default': '0.0', u'required-field': True, u'note': [u'in milli-seconds'], u'units': u'ms', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `FMU Timeout`
@@ -881,10 +855,8 @@ class ExternalInterfaceFunctionalMockupUnitImport(object):
         return self._data["FMU LoggingOn"]
 
     @fmu_loggingon.setter
-    def fmu_loggingon(self, value=0 ):
+    def fmu_loggingon(self, value=0):
         """  Corresponds to IDD Field `FMU LoggingOn`
-        
-        {u'default': '0', u'type': u'integer', u'required-field': True, 'pytype': 'int'}
 
         Args:
             value (int): value for IDD Field `FMU LoggingOn`
@@ -1013,8 +985,6 @@ class ExternalInterfaceFunctionalMockupUnitImportFromVariable(object):
     @outputvariable_index_key_name.setter
     def outputvariable_index_key_name(self, value=None):
         """  Corresponds to IDD Field `Output:Variable Index Key Name`
-        
-        {u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Output:Variable Index Key Name`
@@ -1050,8 +1020,6 @@ class ExternalInterfaceFunctionalMockupUnitImportFromVariable(object):
     @outputvariable_name.setter
     def outputvariable_name(self, value=None):
         """  Corresponds to IDD Field `Output:Variable Name`
-        
-        {u'external-list': u'autoRDDvariable', u'type': u'external-list', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Output:Variable Name`
@@ -1087,8 +1055,6 @@ class ExternalInterfaceFunctionalMockupUnitImportFromVariable(object):
     @fmu_file_name.setter
     def fmu_file_name(self, value=None):
         """  Corresponds to IDD Field `FMU File Name`
-        
-        {u'retaincase': u'', u'type': u'object-list', u'object-list': u'FMUFileName', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `FMU File Name`
@@ -1124,8 +1090,6 @@ class ExternalInterfaceFunctionalMockupUnitImportFromVariable(object):
     @fmu_instance_name.setter
     def fmu_instance_name(self, value=None):
         """  Corresponds to IDD Field `FMU Instance Name`
-        
-        {u'retaincase': u'', u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `FMU Instance Name`
@@ -1161,8 +1125,6 @@ class ExternalInterfaceFunctionalMockupUnitImportFromVariable(object):
     @fmu_variable_name.setter
     def fmu_variable_name(self, value=None):
         """  Corresponds to IDD Field `FMU Variable Name`
-        
-        {u'retaincase': u'', u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `FMU Variable Name`
@@ -1305,8 +1267,6 @@ class ExternalInterfaceFunctionalMockupUnitImportToSchedule(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'reference': u'ExternalInterfaceScheduleNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -1342,8 +1302,6 @@ class ExternalInterfaceFunctionalMockupUnitImportToSchedule(object):
     @schedule_type_limits_names.setter
     def schedule_type_limits_names(self, value=None):
         """  Corresponds to IDD Field `Schedule Type Limits Names`
-        
-        {u'type': u'object-list', u'object-list': u'ScheduleTypeLimitsNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Schedule Type Limits Names`
@@ -1379,8 +1337,6 @@ class ExternalInterfaceFunctionalMockupUnitImportToSchedule(object):
     @fmu_file_name.setter
     def fmu_file_name(self, value=None):
         """  Corresponds to IDD Field `FMU File Name`
-        
-        {u'retaincase': u'', u'type': u'object-list', u'object-list': u'FMUFileName', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `FMU File Name`
@@ -1416,8 +1372,6 @@ class ExternalInterfaceFunctionalMockupUnitImportToSchedule(object):
     @fmu_instance_name.setter
     def fmu_instance_name(self, value=None):
         """  Corresponds to IDD Field `FMU Instance Name`
-        
-        {u'retaincase': u'', u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `FMU Instance Name`
@@ -1453,8 +1407,6 @@ class ExternalInterfaceFunctionalMockupUnitImportToSchedule(object):
     @fmu_variable_name.setter
     def fmu_variable_name(self, value=None):
         """  Corresponds to IDD Field `FMU Variable Name`
-        
-        {u'retaincase': u'', u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `FMU Variable Name`
@@ -1491,8 +1443,6 @@ class ExternalInterfaceFunctionalMockupUnitImportToSchedule(object):
     def initial_value(self, value=None):
         """  Corresponds to IDD Field `Initial Value`
         Used during the first call of EnergyPlus.
-        
-        {u'note': [u'Used during the first call of EnergyPlus.'], u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Initial Value`
@@ -1647,8 +1597,6 @@ class ExternalInterfaceFunctionalMockupUnitImportToActuator(object):
         """  Corresponds to IDD Field `Name`
         This name becomes a read-only variable for use in Erl programs
         no spaces allowed in name
-        
-        {u'note': [u'This name becomes a read-only variable for use in Erl programs', u'no spaces allowed in name'], u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -1684,8 +1632,6 @@ class ExternalInterfaceFunctionalMockupUnitImportToActuator(object):
     @actuated_component_unique_name.setter
     def actuated_component_unique_name(self, value=None):
         """  Corresponds to IDD Field `Actuated Component Unique Name`
-        
-        {u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Actuated Component Unique Name`
@@ -1721,8 +1667,6 @@ class ExternalInterfaceFunctionalMockupUnitImportToActuator(object):
     @actuated_component_type.setter
     def actuated_component_type(self, value=None):
         """  Corresponds to IDD Field `Actuated Component Type`
-        
-        {u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Actuated Component Type`
@@ -1758,8 +1702,6 @@ class ExternalInterfaceFunctionalMockupUnitImportToActuator(object):
     @actuated_component_control_type.setter
     def actuated_component_control_type(self, value=None):
         """  Corresponds to IDD Field `Actuated Component Control Type`
-        
-        {u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Actuated Component Control Type`
@@ -1795,8 +1737,6 @@ class ExternalInterfaceFunctionalMockupUnitImportToActuator(object):
     @fmu_file_name.setter
     def fmu_file_name(self, value=None):
         """  Corresponds to IDD Field `FMU File Name`
-        
-        {u'retaincase': u'', u'type': u'object-list', u'object-list': u'FMUFileName', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `FMU File Name`
@@ -1832,8 +1772,6 @@ class ExternalInterfaceFunctionalMockupUnitImportToActuator(object):
     @fmu_instance_name.setter
     def fmu_instance_name(self, value=None):
         """  Corresponds to IDD Field `FMU Instance Name`
-        
-        {u'retaincase': u'', u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `FMU Instance Name`
@@ -1869,8 +1807,6 @@ class ExternalInterfaceFunctionalMockupUnitImportToActuator(object):
     @fmu_variable_name.setter
     def fmu_variable_name(self, value=None):
         """  Corresponds to IDD Field `FMU Variable Name`
-        
-        {u'retaincase': u'', u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `FMU Variable Name`
@@ -1907,8 +1843,6 @@ class ExternalInterfaceFunctionalMockupUnitImportToActuator(object):
     def initial_value(self, value=None):
         """  Corresponds to IDD Field `Initial Value`
         Used during the first call of EnergyPlus.
-        
-        {u'note': [u'Used during the first call of EnergyPlus.'], u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Initial Value`
@@ -2039,8 +1973,6 @@ class ExternalInterfaceFunctionalMockupUnitImportToVariable(object):
         """  Corresponds to IDD Field `Name`
         This name becomes a variable for use in Erl programs
         no spaces allowed in name
-        
-        {u'note': [u'This name becomes a variable for use in Erl programs', u'no spaces allowed in name'], u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -2076,8 +2008,6 @@ class ExternalInterfaceFunctionalMockupUnitImportToVariable(object):
     @fmu_file_name.setter
     def fmu_file_name(self, value=None):
         """  Corresponds to IDD Field `FMU File Name`
-        
-        {u'retaincase': u'', u'type': u'object-list', u'object-list': u'FMUFileName', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `FMU File Name`
@@ -2113,8 +2043,6 @@ class ExternalInterfaceFunctionalMockupUnitImportToVariable(object):
     @fmu_instance_name.setter
     def fmu_instance_name(self, value=None):
         """  Corresponds to IDD Field `FMU Instance Name`
-        
-        {u'retaincase': u'', u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `FMU Instance Name`
@@ -2150,8 +2078,6 @@ class ExternalInterfaceFunctionalMockupUnitImportToVariable(object):
     @fmu_variable_name.setter
     def fmu_variable_name(self, value=None):
         """  Corresponds to IDD Field `FMU Variable Name`
-        
-        {u'retaincase': u'', u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `FMU Variable Name`
@@ -2188,8 +2114,6 @@ class ExternalInterfaceFunctionalMockupUnitImportToVariable(object):
     def initial_value(self, value=None):
         """  Corresponds to IDD Field `Initial Value`
         Used during the first call of EnergyPlus.
-        
-        {u'note': [u'Used during the first call of EnergyPlus.'], u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Initial Value`
@@ -2301,8 +2225,6 @@ class ExternalInterfaceFunctionalMockupUnitExportFromVariable(object):
     @outputvariable_index_key_name.setter
     def outputvariable_index_key_name(self, value=None):
         """  Corresponds to IDD Field `Output:Variable Index Key Name`
-        
-        {u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Output:Variable Index Key Name`
@@ -2338,8 +2260,6 @@ class ExternalInterfaceFunctionalMockupUnitExportFromVariable(object):
     @outputvariable_name.setter
     def outputvariable_name(self, value=None):
         """  Corresponds to IDD Field `Output:Variable Name`
-        
-        {u'external-list': u'autoRDDvariable', u'type': u'external-list', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Output:Variable Name`
@@ -2375,8 +2295,6 @@ class ExternalInterfaceFunctionalMockupUnitExportFromVariable(object):
     @fmu_variable_name.setter
     def fmu_variable_name(self, value=None):
         """  Corresponds to IDD Field `FMU Variable Name`
-        
-        {u'retaincase': u'', u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `FMU Variable Name`
@@ -2503,8 +2421,6 @@ class ExternalInterfaceFunctionalMockupUnitExportToSchedule(object):
     @schedule_name.setter
     def schedule_name(self, value=None):
         """  Corresponds to IDD Field `Schedule Name`
-        
-        {u'type': u'alpha', u'reference': u'ExternalInterfaceScheduleNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Schedule Name`
@@ -2540,8 +2456,6 @@ class ExternalInterfaceFunctionalMockupUnitExportToSchedule(object):
     @schedule_type_limits_names.setter
     def schedule_type_limits_names(self, value=None):
         """  Corresponds to IDD Field `Schedule Type Limits Names`
-        
-        {u'type': u'object-list', u'object-list': u'ScheduleTypeLimitsNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Schedule Type Limits Names`
@@ -2577,8 +2491,6 @@ class ExternalInterfaceFunctionalMockupUnitExportToSchedule(object):
     @fmu_variable_name.setter
     def fmu_variable_name(self, value=None):
         """  Corresponds to IDD Field `FMU Variable Name`
-        
-        {u'retaincase': u'', u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `FMU Variable Name`
@@ -2615,8 +2527,6 @@ class ExternalInterfaceFunctionalMockupUnitExportToSchedule(object):
     def initial_value(self, value=None):
         """  Corresponds to IDD Field `Initial Value`
         Used during the first call of EnergyPlus.
-        
-        {u'note': [u'Used during the first call of EnergyPlus.'], u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Initial Value`
@@ -2755,8 +2665,6 @@ class ExternalInterfaceFunctionalMockupUnitExportToActuator(object):
         """  Corresponds to IDD Field `Name`
         This name becomes a read-only variable for use in Erl programs
         no spaces allowed in name
-        
-        {u'note': [u'This name becomes a read-only variable for use in Erl programs', u'no spaces allowed in name'], u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -2792,8 +2700,6 @@ class ExternalInterfaceFunctionalMockupUnitExportToActuator(object):
     @actuated_component_unique_name.setter
     def actuated_component_unique_name(self, value=None):
         """  Corresponds to IDD Field `Actuated Component Unique Name`
-        
-        {u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Actuated Component Unique Name`
@@ -2829,8 +2735,6 @@ class ExternalInterfaceFunctionalMockupUnitExportToActuator(object):
     @actuated_component_type.setter
     def actuated_component_type(self, value=None):
         """  Corresponds to IDD Field `Actuated Component Type`
-        
-        {u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Actuated Component Type`
@@ -2866,8 +2770,6 @@ class ExternalInterfaceFunctionalMockupUnitExportToActuator(object):
     @actuated_component_control_type.setter
     def actuated_component_control_type(self, value=None):
         """  Corresponds to IDD Field `Actuated Component Control Type`
-        
-        {u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Actuated Component Control Type`
@@ -2903,8 +2805,6 @@ class ExternalInterfaceFunctionalMockupUnitExportToActuator(object):
     @fmu_variable_name.setter
     def fmu_variable_name(self, value=None):
         """  Corresponds to IDD Field `FMU Variable Name`
-        
-        {u'retaincase': u'', u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `FMU Variable Name`
@@ -2941,8 +2841,6 @@ class ExternalInterfaceFunctionalMockupUnitExportToActuator(object):
     def initial_value(self, value=None):
         """  Corresponds to IDD Field `Initial Value`
         Used during the first call of EnergyPlus.
-        
-        {u'note': [u'Used during the first call of EnergyPlus.'], u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Initial Value`
@@ -3057,8 +2955,6 @@ class ExternalInterfaceFunctionalMockupUnitExportToVariable(object):
         """  Corresponds to IDD Field `Name`
         This name becomes a variable for use in Erl programs
         no spaces allowed in name
-        
-        {u'note': [u'This name becomes a variable for use in Erl programs', u'no spaces allowed in name'], u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -3094,8 +2990,6 @@ class ExternalInterfaceFunctionalMockupUnitExportToVariable(object):
     @fmu_variable_name.setter
     def fmu_variable_name(self, value=None):
         """  Corresponds to IDD Field `FMU Variable Name`
-        
-        {u'retaincase': u'', u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `FMU Variable Name`
@@ -3132,8 +3026,6 @@ class ExternalInterfaceFunctionalMockupUnitExportToVariable(object):
     def initial_value(self, value=None):
         """  Corresponds to IDD Field `Initial Value`
         Used during the first call of EnergyPlus.
-        
-        {u'note': [u'Used during the first call of EnergyPlus.'], u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Initial Value`

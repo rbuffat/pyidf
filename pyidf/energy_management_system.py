@@ -65,8 +65,6 @@ class EnergyManagementSystemSensor(object):
         """  Corresponds to IDD Field `Name`
         This name becomes a variable for use in Erl programs
         no spaces allowed in name
-        
-        {u'note': [u'This name becomes a variable for use in Erl programs', u'no spaces allowed in name'], u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -102,8 +100,6 @@ class EnergyManagementSystemSensor(object):
     @outputvariable_or_outputmeter_index_key_name.setter
     def outputvariable_or_outputmeter_index_key_name(self, value=None):
         """  Corresponds to IDD Field `Output:Variable or Output:Meter Index Key Name`
-        
-        {u'type': u'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Output:Variable or Output:Meter Index Key Name`
@@ -139,8 +135,6 @@ class EnergyManagementSystemSensor(object):
     @outputvariable_or_outputmeter_name.setter
     def outputvariable_or_outputmeter_name(self, value=None):
         """  Corresponds to IDD Field `Output:Variable or Output:Meter Name`
-        
-        {u'external-list': u'autoRDDmeter', u'type': u'external-list', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Output:Variable or Output:Meter Name`
@@ -268,8 +262,6 @@ class EnergyManagementSystemActuator(object):
         """  Corresponds to IDD Field `Name`
         This name becomes a variable for use in Erl programs
         no spaces allowed in name
-        
-        {u'note': [u'This name becomes a variable for use in Erl programs', u'no spaces allowed in name'], u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -305,8 +297,6 @@ class EnergyManagementSystemActuator(object):
     @actuated_component_unique_name.setter
     def actuated_component_unique_name(self, value=None):
         """  Corresponds to IDD Field `Actuated Component Unique Name`
-        
-        {u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Actuated Component Unique Name`
@@ -342,8 +332,6 @@ class EnergyManagementSystemActuator(object):
     @actuated_component_type.setter
     def actuated_component_type(self, value=None):
         """  Corresponds to IDD Field `Actuated Component Type`
-        
-        {u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Actuated Component Type`
@@ -379,8 +367,6 @@ class EnergyManagementSystemActuator(object):
     @actuated_component_control_type.setter
     def actuated_component_control_type(self, value=None):
         """  Corresponds to IDD Field `Actuated Component Control Type`
-        
-        {u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Actuated Component Control Type`
@@ -693,8 +679,6 @@ class EnergyManagementSystemProgramCallingManager(object):
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
         no spaces allowed in name
-        
-        {u'note': [u'no spaces allowed in name'], u'type': u'alpha', u'reference': u'ProgramNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -730,8 +714,6 @@ class EnergyManagementSystemProgramCallingManager(object):
     @energyplus_model_calling_point.setter
     def energyplus_model_calling_point(self, value=None):
         """  Corresponds to IDD Field `EnergyPlus Model Calling Point`
-        
-        {u'type': u'choice', u'key': [u'BeginNewEnvironment', u'AfterNewEnvironmentWarmUpIsComplete', u'BeginTimestepBeforePredictor', u'AfterPredictorBeforeHVACManagers', u'AfterPredictorAfterHVACManagers', u'InsideHVACSystemIterationLoop', u'EndOfZoneTimestepBeforeZoneReporting', u'EndOfZoneTimestepAfterZoneReporting', u'EndOfSystemTimestepBeforeHVACReporting', u'EndOfSystemTimestepAfterHVACReporting', u'EndOfZoneSizing', u'EndOfSystemSizing', u'AfterComponentInputReadIn', u'UserDefinedComponentModel', u'UnitarySystemSizing'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `EnergyPlus Model Calling Point`
@@ -814,8 +796,6 @@ class EnergyManagementSystemProgramCallingManager(object):
     def program_name_1(self, value=None):
         """  Corresponds to IDD Field `Program Name 1`
         no spaces allowed in name
-        
-        {'pytype': 'str', u'begin-extensible': u'', u'required-field': True, u'note': [u'no spaces allowed in name'], u'object-list': u'ErlProgramNames', u'type': u'object-list'}
 
         Args:
             value (str): value for IDD Field `Program Name 1`
@@ -852,8 +832,6 @@ class EnergyManagementSystemProgramCallingManager(object):
     def program_name_2(self, value=None):
         """  Corresponds to IDD Field `Program Name 2`
         no spaces allowed in name
-        
-        {u'note': [u'no spaces allowed in name'], u'type': u'object-list', u'object-list': u'ErlProgramNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Program Name 2`
@@ -890,8 +868,6 @@ class EnergyManagementSystemProgramCallingManager(object):
     def program_name_3(self, value=None):
         """  Corresponds to IDD Field `Program Name 3`
         no spaces allowed in name
-        
-        {u'note': [u'no spaces allowed in name'], u'type': u'object-list', u'object-list': u'ErlProgramNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Program Name 3`
@@ -928,8 +904,6 @@ class EnergyManagementSystemProgramCallingManager(object):
     def program_name_4(self, value=None):
         """  Corresponds to IDD Field `Program Name 4`
         no spaces allowed in name
-        
-        {u'note': [u'no spaces allowed in name'], u'type': u'object-list', u'object-list': u'ErlProgramNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Program Name 4`
@@ -966,8 +940,6 @@ class EnergyManagementSystemProgramCallingManager(object):
     def program_name_5(self, value=None):
         """  Corresponds to IDD Field `Program Name 5`
         no spaces allowed in name
-        
-        {u'note': [u'no spaces allowed in name'], u'type': u'object-list', u'object-list': u'ErlProgramNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Program Name 5`
@@ -1004,8 +976,6 @@ class EnergyManagementSystemProgramCallingManager(object):
     def program_name_6(self, value=None):
         """  Corresponds to IDD Field `Program Name 6`
         no spaces allowed in name
-        
-        {u'note': [u'no spaces allowed in name'], u'type': u'object-list', u'object-list': u'ErlProgramNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Program Name 6`
@@ -1042,8 +1012,6 @@ class EnergyManagementSystemProgramCallingManager(object):
     def program_name_7(self, value=None):
         """  Corresponds to IDD Field `Program Name 7`
         no spaces allowed in name
-        
-        {u'note': [u'no spaces allowed in name'], u'type': u'object-list', u'object-list': u'ErlProgramNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Program Name 7`
@@ -1080,8 +1048,6 @@ class EnergyManagementSystemProgramCallingManager(object):
     def program_name_8(self, value=None):
         """  Corresponds to IDD Field `Program Name 8`
         no spaces allowed in name
-        
-        {u'note': [u'no spaces allowed in name'], u'type': u'object-list', u'object-list': u'ErlProgramNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Program Name 8`
@@ -1118,8 +1084,6 @@ class EnergyManagementSystemProgramCallingManager(object):
     def program_name_9(self, value=None):
         """  Corresponds to IDD Field `Program Name 9`
         no spaces allowed in name
-        
-        {u'note': [u'no spaces allowed in name'], u'type': u'object-list', u'object-list': u'ErlProgramNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Program Name 9`
@@ -1156,8 +1120,6 @@ class EnergyManagementSystemProgramCallingManager(object):
     def program_name_10(self, value=None):
         """  Corresponds to IDD Field `Program Name 10`
         no spaces allowed in name
-        
-        {u'note': [u'no spaces allowed in name'], u'type': u'object-list', u'object-list': u'ErlProgramNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Program Name 10`
@@ -1194,8 +1156,6 @@ class EnergyManagementSystemProgramCallingManager(object):
     def program_name_11(self, value=None):
         """  Corresponds to IDD Field `Program Name 11`
         no spaces allowed in name
-        
-        {u'note': [u'no spaces allowed in name'], u'type': u'object-list', u'object-list': u'ErlProgramNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Program Name 11`
@@ -1232,8 +1192,6 @@ class EnergyManagementSystemProgramCallingManager(object):
     def program_name_12(self, value=None):
         """  Corresponds to IDD Field `Program Name 12`
         no spaces allowed in name
-        
-        {u'note': [u'no spaces allowed in name'], u'type': u'object-list', u'object-list': u'ErlProgramNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Program Name 12`
@@ -1270,8 +1228,6 @@ class EnergyManagementSystemProgramCallingManager(object):
     def program_name_13(self, value=None):
         """  Corresponds to IDD Field `Program Name 13`
         no spaces allowed in name
-        
-        {u'note': [u'no spaces allowed in name'], u'type': u'object-list', u'object-list': u'ErlProgramNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Program Name 13`
@@ -1308,8 +1264,6 @@ class EnergyManagementSystemProgramCallingManager(object):
     def program_name_14(self, value=None):
         """  Corresponds to IDD Field `Program Name 14`
         no spaces allowed in name
-        
-        {u'note': [u'no spaces allowed in name'], u'type': u'object-list', u'object-list': u'ErlProgramNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Program Name 14`
@@ -1346,8 +1300,6 @@ class EnergyManagementSystemProgramCallingManager(object):
     def program_name_15(self, value=None):
         """  Corresponds to IDD Field `Program Name 15`
         no spaces allowed in name
-        
-        {u'note': [u'no spaces allowed in name'], u'type': u'object-list', u'object-list': u'ErlProgramNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Program Name 15`
@@ -1384,8 +1336,6 @@ class EnergyManagementSystemProgramCallingManager(object):
     def program_name_16(self, value=None):
         """  Corresponds to IDD Field `Program Name 16`
         no spaces allowed in name
-        
-        {u'note': [u'no spaces allowed in name'], u'type': u'object-list', u'object-list': u'ErlProgramNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Program Name 16`
@@ -1422,8 +1372,6 @@ class EnergyManagementSystemProgramCallingManager(object):
     def program_name_17(self, value=None):
         """  Corresponds to IDD Field `Program Name 17`
         no spaces allowed in name
-        
-        {u'note': [u'no spaces allowed in name'], u'type': u'object-list', u'object-list': u'ErlProgramNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Program Name 17`
@@ -1460,8 +1408,6 @@ class EnergyManagementSystemProgramCallingManager(object):
     def program_name_18(self, value=None):
         """  Corresponds to IDD Field `Program Name 18`
         no spaces allowed in name
-        
-        {u'note': [u'no spaces allowed in name'], u'type': u'object-list', u'object-list': u'ErlProgramNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Program Name 18`
@@ -1498,8 +1444,6 @@ class EnergyManagementSystemProgramCallingManager(object):
     def program_name_19(self, value=None):
         """  Corresponds to IDD Field `Program Name 19`
         no spaces allowed in name
-        
-        {u'note': [u'no spaces allowed in name'], u'type': u'object-list', u'object-list': u'ErlProgramNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Program Name 19`
@@ -1536,8 +1480,6 @@ class EnergyManagementSystemProgramCallingManager(object):
     def program_name_20(self, value=None):
         """  Corresponds to IDD Field `Program Name 20`
         no spaces allowed in name
-        
-        {u'note': [u'no spaces allowed in name'], u'type': u'object-list', u'object-list': u'ErlProgramNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Program Name 20`
@@ -1574,8 +1516,6 @@ class EnergyManagementSystemProgramCallingManager(object):
     def program_name_21(self, value=None):
         """  Corresponds to IDD Field `Program Name 21`
         no spaces allowed in name
-        
-        {u'note': [u'no spaces allowed in name'], u'type': u'object-list', u'object-list': u'ErlProgramNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Program Name 21`
@@ -1612,8 +1552,6 @@ class EnergyManagementSystemProgramCallingManager(object):
     def program_name_22(self, value=None):
         """  Corresponds to IDD Field `Program Name 22`
         no spaces allowed in name
-        
-        {u'note': [u'no spaces allowed in name'], u'type': u'object-list', u'object-list': u'ErlProgramNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Program Name 22`
@@ -1650,8 +1588,6 @@ class EnergyManagementSystemProgramCallingManager(object):
     def program_name_23(self, value=None):
         """  Corresponds to IDD Field `Program Name 23`
         no spaces allowed in name
-        
-        {u'note': [u'no spaces allowed in name'], u'type': u'object-list', u'object-list': u'ErlProgramNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Program Name 23`
@@ -1688,8 +1624,6 @@ class EnergyManagementSystemProgramCallingManager(object):
     def program_name_24(self, value=None):
         """  Corresponds to IDD Field `Program Name 24`
         no spaces allowed in name
-        
-        {u'note': [u'no spaces allowed in name'], u'type': u'object-list', u'object-list': u'ErlProgramNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Program Name 24`
@@ -1726,8 +1660,6 @@ class EnergyManagementSystemProgramCallingManager(object):
     def program_name_25(self, value=None):
         """  Corresponds to IDD Field `Program Name 25`
         no spaces allowed in name
-        
-        {u'note': [u'no spaces allowed in name'], u'type': u'object-list', u'object-list': u'ErlProgramNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Program Name 25`
@@ -1869,8 +1801,6 @@ class EnergyManagementSystemOutputVariable(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'retaincase': u'', u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -1907,8 +1837,6 @@ class EnergyManagementSystemOutputVariable(object):
     def ems_variable_name(self, value=None):
         """  Corresponds to IDD Field `EMS Variable Name`
         must be an acceptable EMS variable
-        
-        {u'note': [u'must be an acceptable EMS variable'], u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `EMS Variable Name`
@@ -1944,8 +1872,6 @@ class EnergyManagementSystemOutputVariable(object):
     @type_of_data_in_variable.setter
     def type_of_data_in_variable(self, value=None):
         """  Corresponds to IDD Field `Type of Data in Variable`
-        
-        {u'type': u'choice', u'key': [u'Averaged', u'Summed'], u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Type of Data in Variable`
@@ -2001,8 +1927,6 @@ class EnergyManagementSystemOutputVariable(object):
     @update_frequency.setter
     def update_frequency(self, value=None):
         """  Corresponds to IDD Field `Update Frequency`
-        
-        {u'type': u'choice', u'key': [u'ZoneTimestep', u'SystemTimestep'], u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Update Frequency`
@@ -2059,8 +1983,6 @@ class EnergyManagementSystemOutputVariable(object):
     def ems_program_or_subroutine_name(self, value=None):
         """  Corresponds to IDD Field `EMS Program or Subroutine Name`
         optional for global scope variables, required for local scope variables
-        
-        {u'note': [u'optional for global scope variables, required for local scope variables'], u'type': u'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `EMS Program or Subroutine Name`
@@ -2098,8 +2020,6 @@ class EnergyManagementSystemOutputVariable(object):
         """  Corresponds to IDD Field `Units`
         optional but will result in dimensionless units for blank
         EnergyPlus units are standard SI units
-        
-        {u'note': [u'optional but will result in dimensionless units for blank', u'EnergyPlus units are standard SI units'], u'type': u'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Units`
@@ -2265,8 +2185,6 @@ class EnergyManagementSystemMeteredOutputVariable(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'retaincase': u'', u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -2303,8 +2221,6 @@ class EnergyManagementSystemMeteredOutputVariable(object):
     def ems_variable_name(self, value=None):
         """  Corresponds to IDD Field `EMS Variable Name`
         must be an acceptable EMS variable, no spaces
-        
-        {u'note': [u'must be an acceptable EMS variable, no spaces'], u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `EMS Variable Name`
@@ -2340,8 +2256,6 @@ class EnergyManagementSystemMeteredOutputVariable(object):
     @update_frequency.setter
     def update_frequency(self, value=None):
         """  Corresponds to IDD Field `Update Frequency`
-        
-        {u'type': u'choice', u'key': [u'ZoneTimestep', u'SystemTimestep'], u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Update Frequency`
@@ -2398,8 +2312,6 @@ class EnergyManagementSystemMeteredOutputVariable(object):
     def ems_program_or_subroutine_name(self, value=None):
         """  Corresponds to IDD Field `EMS Program or Subroutine Name`
         optional for global scope variables, required for local scope variables
-        
-        {u'note': [u'optional for global scope variables, required for local scope variables'], u'type': u'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `EMS Program or Subroutine Name`
@@ -2436,8 +2348,6 @@ class EnergyManagementSystemMeteredOutputVariable(object):
     def resource_type(self, value=None):
         """  Corresponds to IDD Field `Resource Type`
         choose the type of fuel, water, electricity, pollution or heat rate that should be metered.
-        
-        {u'note': [u'choose the type of fuel, water, electricity, pollution or heat rate that should be metered.'], u'type': u'choice', u'key': [u'Electricity', u'NaturalGas', u'Gasoline', u'Diesel', u'Coal', u'FuelOil#1', u'FuelOil#2', u'Propane', u'OtherFuel1', u'OtherFuel2', u'WaterUse', u'OnSiteWaterProduced', u'MainsWaterSupply', u'RainWaterCollected', u'WellWaterDrawn', u'CondensateWaterCollected', u'EnergyTransfer', u'Steam', u'DistrictCooling', u'DistrictHeating', u'ElectricityProducedOnSite', u'SolarWaterHeating', u'SolarAirHeating'], u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Resource Type`
@@ -2536,8 +2446,6 @@ class EnergyManagementSystemMeteredOutputVariable(object):
     def group_type(self, value=None):
         """  Corresponds to IDD Field `Group Type`
         choose a general classification, building (internal services), HVAC (air sytems), or plant (hydronic systems)
-        
-        {u'note': [u'choose a general classification, building (internal services), HVAC (air sytems), or plant (hydronic systems)'], u'type': u'choice', u'key': [u'Building', u'HVAC', u'Plant'], u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Group Type`
@@ -2596,8 +2504,6 @@ class EnergyManagementSystemMeteredOutputVariable(object):
     def enduse_category(self, value=None):
         """  Corresponds to IDD Field `End-Use Category`
         choose how the metered output should be classified for end-use category
-        
-        {u'note': [u'choose how the metered output should be classified for end-use category'], u'type': u'choice', u'key': [u'Heating', u'Cooling', u'InteriorLights', u'ExteriorLights', u'InteriorEquipment', u'ExteriorEquipment', u'Fans', u'Pumps', u'HeatRejection', u'Humidifier', u'HeatRecovery', u'WaterSystems', u'Refrigeration', u'OnSiteGeneration'], u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `End-Use Category`
@@ -2678,8 +2584,6 @@ class EnergyManagementSystemMeteredOutputVariable(object):
     def enduse_subcategory(self, value=None):
         """  Corresponds to IDD Field `End-Use Subcategory`
         enter a user-defined subcategory for this metered output
-        
-        {u'note': [u'enter a user-defined subcategory for this metered output'], u'type': u'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `End-Use Subcategory`
@@ -2717,8 +2621,6 @@ class EnergyManagementSystemMeteredOutputVariable(object):
         """  Corresponds to IDD Field `Units`
         optional but will result in dimensionless units for blank
         EnergyPlus units are standard SI units
-        
-        {u'note': [u'optional but will result in dimensionless units for blank', u'EnergyPlus units are standard SI units'], u'type': u'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Units`
@@ -2838,8 +2740,6 @@ class EnergyManagementSystemTrendVariable(object):
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
         no spaces allowed in name
-        
-        {u'note': [u'no spaces allowed in name'], u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -2876,8 +2776,6 @@ class EnergyManagementSystemTrendVariable(object):
     def ems_variable_name(self, value=None):
         """  Corresponds to IDD Field `EMS Variable Name`
         must be a global scope EMS variable
-        
-        {u'note': [u'must be a global scope EMS variable'], u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `EMS Variable Name`
@@ -2913,8 +2811,6 @@ class EnergyManagementSystemTrendVariable(object):
     @number_of_timesteps_to_be_logged.setter
     def number_of_timesteps_to_be_logged(self, value=None):
         """  Corresponds to IDD Field `Number of Timesteps to be Logged`
-        
-        {u'minimum': '1', u'type': u'integer', u'required-field': True, 'pytype': 'int'}
 
         Args:
             value (int): value for IDD Field `Number of Timesteps to be Logged`
@@ -3032,8 +2928,6 @@ class EnergyManagementSystemInternalVariable(object):
         """  Corresponds to IDD Field `Name`
         This name becomes a variable for use in Erl programs
         no spaces allowed in name
-        
-        {u'note': [u'This name becomes a variable for use in Erl programs', u'no spaces allowed in name'], u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -3069,8 +2963,6 @@ class EnergyManagementSystemInternalVariable(object):
     @internal_data_index_key_name.setter
     def internal_data_index_key_name(self, value=None):
         """  Corresponds to IDD Field `Internal Data Index Key Name`
-        
-        {u'type': u'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Internal Data Index Key Name`
@@ -3106,8 +2998,6 @@ class EnergyManagementSystemInternalVariable(object):
     @internal_data_type.setter
     def internal_data_type(self, value=None):
         """  Corresponds to IDD Field `Internal Data Type`
-        
-        {u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Internal Data Type`
@@ -3219,8 +3109,6 @@ class EnergyManagementSystemCurveOrTableIndexVariable(object):
         """  Corresponds to IDD Field `Name`
         This name becomes a variable for use in Erl programs
         no spaces allowed in name
-        
-        {u'note': [u'This name becomes a variable for use in Erl programs', u'no spaces allowed in name'], u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -3256,8 +3144,6 @@ class EnergyManagementSystemCurveOrTableIndexVariable(object):
     @curve_or_table_object_name.setter
     def curve_or_table_object_name(self, value=None):
         """  Corresponds to IDD Field `Curve or Table Object Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllCurves', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Curve or Table Object Name`
@@ -3369,8 +3255,6 @@ class EnergyManagementSystemConstructionIndexVariable(object):
         """  Corresponds to IDD Field `Name`
         This name becomes a variable for use in Erl programs
         no spaces allowed in name
-        
-        {u'note': [u'This name becomes a variable for use in Erl programs', u'no spaces allowed in name'], u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -3406,8 +3290,6 @@ class EnergyManagementSystemConstructionIndexVariable(object):
     @construction_object_name.setter
     def construction_object_name(self, value=None):
         """  Corresponds to IDD Field `Construction Object Name`
-        
-        {u'type': u'object-list', u'object-list': u'ConstructionNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Construction Object Name`

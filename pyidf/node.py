@@ -502,8 +502,6 @@ class Branch(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {'type': 'alpha', u'reference': u'Branches', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -537,13 +535,11 @@ class Branch(object):
         return self._data["Maximum Flow Rate"]
 
     @maximum_flow_rate.setter
-    def maximum_flow_rate(self, value=0.0 ):
+    def maximum_flow_rate(self, value=0.0):
         """  Corresponds to IDD Field `Maximum Flow Rate`
-        
-        {'pytype': 'float', u'default': '0.0', u'autosizable': u'', u'minimum': '0.0', u'units': u'm3/s', 'type': 'real'}
 
         Args:
-            value (float): value for IDD Field `Maximum Flow Rate`
+            value (float or "Autosize"): value for IDD Field `Maximum Flow Rate`
                 Units: m3/s
                 Default value: 0.0
                 value >= 0.0
@@ -554,6 +550,13 @@ class Branch(object):
             ValueError: if `value` is not a valid value
         """
         if value is not None:
+            try:
+                value_lower = str(value).lower()
+                if value_lower == "autosize":
+                    self._data["Maximum Flow Rate"] = "Autosize"
+                    return
+            except ValueError:
+                pass
             try:
                 value = float(value)
             except ValueError:
@@ -582,8 +585,6 @@ class Branch(object):
         Valid curve types are: Curve:Functional:PressureDrop or
         one of Curve:{Linear,Quadratic,Cubic,Exponent}')
         Table:OneIndependentVariable object can also be used
-        
-        {u'note': [u'Optional field to include this branch in plant pressure drop calculations', u'This field is only relevant for branches in PlantLoops and CondenserLoops', u'Air loops do not account for pressure drop using this field', u'Valid curve types are: Curve:Functional:PressureDrop or', u"one of Curve:{Linear,Quadratic,Cubic,Exponent}')", u'Table:OneIndependentVariable object can also be used'], u'type': u'object-list', u'object-list': u'CubicCurves', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Pressure Drop Curve Name`
@@ -619,8 +620,6 @@ class Branch(object):
     @component_1_object_type.setter
     def component_1_object_type(self, value=None):
         """  Corresponds to IDD Field `Component 1 Object Type`
-        
-        {'pytype': 'str', 'type': 'alpha', u'required-field': True, u'begin-extensible': u''}
 
         Args:
             value (str): value for IDD Field `Component 1 Object Type`
@@ -656,8 +655,6 @@ class Branch(object):
     @component_1_name.setter
     def component_1_name(self, value=None):
         """  Corresponds to IDD Field `Component 1 Name`
-        
-        {'type': 'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 1 Name`
@@ -693,8 +690,6 @@ class Branch(object):
     @component_1_inlet_node_name.setter
     def component_1_inlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Component 1 Inlet Node Name`
-        
-        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 1 Inlet Node Name`
@@ -730,8 +725,6 @@ class Branch(object):
     @component_1_outlet_node_name.setter
     def component_1_outlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Component 1 Outlet Node Name`
-        
-        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 1 Outlet Node Name`
@@ -768,8 +761,6 @@ class Branch(object):
     def component_1_branch_control_type(self, value=None):
         """  Corresponds to IDD Field `Component 1 Branch Control Type`
         field is no longer used
-        
-        {u'note': [u'field is no longer used'], 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 1 Branch Control Type`
@@ -805,8 +796,6 @@ class Branch(object):
     @component_2_object_type.setter
     def component_2_object_type(self, value=None):
         """  Corresponds to IDD Field `Component 2 Object Type`
-        
-        {'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 2 Object Type`
@@ -842,8 +831,6 @@ class Branch(object):
     @component_2_name.setter
     def component_2_name(self, value=None):
         """  Corresponds to IDD Field `Component 2 Name`
-        
-        {'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 2 Name`
@@ -879,8 +866,6 @@ class Branch(object):
     @component_2_inlet_node_name.setter
     def component_2_inlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Component 2 Inlet Node Name`
-        
-        {u'type': u'node', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 2 Inlet Node Name`
@@ -916,8 +901,6 @@ class Branch(object):
     @component_2_outlet_node_name.setter
     def component_2_outlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Component 2 Outlet Node Name`
-        
-        {u'type': u'node', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 2 Outlet Node Name`
@@ -954,8 +937,6 @@ class Branch(object):
     def component_2_branch_control_type(self, value=None):
         """  Corresponds to IDD Field `Component 2 Branch Control Type`
         field is no longer used
-        
-        {u'note': [u'field is no longer used'], 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 2 Branch Control Type`
@@ -991,8 +972,6 @@ class Branch(object):
     @component_3_object_type.setter
     def component_3_object_type(self, value=None):
         """  Corresponds to IDD Field `Component 3 Object Type`
-        
-        {'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 3 Object Type`
@@ -1028,8 +1007,6 @@ class Branch(object):
     @component_3_name.setter
     def component_3_name(self, value=None):
         """  Corresponds to IDD Field `Component 3 Name`
-        
-        {'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 3 Name`
@@ -1065,8 +1042,6 @@ class Branch(object):
     @component_3_inlet_node_name.setter
     def component_3_inlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Component 3 Inlet Node Name`
-        
-        {u'type': u'node', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 3 Inlet Node Name`
@@ -1102,8 +1077,6 @@ class Branch(object):
     @component_3_outlet_node_name.setter
     def component_3_outlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Component 3 Outlet Node Name`
-        
-        {u'type': u'node', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 3 Outlet Node Name`
@@ -1140,8 +1113,6 @@ class Branch(object):
     def component_3_branch_control_type(self, value=None):
         """  Corresponds to IDD Field `Component 3 Branch Control Type`
         field is no longer useds
-        
-        {u'note': [u'field is no longer useds'], 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 3 Branch Control Type`
@@ -1177,8 +1148,6 @@ class Branch(object):
     @component_4_object_type.setter
     def component_4_object_type(self, value=None):
         """  Corresponds to IDD Field `Component 4 Object Type`
-        
-        {'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 4 Object Type`
@@ -1214,8 +1183,6 @@ class Branch(object):
     @component_4_name.setter
     def component_4_name(self, value=None):
         """  Corresponds to IDD Field `Component 4 Name`
-        
-        {'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 4 Name`
@@ -1251,8 +1218,6 @@ class Branch(object):
     @component_4_inlet_node_name.setter
     def component_4_inlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Component 4 Inlet Node Name`
-        
-        {u'type': u'node', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 4 Inlet Node Name`
@@ -1288,8 +1253,6 @@ class Branch(object):
     @component_4_outlet_node_name.setter
     def component_4_outlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Component 4 Outlet Node Name`
-        
-        {u'type': u'node', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 4 Outlet Node Name`
@@ -1326,8 +1289,6 @@ class Branch(object):
     def component_4_branch_control_type(self, value=None):
         """  Corresponds to IDD Field `Component 4 Branch Control Type`
         field is no longer used
-        
-        {u'note': [u'field is no longer used'], 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 4 Branch Control Type`
@@ -1363,8 +1324,6 @@ class Branch(object):
     @component_5_object_type.setter
     def component_5_object_type(self, value=None):
         """  Corresponds to IDD Field `Component 5 Object Type`
-        
-        {'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 5 Object Type`
@@ -1400,8 +1359,6 @@ class Branch(object):
     @component_5_name.setter
     def component_5_name(self, value=None):
         """  Corresponds to IDD Field `Component 5 Name`
-        
-        {'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 5 Name`
@@ -1437,8 +1394,6 @@ class Branch(object):
     @component_5_inlet_node_name.setter
     def component_5_inlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Component 5 Inlet Node Name`
-        
-        {u'type': u'node', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 5 Inlet Node Name`
@@ -1474,8 +1429,6 @@ class Branch(object):
     @component_5_outlet_node_name.setter
     def component_5_outlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Component 5 Outlet Node Name`
-        
-        {u'type': u'node', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 5 Outlet Node Name`
@@ -1512,8 +1465,6 @@ class Branch(object):
     def component_5_branch_control_type(self, value=None):
         """  Corresponds to IDD Field `Component 5 Branch Control Type`
         field is no longer used
-        
-        {u'note': [u'field is no longer used'], 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 5 Branch Control Type`
@@ -1549,8 +1500,6 @@ class Branch(object):
     @component_6_object_type.setter
     def component_6_object_type(self, value=None):
         """  Corresponds to IDD Field `Component 6 Object Type`
-        
-        {'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 6 Object Type`
@@ -1586,8 +1535,6 @@ class Branch(object):
     @component_6_name.setter
     def component_6_name(self, value=None):
         """  Corresponds to IDD Field `Component 6 Name`
-        
-        {'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 6 Name`
@@ -1623,8 +1570,6 @@ class Branch(object):
     @component_6_inlet_node_name.setter
     def component_6_inlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Component 6 Inlet Node Name`
-        
-        {u'type': u'node', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 6 Inlet Node Name`
@@ -1660,8 +1605,6 @@ class Branch(object):
     @component_6_outlet_node_name.setter
     def component_6_outlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Component 6 Outlet Node Name`
-        
-        {u'type': u'node', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 6 Outlet Node Name`
@@ -1698,8 +1641,6 @@ class Branch(object):
     def component_6_branch_control_type(self, value=None):
         """  Corresponds to IDD Field `Component 6 Branch Control Type`
         field is no longer used
-        
-        {u'note': [u'field is no longer used'], 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 6 Branch Control Type`
@@ -1735,8 +1676,6 @@ class Branch(object):
     @component_7_object_type.setter
     def component_7_object_type(self, value=None):
         """  Corresponds to IDD Field `Component 7 Object Type`
-        
-        {'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 7 Object Type`
@@ -1772,8 +1711,6 @@ class Branch(object):
     @component_7_name.setter
     def component_7_name(self, value=None):
         """  Corresponds to IDD Field `Component 7 Name`
-        
-        {'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 7 Name`
@@ -1809,8 +1746,6 @@ class Branch(object):
     @component_7_inlet_node_name.setter
     def component_7_inlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Component 7 Inlet Node Name`
-        
-        {u'type': u'node', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 7 Inlet Node Name`
@@ -1846,8 +1781,6 @@ class Branch(object):
     @component_7_outlet_node_name.setter
     def component_7_outlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Component 7 Outlet Node Name`
-        
-        {u'type': u'node', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 7 Outlet Node Name`
@@ -1884,8 +1817,6 @@ class Branch(object):
     def component_7_branch_control_type(self, value=None):
         """  Corresponds to IDD Field `Component 7 Branch Control Type`
         field is no longer used
-        
-        {u'note': [u'field is no longer used'], 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 7 Branch Control Type`
@@ -1921,8 +1852,6 @@ class Branch(object):
     @component_8_object_type.setter
     def component_8_object_type(self, value=None):
         """  Corresponds to IDD Field `Component 8 Object Type`
-        
-        {'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 8 Object Type`
@@ -1958,8 +1887,6 @@ class Branch(object):
     @component_8_name.setter
     def component_8_name(self, value=None):
         """  Corresponds to IDD Field `Component 8 Name`
-        
-        {'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 8 Name`
@@ -1995,8 +1922,6 @@ class Branch(object):
     @component_8_inlet_node_name.setter
     def component_8_inlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Component 8 Inlet Node Name`
-        
-        {u'type': u'node', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 8 Inlet Node Name`
@@ -2032,8 +1957,6 @@ class Branch(object):
     @component_8_outlet_node_name.setter
     def component_8_outlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Component 8 Outlet Node Name`
-        
-        {u'type': u'node', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 8 Outlet Node Name`
@@ -2070,8 +1993,6 @@ class Branch(object):
     def component_8_branch_control_type(self, value=None):
         """  Corresponds to IDD Field `Component 8 Branch Control Type`
         field is no longer used
-        
-        {u'note': [u'field is no longer used'], 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 8 Branch Control Type`
@@ -2107,8 +2028,6 @@ class Branch(object):
     @component_9_object_type.setter
     def component_9_object_type(self, value=None):
         """  Corresponds to IDD Field `Component 9 Object Type`
-        
-        {'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 9 Object Type`
@@ -2144,8 +2063,6 @@ class Branch(object):
     @component_9_name.setter
     def component_9_name(self, value=None):
         """  Corresponds to IDD Field `Component 9 Name`
-        
-        {'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 9 Name`
@@ -2181,8 +2098,6 @@ class Branch(object):
     @component_9_inlet_node_name.setter
     def component_9_inlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Component 9 Inlet Node Name`
-        
-        {u'type': u'node', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 9 Inlet Node Name`
@@ -2218,8 +2133,6 @@ class Branch(object):
     @component_9_outlet_node_name.setter
     def component_9_outlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Component 9 Outlet Node Name`
-        
-        {u'type': u'node', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 9 Outlet Node Name`
@@ -2256,8 +2169,6 @@ class Branch(object):
     def component_9_branch_control_type(self, value=None):
         """  Corresponds to IDD Field `Component 9 Branch Control Type`
         field is no longer used
-        
-        {u'note': [u'field is no longer used'], 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 9 Branch Control Type`
@@ -2293,8 +2204,6 @@ class Branch(object):
     @component_10_object_type.setter
     def component_10_object_type(self, value=None):
         """  Corresponds to IDD Field `Component 10 Object Type`
-        
-        {'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 10 Object Type`
@@ -2330,8 +2239,6 @@ class Branch(object):
     @component_10_name.setter
     def component_10_name(self, value=None):
         """  Corresponds to IDD Field `Component 10 Name`
-        
-        {'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 10 Name`
@@ -2367,8 +2274,6 @@ class Branch(object):
     @component_10_inlet_node_name.setter
     def component_10_inlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Component 10 Inlet Node Name`
-        
-        {u'type': u'node', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 10 Inlet Node Name`
@@ -2404,8 +2309,6 @@ class Branch(object):
     @component_10_outlet_node_name.setter
     def component_10_outlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Component 10 Outlet Node Name`
-        
-        {u'type': u'node', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 10 Outlet Node Name`
@@ -2442,8 +2345,6 @@ class Branch(object):
     def component_10_branch_control_type(self, value=None):
         """  Corresponds to IDD Field `Component 10 Branch Control Type`
         field is no longer used
-        
-        {u'note': [u'field is no longer used'], 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 10 Branch Control Type`
@@ -2479,8 +2380,6 @@ class Branch(object):
     @component_11_object_type.setter
     def component_11_object_type(self, value=None):
         """  Corresponds to IDD Field `Component 11 Object Type`
-        
-        {'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 11 Object Type`
@@ -2516,8 +2415,6 @@ class Branch(object):
     @component_11_name.setter
     def component_11_name(self, value=None):
         """  Corresponds to IDD Field `Component 11 Name`
-        
-        {'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 11 Name`
@@ -2553,8 +2450,6 @@ class Branch(object):
     @component_11_inlet_node_name.setter
     def component_11_inlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Component 11 Inlet Node Name`
-        
-        {u'type': u'node', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 11 Inlet Node Name`
@@ -2590,8 +2485,6 @@ class Branch(object):
     @component_11_outlet_node_name.setter
     def component_11_outlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Component 11 Outlet Node Name`
-        
-        {u'type': u'node', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 11 Outlet Node Name`
@@ -2628,8 +2521,6 @@ class Branch(object):
     def component_11_branch_control_type(self, value=None):
         """  Corresponds to IDD Field `Component 11 Branch Control Type`
         field is no longer used
-        
-        {u'note': [u'field is no longer used'], 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 11 Branch Control Type`
@@ -2764,8 +2655,6 @@ class ConnectorList(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {'type': 'alpha', u'reference': u'ConnectorLists', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -2801,8 +2690,6 @@ class ConnectorList(object):
     @connector_1_object_type.setter
     def connector_1_object_type(self, value=None):
         """  Corresponds to IDD Field `Connector 1 Object Type`
-        
-        {u'type': u'choice', u'key': [u'Connector:Splitter', u'Connector:Mixer'], u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Connector 1 Object Type`
@@ -2858,8 +2745,6 @@ class ConnectorList(object):
     @connector_1_name.setter
     def connector_1_name(self, value=None):
         """  Corresponds to IDD Field `Connector 1 Name`
-        
-        {'type': 'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Connector 1 Name`
@@ -2895,8 +2780,6 @@ class ConnectorList(object):
     @connector_2_object_type.setter
     def connector_2_object_type(self, value=None):
         """  Corresponds to IDD Field `Connector 2 Object Type`
-        
-        {u'type': u'choice', u'key': [u'Connector:Splitter', u'Connector:Mixer'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Connector 2 Object Type`
@@ -2952,8 +2835,6 @@ class ConnectorList(object):
     @connector_2_name.setter
     def connector_2_name(self, value=None):
         """  Corresponds to IDD Field `Connector 2 Name`
-        
-        {'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Connector 2 Name`
@@ -3067,8 +2948,6 @@ class OutdoorAirNode(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -3102,11 +2981,9 @@ class OutdoorAirNode(object):
         return self._data["Height Above Ground"]
 
     @height_above_ground.setter
-    def height_above_ground(self, value=-1.0 ):
+    def height_above_ground(self, value=-1.0):
         """  Corresponds to IDD Field `Height Above Ground`
         A value less than zero indicates that the height will be ignored and the weather file conditions will be used.
-        
-        {u'note': [u'A value less than zero indicates that the height will be ignored and the weather file conditions will be used.'], u'units': u'm', u'default': '-1.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Height Above Ground`
@@ -3220,8 +3097,6 @@ class PipeAdiabatic(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {'type': 'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -3257,8 +3132,6 @@ class PipeAdiabatic(object):
     @inlet_node_name.setter
     def inlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Inlet Node Name`
-        
-        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Inlet Node Name`
@@ -3294,8 +3167,6 @@ class PipeAdiabatic(object):
     @outlet_node_name.setter
     def outlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Outlet Node Name`
-        
-        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Outlet Node Name`
@@ -3413,8 +3284,6 @@ class PipeAdiabaticSteam(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {'type': 'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -3450,8 +3319,6 @@ class PipeAdiabaticSteam(object):
     @inlet_node_name.setter
     def inlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Inlet Node Name`
-        
-        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Inlet Node Name`
@@ -3487,8 +3354,6 @@ class PipeAdiabaticSteam(object):
     @outlet_node_name.setter
     def outlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Outlet Node Name`
-        
-        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Outlet Node Name`
@@ -3662,8 +3527,6 @@ class PipeIndoor(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {'type': 'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -3699,8 +3562,6 @@ class PipeIndoor(object):
     @construction_name.setter
     def construction_name(self, value=None):
         """  Corresponds to IDD Field `Construction Name`
-        
-        {u'type': u'object-list', u'object-list': u'ConstructionNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Construction Name`
@@ -3736,8 +3597,6 @@ class PipeIndoor(object):
     @fluid_inlet_node_name.setter
     def fluid_inlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Fluid Inlet Node Name`
-        
-        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Fluid Inlet Node Name`
@@ -3773,8 +3632,6 @@ class PipeIndoor(object):
     @fluid_outlet_node_name.setter
     def fluid_outlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Fluid Outlet Node Name`
-        
-        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Fluid Outlet Node Name`
@@ -3810,8 +3667,6 @@ class PipeIndoor(object):
     @environment_type.setter
     def environment_type(self, value="Zone"):
         """  Corresponds to IDD Field `Environment Type`
-        
-        {u'default': u'Zone', u'type': u'choice', u'key': [u'Zone', u'Schedule'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Environment Type`
@@ -3868,8 +3723,6 @@ class PipeIndoor(object):
     @ambient_temperature_zone_name.setter
     def ambient_temperature_zone_name(self, value=None):
         """  Corresponds to IDD Field `Ambient Temperature Zone Name`
-        
-        {u'type': u'object-list', u'object-list': u'ZoneNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Ambient Temperature Zone Name`
@@ -3905,8 +3758,6 @@ class PipeIndoor(object):
     @ambient_temperature_schedule_name.setter
     def ambient_temperature_schedule_name(self, value=None):
         """  Corresponds to IDD Field `Ambient Temperature Schedule Name`
-        
-        {u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Ambient Temperature Schedule Name`
@@ -3942,8 +3793,6 @@ class PipeIndoor(object):
     @ambient_air_velocity_schedule_name.setter
     def ambient_air_velocity_schedule_name(self, value=None):
         """  Corresponds to IDD Field `Ambient Air Velocity Schedule Name`
-        
-        {u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Ambient Air Velocity Schedule Name`
@@ -3979,8 +3828,6 @@ class PipeIndoor(object):
     @pipe_inside_diameter.setter
     def pipe_inside_diameter(self, value=None):
         """  Corresponds to IDD Field `Pipe Inside Diameter`
-        
-        {u'units': u'm', u'ip-units': u'in', u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Pipe Inside Diameter`
@@ -4016,8 +3863,6 @@ class PipeIndoor(object):
     @pipe_length.setter
     def pipe_length(self, value=None):
         """  Corresponds to IDD Field `Pipe Length`
-        
-        {u'units': u'm', u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Pipe Length`
@@ -4166,8 +4011,6 @@ class PipeOutdoor(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {'type': 'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -4203,8 +4046,6 @@ class PipeOutdoor(object):
     @construction_name.setter
     def construction_name(self, value=None):
         """  Corresponds to IDD Field `Construction Name`
-        
-        {u'type': u'object-list', u'object-list': u'ConstructionNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Construction Name`
@@ -4240,8 +4081,6 @@ class PipeOutdoor(object):
     @fluid_inlet_node_name.setter
     def fluid_inlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Fluid Inlet Node Name`
-        
-        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Fluid Inlet Node Name`
@@ -4277,8 +4116,6 @@ class PipeOutdoor(object):
     @fluid_outlet_node_name.setter
     def fluid_outlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Fluid Outlet Node Name`
-        
-        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Fluid Outlet Node Name`
@@ -4314,8 +4151,6 @@ class PipeOutdoor(object):
     @ambient_temperature_outdoor_air_node_name.setter
     def ambient_temperature_outdoor_air_node_name(self, value=None):
         """  Corresponds to IDD Field `Ambient Temperature Outdoor Air Node Name`
-        
-        {u'type': u'node', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Ambient Temperature Outdoor Air Node Name`
@@ -4351,8 +4186,6 @@ class PipeOutdoor(object):
     @pipe_inside_diameter.setter
     def pipe_inside_diameter(self, value=None):
         """  Corresponds to IDD Field `Pipe Inside Diameter`
-        
-        {u'units': u'm', u'ip-units': u'in', u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Pipe Inside Diameter`
@@ -4388,8 +4221,6 @@ class PipeOutdoor(object):
     @pipe_length.setter
     def pipe_length(self, value=None):
         """  Corresponds to IDD Field `Pipe Length`
-        
-        {u'units': u'm', u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Pipe Length`
@@ -4572,8 +4403,6 @@ class PipeUnderground(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {'type': 'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -4609,8 +4438,6 @@ class PipeUnderground(object):
     @construction_name.setter
     def construction_name(self, value=None):
         """  Corresponds to IDD Field `Construction Name`
-        
-        {u'type': u'object-list', u'object-list': u'ConstructionNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Construction Name`
@@ -4646,8 +4473,6 @@ class PipeUnderground(object):
     @fluid_inlet_node_name.setter
     def fluid_inlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Fluid Inlet Node Name`
-        
-        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Fluid Inlet Node Name`
@@ -4683,8 +4508,6 @@ class PipeUnderground(object):
     @fluid_outlet_node_name.setter
     def fluid_outlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Fluid Outlet Node Name`
-        
-        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Fluid Outlet Node Name`
@@ -4720,8 +4543,6 @@ class PipeUnderground(object):
     @sun_exposure.setter
     def sun_exposure(self, value=None):
         """  Corresponds to IDD Field `Sun Exposure`
-        
-        {u'type': u'choice', u'key': [u'SunExposed', u'NoSun'], u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Sun Exposure`
@@ -4778,8 +4599,6 @@ class PipeUnderground(object):
     def pipe_inside_diameter(self, value=None):
         """  Corresponds to IDD Field `Pipe Inside Diameter`
         pipe thickness is defined in the Construction object
-        
-        {'pytype': 'float', u'minimum>': '0.0', u'note': [u'pipe thickness is defined in the Construction object'], u'ip-units': u'in', u'units': u'm', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Pipe Inside Diameter`
@@ -4815,8 +4634,6 @@ class PipeUnderground(object):
     @pipe_length.setter
     def pipe_length(self, value=None):
         """  Corresponds to IDD Field `Pipe Length`
-        
-        {u'units': u'm', u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Pipe Length`
@@ -4851,8 +4668,6 @@ class PipeUnderground(object):
     @soil_material_name.setter
     def soil_material_name(self, value=None):
         """  Corresponds to IDD Field `Soil Material Name`
-        
-        {u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Soil Material Name`
@@ -4886,11 +4701,9 @@ class PipeUnderground(object):
         return self._data["Average Soil Surface Temperature"]
 
     @average_soil_surface_temperature.setter
-    def average_soil_surface_temperature(self, value=0.0 ):
+    def average_soil_surface_temperature(self, value=0.0):
         """  Corresponds to IDD Field `Average Soil Surface Temperature`
         optional
-        
-        {u'note': [u'optional'], u'units': u'C', u'default': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Average Soil Surface Temperature`
@@ -4920,11 +4733,9 @@ class PipeUnderground(object):
         return self._data["Amplitude of Soil Surface Temperature"]
 
     @amplitude_of_soil_surface_temperature.setter
-    def amplitude_of_soil_surface_temperature(self, value=0.0 ):
+    def amplitude_of_soil_surface_temperature(self, value=0.0):
         """  Corresponds to IDD Field `Amplitude of Soil Surface Temperature`
         optional
-        
-        {'pytype': 'float', u'default': '0.0', u'note': [u'optional'], u'minimum': '0.0', u'units': u'C', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Amplitude of Soil Surface Temperature`
@@ -4958,11 +4769,9 @@ class PipeUnderground(object):
         return self._data["Phase Constant of Soil Surface Temperature"]
 
     @phase_constant_of_soil_surface_temperature.setter
-    def phase_constant_of_soil_surface_temperature(self, value=0.0 ):
+    def phase_constant_of_soil_surface_temperature(self, value=0.0):
         """  Corresponds to IDD Field `Phase Constant of Soil Surface Temperature`
         optional
-        
-        {'pytype': 'float', u'default': '0.0', u'note': [u'optional'], u'minimum': '0.0', u'units': u'days', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Phase Constant of Soil Surface Temperature`
@@ -5352,8 +5161,6 @@ class PipingSystemUndergroundDomain(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'reference': u'PipingSystemUndergroundDomainNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -5390,8 +5197,6 @@ class PipingSystemUndergroundDomain(object):
     def xmax(self, value=None):
         """  Corresponds to IDD Field `Xmax`
         Domain extent in the local 'X' direction
-        
-        {'pytype': 'float', u'minimum>': '0.0', u'required-field': True, u'note': [u"Domain extent in the local 'X' direction"], u'units': u'm', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Xmax`
@@ -5427,8 +5232,6 @@ class PipingSystemUndergroundDomain(object):
     def ymax(self, value=None):
         """  Corresponds to IDD Field `Ymax`
         Domain extent in the local 'Y' direction
-        
-        {'pytype': 'float', u'minimum>': '0.0', u'required-field': True, u'note': [u"Domain extent in the local 'Y' direction"], u'units': u'm', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Ymax`
@@ -5464,8 +5267,6 @@ class PipingSystemUndergroundDomain(object):
     def zmax(self, value=None):
         """  Corresponds to IDD Field `Zmax`
         Domain extent in the local 'Y' direction
-        
-        {'pytype': 'float', u'minimum>': '0.0', u'required-field': True, u'note': [u"Domain extent in the local 'Y' direction"], u'units': u'm', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Zmax`
@@ -5498,11 +5299,9 @@ class PipingSystemUndergroundDomain(object):
         return self._data["X-Direction Mesh Density Parameter"]
 
     @xdirection_mesh_density_parameter.setter
-    def xdirection_mesh_density_parameter(self, value=4 ):
+    def xdirection_mesh_density_parameter(self, value=4):
         """  Corresponds to IDD Field `X-Direction Mesh Density Parameter`
         If mesh type is symmetric geometric, this should be an even number.
-        
-        {u'default': '4', u'note': [u'If mesh type is symmetric geometric, this should be an even number.'], u'minimum>': '0', u'type': u'integer', 'pytype': 'int'}
 
         Args:
             value (int): value for IDD Field `X-Direction Mesh Density Parameter`
@@ -5537,8 +5336,6 @@ class PipingSystemUndergroundDomain(object):
     @xdirection_mesh_type.setter
     def xdirection_mesh_type(self, value=None):
         """  Corresponds to IDD Field `X-Direction Mesh Type`
-        
-        {u'type': u'choice', u'key': [u'Uniform', u'SymmetricGeometric'], u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `X-Direction Mesh Type`
@@ -5592,12 +5389,10 @@ class PipingSystemUndergroundDomain(object):
         return self._data["X-Direction Geometric Coefficient"]
 
     @xdirection_geometric_coefficient.setter
-    def xdirection_geometric_coefficient(self, value=1.3 ):
+    def xdirection_geometric_coefficient(self, value=1.3):
         """  Corresponds to IDD Field `X-Direction Geometric Coefficient`
         optional
         Only used if mesh type is symmetric geometric
-        
-        {'pytype': 'float', u'default': '1.3', u'maximum': '2.0', u'note': [u'optional', u'Only used if mesh type is symmetric geometric'], u'minimum': '1.0', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `X-Direction Geometric Coefficient`
@@ -5634,11 +5429,9 @@ class PipingSystemUndergroundDomain(object):
         return self._data["Y-Direction Mesh Density Parameter"]
 
     @ydirection_mesh_density_parameter.setter
-    def ydirection_mesh_density_parameter(self, value=4 ):
+    def ydirection_mesh_density_parameter(self, value=4):
         """  Corresponds to IDD Field `Y-Direction Mesh Density Parameter`
         If mesh type is symmetric geometric, this should be an even number.
-        
-        {u'default': '4', u'note': [u'If mesh type is symmetric geometric, this should be an even number.'], u'minimum>': '0', u'type': u'integer', 'pytype': 'int'}
 
         Args:
             value (int): value for IDD Field `Y-Direction Mesh Density Parameter`
@@ -5673,8 +5466,6 @@ class PipingSystemUndergroundDomain(object):
     @ydirection_mesh_type.setter
     def ydirection_mesh_type(self, value=None):
         """  Corresponds to IDD Field `Y-Direction Mesh Type`
-        
-        {u'type': u'choice', u'key': [u'Uniform', u'SymmetricGeometric'], u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Y-Direction Mesh Type`
@@ -5728,12 +5519,10 @@ class PipingSystemUndergroundDomain(object):
         return self._data["Y-Direction Geometric Coefficient"]
 
     @ydirection_geometric_coefficient.setter
-    def ydirection_geometric_coefficient(self, value=1.3 ):
+    def ydirection_geometric_coefficient(self, value=1.3):
         """  Corresponds to IDD Field `Y-Direction Geometric Coefficient`
         optional
         Only used if mesh type is symmetric geometric
-        
-        {'pytype': 'float', u'default': '1.3', u'maximum': '2.0', u'note': [u'optional', u'Only used if mesh type is symmetric geometric'], u'minimum': '1.0', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Y-Direction Geometric Coefficient`
@@ -5770,11 +5559,9 @@ class PipingSystemUndergroundDomain(object):
         return self._data["Z-Direction Mesh Density Parameter"]
 
     @zdirection_mesh_density_parameter.setter
-    def zdirection_mesh_density_parameter(self, value=4 ):
+    def zdirection_mesh_density_parameter(self, value=4):
         """  Corresponds to IDD Field `Z-Direction Mesh Density Parameter`
         If mesh type is symmetric geometric, this should be an even number.
-        
-        {u'default': '4', u'note': [u'If mesh type is symmetric geometric, this should be an even number.'], u'minimum>': '0', u'type': u'integer', 'pytype': 'int'}
 
         Args:
             value (int): value for IDD Field `Z-Direction Mesh Density Parameter`
@@ -5809,8 +5596,6 @@ class PipingSystemUndergroundDomain(object):
     @zdirection_mesh_type.setter
     def zdirection_mesh_type(self, value=None):
         """  Corresponds to IDD Field `Z-Direction Mesh Type`
-        
-        {u'type': u'choice', u'key': [u'Uniform', u'SymmetricGeometric'], u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Z-Direction Mesh Type`
@@ -5864,12 +5649,10 @@ class PipingSystemUndergroundDomain(object):
         return self._data["Z-Direction Geometric Coefficient"]
 
     @zdirection_geometric_coefficient.setter
-    def zdirection_geometric_coefficient(self, value=1.3 ):
+    def zdirection_geometric_coefficient(self, value=1.3):
         """  Corresponds to IDD Field `Z-Direction Geometric Coefficient`
         optional
         Only used if mesh type is symmetric geometric
-        
-        {'pytype': 'float', u'default': '1.3', u'maximum': '2.0', u'note': [u'optional', u'Only used if mesh type is symmetric geometric'], u'minimum': '1.0', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Z-Direction Geometric Coefficient`
@@ -5908,8 +5691,6 @@ class PipingSystemUndergroundDomain(object):
     @soil_thermal_conductivity.setter
     def soil_thermal_conductivity(self, value=None):
         """  Corresponds to IDD Field `Soil Thermal Conductivity`
-        
-        {u'units': u'W/m-K', u'minimum>': '0.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Soil Thermal Conductivity`
@@ -5944,8 +5725,6 @@ class PipingSystemUndergroundDomain(object):
     @soil_density.setter
     def soil_density(self, value=None):
         """  Corresponds to IDD Field `Soil Density`
-        
-        {u'units': u'kg/m3', u'minimum>': '0.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Soil Density`
@@ -5982,8 +5761,6 @@ class PipingSystemUndergroundDomain(object):
         """  Corresponds to IDD Field `Soil Specific Heat`
         This is a dry soil property, which is adjusted for freezing effects
         by the simulation algorithm.
-        
-        {'pytype': 'float', u'minimum>': '0.0', u'required-field': True, u'note': [u'This is a dry soil property, which is adjusted for freezing effects', u'by the simulation algorithm.'], u'units': u'J/kg-K', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Soil Specific Heat`
@@ -6016,10 +5793,8 @@ class PipingSystemUndergroundDomain(object):
         return self._data["Soil Moisture Content Volume Fraction"]
 
     @soil_moisture_content_volume_fraction.setter
-    def soil_moisture_content_volume_fraction(self, value=30.0 ):
+    def soil_moisture_content_volume_fraction(self, value=30.0):
         """  Corresponds to IDD Field `Soil Moisture Content Volume Fraction`
-        
-        {'pytype': 'float', u'default': '30.0', u'maximum': '100.0', u'minimum': '0.0', u'units': u'percent', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Soil Moisture Content Volume Fraction`
@@ -6057,10 +5832,8 @@ class PipingSystemUndergroundDomain(object):
         return self._data["Soil Moisture Content Volume Fraction at Saturation"]
 
     @soil_moisture_content_volume_fraction_at_saturation.setter
-    def soil_moisture_content_volume_fraction_at_saturation(self, value=50.0 ):
+    def soil_moisture_content_volume_fraction_at_saturation(self, value=50.0):
         """  Corresponds to IDD Field `Soil Moisture Content Volume Fraction at Saturation`
-        
-        {'pytype': 'float', u'default': '50.0', u'maximum': '100.0', u'minimum': '0.0', u'units': u'percent', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Soil Moisture Content Volume Fraction at Saturation`
@@ -6100,8 +5873,6 @@ class PipingSystemUndergroundDomain(object):
     @kusudaachenbach_average_surface_temperature.setter
     def kusudaachenbach_average_surface_temperature(self, value=None):
         """  Corresponds to IDD Field `Kusuda-Achenbach Average Surface Temperature`
-        
-        {u'units': u'C', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Kusuda-Achenbach Average Surface Temperature`
@@ -6132,8 +5903,6 @@ class PipingSystemUndergroundDomain(object):
     @kusudaachenbach_average_amplitude_of_surface_temperature.setter
     def kusudaachenbach_average_amplitude_of_surface_temperature(self, value=None):
         """  Corresponds to IDD Field `Kusuda-Achenbach Average Amplitude of Surface Temperature`
-        
-        {u'units': u'C', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Kusuda-Achenbach Average Amplitude of Surface Temperature`
@@ -6164,8 +5933,6 @@ class PipingSystemUndergroundDomain(object):
     @kusudaachenbach_phase_shift_of_minimum_surface_temperature.setter
     def kusudaachenbach_phase_shift_of_minimum_surface_temperature(self, value=None):
         """  Corresponds to IDD Field `Kusuda-Achenbach Phase Shift of Minimum Surface Temperature`
-        
-        {u'units': u'days', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Kusuda-Achenbach Phase Shift of Minimum Surface Temperature`
@@ -6198,8 +5965,6 @@ class PipingSystemUndergroundDomain(object):
         """  Corresponds to IDD Field `This Domain Includes Basement Surface Interaction`
         if Yes, then the following basement inputs are used
         if No, then the following basement inputs are *ignored*
-        
-        {u'default': u'No', u'note': [u'if Yes, then the following basement inputs are used', u'if No, then the following basement inputs are *ignored*'], u'type': u'choice', u'key': [u'Yes', u'No'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `This Domain Includes Basement Surface Interaction`
@@ -6257,8 +6022,6 @@ class PipingSystemUndergroundDomain(object):
     def width_of_basement_floor_in_ground_domain(self, value=None):
         """  Corresponds to IDD Field `Width of Basement Floor in Ground Domain`
         Required only if Domain Has Basement Interaction
-        
-        {u'units': u'm', u'note': [u'Required only if Domain Has Basement Interaction'], u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Width of Basement Floor in Ground Domain`
@@ -6290,8 +6053,6 @@ class PipingSystemUndergroundDomain(object):
     def depth_of_basement_wall_in_ground_domain(self, value=None):
         """  Corresponds to IDD Field `Depth of Basement Wall In Ground Domain`
         Required only if Domain Has Basement Interaction
-        
-        {u'units': u'm', u'note': [u'Required only if Domain Has Basement Interaction'], u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Depth of Basement Wall In Ground Domain`
@@ -6323,8 +6084,6 @@ class PipingSystemUndergroundDomain(object):
     def shift_pipe_x_coordinates_by_basement_width(self, value=None):
         """  Corresponds to IDD Field `Shift Pipe X Coordinates By Basement Width`
         Required only if Domain Has Basement Interaction
-        
-        {u'note': [u'Required only if Domain Has Basement Interaction'], u'type': u'choice', u'key': [u'Yes', u'No'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Shift Pipe X Coordinates By Basement Width`
@@ -6381,8 +6140,6 @@ class PipingSystemUndergroundDomain(object):
     def name_of_basement_wall_boundary_condition_model(self, value=None):
         """  Corresponds to IDD Field `Name of Basement Wall Boundary Condition Model`
         Required only if Domain Has Basement Interaction
-        
-        {u'note': [u'Required only if Domain Has Basement Interaction'], u'type': u'object-list', u'object-list': u'OSCMNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name of Basement Wall Boundary Condition Model`
@@ -6419,8 +6176,6 @@ class PipingSystemUndergroundDomain(object):
     def name_of_basement_floor_boundary_condition_model(self, value=None):
         """  Corresponds to IDD Field `Name of Basement Floor Boundary Condition Model`
         Required only if Domain Has Basement Interaction
-        
-        {u'note': [u'Required only if Domain Has Basement Interaction'], u'type': u'object-list', u'object-list': u'OSCMNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name of Basement Floor Boundary Condition Model`
@@ -6454,10 +6209,8 @@ class PipingSystemUndergroundDomain(object):
         return self._data["Convergence Criterion for the Outer Cartesian Domain Iteration Loop"]
 
     @convergence_criterion_for_the_outer_cartesian_domain_iteration_loop.setter
-    def convergence_criterion_for_the_outer_cartesian_domain_iteration_loop(self, value=0.001 ):
+    def convergence_criterion_for_the_outer_cartesian_domain_iteration_loop(self, value=0.001):
         """  Corresponds to IDD Field `Convergence Criterion for the Outer Cartesian Domain Iteration Loop`
-        
-        {'pytype': 'float', u'default': '0.001', u'maximum': '0.5', u'minimum': '1e-06', u'units': u'deltaC', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Convergence Criterion for the Outer Cartesian Domain Iteration Loop`
@@ -6495,10 +6248,8 @@ class PipingSystemUndergroundDomain(object):
         return self._data["Maximum Iterations in the Outer Cartesian Domain Iteration Loop"]
 
     @maximum_iterations_in_the_outer_cartesian_domain_iteration_loop.setter
-    def maximum_iterations_in_the_outer_cartesian_domain_iteration_loop(self, value=500 ):
+    def maximum_iterations_in_the_outer_cartesian_domain_iteration_loop(self, value=500):
         """  Corresponds to IDD Field `Maximum Iterations in the Outer Cartesian Domain Iteration Loop`
-        
-        {u'default': '500', u'minimum': '3', u'type': u'integer', u'maximum': '10000', 'pytype': 'int'}
 
         Args:
             value (int): value for IDD Field `Maximum Iterations in the Outer Cartesian Domain Iteration Loop`
@@ -6535,7 +6286,7 @@ class PipingSystemUndergroundDomain(object):
         return self._data["Evapotranspiration Ground Cover Parameter"]
 
     @evapotranspiration_ground_cover_parameter.setter
-    def evapotranspiration_ground_cover_parameter(self, value=0.4 ):
+    def evapotranspiration_ground_cover_parameter(self, value=0.4):
         """  Corresponds to IDD Field `Evapotranspiration Ground Cover Parameter`
         This specifies the ground cover effects during evapotranspiration
         calculations.  The value roughly represents the following cases:
@@ -6543,8 +6294,6 @@ class PipingSystemUndergroundDomain(object):
         = 0.5 : short grass, much like a manicured lawn
         = 1   : standard reference state (12 cm grass)
         = 1.5 : wild growth
-        
-        {'pytype': 'float', u'default': '0.4', u'maximum': '1.5', u'note': [u'This specifies the ground cover effects during evapotranspiration', u'calculations.  The value roughly represents the following cases:', u'= 0   : concrete or other solid, non-permeable ground surface material', u'= 0.5 : short grass, much like a manicured lawn', u'= 1   : standard reference state (12 cm grass)', u'= 1.5 : wild growth'], u'minimum': '0.0', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Evapotranspiration Ground Cover Parameter`
@@ -6583,8 +6332,6 @@ class PipingSystemUndergroundDomain(object):
     @number_of_pipe_circuits_entered_for_this_domain.setter
     def number_of_pipe_circuits_entered_for_this_domain(self, value=None):
         """  Corresponds to IDD Field `Number of Pipe Circuits Entered for this Domain`
-        
-        {u'minimum': '1', u'type': u'integer', u'required-field': True, 'pytype': 'int'}
 
         Args:
             value (int): value for IDD Field `Number of Pipe Circuits Entered for this Domain`
@@ -6619,8 +6366,6 @@ class PipingSystemUndergroundDomain(object):
     def pipe_circuit_1(self, value=None):
         """  Corresponds to IDD Field `Pipe Circuit 1`
         Name of a pipe circuit to be simulated in this domain
-        
-        {'pytype': 'str', u'begin-extensible': u'', u'required-field': True, u'note': [u'Name of a pipe circuit to be simulated in this domain'], u'object-list': u'PipingSystemUndergroundCircuitNames', u'type': u'object-list'}
 
         Args:
             value (str): value for IDD Field `Pipe Circuit 1`
@@ -6658,8 +6403,6 @@ class PipingSystemUndergroundDomain(object):
         """  Corresponds to IDD Field `Pipe Circuit 2`
         optional
         Name of a pipe circuit to be simulated in this domain
-        
-        {u'note': [u'optional', u'Name of a pipe circuit to be simulated in this domain'], u'type': u'object-list', u'object-list': u'PipingSystemUndergroundCircuitNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Pipe Circuit 2`
@@ -6697,8 +6440,6 @@ class PipingSystemUndergroundDomain(object):
         """  Corresponds to IDD Field `Pipe Circuit 3`
         optional
         Name of a pipe circuit to be simulated in this domain
-        
-        {u'note': [u'optional', u'Name of a pipe circuit to be simulated in this domain'], u'type': u'object-list', u'object-list': u'PipingSystemUndergroundCircuitNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Pipe Circuit 3`
@@ -6736,8 +6477,6 @@ class PipingSystemUndergroundDomain(object):
         """  Corresponds to IDD Field `Pipe Circuit 4`
         optional
         Name of a pipe circuit to be simulated in this domain
-        
-        {u'note': [u'optional', u'Name of a pipe circuit to be simulated in this domain'], u'type': u'object-list', u'object-list': u'PipingSystemUndergroundCircuitNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Pipe Circuit 4`
@@ -6775,8 +6514,6 @@ class PipingSystemUndergroundDomain(object):
         """  Corresponds to IDD Field `Pipe Circuit 5`
         optional
         Name of a pipe circuit to be simulated in this domain
-        
-        {u'note': [u'optional', u'Name of a pipe circuit to be simulated in this domain'], u'type': u'object-list', u'object-list': u'PipingSystemUndergroundCircuitNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Pipe Circuit 5`
@@ -6814,8 +6551,6 @@ class PipingSystemUndergroundDomain(object):
         """  Corresponds to IDD Field `Pipe Circuit 6`
         optional
         Name of a pipe circuit to be simulated in this domain
-        
-        {u'note': [u'optional', u'Name of a pipe circuit to be simulated in this domain'], u'type': u'object-list', u'object-list': u'PipingSystemUndergroundCircuitNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Pipe Circuit 6`
@@ -7071,8 +6806,6 @@ class PipingSystemUndergroundPipeCircuit(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'reference': u'PipingSystemUndergroundCircuitNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -7108,8 +6841,6 @@ class PipingSystemUndergroundPipeCircuit(object):
     @pipe_thermal_conductivity.setter
     def pipe_thermal_conductivity(self, value=None):
         """  Corresponds to IDD Field `Pipe Thermal Conductivity`
-        
-        {u'units': u'W/m-K', u'minimum>': '0.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Pipe Thermal Conductivity`
@@ -7144,8 +6875,6 @@ class PipingSystemUndergroundPipeCircuit(object):
     @pipe_density.setter
     def pipe_density(self, value=None):
         """  Corresponds to IDD Field `Pipe Density`
-        
-        {u'units': u'kg/m3', u'minimum>': '0.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Pipe Density`
@@ -7180,8 +6909,6 @@ class PipingSystemUndergroundPipeCircuit(object):
     @pipe_specific_heat.setter
     def pipe_specific_heat(self, value=None):
         """  Corresponds to IDD Field `Pipe Specific Heat`
-        
-        {u'units': u'J/kg-K', u'minimum>': '0.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Pipe Specific Heat`
@@ -7216,8 +6943,6 @@ class PipingSystemUndergroundPipeCircuit(object):
     @pipe_inner_diameter.setter
     def pipe_inner_diameter(self, value=None):
         """  Corresponds to IDD Field `Pipe Inner Diameter`
-        
-        {u'units': u'm', u'minimum>': '0.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Pipe Inner Diameter`
@@ -7252,8 +6977,6 @@ class PipingSystemUndergroundPipeCircuit(object):
     @pipe_outer_diameter.setter
     def pipe_outer_diameter(self, value=None):
         """  Corresponds to IDD Field `Pipe Outer Diameter`
-        
-        {u'units': u'm', u'minimum>': '0.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Pipe Outer Diameter`
@@ -7288,8 +7011,6 @@ class PipingSystemUndergroundPipeCircuit(object):
     @design_flow_rate.setter
     def design_flow_rate(self, value=None):
         """  Corresponds to IDD Field `Design Flow Rate`
-        
-        {u'units': u'm3/s', u'minimum>': '0.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Design Flow Rate`
@@ -7324,8 +7045,6 @@ class PipingSystemUndergroundPipeCircuit(object):
     @circuit_inlet_node.setter
     def circuit_inlet_node(self, value=None):
         """  Corresponds to IDD Field `Circuit Inlet Node`
-        
-        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Circuit Inlet Node`
@@ -7361,8 +7080,6 @@ class PipingSystemUndergroundPipeCircuit(object):
     @circuit_outlet_node.setter
     def circuit_outlet_node(self, value=None):
         """  Corresponds to IDD Field `Circuit Outlet Node`
-        
-        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Circuit Outlet Node`
@@ -7396,10 +7113,8 @@ class PipingSystemUndergroundPipeCircuit(object):
         return self._data["Convergence Criterion for the Inner Radial Iteration Loop"]
 
     @convergence_criterion_for_the_inner_radial_iteration_loop.setter
-    def convergence_criterion_for_the_inner_radial_iteration_loop(self, value=0.001 ):
+    def convergence_criterion_for_the_inner_radial_iteration_loop(self, value=0.001):
         """  Corresponds to IDD Field `Convergence Criterion for the Inner Radial Iteration Loop`
-        
-        {'pytype': 'float', u'default': '0.001', u'maximum': '0.5', u'minimum': '1e-06', u'units': u'deltaC', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Convergence Criterion for the Inner Radial Iteration Loop`
@@ -7437,10 +7152,8 @@ class PipingSystemUndergroundPipeCircuit(object):
         return self._data["Maximum Iterations in the Inner Radial Iteration Loop"]
 
     @maximum_iterations_in_the_inner_radial_iteration_loop.setter
-    def maximum_iterations_in_the_inner_radial_iteration_loop(self, value=500 ):
+    def maximum_iterations_in_the_inner_radial_iteration_loop(self, value=500):
         """  Corresponds to IDD Field `Maximum Iterations in the Inner Radial Iteration Loop`
-        
-        {u'default': '500', u'minimum': '3', u'type': u'integer', u'maximum': '10000', 'pytype': 'int'}
 
         Args:
             value (int): value for IDD Field `Maximum Iterations in the Inner Radial Iteration Loop`
@@ -7477,10 +7190,8 @@ class PipingSystemUndergroundPipeCircuit(object):
         return self._data["Number of Soil Nodes in the Inner Radial Near Pipe Mesh Region"]
 
     @number_of_soil_nodes_in_the_inner_radial_near_pipe_mesh_region.setter
-    def number_of_soil_nodes_in_the_inner_radial_near_pipe_mesh_region(self, value=3 ):
+    def number_of_soil_nodes_in_the_inner_radial_near_pipe_mesh_region(self, value=3):
         """  Corresponds to IDD Field `Number of Soil Nodes in the Inner Radial Near Pipe Mesh Region`
-        
-        {u'default': '3', u'minimum': '1', u'type': u'integer', u'maximum': '15', 'pytype': 'int'}
 
         Args:
             value (int): value for IDD Field `Number of Soil Nodes in the Inner Radial Near Pipe Mesh Region`
@@ -7521,8 +7232,6 @@ class PipingSystemUndergroundPipeCircuit(object):
         """  Corresponds to IDD Field `Radial Thickness of Inner Radial Near Pipe Mesh Region`
         Required because it must be selected by user instead of being
         inferred from circuit/domain object inputs.
-        
-        {u'note': [u'Required because it must be selected by user instead of being', u'inferred from circuit/domain object inputs.'], u'minimum>': '0.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Radial Thickness of Inner Radial Near Pipe Mesh Region`
@@ -7556,8 +7265,6 @@ class PipingSystemUndergroundPipeCircuit(object):
     @number_of_pipe_segments_entered_for_this_pipe_circuit.setter
     def number_of_pipe_segments_entered_for_this_pipe_circuit(self, value=None):
         """  Corresponds to IDD Field `Number of Pipe Segments Entered for this Pipe Circuit`
-        
-        {u'minimum': '1', u'type': u'integer', u'required-field': True, 'pytype': 'int'}
 
         Args:
             value (int): value for IDD Field `Number of Pipe Segments Entered for this Pipe Circuit`
@@ -7592,8 +7299,6 @@ class PipingSystemUndergroundPipeCircuit(object):
     def pipe_segment_1(self, value=None):
         """  Corresponds to IDD Field `Pipe Segment 1`
         Name of a pipe segment to be included in this pipe circuit
-        
-        {'pytype': 'str', u'begin-extensible': u'', u'required-field': True, u'note': [u'Name of a pipe segment to be included in this pipe circuit'], u'object-list': u'PipingSystemUndergroundSegmentNames', u'type': u'object-list'}
 
         Args:
             value (str): value for IDD Field `Pipe Segment 1`
@@ -7631,8 +7336,6 @@ class PipingSystemUndergroundPipeCircuit(object):
         """  Corresponds to IDD Field `Pipe Segment 2`
         optional
         Name of a pipe segment to be included in this pipe circuit
-        
-        {u'note': [u'optional', u'Name of a pipe segment to be included in this pipe circuit'], u'type': u'object-list', u'object-list': u'PipingSystemUndergroundSegmentNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Pipe Segment 2`
@@ -7670,8 +7373,6 @@ class PipingSystemUndergroundPipeCircuit(object):
         """  Corresponds to IDD Field `Pipe Segment 3`
         optional
         Name of a pipe segment to be included in this pipe circuit
-        
-        {u'note': [u'optional', u'Name of a pipe segment to be included in this pipe circuit'], u'type': u'object-list', u'object-list': u'PipingSystemUndergroundSegmentNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Pipe Segment 3`
@@ -7709,8 +7410,6 @@ class PipingSystemUndergroundPipeCircuit(object):
         """  Corresponds to IDD Field `Pipe Segment 4`
         optional
         Name of a pipe segment to be included in this pipe circuit
-        
-        {u'note': [u'optional', u'Name of a pipe segment to be included in this pipe circuit'], u'type': u'object-list', u'object-list': u'PipingSystemUndergroundSegmentNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Pipe Segment 4`
@@ -7748,8 +7447,6 @@ class PipingSystemUndergroundPipeCircuit(object):
         """  Corresponds to IDD Field `Pipe Segment 5`
         optional
         Name of a pipe segment to be included in this pipe circuit
-        
-        {u'note': [u'optional', u'Name of a pipe segment to be included in this pipe circuit'], u'type': u'object-list', u'object-list': u'PipingSystemUndergroundSegmentNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Pipe Segment 5`
@@ -7787,8 +7484,6 @@ class PipingSystemUndergroundPipeCircuit(object):
         """  Corresponds to IDD Field `Pipe Segment 6`
         optional
         Name of a pipe segment to be included in this pipe circuit
-        
-        {u'note': [u'optional', u'Name of a pipe segment to be included in this pipe circuit'], u'type': u'object-list', u'object-list': u'PipingSystemUndergroundSegmentNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Pipe Segment 6`
@@ -7916,8 +7611,6 @@ class PipingSystemUndergroundPipeSegment(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'reference': u'PipingSystemUndergroundSegmentNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -7957,8 +7650,6 @@ class PipingSystemUndergroundPipeSegment(object):
         domain surface or the basement wall surface, based on whether
         a basement exists in this domain and the selection of the
         shift input field found in the domain object.
-        
-        {'pytype': 'float', u'minimum>': '0.0', u'required-field': True, u'note': [u'This segment will be centered at this distance from the x=0', u'domain surface or the basement wall surface, based on whether', u'a basement exists in this domain and the selection of the', u'shift input field found in the domain object.'], u'units': u'm', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `X Position`
@@ -7996,8 +7687,6 @@ class PipingSystemUndergroundPipeSegment(object):
         This segment will be centered at this distance away from the
         ground surface; thus this value represents the burial depth
         of this pipe segment.
-        
-        {'pytype': 'float', u'minimum>': '0.0', u'required-field': True, u'note': [u'This segment will be centered at this distance away from the', u'ground surface; thus this value represents the burial depth', u'of this pipe segment.'], u'units': u'm', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Y Position`
@@ -8035,8 +7724,6 @@ class PipingSystemUndergroundPipeSegment(object):
         This segment will be simulated such that the flow is in the
         selected direction.  This can allow for detailed analysis
         of circuiting effects in a single domain.
-        
-        {u'note': [u'This segment will be simulated such that the flow is in the', u'selected direction.  This can allow for detailed analysis', u'of circuiting effects in a single domain.'], u'type': u'choice', u'key': [u'IncreasingZ', u'DecreasingZ'], u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Flow Direction`
@@ -8174,8 +7861,6 @@ class Duct(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {'type': 'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -8211,8 +7896,6 @@ class Duct(object):
     @inlet_node_name.setter
     def inlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Inlet Node Name`
-        
-        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Inlet Node Name`
@@ -8248,8 +7931,6 @@ class Duct(object):
     @outlet_node_name.setter
     def outlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Outlet Node Name`
-        
-        {u'Group': u'Pumps', u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Outlet Node Name`
@@ -8272,3463 +7953,6 @@ class Duct(object):
                 raise ValueError('value should not contain a ! '
                                  'for field `outlet_node_name`')
         self._data["Outlet Node Name"] = value
-
-    def check(self):
-        """ Checks if all required fields are not None
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                break
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class PumpVariableSpeed(object):
-    """ Corresponds to IDD object `Pump:VariableSpeed`
-        This pump model is described in the ASHRAE secondary HVAC toolkit.
-    
-    """
-    internal_name = "Pump:VariableSpeed"
-    field_count = 25
-    required_fields = ["Name", "Inlet Node Name", "Outlet Node Name"]
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `Pump:VariableSpeed`
-        """
-        self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Inlet Node Name"] = None
-        self._data["Outlet Node Name"] = None
-        self._data["Rated Flow Rate"] = None
-        self._data["Rated Pump Head"] = None
-        self._data["Rated Power Consumption"] = None
-        self._data["Motor Efficiency"] = None
-        self._data["Fraction of Motor Inefficiencies to Fluid Stream"] = None
-        self._data["Coefficient 1 of the Part Load Performance Curve"] = None
-        self._data["Coefficient 2 of the Part Load Performance Curve"] = None
-        self._data["Coefficient 3 of the Part Load Performance Curve"] = None
-        self._data["Coefficient 4 of the Part Load Performance Curve"] = None
-        self._data["Minimum Flow Rate"] = None
-        self._data["Pump Control Type"] = None
-        self._data["Pump Flow Rate Schedule Name"] = None
-        self._data["Pump Curve Name"] = None
-        self._data["Impeller Diameter"] = None
-        self._data["VFD Control Type"] = None
-        self._data["Pump rpm Schedule Name"] = None
-        self._data["Minimum Pressure Schedule"] = None
-        self._data["Maximum Pressure Schedule"] = None
-        self._data["Minimum RPM Schedule"] = None
-        self._data["Maximum RPM Schedule"] = None
-        self._data["Zone Name"] = None
-        self._data["Skin Loss Radiative Fraction"] = None
-        self.accept_substring = False
-
-    def read(self, vals, accept_substring=True):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        self.accept_substring = accept_substring
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.inlet_node_name = None
-        else:
-            self.inlet_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.outlet_node_name = None
-        else:
-            self.outlet_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.rated_flow_rate = None
-        else:
-            self.rated_flow_rate = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.rated_pump_head = None
-        else:
-            self.rated_pump_head = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.rated_power_consumption = None
-        else:
-            self.rated_power_consumption = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.motor_efficiency = None
-        else:
-            self.motor_efficiency = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.fraction_of_motor_inefficiencies_to_fluid_stream = None
-        else:
-            self.fraction_of_motor_inefficiencies_to_fluid_stream = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.coefficient_1_of_the_part_load_performance_curve = None
-        else:
-            self.coefficient_1_of_the_part_load_performance_curve = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.coefficient_2_of_the_part_load_performance_curve = None
-        else:
-            self.coefficient_2_of_the_part_load_performance_curve = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.coefficient_3_of_the_part_load_performance_curve = None
-        else:
-            self.coefficient_3_of_the_part_load_performance_curve = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.coefficient_4_of_the_part_load_performance_curve = None
-        else:
-            self.coefficient_4_of_the_part_load_performance_curve = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.minimum_flow_rate = None
-        else:
-            self.minimum_flow_rate = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.pump_control_type = None
-        else:
-            self.pump_control_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.pump_flow_rate_schedule_name = None
-        else:
-            self.pump_flow_rate_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.pump_curve_name = None
-        else:
-            self.pump_curve_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.impeller_diameter = None
-        else:
-            self.impeller_diameter = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.vfd_control_type = None
-        else:
-            self.vfd_control_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.pump_rpm_schedule_name = None
-        else:
-            self.pump_rpm_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.minimum_pressure_schedule = None
-        else:
-            self.minimum_pressure_schedule = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_pressure_schedule = None
-        else:
-            self.maximum_pressure_schedule = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.minimum_rpm_schedule = None
-        else:
-            self.minimum_rpm_schedule = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.maximum_rpm_schedule = None
-        else:
-            self.maximum_rpm_schedule = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.zone_name = None
-        else:
-            self.zone_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.skin_loss_radiative_fraction = None
-        else:
-            self.skin_loss_radiative_fraction = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-
-    @property
-    def name(self):
-        """Get name
-
-        Returns:
-            str: the value of `name` or None if not set
-        """
-        return self._data["Name"]
-
-    @name.setter
-    def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
-        
-        {'type': 'alpha', u'required-field': True, 'pytype': 'str'}
-
-        Args:
-            value (str): value for IDD Field `Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str '
-                                 'for field `name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `name`')
-        self._data["Name"] = value
-
-    @property
-    def inlet_node_name(self):
-        """Get inlet_node_name
-
-        Returns:
-            str: the value of `inlet_node_name` or None if not set
-        """
-        return self._data["Inlet Node Name"]
-
-    @inlet_node_name.setter
-    def inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `Inlet Node Name`
-        
-        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
-
-        Args:
-            value (str): value for IDD Field `Inlet Node Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str '
-                                 'for field `inlet_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `inlet_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `inlet_node_name`')
-        self._data["Inlet Node Name"] = value
-
-    @property
-    def outlet_node_name(self):
-        """Get outlet_node_name
-
-        Returns:
-            str: the value of `outlet_node_name` or None if not set
-        """
-        return self._data["Outlet Node Name"]
-
-    @outlet_node_name.setter
-    def outlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `Outlet Node Name`
-        
-        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
-
-        Args:
-            value (str): value for IDD Field `Outlet Node Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str '
-                                 'for field `outlet_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `outlet_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `outlet_node_name`')
-        self._data["Outlet Node Name"] = value
-
-    @property
-    def rated_flow_rate(self):
-        """Get rated_flow_rate
-
-        Returns:
-            float: the value of `rated_flow_rate` or None if not set
-        """
-        return self._data["Rated Flow Rate"]
-
-    @rated_flow_rate.setter
-    def rated_flow_rate(self, value=None):
-        """  Corresponds to IDD Field `Rated Flow Rate`
-        
-        {'pytype': 'float', u'minimum>': '0.0', u'ip-units': u'gal/min', u'autosizable': u'', u'units': u'm3/s', 'type': 'real'}
-
-        Args:
-            value (float): value for IDD Field `Rated Flow Rate`
-                Units: m3/s
-                IP-Units: gal/min
-                value > 0.0
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float '
-                                 'for field `rated_flow_rate`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `rated_flow_rate`')
-        self._data["Rated Flow Rate"] = value
-
-    @property
-    def rated_pump_head(self):
-        """Get rated_pump_head
-
-        Returns:
-            float: the value of `rated_pump_head` or None if not set
-        """
-        return self._data["Rated Pump Head"]
-
-    @rated_pump_head.setter
-    def rated_pump_head(self, value=179352.0 ):
-        """  Corresponds to IDD Field `Rated Pump Head`
-        default head is 60 feet
-        
-        {'pytype': 'float', u'default': '179352.0', u'note': [u'default head is 60 feet'], u'ip-units': u'ftH2O', u'units': u'Pa', 'type': 'real'}
-
-        Args:
-            value (float): value for IDD Field `Rated Pump Head`
-                Units: Pa
-                IP-Units: ftH2O
-                Default value: 179352.0
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float '
-                                 'for field `rated_pump_head`'.format(value))
-        self._data["Rated Pump Head"] = value
-
-    @property
-    def rated_power_consumption(self):
-        """Get rated_power_consumption
-
-        Returns:
-            float: the value of `rated_power_consumption` or None if not set
-        """
-        return self._data["Rated Power Consumption"]
-
-    @rated_power_consumption.setter
-    def rated_power_consumption(self, value=None):
-        """  Corresponds to IDD Field `Rated Power Consumption`
-        If this field is autosized, an impeller efficiency of 0.78 is assumed.
-        autosized Rated Power Consumption = Rated Flow Rate * Rated Pump Head / (0.78 * Motor Efficiency)
-        
-        {'pytype': 'float', u'note': [u'If this field is autosized, an impeller efficiency of 0.78 is assumed.', u'autosized Rated Power Consumption = Rated Flow Rate * Rated Pump Head / (0.78 * Motor Efficiency)'], u'ip-units': u'W', u'autosizable': u'', u'units': u'W', 'type': 'real'}
-
-        Args:
-            value (float): value for IDD Field `Rated Power Consumption`
-                Units: W
-                IP-Units: W
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float '
-                                 'for field `rated_power_consumption`'.format(value))
-        self._data["Rated Power Consumption"] = value
-
-    @property
-    def motor_efficiency(self):
-        """Get motor_efficiency
-
-        Returns:
-            float: the value of `motor_efficiency` or None if not set
-        """
-        return self._data["Motor Efficiency"]
-
-    @motor_efficiency.setter
-    def motor_efficiency(self, value=0.9 ):
-        """  Corresponds to IDD Field `Motor Efficiency`
-        This is the motor efficiency only. When the Rated Power Consumption if autosized,
-        an impeller efficiency of 0.78 is assumed in addition to the motor efficiency.
-        
-        {'pytype': 'float', u'default': '0.9', u'minimum>': '0.0', u'maximum': '1.0', u'note': [u'This is the motor efficiency only. When the Rated Power Consumption if autosized,', u'an impeller efficiency of 0.78 is assumed in addition to the motor efficiency.'], u'type': u'real'}
-
-        Args:
-            value (float): value for IDD Field `Motor Efficiency`
-                Default value: 0.9
-                value > 0.0
-                value <= 1.0
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float '
-                                 'for field `motor_efficiency`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `motor_efficiency`')
-            if value > 1.0:
-                raise ValueError('value need to be smaller 1.0 '
-                                 'for field `motor_efficiency`')
-        self._data["Motor Efficiency"] = value
-
-    @property
-    def fraction_of_motor_inefficiencies_to_fluid_stream(self):
-        """Get fraction_of_motor_inefficiencies_to_fluid_stream
-
-        Returns:
-            float: the value of `fraction_of_motor_inefficiencies_to_fluid_stream` or None if not set
-        """
-        return self._data["Fraction of Motor Inefficiencies to Fluid Stream"]
-
-    @fraction_of_motor_inefficiencies_to_fluid_stream.setter
-    def fraction_of_motor_inefficiencies_to_fluid_stream(self, value=0.0 ):
-        """  Corresponds to IDD Field `Fraction of Motor Inefficiencies to Fluid Stream`
-        
-        {u'default': '0.0', u'minimum': '0.0', 'type': 'real', u'maximum': '1.0', 'pytype': 'float'}
-
-        Args:
-            value (float): value for IDD Field `Fraction of Motor Inefficiencies to Fluid Stream`
-                Default value: 0.0
-                value >= 0.0
-                value <= 1.0
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float '
-                                 'for field `fraction_of_motor_inefficiencies_to_fluid_stream`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `fraction_of_motor_inefficiencies_to_fluid_stream`')
-            if value > 1.0:
-                raise ValueError('value need to be smaller 1.0 '
-                                 'for field `fraction_of_motor_inefficiencies_to_fluid_stream`')
-        self._data["Fraction of Motor Inefficiencies to Fluid Stream"] = value
-
-    @property
-    def coefficient_1_of_the_part_load_performance_curve(self):
-        """Get coefficient_1_of_the_part_load_performance_curve
-
-        Returns:
-            float: the value of `coefficient_1_of_the_part_load_performance_curve` or None if not set
-        """
-        return self._data["Coefficient 1 of the Part Load Performance Curve"]
-
-    @coefficient_1_of_the_part_load_performance_curve.setter
-    def coefficient_1_of_the_part_load_performance_curve(self, value=0.0 ):
-        """  Corresponds to IDD Field `Coefficient 1 of the Part Load Performance Curve`
-        
-        {u'default': '0.0', 'type': 'real', 'pytype': 'float'}
-
-        Args:
-            value (float): value for IDD Field `Coefficient 1 of the Part Load Performance Curve`
-                Default value: 0.0
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float '
-                                 'for field `coefficient_1_of_the_part_load_performance_curve`'.format(value))
-        self._data["Coefficient 1 of the Part Load Performance Curve"] = value
-
-    @property
-    def coefficient_2_of_the_part_load_performance_curve(self):
-        """Get coefficient_2_of_the_part_load_performance_curve
-
-        Returns:
-            float: the value of `coefficient_2_of_the_part_load_performance_curve` or None if not set
-        """
-        return self._data["Coefficient 2 of the Part Load Performance Curve"]
-
-    @coefficient_2_of_the_part_load_performance_curve.setter
-    def coefficient_2_of_the_part_load_performance_curve(self, value=1.0 ):
-        """  Corresponds to IDD Field `Coefficient 2 of the Part Load Performance Curve`
-        
-        {u'default': '1.0', 'type': 'real', 'pytype': 'float'}
-
-        Args:
-            value (float): value for IDD Field `Coefficient 2 of the Part Load Performance Curve`
-                Default value: 1.0
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float '
-                                 'for field `coefficient_2_of_the_part_load_performance_curve`'.format(value))
-        self._data["Coefficient 2 of the Part Load Performance Curve"] = value
-
-    @property
-    def coefficient_3_of_the_part_load_performance_curve(self):
-        """Get coefficient_3_of_the_part_load_performance_curve
-
-        Returns:
-            float: the value of `coefficient_3_of_the_part_load_performance_curve` or None if not set
-        """
-        return self._data["Coefficient 3 of the Part Load Performance Curve"]
-
-    @coefficient_3_of_the_part_load_performance_curve.setter
-    def coefficient_3_of_the_part_load_performance_curve(self, value=0.0 ):
-        """  Corresponds to IDD Field `Coefficient 3 of the Part Load Performance Curve`
-        
-        {u'default': '0.0', 'type': 'real', 'pytype': 'float'}
-
-        Args:
-            value (float): value for IDD Field `Coefficient 3 of the Part Load Performance Curve`
-                Default value: 0.0
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float '
-                                 'for field `coefficient_3_of_the_part_load_performance_curve`'.format(value))
-        self._data["Coefficient 3 of the Part Load Performance Curve"] = value
-
-    @property
-    def coefficient_4_of_the_part_load_performance_curve(self):
-        """Get coefficient_4_of_the_part_load_performance_curve
-
-        Returns:
-            float: the value of `coefficient_4_of_the_part_load_performance_curve` or None if not set
-        """
-        return self._data["Coefficient 4 of the Part Load Performance Curve"]
-
-    @coefficient_4_of_the_part_load_performance_curve.setter
-    def coefficient_4_of_the_part_load_performance_curve(self, value=0.0 ):
-        """  Corresponds to IDD Field `Coefficient 4 of the Part Load Performance Curve`
-        
-        {u'default': '0.0', 'type': 'real', 'pytype': 'float'}
-
-        Args:
-            value (float): value for IDD Field `Coefficient 4 of the Part Load Performance Curve`
-                Default value: 0.0
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float '
-                                 'for field `coefficient_4_of_the_part_load_performance_curve`'.format(value))
-        self._data["Coefficient 4 of the Part Load Performance Curve"] = value
-
-    @property
-    def minimum_flow_rate(self):
-        """Get minimum_flow_rate
-
-        Returns:
-            float: the value of `minimum_flow_rate` or None if not set
-        """
-        return self._data["Minimum Flow Rate"]
-
-    @minimum_flow_rate.setter
-    def minimum_flow_rate(self, value=0.0 ):
-        """  Corresponds to IDD Field `Minimum Flow Rate`
-        This value can be zero and will be defaulted to that if not specified.
-        
-        {'pytype': 'float', u'default': '0.0', u'note': [u'This value can be zero and will be defaulted to that if not specified.'], u'ip-units': u'gal/min', u'units': u'm3/s', 'type': 'real'}
-
-        Args:
-            value (float): value for IDD Field `Minimum Flow Rate`
-                Units: m3/s
-                IP-Units: gal/min
-                Default value: 0.0
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float '
-                                 'for field `minimum_flow_rate`'.format(value))
-        self._data["Minimum Flow Rate"] = value
-
-    @property
-    def pump_control_type(self):
-        """Get pump_control_type
-
-        Returns:
-            str: the value of `pump_control_type` or None if not set
-        """
-        return self._data["Pump Control Type"]
-
-    @pump_control_type.setter
-    def pump_control_type(self, value="Continuous"):
-        """  Corresponds to IDD Field `Pump Control Type`
-        
-        {u'default': u'Continuous', u'type': u'choice', u'key': [u'Continuous', u'Intermittent'], 'pytype': 'str'}
-
-        Args:
-            value (str): value for IDD Field `Pump Control Type`
-                Accepted values are:
-                      - Continuous
-                      - Intermittent
-                Default value: Continuous
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str '
-                                 'for field `pump_control_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `pump_control_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `pump_control_type`')
-            vals = {}
-            vals["continuous"] = "Continuous"
-            vals["intermittent"] = "Intermittent"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if self.accept_substring:
-                    for key in vals:
-                        if key in value_lower:
-                            value_lower = key
-                            found = True
-                            break
-
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `pump_control_type`'.format(value))
-            value = vals[value_lower]
-        self._data["Pump Control Type"] = value
-
-    @property
-    def pump_flow_rate_schedule_name(self):
-        """Get pump_flow_rate_schedule_name
-
-        Returns:
-            str: the value of `pump_flow_rate_schedule_name` or None if not set
-        """
-        return self._data["Pump Flow Rate Schedule Name"]
-
-    @pump_flow_rate_schedule_name.setter
-    def pump_flow_rate_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Pump Flow Rate Schedule Name`
-        Modifies the rated flow rate of the pump on a time basis. Default is
-        that the pump is on and runs according to its other operational requirements
-        specified above.  The schedule is for special pump operations.
-        
-        {u'note': [u'Modifies the rated flow rate of the pump on a time basis. Default is', u'that the pump is on and runs according to its other operational requirements', u'specified above.  The schedule is for special pump operations.'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
-
-        Args:
-            value (str): value for IDD Field `Pump Flow Rate Schedule Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str '
-                                 'for field `pump_flow_rate_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `pump_flow_rate_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `pump_flow_rate_schedule_name`')
-        self._data["Pump Flow Rate Schedule Name"] = value
-
-    @property
-    def pump_curve_name(self):
-        """Get pump_curve_name
-
-        Returns:
-            str: the value of `pump_curve_name` or None if not set
-        """
-        return self._data["Pump Curve Name"]
-
-    @pump_curve_name.setter
-    def pump_curve_name(self, value=None):
-        """  Corresponds to IDD Field `Pump Curve Name`
-        This references any single independent variable polynomial curve in order to
-        do pressure vs. flow calculations for this pump.  The available types are then:
-        Linear, Quadratic, Cubic, and Quartic
-        The non-dimensional pump pressure relationship is of the following form:
-        (psi = C4*phi^4 + C3*phi^3 + C2*phi^2 + C1*phi + C0)
-        Where the nondimensional variables are defined as:
-        delP = rho * ((N/60)^2) * (D^2) * psi
-        mdot = rho * (N/60) * (D^3) * phi
-        Table:OneIndependentVariable object can also be used
-        
-        {u'note': [u'This references any single independent variable polynomial curve in order to', u'do pressure vs. flow calculations for this pump.  The available types are then:', u'Linear, Quadratic, Cubic, and Quartic', u'The non-dimensional pump pressure relationship is of the following form:', u'(psi = C4*phi^4 + C3*phi^3 + C2*phi^2 + C1*phi + C0)', u'Where the nondimensional variables are defined as:', u'delP = rho * ((N/60)^2) * (D^2) * psi', u'mdot = rho * (N/60) * (D^3) * phi', u'Table:OneIndependentVariable object can also be used'], u'type': u'object-list', u'object-list': u'AllCurves', 'pytype': 'str'}
-
-        Args:
-            value (str): value for IDD Field `Pump Curve Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str '
-                                 'for field `pump_curve_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `pump_curve_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `pump_curve_name`')
-        self._data["Pump Curve Name"] = value
-
-    @property
-    def impeller_diameter(self):
-        """Get impeller_diameter
-
-        Returns:
-            float: the value of `impeller_diameter` or None if not set
-        """
-        return self._data["Impeller Diameter"]
-
-    @impeller_diameter.setter
-    def impeller_diameter(self, value=None):
-        """  Corresponds to IDD Field `Impeller Diameter`
-        "D" in above expression in field A6
-        
-        {u'units': u'm', u'note': [u'"D" in above expression in field A6'], u'type': u'real', 'pytype': 'float'}
-
-        Args:
-            value (float): value for IDD Field `Impeller Diameter`
-                Units: m
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float '
-                                 'for field `impeller_diameter`'.format(value))
-        self._data["Impeller Diameter"] = value
-
-    @property
-    def vfd_control_type(self):
-        """Get vfd_control_type
-
-        Returns:
-            str: the value of `vfd_control_type` or None if not set
-        """
-        return self._data["VFD Control Type"]
-
-    @vfd_control_type.setter
-    def vfd_control_type(self, value=None):
-        """  Corresponds to IDD Field `VFD Control Type`
-        
-        {u'type': u'choice', u'key': [u'ManualControl', u'PressureSetpointControl'], 'pytype': 'str'}
-
-        Args:
-            value (str): value for IDD Field `VFD Control Type`
-                Accepted values are:
-                      - ManualControl
-                      - PressureSetpointControl
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str '
-                                 'for field `vfd_control_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `vfd_control_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `vfd_control_type`')
-            vals = {}
-            vals["manualcontrol"] = "ManualControl"
-            vals["pressuresetpointcontrol"] = "PressureSetpointControl"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if self.accept_substring:
-                    for key in vals:
-                        if key in value_lower:
-                            value_lower = key
-                            found = True
-                            break
-
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `vfd_control_type`'.format(value))
-            value = vals[value_lower]
-        self._data["VFD Control Type"] = value
-
-    @property
-    def pump_rpm_schedule_name(self):
-        """Get pump_rpm_schedule_name
-
-        Returns:
-            str: the value of `pump_rpm_schedule_name` or None if not set
-        """
-        return self._data["Pump rpm Schedule Name"]
-
-    @pump_rpm_schedule_name.setter
-    def pump_rpm_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Pump rpm Schedule Name`
-        Modifies the rpm of the pump on a time basis. Default is
-        that the pump is on and runs according to its other operational requirements
-        specified above.  The schedule is for special pump operations.
-        
-        {u'note': [u'Modifies the rpm of the pump on a time basis. Default is', u'that the pump is on and runs according to its other operational requirements', u'specified above.  The schedule is for special pump operations.'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
-
-        Args:
-            value (str): value for IDD Field `Pump rpm Schedule Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str '
-                                 'for field `pump_rpm_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `pump_rpm_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `pump_rpm_schedule_name`')
-        self._data["Pump rpm Schedule Name"] = value
-
-    @property
-    def minimum_pressure_schedule(self):
-        """Get minimum_pressure_schedule
-
-        Returns:
-            str: the value of `minimum_pressure_schedule` or None if not set
-        """
-        return self._data["Minimum Pressure Schedule"]
-
-    @minimum_pressure_schedule.setter
-    def minimum_pressure_schedule(self, value=None):
-        """  Corresponds to IDD Field `Minimum Pressure Schedule`
-        
-        {u'units': u'Pa', u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
-
-        Args:
-            value (str): value for IDD Field `Minimum Pressure Schedule`
-                Units: Pa
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str '
-                                 'for field `minimum_pressure_schedule`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `minimum_pressure_schedule`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `minimum_pressure_schedule`')
-        self._data["Minimum Pressure Schedule"] = value
-
-    @property
-    def maximum_pressure_schedule(self):
-        """Get maximum_pressure_schedule
-
-        Returns:
-            str: the value of `maximum_pressure_schedule` or None if not set
-        """
-        return self._data["Maximum Pressure Schedule"]
-
-    @maximum_pressure_schedule.setter
-    def maximum_pressure_schedule(self, value=None):
-        """  Corresponds to IDD Field `Maximum Pressure Schedule`
-        
-        {u'units': u'Pa', u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
-
-        Args:
-            value (str): value for IDD Field `Maximum Pressure Schedule`
-                Units: Pa
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str '
-                                 'for field `maximum_pressure_schedule`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `maximum_pressure_schedule`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `maximum_pressure_schedule`')
-        self._data["Maximum Pressure Schedule"] = value
-
-    @property
-    def minimum_rpm_schedule(self):
-        """Get minimum_rpm_schedule
-
-        Returns:
-            str: the value of `minimum_rpm_schedule` or None if not set
-        """
-        return self._data["Minimum RPM Schedule"]
-
-    @minimum_rpm_schedule.setter
-    def minimum_rpm_schedule(self, value=None):
-        """  Corresponds to IDD Field `Minimum RPM Schedule`
-        
-        {u'units': u'Rotations Per Minute', u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
-
-        Args:
-            value (str): value for IDD Field `Minimum RPM Schedule`
-                Units: Rotations Per Minute
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str '
-                                 'for field `minimum_rpm_schedule`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `minimum_rpm_schedule`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `minimum_rpm_schedule`')
-        self._data["Minimum RPM Schedule"] = value
-
-    @property
-    def maximum_rpm_schedule(self):
-        """Get maximum_rpm_schedule
-
-        Returns:
-            str: the value of `maximum_rpm_schedule` or None if not set
-        """
-        return self._data["Maximum RPM Schedule"]
-
-    @maximum_rpm_schedule.setter
-    def maximum_rpm_schedule(self, value=None):
-        """  Corresponds to IDD Field `Maximum RPM Schedule`
-        
-        {u'units': u'Rotations Per Minute', u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
-
-        Args:
-            value (str): value for IDD Field `Maximum RPM Schedule`
-                Units: Rotations Per Minute
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str '
-                                 'for field `maximum_rpm_schedule`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `maximum_rpm_schedule`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `maximum_rpm_schedule`')
-        self._data["Maximum RPM Schedule"] = value
-
-    @property
-    def zone_name(self):
-        """Get zone_name
-
-        Returns:
-            str: the value of `zone_name` or None if not set
-        """
-        return self._data["Zone Name"]
-
-    @zone_name.setter
-    def zone_name(self, value=None):
-        """  Corresponds to IDD Field `Zone Name`
-        optional, if used pump losses transfered to zone as internal gains
-        
-        {u'note': [u'optional, if used pump losses transfered to zone as internal gains'], u'type': u'Object-list', u'object-list': u'ZoneNames', 'pytype': 'str'}
-
-        Args:
-            value (str): value for IDD Field `Zone Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str '
-                                 'for field `zone_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `zone_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `zone_name`')
-        self._data["Zone Name"] = value
-
-    @property
-    def skin_loss_radiative_fraction(self):
-        """Get skin_loss_radiative_fraction
-
-        Returns:
-            float: the value of `skin_loss_radiative_fraction` or None if not set
-        """
-        return self._data["Skin Loss Radiative Fraction"]
-
-    @skin_loss_radiative_fraction.setter
-    def skin_loss_radiative_fraction(self, value=None):
-        """  Corresponds to IDD Field `Skin Loss Radiative Fraction`
-        optional. If zone identified in previous field then this determines
-        the split between convection and radiation for the skin losses
-        
-        {u'note': [u'optional. If zone identified in previous field then this determines', u'the split between convection and radiation for the skin losses'], u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
-
-        Args:
-            value (float): value for IDD Field `Skin Loss Radiative Fraction`
-                value >= 0.0
-                value <= 1.0
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float '
-                                 'for field `skin_loss_radiative_fraction`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `skin_loss_radiative_fraction`')
-            if value > 1.0:
-                raise ValueError('value need to be smaller 1.0 '
-                                 'for field `skin_loss_radiative_fraction`')
-        self._data["Skin Loss Radiative Fraction"] = value
-
-    def check(self):
-        """ Checks if all required fields are not None
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                break
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class PumpConstantSpeed(object):
-    """ Corresponds to IDD object `Pump:ConstantSpeed`
-        This pump model is described in the ASHRAE secondary HVAC toolkit.
-    
-    """
-    internal_name = "Pump:ConstantSpeed"
-    field_count = 15
-    required_fields = ["Name", "Inlet Node Name", "Outlet Node Name"]
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `Pump:ConstantSpeed`
-        """
-        self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Inlet Node Name"] = None
-        self._data["Outlet Node Name"] = None
-        self._data["Rated Flow Rate"] = None
-        self._data["Rated Pump Head"] = None
-        self._data["Rated Power Consumption"] = None
-        self._data["Motor Efficiency"] = None
-        self._data["Fraction of Motor Inefficiencies to Fluid Stream"] = None
-        self._data["Pump Control Type"] = None
-        self._data["Pump Flow Rate Schedule Name"] = None
-        self._data["Pump Curve Name"] = None
-        self._data["Impeller Diameter"] = None
-        self._data["Rotational Speed"] = None
-        self._data["Zone Name"] = None
-        self._data["Skin Loss Radiative Fraction"] = None
-        self.accept_substring = False
-
-    def read(self, vals, accept_substring=True):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        self.accept_substring = accept_substring
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.inlet_node_name = None
-        else:
-            self.inlet_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.outlet_node_name = None
-        else:
-            self.outlet_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.rated_flow_rate = None
-        else:
-            self.rated_flow_rate = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.rated_pump_head = None
-        else:
-            self.rated_pump_head = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.rated_power_consumption = None
-        else:
-            self.rated_power_consumption = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.motor_efficiency = None
-        else:
-            self.motor_efficiency = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.fraction_of_motor_inefficiencies_to_fluid_stream = None
-        else:
-            self.fraction_of_motor_inefficiencies_to_fluid_stream = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.pump_control_type = None
-        else:
-            self.pump_control_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.pump_flow_rate_schedule_name = None
-        else:
-            self.pump_flow_rate_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.pump_curve_name = None
-        else:
-            self.pump_curve_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.impeller_diameter = None
-        else:
-            self.impeller_diameter = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.rotational_speed = None
-        else:
-            self.rotational_speed = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.zone_name = None
-        else:
-            self.zone_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.skin_loss_radiative_fraction = None
-        else:
-            self.skin_loss_radiative_fraction = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-
-    @property
-    def name(self):
-        """Get name
-
-        Returns:
-            str: the value of `name` or None if not set
-        """
-        return self._data["Name"]
-
-    @name.setter
-    def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
-        
-        {'type': 'alpha', u'required-field': True, 'pytype': 'str'}
-
-        Args:
-            value (str): value for IDD Field `Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str '
-                                 'for field `name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `name`')
-        self._data["Name"] = value
-
-    @property
-    def inlet_node_name(self):
-        """Get inlet_node_name
-
-        Returns:
-            str: the value of `inlet_node_name` or None if not set
-        """
-        return self._data["Inlet Node Name"]
-
-    @inlet_node_name.setter
-    def inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `Inlet Node Name`
-        
-        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
-
-        Args:
-            value (str): value for IDD Field `Inlet Node Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str '
-                                 'for field `inlet_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `inlet_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `inlet_node_name`')
-        self._data["Inlet Node Name"] = value
-
-    @property
-    def outlet_node_name(self):
-        """Get outlet_node_name
-
-        Returns:
-            str: the value of `outlet_node_name` or None if not set
-        """
-        return self._data["Outlet Node Name"]
-
-    @outlet_node_name.setter
-    def outlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `Outlet Node Name`
-        
-        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
-
-        Args:
-            value (str): value for IDD Field `Outlet Node Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str '
-                                 'for field `outlet_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `outlet_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `outlet_node_name`')
-        self._data["Outlet Node Name"] = value
-
-    @property
-    def rated_flow_rate(self):
-        """Get rated_flow_rate
-
-        Returns:
-            float: the value of `rated_flow_rate` or None if not set
-        """
-        return self._data["Rated Flow Rate"]
-
-    @rated_flow_rate.setter
-    def rated_flow_rate(self, value=None):
-        """  Corresponds to IDD Field `Rated Flow Rate`
-        
-        {'pytype': 'float', u'minimum>': '0.0', u'ip-units': u'gal/min', u'autosizable': u'', u'units': u'm3/s', 'type': 'real'}
-
-        Args:
-            value (float): value for IDD Field `Rated Flow Rate`
-                Units: m3/s
-                IP-Units: gal/min
-                value > 0.0
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float '
-                                 'for field `rated_flow_rate`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `rated_flow_rate`')
-        self._data["Rated Flow Rate"] = value
-
-    @property
-    def rated_pump_head(self):
-        """Get rated_pump_head
-
-        Returns:
-            float: the value of `rated_pump_head` or None if not set
-        """
-        return self._data["Rated Pump Head"]
-
-    @rated_pump_head.setter
-    def rated_pump_head(self, value=179352.0 ):
-        """  Corresponds to IDD Field `Rated Pump Head`
-        default head is 60 feet
-        
-        {'pytype': 'float', u'default': '179352.0', u'note': [u'default head is 60 feet'], u'ip-units': u'ftH2O', u'units': u'Pa', 'type': 'real'}
-
-        Args:
-            value (float): value for IDD Field `Rated Pump Head`
-                Units: Pa
-                IP-Units: ftH2O
-                Default value: 179352.0
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float '
-                                 'for field `rated_pump_head`'.format(value))
-        self._data["Rated Pump Head"] = value
-
-    @property
-    def rated_power_consumption(self):
-        """Get rated_power_consumption
-
-        Returns:
-            float: the value of `rated_power_consumption` or None if not set
-        """
-        return self._data["Rated Power Consumption"]
-
-    @rated_power_consumption.setter
-    def rated_power_consumption(self, value=None):
-        """  Corresponds to IDD Field `Rated Power Consumption`
-        If this field is autosized, an impeller efficiency of 0.78 is assumed.
-        autosized Rated Power Consumption = Rated Flow Rate * Rated Pump Head / (0.78 * Motor Efficiency)
-        
-        {'pytype': 'float', u'note': [u'If this field is autosized, an impeller efficiency of 0.78 is assumed.', u'autosized Rated Power Consumption = Rated Flow Rate * Rated Pump Head / (0.78 * Motor Efficiency)'], u'ip-units': u'W', u'autosizable': u'', u'units': u'W', 'type': 'real'}
-
-        Args:
-            value (float): value for IDD Field `Rated Power Consumption`
-                Units: W
-                IP-Units: W
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float '
-                                 'for field `rated_power_consumption`'.format(value))
-        self._data["Rated Power Consumption"] = value
-
-    @property
-    def motor_efficiency(self):
-        """Get motor_efficiency
-
-        Returns:
-            float: the value of `motor_efficiency` or None if not set
-        """
-        return self._data["Motor Efficiency"]
-
-    @motor_efficiency.setter
-    def motor_efficiency(self, value=0.9 ):
-        """  Corresponds to IDD Field `Motor Efficiency`
-        This is the motor efficiency only. When the Rated Power Consumption if autosized,
-        an impeller efficiency of 0.78 is assumed in addition to the motor efficiency.
-        
-        {'pytype': 'float', u'default': '0.9', u'minimum>': '0.0', u'maximum': '1.0', u'note': [u'This is the motor efficiency only. When the Rated Power Consumption if autosized,', u'an impeller efficiency of 0.78 is assumed in addition to the motor efficiency.'], u'type': u'real'}
-
-        Args:
-            value (float): value for IDD Field `Motor Efficiency`
-                Default value: 0.9
-                value > 0.0
-                value <= 1.0
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float '
-                                 'for field `motor_efficiency`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `motor_efficiency`')
-            if value > 1.0:
-                raise ValueError('value need to be smaller 1.0 '
-                                 'for field `motor_efficiency`')
-        self._data["Motor Efficiency"] = value
-
-    @property
-    def fraction_of_motor_inefficiencies_to_fluid_stream(self):
-        """Get fraction_of_motor_inefficiencies_to_fluid_stream
-
-        Returns:
-            float: the value of `fraction_of_motor_inefficiencies_to_fluid_stream` or None if not set
-        """
-        return self._data["Fraction of Motor Inefficiencies to Fluid Stream"]
-
-    @fraction_of_motor_inefficiencies_to_fluid_stream.setter
-    def fraction_of_motor_inefficiencies_to_fluid_stream(self, value=0.0 ):
-        """  Corresponds to IDD Field `Fraction of Motor Inefficiencies to Fluid Stream`
-        
-        {u'default': '0.0', u'minimum': '0.0', 'type': 'real', u'maximum': '1.0', 'pytype': 'float'}
-
-        Args:
-            value (float): value for IDD Field `Fraction of Motor Inefficiencies to Fluid Stream`
-                Default value: 0.0
-                value >= 0.0
-                value <= 1.0
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float '
-                                 'for field `fraction_of_motor_inefficiencies_to_fluid_stream`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `fraction_of_motor_inefficiencies_to_fluid_stream`')
-            if value > 1.0:
-                raise ValueError('value need to be smaller 1.0 '
-                                 'for field `fraction_of_motor_inefficiencies_to_fluid_stream`')
-        self._data["Fraction of Motor Inefficiencies to Fluid Stream"] = value
-
-    @property
-    def pump_control_type(self):
-        """Get pump_control_type
-
-        Returns:
-            str: the value of `pump_control_type` or None if not set
-        """
-        return self._data["Pump Control Type"]
-
-    @pump_control_type.setter
-    def pump_control_type(self, value="Continuous"):
-        """  Corresponds to IDD Field `Pump Control Type`
-        
-        {u'default': u'Continuous', u'type': u'choice', u'key': [u'Continuous', u'Intermittent'], 'pytype': 'str'}
-
-        Args:
-            value (str): value for IDD Field `Pump Control Type`
-                Accepted values are:
-                      - Continuous
-                      - Intermittent
-                Default value: Continuous
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str '
-                                 'for field `pump_control_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `pump_control_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `pump_control_type`')
-            vals = {}
-            vals["continuous"] = "Continuous"
-            vals["intermittent"] = "Intermittent"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if self.accept_substring:
-                    for key in vals:
-                        if key in value_lower:
-                            value_lower = key
-                            found = True
-                            break
-
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `pump_control_type`'.format(value))
-            value = vals[value_lower]
-        self._data["Pump Control Type"] = value
-
-    @property
-    def pump_flow_rate_schedule_name(self):
-        """Get pump_flow_rate_schedule_name
-
-        Returns:
-            str: the value of `pump_flow_rate_schedule_name` or None if not set
-        """
-        return self._data["Pump Flow Rate Schedule Name"]
-
-    @pump_flow_rate_schedule_name.setter
-    def pump_flow_rate_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Pump Flow Rate Schedule Name`
-        Modifies the rated flow rate of the pump on a time basis. Default is
-        that the pump is on and runs according to its other operational requirements
-        specified above.  The schedule is for special pump operations.
-        
-        {u'note': [u'Modifies the rated flow rate of the pump on a time basis. Default is', u'that the pump is on and runs according to its other operational requirements', u'specified above.  The schedule is for special pump operations.'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
-
-        Args:
-            value (str): value for IDD Field `Pump Flow Rate Schedule Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str '
-                                 'for field `pump_flow_rate_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `pump_flow_rate_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `pump_flow_rate_schedule_name`')
-        self._data["Pump Flow Rate Schedule Name"] = value
-
-    @property
-    def pump_curve_name(self):
-        """Get pump_curve_name
-
-        Returns:
-            str: the value of `pump_curve_name` or None if not set
-        """
-        return self._data["Pump Curve Name"]
-
-    @pump_curve_name.setter
-    def pump_curve_name(self, value=None):
-        """  Corresponds to IDD Field `Pump Curve Name`
-        This references any single independent variable polynomial curve in order to
-        do pressure vs. flow calculations for this pump.  The available types are then:
-        Linear, Quadratic, Cubic, and Quartic
-        The non-dimensional pump pressure relationship is of the following form:
-        (psi = C4*phi^4 + C3*phi^3 + C2*phi^2 + C1*phi + C0)
-        Where the nondimensional variables are defined as:
-        delP = rho * ((N/60)^2) * (D^2) * psi
-        mdot = rho * (N/60) * (D^3) * phi
-        Table:OneIndependentVariable object can also be used
-        
-        {u'note': [u'This references any single independent variable polynomial curve in order to', u'do pressure vs. flow calculations for this pump.  The available types are then:', u'Linear, Quadratic, Cubic, and Quartic', u'The non-dimensional pump pressure relationship is of the following form:', u'(psi = C4*phi^4 + C3*phi^3 + C2*phi^2 + C1*phi + C0)', u'Where the nondimensional variables are defined as:', u'delP = rho * ((N/60)^2) * (D^2) * psi', u'mdot = rho * (N/60) * (D^3) * phi', u'Table:OneIndependentVariable object can also be used'], u'type': u'object-list', u'object-list': u'AllCurves', 'pytype': 'str'}
-
-        Args:
-            value (str): value for IDD Field `Pump Curve Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str '
-                                 'for field `pump_curve_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `pump_curve_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `pump_curve_name`')
-        self._data["Pump Curve Name"] = value
-
-    @property
-    def impeller_diameter(self):
-        """Get impeller_diameter
-
-        Returns:
-            float: the value of `impeller_diameter` or None if not set
-        """
-        return self._data["Impeller Diameter"]
-
-    @impeller_diameter.setter
-    def impeller_diameter(self, value=None):
-        """  Corresponds to IDD Field `Impeller Diameter`
-        "D" in above expression in field A6
-        
-        {u'units': u'm', u'note': [u'"D" in above expression in field A6'], u'type': u'real', 'pytype': 'float'}
-
-        Args:
-            value (float): value for IDD Field `Impeller Diameter`
-                Units: m
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float '
-                                 'for field `impeller_diameter`'.format(value))
-        self._data["Impeller Diameter"] = value
-
-    @property
-    def rotational_speed(self):
-        """Get rotational_speed
-
-        Returns:
-            float: the value of `rotational_speed` or None if not set
-        """
-        return self._data["Rotational Speed"]
-
-    @rotational_speed.setter
-    def rotational_speed(self, value=None):
-        """  Corresponds to IDD Field `Rotational Speed`
-        "N" in above expression in field A6
-        
-        {u'units': u'rev/min', u'note': [u'"N" in above expression in field A6'], u'type': u'real', 'pytype': 'float'}
-
-        Args:
-            value (float): value for IDD Field `Rotational Speed`
-                Units: rev/min
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float '
-                                 'for field `rotational_speed`'.format(value))
-        self._data["Rotational Speed"] = value
-
-    @property
-    def zone_name(self):
-        """Get zone_name
-
-        Returns:
-            str: the value of `zone_name` or None if not set
-        """
-        return self._data["Zone Name"]
-
-    @zone_name.setter
-    def zone_name(self, value=None):
-        """  Corresponds to IDD Field `Zone Name`
-        optional, if used pump losses transfered to zone as internal gains
-        
-        {u'note': [u'optional, if used pump losses transfered to zone as internal gains'], u'type': u'Object-list', u'object-list': u'ZoneNames', 'pytype': 'str'}
-
-        Args:
-            value (str): value for IDD Field `Zone Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str '
-                                 'for field `zone_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `zone_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `zone_name`')
-        self._data["Zone Name"] = value
-
-    @property
-    def skin_loss_radiative_fraction(self):
-        """Get skin_loss_radiative_fraction
-
-        Returns:
-            float: the value of `skin_loss_radiative_fraction` or None if not set
-        """
-        return self._data["Skin Loss Radiative Fraction"]
-
-    @skin_loss_radiative_fraction.setter
-    def skin_loss_radiative_fraction(self, value=None):
-        """  Corresponds to IDD Field `Skin Loss Radiative Fraction`
-        optional. If zone identified in previous field then this determines
-        the split between convection and radiation for the skin losses
-        
-        {u'note': [u'optional. If zone identified in previous field then this determines', u'the split between convection and radiation for the skin losses'], u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
-
-        Args:
-            value (float): value for IDD Field `Skin Loss Radiative Fraction`
-                value >= 0.0
-                value <= 1.0
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float '
-                                 'for field `skin_loss_radiative_fraction`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `skin_loss_radiative_fraction`')
-            if value > 1.0:
-                raise ValueError('value need to be smaller 1.0 '
-                                 'for field `skin_loss_radiative_fraction`')
-        self._data["Skin Loss Radiative Fraction"] = value
-
-    def check(self):
-        """ Checks if all required fields are not None
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                break
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class PumpVariableSpeedCondensate(object):
-    """ Corresponds to IDD object `Pump:VariableSpeed:Condensate`
-        This pump model is described in the ASHRAE secondary HVAC toolkit.
-        Variable Speed Condensate pump for Steam Systems
-    
-    """
-    internal_name = "Pump:VariableSpeed:Condensate"
-    field_count = 15
-    required_fields = ["Name", "Inlet Node Name", "Outlet Node Name"]
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `Pump:VariableSpeed:Condensate`
-        """
-        self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Inlet Node Name"] = None
-        self._data["Outlet Node Name"] = None
-        self._data["Rated Flow Rate"] = None
-        self._data["Rated Pump Head"] = None
-        self._data["Rated Power Consumption"] = None
-        self._data["Motor Efficiency"] = None
-        self._data["Fraction of Motor Inefficiencies to Fluid Stream"] = None
-        self._data["Coefficient 1 of the Part Load Performance Curve"] = None
-        self._data["Coefficient 2 of the Part Load Performance Curve"] = None
-        self._data["Coefficient 3 of the Part Load Performance Curve"] = None
-        self._data["Coefficient 4 of the Part Load Performance Curve"] = None
-        self._data["Pump Flow Rate Schedule Name"] = None
-        self._data["Zone Name"] = None
-        self._data["Skin Loss Radiative Fraction"] = None
-        self.accept_substring = False
-
-    def read(self, vals, accept_substring=True):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        self.accept_substring = accept_substring
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.inlet_node_name = None
-        else:
-            self.inlet_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.outlet_node_name = None
-        else:
-            self.outlet_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.rated_flow_rate = None
-        else:
-            self.rated_flow_rate = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.rated_pump_head = None
-        else:
-            self.rated_pump_head = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.rated_power_consumption = None
-        else:
-            self.rated_power_consumption = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.motor_efficiency = None
-        else:
-            self.motor_efficiency = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.fraction_of_motor_inefficiencies_to_fluid_stream = None
-        else:
-            self.fraction_of_motor_inefficiencies_to_fluid_stream = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.coefficient_1_of_the_part_load_performance_curve = None
-        else:
-            self.coefficient_1_of_the_part_load_performance_curve = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.coefficient_2_of_the_part_load_performance_curve = None
-        else:
-            self.coefficient_2_of_the_part_load_performance_curve = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.coefficient_3_of_the_part_load_performance_curve = None
-        else:
-            self.coefficient_3_of_the_part_load_performance_curve = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.coefficient_4_of_the_part_load_performance_curve = None
-        else:
-            self.coefficient_4_of_the_part_load_performance_curve = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.pump_flow_rate_schedule_name = None
-        else:
-            self.pump_flow_rate_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.zone_name = None
-        else:
-            self.zone_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.skin_loss_radiative_fraction = None
-        else:
-            self.skin_loss_radiative_fraction = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-
-    @property
-    def name(self):
-        """Get name
-
-        Returns:
-            str: the value of `name` or None if not set
-        """
-        return self._data["Name"]
-
-    @name.setter
-    def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
-        
-        {'type': 'alpha', u'required-field': True, 'pytype': 'str'}
-
-        Args:
-            value (str): value for IDD Field `Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str '
-                                 'for field `name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `name`')
-        self._data["Name"] = value
-
-    @property
-    def inlet_node_name(self):
-        """Get inlet_node_name
-
-        Returns:
-            str: the value of `inlet_node_name` or None if not set
-        """
-        return self._data["Inlet Node Name"]
-
-    @inlet_node_name.setter
-    def inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `Inlet Node Name`
-        
-        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
-
-        Args:
-            value (str): value for IDD Field `Inlet Node Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str '
-                                 'for field `inlet_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `inlet_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `inlet_node_name`')
-        self._data["Inlet Node Name"] = value
-
-    @property
-    def outlet_node_name(self):
-        """Get outlet_node_name
-
-        Returns:
-            str: the value of `outlet_node_name` or None if not set
-        """
-        return self._data["Outlet Node Name"]
-
-    @outlet_node_name.setter
-    def outlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `Outlet Node Name`
-        
-        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
-
-        Args:
-            value (str): value for IDD Field `Outlet Node Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str '
-                                 'for field `outlet_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `outlet_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `outlet_node_name`')
-        self._data["Outlet Node Name"] = value
-
-    @property
-    def rated_flow_rate(self):
-        """Get rated_flow_rate
-
-        Returns:
-            float: the value of `rated_flow_rate` or None if not set
-        """
-        return self._data["Rated Flow Rate"]
-
-    @rated_flow_rate.setter
-    def rated_flow_rate(self, value=None):
-        """  Corresponds to IDD Field `Rated Flow Rate`
-        
-        {'pytype': 'float', u'minimum>': '0.0', u'ip-units': u'gal/min', u'autosizable': u'', u'units': u'm3/s', 'type': 'real'}
-
-        Args:
-            value (float): value for IDD Field `Rated Flow Rate`
-                Units: m3/s
-                IP-Units: gal/min
-                value > 0.0
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float '
-                                 'for field `rated_flow_rate`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `rated_flow_rate`')
-        self._data["Rated Flow Rate"] = value
-
-    @property
-    def rated_pump_head(self):
-        """Get rated_pump_head
-
-        Returns:
-            float: the value of `rated_pump_head` or None if not set
-        """
-        return self._data["Rated Pump Head"]
-
-    @rated_pump_head.setter
-    def rated_pump_head(self, value=179352.0 ):
-        """  Corresponds to IDD Field `Rated Pump Head`
-        default head is 60 feet
-        
-        {'pytype': 'float', u'default': '179352.0', u'note': [u'default head is 60 feet'], u'ip-units': u'ftH2O', u'units': u'Pa', 'type': 'real'}
-
-        Args:
-            value (float): value for IDD Field `Rated Pump Head`
-                Units: Pa
-                IP-Units: ftH2O
-                Default value: 179352.0
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float '
-                                 'for field `rated_pump_head`'.format(value))
-        self._data["Rated Pump Head"] = value
-
-    @property
-    def rated_power_consumption(self):
-        """Get rated_power_consumption
-
-        Returns:
-            float: the value of `rated_power_consumption` or None if not set
-        """
-        return self._data["Rated Power Consumption"]
-
-    @rated_power_consumption.setter
-    def rated_power_consumption(self, value=None):
-        """  Corresponds to IDD Field `Rated Power Consumption`
-        If this field is autosized, an impeller efficiency of 0.78 is assumed.
-        autosized Rated Power Consumption = Rated Flow Rate * Rated Pump Head / (0.78 * Motor Efficiency)
-        
-        {'pytype': 'float', u'note': [u'If this field is autosized, an impeller efficiency of 0.78 is assumed.', u'autosized Rated Power Consumption = Rated Flow Rate * Rated Pump Head / (0.78 * Motor Efficiency)'], u'ip-units': u'W', u'autosizable': u'', u'units': u'W', 'type': 'real'}
-
-        Args:
-            value (float): value for IDD Field `Rated Power Consumption`
-                Units: W
-                IP-Units: W
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float '
-                                 'for field `rated_power_consumption`'.format(value))
-        self._data["Rated Power Consumption"] = value
-
-    @property
-    def motor_efficiency(self):
-        """Get motor_efficiency
-
-        Returns:
-            float: the value of `motor_efficiency` or None if not set
-        """
-        return self._data["Motor Efficiency"]
-
-    @motor_efficiency.setter
-    def motor_efficiency(self, value=0.9 ):
-        """  Corresponds to IDD Field `Motor Efficiency`
-        This is the motor efficiency only. When the Rated Power Consumption if autosized,
-        an impeller efficiency of 0.78 is assumed in addition to the motor efficiency.
-        
-        {'pytype': 'float', u'default': '0.9', u'minimum>': '0.0', u'maximum': '1.0', u'note': [u'This is the motor efficiency only. When the Rated Power Consumption if autosized,', u'an impeller efficiency of 0.78 is assumed in addition to the motor efficiency.'], u'type': u'real'}
-
-        Args:
-            value (float): value for IDD Field `Motor Efficiency`
-                Default value: 0.9
-                value > 0.0
-                value <= 1.0
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float '
-                                 'for field `motor_efficiency`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `motor_efficiency`')
-            if value > 1.0:
-                raise ValueError('value need to be smaller 1.0 '
-                                 'for field `motor_efficiency`')
-        self._data["Motor Efficiency"] = value
-
-    @property
-    def fraction_of_motor_inefficiencies_to_fluid_stream(self):
-        """Get fraction_of_motor_inefficiencies_to_fluid_stream
-
-        Returns:
-            float: the value of `fraction_of_motor_inefficiencies_to_fluid_stream` or None if not set
-        """
-        return self._data["Fraction of Motor Inefficiencies to Fluid Stream"]
-
-    @fraction_of_motor_inefficiencies_to_fluid_stream.setter
-    def fraction_of_motor_inefficiencies_to_fluid_stream(self, value=0.0 ):
-        """  Corresponds to IDD Field `Fraction of Motor Inefficiencies to Fluid Stream`
-        
-        {u'default': '0.0', u'minimum': '0.0', 'type': 'real', u'maximum': '1.0', 'pytype': 'float'}
-
-        Args:
-            value (float): value for IDD Field `Fraction of Motor Inefficiencies to Fluid Stream`
-                Default value: 0.0
-                value >= 0.0
-                value <= 1.0
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float '
-                                 'for field `fraction_of_motor_inefficiencies_to_fluid_stream`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `fraction_of_motor_inefficiencies_to_fluid_stream`')
-            if value > 1.0:
-                raise ValueError('value need to be smaller 1.0 '
-                                 'for field `fraction_of_motor_inefficiencies_to_fluid_stream`')
-        self._data["Fraction of Motor Inefficiencies to Fluid Stream"] = value
-
-    @property
-    def coefficient_1_of_the_part_load_performance_curve(self):
-        """Get coefficient_1_of_the_part_load_performance_curve
-
-        Returns:
-            float: the value of `coefficient_1_of_the_part_load_performance_curve` or None if not set
-        """
-        return self._data["Coefficient 1 of the Part Load Performance Curve"]
-
-    @coefficient_1_of_the_part_load_performance_curve.setter
-    def coefficient_1_of_the_part_load_performance_curve(self, value=0.0 ):
-        """  Corresponds to IDD Field `Coefficient 1 of the Part Load Performance Curve`
-        
-        {u'default': '0.0', 'type': 'real', 'pytype': 'float'}
-
-        Args:
-            value (float): value for IDD Field `Coefficient 1 of the Part Load Performance Curve`
-                Default value: 0.0
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float '
-                                 'for field `coefficient_1_of_the_part_load_performance_curve`'.format(value))
-        self._data["Coefficient 1 of the Part Load Performance Curve"] = value
-
-    @property
-    def coefficient_2_of_the_part_load_performance_curve(self):
-        """Get coefficient_2_of_the_part_load_performance_curve
-
-        Returns:
-            float: the value of `coefficient_2_of_the_part_load_performance_curve` or None if not set
-        """
-        return self._data["Coefficient 2 of the Part Load Performance Curve"]
-
-    @coefficient_2_of_the_part_load_performance_curve.setter
-    def coefficient_2_of_the_part_load_performance_curve(self, value=1.0 ):
-        """  Corresponds to IDD Field `Coefficient 2 of the Part Load Performance Curve`
-        
-        {u'default': '1.0', 'type': 'real', 'pytype': 'float'}
-
-        Args:
-            value (float): value for IDD Field `Coefficient 2 of the Part Load Performance Curve`
-                Default value: 1.0
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float '
-                                 'for field `coefficient_2_of_the_part_load_performance_curve`'.format(value))
-        self._data["Coefficient 2 of the Part Load Performance Curve"] = value
-
-    @property
-    def coefficient_3_of_the_part_load_performance_curve(self):
-        """Get coefficient_3_of_the_part_load_performance_curve
-
-        Returns:
-            float: the value of `coefficient_3_of_the_part_load_performance_curve` or None if not set
-        """
-        return self._data["Coefficient 3 of the Part Load Performance Curve"]
-
-    @coefficient_3_of_the_part_load_performance_curve.setter
-    def coefficient_3_of_the_part_load_performance_curve(self, value=0.0 ):
-        """  Corresponds to IDD Field `Coefficient 3 of the Part Load Performance Curve`
-        
-        {u'default': '0.0', 'type': 'real', 'pytype': 'float'}
-
-        Args:
-            value (float): value for IDD Field `Coefficient 3 of the Part Load Performance Curve`
-                Default value: 0.0
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float '
-                                 'for field `coefficient_3_of_the_part_load_performance_curve`'.format(value))
-        self._data["Coefficient 3 of the Part Load Performance Curve"] = value
-
-    @property
-    def coefficient_4_of_the_part_load_performance_curve(self):
-        """Get coefficient_4_of_the_part_load_performance_curve
-
-        Returns:
-            float: the value of `coefficient_4_of_the_part_load_performance_curve` or None if not set
-        """
-        return self._data["Coefficient 4 of the Part Load Performance Curve"]
-
-    @coefficient_4_of_the_part_load_performance_curve.setter
-    def coefficient_4_of_the_part_load_performance_curve(self, value=0.0 ):
-        """  Corresponds to IDD Field `Coefficient 4 of the Part Load Performance Curve`
-        
-        {u'default': '0.0', 'type': 'real', 'pytype': 'float'}
-
-        Args:
-            value (float): value for IDD Field `Coefficient 4 of the Part Load Performance Curve`
-                Default value: 0.0
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float '
-                                 'for field `coefficient_4_of_the_part_load_performance_curve`'.format(value))
-        self._data["Coefficient 4 of the Part Load Performance Curve"] = value
-
-    @property
-    def pump_flow_rate_schedule_name(self):
-        """Get pump_flow_rate_schedule_name
-
-        Returns:
-            str: the value of `pump_flow_rate_schedule_name` or None if not set
-        """
-        return self._data["Pump Flow Rate Schedule Name"]
-
-    @pump_flow_rate_schedule_name.setter
-    def pump_flow_rate_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Pump Flow Rate Schedule Name`
-        Modifies the rated flow rate of the pump on a time basis. Default is
-        that the pump is on and runs according to its other operational requirements
-        specified above.  The schedule is for special pump operations.
-        
-        {u'note': [u'Modifies the rated flow rate of the pump on a time basis. Default is', u'that the pump is on and runs according to its other operational requirements', u'specified above.  The schedule is for special pump operations.'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
-
-        Args:
-            value (str): value for IDD Field `Pump Flow Rate Schedule Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str '
-                                 'for field `pump_flow_rate_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `pump_flow_rate_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `pump_flow_rate_schedule_name`')
-        self._data["Pump Flow Rate Schedule Name"] = value
-
-    @property
-    def zone_name(self):
-        """Get zone_name
-
-        Returns:
-            str: the value of `zone_name` or None if not set
-        """
-        return self._data["Zone Name"]
-
-    @zone_name.setter
-    def zone_name(self, value=None):
-        """  Corresponds to IDD Field `Zone Name`
-        optional, if used pump losses transfered to zone as internal gains
-        
-        {u'note': [u'optional, if used pump losses transfered to zone as internal gains'], u'type': u'Object-list', u'object-list': u'ZoneNames', 'pytype': 'str'}
-
-        Args:
-            value (str): value for IDD Field `Zone Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str '
-                                 'for field `zone_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `zone_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `zone_name`')
-        self._data["Zone Name"] = value
-
-    @property
-    def skin_loss_radiative_fraction(self):
-        """Get skin_loss_radiative_fraction
-
-        Returns:
-            float: the value of `skin_loss_radiative_fraction` or None if not set
-        """
-        return self._data["Skin Loss Radiative Fraction"]
-
-    @skin_loss_radiative_fraction.setter
-    def skin_loss_radiative_fraction(self, value=None):
-        """  Corresponds to IDD Field `Skin Loss Radiative Fraction`
-        optional. If zone identified in previous field then this determines
-        the split between convection and radiation for the skin losses
-        
-        {u'note': [u'optional. If zone identified in previous field then this determines', u'the split between convection and radiation for the skin losses'], u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
-
-        Args:
-            value (float): value for IDD Field `Skin Loss Radiative Fraction`
-                value >= 0.0
-                value <= 1.0
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float '
-                                 'for field `skin_loss_radiative_fraction`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `skin_loss_radiative_fraction`')
-            if value > 1.0:
-                raise ValueError('value need to be smaller 1.0 '
-                                 'for field `skin_loss_radiative_fraction`')
-        self._data["Skin Loss Radiative Fraction"] = value
-
-    def check(self):
-        """ Checks if all required fields are not None
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                break
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def export(self):
-        """ Export values of data object as list of strings"""
-        out = []
-        for key, value in self._data.iteritems():
-            out.append(self._to_str(value))
-        return out
-
-    def __str__(self):
-        out = [self.internal_name]
-        out += self.export()
-        return ",".join(out[:20])
-
-class HeaderedPumpsConstantSpeed(object):
-    """ Corresponds to IDD object `HeaderedPumps:ConstantSpeed`
-        This Headered pump object describes a pump bank with more than 1 pump in parallel
-    
-    """
-    internal_name = "HeaderedPumps:ConstantSpeed"
-    field_count = 14
-    required_fields = ["Name", "Inlet Node Name", "Outlet Node Name"]
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `HeaderedPumps:ConstantSpeed`
-        """
-        self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Inlet Node Name"] = None
-        self._data["Outlet Node Name"] = None
-        self._data["Total Rated Flow Rate"] = None
-        self._data["Number of Pumps in Bank"] = None
-        self._data["Flow Sequencing Control Scheme"] = None
-        self._data["Rated Pump Head"] = None
-        self._data["Rated Power Consumption"] = None
-        self._data["Motor Efficiency"] = None
-        self._data["Fraction of Motor Inefficiencies to Fluid Stream"] = None
-        self._data["Pump Control Type"] = None
-        self._data["Pump Flow Rate Schedule Name"] = None
-        self._data["Zone Name"] = None
-        self._data["Skin Loss Radiative Fraction"] = None
-        self.accept_substring = False
-
-    def read(self, vals, accept_substring=True):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        self.accept_substring = accept_substring
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.inlet_node_name = None
-        else:
-            self.inlet_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.outlet_node_name = None
-        else:
-            self.outlet_node_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.total_rated_flow_rate = None
-        else:
-            self.total_rated_flow_rate = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.number_of_pumps_in_bank = None
-        else:
-            self.number_of_pumps_in_bank = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.flow_sequencing_control_scheme = None
-        else:
-            self.flow_sequencing_control_scheme = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.rated_pump_head = None
-        else:
-            self.rated_pump_head = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.rated_power_consumption = None
-        else:
-            self.rated_power_consumption = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.motor_efficiency = None
-        else:
-            self.motor_efficiency = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.fraction_of_motor_inefficiencies_to_fluid_stream = None
-        else:
-            self.fraction_of_motor_inefficiencies_to_fluid_stream = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.pump_control_type = None
-        else:
-            self.pump_control_type = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.pump_flow_rate_schedule_name = None
-        else:
-            self.pump_flow_rate_schedule_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.zone_name = None
-        else:
-            self.zone_name = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-        if len(vals[i]) == 0:
-            self.skin_loss_radiative_fraction = None
-        else:
-            self.skin_loss_radiative_fraction = vals[i]
-        i += 1
-        if i >= len(vals):
-            return
-
-    @property
-    def name(self):
-        """Get name
-
-        Returns:
-            str: the value of `name` or None if not set
-        """
-        return self._data["Name"]
-
-    @name.setter
-    def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
-        
-        {'type': 'alpha', u'required-field': True, 'pytype': 'str'}
-
-        Args:
-            value (str): value for IDD Field `Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str '
-                                 'for field `name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `name`')
-        self._data["Name"] = value
-
-    @property
-    def inlet_node_name(self):
-        """Get inlet_node_name
-
-        Returns:
-            str: the value of `inlet_node_name` or None if not set
-        """
-        return self._data["Inlet Node Name"]
-
-    @inlet_node_name.setter
-    def inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `Inlet Node Name`
-        
-        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
-
-        Args:
-            value (str): value for IDD Field `Inlet Node Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str '
-                                 'for field `inlet_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `inlet_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `inlet_node_name`')
-        self._data["Inlet Node Name"] = value
-
-    @property
-    def outlet_node_name(self):
-        """Get outlet_node_name
-
-        Returns:
-            str: the value of `outlet_node_name` or None if not set
-        """
-        return self._data["Outlet Node Name"]
-
-    @outlet_node_name.setter
-    def outlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `Outlet Node Name`
-        
-        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
-
-        Args:
-            value (str): value for IDD Field `Outlet Node Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str '
-                                 'for field `outlet_node_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `outlet_node_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `outlet_node_name`')
-        self._data["Outlet Node Name"] = value
-
-    @property
-    def total_rated_flow_rate(self):
-        """Get total_rated_flow_rate
-
-        Returns:
-            float: the value of `total_rated_flow_rate` or None if not set
-        """
-        return self._data["Total Rated Flow Rate"]
-
-    @total_rated_flow_rate.setter
-    def total_rated_flow_rate(self, value=None):
-        """  Corresponds to IDD Field `Total Rated Flow Rate`
-        If the field is not autosized set to the flow rate to
-        the total flow when all pumps are running at full load
-        
-        {'pytype': 'float', u'minimum>': '0.0', u'note': [u'If the field is not autosized set to the flow rate to', u'the total flow when all pumps are running at full load'], u'ip-units': u'gal/min', u'autosizable': u'', u'units': u'm3/s', 'type': 'real'}
-
-        Args:
-            value (float): value for IDD Field `Total Rated Flow Rate`
-                Units: m3/s
-                IP-Units: gal/min
-                value > 0.0
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float '
-                                 'for field `total_rated_flow_rate`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `total_rated_flow_rate`')
-        self._data["Total Rated Flow Rate"] = value
-
-    @property
-    def number_of_pumps_in_bank(self):
-        """Get number_of_pumps_in_bank
-
-        Returns:
-            int: the value of `number_of_pumps_in_bank` or None if not set
-        """
-        return self._data["Number of Pumps in Bank"]
-
-    @number_of_pumps_in_bank.setter
-    def number_of_pumps_in_bank(self, value=None):
-        """  Corresponds to IDD Field `Number of Pumps in Bank`
-        
-        {u'type': u'integer', 'pytype': 'int'}
-
-        Args:
-            value (int): value for IDD Field `Number of Pumps in Bank`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = int(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type int '
-                                 'for field `number_of_pumps_in_bank`'.format(value))
-        self._data["Number of Pumps in Bank"] = value
-
-    @property
-    def flow_sequencing_control_scheme(self):
-        """Get flow_sequencing_control_scheme
-
-        Returns:
-            str: the value of `flow_sequencing_control_scheme` or None if not set
-        """
-        return self._data["Flow Sequencing Control Scheme"]
-
-    @flow_sequencing_control_scheme.setter
-    def flow_sequencing_control_scheme(self, value="Sequential"):
-        """  Corresponds to IDD Field `Flow Sequencing Control Scheme`
-        
-        {u'default': u'Sequential', u'type': u'choice', u'key': [u'Sequential'], 'pytype': 'str'}
-
-        Args:
-            value (str): value for IDD Field `Flow Sequencing Control Scheme`
-                Accepted values are:
-                      - Sequential
-                Default value: Sequential
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str '
-                                 'for field `flow_sequencing_control_scheme`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `flow_sequencing_control_scheme`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `flow_sequencing_control_scheme`')
-            vals = {}
-            vals["sequential"] = "Sequential"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if self.accept_substring:
-                    for key in vals:
-                        if key in value_lower:
-                            value_lower = key
-                            found = True
-                            break
-
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `flow_sequencing_control_scheme`'.format(value))
-            value = vals[value_lower]
-        self._data["Flow Sequencing Control Scheme"] = value
-
-    @property
-    def rated_pump_head(self):
-        """Get rated_pump_head
-
-        Returns:
-            float: the value of `rated_pump_head` or None if not set
-        """
-        return self._data["Rated Pump Head"]
-
-    @rated_pump_head.setter
-    def rated_pump_head(self, value=179352.0 ):
-        """  Corresponds to IDD Field `Rated Pump Head`
-        default head is 60 feet
-        
-        {'pytype': 'float', u'default': '179352.0', u'note': [u'default head is 60 feet'], u'ip-units': u'ftH2O', u'units': u'Pa', 'type': 'real'}
-
-        Args:
-            value (float): value for IDD Field `Rated Pump Head`
-                Units: Pa
-                IP-Units: ftH2O
-                Default value: 179352.0
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float '
-                                 'for field `rated_pump_head`'.format(value))
-        self._data["Rated Pump Head"] = value
-
-    @property
-    def rated_power_consumption(self):
-        """Get rated_power_consumption
-
-        Returns:
-            float: the value of `rated_power_consumption` or None if not set
-        """
-        return self._data["Rated Power Consumption"]
-
-    @rated_power_consumption.setter
-    def rated_power_consumption(self, value=None):
-        """  Corresponds to IDD Field `Rated Power Consumption`
-        If the field is not autosized set to the power consumed by the pump bank
-        when all the pumps are running at nominal flow
-        If this field is autosized, an impeller efficiency of 0.78 is assumed.
-        autosized Rated Power Consumption = Total Rated Flow Rate * Rated Pump Head / (0.78 * Motor Efficiency)
-        
-        {'pytype': 'float', u'note': [u'If the field is not autosized set to the power consumed by the pump bank', u'when all the pumps are running at nominal flow', u'If this field is autosized, an impeller efficiency of 0.78 is assumed.', u'autosized Rated Power Consumption = Total Rated Flow Rate * Rated Pump Head / (0.78 * Motor Efficiency)'], u'ip-units': u'W', u'autosizable': u'', u'units': u'W', 'type': 'real'}
-
-        Args:
-            value (float): value for IDD Field `Rated Power Consumption`
-                Units: W
-                IP-Units: W
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float '
-                                 'for field `rated_power_consumption`'.format(value))
-        self._data["Rated Power Consumption"] = value
-
-    @property
-    def motor_efficiency(self):
-        """Get motor_efficiency
-
-        Returns:
-            float: the value of `motor_efficiency` or None if not set
-        """
-        return self._data["Motor Efficiency"]
-
-    @motor_efficiency.setter
-    def motor_efficiency(self, value=0.9 ):
-        """  Corresponds to IDD Field `Motor Efficiency`
-        This is the motor efficiency only. When the Rated Power Consumption if autosized,
-        an impeller efficiency of 0.78 is assumed in addition to the motor efficiency.
-        
-        {'pytype': 'float', u'default': '0.9', u'minimum>': '0.0', u'maximum': '1.0', u'note': [u'This is the motor efficiency only. When the Rated Power Consumption if autosized,', u'an impeller efficiency of 0.78 is assumed in addition to the motor efficiency.'], u'type': u'real'}
-
-        Args:
-            value (float): value for IDD Field `Motor Efficiency`
-                Default value: 0.9
-                value > 0.0
-                value <= 1.0
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float '
-                                 'for field `motor_efficiency`'.format(value))
-            if value <= 0.0:
-                raise ValueError('value need to be greater 0.0 '
-                                 'for field `motor_efficiency`')
-            if value > 1.0:
-                raise ValueError('value need to be smaller 1.0 '
-                                 'for field `motor_efficiency`')
-        self._data["Motor Efficiency"] = value
-
-    @property
-    def fraction_of_motor_inefficiencies_to_fluid_stream(self):
-        """Get fraction_of_motor_inefficiencies_to_fluid_stream
-
-        Returns:
-            float: the value of `fraction_of_motor_inefficiencies_to_fluid_stream` or None if not set
-        """
-        return self._data["Fraction of Motor Inefficiencies to Fluid Stream"]
-
-    @fraction_of_motor_inefficiencies_to_fluid_stream.setter
-    def fraction_of_motor_inefficiencies_to_fluid_stream(self, value=0.0 ):
-        """  Corresponds to IDD Field `Fraction of Motor Inefficiencies to Fluid Stream`
-        
-        {u'default': '0.0', u'minimum': '0.0', 'type': 'real', u'maximum': '1.0', 'pytype': 'float'}
-
-        Args:
-            value (float): value for IDD Field `Fraction of Motor Inefficiencies to Fluid Stream`
-                Default value: 0.0
-                value >= 0.0
-                value <= 1.0
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float '
-                                 'for field `fraction_of_motor_inefficiencies_to_fluid_stream`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `fraction_of_motor_inefficiencies_to_fluid_stream`')
-            if value > 1.0:
-                raise ValueError('value need to be smaller 1.0 '
-                                 'for field `fraction_of_motor_inefficiencies_to_fluid_stream`')
-        self._data["Fraction of Motor Inefficiencies to Fluid Stream"] = value
-
-    @property
-    def pump_control_type(self):
-        """Get pump_control_type
-
-        Returns:
-            str: the value of `pump_control_type` or None if not set
-        """
-        return self._data["Pump Control Type"]
-
-    @pump_control_type.setter
-    def pump_control_type(self, value="Continuous"):
-        """  Corresponds to IDD Field `Pump Control Type`
-        
-        {u'default': u'Continuous', u'type': u'choice', u'key': [u'Continuous', u'Intermittent'], 'pytype': 'str'}
-
-        Args:
-            value (str): value for IDD Field `Pump Control Type`
-                Accepted values are:
-                      - Continuous
-                      - Intermittent
-                Default value: Continuous
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str '
-                                 'for field `pump_control_type`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `pump_control_type`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `pump_control_type`')
-            vals = {}
-            vals["continuous"] = "Continuous"
-            vals["intermittent"] = "Intermittent"
-            value_lower = value.lower()
-            if value_lower not in vals:
-                found = False
-                if self.accept_substring:
-                    for key in vals:
-                        if key in value_lower:
-                            value_lower = key
-                            found = True
-                            break
-
-                if not found:
-                    raise ValueError('value {} is not an accepted value for '
-                                     'field `pump_control_type`'.format(value))
-            value = vals[value_lower]
-        self._data["Pump Control Type"] = value
-
-    @property
-    def pump_flow_rate_schedule_name(self):
-        """Get pump_flow_rate_schedule_name
-
-        Returns:
-            str: the value of `pump_flow_rate_schedule_name` or None if not set
-        """
-        return self._data["Pump Flow Rate Schedule Name"]
-
-    @pump_flow_rate_schedule_name.setter
-    def pump_flow_rate_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Pump Flow Rate Schedule Name`
-        Modifies the rated flow rate of the pump on a time basis. Default is
-        that the pump is on and runs according to its other operational requirements
-        specified above.  The schedule is for special pump operations.
-        
-        {u'note': [u'Modifies the rated flow rate of the pump on a time basis. Default is', u'that the pump is on and runs according to its other operational requirements', u'specified above.  The schedule is for special pump operations.'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
-
-        Args:
-            value (str): value for IDD Field `Pump Flow Rate Schedule Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str '
-                                 'for field `pump_flow_rate_schedule_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `pump_flow_rate_schedule_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `pump_flow_rate_schedule_name`')
-        self._data["Pump Flow Rate Schedule Name"] = value
-
-    @property
-    def zone_name(self):
-        """Get zone_name
-
-        Returns:
-            str: the value of `zone_name` or None if not set
-        """
-        return self._data["Zone Name"]
-
-    @zone_name.setter
-    def zone_name(self, value=None):
-        """  Corresponds to IDD Field `Zone Name`
-        optional, if used pump losses transfered to zone as internal gains
-        
-        {u'note': [u'optional, if used pump losses transfered to zone as internal gains'], u'type': u'Object-list', u'object-list': u'ZoneNames', 'pytype': 'str'}
-
-        Args:
-            value (str): value for IDD Field `Zone Name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type str '
-                                 'for field `zone_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `zone_name`')
-            if '!' in value:
-                raise ValueError('value should not contain a ! '
-                                 'for field `zone_name`')
-        self._data["Zone Name"] = value
-
-    @property
-    def skin_loss_radiative_fraction(self):
-        """Get skin_loss_radiative_fraction
-
-        Returns:
-            float: the value of `skin_loss_radiative_fraction` or None if not set
-        """
-        return self._data["Skin Loss Radiative Fraction"]
-
-    @skin_loss_radiative_fraction.setter
-    def skin_loss_radiative_fraction(self, value=None):
-        """  Corresponds to IDD Field `Skin Loss Radiative Fraction`
-        optional. If zone identified in previous field then this determines
-        the split between convection and radiation for the skin losses
-        
-        {u'note': [u'optional. If zone identified in previous field then this determines', u'the split between convection and radiation for the skin losses'], u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
-
-        Args:
-            value (float): value for IDD Field `Skin Loss Radiative Fraction`
-                value >= 0.0
-                value <= 1.0
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except ValueError:
-                raise ValueError('value {} need to be of type float '
-                                 'for field `skin_loss_radiative_fraction`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `skin_loss_radiative_fraction`')
-            if value > 1.0:
-                raise ValueError('value need to be smaller 1.0 '
-                                 'for field `skin_loss_radiative_fraction`')
-        self._data["Skin Loss Radiative Fraction"] = value
 
     def check(self):
         """ Checks if all required fields are not None

@@ -257,8 +257,6 @@ class ZoneHvacIdealLoadsAirSystem(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {'type': 'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -296,8 +294,6 @@ class ZoneHvacIdealLoadsAirSystem(object):
         """  Corresponds to IDD Field `Availability Schedule Name`
         Availability schedule name for this system. Schedule value > 0 means the system is available.
         If this field is blank, the system is always available.
-        
-        {u'note': [u'Availability schedule name for this system. Schedule value > 0 means the system is available.', u'If this field is blank, the system is always available.'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Availability Schedule Name`
@@ -334,8 +330,6 @@ class ZoneHvacIdealLoadsAirSystem(object):
     def zone_supply_air_node_name(self, value=None):
         """  Corresponds to IDD Field `Zone Supply Air Node Name`
         Must match a zone air inlet node name.
-        
-        {u'note': [u'Must match a zone air inlet node name.'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Zone Supply Air Node Name`
@@ -374,8 +368,6 @@ class ZoneHvacIdealLoadsAirSystem(object):
         Should match a zone air exhaust node name.
         This field is optional, but is required if this
         this object is used with other forced air equipment.
-        
-        {u'note': [u'Should match a zone air exhaust node name.', u'This field is optional, but is required if this', u'this object is used with other forced air equipment.'], u'type': u'node', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Zone Exhaust Air Node Name`
@@ -409,10 +401,8 @@ class ZoneHvacIdealLoadsAirSystem(object):
         return self._data["Maximum Heating Supply Air Temperature"]
 
     @maximum_heating_supply_air_temperature.setter
-    def maximum_heating_supply_air_temperature(self, value=50.0 ):
+    def maximum_heating_supply_air_temperature(self, value=50.0):
         """  Corresponds to IDD Field `Maximum Heating Supply Air Temperature`
-        
-        {'pytype': 'float', u'default': '50.0', u'minimum>': '0.0', u'units': u'C', 'type': 'real', u'maximum<': '100.0'}
 
         Args:
             value (float): value for IDD Field `Maximum Heating Supply Air Temperature`
@@ -450,10 +440,8 @@ class ZoneHvacIdealLoadsAirSystem(object):
         return self._data["Minimum Cooling Supply Air Temperature"]
 
     @minimum_cooling_supply_air_temperature.setter
-    def minimum_cooling_supply_air_temperature(self, value=13.0 ):
+    def minimum_cooling_supply_air_temperature(self, value=13.0):
         """  Corresponds to IDD Field `Minimum Cooling Supply Air Temperature`
-        
-        {'pytype': 'float', u'default': '13.0', u'minimum>': '-100.0', u'units': u'C', 'type': 'real', u'maximum<': '50.0'}
 
         Args:
             value (float): value for IDD Field `Minimum Cooling Supply Air Temperature`
@@ -491,10 +479,8 @@ class ZoneHvacIdealLoadsAirSystem(object):
         return self._data["Maximum Heating Supply Air Humidity Ratio"]
 
     @maximum_heating_supply_air_humidity_ratio.setter
-    def maximum_heating_supply_air_humidity_ratio(self, value=0.0156 ):
+    def maximum_heating_supply_air_humidity_ratio(self, value=0.0156):
         """  Corresponds to IDD Field `Maximum Heating Supply Air Humidity Ratio`
-        
-        {u'units': u'kgWater/kgDryAir', u'default': '0.0156', u'minimum>': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Maximum Heating Supply Air Humidity Ratio`
@@ -528,10 +514,8 @@ class ZoneHvacIdealLoadsAirSystem(object):
         return self._data["Minimum Cooling Supply Air Humidity Ratio"]
 
     @minimum_cooling_supply_air_humidity_ratio.setter
-    def minimum_cooling_supply_air_humidity_ratio(self, value=0.0077 ):
+    def minimum_cooling_supply_air_humidity_ratio(self, value=0.0077):
         """  Corresponds to IDD Field `Minimum Cooling Supply Air Humidity Ratio`
-        
-        {u'units': u'kgWater/kgDryAir', u'default': '0.0077', u'minimum>': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Minimum Cooling Supply Air Humidity Ratio`
@@ -567,8 +551,6 @@ class ZoneHvacIdealLoadsAirSystem(object):
     @heating_limit.setter
     def heating_limit(self, value="NoLimit"):
         """  Corresponds to IDD Field `Heating Limit`
-        
-        {u'default': u'NoLimit', u'type': u'choice', u'key': [u'NoLimit', u'LimitFlowRate', u'LimitCapacity', u'LimitFlowRateAndCapacity'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Heating Limit`
@@ -631,11 +613,9 @@ class ZoneHvacIdealLoadsAirSystem(object):
         """  Corresponds to IDD Field `Maximum Heating Air Flow Rate`
         This field is ignored if Heating Limit = NoLimit
         If this field is blank, there is no limit.
-        
-        {'pytype': 'float', u'note': [u'This field is ignored if Heating Limit = NoLimit', u'If this field is blank, there is no limit.'], u'autosizable': u'', u'minimum': '0.0', u'units': u'm3/s', 'type': 'real'}
 
         Args:
-            value (float): value for IDD Field `Maximum Heating Air Flow Rate`
+            value (float or "Autosize"): value for IDD Field `Maximum Heating Air Flow Rate`
                 Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -645,6 +625,13 @@ class ZoneHvacIdealLoadsAirSystem(object):
             ValueError: if `value` is not a valid value
         """
         if value is not None:
+            try:
+                value_lower = str(value).lower()
+                if value_lower == "autosize":
+                    self._data["Maximum Heating Air Flow Rate"] = "Autosize"
+                    return
+            except ValueError:
+                pass
             try:
                 value = float(value)
             except ValueError:
@@ -669,11 +656,9 @@ class ZoneHvacIdealLoadsAirSystem(object):
         """  Corresponds to IDD Field `Maximum Sensible Heating Capacity`
         This field is ignored if Heating Limit = NoLimit
         If this field is blank, there is no limit.
-        
-        {'pytype': 'float', u'note': [u'This field is ignored if Heating Limit = NoLimit', u'If this field is blank, there is no limit.'], u'autosizable': u'', u'minimum': '0.0', u'units': u'W', 'type': 'real'}
 
         Args:
-            value (float): value for IDD Field `Maximum Sensible Heating Capacity`
+            value (float or "Autosize"): value for IDD Field `Maximum Sensible Heating Capacity`
                 Units: W
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -683,6 +668,13 @@ class ZoneHvacIdealLoadsAirSystem(object):
             ValueError: if `value` is not a valid value
         """
         if value is not None:
+            try:
+                value_lower = str(value).lower()
+                if value_lower == "autosize":
+                    self._data["Maximum Sensible Heating Capacity"] = "Autosize"
+                    return
+            except ValueError:
+                pass
             try:
                 value = float(value)
             except ValueError:
@@ -705,8 +697,6 @@ class ZoneHvacIdealLoadsAirSystem(object):
     @cooling_limit.setter
     def cooling_limit(self, value="NoLimit"):
         """  Corresponds to IDD Field `Cooling Limit`
-        
-        {u'default': u'NoLimit', u'type': u'choice', u'key': [u'NoLimit', u'LimitFlowRate', u'LimitCapacity', u'LimitFlowRateAndCapacity'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Cooling Limit`
@@ -769,11 +759,9 @@ class ZoneHvacIdealLoadsAirSystem(object):
         """  Corresponds to IDD Field `Maximum Cooling Air Flow Rate`
         This field is ignored if Cooling Limit = NoLimit
         This field is required if Outdoor Air Economizer Type is anything other than NoEconomizer.
-        
-        {'pytype': 'float', u'note': [u'This field is ignored if Cooling Limit = NoLimit', u'This field is required if Outdoor Air Economizer Type is anything other than NoEconomizer.'], u'autosizable': u'', u'minimum': '0.0', u'units': u'm3/s', 'type': 'real'}
 
         Args:
-            value (float): value for IDD Field `Maximum Cooling Air Flow Rate`
+            value (float or "Autosize"): value for IDD Field `Maximum Cooling Air Flow Rate`
                 Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -783,6 +771,13 @@ class ZoneHvacIdealLoadsAirSystem(object):
             ValueError: if `value` is not a valid value
         """
         if value is not None:
+            try:
+                value_lower = str(value).lower()
+                if value_lower == "autosize":
+                    self._data["Maximum Cooling Air Flow Rate"] = "Autosize"
+                    return
+            except ValueError:
+                pass
             try:
                 value = float(value)
             except ValueError:
@@ -806,11 +801,9 @@ class ZoneHvacIdealLoadsAirSystem(object):
     def maximum_total_cooling_capacity(self, value=None):
         """  Corresponds to IDD Field `Maximum Total Cooling Capacity`
         This field is ignored if Cooling Limit = NoLimit
-        
-        {'pytype': 'float', u'note': [u'This field is ignored if Cooling Limit = NoLimit'], u'autosizable': u'', u'minimum': '0.0', u'units': u'W', 'type': 'real'}
 
         Args:
-            value (float): value for IDD Field `Maximum Total Cooling Capacity`
+            value (float or "Autosize"): value for IDD Field `Maximum Total Cooling Capacity`
                 Units: W
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -820,6 +813,13 @@ class ZoneHvacIdealLoadsAirSystem(object):
             ValueError: if `value` is not a valid value
         """
         if value is not None:
+            try:
+                value_lower = str(value).lower()
+                if value_lower == "autosize":
+                    self._data["Maximum Total Cooling Capacity"] = "Autosize"
+                    return
+            except ValueError:
+                pass
             try:
                 value = float(value)
             except ValueError:
@@ -843,8 +843,6 @@ class ZoneHvacIdealLoadsAirSystem(object):
     def heating_availability_schedule_name(self, value=None):
         """  Corresponds to IDD Field `Heating Availability Schedule Name`
         If blank, heating is always available.
-        
-        {u'note': [u'If blank, heating is always available.'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Heating Availability Schedule Name`
@@ -881,8 +879,6 @@ class ZoneHvacIdealLoadsAirSystem(object):
     def cooling_availability_schedule_name(self, value=None):
         """  Corresponds to IDD Field `Cooling Availability Schedule Name`
         If blank, cooling is always available.
-        
-        {u'note': [u'If blank, cooling is always available.'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Cooling Availability Schedule Name`
@@ -927,8 +923,6 @@ class ZoneHvacIdealLoadsAirSystem(object):
         None means that there is no dehumidification.
         ConstantSupplyHumidityRatio means that during cooling the supply air
         will always be at the Minimum Cooling Supply Humidity Ratio.
-        
-        {u'note': [u'ConstantSensibleHeatRatio means that the ideal loads system', u'will be controlled to meet the sensible cooling load, and the', u'latent cooling rate will be computed using a constant', u'sensible heat ratio (SHR)', u'Humidistat means that there is a ZoneControl:Humidistat for this', u'zone and the ideal loads system will attempt to satisfy the humidistat.', u'None means that there is no dehumidification.', u'ConstantSupplyHumidityRatio means that during cooling the supply air', u'will always be at the Minimum Cooling Supply Humidity Ratio.'], u'default': u'ConstantSensibleHeatRatio', u'type': u'choice', u'key': [u'ConstantSensibleHeatRatio', u'Humidistat', u'None', u'ConstantSupplyHumidityRatio'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Dehumidification Control Type`
@@ -987,11 +981,9 @@ class ZoneHvacIdealLoadsAirSystem(object):
         return self._data["Cooling Sensible Heat Ratio"]
 
     @cooling_sensible_heat_ratio.setter
-    def cooling_sensible_heat_ratio(self, value=0.7 ):
+    def cooling_sensible_heat_ratio(self, value=0.7):
         """  Corresponds to IDD Field `Cooling Sensible Heat Ratio`
         This field is applicable only when Dehumidification Control Type is ConstantSensibleHeatRatio
-        
-        {'pytype': 'float', u'default': '0.7', u'minimum>': '0.0', u'maximum': '1.0', u'note': [u'This field is applicable only when Dehumidification Control Type is ConstantSensibleHeatRatio'], u'units': u'dimensionless', 'type': 'real'}
 
         Args:
             value (float): value for IDD Field `Cooling Sensible Heat Ratio`
@@ -1036,8 +1028,6 @@ class ZoneHvacIdealLoadsAirSystem(object):
         zone and the ideal loads system will attempt to satisfy the humidistat.
         ConstantSupplyHumidityRatio means that during heating the supply air
         will always be at the Maximum Heating Supply Humidity Ratio.
-        
-        {u'note': [u'None means that there is no humidification.', u'Humidistat means that there is a ZoneControl:Humidistat for this', u'zone and the ideal loads system will attempt to satisfy the humidistat.', u'ConstantSupplyHumidityRatio means that during heating the supply air', u'will always be at the Maximum Heating Supply Humidity Ratio.'], u'default': u'None', u'type': u'choice', u'key': [u'None', u'Humidistat', u'ConstantSupplyHumidityRatio'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Humidification Control Type`
@@ -1101,8 +1091,6 @@ class ZoneHvacIdealLoadsAirSystem(object):
         flow rate will also be affected by the next two fields.
         If this field is blank, there will be no outdoor air and the remaining fields will
         be ignored.
-        
-        {u'note': [u'When the name of a DesignSpecification:OutdoorAir object is entered, the minimum', u'outdoor air flow rate will be computed using these specifications. The outdoor air', u'flow rate will also be affected by the next two fields.', u'If this field is blank, there will be no outdoor air and the remaining fields will', u'be ignored.'], u'type': u'object-list', u'object-list': u'DesignSpecificationOutdoorAirNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Design Specification Outdoor Air Object Name`
@@ -1141,8 +1129,6 @@ class ZoneHvacIdealLoadsAirSystem(object):
         This field is required if the system provides outdoor air
         Enter the name of an outdoor air node. This node name is also specified in
         an OutdoorAir:Node or OutdoorAir:NodeList object.
-        
-        {u'note': [u'This field is required if the system provides outdoor air', u'Enter the name of an outdoor air node. This node name is also specified in', u'an OutdoorAir:Node or OutdoorAir:NodeList object.'], u'type': u'node', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Outdoor Air Inlet Node Name`
@@ -1184,8 +1170,6 @@ class ZoneHvacIdealLoadsAirSystem(object):
         CO2Setpoint means that the design occupancy will be used to compute the minimum outdoor air flow
         reate and the outdoor air flow rate may be increased if necessary to maintain the indoor air carbon
         dioxide setpoint defined in a ZoneControl:ContaminantController object.
-        
-        {u'note': [u'This field controls how the minimum outdoor air flow rate is calculated.', u'None means that design occupancy will be uased to compute the minimum outdoor air flow rate', u'OccupancySchedule means that current occupancy level will be used.', u'CO2Setpoint means that the design occupancy will be used to compute the minimum outdoor air flow', u'reate and the outdoor air flow rate may be increased if necessary to maintain the indoor air carbon', u'dioxide setpoint defined in a ZoneControl:ContaminantController object.'], u'default': u'None', u'type': u'choice', u'key': [u'None', u'OccupancySchedule', u'CO2Setpoint'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Demand Controlled Ventilation Type`
@@ -1247,8 +1231,6 @@ class ZoneHvacIdealLoadsAirSystem(object):
         DifferentialDryBulb and DifferentialEnthalpy will increase the outdoor air flow rate
         when there is a cooling load and the outdoor air temperature or enthalpy
         is below the zone exhaust air temperature or enthalpy.
-        
-        {u'note': [u'DifferentialDryBulb and DifferentialEnthalpy will increase the outdoor air flow rate', u'when there is a cooling load and the outdoor air temperature or enthalpy', u'is below the zone exhaust air temperature or enthalpy.'], u'default': u'NoEconomizer', u'type': u'choice', u'key': [u'NoEconomizer', u'DifferentialDryBulb', u'DifferentialEnthalpy'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Outdoor Air Economizer Type`
@@ -1307,8 +1289,6 @@ class ZoneHvacIdealLoadsAirSystem(object):
     @heat_recovery_type.setter
     def heat_recovery_type(self, value="None"):
         """  Corresponds to IDD Field `Heat Recovery Type`
-        
-        {u'default': u'None', u'type': u'choice', u'key': [u'None', u'Sensible', u'Enthalpy'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Heat Recovery Type`
@@ -1365,10 +1345,8 @@ class ZoneHvacIdealLoadsAirSystem(object):
         return self._data["Sensible Heat Recovery Effectiveness"]
 
     @sensible_heat_recovery_effectiveness.setter
-    def sensible_heat_recovery_effectiveness(self, value=0.7 ):
+    def sensible_heat_recovery_effectiveness(self, value=0.7):
         """  Corresponds to IDD Field `Sensible Heat Recovery Effectiveness`
-        
-        {'pytype': 'float', u'default': '0.7', u'maximum': '1.0', u'minimum': '0.0', u'units': u'dimensionless', 'type': 'real'}
 
         Args:
             value (float): value for IDD Field `Sensible Heat Recovery Effectiveness`
@@ -1406,11 +1384,9 @@ class ZoneHvacIdealLoadsAirSystem(object):
         return self._data["Latent Heat Recovery Effectiveness"]
 
     @latent_heat_recovery_effectiveness.setter
-    def latent_heat_recovery_effectiveness(self, value=0.65 ):
+    def latent_heat_recovery_effectiveness(self, value=0.65):
         """  Corresponds to IDD Field `Latent Heat Recovery Effectiveness`
         Applicable only if Heat Recovery Type is Enthalpy.
-        
-        {'pytype': 'float', u'default': '0.65', u'maximum': '1.0', u'note': [u'Applicable only if Heat Recovery Type is Enthalpy.'], u'minimum': '0.0', u'units': u'dimensionless', 'type': 'real'}
 
         Args:
             value (float): value for IDD Field `Latent Heat Recovery Effectiveness`
@@ -1451,8 +1427,6 @@ class ZoneHvacIdealLoadsAirSystem(object):
     def design_specification_zonehvac_sizing_object_name(self, value=None):
         """  Corresponds to IDD Field `Design Specification ZoneHVAC Sizing Object Name`
         Enter the name of a DesignSpecificationZoneHVACSizing object.
-        
-        {u'note': [u'Enter the name of a DesignSpecificationZoneHVACSizing object.'], u'type': u'object-list', u'object-list': u'DesignSpecificationZoneHVACSizingName', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Design Specification ZoneHVAC Sizing Object Name`
@@ -1756,8 +1730,6 @@ class ZoneHvacFourPipeFanCoil(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {'type': 'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -1795,8 +1767,6 @@ class ZoneHvacFourPipeFanCoil(object):
         """  Corresponds to IDD Field `Availability Schedule Name`
         Availability schedule name for this system. Schedule value > 0 means the system is available.
         If this field is blank, the system is always available.
-        
-        {u'note': [u'Availability schedule name for this system. Schedule value > 0 means the system is available.', u'If this field is blank, the system is always available.'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Availability Schedule Name`
@@ -1832,8 +1802,6 @@ class ZoneHvacFourPipeFanCoil(object):
     @capacity_control_method.setter
     def capacity_control_method(self, value=None):
         """  Corresponds to IDD Field `Capacity Control Method`
-        
-        {u'type': u'choice', u'key': [u'ConstantFanVariableFlow', u'CyclingFan', u'VariableFanVariableFlow', u'VariableFanConstantFlow'], u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Capacity Control Method`
@@ -1893,11 +1861,9 @@ class ZoneHvacFourPipeFanCoil(object):
     @maximum_supply_air_flow_rate.setter
     def maximum_supply_air_flow_rate(self, value=None):
         """  Corresponds to IDD Field `Maximum Supply Air Flow Rate`
-        
-        {u'units': u'm3/s', u'autosizable': u'', 'type': 'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `Maximum Supply Air Flow Rate`
+            value (float or "Autosize"): value for IDD Field `Maximum Supply Air Flow Rate`
                 Units: m3/s
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1906,6 +1872,13 @@ class ZoneHvacFourPipeFanCoil(object):
             ValueError: if `value` is not a valid value
         """
         if value is not None:
+            try:
+                value_lower = str(value).lower()
+                if value_lower == "autosize":
+                    self._data["Maximum Supply Air Flow Rate"] = "Autosize"
+                    return
+            except ValueError:
+                pass
             try:
                 value = float(value)
             except ValueError:
@@ -1923,10 +1896,8 @@ class ZoneHvacFourPipeFanCoil(object):
         return self._data["Low Speed Supply Air Flow Ratio"]
 
     @low_speed_supply_air_flow_ratio.setter
-    def low_speed_supply_air_flow_ratio(self, value=0.33 ):
+    def low_speed_supply_air_flow_ratio(self, value=0.33):
         """  Corresponds to IDD Field `Low Speed Supply Air Flow Ratio`
-        
-        {u'default': '0.33', u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Low Speed Supply Air Flow Ratio`
@@ -1959,12 +1930,10 @@ class ZoneHvacFourPipeFanCoil(object):
         return self._data["Medium Speed Supply Air Flow Ratio"]
 
     @medium_speed_supply_air_flow_ratio.setter
-    def medium_speed_supply_air_flow_ratio(self, value=0.66 ):
+    def medium_speed_supply_air_flow_ratio(self, value=0.66):
         """  Corresponds to IDD Field `Medium Speed Supply Air Flow Ratio`
         Medium Speed Supply Air Flow Ratio should be greater
         than Low Speed Supply Air Flow Ratio
-        
-        {u'note': [u'Medium Speed Supply Air Flow Ratio should be greater', u'than Low Speed Supply Air Flow Ratio'], u'default': '0.66', u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Medium Speed Supply Air Flow Ratio`
@@ -1999,11 +1968,9 @@ class ZoneHvacFourPipeFanCoil(object):
     @maximum_outdoor_air_flow_rate.setter
     def maximum_outdoor_air_flow_rate(self, value=None):
         """  Corresponds to IDD Field `Maximum Outdoor Air Flow Rate`
-        
-        {u'units': u'm3/s', u'autosizable': u'', 'type': 'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `Maximum Outdoor Air Flow Rate`
+            value (float or "Autosize"): value for IDD Field `Maximum Outdoor Air Flow Rate`
                 Units: m3/s
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -2012,6 +1979,13 @@ class ZoneHvacFourPipeFanCoil(object):
             ValueError: if `value` is not a valid value
         """
         if value is not None:
+            try:
+                value_lower = str(value).lower()
+                if value_lower == "autosize":
+                    self._data["Maximum Outdoor Air Flow Rate"] = "Autosize"
+                    return
+            except ValueError:
+                pass
             try:
                 value = float(value)
             except ValueError:
@@ -2032,8 +2006,6 @@ class ZoneHvacFourPipeFanCoil(object):
     def outdoor_air_schedule_name(self, value=None):
         """  Corresponds to IDD Field `Outdoor Air Schedule Name`
         Value of schedule multiplies maximum outdoor air flow rate
-        
-        {u'note': [u'Value of schedule multiplies maximum outdoor air flow rate'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Outdoor Air Schedule Name`
@@ -2069,8 +2041,6 @@ class ZoneHvacFourPipeFanCoil(object):
     @air_inlet_node_name.setter
     def air_inlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Air Inlet Node Name`
-        
-        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Air Inlet Node Name`
@@ -2106,8 +2076,6 @@ class ZoneHvacFourPipeFanCoil(object):
     @air_outlet_node_name.setter
     def air_outlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Air Outlet Node Name`
-        
-        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Air Outlet Node Name`
@@ -2144,8 +2112,6 @@ class ZoneHvacFourPipeFanCoil(object):
     def outdoor_air_mixer_object_type(self, value=None):
         """  Corresponds to IDD Field `Outdoor Air Mixer Object Type`
         currently only one type OutdoorAir:Mixer object is available.
-        
-        {u'note': [u'currently only one type OutdoorAir:Mixer object is available.'], u'type': u'choice', u'key': [u'OutdoorAir:Mixer'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Outdoor Air Mixer Object Type`
@@ -2199,8 +2165,6 @@ class ZoneHvacFourPipeFanCoil(object):
     @outdoor_air_mixer_name.setter
     def outdoor_air_mixer_name(self, value=None):
         """  Corresponds to IDD Field `Outdoor Air Mixer Name`
-        
-        {u'type': u'object-list', u'object-list': u'OutdoorAirMixers', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Outdoor Air Mixer Name`
@@ -2241,8 +2205,6 @@ class ZoneHvacFourPipeFanCoil(object):
         For CyclingFan, a Fan:OnOff is valid.
         For VariableFanVariableFlow or VariableFanConstantFlow a Fan:VariableVolume is valid.
         The fans inlet node should be the same as the outdoor air mixers mixed air node.
-        
-        {u'note': [u'Fan type must be according to capacity control method (see I/O)', u'For ConstantFanVariableFlow a Fan:OnOff or Fan:ConstantVolume is valid.', u'For CyclingFan, a Fan:OnOff is valid.', u'For VariableFanVariableFlow or VariableFanConstantFlow a Fan:VariableVolume is valid.', u'The fans inlet node should be the same as the outdoor air mixers mixed air node.'], u'type': u'choice', u'key': [u'Fan:OnOff', u'Fan:ConstantVolume', u'Fan:VariableVolume'], u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Supply Air Fan Object Type`
@@ -2300,8 +2262,6 @@ class ZoneHvacFourPipeFanCoil(object):
     @supply_air_fan_name.setter
     def supply_air_fan_name(self, value=None):
         """  Corresponds to IDD Field `Supply Air Fan Name`
-        
-        {u'type': u'object-list', u'object-list': u'FansCVandOnOffandVAV', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Supply Air Fan Name`
@@ -2337,8 +2297,6 @@ class ZoneHvacFourPipeFanCoil(object):
     @cooling_coil_object_type.setter
     def cooling_coil_object_type(self, value=None):
         """  Corresponds to IDD Field `Cooling Coil Object Type`
-        
-        {u'type': u'choice', u'key': [u'Coil:Cooling:Water', u'Coil:Cooling:Water:DetailedGeometry', u'CoilSystem:Cooling:Water:HeatExchangerAssisted'], u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Cooling Coil Object Type`
@@ -2396,8 +2354,6 @@ class ZoneHvacFourPipeFanCoil(object):
     @cooling_coil_name.setter
     def cooling_coil_name(self, value=None):
         """  Corresponds to IDD Field `Cooling Coil Name`
-        
-        {u'type': u'object-list', u'object-list': u'CoolingCoilsWater', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Cooling Coil Name`
@@ -2433,11 +2389,9 @@ class ZoneHvacFourPipeFanCoil(object):
     @maximum_cold_water_flow_rate.setter
     def maximum_cold_water_flow_rate(self, value=None):
         """  Corresponds to IDD Field `Maximum Cold Water Flow Rate`
-        
-        {'pytype': 'float', u'required-field': True, u'ip-units': u'gal/min', u'autosizable': u'', u'units': u'm3/s', 'type': 'real'}
 
         Args:
-            value (float): value for IDD Field `Maximum Cold Water Flow Rate`
+            value (float or "Autosize"): value for IDD Field `Maximum Cold Water Flow Rate`
                 Units: m3/s
                 IP-Units: gal/min
                 if `value` is None it will not be checked against the
@@ -2447,6 +2401,13 @@ class ZoneHvacFourPipeFanCoil(object):
             ValueError: if `value` is not a valid value
         """
         if value is not None:
+            try:
+                value_lower = str(value).lower()
+                if value_lower == "autosize":
+                    self._data["Maximum Cold Water Flow Rate"] = "Autosize"
+                    return
+            except ValueError:
+                pass
             try:
                 value = float(value)
             except ValueError:
@@ -2464,10 +2425,8 @@ class ZoneHvacFourPipeFanCoil(object):
         return self._data["Minimum Cold Water Flow Rate"]
 
     @minimum_cold_water_flow_rate.setter
-    def minimum_cold_water_flow_rate(self, value=0.0 ):
+    def minimum_cold_water_flow_rate(self, value=0.0):
         """  Corresponds to IDD Field `Minimum Cold Water Flow Rate`
-        
-        {u'default': '0.0', u'units': u'm3/s', 'pytype': 'float', 'type': 'real', u'ip-units': u'gal/min'}
 
         Args:
             value (float): value for IDD Field `Minimum Cold Water Flow Rate`
@@ -2498,10 +2457,8 @@ class ZoneHvacFourPipeFanCoil(object):
         return self._data["Cooling Convergence Tolerance"]
 
     @cooling_convergence_tolerance.setter
-    def cooling_convergence_tolerance(self, value=0.001 ):
+    def cooling_convergence_tolerance(self, value=0.001):
         """  Corresponds to IDD Field `Cooling Convergence Tolerance`
-        
-        {u'default': '0.001', u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Cooling Convergence Tolerance`
@@ -2536,8 +2493,6 @@ class ZoneHvacFourPipeFanCoil(object):
     @heating_coil_object_type.setter
     def heating_coil_object_type(self, value=None):
         """  Corresponds to IDD Field `Heating Coil Object Type`
-        
-        {u'type': u'choice', u'key': [u'Coil:Heating:Water'], u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Heating Coil Object Type`
@@ -2591,8 +2546,6 @@ class ZoneHvacFourPipeFanCoil(object):
     @heating_coil_name.setter
     def heating_coil_name(self, value=None):
         """  Corresponds to IDD Field `Heating Coil Name`
-        
-        {u'type': u'object-list', u'object-list': u'HeatingCoilsWater', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Heating Coil Name`
@@ -2628,11 +2581,9 @@ class ZoneHvacFourPipeFanCoil(object):
     @maximum_hot_water_flow_rate.setter
     def maximum_hot_water_flow_rate(self, value=None):
         """  Corresponds to IDD Field `Maximum Hot Water Flow Rate`
-        
-        {'pytype': 'float', u'required-field': True, u'ip-units': u'gal/min', u'autosizable': u'', u'units': u'm3/s', 'type': 'real'}
 
         Args:
-            value (float): value for IDD Field `Maximum Hot Water Flow Rate`
+            value (float or "Autosize"): value for IDD Field `Maximum Hot Water Flow Rate`
                 Units: m3/s
                 IP-Units: gal/min
                 if `value` is None it will not be checked against the
@@ -2642,6 +2593,13 @@ class ZoneHvacFourPipeFanCoil(object):
             ValueError: if `value` is not a valid value
         """
         if value is not None:
+            try:
+                value_lower = str(value).lower()
+                if value_lower == "autosize":
+                    self._data["Maximum Hot Water Flow Rate"] = "Autosize"
+                    return
+            except ValueError:
+                pass
             try:
                 value = float(value)
             except ValueError:
@@ -2659,10 +2617,8 @@ class ZoneHvacFourPipeFanCoil(object):
         return self._data["Minimum Hot Water Flow Rate"]
 
     @minimum_hot_water_flow_rate.setter
-    def minimum_hot_water_flow_rate(self, value=0.0 ):
+    def minimum_hot_water_flow_rate(self, value=0.0):
         """  Corresponds to IDD Field `Minimum Hot Water Flow Rate`
-        
-        {u'default': '0.0', u'units': u'm3/s', 'pytype': 'float', 'type': 'real', u'ip-units': u'gal/min'}
 
         Args:
             value (float): value for IDD Field `Minimum Hot Water Flow Rate`
@@ -2693,10 +2649,8 @@ class ZoneHvacFourPipeFanCoil(object):
         return self._data["Heating Convergence Tolerance"]
 
     @heating_convergence_tolerance.setter
-    def heating_convergence_tolerance(self, value=0.001 ):
+    def heating_convergence_tolerance(self, value=0.001):
         """  Corresponds to IDD Field `Heating Convergence Tolerance`
-        
-        {u'default': '0.001', u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Heating Convergence Tolerance`
@@ -2732,8 +2686,6 @@ class ZoneHvacFourPipeFanCoil(object):
     def availability_manager_list_name(self, value=None):
         """  Corresponds to IDD Field `Availability Manager List Name`
         Enter the name of an AvailabilityManagerAssignmentList object.
-        
-        {u'note': [u'Enter the name of an AvailabilityManagerAssignmentList object.'], u'type': u'object-list', u'object-list': u'SystemAvailabilityManagerLists', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Availability Manager List Name`
@@ -2770,8 +2722,6 @@ class ZoneHvacFourPipeFanCoil(object):
     def design_specification_zonehvac_sizing_object_name(self, value=None):
         """  Corresponds to IDD Field `Design Specification ZoneHVAC Sizing Object Name`
         Enter the name of a DesignSpecificationZoneHVACSizing object.
-        
-        {u'note': [u'Enter the name of a DesignSpecificationZoneHVACSizing object.'], u'type': u'object-list', u'object-list': u'DesignSpecificationZoneHVACSizingName', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Design Specification ZoneHVAC Sizing Object Name`
@@ -3002,8 +2952,6 @@ class ZoneHvacWindowAirConditioner(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -3041,8 +2989,6 @@ class ZoneHvacWindowAirConditioner(object):
         """  Corresponds to IDD Field `Availability Schedule Name`
         Availability schedule name for this system. Schedule value > 0 means the system is available.
         If this field is blank, the system is always available.
-        
-        {u'note': [u'Availability schedule name for this system. Schedule value > 0 means the system is available.', u'If this field is blank, the system is always available.'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Availability Schedule Name`
@@ -3078,11 +3024,9 @@ class ZoneHvacWindowAirConditioner(object):
     @maximum_supply_air_flow_rate.setter
     def maximum_supply_air_flow_rate(self, value=None):
         """  Corresponds to IDD Field `Maximum Supply Air Flow Rate`
-        
-        {u'units': u'm3/s', u'autosizable': u'', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `Maximum Supply Air Flow Rate`
+            value (float or "Autosize"): value for IDD Field `Maximum Supply Air Flow Rate`
                 Units: m3/s
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -3091,6 +3035,13 @@ class ZoneHvacWindowAirConditioner(object):
             ValueError: if `value` is not a valid value
         """
         if value is not None:
+            try:
+                value_lower = str(value).lower()
+                if value_lower == "autosize":
+                    self._data["Maximum Supply Air Flow Rate"] = "Autosize"
+                    return
+            except ValueError:
+                pass
             try:
                 value = float(value)
             except ValueError:
@@ -3110,11 +3061,9 @@ class ZoneHvacWindowAirConditioner(object):
     @maximum_outdoor_air_flow_rate.setter
     def maximum_outdoor_air_flow_rate(self, value=None):
         """  Corresponds to IDD Field `Maximum Outdoor Air Flow Rate`
-        
-        {u'units': u'm3/s', u'autosizable': u'', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `Maximum Outdoor Air Flow Rate`
+            value (float or "Autosize"): value for IDD Field `Maximum Outdoor Air Flow Rate`
                 Units: m3/s
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -3123,6 +3072,13 @@ class ZoneHvacWindowAirConditioner(object):
             ValueError: if `value` is not a valid value
         """
         if value is not None:
+            try:
+                value_lower = str(value).lower()
+                if value_lower == "autosize":
+                    self._data["Maximum Outdoor Air Flow Rate"] = "Autosize"
+                    return
+            except ValueError:
+                pass
             try:
                 value = float(value)
             except ValueError:
@@ -3142,8 +3098,6 @@ class ZoneHvacWindowAirConditioner(object):
     @air_inlet_node_name.setter
     def air_inlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Air Inlet Node Name`
-        
-        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Air Inlet Node Name`
@@ -3179,8 +3133,6 @@ class ZoneHvacWindowAirConditioner(object):
     @air_outlet_node_name.setter
     def air_outlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Air Outlet Node Name`
-        
-        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Air Outlet Node Name`
@@ -3217,8 +3169,6 @@ class ZoneHvacWindowAirConditioner(object):
     def outdoor_air_mixer_object_type(self, value=None):
         """  Corresponds to IDD Field `Outdoor Air Mixer Object Type`
         currently only one OutdoorAir:Mixer object type is available.
-        
-        {u'note': [u'currently only one OutdoorAir:Mixer object type is available.'], u'type': u'choice', u'key': [u'OutdoorAir:Mixer'], u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Outdoor Air Mixer Object Type`
@@ -3272,8 +3222,6 @@ class ZoneHvacWindowAirConditioner(object):
     @outdoor_air_mixer_name.setter
     def outdoor_air_mixer_name(self, value=None):
         """  Corresponds to IDD Field `Outdoor Air Mixer Name`
-        
-        {u'type': u'object-list', u'object-list': u'OutdoorAirMixers', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Outdoor Air Mixer Name`
@@ -3312,8 +3260,6 @@ class ZoneHvacWindowAirConditioner(object):
         Fan:ConstantVolume only works when continuous fan operation is used the entire
         simulation (all supply air fan operating mode schedule values are greater than 0).
         If any fan operating mode schedule values are 0 a Fan:OnOff object must be used.
-        
-        {u'note': [u'Fan:ConstantVolume only works when continuous fan operation is used the entire', u'simulation (all supply air fan operating mode schedule values are greater than 0).', u'If any fan operating mode schedule values are 0 a Fan:OnOff object must be used.'], u'type': u'choice', u'key': [u'Fan:OnOff', u'Fan:ConstantVolume'], u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Supply Air Fan Object Type`
@@ -3371,8 +3317,6 @@ class ZoneHvacWindowAirConditioner(object):
         """  Corresponds to IDD Field `Supply Air Fan Name`
         Fan type Fan:ConstantVolume is used with continuous fan
         and fan type Fan:OnOff is used with cycling Fan.
-        
-        {u'note': [u'Fan type Fan:ConstantVolume is used with continuous fan', u'and fan type Fan:OnOff is used with cycling Fan.'], u'type': u'object-list', u'object-list': u'FansCVandOnOff', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Supply Air Fan Name`
@@ -3408,8 +3352,6 @@ class ZoneHvacWindowAirConditioner(object):
     @cooling_coil_object_type.setter
     def cooling_coil_object_type(self, value=None):
         """  Corresponds to IDD Field `Cooling Coil Object Type`
-        
-        {u'type': u'choice', u'key': [u'Coil:Cooling:DX:SingleSpeed', u'CoilSystem:Cooling:DX:HeatExchangerAssisted'], u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Cooling Coil Object Type`
@@ -3465,8 +3407,6 @@ class ZoneHvacWindowAirConditioner(object):
     @dx_cooling_coil_name.setter
     def dx_cooling_coil_name(self, value=None):
         """  Corresponds to IDD Field `DX Cooling Coil Name`
-        
-        {u'type': u'object-list', u'object-list': u'CoolingCoilsDXSingleSpeed', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `DX Cooling Coil Name`
@@ -3506,8 +3446,6 @@ class ZoneHvacWindowAirConditioner(object):
         cycling fan operation (fan cycles with cooling coil). Schedule values greater
         than 0 denote constant fan operation (fan runs continually regardless of coil operation).
         The fan operating mode defaults to cycling fan operation if this field is left blank.
-        
-        {u'note': [u'Enter the name of a schedule that controls fan operation. Schedule Name values of 0 denote', u'cycling fan operation (fan cycles with cooling coil). Schedule values greater', u'than 0 denote constant fan operation (fan runs continually regardless of coil operation).', u'The fan operating mode defaults to cycling fan operation if this field is left blank.'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Supply Air Fan Operating Mode Schedule Name`
@@ -3543,8 +3481,6 @@ class ZoneHvacWindowAirConditioner(object):
     @fan_placement.setter
     def fan_placement(self, value=None):
         """  Corresponds to IDD Field `Fan Placement`
-        
-        {u'type': u'choice', u'key': [u'BlowThrough', u'DrawThrough'], u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Fan Placement`
@@ -3598,10 +3534,8 @@ class ZoneHvacWindowAirConditioner(object):
         return self._data["Cooling Convergence Tolerance"]
 
     @cooling_convergence_tolerance.setter
-    def cooling_convergence_tolerance(self, value=0.001 ):
+    def cooling_convergence_tolerance(self, value=0.001):
         """  Corresponds to IDD Field `Cooling Convergence Tolerance`
-        
-        {u'default': '0.001', u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Cooling Convergence Tolerance`
@@ -3637,8 +3571,6 @@ class ZoneHvacWindowAirConditioner(object):
     def availability_manager_list_name(self, value=None):
         """  Corresponds to IDD Field `Availability Manager List Name`
         Enter the name of an AvailabilityManagerAssignmentList object.
-        
-        {u'note': [u'Enter the name of an AvailabilityManagerAssignmentList object.'], u'type': u'object-list', u'object-list': u'SystemAvailabilityManagerLists', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Availability Manager List Name`
@@ -3675,8 +3607,6 @@ class ZoneHvacWindowAirConditioner(object):
     def design_specification_zonehvac_sizing_object_name(self, value=None):
         """  Corresponds to IDD Field `Design Specification ZoneHVAC Sizing Object Name`
         Enter the name of a DesignSpecificationZoneHVACSizing object.
-        
-        {u'note': [u'Enter the name of a DesignSpecificationZoneHVACSizing object.'], u'type': u'object-list', u'object-list': u'DesignSpecificationZoneHVACSizingName', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Design Specification ZoneHVAC Sizing Object Name`
@@ -3949,8 +3879,6 @@ class ZoneHvacPackagedTerminalAirConditioner(object):
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
         Unique name for this packaged terminal air conditioner object.
-        
-        {u'note': [u'Unique name for this packaged terminal air conditioner object.'], u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -3987,8 +3915,6 @@ class ZoneHvacPackagedTerminalAirConditioner(object):
     def availability_schedule_name(self, value=None):
         """  Corresponds to IDD Field `Availability Schedule Name`
         Schedule values of 0 denote the unit is off.
-        
-        {u'note': [u'Schedule values of 0 denote the unit is off.'], u'type': u'object-list', u'object-list': u'ScheduleNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Availability Schedule Name`
@@ -4025,8 +3951,6 @@ class ZoneHvacPackagedTerminalAirConditioner(object):
     def air_inlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Air Inlet Node Name`
         Air inlet node for the PTAC must be a zone air exhaust Node.
-        
-        {u'note': [u'Air inlet node for the PTAC must be a zone air exhaust Node.'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Air Inlet Node Name`
@@ -4063,8 +3987,6 @@ class ZoneHvacPackagedTerminalAirConditioner(object):
     def air_outlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Air Outlet Node Name`
         Air outlet node for the PTAC must be a zone air inlet node.
-        
-        {u'note': [u'Air outlet node for the PTAC must be a zone air inlet node.'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Air Outlet Node Name`
@@ -4101,8 +4023,6 @@ class ZoneHvacPackagedTerminalAirConditioner(object):
     def outdoor_air_mixer_object_type(self, value=None):
         """  Corresponds to IDD Field `Outdoor Air Mixer Object Type`
         currently only one OutdoorAir:Mixer object type is available.
-        
-        {u'note': [u'currently only one OutdoorAir:Mixer object type is available.'], u'type': u'choice', u'key': [u'OutdoorAir:Mixer'], u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Outdoor Air Mixer Object Type`
@@ -4157,8 +4077,6 @@ class ZoneHvacPackagedTerminalAirConditioner(object):
     def outdoor_air_mixer_name(self, value=None):
         """  Corresponds to IDD Field `Outdoor Air Mixer Name`
         Needs to match the name of the PTAC outdoor air mixer object.
-        
-        {u'note': [u'Needs to match the name of the PTAC outdoor air mixer object.'], u'type': u'object-list', u'object-list': u'OutdoorAirMixers', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Outdoor Air Mixer Name`
@@ -4195,11 +4113,9 @@ class ZoneHvacPackagedTerminalAirConditioner(object):
     def supply_air_flow_rate_during_cooling_operation(self, value=None):
         """  Corresponds to IDD Field `Supply Air Flow Rate During Cooling Operation`
         Must be less than or equal to fan size.
-        
-        {'pytype': 'float', u'minimum>': '0.0', u'required-field': True, u'note': [u'Must be less than or equal to fan size.'], u'autosizable': u'', u'units': u'm3/s', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `Supply Air Flow Rate During Cooling Operation`
+            value (float or "Autosize"): value for IDD Field `Supply Air Flow Rate During Cooling Operation`
                 Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -4209,6 +4125,13 @@ class ZoneHvacPackagedTerminalAirConditioner(object):
             ValueError: if `value` is not a valid value
         """
         if value is not None:
+            try:
+                value_lower = str(value).lower()
+                if value_lower == "autosize":
+                    self._data["Supply Air Flow Rate During Cooling Operation"] = "Autosize"
+                    return
+            except ValueError:
+                pass
             try:
                 value = float(value)
             except ValueError:
@@ -4232,11 +4155,9 @@ class ZoneHvacPackagedTerminalAirConditioner(object):
     def supply_air_flow_rate_during_heating_operation(self, value=None):
         """  Corresponds to IDD Field `Supply Air Flow Rate During Heating Operation`
         Must be less than or equal to fan size.
-        
-        {'pytype': 'float', u'minimum>': '0.0', u'required-field': True, u'note': [u'Must be less than or equal to fan size.'], u'autosizable': u'', u'units': u'm3/s', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `Supply Air Flow Rate During Heating Operation`
+            value (float or "Autosize"): value for IDD Field `Supply Air Flow Rate During Heating Operation`
                 Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -4246,6 +4167,13 @@ class ZoneHvacPackagedTerminalAirConditioner(object):
             ValueError: if `value` is not a valid value
         """
         if value is not None:
+            try:
+                value_lower = str(value).lower()
+                if value_lower == "autosize":
+                    self._data["Supply Air Flow Rate During Heating Operation"] = "Autosize"
+                    return
+            except ValueError:
+                pass
             try:
                 value = float(value)
             except ValueError:
@@ -4274,11 +4202,9 @@ class ZoneHvacPackagedTerminalAirConditioner(object):
         This air flow rate is used when no heating or cooling is required and the cooling or
         heating coil is off. If this field is left blank or zero, the supply air flow rate
         from the previous on cycle (either cooling or heating) is used.
-        
-        {'pytype': 'float', u'note': [u'Must be less than or equal to fan size.', u'Only used when supply air fan operating mode schedule values specify continuous fan', u'(schedule values greater than 0 specify continuous fan operation).', u'This air flow rate is used when no heating or cooling is required and the cooling or', u'heating coil is off. If this field is left blank or zero, the supply air flow rate', u'from the previous on cycle (either cooling or heating) is used.'], u'autosizable': u'', u'minimum': '0.0', u'units': u'm3/s', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `Supply Air Flow Rate When No Cooling or Heating is Needed`
+            value (float or "Autosize"): value for IDD Field `Supply Air Flow Rate When No Cooling or Heating is Needed`
                 Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -4288,6 +4214,13 @@ class ZoneHvacPackagedTerminalAirConditioner(object):
             ValueError: if `value` is not a valid value
         """
         if value is not None:
+            try:
+                value_lower = str(value).lower()
+                if value_lower == "autosize":
+                    self._data["Supply Air Flow Rate When No Cooling or Heating is Needed"] = "Autosize"
+                    return
+            except ValueError:
+                pass
             try:
                 value = float(value)
             except ValueError:
@@ -4311,11 +4244,9 @@ class ZoneHvacPackagedTerminalAirConditioner(object):
     def outdoor_air_flow_rate_during_cooling_operation(self, value=None):
         """  Corresponds to IDD Field `Outdoor Air Flow Rate During Cooling Operation`
         Must be less than or equal to supply air flow rate during cooling operation.
-        
-        {'pytype': 'float', u'required-field': True, u'note': [u'Must be less than or equal to supply air flow rate during cooling operation.'], u'autosizable': u'', u'minimum': '0.0', u'units': u'm3/s', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `Outdoor Air Flow Rate During Cooling Operation`
+            value (float or "Autosize"): value for IDD Field `Outdoor Air Flow Rate During Cooling Operation`
                 Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -4325,6 +4256,13 @@ class ZoneHvacPackagedTerminalAirConditioner(object):
             ValueError: if `value` is not a valid value
         """
         if value is not None:
+            try:
+                value_lower = str(value).lower()
+                if value_lower == "autosize":
+                    self._data["Outdoor Air Flow Rate During Cooling Operation"] = "Autosize"
+                    return
+            except ValueError:
+                pass
             try:
                 value = float(value)
             except ValueError:
@@ -4348,11 +4286,9 @@ class ZoneHvacPackagedTerminalAirConditioner(object):
     def outdoor_air_flow_rate_during_heating_operation(self, value=None):
         """  Corresponds to IDD Field `Outdoor Air Flow Rate During Heating Operation`
         Must be less than or equal to supply air flow rate during heating operation.
-        
-        {'pytype': 'float', u'required-field': True, u'note': [u'Must be less than or equal to supply air flow rate during heating operation.'], u'autosizable': u'', u'minimum': '0.0', u'units': u'm3/s', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `Outdoor Air Flow Rate During Heating Operation`
+            value (float or "Autosize"): value for IDD Field `Outdoor Air Flow Rate During Heating Operation`
                 Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -4362,6 +4298,13 @@ class ZoneHvacPackagedTerminalAirConditioner(object):
             ValueError: if `value` is not a valid value
         """
         if value is not None:
+            try:
+                value_lower = str(value).lower()
+                if value_lower == "autosize":
+                    self._data["Outdoor Air Flow Rate During Heating Operation"] = "Autosize"
+                    return
+            except ValueError:
+                pass
             try:
                 value = float(value)
             except ValueError:
@@ -4389,11 +4332,9 @@ class ZoneHvacPackagedTerminalAirConditioner(object):
         This air flow rate is used when no heating or cooling is required and the cooling or
         heating coil is off. If this field is left blank or zero, the outdoor air flow rate
         from the previous on cycle (either cooling or heating) is used.
-        
-        {'pytype': 'float', u'note': [u'Only used when supply air fan operating mode schedule values specify continuous fan', u'(schedule values greater than 0 specify continuous fan operation).', u'This air flow rate is used when no heating or cooling is required and the cooling or', u'heating coil is off. If this field is left blank or zero, the outdoor air flow rate', u'from the previous on cycle (either cooling or heating) is used.'], u'autosizable': u'', u'minimum': '0.0', u'units': u'm3/s', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `Outdoor Air Flow Rate When No Cooling or Heating is Needed`
+            value (float or "Autosize"): value for IDD Field `Outdoor Air Flow Rate When No Cooling or Heating is Needed`
                 Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -4403,6 +4344,13 @@ class ZoneHvacPackagedTerminalAirConditioner(object):
             ValueError: if `value` is not a valid value
         """
         if value is not None:
+            try:
+                value_lower = str(value).lower()
+                if value_lower == "autosize":
+                    self._data["Outdoor Air Flow Rate When No Cooling or Heating is Needed"] = "Autosize"
+                    return
+            except ValueError:
+                pass
             try:
                 value = float(value)
             except ValueError:
@@ -4428,8 +4376,6 @@ class ZoneHvacPackagedTerminalAirConditioner(object):
         Fan:ConstantVolume only works when continuous fan operation is used the entire
         simulation (all supply air fan operating mode schedule values are greater than 0).
         If any fan operating mode schedule values are 0 a Fan:OnOff object must be used.
-        
-        {u'note': [u'Fan:ConstantVolume only works when continuous fan operation is used the entire', u'simulation (all supply air fan operating mode schedule values are greater than 0).', u'If any fan operating mode schedule values are 0 a Fan:OnOff object must be used.'], u'type': u'choice', u'key': [u'Fan:OnOff', u'Fan:ConstantVolume'], u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Supply Air Fan Object Type`
@@ -4486,8 +4432,6 @@ class ZoneHvacPackagedTerminalAirConditioner(object):
     def supply_air_fan_name(self, value=None):
         """  Corresponds to IDD Field `Supply Air Fan Name`
         Needs to match in the fan object.
-        
-        {u'note': [u'Needs to match in the fan object.'], u'type': u'object-list', u'object-list': u'FansCVandOnOff', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Supply Air Fan Name`
@@ -4524,8 +4468,6 @@ class ZoneHvacPackagedTerminalAirConditioner(object):
     def heating_coil_object_type(self, value=None):
         """  Corresponds to IDD Field `Heating Coil Object Type`
         Select the type of heating coil.
-        
-        {u'note': [u'Select the type of heating coil.'], u'type': u'choice', u'key': [u'Coil:Heating:Gas', u'Coil:Heating:Electric', u'Coil:Heating:Water', u'Coil:Heating:Steam'], u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Heating Coil Object Type`
@@ -4586,8 +4528,6 @@ class ZoneHvacPackagedTerminalAirConditioner(object):
     def heating_coil_name(self, value=None):
         """  Corresponds to IDD Field `Heating Coil Name`
         Needs to match in the heating coil object.
-        
-        {u'note': [u'Needs to match in the heating coil object.'], u'type': u'object-list', u'object-list': u'HeatingCoilName', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Heating Coil Name`
@@ -4627,8 +4567,6 @@ class ZoneHvacPackagedTerminalAirConditioner(object):
         Only works with Coil:Cooling:DX:SingleSpeed or
         CoilSystem:Cooling:DX:HeatExchangerAssisted or
         Coil:Cooling:DX:VariableSpeed.
-        
-        {u'note': [u'Select the type of Cooling Coil.', u'Only works with Coil:Cooling:DX:SingleSpeed or', u'CoilSystem:Cooling:DX:HeatExchangerAssisted or', u'Coil:Cooling:DX:VariableSpeed.'], u'type': u'choice', u'key': [u'Coil:Cooling:DX:SingleSpeed', u'Coil:Cooling:DX:VariableSpeed', u'CoilSystem:Cooling:DX:HeatExchangerAssisted'], u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Cooling Coil Object Type`
@@ -4687,8 +4625,6 @@ class ZoneHvacPackagedTerminalAirConditioner(object):
     def cooling_coil_name(self, value=None):
         """  Corresponds to IDD Field `Cooling Coil Name`
         Needs to match a DX cooling coil object.
-        
-        {u'note': [u'Needs to match a DX cooling coil object.'], u'type': u'object-list', u'object-list': u'CoolingCoilsDXVariableSpeed', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Cooling Coil Name`
@@ -4725,8 +4661,6 @@ class ZoneHvacPackagedTerminalAirConditioner(object):
     def fan_placement(self, value="DrawThrough"):
         """  Corresponds to IDD Field `Fan Placement`
         Select fan placement as either blow through or draw through.
-        
-        {u'default': u'DrawThrough', u'note': [u'Select fan placement as either blow through or draw through.'], u'type': u'choice', u'key': [u'BlowThrough', u'DrawThrough'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Fan Placement`
@@ -4786,8 +4720,6 @@ class ZoneHvacPackagedTerminalAirConditioner(object):
         Enter the name of a schedule that controls fan operation. Schedule Name values of 0 denote
         cycling fan operation (fan cycles with cooling or heating coil). Schedule Name values greater
         than 0 denote constant fan operation (fan runs continually regardless of coil operation).
-        
-        {u'note': [u'Enter the name of a schedule that controls fan operation. Schedule Name values of 0 denote', u'cycling fan operation (fan cycles with cooling or heating coil). Schedule Name values greater', u'than 0 denote constant fan operation (fan runs continually regardless of coil operation).'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Supply Air Fan Operating Mode Schedule Name`
@@ -4824,8 +4756,6 @@ class ZoneHvacPackagedTerminalAirConditioner(object):
     def availability_manager_list_name(self, value=None):
         """  Corresponds to IDD Field `Availability Manager List Name`
         Enter the name of an AvailabilityManagerAssignmentList object.
-        
-        {u'note': [u'Enter the name of an AvailabilityManagerAssignmentList object.'], u'type': u'object-list', u'object-list': u'SystemAvailabilityManagerLists', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Availability Manager List Name`
@@ -4862,8 +4792,6 @@ class ZoneHvacPackagedTerminalAirConditioner(object):
     def design_specification_zonehvac_sizing_object_name(self, value=None):
         """  Corresponds to IDD Field `Design Specification ZoneHVAC Sizing Object Name`
         Enter the name of a DesignSpecificationZoneHVACSizing object.
-        
-        {u'note': [u'Enter the name of a DesignSpecificationZoneHVACSizing object.'], u'type': u'object-list', u'object-list': u'DesignSpecificationZoneHVACSizingName', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Design Specification ZoneHVAC Sizing Object Name`
@@ -5193,8 +5121,6 @@ class ZoneHvacPackagedTerminalHeatPump(object):
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
         Unique name for this packaged terminal heat pump object.
-        
-        {u'note': [u'Unique name for this packaged terminal heat pump object.'], u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -5233,8 +5159,6 @@ class ZoneHvacPackagedTerminalHeatPump(object):
         Availability schedule name for this system. Schedule value > 0 means the system is available.
         If this field is blank, the system is always available.
         Schedule values of 0 denote the unit is off.
-        
-        {u'note': [u'Availability schedule name for this system. Schedule value > 0 means the system is available.', u'If this field is blank, the system is always available.', u'Schedule values of 0 denote the unit is off.'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Availability Schedule Name`
@@ -5271,8 +5195,6 @@ class ZoneHvacPackagedTerminalHeatPump(object):
     def air_inlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Air Inlet Node Name`
         Air inlet node for the PTHP must be a zone air exhaust node.
-        
-        {u'note': [u'Air inlet node for the PTHP must be a zone air exhaust node.'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Air Inlet Node Name`
@@ -5309,8 +5231,6 @@ class ZoneHvacPackagedTerminalHeatPump(object):
     def air_outlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Air Outlet Node Name`
         Air outlet node for the PTHP must be a zone air inlet node.
-        
-        {u'note': [u'Air outlet node for the PTHP must be a zone air inlet node.'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Air Outlet Node Name`
@@ -5347,8 +5267,6 @@ class ZoneHvacPackagedTerminalHeatPump(object):
     def outdoor_air_mixer_object_type(self, value=None):
         """  Corresponds to IDD Field `Outdoor Air Mixer Object Type`
         currently only one OutdoorAir:Mixer object type is available.
-        
-        {u'note': [u'currently only one OutdoorAir:Mixer object type is available.'], u'type': u'choice', u'key': [u'OutdoorAir:Mixer'], u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Outdoor Air Mixer Object Type`
@@ -5403,8 +5321,6 @@ class ZoneHvacPackagedTerminalHeatPump(object):
     def outdoor_air_mixer_name(self, value=None):
         """  Corresponds to IDD Field `Outdoor Air Mixer Name`
         Needs to match name of outdoor air mixer object.
-        
-        {u'note': [u'Needs to match name of outdoor air mixer object.'], u'type': u'object-list', u'object-list': u'OutdoorAirMixers', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Outdoor Air Mixer Name`
@@ -5441,11 +5357,9 @@ class ZoneHvacPackagedTerminalHeatPump(object):
     def supply_air_flow_rate_during_cooling_operation(self, value=None):
         """  Corresponds to IDD Field `Supply Air Flow Rate During Cooling Operation`
         Must be less than or equal to fan size.
-        
-        {'pytype': 'float', u'minimum>': '0.0', u'required-field': True, u'note': [u'Must be less than or equal to fan size.'], u'autosizable': u'', u'units': u'm3/s', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `Supply Air Flow Rate During Cooling Operation`
+            value (float or "Autosize"): value for IDD Field `Supply Air Flow Rate During Cooling Operation`
                 Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -5455,6 +5369,13 @@ class ZoneHvacPackagedTerminalHeatPump(object):
             ValueError: if `value` is not a valid value
         """
         if value is not None:
+            try:
+                value_lower = str(value).lower()
+                if value_lower == "autosize":
+                    self._data["Supply Air Flow Rate During Cooling Operation"] = "Autosize"
+                    return
+            except ValueError:
+                pass
             try:
                 value = float(value)
             except ValueError:
@@ -5478,11 +5399,9 @@ class ZoneHvacPackagedTerminalHeatPump(object):
     def supply_air_flow_rate_during_heating_operation(self, value=None):
         """  Corresponds to IDD Field `Supply Air Flow Rate During Heating Operation`
         Must be less than or equal to fan size.
-        
-        {'pytype': 'float', u'minimum>': '0.0', u'required-field': True, u'note': [u'Must be less than or equal to fan size.'], u'autosizable': u'', u'units': u'm3/s', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `Supply Air Flow Rate During Heating Operation`
+            value (float or "Autosize"): value for IDD Field `Supply Air Flow Rate During Heating Operation`
                 Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -5492,6 +5411,13 @@ class ZoneHvacPackagedTerminalHeatPump(object):
             ValueError: if `value` is not a valid value
         """
         if value is not None:
+            try:
+                value_lower = str(value).lower()
+                if value_lower == "autosize":
+                    self._data["Supply Air Flow Rate During Heating Operation"] = "Autosize"
+                    return
+            except ValueError:
+                pass
             try:
                 value = float(value)
             except ValueError:
@@ -5519,11 +5445,9 @@ class ZoneHvacPackagedTerminalHeatPump(object):
         is used when no heating or cooling is required and the DX coil compressor is off.
         If this field is left blank or zero, the supply air flow rate from the previous on cycle
         (either cooling or heating) is used.
-        
-        {'pytype': 'float', u'note': [u'Must be less than or equal to fan size.', u'Only used when heat pump fan operating mode is continuous. This air flow rate', u'is used when no heating or cooling is required and the DX coil compressor is off.', u'If this field is left blank or zero, the supply air flow rate from the previous on cycle', u'(either cooling or heating) is used.'], u'autosizable': u'', u'minimum': '0.0', u'units': u'm3/s', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `Supply Air Flow Rate When No Cooling or Heating is Needed`
+            value (float or "Autosize"): value for IDD Field `Supply Air Flow Rate When No Cooling or Heating is Needed`
                 Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -5533,6 +5457,13 @@ class ZoneHvacPackagedTerminalHeatPump(object):
             ValueError: if `value` is not a valid value
         """
         if value is not None:
+            try:
+                value_lower = str(value).lower()
+                if value_lower == "autosize":
+                    self._data["Supply Air Flow Rate When No Cooling or Heating is Needed"] = "Autosize"
+                    return
+            except ValueError:
+                pass
             try:
                 value = float(value)
             except ValueError:
@@ -5556,11 +5487,9 @@ class ZoneHvacPackagedTerminalHeatPump(object):
     def outdoor_air_flow_rate_during_cooling_operation(self, value=None):
         """  Corresponds to IDD Field `Outdoor Air Flow Rate During Cooling Operation`
         Must be less than or equal to supply air flow rate during cooling operation.
-        
-        {'pytype': 'float', u'required-field': True, u'note': [u'Must be less than or equal to supply air flow rate during cooling operation.'], u'autosizable': u'', u'minimum': '0.0', u'units': u'm3/s', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `Outdoor Air Flow Rate During Cooling Operation`
+            value (float or "Autosize"): value for IDD Field `Outdoor Air Flow Rate During Cooling Operation`
                 Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -5570,6 +5499,13 @@ class ZoneHvacPackagedTerminalHeatPump(object):
             ValueError: if `value` is not a valid value
         """
         if value is not None:
+            try:
+                value_lower = str(value).lower()
+                if value_lower == "autosize":
+                    self._data["Outdoor Air Flow Rate During Cooling Operation"] = "Autosize"
+                    return
+            except ValueError:
+                pass
             try:
                 value = float(value)
             except ValueError:
@@ -5593,11 +5529,9 @@ class ZoneHvacPackagedTerminalHeatPump(object):
     def outdoor_air_flow_rate_during_heating_operation(self, value=None):
         """  Corresponds to IDD Field `Outdoor Air Flow Rate During Heating Operation`
         Must be less than or equal to supply air flow rate during heating operation.
-        
-        {'pytype': 'float', u'required-field': True, u'note': [u'Must be less than or equal to supply air flow rate during heating operation.'], u'autosizable': u'', u'minimum': '0.0', u'units': u'm3/s', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `Outdoor Air Flow Rate During Heating Operation`
+            value (float or "Autosize"): value for IDD Field `Outdoor Air Flow Rate During Heating Operation`
                 Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -5607,6 +5541,13 @@ class ZoneHvacPackagedTerminalHeatPump(object):
             ValueError: if `value` is not a valid value
         """
         if value is not None:
+            try:
+                value_lower = str(value).lower()
+                if value_lower == "autosize":
+                    self._data["Outdoor Air Flow Rate During Heating Operation"] = "Autosize"
+                    return
+            except ValueError:
+                pass
             try:
                 value = float(value)
             except ValueError:
@@ -5633,11 +5574,9 @@ class ZoneHvacPackagedTerminalHeatPump(object):
         is used when no heating or cooling is required and the DX coil compressor is off.
         If this field is left blank or zero, the outdoor air flow rate from the previous on cycle
         (either cooling or heating) is used.
-        
-        {'pytype': 'float', u'note': [u'Only used when heat pump Fan operating mode is continuous. This air flow rate', u'is used when no heating or cooling is required and the DX coil compressor is off.', u'If this field is left blank or zero, the outdoor air flow rate from the previous on cycle', u'(either cooling or heating) is used.'], u'autosizable': u'', u'minimum': '0.0', u'units': u'm3/s', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `Outdoor Air Flow Rate When No Cooling or Heating is Needed`
+            value (float or "Autosize"): value for IDD Field `Outdoor Air Flow Rate When No Cooling or Heating is Needed`
                 Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -5647,6 +5586,13 @@ class ZoneHvacPackagedTerminalHeatPump(object):
             ValueError: if `value` is not a valid value
         """
         if value is not None:
+            try:
+                value_lower = str(value).lower()
+                if value_lower == "autosize":
+                    self._data["Outdoor Air Flow Rate When No Cooling or Heating is Needed"] = "Autosize"
+                    return
+            except ValueError:
+                pass
             try:
                 value = float(value)
             except ValueError:
@@ -5670,8 +5616,6 @@ class ZoneHvacPackagedTerminalHeatPump(object):
     def supply_air_fan_object_type(self, value=None):
         """  Corresponds to IDD Field `Supply Air Fan Object Type`
         Fan:ConstantVolume only works with fan operating mode is continuous.
-        
-        {u'note': [u'Fan:ConstantVolume only works with fan operating mode is continuous.'], u'type': u'choice', u'key': [u'Fan:OnOff', u'Fan:ConstantVolume'], u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Supply Air Fan Object Type`
@@ -5728,8 +5672,6 @@ class ZoneHvacPackagedTerminalHeatPump(object):
     def supply_air_fan_name(self, value=None):
         """  Corresponds to IDD Field `Supply Air Fan Name`
         Needs to match a fan object.
-        
-        {u'note': [u'Needs to match a fan object.'], u'type': u'object-list', u'object-list': u'FansCVandOnOff', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Supply Air Fan Name`
@@ -5767,8 +5709,6 @@ class ZoneHvacPackagedTerminalHeatPump(object):
         """  Corresponds to IDD Field `Heating Coil Object Type`
         Only works with Coil:Heating:DX:SingleSpeed or
         Coil:Heating:DX:VariableSpeed.
-        
-        {u'note': [u'Only works with Coil:Heating:DX:SingleSpeed or', u'Coil:Heating:DX:VariableSpeed.'], u'type': u'choice', u'key': [u'Coil:Heating:DX:SingleSpeed', u'Coil:Heating:DX:VariableSpeed'], u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Heating Coil Object Type`
@@ -5825,8 +5765,6 @@ class ZoneHvacPackagedTerminalHeatPump(object):
     def heating_coil_name(self, value=None):
         """  Corresponds to IDD Field `Heating Coil Name`
         Needs to match in the DX Heating Coil object.
-        
-        {u'note': [u'Needs to match in the DX Heating Coil object.'], u'type': u'object-list', u'object-list': u'HeatingCoilsDXVariableSpeed', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Heating Coil Name`
@@ -5860,11 +5798,9 @@ class ZoneHvacPackagedTerminalHeatPump(object):
         return self._data["Heating Convergence Tolerance"]
 
     @heating_convergence_tolerance.setter
-    def heating_convergence_tolerance(self, value=0.001 ):
+    def heating_convergence_tolerance(self, value=0.001):
         """  Corresponds to IDD Field `Heating Convergence Tolerance`
         Defines Heating convergence tolerence as a fraction of Heating load to be met.
-        
-        {'pytype': 'float', u'default': '0.001', u'minimum>': '0.0', u'note': [u'Defines Heating convergence tolerence as a fraction of Heating load to be met.'], u'units': u'dimensionless', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Heating Convergence Tolerance`
@@ -5898,12 +5834,10 @@ class ZoneHvacPackagedTerminalHeatPump(object):
         return self._data["Minimum Outdoor Dry-Bulb Temperature for Compressor Operation"]
 
     @minimum_outdoor_drybulb_temperature_for_compressor_operation.setter
-    def minimum_outdoor_drybulb_temperature_for_compressor_operation(self, value=-8.0 ):
+    def minimum_outdoor_drybulb_temperature_for_compressor_operation(self, value=-8.0):
         """  Corresponds to IDD Field `Minimum Outdoor Dry-Bulb Temperature for Compressor Operation`
         Needs to match the corresponding minimum outdoor temperature defined
         in the DX Heating Coil object.
-        
-        {'pytype': 'float', u'default': '-8.0', u'note': [u'Needs to match the corresponding minimum outdoor temperature defined', u'in the DX Heating Coil object.'], u'minimum': '-20.0', u'units': u'C', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Minimum Outdoor Dry-Bulb Temperature for Compressor Operation`
@@ -5942,8 +5876,6 @@ class ZoneHvacPackagedTerminalHeatPump(object):
         Only works with Coil:Cooling:DX:SingleSpeed or
         CoilSystem:Cooling:DX:HeatExchangerAssisted or
         Coil:Cooling:DX:VariableSpeed.
-        
-        {u'note': [u'Only works with Coil:Cooling:DX:SingleSpeed or', u'CoilSystem:Cooling:DX:HeatExchangerAssisted or', u'Coil:Cooling:DX:VariableSpeed.'], u'type': u'choice', u'key': [u'Coil:Cooling:DX:SingleSpeed', u'Coil:Cooling:DX:VariableSpeed', u'CoilSystem:Cooling:DX:HeatExchangerAssisted'], u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Cooling Coil Object Type`
@@ -6002,8 +5934,6 @@ class ZoneHvacPackagedTerminalHeatPump(object):
     def cooling_coil_name(self, value=None):
         """  Corresponds to IDD Field `Cooling Coil Name`
         Needs to match in the DX Cooling Coil object.
-        
-        {u'note': [u'Needs to match in the DX Cooling Coil object.'], u'type': u'object-list', u'object-list': u'CoolingCoilsDXVariableSpeed', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Cooling Coil Name`
@@ -6037,11 +5967,9 @@ class ZoneHvacPackagedTerminalHeatPump(object):
         return self._data["Cooling Convergence Tolerance"]
 
     @cooling_convergence_tolerance.setter
-    def cooling_convergence_tolerance(self, value=0.001 ):
+    def cooling_convergence_tolerance(self, value=0.001):
         """  Corresponds to IDD Field `Cooling Convergence Tolerance`
         Defines Cooling convergence tolerence as a fraction of the Cooling load to be met.
-        
-        {'pytype': 'float', u'default': '0.001', u'minimum>': '0.0', u'note': [u'Defines Cooling convergence tolerence as a fraction of the Cooling load to be met.'], u'units': u'dimensionless', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Cooling Convergence Tolerance`
@@ -6078,8 +6006,6 @@ class ZoneHvacPackagedTerminalHeatPump(object):
     def supplemental_heating_coil_object_type(self, value=None):
         """  Corresponds to IDD Field `Supplemental Heating Coil Object Type`
         works with gas, electric, hot water and steam heating coil.
-        
-        {u'note': [u'works with gas, electric, hot water and steam heating coil.'], u'type': u'choice', u'key': [u'Coil:Heating:Gas', u'Coil:Heating:Electric', u'Coil:Heating:Water', u'Coil:Heating:Steam'], u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Supplemental Heating Coil Object Type`
@@ -6140,8 +6066,6 @@ class ZoneHvacPackagedTerminalHeatPump(object):
     def supplemental_heating_coil_name(self, value=None):
         """  Corresponds to IDD Field `Supplemental Heating Coil Name`
         Needs to match in the supplemental heating coil object.
-        
-        {u'note': [u'Needs to match in the supplemental heating coil object.'], u'type': u'object-list', u'object-list': u'HeatingCoilName', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Supplemental Heating Coil Name`
@@ -6178,11 +6102,9 @@ class ZoneHvacPackagedTerminalHeatPump(object):
     def maximum_supply_air_temperature_from_supplemental_heater(self, value=None):
         """  Corresponds to IDD Field `Maximum Supply Air Temperature from Supplemental Heater`
         Supply air temperature from the supplemental heater will not exceed this value.
-        
-        {'pytype': 'float', u'required-field': True, u'note': [u'Supply air temperature from the supplemental heater will not exceed this value.'], u'autosizable': u'', u'units': u'C', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `Maximum Supply Air Temperature from Supplemental Heater`
+            value (float or "Autosize"): value for IDD Field `Maximum Supply Air Temperature from Supplemental Heater`
                 Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -6191,6 +6113,13 @@ class ZoneHvacPackagedTerminalHeatPump(object):
             ValueError: if `value` is not a valid value
         """
         if value is not None:
+            try:
+                value_lower = str(value).lower()
+                if value_lower == "autosize":
+                    self._data["Maximum Supply Air Temperature from Supplemental Heater"] = "Autosize"
+                    return
+            except ValueError:
+                pass
             try:
                 value = float(value)
             except ValueError:
@@ -6208,11 +6137,9 @@ class ZoneHvacPackagedTerminalHeatPump(object):
         return self._data["Maximum Outdoor Dry-Bulb Temperature for Supplemental Heater Operation"]
 
     @maximum_outdoor_drybulb_temperature_for_supplemental_heater_operation.setter
-    def maximum_outdoor_drybulb_temperature_for_supplemental_heater_operation(self, value=21.0 ):
+    def maximum_outdoor_drybulb_temperature_for_supplemental_heater_operation(self, value=21.0):
         """  Corresponds to IDD Field `Maximum Outdoor Dry-Bulb Temperature for Supplemental Heater Operation`
         Supplemental heater will not operate when outdoor temperature exceeds this value.
-        
-        {'pytype': 'float', u'default': '21.0', u'maximum': '21.0', u'note': [u'Supplemental heater will not operate when outdoor temperature exceeds this value.'], u'units': u'C', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Maximum Outdoor Dry-Bulb Temperature for Supplemental Heater Operation`
@@ -6249,8 +6176,6 @@ class ZoneHvacPackagedTerminalHeatPump(object):
     def fan_placement(self, value="DrawThrough"):
         """  Corresponds to IDD Field `Fan Placement`
         Select fan placement as either blow through or draw through.
-        
-        {u'default': u'DrawThrough', u'note': [u'Select fan placement as either blow through or draw through.'], u'type': u'choice', u'key': [u'BlowThrough', u'DrawThrough'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Fan Placement`
@@ -6311,8 +6236,6 @@ class ZoneHvacPackagedTerminalHeatPump(object):
         cycling fan operation (fan cycles with cooling or heating coil). Schedule Name values greater
         than 0 denote constant fan operation (fan runs continually regardless of coil operation).
         The fan operating mode defaults to cycling fan operation if this field is left blank.
-        
-        {u'note': [u'Enter the name of a schedule that controls fan operation. Schedule values of 0 denote', u'cycling fan operation (fan cycles with cooling or heating coil). Schedule Name values greater', u'than 0 denote constant fan operation (fan runs continually regardless of coil operation).', u'The fan operating mode defaults to cycling fan operation if this field is left blank.'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Supply Air Fan Operating Mode Schedule Name`
@@ -6349,8 +6272,6 @@ class ZoneHvacPackagedTerminalHeatPump(object):
     def availability_manager_list_name(self, value=None):
         """  Corresponds to IDD Field `Availability Manager List Name`
         Enter the name of an AvailabilityManagerAssignmentList object.
-        
-        {u'note': [u'Enter the name of an AvailabilityManagerAssignmentList object.'], u'type': u'object-list', u'object-list': u'SystemAvailabilityManagerLists', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Availability Manager List Name`
@@ -6387,8 +6308,6 @@ class ZoneHvacPackagedTerminalHeatPump(object):
     def design_specification_zonehvac_sizing_object_name(self, value=None):
         """  Corresponds to IDD Field `Design Specification ZoneHVAC Sizing Object Name`
         Enter the name of a DesignSpecificationZoneHVACSizing object.
-        
-        {u'note': [u'Enter the name of a DesignSpecificationZoneHVACSizing object.'], u'type': u'object-list', u'object-list': u'DesignSpecificationZoneHVACSizingName', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Design Specification ZoneHVAC Sizing Object Name`
@@ -6740,8 +6659,6 @@ class ZoneHvacWaterToAirHeatPump(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -6779,8 +6696,6 @@ class ZoneHvacWaterToAirHeatPump(object):
         """  Corresponds to IDD Field `Availability Schedule Name`
         Availability schedule name for this system. Schedule value > 0 means the system is available.
         If this field is blank, the system is always available.
-        
-        {u'note': [u'Availability schedule name for this system. Schedule value > 0 means the system is available.', u'If this field is blank, the system is always available.'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Availability Schedule Name`
@@ -6816,8 +6731,6 @@ class ZoneHvacWaterToAirHeatPump(object):
     @air_inlet_node_name.setter
     def air_inlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Air Inlet Node Name`
-        
-        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Air Inlet Node Name`
@@ -6853,8 +6766,6 @@ class ZoneHvacWaterToAirHeatPump(object):
     @air_outlet_node_name.setter
     def air_outlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Air Outlet Node Name`
-        
-        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Air Outlet Node Name`
@@ -6891,8 +6802,6 @@ class ZoneHvacWaterToAirHeatPump(object):
     def outdoor_air_mixer_object_type(self, value=None):
         """  Corresponds to IDD Field `Outdoor Air Mixer Object Type`
         currently only one OutdoorAir:Mixer object type is available.
-        
-        {u'note': [u'currently only one OutdoorAir:Mixer object type is available.'], u'type': u'choice', u'key': [u'OutdoorAir:Mixer'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Outdoor Air Mixer Object Type`
@@ -6948,8 +6857,6 @@ class ZoneHvacWaterToAirHeatPump(object):
         """  Corresponds to IDD Field `Outdoor Air Mixer Name`
         This optional field specifies the name of the outdoor air mixer object.
         When used, this name needs to match name of outdoor air mixer object.
-        
-        {u'note': [u'This optional field specifies the name of the outdoor air mixer object.', u'When used, this name needs to match name of outdoor air mixer object.'], u'type': u'object-list', u'object-list': u'OutdoorAirMixers', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Outdoor Air Mixer Name`
@@ -6986,11 +6893,9 @@ class ZoneHvacWaterToAirHeatPump(object):
     def supply_air_flow_rate_during_cooling_operation(self, value=None):
         """  Corresponds to IDD Field `Supply Air Flow Rate During Cooling Operation`
         Must be less than or equal to fan size.
-        
-        {'pytype': 'float', u'minimum>': '0.0', u'required-field': True, u'note': [u'Must be less than or equal to fan size.'], u'autosizable': u'', u'units': u'm3/s', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `Supply Air Flow Rate During Cooling Operation`
+            value (float or "Autosize"): value for IDD Field `Supply Air Flow Rate During Cooling Operation`
                 Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -7000,6 +6905,13 @@ class ZoneHvacWaterToAirHeatPump(object):
             ValueError: if `value` is not a valid value
         """
         if value is not None:
+            try:
+                value_lower = str(value).lower()
+                if value_lower == "autosize":
+                    self._data["Supply Air Flow Rate During Cooling Operation"] = "Autosize"
+                    return
+            except ValueError:
+                pass
             try:
                 value = float(value)
             except ValueError:
@@ -7023,11 +6935,9 @@ class ZoneHvacWaterToAirHeatPump(object):
     def supply_air_flow_rate_during_heating_operation(self, value=None):
         """  Corresponds to IDD Field `Supply Air Flow Rate During Heating Operation`
         Must be less than or equal to fan size.
-        
-        {'pytype': 'float', u'minimum>': '0.0', u'required-field': True, u'note': [u'Must be less than or equal to fan size.'], u'autosizable': u'', u'units': u'm3/s', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `Supply Air Flow Rate During Heating Operation`
+            value (float or "Autosize"): value for IDD Field `Supply Air Flow Rate During Heating Operation`
                 Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -7037,6 +6947,13 @@ class ZoneHvacWaterToAirHeatPump(object):
             ValueError: if `value` is not a valid value
         """
         if value is not None:
+            try:
+                value_lower = str(value).lower()
+                if value_lower == "autosize":
+                    self._data["Supply Air Flow Rate During Heating Operation"] = "Autosize"
+                    return
+            except ValueError:
+                pass
             try:
                 value = float(value)
             except ValueError:
@@ -7064,11 +6981,9 @@ class ZoneHvacWaterToAirHeatPump(object):
         is used when no heating or cooling is required and the DX coil compressor is off.
         If this field is left blank or zero, the supply air flow rate from the previous on cycle
         (either cooling or heating) is used.
-        
-        {'pytype': 'float', u'note': [u'Must be less than or equal to fan size.', u'Only used when heat pump fan operating mode is continuous. This air flow rate', u'is used when no heating or cooling is required and the DX coil compressor is off.', u'If this field is left blank or zero, the supply air flow rate from the previous on cycle', u'(either cooling or heating) is used.'], u'autosizable': u'', u'minimum': '0.0', u'units': u'm3/s', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `Supply Air Flow Rate When No Cooling or Heating is Needed`
+            value (float or "Autosize"): value for IDD Field `Supply Air Flow Rate When No Cooling or Heating is Needed`
                 Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -7078,6 +6993,13 @@ class ZoneHvacWaterToAirHeatPump(object):
             ValueError: if `value` is not a valid value
         """
         if value is not None:
+            try:
+                value_lower = str(value).lower()
+                if value_lower == "autosize":
+                    self._data["Supply Air Flow Rate When No Cooling or Heating is Needed"] = "Autosize"
+                    return
+            except ValueError:
+                pass
             try:
                 value = float(value)
             except ValueError:
@@ -7101,11 +7023,9 @@ class ZoneHvacWaterToAirHeatPump(object):
     def outdoor_air_flow_rate_during_cooling_operation(self, value=None):
         """  Corresponds to IDD Field `Outdoor Air Flow Rate During Cooling Operation`
         Must be less than or equal to supply air flow rate during cooling operation.
-        
-        {'pytype': 'float', u'required-field': True, u'note': [u'Must be less than or equal to supply air flow rate during cooling operation.'], u'autosizable': u'', u'minimum': '0.0', u'units': u'm3/s', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `Outdoor Air Flow Rate During Cooling Operation`
+            value (float or "Autosize"): value for IDD Field `Outdoor Air Flow Rate During Cooling Operation`
                 Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -7115,6 +7035,13 @@ class ZoneHvacWaterToAirHeatPump(object):
             ValueError: if `value` is not a valid value
         """
         if value is not None:
+            try:
+                value_lower = str(value).lower()
+                if value_lower == "autosize":
+                    self._data["Outdoor Air Flow Rate During Cooling Operation"] = "Autosize"
+                    return
+            except ValueError:
+                pass
             try:
                 value = float(value)
             except ValueError:
@@ -7138,11 +7065,9 @@ class ZoneHvacWaterToAirHeatPump(object):
     def outdoor_air_flow_rate_during_heating_operation(self, value=None):
         """  Corresponds to IDD Field `Outdoor Air Flow Rate During Heating Operation`
         Must be less than or equal to supply air flow rate during heating operation.
-        
-        {'pytype': 'float', u'required-field': True, u'note': [u'Must be less than or equal to supply air flow rate during heating operation.'], u'autosizable': u'', u'minimum': '0.0', u'units': u'm3/s', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `Outdoor Air Flow Rate During Heating Operation`
+            value (float or "Autosize"): value for IDD Field `Outdoor Air Flow Rate During Heating Operation`
                 Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -7152,6 +7077,13 @@ class ZoneHvacWaterToAirHeatPump(object):
             ValueError: if `value` is not a valid value
         """
         if value is not None:
+            try:
+                value_lower = str(value).lower()
+                if value_lower == "autosize":
+                    self._data["Outdoor Air Flow Rate During Heating Operation"] = "Autosize"
+                    return
+            except ValueError:
+                pass
             try:
                 value = float(value)
             except ValueError:
@@ -7178,11 +7110,9 @@ class ZoneHvacWaterToAirHeatPump(object):
         is used when no heating or cooling is required and the DX coil compressor is off.
         If this field is left blank or zero, the outdoor air flow rate from the previous on cycle
         (either cooling or heating) is used.
-        
-        {'pytype': 'float', u'note': [u'Only used when heat pump Fan operating mode is continuous. This air flow rate', u'is used when no heating or cooling is required and the DX coil compressor is off.', u'If this field is left blank or zero, the outdoor air flow rate from the previous on cycle', u'(either cooling or heating) is used.'], u'autosizable': u'', u'minimum': '0.0', u'units': u'm3/s', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `Outdoor Air Flow Rate When No Cooling or Heating is Needed`
+            value (float or "Autosize"): value for IDD Field `Outdoor Air Flow Rate When No Cooling or Heating is Needed`
                 Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -7192,6 +7122,13 @@ class ZoneHvacWaterToAirHeatPump(object):
             ValueError: if `value` is not a valid value
         """
         if value is not None:
+            try:
+                value_lower = str(value).lower()
+                if value_lower == "autosize":
+                    self._data["Outdoor Air Flow Rate When No Cooling or Heating is Needed"] = "Autosize"
+                    return
+            except ValueError:
+                pass
             try:
                 value = float(value)
             except ValueError:
@@ -7215,8 +7152,6 @@ class ZoneHvacWaterToAirHeatPump(object):
     def supply_air_fan_object_type(self, value=None):
         """  Corresponds to IDD Field `Supply Air Fan Object Type`
         Only works with On/Off Fan
-        
-        {u'note': [u'Only works with On/Off Fan'], u'type': u'choice', u'key': [u'Fan:OnOff'], u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Supply Air Fan Object Type`
@@ -7271,8 +7206,6 @@ class ZoneHvacWaterToAirHeatPump(object):
     def supply_air_fan_name(self, value=None):
         """  Corresponds to IDD Field `Supply Air Fan Name`
         Needs to match Fan:OnOff object
-        
-        {u'note': [u'Needs to match Fan:OnOff object'], u'type': u'object-list', u'object-list': u'FansOnOff', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Supply Air Fan Name`
@@ -7308,8 +7241,6 @@ class ZoneHvacWaterToAirHeatPump(object):
     @heating_coil_object_type.setter
     def heating_coil_object_type(self, value=None):
         """  Corresponds to IDD Field `Heating Coil Object Type`
-        
-        {u'type': u'choice', u'key': [u'Coil:Heating:WaterToAirHeatPump:EquationFit', u'Coil:Heating:WaterToAirHeatPump:VariableSpeedEquationFit'], u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Heating Coil Object Type`
@@ -7366,8 +7297,6 @@ class ZoneHvacWaterToAirHeatPump(object):
     def heating_coil_name(self, value=None):
         """  Corresponds to IDD Field `Heating Coil Name`
         Needs to match in the water-to-air heatpump heating coil object
-        
-        {u'note': [u'Needs to match in the water-to-air heatpump heating coil object'], u'type': u'object-list', u'object-list': u'HeatingCoilsWaterToAirVSHP', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Heating Coil Name`
@@ -7403,8 +7332,6 @@ class ZoneHvacWaterToAirHeatPump(object):
     @cooling_coil_object_type.setter
     def cooling_coil_object_type(self, value=None):
         """  Corresponds to IDD Field `Cooling Coil Object Type`
-        
-        {u'type': u'choice', u'key': [u'Coil:Cooling:WaterToAirHeatPump:EquationFit', u'Coil:Cooling:WaterToAirHeatPump:VariableSpeedEquationFit'], u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Cooling Coil Object Type`
@@ -7461,8 +7388,6 @@ class ZoneHvacWaterToAirHeatPump(object):
     def cooling_coil_name(self, value=None):
         """  Corresponds to IDD Field `Cooling Coil Name`
         Needs to match in the water-to-air heatpump cooling coil object
-        
-        {u'note': [u'Needs to match in the water-to-air heatpump cooling coil object'], u'type': u'object-list', u'object-list': u'CoolingCoilsWaterToAirVSHP', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Cooling Coil Name`
@@ -7496,12 +7421,10 @@ class ZoneHvacWaterToAirHeatPump(object):
         return self._data["Maximum Cycling Rate"]
 
     @maximum_cycling_rate.setter
-    def maximum_cycling_rate(self, value=2.5 ):
+    def maximum_cycling_rate(self, value=2.5):
         """  Corresponds to IDD Field `Maximum Cycling Rate`
         The maximum on-off cycling rate for the compressor
         Suggested value is 2.5 for a typical heat pump
-        
-        {'pytype': 'float', u'default': '2.5', u'maximum': '5.0', u'note': [u'The maximum on-off cycling rate for the compressor', u'Suggested value is 2.5 for a typical heat pump'], u'minimum': '0.0', u'units': u'cycles/hr', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Maximum Cycling Rate`
@@ -7539,12 +7462,10 @@ class ZoneHvacWaterToAirHeatPump(object):
         return self._data["Heat Pump Time Constant"]
 
     @heat_pump_time_constant.setter
-    def heat_pump_time_constant(self, value=60.0 ):
+    def heat_pump_time_constant(self, value=60.0):
         """  Corresponds to IDD Field `Heat Pump Time Constant`
         Time constant for the cooling coil's capacity to reach steady state after startup
         Suggested value is 60 for a typical heat pump
-        
-        {'pytype': 'float', u'default': '60.0', u'maximum': '500.0', u'note': [u"Time constant for the cooling coil's capacity to reach steady state after startup", u'Suggested value is 60 for a typical heat pump'], u'minimum': '0.0', u'units': u's', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Heat Pump Time Constant`
@@ -7582,13 +7503,11 @@ class ZoneHvacWaterToAirHeatPump(object):
         return self._data["Fraction of On-Cycle Power Use"]
 
     @fraction_of_oncycle_power_use.setter
-    def fraction_of_oncycle_power_use(self, value=0.01 ):
+    def fraction_of_oncycle_power_use(self, value=0.01):
         """  Corresponds to IDD Field `Fraction of On-Cycle Power Use`
         The fraction of on-cycle power use to adjust the part load fraction based on
         the off-cycle power consumption due to crankcase heaters, controls, fans, and etc.
         Suggested value is 0.01 for a typical heat pump
-        
-        {'pytype': 'float', u'default': '0.01', u'maximum': '0.05', u'note': [u'The fraction of on-cycle power use to adjust the part load fraction based on', u'the off-cycle power consumption due to crankcase heaters, controls, fans, and etc.', u'Suggested value is 0.01 for a typical heat pump'], u'minimum': '0.0', 'type': 'real'}
 
         Args:
             value (float): value for IDD Field `Fraction of On-Cycle Power Use`
@@ -7625,13 +7544,11 @@ class ZoneHvacWaterToAirHeatPump(object):
         return self._data["Heat Pump Fan Delay Time"]
 
     @heat_pump_fan_delay_time.setter
-    def heat_pump_fan_delay_time(self, value=60.0 ):
+    def heat_pump_fan_delay_time(self, value=60.0):
         """  Corresponds to IDD Field `Heat Pump Fan Delay Time`
         Programmed time delay for heat pump fan to shut off after compressor cycle off.
         Only required when fan operating mode is cycling
         Enter 0 when fan operating mode is continuous
-        
-        {'pytype': 'float', u'default': '60.0', u'note': [u'Programmed time delay for heat pump fan to shut off after compressor cycle off.', u'Only required when fan operating mode is cycling', u'Enter 0 when fan operating mode is continuous'], u'minimum': '0.0', u'units': u's', 'type': 'real'}
 
         Args:
             value (float): value for IDD Field `Heat Pump Fan Delay Time`
@@ -7668,8 +7585,6 @@ class ZoneHvacWaterToAirHeatPump(object):
     def supplemental_heating_coil_object_type(self, value=None):
         """  Corresponds to IDD Field `Supplemental Heating Coil Object Type`
         works with gas, electric, hot water and steam heating coils
-        
-        {u'note': [u'works with gas, electric, hot water and steam heating coils'], u'type': u'choice', u'key': [u'Coil:Heating:Gas', u'Coil:Heating:Electric', u'Coil:Heating:Water', u'Coil:Heating:Steam'], u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Supplemental Heating Coil Object Type`
@@ -7730,8 +7645,6 @@ class ZoneHvacWaterToAirHeatPump(object):
     def supplemental_heating_coil_name(self, value=None):
         """  Corresponds to IDD Field `Supplemental Heating Coil Name`
         Needs to match in the supplemental heating coil object
-        
-        {u'note': [u'Needs to match in the supplemental heating coil object'], u'type': u'object-list', u'object-list': u'HeatingCoilName', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Supplemental Heating Coil Name`
@@ -7767,11 +7680,9 @@ class ZoneHvacWaterToAirHeatPump(object):
     @maximum_supply_air_temperature_from_supplemental_heater.setter
     def maximum_supply_air_temperature_from_supplemental_heater(self, value=None):
         """  Corresponds to IDD Field `Maximum Supply Air Temperature from Supplemental Heater`
-        
-        {u'units': u'C', u'autosizable': u'', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `Maximum Supply Air Temperature from Supplemental Heater`
+            value (float or "Autosize"): value for IDD Field `Maximum Supply Air Temperature from Supplemental Heater`
                 Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -7780,6 +7691,13 @@ class ZoneHvacWaterToAirHeatPump(object):
             ValueError: if `value` is not a valid value
         """
         if value is not None:
+            try:
+                value_lower = str(value).lower()
+                if value_lower == "autosize":
+                    self._data["Maximum Supply Air Temperature from Supplemental Heater"] = "Autosize"
+                    return
+            except ValueError:
+                pass
             try:
                 value = float(value)
             except ValueError:
@@ -7797,10 +7715,8 @@ class ZoneHvacWaterToAirHeatPump(object):
         return self._data["Maximum Outdoor Dry-Bulb Temperature for Supplemental Heater Operation"]
 
     @maximum_outdoor_drybulb_temperature_for_supplemental_heater_operation.setter
-    def maximum_outdoor_drybulb_temperature_for_supplemental_heater_operation(self, value=21.0 ):
+    def maximum_outdoor_drybulb_temperature_for_supplemental_heater_operation(self, value=21.0):
         """  Corresponds to IDD Field `Maximum Outdoor Dry-Bulb Temperature for Supplemental Heater Operation`
-        
-        {u'default': '21.0', u'units': u'C', u'type': u'real', u'maximum': '21.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Maximum Outdoor Dry-Bulb Temperature for Supplemental Heater Operation`
@@ -7836,8 +7752,6 @@ class ZoneHvacWaterToAirHeatPump(object):
     @outdoor_drybulb_temperature_sensor_node_name.setter
     def outdoor_drybulb_temperature_sensor_node_name(self, value=None):
         """  Corresponds to IDD Field `Outdoor Dry-Bulb Temperature Sensor Node Name`
-        
-        {u'type': u'node', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Outdoor Dry-Bulb Temperature Sensor Node Name`
@@ -7873,8 +7787,6 @@ class ZoneHvacWaterToAirHeatPump(object):
     @fan_placement.setter
     def fan_placement(self, value="BlowThrough"):
         """  Corresponds to IDD Field `Fan Placement`
-        
-        {u'default': u'BlowThrough', u'type': u'choice', u'key': [u'BlowThrough', u'DrawThrough'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Fan Placement`
@@ -7935,8 +7847,6 @@ class ZoneHvacWaterToAirHeatPump(object):
         cycling fan operation (fan cycles with cooling or heating coil). Schedule values greater
         than 0 denote constant fan operation (fan runs continually regardless of coil operation).
         The fan operating mode defaults to cycling fan operation if this field is left blank.
-        
-        {u'note': [u'Enter the name of a schedule that controls fan operation. Schedule values of 0 denote', u'cycling fan operation (fan cycles with cooling or heating coil). Schedule values greater', u'than 0 denote constant fan operation (fan runs continually regardless of coil operation).', u'The fan operating mode defaults to cycling fan operation if this field is left blank.'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Supply Air Fan Operating Mode Schedule Name`
@@ -7973,8 +7883,6 @@ class ZoneHvacWaterToAirHeatPump(object):
     def availability_manager_list_name(self, value=None):
         """  Corresponds to IDD Field `Availability Manager List Name`
         Enter the name of an AvailabilityManagerAssignmentList object.
-        
-        {u'note': [u'Enter the name of an AvailabilityManagerAssignmentList object.'], u'type': u'object-list', u'object-list': u'SystemAvailabilityManagerLists', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Availability Manager List Name`
@@ -8014,8 +7922,6 @@ class ZoneHvacWaterToAirHeatPump(object):
         Constant results in 100% water flow regardless of compressor PLR
         Cycling results in water flow that matches compressor PLR
         ConstantOnDemand results in 100% water flow whenever the coil is on, but is 0% whenever the coil has no load
-        
-        {u'default': u'Cycling', u'note': [u'used only when the heat pump coils are of the type WaterToAirHeatPump:EquationFit', u'Constant results in 100% water flow regardless of compressor PLR', u'Cycling results in water flow that matches compressor PLR', u'ConstantOnDemand results in 100% water flow whenever the coil is on, but is 0% whenever the coil has no load'], u'type': u'choice', u'key': [u'Constant', u'Cycling', u'ConstantOnDemand'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Heat Pump Coil Water Flow Mode`
@@ -8075,8 +7981,6 @@ class ZoneHvacWaterToAirHeatPump(object):
     def design_specification_zonehvac_sizing_object_name(self, value=None):
         """  Corresponds to IDD Field `Design Specification ZoneHVAC Sizing Object Name`
         Enter the name of a DesignSpecificationZoneHVACSizing object.
-        
-        {u'note': [u'Enter the name of a DesignSpecificationZoneHVACSizing object.'], u'type': u'object-list', u'object-list': u'DesignSpecificationZoneHVACSizingName', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Design Specification ZoneHVAC Sizing Object Name`
@@ -8286,8 +8190,6 @@ class ZoneHvacDehumidifierDx(object):
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
         Unique name for this direct expansion (DX) zone dehumidifier object.
-        
-        {u'note': [u'Unique name for this direct expansion (DX) zone dehumidifier object.'], u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -8327,8 +8229,6 @@ class ZoneHvacDehumidifierDx(object):
         If this field is blank, the system is always available.
         Schedule values of 0 denote the unit is off.
         Schedule values >0.0 (usually 1.0) indicate that the dehumidifier is available to operate.
-        
-        {u'note': [u'Availability schedule name for this system. Schedule value > 0 means the system is available.', u'If this field is blank, the system is always available.', u'Schedule values of 0 denote the unit is off.', u'Schedule values >0.0 (usually 1.0) indicate that the dehumidifier is available to operate.'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Availability Schedule Name`
@@ -8365,8 +8265,6 @@ class ZoneHvacDehumidifierDx(object):
     def air_inlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Air Inlet Node Name`
         Air inlet node for the dehumidifier must be a zone air exhaust node.
-        
-        {u'note': [u'Air inlet node for the dehumidifier must be a zone air exhaust node.'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Air Inlet Node Name`
@@ -8403,8 +8301,6 @@ class ZoneHvacDehumidifierDx(object):
     def air_outlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Air Outlet Node Name`
         Air outlet node for the dehumidifier must be a zone air inlet node.
-        
-        {u'note': [u'Air outlet node for the dehumidifier must be a zone air inlet node.'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Air Outlet Node Name`
@@ -8441,8 +8337,6 @@ class ZoneHvacDehumidifierDx(object):
     def rated_water_removal(self, value=None):
         """  Corresponds to IDD Field `Rated Water Removal`
         Rating point: air entering dehumidifier at 26.7 C (80 F) dry-bulb and 60% relative humidity.
-        
-        {'pytype': 'float', u'minimum>': '0.0', u'required-field': True, u'note': [u'Rating point: air entering dehumidifier at 26.7 C (80 F) dry-bulb and 60% relative humidity.'], u'units': u'L/day', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Rated Water Removal`
@@ -8478,8 +8372,6 @@ class ZoneHvacDehumidifierDx(object):
     def rated_energy_factor(self, value=None):
         """  Corresponds to IDD Field `Rated Energy Factor`
         Rating point: air entering dehumidifier at 26.7 C (80 F) dry-bulb and 60% relative humidity.
-        
-        {'pytype': 'float', u'minimum>': '0.0', u'required-field': True, u'note': [u'Rating point: air entering dehumidifier at 26.7 C (80 F) dry-bulb and 60% relative humidity.'], u'units': u'L/kWh', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Rated Energy Factor`
@@ -8514,8 +8406,6 @@ class ZoneHvacDehumidifierDx(object):
     @rated_air_flow_rate.setter
     def rated_air_flow_rate(self, value=None):
         """  Corresponds to IDD Field `Rated Air Flow Rate`
-        
-        {u'units': u'm3/s', u'minimum>': '0.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Rated Air Flow Rate`
@@ -8558,8 +8448,6 @@ class ZoneHvacDehumidifierDx(object):
         e*RH**2 + f*T*RH
         T = inlet air dry-bulb temperature (C)
         RH = inlet air RH (%)
-        
-        {u'note': [u'Table:TwoIndependentVariable object can also be used', u'Name of a curve that describes the water removal rate (normalized to rated conditions)', u'as a function of the dry-bulb temperature and relative humidity of the air', u'entering the dehumidifier.', u'Curve output = (actual water removal/rated water removal) = a + b*T + c*T**2 + d*RH +', u'e*RH**2 + f*T*RH', u'T = inlet air dry-bulb temperature (C)', u'RH = inlet air RH (%)'], u'type': u'object-list', u'object-list': u'BiQuadraticCurves', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Water Removal Curve Name`
@@ -8603,8 +8491,6 @@ class ZoneHvacDehumidifierDx(object):
         e*RH**2 + f*T*RH
         T = inlet air dry-bulb temperature (C)
         RH = inlet air RH (%)
-        
-        {u'note': [u'Table:TwoIndependentVariable object can also be used', u'Name of a curve that describes the energy factor (normalized to rated conditions)', u'as a function of the dry-bulb temperature and relative humidity of the air', u'entering the dehumidifier.', u'Curve output = (actual energy factor/rated energy factor) = a + b*T + c*T**2 + d*RH +', u'e*RH**2 + f*T*RH', u'T = inlet air dry-bulb temperature (C)', u'RH = inlet air RH (%)'], u'type': u'object-list', u'object-list': u'BiQuadraticCurves', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Energy Factor Curve Name`
@@ -8647,8 +8533,6 @@ class ZoneHvacDehumidifierDx(object):
         quadratic curve = a + b*PLR + c*PLR**2
         cubic curve = a + b*PLR + c*PLR**2 + d*PLR**3
         PLR = part load ratio (dehumidification load/steady state water removal capacity)
-        
-        {u'note': [u'Table:OneIndependentVariable can also be used', u'Name of a curve that describes the part load fraction (PLF) of the system as', u'a function of the part load ratio. Used to calculate dehumidifier run time fraction', u'and electric power.', u'quadratic curve = a + b*PLR + c*PLR**2', u'cubic curve = a + b*PLR + c*PLR**2 + d*PLR**3', u'PLR = part load ratio (dehumidification load/steady state water removal capacity)'], u'type': u'object-list', u'object-list': u'QuadraticCubicCurves', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Part Load Fraction Correlation Curve Name`
@@ -8682,12 +8566,10 @@ class ZoneHvacDehumidifierDx(object):
         return self._data["Minimum Dry-Bulb Temperature for Dehumidifier Operation"]
 
     @minimum_drybulb_temperature_for_dehumidifier_operation.setter
-    def minimum_drybulb_temperature_for_dehumidifier_operation(self, value=10.0 ):
+    def minimum_drybulb_temperature_for_dehumidifier_operation(self, value=10.0):
         """  Corresponds to IDD Field `Minimum Dry-Bulb Temperature for Dehumidifier Operation`
         Dehumidifier shut off if inlet air (zone) temperature is below this value.
         This value must be less than the Maximum Dry-Bulb Temperature for Dehumidifier Operation.
-        
-        {u'units': u'C', u'default': '10.0', u'note': [u'Dehumidifier shut off if inlet air (zone) temperature is below this value.', u'This value must be less than the Maximum Dry-Bulb Temperature for Dehumidifier Operation.'], u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Minimum Dry-Bulb Temperature for Dehumidifier Operation`
@@ -8717,12 +8599,10 @@ class ZoneHvacDehumidifierDx(object):
         return self._data["Maximum Dry-Bulb Temperature for Dehumidifier Operation"]
 
     @maximum_drybulb_temperature_for_dehumidifier_operation.setter
-    def maximum_drybulb_temperature_for_dehumidifier_operation(self, value=35.0 ):
+    def maximum_drybulb_temperature_for_dehumidifier_operation(self, value=35.0):
         """  Corresponds to IDD Field `Maximum Dry-Bulb Temperature for Dehumidifier Operation`
         Dehumidifier shut off if inlet air (zone) temperature is above this value.
         This value must be greater than the Minimum Dry-Bulb Temperature for Dehumidifier Operation.
-        
-        {u'units': u'C', u'default': '35.0', u'note': [u'Dehumidifier shut off if inlet air (zone) temperature is above this value.', u'This value must be greater than the Minimum Dry-Bulb Temperature for Dehumidifier Operation.'], u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Maximum Dry-Bulb Temperature for Dehumidifier Operation`
@@ -8752,14 +8632,12 @@ class ZoneHvacDehumidifierDx(object):
         return self._data["Off-Cycle Parasitic Electric Load"]
 
     @offcycle_parasitic_electric_load.setter
-    def offcycle_parasitic_electric_load(self, value=0.0 ):
+    def offcycle_parasitic_electric_load(self, value=0.0):
         """  Corresponds to IDD Field `Off-Cycle Parasitic Electric Load`
         Parasitic electric power consumed when the dehumidifier is available to operate, but
         does not operate (i.e., no high humidity load to be met).
         Off cycle parasitic power is 0 when the availability schedule is 0.
         This electric load is considered as a heat gain to the zone air.
-        
-        {'pytype': 'float', u'default': '0.0', u'note': [u'Parasitic electric power consumed when the dehumidifier is available to operate, but', u'does not operate (i.e., no high humidity load to be met).', u'Off cycle parasitic power is 0 when the availability schedule is 0.', u'This electric load is considered as a heat gain to the zone air.'], u'minimum': '0.0', u'units': u'W', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Off-Cycle Parasitic Electric Load`
@@ -8796,8 +8674,6 @@ class ZoneHvacDehumidifierDx(object):
     def condensate_collection_water_storage_tank_name(self, value=None):
         """  Corresponds to IDD Field `Condensate Collection Water Storage Tank Name`
         Name of storage tank used to collect water removed by the dehumidifier.
-        
-        {u'note': [u'Name of storage tank used to collect water removed by the dehumidifier.'], u'type': u'object-list', u'object-list': u'WaterStorageTankNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Condensate Collection Water Storage Tank Name`
@@ -8983,8 +8859,6 @@ class ZoneHvacEnergyRecoveryVentilator(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -9022,8 +8896,6 @@ class ZoneHvacEnergyRecoveryVentilator(object):
         """  Corresponds to IDD Field `Availability Schedule Name`
         Availability schedule name for this system. Schedule value > 0 means the system is available.
         If this field is blank, the system is always available.
-        
-        {u'note': [u'Availability schedule name for this system. Schedule value > 0 means the system is available.', u'If this field is blank, the system is always available.'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Availability Schedule Name`
@@ -9060,8 +8932,6 @@ class ZoneHvacEnergyRecoveryVentilator(object):
     def heat_exchanger_name(self, value=None):
         """  Corresponds to IDD Field `Heat Exchanger Name`
         Heat exchanger type must be HeatExchanger:AirToAir:SensibleAndLatent
-        
-        {u'note': [u'Heat exchanger type must be HeatExchanger:AirToAir:SensibleAndLatent'], u'type': u'object-list', u'object-list': u'HXAirToAirSensibleAndLatentNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Heat Exchanger Name`
@@ -9098,11 +8968,9 @@ class ZoneHvacEnergyRecoveryVentilator(object):
     def supply_air_flow_rate(self, value=None):
         """  Corresponds to IDD Field `Supply Air Flow Rate`
         This flow rate must match the supply fan's air flow rate.
-        
-        {'pytype': 'float', u'minimum>': '0.0', u'required-field': True, u'note': [u"This flow rate must match the supply fan's air flow rate."], u'autosizable': u'', u'units': u'm3/s', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `Supply Air Flow Rate`
+            value (float or "Autosize"): value for IDD Field `Supply Air Flow Rate`
                 Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -9112,6 +8980,13 @@ class ZoneHvacEnergyRecoveryVentilator(object):
             ValueError: if `value` is not a valid value
         """
         if value is not None:
+            try:
+                value_lower = str(value).lower()
+                if value_lower == "autosize":
+                    self._data["Supply Air Flow Rate"] = "Autosize"
+                    return
+            except ValueError:
+                pass
             try:
                 value = float(value)
             except ValueError:
@@ -9135,11 +9010,9 @@ class ZoneHvacEnergyRecoveryVentilator(object):
     def exhaust_air_flow_rate(self, value=None):
         """  Corresponds to IDD Field `Exhaust Air Flow Rate`
         This flow rate must match the supply fan air flow rate.
-        
-        {'pytype': 'float', u'minimum>': '0.0', u'required-field': True, u'note': [u'This flow rate must match the supply fan air flow rate.'], u'autosizable': u'', u'units': u'm3/s', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `Exhaust Air Flow Rate`
+            value (float or "Autosize"): value for IDD Field `Exhaust Air Flow Rate`
                 Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -9149,6 +9022,13 @@ class ZoneHvacEnergyRecoveryVentilator(object):
             ValueError: if `value` is not a valid value
         """
         if value is not None:
+            try:
+                value_lower = str(value).lower()
+                if value_lower == "autosize":
+                    self._data["Exhaust Air Flow Rate"] = "Autosize"
+                    return
+            except ValueError:
+                pass
             try:
                 value = float(value)
             except ValueError:
@@ -9172,8 +9052,6 @@ class ZoneHvacEnergyRecoveryVentilator(object):
     def supply_air_fan_name(self, value=None):
         """  Corresponds to IDD Field `Supply Air Fan Name`
         Fan type must be Fan:OnOff
-        
-        {u'note': [u'Fan type must be Fan:OnOff'], u'type': u'object-list', u'object-list': u'FansOnOff', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Supply Air Fan Name`
@@ -9210,8 +9088,6 @@ class ZoneHvacEnergyRecoveryVentilator(object):
     def exhaust_air_fan_name(self, value=None):
         """  Corresponds to IDD Field `Exhaust Air Fan Name`
         Fan type must be Fan:OnOff
-        
-        {u'note': [u'Fan type must be Fan:OnOff'], u'type': u'object-list', u'object-list': u'FansOnOff', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Exhaust Air Fan Name`
@@ -9248,8 +9124,6 @@ class ZoneHvacEnergyRecoveryVentilator(object):
     def controller_name(self, value=None):
         """  Corresponds to IDD Field `Controller Name`
         Enter the name of a ZoneHVAC:EnergyRecoveryVentilator:Controller object.
-        
-        {u'note': [u'Enter the name of a ZoneHVAC:EnergyRecoveryVentilator:Controller object.'], u'type': u'object-list', u'object-list': u'ControllerStandAloneEnergyRecoveryVentilator', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Controller Name`
@@ -9287,8 +9161,6 @@ class ZoneHvacEnergyRecoveryVentilator(object):
         """  Corresponds to IDD Field `Ventilation Rate per Unit Floor Area`
         0.000508 m3/s-m2 corresponds to 0.1 ft3/min-ft2
         Used only when supply and exhaust air flow rates are autosized.
-        
-        {u'units': u'm3/s-m2', u'note': [u'0.000508 m3/s-m2 corresponds to 0.1 ft3/min-ft2', u'Used only when supply and exhaust air flow rates are autosized.'], u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Ventilation Rate per Unit Floor Area`
@@ -9325,8 +9197,6 @@ class ZoneHvacEnergyRecoveryVentilator(object):
         """  Corresponds to IDD Field `Ventilation Rate per Occupant`
         0.00236 m3/s-person corresponds to 5 ft3/min-person
         Used only when supply and exhaust air flow rates are autosized.
-        
-        {u'units': u'm3/s-person', u'note': [u'0.00236 m3/s-person corresponds to 5 ft3/min-person', u'Used only when supply and exhaust air flow rates are autosized.'], u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Ventilation Rate per Occupant`
@@ -9362,8 +9232,6 @@ class ZoneHvacEnergyRecoveryVentilator(object):
     def availability_manager_list_name(self, value=None):
         """  Corresponds to IDD Field `Availability Manager List Name`
         Enter the name of an AvailabilityManagerAssignmentList object.
-        
-        {u'note': [u'Enter the name of an AvailabilityManagerAssignmentList object.'], u'type': u'object-list', u'object-list': u'SystemAvailabilityManagerLists', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Availability Manager List Name`
@@ -9562,8 +9430,6 @@ class ZoneHvacEnergyRecoveryVentilatorController(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'reference': u'ControllerStandAloneEnergyRecoveryVentilator', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -9601,8 +9467,6 @@ class ZoneHvacEnergyRecoveryVentilatorController(object):
         """  Corresponds to IDD Field `Temperature High Limit`
         Enter the maximum outdoor dry-bulb temperature limit for economizer operation.
         No input or blank input means this limit is not operative
-        
-        {u'units': u'C', u'note': [u'Enter the maximum outdoor dry-bulb temperature limit for economizer operation.', u'No input or blank input means this limit is not operative'], u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Temperature High Limit`
@@ -9635,8 +9499,6 @@ class ZoneHvacEnergyRecoveryVentilatorController(object):
         """  Corresponds to IDD Field `Temperature Low Limit`
         Enter the minimum outdoor dry-bulb temperature limit for economizer operation.
         No input or blank input means this limit is not operative
-        
-        {u'units': u'C', u'note': [u'Enter the minimum outdoor dry-bulb temperature limit for economizer operation.', u'No input or blank input means this limit is not operative'], u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Temperature Low Limit`
@@ -9669,8 +9531,6 @@ class ZoneHvacEnergyRecoveryVentilatorController(object):
         """  Corresponds to IDD Field `Enthalpy High Limit`
         Enter the maximum outdoor enthalpy limit for economizer operation.
         No input or blank input means this limit is not operative
-        
-        {u'units': u'J/kg', u'note': [u'Enter the maximum outdoor enthalpy limit for economizer operation.', u'No input or blank input means this limit is not operative'], u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Enthalpy High Limit`
@@ -9703,8 +9563,6 @@ class ZoneHvacEnergyRecoveryVentilatorController(object):
         """  Corresponds to IDD Field `Dewpoint Temperature Limit`
         Enter the maximum outdoor dewpoint temperature limit for economizer operation.
         No input or blank input means this limit is not operative
-        
-        {u'units': u'C', u'note': [u'Enter the maximum outdoor dewpoint temperature limit for economizer operation.', u'No input or blank input means this limit is not operative'], u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Dewpoint Temperature Limit`
@@ -9739,8 +9597,6 @@ class ZoneHvacEnergyRecoveryVentilatorController(object):
         Enter the name of a quadratic or cubic curve which defines the maximum outdoor
         humidity ratio (function of outdoor dry-bulb temperature) for economizer operation.
         No input or blank input means this limit is not operative
-        
-        {u'note': [u'Table:OneIndependentVariable object can also be used', u'Enter the name of a quadratic or cubic curve which defines the maximum outdoor', u'humidity ratio (function of outdoor dry-bulb temperature) for economizer operation.', u'No input or blank input means this limit is not operative'], u'type': u'object-list', u'object-list': u'QuadraticCubicCurves', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Electronic Enthalpy Limit Curve Name`
@@ -9776,8 +9632,6 @@ class ZoneHvacEnergyRecoveryVentilatorController(object):
     @exhaust_air_temperature_limit.setter
     def exhaust_air_temperature_limit(self, value="NoExhaustAirTemperatureLimit"):
         """  Corresponds to IDD Field `Exhaust Air Temperature Limit`
-        
-        {u'default': u'NoExhaustAirTemperatureLimit', u'type': u'choice', u'key': [u'ExhaustAirTemperatureLimit', u'NoExhaustAirTemperatureLimit'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Exhaust Air Temperature Limit`
@@ -9834,8 +9688,6 @@ class ZoneHvacEnergyRecoveryVentilatorController(object):
     @exhaust_air_enthalpy_limit.setter
     def exhaust_air_enthalpy_limit(self, value="NoExhaustAirEnthalpyLimit"):
         """  Corresponds to IDD Field `Exhaust Air Enthalpy Limit`
-        
-        {u'default': u'NoExhaustAirEnthalpyLimit', u'type': u'choice', u'key': [u'ExhaustAirEnthalpyLimit', u'NoExhaustAirEnthalpyLimit'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Exhaust Air Enthalpy Limit`
@@ -9895,8 +9747,6 @@ class ZoneHvacEnergyRecoveryVentilatorController(object):
         Schedule values greater than 0 indicate economizer operation is active. This
         schedule may be used with or without the High Humidity Control option.
         When used together, high humidity control has priority over economizer control.
-        
-        {u'note': [u'Schedule values greater than 0 indicate economizer operation is active. This', u'schedule may be used with or without the High Humidity Control option.', u'When used together, high humidity control has priority over economizer control.'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Time of Day Economizer Flow Control Schedule Name`
@@ -9934,8 +9784,6 @@ class ZoneHvacEnergyRecoveryVentilatorController(object):
         """  Corresponds to IDD Field `High Humidity Control Flag`
         Select Yes to modify air flow rates based on a zone humidistat.
         Select No to disable this feature.
-        
-        {u'default': u'No', u'note': [u'Select Yes to modify air flow rates based on a zone humidistat.', u'Select No to disable this feature.'], u'type': u'choice', u'key': [u'Yes', u'No'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `High Humidity Control Flag`
@@ -9993,8 +9841,6 @@ class ZoneHvacEnergyRecoveryVentilatorController(object):
     def humidistat_control_zone_name(self, value=None):
         """  Corresponds to IDD Field `Humidistat Control Zone Name`
         Enter the name of the zone where the humidistat is located.
-        
-        {u'note': [u'Enter the name of the zone where the humidistat is located.'], u'type': u'object-list', u'object-list': u'ZoneNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Humidistat Control Zone Name`
@@ -10028,12 +9874,10 @@ class ZoneHvacEnergyRecoveryVentilatorController(object):
         return self._data["High Humidity Outdoor Air Flow Ratio"]
 
     @high_humidity_outdoor_air_flow_ratio.setter
-    def high_humidity_outdoor_air_flow_ratio(self, value=1.0 ):
+    def high_humidity_outdoor_air_flow_ratio(self, value=1.0):
         """  Corresponds to IDD Field `High Humidity Outdoor Air Flow Ratio`
         Enter the ratio of supply (outdoor) air to the maximum supply air flow rate when modified
         air flow rates are active based on high indoor humidity.
-        
-        {u'default': '1.0', u'note': [u'Enter the ratio of supply (outdoor) air to the maximum supply air flow rate when modified', u'air flow rates are active based on high indoor humidity.'], u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `High Humidity Outdoor Air Flow Ratio`
@@ -10072,8 +9916,6 @@ class ZoneHvacEnergyRecoveryVentilatorController(object):
         humidity is above humidistat setpoint. If YES is selected, outdoor air flow
         rate is modified any time indoor relative humidity is above the humidistat
         setpoint AND the outdoor humidity ratio is less than the indoor humidity ratio.
-        
-        {u'default': u'Yes', u'note': [u'If NO is selected, the air flow rate is modified any time indoor relative', u'humidity is above humidistat setpoint. If YES is selected, outdoor air flow', u'rate is modified any time indoor relative humidity is above the humidistat', u'setpoint AND the outdoor humidity ratio is less than the indoor humidity ratio.'], u'type': u'choice', u'key': [u'Yes', u'No'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Control High Indoor Humidity Based on Outdoor Humidity Ratio`
@@ -10390,8 +10232,6 @@ class ZoneHvacUnitVentilator(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {'type': 'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -10429,8 +10269,6 @@ class ZoneHvacUnitVentilator(object):
         """  Corresponds to IDD Field `Availability Schedule Name`
         Availability schedule name for this system. Schedule value > 0 means the system is available.
         If this field is blank, the system is always available.
-        
-        {u'note': [u'Availability schedule name for this system. Schedule value > 0 means the system is available.', u'If this field is blank, the system is always available.'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Availability Schedule Name`
@@ -10466,11 +10304,9 @@ class ZoneHvacUnitVentilator(object):
     @maximum_supply_air_flow_rate.setter
     def maximum_supply_air_flow_rate(self, value=None):
         """  Corresponds to IDD Field `Maximum Supply Air Flow Rate`
-        
-        {'pytype': 'float', u'minimum>': '0.0', u'required-field': True, u'autosizable': u'', u'units': u'm3/s', 'type': 'real'}
 
         Args:
-            value (float): value for IDD Field `Maximum Supply Air Flow Rate`
+            value (float or "Autosize"): value for IDD Field `Maximum Supply Air Flow Rate`
                 Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -10480,6 +10316,13 @@ class ZoneHvacUnitVentilator(object):
             ValueError: if `value` is not a valid value
         """
         if value is not None:
+            try:
+                value_lower = str(value).lower()
+                if value_lower == "autosize":
+                    self._data["Maximum Supply Air Flow Rate"] = "Autosize"
+                    return
+            except ValueError:
+                pass
             try:
                 value = float(value)
             except ValueError:
@@ -10502,8 +10345,6 @@ class ZoneHvacUnitVentilator(object):
     @outdoor_air_control_type.setter
     def outdoor_air_control_type(self, value=None):
         """  Corresponds to IDD Field `Outdoor Air Control Type`
-        
-        {u'type': u'choice', u'key': [u'FixedAmount', u'VariablePercent', u'FixedTemperature'], u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Outdoor Air Control Type`
@@ -10561,11 +10402,9 @@ class ZoneHvacUnitVentilator(object):
     @minimum_outdoor_air_flow_rate.setter
     def minimum_outdoor_air_flow_rate(self, value=None):
         """  Corresponds to IDD Field `Minimum Outdoor Air Flow Rate`
-        
-        {'pytype': 'float', u'required-field': True, u'autosizable': u'', u'minimum': '0.0', u'units': u'm3/s', 'type': 'real'}
 
         Args:
-            value (float): value for IDD Field `Minimum Outdoor Air Flow Rate`
+            value (float or "Autosize"): value for IDD Field `Minimum Outdoor Air Flow Rate`
                 Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -10575,6 +10414,13 @@ class ZoneHvacUnitVentilator(object):
             ValueError: if `value` is not a valid value
         """
         if value is not None:
+            try:
+                value_lower = str(value).lower()
+                if value_lower == "autosize":
+                    self._data["Minimum Outdoor Air Flow Rate"] = "Autosize"
+                    return
+            except ValueError:
+                pass
             try:
                 value = float(value)
             except ValueError:
@@ -10598,8 +10444,6 @@ class ZoneHvacUnitVentilator(object):
     def minimum_outdoor_air_schedule_name(self, value=None):
         """  Corresponds to IDD Field `Minimum Outdoor Air Schedule Name`
         schedule values multiply the minimum outdoor air flow rate
-        
-        {u'note': [u'schedule values multiply the minimum outdoor air flow rate'], u'type': u'object-list', u'object-list': u'ScheduleNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Minimum Outdoor Air Schedule Name`
@@ -10635,11 +10479,9 @@ class ZoneHvacUnitVentilator(object):
     @maximum_outdoor_air_flow_rate.setter
     def maximum_outdoor_air_flow_rate(self, value=None):
         """  Corresponds to IDD Field `Maximum Outdoor Air Flow Rate`
-        
-        {'pytype': 'float', u'required-field': True, u'autosizable': u'', u'minimum': '0.0', u'units': u'm3/s', 'type': 'real'}
 
         Args:
-            value (float): value for IDD Field `Maximum Outdoor Air Flow Rate`
+            value (float or "Autosize"): value for IDD Field `Maximum Outdoor Air Flow Rate`
                 Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -10649,6 +10491,13 @@ class ZoneHvacUnitVentilator(object):
             ValueError: if `value` is not a valid value
         """
         if value is not None:
+            try:
+                value_lower = str(value).lower()
+                if value_lower == "autosize":
+                    self._data["Maximum Outdoor Air Flow Rate"] = "Autosize"
+                    return
+            except ValueError:
+                pass
             try:
                 value = float(value)
             except ValueError:
@@ -10672,8 +10521,6 @@ class ZoneHvacUnitVentilator(object):
     def maximum_outdoor_air_fraction_or_temperature_schedule_name(self, value=None):
         """  Corresponds to IDD Field `Maximum Outdoor Air Fraction or Temperature Schedule Name`
         that this depends on the control type as to whether it is a fraction or temperature
-        
-        {u'note': [u'that this depends on the control type as to whether it is a fraction or temperature'], u'type': u'object-list', u'object-list': u'ScheduleNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Maximum Outdoor Air Fraction or Temperature Schedule Name`
@@ -10709,8 +10556,6 @@ class ZoneHvacUnitVentilator(object):
     @air_inlet_node_name.setter
     def air_inlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Air Inlet Node Name`
-        
-        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Air Inlet Node Name`
@@ -10746,8 +10591,6 @@ class ZoneHvacUnitVentilator(object):
     @air_outlet_node_name.setter
     def air_outlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Air Outlet Node Name`
-        
-        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Air Outlet Node Name`
@@ -10783,8 +10626,6 @@ class ZoneHvacUnitVentilator(object):
     @outdoor_air_node_name.setter
     def outdoor_air_node_name(self, value=None):
         """  Corresponds to IDD Field `Outdoor Air Node Name`
-        
-        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Outdoor Air Node Name`
@@ -10820,8 +10661,6 @@ class ZoneHvacUnitVentilator(object):
     @exhaust_air_node_name.setter
     def exhaust_air_node_name(self, value=None):
         """  Corresponds to IDD Field `Exhaust Air Node Name`
-        
-        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Exhaust Air Node Name`
@@ -10858,8 +10697,6 @@ class ZoneHvacUnitVentilator(object):
     def mixed_air_node_name(self, value=None):
         """  Corresponds to IDD Field `Mixed Air Node Name`
         inlet to coils
-        
-        {u'note': [u'inlet to coils'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Mixed Air Node Name`
@@ -10897,8 +10734,6 @@ class ZoneHvacUnitVentilator(object):
         """  Corresponds to IDD Field `Supply Air Fan Object Type`
         Allowable fan types are Fan:ConstantVolume, Fan:OnOff and
         Fan:VariableVolume
-        
-        {u'note': [u'Allowable fan types are Fan:ConstantVolume, Fan:OnOff and', u'Fan:VariableVolume'], u'type': u'choice', u'key': [u'Fan:OnOff', u'Fan:ConstantVolume', u'Fan:VariableVolume'], u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Supply Air Fan Object Type`
@@ -10956,8 +10791,6 @@ class ZoneHvacUnitVentilator(object):
     @supply_air_fan_name.setter
     def supply_air_fan_name(self, value=None):
         """  Corresponds to IDD Field `Supply Air Fan Name`
-        
-        {u'type': u'object-list', u'object-list': u'FansCVandVAV', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Supply Air Fan Name`
@@ -10993,8 +10826,6 @@ class ZoneHvacUnitVentilator(object):
     @coil_option.setter
     def coil_option(self, value=None):
         """  Corresponds to IDD Field `Coil Option`
-        
-        {u'type': u'choice', u'key': [u'None', u'Heating', u'Cooling', u'HeatingAndCooling'], u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Coil Option`
@@ -11060,8 +10891,6 @@ class ZoneHvacUnitVentilator(object):
         constant fan operation (fan runs continually regardless of coil
         operation). The fan operating mode defaults to cycling fan operation
         if this input field is left blank.
-        
-        {u'note': [u'Enter the name of a schedule that controls fan operation. Schedule', u'name values of 0 denote cycling fan operation (fan cycles with', u'cooling/heating coil). Schedule values greater than 0 denote', u'constant fan operation (fan runs continually regardless of coil', u'operation). The fan operating mode defaults to cycling fan operation', u'if this input field is left blank.'], 'type': 'alpha', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Supply Air Fan Operating Mode Schedule Name`
@@ -11097,8 +10926,6 @@ class ZoneHvacUnitVentilator(object):
     @heating_coil_object_type.setter
     def heating_coil_object_type(self, value=None):
         """  Corresponds to IDD Field `Heating Coil Object Type`
-        
-        {u'type': u'choice', u'key': [u'Coil:Heating:Water', u'Coil:Heating:Electric', u'Coil:Heating:Gas', u'Coil:Heating:Steam'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Heating Coil Object Type`
@@ -11158,8 +10985,6 @@ class ZoneHvacUnitVentilator(object):
     @heating_coil_name.setter
     def heating_coil_name(self, value=None):
         """  Corresponds to IDD Field `Heating Coil Name`
-        
-        {u'type': u'object-list', u'object-list': u'HeatingCoilName', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Heating Coil Name`
@@ -11193,10 +11018,8 @@ class ZoneHvacUnitVentilator(object):
         return self._data["Heating Convergence Tolerance"]
 
     @heating_convergence_tolerance.setter
-    def heating_convergence_tolerance(self, value=0.001 ):
+    def heating_convergence_tolerance(self, value=0.001):
         """  Corresponds to IDD Field `Heating Convergence Tolerance`
-        
-        {u'default': '0.001', u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Heating Convergence Tolerance`
@@ -11231,8 +11054,6 @@ class ZoneHvacUnitVentilator(object):
     @cooling_coil_object_type.setter
     def cooling_coil_object_type(self, value=None):
         """  Corresponds to IDD Field `Cooling Coil Object Type`
-        
-        {u'type': u'choice', u'key': [u'Coil:Cooling:Water', u'Coil:Cooling:Water:DetailedGeometry', u'CoilSystem:Cooling:Water:HeatExchangerAssisted'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Cooling Coil Object Type`
@@ -11290,8 +11111,6 @@ class ZoneHvacUnitVentilator(object):
     @cooling_coil_name.setter
     def cooling_coil_name(self, value=None):
         """  Corresponds to IDD Field `Cooling Coil Name`
-        
-        {u'type': u'object-list', u'object-list': u'CoolingCoilsWater', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Cooling Coil Name`
@@ -11325,10 +11144,8 @@ class ZoneHvacUnitVentilator(object):
         return self._data["Cooling Convergence Tolerance"]
 
     @cooling_convergence_tolerance.setter
-    def cooling_convergence_tolerance(self, value=0.001 ):
+    def cooling_convergence_tolerance(self, value=0.001):
         """  Corresponds to IDD Field `Cooling Convergence Tolerance`
-        
-        {u'default': '0.001', u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Cooling Convergence Tolerance`
@@ -11364,8 +11181,6 @@ class ZoneHvacUnitVentilator(object):
     def availability_manager_list_name(self, value=None):
         """  Corresponds to IDD Field `Availability Manager List Name`
         Enter the name of an AvailabilityManagerAssignmentList object.
-        
-        {u'note': [u'Enter the name of an AvailabilityManagerAssignmentList object.'], u'type': u'object-list', u'object-list': u'SystemAvailabilityManagerLists', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Availability Manager List Name`
@@ -11402,8 +11217,6 @@ class ZoneHvacUnitVentilator(object):
     def design_specification_zonehvac_sizing_object_name(self, value=None):
         """  Corresponds to IDD Field `Design Specification ZoneHVAC Sizing Object Name`
         Enter the name of a DesignSpecificationZoneHVACSizing object.
-        
-        {u'note': [u'Enter the name of a DesignSpecificationZoneHVACSizing object.'], u'type': u'object-list', u'object-list': u'DesignSpecificationZoneHVACSizingName', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Design Specification ZoneHVAC Sizing Object Name`
@@ -11626,8 +11439,6 @@ class ZoneHvacUnitHeater(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {'type': 'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -11663,8 +11474,6 @@ class ZoneHvacUnitHeater(object):
     @availability_schedule_name.setter
     def availability_schedule_name(self, value=None):
         """  Corresponds to IDD Field `Availability Schedule Name`
-        
-        {u'type': u'object-list', u'object-list': u'ScheduleNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Availability Schedule Name`
@@ -11700,8 +11509,6 @@ class ZoneHvacUnitHeater(object):
     @air_inlet_node_name.setter
     def air_inlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Air Inlet Node Name`
-        
-        {u'type': u'node', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Air Inlet Node Name`
@@ -11737,8 +11544,6 @@ class ZoneHvacUnitHeater(object):
     @air_outlet_node_name.setter
     def air_outlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Air Outlet Node Name`
-        
-        {u'type': u'node', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Air Outlet Node Name`
@@ -11776,8 +11581,6 @@ class ZoneHvacUnitHeater(object):
         """  Corresponds to IDD Field `Supply Air Fan Object Type`
         Allowable fan types are Fan:ConstantVolume, Fan:OnOff and
         Fan:VariableVolume
-        
-        {u'note': [u'Allowable fan types are Fan:ConstantVolume, Fan:OnOff and', u'Fan:VariableVolume'], u'type': u'choice', u'key': [u'Fan:OnOff', u'Fan:ConstantVolume', u'Fan:VariableVolume'], u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Supply Air Fan Object Type`
@@ -11835,8 +11638,6 @@ class ZoneHvacUnitHeater(object):
     @supply_air_fan_name.setter
     def supply_air_fan_name(self, value=None):
         """  Corresponds to IDD Field `Supply Air Fan Name`
-        
-        {u'type': u'object-list', u'object-list': u'FansCVandVAV', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Supply Air Fan Name`
@@ -11872,11 +11673,9 @@ class ZoneHvacUnitHeater(object):
     @maximum_supply_air_flow_rate.setter
     def maximum_supply_air_flow_rate(self, value=None):
         """  Corresponds to IDD Field `Maximum Supply Air Flow Rate`
-        
-        {'pytype': 'float', u'minimum>': '0.0', u'required-field': True, u'autosizable': u'', u'units': u'm3/s', 'type': 'real'}
 
         Args:
-            value (float): value for IDD Field `Maximum Supply Air Flow Rate`
+            value (float or "Autosize"): value for IDD Field `Maximum Supply Air Flow Rate`
                 Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -11886,6 +11685,13 @@ class ZoneHvacUnitHeater(object):
             ValueError: if `value` is not a valid value
         """
         if value is not None:
+            try:
+                value_lower = str(value).lower()
+                if value_lower == "autosize":
+                    self._data["Maximum Supply Air Flow Rate"] = "Autosize"
+                    return
+            except ValueError:
+                pass
             try:
                 value = float(value)
             except ValueError:
@@ -11908,8 +11714,6 @@ class ZoneHvacUnitHeater(object):
     @heating_coil_object_type.setter
     def heating_coil_object_type(self, value=None):
         """  Corresponds to IDD Field `Heating Coil Object Type`
-        
-        {u'type': u'choice', u'key': [u'Coil:Heating:Water', u'Coil:Heating:Electric', u'Coil:Heating:Gas', u'Coil:Heating:Steam'], u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Heating Coil Object Type`
@@ -11969,8 +11773,6 @@ class ZoneHvacUnitHeater(object):
     @heating_coil_name.setter
     def heating_coil_name(self, value=None):
         """  Corresponds to IDD Field `Heating Coil Name`
-        
-        {u'type': u'object-list', u'object-list': u'HeatingCoilName', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Heating Coil Name`
@@ -12012,8 +11814,6 @@ class ZoneHvacUnitHeater(object):
         operation (fan runs continually regardless of coil operation).
         The fan operating mode defaults to cycling fan operation if this
         input field is left blank.
-        
-        {u'note': [u'Enter the name of a schedule that controls fan operation. Schedule', u'name values of 0 denote cycling fan operation (fan cycles with the', u'heating coil). Schedule values greater than 0 denote constant fan', u'operation (fan runs continually regardless of coil operation).', u'The fan operating mode defaults to cycling fan operation if this', u'input field is left blank.'], 'type': 'alpha', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Supply Air Fan Operating Mode Schedule Name`
@@ -12056,8 +11856,6 @@ class ZoneHvacUnitHeater(object):
         If the Yes is selected, the unit heater is available and has a ConstantVolume
         fan, or has an OnOff fan with Supply Air Fan Operating Mode Schedule value
         greater than zero, then the fan will always run regardless of the zone load.
-        
-        {u'note': [u'This choice field allows the user to define how the unit heater will operate', u'under no heating load or cooling conditions. If the No is selected, then', u'the fan will not run unless there is a heating load. If the fan does not run,', u'this effectively shuts the unit heater system off when there is no heating load.', u'If the Yes is selected, the unit heater is available and has a ConstantVolume', u'fan, or has an OnOff fan with Supply Air Fan Operating Mode Schedule value', u'greater than zero, then the fan will always run regardless of the zone load.'], u'type': u'choice', u'key': [u'Yes', u'No'], u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Supply Air Fan Operation During No Heating`
@@ -12114,11 +11912,9 @@ class ZoneHvacUnitHeater(object):
     def maximum_hot_water_or_steam_flow_rate(self, value=None):
         """  Corresponds to IDD Field `Maximum Hot Water or Steam Flow Rate`
         Not used when heating coil is gas or electric
-        
-        {'pytype': 'float', u'minimum>': '0.0', u'note': [u'Not used when heating coil is gas or electric'], u'ip-units': u'gal/min', u'autosizable': u'', u'units': u'm3/s', 'type': 'real'}
 
         Args:
-            value (float): value for IDD Field `Maximum Hot Water or Steam Flow Rate`
+            value (float or "Autosize"): value for IDD Field `Maximum Hot Water or Steam Flow Rate`
                 Units: m3/s
                 IP-Units: gal/min
                 value > 0.0
@@ -12129,6 +11925,13 @@ class ZoneHvacUnitHeater(object):
             ValueError: if `value` is not a valid value
         """
         if value is not None:
+            try:
+                value_lower = str(value).lower()
+                if value_lower == "autosize":
+                    self._data["Maximum Hot Water or Steam Flow Rate"] = "Autosize"
+                    return
+            except ValueError:
+                pass
             try:
                 value = float(value)
             except ValueError:
@@ -12149,11 +11952,9 @@ class ZoneHvacUnitHeater(object):
         return self._data["Minimum Hot Water or Steam Flow Rate"]
 
     @minimum_hot_water_or_steam_flow_rate.setter
-    def minimum_hot_water_or_steam_flow_rate(self, value=0.0 ):
+    def minimum_hot_water_or_steam_flow_rate(self, value=0.0):
         """  Corresponds to IDD Field `Minimum Hot Water or Steam Flow Rate`
         Not used when heating coil is gas or electric
-        
-        {'pytype': 'float', u'default': '0.0', u'note': [u'Not used when heating coil is gas or electric'], u'ip-units': u'gal/min', u'minimum': '0.0', u'units': u'm3/s', 'type': 'real'}
 
         Args:
             value (float): value for IDD Field `Minimum Hot Water or Steam Flow Rate`
@@ -12188,10 +11989,8 @@ class ZoneHvacUnitHeater(object):
         return self._data["Heating Convergence Tolerance"]
 
     @heating_convergence_tolerance.setter
-    def heating_convergence_tolerance(self, value=0.001 ):
+    def heating_convergence_tolerance(self, value=0.001):
         """  Corresponds to IDD Field `Heating Convergence Tolerance`
-        
-        {u'default': '0.001', u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Heating Convergence Tolerance`
@@ -12227,8 +12026,6 @@ class ZoneHvacUnitHeater(object):
     def availability_manager_list_name(self, value=None):
         """  Corresponds to IDD Field `Availability Manager List Name`
         Enter the name of an AvailabilityManagerAssignmentList object.
-        
-        {u'note': [u'Enter the name of an AvailabilityManagerAssignmentList object.'], u'type': u'object-list', u'object-list': u'SystemAvailabilityManagerLists', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Availability Manager List Name`
@@ -12265,8 +12062,6 @@ class ZoneHvacUnitHeater(object):
     def design_specification_zonehvac_sizing_object_name(self, value=None):
         """  Corresponds to IDD Field `Design Specification ZoneHVAC Sizing Object Name`
         Enter the name of a DesignSpecificationZoneHVACSizing object.
-        
-        {u'note': [u'Enter the name of a DesignSpecificationZoneHVACSizing object.'], u'type': u'object-list', u'object-list': u'DesignSpecificationZoneHVACSizingName', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Design Specification ZoneHVAC Sizing Object Name`
@@ -12505,8 +12300,6 @@ class ZoneHvacEvaporativeCoolerUnit(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {'type': 'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -12542,8 +12335,6 @@ class ZoneHvacEvaporativeCoolerUnit(object):
     @availability_schedule_name.setter
     def availability_schedule_name(self, value=None):
         """  Corresponds to IDD Field `Availability Schedule Name`
-        
-        {u'type': u'object-list', u'object-list': u'ScheduleNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Availability Schedule Name`
@@ -12580,8 +12371,6 @@ class ZoneHvacEvaporativeCoolerUnit(object):
     def availability_manager_list_name(self, value=None):
         """  Corresponds to IDD Field `Availability Manager List Name`
         Enter the name of an AvailabilityManagerAssignmentList object.
-        
-        {u'note': [u'Enter the name of an AvailabilityManagerAssignmentList object.'], u'type': u'object-list', u'object-list': u'SystemAvailabilityManagerLists', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Availability Manager List Name`
@@ -12618,8 +12407,6 @@ class ZoneHvacEvaporativeCoolerUnit(object):
     def outdoor_air_inlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Outdoor Air Inlet Node Name`
         this is an outdoor air node
-        
-        {u'note': [u'this is an outdoor air node'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Outdoor Air Inlet Node Name`
@@ -12656,8 +12443,6 @@ class ZoneHvacEvaporativeCoolerUnit(object):
     def cooler_outlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Cooler Outlet Node Name`
         this is a zone inlet node
-        
-        {u'note': [u'this is a zone inlet node'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Cooler Outlet Node Name`
@@ -12694,8 +12479,6 @@ class ZoneHvacEvaporativeCoolerUnit(object):
     def zone_relief_air_node_name(self, value=None):
         """  Corresponds to IDD Field `Zone Relief Air Node Name`
         this is a zone exhaust node, optional if flow is being balanced elsewhere
-        
-        {u'note': [u'this is a zone exhaust node, optional if flow is being balanced elsewhere'], u'type': u'node', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Zone Relief Air Node Name`
@@ -12731,8 +12514,6 @@ class ZoneHvacEvaporativeCoolerUnit(object):
     @supply_air_fan_object_type.setter
     def supply_air_fan_object_type(self, value=None):
         """  Corresponds to IDD Field `Supply Air Fan Object Type`
-        
-        {u'type': u'choice', u'key': [u'Fan:ConstantVolume', u'Fan:OnOff', u'Fan:VariableVolume', u'Fan:ComponentModel'], u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Supply Air Fan Object Type`
@@ -12792,8 +12573,6 @@ class ZoneHvacEvaporativeCoolerUnit(object):
     @supply_air_fan_name.setter
     def supply_air_fan_name(self, value=None):
         """  Corresponds to IDD Field `Supply Air Fan Name`
-        
-        {u'type': u'object-list', u'object-list': u'Fans', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Supply Air Fan Name`
@@ -12829,11 +12608,9 @@ class ZoneHvacEvaporativeCoolerUnit(object):
     @design_supply_air_flow_rate.setter
     def design_supply_air_flow_rate(self, value=None):
         """  Corresponds to IDD Field `Design Supply Air Flow Rate`
-        
-        {'pytype': 'float', u'minimum>': '0.0', u'required-field': True, u'autosizable': u'', u'units': u'm3/s', 'type': 'real'}
 
         Args:
-            value (float): value for IDD Field `Design Supply Air Flow Rate`
+            value (float or "Autosize"): value for IDD Field `Design Supply Air Flow Rate`
                 Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -12843,6 +12620,13 @@ class ZoneHvacEvaporativeCoolerUnit(object):
             ValueError: if `value` is not a valid value
         """
         if value is not None:
+            try:
+                value_lower = str(value).lower()
+                if value_lower == "autosize":
+                    self._data["Design Supply Air Flow Rate"] = "Autosize"
+                    return
+            except ValueError:
+                pass
             try:
                 value = float(value)
             except ValueError:
@@ -12865,8 +12649,6 @@ class ZoneHvacEvaporativeCoolerUnit(object):
     @fan_placement.setter
     def fan_placement(self, value=None):
         """  Corresponds to IDD Field `Fan Placement`
-        
-        {u'type': u'choice', u'key': [u'BlowThrough', u'DrawThrough'], u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Fan Placement`
@@ -12922,8 +12704,6 @@ class ZoneHvacEvaporativeCoolerUnit(object):
     @cooler_unit_control_method.setter
     def cooler_unit_control_method(self, value=None):
         """  Corresponds to IDD Field `Cooler Unit Control Method`
-        
-        {u'type': u'choice', u'key': [u'ZoneTemperatureDeadbandOnOffCycling', u'ZoneCoolingLoadOnOffCycling', u'ZoneCoolingLoadVariableSpeedFan'], u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Cooler Unit Control Method`
@@ -12979,11 +12759,9 @@ class ZoneHvacEvaporativeCoolerUnit(object):
         return self._data["Throttling Range Temperature Difference"]
 
     @throttling_range_temperature_difference.setter
-    def throttling_range_temperature_difference(self, value=1.0 ):
+    def throttling_range_temperature_difference(self, value=1.0):
         """  Corresponds to IDD Field `Throttling Range Temperature Difference`
         used for ZoneTemperatureDeadbandOnOffCycling hystersis range for thermostatic control
-        
-        {'pytype': 'float', u'default': '1.0', u'minimum>': '0.0', u'note': [u'used for ZoneTemperatureDeadbandOnOffCycling hystersis range for thermostatic control'], u'units': u'deltaC', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Throttling Range Temperature Difference`
@@ -13017,11 +12795,9 @@ class ZoneHvacEvaporativeCoolerUnit(object):
         return self._data["Cooling Load Control Threshold Heat Transfer Rate"]
 
     @cooling_load_control_threshold_heat_transfer_rate.setter
-    def cooling_load_control_threshold_heat_transfer_rate(self, value=100.0 ):
+    def cooling_load_control_threshold_heat_transfer_rate(self, value=100.0):
         """  Corresponds to IDD Field `Cooling Load Control Threshold Heat Transfer Rate`
         Sign convention is that positive values indicate a cooling load
-        
-        {'pytype': 'float', u'default': '100.0', u'minimum>': '0.0', u'note': [u'Sign convention is that positive values indicate a cooling load'], u'units': u'W', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Cooling Load Control Threshold Heat Transfer Rate`
@@ -13057,8 +12833,6 @@ class ZoneHvacEvaporativeCoolerUnit(object):
     @first_evaporative_cooler_object_type.setter
     def first_evaporative_cooler_object_type(self, value=None):
         """  Corresponds to IDD Field `First Evaporative Cooler Object Type`
-        
-        {u'type': u'choice', u'key': [u'EvaporativeCooler:Direct:CelDekPad', u'EvaporativeCooler:Direct:ResearchSpecial', u'EvaporativeCooler:Indirect:CelDekPad', u'EvaporativeCooler:Indirect:WetCoil', u'EvaporativeCooler:Indirect:ResearchSpecial'], u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `First Evaporative Cooler Object Type`
@@ -13120,8 +12894,6 @@ class ZoneHvacEvaporativeCoolerUnit(object):
     @first_evaporative_cooler_object_name.setter
     def first_evaporative_cooler_object_name(self, value=None):
         """  Corresponds to IDD Field `First Evaporative Cooler Object Name`
-        
-        {u'type': u'object-list', u'object-list': u'EvapCoolerNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `First Evaporative Cooler Object Name`
@@ -13159,8 +12931,6 @@ class ZoneHvacEvaporativeCoolerUnit(object):
         """  Corresponds to IDD Field `Second Evaporative Cooler Object Type`
         optional, used for direct/indirect configurations
         second cooler must be immediately downstream of first cooler, if present
-        
-        {u'note': [u'optional, used for direct/indirect configurations', u'second cooler must be immediately downstream of first cooler, if present'], u'type': u'choice', u'key': [u'EvaporativeCooler:Direct:CelDekPad', u'EvaporativeCooler:Direct:ResearchSpecial', u'EvaporativeCooler:Indirect:CelDekPad', u'EvaporativeCooler:Indirect:WetCoil', u'EvaporativeCooler:Indirect:ResearchSpecial'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Second Evaporative Cooler Object Type`
@@ -13223,8 +12993,6 @@ class ZoneHvacEvaporativeCoolerUnit(object):
     def second_evaporative_cooler_name(self, value=None):
         """  Corresponds to IDD Field `Second Evaporative Cooler Name`
         optional, used for direct/indirect configurations
-        
-        {u'note': [u'optional, used for direct/indirect configurations'], u'type': u'object-list', u'object-list': u'EvapCoolerNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Second Evaporative Cooler Name`
@@ -13261,8 +13029,6 @@ class ZoneHvacEvaporativeCoolerUnit(object):
     def design_specification_zonehvac_sizing_object_name(self, value=None):
         """  Corresponds to IDD Field `Design Specification ZoneHVAC Sizing Object Name`
         Enter the name of a DesignSpecificationZoneHVACSizing object.
-        
-        {u'note': [u'Enter the name of a DesignSpecificationZoneHVACSizing object.'], u'type': u'object-list', u'object-list': u'DesignSpecificationZoneHVACSizingName', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Design Specification ZoneHVAC Sizing Object Name`
@@ -13510,8 +13276,6 @@ class ZoneHvacOutdoorAirUnit(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {'type': 'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -13549,8 +13313,6 @@ class ZoneHvacOutdoorAirUnit(object):
         """  Corresponds to IDD Field `Availability Schedule Name`
         Availability schedule name for this system. Schedule value > 0 means the system is available.
         If this field is blank, the system is always available.
-        
-        {u'note': [u'Availability schedule name for this system. Schedule value > 0 means the system is available.', u'If this field is blank, the system is always available.'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Availability Schedule Name`
@@ -13587,8 +13349,6 @@ class ZoneHvacOutdoorAirUnit(object):
     def zone_name(self, value=None):
         """  Corresponds to IDD Field `Zone Name`
         (name of zone system is serving)
-        
-        {u'note': [u'(name of zone system is serving)'], u'type': u'object-list', u'object-list': u'ZoneNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Zone Name`
@@ -13624,11 +13384,9 @@ class ZoneHvacOutdoorAirUnit(object):
     @outdoor_air_flow_rate.setter
     def outdoor_air_flow_rate(self, value=None):
         """  Corresponds to IDD Field `Outdoor Air Flow Rate`
-        
-        {'pytype': 'float', u'minimum>': '0.0', u'required-field': True, u'autosizable': u'', u'units': u'm3/s', 'type': 'real'}
 
         Args:
-            value (float): value for IDD Field `Outdoor Air Flow Rate`
+            value (float or "Autosize"): value for IDD Field `Outdoor Air Flow Rate`
                 Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -13638,6 +13396,13 @@ class ZoneHvacOutdoorAirUnit(object):
             ValueError: if `value` is not a valid value
         """
         if value is not None:
+            try:
+                value_lower = str(value).lower()
+                if value_lower == "autosize":
+                    self._data["Outdoor Air Flow Rate"] = "Autosize"
+                    return
+            except ValueError:
+                pass
             try:
                 value = float(value)
             except ValueError:
@@ -13660,8 +13425,6 @@ class ZoneHvacOutdoorAirUnit(object):
     @outdoor_air_schedule_name.setter
     def outdoor_air_schedule_name(self, value=None):
         """  Corresponds to IDD Field `Outdoor Air Schedule Name`
-        
-        {u'type': u'object-list', u'object-list': u'ScheduleNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Outdoor Air Schedule Name`
@@ -13699,8 +13462,6 @@ class ZoneHvacOutdoorAirUnit(object):
         """  Corresponds to IDD Field `Supply Fan Name`
         Allowable fan types are Fan:ConstantVolume and
         Fan:VariableVolume
-        
-        {u'note': [u'Allowable fan types are Fan:ConstantVolume and', u'Fan:VariableVolume'], u'type': u'object-list', u'object-list': u'FansCVandVAV', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Supply Fan Name`
@@ -13736,8 +13497,6 @@ class ZoneHvacOutdoorAirUnit(object):
     @supply_fan_placement.setter
     def supply_fan_placement(self, value="DrawThrough"):
         """  Corresponds to IDD Field `Supply Fan Placement`
-        
-        {u'default': u'DrawThrough', u'type': u'choice', u'key': [u'BlowThrough', u'DrawThrough'], u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Supply Fan Placement`
@@ -13796,8 +13555,6 @@ class ZoneHvacOutdoorAirUnit(object):
         """  Corresponds to IDD Field `Exhaust Fan Name`
         Allowable fan types are Fan:ConstantVolume and
         Fan:VariableVolume
-        
-        {u'note': [u'Allowable fan types are Fan:ConstantVolume and', u'Fan:VariableVolume'], u'type': u'object-list', u'object-list': u'FansCVandVAV', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Exhaust Fan Name`
@@ -13833,11 +13590,9 @@ class ZoneHvacOutdoorAirUnit(object):
     @exhaust_air_flow_rate.setter
     def exhaust_air_flow_rate(self, value=None):
         """  Corresponds to IDD Field `Exhaust Air Flow Rate`
-        
-        {u'units': u'm3/s', u'autosizable': u'', 'type': 'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `Exhaust Air Flow Rate`
+            value (float or "Autosize"): value for IDD Field `Exhaust Air Flow Rate`
                 Units: m3/s
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -13846,6 +13601,13 @@ class ZoneHvacOutdoorAirUnit(object):
             ValueError: if `value` is not a valid value
         """
         if value is not None:
+            try:
+                value_lower = str(value).lower()
+                if value_lower == "autosize":
+                    self._data["Exhaust Air Flow Rate"] = "Autosize"
+                    return
+            except ValueError:
+                pass
             try:
                 value = float(value)
             except ValueError:
@@ -13865,8 +13627,6 @@ class ZoneHvacOutdoorAirUnit(object):
     @exhaust_air_schedule_name.setter
     def exhaust_air_schedule_name(self, value=None):
         """  Corresponds to IDD Field `Exhaust Air Schedule Name`
-        
-        {u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Exhaust Air Schedule Name`
@@ -13902,8 +13662,6 @@ class ZoneHvacOutdoorAirUnit(object):
     @unit_control_type.setter
     def unit_control_type(self, value="NeutralControl"):
         """  Corresponds to IDD Field `Unit Control Type`
-        
-        {u'default': u'NeutralControl', u'type': u'choice', u'key': [u'NeutralControl', u'TemperatureControl'], u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Unit Control Type`
@@ -13964,8 +13722,6 @@ class ZoneHvacOutdoorAirUnit(object):
         is above the high air control temperature, then the zone inlet air temperature
         is set to the high air control temperature. If the outdoor air is between high and low
         air control temperature, then there is no cooling/heating requirements.
-        
-        {u'note': [u'Air and control temperatures for cooling. If outdoor air temperature', u'is above the high air control temperature, then the zone inlet air temperature', u'is set to the high air control temperature. If the outdoor air is between high and low', u'air control temperature, then there is no cooling/heating requirements.'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `High Air Control Temperature Schedule Name`
@@ -14005,8 +13761,6 @@ class ZoneHvacOutdoorAirUnit(object):
         is below the low air control temperature, then the zone inlet air temperature
         is set to the low air control temperature. If the outdoor air is between high and low
         air control temperature, then there is no cooling/heating requirements.
-        
-        {u'note': [u'Air and control temperatures for Heating. If outdoor air temperature', u'is below the low air control temperature, then the zone inlet air temperature', u'is set to the low air control temperature. If the outdoor air is between high and low', u'air control temperature, then there is no cooling/heating requirements.'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Low Air Control Temperature Schedule Name`
@@ -14042,8 +13796,6 @@ class ZoneHvacOutdoorAirUnit(object):
     @outdoor_air_node_name.setter
     def outdoor_air_node_name(self, value=None):
         """  Corresponds to IDD Field `Outdoor Air Node Name`
-        
-        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Outdoor Air Node Name`
@@ -14079,8 +13831,6 @@ class ZoneHvacOutdoorAirUnit(object):
     @airoutlet_node_name.setter
     def airoutlet_node_name(self, value=None):
         """  Corresponds to IDD Field `AirOutlet Node Name`
-        
-        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `AirOutlet Node Name`
@@ -14117,8 +13867,6 @@ class ZoneHvacOutdoorAirUnit(object):
     def airinlet_node_name(self, value=None):
         """  Corresponds to IDD Field `AirInlet Node Name`
         air leaves zone
-        
-        {u'note': [u'air leaves zone'], u'type': u'node', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `AirInlet Node Name`
@@ -14154,8 +13902,6 @@ class ZoneHvacOutdoorAirUnit(object):
     @supply_fanoutlet_node_name.setter
     def supply_fanoutlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Supply FanOutlet Node Name`
-        
-        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Supply FanOutlet Node Name`
@@ -14192,8 +13938,6 @@ class ZoneHvacOutdoorAirUnit(object):
     def outdoor_air_unit_list_name(self, value=None):
         """  Corresponds to IDD Field `Outdoor Air Unit List Name`
         Enter the name of an ZoneHVAC:OutdoorAirUnit:EquipmentList object.
-        
-        {u'note': [u'Enter the name of an ZoneHVAC:OutdoorAirUnit:EquipmentList object.'], u'type': u'object-list', u'object-list': u'OutdoorAirUnitEquipmentLists', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Outdoor Air Unit List Name`
@@ -14230,8 +13974,6 @@ class ZoneHvacOutdoorAirUnit(object):
     def availability_manager_list_name(self, value=None):
         """  Corresponds to IDD Field `Availability Manager List Name`
         Enter the name of an AvailabilityManagerAssignmentList object.
-        
-        {u'note': [u'Enter the name of an AvailabilityManagerAssignmentList object.'], u'type': u'object-list', u'object-list': u'SystemAvailabilityManagerLists', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Availability Manager List Name`
@@ -14462,8 +14204,6 @@ class ZoneHvacOutdoorAirUnitEquipmentList(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'reference': u'OutdoorAirUnitEquipmentLists', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -14499,8 +14239,6 @@ class ZoneHvacOutdoorAirUnitEquipmentList(object):
     @component_1_object_type.setter
     def component_1_object_type(self, value=None):
         """  Corresponds to IDD Field `Component 1 Object Type`
-        
-        {u'type': u'choice', u'key': [u'Coil:Heating:Electric', u'Coil:Heating:Gas', u'Coil:Heating:Steam', u'Coil:Heating:Water', u'Coil:Cooling:Water', u'Coil:Cooling:Water:DetailedGeometry', u'CoilSystem:Cooling:Water:HeatexchangerAssisted', u'CoilSystem:Cooling:DX', u'CoilSystem:Heating:DX', u'HeatExchanger:AirToAir:FlatPlate', u'HeatExchanger:AirToAir:SensibleAndLatent', u'Dehumidifier:Desiccant:NoFans'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 1 Object Type`
@@ -14576,8 +14314,6 @@ class ZoneHvacOutdoorAirUnitEquipmentList(object):
     @component_1_name.setter
     def component_1_name(self, value=None):
         """  Corresponds to IDD Field `Component 1 Name`
-        
-        {'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 1 Name`
@@ -14613,8 +14349,6 @@ class ZoneHvacOutdoorAirUnitEquipmentList(object):
     @component_2_object_type.setter
     def component_2_object_type(self, value=None):
         """  Corresponds to IDD Field `Component 2 Object Type`
-        
-        {u'type': u'choice', u'key': [u'Coil:Heating:Electric', u'Coil:Heating:Gas', u'Coil:Heating:Steam', u'Coil:Heating:Water', u'Coil:Cooling:Water', u'Coil:Cooling:Water:DetailedGeometry', u'CoilSystem:Cooling:Water:HeatexchangerAssisted', u'CoilSystem:Cooling:DX', u'CoilSystem:Heating:DX', u'HeatExchanger:AirToAir:FlatPlate', u'HeatExchanger:AirToAir:SensibleAndLatent', u'Dehumidifier:Desiccant:NoFans'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 2 Object Type`
@@ -14690,8 +14424,6 @@ class ZoneHvacOutdoorAirUnitEquipmentList(object):
     @component_2_name.setter
     def component_2_name(self, value=None):
         """  Corresponds to IDD Field `Component 2 Name`
-        
-        {'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 2 Name`
@@ -14727,8 +14459,6 @@ class ZoneHvacOutdoorAirUnitEquipmentList(object):
     @component_3_object_type.setter
     def component_3_object_type(self, value=None):
         """  Corresponds to IDD Field `Component 3 Object Type`
-        
-        {u'type': u'choice', u'key': [u'Coil:Heating:Electric', u'Coil:Heating:Gas', u'Coil:Heating:Steam', u'Coil:Heating:Water', u'Coil:Cooling:Water', u'Coil:Cooling:Water:DetailedGeometry', u'CoilSystem:Cooling:Water:HeatexchangerAssisted', u'CoilSystem:Cooling:DX', u'CoilSystem:Heating:DX', u'HeatExchanger:AirToAir:FlatPlate', u'HeatExchanger:AirToAir:SensibleAndLatent', u'Dehumidifier:Desiccant:NoFans'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 3 Object Type`
@@ -14804,8 +14534,6 @@ class ZoneHvacOutdoorAirUnitEquipmentList(object):
     @component_3_name.setter
     def component_3_name(self, value=None):
         """  Corresponds to IDD Field `Component 3 Name`
-        
-        {'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 3 Name`
@@ -14841,8 +14569,6 @@ class ZoneHvacOutdoorAirUnitEquipmentList(object):
     @component_4_object_type.setter
     def component_4_object_type(self, value=None):
         """  Corresponds to IDD Field `Component 4 Object Type`
-        
-        {u'type': u'choice', u'key': [u'Coil:Heating:Electric', u'Coil:Heating:Gas', u'Coil:Heating:Steam', u'Coil:Heating:Water', u'Coil:Cooling:Water', u'Coil:Cooling:Water:DetailedGeometry', u'CoilSystem:Cooling:Water:HeatexchangerAssisted', u'CoilSystem:Cooling:DX', u'CoilSystem:Heating:DX', u'HeatExchanger:AirToAir:FlatPlate', u'HeatExchanger:AirToAir:SensibleAndLatent', u'Dehumidifier:Desiccant:NoFans'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 4 Object Type`
@@ -14918,8 +14644,6 @@ class ZoneHvacOutdoorAirUnitEquipmentList(object):
     @component_4_name.setter
     def component_4_name(self, value=None):
         """  Corresponds to IDD Field `Component 4 Name`
-        
-        {'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 4 Name`
@@ -14955,8 +14679,6 @@ class ZoneHvacOutdoorAirUnitEquipmentList(object):
     @component_5_object_type.setter
     def component_5_object_type(self, value=None):
         """  Corresponds to IDD Field `Component 5 Object Type`
-        
-        {u'type': u'choice', u'key': [u'Coil:Heating:Electric', u'Coil:Heating:Gas', u'Coil:Heating:Steam', u'Coil:Heating:Water', u'Coil:Cooling:Water', u'Coil:Cooling:Water:DetailedGeometry', u'CoilSystem:Cooling:Water:HeatexchangerAssisted', u'CoilSystem:Cooling:DX', u'CoilSystem:Heating:DX', u'HeatExchanger:AirToAir:FlatPlate', u'HeatExchanger:AirToAir:SensibleAndLatent', u'Dehumidifier:Desiccant:NoFans'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 5 Object Type`
@@ -15032,8 +14754,6 @@ class ZoneHvacOutdoorAirUnitEquipmentList(object):
     @component_5_name.setter
     def component_5_name(self, value=None):
         """  Corresponds to IDD Field `Component 5 Name`
-        
-        {'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 5 Name`
@@ -15069,8 +14789,6 @@ class ZoneHvacOutdoorAirUnitEquipmentList(object):
     @component_6_object_type.setter
     def component_6_object_type(self, value=None):
         """  Corresponds to IDD Field `Component 6 Object Type`
-        
-        {u'type': u'choice', u'key': [u'Coil:Heating:Electric', u'Coil:Heating:Gas', u'Coil:Heating:Steam', u'Coil:Heating:Water', u'Coil:Cooling:Water', u'Coil:Cooling:Water:DetailedGeometry', u'CoilSystem:Cooling:Water:HeatexchangerAssisted', u'CoilSystem:Cooling:DX', u'CoilSystem:Heating:DX', u'HeatExchanger:AirToAir:FlatPlate', u'HeatExchanger:AirToAir:SensibleAndLatent', u'Dehumidifier:Desiccant:NoFans'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 6 Object Type`
@@ -15146,8 +14864,6 @@ class ZoneHvacOutdoorAirUnitEquipmentList(object):
     @component_6_name.setter
     def component_6_name(self, value=None):
         """  Corresponds to IDD Field `Component 6 Name`
-        
-        {'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 6 Name`
@@ -15183,8 +14899,6 @@ class ZoneHvacOutdoorAirUnitEquipmentList(object):
     @component_7_object_type.setter
     def component_7_object_type(self, value=None):
         """  Corresponds to IDD Field `Component 7 Object Type`
-        
-        {u'type': u'choice', u'key': [u'Coil:Heating:Electric', u'Coil:Heating:Gas', u'Coil:Heating:Steam', u'Coil:Heating:Water', u'Coil:Cooling:Water', u'Coil:Cooling:Water:DetailedGeometry', u'CoilSystem:Cooling:Water:HeatexchangerAssisted', u'CoilSystem:Cooling:DX', u'CoilSystem:Heating:DX', u'HeatExchanger:AirToAir:FlatPlate', u'HeatExchanger:AirToAir:SensibleAndLatent', u'Dehumidifier:Desiccant:NoFans'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 7 Object Type`
@@ -15260,8 +14974,6 @@ class ZoneHvacOutdoorAirUnitEquipmentList(object):
     @component_7_name.setter
     def component_7_name(self, value=None):
         """  Corresponds to IDD Field `Component 7 Name`
-        
-        {'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 7 Name`
@@ -15297,8 +15009,6 @@ class ZoneHvacOutdoorAirUnitEquipmentList(object):
     @component_8_object_type.setter
     def component_8_object_type(self, value=None):
         """  Corresponds to IDD Field `Component 8 Object Type`
-        
-        {u'type': u'choice', u'key': [u'Coil:Heating:Electric', u'Coil:Heating:Gas', u'Coil:Heating:Steam', u'Coil:Heating:Water', u'Coil:Cooling:Water', u'Coil:Cooling:Water:DetailedGeometry', u'CoilSystem:Cooling:Water:HeatexchangerAssisted', u'CoilSystem:Cooling:DX', u'CoilSystem:Heating:DX', u'HeatExchanger:AirToAir:FlatPlate', u'HeatExchanger:AirToAir:SensibleAndLatent', u'Dehumidifier:Desiccant:NoFans'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 8 Object Type`
@@ -15374,8 +15084,6 @@ class ZoneHvacOutdoorAirUnitEquipmentList(object):
     @component_8_name.setter
     def component_8_name(self, value=None):
         """  Corresponds to IDD Field `Component 8 Name`
-        
-        {'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 8 Name`
@@ -15679,8 +15387,6 @@ class ZoneHvacTerminalUnitVariableRefrigerantFlow(object):
     @zone_terminal_unit_name.setter
     def zone_terminal_unit_name(self, value=None):
         """  Corresponds to IDD Field `Zone Terminal Unit Name`
-        
-        {u'type': u'alpha', u'reference': u'ZoneTerminalUnitNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Zone Terminal Unit Name`
@@ -15718,8 +15424,6 @@ class ZoneHvacTerminalUnitVariableRefrigerantFlow(object):
         """  Corresponds to IDD Field `Terminal Unit Availability Schedule`
         The unit is available the entire simulation if this field is left blank
         Schedule values of 0 denote the unit is off.
-        
-        {u'note': [u'The unit is available the entire simulation if this field is left blank', u'Schedule values of 0 denote the unit is off.'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Terminal Unit Availability Schedule`
@@ -15756,8 +15460,6 @@ class ZoneHvacTerminalUnitVariableRefrigerantFlow(object):
     def terminal_unit_air_inlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Terminal Unit Air Inlet Node Name`
         the inlet node to the terminal unit
-        
-        {u'note': [u'the inlet node to the terminal unit'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Terminal Unit Air Inlet Node Name`
@@ -15794,8 +15496,6 @@ class ZoneHvacTerminalUnitVariableRefrigerantFlow(object):
     def terminal_unit_air_outlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Terminal Unit Air Outlet Node Name`
         the outlet node of the terminal unit
-        
-        {u'note': [u'the outlet node of the terminal unit'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Terminal Unit Air Outlet Node Name`
@@ -15831,11 +15531,9 @@ class ZoneHvacTerminalUnitVariableRefrigerantFlow(object):
     @supply_air_flow_rate_during_cooling_operation.setter
     def supply_air_flow_rate_during_cooling_operation(self, value=None):
         """  Corresponds to IDD Field `Supply Air Flow Rate During Cooling Operation`
-        
-        {u'units': u'm3/s', u'minimum>': '0.0', u'type': u'real', u'autosizable': u'', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `Supply Air Flow Rate During Cooling Operation`
+            value (float or "Autosize"): value for IDD Field `Supply Air Flow Rate During Cooling Operation`
                 Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -15845,6 +15543,13 @@ class ZoneHvacTerminalUnitVariableRefrigerantFlow(object):
             ValueError: if `value` is not a valid value
         """
         if value is not None:
+            try:
+                value_lower = str(value).lower()
+                if value_lower == "autosize":
+                    self._data["Supply Air Flow Rate During Cooling Operation"] = "Autosize"
+                    return
+            except ValueError:
+                pass
             try:
                 value = float(value)
             except ValueError:
@@ -15867,11 +15572,9 @@ class ZoneHvacTerminalUnitVariableRefrigerantFlow(object):
     @supply_air_flow_rate_when_no_cooling_is_needed.setter
     def supply_air_flow_rate_when_no_cooling_is_needed(self, value=None):
         """  Corresponds to IDD Field `Supply Air Flow Rate When No Cooling is Needed`
-        
-        {u'units': u'm3/s', u'autosizable': u'', u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `Supply Air Flow Rate When No Cooling is Needed`
+            value (float or "Autosize"): value for IDD Field `Supply Air Flow Rate When No Cooling is Needed`
                 Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -15881,6 +15584,13 @@ class ZoneHvacTerminalUnitVariableRefrigerantFlow(object):
             ValueError: if `value` is not a valid value
         """
         if value is not None:
+            try:
+                value_lower = str(value).lower()
+                if value_lower == "autosize":
+                    self._data["Supply Air Flow Rate When No Cooling is Needed"] = "Autosize"
+                    return
+            except ValueError:
+                pass
             try:
                 value = float(value)
             except ValueError:
@@ -15903,11 +15613,9 @@ class ZoneHvacTerminalUnitVariableRefrigerantFlow(object):
     @supply_air_flow_rate_during_heating_operation.setter
     def supply_air_flow_rate_during_heating_operation(self, value=None):
         """  Corresponds to IDD Field `Supply Air Flow Rate During Heating Operation`
-        
-        {u'units': u'm3/s', u'minimum>': '0.0', u'type': u'real', u'autosizable': u'', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `Supply Air Flow Rate During Heating Operation`
+            value (float or "Autosize"): value for IDD Field `Supply Air Flow Rate During Heating Operation`
                 Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -15917,6 +15625,13 @@ class ZoneHvacTerminalUnitVariableRefrigerantFlow(object):
             ValueError: if `value` is not a valid value
         """
         if value is not None:
+            try:
+                value_lower = str(value).lower()
+                if value_lower == "autosize":
+                    self._data["Supply Air Flow Rate During Heating Operation"] = "Autosize"
+                    return
+            except ValueError:
+                pass
             try:
                 value = float(value)
             except ValueError:
@@ -15939,11 +15654,9 @@ class ZoneHvacTerminalUnitVariableRefrigerantFlow(object):
     @supply_air_flow_rate_when_no_heating_is_needed.setter
     def supply_air_flow_rate_when_no_heating_is_needed(self, value=None):
         """  Corresponds to IDD Field `Supply Air Flow Rate When No Heating is Needed`
-        
-        {u'units': u'm3/s', u'autosizable': u'', u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `Supply Air Flow Rate When No Heating is Needed`
+            value (float or "Autosize"): value for IDD Field `Supply Air Flow Rate When No Heating is Needed`
                 Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -15953,6 +15666,13 @@ class ZoneHvacTerminalUnitVariableRefrigerantFlow(object):
             ValueError: if `value` is not a valid value
         """
         if value is not None:
+            try:
+                value_lower = str(value).lower()
+                if value_lower == "autosize":
+                    self._data["Supply Air Flow Rate When No Heating is Needed"] = "Autosize"
+                    return
+            except ValueError:
+                pass
             try:
                 value = float(value)
             except ValueError:
@@ -15975,11 +15695,9 @@ class ZoneHvacTerminalUnitVariableRefrigerantFlow(object):
     @outdoor_air_flow_rate_during_cooling_operation.setter
     def outdoor_air_flow_rate_during_cooling_operation(self, value=None):
         """  Corresponds to IDD Field `Outdoor Air Flow Rate During Cooling Operation`
-        
-        {u'units': u'm3/s', u'autosizable': u'', u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `Outdoor Air Flow Rate During Cooling Operation`
+            value (float or "Autosize"): value for IDD Field `Outdoor Air Flow Rate During Cooling Operation`
                 Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -15989,6 +15707,13 @@ class ZoneHvacTerminalUnitVariableRefrigerantFlow(object):
             ValueError: if `value` is not a valid value
         """
         if value is not None:
+            try:
+                value_lower = str(value).lower()
+                if value_lower == "autosize":
+                    self._data["Outdoor Air Flow Rate During Cooling Operation"] = "Autosize"
+                    return
+            except ValueError:
+                pass
             try:
                 value = float(value)
             except ValueError:
@@ -16011,11 +15736,9 @@ class ZoneHvacTerminalUnitVariableRefrigerantFlow(object):
     @outdoor_air_flow_rate_during_heating_operation.setter
     def outdoor_air_flow_rate_during_heating_operation(self, value=None):
         """  Corresponds to IDD Field `Outdoor Air Flow Rate During Heating Operation`
-        
-        {u'units': u'm3/s', u'autosizable': u'', u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `Outdoor Air Flow Rate During Heating Operation`
+            value (float or "Autosize"): value for IDD Field `Outdoor Air Flow Rate During Heating Operation`
                 Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -16025,6 +15748,13 @@ class ZoneHvacTerminalUnitVariableRefrigerantFlow(object):
             ValueError: if `value` is not a valid value
         """
         if value is not None:
+            try:
+                value_lower = str(value).lower()
+                if value_lower == "autosize":
+                    self._data["Outdoor Air Flow Rate During Heating Operation"] = "Autosize"
+                    return
+            except ValueError:
+                pass
             try:
                 value = float(value)
             except ValueError:
@@ -16047,11 +15777,9 @@ class ZoneHvacTerminalUnitVariableRefrigerantFlow(object):
     @outdoor_air_flow_rate_when_no_cooling_or_heating_is_needed.setter
     def outdoor_air_flow_rate_when_no_cooling_or_heating_is_needed(self, value=None):
         """  Corresponds to IDD Field `Outdoor Air Flow Rate When No Cooling or Heating is Needed`
-        
-        {u'units': u'm3/s', u'autosizable': u'', u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `Outdoor Air Flow Rate When No Cooling or Heating is Needed`
+            value (float or "Autosize"): value for IDD Field `Outdoor Air Flow Rate When No Cooling or Heating is Needed`
                 Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -16061,6 +15789,13 @@ class ZoneHvacTerminalUnitVariableRefrigerantFlow(object):
             ValueError: if `value` is not a valid value
         """
         if value is not None:
+            try:
+                value_lower = str(value).lower()
+                if value_lower == "autosize":
+                    self._data["Outdoor Air Flow Rate When No Cooling or Heating is Needed"] = "Autosize"
+                    return
+            except ValueError:
+                pass
             try:
                 value = float(value)
             except ValueError:
@@ -16083,8 +15818,6 @@ class ZoneHvacTerminalUnitVariableRefrigerantFlow(object):
     @supply_air_fan_operating_mode_schedule_name.setter
     def supply_air_fan_operating_mode_schedule_name(self, value=None):
         """  Corresponds to IDD Field `Supply Air Fan Operating Mode Schedule Name`
-        
-        {u'type': u'object-list', u'object-list': u'ScheduleNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Supply Air Fan Operating Mode Schedule Name`
@@ -16121,8 +15854,6 @@ class ZoneHvacTerminalUnitVariableRefrigerantFlow(object):
     def supply_air_fan_placement(self, value="BlowThrough"):
         """  Corresponds to IDD Field `Supply Air Fan Placement`
         Select fan placement as either blow through or draw through.
-        
-        {u'default': u'BlowThrough', u'note': [u'Select fan placement as either blow through or draw through.'], u'type': u'choice', u'key': [u'BlowThrough', u'DrawThrough'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Supply Air Fan Placement`
@@ -16179,8 +15910,6 @@ class ZoneHvacTerminalUnitVariableRefrigerantFlow(object):
     @supply_air_fan_object_type.setter
     def supply_air_fan_object_type(self, value="Fan:ConstantVolume"):
         """  Corresponds to IDD Field `Supply Air Fan Object Type`
-        
-        {u'default': u'Fan:ConstantVolume', u'type': u'choice', u'key': [u'Fan:OnOff', u'Fan:ConstantVolume'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Supply Air Fan Object Type`
@@ -16237,8 +15966,6 @@ class ZoneHvacTerminalUnitVariableRefrigerantFlow(object):
     @supply_air_fan_object_name.setter
     def supply_air_fan_object_name(self, value=None):
         """  Corresponds to IDD Field `Supply Air Fan Object Name`
-        
-        {u'type': u'object-list', u'object-list': u'FansCVandOnOff', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Supply Air Fan Object Name`
@@ -16275,8 +16002,6 @@ class ZoneHvacTerminalUnitVariableRefrigerantFlow(object):
     def outside_air_mixer_object_type(self, value=None):
         """  Corresponds to IDD Field `Outside Air Mixer Object Type`
         If this field is blank, and outside air mixer is not used.
-        
-        {u'note': [u'If this field is blank, and outside air mixer is not used.'], u'type': u'choice', u'key': [u'OutdoorAir:Mixer'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Outside Air Mixer Object Type`
@@ -16331,8 +16056,6 @@ class ZoneHvacTerminalUnitVariableRefrigerantFlow(object):
     def outside_air_mixer_object_name(self, value=None):
         """  Corresponds to IDD Field `Outside Air Mixer Object Name`
         If this field is blank, and outside air mixer is not used.
-        
-        {u'note': [u'If this field is blank, and outside air mixer is not used.'], u'type': u'object-list', u'object-list': u'OutdoorAirMixers', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Outside Air Mixer Object Name`
@@ -16370,8 +16093,6 @@ class ZoneHvacTerminalUnitVariableRefrigerantFlow(object):
         """  Corresponds to IDD Field `Cooling Coil Object Type`
         Cooling Coil Type must be Coil:Cooling:DX:VariableRefrigerantFlow
         This field may be left blank if heating-only mode is used
-        
-        {u'note': [u'Cooling Coil Type must be Coil:Cooling:DX:VariableRefrigerantFlow', u'This field may be left blank if heating-only mode is used'], u'type': u'choice', u'key': [u'Coil:Cooling:DX:VariableRefrigerantFlow'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Cooling Coil Object Type`
@@ -16427,8 +16148,6 @@ class ZoneHvacTerminalUnitVariableRefrigerantFlow(object):
         """  Corresponds to IDD Field `Cooling Coil Object Name`
         Cooling Coil Type must be Coil:Cooling:DX:VariableRefrigerantFlow
         This field may be left blank if heating-only mode is used
-        
-        {u'note': [u'Cooling Coil Type must be Coil:Cooling:DX:VariableRefrigerantFlow', u'This field may be left blank if heating-only mode is used'], u'type': u'object-list', u'object-list': u'CoolingCoilsDXVarRefrigFlow', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Cooling Coil Object Name`
@@ -16466,8 +16185,6 @@ class ZoneHvacTerminalUnitVariableRefrigerantFlow(object):
         """  Corresponds to IDD Field `Heating Coil Object Type`
         Heating Coil Type must be Coil:Heating:DX:VariableRefrigerantFlow
         This field may be left blank if cooling-only mode is used
-        
-        {u'note': [u'Heating Coil Type must be Coil:Heating:DX:VariableRefrigerantFlow', u'This field may be left blank if cooling-only mode is used'], u'type': u'choice', u'key': [u'Coil:Heating:DX:VariableRefrigerantFlow'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Heating Coil Object Type`
@@ -16523,8 +16240,6 @@ class ZoneHvacTerminalUnitVariableRefrigerantFlow(object):
         """  Corresponds to IDD Field `Heating Coil Object Name`
         Heating Coil Type must be Coil:Heating:DX:VariableRefrigerantFlow
         This field may be left blank if cooling-only mode is used
-        
-        {u'note': [u'Heating Coil Type must be Coil:Heating:DX:VariableRefrigerantFlow', u'This field may be left blank if cooling-only mode is used'], u'type': u'object-list', u'object-list': u'HeatingCoilsDXVarRefrigFlow', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Heating Coil Object Name`
@@ -16558,10 +16273,8 @@ class ZoneHvacTerminalUnitVariableRefrigerantFlow(object):
         return self._data["Zone Terminal Unit On Parasitic Electric Energy Use"]
 
     @zone_terminal_unit_on_parasitic_electric_energy_use.setter
-    def zone_terminal_unit_on_parasitic_electric_energy_use(self, value=0.0 ):
+    def zone_terminal_unit_on_parasitic_electric_energy_use(self, value=0.0):
         """  Corresponds to IDD Field `Zone Terminal Unit On Parasitic Electric Energy Use`
-        
-        {u'units': u'W', u'default': '0.0', u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Zone Terminal Unit On Parasitic Electric Energy Use`
@@ -16595,10 +16308,8 @@ class ZoneHvacTerminalUnitVariableRefrigerantFlow(object):
         return self._data["Zone Terminal Unit Off Parasitic Electric Energy Use"]
 
     @zone_terminal_unit_off_parasitic_electric_energy_use.setter
-    def zone_terminal_unit_off_parasitic_electric_energy_use(self, value=0.0 ):
+    def zone_terminal_unit_off_parasitic_electric_energy_use(self, value=0.0):
         """  Corresponds to IDD Field `Zone Terminal Unit Off Parasitic Electric Energy Use`
-        
-        {u'units': u'W', u'default': '0.0', u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Zone Terminal Unit Off Parasitic Electric Energy Use`
@@ -16632,14 +16343,12 @@ class ZoneHvacTerminalUnitVariableRefrigerantFlow(object):
         return self._data["Rated Heating Capacity Sizing Ratio"]
 
     @rated_heating_capacity_sizing_ratio.setter
-    def rated_heating_capacity_sizing_ratio(self, value=1.0 ):
+    def rated_heating_capacity_sizing_ratio(self, value=1.0):
         """  Corresponds to IDD Field `Rated Heating Capacity Sizing Ratio`
         If this terminal unit's heating coil is autosized, the heating capacity is sized
         to be equal to the cooling capacity multiplied by this sizing ratio.
         This input applies to the terminal unit heating coil and overrides the sizing
         ratio entered in the AirConditioner:VariableRefrigerantFlow object.
-        
-        {'pytype': 'float', u'default': '1.0', u'note': [u"If this terminal unit's heating coil is autosized, the heating capacity is sized", u'to be equal to the cooling capacity multiplied by this sizing ratio.', u'This input applies to the terminal unit heating coil and overrides the sizing', u'ratio entered in the AirConditioner:VariableRefrigerantFlow object.'], u'minimum': '1.0', u'units': u'W/W', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Rated Heating Capacity Sizing Ratio`
@@ -16676,8 +16385,6 @@ class ZoneHvacTerminalUnitVariableRefrigerantFlow(object):
     def availability_manager_list_name(self, value=None):
         """  Corresponds to IDD Field `Availability Manager List Name`
         Enter the name of an AvailabilityManagerAssignmentList object.
-        
-        {u'note': [u'Enter the name of an AvailabilityManagerAssignmentList object.'], u'type': u'object-list', u'object-list': u'SystemAvailabilityManagerLists', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Availability Manager List Name`
@@ -16714,8 +16421,6 @@ class ZoneHvacTerminalUnitVariableRefrigerantFlow(object):
     def design_specification_zonehvac_sizing_object_name(self, value=None):
         """  Corresponds to IDD Field `Design Specification ZoneHVAC Sizing Object Name`
         Enter the name of a DesignSpecificationZoneHVACSizing object.
-        
-        {u'note': [u'Enter the name of a DesignSpecificationZoneHVACSizing object.'], u'type': u'object-list', u'object-list': u'DesignSpecificationZoneHVACSizingName', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Design Specification ZoneHVAC Sizing Object Name`

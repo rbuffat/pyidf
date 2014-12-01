@@ -53,8 +53,6 @@ class AvailabilityManagerScheduled(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'reference': u'SystemAvailabilityManagers', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -90,8 +88,6 @@ class AvailabilityManagerScheduled(object):
     @schedule_name.setter
     def schedule_name(self, value=None):
         """  Corresponds to IDD Field `Schedule Name`
-        
-        {u'type': u'object-list', u'object-list': u'ScheduleNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Schedule Name`
@@ -202,8 +198,6 @@ class AvailabilityManagerScheduledOn(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'reference': u'SystemAvailabilityManagers', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -239,8 +233,6 @@ class AvailabilityManagerScheduledOn(object):
     @schedule_name.setter
     def schedule_name(self, value=None):
         """  Corresponds to IDD Field `Schedule Name`
-        
-        {u'type': u'object-list', u'object-list': u'ScheduleNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Schedule Name`
@@ -351,8 +343,6 @@ class AvailabilityManagerScheduledOff(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'reference': u'SystemAvailabilityManagers', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -388,8 +378,6 @@ class AvailabilityManagerScheduledOff(object):
     @schedule_name.setter
     def schedule_name(self, value=None):
         """  Corresponds to IDD Field `Schedule Name`
-        
-        {u'type': u'object-list', u'object-list': u'ScheduleNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Schedule Name`
@@ -595,8 +583,6 @@ class AvailabilityManagerOptimumStart(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {'type': 'alpha', u'reference': u'AvailabilityManager', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -632,8 +618,6 @@ class AvailabilityManagerOptimumStart(object):
     @applicability_schedule_name.setter
     def applicability_schedule_name(self, value=None):
         """  Corresponds to IDD Field `Applicability Schedule Name`
-        
-        {'type': 'alpha', u'object-list': u'ScheduleNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Applicability Schedule Name`
@@ -669,8 +653,6 @@ class AvailabilityManagerOptimumStart(object):
     @fan_schedule_name.setter
     def fan_schedule_name(self, value=None):
         """  Corresponds to IDD Field `Fan Schedule Name`
-        
-        {u'type': u'object-list', u'object-list': u'ScheduleNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Fan Schedule Name`
@@ -706,8 +688,6 @@ class AvailabilityManagerOptimumStart(object):
     @control_type.setter
     def control_type(self, value="ControlZone"):
         """  Corresponds to IDD Field `Control Type`
-        
-        {u'default': u'ControlZone', u'type': u'choice', u'key': [u'StayOff', u'ControlZone', u'MaximumofZoneList'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Control Type`
@@ -766,8 +746,6 @@ class AvailabilityManagerOptimumStart(object):
     @control_zone_name.setter
     def control_zone_name(self, value=None):
         """  Corresponds to IDD Field `Control Zone Name`
-        
-        {u'type': u'object-list', u'object-list': u'ZoneNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Control Zone Name`
@@ -803,8 +781,6 @@ class AvailabilityManagerOptimumStart(object):
     @zone_list_name.setter
     def zone_list_name(self, value=None):
         """  Corresponds to IDD Field `Zone List Name`
-        
-        {u'type': u'object-list', u'object-list': u'ZoneListNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Zone List Name`
@@ -838,11 +814,9 @@ class AvailabilityManagerOptimumStart(object):
         return self._data["Maximum Value for Optimum Start Time"]
 
     @maximum_value_for_optimum_start_time.setter
-    def maximum_value_for_optimum_start_time(self, value=6.0 ):
+    def maximum_value_for_optimum_start_time(self, value=6.0):
         """  Corresponds to IDD Field `Maximum Value for Optimum Start Time`
         this is the maximum number of hours that a system can start before occupancy
-        
-        {u'default': '6.0', u'units': u'hr', u'note': [u'this is the maximum number of hours that a system can start before occupancy'], 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Maximum Value for Optimum Start Time`
@@ -874,8 +848,6 @@ class AvailabilityManagerOptimumStart(object):
     @control_algorithm.setter
     def control_algorithm(self, value="AdaptiveASHRAE"):
         """  Corresponds to IDD Field `Control Algorithm`
-        
-        {u'default': u'AdaptiveASHRAE', u'type': u'choice', u'key': [u'ConstantTemperatureGradient', u'AdaptiveTemperatureGradient', u'AdaptiveASHRAE', u'ConstantStartTime'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Control Algorithm`
@@ -936,8 +908,6 @@ class AvailabilityManagerOptimumStart(object):
     @constant_temperature_gradient_during_cooling.setter
     def constant_temperature_gradient_during_cooling(self, value=None):
         """  Corresponds to IDD Field `Constant Temperature Gradient during Cooling`
-        
-        {u'units': u'deltaC/hr', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Constant Temperature Gradient during Cooling`
@@ -968,8 +938,6 @@ class AvailabilityManagerOptimumStart(object):
     @constant_temperature_gradient_during_heating.setter
     def constant_temperature_gradient_during_heating(self, value=None):
         """  Corresponds to IDD Field `Constant Temperature Gradient during Heating`
-        
-        {u'units': u'deltaC/hr', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Constant Temperature Gradient during Heating`
@@ -1000,8 +968,6 @@ class AvailabilityManagerOptimumStart(object):
     @initial_temperature_gradient_during_cooling.setter
     def initial_temperature_gradient_during_cooling(self, value=None):
         """  Corresponds to IDD Field `Initial Temperature Gradient during Cooling`
-        
-        {u'units': u'deltaC/hr', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Initial Temperature Gradient during Cooling`
@@ -1032,8 +998,6 @@ class AvailabilityManagerOptimumStart(object):
     @initial_temperature_gradient_during_heating.setter
     def initial_temperature_gradient_during_heating(self, value=None):
         """  Corresponds to IDD Field `Initial Temperature Gradient during Heating`
-        
-        {u'units': u'deltaC/hr', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Initial Temperature Gradient during Heating`
@@ -1065,8 +1029,6 @@ class AvailabilityManagerOptimumStart(object):
     def constant_start_time(self, value=None):
         """  Corresponds to IDD Field `Constant Start Time`
         this is the number of hours before occupancy for a system
-        
-        {u'units': u'hr', u'note': [u'this is the number of hours before occupancy for a system'], u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Constant Start Time`
@@ -1095,12 +1057,10 @@ class AvailabilityManagerOptimumStart(object):
         return self._data["Number of Previous Days"]
 
     @number_of_previous_days.setter
-    def number_of_previous_days(self, value=2 ):
+    def number_of_previous_days(self, value=2):
         """  Corresponds to IDD Field `Number of Previous Days`
         this is the number of days that their actual temperature
         gradients will be used in the AdaptiveTemperatureGradient method
-        
-        {'pytype': 'int', u'default': '2', u'maximum': '5', u'note': [u'this is the number of days that their actual temperature', u'gradients will be used in the AdaptiveTemperatureGradient method'], u'minimum': '2', u'units': u'days', u'type': u'integer'}
 
         Args:
             value (int): value for IDD Field `Number of Previous Days`
@@ -1255,8 +1215,6 @@ class AvailabilityManagerNightCycle(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'reference': u'SystemAvailabilityManagers', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -1292,8 +1250,6 @@ class AvailabilityManagerNightCycle(object):
     @applicability_schedule_name.setter
     def applicability_schedule_name(self, value=None):
         """  Corresponds to IDD Field `Applicability Schedule Name`
-        
-        {u'type': u'object-list', u'object-list': u'ScheduleNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Applicability Schedule Name`
@@ -1329,8 +1285,6 @@ class AvailabilityManagerNightCycle(object):
     @fan_schedule_name.setter
     def fan_schedule_name(self, value=None):
         """  Corresponds to IDD Field `Fan Schedule Name`
-        
-        {u'type': u'object-list', u'object-list': u'ScheduleNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Fan Schedule Name`
@@ -1369,8 +1323,6 @@ class AvailabilityManagerNightCycle(object):
         When AvailabilityManager:NightCycle is used in the zone component availability
         manager assignment list, the key choices for Control Type would only be
         StayOff and CycleOnControlZone
-        
-        {u'default': u'StayOff', u'note': [u'When AvailabilityManager:NightCycle is used in the zone component availability', u'manager assignment list, the key choices for Control Type would only be', u'StayOff and CycleOnControlZone'], u'type': u'choice', u'key': [u'StayOff', u'CycleOnAny', u'CycleOnControlZone', u'CycleOnAnyZoneFansOnly'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Control Type`
@@ -1429,10 +1381,8 @@ class AvailabilityManagerNightCycle(object):
         return self._data["Thermostat Tolerance"]
 
     @thermostat_tolerance.setter
-    def thermostat_tolerance(self, value=1.0 ):
+    def thermostat_tolerance(self, value=1.0):
         """  Corresponds to IDD Field `Thermostat Tolerance`
-        
-        {u'default': '1.0', u'units': u'deltaC', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Thermostat Tolerance`
@@ -1462,10 +1412,8 @@ class AvailabilityManagerNightCycle(object):
         return self._data["Cycling Run Time"]
 
     @cycling_run_time.setter
-    def cycling_run_time(self, value=3600.0 ):
+    def cycling_run_time(self, value=3600.0):
         """  Corresponds to IDD Field `Cycling Run Time`
-        
-        {u'default': '3600.0', u'units': u's', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Cycling Run Time`
@@ -1500,8 +1448,6 @@ class AvailabilityManagerNightCycle(object):
         When AvailabilityManager:NightCycle is used in the zone component availability
         manager assignment list, the Control Zone Name should be the name of the zone in which the
         zone component is.
-        
-        {u'note': [u'When AvailabilityManager:NightCycle is used in the zone component availability', u'manager assignment list, the Control Zone Name should be the name of the zone in which the', u'zone component is.'], u'type': u'object-list', u'object-list': u'ZoneNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Control Zone Name`
@@ -1635,8 +1581,6 @@ class AvailabilityManagerDifferentialThermostat(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'reference': u'SystemAvailabilityManagers', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -1672,8 +1616,6 @@ class AvailabilityManagerDifferentialThermostat(object):
     @hot_node_name.setter
     def hot_node_name(self, value=None):
         """  Corresponds to IDD Field `Hot Node Name`
-        
-        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Hot Node Name`
@@ -1709,8 +1651,6 @@ class AvailabilityManagerDifferentialThermostat(object):
     @cold_node_name.setter
     def cold_node_name(self, value=None):
         """  Corresponds to IDD Field `Cold Node Name`
-        
-        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Cold Node Name`
@@ -1746,8 +1686,6 @@ class AvailabilityManagerDifferentialThermostat(object):
     @temperature_difference_on_limit.setter
     def temperature_difference_on_limit(self, value=None):
         """  Corresponds to IDD Field `Temperature Difference On Limit`
-        
-        {u'units': u'deltaC', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Temperature Difference On Limit`
@@ -1779,8 +1717,6 @@ class AvailabilityManagerDifferentialThermostat(object):
     def temperature_difference_off_limit(self, value=None):
         """  Corresponds to IDD Field `Temperature Difference Off Limit`
         Defaults to Temperature Difference On Limit.
-        
-        {u'units': u'deltaC', u'note': [u'Defaults to Temperature Difference On Limit.'], u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Temperature Difference Off Limit`
@@ -1893,8 +1829,6 @@ class AvailabilityManagerHighTemperatureTurnOff(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'reference': u'SystemAvailabilityManagers', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -1930,8 +1864,6 @@ class AvailabilityManagerHighTemperatureTurnOff(object):
     @sensor_node_name.setter
     def sensor_node_name(self, value=None):
         """  Corresponds to IDD Field `Sensor Node Name`
-        
-        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Sensor Node Name`
@@ -1967,8 +1899,6 @@ class AvailabilityManagerHighTemperatureTurnOff(object):
     @temperature.setter
     def temperature(self, value=None):
         """  Corresponds to IDD Field `Temperature`
-        
-        {u'units': u'C', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Temperature`
@@ -2081,8 +2011,6 @@ class AvailabilityManagerHighTemperatureTurnOn(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'reference': u'SystemAvailabilityManagers', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -2118,8 +2046,6 @@ class AvailabilityManagerHighTemperatureTurnOn(object):
     @sensor_node_name.setter
     def sensor_node_name(self, value=None):
         """  Corresponds to IDD Field `Sensor Node Name`
-        
-        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Sensor Node Name`
@@ -2155,8 +2081,6 @@ class AvailabilityManagerHighTemperatureTurnOn(object):
     @temperature.setter
     def temperature(self, value=None):
         """  Corresponds to IDD Field `Temperature`
-        
-        {u'units': u'C', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Temperature`
@@ -2277,8 +2201,6 @@ class AvailabilityManagerLowTemperatureTurnOff(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'reference': u'SystemAvailabilityManagers', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -2314,8 +2236,6 @@ class AvailabilityManagerLowTemperatureTurnOff(object):
     @sensor_node_name.setter
     def sensor_node_name(self, value=None):
         """  Corresponds to IDD Field `Sensor Node Name`
-        
-        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Sensor Node Name`
@@ -2351,8 +2271,6 @@ class AvailabilityManagerLowTemperatureTurnOff(object):
     @temperature.setter
     def temperature(self, value=None):
         """  Corresponds to IDD Field `Temperature`
-        
-        {u'units': u'C', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Temperature`
@@ -2384,8 +2302,6 @@ class AvailabilityManagerLowTemperatureTurnOff(object):
     def applicability_schedule_name(self, value=None):
         """  Corresponds to IDD Field `Applicability Schedule Name`
         If blank, defaults to always active
-        
-        {u'note': [u'If blank, defaults to always active'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Applicability Schedule Name`
@@ -2503,8 +2419,6 @@ class AvailabilityManagerLowTemperatureTurnOn(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'reference': u'SystemAvailabilityManagers', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -2540,8 +2454,6 @@ class AvailabilityManagerLowTemperatureTurnOn(object):
     @sensor_node_name.setter
     def sensor_node_name(self, value=None):
         """  Corresponds to IDD Field `Sensor Node Name`
-        
-        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Sensor Node Name`
@@ -2577,8 +2489,6 @@ class AvailabilityManagerLowTemperatureTurnOn(object):
     @temperature.setter
     def temperature(self, value=None):
         """  Corresponds to IDD Field `Temperature`
-        
-        {u'units': u'C', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Temperature`
@@ -2732,8 +2642,6 @@ class AvailabilityManagerNightVentilation(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'reference': u'SystemAvailabilityManagers', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -2769,8 +2677,6 @@ class AvailabilityManagerNightVentilation(object):
     @applicability_schedule_name.setter
     def applicability_schedule_name(self, value=None):
         """  Corresponds to IDD Field `Applicability Schedule Name`
-        
-        {u'type': u'object-list', u'object-list': u'ScheduleNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Applicability Schedule Name`
@@ -2806,8 +2712,6 @@ class AvailabilityManagerNightVentilation(object):
     @fan_schedule_name.setter
     def fan_schedule_name(self, value=None):
         """  Corresponds to IDD Field `Fan Schedule Name`
-        
-        {u'type': u'object-list', u'object-list': u'ScheduleNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Fan Schedule Name`
@@ -2845,8 +2749,6 @@ class AvailabilityManagerNightVentilation(object):
         """  Corresponds to IDD Field `Ventilation Temperature Schedule Name`
         One zone temperature must be above this scheduled temperature
         for night ventilation to be enabled
-        
-        {u'note': [u'One zone temperature must be above this scheduled temperature', u'for night ventilation to be enabled'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Ventilation Temperature Schedule Name`
@@ -2880,12 +2782,10 @@ class AvailabilityManagerNightVentilation(object):
         return self._data["Ventilation Temperature Difference"]
 
     @ventilation_temperature_difference.setter
-    def ventilation_temperature_difference(self, value=2.0 ):
+    def ventilation_temperature_difference(self, value=2.0):
         """  Corresponds to IDD Field `Ventilation Temperature Difference`
         The outdoor air temperature minus the control zone temperature
         must be greater than the ventilation delta T
-        
-        {u'units': u'deltaC', u'default': '2.0', u'note': [u'The outdoor air temperature minus the control zone temperature', u'must be greater than the ventilation delta T'], 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Ventilation Temperature Difference`
@@ -2915,12 +2815,10 @@ class AvailabilityManagerNightVentilation(object):
         return self._data["Ventilation Temperature Low Limit"]
 
     @ventilation_temperature_low_limit.setter
-    def ventilation_temperature_low_limit(self, value=15.0 ):
+    def ventilation_temperature_low_limit(self, value=15.0):
         """  Corresponds to IDD Field `Ventilation Temperature Low Limit`
         Night ventilation is disabled if any conditioned zone served by
         the system falls below this temperature
-        
-        {u'units': u'C', u'default': '15.0', u'note': [u'Night ventilation is disabled if any conditioned zone served by', u'the system falls below this temperature'], 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Ventilation Temperature Low Limit`
@@ -2950,12 +2848,10 @@ class AvailabilityManagerNightVentilation(object):
         return self._data["Night Venting Flow Fraction"]
 
     @night_venting_flow_fraction.setter
-    def night_venting_flow_fraction(self, value=1.0 ):
+    def night_venting_flow_fraction(self, value=1.0):
         """  Corresponds to IDD Field `Night Venting Flow Fraction`
         the fraction (could be > 1) of the design system Flow Rate at which
         night ventilation will be done
-        
-        {u'default': '1.0', u'note': [u'the fraction (could be > 1) of the design system Flow Rate at which', u'night ventilation will be done'], u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Night Venting Flow Fraction`
@@ -2993,8 +2889,6 @@ class AvailabilityManagerNightVentilation(object):
         When AvailabilityManager:NightVentilation is used in the zone component availability
         manager assignment list, the Control Zone Name should be the name of the zone in which the
         zone component is.
-        
-        {u'note': [u'When AvailabilityManager:NightVentilation is used in the zone component availability', u'manager assignment list, the Control Zone Name should be the name of the zone in which the', u'zone component is.'], u'type': u'object-list', u'object-list': u'ZoneNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Control Zone Name`
@@ -3235,8 +3129,6 @@ class AvailabilityManagerHybridVentilation(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'reference': u'SystemAvailabilityManagers', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -3275,8 +3167,6 @@ class AvailabilityManagerHybridVentilation(object):
         Enter the name of an AirLoopHVAC or HVACTemplate:System:* object.
         If this field is left blank, hybrid ventilation managers will be
         simulated for zone equipment control
-        
-        {u'note': [u'Enter the name of an AirLoopHVAC or HVACTemplate:System:* object.', u'If this field is left blank, hybrid ventilation managers will be', u'simulated for zone equipment control'], u'type': u'object-list', u'object-list': u'HVACTemplateSystems', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `HVAC Air Loop Name`
@@ -3314,8 +3204,6 @@ class AvailabilityManagerHybridVentilation(object):
         """  Corresponds to IDD Field `Controlled Zone Name`
         the controlled zone name should be a zone where a thermostat or humidistat is located
         served by an air primary loop.
-        
-        {u'note': [u'the controlled zone name should be a zone where a thermostat or humidistat is located', u'served by an air primary loop.'], u'type': u'object-list', u'object-list': u'ZoneNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Controlled Zone Name`
@@ -3357,8 +3245,6 @@ class AvailabilityManagerHybridVentilation(object):
         2 = Enthalpy control
         3 = Dewpoint control
         4 = Outdoor ventilation air control
-        
-        {u'note': [u'The Ventilation control mode contains appropriate integer control types.', u'0 - uncontrolled (Natural ventilation and HVAC system are controlled by themselves)', u'1 = Temperature control', u'2 = Enthalpy control', u'3 = Dewpoint control', u'4 = Outdoor ventilation air control'], u'type': u'object-list', u'object-list': u'ScheduleNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Ventilation Control Mode Schedule Name`
@@ -3396,8 +3282,6 @@ class AvailabilityManagerHybridVentilation(object):
         """  Corresponds to IDD Field `Use Weather File Rain Indicators`
         If Yes, ventilation is shutoff when there is rain
         If No, there is no rain control
-        
-        {u'default': u'Yes', u'note': [u'If Yes, ventilation is shutoff when there is rain', u'If No, there is no rain control'], u'type': u'choice', u'key': [u'Yes', u'No'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Use Weather File Rain Indicators`
@@ -3452,11 +3336,9 @@ class AvailabilityManagerHybridVentilation(object):
         return self._data["Maximum Wind Speed"]
 
     @maximum_wind_speed.setter
-    def maximum_wind_speed(self, value=40.0 ):
+    def maximum_wind_speed(self, value=40.0):
         """  Corresponds to IDD Field `Maximum Wind Speed`
         this is the wind speed above which ventilation is shutoff
-        
-        {'pytype': 'float', u'default': '40.0', u'maximum': '40.0', u'note': [u'this is the wind speed above which ventilation is shutoff'], u'minimum': '0.0', u'units': u'm/s', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Maximum Wind Speed`
@@ -3494,11 +3376,9 @@ class AvailabilityManagerHybridVentilation(object):
         return self._data["Minimum Outdoor Temperature"]
 
     @minimum_outdoor_temperature.setter
-    def minimum_outdoor_temperature(self, value=-100.0 ):
+    def minimum_outdoor_temperature(self, value=-100.0):
         """  Corresponds to IDD Field `Minimum Outdoor Temperature`
         this is the outdoor temperature below which ventilation is shutoff
-        
-        {'pytype': 'float', u'default': '-100.0', u'maximum': '100.0', u'note': [u'this is the outdoor temperature below which ventilation is shutoff'], u'minimum': '-100.0', u'units': u'C', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Minimum Outdoor Temperature`
@@ -3536,11 +3416,9 @@ class AvailabilityManagerHybridVentilation(object):
         return self._data["Maximum Outdoor Temperature"]
 
     @maximum_outdoor_temperature.setter
-    def maximum_outdoor_temperature(self, value=100.0 ):
+    def maximum_outdoor_temperature(self, value=100.0):
         """  Corresponds to IDD Field `Maximum Outdoor Temperature`
         this is the outdoor temperature above which ventilation is shutoff
-        
-        {'pytype': 'float', u'default': '100.0', u'maximum': '100.0', u'note': [u'this is the outdoor temperature above which ventilation is shutoff'], u'minimum': '-100.0', u'units': u'C', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Maximum Outdoor Temperature`
@@ -3581,8 +3459,6 @@ class AvailabilityManagerHybridVentilation(object):
     def minimum_outdoor_enthalpy(self, value=None):
         """  Corresponds to IDD Field `Minimum Outdoor Enthalpy`
         this is the outdoor Enthalpy below which ventilation is shutoff
-        
-        {'pytype': 'float', u'minimum>': '0.0', u'note': [u'this is the outdoor Enthalpy below which ventilation is shutoff'], u'units': u'J/kg', u'type': u'real', u'maximum<': '300000.0'}
 
         Args:
             value (float): value for IDD Field `Minimum Outdoor Enthalpy`
@@ -3622,8 +3498,6 @@ class AvailabilityManagerHybridVentilation(object):
     def maximum_outdoor_enthalpy(self, value=None):
         """  Corresponds to IDD Field `Maximum Outdoor Enthalpy`
         this is the outdoor Enthalpy above which ventilation is shutoff
-        
-        {'pytype': 'float', u'minimum>': '0.0', u'note': [u'this is the outdoor Enthalpy above which ventilation is shutoff'], u'units': u'J/kg', u'type': u'real', u'maximum<': '300000.0'}
 
         Args:
             value (float): value for IDD Field `Maximum Outdoor Enthalpy`
@@ -3660,12 +3534,10 @@ class AvailabilityManagerHybridVentilation(object):
         return self._data["Minimum Outdoor Dewpoint"]
 
     @minimum_outdoor_dewpoint.setter
-    def minimum_outdoor_dewpoint(self, value=-100.0 ):
+    def minimum_outdoor_dewpoint(self, value=-100.0):
         """  Corresponds to IDD Field `Minimum Outdoor Dewpoint`
         this is the outdoor temperature below which ventilation is shutoff
         Applicable only if Ventilation Control Mode = 3
-        
-        {'pytype': 'float', u'default': '-100.0', u'maximum': '100.0', u'note': [u'this is the outdoor temperature below which ventilation is shutoff', u'Applicable only if Ventilation Control Mode = 3'], u'minimum': '-100.0', u'units': u'C', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Minimum Outdoor Dewpoint`
@@ -3703,12 +3575,10 @@ class AvailabilityManagerHybridVentilation(object):
         return self._data["Maximum Outdoor Dewpoint"]
 
     @maximum_outdoor_dewpoint.setter
-    def maximum_outdoor_dewpoint(self, value=100.0 ):
+    def maximum_outdoor_dewpoint(self, value=100.0):
         """  Corresponds to IDD Field `Maximum Outdoor Dewpoint`
         this is the outdoor dewpoint above which ventilation is shutoff
         Applicable only if Ventilation Control Mode = 3
-        
-        {'pytype': 'float', u'default': '100.0', u'maximum': '100.0', u'note': [u'this is the outdoor dewpoint above which ventilation is shutoff', u'Applicable only if Ventilation Control Mode = 3'], u'minimum': '-100.0', u'units': u'C', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Maximum Outdoor Dewpoint`
@@ -3749,8 +3619,6 @@ class AvailabilityManagerHybridVentilation(object):
     def minimum_outdoor_ventilation_air_schedule_name(self, value=None):
         """  Corresponds to IDD Field `Minimum Outdoor Ventilation Air Schedule Name`
         Used only if Ventilation Control Mode = 4
-        
-        {u'note': [u'Used only if Ventilation Control Mode = 4'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Minimum Outdoor Ventilation Air Schedule Name`
@@ -3790,8 +3658,6 @@ class AvailabilityManagerHybridVentilation(object):
         linear curve = a + b*WS
         quadratic curve = a + b*WS + c*WS**2
         WS = wind speed (m/s)
-        
-        {u'note': [u'Table:OneIndependentVariable object can also be used', u'linear curve = a + b*WS', u'quadratic curve = a + b*WS + c*WS**2', u'WS = wind speed (m/s)'], u'type': u'object-list', u'object-list': u'LinearOrQuadraticCurves', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Opening Factor Function of Wind Speed Curve Name`
@@ -3829,8 +3695,6 @@ class AvailabilityManagerHybridVentilation(object):
         """  Corresponds to IDD Field `AirflowNetwork Control Type Schedule Name`
         The schedule is used to incorporate operation of AirflowNetwork large opening
         objects and HVAC system operation.
-        
-        {u'note': [u'The schedule is used to incorporate operation of AirflowNetwork large opening', u'objects and HVAC system operation.'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `AirflowNetwork Control Type Schedule Name`
@@ -3869,8 +3733,6 @@ class AvailabilityManagerHybridVentilation(object):
         The schedule is used to incorporate operation of simple airflow objects and HVAC
         system operation.
         The simple airflow objects are Ventilation and Mixing only
-        
-        {u'note': [u'The schedule is used to incorporate operation of simple airflow objects and HVAC', u'system operation.', u'The simple airflow objects are Ventilation and Mixing only'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Simple Airflow Control Type Schedule Name`
@@ -3913,8 +3775,6 @@ class AvailabilityManagerHybridVentilation(object):
         <Zone Name> <global Ventilation:DesignFlowRate> name.
         The other ZoneVentilation:* and ZoneMixing objects controlled in the same AirLoopHVAC
         will work in the same way as this ventilation object.
-        
-        {u'note': [u'This fieldhas not been instrumented to work with', u'global Zone or Zone List names option for Ventilation:DesignFlowRate.  In order to', u'use, you must enter the single <Ventilation:DesignFlowRate> name in this field.', u'If it is a part of a global ventilation assignement the name will be', u'<Zone Name> <global Ventilation:DesignFlowRate> name.', u'The other ZoneVentilation:* and ZoneMixing objects controlled in the same AirLoopHVAC', u'will work in the same way as this ventilation object.'], u'type': u'object-list', u'object-list': u'VentilationNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `ZoneVentilation Object Name`
@@ -4115,8 +3975,6 @@ class AvailabilityManagerAssignmentList(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'reference': u'SystemAvailabilityManagerLists', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -4152,8 +4010,6 @@ class AvailabilityManagerAssignmentList(object):
     @availability_manager_1_object_type.setter
     def availability_manager_1_object_type(self, value=None):
         """  Corresponds to IDD Field `Availability Manager 1 Object Type`
-        
-        {'pytype': 'str', u'type': u'choice', u'key': [u'AvailabilityManager:Scheduled', u'AvailabilityManager:ScheduledOn', u'AvailabilityManager:ScheduledOff', u'AvailabilityManager:NightCycle', u'AvailabilityManager:DifferentialThermostat', u'AvailabilityManager:HighTemperatureTurnOff', u'AvailabilityManager:HighTemperatureTurnOn', u'AvailabilityManager:LowTemperatureTurnOff', u'AvailabilityManager:LowTemperatureTurnOn', u'AvailabilityManager:NightVentilation'], u'required-field': True, u'begin-extensible': u''}
 
         Args:
             value (str): value for IDD Field `Availability Manager 1 Object Type`
@@ -4225,8 +4081,6 @@ class AvailabilityManagerAssignmentList(object):
     @availability_manager_1_name.setter
     def availability_manager_1_name(self, value=None):
         """  Corresponds to IDD Field `Availability Manager 1 Name`
-        
-        {u'type': u'object-list', u'object-list': u'SystemAvailabilityManagers', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Availability Manager 1 Name`
@@ -4262,8 +4116,6 @@ class AvailabilityManagerAssignmentList(object):
     @availability_manager_2_object_type.setter
     def availability_manager_2_object_type(self, value=None):
         """  Corresponds to IDD Field `Availability Manager 2 Object Type`
-        
-        {u'type': u'choice', u'key': [u'AvailabilityManager:Scheduled', u'AvailabilityManager:ScheduledOn', u'AvailabilityManager:ScheduledOff', u'AvailabilityManager:NightCycle', u'AvailabilityManager:DifferentialThermostat', u'AvailabilityManager:HighTemperatureTurnOff', u'AvailabilityManager:HighTemperatureTurnOn', u'AvailabilityManager:LowTemperatureTurnOff', u'AvailabilityManager:LowTemperatureTurnOn', u'AvailabilityManager:NightVentilation'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Availability Manager 2 Object Type`
@@ -4335,8 +4187,6 @@ class AvailabilityManagerAssignmentList(object):
     @availability_manager_2_name.setter
     def availability_manager_2_name(self, value=None):
         """  Corresponds to IDD Field `Availability Manager 2 Name`
-        
-        {u'type': u'object-list', u'object-list': u'SystemAvailabilityManagers', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Availability Manager 2 Name`
@@ -4372,8 +4222,6 @@ class AvailabilityManagerAssignmentList(object):
     @availability_manager_3_object_type.setter
     def availability_manager_3_object_type(self, value=None):
         """  Corresponds to IDD Field `Availability Manager 3 Object Type`
-        
-        {u'type': u'choice', u'key': [u'AvailabilityManager:Scheduled', u'AvailabilityManager:ScheduledOn', u'AvailabilityManager:ScheduledOff', u'AvailabilityManager:NightCycle', u'AvailabilityManager:DifferentialThermostat', u'AvailabilityManager:HighTemperatureTurnOff', u'AvailabilityManager:HighTemperatureTurnOn', u'AvailabilityManager:LowTemperatureTurnOff', u'AvailabilityManager:LowTemperatureTurnOn', u'AvailabilityManager:NightVentilation'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Availability Manager 3 Object Type`
@@ -4445,8 +4293,6 @@ class AvailabilityManagerAssignmentList(object):
     @availability_manager_3_name.setter
     def availability_manager_3_name(self, value=None):
         """  Corresponds to IDD Field `Availability Manager 3 Name`
-        
-        {u'type': u'object-list', u'object-list': u'SystemAvailabilityManagers', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Availability Manager 3 Name`
@@ -4482,8 +4328,6 @@ class AvailabilityManagerAssignmentList(object):
     @availability_manager_4_object_type.setter
     def availability_manager_4_object_type(self, value=None):
         """  Corresponds to IDD Field `Availability Manager 4 Object Type`
-        
-        {u'type': u'choice', u'key': [u'AvailabilityManager:Scheduled', u'AvailabilityManager:ScheduledOn', u'AvailabilityManager:ScheduledOff', u'AvailabilityManager:NightCycle', u'AvailabilityManager:DifferentialThermostat', u'AvailabilityManager:HighTemperatureTurnOff', u'AvailabilityManager:HighTemperatureTurnOn', u'AvailabilityManager:LowTemperatureTurnOff', u'AvailabilityManager:LowTemperatureTurnOn', u'AvailabilityManager:NightVentilation'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Availability Manager 4 Object Type`
@@ -4555,8 +4399,6 @@ class AvailabilityManagerAssignmentList(object):
     @availability_manager_4_name.setter
     def availability_manager_4_name(self, value=None):
         """  Corresponds to IDD Field `Availability Manager 4 Name`
-        
-        {u'type': u'object-list', u'object-list': u'SystemAvailabilityManagers', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Availability Manager 4 Name`
@@ -4592,8 +4434,6 @@ class AvailabilityManagerAssignmentList(object):
     @availability_manager_5_object_type.setter
     def availability_manager_5_object_type(self, value=None):
         """  Corresponds to IDD Field `Availability Manager 5 Object Type`
-        
-        {u'type': u'choice', u'key': [u'AvailabilityManager:Scheduled', u'AvailabilityManager:ScheduledOn', u'AvailabilityManager:ScheduledOff', u'AvailabilityManager:NightCycle', u'AvailabilityManager:DifferentialThermostat', u'AvailabilityManager:HighTemperatureTurnOff', u'AvailabilityManager:HighTemperatureTurnOn', u'AvailabilityManager:LowTemperatureTurnOff', u'AvailabilityManager:LowTemperatureTurnOn', u'AvailabilityManager:NightVentilation'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Availability Manager 5 Object Type`
@@ -4665,8 +4505,6 @@ class AvailabilityManagerAssignmentList(object):
     @availability_manager_5_name.setter
     def availability_manager_5_name(self, value=None):
         """  Corresponds to IDD Field `Availability Manager 5 Name`
-        
-        {u'type': u'object-list', u'object-list': u'SystemAvailabilityManagers', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Availability Manager 5 Name`
@@ -4702,8 +4540,6 @@ class AvailabilityManagerAssignmentList(object):
     @availability_manager_6_object_type.setter
     def availability_manager_6_object_type(self, value=None):
         """  Corresponds to IDD Field `Availability Manager 6 Object Type`
-        
-        {u'type': u'choice', u'key': [u'AvailabilityManager:Scheduled', u'AvailabilityManager:ScheduledOn', u'AvailabilityManager:ScheduledOff', u'AvailabilityManager:NightCycle', u'AvailabilityManager:DifferentialThermostat', u'AvailabilityManager:HighTemperatureTurnOff', u'AvailabilityManager:HighTemperatureTurnOn', u'AvailabilityManager:LowTemperatureTurnOff', u'AvailabilityManager:LowTemperatureTurnOn', u'AvailabilityManager:NightVentilation'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Availability Manager 6 Object Type`
@@ -4775,8 +4611,6 @@ class AvailabilityManagerAssignmentList(object):
     @availability_manager_6_name.setter
     def availability_manager_6_name(self, value=None):
         """  Corresponds to IDD Field `Availability Manager 6 Name`
-        
-        {u'type': u'object-list', u'object-list': u'SystemAvailabilityManagers', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Availability Manager 6 Name`

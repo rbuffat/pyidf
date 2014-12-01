@@ -116,8 +116,6 @@ class AirLoopHvac(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'reference': u'AirPrimaryLoops', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -154,8 +152,6 @@ class AirLoopHvac(object):
     def controller_list_name(self, value=None):
         """  Corresponds to IDD Field `Controller List Name`
         Enter the name of an AirLoopHVAC:ControllerList object.
-        
-        {u'note': [u'Enter the name of an AirLoopHVAC:ControllerList object.'], u'type': u'object-list', u'object-list': u'ControllerLists', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Controller List Name`
@@ -192,8 +188,6 @@ class AirLoopHvac(object):
     def availability_manager_list_name(self, value=None):
         """  Corresponds to IDD Field `Availability Manager List Name`
         Enter the name of an AvailabilityManagerAssignmentList object.
-        
-        {u'note': [u'Enter the name of an AvailabilityManagerAssignmentList object.'], u'type': u'object-list', u'object-list': u'SystemAvailabilityManagerLists', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Availability Manager List Name`
@@ -227,13 +221,11 @@ class AirLoopHvac(object):
         return self._data["Design Supply Air Flow Rate"]
 
     @design_supply_air_flow_rate.setter
-    def design_supply_air_flow_rate(self, value=0.0 ):
+    def design_supply_air_flow_rate(self, value=0.0):
         """  Corresponds to IDD Field `Design Supply Air Flow Rate`
-        
-        {u'default': '0.0', u'units': u'm3/s', u'autosizable': u'', 'type': 'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `Design Supply Air Flow Rate`
+            value (float or "Autosize"): value for IDD Field `Design Supply Air Flow Rate`
                 Units: m3/s
                 Default value: 0.0
                 if `value` is None it will not be checked against the
@@ -243,6 +235,13 @@ class AirLoopHvac(object):
             ValueError: if `value` is not a valid value
         """
         if value is not None:
+            try:
+                value_lower = str(value).lower()
+                if value_lower == "autosize":
+                    self._data["Design Supply Air Flow Rate"] = "Autosize"
+                    return
+            except ValueError:
+                pass
             try:
                 value = float(value)
             except ValueError:
@@ -263,8 +262,6 @@ class AirLoopHvac(object):
     def branch_list_name(self, value=None):
         """  Corresponds to IDD Field `Branch List Name`
         Name of a BranchList containing all the branches in this air loop
-        
-        {u'note': [u'Name of a BranchList containing all the branches in this air loop'], u'type': u'object-list', u'object-list': u'BranchLists', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Branch List Name`
@@ -301,8 +298,6 @@ class AirLoopHvac(object):
     def connector_list_name(self, value=None):
         """  Corresponds to IDD Field `Connector List Name`
         Name of a ConnectorList containing all the splitters and mixers in the loop
-        
-        {u'note': [u'Name of a ConnectorList containing all the splitters and mixers in the loop'], u'type': u'object-list', u'object-list': u'ConnectorLists', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Connector List Name`
@@ -339,8 +334,6 @@ class AirLoopHvac(object):
     def supply_side_inlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Supply Side Inlet Node Name`
         Name of inlet node where return air enters the supply side of the air loop
-        
-        {u'note': [u'Name of inlet node where return air enters the supply side of the air loop'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Supply Side Inlet Node Name`
@@ -377,8 +370,6 @@ class AirLoopHvac(object):
     def demand_side_outlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Demand Side Outlet Node Name`
         Name of outlet node where return air leaves the demand side and enters the supply side.
-        
-        {u'note': [u'Name of outlet node where return air leaves the demand side and enters the supply side.'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Demand Side Outlet Node Name`
@@ -415,8 +406,6 @@ class AirLoopHvac(object):
     def demand_side_inlet_node_names(self, value=None):
         """  Corresponds to IDD Field `Demand Side Inlet Node Names`
         Name of a Node or NodeList containing the inlet node(s) supplying air to zone equipment.
-        
-        {u'note': [u'Name of a Node or NodeList containing the inlet node(s) supplying air to zone equipment.'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Demand Side Inlet Node Names`
@@ -453,8 +442,6 @@ class AirLoopHvac(object):
     def supply_side_outlet_node_names(self, value=None):
         """  Corresponds to IDD Field `Supply Side Outlet Node Names`
         Name of a Node or NodeList containing the outlet node(s) supplying air to the demand side.
-        
-        {u'note': [u'Name of a Node or NodeList containing the outlet node(s) supplying air to the demand side.'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Supply Side Outlet Node Names`
@@ -700,8 +687,6 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'reference': u'AirLoopOAEquipmentLists', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -737,8 +722,6 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(object):
     @component_1_object_type.setter
     def component_1_object_type(self, value=None):
         """  Corresponds to IDD Field `Component 1 Object Type`
-        
-        {'type': 'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 1 Object Type`
@@ -774,8 +757,6 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(object):
     @component_1_name.setter
     def component_1_name(self, value=None):
         """  Corresponds to IDD Field `Component 1 Name`
-        
-        {'type': 'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 1 Name`
@@ -811,8 +792,6 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(object):
     @component_2_object_type.setter
     def component_2_object_type(self, value=None):
         """  Corresponds to IDD Field `Component 2 Object Type`
-        
-        {'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 2 Object Type`
@@ -848,8 +827,6 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(object):
     @component_2_name.setter
     def component_2_name(self, value=None):
         """  Corresponds to IDD Field `Component 2 Name`
-        
-        {'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 2 Name`
@@ -885,8 +862,6 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(object):
     @component_3_object_type.setter
     def component_3_object_type(self, value=None):
         """  Corresponds to IDD Field `Component 3 Object Type`
-        
-        {'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 3 Object Type`
@@ -922,8 +897,6 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(object):
     @component_3_name.setter
     def component_3_name(self, value=None):
         """  Corresponds to IDD Field `Component 3 Name`
-        
-        {'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 3 Name`
@@ -959,8 +932,6 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(object):
     @component_4_object_type.setter
     def component_4_object_type(self, value=None):
         """  Corresponds to IDD Field `Component 4 Object Type`
-        
-        {'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 4 Object Type`
@@ -996,8 +967,6 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(object):
     @component_4_name.setter
     def component_4_name(self, value=None):
         """  Corresponds to IDD Field `Component 4 Name`
-        
-        {'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 4 Name`
@@ -1033,8 +1002,6 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(object):
     @component_5_object_type.setter
     def component_5_object_type(self, value=None):
         """  Corresponds to IDD Field `Component 5 Object Type`
-        
-        {'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 5 Object Type`
@@ -1070,8 +1037,6 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(object):
     @component_5_name.setter
     def component_5_name(self, value=None):
         """  Corresponds to IDD Field `Component 5 Name`
-        
-        {'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 5 Name`
@@ -1107,8 +1072,6 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(object):
     @component_6_object_type.setter
     def component_6_object_type(self, value=None):
         """  Corresponds to IDD Field `Component 6 Object Type`
-        
-        {'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 6 Object Type`
@@ -1144,8 +1107,6 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(object):
     @component_6_name.setter
     def component_6_name(self, value=None):
         """  Corresponds to IDD Field `Component 6 Name`
-        
-        {'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 6 Name`
@@ -1181,8 +1142,6 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(object):
     @component_7_object_type.setter
     def component_7_object_type(self, value=None):
         """  Corresponds to IDD Field `Component 7 Object Type`
-        
-        {'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 7 Object Type`
@@ -1218,8 +1177,6 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(object):
     @component_7_name.setter
     def component_7_name(self, value=None):
         """  Corresponds to IDD Field `Component 7 Name`
-        
-        {'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 7 Name`
@@ -1255,8 +1212,6 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(object):
     @component_8_object_type.setter
     def component_8_object_type(self, value=None):
         """  Corresponds to IDD Field `Component 8 Object Type`
-        
-        {'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 8 Object Type`
@@ -1292,8 +1247,6 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(object):
     @component_8_name.setter
     def component_8_name(self, value=None):
         """  Corresponds to IDD Field `Component 8 Name`
-        
-        {'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 8 Name`
@@ -1329,8 +1282,6 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(object):
     @component_9_object_type.setter
     def component_9_object_type(self, value=None):
         """  Corresponds to IDD Field `Component 9 Object Type`
-        
-        {'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 9 Object Type`
@@ -1366,8 +1317,6 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(object):
     @component_9_name.setter
     def component_9_name(self, value=None):
         """  Corresponds to IDD Field `Component 9 Name`
-        
-        {'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 9 Name`
@@ -1496,8 +1445,6 @@ class AirLoopHvacOutdoorAirSystem(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -1534,8 +1481,6 @@ class AirLoopHvacOutdoorAirSystem(object):
     def controller_list_name(self, value=None):
         """  Corresponds to IDD Field `Controller List Name`
         Enter the name of an AirLoopHVAC:ControllerList object.
-        
-        {u'note': [u'Enter the name of an AirLoopHVAC:ControllerList object.'], u'type': u'object-list', u'object-list': u'ControllerLists', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Controller List Name`
@@ -1572,8 +1517,6 @@ class AirLoopHvacOutdoorAirSystem(object):
     def outdoor_air_equipment_list_name(self, value=None):
         """  Corresponds to IDD Field `Outdoor Air Equipment List Name`
         Enter the name of an AirLoopHVAC:OutdoorAirSystem:EquipmentList object.
-        
-        {u'note': [u'Enter the name of an AirLoopHVAC:OutdoorAirSystem:EquipmentList object.'], u'type': u'object-list', u'object-list': u'AirLoopOAEquipmentLists', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Outdoor Air Equipment List Name`
@@ -1610,8 +1553,6 @@ class AirLoopHvacOutdoorAirSystem(object):
     def availability_manager_list_name(self, value=None):
         """  Corresponds to IDD Field `Availability Manager List Name`
         Enter the name of an AvailabilityManagerAssignmentList object.
-        
-        {u'note': [u'Enter the name of an AvailabilityManagerAssignmentList object.'], u'type': u'object-list', u'object-list': u'SystemAvailabilityManagerLists', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Availability Manager List Name`
@@ -1746,8 +1687,6 @@ class OutdoorAirMixer(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'reference': u'OutdoorAirMixers', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -1784,8 +1723,6 @@ class OutdoorAirMixer(object):
     def mixed_air_node_name(self, value=None):
         """  Corresponds to IDD Field `Mixed Air Node Name`
         Name of Mixed Air Node
-        
-        {u'note': [u'Name of Mixed Air Node'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Mixed Air Node Name`
@@ -1822,8 +1759,6 @@ class OutdoorAirMixer(object):
     def outdoor_air_stream_node_name(self, value=None):
         """  Corresponds to IDD Field `Outdoor Air Stream Node Name`
         Name of Outdoor Air Stream Node
-        
-        {u'note': [u'Name of Outdoor Air Stream Node'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Outdoor Air Stream Node Name`
@@ -1860,8 +1795,6 @@ class OutdoorAirMixer(object):
     def relief_air_stream_node_name(self, value=None):
         """  Corresponds to IDD Field `Relief Air Stream Node Name`
         Name of Relief Air Stream Node
-        
-        {u'note': [u'Name of Relief Air Stream Node'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Relief Air Stream Node Name`
@@ -1898,8 +1831,6 @@ class OutdoorAirMixer(object):
     def return_air_stream_node_name(self, value=None):
         """  Corresponds to IDD Field `Return Air Stream Node Name`
         Name of Return Air Stream Node
-        
-        {u'note': [u'Name of Return Air Stream Node'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Return Air Stream Node Name`
@@ -2410,8 +2341,6 @@ class AirLoopHvacSupplyPath(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {'type': 'alpha', u'reference': u'ZoneSupplyAirPaths', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -2447,8 +2376,6 @@ class AirLoopHvacSupplyPath(object):
     @supply_air_path_inlet_node_name.setter
     def supply_air_path_inlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Supply Air Path Inlet Node Name`
-        
-        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Supply Air Path Inlet Node Name`
@@ -2485,8 +2412,6 @@ class AirLoopHvacSupplyPath(object):
     def component_1_object_type(self, value=None):
         """  Corresponds to IDD Field `Component 1 Object Type`
         Supply path components must be listed in flow order.
-        
-        {'pytype': 'str', u'begin-extensible': u'', u'required-field': True, u'note': [u'Supply path components must be listed in flow order.'], u'key': [u'AirLoopHVAC:ZoneSplitter', u'AirLoopHVAC:SupplyPlenum'], u'type': u'choice'}
 
         Args:
             value (str): value for IDD Field `Component 1 Object Type`
@@ -2542,8 +2467,6 @@ class AirLoopHvacSupplyPath(object):
     @component_1_name.setter
     def component_1_name(self, value=None):
         """  Corresponds to IDD Field `Component 1 Name`
-        
-        {u'type': u'object-list', u'object-list': u'SupplyPathComponentNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 1 Name`
@@ -2579,8 +2502,6 @@ class AirLoopHvacSupplyPath(object):
     @component_2_object_type.setter
     def component_2_object_type(self, value=None):
         """  Corresponds to IDD Field `Component 2 Object Type`
-        
-        {u'type': u'choice', u'key': [u'AirLoopHVAC:ZoneSplitter', u'AirLoopHVAC:SupplyPlenum'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 2 Object Type`
@@ -2636,8 +2557,6 @@ class AirLoopHvacSupplyPath(object):
     @component_2_name.setter
     def component_2_name(self, value=None):
         """  Corresponds to IDD Field `Component 2 Name`
-        
-        {u'type': u'object-list', u'object-list': u'SupplyPathComponentNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 2 Name`
@@ -2673,8 +2592,6 @@ class AirLoopHvacSupplyPath(object):
     @component_3_object_type.setter
     def component_3_object_type(self, value=None):
         """  Corresponds to IDD Field `Component 3 Object Type`
-        
-        {u'type': u'choice', u'key': [u'AirLoopHVAC:ZoneSplitter', u'AirLoopHVAC:SupplyPlenum'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 3 Object Type`
@@ -2730,8 +2647,6 @@ class AirLoopHvacSupplyPath(object):
     @component_3_name.setter
     def component_3_name(self, value=None):
         """  Corresponds to IDD Field `Component 3 Name`
-        
-        {u'type': u'object-list', u'object-list': u'SupplyPathComponentNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 3 Name`
@@ -2767,8 +2682,6 @@ class AirLoopHvacSupplyPath(object):
     @component_4_object_type.setter
     def component_4_object_type(self, value=None):
         """  Corresponds to IDD Field `Component 4 Object Type`
-        
-        {u'type': u'choice', u'key': [u'AirLoopHVAC:ZoneSplitter', u'AirLoopHVAC:SupplyPlenum'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 4 Object Type`
@@ -2824,8 +2737,6 @@ class AirLoopHvacSupplyPath(object):
     @component_4_name.setter
     def component_4_name(self, value=None):
         """  Corresponds to IDD Field `Component 4 Name`
-        
-        {u'type': u'object-list', u'object-list': u'SupplyPathComponentNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 4 Name`
@@ -2861,8 +2772,6 @@ class AirLoopHvacSupplyPath(object):
     @component_5_object_type.setter
     def component_5_object_type(self, value=None):
         """  Corresponds to IDD Field `Component 5 Object Type`
-        
-        {u'type': u'choice', u'key': [u'AirLoopHVAC:ZoneSplitter', u'AirLoopHVAC:SupplyPlenum'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 5 Object Type`
@@ -2918,8 +2827,6 @@ class AirLoopHvacSupplyPath(object):
     @component_5_name.setter
     def component_5_name(self, value=None):
         """  Corresponds to IDD Field `Component 5 Name`
-        
-        {u'type': u'object-list', u'object-list': u'SupplyPathComponentNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 5 Name`
@@ -2955,8 +2862,6 @@ class AirLoopHvacSupplyPath(object):
     @component_6_object_type.setter
     def component_6_object_type(self, value=None):
         """  Corresponds to IDD Field `Component 6 Object Type`
-        
-        {u'type': u'choice', u'key': [u'AirLoopHVAC:ZoneSplitter', u'AirLoopHVAC:SupplyPlenum'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 6 Object Type`
@@ -3012,8 +2917,6 @@ class AirLoopHvacSupplyPath(object):
     @component_6_name.setter
     def component_6_name(self, value=None):
         """  Corresponds to IDD Field `Component 6 Name`
-        
-        {u'type': u'object-list', u'object-list': u'SupplyPathComponentNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 6 Name`
@@ -3049,8 +2952,6 @@ class AirLoopHvacSupplyPath(object):
     @component_7_object_type.setter
     def component_7_object_type(self, value=None):
         """  Corresponds to IDD Field `Component 7 Object Type`
-        
-        {u'type': u'choice', u'key': [u'AirLoopHVAC:ZoneSplitter', u'AirLoopHVAC:SupplyPlenum'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 7 Object Type`
@@ -3106,8 +3007,6 @@ class AirLoopHvacSupplyPath(object):
     @component_7_name.setter
     def component_7_name(self, value=None):
         """  Corresponds to IDD Field `Component 7 Name`
-        
-        {u'type': u'object-list', u'object-list': u'SupplyPathComponentNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 7 Name`
@@ -3143,8 +3042,6 @@ class AirLoopHvacSupplyPath(object):
     @component_8_object_type.setter
     def component_8_object_type(self, value=None):
         """  Corresponds to IDD Field `Component 8 Object Type`
-        
-        {u'type': u'choice', u'key': [u'AirLoopHVAC:ZoneSplitter', u'AirLoopHVAC:SupplyPlenum'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 8 Object Type`
@@ -3200,8 +3097,6 @@ class AirLoopHvacSupplyPath(object):
     @component_8_name.setter
     def component_8_name(self, value=None):
         """  Corresponds to IDD Field `Component 8 Name`
-        
-        {u'type': u'object-list', u'object-list': u'SupplyPathComponentNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 8 Name`
@@ -3237,8 +3132,6 @@ class AirLoopHvacSupplyPath(object):
     @component_9_object_type.setter
     def component_9_object_type(self, value=None):
         """  Corresponds to IDD Field `Component 9 Object Type`
-        
-        {u'type': u'choice', u'key': [u'AirLoopHVAC:ZoneSplitter', u'AirLoopHVAC:SupplyPlenum'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 9 Object Type`
@@ -3294,8 +3187,6 @@ class AirLoopHvacSupplyPath(object):
     @component_9_name.setter
     def component_9_name(self, value=None):
         """  Corresponds to IDD Field `Component 9 Name`
-        
-        {u'type': u'object-list', u'object-list': u'SupplyPathComponentNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 9 Name`
@@ -3331,8 +3222,6 @@ class AirLoopHvacSupplyPath(object):
     @component_10_object_type.setter
     def component_10_object_type(self, value=None):
         """  Corresponds to IDD Field `Component 10 Object Type`
-        
-        {u'type': u'choice', u'key': [u'AirLoopHVAC:ZoneSplitter', u'AirLoopHVAC:SupplyPlenum'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 10 Object Type`
@@ -3388,8 +3277,6 @@ class AirLoopHvacSupplyPath(object):
     @component_10_name.setter
     def component_10_name(self, value=None):
         """  Corresponds to IDD Field `Component 10 Name`
-        
-        {u'type': u'object-list', u'object-list': u'SupplyPathComponentNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 10 Name`
@@ -3425,8 +3312,6 @@ class AirLoopHvacSupplyPath(object):
     @component_11_object_type.setter
     def component_11_object_type(self, value=None):
         """  Corresponds to IDD Field `Component 11 Object Type`
-        
-        {u'type': u'choice', u'key': [u'AirLoopHVAC:ZoneSplitter', u'AirLoopHVAC:SupplyPlenum'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 11 Object Type`
@@ -3482,8 +3367,6 @@ class AirLoopHvacSupplyPath(object):
     @component_11_name.setter
     def component_11_name(self, value=None):
         """  Corresponds to IDD Field `Component 11 Name`
-        
-        {u'type': u'object-list', u'object-list': u'SupplyPathComponentNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 11 Name`
@@ -3519,8 +3402,6 @@ class AirLoopHvacSupplyPath(object):
     @component_12_object_type.setter
     def component_12_object_type(self, value=None):
         """  Corresponds to IDD Field `Component 12 Object Type`
-        
-        {u'type': u'choice', u'key': [u'AirLoopHVAC:ZoneSplitter', u'AirLoopHVAC:SupplyPlenum'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 12 Object Type`
@@ -3576,8 +3457,6 @@ class AirLoopHvacSupplyPath(object):
     @component_12_name.setter
     def component_12_name(self, value=None):
         """  Corresponds to IDD Field `Component 12 Name`
-        
-        {u'type': u'object-list', u'object-list': u'SupplyPathComponentNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 12 Name`
@@ -3613,8 +3492,6 @@ class AirLoopHvacSupplyPath(object):
     @component_13_object_type.setter
     def component_13_object_type(self, value=None):
         """  Corresponds to IDD Field `Component 13 Object Type`
-        
-        {u'type': u'choice', u'key': [u'AirLoopHVAC:ZoneSplitter', u'AirLoopHVAC:SupplyPlenum'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 13 Object Type`
@@ -3670,8 +3547,6 @@ class AirLoopHvacSupplyPath(object):
     @component_13_name.setter
     def component_13_name(self, value=None):
         """  Corresponds to IDD Field `Component 13 Name`
-        
-        {u'type': u'object-list', u'object-list': u'SupplyPathComponentNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 13 Name`
@@ -3707,8 +3582,6 @@ class AirLoopHvacSupplyPath(object):
     @component_14_object_type.setter
     def component_14_object_type(self, value=None):
         """  Corresponds to IDD Field `Component 14 Object Type`
-        
-        {u'type': u'choice', u'key': [u'AirLoopHVAC:ZoneSplitter', u'AirLoopHVAC:SupplyPlenum'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 14 Object Type`
@@ -3764,8 +3637,6 @@ class AirLoopHvacSupplyPath(object):
     @component_14_name.setter
     def component_14_name(self, value=None):
         """  Corresponds to IDD Field `Component 14 Name`
-        
-        {u'type': u'object-list', u'object-list': u'SupplyPathComponentNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 14 Name`
@@ -3801,8 +3672,6 @@ class AirLoopHvacSupplyPath(object):
     @component_15_object_type.setter
     def component_15_object_type(self, value=None):
         """  Corresponds to IDD Field `Component 15 Object Type`
-        
-        {u'type': u'choice', u'key': [u'AirLoopHVAC:ZoneSplitter', u'AirLoopHVAC:SupplyPlenum'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 15 Object Type`
@@ -3858,8 +3727,6 @@ class AirLoopHvacSupplyPath(object):
     @component_15_name.setter
     def component_15_name(self, value=None):
         """  Corresponds to IDD Field `Component 15 Name`
-        
-        {u'type': u'object-list', u'object-list': u'SupplyPathComponentNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 15 Name`
@@ -3895,8 +3762,6 @@ class AirLoopHvacSupplyPath(object):
     @component_16_object_type.setter
     def component_16_object_type(self, value=None):
         """  Corresponds to IDD Field `Component 16 Object Type`
-        
-        {u'type': u'choice', u'key': [u'AirLoopHVAC:ZoneSplitter', u'AirLoopHVAC:SupplyPlenum'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 16 Object Type`
@@ -3952,8 +3817,6 @@ class AirLoopHvacSupplyPath(object):
     @component_16_name.setter
     def component_16_name(self, value=None):
         """  Corresponds to IDD Field `Component 16 Name`
-        
-        {u'type': u'object-list', u'object-list': u'SupplyPathComponentNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 16 Name`
@@ -3989,8 +3852,6 @@ class AirLoopHvacSupplyPath(object):
     @component_17_object_type.setter
     def component_17_object_type(self, value=None):
         """  Corresponds to IDD Field `Component 17 Object Type`
-        
-        {u'type': u'choice', u'key': [u'AirLoopHVAC:ZoneSplitter', u'AirLoopHVAC:SupplyPlenum'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 17 Object Type`
@@ -4046,8 +3907,6 @@ class AirLoopHvacSupplyPath(object):
     @component_17_name.setter
     def component_17_name(self, value=None):
         """  Corresponds to IDD Field `Component 17 Name`
-        
-        {u'type': u'object-list', u'object-list': u'SupplyPathComponentNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 17 Name`
@@ -4083,8 +3942,6 @@ class AirLoopHvacSupplyPath(object):
     @component_18_object_type.setter
     def component_18_object_type(self, value=None):
         """  Corresponds to IDD Field `Component 18 Object Type`
-        
-        {u'type': u'choice', u'key': [u'AirLoopHVAC:ZoneSplitter', u'AirLoopHVAC:SupplyPlenum'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 18 Object Type`
@@ -4140,8 +3997,6 @@ class AirLoopHvacSupplyPath(object):
     @component_18_name.setter
     def component_18_name(self, value=None):
         """  Corresponds to IDD Field `Component 18 Name`
-        
-        {u'type': u'object-list', u'object-list': u'SupplyPathComponentNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 18 Name`
@@ -4177,8 +4032,6 @@ class AirLoopHvacSupplyPath(object):
     @component_19_object_type.setter
     def component_19_object_type(self, value=None):
         """  Corresponds to IDD Field `Component 19 Object Type`
-        
-        {u'type': u'choice', u'key': [u'AirLoopHVAC:ZoneSplitter', u'AirLoopHVAC:SupplyPlenum'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 19 Object Type`
@@ -4234,8 +4087,6 @@ class AirLoopHvacSupplyPath(object):
     @component_19_name.setter
     def component_19_name(self, value=None):
         """  Corresponds to IDD Field `Component 19 Name`
-        
-        {u'type': u'object-list', u'object-list': u'SupplyPathComponentNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 19 Name`
@@ -4271,8 +4122,6 @@ class AirLoopHvacSupplyPath(object):
     @component_20_object_type.setter
     def component_20_object_type(self, value=None):
         """  Corresponds to IDD Field `Component 20 Object Type`
-        
-        {u'type': u'choice', u'key': [u'AirLoopHVAC:ZoneSplitter', u'AirLoopHVAC:SupplyPlenum'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 20 Object Type`
@@ -4328,8 +4177,6 @@ class AirLoopHvacSupplyPath(object):
     @component_20_name.setter
     def component_20_name(self, value=None):
         """  Corresponds to IDD Field `Component 20 Name`
-        
-        {u'type': u'object-list', u'object-list': u'SupplyPathComponentNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 20 Name`
@@ -4365,8 +4212,6 @@ class AirLoopHvacSupplyPath(object):
     @component_21_object_type.setter
     def component_21_object_type(self, value=None):
         """  Corresponds to IDD Field `Component 21 Object Type`
-        
-        {u'type': u'choice', u'key': [u'AirLoopHVAC:ZoneSplitter', u'AirLoopHVAC:SupplyPlenum'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 21 Object Type`
@@ -4422,8 +4267,6 @@ class AirLoopHvacSupplyPath(object):
     @component_21_name.setter
     def component_21_name(self, value=None):
         """  Corresponds to IDD Field `Component 21 Name`
-        
-        {u'type': u'object-list', u'object-list': u'SupplyPathComponentNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 21 Name`
@@ -4459,8 +4302,6 @@ class AirLoopHvacSupplyPath(object):
     @component_22_object_type.setter
     def component_22_object_type(self, value=None):
         """  Corresponds to IDD Field `Component 22 Object Type`
-        
-        {u'type': u'choice', u'key': [u'AirLoopHVAC:ZoneSplitter', u'AirLoopHVAC:SupplyPlenum'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 22 Object Type`
@@ -4516,8 +4357,6 @@ class AirLoopHvacSupplyPath(object):
     @component_22_name.setter
     def component_22_name(self, value=None):
         """  Corresponds to IDD Field `Component 22 Name`
-        
-        {u'type': u'object-list', u'object-list': u'SupplyPathComponentNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 22 Name`
@@ -4553,8 +4392,6 @@ class AirLoopHvacSupplyPath(object):
     @component_23_object_type.setter
     def component_23_object_type(self, value=None):
         """  Corresponds to IDD Field `Component 23 Object Type`
-        
-        {u'type': u'choice', u'key': [u'AirLoopHVAC:ZoneSplitter', u'AirLoopHVAC:SupplyPlenum'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 23 Object Type`
@@ -4610,8 +4447,6 @@ class AirLoopHvacSupplyPath(object):
     @component_23_name.setter
     def component_23_name(self, value=None):
         """  Corresponds to IDD Field `Component 23 Name`
-        
-        {u'type': u'object-list', u'object-list': u'SupplyPathComponentNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 23 Name`
@@ -4647,8 +4482,6 @@ class AirLoopHvacSupplyPath(object):
     @component_24_object_type.setter
     def component_24_object_type(self, value=None):
         """  Corresponds to IDD Field `Component 24 Object Type`
-        
-        {u'type': u'choice', u'key': [u'AirLoopHVAC:ZoneSplitter', u'AirLoopHVAC:SupplyPlenum'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 24 Object Type`
@@ -4704,8 +4537,6 @@ class AirLoopHvacSupplyPath(object):
     @component_24_name.setter
     def component_24_name(self, value=None):
         """  Corresponds to IDD Field `Component 24 Name`
-        
-        {u'type': u'object-list', u'object-list': u'SupplyPathComponentNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 24 Name`
@@ -4741,8 +4572,6 @@ class AirLoopHvacSupplyPath(object):
     @component_25_object_type.setter
     def component_25_object_type(self, value=None):
         """  Corresponds to IDD Field `Component 25 Object Type`
-        
-        {u'type': u'choice', u'key': [u'AirLoopHVAC:ZoneSplitter', u'AirLoopHVAC:SupplyPlenum'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 25 Object Type`
@@ -4798,8 +4627,6 @@ class AirLoopHvacSupplyPath(object):
     @component_25_name.setter
     def component_25_name(self, value=None):
         """  Corresponds to IDD Field `Component 25 Name`
-        
-        {u'type': u'object-list', u'object-list': u'SupplyPathComponentNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 25 Name`
@@ -5310,8 +5137,6 @@ class AirLoopHvacReturnPath(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {'type': 'alpha', u'reference': u'ZoneReturnAirPaths', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -5347,8 +5172,6 @@ class AirLoopHvacReturnPath(object):
     @return_air_path_outlet_node_name.setter
     def return_air_path_outlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Return Air Path Outlet Node Name`
-        
-        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Return Air Path Outlet Node Name`
@@ -5384,8 +5207,6 @@ class AirLoopHvacReturnPath(object):
     @component_1_object_type.setter
     def component_1_object_type(self, value=None):
         """  Corresponds to IDD Field `Component 1 Object Type`
-        
-        {'pytype': 'str', u'type': u'choice', u'key': [u'AirLoopHVAC:ZoneMixer', u'AirLoopHVAC:ReturnPlenum'], u'required-field': True, u'begin-extensible': u''}
 
         Args:
             value (str): value for IDD Field `Component 1 Object Type`
@@ -5441,8 +5262,6 @@ class AirLoopHvacReturnPath(object):
     @component_1_name.setter
     def component_1_name(self, value=None):
         """  Corresponds to IDD Field `Component 1 Name`
-        
-        {u'type': u'object-list', u'object-list': u'ReturnPathComponentNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 1 Name`
@@ -5478,8 +5297,6 @@ class AirLoopHvacReturnPath(object):
     @component_2_object_type.setter
     def component_2_object_type(self, value=None):
         """  Corresponds to IDD Field `Component 2 Object Type`
-        
-        {u'type': u'choice', u'key': [u'AirLoopHVAC:ZoneMixer', u'AirLoopHVAC:ReturnPlenum'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 2 Object Type`
@@ -5535,8 +5352,6 @@ class AirLoopHvacReturnPath(object):
     @component_2_name.setter
     def component_2_name(self, value=None):
         """  Corresponds to IDD Field `Component 2 Name`
-        
-        {u'type': u'object-list', u'object-list': u'ReturnPathComponentNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 2 Name`
@@ -5572,8 +5387,6 @@ class AirLoopHvacReturnPath(object):
     @component_3_object_type.setter
     def component_3_object_type(self, value=None):
         """  Corresponds to IDD Field `Component 3 Object Type`
-        
-        {u'type': u'choice', u'key': [u'AirLoopHVAC:ZoneMixer', u'AirLoopHVAC:ReturnPlenum'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 3 Object Type`
@@ -5629,8 +5442,6 @@ class AirLoopHvacReturnPath(object):
     @component_3_name.setter
     def component_3_name(self, value=None):
         """  Corresponds to IDD Field `Component 3 Name`
-        
-        {u'type': u'object-list', u'object-list': u'ReturnPathComponentNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 3 Name`
@@ -5666,8 +5477,6 @@ class AirLoopHvacReturnPath(object):
     @component_4_object_type.setter
     def component_4_object_type(self, value=None):
         """  Corresponds to IDD Field `Component 4 Object Type`
-        
-        {u'type': u'choice', u'key': [u'AirLoopHVAC:ZoneMixer', u'AirLoopHVAC:ReturnPlenum'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 4 Object Type`
@@ -5723,8 +5532,6 @@ class AirLoopHvacReturnPath(object):
     @component_4_name.setter
     def component_4_name(self, value=None):
         """  Corresponds to IDD Field `Component 4 Name`
-        
-        {u'type': u'object-list', u'object-list': u'ReturnPathComponentNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 4 Name`
@@ -5760,8 +5567,6 @@ class AirLoopHvacReturnPath(object):
     @component_5_object_type.setter
     def component_5_object_type(self, value=None):
         """  Corresponds to IDD Field `Component 5 Object Type`
-        
-        {u'type': u'choice', u'key': [u'AirLoopHVAC:ZoneMixer', u'AirLoopHVAC:ReturnPlenum'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 5 Object Type`
@@ -5817,8 +5622,6 @@ class AirLoopHvacReturnPath(object):
     @component_5_name.setter
     def component_5_name(self, value=None):
         """  Corresponds to IDD Field `Component 5 Name`
-        
-        {u'type': u'object-list', u'object-list': u'ReturnPathComponentNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 5 Name`
@@ -5854,8 +5657,6 @@ class AirLoopHvacReturnPath(object):
     @component_6_object_type.setter
     def component_6_object_type(self, value=None):
         """  Corresponds to IDD Field `Component 6 Object Type`
-        
-        {u'type': u'choice', u'key': [u'AirLoopHVAC:ZoneMixer', u'AirLoopHVAC:ReturnPlenum'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 6 Object Type`
@@ -5911,8 +5712,6 @@ class AirLoopHvacReturnPath(object):
     @component_6_name.setter
     def component_6_name(self, value=None):
         """  Corresponds to IDD Field `Component 6 Name`
-        
-        {u'type': u'object-list', u'object-list': u'ReturnPathComponentNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 6 Name`
@@ -5948,8 +5747,6 @@ class AirLoopHvacReturnPath(object):
     @component_7_object_type.setter
     def component_7_object_type(self, value=None):
         """  Corresponds to IDD Field `Component 7 Object Type`
-        
-        {u'type': u'choice', u'key': [u'AirLoopHVAC:ZoneMixer', u'AirLoopHVAC:ReturnPlenum'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 7 Object Type`
@@ -6005,8 +5802,6 @@ class AirLoopHvacReturnPath(object):
     @component_7_name.setter
     def component_7_name(self, value=None):
         """  Corresponds to IDD Field `Component 7 Name`
-        
-        {u'type': u'object-list', u'object-list': u'ReturnPathComponentNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 7 Name`
@@ -6042,8 +5837,6 @@ class AirLoopHvacReturnPath(object):
     @component_8_object_type.setter
     def component_8_object_type(self, value=None):
         """  Corresponds to IDD Field `Component 8 Object Type`
-        
-        {u'type': u'choice', u'key': [u'AirLoopHVAC:ZoneMixer', u'AirLoopHVAC:ReturnPlenum'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 8 Object Type`
@@ -6099,8 +5892,6 @@ class AirLoopHvacReturnPath(object):
     @component_8_name.setter
     def component_8_name(self, value=None):
         """  Corresponds to IDD Field `Component 8 Name`
-        
-        {u'type': u'object-list', u'object-list': u'ReturnPathComponentNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 8 Name`
@@ -6136,8 +5927,6 @@ class AirLoopHvacReturnPath(object):
     @component_9_object_type.setter
     def component_9_object_type(self, value=None):
         """  Corresponds to IDD Field `Component 9 Object Type`
-        
-        {u'type': u'choice', u'key': [u'AirLoopHVAC:ZoneMixer', u'AirLoopHVAC:ReturnPlenum'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 9 Object Type`
@@ -6193,8 +5982,6 @@ class AirLoopHvacReturnPath(object):
     @component_9_name.setter
     def component_9_name(self, value=None):
         """  Corresponds to IDD Field `Component 9 Name`
-        
-        {u'type': u'object-list', u'object-list': u'ReturnPathComponentNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 9 Name`
@@ -6230,8 +6017,6 @@ class AirLoopHvacReturnPath(object):
     @component_10_object_type.setter
     def component_10_object_type(self, value=None):
         """  Corresponds to IDD Field `Component 10 Object Type`
-        
-        {u'type': u'choice', u'key': [u'AirLoopHVAC:ZoneMixer', u'AirLoopHVAC:ReturnPlenum'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 10 Object Type`
@@ -6287,8 +6072,6 @@ class AirLoopHvacReturnPath(object):
     @component_10_name.setter
     def component_10_name(self, value=None):
         """  Corresponds to IDD Field `Component 10 Name`
-        
-        {u'type': u'object-list', u'object-list': u'ReturnPathComponentNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 10 Name`
@@ -6324,8 +6107,6 @@ class AirLoopHvacReturnPath(object):
     @component_11_object_type.setter
     def component_11_object_type(self, value=None):
         """  Corresponds to IDD Field `Component 11 Object Type`
-        
-        {u'type': u'choice', u'key': [u'AirLoopHVAC:ZoneMixer', u'AirLoopHVAC:ReturnPlenum'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 11 Object Type`
@@ -6381,8 +6162,6 @@ class AirLoopHvacReturnPath(object):
     @component_11_name.setter
     def component_11_name(self, value=None):
         """  Corresponds to IDD Field `Component 11 Name`
-        
-        {u'type': u'object-list', u'object-list': u'ReturnPathComponentNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 11 Name`
@@ -6418,8 +6197,6 @@ class AirLoopHvacReturnPath(object):
     @component_12_object_type.setter
     def component_12_object_type(self, value=None):
         """  Corresponds to IDD Field `Component 12 Object Type`
-        
-        {u'type': u'choice', u'key': [u'AirLoopHVAC:ZoneMixer', u'AirLoopHVAC:ReturnPlenum'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 12 Object Type`
@@ -6475,8 +6252,6 @@ class AirLoopHvacReturnPath(object):
     @component_12_name.setter
     def component_12_name(self, value=None):
         """  Corresponds to IDD Field `Component 12 Name`
-        
-        {u'type': u'object-list', u'object-list': u'ReturnPathComponentNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 12 Name`
@@ -6512,8 +6287,6 @@ class AirLoopHvacReturnPath(object):
     @component_13_object_type.setter
     def component_13_object_type(self, value=None):
         """  Corresponds to IDD Field `Component 13 Object Type`
-        
-        {u'type': u'choice', u'key': [u'AirLoopHVAC:ZoneMixer', u'AirLoopHVAC:ReturnPlenum'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 13 Object Type`
@@ -6569,8 +6342,6 @@ class AirLoopHvacReturnPath(object):
     @component_13_name.setter
     def component_13_name(self, value=None):
         """  Corresponds to IDD Field `Component 13 Name`
-        
-        {u'type': u'object-list', u'object-list': u'ReturnPathComponentNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 13 Name`
@@ -6606,8 +6377,6 @@ class AirLoopHvacReturnPath(object):
     @component_14_object_type.setter
     def component_14_object_type(self, value=None):
         """  Corresponds to IDD Field `Component 14 Object Type`
-        
-        {u'type': u'choice', u'key': [u'AirLoopHVAC:ZoneMixer', u'AirLoopHVAC:ReturnPlenum'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 14 Object Type`
@@ -6663,8 +6432,6 @@ class AirLoopHvacReturnPath(object):
     @component_14_name.setter
     def component_14_name(self, value=None):
         """  Corresponds to IDD Field `Component 14 Name`
-        
-        {u'type': u'object-list', u'object-list': u'ReturnPathComponentNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 14 Name`
@@ -6700,8 +6467,6 @@ class AirLoopHvacReturnPath(object):
     @component_15_object_type.setter
     def component_15_object_type(self, value=None):
         """  Corresponds to IDD Field `Component 15 Object Type`
-        
-        {u'type': u'choice', u'key': [u'AirLoopHVAC:ZoneMixer', u'AirLoopHVAC:ReturnPlenum'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 15 Object Type`
@@ -6757,8 +6522,6 @@ class AirLoopHvacReturnPath(object):
     @component_15_name.setter
     def component_15_name(self, value=None):
         """  Corresponds to IDD Field `Component 15 Name`
-        
-        {u'type': u'object-list', u'object-list': u'ReturnPathComponentNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 15 Name`
@@ -6794,8 +6557,6 @@ class AirLoopHvacReturnPath(object):
     @component_16_object_type.setter
     def component_16_object_type(self, value=None):
         """  Corresponds to IDD Field `Component 16 Object Type`
-        
-        {u'type': u'choice', u'key': [u'AirLoopHVAC:ZoneMixer', u'AirLoopHVAC:ReturnPlenum'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 16 Object Type`
@@ -6851,8 +6612,6 @@ class AirLoopHvacReturnPath(object):
     @component_16_name.setter
     def component_16_name(self, value=None):
         """  Corresponds to IDD Field `Component 16 Name`
-        
-        {u'type': u'object-list', u'object-list': u'ReturnPathComponentNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 16 Name`
@@ -6888,8 +6647,6 @@ class AirLoopHvacReturnPath(object):
     @component_17_object_type.setter
     def component_17_object_type(self, value=None):
         """  Corresponds to IDD Field `Component 17 Object Type`
-        
-        {u'type': u'choice', u'key': [u'AirLoopHVAC:ZoneMixer', u'AirLoopHVAC:ReturnPlenum'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 17 Object Type`
@@ -6945,8 +6702,6 @@ class AirLoopHvacReturnPath(object):
     @component_17_name.setter
     def component_17_name(self, value=None):
         """  Corresponds to IDD Field `Component 17 Name`
-        
-        {u'type': u'object-list', u'object-list': u'ReturnPathComponentNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 17 Name`
@@ -6982,8 +6737,6 @@ class AirLoopHvacReturnPath(object):
     @component_18_object_type.setter
     def component_18_object_type(self, value=None):
         """  Corresponds to IDD Field `Component 18 Object Type`
-        
-        {u'type': u'choice', u'key': [u'AirLoopHVAC:ZoneMixer', u'AirLoopHVAC:ReturnPlenum'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 18 Object Type`
@@ -7039,8 +6792,6 @@ class AirLoopHvacReturnPath(object):
     @component_18_name.setter
     def component_18_name(self, value=None):
         """  Corresponds to IDD Field `Component 18 Name`
-        
-        {u'type': u'object-list', u'object-list': u'ReturnPathComponentNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 18 Name`
@@ -7076,8 +6827,6 @@ class AirLoopHvacReturnPath(object):
     @component_19_object_type.setter
     def component_19_object_type(self, value=None):
         """  Corresponds to IDD Field `Component 19 Object Type`
-        
-        {u'type': u'choice', u'key': [u'AirLoopHVAC:ZoneMixer', u'AirLoopHVAC:ReturnPlenum'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 19 Object Type`
@@ -7133,8 +6882,6 @@ class AirLoopHvacReturnPath(object):
     @component_19_name.setter
     def component_19_name(self, value=None):
         """  Corresponds to IDD Field `Component 19 Name`
-        
-        {u'type': u'object-list', u'object-list': u'ReturnPathComponentNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 19 Name`
@@ -7170,8 +6917,6 @@ class AirLoopHvacReturnPath(object):
     @component_20_object_type.setter
     def component_20_object_type(self, value=None):
         """  Corresponds to IDD Field `Component 20 Object Type`
-        
-        {u'type': u'choice', u'key': [u'AirLoopHVAC:ZoneMixer', u'AirLoopHVAC:ReturnPlenum'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 20 Object Type`
@@ -7227,8 +6972,6 @@ class AirLoopHvacReturnPath(object):
     @component_20_name.setter
     def component_20_name(self, value=None):
         """  Corresponds to IDD Field `Component 20 Name`
-        
-        {u'type': u'object-list', u'object-list': u'ReturnPathComponentNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 20 Name`
@@ -7264,8 +7007,6 @@ class AirLoopHvacReturnPath(object):
     @component_21_object_type.setter
     def component_21_object_type(self, value=None):
         """  Corresponds to IDD Field `Component 21 Object Type`
-        
-        {u'type': u'choice', u'key': [u'AirLoopHVAC:ZoneMixer', u'AirLoopHVAC:ReturnPlenum'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 21 Object Type`
@@ -7321,8 +7062,6 @@ class AirLoopHvacReturnPath(object):
     @component_21_name.setter
     def component_21_name(self, value=None):
         """  Corresponds to IDD Field `Component 21 Name`
-        
-        {u'type': u'object-list', u'object-list': u'ReturnPathComponentNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 21 Name`
@@ -7358,8 +7097,6 @@ class AirLoopHvacReturnPath(object):
     @component_22_object_type.setter
     def component_22_object_type(self, value=None):
         """  Corresponds to IDD Field `Component 22 Object Type`
-        
-        {u'type': u'choice', u'key': [u'AirLoopHVAC:ZoneMixer', u'AirLoopHVAC:ReturnPlenum'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 22 Object Type`
@@ -7415,8 +7152,6 @@ class AirLoopHvacReturnPath(object):
     @component_22_name.setter
     def component_22_name(self, value=None):
         """  Corresponds to IDD Field `Component 22 Name`
-        
-        {u'type': u'object-list', u'object-list': u'ReturnPathComponentNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 22 Name`
@@ -7452,8 +7187,6 @@ class AirLoopHvacReturnPath(object):
     @component_23_object_type.setter
     def component_23_object_type(self, value=None):
         """  Corresponds to IDD Field `Component 23 Object Type`
-        
-        {u'type': u'choice', u'key': [u'AirLoopHVAC:ZoneMixer', u'AirLoopHVAC:ReturnPlenum'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 23 Object Type`
@@ -7509,8 +7242,6 @@ class AirLoopHvacReturnPath(object):
     @component_23_name.setter
     def component_23_name(self, value=None):
         """  Corresponds to IDD Field `Component 23 Name`
-        
-        {u'type': u'object-list', u'object-list': u'ReturnPathComponentNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 23 Name`
@@ -7546,8 +7277,6 @@ class AirLoopHvacReturnPath(object):
     @component_24_object_type.setter
     def component_24_object_type(self, value=None):
         """  Corresponds to IDD Field `Component 24 Object Type`
-        
-        {u'type': u'choice', u'key': [u'AirLoopHVAC:ZoneMixer', u'AirLoopHVAC:ReturnPlenum'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 24 Object Type`
@@ -7603,8 +7332,6 @@ class AirLoopHvacReturnPath(object):
     @component_24_name.setter
     def component_24_name(self, value=None):
         """  Corresponds to IDD Field `Component 24 Name`
-        
-        {u'type': u'object-list', u'object-list': u'ReturnPathComponentNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 24 Name`
@@ -7640,8 +7367,6 @@ class AirLoopHvacReturnPath(object):
     @component_25_object_type.setter
     def component_25_object_type(self, value=None):
         """  Corresponds to IDD Field `Component 25 Object Type`
-        
-        {u'type': u'choice', u'key': [u'AirLoopHVAC:ZoneMixer', u'AirLoopHVAC:ReturnPlenum'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 25 Object Type`
@@ -7697,8 +7422,6 @@ class AirLoopHvacReturnPath(object):
     @component_25_name.setter
     def component_25_name(self, value=None):
         """  Corresponds to IDD Field `Component 25 Name`
-        
-        {u'type': u'object-list', u'object-list': u'ReturnPathComponentNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component 25 Name`

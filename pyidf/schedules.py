@@ -77,8 +77,6 @@ class ScheduleTypeLimits(object):
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
         used to validate schedule types in various schedule objects
-        
-        {u'note': [u'used to validate schedule types in various schedule objects'], 'type': 'alpha', u'reference': u'ScheduleTypeLimitsNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -115,8 +113,6 @@ class ScheduleTypeLimits(object):
     def lower_limit_value(self, value=None):
         """  Corresponds to IDD Field `Lower Limit Value`
         lower limit (real or integer) for the Schedule Type.  e.g. if fraction, this is 0.0
-        
-        {u'note': [u'lower limit (real or integer) for the Schedule Type.  e.g. if fraction, this is 0.0'], 'type': 'real', u'unitsBasedOnField': u'A3', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Lower Limit Value`
@@ -147,8 +143,6 @@ class ScheduleTypeLimits(object):
     def upper_limit_value(self, value=None):
         """  Corresponds to IDD Field `Upper Limit Value`
         upper limit (real or integer) for the Schedule Type.  e.g. if fraction, this is 1.0
-        
-        {u'note': [u'upper limit (real or integer) for the Schedule Type.  e.g. if fraction, this is 1.0'], 'type': 'real', u'unitsBasedOnField': u'A3', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Upper Limit Value`
@@ -182,8 +176,6 @@ class ScheduleTypeLimits(object):
         max are valid or Discrete (only integer numbers between min and
         max are valid.  (Could also allow REAL and INTEGER to mean the
         same things)
-        
-        {u'note': [u'Numeric type is either Continuous (all numbers within the min and', u'max are valid or Discrete (only integer numbers between min and', u'max are valid.  (Could also allow REAL and INTEGER to mean the', u'same things)'], u'type': u'choice', u'key': [u'Continuous', u'Discrete'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Numeric Type`
@@ -248,8 +240,6 @@ class ScheduleTypeLimits(object):
         Velocity (m/s or ft/min)
         Capacity (W or Btu/h)
         Power (W)
-        
-        {u'note': [u'Temperature (C or F)', u'DeltaTemperature (C or F)', u'PrecipitationRate (m/hr or ft/hr)', u'Angle (degrees)', u'Convection Coefficient (W/m2-K or Btu/sqft-hr-F)', u'Activity Level (W/person)', u'Velocity (m/s or ft/min)', u'Capacity (W or Btu/h)', u'Power (W)'], u'default': u'Dimensionless', u'type': u'choice', u'key': [u'Dimensionless', u'Temperature', u'DeltaTemperature', u'PrecipitationRate', u'Angle', u'ConvectionCoefficient', u'ActivityLevel', u'Velocity', u'Capacity', u'Power', u'Availability', u'Percent', u'Control', u'Mode'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Unit Type`
@@ -596,8 +586,6 @@ class ScheduleDayHourly(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'reference': u'ScheduleAndDayScheduleNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -633,8 +621,6 @@ class ScheduleDayHourly(object):
     @schedule_type_limits_name.setter
     def schedule_type_limits_name(self, value=None):
         """  Corresponds to IDD Field `Schedule Type Limits Name`
-        
-        {u'type': u'object-list', u'object-list': u'ScheduleTypeLimitsNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Schedule Type Limits Name`
@@ -668,10 +654,8 @@ class ScheduleDayHourly(object):
         return self._data["Hour 1"]
 
     @hour_1.setter
-    def hour_1(self, value=0.0 ):
+    def hour_1(self, value=0.0):
         """  Corresponds to IDD Field `Hour 1`
-        
-        {u'default': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Hour 1`
@@ -700,10 +684,8 @@ class ScheduleDayHourly(object):
         return self._data["Hour 2"]
 
     @hour_2.setter
-    def hour_2(self, value=0.0 ):
+    def hour_2(self, value=0.0):
         """  Corresponds to IDD Field `Hour 2`
-        
-        {u'default': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Hour 2`
@@ -732,10 +714,8 @@ class ScheduleDayHourly(object):
         return self._data["Hour 3"]
 
     @hour_3.setter
-    def hour_3(self, value=0.0 ):
+    def hour_3(self, value=0.0):
         """  Corresponds to IDD Field `Hour 3`
-        
-        {u'default': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Hour 3`
@@ -764,10 +744,8 @@ class ScheduleDayHourly(object):
         return self._data["Hour 4"]
 
     @hour_4.setter
-    def hour_4(self, value=0.0 ):
+    def hour_4(self, value=0.0):
         """  Corresponds to IDD Field `Hour 4`
-        
-        {u'default': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Hour 4`
@@ -796,10 +774,8 @@ class ScheduleDayHourly(object):
         return self._data["Hour 5"]
 
     @hour_5.setter
-    def hour_5(self, value=0.0 ):
+    def hour_5(self, value=0.0):
         """  Corresponds to IDD Field `Hour 5`
-        
-        {u'default': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Hour 5`
@@ -828,10 +804,8 @@ class ScheduleDayHourly(object):
         return self._data["Hour 6"]
 
     @hour_6.setter
-    def hour_6(self, value=0.0 ):
+    def hour_6(self, value=0.0):
         """  Corresponds to IDD Field `Hour 6`
-        
-        {u'default': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Hour 6`
@@ -860,10 +834,8 @@ class ScheduleDayHourly(object):
         return self._data["Hour 7"]
 
     @hour_7.setter
-    def hour_7(self, value=0.0 ):
+    def hour_7(self, value=0.0):
         """  Corresponds to IDD Field `Hour 7`
-        
-        {u'default': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Hour 7`
@@ -892,10 +864,8 @@ class ScheduleDayHourly(object):
         return self._data["Hour 8"]
 
     @hour_8.setter
-    def hour_8(self, value=0.0 ):
+    def hour_8(self, value=0.0):
         """  Corresponds to IDD Field `Hour 8`
-        
-        {u'default': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Hour 8`
@@ -924,10 +894,8 @@ class ScheduleDayHourly(object):
         return self._data["Hour 9"]
 
     @hour_9.setter
-    def hour_9(self, value=0.0 ):
+    def hour_9(self, value=0.0):
         """  Corresponds to IDD Field `Hour 9`
-        
-        {u'default': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Hour 9`
@@ -956,10 +924,8 @@ class ScheduleDayHourly(object):
         return self._data["Hour 10"]
 
     @hour_10.setter
-    def hour_10(self, value=0.0 ):
+    def hour_10(self, value=0.0):
         """  Corresponds to IDD Field `Hour 10`
-        
-        {u'default': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Hour 10`
@@ -988,10 +954,8 @@ class ScheduleDayHourly(object):
         return self._data["Hour 11"]
 
     @hour_11.setter
-    def hour_11(self, value=0.0 ):
+    def hour_11(self, value=0.0):
         """  Corresponds to IDD Field `Hour 11`
-        
-        {u'default': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Hour 11`
@@ -1020,10 +984,8 @@ class ScheduleDayHourly(object):
         return self._data["Hour 12"]
 
     @hour_12.setter
-    def hour_12(self, value=0.0 ):
+    def hour_12(self, value=0.0):
         """  Corresponds to IDD Field `Hour 12`
-        
-        {u'default': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Hour 12`
@@ -1052,10 +1014,8 @@ class ScheduleDayHourly(object):
         return self._data["Hour 13"]
 
     @hour_13.setter
-    def hour_13(self, value=0.0 ):
+    def hour_13(self, value=0.0):
         """  Corresponds to IDD Field `Hour 13`
-        
-        {u'default': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Hour 13`
@@ -1084,10 +1044,8 @@ class ScheduleDayHourly(object):
         return self._data["Hour 14"]
 
     @hour_14.setter
-    def hour_14(self, value=0.0 ):
+    def hour_14(self, value=0.0):
         """  Corresponds to IDD Field `Hour 14`
-        
-        {u'default': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Hour 14`
@@ -1116,10 +1074,8 @@ class ScheduleDayHourly(object):
         return self._data["Hour 15"]
 
     @hour_15.setter
-    def hour_15(self, value=0.0 ):
+    def hour_15(self, value=0.0):
         """  Corresponds to IDD Field `Hour 15`
-        
-        {u'default': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Hour 15`
@@ -1148,10 +1104,8 @@ class ScheduleDayHourly(object):
         return self._data["Hour 16"]
 
     @hour_16.setter
-    def hour_16(self, value=0.0 ):
+    def hour_16(self, value=0.0):
         """  Corresponds to IDD Field `Hour 16`
-        
-        {u'default': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Hour 16`
@@ -1180,10 +1134,8 @@ class ScheduleDayHourly(object):
         return self._data["Hour 17"]
 
     @hour_17.setter
-    def hour_17(self, value=0.0 ):
+    def hour_17(self, value=0.0):
         """  Corresponds to IDD Field `Hour 17`
-        
-        {u'default': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Hour 17`
@@ -1212,10 +1164,8 @@ class ScheduleDayHourly(object):
         return self._data["Hour 18"]
 
     @hour_18.setter
-    def hour_18(self, value=0.0 ):
+    def hour_18(self, value=0.0):
         """  Corresponds to IDD Field `Hour 18`
-        
-        {u'default': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Hour 18`
@@ -1244,10 +1194,8 @@ class ScheduleDayHourly(object):
         return self._data["Hour 19"]
 
     @hour_19.setter
-    def hour_19(self, value=0.0 ):
+    def hour_19(self, value=0.0):
         """  Corresponds to IDD Field `Hour 19`
-        
-        {u'default': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Hour 19`
@@ -1276,10 +1224,8 @@ class ScheduleDayHourly(object):
         return self._data["Hour 20"]
 
     @hour_20.setter
-    def hour_20(self, value=0.0 ):
+    def hour_20(self, value=0.0):
         """  Corresponds to IDD Field `Hour 20`
-        
-        {u'default': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Hour 20`
@@ -1308,10 +1254,8 @@ class ScheduleDayHourly(object):
         return self._data["Hour 21"]
 
     @hour_21.setter
-    def hour_21(self, value=0.0 ):
+    def hour_21(self, value=0.0):
         """  Corresponds to IDD Field `Hour 21`
-        
-        {u'default': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Hour 21`
@@ -1340,10 +1284,8 @@ class ScheduleDayHourly(object):
         return self._data["Hour 22"]
 
     @hour_22.setter
-    def hour_22(self, value=0.0 ):
+    def hour_22(self, value=0.0):
         """  Corresponds to IDD Field `Hour 22`
-        
-        {u'default': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Hour 22`
@@ -1372,10 +1314,8 @@ class ScheduleDayHourly(object):
         return self._data["Hour 23"]
 
     @hour_23.setter
-    def hour_23(self, value=0.0 ):
+    def hour_23(self, value=0.0):
         """  Corresponds to IDD Field `Hour 23`
-        
-        {u'default': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Hour 23`
@@ -1404,10 +1344,8 @@ class ScheduleDayHourly(object):
         return self._data["Hour 24"]
 
     @hour_24.setter
-    def hour_24(self, value=0.0 ):
+    def hour_24(self, value=0.0):
         """  Corresponds to IDD Field `Hour 24`
-        
-        {u'default': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Hour 24`
@@ -3825,8 +3763,6 @@ class ScheduleDayInterval(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'reference': u'ScheduleAndDayScheduleNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -3862,8 +3798,6 @@ class ScheduleDayInterval(object):
     @schedule_type_limits_name.setter
     def schedule_type_limits_name(self, value=None):
         """  Corresponds to IDD Field `Schedule Type Limits Name`
-        
-        {u'type': u'object-list', u'object-list': u'ScheduleTypeLimitsNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Schedule Type Limits Name`
@@ -3902,8 +3836,6 @@ class ScheduleDayInterval(object):
         when the interval does not match the user specified timestep a Yes choice will average between the intervals request (to
         timestep resolution.  a No choice will use the interval value at the simulation timestep without regard to if it matches
         the boundary or not.
-        
-        {u'note': [u'when the interval does not match the user specified timestep a Yes choice will average between the intervals request (to', u'timestep resolution.  a No choice will use the interval value at the simulation timestep without regard to if it matches', u'the boundary or not.'], u'default': u'No', u'type': u'choice', u'key': [u'Yes', u'No'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Interpolate to Timestep`
@@ -3961,8 +3893,6 @@ class ScheduleDayInterval(object):
     def time_1(self, value=None):
         """  Corresponds to IDD Field `Time 1`
         "until" includes the time entered.
-        
-        {u'note': [u'"until" includes the time entered.'], u'units': u'hh:mm', 'pytype': 'str', 'type': 'alpha', u'begin-extensible': u''}
 
         Args:
             value (str): value for IDD Field `Time 1`
@@ -3999,8 +3929,6 @@ class ScheduleDayInterval(object):
     @value_until_time_1.setter
     def value_until_time_1(self, value=None):
         """  Corresponds to IDD Field `Value Until Time 1`
-        
-        {'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Value Until Time 1`
@@ -4031,8 +3959,6 @@ class ScheduleDayInterval(object):
     def time_2(self, value=None):
         """  Corresponds to IDD Field `Time 2`
         "until" includes the time entered.
-        
-        {u'note': [u'"until" includes the time entered.'], u'units': u'hh:mm', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Time 2`
@@ -4069,8 +3995,6 @@ class ScheduleDayInterval(object):
     @value_until_time_2.setter
     def value_until_time_2(self, value=None):
         """  Corresponds to IDD Field `Value Until Time 2`
-        
-        {'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Value Until Time 2`
@@ -4101,8 +4025,6 @@ class ScheduleDayInterval(object):
     def time_3(self, value=None):
         """  Corresponds to IDD Field `Time 3`
         "until" includes the time entered.
-        
-        {u'note': [u'"until" includes the time entered.'], u'units': u'hh:mm', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Time 3`
@@ -4139,8 +4061,6 @@ class ScheduleDayInterval(object):
     @value_until_time_3.setter
     def value_until_time_3(self, value=None):
         """  Corresponds to IDD Field `Value Until Time 3`
-        
-        {'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Value Until Time 3`
@@ -4171,8 +4091,6 @@ class ScheduleDayInterval(object):
     def time_4(self, value=None):
         """  Corresponds to IDD Field `Time 4`
         "until" includes the time entered.
-        
-        {u'note': [u'"until" includes the time entered.'], u'units': u'hh:mm', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Time 4`
@@ -4209,8 +4127,6 @@ class ScheduleDayInterval(object):
     @value_until_time_4.setter
     def value_until_time_4(self, value=None):
         """  Corresponds to IDD Field `Value Until Time 4`
-        
-        {'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Value Until Time 4`
@@ -4241,8 +4157,6 @@ class ScheduleDayInterval(object):
     def time_5(self, value=None):
         """  Corresponds to IDD Field `Time 5`
         "until" includes the time entered.
-        
-        {u'note': [u'"until" includes the time entered.'], u'units': u'hh:mm', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Time 5`
@@ -4279,8 +4193,6 @@ class ScheduleDayInterval(object):
     @value_until_time_5.setter
     def value_until_time_5(self, value=None):
         """  Corresponds to IDD Field `Value Until Time 5`
-        
-        {'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Value Until Time 5`
@@ -4311,8 +4223,6 @@ class ScheduleDayInterval(object):
     def time_6(self, value=None):
         """  Corresponds to IDD Field `Time 6`
         "until" includes the time entered.
-        
-        {u'note': [u'"until" includes the time entered.'], u'units': u'hh:mm', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Time 6`
@@ -4349,8 +4259,6 @@ class ScheduleDayInterval(object):
     @value_until_time_6.setter
     def value_until_time_6(self, value=None):
         """  Corresponds to IDD Field `Value Until Time 6`
-        
-        {'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Value Until Time 6`
@@ -4381,8 +4289,6 @@ class ScheduleDayInterval(object):
     def time_7(self, value=None):
         """  Corresponds to IDD Field `Time 7`
         "until" includes the time entered.
-        
-        {u'note': [u'"until" includes the time entered.'], u'units': u'hh:mm', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Time 7`
@@ -4419,8 +4325,6 @@ class ScheduleDayInterval(object):
     @value_until_time_7.setter
     def value_until_time_7(self, value=None):
         """  Corresponds to IDD Field `Value Until Time 7`
-        
-        {'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Value Until Time 7`
@@ -4451,8 +4355,6 @@ class ScheduleDayInterval(object):
     def time_8(self, value=None):
         """  Corresponds to IDD Field `Time 8`
         "until" includes the time entered.
-        
-        {u'note': [u'"until" includes the time entered.'], u'units': u'hh:mm', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Time 8`
@@ -4489,8 +4391,6 @@ class ScheduleDayInterval(object):
     @value_until_time_8.setter
     def value_until_time_8(self, value=None):
         """  Corresponds to IDD Field `Value Until Time 8`
-        
-        {'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Value Until Time 8`
@@ -4521,8 +4421,6 @@ class ScheduleDayInterval(object):
     def time_9(self, value=None):
         """  Corresponds to IDD Field `Time 9`
         "until" includes the time entered.
-        
-        {u'note': [u'"until" includes the time entered.'], u'units': u'hh:mm', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Time 9`
@@ -4559,8 +4457,6 @@ class ScheduleDayInterval(object):
     @value_until_time_9.setter
     def value_until_time_9(self, value=None):
         """  Corresponds to IDD Field `Value Until Time 9`
-        
-        {'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Value Until Time 9`
@@ -4591,8 +4487,6 @@ class ScheduleDayInterval(object):
     def time_10(self, value=None):
         """  Corresponds to IDD Field `Time 10`
         "until" includes the time entered.
-        
-        {u'note': [u'"until" includes the time entered.'], u'units': u'hh:mm', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Time 10`
@@ -4629,8 +4523,6 @@ class ScheduleDayInterval(object):
     @value_until_time_10.setter
     def value_until_time_10(self, value=None):
         """  Corresponds to IDD Field `Value Until Time 10`
-        
-        {'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Value Until Time 10`
@@ -4661,8 +4553,6 @@ class ScheduleDayInterval(object):
     def time_11(self, value=None):
         """  Corresponds to IDD Field `Time 11`
         "until" includes the time entered.
-        
-        {u'note': [u'"until" includes the time entered.'], u'units': u'hh:mm', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Time 11`
@@ -4699,8 +4589,6 @@ class ScheduleDayInterval(object):
     @value_until_time_11.setter
     def value_until_time_11(self, value=None):
         """  Corresponds to IDD Field `Value Until Time 11`
-        
-        {'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Value Until Time 11`
@@ -4731,8 +4619,6 @@ class ScheduleDayInterval(object):
     def time_12(self, value=None):
         """  Corresponds to IDD Field `Time 12`
         "until" includes the time entered.
-        
-        {u'note': [u'"until" includes the time entered.'], u'units': u'hh:mm', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Time 12`
@@ -4769,8 +4655,6 @@ class ScheduleDayInterval(object):
     @value_until_time_12.setter
     def value_until_time_12(self, value=None):
         """  Corresponds to IDD Field `Value Until Time 12`
-        
-        {'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Value Until Time 12`
@@ -4801,8 +4685,6 @@ class ScheduleDayInterval(object):
     def time_13(self, value=None):
         """  Corresponds to IDD Field `Time 13`
         "until" includes the time entered.
-        
-        {u'note': [u'"until" includes the time entered.'], u'units': u'hh:mm', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Time 13`
@@ -4839,8 +4721,6 @@ class ScheduleDayInterval(object):
     @value_until_time_13.setter
     def value_until_time_13(self, value=None):
         """  Corresponds to IDD Field `Value Until Time 13`
-        
-        {'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Value Until Time 13`
@@ -4871,8 +4751,6 @@ class ScheduleDayInterval(object):
     def time_14(self, value=None):
         """  Corresponds to IDD Field `Time 14`
         "until" includes the time entered.
-        
-        {u'note': [u'"until" includes the time entered.'], u'units': u'hh:mm', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Time 14`
@@ -4909,8 +4787,6 @@ class ScheduleDayInterval(object):
     @value_until_time_14.setter
     def value_until_time_14(self, value=None):
         """  Corresponds to IDD Field `Value Until Time 14`
-        
-        {'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Value Until Time 14`
@@ -4941,8 +4817,6 @@ class ScheduleDayInterval(object):
     def time_15(self, value=None):
         """  Corresponds to IDD Field `Time 15`
         "until" includes the time entered.
-        
-        {u'note': [u'"until" includes the time entered.'], u'units': u'hh:mm', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Time 15`
@@ -4979,8 +4853,6 @@ class ScheduleDayInterval(object):
     @value_until_time_15.setter
     def value_until_time_15(self, value=None):
         """  Corresponds to IDD Field `Value Until Time 15`
-        
-        {'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Value Until Time 15`
@@ -5011,8 +4883,6 @@ class ScheduleDayInterval(object):
     def time_16(self, value=None):
         """  Corresponds to IDD Field `Time 16`
         "until" includes the time entered.
-        
-        {u'note': [u'"until" includes the time entered.'], u'units': u'hh:mm', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Time 16`
@@ -5049,8 +4919,6 @@ class ScheduleDayInterval(object):
     @value_until_time_16.setter
     def value_until_time_16(self, value=None):
         """  Corresponds to IDD Field `Value Until Time 16`
-        
-        {'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Value Until Time 16`
@@ -5081,8 +4949,6 @@ class ScheduleDayInterval(object):
     def time_17(self, value=None):
         """  Corresponds to IDD Field `Time 17`
         "until" includes the time entered.
-        
-        {u'note': [u'"until" includes the time entered.'], u'units': u'hh:mm', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Time 17`
@@ -5119,8 +4985,6 @@ class ScheduleDayInterval(object):
     @value_until_time_17.setter
     def value_until_time_17(self, value=None):
         """  Corresponds to IDD Field `Value Until Time 17`
-        
-        {'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Value Until Time 17`
@@ -5151,8 +5015,6 @@ class ScheduleDayInterval(object):
     def time_18(self, value=None):
         """  Corresponds to IDD Field `Time 18`
         "until" includes the time entered.
-        
-        {u'note': [u'"until" includes the time entered.'], u'units': u'hh:mm', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Time 18`
@@ -5189,8 +5051,6 @@ class ScheduleDayInterval(object):
     @value_until_time_18.setter
     def value_until_time_18(self, value=None):
         """  Corresponds to IDD Field `Value Until Time 18`
-        
-        {'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Value Until Time 18`
@@ -5221,8 +5081,6 @@ class ScheduleDayInterval(object):
     def time_19(self, value=None):
         """  Corresponds to IDD Field `Time 19`
         "until" includes the time entered.
-        
-        {u'note': [u'"until" includes the time entered.'], u'units': u'hh:mm', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Time 19`
@@ -5259,8 +5117,6 @@ class ScheduleDayInterval(object):
     @value_until_time_19.setter
     def value_until_time_19(self, value=None):
         """  Corresponds to IDD Field `Value Until Time 19`
-        
-        {'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Value Until Time 19`
@@ -5291,8 +5147,6 @@ class ScheduleDayInterval(object):
     def time_20(self, value=None):
         """  Corresponds to IDD Field `Time 20`
         "until" includes the time entered.
-        
-        {u'note': [u'"until" includes the time entered.'], u'units': u'hh:mm', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Time 20`
@@ -5329,8 +5183,6 @@ class ScheduleDayInterval(object):
     @value_until_time_20.setter
     def value_until_time_20(self, value=None):
         """  Corresponds to IDD Field `Value Until Time 20`
-        
-        {'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Value Until Time 20`
@@ -5361,8 +5213,6 @@ class ScheduleDayInterval(object):
     def time_21(self, value=None):
         """  Corresponds to IDD Field `Time 21`
         "until" includes the time entered.
-        
-        {u'note': [u'"until" includes the time entered.'], u'units': u'hh:mm', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Time 21`
@@ -5399,8 +5249,6 @@ class ScheduleDayInterval(object):
     @value_until_time_21.setter
     def value_until_time_21(self, value=None):
         """  Corresponds to IDD Field `Value Until Time 21`
-        
-        {'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Value Until Time 21`
@@ -5431,8 +5279,6 @@ class ScheduleDayInterval(object):
     def time_22(self, value=None):
         """  Corresponds to IDD Field `Time 22`
         "until" includes the time entered.
-        
-        {u'note': [u'"until" includes the time entered.'], u'units': u'hh:mm', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Time 22`
@@ -5469,8 +5315,6 @@ class ScheduleDayInterval(object):
     @value_until_time_22.setter
     def value_until_time_22(self, value=None):
         """  Corresponds to IDD Field `Value Until Time 22`
-        
-        {'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Value Until Time 22`
@@ -5501,8 +5345,6 @@ class ScheduleDayInterval(object):
     def time_23(self, value=None):
         """  Corresponds to IDD Field `Time 23`
         "until" includes the time entered.
-        
-        {u'note': [u'"until" includes the time entered.'], u'units': u'hh:mm', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Time 23`
@@ -5539,8 +5381,6 @@ class ScheduleDayInterval(object):
     @value_until_time_23.setter
     def value_until_time_23(self, value=None):
         """  Corresponds to IDD Field `Value Until Time 23`
-        
-        {'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Value Until Time 23`
@@ -5571,8 +5411,6 @@ class ScheduleDayInterval(object):
     def time_24(self, value=None):
         """  Corresponds to IDD Field `Time 24`
         "until" includes the time entered.
-        
-        {u'note': [u'"until" includes the time entered.'], u'units': u'hh:mm', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Time 24`
@@ -5609,8 +5447,6 @@ class ScheduleDayInterval(object):
     @value_until_time_24.setter
     def value_until_time_24(self, value=None):
         """  Corresponds to IDD Field `Value Until Time 24`
-        
-        {'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Value Until Time 24`
@@ -5641,8 +5477,6 @@ class ScheduleDayInterval(object):
     def time_25(self, value=None):
         """  Corresponds to IDD Field `Time 25`
         "until" includes the time entered.
-        
-        {u'note': [u'"until" includes the time entered.'], u'units': u'hh:mm', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Time 25`
@@ -5679,8 +5513,6 @@ class ScheduleDayInterval(object):
     @value_until_time_25.setter
     def value_until_time_25(self, value=None):
         """  Corresponds to IDD Field `Value Until Time 25`
-        
-        {'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Value Until Time 25`
@@ -5711,8 +5543,6 @@ class ScheduleDayInterval(object):
     def time_26(self, value=None):
         """  Corresponds to IDD Field `Time 26`
         "until" includes the time entered.
-        
-        {u'note': [u'"until" includes the time entered.'], u'units': u'hh:mm', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Time 26`
@@ -5749,8 +5579,6 @@ class ScheduleDayInterval(object):
     @value_until_time_26.setter
     def value_until_time_26(self, value=None):
         """  Corresponds to IDD Field `Value Until Time 26`
-        
-        {'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Value Until Time 26`
@@ -5781,8 +5609,6 @@ class ScheduleDayInterval(object):
     def time_27(self, value=None):
         """  Corresponds to IDD Field `Time 27`
         "until" includes the time entered.
-        
-        {u'note': [u'"until" includes the time entered.'], u'units': u'hh:mm', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Time 27`
@@ -5819,8 +5645,6 @@ class ScheduleDayInterval(object):
     @value_until_time_27.setter
     def value_until_time_27(self, value=None):
         """  Corresponds to IDD Field `Value Until Time 27`
-        
-        {'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Value Until Time 27`
@@ -5851,8 +5675,6 @@ class ScheduleDayInterval(object):
     def time_28(self, value=None):
         """  Corresponds to IDD Field `Time 28`
         "until" includes the time entered.
-        
-        {u'note': [u'"until" includes the time entered.'], u'units': u'hh:mm', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Time 28`
@@ -5889,8 +5711,6 @@ class ScheduleDayInterval(object):
     @value_until_time_28.setter
     def value_until_time_28(self, value=None):
         """  Corresponds to IDD Field `Value Until Time 28`
-        
-        {'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Value Until Time 28`
@@ -5921,8 +5741,6 @@ class ScheduleDayInterval(object):
     def time_29(self, value=None):
         """  Corresponds to IDD Field `Time 29`
         "until" includes the time entered.
-        
-        {u'note': [u'"until" includes the time entered.'], u'units': u'hh:mm', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Time 29`
@@ -5959,8 +5777,6 @@ class ScheduleDayInterval(object):
     @value_until_time_29.setter
     def value_until_time_29(self, value=None):
         """  Corresponds to IDD Field `Value Until Time 29`
-        
-        {'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Value Until Time 29`
@@ -5991,8 +5807,6 @@ class ScheduleDayInterval(object):
     def time_30(self, value=None):
         """  Corresponds to IDD Field `Time 30`
         "until" includes the time entered.
-        
-        {u'note': [u'"until" includes the time entered.'], u'units': u'hh:mm', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Time 30`
@@ -6029,8 +5843,6 @@ class ScheduleDayInterval(object):
     @value_until_time_30.setter
     def value_until_time_30(self, value=None):
         """  Corresponds to IDD Field `Value Until Time 30`
-        
-        {'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Value Until Time 30`
@@ -6061,8 +5873,6 @@ class ScheduleDayInterval(object):
     def time_31(self, value=None):
         """  Corresponds to IDD Field `Time 31`
         "until" includes the time entered.
-        
-        {u'note': [u'"until" includes the time entered.'], u'units': u'hh:mm', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Time 31`
@@ -6099,8 +5909,6 @@ class ScheduleDayInterval(object):
     @value_until_time_31.setter
     def value_until_time_31(self, value=None):
         """  Corresponds to IDD Field `Value Until Time 31`
-        
-        {'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Value Until Time 31`
@@ -6131,8 +5939,6 @@ class ScheduleDayInterval(object):
     def time_32(self, value=None):
         """  Corresponds to IDD Field `Time 32`
         "until" includes the time entered.
-        
-        {u'note': [u'"until" includes the time entered.'], u'units': u'hh:mm', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Time 32`
@@ -6169,8 +5975,6 @@ class ScheduleDayInterval(object):
     @value_until_time_32.setter
     def value_until_time_32(self, value=None):
         """  Corresponds to IDD Field `Value Until Time 32`
-        
-        {'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Value Until Time 32`
@@ -6201,8 +6005,6 @@ class ScheduleDayInterval(object):
     def time_33(self, value=None):
         """  Corresponds to IDD Field `Time 33`
         "until" includes the time entered.
-        
-        {u'note': [u'"until" includes the time entered.'], u'units': u'hh:mm', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Time 33`
@@ -6239,8 +6041,6 @@ class ScheduleDayInterval(object):
     @value_until_time_33.setter
     def value_until_time_33(self, value=None):
         """  Corresponds to IDD Field `Value Until Time 33`
-        
-        {'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Value Until Time 33`
@@ -6271,8 +6071,6 @@ class ScheduleDayInterval(object):
     def time_34(self, value=None):
         """  Corresponds to IDD Field `Time 34`
         "until" includes the time entered.
-        
-        {u'note': [u'"until" includes the time entered.'], u'units': u'hh:mm', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Time 34`
@@ -6309,8 +6107,6 @@ class ScheduleDayInterval(object):
     @value_until_time_34.setter
     def value_until_time_34(self, value=None):
         """  Corresponds to IDD Field `Value Until Time 34`
-        
-        {'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Value Until Time 34`
@@ -6341,8 +6137,6 @@ class ScheduleDayInterval(object):
     def time_35(self, value=None):
         """  Corresponds to IDD Field `Time 35`
         "until" includes the time entered.
-        
-        {u'note': [u'"until" includes the time entered.'], u'units': u'hh:mm', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Time 35`
@@ -6379,8 +6173,6 @@ class ScheduleDayInterval(object):
     @value_until_time_35.setter
     def value_until_time_35(self, value=None):
         """  Corresponds to IDD Field `Value Until Time 35`
-        
-        {'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Value Until Time 35`
@@ -6411,8 +6203,6 @@ class ScheduleDayInterval(object):
     def time_36(self, value=None):
         """  Corresponds to IDD Field `Time 36`
         "until" includes the time entered.
-        
-        {u'note': [u'"until" includes the time entered.'], u'units': u'hh:mm', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Time 36`
@@ -6449,8 +6239,6 @@ class ScheduleDayInterval(object):
     @value_until_time_36.setter
     def value_until_time_36(self, value=None):
         """  Corresponds to IDD Field `Value Until Time 36`
-        
-        {'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Value Until Time 36`
@@ -6481,8 +6269,6 @@ class ScheduleDayInterval(object):
     def time_37(self, value=None):
         """  Corresponds to IDD Field `Time 37`
         "until" includes the time entered.
-        
-        {u'note': [u'"until" includes the time entered.'], u'units': u'hh:mm', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Time 37`
@@ -6519,8 +6305,6 @@ class ScheduleDayInterval(object):
     @value_until_time_37.setter
     def value_until_time_37(self, value=None):
         """  Corresponds to IDD Field `Value Until Time 37`
-        
-        {'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Value Until Time 37`
@@ -6551,8 +6335,6 @@ class ScheduleDayInterval(object):
     def time_38(self, value=None):
         """  Corresponds to IDD Field `Time 38`
         "until" includes the time entered.
-        
-        {u'note': [u'"until" includes the time entered.'], u'units': u'hh:mm', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Time 38`
@@ -6589,8 +6371,6 @@ class ScheduleDayInterval(object):
     @value_until_time_38.setter
     def value_until_time_38(self, value=None):
         """  Corresponds to IDD Field `Value Until Time 38`
-        
-        {'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Value Until Time 38`
@@ -6621,8 +6401,6 @@ class ScheduleDayInterval(object):
     def time_39(self, value=None):
         """  Corresponds to IDD Field `Time 39`
         "until" includes the time entered.
-        
-        {u'note': [u'"until" includes the time entered.'], u'units': u'hh:mm', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Time 39`
@@ -6659,8 +6437,6 @@ class ScheduleDayInterval(object):
     @value_until_time_39.setter
     def value_until_time_39(self, value=None):
         """  Corresponds to IDD Field `Value Until Time 39`
-        
-        {'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Value Until Time 39`
@@ -6691,8 +6467,6 @@ class ScheduleDayInterval(object):
     def time_40(self, value=None):
         """  Corresponds to IDD Field `Time 40`
         "until" includes the time entered.
-        
-        {u'note': [u'"until" includes the time entered.'], u'units': u'hh:mm', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Time 40`
@@ -6729,8 +6503,6 @@ class ScheduleDayInterval(object):
     @value_until_time_40.setter
     def value_until_time_40(self, value=None):
         """  Corresponds to IDD Field `Value Until Time 40`
-        
-        {'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Value Until Time 40`
@@ -6761,8 +6533,6 @@ class ScheduleDayInterval(object):
     def time_41(self, value=None):
         """  Corresponds to IDD Field `Time 41`
         "until" includes the time entered.
-        
-        {u'note': [u'"until" includes the time entered.'], u'units': u'hh:mm', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Time 41`
@@ -6799,8 +6569,6 @@ class ScheduleDayInterval(object):
     @value_until_time_41.setter
     def value_until_time_41(self, value=None):
         """  Corresponds to IDD Field `Value Until Time 41`
-        
-        {'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Value Until Time 41`
@@ -6831,8 +6599,6 @@ class ScheduleDayInterval(object):
     def time_42(self, value=None):
         """  Corresponds to IDD Field `Time 42`
         "until" includes the time entered.
-        
-        {u'note': [u'"until" includes the time entered.'], u'units': u'hh:mm', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Time 42`
@@ -6869,8 +6635,6 @@ class ScheduleDayInterval(object):
     @value_until_time_42.setter
     def value_until_time_42(self, value=None):
         """  Corresponds to IDD Field `Value Until Time 42`
-        
-        {'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Value Until Time 42`
@@ -6901,8 +6665,6 @@ class ScheduleDayInterval(object):
     def time_43(self, value=None):
         """  Corresponds to IDD Field `Time 43`
         "until" includes the time entered.
-        
-        {u'note': [u'"until" includes the time entered.'], u'units': u'hh:mm', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Time 43`
@@ -6939,8 +6701,6 @@ class ScheduleDayInterval(object):
     @value_until_time_43.setter
     def value_until_time_43(self, value=None):
         """  Corresponds to IDD Field `Value Until Time 43`
-        
-        {'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Value Until Time 43`
@@ -6971,8 +6731,6 @@ class ScheduleDayInterval(object):
     def time_44(self, value=None):
         """  Corresponds to IDD Field `Time 44`
         "until" includes the time entered.
-        
-        {u'note': [u'"until" includes the time entered.'], u'units': u'hh:mm', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Time 44`
@@ -7009,8 +6767,6 @@ class ScheduleDayInterval(object):
     @value_until_time_44.setter
     def value_until_time_44(self, value=None):
         """  Corresponds to IDD Field `Value Until Time 44`
-        
-        {'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Value Until Time 44`
@@ -7041,8 +6797,6 @@ class ScheduleDayInterval(object):
     def time_45(self, value=None):
         """  Corresponds to IDD Field `Time 45`
         "until" includes the time entered.
-        
-        {u'note': [u'"until" includes the time entered.'], u'units': u'hh:mm', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Time 45`
@@ -7079,8 +6833,6 @@ class ScheduleDayInterval(object):
     @value_until_time_45.setter
     def value_until_time_45(self, value=None):
         """  Corresponds to IDD Field `Value Until Time 45`
-        
-        {'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Value Until Time 45`
@@ -7111,8 +6863,6 @@ class ScheduleDayInterval(object):
     def time_46(self, value=None):
         """  Corresponds to IDD Field `Time 46`
         "until" includes the time entered.
-        
-        {u'note': [u'"until" includes the time entered.'], u'units': u'hh:mm', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Time 46`
@@ -7149,8 +6899,6 @@ class ScheduleDayInterval(object):
     @value_until_time_46.setter
     def value_until_time_46(self, value=None):
         """  Corresponds to IDD Field `Value Until Time 46`
-        
-        {'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Value Until Time 46`
@@ -7181,8 +6929,6 @@ class ScheduleDayInterval(object):
     def time_47(self, value=None):
         """  Corresponds to IDD Field `Time 47`
         "until" includes the time entered.
-        
-        {u'note': [u'"until" includes the time entered.'], u'units': u'hh:mm', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Time 47`
@@ -7219,8 +6965,6 @@ class ScheduleDayInterval(object):
     @value_until_time_47.setter
     def value_until_time_47(self, value=None):
         """  Corresponds to IDD Field `Value Until Time 47`
-        
-        {'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Value Until Time 47`
@@ -7251,8 +6995,6 @@ class ScheduleDayInterval(object):
     def time_48(self, value=None):
         """  Corresponds to IDD Field `Time 48`
         "until" includes the time entered.
-        
-        {u'note': [u'"until" includes the time entered.'], u'units': u'hh:mm', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Time 48`
@@ -7289,8 +7031,6 @@ class ScheduleDayInterval(object):
     @value_until_time_48.setter
     def value_until_time_48(self, value=None):
         """  Corresponds to IDD Field `Value Until Time 48`
-        
-        {'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Value Until Time 48`
@@ -7321,8 +7061,6 @@ class ScheduleDayInterval(object):
     def time_49(self, value=None):
         """  Corresponds to IDD Field `Time 49`
         "until" includes the time entered.
-        
-        {u'note': [u'"until" includes the time entered.'], u'units': u'hh:mm', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Time 49`
@@ -7359,8 +7097,6 @@ class ScheduleDayInterval(object):
     @value_until_time_49.setter
     def value_until_time_49(self, value=None):
         """  Corresponds to IDD Field `Value Until Time 49`
-        
-        {'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Value Until Time 49`
@@ -7391,8 +7127,6 @@ class ScheduleDayInterval(object):
     def time_50(self, value=None):
         """  Corresponds to IDD Field `Time 50`
         "until" includes the time entered.
-        
-        {u'note': [u'"until" includes the time entered.'], u'units': u'hh:mm', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Time 50`
@@ -7429,8 +7163,6 @@ class ScheduleDayInterval(object):
     @value_until_time_50.setter
     def value_until_time_50(self, value=None):
         """  Corresponds to IDD Field `Value Until Time 50`
-        
-        {'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Value Until Time 50`
@@ -7461,8 +7193,6 @@ class ScheduleDayInterval(object):
     def time_51(self, value=None):
         """  Corresponds to IDD Field `Time 51`
         "until" includes the time entered.
-        
-        {u'note': [u'"until" includes the time entered.'], u'units': u'hh:mm', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Time 51`
@@ -7499,8 +7229,6 @@ class ScheduleDayInterval(object):
     @value_until_time_51.setter
     def value_until_time_51(self, value=None):
         """  Corresponds to IDD Field `Value Until Time 51`
-        
-        {'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Value Until Time 51`
@@ -7531,8 +7259,6 @@ class ScheduleDayInterval(object):
     def time_52(self, value=None):
         """  Corresponds to IDD Field `Time 52`
         "until" includes the time entered.
-        
-        {u'note': [u'"until" includes the time entered.'], u'units': u'hh:mm', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Time 52`
@@ -7569,8 +7295,6 @@ class ScheduleDayInterval(object):
     @value_until_time_52.setter
     def value_until_time_52(self, value=None):
         """  Corresponds to IDD Field `Value Until Time 52`
-        
-        {'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Value Until Time 52`
@@ -7601,8 +7325,6 @@ class ScheduleDayInterval(object):
     def time_53(self, value=None):
         """  Corresponds to IDD Field `Time 53`
         "until" includes the time entered.
-        
-        {u'note': [u'"until" includes the time entered.'], u'units': u'hh:mm', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Time 53`
@@ -7639,8 +7361,6 @@ class ScheduleDayInterval(object):
     @value_until_time_53.setter
     def value_until_time_53(self, value=None):
         """  Corresponds to IDD Field `Value Until Time 53`
-        
-        {'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Value Until Time 53`
@@ -7671,8 +7391,6 @@ class ScheduleDayInterval(object):
     def time_54(self, value=None):
         """  Corresponds to IDD Field `Time 54`
         "until" includes the time entered.
-        
-        {u'note': [u'"until" includes the time entered.'], u'units': u'hh:mm', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Time 54`
@@ -7709,8 +7427,6 @@ class ScheduleDayInterval(object):
     @value_until_time_54.setter
     def value_until_time_54(self, value=None):
         """  Corresponds to IDD Field `Value Until Time 54`
-        
-        {'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Value Until Time 54`
@@ -7741,8 +7457,6 @@ class ScheduleDayInterval(object):
     def time_55(self, value=None):
         """  Corresponds to IDD Field `Time 55`
         "until" includes the time entered.
-        
-        {u'note': [u'"until" includes the time entered.'], u'units': u'hh:mm', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Time 55`
@@ -7779,8 +7493,6 @@ class ScheduleDayInterval(object):
     @value_until_time_55.setter
     def value_until_time_55(self, value=None):
         """  Corresponds to IDD Field `Value Until Time 55`
-        
-        {'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Value Until Time 55`
@@ -7811,8 +7523,6 @@ class ScheduleDayInterval(object):
     def time_56(self, value=None):
         """  Corresponds to IDD Field `Time 56`
         "until" includes the time entered.
-        
-        {u'note': [u'"until" includes the time entered.'], u'units': u'hh:mm', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Time 56`
@@ -7849,8 +7559,6 @@ class ScheduleDayInterval(object):
     @value_until_time_56.setter
     def value_until_time_56(self, value=None):
         """  Corresponds to IDD Field `Value Until Time 56`
-        
-        {'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Value Until Time 56`
@@ -7881,8 +7589,6 @@ class ScheduleDayInterval(object):
     def time_57(self, value=None):
         """  Corresponds to IDD Field `Time 57`
         "until" includes the time entered.
-        
-        {u'note': [u'"until" includes the time entered.'], u'units': u'hh:mm', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Time 57`
@@ -7919,8 +7625,6 @@ class ScheduleDayInterval(object):
     @value_until_time_57.setter
     def value_until_time_57(self, value=None):
         """  Corresponds to IDD Field `Value Until Time 57`
-        
-        {'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Value Until Time 57`
@@ -7951,8 +7655,6 @@ class ScheduleDayInterval(object):
     def time_58(self, value=None):
         """  Corresponds to IDD Field `Time 58`
         "until" includes the time entered.
-        
-        {u'note': [u'"until" includes the time entered.'], u'units': u'hh:mm', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Time 58`
@@ -7989,8 +7691,6 @@ class ScheduleDayInterval(object):
     @value_until_time_58.setter
     def value_until_time_58(self, value=None):
         """  Corresponds to IDD Field `Value Until Time 58`
-        
-        {'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Value Until Time 58`
@@ -8021,8 +7721,6 @@ class ScheduleDayInterval(object):
     def time_59(self, value=None):
         """  Corresponds to IDD Field `Time 59`
         "until" includes the time entered.
-        
-        {u'note': [u'"until" includes the time entered.'], u'units': u'hh:mm', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Time 59`
@@ -8059,8 +7757,6 @@ class ScheduleDayInterval(object):
     @value_until_time_59.setter
     def value_until_time_59(self, value=None):
         """  Corresponds to IDD Field `Value Until Time 59`
-        
-        {'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Value Until Time 59`
@@ -8091,8 +7787,6 @@ class ScheduleDayInterval(object):
     def time_60(self, value=None):
         """  Corresponds to IDD Field `Time 60`
         "until" includes the time entered.
-        
-        {u'note': [u'"until" includes the time entered.'], u'units': u'hh:mm', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Time 60`
@@ -8129,8 +7823,6 @@ class ScheduleDayInterval(object):
     @value_until_time_60.setter
     def value_until_time_60(self, value=None):
         """  Corresponds to IDD Field `Value Until Time 60`
-        
-        {'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Value Until Time 60`
@@ -8161,8 +7853,6 @@ class ScheduleDayInterval(object):
     def time_61(self, value=None):
         """  Corresponds to IDD Field `Time 61`
         "until" includes the time entered.
-        
-        {u'note': [u'"until" includes the time entered.'], u'units': u'hh:mm', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Time 61`
@@ -8199,8 +7889,6 @@ class ScheduleDayInterval(object):
     @value_until_time_61.setter
     def value_until_time_61(self, value=None):
         """  Corresponds to IDD Field `Value Until Time 61`
-        
-        {'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Value Until Time 61`
@@ -8231,8 +7919,6 @@ class ScheduleDayInterval(object):
     def time_62(self, value=None):
         """  Corresponds to IDD Field `Time 62`
         "until" includes the time entered.
-        
-        {u'note': [u'"until" includes the time entered.'], u'units': u'hh:mm', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Time 62`
@@ -8269,8 +7955,6 @@ class ScheduleDayInterval(object):
     @value_until_time_62.setter
     def value_until_time_62(self, value=None):
         """  Corresponds to IDD Field `Value Until Time 62`
-        
-        {'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Value Until Time 62`
@@ -8301,8 +7985,6 @@ class ScheduleDayInterval(object):
     def time_63(self, value=None):
         """  Corresponds to IDD Field `Time 63`
         "until" includes the time entered.
-        
-        {u'note': [u'"until" includes the time entered.'], u'units': u'hh:mm', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Time 63`
@@ -8339,8 +8021,6 @@ class ScheduleDayInterval(object):
     @value_until_time_63.setter
     def value_until_time_63(self, value=None):
         """  Corresponds to IDD Field `Value Until Time 63`
-        
-        {'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Value Until Time 63`
@@ -8371,8 +8051,6 @@ class ScheduleDayInterval(object):
     def time_64(self, value=None):
         """  Corresponds to IDD Field `Time 64`
         "until" includes the time entered.
-        
-        {u'note': [u'"until" includes the time entered.'], u'units': u'hh:mm', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Time 64`
@@ -8409,8 +8087,6 @@ class ScheduleDayInterval(object):
     @value_until_time_64.setter
     def value_until_time_64(self, value=None):
         """  Corresponds to IDD Field `Value Until Time 64`
-        
-        {'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Value Until Time 64`
@@ -8441,8 +8117,6 @@ class ScheduleDayInterval(object):
     def time_65(self, value=None):
         """  Corresponds to IDD Field `Time 65`
         "until" includes the time entered.
-        
-        {u'note': [u'"until" includes the time entered.'], u'units': u'hh:mm', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Time 65`
@@ -8479,8 +8153,6 @@ class ScheduleDayInterval(object):
     @value_until_time_65.setter
     def value_until_time_65(self, value=None):
         """  Corresponds to IDD Field `Value Until Time 65`
-        
-        {'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Value Until Time 65`
@@ -8511,8 +8183,6 @@ class ScheduleDayInterval(object):
     def time_66(self, value=None):
         """  Corresponds to IDD Field `Time 66`
         "until" includes the time entered.
-        
-        {u'note': [u'"until" includes the time entered.'], u'units': u'hh:mm', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Time 66`
@@ -8549,8 +8219,6 @@ class ScheduleDayInterval(object):
     @value_until_time_66.setter
     def value_until_time_66(self, value=None):
         """  Corresponds to IDD Field `Value Until Time 66`
-        
-        {'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Value Until Time 66`
@@ -8581,8 +8249,6 @@ class ScheduleDayInterval(object):
     def time_67(self, value=None):
         """  Corresponds to IDD Field `Time 67`
         "until" includes the time entered.
-        
-        {u'note': [u'"until" includes the time entered.'], u'units': u'hh:mm', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Time 67`
@@ -8619,8 +8285,6 @@ class ScheduleDayInterval(object):
     @value_until_time_67.setter
     def value_until_time_67(self, value=None):
         """  Corresponds to IDD Field `Value Until Time 67`
-        
-        {'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Value Until Time 67`
@@ -8651,8 +8315,6 @@ class ScheduleDayInterval(object):
     def time_68(self, value=None):
         """  Corresponds to IDD Field `Time 68`
         "until" includes the time entered.
-        
-        {u'note': [u'"until" includes the time entered.'], u'units': u'hh:mm', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Time 68`
@@ -8689,8 +8351,6 @@ class ScheduleDayInterval(object):
     @value_until_time_68.setter
     def value_until_time_68(self, value=None):
         """  Corresponds to IDD Field `Value Until Time 68`
-        
-        {'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Value Until Time 68`
@@ -8721,8 +8381,6 @@ class ScheduleDayInterval(object):
     def time_69(self, value=None):
         """  Corresponds to IDD Field `Time 69`
         "until" includes the time entered.
-        
-        {u'note': [u'"until" includes the time entered.'], u'units': u'hh:mm', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Time 69`
@@ -8759,8 +8417,6 @@ class ScheduleDayInterval(object):
     @value_until_time_69.setter
     def value_until_time_69(self, value=None):
         """  Corresponds to IDD Field `Value Until Time 69`
-        
-        {'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Value Until Time 69`
@@ -8791,8 +8447,6 @@ class ScheduleDayInterval(object):
     def time_70(self, value=None):
         """  Corresponds to IDD Field `Time 70`
         "until" includes the time entered.
-        
-        {u'note': [u'"until" includes the time entered.'], u'units': u'hh:mm', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Time 70`
@@ -8829,8 +8483,6 @@ class ScheduleDayInterval(object):
     @value_until_time_70.setter
     def value_until_time_70(self, value=None):
         """  Corresponds to IDD Field `Value Until Time 70`
-        
-        {'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Value Until Time 70`
@@ -8861,8 +8513,6 @@ class ScheduleDayInterval(object):
     def time_71(self, value=None):
         """  Corresponds to IDD Field `Time 71`
         "until" includes the time entered.
-        
-        {u'note': [u'"until" includes the time entered.'], u'units': u'hh:mm', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Time 71`
@@ -8899,8 +8549,6 @@ class ScheduleDayInterval(object):
     @value_until_time_71.setter
     def value_until_time_71(self, value=None):
         """  Corresponds to IDD Field `Value Until Time 71`
-        
-        {'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Value Until Time 71`
@@ -8931,8 +8579,6 @@ class ScheduleDayInterval(object):
     def time_72(self, value=None):
         """  Corresponds to IDD Field `Time 72`
         "until" includes the time entered.
-        
-        {u'note': [u'"until" includes the time entered.'], u'units': u'hh:mm', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Time 72`
@@ -8969,8 +8615,6 @@ class ScheduleDayInterval(object):
     @value_until_time_72.setter
     def value_until_time_72(self, value=None):
         """  Corresponds to IDD Field `Value Until Time 72`
-        
-        {'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Value Until Time 72`
@@ -9001,8 +8645,6 @@ class ScheduleDayInterval(object):
     def time_73(self, value=None):
         """  Corresponds to IDD Field `Time 73`
         "until" includes the time entered.
-        
-        {u'note': [u'"until" includes the time entered.'], u'units': u'hh:mm', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Time 73`
@@ -9039,8 +8681,6 @@ class ScheduleDayInterval(object):
     @value_until_time_73.setter
     def value_until_time_73(self, value=None):
         """  Corresponds to IDD Field `Value Until Time 73`
-        
-        {'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Value Until Time 73`
@@ -9071,8 +8711,6 @@ class ScheduleDayInterval(object):
     def time_74(self, value=None):
         """  Corresponds to IDD Field `Time 74`
         "until" includes the time entered.
-        
-        {u'note': [u'"until" includes the time entered.'], u'units': u'hh:mm', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Time 74`
@@ -9109,8 +8747,6 @@ class ScheduleDayInterval(object):
     @value_until_time_74.setter
     def value_until_time_74(self, value=None):
         """  Corresponds to IDD Field `Value Until Time 74`
-        
-        {'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Value Until Time 74`
@@ -9141,8 +8777,6 @@ class ScheduleDayInterval(object):
     def time_75(self, value=None):
         """  Corresponds to IDD Field `Time 75`
         "until" includes the time entered.
-        
-        {u'note': [u'"until" includes the time entered.'], u'units': u'hh:mm', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Time 75`
@@ -9179,8 +8813,6 @@ class ScheduleDayInterval(object):
     @value_until_time_75.setter
     def value_until_time_75(self, value=None):
         """  Corresponds to IDD Field `Value Until Time 75`
-        
-        {'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Value Until Time 75`
@@ -9211,8 +8843,6 @@ class ScheduleDayInterval(object):
     def time_76(self, value=None):
         """  Corresponds to IDD Field `Time 76`
         "until" includes the time entered.
-        
-        {u'note': [u'"until" includes the time entered.'], u'units': u'hh:mm', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Time 76`
@@ -9249,8 +8879,6 @@ class ScheduleDayInterval(object):
     @value_until_time_76.setter
     def value_until_time_76(self, value=None):
         """  Corresponds to IDD Field `Value Until Time 76`
-        
-        {'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Value Until Time 76`
@@ -9281,8 +8909,6 @@ class ScheduleDayInterval(object):
     def time_77(self, value=None):
         """  Corresponds to IDD Field `Time 77`
         "until" includes the time entered.
-        
-        {u'note': [u'"until" includes the time entered.'], u'units': u'hh:mm', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Time 77`
@@ -9319,8 +8945,6 @@ class ScheduleDayInterval(object):
     @value_until_time_77.setter
     def value_until_time_77(self, value=None):
         """  Corresponds to IDD Field `Value Until Time 77`
-        
-        {'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Value Until Time 77`
@@ -9351,8 +8975,6 @@ class ScheduleDayInterval(object):
     def time_78(self, value=None):
         """  Corresponds to IDD Field `Time 78`
         "until" includes the time entered.
-        
-        {u'note': [u'"until" includes the time entered.'], u'units': u'hh:mm', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Time 78`
@@ -9389,8 +9011,6 @@ class ScheduleDayInterval(object):
     @value_until_time_78.setter
     def value_until_time_78(self, value=None):
         """  Corresponds to IDD Field `Value Until Time 78`
-        
-        {'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Value Until Time 78`
@@ -9421,8 +9041,6 @@ class ScheduleDayInterval(object):
     def time_79(self, value=None):
         """  Corresponds to IDD Field `Time 79`
         "until" includes the time entered.
-        
-        {u'note': [u'"until" includes the time entered.'], u'units': u'hh:mm', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Time 79`
@@ -9459,8 +9077,6 @@ class ScheduleDayInterval(object):
     @value_until_time_79.setter
     def value_until_time_79(self, value=None):
         """  Corresponds to IDD Field `Value Until Time 79`
-        
-        {'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Value Until Time 79`
@@ -9491,8 +9107,6 @@ class ScheduleDayInterval(object):
     def time_80(self, value=None):
         """  Corresponds to IDD Field `Time 80`
         "until" includes the time entered.
-        
-        {u'note': [u'"until" includes the time entered.'], u'units': u'hh:mm', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Time 80`
@@ -9529,8 +9143,6 @@ class ScheduleDayInterval(object):
     @value_until_time_80.setter
     def value_until_time_80(self, value=None):
         """  Corresponds to IDD Field `Value Until Time 80`
-        
-        {'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Value Until Time 80`
@@ -9561,8 +9173,6 @@ class ScheduleDayInterval(object):
     def time_81(self, value=None):
         """  Corresponds to IDD Field `Time 81`
         "until" includes the time entered.
-        
-        {u'note': [u'"until" includes the time entered.'], u'units': u'hh:mm', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Time 81`
@@ -9599,8 +9209,6 @@ class ScheduleDayInterval(object):
     @value_until_time_81.setter
     def value_until_time_81(self, value=None):
         """  Corresponds to IDD Field `Value Until Time 81`
-        
-        {'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Value Until Time 81`
@@ -9631,8 +9239,6 @@ class ScheduleDayInterval(object):
     def time_82(self, value=None):
         """  Corresponds to IDD Field `Time 82`
         "until" includes the time entered.
-        
-        {u'note': [u'"until" includes the time entered.'], u'units': u'hh:mm', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Time 82`
@@ -9669,8 +9275,6 @@ class ScheduleDayInterval(object):
     @value_until_time_82.setter
     def value_until_time_82(self, value=None):
         """  Corresponds to IDD Field `Value Until Time 82`
-        
-        {'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Value Until Time 82`
@@ -9701,8 +9305,6 @@ class ScheduleDayInterval(object):
     def time_83(self, value=None):
         """  Corresponds to IDD Field `Time 83`
         "until" includes the time entered.
-        
-        {u'note': [u'"until" includes the time entered.'], u'units': u'hh:mm', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Time 83`
@@ -9739,8 +9341,6 @@ class ScheduleDayInterval(object):
     @value_until_time_83.setter
     def value_until_time_83(self, value=None):
         """  Corresponds to IDD Field `Value Until Time 83`
-        
-        {'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Value Until Time 83`
@@ -9771,8 +9371,6 @@ class ScheduleDayInterval(object):
     def time_84(self, value=None):
         """  Corresponds to IDD Field `Time 84`
         "until" includes the time entered.
-        
-        {u'note': [u'"until" includes the time entered.'], u'units': u'hh:mm', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Time 84`
@@ -9809,8 +9407,6 @@ class ScheduleDayInterval(object):
     @value_until_time_84.setter
     def value_until_time_84(self, value=None):
         """  Corresponds to IDD Field `Value Until Time 84`
-        
-        {'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Value Until Time 84`
@@ -9841,8 +9437,6 @@ class ScheduleDayInterval(object):
     def time_85(self, value=None):
         """  Corresponds to IDD Field `Time 85`
         "until" includes the time entered.
-        
-        {u'note': [u'"until" includes the time entered.'], u'units': u'hh:mm', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Time 85`
@@ -9879,8 +9473,6 @@ class ScheduleDayInterval(object):
     @value_until_time_85.setter
     def value_until_time_85(self, value=None):
         """  Corresponds to IDD Field `Value Until Time 85`
-        
-        {'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Value Until Time 85`
@@ -9911,8 +9503,6 @@ class ScheduleDayInterval(object):
     def time_86(self, value=None):
         """  Corresponds to IDD Field `Time 86`
         "until" includes the time entered.
-        
-        {u'note': [u'"until" includes the time entered.'], u'units': u'hh:mm', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Time 86`
@@ -9949,8 +9539,6 @@ class ScheduleDayInterval(object):
     @value_until_time_86.setter
     def value_until_time_86(self, value=None):
         """  Corresponds to IDD Field `Value Until Time 86`
-        
-        {'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Value Until Time 86`
@@ -9981,8 +9569,6 @@ class ScheduleDayInterval(object):
     def time_87(self, value=None):
         """  Corresponds to IDD Field `Time 87`
         "until" includes the time entered.
-        
-        {u'note': [u'"until" includes the time entered.'], u'units': u'hh:mm', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Time 87`
@@ -10019,8 +9605,6 @@ class ScheduleDayInterval(object):
     @value_until_time_87.setter
     def value_until_time_87(self, value=None):
         """  Corresponds to IDD Field `Value Until Time 87`
-        
-        {'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Value Until Time 87`
@@ -10051,8 +9635,6 @@ class ScheduleDayInterval(object):
     def time_88(self, value=None):
         """  Corresponds to IDD Field `Time 88`
         "until" includes the time entered.
-        
-        {u'note': [u'"until" includes the time entered.'], u'units': u'hh:mm', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Time 88`
@@ -10089,8 +9671,6 @@ class ScheduleDayInterval(object):
     @value_until_time_88.setter
     def value_until_time_88(self, value=None):
         """  Corresponds to IDD Field `Value Until Time 88`
-        
-        {'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Value Until Time 88`
@@ -10121,8 +9701,6 @@ class ScheduleDayInterval(object):
     def time_89(self, value=None):
         """  Corresponds to IDD Field `Time 89`
         "until" includes the time entered.
-        
-        {u'note': [u'"until" includes the time entered.'], u'units': u'hh:mm', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Time 89`
@@ -10159,8 +9737,6 @@ class ScheduleDayInterval(object):
     @value_until_time_89.setter
     def value_until_time_89(self, value=None):
         """  Corresponds to IDD Field `Value Until Time 89`
-        
-        {'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Value Until Time 89`
@@ -10191,8 +9767,6 @@ class ScheduleDayInterval(object):
     def time_90(self, value=None):
         """  Corresponds to IDD Field `Time 90`
         "until" includes the time entered.
-        
-        {u'note': [u'"until" includes the time entered.'], u'units': u'hh:mm', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Time 90`
@@ -10229,8 +9803,6 @@ class ScheduleDayInterval(object):
     @value_until_time_90.setter
     def value_until_time_90(self, value=None):
         """  Corresponds to IDD Field `Value Until Time 90`
-        
-        {'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Value Until Time 90`
@@ -10261,8 +9833,6 @@ class ScheduleDayInterval(object):
     def time_91(self, value=None):
         """  Corresponds to IDD Field `Time 91`
         "until" includes the time entered.
-        
-        {u'note': [u'"until" includes the time entered.'], u'units': u'hh:mm', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Time 91`
@@ -10299,8 +9869,6 @@ class ScheduleDayInterval(object):
     @value_until_time_91.setter
     def value_until_time_91(self, value=None):
         """  Corresponds to IDD Field `Value Until Time 91`
-        
-        {'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Value Until Time 91`
@@ -10331,8 +9899,6 @@ class ScheduleDayInterval(object):
     def time_92(self, value=None):
         """  Corresponds to IDD Field `Time 92`
         "until" includes the time entered.
-        
-        {u'note': [u'"until" includes the time entered.'], u'units': u'hh:mm', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Time 92`
@@ -10369,8 +9935,6 @@ class ScheduleDayInterval(object):
     @value_until_time_92.setter
     def value_until_time_92(self, value=None):
         """  Corresponds to IDD Field `Value Until Time 92`
-        
-        {'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Value Until Time 92`
@@ -10401,8 +9965,6 @@ class ScheduleDayInterval(object):
     def time_93(self, value=None):
         """  Corresponds to IDD Field `Time 93`
         "until" includes the time entered.
-        
-        {u'note': [u'"until" includes the time entered.'], u'units': u'hh:mm', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Time 93`
@@ -10439,8 +10001,6 @@ class ScheduleDayInterval(object):
     @value_until_time_93.setter
     def value_until_time_93(self, value=None):
         """  Corresponds to IDD Field `Value Until Time 93`
-        
-        {'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Value Until Time 93`
@@ -10471,8 +10031,6 @@ class ScheduleDayInterval(object):
     def time_94(self, value=None):
         """  Corresponds to IDD Field `Time 94`
         "until" includes the time entered.
-        
-        {u'note': [u'"until" includes the time entered.'], u'units': u'hh:mm', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Time 94`
@@ -10509,8 +10067,6 @@ class ScheduleDayInterval(object):
     @value_until_time_94.setter
     def value_until_time_94(self, value=None):
         """  Corresponds to IDD Field `Value Until Time 94`
-        
-        {'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Value Until Time 94`
@@ -10541,8 +10097,6 @@ class ScheduleDayInterval(object):
     def time_95(self, value=None):
         """  Corresponds to IDD Field `Time 95`
         "until" includes the time entered.
-        
-        {u'note': [u'"until" includes the time entered.'], u'units': u'hh:mm', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Time 95`
@@ -10579,8 +10133,6 @@ class ScheduleDayInterval(object):
     @value_until_time_95.setter
     def value_until_time_95(self, value=None):
         """  Corresponds to IDD Field `Value Until Time 95`
-        
-        {'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Value Until Time 95`
@@ -10611,8 +10163,6 @@ class ScheduleDayInterval(object):
     def time_96(self, value=None):
         """  Corresponds to IDD Field `Time 96`
         "until" includes the time entered.
-        
-        {u'note': [u'"until" includes the time entered.'], u'units': u'hh:mm', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Time 96`
@@ -10649,8 +10199,6 @@ class ScheduleDayInterval(object):
     @value_until_time_96.setter
     def value_until_time_96(self, value=None):
         """  Corresponds to IDD Field `Value Until Time 96`
-        
-        {'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Value Until Time 96`
@@ -10681,8 +10229,6 @@ class ScheduleDayInterval(object):
     def time_97(self, value=None):
         """  Corresponds to IDD Field `Time 97`
         "until" includes the time entered.
-        
-        {u'note': [u'"until" includes the time entered.'], u'units': u'hh:mm', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Time 97`
@@ -10719,8 +10265,6 @@ class ScheduleDayInterval(object):
     @value_until_time_97.setter
     def value_until_time_97(self, value=None):
         """  Corresponds to IDD Field `Value Until Time 97`
-        
-        {'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Value Until Time 97`
@@ -10751,8 +10295,6 @@ class ScheduleDayInterval(object):
     def time_98(self, value=None):
         """  Corresponds to IDD Field `Time 98`
         "until" includes the time entered.
-        
-        {u'note': [u'"until" includes the time entered.'], u'units': u'hh:mm', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Time 98`
@@ -10789,8 +10331,6 @@ class ScheduleDayInterval(object):
     @value_until_time_98.setter
     def value_until_time_98(self, value=None):
         """  Corresponds to IDD Field `Value Until Time 98`
-        
-        {'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Value Until Time 98`
@@ -10821,8 +10361,6 @@ class ScheduleDayInterval(object):
     def time_99(self, value=None):
         """  Corresponds to IDD Field `Time 99`
         "until" includes the time entered.
-        
-        {u'note': [u'"until" includes the time entered.'], u'units': u'hh:mm', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Time 99`
@@ -10859,8 +10397,6 @@ class ScheduleDayInterval(object):
     @value_until_time_99.setter
     def value_until_time_99(self, value=None):
         """  Corresponds to IDD Field `Value Until Time 99`
-        
-        {'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Value Until Time 99`
@@ -10891,8 +10427,6 @@ class ScheduleDayInterval(object):
     def time_100(self, value=None):
         """  Corresponds to IDD Field `Time 100`
         "until" includes the time entered.
-        
-        {u'note': [u'"until" includes the time entered.'], u'units': u'hh:mm', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Time 100`
@@ -10929,8 +10463,6 @@ class ScheduleDayInterval(object):
     @value_until_time_100.setter
     def value_until_time_100(self, value=None):
         """  Corresponds to IDD Field `Value Until Time 100`
-        
-        {'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Value Until Time 100`
@@ -10961,8 +10493,6 @@ class ScheduleDayInterval(object):
     def time_101(self, value=None):
         """  Corresponds to IDD Field `Time 101`
         "until" includes the time entered.
-        
-        {u'note': [u'"until" includes the time entered.'], u'units': u'hh:mm', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Time 101`
@@ -10999,8 +10529,6 @@ class ScheduleDayInterval(object):
     @value_until_time_101.setter
     def value_until_time_101(self, value=None):
         """  Corresponds to IDD Field `Value Until Time 101`
-        
-        {'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Value Until Time 101`
@@ -11031,8 +10559,6 @@ class ScheduleDayInterval(object):
     def time_102(self, value=None):
         """  Corresponds to IDD Field `Time 102`
         "until" includes the time entered.
-        
-        {u'note': [u'"until" includes the time entered.'], u'units': u'hh:mm', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Time 102`
@@ -11069,8 +10595,6 @@ class ScheduleDayInterval(object):
     @value_until_time_102.setter
     def value_until_time_102(self, value=None):
         """  Corresponds to IDD Field `Value Until Time 102`
-        
-        {'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Value Until Time 102`
@@ -11101,8 +10625,6 @@ class ScheduleDayInterval(object):
     def time_103(self, value=None):
         """  Corresponds to IDD Field `Time 103`
         "until" includes the time entered.
-        
-        {u'note': [u'"until" includes the time entered.'], u'units': u'hh:mm', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Time 103`
@@ -11139,8 +10661,6 @@ class ScheduleDayInterval(object):
     @value_until_time_103.setter
     def value_until_time_103(self, value=None):
         """  Corresponds to IDD Field `Value Until Time 103`
-        
-        {'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Value Until Time 103`
@@ -11171,8 +10691,6 @@ class ScheduleDayInterval(object):
     def time_104(self, value=None):
         """  Corresponds to IDD Field `Time 104`
         "until" includes the time entered.
-        
-        {u'note': [u'"until" includes the time entered.'], u'units': u'hh:mm', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Time 104`
@@ -11209,8 +10727,6 @@ class ScheduleDayInterval(object):
     @value_until_time_104.setter
     def value_until_time_104(self, value=None):
         """  Corresponds to IDD Field `Value Until Time 104`
-        
-        {'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Value Until Time 104`
@@ -11241,8 +10757,6 @@ class ScheduleDayInterval(object):
     def time_105(self, value=None):
         """  Corresponds to IDD Field `Time 105`
         "until" includes the time entered.
-        
-        {u'note': [u'"until" includes the time entered.'], u'units': u'hh:mm', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Time 105`
@@ -11279,8 +10793,6 @@ class ScheduleDayInterval(object):
     @value_until_time_105.setter
     def value_until_time_105(self, value=None):
         """  Corresponds to IDD Field `Value Until Time 105`
-        
-        {'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Value Until Time 105`
@@ -11311,8 +10823,6 @@ class ScheduleDayInterval(object):
     def time_106(self, value=None):
         """  Corresponds to IDD Field `Time 106`
         "until" includes the time entered.
-        
-        {u'note': [u'"until" includes the time entered.'], u'units': u'hh:mm', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Time 106`
@@ -11349,8 +10859,6 @@ class ScheduleDayInterval(object):
     @value_until_time_106.setter
     def value_until_time_106(self, value=None):
         """  Corresponds to IDD Field `Value Until Time 106`
-        
-        {'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Value Until Time 106`
@@ -11381,8 +10889,6 @@ class ScheduleDayInterval(object):
     def time_107(self, value=None):
         """  Corresponds to IDD Field `Time 107`
         "until" includes the time entered.
-        
-        {u'note': [u'"until" includes the time entered.'], u'units': u'hh:mm', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Time 107`
@@ -11419,8 +10925,6 @@ class ScheduleDayInterval(object):
     @value_until_time_107.setter
     def value_until_time_107(self, value=None):
         """  Corresponds to IDD Field `Value Until Time 107`
-        
-        {'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Value Until Time 107`
@@ -11451,8 +10955,6 @@ class ScheduleDayInterval(object):
     def time_108(self, value=None):
         """  Corresponds to IDD Field `Time 108`
         "until" includes the time entered.
-        
-        {u'note': [u'"until" includes the time entered.'], u'units': u'hh:mm', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Time 108`
@@ -11489,8 +10991,6 @@ class ScheduleDayInterval(object):
     @value_until_time_108.setter
     def value_until_time_108(self, value=None):
         """  Corresponds to IDD Field `Value Until Time 108`
-        
-        {'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Value Until Time 108`
@@ -11521,8 +11021,6 @@ class ScheduleDayInterval(object):
     def time_109(self, value=None):
         """  Corresponds to IDD Field `Time 109`
         "until" includes the time entered.
-        
-        {u'note': [u'"until" includes the time entered.'], u'units': u'hh:mm', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Time 109`
@@ -11559,8 +11057,6 @@ class ScheduleDayInterval(object):
     @value_until_time_109.setter
     def value_until_time_109(self, value=None):
         """  Corresponds to IDD Field `Value Until Time 109`
-        
-        {'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Value Until Time 109`
@@ -11591,8 +11087,6 @@ class ScheduleDayInterval(object):
     def time_110(self, value=None):
         """  Corresponds to IDD Field `Time 110`
         "until" includes the time entered.
-        
-        {u'note': [u'"until" includes the time entered.'], u'units': u'hh:mm', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Time 110`
@@ -11629,8 +11123,6 @@ class ScheduleDayInterval(object):
     @value_until_time_110.setter
     def value_until_time_110(self, value=None):
         """  Corresponds to IDD Field `Value Until Time 110`
-        
-        {'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Value Until Time 110`
@@ -11661,8 +11153,6 @@ class ScheduleDayInterval(object):
     def time_111(self, value=None):
         """  Corresponds to IDD Field `Time 111`
         "until" includes the time entered.
-        
-        {u'note': [u'"until" includes the time entered.'], u'units': u'hh:mm', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Time 111`
@@ -11699,8 +11189,6 @@ class ScheduleDayInterval(object):
     @value_until_time_111.setter
     def value_until_time_111(self, value=None):
         """  Corresponds to IDD Field `Value Until Time 111`
-        
-        {'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Value Until Time 111`
@@ -11731,8 +11219,6 @@ class ScheduleDayInterval(object):
     def time_112(self, value=None):
         """  Corresponds to IDD Field `Time 112`
         "until" includes the time entered.
-        
-        {u'note': [u'"until" includes the time entered.'], u'units': u'hh:mm', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Time 112`
@@ -11769,8 +11255,6 @@ class ScheduleDayInterval(object):
     @value_until_time_112.setter
     def value_until_time_112(self, value=None):
         """  Corresponds to IDD Field `Value Until Time 112`
-        
-        {'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Value Until Time 112`
@@ -11801,8 +11285,6 @@ class ScheduleDayInterval(object):
     def time_113(self, value=None):
         """  Corresponds to IDD Field `Time 113`
         "until" includes the time entered.
-        
-        {u'note': [u'"until" includes the time entered.'], u'units': u'hh:mm', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Time 113`
@@ -11839,8 +11321,6 @@ class ScheduleDayInterval(object):
     @value_until_time_113.setter
     def value_until_time_113(self, value=None):
         """  Corresponds to IDD Field `Value Until Time 113`
-        
-        {'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Value Until Time 113`
@@ -11871,8 +11351,6 @@ class ScheduleDayInterval(object):
     def time_114(self, value=None):
         """  Corresponds to IDD Field `Time 114`
         "until" includes the time entered.
-        
-        {u'note': [u'"until" includes the time entered.'], u'units': u'hh:mm', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Time 114`
@@ -11909,8 +11387,6 @@ class ScheduleDayInterval(object):
     @value_until_time_114.setter
     def value_until_time_114(self, value=None):
         """  Corresponds to IDD Field `Value Until Time 114`
-        
-        {'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Value Until Time 114`
@@ -11941,8 +11417,6 @@ class ScheduleDayInterval(object):
     def time_115(self, value=None):
         """  Corresponds to IDD Field `Time 115`
         "until" includes the time entered.
-        
-        {u'note': [u'"until" includes the time entered.'], u'units': u'hh:mm', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Time 115`
@@ -11979,8 +11453,6 @@ class ScheduleDayInterval(object):
     @value_until_time_115.setter
     def value_until_time_115(self, value=None):
         """  Corresponds to IDD Field `Value Until Time 115`
-        
-        {'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Value Until Time 115`
@@ -12011,8 +11483,6 @@ class ScheduleDayInterval(object):
     def time_116(self, value=None):
         """  Corresponds to IDD Field `Time 116`
         "until" includes the time entered.
-        
-        {u'note': [u'"until" includes the time entered.'], u'units': u'hh:mm', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Time 116`
@@ -12049,8 +11519,6 @@ class ScheduleDayInterval(object):
     @value_until_time_116.setter
     def value_until_time_116(self, value=None):
         """  Corresponds to IDD Field `Value Until Time 116`
-        
-        {'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Value Until Time 116`
@@ -12081,8 +11549,6 @@ class ScheduleDayInterval(object):
     def time_117(self, value=None):
         """  Corresponds to IDD Field `Time 117`
         "until" includes the time entered.
-        
-        {u'note': [u'"until" includes the time entered.'], u'units': u'hh:mm', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Time 117`
@@ -12119,8 +11585,6 @@ class ScheduleDayInterval(object):
     @value_until_time_117.setter
     def value_until_time_117(self, value=None):
         """  Corresponds to IDD Field `Value Until Time 117`
-        
-        {'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Value Until Time 117`
@@ -12151,8 +11615,6 @@ class ScheduleDayInterval(object):
     def time_118(self, value=None):
         """  Corresponds to IDD Field `Time 118`
         "until" includes the time entered.
-        
-        {u'note': [u'"until" includes the time entered.'], u'units': u'hh:mm', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Time 118`
@@ -12189,8 +11651,6 @@ class ScheduleDayInterval(object):
     @value_until_time_118.setter
     def value_until_time_118(self, value=None):
         """  Corresponds to IDD Field `Value Until Time 118`
-        
-        {'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Value Until Time 118`
@@ -12221,8 +11681,6 @@ class ScheduleDayInterval(object):
     def time_119(self, value=None):
         """  Corresponds to IDD Field `Time 119`
         "until" includes the time entered.
-        
-        {u'note': [u'"until" includes the time entered.'], u'units': u'hh:mm', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Time 119`
@@ -12259,8 +11717,6 @@ class ScheduleDayInterval(object):
     @value_until_time_119.setter
     def value_until_time_119(self, value=None):
         """  Corresponds to IDD Field `Value Until Time 119`
-        
-        {'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Value Until Time 119`
@@ -12291,8 +11747,6 @@ class ScheduleDayInterval(object):
     def time_120(self, value=None):
         """  Corresponds to IDD Field `Time 120`
         "until" includes the time entered.
-        
-        {u'note': [u'"until" includes the time entered.'], u'units': u'hh:mm', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Time 120`
@@ -12329,8 +11783,6 @@ class ScheduleDayInterval(object):
     @value_until_time_120.setter
     def value_until_time_120(self, value=None):
         """  Corresponds to IDD Field `Value Until Time 120`
-        
-        {'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Value Until Time 120`
@@ -12361,8 +11813,6 @@ class ScheduleDayInterval(object):
     def time_121(self, value=None):
         """  Corresponds to IDD Field `Time 121`
         "until" includes the time entered.
-        
-        {u'note': [u'"until" includes the time entered.'], u'units': u'hh:mm', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Time 121`
@@ -12399,8 +11849,6 @@ class ScheduleDayInterval(object):
     @value_until_time_121.setter
     def value_until_time_121(self, value=None):
         """  Corresponds to IDD Field `Value Until Time 121`
-        
-        {'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Value Until Time 121`
@@ -12431,8 +11879,6 @@ class ScheduleDayInterval(object):
     def time_122(self, value=None):
         """  Corresponds to IDD Field `Time 122`
         "until" includes the time entered.
-        
-        {u'note': [u'"until" includes the time entered.'], u'units': u'hh:mm', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Time 122`
@@ -12469,8 +11915,6 @@ class ScheduleDayInterval(object):
     @value_until_time_122.setter
     def value_until_time_122(self, value=None):
         """  Corresponds to IDD Field `Value Until Time 122`
-        
-        {'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Value Until Time 122`
@@ -12501,8 +11945,6 @@ class ScheduleDayInterval(object):
     def time_123(self, value=None):
         """  Corresponds to IDD Field `Time 123`
         "until" includes the time entered.
-        
-        {u'note': [u'"until" includes the time entered.'], u'units': u'hh:mm', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Time 123`
@@ -12539,8 +11981,6 @@ class ScheduleDayInterval(object):
     @value_until_time_123.setter
     def value_until_time_123(self, value=None):
         """  Corresponds to IDD Field `Value Until Time 123`
-        
-        {'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Value Until Time 123`
@@ -12571,8 +12011,6 @@ class ScheduleDayInterval(object):
     def time_124(self, value=None):
         """  Corresponds to IDD Field `Time 124`
         "until" includes the time entered.
-        
-        {u'note': [u'"until" includes the time entered.'], u'units': u'hh:mm', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Time 124`
@@ -12609,8 +12047,6 @@ class ScheduleDayInterval(object):
     @value_until_time_124.setter
     def value_until_time_124(self, value=None):
         """  Corresponds to IDD Field `Value Until Time 124`
-        
-        {'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Value Until Time 124`
@@ -12641,8 +12077,6 @@ class ScheduleDayInterval(object):
     def time_125(self, value=None):
         """  Corresponds to IDD Field `Time 125`
         "until" includes the time entered.
-        
-        {u'note': [u'"until" includes the time entered.'], u'units': u'hh:mm', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Time 125`
@@ -12679,8 +12113,6 @@ class ScheduleDayInterval(object):
     @value_until_time_125.setter
     def value_until_time_125(self, value=None):
         """  Corresponds to IDD Field `Value Until Time 125`
-        
-        {'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Value Until Time 125`
@@ -12711,8 +12143,6 @@ class ScheduleDayInterval(object):
     def time_126(self, value=None):
         """  Corresponds to IDD Field `Time 126`
         "until" includes the time entered.
-        
-        {u'note': [u'"until" includes the time entered.'], u'units': u'hh:mm', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Time 126`
@@ -12749,8 +12179,6 @@ class ScheduleDayInterval(object):
     @value_until_time_126.setter
     def value_until_time_126(self, value=None):
         """  Corresponds to IDD Field `Value Until Time 126`
-        
-        {'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Value Until Time 126`
@@ -12781,8 +12209,6 @@ class ScheduleDayInterval(object):
     def time_127(self, value=None):
         """  Corresponds to IDD Field `Time 127`
         "until" includes the time entered.
-        
-        {u'note': [u'"until" includes the time entered.'], u'units': u'hh:mm', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Time 127`
@@ -12819,8 +12245,6 @@ class ScheduleDayInterval(object):
     @value_until_time_127.setter
     def value_until_time_127(self, value=None):
         """  Corresponds to IDD Field `Value Until Time 127`
-        
-        {'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Value Until Time 127`
@@ -12851,8 +12275,6 @@ class ScheduleDayInterval(object):
     def time_128(self, value=None):
         """  Corresponds to IDD Field `Time 128`
         "until" includes the time entered.
-        
-        {u'note': [u'"until" includes the time entered.'], u'units': u'hh:mm', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Time 128`
@@ -12889,8 +12311,6 @@ class ScheduleDayInterval(object):
     @value_until_time_128.setter
     def value_until_time_128(self, value=None):
         """  Corresponds to IDD Field `Value Until Time 128`
-        
-        {'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Value Until Time 128`
@@ -12921,8 +12341,6 @@ class ScheduleDayInterval(object):
     def time_129(self, value=None):
         """  Corresponds to IDD Field `Time 129`
         "until" includes the time entered.
-        
-        {u'note': [u'"until" includes the time entered.'], u'units': u'hh:mm', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Time 129`
@@ -12959,8 +12377,6 @@ class ScheduleDayInterval(object):
     @value_until_time_129.setter
     def value_until_time_129(self, value=None):
         """  Corresponds to IDD Field `Value Until Time 129`
-        
-        {'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Value Until Time 129`
@@ -12991,8 +12407,6 @@ class ScheduleDayInterval(object):
     def time_130(self, value=None):
         """  Corresponds to IDD Field `Time 130`
         "until" includes the time entered.
-        
-        {u'note': [u'"until" includes the time entered.'], u'units': u'hh:mm', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Time 130`
@@ -13029,8 +12443,6 @@ class ScheduleDayInterval(object):
     @value_until_time_130.setter
     def value_until_time_130(self, value=None):
         """  Corresponds to IDD Field `Value Until Time 130`
-        
-        {'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Value Until Time 130`
@@ -13061,8 +12473,6 @@ class ScheduleDayInterval(object):
     def time_131(self, value=None):
         """  Corresponds to IDD Field `Time 131`
         "until" includes the time entered.
-        
-        {u'note': [u'"until" includes the time entered.'], u'units': u'hh:mm', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Time 131`
@@ -13099,8 +12509,6 @@ class ScheduleDayInterval(object):
     @value_until_time_131.setter
     def value_until_time_131(self, value=None):
         """  Corresponds to IDD Field `Value Until Time 131`
-        
-        {'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Value Until Time 131`
@@ -13131,8 +12539,6 @@ class ScheduleDayInterval(object):
     def time_132(self, value=None):
         """  Corresponds to IDD Field `Time 132`
         "until" includes the time entered.
-        
-        {u'note': [u'"until" includes the time entered.'], u'units': u'hh:mm', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Time 132`
@@ -13169,8 +12575,6 @@ class ScheduleDayInterval(object):
     @value_until_time_132.setter
     def value_until_time_132(self, value=None):
         """  Corresponds to IDD Field `Value Until Time 132`
-        
-        {'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Value Until Time 132`
@@ -13201,8 +12605,6 @@ class ScheduleDayInterval(object):
     def time_133(self, value=None):
         """  Corresponds to IDD Field `Time 133`
         "until" includes the time entered.
-        
-        {u'note': [u'"until" includes the time entered.'], u'units': u'hh:mm', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Time 133`
@@ -13239,8 +12641,6 @@ class ScheduleDayInterval(object):
     @value_until_time_133.setter
     def value_until_time_133(self, value=None):
         """  Corresponds to IDD Field `Value Until Time 133`
-        
-        {'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Value Until Time 133`
@@ -13271,8 +12671,6 @@ class ScheduleDayInterval(object):
     def time_134(self, value=None):
         """  Corresponds to IDD Field `Time 134`
         "until" includes the time entered.
-        
-        {u'note': [u'"until" includes the time entered.'], u'units': u'hh:mm', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Time 134`
@@ -13309,8 +12707,6 @@ class ScheduleDayInterval(object):
     @value_until_time_134.setter
     def value_until_time_134(self, value=None):
         """  Corresponds to IDD Field `Value Until Time 134`
-        
-        {'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Value Until Time 134`
@@ -13341,8 +12737,6 @@ class ScheduleDayInterval(object):
     def time_135(self, value=None):
         """  Corresponds to IDD Field `Time 135`
         "until" includes the time entered.
-        
-        {u'note': [u'"until" includes the time entered.'], u'units': u'hh:mm', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Time 135`
@@ -13379,8 +12773,6 @@ class ScheduleDayInterval(object):
     @value_until_time_135.setter
     def value_until_time_135(self, value=None):
         """  Corresponds to IDD Field `Value Until Time 135`
-        
-        {'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Value Until Time 135`
@@ -13411,8 +12803,6 @@ class ScheduleDayInterval(object):
     def time_136(self, value=None):
         """  Corresponds to IDD Field `Time 136`
         "until" includes the time entered.
-        
-        {u'note': [u'"until" includes the time entered.'], u'units': u'hh:mm', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Time 136`
@@ -13449,8 +12839,6 @@ class ScheduleDayInterval(object):
     @value_until_time_136.setter
     def value_until_time_136(self, value=None):
         """  Corresponds to IDD Field `Value Until Time 136`
-        
-        {'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Value Until Time 136`
@@ -13481,8 +12869,6 @@ class ScheduleDayInterval(object):
     def time_137(self, value=None):
         """  Corresponds to IDD Field `Time 137`
         "until" includes the time entered.
-        
-        {u'note': [u'"until" includes the time entered.'], u'units': u'hh:mm', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Time 137`
@@ -13519,8 +12905,6 @@ class ScheduleDayInterval(object):
     @value_until_time_137.setter
     def value_until_time_137(self, value=None):
         """  Corresponds to IDD Field `Value Until Time 137`
-        
-        {'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Value Until Time 137`
@@ -13551,8 +12935,6 @@ class ScheduleDayInterval(object):
     def time_138(self, value=None):
         """  Corresponds to IDD Field `Time 138`
         "until" includes the time entered.
-        
-        {u'note': [u'"until" includes the time entered.'], u'units': u'hh:mm', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Time 138`
@@ -13589,8 +12971,6 @@ class ScheduleDayInterval(object):
     @value_until_time_138.setter
     def value_until_time_138(self, value=None):
         """  Corresponds to IDD Field `Value Until Time 138`
-        
-        {'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Value Until Time 138`
@@ -13621,8 +13001,6 @@ class ScheduleDayInterval(object):
     def time_139(self, value=None):
         """  Corresponds to IDD Field `Time 139`
         "until" includes the time entered.
-        
-        {u'note': [u'"until" includes the time entered.'], u'units': u'hh:mm', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Time 139`
@@ -13659,8 +13037,6 @@ class ScheduleDayInterval(object):
     @value_until_time_139.setter
     def value_until_time_139(self, value=None):
         """  Corresponds to IDD Field `Value Until Time 139`
-        
-        {'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Value Until Time 139`
@@ -13691,8 +13067,6 @@ class ScheduleDayInterval(object):
     def time_140(self, value=None):
         """  Corresponds to IDD Field `Time 140`
         "until" includes the time entered.
-        
-        {u'note': [u'"until" includes the time entered.'], u'units': u'hh:mm', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Time 140`
@@ -13729,8 +13103,6 @@ class ScheduleDayInterval(object):
     @value_until_time_140.setter
     def value_until_time_140(self, value=None):
         """  Corresponds to IDD Field `Value Until Time 140`
-        
-        {'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Value Until Time 140`
@@ -13761,8 +13133,6 @@ class ScheduleDayInterval(object):
     def time_141(self, value=None):
         """  Corresponds to IDD Field `Time 141`
         "until" includes the time entered.
-        
-        {u'note': [u'"until" includes the time entered.'], u'units': u'hh:mm', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Time 141`
@@ -13799,8 +13169,6 @@ class ScheduleDayInterval(object):
     @value_until_time_141.setter
     def value_until_time_141(self, value=None):
         """  Corresponds to IDD Field `Value Until Time 141`
-        
-        {'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Value Until Time 141`
@@ -13831,8 +13199,6 @@ class ScheduleDayInterval(object):
     def time_142(self, value=None):
         """  Corresponds to IDD Field `Time 142`
         "until" includes the time entered.
-        
-        {u'note': [u'"until" includes the time entered.'], u'units': u'hh:mm', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Time 142`
@@ -13869,8 +13235,6 @@ class ScheduleDayInterval(object):
     @value_until_time_142.setter
     def value_until_time_142(self, value=None):
         """  Corresponds to IDD Field `Value Until Time 142`
-        
-        {'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Value Until Time 142`
@@ -13901,8 +13265,6 @@ class ScheduleDayInterval(object):
     def time_143(self, value=None):
         """  Corresponds to IDD Field `Time 143`
         "until" includes the time entered.
-        
-        {u'note': [u'"until" includes the time entered.'], u'units': u'hh:mm', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Time 143`
@@ -13939,8 +13301,6 @@ class ScheduleDayInterval(object):
     @value_until_time_143.setter
     def value_until_time_143(self, value=None):
         """  Corresponds to IDD Field `Value Until Time 143`
-        
-        {'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Value Until Time 143`
@@ -13971,8 +13331,6 @@ class ScheduleDayInterval(object):
     def time_144(self, value=None):
         """  Corresponds to IDD Field `Time 144`
         "until" includes the time entered.
-        
-        {u'note': [u'"until" includes the time entered.'], u'units': u'hh:mm', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Time 144`
@@ -14009,8 +13367,6 @@ class ScheduleDayInterval(object):
     @value_until_time_144.setter
     def value_until_time_144(self, value=None):
         """  Corresponds to IDD Field `Value Until Time 144`
-        
-        {'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Value Until Time 144`
@@ -14202,8 +13558,6 @@ class ScheduleWeekDaily(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'reference': u'WeekScheduleNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -14239,8 +13593,6 @@ class ScheduleWeekDaily(object):
     @sunday_scheduleday_name.setter
     def sunday_scheduleday_name(self, value=None):
         """  Corresponds to IDD Field `Sunday Schedule:Day Name`
-        
-        {u'type': u'object-list', u'object-list': u'DayScheduleNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Sunday Schedule:Day Name`
@@ -14276,8 +13628,6 @@ class ScheduleWeekDaily(object):
     @monday_scheduleday_name.setter
     def monday_scheduleday_name(self, value=None):
         """  Corresponds to IDD Field `Monday Schedule:Day Name`
-        
-        {u'type': u'object-list', u'object-list': u'DayScheduleNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Monday Schedule:Day Name`
@@ -14313,8 +13663,6 @@ class ScheduleWeekDaily(object):
     @tuesday_scheduleday_name.setter
     def tuesday_scheduleday_name(self, value=None):
         """  Corresponds to IDD Field `Tuesday Schedule:Day Name`
-        
-        {u'type': u'object-list', u'object-list': u'DayScheduleNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Tuesday Schedule:Day Name`
@@ -14350,8 +13698,6 @@ class ScheduleWeekDaily(object):
     @wednesday_scheduleday_name.setter
     def wednesday_scheduleday_name(self, value=None):
         """  Corresponds to IDD Field `Wednesday Schedule:Day Name`
-        
-        {u'type': u'object-list', u'object-list': u'DayScheduleNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Wednesday Schedule:Day Name`
@@ -14387,8 +13733,6 @@ class ScheduleWeekDaily(object):
     @thursday_scheduleday_name.setter
     def thursday_scheduleday_name(self, value=None):
         """  Corresponds to IDD Field `Thursday Schedule:Day Name`
-        
-        {u'type': u'object-list', u'object-list': u'DayScheduleNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Thursday Schedule:Day Name`
@@ -14424,8 +13768,6 @@ class ScheduleWeekDaily(object):
     @friday_scheduleday_name.setter
     def friday_scheduleday_name(self, value=None):
         """  Corresponds to IDD Field `Friday Schedule:Day Name`
-        
-        {u'type': u'object-list', u'object-list': u'DayScheduleNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Friday Schedule:Day Name`
@@ -14461,8 +13803,6 @@ class ScheduleWeekDaily(object):
     @saturday_scheduleday_name.setter
     def saturday_scheduleday_name(self, value=None):
         """  Corresponds to IDD Field `Saturday Schedule:Day Name`
-        
-        {u'type': u'object-list', u'object-list': u'DayScheduleNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Saturday Schedule:Day Name`
@@ -14498,8 +13838,6 @@ class ScheduleWeekDaily(object):
     @holiday_scheduleday_name.setter
     def holiday_scheduleday_name(self, value=None):
         """  Corresponds to IDD Field `Holiday Schedule:Day Name`
-        
-        {u'type': u'object-list', u'object-list': u'DayScheduleNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Holiday Schedule:Day Name`
@@ -14535,8 +13873,6 @@ class ScheduleWeekDaily(object):
     @summerdesignday_scheduleday_name.setter
     def summerdesignday_scheduleday_name(self, value=None):
         """  Corresponds to IDD Field `SummerDesignDay Schedule:Day Name`
-        
-        {u'type': u'object-list', u'object-list': u'DayScheduleNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `SummerDesignDay Schedule:Day Name`
@@ -14572,8 +13908,6 @@ class ScheduleWeekDaily(object):
     @winterdesignday_scheduleday_name.setter
     def winterdesignday_scheduleday_name(self, value=None):
         """  Corresponds to IDD Field `WinterDesignDay Schedule:Day Name`
-        
-        {u'type': u'object-list', u'object-list': u'DayScheduleNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `WinterDesignDay Schedule:Day Name`
@@ -14609,8 +13943,6 @@ class ScheduleWeekDaily(object):
     @customday1_scheduleday_name.setter
     def customday1_scheduleday_name(self, value=None):
         """  Corresponds to IDD Field `CustomDay1 Schedule:Day Name`
-        
-        {u'type': u'object-list', u'object-list': u'DayScheduleNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `CustomDay1 Schedule:Day Name`
@@ -14646,8 +13978,6 @@ class ScheduleWeekDaily(object):
     @customday2_scheduleday_name.setter
     def customday2_scheduleday_name(self, value=None):
         """  Corresponds to IDD Field `CustomDay2 Schedule:Day Name`
-        
-        {u'type': u'object-list', u'object-list': u'DayScheduleNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `CustomDay2 Schedule:Day Name`
@@ -14829,8 +14159,6 @@ class ScheduleWeekCompact(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'reference': u'WeekScheduleNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -14869,8 +14197,6 @@ class ScheduleWeekCompact(object):
         "For" is an optional prefix/start of the For fields.  Choices can be combined on single line
         if separated by spaces. i.e. "Holiday Weekends"
         Should have a space after For, if it is included. i.e. "For Alldays"
-        
-        {'pytype': 'str', u'begin-extensible': u'', u'required-field': True, u'note': [u'"For" is an optional prefix/start of the For fields.  Choices can be combined on single line', u'if separated by spaces. i.e. "Holiday Weekends"', u'Should have a space after For, if it is included. i.e. "For Alldays"'], u'key': [u'AllDays', u'Weekdays', u'Weekends', u'Sunday', u'Monday', u'Tuesday', u'Wednesday', u'Thursday', u'Friday', u'Saturday', u'Holiday', u'SummerDesignDay', u'WinterDesignDay', u'CustomDay1', u'CustomDay2'], u'type': u'choice'}
 
         Args:
             value (str): value for IDD Field `DayType List 1`
@@ -14952,8 +14278,6 @@ class ScheduleWeekCompact(object):
     @scheduleday_name_1.setter
     def scheduleday_name_1(self, value=None):
         """  Corresponds to IDD Field `Schedule:Day Name 1`
-        
-        {u'type': u'object-list', u'object-list': u'DayScheduleNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Schedule:Day Name 1`
@@ -14989,8 +14313,6 @@ class ScheduleWeekCompact(object):
     @daytype_list_2.setter
     def daytype_list_2(self, value=None):
         """  Corresponds to IDD Field `DayType List 2`
-        
-        {u'type': u'choice', u'key': [u'AllOtherDays', u'Weekdays', u'Weekends', u'Sunday', u'Monday', u'Tuesday', u'Wednesday', u'Thursday', u'Friday', u'Saturday', u'Holiday', u'SummerDesignDay', u'WinterDesignDay', u'CustomDay1', u'CustomDay2'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `DayType List 2`
@@ -15072,8 +14394,6 @@ class ScheduleWeekCompact(object):
     @scheduleday_name_2.setter
     def scheduleday_name_2(self, value=None):
         """  Corresponds to IDD Field `Schedule:Day Name 2`
-        
-        {u'type': u'object-list', u'object-list': u'DayScheduleNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Schedule:Day Name 2`
@@ -15109,8 +14429,6 @@ class ScheduleWeekCompact(object):
     @daytype_list_3.setter
     def daytype_list_3(self, value=None):
         """  Corresponds to IDD Field `DayType List 3`
-        
-        {u'type': u'choice', u'key': [u'AllOtherDays', u'Weekdays', u'Weekends', u'Sunday', u'Monday', u'Tuesday', u'Wednesday', u'Thursday', u'Friday', u'Saturday', u'Holiday', u'SummerDesignDay', u'WinterDesignDay', u'CustomDay1', u'CustomDay2'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `DayType List 3`
@@ -15192,8 +14510,6 @@ class ScheduleWeekCompact(object):
     @scheduleday_name_3.setter
     def scheduleday_name_3(self, value=None):
         """  Corresponds to IDD Field `Schedule:Day Name 3`
-        
-        {u'type': u'object-list', u'object-list': u'DayScheduleNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Schedule:Day Name 3`
@@ -15229,8 +14545,6 @@ class ScheduleWeekCompact(object):
     @daytype_list_4.setter
     def daytype_list_4(self, value=None):
         """  Corresponds to IDD Field `DayType List 4`
-        
-        {u'type': u'choice', u'key': [u'AllOtherDays', u'Weekdays', u'Weekends', u'Sunday', u'Monday', u'Tuesday', u'Wednesday', u'Thursday', u'Friday', u'Saturday', u'Holiday', u'SummerDesignDay', u'WinterDesignDay', u'CustomDay1', u'CustomDay2'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `DayType List 4`
@@ -15312,8 +14626,6 @@ class ScheduleWeekCompact(object):
     @scheduleday_name_4.setter
     def scheduleday_name_4(self, value=None):
         """  Corresponds to IDD Field `Schedule:Day Name 4`
-        
-        {u'type': u'object-list', u'object-list': u'DayScheduleNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Schedule:Day Name 4`
@@ -15349,8 +14661,6 @@ class ScheduleWeekCompact(object):
     @daytype_list_5.setter
     def daytype_list_5(self, value=None):
         """  Corresponds to IDD Field `DayType List 5`
-        
-        {u'type': u'choice', u'key': [u'AllOtherDays', u'Weekdays', u'Weekends', u'Sunday', u'Monday', u'Tuesday', u'Wednesday', u'Thursday', u'Friday', u'Saturday', u'Holiday', u'SummerDesignDay', u'WinterDesignDay', u'CustomDay1', u'CustomDay2'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `DayType List 5`
@@ -15432,8 +14742,6 @@ class ScheduleWeekCompact(object):
     @scheduleday_name_5.setter
     def scheduleday_name_5(self, value=None):
         """  Corresponds to IDD Field `Schedule:Day Name 5`
-        
-        {u'type': u'object-list', u'object-list': u'DayScheduleNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Schedule:Day Name 5`
@@ -15551,8 +14859,6 @@ class ScheduleConstant(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'reference': u'ScheduleNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -15588,8 +14894,6 @@ class ScheduleConstant(object):
     @schedule_type_limits_name.setter
     def schedule_type_limits_name(self, value=None):
         """  Corresponds to IDD Field `Schedule Type Limits Name`
-        
-        {u'type': u'object-list', u'object-list': u'ScheduleTypeLimitsNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Schedule Type Limits Name`
@@ -15623,10 +14927,8 @@ class ScheduleConstant(object):
         return self._data["Hourly Value"]
 
     @hourly_value.setter
-    def hourly_value(self, value=0.0 ):
+    def hourly_value(self, value=0.0):
         """  Corresponds to IDD Field `Hourly Value`
-        
-        {u'default': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Hourly Value`
@@ -15787,8 +15089,6 @@ class ScheduleFile(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'reference': u'ScheduleNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -15824,8 +15124,6 @@ class ScheduleFile(object):
     @schedule_type_limits_name.setter
     def schedule_type_limits_name(self, value=None):
         """  Corresponds to IDD Field `Schedule Type Limits Name`
-        
-        {u'type': u'object-list', u'object-list': u'ScheduleTypeLimitsNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Schedule Type Limits Name`
@@ -15861,8 +15159,6 @@ class ScheduleFile(object):
     @file_name.setter
     def file_name(self, value=None):
         """  Corresponds to IDD Field `File Name`
-        
-        {u'retaincase': u'', 'type': 'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `File Name`
@@ -15898,8 +15194,6 @@ class ScheduleFile(object):
     @column_number.setter
     def column_number(self, value=None):
         """  Corresponds to IDD Field `Column Number`
-        
-        {u'minimum': '1', u'type': u'integer', u'required-field': True, 'pytype': 'int'}
 
         Args:
             value (int): value for IDD Field `Column Number`
@@ -15933,8 +15227,6 @@ class ScheduleFile(object):
     @rows_to_skip_at_top.setter
     def rows_to_skip_at_top(self, value=None):
         """  Corresponds to IDD Field `Rows to Skip at Top`
-        
-        {u'minimum': '0', u'type': u'integer', u'required-field': True, 'pytype': 'int'}
 
         Args:
             value (int): value for IDD Field `Rows to Skip at Top`
@@ -15966,12 +15258,10 @@ class ScheduleFile(object):
         return self._data["Number of Hours of Data"]
 
     @number_of_hours_of_data.setter
-    def number_of_hours_of_data(self, value=8760.0 ):
+    def number_of_hours_of_data(self, value=8760.0):
         """  Corresponds to IDD Field `Number of Hours of Data`
         8760 hours does not account for leap years, 8784 does.
         should be either 8760 or 8784
-        
-        {'pytype': 'float', u'default': '8760.0', u'maximum': '8784.0', u'note': [u'8760 hours does not account for leap years, 8784 does.', u'should be either 8760 or 8784'], u'minimum': '8760.0', 'type': 'real'}
 
         Args:
             value (float): value for IDD Field `Number of Hours of Data`
@@ -16010,8 +15300,6 @@ class ScheduleFile(object):
     @column_separator.setter
     def column_separator(self, value="Comma"):
         """  Corresponds to IDD Field `Column Separator`
-        
-        {u'default': u'Comma', u'type': u'choice', u'key': [u'Comma', u'Tab', u'Fixed', u'Semicolon'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Column Separator`
@@ -16075,8 +15363,6 @@ class ScheduleFile(object):
         when the interval does not match the user specified timestep a "Yes" choice will average between the intervals request (to
         timestep resolution.  a "No" choice will use the interval value at the simulation timestep without regard to if it matches
         the boundary or not.
-        
-        {u'note': [u'when the interval does not match the user specified timestep a "Yes" choice will average between the intervals request (to', u'timestep resolution.  a "No" choice will use the interval value at the simulation timestep without regard to if it matches', u'the boundary or not.'], u'default': u'No', u'type': u'choice', u'key': [u'Yes', u'No'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Interpolate to Timestep`
@@ -16134,8 +15420,6 @@ class ScheduleFile(object):
     def minutes_per_item(self, value=None):
         """  Corresponds to IDD Field `Minutes per Item`
         Must be evenly divisible into 60
-        
-        {u'note': [u'Must be evenly divisible into 60'], u'minimum': '1', u'type': u'integer', u'maximum': '60', 'pytype': 'int'}
 
         Args:
             value (int): value for IDD Field `Minutes per Item`

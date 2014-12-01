@@ -77,8 +77,6 @@ class SiteLocation(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -112,11 +110,9 @@ class SiteLocation(object):
         return self._data["Latitude"]
 
     @latitude.setter
-    def latitude(self, value=0.0 ):
+    def latitude(self, value=0.0):
         """  Corresponds to IDD Field `Latitude`
         + is North, - is South, degree minutes represented in decimal (i.e. 30 minutes is .5)
-        
-        {'pytype': 'float', u'default': '0.0', u'maximum': '90.0', u'note': [u'+ is North, - is South, degree minutes represented in decimal (i.e. 30 minutes is .5)'], u'minimum': '-90.0', u'units': u'deg', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Latitude`
@@ -154,11 +150,9 @@ class SiteLocation(object):
         return self._data["Longitude"]
 
     @longitude.setter
-    def longitude(self, value=0.0 ):
+    def longitude(self, value=0.0):
         """  Corresponds to IDD Field `Longitude`
         - is West, + is East, degree minutes represented in decimal (i.e. 30 minutes is .5)
-        
-        {'pytype': 'float', u'default': '0.0', u'maximum': '180.0', u'note': [u'- is West, + is East, degree minutes represented in decimal (i.e. 30 minutes is .5)'], u'minimum': '-180.0', u'units': u'deg', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Longitude`
@@ -196,12 +190,10 @@ class SiteLocation(object):
         return self._data["Time Zone"]
 
     @time_zone.setter
-    def time_zone(self, value=0.0 ):
+    def time_zone(self, value=0.0):
         """  Corresponds to IDD Field `Time Zone`
         basic these limits on the WorldTimeZone Map (2003)
         Time relative to GMT. Decimal hours.
-        
-        {'pytype': 'float', u'default': '0.0', u'maximum': '14.0', u'note': [u'basic these limits on the WorldTimeZone Map (2003)', u'Time relative to GMT. Decimal hours.'], u'minimum': '-12.0', u'units': u'hr', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Time Zone`
@@ -239,10 +231,8 @@ class SiteLocation(object):
         return self._data["Elevation"]
 
     @elevation.setter
-    def elevation(self, value=0.0 ):
+    def elevation(self, value=0.0):
         """  Corresponds to IDD Field `Elevation`
-        
-        {'pytype': 'float', u'default': '0.0', u'maximum<': '8900.0', u'minimum': '-300.0', u'units': u'm', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Elevation`
@@ -553,8 +543,6 @@ class SizingPeriodDesignDay(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'reference': u'RunPeriodsAndDesignDays', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -590,8 +578,6 @@ class SizingPeriodDesignDay(object):
     @month.setter
     def month(self, value=None):
         """  Corresponds to IDD Field `Month`
-        
-        {u'minimum': '1', u'type': u'integer', u'maximum': '12', u'required-field': True, 'pytype': 'int'}
 
         Args:
             value (int): value for IDD Field `Month`
@@ -630,8 +616,6 @@ class SizingPeriodDesignDay(object):
     def day_of_month(self, value=None):
         """  Corresponds to IDD Field `Day of Month`
         must be valid for Month field
-        
-        {'pytype': 'int', u'maximum': '31', u'required-field': True, u'note': [u'must be valid for Month field'], u'minimum': '1', u'type': u'integer'}
 
         Args:
             value (int): value for IDD Field `Day of Month`
@@ -670,8 +654,6 @@ class SizingPeriodDesignDay(object):
     def day_type(self, value=None):
         """  Corresponds to IDD Field `Day Type`
         Day Type selects the schedules appropriate for this design day
-        
-        {u'note': [u'Day Type selects the schedules appropriate for this design day'], u'type': u'choice', u'key': [u'Sunday', u'Monday', u'Tuesday', u'Wednesday', u'Thursday', u'Friday', u'Saturday', u'Holiday', u'SummerDesignDay', u'WinterDesignDay', u'CustomDay1', u'CustomDay2'], u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Day Type`
@@ -749,8 +731,6 @@ class SizingPeriodDesignDay(object):
         """  Corresponds to IDD Field `Maximum Dry-Bulb Temperature`
         This field is required when field "Dry-Bulb Temperature Range Modifier Type"
         is not "TemperatureProfileSchedule".
-        
-        {'pytype': 'float', u'maximum': '70.0', u'note': [u'This field is required when field "Dry-Bulb Temperature Range Modifier Type"', u'is not "TemperatureProfileSchedule".'], u'minimum': '-90.0', u'units': u'C', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Maximum Dry-Bulb Temperature`
@@ -787,13 +767,11 @@ class SizingPeriodDesignDay(object):
         return self._data["Daily Dry-Bulb Temperature Range"]
 
     @daily_drybulb_temperature_range.setter
-    def daily_drybulb_temperature_range(self, value=0.0 ):
+    def daily_drybulb_temperature_range(self, value=0.0):
         """  Corresponds to IDD Field `Daily Dry-Bulb Temperature Range`
         Must still produce appropriate maximum dry bulb (within range)
         This field is not needed if Dry-Bulb Temperature Range Modifier Type
         is "delta".
-        
-        {'pytype': 'float', u'default': '0.0', u'note': [u'Must still produce appropriate maximum dry bulb (within range)', u'This field is not needed if Dry-Bulb Temperature Range Modifier Type', u'is "delta".'], u'minimum': '0.0', u'units': u'deltaC', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Daily Dry-Bulb Temperature Range`
@@ -830,8 +808,6 @@ class SizingPeriodDesignDay(object):
     def drybulb_temperature_range_modifier_type(self, value="DefaultMultipliers"):
         """  Corresponds to IDD Field `Dry-Bulb Temperature Range Modifier Type`
         Type of modifier to the dry-bulb temperature calculated for the timestep
-        
-        {u'note': [u'Type of modifier to the dry-bulb temperature calculated for the timestep'], u'default': u'DefaultMultipliers', u'type': u'choice', u'key': [u'MultiplierSchedule', u'DifferenceSchedule', u'TemperatureProfileSchedule', u'DefaultMultipliers'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Dry-Bulb Temperature Range Modifier Type`
@@ -903,8 +879,6 @@ class SizingPeriodDesignDay(object):
         would result in a higher maximum than the maximum previously specified.
         For type "TemperatureProfileSchedule" the values should specify the actual drybulb
         temperature for each timestep in the day.
-        
-        {u'note': [u'Only used when previous field is "MultiplierSchedule", "DifferenceSchedule" or', u'"TemperatureProfileSchedule".', u'For type "MultiplierSchedule"  the hour/time interval values should specify', u'the fraction (0-1) of the dry-bulb temperature range to be subtracted', u'from the maximum dry-bulb temperature for each timestep in the day', u'For type "DifferenceSchedule" the values should specify a number to be subtracted', u'from the maximum dry-bulb temperature for each timestep in the day.', u'Note that numbers in the difference schedule cannot be negative as that', u'would result in a higher maximum than the maximum previously specified.', u'For type "TemperatureProfileSchedule" the values should specify the actual drybulb', u'temperature for each timestep in the day.'], u'type': u'object-list', u'object-list': u'DayScheduleNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Dry-Bulb Temperature Range Modifier Day Schedule Name`
@@ -942,8 +916,6 @@ class SizingPeriodDesignDay(object):
         """  Corresponds to IDD Field `Humidity Condition Type`
         values/schedules indicated here and in subsequent fields create the humidity
         values in the 24 hour design day conditions profile.
-        
-        {u'note': [u'values/schedules indicated here and in subsequent fields create the humidity', u'values in the 24 hour design day conditions profile.'], u'default': u'WetBulb', u'type': u'choice', u'key': [u'WetBulb', u'DewPoint', u'HumidityRatio', u'Enthalpy', u'RelativeHumiditySchedule', u'WetBulbProfileMultiplierSchedule', u'WetBulbProfileDifferenceSchedule', u'WetBulbProfileDefaultMultipliers'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Humidity Condition Type`
@@ -1016,8 +988,6 @@ class SizingPeriodDesignDay(object):
         Required only if field Humidity Condition Type is "Wetbulb", "Dewpoint",
         "WetBulbProfileMultiplierSchedule", "WetBulbProfileDifferenceSchedule",
         or "WetBulbProfileDefaultMultipliers"
-        
-        {u'note': [u'Wetbulb or dewpoint temperature coincident with the maximum temperature.', u'Required only if field Humidity Condition Type is "Wetbulb", "Dewpoint",', u'"WetBulbProfileMultiplierSchedule", "WetBulbProfileDifferenceSchedule",', u'or "WetBulbProfileDefaultMultipliers"'], u'units': u'C', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Wetbulb or DewPoint at Maximum Dry-Bulb`
@@ -1057,8 +1027,6 @@ class SizingPeriodDesignDay(object):
         maximum wet-bulb temperature for each timestep in the day (units = Fraction)
         For type "WetBulbProfileDifferenceSchedule" the values should specify a number to be subtracted
         from the maximum wet-bulb temperature for each timestep in the day. (units = deltaC)
-        
-        {u'note': [u'Only used when Humidity Condition Type is "RelativeHumiditySchedule",', u'"WetBulbProfileMultiplierSchedule", or "WetBulbProfileDifferenceSchedule"', u'For type "RelativeHumiditySchedule", the hour/time interval values should specify', u'relative humidity (percent) from 0.0 to 100.0.', u'For type "WetBulbProfileMultiplierSchedule" the hour/time interval values should specify', u'the fraction (0-1) of the wet-bulb temperature range to be subtracted from the', u'maximum wet-bulb temperature for each timestep in the day (units = Fraction)', u'For type "WetBulbProfileDifferenceSchedule" the values should specify a number to be subtracted', u'from the maximum wet-bulb temperature for each timestep in the day. (units = deltaC)'], u'type': u'object-list', u'object-list': u'DayScheduleNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Humidity Condition Day Schedule Name`
@@ -1096,8 +1064,6 @@ class SizingPeriodDesignDay(object):
         """  Corresponds to IDD Field `Humidity Ratio at Maximum Dry-Bulb`
         Humidity ratio coincident with the maximum temperature (constant humidity ratio throughout day).
         Required only if field Humidity Condition Type is "HumidityRatio".
-        
-        {u'note': [u'Humidity ratio coincident with the maximum temperature (constant humidity ratio throughout day).', u'Required only if field Humidity Condition Type is "HumidityRatio".'], u'units': u'kgWater/kgDryAir', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Humidity Ratio at Maximum Dry-Bulb`
@@ -1130,8 +1096,6 @@ class SizingPeriodDesignDay(object):
         """  Corresponds to IDD Field `Enthalpy at Maximum Dry-Bulb  !will require units transition.`
         Enthalpy coincident with the maximum temperature.
         Required only if field Humidity Condition Type is "Enthalpy".
-        
-        {u'note': [u'Enthalpy coincident with the maximum temperature.', u'Required only if field Humidity Condition Type is "Enthalpy".'], u'units': u'J/kg', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Enthalpy at Maximum Dry-Bulb  !will require units transition.`
@@ -1164,8 +1128,6 @@ class SizingPeriodDesignDay(object):
         """  Corresponds to IDD Field `Daily Wet-Bulb Temperature Range`
         Required only if Humidity Condition Type = "WetbulbProfileMultiplierSchedule" or
         "WetBulbProfileDefaultMultipliers"
-        
-        {u'units': u'deltaC', u'note': [u'Required only if Humidity Condition Type = "WetbulbProfileMultiplierSchedule" or', u'"WetBulbProfileDefaultMultipliers"'], 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Daily Wet-Bulb Temperature Range`
@@ -1198,8 +1160,6 @@ class SizingPeriodDesignDay(object):
         """  Corresponds to IDD Field `Barometric Pressure`
         This field's value is also checked against the calculated "standard barometric pressure"
         for the location.  If out of range (>10%) or blank, then is replaced by standard value.
-        
-        {'pytype': 'float', u'maximum': '120000.0', u'note': [u'This field\'s value is also checked against the calculated "standard barometric pressure"', u'for the location.  If out of range (>10%) or blank, then is replaced by standard value.'], u'ip-units': u'inHg', u'minimum': '31000.0', u'units': u'Pa', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Barometric Pressure`
@@ -1239,8 +1199,6 @@ class SizingPeriodDesignDay(object):
     @wind_speed.setter
     def wind_speed(self, value=None):
         """  Corresponds to IDD Field `Wind Speed`
-        
-        {'pytype': 'float', u'maximum': '40.0', u'required-field': True, u'ip-units': u'miles/hr', u'minimum': '0.0', u'units': u'm/s', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Wind Speed`
@@ -1282,8 +1240,6 @@ class SizingPeriodDesignDay(object):
         """  Corresponds to IDD Field `Wind Direction`
         North=0.0 East=90.0
         0 and 360 are the same direction.
-        
-        {'pytype': 'float', u'maximum': '360.0', u'required-field': True, u'note': [u'North=0.0 East=90.0', u'0 and 360 are the same direction.'], u'minimum': '0.0', u'units': u'deg', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Wind Direction`
@@ -1323,8 +1279,6 @@ class SizingPeriodDesignDay(object):
     def rain_indicator(self, value="No"):
         """  Corresponds to IDD Field `Rain Indicator`
         Yes is raining (all day), No is not raining
-        
-        {u'note': [u'Yes is raining (all day), No is not raining'], u'default': u'No', u'type': u'choice', u'key': [u'Yes', u'No'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Rain Indicator`
@@ -1382,8 +1336,6 @@ class SizingPeriodDesignDay(object):
     def snow_indicator(self, value="No"):
         """  Corresponds to IDD Field `Snow Indicator`
         Yes is Snow on Ground, No is no Snow on Ground
-        
-        {u'default': u'No', u'note': [u'Yes is Snow on Ground, No is no Snow on Ground'], u'type': u'choice', u'key': [u'Yes', u'No'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Snow Indicator`
@@ -1442,8 +1394,6 @@ class SizingPeriodDesignDay(object):
         """  Corresponds to IDD Field `Daylight Saving Time Indicator`
         Yes -- use schedules modified for Daylight Saving Time Schedules.
         No - do not use schedules modified for Daylight Saving Time Schedules
-        
-        {u'note': [u'Yes -- use schedules modified for Daylight Saving Time Schedules.', u'No - do not use schedules modified for Daylight Saving Time Schedules'], u'default': u'No', u'type': u'choice', u'key': [u'Yes', u'No'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Daylight Saving Time Indicator`
@@ -1500,8 +1450,6 @@ class SizingPeriodDesignDay(object):
     @solar_model_indicator.setter
     def solar_model_indicator(self, value="ASHRAEClearSky"):
         """  Corresponds to IDD Field `Solar Model Indicator`
-        
-        {u'default': u'ASHRAEClearSky', u'type': u'choice', u'key': [u'ASHRAEClearSky', u'ZhangHuang', u'Schedule', u'ASHRAETau'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Solar Model Indicator`
@@ -1563,8 +1511,6 @@ class SizingPeriodDesignDay(object):
     def beam_solar_day_schedule_name(self, value=None):
         """  Corresponds to IDD Field `Beam Solar Day Schedule Name`
         if Solar Model Indicator = Schedule, then beam schedule name (for day)
-        
-        {u'note': [u'if Solar Model Indicator = Schedule, then beam schedule name (for day)'], u'type': u'object-list', u'object-list': u'DayScheduleNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Beam Solar Day Schedule Name`
@@ -1601,8 +1547,6 @@ class SizingPeriodDesignDay(object):
     def diffuse_solar_day_schedule_name(self, value=None):
         """  Corresponds to IDD Field `Diffuse Solar Day Schedule Name`
         if Solar Model Indicator = Schedule, then diffuse schedule name (for day)
-        
-        {u'note': [u'if Solar Model Indicator = Schedule, then diffuse schedule name (for day)'], u'type': u'object-list', u'object-list': u'DayScheduleNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Diffuse Solar Day Schedule Name`
@@ -1636,11 +1580,9 @@ class SizingPeriodDesignDay(object):
         return self._data["ASHRAE Clear Sky Optical Depth for Beam Irradiance (taub)"]
 
     @ashrae_clear_sky_optical_depth_for_beam_irradiance_taub.setter
-    def ashrae_clear_sky_optical_depth_for_beam_irradiance_taub(self, value=0.0 ):
+    def ashrae_clear_sky_optical_depth_for_beam_irradiance_taub(self, value=0.0):
         """  Corresponds to IDD Field `ASHRAE Clear Sky Optical Depth for Beam Irradiance (taub)`
         Required if Solar Model Indicator = ASHRAETau
-        
-        {'pytype': 'float', u'default': '0.0', u'maximum': '1.2', u'note': [u'Required if Solar Model Indicator = ASHRAETau'], u'minimum': '0.0', u'units': u'dimensionless', 'type': 'real'}
 
         Args:
             value (float): value for IDD Field `ASHRAE Clear Sky Optical Depth for Beam Irradiance (taub)`
@@ -1678,11 +1620,9 @@ class SizingPeriodDesignDay(object):
         return self._data["ASHRAE Clear Sky Optical Depth for Diffuse Irradiance (taud)"]
 
     @ashrae_clear_sky_optical_depth_for_diffuse_irradiance_taud.setter
-    def ashrae_clear_sky_optical_depth_for_diffuse_irradiance_taud(self, value=0.0 ):
+    def ashrae_clear_sky_optical_depth_for_diffuse_irradiance_taud(self, value=0.0):
         """  Corresponds to IDD Field `ASHRAE Clear Sky Optical Depth for Diffuse Irradiance (taud)`
         Required if Solar Model Indicator = ASHRAETau
-        
-        {'pytype': 'float', u'default': '0.0', u'maximum': '3.0', u'note': [u'Required if Solar Model Indicator = ASHRAETau'], u'minimum': '0.0', u'units': u'dimensionless', 'type': 'real'}
 
         Args:
             value (float): value for IDD Field `ASHRAE Clear Sky Optical Depth for Diffuse Irradiance (taud)`
@@ -1720,12 +1660,10 @@ class SizingPeriodDesignDay(object):
         return self._data["Sky Clearness"]
 
     @sky_clearness.setter
-    def sky_clearness(self, value=0.0 ):
+    def sky_clearness(self, value=0.0):
         """  Corresponds to IDD Field `Sky Clearness`
         Used if Sky Model Indicator = ASHRAEClearSky or ZhangHuang
         0.0 is totally unclear, 1.0 is totally clear
-        
-        {'pytype': 'float', u'default': '0.0', u'maximum': '1.2', u'note': [u'Used if Sky Model Indicator = ASHRAEClearSky or ZhangHuang', u'0.0 is totally unclear, 1.0 is totally clear'], u'minimum': '0.0', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Sky Clearness`
@@ -1887,8 +1825,6 @@ class SizingPeriodWeatherFileDays(object):
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
         user supplied name for reporting
-        
-        {u'note': [u'user supplied name for reporting'], 'type': 'alpha', u'required-field': True, u'reference': u'RunPeriodsAndDesignDays', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -1924,8 +1860,6 @@ class SizingPeriodWeatherFileDays(object):
     @begin_month.setter
     def begin_month(self, value=None):
         """  Corresponds to IDD Field `Begin Month`
-        
-        {u'minimum': '1', u'type': u'integer', u'maximum': '12', u'required-field': True, 'pytype': 'int'}
 
         Args:
             value (int): value for IDD Field `Begin Month`
@@ -1963,8 +1897,6 @@ class SizingPeriodWeatherFileDays(object):
     @begin_day_of_month.setter
     def begin_day_of_month(self, value=None):
         """  Corresponds to IDD Field `Begin Day of Month`
-        
-        {u'minimum': '1', u'type': u'integer', u'maximum': '31', u'required-field': True, 'pytype': 'int'}
 
         Args:
             value (int): value for IDD Field `Begin Day of Month`
@@ -2002,8 +1934,6 @@ class SizingPeriodWeatherFileDays(object):
     @end_month.setter
     def end_month(self, value=None):
         """  Corresponds to IDD Field `End Month`
-        
-        {u'minimum': '1', u'type': u'integer', u'maximum': '12', u'required-field': True, 'pytype': 'int'}
 
         Args:
             value (int): value for IDD Field `End Month`
@@ -2041,8 +1971,6 @@ class SizingPeriodWeatherFileDays(object):
     @end_day_of_month.setter
     def end_day_of_month(self, value=None):
         """  Corresponds to IDD Field `End Day of Month`
-        
-        {u'minimum': '1', u'type': u'integer', u'maximum': '31', u'required-field': True, 'pytype': 'int'}
 
         Args:
             value (int): value for IDD Field `End Day of Month`
@@ -2085,8 +2013,6 @@ class SizingPeriodWeatherFileDays(object):
         if you use SummerDesignDay or WinterDesignDay or the CustomDays then this will apply
         to the whole period; other days (i.e., Monday) will signify a start day and
         normal sequence ofsubsequent days
-        
-        {u'note': [u'=[|Sunday|Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|SummerDesignDay|WinterDesignDay|', u'|CustomDay1|CustomDay2];', u'if you use SummerDesignDay or WinterDesignDay or the CustomDays then this will apply', u'to the whole period; other days (i.e., Monday) will signify a start day and', u'normal sequence ofsubsequent days'], u'default': u'Monday', u'type': u'choice', u'key': [u'Sunday', u'Monday', u'Tuesday', u'Wednesday', u'Thursday', u'Friday', u'Saturday', u'SummerDesignDay', u'WinterDesignDay', u'CustomDay1', u'CustomDay2'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Day of Week for Start Day`
@@ -2163,8 +2089,6 @@ class SizingPeriodWeatherFileDays(object):
         """  Corresponds to IDD Field `Use Weather File Daylight Saving Period`
         If yes or blank, use daylight saving period as specified on Weatherfile.
         If no, do not use the daylight saving period as specified on the Weatherfile.
-        
-        {u'note': [u'If yes or blank, use daylight saving period as specified on Weatherfile.', u'If no, do not use the daylight saving period as specified on the Weatherfile.'], u'default': u'Yes', u'type': u'choice', u'key': [u'Yes', u'No'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Use Weather File Daylight Saving Period`
@@ -2221,8 +2145,6 @@ class SizingPeriodWeatherFileDays(object):
     @use_weather_file_rain_and_snow_indicators.setter
     def use_weather_file_rain_and_snow_indicators(self, value="Yes"):
         """  Corresponds to IDD Field `Use Weather File Rain and Snow Indicators`
-        
-        {u'default': u'Yes', u'type': u'choice', u'key': [u'Yes', u'No'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Use Weather File Rain and Snow Indicators`
@@ -2381,8 +2303,6 @@ class SizingPeriodWeatherFileConditionType(object):
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
         user supplied name for reporting
-        
-        {u'note': [u'user supplied name for reporting'], 'type': 'alpha', u'reference': u'RunPeriodsAndDesignDays', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -2421,8 +2341,6 @@ class SizingPeriodWeatherFileConditionType(object):
         Following is a list of all possible types of Extreme and Typical periods that
         might be identified in the Weather File. Not all possible types are available
         for all weather files.
-        
-        {'pytype': 'str', u'retaincase': u'', u'required-field': True, u'note': [u'Following is a list of all possible types of Extreme and Typical periods that', u'might be identified in the Weather File. Not all possible types are available', u'for all weather files.'], u'key': [u'SummerExtreme', u'SummerTypical', u'WinterExtreme', u'WinterTypical', u'AutumnTypical', u'SpringTypical', u'WetSeason', u'DrySeason', u'NoDrySeason', u'NoWetSeason', u'TropicalHot', u'TropicalCold', u'NoDrySeasonMax', u'NoDrySeasonMin', u'NoWetSeasonMax', u'NoWetSeasonMin'], u'type': u'choice'}
 
         Args:
             value (str): value for IDD Field `Period Selection`
@@ -2511,8 +2429,6 @@ class SizingPeriodWeatherFileConditionType(object):
         if you use SummerDesignDay or WinterDesignDay or the CustomDays then this will apply
         to the whole period; other days (i.e., Monday) will signify a start day and
         normal sequence ofsubsequent days
-        
-        {u'note': [u'=[|Sunday|Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|SummerDesignDay|WinterDesignDay|', u'|CustomDay1|CustomDay2];', u'if you use SummerDesignDay or WinterDesignDay or the CustomDays then this will apply', u'to the whole period; other days (i.e., Monday) will signify a start day and', u'normal sequence ofsubsequent days'], u'default': u'Monday', u'type': u'choice', u'key': [u'Sunday', u'Monday', u'Tuesday', u'Wednesday', u'Thursday', u'Friday', u'Saturday', u'SummerDesignDay', u'WinterDesignDay', u'CustomDay1', u'CustomDay2'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Day of Week for Start Day`
@@ -2589,8 +2505,6 @@ class SizingPeriodWeatherFileConditionType(object):
         """  Corresponds to IDD Field `Use Weather File Daylight Saving Period`
         If yes or blank, use daylight saving period as specified on Weatherfile.
         If no, do not use the daylight saving period as specified on the Weatherfile.
-        
-        {u'note': [u'If yes or blank, use daylight saving period as specified on Weatherfile.', u'If no, do not use the daylight saving period as specified on the Weatherfile.'], u'default': u'Yes', u'type': u'choice', u'key': [u'Yes', u'No'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Use Weather File Daylight Saving Period`
@@ -2647,8 +2561,6 @@ class SizingPeriodWeatherFileConditionType(object):
     @use_weather_file_rain_and_snow_indicators.setter
     def use_weather_file_rain_and_snow_indicators(self, value="Yes"):
         """  Corresponds to IDD Field `Use Weather File Rain and Snow Indicators`
-        
-        {u'default': u'Yes', u'type': u'choice', u'key': [u'Yes', u'No'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Use Weather File Rain and Snow Indicators`
@@ -2878,8 +2790,6 @@ class RunPeriod(object):
         """  Corresponds to IDD Field `Name`
         descriptive name (used in reporting mainly)
         if blank, weather file title is used.  if not blank, must be unique
-        
-        {u'note': [u'descriptive name (used in reporting mainly)', u'if blank, weather file title is used.  if not blank, must be unique'], 'type': 'alpha', u'reference': u'RunPeriodsAndDesignDays', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -2915,8 +2825,6 @@ class RunPeriod(object):
     @begin_month.setter
     def begin_month(self, value=None):
         """  Corresponds to IDD Field `Begin Month`
-        
-        {u'minimum': '1', u'type': u'integer', u'maximum': '12', u'required-field': True, 'pytype': 'int'}
 
         Args:
             value (int): value for IDD Field `Begin Month`
@@ -2954,8 +2862,6 @@ class RunPeriod(object):
     @begin_day_of_month.setter
     def begin_day_of_month(self, value=None):
         """  Corresponds to IDD Field `Begin Day of Month`
-        
-        {u'minimum': '1', u'type': u'integer', u'maximum': '31', u'required-field': True, 'pytype': 'int'}
 
         Args:
             value (int): value for IDD Field `Begin Day of Month`
@@ -2993,8 +2899,6 @@ class RunPeriod(object):
     @end_month.setter
     def end_month(self, value=None):
         """  Corresponds to IDD Field `End Month`
-        
-        {u'minimum': '1', u'type': u'integer', u'maximum': '12', u'required-field': True, 'pytype': 'int'}
 
         Args:
             value (int): value for IDD Field `End Month`
@@ -3032,8 +2936,6 @@ class RunPeriod(object):
     @end_day_of_month.setter
     def end_day_of_month(self, value=None):
         """  Corresponds to IDD Field `End Day of Month`
-        
-        {u'minimum': '1', u'type': u'integer', u'maximum': '31', u'required-field': True, 'pytype': 'int'}
 
         Args:
             value (int): value for IDD Field `End Day of Month`
@@ -3072,8 +2974,6 @@ class RunPeriod(object):
     def day_of_week_for_start_day(self, value="UseWeatherFile"):
         """  Corresponds to IDD Field `Day of Week for Start Day`
         =<blank - use WeatherFile>|Sunday|Monday|Tuesday|Wednesday|Thursday|Friday|Saturday];
-        
-        {u'note': [u'=<blank - use WeatherFile>|Sunday|Monday|Tuesday|Wednesday|Thursday|Friday|Saturday];'], u'default': u'UseWeatherFile', u'type': u'choice', u'key': [u'Sunday', u'Monday', u'Tuesday', u'Wednesday', u'Thursday', u'Friday', u'Saturday', u'UseWeatherFile'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Day of Week for Start Day`
@@ -3145,8 +3045,6 @@ class RunPeriod(object):
         If yes or blank, use holidays as specified on Weatherfile.
         If no, do not use the holidays specified on the Weatherfile.
         Note: You can still specify holidays/special days using the RunPeriodControl:SpecialDays object(s).
-        
-        {u'note': [u'If yes or blank, use holidays as specified on Weatherfile.', u'If no, do not use the holidays specified on the Weatherfile.', u'Note: You can still specify holidays/special days using the RunPeriodControl:SpecialDays object(s).'], u'default': u'Yes', u'type': u'choice', u'key': [u'Yes', u'No'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Use Weather File Holidays and Special Days`
@@ -3205,8 +3103,6 @@ class RunPeriod(object):
         """  Corresponds to IDD Field `Use Weather File Daylight Saving Period`
         If yes or blank, use daylight saving period as specified on Weatherfile.
         If no, do not use the daylight saving period as specified on the Weatherfile.
-        
-        {u'note': [u'If yes or blank, use daylight saving period as specified on Weatherfile.', u'If no, do not use the daylight saving period as specified on the Weatherfile.'], u'default': u'Yes', u'type': u'choice', u'key': [u'Yes', u'No'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Use Weather File Daylight Saving Period`
@@ -3264,8 +3160,6 @@ class RunPeriod(object):
     def apply_weekend_holiday_rule(self, value="No"):
         """  Corresponds to IDD Field `Apply Weekend Holiday Rule`
         if yes and single day holiday falls on weekend, "holiday" occurs on following Monday
-        
-        {u'note': [u'if yes and single day holiday falls on weekend, "holiday" occurs on following Monday'], u'default': u'No', u'type': u'choice', u'key': [u'Yes', u'No'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Apply Weekend Holiday Rule`
@@ -3322,8 +3216,6 @@ class RunPeriod(object):
     @use_weather_file_rain_indicators.setter
     def use_weather_file_rain_indicators(self, value="Yes"):
         """  Corresponds to IDD Field `Use Weather File Rain Indicators`
-        
-        {u'default': u'Yes', u'type': u'choice', u'key': [u'Yes', u'No'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Use Weather File Rain Indicators`
@@ -3380,8 +3272,6 @@ class RunPeriod(object):
     @use_weather_file_snow_indicators.setter
     def use_weather_file_snow_indicators(self, value="Yes"):
         """  Corresponds to IDD Field `Use Weather File Snow Indicators`
-        
-        {u'default': u'Yes', u'type': u'choice', u'key': [u'Yes', u'No'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Use Weather File Snow Indicators`
@@ -3436,10 +3326,8 @@ class RunPeriod(object):
         return self._data["Number of Times Runperiod to be Repeated"]
 
     @number_of_times_runperiod_to_be_repeated.setter
-    def number_of_times_runperiod_to_be_repeated(self, value=1 ):
+    def number_of_times_runperiod_to_be_repeated(self, value=1):
         """  Corresponds to IDD Field `Number of Times Runperiod to be Repeated`
-        
-        {u'default': '1', u'minimum': '1', u'type': u'integer', 'pytype': 'int'}
 
         Args:
             value (int): value for IDD Field `Number of Times Runperiod to be Repeated`
@@ -3474,8 +3362,6 @@ class RunPeriod(object):
     @increment_day_of_week_on_repeat.setter
     def increment_day_of_week_on_repeat(self, value="Yes"):
         """  Corresponds to IDD Field `Increment Day of Week on repeat`
-        
-        {u'default': u'Yes', u'type': u'choice', u'key': [u'Yes', u'No'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Increment Day of Week on repeat`
@@ -3535,8 +3421,6 @@ class RunPeriod(object):
         this is the start year for the start date.  If the leap year is "Yes" in the weather file header
         (that is HOLIDAYS/SPECIAL DAYS header first field), then any year which is a leap year will assume
         there will be a Feb 29. A repeat of this runperiod will automatically increment the year.
-        
-        {u'note': [u'this is the start year for the start date.  If the leap year is "Yes" in the weather file header', u'(that is HOLIDAYS/SPECIAL DAYS header first field), then any year which is a leap year will assume', u'there will be a Feb 29. A repeat of this runperiod will automatically increment the year.'], 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Start Year`
@@ -3730,8 +3614,6 @@ class RunPeriodCustomRange(object):
         """  Corresponds to IDD Field `Name`
         descriptive name (used in reporting mainly)
         if blank, weather file title is used.  if not blank, must be unique
-        
-        {u'note': [u'descriptive name (used in reporting mainly)', u'if blank, weather file title is used.  if not blank, must be unique'], 'type': 'alpha', u'reference': u'RunPeriodsAndDesignDays', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -3767,8 +3649,6 @@ class RunPeriodCustomRange(object):
     @begin_month.setter
     def begin_month(self, value=None):
         """  Corresponds to IDD Field `Begin Month`
-        
-        {u'minimum': '1', u'type': u'integer', u'maximum': '12', u'required-field': True, 'pytype': 'int'}
 
         Args:
             value (int): value for IDD Field `Begin Month`
@@ -3806,8 +3686,6 @@ class RunPeriodCustomRange(object):
     @begin_day_of_month.setter
     def begin_day_of_month(self, value=None):
         """  Corresponds to IDD Field `Begin Day of Month`
-        
-        {u'minimum': '1', u'type': u'integer', u'maximum': '31', u'required-field': True, 'pytype': 'int'}
 
         Args:
             value (int): value for IDD Field `Begin Day of Month`
@@ -3846,8 +3724,6 @@ class RunPeriodCustomRange(object):
     def begin_year(self, value=None):
         """  Corresponds to IDD Field `Begin Year`
         must be start year of this date on weather file
-        
-        {u'note': [u'must be start year of this date on weather file'], 'type': 'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Begin Year`
@@ -3877,8 +3753,6 @@ class RunPeriodCustomRange(object):
     @end_month.setter
     def end_month(self, value=None):
         """  Corresponds to IDD Field `End Month`
-        
-        {u'minimum': '1', u'type': u'integer', u'maximum': '12', u'required-field': True, 'pytype': 'int'}
 
         Args:
             value (int): value for IDD Field `End Month`
@@ -3916,8 +3790,6 @@ class RunPeriodCustomRange(object):
     @end_day_of_month.setter
     def end_day_of_month(self, value=None):
         """  Corresponds to IDD Field `End Day of Month`
-        
-        {u'minimum': '1', u'type': u'integer', u'maximum': '31', u'required-field': True, 'pytype': 'int'}
 
         Args:
             value (int): value for IDD Field `End Day of Month`
@@ -3956,8 +3828,6 @@ class RunPeriodCustomRange(object):
     def end_year(self, value=None):
         """  Corresponds to IDD Field `End Year`
         must be end year of this date on weather file
-        
-        {u'note': [u'must be end year of this date on weather file'], 'type': 'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `End Year`
@@ -3988,8 +3858,6 @@ class RunPeriodCustomRange(object):
     def day_of_week_for_start_day(self, value="UseWeatherFile"):
         """  Corresponds to IDD Field `Day of Week for Start Day`
         =<blank - use WeatherFile>|Sunday|Monday|Tuesday|Wednesday|Thursday|Friday|Saturday];
-        
-        {u'note': [u'=<blank - use WeatherFile>|Sunday|Monday|Tuesday|Wednesday|Thursday|Friday|Saturday];'], u'default': u'UseWeatherFile', u'type': u'choice', u'key': [u'Sunday', u'Monday', u'Tuesday', u'Wednesday', u'Thursday', u'Friday', u'Saturday', u'UseWeatherFile'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Day of Week for Start Day`
@@ -4061,8 +3929,6 @@ class RunPeriodCustomRange(object):
         If yes or blank, use holidays as specified on Weatherfile.
         If no, do not use the holidays specified on the Weatherfile.
         Note: You can still specify holidays/special days using the RunPeriodControl:SpecialDays object(s).
-        
-        {u'note': [u'If yes or blank, use holidays as specified on Weatherfile.', u'If no, do not use the holidays specified on the Weatherfile.', u'Note: You can still specify holidays/special days using the RunPeriodControl:SpecialDays object(s).'], u'default': u'Yes', u'type': u'choice', u'key': [u'Yes', u'No'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Use Weather File Holidays and Special Days`
@@ -4121,8 +3987,6 @@ class RunPeriodCustomRange(object):
         """  Corresponds to IDD Field `Use Weather File Daylight Saving Period`
         If yes or blank, use daylight saving period as specified on Weatherfile.
         If no, do not use the daylight saving period as specified on the Weatherfile.
-        
-        {u'note': [u'If yes or blank, use daylight saving period as specified on Weatherfile.', u'If no, do not use the daylight saving period as specified on the Weatherfile.'], u'default': u'Yes', u'type': u'choice', u'key': [u'Yes', u'No'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Use Weather File Daylight Saving Period`
@@ -4180,8 +4044,6 @@ class RunPeriodCustomRange(object):
     def apply_weekend_holiday_rule(self, value="No"):
         """  Corresponds to IDD Field `Apply Weekend Holiday Rule`
         if yes and single day holiday falls on weekend, "holiday" occurs on following Monday
-        
-        {u'note': [u'if yes and single day holiday falls on weekend, "holiday" occurs on following Monday'], u'default': u'No', u'type': u'choice', u'key': [u'Yes', u'No'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Apply Weekend Holiday Rule`
@@ -4238,8 +4100,6 @@ class RunPeriodCustomRange(object):
     @use_weather_file_rain_indicators.setter
     def use_weather_file_rain_indicators(self, value="Yes"):
         """  Corresponds to IDD Field `Use Weather File Rain Indicators`
-        
-        {u'default': u'Yes', u'type': u'choice', u'key': [u'Yes', u'No'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Use Weather File Rain Indicators`
@@ -4296,8 +4156,6 @@ class RunPeriodCustomRange(object):
     @use_weather_file_snow_indicators.setter
     def use_weather_file_snow_indicators(self, value="Yes"):
         """  Corresponds to IDD Field `Use Weather File Snow Indicators`
-        
-        {u'default': u'Yes', u'type': u'choice', u'key': [u'Yes', u'No'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Use Weather File Snow Indicators`
@@ -4449,8 +4307,6 @@ class RunPeriodControlSpecialDays(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {'type': 'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -4496,8 +4352,6 @@ class RunPeriodControlSpecialDays(object):
         Months can be the first 3 letters of the month
         <Weekday> can be Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday
         <Nth> can be 1 or 1st, 2 or 2nd, etc. up to 5(?)
-        
-        {u'note': [u'Dates can be several formats:', u'<number>/<number>  (month/day)', u'<number> <Month>', u'<Month> <number>', u'<Nth> <Weekday> in <Month)', u'Last <WeekDay> in <Month>', u'<Month> can be January, February, March, April, May, June, July, August, September, October, November, December', u'Months can be the first 3 letters of the month', u'<Weekday> can be Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday', u'<Nth> can be 1 or 1st, 2 or 2nd, etc. up to 5(?)'], 'type': 'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Start Date`
@@ -4531,10 +4385,8 @@ class RunPeriodControlSpecialDays(object):
         return self._data["Duration"]
 
     @duration.setter
-    def duration(self, value=1.0 ):
+    def duration(self, value=1.0):
         """  Corresponds to IDD Field `Duration`
-        
-        {'pytype': 'float', u'default': '1.0', u'maximum': '366.0', u'minimum': '1.0', u'units': u'days', 'type': 'real'}
 
         Args:
             value (float): value for IDD Field `Duration`
@@ -4575,8 +4427,6 @@ class RunPeriodControlSpecialDays(object):
     def special_day_type(self, value="Holiday"):
         """  Corresponds to IDD Field `Special Day Type`
         Special Day Type selects the schedules appropriate for each day so labeled
-        
-        {'pytype': 'str', u'default': u'Holiday', u'required-field': True, u'note': [u'Special Day Type selects the schedules appropriate for each day so labeled'], u'key': [u'Holiday', u'SummerDesignDay', u'WinterDesignDay', u'CustomDay1', u'CustomDay2'], u'type': u'choice'}
 
         Args:
             value (str): value for IDD Field `Special Day Type`
@@ -4716,8 +4566,6 @@ class RunPeriodControlDaylightSavingTime(object):
     @start_date.setter
     def start_date(self, value=None):
         """  Corresponds to IDD Field `Start Date`
-        
-        {'type': 'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Start Date`
@@ -4763,8 +4611,6 @@ class RunPeriodControlDaylightSavingTime(object):
         Months can be the first 3 letters of the month
         <Weekday> can be Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday
         <Nth> can be 1 or 1st, 2 or 2nd, etc. up to 5(?)
-        
-        {u'note': [u'Dates can be several formats:', u'<number>/<number>  (month/day)', u'<number> <Month>', u'<Month> <number>', u'<Nth> <Weekday> in <Month)', u'Last <WeekDay> in <Month>', u'<Month> can be January, February, March, April, May, June, July, August, September, October, November, December', u'Months can be the first 3 letters of the month', u'<Weekday> can be Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday', u'<Nth> can be 1 or 1st, 2 or 2nd, etc. up to 5(?)'], 'type': 'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `End Date`
@@ -4885,8 +4731,6 @@ class WeatherPropertySkyTemperature(object):
         blank in this field will apply to all run periods (that is, all objects=
         SizingPeriod:WeatherFileDays, SizingPeriod:WeatherFileConditionType or RunPeriod
         otherwise, this name must match one of the environment object names.
-        
-        {u'note': [u'blank in this field will apply to all run periods (that is, all objects=', u'SizingPeriod:WeatherFileDays, SizingPeriod:WeatherFileConditionType or RunPeriod', u'otherwise, this name must match one of the environment object names.'], u'type': u'object-list', u'object-list': u'RunPeriodsAndDesignDays', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -4922,8 +4766,6 @@ class WeatherPropertySkyTemperature(object):
     @calculation_type.setter
     def calculation_type(self, value=None):
         """  Corresponds to IDD Field `Calculation Type`
-        
-        {u'type': u'choice', u'key': [u'ScheduleValue', u'DifferenceScheduleDryBulbValue', u'DifferenceScheduleDewPointValue'], u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Calculation Type`
@@ -4984,8 +4826,6 @@ class WeatherPropertySkyTemperature(object):
         if name matches a SizingPeriod:DesignDay, put in a day schedule of this name
         if name is for a SizingPeriod:WeatherFileDays, SizingPeriod:WeatherFileConditionType or
         RunPeriod, put in a full year schedule that covers the appropriate days.
-        
-        {u'note': [u'if name matches a SizingPeriod:DesignDay, put in a day schedule of this name', u'if name is for a SizingPeriod:WeatherFileDays, SizingPeriod:WeatherFileConditionType or', u'RunPeriod, put in a full year schedule that covers the appropriate days.'], u'type': u'object-list', u'object-list': u'ScheduleAndDayScheduleNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Schedule Name`
@@ -5111,10 +4951,8 @@ class SiteWeatherStation(object):
         return self._data["Wind Sensor Height Above Ground"]
 
     @wind_sensor_height_above_ground.setter
-    def wind_sensor_height_above_ground(self, value=10.0 ):
+    def wind_sensor_height_above_ground(self, value=10.0):
         """  Corresponds to IDD Field `Wind Sensor Height Above Ground`
-        
-        {u'units': u'm', u'default': '10.0', u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Wind Sensor Height Above Ground`
@@ -5148,10 +4986,8 @@ class SiteWeatherStation(object):
         return self._data["Wind Speed Profile Exponent"]
 
     @wind_speed_profile_exponent.setter
-    def wind_speed_profile_exponent(self, value=0.14 ):
+    def wind_speed_profile_exponent(self, value=0.14):
         """  Corresponds to IDD Field `Wind Speed Profile Exponent`
-        
-        {u'default': '0.14', u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Wind Speed Profile Exponent`
@@ -5184,10 +5020,8 @@ class SiteWeatherStation(object):
         return self._data["Wind Speed Profile Boundary Layer Thickness"]
 
     @wind_speed_profile_boundary_layer_thickness.setter
-    def wind_speed_profile_boundary_layer_thickness(self, value=270.0 ):
+    def wind_speed_profile_boundary_layer_thickness(self, value=270.0):
         """  Corresponds to IDD Field `Wind Speed Profile Boundary Layer Thickness`
-        
-        {u'units': u'm', u'default': '270.0', u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Wind Speed Profile Boundary Layer Thickness`
@@ -5221,10 +5055,8 @@ class SiteWeatherStation(object):
         return self._data["Air Temperature Sensor Height Above Ground"]
 
     @air_temperature_sensor_height_above_ground.setter
-    def air_temperature_sensor_height_above_ground(self, value=1.5 ):
+    def air_temperature_sensor_height_above_ground(self, value=1.5):
         """  Corresponds to IDD Field `Air Temperature Sensor Height Above Ground`
-        
-        {u'units': u'm', u'default': '1.5', u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Air Temperature Sensor Height Above Ground`
@@ -5343,11 +5175,9 @@ class SiteHeightVariation(object):
         return self._data["Wind Speed Profile Exponent"]
 
     @wind_speed_profile_exponent.setter
-    def wind_speed_profile_exponent(self, value=0.22 ):
+    def wind_speed_profile_exponent(self, value=0.22):
         """  Corresponds to IDD Field `Wind Speed Profile Exponent`
         Set to zero for no wind speed dependence on height.
-        
-        {u'note': [u'Set to zero for no wind speed dependence on height.'], u'default': '0.22', u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Wind Speed Profile Exponent`
@@ -5380,10 +5210,8 @@ class SiteHeightVariation(object):
         return self._data["Wind Speed Profile Boundary Layer Thickness"]
 
     @wind_speed_profile_boundary_layer_thickness.setter
-    def wind_speed_profile_boundary_layer_thickness(self, value=370.0 ):
+    def wind_speed_profile_boundary_layer_thickness(self, value=370.0):
         """  Corresponds to IDD Field `Wind Speed Profile Boundary Layer Thickness`
-        
-        {u'units': u'm', u'default': '370.0', u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Wind Speed Profile Boundary Layer Thickness`
@@ -5417,11 +5245,9 @@ class SiteHeightVariation(object):
         return self._data["Air Temperature Gradient Coefficient"]
 
     @air_temperature_gradient_coefficient.setter
-    def air_temperature_gradient_coefficient(self, value=0.0065 ):
+    def air_temperature_gradient_coefficient(self, value=0.0065):
         """  Corresponds to IDD Field `Air Temperature Gradient Coefficient`
         Set to zero for no air temperature dependence on height.
-        
-        {'pytype': 'float', u'default': '0.0065', u'note': [u'Set to zero for no air temperature dependence on height.'], u'minimum': '0.0', u'units': u'K/m', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Air Temperature Gradient Coefficient`
@@ -5616,10 +5442,8 @@ class SiteGroundTemperatureBuildingSurface(object):
         return self._data["January Ground Temperature"]
 
     @january_ground_temperature.setter
-    def january_ground_temperature(self, value=18.0 ):
+    def january_ground_temperature(self, value=18.0):
         """  Corresponds to IDD Field `January Ground Temperature`
-        
-        {u'units': u'C', u'default': '18.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `January Ground Temperature`
@@ -5649,10 +5473,8 @@ class SiteGroundTemperatureBuildingSurface(object):
         return self._data["February Ground Temperature"]
 
     @february_ground_temperature.setter
-    def february_ground_temperature(self, value=18.0 ):
+    def february_ground_temperature(self, value=18.0):
         """  Corresponds to IDD Field `February Ground Temperature`
-        
-        {u'units': u'C', u'default': '18.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `February Ground Temperature`
@@ -5682,10 +5504,8 @@ class SiteGroundTemperatureBuildingSurface(object):
         return self._data["March Ground Temperature"]
 
     @march_ground_temperature.setter
-    def march_ground_temperature(self, value=18.0 ):
+    def march_ground_temperature(self, value=18.0):
         """  Corresponds to IDD Field `March Ground Temperature`
-        
-        {u'units': u'C', u'default': '18.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `March Ground Temperature`
@@ -5715,10 +5535,8 @@ class SiteGroundTemperatureBuildingSurface(object):
         return self._data["April Ground Temperature"]
 
     @april_ground_temperature.setter
-    def april_ground_temperature(self, value=18.0 ):
+    def april_ground_temperature(self, value=18.0):
         """  Corresponds to IDD Field `April Ground Temperature`
-        
-        {u'units': u'C', u'default': '18.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `April Ground Temperature`
@@ -5748,10 +5566,8 @@ class SiteGroundTemperatureBuildingSurface(object):
         return self._data["May Ground Temperature"]
 
     @may_ground_temperature.setter
-    def may_ground_temperature(self, value=18.0 ):
+    def may_ground_temperature(self, value=18.0):
         """  Corresponds to IDD Field `May Ground Temperature`
-        
-        {u'units': u'C', u'default': '18.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `May Ground Temperature`
@@ -5781,10 +5597,8 @@ class SiteGroundTemperatureBuildingSurface(object):
         return self._data["June Ground Temperature"]
 
     @june_ground_temperature.setter
-    def june_ground_temperature(self, value=18.0 ):
+    def june_ground_temperature(self, value=18.0):
         """  Corresponds to IDD Field `June Ground Temperature`
-        
-        {u'units': u'C', u'default': '18.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `June Ground Temperature`
@@ -5814,10 +5628,8 @@ class SiteGroundTemperatureBuildingSurface(object):
         return self._data["July Ground Temperature"]
 
     @july_ground_temperature.setter
-    def july_ground_temperature(self, value=18.0 ):
+    def july_ground_temperature(self, value=18.0):
         """  Corresponds to IDD Field `July Ground Temperature`
-        
-        {u'units': u'C', u'default': '18.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `July Ground Temperature`
@@ -5847,10 +5659,8 @@ class SiteGroundTemperatureBuildingSurface(object):
         return self._data["August Ground Temperature"]
 
     @august_ground_temperature.setter
-    def august_ground_temperature(self, value=18.0 ):
+    def august_ground_temperature(self, value=18.0):
         """  Corresponds to IDD Field `August Ground Temperature`
-        
-        {u'units': u'C', u'default': '18.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `August Ground Temperature`
@@ -5880,10 +5690,8 @@ class SiteGroundTemperatureBuildingSurface(object):
         return self._data["September Ground Temperature"]
 
     @september_ground_temperature.setter
-    def september_ground_temperature(self, value=18.0 ):
+    def september_ground_temperature(self, value=18.0):
         """  Corresponds to IDD Field `September Ground Temperature`
-        
-        {u'units': u'C', u'default': '18.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `September Ground Temperature`
@@ -5913,10 +5721,8 @@ class SiteGroundTemperatureBuildingSurface(object):
         return self._data["October Ground Temperature"]
 
     @october_ground_temperature.setter
-    def october_ground_temperature(self, value=18.0 ):
+    def october_ground_temperature(self, value=18.0):
         """  Corresponds to IDD Field `October Ground Temperature`
-        
-        {u'units': u'C', u'default': '18.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `October Ground Temperature`
@@ -5946,10 +5752,8 @@ class SiteGroundTemperatureBuildingSurface(object):
         return self._data["November Ground Temperature"]
 
     @november_ground_temperature.setter
-    def november_ground_temperature(self, value=18.0 ):
+    def november_ground_temperature(self, value=18.0):
         """  Corresponds to IDD Field `November Ground Temperature`
-        
-        {u'units': u'C', u'default': '18.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `November Ground Temperature`
@@ -5979,10 +5783,8 @@ class SiteGroundTemperatureBuildingSurface(object):
         return self._data["December Ground Temperature"]
 
     @december_ground_temperature.setter
-    def december_ground_temperature(self, value=18.0 ):
+    def december_ground_temperature(self, value=18.0):
         """  Corresponds to IDD Field `December Ground Temperature`
-        
-        {u'units': u'C', u'default': '18.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `December Ground Temperature`
@@ -6168,10 +5970,8 @@ class SiteGroundTemperatureFcfactorMethod(object):
         return self._data["January Ground Temperature"]
 
     @january_ground_temperature.setter
-    def january_ground_temperature(self, value=13.0 ):
+    def january_ground_temperature(self, value=13.0):
         """  Corresponds to IDD Field `January Ground Temperature`
-        
-        {u'units': u'C', u'default': '13.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `January Ground Temperature`
@@ -6201,10 +6001,8 @@ class SiteGroundTemperatureFcfactorMethod(object):
         return self._data["February Ground Temperature"]
 
     @february_ground_temperature.setter
-    def february_ground_temperature(self, value=13.0 ):
+    def february_ground_temperature(self, value=13.0):
         """  Corresponds to IDD Field `February Ground Temperature`
-        
-        {u'units': u'C', u'default': '13.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `February Ground Temperature`
@@ -6234,10 +6032,8 @@ class SiteGroundTemperatureFcfactorMethod(object):
         return self._data["March Ground Temperature"]
 
     @march_ground_temperature.setter
-    def march_ground_temperature(self, value=13.0 ):
+    def march_ground_temperature(self, value=13.0):
         """  Corresponds to IDD Field `March Ground Temperature`
-        
-        {u'units': u'C', u'default': '13.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `March Ground Temperature`
@@ -6267,10 +6063,8 @@ class SiteGroundTemperatureFcfactorMethod(object):
         return self._data["April Ground Temperature"]
 
     @april_ground_temperature.setter
-    def april_ground_temperature(self, value=13.0 ):
+    def april_ground_temperature(self, value=13.0):
         """  Corresponds to IDD Field `April Ground Temperature`
-        
-        {u'units': u'C', u'default': '13.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `April Ground Temperature`
@@ -6300,10 +6094,8 @@ class SiteGroundTemperatureFcfactorMethod(object):
         return self._data["May Ground Temperature"]
 
     @may_ground_temperature.setter
-    def may_ground_temperature(self, value=13.0 ):
+    def may_ground_temperature(self, value=13.0):
         """  Corresponds to IDD Field `May Ground Temperature`
-        
-        {u'units': u'C', u'default': '13.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `May Ground Temperature`
@@ -6333,10 +6125,8 @@ class SiteGroundTemperatureFcfactorMethod(object):
         return self._data["June Ground Temperature"]
 
     @june_ground_temperature.setter
-    def june_ground_temperature(self, value=13.0 ):
+    def june_ground_temperature(self, value=13.0):
         """  Corresponds to IDD Field `June Ground Temperature`
-        
-        {u'units': u'C', u'default': '13.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `June Ground Temperature`
@@ -6366,10 +6156,8 @@ class SiteGroundTemperatureFcfactorMethod(object):
         return self._data["July Ground Temperature"]
 
     @july_ground_temperature.setter
-    def july_ground_temperature(self, value=13.0 ):
+    def july_ground_temperature(self, value=13.0):
         """  Corresponds to IDD Field `July Ground Temperature`
-        
-        {u'units': u'C', u'default': '13.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `July Ground Temperature`
@@ -6399,10 +6187,8 @@ class SiteGroundTemperatureFcfactorMethod(object):
         return self._data["August Ground Temperature"]
 
     @august_ground_temperature.setter
-    def august_ground_temperature(self, value=13.0 ):
+    def august_ground_temperature(self, value=13.0):
         """  Corresponds to IDD Field `August Ground Temperature`
-        
-        {u'units': u'C', u'default': '13.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `August Ground Temperature`
@@ -6432,10 +6218,8 @@ class SiteGroundTemperatureFcfactorMethod(object):
         return self._data["September Ground Temperature"]
 
     @september_ground_temperature.setter
-    def september_ground_temperature(self, value=13.0 ):
+    def september_ground_temperature(self, value=13.0):
         """  Corresponds to IDD Field `September Ground Temperature`
-        
-        {u'units': u'C', u'default': '13.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `September Ground Temperature`
@@ -6465,10 +6249,8 @@ class SiteGroundTemperatureFcfactorMethod(object):
         return self._data["October Ground Temperature"]
 
     @october_ground_temperature.setter
-    def october_ground_temperature(self, value=13.0 ):
+    def october_ground_temperature(self, value=13.0):
         """  Corresponds to IDD Field `October Ground Temperature`
-        
-        {u'units': u'C', u'default': '13.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `October Ground Temperature`
@@ -6498,10 +6280,8 @@ class SiteGroundTemperatureFcfactorMethod(object):
         return self._data["November Ground Temperature"]
 
     @november_ground_temperature.setter
-    def november_ground_temperature(self, value=13.0 ):
+    def november_ground_temperature(self, value=13.0):
         """  Corresponds to IDD Field `November Ground Temperature`
-        
-        {u'units': u'C', u'default': '13.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `November Ground Temperature`
@@ -6531,10 +6311,8 @@ class SiteGroundTemperatureFcfactorMethod(object):
         return self._data["December Ground Temperature"]
 
     @december_ground_temperature.setter
-    def december_ground_temperature(self, value=13.0 ):
+    def december_ground_temperature(self, value=13.0):
         """  Corresponds to IDD Field `December Ground Temperature`
-        
-        {u'units': u'C', u'default': '13.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `December Ground Temperature`
@@ -6720,10 +6498,8 @@ class SiteGroundTemperatureShallow(object):
         return self._data["January Surface Ground Temperature"]
 
     @january_surface_ground_temperature.setter
-    def january_surface_ground_temperature(self, value=13.0 ):
+    def january_surface_ground_temperature(self, value=13.0):
         """  Corresponds to IDD Field `January Surface Ground Temperature`
-        
-        {u'units': u'C', u'default': '13.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `January Surface Ground Temperature`
@@ -6753,10 +6529,8 @@ class SiteGroundTemperatureShallow(object):
         return self._data["February Surface Ground Temperature"]
 
     @february_surface_ground_temperature.setter
-    def february_surface_ground_temperature(self, value=13.0 ):
+    def february_surface_ground_temperature(self, value=13.0):
         """  Corresponds to IDD Field `February Surface Ground Temperature`
-        
-        {u'units': u'C', u'default': '13.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `February Surface Ground Temperature`
@@ -6786,10 +6560,8 @@ class SiteGroundTemperatureShallow(object):
         return self._data["March Surface Ground Temperature"]
 
     @march_surface_ground_temperature.setter
-    def march_surface_ground_temperature(self, value=13.0 ):
+    def march_surface_ground_temperature(self, value=13.0):
         """  Corresponds to IDD Field `March Surface Ground Temperature`
-        
-        {u'units': u'C', u'default': '13.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `March Surface Ground Temperature`
@@ -6819,10 +6591,8 @@ class SiteGroundTemperatureShallow(object):
         return self._data["April Surface Ground Temperature"]
 
     @april_surface_ground_temperature.setter
-    def april_surface_ground_temperature(self, value=13.0 ):
+    def april_surface_ground_temperature(self, value=13.0):
         """  Corresponds to IDD Field `April Surface Ground Temperature`
-        
-        {u'units': u'C', u'default': '13.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `April Surface Ground Temperature`
@@ -6852,10 +6622,8 @@ class SiteGroundTemperatureShallow(object):
         return self._data["May Surface Ground Temperature"]
 
     @may_surface_ground_temperature.setter
-    def may_surface_ground_temperature(self, value=13.0 ):
+    def may_surface_ground_temperature(self, value=13.0):
         """  Corresponds to IDD Field `May Surface Ground Temperature`
-        
-        {u'units': u'C', u'default': '13.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `May Surface Ground Temperature`
@@ -6885,10 +6653,8 @@ class SiteGroundTemperatureShallow(object):
         return self._data["June Surface Ground Temperature"]
 
     @june_surface_ground_temperature.setter
-    def june_surface_ground_temperature(self, value=13.0 ):
+    def june_surface_ground_temperature(self, value=13.0):
         """  Corresponds to IDD Field `June Surface Ground Temperature`
-        
-        {u'units': u'C', u'default': '13.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `June Surface Ground Temperature`
@@ -6918,10 +6684,8 @@ class SiteGroundTemperatureShallow(object):
         return self._data["July Surface Ground Temperature"]
 
     @july_surface_ground_temperature.setter
-    def july_surface_ground_temperature(self, value=13.0 ):
+    def july_surface_ground_temperature(self, value=13.0):
         """  Corresponds to IDD Field `July Surface Ground Temperature`
-        
-        {u'units': u'C', u'default': '13.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `July Surface Ground Temperature`
@@ -6951,10 +6715,8 @@ class SiteGroundTemperatureShallow(object):
         return self._data["August Surface Ground Temperature"]
 
     @august_surface_ground_temperature.setter
-    def august_surface_ground_temperature(self, value=13.0 ):
+    def august_surface_ground_temperature(self, value=13.0):
         """  Corresponds to IDD Field `August Surface Ground Temperature`
-        
-        {u'units': u'C', u'default': '13.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `August Surface Ground Temperature`
@@ -6984,10 +6746,8 @@ class SiteGroundTemperatureShallow(object):
         return self._data["September Surface Ground Temperature"]
 
     @september_surface_ground_temperature.setter
-    def september_surface_ground_temperature(self, value=13.0 ):
+    def september_surface_ground_temperature(self, value=13.0):
         """  Corresponds to IDD Field `September Surface Ground Temperature`
-        
-        {u'units': u'C', u'default': '13.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `September Surface Ground Temperature`
@@ -7017,10 +6777,8 @@ class SiteGroundTemperatureShallow(object):
         return self._data["October Surface Ground Temperature"]
 
     @october_surface_ground_temperature.setter
-    def october_surface_ground_temperature(self, value=13.0 ):
+    def october_surface_ground_temperature(self, value=13.0):
         """  Corresponds to IDD Field `October Surface Ground Temperature`
-        
-        {u'units': u'C', u'default': '13.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `October Surface Ground Temperature`
@@ -7050,10 +6808,8 @@ class SiteGroundTemperatureShallow(object):
         return self._data["November Surface Ground Temperature"]
 
     @november_surface_ground_temperature.setter
-    def november_surface_ground_temperature(self, value=13.0 ):
+    def november_surface_ground_temperature(self, value=13.0):
         """  Corresponds to IDD Field `November Surface Ground Temperature`
-        
-        {u'units': u'C', u'default': '13.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `November Surface Ground Temperature`
@@ -7083,10 +6839,8 @@ class SiteGroundTemperatureShallow(object):
         return self._data["December Surface Ground Temperature"]
 
     @december_surface_ground_temperature.setter
-    def december_surface_ground_temperature(self, value=13.0 ):
+    def december_surface_ground_temperature(self, value=13.0):
         """  Corresponds to IDD Field `December Surface Ground Temperature`
-        
-        {u'units': u'C', u'default': '13.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `December Surface Ground Temperature`
@@ -7272,10 +7026,8 @@ class SiteGroundTemperatureDeep(object):
         return self._data["January Deep Ground Temperature"]
 
     @january_deep_ground_temperature.setter
-    def january_deep_ground_temperature(self, value=16.0 ):
+    def january_deep_ground_temperature(self, value=16.0):
         """  Corresponds to IDD Field `January Deep Ground Temperature`
-        
-        {u'units': u'C', u'default': '16.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `January Deep Ground Temperature`
@@ -7305,10 +7057,8 @@ class SiteGroundTemperatureDeep(object):
         return self._data["February Deep Ground Temperature"]
 
     @february_deep_ground_temperature.setter
-    def february_deep_ground_temperature(self, value=16.0 ):
+    def february_deep_ground_temperature(self, value=16.0):
         """  Corresponds to IDD Field `February Deep Ground Temperature`
-        
-        {u'units': u'C', u'default': '16.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `February Deep Ground Temperature`
@@ -7338,10 +7088,8 @@ class SiteGroundTemperatureDeep(object):
         return self._data["March Deep Ground Temperature"]
 
     @march_deep_ground_temperature.setter
-    def march_deep_ground_temperature(self, value=16.0 ):
+    def march_deep_ground_temperature(self, value=16.0):
         """  Corresponds to IDD Field `March Deep Ground Temperature`
-        
-        {u'units': u'C', u'default': '16.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `March Deep Ground Temperature`
@@ -7371,10 +7119,8 @@ class SiteGroundTemperatureDeep(object):
         return self._data["April Deep Ground Temperature"]
 
     @april_deep_ground_temperature.setter
-    def april_deep_ground_temperature(self, value=16.0 ):
+    def april_deep_ground_temperature(self, value=16.0):
         """  Corresponds to IDD Field `April Deep Ground Temperature`
-        
-        {u'units': u'C', u'default': '16.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `April Deep Ground Temperature`
@@ -7404,10 +7150,8 @@ class SiteGroundTemperatureDeep(object):
         return self._data["May Deep Ground Temperature"]
 
     @may_deep_ground_temperature.setter
-    def may_deep_ground_temperature(self, value=16.0 ):
+    def may_deep_ground_temperature(self, value=16.0):
         """  Corresponds to IDD Field `May Deep Ground Temperature`
-        
-        {u'units': u'C', u'default': '16.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `May Deep Ground Temperature`
@@ -7437,10 +7181,8 @@ class SiteGroundTemperatureDeep(object):
         return self._data["June Deep Ground Temperature"]
 
     @june_deep_ground_temperature.setter
-    def june_deep_ground_temperature(self, value=16.0 ):
+    def june_deep_ground_temperature(self, value=16.0):
         """  Corresponds to IDD Field `June Deep Ground Temperature`
-        
-        {u'units': u'C', u'default': '16.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `June Deep Ground Temperature`
@@ -7470,10 +7212,8 @@ class SiteGroundTemperatureDeep(object):
         return self._data["July Deep Ground Temperature"]
 
     @july_deep_ground_temperature.setter
-    def july_deep_ground_temperature(self, value=16.0 ):
+    def july_deep_ground_temperature(self, value=16.0):
         """  Corresponds to IDD Field `July Deep Ground Temperature`
-        
-        {u'units': u'C', u'default': '16.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `July Deep Ground Temperature`
@@ -7503,10 +7243,8 @@ class SiteGroundTemperatureDeep(object):
         return self._data["August Deep Ground Temperature"]
 
     @august_deep_ground_temperature.setter
-    def august_deep_ground_temperature(self, value=16.0 ):
+    def august_deep_ground_temperature(self, value=16.0):
         """  Corresponds to IDD Field `August Deep Ground Temperature`
-        
-        {u'units': u'C', u'default': '16.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `August Deep Ground Temperature`
@@ -7536,10 +7274,8 @@ class SiteGroundTemperatureDeep(object):
         return self._data["September Deep Ground Temperature"]
 
     @september_deep_ground_temperature.setter
-    def september_deep_ground_temperature(self, value=16.0 ):
+    def september_deep_ground_temperature(self, value=16.0):
         """  Corresponds to IDD Field `September Deep Ground Temperature`
-        
-        {u'units': u'C', u'default': '16.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `September Deep Ground Temperature`
@@ -7569,10 +7305,8 @@ class SiteGroundTemperatureDeep(object):
         return self._data["October Deep Ground Temperature"]
 
     @october_deep_ground_temperature.setter
-    def october_deep_ground_temperature(self, value=16.0 ):
+    def october_deep_ground_temperature(self, value=16.0):
         """  Corresponds to IDD Field `October Deep Ground Temperature`
-        
-        {u'units': u'C', u'default': '16.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `October Deep Ground Temperature`
@@ -7602,10 +7336,8 @@ class SiteGroundTemperatureDeep(object):
         return self._data["November Deep Ground Temperature"]
 
     @november_deep_ground_temperature.setter
-    def november_deep_ground_temperature(self, value=16.0 ):
+    def november_deep_ground_temperature(self, value=16.0):
         """  Corresponds to IDD Field `November Deep Ground Temperature`
-        
-        {u'units': u'C', u'default': '16.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `November Deep Ground Temperature`
@@ -7635,10 +7367,8 @@ class SiteGroundTemperatureDeep(object):
         return self._data["December Deep Ground Temperature"]
 
     @december_deep_ground_temperature.setter
-    def december_deep_ground_temperature(self, value=16.0 ):
+    def december_deep_ground_temperature(self, value=16.0):
         """  Corresponds to IDD Field `December Deep Ground Temperature`
-        
-        {u'units': u'C', u'default': '16.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `December Deep Ground Temperature`
@@ -7921,8 +7651,6 @@ class SiteGroundDomain(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {'type': 'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -7958,8 +7686,6 @@ class SiteGroundDomain(object):
     @ground_domain_depth.setter
     def ground_domain_depth(self, value=None):
         """  Corresponds to IDD Field `Ground Domain Depth`
-        
-        {u'units': u'm', u'minimum>': '0.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Ground Domain Depth`
@@ -7992,10 +7718,8 @@ class SiteGroundDomain(object):
         return self._data["Aspect Ratio"]
 
     @aspect_ratio.setter
-    def aspect_ratio(self, value=1.0 ):
+    def aspect_ratio(self, value=1.0):
         """  Corresponds to IDD Field `Aspect Ratio`
-        
-        {u'default': '1.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Aspect Ratio`
@@ -8026,8 +7750,6 @@ class SiteGroundDomain(object):
     @perimeter_offset.setter
     def perimeter_offset(self, value=None):
         """  Corresponds to IDD Field `Perimeter Offset`
-        
-        {u'units': u'm', u'minimum>': '0.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Perimeter Offset`
@@ -8062,8 +7784,6 @@ class SiteGroundDomain(object):
     @soil_thermal_conductivity.setter
     def soil_thermal_conductivity(self, value=None):
         """  Corresponds to IDD Field `Soil Thermal Conductivity`
-        
-        {u'units': u'W/m-K', u'minimum>': '0.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Soil Thermal Conductivity`
@@ -8098,8 +7818,6 @@ class SiteGroundDomain(object):
     @soil_density.setter
     def soil_density(self, value=None):
         """  Corresponds to IDD Field `Soil Density`
-        
-        {u'units': u'kg/m3', u'minimum>': '0.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Soil Density`
@@ -8134,8 +7852,6 @@ class SiteGroundDomain(object):
     @soil_specific_heat.setter
     def soil_specific_heat(self, value=None):
         """  Corresponds to IDD Field `Soil Specific Heat`
-        
-        {u'units': u'J/kg-K', u'minimum>': '0.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Soil Specific Heat`
@@ -8168,10 +7884,8 @@ class SiteGroundDomain(object):
         return self._data["Soil Moisture Content Volume Fraction"]
 
     @soil_moisture_content_volume_fraction.setter
-    def soil_moisture_content_volume_fraction(self, value=30.0 ):
+    def soil_moisture_content_volume_fraction(self, value=30.0):
         """  Corresponds to IDD Field `Soil Moisture Content Volume Fraction`
-        
-        {'pytype': 'float', u'default': '30.0', u'maximum': '100.0', u'minimum': '0.0', u'units': u'percent', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Soil Moisture Content Volume Fraction`
@@ -8209,10 +7923,8 @@ class SiteGroundDomain(object):
         return self._data["Soil Moisture Content Volume Fraction at Saturation"]
 
     @soil_moisture_content_volume_fraction_at_saturation.setter
-    def soil_moisture_content_volume_fraction_at_saturation(self, value=50.0 ):
+    def soil_moisture_content_volume_fraction_at_saturation(self, value=50.0):
         """  Corresponds to IDD Field `Soil Moisture Content Volume Fraction at Saturation`
-        
-        {'pytype': 'float', u'default': '50.0', u'maximum': '100.0', u'minimum': '0.0', u'units': u'percent', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Soil Moisture Content Volume Fraction at Saturation`
@@ -8253,8 +7965,6 @@ class SiteGroundDomain(object):
     def kusudaachenbach_average_surface_temperature(self, value=None):
         """  Corresponds to IDD Field `Kusuda-Achenbach Average Surface Temperature`
         Annual average surface temperature.
-        
-        {u'units': u'C', u'note': [u'Annual average surface temperature.'], u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Kusuda-Achenbach Average Surface Temperature`
@@ -8286,8 +7996,6 @@ class SiteGroundDomain(object):
     def kusudaachenbach_average_amplitude_of_surface_temperature(self, value=None):
         """  Corresponds to IDD Field `Kusuda-Achenbach Average Amplitude of Surface Temperature`
         Annual average surface temperature variation from average.
-        
-        {u'units': u'deltaC', u'note': [u'Annual average surface temperature variation from average.'], u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Kusuda-Achenbach Average Amplitude of Surface Temperature`
@@ -8320,8 +8028,6 @@ class SiteGroundDomain(object):
         """  Corresponds to IDD Field `Kusuda-Achenbach Phase Shift of Minimum Surface Temperature`
         The phase shift of minimum surface temperature, or the day
         of the year when the minimum surface temperature occurs.
-        
-        {u'units': u'days', u'note': [u'The phase shift of minimum surface temperature, or the day', u'of the year when the minimum surface temperature occurs.'], u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Kusuda-Achenbach Phase Shift of Minimum Surface Temperature`
@@ -8350,7 +8056,7 @@ class SiteGroundDomain(object):
         return self._data["Evapotranspiration Ground Cover Parameter"]
 
     @evapotranspiration_ground_cover_parameter.setter
-    def evapotranspiration_ground_cover_parameter(self, value=0.4 ):
+    def evapotranspiration_ground_cover_parameter(self, value=0.4):
         """  Corresponds to IDD Field `Evapotranspiration Ground Cover Parameter`
         This specifies the ground cover effects during evapotranspiration
         calculations.  The value roughly represents the following cases:
@@ -8358,8 +8064,6 @@ class SiteGroundDomain(object):
         = 0.5 : short grass, much like a manicured lawn
         = 1   : standard reference state (12 cm grass)
         = 1.5 : wild growth
-        
-        {'pytype': 'float', u'default': '0.4', u'maximum': '1.5', u'note': [u'This specifies the ground cover effects during evapotranspiration', u'calculations.  The value roughly represents the following cases:', u'= 0   : concrete or other solid, non-permeable ground surface material', u'= 0.5 : short grass, much like a manicured lawn', u'= 1   : standard reference state (12 cm grass)', u'= 1.5 : wild growth'], u'minimum': '0.0', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Evapotranspiration Ground Cover Parameter`
@@ -8398,8 +8102,6 @@ class SiteGroundDomain(object):
     @slab_boundary_condition_model_name.setter
     def slab_boundary_condition_model_name(self, value=None):
         """  Corresponds to IDD Field `Slab Boundary Condition Model Name`
-        
-        {u'type': u'object-list', u'object-list': u'OSCMNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Slab Boundary Condition Model Name`
@@ -8436,8 +8138,6 @@ class SiteGroundDomain(object):
     def slab_location(self, value=None):
         """  Corresponds to IDD Field `Slab Location`
         This field specifies whether the slab is located "in-grade" or "on-grade"
-        
-        {u'note': [u'This field specifies whether the slab is located "in-grade" or "on-grade"'], u'type': u'choice', u'key': [u'InGrade', u'OnGrade'], u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Slab Location`
@@ -8494,8 +8194,6 @@ class SiteGroundDomain(object):
     def slab_material_name(self, value=None):
         """  Corresponds to IDD Field `Slab Material Name`
         Only applicable for the in-grade case
-        
-        {u'note': [u'Only applicable for the in-grade case'], u'type': u'object-list', u'object-list': u'MaterialName', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Slab Material Name`
@@ -8533,8 +8231,6 @@ class SiteGroundDomain(object):
         """  Corresponds to IDD Field `Horizontal Insulation`
         This field specifies the presence of insulation beneath the slab.
         Only required for in-grade case.
-        
-        {u'default': u'No', u'note': [u'This field specifies the presence of insulation beneath the slab.', u'Only required for in-grade case.'], u'type': u'choice', u'key': [u'Yes', u'No'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Horizontal Insulation`
@@ -8592,8 +8288,6 @@ class SiteGroundDomain(object):
     def horizontal_insulation_material_name(self, value=None):
         """  Corresponds to IDD Field `Horizontal Insulation Material Name`
         This field specifies the horizontal insulation material.
-        
-        {u'note': [u'This field specifies the horizontal insulation material.'], u'type': u'object-list', u'object-list': u'MaterialName', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Horizontal Insulation Material Name`
@@ -8631,8 +8325,6 @@ class SiteGroundDomain(object):
         """  Corresponds to IDD Field `Horizontal Insulation Extents`
         This field specifies whether the horizontal insulation fully insulates
         the surface or is perimeter only insulation
-        
-        {u'default': u'Full', u'note': [u'This field specifies whether the horizontal insulation fully insulates', u'the surface or is perimeter only insulation'], u'type': u'choice', u'key': [u'Full', u'Perimeter'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Horizontal Insulation Extents`
@@ -8690,8 +8382,6 @@ class SiteGroundDomain(object):
     def perimeter_insulation_width(self, value=None):
         """  Corresponds to IDD Field `Perimeter Insulation Width`
         This field specifies the width of the underfloor perimeter insulation
-        
-        {u'units': u'm', u'note': [u'This field specifies the width of the underfloor perimeter insulation'], u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Perimeter Insulation Width`
@@ -8727,8 +8417,6 @@ class SiteGroundDomain(object):
     def vertical_insulation(self, value="No"):
         """  Corresponds to IDD Field `Vertical Insulation`
         This field specifies the presence of vertical insulation at the slab edge.
-        
-        {'pytype': 'str', u'default': u'No', u'required-field': True, u'note': [u'This field specifies the presence of vertical insulation at the slab edge.'], u'key': [u'Yes', u'No'], u'type': u'choice'}
 
         Args:
             value (str): value for IDD Field `Vertical Insulation`
@@ -8786,8 +8474,6 @@ class SiteGroundDomain(object):
     def vertical_insulation_material_name(self, value=None):
         """  Corresponds to IDD Field `Vertical Insulation Material Name`
         This field specifies the vertical insulation material.
-        
-        {u'note': [u'This field specifies the vertical insulation material.'], u'type': u'object-list', u'object-list': u'MaterialName', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Vertical Insulation Material Name`
@@ -8825,8 +8511,6 @@ class SiteGroundDomain(object):
         """  Corresponds to IDD Field `Vertical Insulation Depth`
         Only used when including vertical insulation
         This field specifies the depth of the vertical insulation
-        
-        {u'units': u'm', u'note': [u'Only used when including vertical insulation', u'This field specifies the depth of the vertical insulation'], u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertical Insulation Depth`
@@ -8862,8 +8546,6 @@ class SiteGroundDomain(object):
     def simulation_timestep(self, value="Hourly"):
         """  Corresponds to IDD Field `Simulation Timestep`
         This field specifies the domain simulation timestep.
-        
-        {'pytype': 'str', u'default': u'Hourly', u'required-field': True, u'note': [u'This field specifies the domain simulation timestep.'], u'key': [u'Hourly', u'Timestep'], u'type': u'choice'}
 
         Args:
             value (str): value for IDD Field `Simulation Timestep`
@@ -9074,10 +8756,8 @@ class SiteGroundReflectance(object):
         return self._data["January Ground Reflectance"]
 
     @january_ground_reflectance.setter
-    def january_ground_reflectance(self, value=0.2 ):
+    def january_ground_reflectance(self, value=0.2):
         """  Corresponds to IDD Field `January Ground Reflectance`
-        
-        {'pytype': 'float', u'default': '0.2', u'maximum': '1.0', u'minimum': '0.0', u'units': u'dimensionless', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `January Ground Reflectance`
@@ -9115,10 +8795,8 @@ class SiteGroundReflectance(object):
         return self._data["February Ground Reflectance"]
 
     @february_ground_reflectance.setter
-    def february_ground_reflectance(self, value=0.2 ):
+    def february_ground_reflectance(self, value=0.2):
         """  Corresponds to IDD Field `February Ground Reflectance`
-        
-        {'pytype': 'float', u'default': '0.2', u'maximum': '1.0', u'minimum': '0.0', u'units': u'dimensionless', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `February Ground Reflectance`
@@ -9156,10 +8834,8 @@ class SiteGroundReflectance(object):
         return self._data["March Ground Reflectance"]
 
     @march_ground_reflectance.setter
-    def march_ground_reflectance(self, value=0.2 ):
+    def march_ground_reflectance(self, value=0.2):
         """  Corresponds to IDD Field `March Ground Reflectance`
-        
-        {'pytype': 'float', u'default': '0.2', u'maximum': '1.0', u'minimum': '0.0', u'units': u'dimensionless', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `March Ground Reflectance`
@@ -9197,10 +8873,8 @@ class SiteGroundReflectance(object):
         return self._data["April Ground Reflectance"]
 
     @april_ground_reflectance.setter
-    def april_ground_reflectance(self, value=0.2 ):
+    def april_ground_reflectance(self, value=0.2):
         """  Corresponds to IDD Field `April Ground Reflectance`
-        
-        {'pytype': 'float', u'default': '0.2', u'maximum': '1.0', u'minimum': '0.0', u'units': u'dimensionless', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `April Ground Reflectance`
@@ -9238,10 +8912,8 @@ class SiteGroundReflectance(object):
         return self._data["May Ground Reflectance"]
 
     @may_ground_reflectance.setter
-    def may_ground_reflectance(self, value=0.2 ):
+    def may_ground_reflectance(self, value=0.2):
         """  Corresponds to IDD Field `May Ground Reflectance`
-        
-        {'pytype': 'float', u'default': '0.2', u'maximum': '1.0', u'minimum': '0.0', u'units': u'dimensionless', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `May Ground Reflectance`
@@ -9279,10 +8951,8 @@ class SiteGroundReflectance(object):
         return self._data["June Ground Reflectance"]
 
     @june_ground_reflectance.setter
-    def june_ground_reflectance(self, value=0.2 ):
+    def june_ground_reflectance(self, value=0.2):
         """  Corresponds to IDD Field `June Ground Reflectance`
-        
-        {'pytype': 'float', u'default': '0.2', u'maximum': '1.0', u'minimum': '0.0', u'units': u'dimensionless', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `June Ground Reflectance`
@@ -9320,10 +8990,8 @@ class SiteGroundReflectance(object):
         return self._data["July Ground Reflectance"]
 
     @july_ground_reflectance.setter
-    def july_ground_reflectance(self, value=0.2 ):
+    def july_ground_reflectance(self, value=0.2):
         """  Corresponds to IDD Field `July Ground Reflectance`
-        
-        {'pytype': 'float', u'default': '0.2', u'maximum': '1.0', u'minimum': '0.0', u'units': u'dimensionless', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `July Ground Reflectance`
@@ -9361,10 +9029,8 @@ class SiteGroundReflectance(object):
         return self._data["August Ground Reflectance"]
 
     @august_ground_reflectance.setter
-    def august_ground_reflectance(self, value=0.2 ):
+    def august_ground_reflectance(self, value=0.2):
         """  Corresponds to IDD Field `August Ground Reflectance`
-        
-        {'pytype': 'float', u'default': '0.2', u'maximum': '1.0', u'minimum': '0.0', u'units': u'dimensionless', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `August Ground Reflectance`
@@ -9402,10 +9068,8 @@ class SiteGroundReflectance(object):
         return self._data["September Ground Reflectance"]
 
     @september_ground_reflectance.setter
-    def september_ground_reflectance(self, value=0.2 ):
+    def september_ground_reflectance(self, value=0.2):
         """  Corresponds to IDD Field `September Ground Reflectance`
-        
-        {'pytype': 'float', u'default': '0.2', u'maximum': '1.0', u'minimum': '0.0', u'units': u'dimensionless', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `September Ground Reflectance`
@@ -9443,10 +9107,8 @@ class SiteGroundReflectance(object):
         return self._data["October Ground Reflectance"]
 
     @october_ground_reflectance.setter
-    def october_ground_reflectance(self, value=0.2 ):
+    def october_ground_reflectance(self, value=0.2):
         """  Corresponds to IDD Field `October Ground Reflectance`
-        
-        {'pytype': 'float', u'default': '0.2', u'maximum': '1.0', u'minimum': '0.0', u'units': u'dimensionless', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `October Ground Reflectance`
@@ -9484,10 +9146,8 @@ class SiteGroundReflectance(object):
         return self._data["November Ground Reflectance"]
 
     @november_ground_reflectance.setter
-    def november_ground_reflectance(self, value=0.2 ):
+    def november_ground_reflectance(self, value=0.2):
         """  Corresponds to IDD Field `November Ground Reflectance`
-        
-        {'pytype': 'float', u'default': '0.2', u'maximum': '1.0', u'minimum': '0.0', u'units': u'dimensionless', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `November Ground Reflectance`
@@ -9525,10 +9185,8 @@ class SiteGroundReflectance(object):
         return self._data["December Ground Reflectance"]
 
     @december_ground_reflectance.setter
-    def december_ground_reflectance(self, value=0.2 ):
+    def december_ground_reflectance(self, value=0.2):
         """  Corresponds to IDD Field `December Ground Reflectance`
-        
-        {'pytype': 'float', u'default': '0.2', u'maximum': '1.0', u'minimum': '0.0', u'units': u'dimensionless', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `December Ground Reflectance`
@@ -9642,7 +9300,7 @@ class SiteGroundReflectanceSnowModifier(object):
         return self._data["Ground Reflected Solar Modifier"]
 
     @ground_reflected_solar_modifier.setter
-    def ground_reflected_solar_modifier(self, value=1.0 ):
+    def ground_reflected_solar_modifier(self, value=1.0):
         """  Corresponds to IDD Field `Ground Reflected Solar Modifier`
         Value for modifying the "normal" ground reflectance when Snow is on ground
         when calculating the "Ground Reflected Solar Radiation Value"
@@ -9651,8 +9309,6 @@ class SiteGroundReflectanceSnowModifier(object):
         This would be further modified by the Snow Ground Reflectance Modifier when Snow was on the ground
         When Snow on ground, effective GroundReflectance is normal GroundReflectance*"Ground Reflectance Snow Modifier"
         Ground Reflectance achieved in this manner will be restricted to [0.0,1.0]
-        
-        {u'default': '1.0', u'note': [u'Value for modifying the "normal" ground reflectance when Snow is on ground', u'when calculating the "Ground Reflected Solar Radiation Value"', u'a value of 1.0 here uses the "normal" ground reflectance', u'Ground Reflected Solar = (BeamSolar*CosSunZenith + DiffuseSolar)*GroundReflectance', u'This would be further modified by the Snow Ground Reflectance Modifier when Snow was on the ground', u'When Snow on ground, effective GroundReflectance is normal GroundReflectance*"Ground Reflectance Snow Modifier"', u'Ground Reflectance achieved in this manner will be restricted to [0.0,1.0]'], u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Ground Reflected Solar Modifier`
@@ -9685,7 +9341,7 @@ class SiteGroundReflectanceSnowModifier(object):
         return self._data["Daylighting Ground Reflected Solar Modifier"]
 
     @daylighting_ground_reflected_solar_modifier.setter
-    def daylighting_ground_reflected_solar_modifier(self, value=1.0 ):
+    def daylighting_ground_reflected_solar_modifier(self, value=1.0):
         """  Corresponds to IDD Field `Daylighting Ground Reflected Solar Modifier`
         Value for modifying the "normal" daylighting ground reflectance when Snow is on ground
         when calculating the "Ground Reflected Solar Radiation Value"
@@ -9694,8 +9350,6 @@ class SiteGroundReflectanceSnowModifier(object):
         This would be further modified by the Snow Ground Reflectance Modifier when Snow was on the ground
         When Snow on ground, effective GroundReflectance is normal GroundReflectance*"Daylighting Ground Reflectance Snow Modifier"
         Ground Reflectance achieved in this manner will be restricted to [0.0,1.0]
-        
-        {u'default': '1.0', u'note': [u'Value for modifying the "normal" daylighting ground reflectance when Snow is on ground', u'when calculating the "Ground Reflected Solar Radiation Value"', u'a value of 1.0 here uses the "normal" ground reflectance', u'Ground Reflected Solar = (BeamSolar*CosSunZenith + DiffuseSolar)*GroundReflectance', u'This would be further modified by the Snow Ground Reflectance Modifier when Snow was on the ground', u'When Snow on ground, effective GroundReflectance is normal GroundReflectance*"Daylighting Ground Reflectance Snow Modifier"', u'Ground Reflectance achieved in this manner will be restricted to [0.0,1.0]'], u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Daylighting Ground Reflected Solar Modifier`
@@ -9822,8 +9476,6 @@ class SiteWaterMainsTemperature(object):
     @calculation_method.setter
     def calculation_method(self, value=None):
         """  Corresponds to IDD Field `Calculation Method`
-        
-        {u'type': u'choice', u'key': [u'Schedule', u'Correlation'], u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Calculation Method`
@@ -9879,8 +9531,6 @@ class SiteWaterMainsTemperature(object):
     @temperature_schedule_name.setter
     def temperature_schedule_name(self, value=None):
         """  Corresponds to IDD Field `Temperature Schedule Name`
-        
-        {u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Temperature Schedule Name`
@@ -9916,8 +9566,6 @@ class SiteWaterMainsTemperature(object):
     @annual_average_outdoor_air_temperature.setter
     def annual_average_outdoor_air_temperature(self, value=None):
         """  Corresponds to IDD Field `Annual Average Outdoor Air Temperature`
-        
-        {u'units': u'C', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Annual Average Outdoor Air Temperature`
@@ -9948,8 +9596,6 @@ class SiteWaterMainsTemperature(object):
     @maximum_difference_in_monthly_average_outdoor_air_temperatures.setter
     def maximum_difference_in_monthly_average_outdoor_air_temperatures(self, value=None):
         """  Corresponds to IDD Field `Maximum Difference In Monthly Average Outdoor Air Temperatures`
-        
-        {u'units': u'deltaC', u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Maximum Difference In Monthly Average Outdoor Air Temperatures`
@@ -10075,8 +9721,6 @@ class SitePrecipitation(object):
     @precipitation_model_type.setter
     def precipitation_model_type(self, value=None):
         """  Corresponds to IDD Field `Precipitation Model Type`
-        
-        {u'type': u'choice', u'key': [u'ScheduleAndDesignLevel'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Precipitation Model Type`
@@ -10131,8 +9775,6 @@ class SitePrecipitation(object):
     def design_level_for_total_annual_precipitation(self, value=None):
         """  Corresponds to IDD Field `Design Level for Total Annual Precipitation`
         meters of water per year used for design level
-        
-        {u'note': [u'meters of water per year used for design level'], u'units': u'm/yr', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Design Level for Total Annual Precipitation`
@@ -10165,8 +9807,6 @@ class SitePrecipitation(object):
         """  Corresponds to IDD Field `Precipitation Rates Schedule Name`
         Schedule values in meters of water per hour
         values should be non-negative
-        
-        {u'note': [u'Schedule values in meters of water per hour', u'values should be non-negative'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Precipitation Rates Schedule Name`
@@ -10203,8 +9843,6 @@ class SitePrecipitation(object):
     def average_total_annual_precipitation(self, value=None):
         """  Corresponds to IDD Field `Average Total Annual Precipitation`
         meters of water per year from average weather statistics
-        
-        {u'note': [u'meters of water per year from average weather statistics'], u'units': u'm/yr', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Average Total Annual Precipitation`
@@ -10324,8 +9962,6 @@ class RoofIrrigation(object):
         """  Corresponds to IDD Field `Irrigation Model Type`
         SmartSchedule will not allow irrigation when soil is already moist.
         Current threshold set at 30% of saturation.
-        
-        {u'note': [u'SmartSchedule will not allow irrigation when soil is already moist.', u'Current threshold set at 30% of saturation.'], u'type': u'choice', u'key': [u'Schedule', u'SmartSchedule'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Irrigation Model Type`
@@ -10383,8 +10019,6 @@ class RoofIrrigation(object):
         """  Corresponds to IDD Field `Irrigation Rate Schedule Name`
         Schedule values in meters of water per hour
         values should be non-negative
-        
-        {u'note': [u'Schedule values in meters of water per hour', u'values should be non-negative'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Irrigation Rate Schedule Name`
@@ -10418,12 +10052,10 @@ class RoofIrrigation(object):
         return self._data["Irrigation Maximum Saturation Threshold"]
 
     @irrigation_maximum_saturation_threshold.setter
-    def irrigation_maximum_saturation_threshold(self, value=40.0 ):
+    def irrigation_maximum_saturation_threshold(self, value=40.0):
         """  Corresponds to IDD Field `Irrigation Maximum Saturation Threshold`
         Used with SmartSchedule to set the saturation level at which no
         irrigation is allowed.
-        
-        {'pytype': 'float', u'default': '40.0', u'maximum': '100.0', u'note': [u'Used with SmartSchedule to set the saturation level at which no', u'irrigation is allowed.'], u'minimum': '0.0', u'units': u'percent', 'type': 'real'}
 
         Args:
             value (float): value for IDD Field `Irrigation Maximum Saturation Threshold`
@@ -10553,8 +10185,6 @@ class SiteSolarAndVisibleSpectrum(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -10593,8 +10223,6 @@ class SiteSolarAndVisibleSpectrum(object):
         The method specifies which of the solar and visible spectrum data to use in the calculations.
         Choices: Default - existing hard-wired spectrum data in EnergyPlus.
         UserDefined - user specified spectrum data referenced by the next two fields
-        
-        {u'note': [u'The method specifies which of the solar and visible spectrum data to use in the calculations.', u'Choices: Default - existing hard-wired spectrum data in EnergyPlus.', u'UserDefined - user specified spectrum data referenced by the next two fields'], u'default': u'Default', u'type': u'choice', u'key': [u'Default', u'UserDefined'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Spectrum Data Method`
@@ -10651,8 +10279,6 @@ class SiteSolarAndVisibleSpectrum(object):
     @solar_spectrum_data_object_name.setter
     def solar_spectrum_data_object_name(self, value=None):
         """  Corresponds to IDD Field `Solar Spectrum Data Object Name`
-        
-        {u'type': u'alpha', u'reference': u'SpectrumDataNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Solar Spectrum Data Object Name`
@@ -10688,8 +10314,6 @@ class SiteSolarAndVisibleSpectrum(object):
     @visible_spectrum_data_object_name.setter
     def visible_spectrum_data_object_name(self, value=None):
         """  Corresponds to IDD Field `Visible Spectrum Data Object Name`
-        
-        {u'type': u'alpha', u'reference': u'SpectrumDataNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Visible Spectrum Data Object Name`
@@ -12513,8 +12137,6 @@ class SiteSpectrumData(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -12550,8 +12172,6 @@ class SiteSpectrumData(object):
     @spectrum_data_type.setter
     def spectrum_data_type(self, value=None):
         """  Corresponds to IDD Field `Spectrum Data Type`
-        
-        {u'type': u'choice', u'key': [u'Solar', u'Visible'], u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Spectrum Data Type`
@@ -12607,8 +12227,6 @@ class SiteSpectrumData(object):
     @wavelength_1.setter
     def wavelength_1(self, value=None):
         """  Corresponds to IDD Field `Wavelength 1`
-        
-        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Wavelength 1`
@@ -12639,8 +12257,6 @@ class SiteSpectrumData(object):
     @spectrum_1.setter
     def spectrum_1(self, value=None):
         """  Corresponds to IDD Field `Spectrum 1`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Spectrum 1`
@@ -12670,8 +12286,6 @@ class SiteSpectrumData(object):
     @wavelength_2.setter
     def wavelength_2(self, value=None):
         """  Corresponds to IDD Field `Wavelength 2`
-        
-        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Wavelength 2`
@@ -12702,8 +12316,6 @@ class SiteSpectrumData(object):
     @spectrum_2.setter
     def spectrum_2(self, value=None):
         """  Corresponds to IDD Field `Spectrum 2`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Spectrum 2`
@@ -12733,8 +12345,6 @@ class SiteSpectrumData(object):
     @wavelength_3.setter
     def wavelength_3(self, value=None):
         """  Corresponds to IDD Field `Wavelength 3`
-        
-        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Wavelength 3`
@@ -12765,8 +12375,6 @@ class SiteSpectrumData(object):
     @spectrum_3.setter
     def spectrum_3(self, value=None):
         """  Corresponds to IDD Field `Spectrum 3`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Spectrum 3`
@@ -12796,8 +12404,6 @@ class SiteSpectrumData(object):
     @wavelength_4.setter
     def wavelength_4(self, value=None):
         """  Corresponds to IDD Field `Wavelength 4`
-        
-        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Wavelength 4`
@@ -12828,8 +12434,6 @@ class SiteSpectrumData(object):
     @spectrum_4.setter
     def spectrum_4(self, value=None):
         """  Corresponds to IDD Field `Spectrum 4`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Spectrum 4`
@@ -12859,8 +12463,6 @@ class SiteSpectrumData(object):
     @wavelength_5.setter
     def wavelength_5(self, value=None):
         """  Corresponds to IDD Field `Wavelength 5`
-        
-        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Wavelength 5`
@@ -12891,8 +12493,6 @@ class SiteSpectrumData(object):
     @spectrum_5.setter
     def spectrum_5(self, value=None):
         """  Corresponds to IDD Field `Spectrum 5`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Spectrum 5`
@@ -12922,8 +12522,6 @@ class SiteSpectrumData(object):
     @wavelength_6.setter
     def wavelength_6(self, value=None):
         """  Corresponds to IDD Field `Wavelength 6`
-        
-        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Wavelength 6`
@@ -12954,8 +12552,6 @@ class SiteSpectrumData(object):
     @spectrum_6.setter
     def spectrum_6(self, value=None):
         """  Corresponds to IDD Field `Spectrum 6`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Spectrum 6`
@@ -12985,8 +12581,6 @@ class SiteSpectrumData(object):
     @wavelength_7.setter
     def wavelength_7(self, value=None):
         """  Corresponds to IDD Field `Wavelength 7`
-        
-        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Wavelength 7`
@@ -13017,8 +12611,6 @@ class SiteSpectrumData(object):
     @spectrum_7.setter
     def spectrum_7(self, value=None):
         """  Corresponds to IDD Field `Spectrum 7`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Spectrum 7`
@@ -13048,8 +12640,6 @@ class SiteSpectrumData(object):
     @wavelength_8.setter
     def wavelength_8(self, value=None):
         """  Corresponds to IDD Field `Wavelength 8`
-        
-        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Wavelength 8`
@@ -13080,8 +12670,6 @@ class SiteSpectrumData(object):
     @spectrum_8.setter
     def spectrum_8(self, value=None):
         """  Corresponds to IDD Field `Spectrum 8`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Spectrum 8`
@@ -13111,8 +12699,6 @@ class SiteSpectrumData(object):
     @wavelength_9.setter
     def wavelength_9(self, value=None):
         """  Corresponds to IDD Field `Wavelength 9`
-        
-        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Wavelength 9`
@@ -13143,8 +12729,6 @@ class SiteSpectrumData(object):
     @spectrum_9.setter
     def spectrum_9(self, value=None):
         """  Corresponds to IDD Field `Spectrum 9`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Spectrum 9`
@@ -13174,8 +12758,6 @@ class SiteSpectrumData(object):
     @wavelength_10.setter
     def wavelength_10(self, value=None):
         """  Corresponds to IDD Field `Wavelength 10`
-        
-        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Wavelength 10`
@@ -13206,8 +12788,6 @@ class SiteSpectrumData(object):
     @spectrum_10.setter
     def spectrum_10(self, value=None):
         """  Corresponds to IDD Field `Spectrum 10`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Spectrum 10`
@@ -13237,8 +12817,6 @@ class SiteSpectrumData(object):
     @wavelength_11.setter
     def wavelength_11(self, value=None):
         """  Corresponds to IDD Field `Wavelength 11`
-        
-        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Wavelength 11`
@@ -13269,8 +12847,6 @@ class SiteSpectrumData(object):
     @spectrum_11.setter
     def spectrum_11(self, value=None):
         """  Corresponds to IDD Field `Spectrum 11`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Spectrum 11`
@@ -13300,8 +12876,6 @@ class SiteSpectrumData(object):
     @wavelength_12.setter
     def wavelength_12(self, value=None):
         """  Corresponds to IDD Field `Wavelength 12`
-        
-        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Wavelength 12`
@@ -13332,8 +12906,6 @@ class SiteSpectrumData(object):
     @spectrum_12.setter
     def spectrum_12(self, value=None):
         """  Corresponds to IDD Field `Spectrum 12`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Spectrum 12`
@@ -13363,8 +12935,6 @@ class SiteSpectrumData(object):
     @wavelength_13.setter
     def wavelength_13(self, value=None):
         """  Corresponds to IDD Field `Wavelength 13`
-        
-        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Wavelength 13`
@@ -13395,8 +12965,6 @@ class SiteSpectrumData(object):
     @spectrum_13.setter
     def spectrum_13(self, value=None):
         """  Corresponds to IDD Field `Spectrum 13`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Spectrum 13`
@@ -13426,8 +12994,6 @@ class SiteSpectrumData(object):
     @wavelength_14.setter
     def wavelength_14(self, value=None):
         """  Corresponds to IDD Field `Wavelength 14`
-        
-        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Wavelength 14`
@@ -13458,8 +13024,6 @@ class SiteSpectrumData(object):
     @spectrum_14.setter
     def spectrum_14(self, value=None):
         """  Corresponds to IDD Field `Spectrum 14`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Spectrum 14`
@@ -13489,8 +13053,6 @@ class SiteSpectrumData(object):
     @wavelength_15.setter
     def wavelength_15(self, value=None):
         """  Corresponds to IDD Field `Wavelength 15`
-        
-        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Wavelength 15`
@@ -13521,8 +13083,6 @@ class SiteSpectrumData(object):
     @spectrum_15.setter
     def spectrum_15(self, value=None):
         """  Corresponds to IDD Field `Spectrum 15`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Spectrum 15`
@@ -13552,8 +13112,6 @@ class SiteSpectrumData(object):
     @wavelength_16.setter
     def wavelength_16(self, value=None):
         """  Corresponds to IDD Field `Wavelength 16`
-        
-        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Wavelength 16`
@@ -13584,8 +13142,6 @@ class SiteSpectrumData(object):
     @spectrum_16.setter
     def spectrum_16(self, value=None):
         """  Corresponds to IDD Field `Spectrum 16`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Spectrum 16`
@@ -13615,8 +13171,6 @@ class SiteSpectrumData(object):
     @wavelength_17.setter
     def wavelength_17(self, value=None):
         """  Corresponds to IDD Field `Wavelength 17`
-        
-        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Wavelength 17`
@@ -13647,8 +13201,6 @@ class SiteSpectrumData(object):
     @spectrum_17.setter
     def spectrum_17(self, value=None):
         """  Corresponds to IDD Field `Spectrum 17`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Spectrum 17`
@@ -13678,8 +13230,6 @@ class SiteSpectrumData(object):
     @wavelength_18.setter
     def wavelength_18(self, value=None):
         """  Corresponds to IDD Field `Wavelength 18`
-        
-        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Wavelength 18`
@@ -13710,8 +13260,6 @@ class SiteSpectrumData(object):
     @spectrum_18.setter
     def spectrum_18(self, value=None):
         """  Corresponds to IDD Field `Spectrum 18`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Spectrum 18`
@@ -13741,8 +13289,6 @@ class SiteSpectrumData(object):
     @wavelength_19.setter
     def wavelength_19(self, value=None):
         """  Corresponds to IDD Field `Wavelength 19`
-        
-        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Wavelength 19`
@@ -13773,8 +13319,6 @@ class SiteSpectrumData(object):
     @spectrum_19.setter
     def spectrum_19(self, value=None):
         """  Corresponds to IDD Field `Spectrum 19`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Spectrum 19`
@@ -13804,8 +13348,6 @@ class SiteSpectrumData(object):
     @wavelength_20.setter
     def wavelength_20(self, value=None):
         """  Corresponds to IDD Field `Wavelength 20`
-        
-        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Wavelength 20`
@@ -13836,8 +13378,6 @@ class SiteSpectrumData(object):
     @spectrum_20.setter
     def spectrum_20(self, value=None):
         """  Corresponds to IDD Field `Spectrum 20`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Spectrum 20`
@@ -13867,8 +13407,6 @@ class SiteSpectrumData(object):
     @wavelength_21.setter
     def wavelength_21(self, value=None):
         """  Corresponds to IDD Field `Wavelength 21`
-        
-        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Wavelength 21`
@@ -13899,8 +13437,6 @@ class SiteSpectrumData(object):
     @spectrum_21.setter
     def spectrum_21(self, value=None):
         """  Corresponds to IDD Field `Spectrum 21`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Spectrum 21`
@@ -13930,8 +13466,6 @@ class SiteSpectrumData(object):
     @wavelength_22.setter
     def wavelength_22(self, value=None):
         """  Corresponds to IDD Field `Wavelength 22`
-        
-        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Wavelength 22`
@@ -13962,8 +13496,6 @@ class SiteSpectrumData(object):
     @spectrum_22.setter
     def spectrum_22(self, value=None):
         """  Corresponds to IDD Field `Spectrum 22`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Spectrum 22`
@@ -13993,8 +13525,6 @@ class SiteSpectrumData(object):
     @wavelength_23.setter
     def wavelength_23(self, value=None):
         """  Corresponds to IDD Field `Wavelength 23`
-        
-        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Wavelength 23`
@@ -14025,8 +13555,6 @@ class SiteSpectrumData(object):
     @spectrum_23.setter
     def spectrum_23(self, value=None):
         """  Corresponds to IDD Field `Spectrum 23`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Spectrum 23`
@@ -14056,8 +13584,6 @@ class SiteSpectrumData(object):
     @wavelength_24.setter
     def wavelength_24(self, value=None):
         """  Corresponds to IDD Field `Wavelength 24`
-        
-        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Wavelength 24`
@@ -14088,8 +13614,6 @@ class SiteSpectrumData(object):
     @spectrum_24.setter
     def spectrum_24(self, value=None):
         """  Corresponds to IDD Field `Spectrum 24`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Spectrum 24`
@@ -14119,8 +13643,6 @@ class SiteSpectrumData(object):
     @wavelength_25.setter
     def wavelength_25(self, value=None):
         """  Corresponds to IDD Field `Wavelength 25`
-        
-        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Wavelength 25`
@@ -14151,8 +13673,6 @@ class SiteSpectrumData(object):
     @spectrum_25.setter
     def spectrum_25(self, value=None):
         """  Corresponds to IDD Field `Spectrum 25`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Spectrum 25`
@@ -14182,8 +13702,6 @@ class SiteSpectrumData(object):
     @wavelength_26.setter
     def wavelength_26(self, value=None):
         """  Corresponds to IDD Field `Wavelength 26`
-        
-        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Wavelength 26`
@@ -14214,8 +13732,6 @@ class SiteSpectrumData(object):
     @spectrum_26.setter
     def spectrum_26(self, value=None):
         """  Corresponds to IDD Field `Spectrum 26`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Spectrum 26`
@@ -14245,8 +13761,6 @@ class SiteSpectrumData(object):
     @wavelength_27.setter
     def wavelength_27(self, value=None):
         """  Corresponds to IDD Field `Wavelength 27`
-        
-        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Wavelength 27`
@@ -14277,8 +13791,6 @@ class SiteSpectrumData(object):
     @spectrum_27.setter
     def spectrum_27(self, value=None):
         """  Corresponds to IDD Field `Spectrum 27`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Spectrum 27`
@@ -14308,8 +13820,6 @@ class SiteSpectrumData(object):
     @wavelength_28.setter
     def wavelength_28(self, value=None):
         """  Corresponds to IDD Field `Wavelength 28`
-        
-        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Wavelength 28`
@@ -14340,8 +13850,6 @@ class SiteSpectrumData(object):
     @spectrum_28.setter
     def spectrum_28(self, value=None):
         """  Corresponds to IDD Field `Spectrum 28`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Spectrum 28`
@@ -14371,8 +13879,6 @@ class SiteSpectrumData(object):
     @wavelength_29.setter
     def wavelength_29(self, value=None):
         """  Corresponds to IDD Field `Wavelength 29`
-        
-        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Wavelength 29`
@@ -14403,8 +13909,6 @@ class SiteSpectrumData(object):
     @spectrum_29.setter
     def spectrum_29(self, value=None):
         """  Corresponds to IDD Field `Spectrum 29`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Spectrum 29`
@@ -14434,8 +13938,6 @@ class SiteSpectrumData(object):
     @wavelength_30.setter
     def wavelength_30(self, value=None):
         """  Corresponds to IDD Field `Wavelength 30`
-        
-        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Wavelength 30`
@@ -14466,8 +13968,6 @@ class SiteSpectrumData(object):
     @spectrum_30.setter
     def spectrum_30(self, value=None):
         """  Corresponds to IDD Field `Spectrum 30`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Spectrum 30`
@@ -14497,8 +13997,6 @@ class SiteSpectrumData(object):
     @wavelength_31.setter
     def wavelength_31(self, value=None):
         """  Corresponds to IDD Field `Wavelength 31`
-        
-        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Wavelength 31`
@@ -14529,8 +14027,6 @@ class SiteSpectrumData(object):
     @spectrum_31.setter
     def spectrum_31(self, value=None):
         """  Corresponds to IDD Field `Spectrum 31`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Spectrum 31`
@@ -14560,8 +14056,6 @@ class SiteSpectrumData(object):
     @wavelength_32.setter
     def wavelength_32(self, value=None):
         """  Corresponds to IDD Field `Wavelength 32`
-        
-        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Wavelength 32`
@@ -14592,8 +14086,6 @@ class SiteSpectrumData(object):
     @spectrum_32.setter
     def spectrum_32(self, value=None):
         """  Corresponds to IDD Field `Spectrum 32`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Spectrum 32`
@@ -14623,8 +14115,6 @@ class SiteSpectrumData(object):
     @wavelength_33.setter
     def wavelength_33(self, value=None):
         """  Corresponds to IDD Field `Wavelength 33`
-        
-        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Wavelength 33`
@@ -14655,8 +14145,6 @@ class SiteSpectrumData(object):
     @spectrum_33.setter
     def spectrum_33(self, value=None):
         """  Corresponds to IDD Field `Spectrum 33`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Spectrum 33`
@@ -14686,8 +14174,6 @@ class SiteSpectrumData(object):
     @wavelength_34.setter
     def wavelength_34(self, value=None):
         """  Corresponds to IDD Field `Wavelength 34`
-        
-        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Wavelength 34`
@@ -14718,8 +14204,6 @@ class SiteSpectrumData(object):
     @spectrum_34.setter
     def spectrum_34(self, value=None):
         """  Corresponds to IDD Field `Spectrum 34`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Spectrum 34`
@@ -14749,8 +14233,6 @@ class SiteSpectrumData(object):
     @wavelength_35.setter
     def wavelength_35(self, value=None):
         """  Corresponds to IDD Field `Wavelength 35`
-        
-        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Wavelength 35`
@@ -14781,8 +14263,6 @@ class SiteSpectrumData(object):
     @spectrum_35.setter
     def spectrum_35(self, value=None):
         """  Corresponds to IDD Field `Spectrum 35`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Spectrum 35`
@@ -14812,8 +14292,6 @@ class SiteSpectrumData(object):
     @wavelength_36.setter
     def wavelength_36(self, value=None):
         """  Corresponds to IDD Field `Wavelength 36`
-        
-        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Wavelength 36`
@@ -14844,8 +14322,6 @@ class SiteSpectrumData(object):
     @spectrum_36.setter
     def spectrum_36(self, value=None):
         """  Corresponds to IDD Field `Spectrum 36`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Spectrum 36`
@@ -14875,8 +14351,6 @@ class SiteSpectrumData(object):
     @wavelength_37.setter
     def wavelength_37(self, value=None):
         """  Corresponds to IDD Field `Wavelength 37`
-        
-        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Wavelength 37`
@@ -14907,8 +14381,6 @@ class SiteSpectrumData(object):
     @spectrum_37.setter
     def spectrum_37(self, value=None):
         """  Corresponds to IDD Field `Spectrum 37`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Spectrum 37`
@@ -14938,8 +14410,6 @@ class SiteSpectrumData(object):
     @wavelength_38.setter
     def wavelength_38(self, value=None):
         """  Corresponds to IDD Field `Wavelength 38`
-        
-        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Wavelength 38`
@@ -14970,8 +14440,6 @@ class SiteSpectrumData(object):
     @spectrum_38.setter
     def spectrum_38(self, value=None):
         """  Corresponds to IDD Field `Spectrum 38`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Spectrum 38`
@@ -15001,8 +14469,6 @@ class SiteSpectrumData(object):
     @wavelength_39.setter
     def wavelength_39(self, value=None):
         """  Corresponds to IDD Field `Wavelength 39`
-        
-        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Wavelength 39`
@@ -15033,8 +14499,6 @@ class SiteSpectrumData(object):
     @spectrum_39.setter
     def spectrum_39(self, value=None):
         """  Corresponds to IDD Field `Spectrum 39`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Spectrum 39`
@@ -15064,8 +14528,6 @@ class SiteSpectrumData(object):
     @wavelength_40.setter
     def wavelength_40(self, value=None):
         """  Corresponds to IDD Field `Wavelength 40`
-        
-        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Wavelength 40`
@@ -15096,8 +14558,6 @@ class SiteSpectrumData(object):
     @spectrum_40.setter
     def spectrum_40(self, value=None):
         """  Corresponds to IDD Field `Spectrum 40`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Spectrum 40`
@@ -15127,8 +14587,6 @@ class SiteSpectrumData(object):
     @wavelength_41.setter
     def wavelength_41(self, value=None):
         """  Corresponds to IDD Field `Wavelength 41`
-        
-        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Wavelength 41`
@@ -15159,8 +14617,6 @@ class SiteSpectrumData(object):
     @spectrum_41.setter
     def spectrum_41(self, value=None):
         """  Corresponds to IDD Field `Spectrum 41`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Spectrum 41`
@@ -15190,8 +14646,6 @@ class SiteSpectrumData(object):
     @wavelength_42.setter
     def wavelength_42(self, value=None):
         """  Corresponds to IDD Field `Wavelength 42`
-        
-        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Wavelength 42`
@@ -15222,8 +14676,6 @@ class SiteSpectrumData(object):
     @spectrum_42.setter
     def spectrum_42(self, value=None):
         """  Corresponds to IDD Field `Spectrum 42`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Spectrum 42`
@@ -15253,8 +14705,6 @@ class SiteSpectrumData(object):
     @wavelength_43.setter
     def wavelength_43(self, value=None):
         """  Corresponds to IDD Field `Wavelength 43`
-        
-        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Wavelength 43`
@@ -15285,8 +14735,6 @@ class SiteSpectrumData(object):
     @spectrum_43.setter
     def spectrum_43(self, value=None):
         """  Corresponds to IDD Field `Spectrum 43`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Spectrum 43`
@@ -15316,8 +14764,6 @@ class SiteSpectrumData(object):
     @wavelength_44.setter
     def wavelength_44(self, value=None):
         """  Corresponds to IDD Field `Wavelength 44`
-        
-        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Wavelength 44`
@@ -15348,8 +14794,6 @@ class SiteSpectrumData(object):
     @spectrum_44.setter
     def spectrum_44(self, value=None):
         """  Corresponds to IDD Field `Spectrum 44`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Spectrum 44`
@@ -15379,8 +14823,6 @@ class SiteSpectrumData(object):
     @wavelength_45.setter
     def wavelength_45(self, value=None):
         """  Corresponds to IDD Field `Wavelength 45`
-        
-        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Wavelength 45`
@@ -15411,8 +14853,6 @@ class SiteSpectrumData(object):
     @spectrum_45.setter
     def spectrum_45(self, value=None):
         """  Corresponds to IDD Field `Spectrum 45`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Spectrum 45`
@@ -15442,8 +14882,6 @@ class SiteSpectrumData(object):
     @wavelength_46.setter
     def wavelength_46(self, value=None):
         """  Corresponds to IDD Field `Wavelength 46`
-        
-        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Wavelength 46`
@@ -15474,8 +14912,6 @@ class SiteSpectrumData(object):
     @spectrum_46.setter
     def spectrum_46(self, value=None):
         """  Corresponds to IDD Field `Spectrum 46`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Spectrum 46`
@@ -15505,8 +14941,6 @@ class SiteSpectrumData(object):
     @wavelength_47.setter
     def wavelength_47(self, value=None):
         """  Corresponds to IDD Field `Wavelength 47`
-        
-        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Wavelength 47`
@@ -15537,8 +14971,6 @@ class SiteSpectrumData(object):
     @spectrum_47.setter
     def spectrum_47(self, value=None):
         """  Corresponds to IDD Field `Spectrum 47`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Spectrum 47`
@@ -15568,8 +15000,6 @@ class SiteSpectrumData(object):
     @wavelength_48.setter
     def wavelength_48(self, value=None):
         """  Corresponds to IDD Field `Wavelength 48`
-        
-        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Wavelength 48`
@@ -15600,8 +15030,6 @@ class SiteSpectrumData(object):
     @spectrum_48.setter
     def spectrum_48(self, value=None):
         """  Corresponds to IDD Field `Spectrum 48`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Spectrum 48`
@@ -15631,8 +15059,6 @@ class SiteSpectrumData(object):
     @wavelength_49.setter
     def wavelength_49(self, value=None):
         """  Corresponds to IDD Field `Wavelength 49`
-        
-        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Wavelength 49`
@@ -15663,8 +15089,6 @@ class SiteSpectrumData(object):
     @spectrum_49.setter
     def spectrum_49(self, value=None):
         """  Corresponds to IDD Field `Spectrum 49`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Spectrum 49`
@@ -15694,8 +15118,6 @@ class SiteSpectrumData(object):
     @wavelength_50.setter
     def wavelength_50(self, value=None):
         """  Corresponds to IDD Field `Wavelength 50`
-        
-        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Wavelength 50`
@@ -15726,8 +15148,6 @@ class SiteSpectrumData(object):
     @spectrum_50.setter
     def spectrum_50(self, value=None):
         """  Corresponds to IDD Field `Spectrum 50`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Spectrum 50`
@@ -15757,8 +15177,6 @@ class SiteSpectrumData(object):
     @wavelength_51.setter
     def wavelength_51(self, value=None):
         """  Corresponds to IDD Field `Wavelength 51`
-        
-        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Wavelength 51`
@@ -15789,8 +15207,6 @@ class SiteSpectrumData(object):
     @spectrum_51.setter
     def spectrum_51(self, value=None):
         """  Corresponds to IDD Field `Spectrum 51`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Spectrum 51`
@@ -15820,8 +15236,6 @@ class SiteSpectrumData(object):
     @wavelength_52.setter
     def wavelength_52(self, value=None):
         """  Corresponds to IDD Field `Wavelength 52`
-        
-        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Wavelength 52`
@@ -15852,8 +15266,6 @@ class SiteSpectrumData(object):
     @spectrum_52.setter
     def spectrum_52(self, value=None):
         """  Corresponds to IDD Field `Spectrum 52`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Spectrum 52`
@@ -15883,8 +15295,6 @@ class SiteSpectrumData(object):
     @wavelength_53.setter
     def wavelength_53(self, value=None):
         """  Corresponds to IDD Field `Wavelength 53`
-        
-        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Wavelength 53`
@@ -15915,8 +15325,6 @@ class SiteSpectrumData(object):
     @spectrum_53.setter
     def spectrum_53(self, value=None):
         """  Corresponds to IDD Field `Spectrum 53`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Spectrum 53`
@@ -15946,8 +15354,6 @@ class SiteSpectrumData(object):
     @wavelength_54.setter
     def wavelength_54(self, value=None):
         """  Corresponds to IDD Field `Wavelength 54`
-        
-        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Wavelength 54`
@@ -15978,8 +15384,6 @@ class SiteSpectrumData(object):
     @spectrum_54.setter
     def spectrum_54(self, value=None):
         """  Corresponds to IDD Field `Spectrum 54`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Spectrum 54`
@@ -16009,8 +15413,6 @@ class SiteSpectrumData(object):
     @wavelength_55.setter
     def wavelength_55(self, value=None):
         """  Corresponds to IDD Field `Wavelength 55`
-        
-        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Wavelength 55`
@@ -16041,8 +15443,6 @@ class SiteSpectrumData(object):
     @spectrum_55.setter
     def spectrum_55(self, value=None):
         """  Corresponds to IDD Field `Spectrum 55`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Spectrum 55`
@@ -16072,8 +15472,6 @@ class SiteSpectrumData(object):
     @wavelength_56.setter
     def wavelength_56(self, value=None):
         """  Corresponds to IDD Field `Wavelength 56`
-        
-        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Wavelength 56`
@@ -16104,8 +15502,6 @@ class SiteSpectrumData(object):
     @spectrum_56.setter
     def spectrum_56(self, value=None):
         """  Corresponds to IDD Field `Spectrum 56`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Spectrum 56`
@@ -16135,8 +15531,6 @@ class SiteSpectrumData(object):
     @wavelength_57.setter
     def wavelength_57(self, value=None):
         """  Corresponds to IDD Field `Wavelength 57`
-        
-        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Wavelength 57`
@@ -16167,8 +15561,6 @@ class SiteSpectrumData(object):
     @spectrum_57.setter
     def spectrum_57(self, value=None):
         """  Corresponds to IDD Field `Spectrum 57`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Spectrum 57`
@@ -16198,8 +15590,6 @@ class SiteSpectrumData(object):
     @wavelength_58.setter
     def wavelength_58(self, value=None):
         """  Corresponds to IDD Field `Wavelength 58`
-        
-        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Wavelength 58`
@@ -16230,8 +15620,6 @@ class SiteSpectrumData(object):
     @spectrum_58.setter
     def spectrum_58(self, value=None):
         """  Corresponds to IDD Field `Spectrum 58`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Spectrum 58`
@@ -16261,8 +15649,6 @@ class SiteSpectrumData(object):
     @wavelength_59.setter
     def wavelength_59(self, value=None):
         """  Corresponds to IDD Field `Wavelength 59`
-        
-        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Wavelength 59`
@@ -16293,8 +15679,6 @@ class SiteSpectrumData(object):
     @spectrum_59.setter
     def spectrum_59(self, value=None):
         """  Corresponds to IDD Field `Spectrum 59`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Spectrum 59`
@@ -16324,8 +15708,6 @@ class SiteSpectrumData(object):
     @wavelength_60.setter
     def wavelength_60(self, value=None):
         """  Corresponds to IDD Field `Wavelength 60`
-        
-        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Wavelength 60`
@@ -16356,8 +15738,6 @@ class SiteSpectrumData(object):
     @spectrum_60.setter
     def spectrum_60(self, value=None):
         """  Corresponds to IDD Field `Spectrum 60`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Spectrum 60`
@@ -16387,8 +15767,6 @@ class SiteSpectrumData(object):
     @wavelength_61.setter
     def wavelength_61(self, value=None):
         """  Corresponds to IDD Field `Wavelength 61`
-        
-        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Wavelength 61`
@@ -16419,8 +15797,6 @@ class SiteSpectrumData(object):
     @spectrum_61.setter
     def spectrum_61(self, value=None):
         """  Corresponds to IDD Field `Spectrum 61`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Spectrum 61`
@@ -16450,8 +15826,6 @@ class SiteSpectrumData(object):
     @wavelength_62.setter
     def wavelength_62(self, value=None):
         """  Corresponds to IDD Field `Wavelength 62`
-        
-        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Wavelength 62`
@@ -16482,8 +15856,6 @@ class SiteSpectrumData(object):
     @spectrum_62.setter
     def spectrum_62(self, value=None):
         """  Corresponds to IDD Field `Spectrum 62`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Spectrum 62`
@@ -16513,8 +15885,6 @@ class SiteSpectrumData(object):
     @wavelength_63.setter
     def wavelength_63(self, value=None):
         """  Corresponds to IDD Field `Wavelength 63`
-        
-        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Wavelength 63`
@@ -16545,8 +15915,6 @@ class SiteSpectrumData(object):
     @spectrum_63.setter
     def spectrum_63(self, value=None):
         """  Corresponds to IDD Field `Spectrum 63`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Spectrum 63`
@@ -16576,8 +15944,6 @@ class SiteSpectrumData(object):
     @wavelength_64.setter
     def wavelength_64(self, value=None):
         """  Corresponds to IDD Field `Wavelength 64`
-        
-        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Wavelength 64`
@@ -16608,8 +15974,6 @@ class SiteSpectrumData(object):
     @spectrum_64.setter
     def spectrum_64(self, value=None):
         """  Corresponds to IDD Field `Spectrum 64`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Spectrum 64`
@@ -16639,8 +16003,6 @@ class SiteSpectrumData(object):
     @wavelength_65.setter
     def wavelength_65(self, value=None):
         """  Corresponds to IDD Field `Wavelength 65`
-        
-        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Wavelength 65`
@@ -16671,8 +16033,6 @@ class SiteSpectrumData(object):
     @spectrum_65.setter
     def spectrum_65(self, value=None):
         """  Corresponds to IDD Field `Spectrum 65`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Spectrum 65`
@@ -16702,8 +16062,6 @@ class SiteSpectrumData(object):
     @wavelength_66.setter
     def wavelength_66(self, value=None):
         """  Corresponds to IDD Field `Wavelength 66`
-        
-        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Wavelength 66`
@@ -16734,8 +16092,6 @@ class SiteSpectrumData(object):
     @spectrum_66.setter
     def spectrum_66(self, value=None):
         """  Corresponds to IDD Field `Spectrum 66`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Spectrum 66`
@@ -16765,8 +16121,6 @@ class SiteSpectrumData(object):
     @wavelength_67.setter
     def wavelength_67(self, value=None):
         """  Corresponds to IDD Field `Wavelength 67`
-        
-        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Wavelength 67`
@@ -16797,8 +16151,6 @@ class SiteSpectrumData(object):
     @spectrum_67.setter
     def spectrum_67(self, value=None):
         """  Corresponds to IDD Field `Spectrum 67`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Spectrum 67`
@@ -16828,8 +16180,6 @@ class SiteSpectrumData(object):
     @wavelength_68.setter
     def wavelength_68(self, value=None):
         """  Corresponds to IDD Field `Wavelength 68`
-        
-        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Wavelength 68`
@@ -16860,8 +16210,6 @@ class SiteSpectrumData(object):
     @spectrum_68.setter
     def spectrum_68(self, value=None):
         """  Corresponds to IDD Field `Spectrum 68`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Spectrum 68`
@@ -16891,8 +16239,6 @@ class SiteSpectrumData(object):
     @wavelength_69.setter
     def wavelength_69(self, value=None):
         """  Corresponds to IDD Field `Wavelength 69`
-        
-        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Wavelength 69`
@@ -16923,8 +16269,6 @@ class SiteSpectrumData(object):
     @spectrum_69.setter
     def spectrum_69(self, value=None):
         """  Corresponds to IDD Field `Spectrum 69`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Spectrum 69`
@@ -16954,8 +16298,6 @@ class SiteSpectrumData(object):
     @wavelength_70.setter
     def wavelength_70(self, value=None):
         """  Corresponds to IDD Field `Wavelength 70`
-        
-        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Wavelength 70`
@@ -16986,8 +16328,6 @@ class SiteSpectrumData(object):
     @spectrum_70.setter
     def spectrum_70(self, value=None):
         """  Corresponds to IDD Field `Spectrum 70`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Spectrum 70`
@@ -17017,8 +16357,6 @@ class SiteSpectrumData(object):
     @wavelength_71.setter
     def wavelength_71(self, value=None):
         """  Corresponds to IDD Field `Wavelength 71`
-        
-        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Wavelength 71`
@@ -17049,8 +16387,6 @@ class SiteSpectrumData(object):
     @spectrum_71.setter
     def spectrum_71(self, value=None):
         """  Corresponds to IDD Field `Spectrum 71`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Spectrum 71`
@@ -17080,8 +16416,6 @@ class SiteSpectrumData(object):
     @wavelength_72.setter
     def wavelength_72(self, value=None):
         """  Corresponds to IDD Field `Wavelength 72`
-        
-        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Wavelength 72`
@@ -17112,8 +16446,6 @@ class SiteSpectrumData(object):
     @spectrum_72.setter
     def spectrum_72(self, value=None):
         """  Corresponds to IDD Field `Spectrum 72`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Spectrum 72`
@@ -17143,8 +16475,6 @@ class SiteSpectrumData(object):
     @wavelength_73.setter
     def wavelength_73(self, value=None):
         """  Corresponds to IDD Field `Wavelength 73`
-        
-        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Wavelength 73`
@@ -17175,8 +16505,6 @@ class SiteSpectrumData(object):
     @spectrum_73.setter
     def spectrum_73(self, value=None):
         """  Corresponds to IDD Field `Spectrum 73`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Spectrum 73`
@@ -17206,8 +16534,6 @@ class SiteSpectrumData(object):
     @wavelength_74.setter
     def wavelength_74(self, value=None):
         """  Corresponds to IDD Field `Wavelength 74`
-        
-        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Wavelength 74`
@@ -17238,8 +16564,6 @@ class SiteSpectrumData(object):
     @spectrum_74.setter
     def spectrum_74(self, value=None):
         """  Corresponds to IDD Field `Spectrum 74`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Spectrum 74`
@@ -17269,8 +16593,6 @@ class SiteSpectrumData(object):
     @wavelength_75.setter
     def wavelength_75(self, value=None):
         """  Corresponds to IDD Field `Wavelength 75`
-        
-        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Wavelength 75`
@@ -17301,8 +16623,6 @@ class SiteSpectrumData(object):
     @spectrum_75.setter
     def spectrum_75(self, value=None):
         """  Corresponds to IDD Field `Spectrum 75`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Spectrum 75`
@@ -17332,8 +16652,6 @@ class SiteSpectrumData(object):
     @wavelength_76.setter
     def wavelength_76(self, value=None):
         """  Corresponds to IDD Field `Wavelength 76`
-        
-        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Wavelength 76`
@@ -17364,8 +16682,6 @@ class SiteSpectrumData(object):
     @spectrum_76.setter
     def spectrum_76(self, value=None):
         """  Corresponds to IDD Field `Spectrum 76`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Spectrum 76`
@@ -17395,8 +16711,6 @@ class SiteSpectrumData(object):
     @wavelength_77.setter
     def wavelength_77(self, value=None):
         """  Corresponds to IDD Field `Wavelength 77`
-        
-        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Wavelength 77`
@@ -17427,8 +16741,6 @@ class SiteSpectrumData(object):
     @spectrum_77.setter
     def spectrum_77(self, value=None):
         """  Corresponds to IDD Field `Spectrum 77`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Spectrum 77`
@@ -17458,8 +16770,6 @@ class SiteSpectrumData(object):
     @wavelength_78.setter
     def wavelength_78(self, value=None):
         """  Corresponds to IDD Field `Wavelength 78`
-        
-        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Wavelength 78`
@@ -17490,8 +16800,6 @@ class SiteSpectrumData(object):
     @spectrum_78.setter
     def spectrum_78(self, value=None):
         """  Corresponds to IDD Field `Spectrum 78`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Spectrum 78`
@@ -17521,8 +16829,6 @@ class SiteSpectrumData(object):
     @wavelength_79.setter
     def wavelength_79(self, value=None):
         """  Corresponds to IDD Field `Wavelength 79`
-        
-        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Wavelength 79`
@@ -17553,8 +16859,6 @@ class SiteSpectrumData(object):
     @spectrum_79.setter
     def spectrum_79(self, value=None):
         """  Corresponds to IDD Field `Spectrum 79`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Spectrum 79`
@@ -17584,8 +16888,6 @@ class SiteSpectrumData(object):
     @wavelength_80.setter
     def wavelength_80(self, value=None):
         """  Corresponds to IDD Field `Wavelength 80`
-        
-        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Wavelength 80`
@@ -17616,8 +16918,6 @@ class SiteSpectrumData(object):
     @spectrum_80.setter
     def spectrum_80(self, value=None):
         """  Corresponds to IDD Field `Spectrum 80`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Spectrum 80`
@@ -17647,8 +16947,6 @@ class SiteSpectrumData(object):
     @wavelength_81.setter
     def wavelength_81(self, value=None):
         """  Corresponds to IDD Field `Wavelength 81`
-        
-        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Wavelength 81`
@@ -17679,8 +16977,6 @@ class SiteSpectrumData(object):
     @spectrum_81.setter
     def spectrum_81(self, value=None):
         """  Corresponds to IDD Field `Spectrum 81`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Spectrum 81`
@@ -17710,8 +17006,6 @@ class SiteSpectrumData(object):
     @wavelength_82.setter
     def wavelength_82(self, value=None):
         """  Corresponds to IDD Field `Wavelength 82`
-        
-        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Wavelength 82`
@@ -17742,8 +17036,6 @@ class SiteSpectrumData(object):
     @spectrum_82.setter
     def spectrum_82(self, value=None):
         """  Corresponds to IDD Field `Spectrum 82`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Spectrum 82`
@@ -17773,8 +17065,6 @@ class SiteSpectrumData(object):
     @wavelength_83.setter
     def wavelength_83(self, value=None):
         """  Corresponds to IDD Field `Wavelength 83`
-        
-        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Wavelength 83`
@@ -17805,8 +17095,6 @@ class SiteSpectrumData(object):
     @spectrum_83.setter
     def spectrum_83(self, value=None):
         """  Corresponds to IDD Field `Spectrum 83`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Spectrum 83`
@@ -17836,8 +17124,6 @@ class SiteSpectrumData(object):
     @wavelength_84.setter
     def wavelength_84(self, value=None):
         """  Corresponds to IDD Field `Wavelength 84`
-        
-        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Wavelength 84`
@@ -17868,8 +17154,6 @@ class SiteSpectrumData(object):
     @spectrum_84.setter
     def spectrum_84(self, value=None):
         """  Corresponds to IDD Field `Spectrum 84`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Spectrum 84`
@@ -17899,8 +17183,6 @@ class SiteSpectrumData(object):
     @wavelength_85.setter
     def wavelength_85(self, value=None):
         """  Corresponds to IDD Field `Wavelength 85`
-        
-        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Wavelength 85`
@@ -17931,8 +17213,6 @@ class SiteSpectrumData(object):
     @spectrum_85.setter
     def spectrum_85(self, value=None):
         """  Corresponds to IDD Field `Spectrum 85`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Spectrum 85`
@@ -17962,8 +17242,6 @@ class SiteSpectrumData(object):
     @wavelength_86.setter
     def wavelength_86(self, value=None):
         """  Corresponds to IDD Field `Wavelength 86`
-        
-        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Wavelength 86`
@@ -17994,8 +17272,6 @@ class SiteSpectrumData(object):
     @spectrum_86.setter
     def spectrum_86(self, value=None):
         """  Corresponds to IDD Field `Spectrum 86`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Spectrum 86`
@@ -18025,8 +17301,6 @@ class SiteSpectrumData(object):
     @wavelength_87.setter
     def wavelength_87(self, value=None):
         """  Corresponds to IDD Field `Wavelength 87`
-        
-        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Wavelength 87`
@@ -18057,8 +17331,6 @@ class SiteSpectrumData(object):
     @spectrum_87.setter
     def spectrum_87(self, value=None):
         """  Corresponds to IDD Field `Spectrum 87`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Spectrum 87`
@@ -18088,8 +17360,6 @@ class SiteSpectrumData(object):
     @wavelength_88.setter
     def wavelength_88(self, value=None):
         """  Corresponds to IDD Field `Wavelength 88`
-        
-        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Wavelength 88`
@@ -18120,8 +17390,6 @@ class SiteSpectrumData(object):
     @spectrum_88.setter
     def spectrum_88(self, value=None):
         """  Corresponds to IDD Field `Spectrum 88`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Spectrum 88`
@@ -18151,8 +17419,6 @@ class SiteSpectrumData(object):
     @wavelength_89.setter
     def wavelength_89(self, value=None):
         """  Corresponds to IDD Field `Wavelength 89`
-        
-        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Wavelength 89`
@@ -18183,8 +17449,6 @@ class SiteSpectrumData(object):
     @spectrum_89.setter
     def spectrum_89(self, value=None):
         """  Corresponds to IDD Field `Spectrum 89`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Spectrum 89`
@@ -18214,8 +17478,6 @@ class SiteSpectrumData(object):
     @wavelength_90.setter
     def wavelength_90(self, value=None):
         """  Corresponds to IDD Field `Wavelength 90`
-        
-        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Wavelength 90`
@@ -18246,8 +17508,6 @@ class SiteSpectrumData(object):
     @spectrum_90.setter
     def spectrum_90(self, value=None):
         """  Corresponds to IDD Field `Spectrum 90`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Spectrum 90`
@@ -18277,8 +17537,6 @@ class SiteSpectrumData(object):
     @wavelength_91.setter
     def wavelength_91(self, value=None):
         """  Corresponds to IDD Field `Wavelength 91`
-        
-        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Wavelength 91`
@@ -18309,8 +17567,6 @@ class SiteSpectrumData(object):
     @spectrum_91.setter
     def spectrum_91(self, value=None):
         """  Corresponds to IDD Field `Spectrum 91`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Spectrum 91`
@@ -18340,8 +17596,6 @@ class SiteSpectrumData(object):
     @wavelength_92.setter
     def wavelength_92(self, value=None):
         """  Corresponds to IDD Field `Wavelength 92`
-        
-        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Wavelength 92`
@@ -18372,8 +17626,6 @@ class SiteSpectrumData(object):
     @spectrum_92.setter
     def spectrum_92(self, value=None):
         """  Corresponds to IDD Field `Spectrum 92`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Spectrum 92`
@@ -18403,8 +17655,6 @@ class SiteSpectrumData(object):
     @wavelength_93.setter
     def wavelength_93(self, value=None):
         """  Corresponds to IDD Field `Wavelength 93`
-        
-        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Wavelength 93`
@@ -18435,8 +17685,6 @@ class SiteSpectrumData(object):
     @spectrum_93.setter
     def spectrum_93(self, value=None):
         """  Corresponds to IDD Field `Spectrum 93`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Spectrum 93`
@@ -18466,8 +17714,6 @@ class SiteSpectrumData(object):
     @wavelength_94.setter
     def wavelength_94(self, value=None):
         """  Corresponds to IDD Field `Wavelength 94`
-        
-        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Wavelength 94`
@@ -18498,8 +17744,6 @@ class SiteSpectrumData(object):
     @spectrum_94.setter
     def spectrum_94(self, value=None):
         """  Corresponds to IDD Field `Spectrum 94`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Spectrum 94`
@@ -18529,8 +17773,6 @@ class SiteSpectrumData(object):
     @wavelength_95.setter
     def wavelength_95(self, value=None):
         """  Corresponds to IDD Field `Wavelength 95`
-        
-        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Wavelength 95`
@@ -18561,8 +17803,6 @@ class SiteSpectrumData(object):
     @spectrum_95.setter
     def spectrum_95(self, value=None):
         """  Corresponds to IDD Field `Spectrum 95`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Spectrum 95`
@@ -18592,8 +17832,6 @@ class SiteSpectrumData(object):
     @wavelength_96.setter
     def wavelength_96(self, value=None):
         """  Corresponds to IDD Field `Wavelength 96`
-        
-        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Wavelength 96`
@@ -18624,8 +17862,6 @@ class SiteSpectrumData(object):
     @spectrum_96.setter
     def spectrum_96(self, value=None):
         """  Corresponds to IDD Field `Spectrum 96`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Spectrum 96`
@@ -18655,8 +17891,6 @@ class SiteSpectrumData(object):
     @wavelength_97.setter
     def wavelength_97(self, value=None):
         """  Corresponds to IDD Field `Wavelength 97`
-        
-        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Wavelength 97`
@@ -18687,8 +17921,6 @@ class SiteSpectrumData(object):
     @spectrum_97.setter
     def spectrum_97(self, value=None):
         """  Corresponds to IDD Field `Spectrum 97`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Spectrum 97`
@@ -18718,8 +17950,6 @@ class SiteSpectrumData(object):
     @wavelength_98.setter
     def wavelength_98(self, value=None):
         """  Corresponds to IDD Field `Wavelength 98`
-        
-        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Wavelength 98`
@@ -18750,8 +17980,6 @@ class SiteSpectrumData(object):
     @spectrum_98.setter
     def spectrum_98(self, value=None):
         """  Corresponds to IDD Field `Spectrum 98`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Spectrum 98`
@@ -18781,8 +18009,6 @@ class SiteSpectrumData(object):
     @wavelength_99.setter
     def wavelength_99(self, value=None):
         """  Corresponds to IDD Field `Wavelength 99`
-        
-        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Wavelength 99`
@@ -18813,8 +18039,6 @@ class SiteSpectrumData(object):
     @spectrum_99.setter
     def spectrum_99(self, value=None):
         """  Corresponds to IDD Field `Spectrum 99`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Spectrum 99`
@@ -18844,8 +18068,6 @@ class SiteSpectrumData(object):
     @wavelength_100.setter
     def wavelength_100(self, value=None):
         """  Corresponds to IDD Field `Wavelength 100`
-        
-        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Wavelength 100`
@@ -18876,8 +18098,6 @@ class SiteSpectrumData(object):
     @spectrum_100.setter
     def spectrum_100(self, value=None):
         """  Corresponds to IDD Field `Spectrum 100`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Spectrum 100`
@@ -18907,8 +18127,6 @@ class SiteSpectrumData(object):
     @wavelength_101.setter
     def wavelength_101(self, value=None):
         """  Corresponds to IDD Field `Wavelength 101`
-        
-        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Wavelength 101`
@@ -18939,8 +18157,6 @@ class SiteSpectrumData(object):
     @spectrum_101.setter
     def spectrum_101(self, value=None):
         """  Corresponds to IDD Field `Spectrum 101`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Spectrum 101`
@@ -18970,8 +18186,6 @@ class SiteSpectrumData(object):
     @wavelength_102.setter
     def wavelength_102(self, value=None):
         """  Corresponds to IDD Field `Wavelength 102`
-        
-        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Wavelength 102`
@@ -19002,8 +18216,6 @@ class SiteSpectrumData(object):
     @spectrum_102.setter
     def spectrum_102(self, value=None):
         """  Corresponds to IDD Field `Spectrum 102`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Spectrum 102`
@@ -19033,8 +18245,6 @@ class SiteSpectrumData(object):
     @wavelength_103.setter
     def wavelength_103(self, value=None):
         """  Corresponds to IDD Field `Wavelength 103`
-        
-        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Wavelength 103`
@@ -19065,8 +18275,6 @@ class SiteSpectrumData(object):
     @spectrum_103.setter
     def spectrum_103(self, value=None):
         """  Corresponds to IDD Field `Spectrum 103`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Spectrum 103`
@@ -19096,8 +18304,6 @@ class SiteSpectrumData(object):
     @wavelength_104.setter
     def wavelength_104(self, value=None):
         """  Corresponds to IDD Field `Wavelength 104`
-        
-        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Wavelength 104`
@@ -19128,8 +18334,6 @@ class SiteSpectrumData(object):
     @spectrum_104.setter
     def spectrum_104(self, value=None):
         """  Corresponds to IDD Field `Spectrum 104`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Spectrum 104`
@@ -19159,8 +18363,6 @@ class SiteSpectrumData(object):
     @wavelength_105.setter
     def wavelength_105(self, value=None):
         """  Corresponds to IDD Field `Wavelength 105`
-        
-        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Wavelength 105`
@@ -19191,8 +18393,6 @@ class SiteSpectrumData(object):
     @spectrum_105.setter
     def spectrum_105(self, value=None):
         """  Corresponds to IDD Field `Spectrum 105`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Spectrum 105`
@@ -19222,8 +18422,6 @@ class SiteSpectrumData(object):
     @wavelength_106.setter
     def wavelength_106(self, value=None):
         """  Corresponds to IDD Field `Wavelength 106`
-        
-        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Wavelength 106`
@@ -19254,8 +18452,6 @@ class SiteSpectrumData(object):
     @spectrum_106.setter
     def spectrum_106(self, value=None):
         """  Corresponds to IDD Field `Spectrum 106`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Spectrum 106`
@@ -19285,8 +18481,6 @@ class SiteSpectrumData(object):
     @wavelength_107.setter
     def wavelength_107(self, value=None):
         """  Corresponds to IDD Field `Wavelength 107`
-        
-        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Wavelength 107`
@@ -19317,8 +18511,6 @@ class SiteSpectrumData(object):
     @spectrum_107.setter
     def spectrum_107(self, value=None):
         """  Corresponds to IDD Field `Spectrum 107`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Spectrum 107`

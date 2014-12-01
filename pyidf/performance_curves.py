@@ -112,8 +112,6 @@ class CurveLinear(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'reference': u'AllCurves', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -149,8 +147,6 @@ class CurveLinear(object):
     @coefficient1_constant.setter
     def coefficient1_constant(self, value=None):
         """  Corresponds to IDD Field `Coefficient1 Constant`
-        
-        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient1 Constant`
@@ -180,8 +176,6 @@ class CurveLinear(object):
     @coefficient2_x.setter
     def coefficient2_x(self, value=None):
         """  Corresponds to IDD Field `Coefficient2 x`
-        
-        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient2 x`
@@ -211,8 +205,6 @@ class CurveLinear(object):
     @minimum_value_of_x.setter
     def minimum_value_of_x(self, value=None):
         """  Corresponds to IDD Field `Minimum Value of x`
-        
-        {u'type': u'real', u'unitsBasedOnField': u'A2', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Minimum Value of x`
@@ -242,8 +234,6 @@ class CurveLinear(object):
     @maximum_value_of_x.setter
     def maximum_value_of_x(self, value=None):
         """  Corresponds to IDD Field `Maximum Value of x`
-        
-        {u'type': u'real', u'unitsBasedOnField': u'A2', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Maximum Value of x`
@@ -274,8 +264,6 @@ class CurveLinear(object):
     def minimum_curve_output(self, value=None):
         """  Corresponds to IDD Field `Minimum Curve Output`
         Specify the minimum value calculated by this curve object
-        
-        {u'note': [u'Specify the minimum value calculated by this curve object'], u'type': u'real', u'unitsBasedOnField': u'A3', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Minimum Curve Output`
@@ -306,8 +294,6 @@ class CurveLinear(object):
     def maximum_curve_output(self, value=None):
         """  Corresponds to IDD Field `Maximum Curve Output`
         Specify the maximum value calculated by this curve object
-        
-        {u'note': [u'Specify the maximum value calculated by this curve object'], u'type': u'real', u'unitsBasedOnField': u'A3', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Maximum Curve Output`
@@ -337,8 +323,6 @@ class CurveLinear(object):
     @input_unit_type_for_x.setter
     def input_unit_type_for_x(self, value="Dimensionless"):
         """  Corresponds to IDD Field `Input Unit Type for X`
-        
-        {u'default': u'Dimensionless', u'type': u'choice', u'key': [u'Dimensionless', u'Temperature', u'VolumetricFlow', u'Pressure', u'MassFlow', u'Power', u'Distance'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Input Unit Type for X`
@@ -405,8 +389,6 @@ class CurveLinear(object):
     @output_unit_type.setter
     def output_unit_type(self, value="Dimensionless"):
         """  Corresponds to IDD Field `Output Unit Type`
-        
-        {u'default': u'Dimensionless', u'type': u'choice', u'key': [u'Dimensionless', u'Capacity', u'Power'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Output Unit Type`
@@ -687,8 +669,6 @@ class CurveQuadLinear(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'reference': u'AllCurves', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -724,8 +704,6 @@ class CurveQuadLinear(object):
     @coefficient1_constant.setter
     def coefficient1_constant(self, value=None):
         """  Corresponds to IDD Field `Coefficient1 Constant`
-        
-        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient1 Constant`
@@ -755,8 +733,6 @@ class CurveQuadLinear(object):
     @coefficient2_w.setter
     def coefficient2_w(self, value=None):
         """  Corresponds to IDD Field `Coefficient2 w`
-        
-        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient2 w`
@@ -786,8 +762,6 @@ class CurveQuadLinear(object):
     @coefficient3_x.setter
     def coefficient3_x(self, value=None):
         """  Corresponds to IDD Field `Coefficient3 x`
-        
-        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient3 x`
@@ -817,8 +791,6 @@ class CurveQuadLinear(object):
     @coefficient4_y.setter
     def coefficient4_y(self, value=None):
         """  Corresponds to IDD Field `Coefficient4 y`
-        
-        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient4 y`
@@ -848,8 +820,6 @@ class CurveQuadLinear(object):
     @coefficient5_z.setter
     def coefficient5_z(self, value=None):
         """  Corresponds to IDD Field `Coefficient5 z`
-        
-        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient5 z`
@@ -879,8 +849,6 @@ class CurveQuadLinear(object):
     @minimum_value_of_w.setter
     def minimum_value_of_w(self, value=None):
         """  Corresponds to IDD Field `Minimum Value of w`
-        
-        {u'type': u'real', u'unitsBasedOnField': u'A2', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Minimum Value of w`
@@ -910,8 +878,6 @@ class CurveQuadLinear(object):
     @maximum_value_of_w.setter
     def maximum_value_of_w(self, value=None):
         """  Corresponds to IDD Field `Maximum Value of w`
-        
-        {u'type': u'real', u'unitsBasedOnField': u'A2', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Maximum Value of w`
@@ -941,8 +907,6 @@ class CurveQuadLinear(object):
     @minimum_value_of_x.setter
     def minimum_value_of_x(self, value=None):
         """  Corresponds to IDD Field `Minimum Value of x`
-        
-        {u'type': u'real', u'unitsBasedOnField': u'A3', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Minimum Value of x`
@@ -972,8 +936,6 @@ class CurveQuadLinear(object):
     @maximum_value_of_x.setter
     def maximum_value_of_x(self, value=None):
         """  Corresponds to IDD Field `Maximum Value of x`
-        
-        {u'type': u'real', u'unitsBasedOnField': u'A3', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Maximum Value of x`
@@ -1003,8 +965,6 @@ class CurveQuadLinear(object):
     @minimum_value_of_y.setter
     def minimum_value_of_y(self, value=None):
         """  Corresponds to IDD Field `Minimum Value of y`
-        
-        {u'type': u'real', u'unitsBasedOnField': u'A4', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Minimum Value of y`
@@ -1034,8 +994,6 @@ class CurveQuadLinear(object):
     @maximum_value_of_y.setter
     def maximum_value_of_y(self, value=None):
         """  Corresponds to IDD Field `Maximum Value of y`
-        
-        {u'type': u'real', u'unitsBasedOnField': u'A4', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Maximum Value of y`
@@ -1065,8 +1023,6 @@ class CurveQuadLinear(object):
     @minimum_value_of_z.setter
     def minimum_value_of_z(self, value=None):
         """  Corresponds to IDD Field `Minimum Value of z`
-        
-        {u'type': u'real', u'unitsBasedOnField': u'A5', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Minimum Value of z`
@@ -1096,8 +1052,6 @@ class CurveQuadLinear(object):
     @maximum_value_of_z.setter
     def maximum_value_of_z(self, value=None):
         """  Corresponds to IDD Field `Maximum Value of z`
-        
-        {u'type': u'real', u'unitsBasedOnField': u'A5', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Maximum Value of z`
@@ -1128,8 +1082,6 @@ class CurveQuadLinear(object):
     def minimum_curve_output(self, value=None):
         """  Corresponds to IDD Field `Minimum Curve Output`
         Specify the minimum value calculated by this curve object
-        
-        {u'note': [u'Specify the minimum value calculated by this curve object'], u'type': u'real', u'unitsBasedOnField': u'A4', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Minimum Curve Output`
@@ -1160,8 +1112,6 @@ class CurveQuadLinear(object):
     def maximum_curve_output(self, value=None):
         """  Corresponds to IDD Field `Maximum Curve Output`
         Specify the maximum value calculated by this curve object
-        
-        {u'note': [u'Specify the maximum value calculated by this curve object'], u'type': u'real', u'unitsBasedOnField': u'A4', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Maximum Curve Output`
@@ -1191,8 +1141,6 @@ class CurveQuadLinear(object):
     @input_unit_type_for_w.setter
     def input_unit_type_for_w(self, value="Dimensionless"):
         """  Corresponds to IDD Field `Input Unit Type for w`
-        
-        {u'default': u'Dimensionless', u'type': u'choice', u'key': [u'Dimensionless', u'Temperature', u'VolumetricFlow', u'MassFlow', u'Power', u'Distance', u'VolumetricFlowPerPower'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Input Unit Type for w`
@@ -1259,8 +1207,6 @@ class CurveQuadLinear(object):
     @input_unit_type_for_x.setter
     def input_unit_type_for_x(self, value="Dimensionless"):
         """  Corresponds to IDD Field `Input Unit Type for x`
-        
-        {u'default': u'Dimensionless', u'type': u'choice', u'key': [u'Dimensionless', u'Temperature', u'VolumetricFlow', u'MassFlow', u'Power', u'Distance', u'VolumetricFlowPerPower'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Input Unit Type for x`
@@ -1327,8 +1273,6 @@ class CurveQuadLinear(object):
     @input_unit_type_for_y.setter
     def input_unit_type_for_y(self, value="Dimensionless"):
         """  Corresponds to IDD Field `Input Unit Type for y`
-        
-        {u'default': u'Dimensionless', u'type': u'choice', u'key': [u'Dimensionless', u'Temperature', u'VolumetricFlow', u'MassFlow', u'Power', u'Distance', u'VolumetricFlowPerPower'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Input Unit Type for y`
@@ -1395,8 +1339,6 @@ class CurveQuadLinear(object):
     @input_unit_type_for_z.setter
     def input_unit_type_for_z(self, value="Dimensionless"):
         """  Corresponds to IDD Field `Input Unit Type for z`
-        
-        {u'default': u'Dimensionless', u'type': u'choice', u'key': [u'Dimensionless', u'Temperature', u'VolumetricFlow', u'MassFlow', u'Power', u'Distance', u'VolumetricFlowPerPower'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Input Unit Type for z`
@@ -1605,8 +1547,6 @@ class CurveQuadratic(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'reference': u'BiquadraticQuadraticCubicCurves', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -1642,8 +1582,6 @@ class CurveQuadratic(object):
     @coefficient1_constant.setter
     def coefficient1_constant(self, value=None):
         """  Corresponds to IDD Field `Coefficient1 Constant`
-        
-        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient1 Constant`
@@ -1673,8 +1611,6 @@ class CurveQuadratic(object):
     @coefficient2_x.setter
     def coefficient2_x(self, value=None):
         """  Corresponds to IDD Field `Coefficient2 x`
-        
-        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient2 x`
@@ -1704,8 +1640,6 @@ class CurveQuadratic(object):
     @coefficient3_x2.setter
     def coefficient3_x2(self, value=None):
         """  Corresponds to IDD Field `Coefficient3 x**2`
-        
-        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient3 x**2`
@@ -1735,8 +1669,6 @@ class CurveQuadratic(object):
     @minimum_value_of_x.setter
     def minimum_value_of_x(self, value=None):
         """  Corresponds to IDD Field `Minimum Value of x`
-        
-        {u'type': u'real', u'unitsBasedOnField': u'A2', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Minimum Value of x`
@@ -1766,8 +1698,6 @@ class CurveQuadratic(object):
     @maximum_value_of_x.setter
     def maximum_value_of_x(self, value=None):
         """  Corresponds to IDD Field `Maximum Value of x`
-        
-        {u'type': u'real', u'unitsBasedOnField': u'A2', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Maximum Value of x`
@@ -1798,8 +1728,6 @@ class CurveQuadratic(object):
     def minimum_curve_output(self, value=None):
         """  Corresponds to IDD Field `Minimum Curve Output`
         Specify the minimum value calculated by this curve object
-        
-        {u'note': [u'Specify the minimum value calculated by this curve object'], u'type': u'real', u'unitsBasedOnField': u'A3', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Minimum Curve Output`
@@ -1830,8 +1758,6 @@ class CurveQuadratic(object):
     def maximum_curve_output(self, value=None):
         """  Corresponds to IDD Field `Maximum Curve Output`
         Specify the maximum value calculated by this curve object
-        
-        {u'note': [u'Specify the maximum value calculated by this curve object'], u'type': u'real', u'unitsBasedOnField': u'A3', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Maximum Curve Output`
@@ -1861,8 +1787,6 @@ class CurveQuadratic(object):
     @input_unit_type_for_x.setter
     def input_unit_type_for_x(self, value="Dimensionless"):
         """  Corresponds to IDD Field `Input Unit Type for X`
-        
-        {u'default': u'Dimensionless', u'type': u'choice', u'key': [u'Dimensionless', u'Temperature', u'VolumetricFlow', u'MassFlow', u'Power', u'Distance'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Input Unit Type for X`
@@ -1927,8 +1851,6 @@ class CurveQuadratic(object):
     @output_unit_type.setter
     def output_unit_type(self, value="Dimensionless"):
         """  Corresponds to IDD Field `Output Unit Type`
-        
-        {u'default': u'Dimensionless', u'type': u'choice', u'key': [u'Dimensionless', u'Capacity', u'Power'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Output Unit Type`
@@ -2137,8 +2059,6 @@ class CurveCubic(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'reference': u'BiquadraticQuadraticCubicCurves', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -2174,8 +2094,6 @@ class CurveCubic(object):
     @coefficient1_constant.setter
     def coefficient1_constant(self, value=None):
         """  Corresponds to IDD Field `Coefficient1 Constant`
-        
-        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient1 Constant`
@@ -2205,8 +2123,6 @@ class CurveCubic(object):
     @coefficient2_x.setter
     def coefficient2_x(self, value=None):
         """  Corresponds to IDD Field `Coefficient2 x`
-        
-        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient2 x`
@@ -2236,8 +2152,6 @@ class CurveCubic(object):
     @coefficient3_x2.setter
     def coefficient3_x2(self, value=None):
         """  Corresponds to IDD Field `Coefficient3 x**2`
-        
-        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient3 x**2`
@@ -2267,8 +2181,6 @@ class CurveCubic(object):
     @coefficient4_x3.setter
     def coefficient4_x3(self, value=None):
         """  Corresponds to IDD Field `Coefficient4 x**3`
-        
-        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient4 x**3`
@@ -2298,8 +2210,6 @@ class CurveCubic(object):
     @minimum_value_of_x.setter
     def minimum_value_of_x(self, value=None):
         """  Corresponds to IDD Field `Minimum Value of x`
-        
-        {u'type': u'real', u'unitsBasedOnField': u'A2', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Minimum Value of x`
@@ -2329,8 +2239,6 @@ class CurveCubic(object):
     @maximum_value_of_x.setter
     def maximum_value_of_x(self, value=None):
         """  Corresponds to IDD Field `Maximum Value of x`
-        
-        {u'type': u'real', u'unitsBasedOnField': u'A2', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Maximum Value of x`
@@ -2361,8 +2269,6 @@ class CurveCubic(object):
     def minimum_curve_output(self, value=None):
         """  Corresponds to IDD Field `Minimum Curve Output`
         Specify the minimum value calculated by this curve object
-        
-        {u'note': [u'Specify the minimum value calculated by this curve object'], u'type': u'real', u'unitsBasedOnField': u'A3', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Minimum Curve Output`
@@ -2393,8 +2299,6 @@ class CurveCubic(object):
     def maximum_curve_output(self, value=None):
         """  Corresponds to IDD Field `Maximum Curve Output`
         Specify the maximum value calculated by this curve object
-        
-        {u'note': [u'Specify the maximum value calculated by this curve object'], u'type': u'real', u'unitsBasedOnField': u'A3', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Maximum Curve Output`
@@ -2424,8 +2328,6 @@ class CurveCubic(object):
     @input_unit_type_for_x.setter
     def input_unit_type_for_x(self, value="Dimensionless"):
         """  Corresponds to IDD Field `Input Unit Type for X`
-        
-        {u'default': u'Dimensionless', u'type': u'choice', u'key': [u'Dimensionless', u'Temperature', u'VolumetricFlow', u'MassFlow', u'Power', u'Distance'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Input Unit Type for X`
@@ -2490,8 +2392,6 @@ class CurveCubic(object):
     @output_unit_type.setter
     def output_unit_type(self, value="Dimensionless"):
         """  Corresponds to IDD Field `Output Unit Type`
-        
-        {u'default': u'Dimensionless', u'type': u'choice', u'key': [u'Dimensionless', u'Capacity', u'Power'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Output Unit Type`
@@ -2709,8 +2609,6 @@ class CurveQuartic(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'reference': u'AllCurves', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -2746,8 +2644,6 @@ class CurveQuartic(object):
     @coefficient1_constant.setter
     def coefficient1_constant(self, value=None):
         """  Corresponds to IDD Field `Coefficient1 Constant`
-        
-        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient1 Constant`
@@ -2777,8 +2673,6 @@ class CurveQuartic(object):
     @coefficient2_x.setter
     def coefficient2_x(self, value=None):
         """  Corresponds to IDD Field `Coefficient2 x`
-        
-        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient2 x`
@@ -2808,8 +2702,6 @@ class CurveQuartic(object):
     @coefficient3_x2.setter
     def coefficient3_x2(self, value=None):
         """  Corresponds to IDD Field `Coefficient3 x**2`
-        
-        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient3 x**2`
@@ -2839,8 +2731,6 @@ class CurveQuartic(object):
     @coefficient4_x3.setter
     def coefficient4_x3(self, value=None):
         """  Corresponds to IDD Field `Coefficient4 x**3`
-        
-        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient4 x**3`
@@ -2870,8 +2760,6 @@ class CurveQuartic(object):
     @coefficient5_x4.setter
     def coefficient5_x4(self, value=None):
         """  Corresponds to IDD Field `Coefficient5 x**4`
-        
-        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient5 x**4`
@@ -2901,8 +2789,6 @@ class CurveQuartic(object):
     @minimum_value_of_x.setter
     def minimum_value_of_x(self, value=None):
         """  Corresponds to IDD Field `Minimum Value of x`
-        
-        {u'type': u'real', u'unitsBasedOnField': u'A2', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Minimum Value of x`
@@ -2932,8 +2818,6 @@ class CurveQuartic(object):
     @maximum_value_of_x.setter
     def maximum_value_of_x(self, value=None):
         """  Corresponds to IDD Field `Maximum Value of x`
-        
-        {u'type': u'real', u'unitsBasedOnField': u'A2', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Maximum Value of x`
@@ -2964,8 +2848,6 @@ class CurveQuartic(object):
     def minimum_curve_output(self, value=None):
         """  Corresponds to IDD Field `Minimum Curve Output`
         Specify the minimum value calculated by this curve object
-        
-        {u'note': [u'Specify the minimum value calculated by this curve object'], u'type': u'real', u'unitsBasedOnField': u'A3', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Minimum Curve Output`
@@ -2996,8 +2878,6 @@ class CurveQuartic(object):
     def maximum_curve_output(self, value=None):
         """  Corresponds to IDD Field `Maximum Curve Output`
         Specify the maximum value calculated by this curve object
-        
-        {u'note': [u'Specify the maximum value calculated by this curve object'], u'type': u'real', u'unitsBasedOnField': u'A3', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Maximum Curve Output`
@@ -3027,8 +2907,6 @@ class CurveQuartic(object):
     @input_unit_type_for_x.setter
     def input_unit_type_for_x(self, value="Dimensionless"):
         """  Corresponds to IDD Field `Input Unit Type for X`
-        
-        {u'default': u'Dimensionless', u'type': u'choice', u'key': [u'Dimensionless', u'Temperature', u'VolumetricFlow', u'MassFlow', u'Power', u'Distance'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Input Unit Type for X`
@@ -3093,8 +2971,6 @@ class CurveQuartic(object):
     @output_unit_type.setter
     def output_unit_type(self, value="Dimensionless"):
         """  Corresponds to IDD Field `Output Unit Type`
-        
-        {u'default': u'Dimensionless', u'type': u'choice', u'key': [u'Dimensionless', u'Capacity', u'Power'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Output Unit Type`
@@ -3296,8 +3172,6 @@ class CurveExponent(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'reference': u'AllCurves', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -3333,8 +3207,6 @@ class CurveExponent(object):
     @coefficient1_constant.setter
     def coefficient1_constant(self, value=None):
         """  Corresponds to IDD Field `Coefficient1 Constant`
-        
-        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient1 Constant`
@@ -3364,8 +3236,6 @@ class CurveExponent(object):
     @coefficient2_constant.setter
     def coefficient2_constant(self, value=None):
         """  Corresponds to IDD Field `Coefficient2 Constant`
-        
-        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient2 Constant`
@@ -3395,8 +3265,6 @@ class CurveExponent(object):
     @coefficient3_constant.setter
     def coefficient3_constant(self, value=None):
         """  Corresponds to IDD Field `Coefficient3 Constant`
-        
-        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient3 Constant`
@@ -3427,8 +3295,6 @@ class CurveExponent(object):
     def minimum_value_of_x(self, value=None):
         """  Corresponds to IDD Field `Minimum Value of x`
         Specify the minimum value of the independent variable x allowed
-        
-        {u'note': [u'Specify the minimum value of the independent variable x allowed'], u'type': u'real', u'unitsBasedOnField': u'A2', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Minimum Value of x`
@@ -3459,8 +3325,6 @@ class CurveExponent(object):
     def maximum_value_of_x(self, value=None):
         """  Corresponds to IDD Field `Maximum Value of x`
         Specify the maximum value of the independent variable x allowed
-        
-        {u'note': [u'Specify the maximum value of the independent variable x allowed'], u'type': u'real', u'unitsBasedOnField': u'A2', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Maximum Value of x`
@@ -3491,8 +3355,6 @@ class CurveExponent(object):
     def minimum_curve_output(self, value=None):
         """  Corresponds to IDD Field `Minimum Curve Output`
         Specify the minimum value calculated by this curve object
-        
-        {u'note': [u'Specify the minimum value calculated by this curve object'], u'type': u'real', u'unitsBasedOnField': u'A3', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Minimum Curve Output`
@@ -3523,8 +3385,6 @@ class CurveExponent(object):
     def maximum_curve_output(self, value=None):
         """  Corresponds to IDD Field `Maximum Curve Output`
         Specify the maximum value calculated by this curve object
-        
-        {u'note': [u'Specify the maximum value calculated by this curve object'], u'type': u'real', u'unitsBasedOnField': u'A3', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Maximum Curve Output`
@@ -3554,8 +3414,6 @@ class CurveExponent(object):
     @input_unit_type_for_x.setter
     def input_unit_type_for_x(self, value="Dimensionless"):
         """  Corresponds to IDD Field `Input Unit Type for X`
-        
-        {u'default': u'Dimensionless', u'type': u'choice', u'key': [u'Dimensionless', u'Temperature', u'VolumetricFlow', u'MassFlow', u'Power', u'Distance'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Input Unit Type for X`
@@ -3620,8 +3478,6 @@ class CurveExponent(object):
     @output_unit_type.setter
     def output_unit_type(self, value="Dimensionless"):
         """  Corresponds to IDD Field `Output Unit Type`
-        
-        {u'default': u'Dimensionless', u'type': u'choice', u'key': [u'Dimensionless', u'Capacity', u'Power'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Output Unit Type`
@@ -3903,8 +3759,6 @@ class CurveBicubic(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'reference': u'BicubicBiquadraticCurves', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -3940,8 +3794,6 @@ class CurveBicubic(object):
     @coefficient1_constant.setter
     def coefficient1_constant(self, value=None):
         """  Corresponds to IDD Field `Coefficient1 Constant`
-        
-        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient1 Constant`
@@ -3971,8 +3823,6 @@ class CurveBicubic(object):
     @coefficient2_x.setter
     def coefficient2_x(self, value=None):
         """  Corresponds to IDD Field `Coefficient2 x`
-        
-        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient2 x`
@@ -4002,8 +3852,6 @@ class CurveBicubic(object):
     @coefficient3_x2.setter
     def coefficient3_x2(self, value=None):
         """  Corresponds to IDD Field `Coefficient3 x**2`
-        
-        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient3 x**2`
@@ -4033,8 +3881,6 @@ class CurveBicubic(object):
     @coefficient4_y.setter
     def coefficient4_y(self, value=None):
         """  Corresponds to IDD Field `Coefficient4 y`
-        
-        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient4 y`
@@ -4064,8 +3910,6 @@ class CurveBicubic(object):
     @coefficient5_y2.setter
     def coefficient5_y2(self, value=None):
         """  Corresponds to IDD Field `Coefficient5 y**2`
-        
-        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient5 y**2`
@@ -4095,8 +3939,6 @@ class CurveBicubic(object):
     @coefficient6_xy.setter
     def coefficient6_xy(self, value=None):
         """  Corresponds to IDD Field `Coefficient6 x*y`
-        
-        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient6 x*y`
@@ -4126,8 +3968,6 @@ class CurveBicubic(object):
     @coefficient7_x3.setter
     def coefficient7_x3(self, value=None):
         """  Corresponds to IDD Field `Coefficient7 x**3`
-        
-        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient7 x**3`
@@ -4157,8 +3997,6 @@ class CurveBicubic(object):
     @coefficient8_y3.setter
     def coefficient8_y3(self, value=None):
         """  Corresponds to IDD Field `Coefficient8 y**3`
-        
-        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient8 y**3`
@@ -4188,8 +4026,6 @@ class CurveBicubic(object):
     @coefficient9_x2y.setter
     def coefficient9_x2y(self, value=None):
         """  Corresponds to IDD Field `Coefficient9 x**2*y`
-        
-        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient9 x**2*y`
@@ -4219,8 +4055,6 @@ class CurveBicubic(object):
     @coefficient10_xy2.setter
     def coefficient10_xy2(self, value=None):
         """  Corresponds to IDD Field `Coefficient10 x*y**2`
-        
-        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient10 x*y**2`
@@ -4250,8 +4084,6 @@ class CurveBicubic(object):
     @minimum_value_of_x.setter
     def minimum_value_of_x(self, value=None):
         """  Corresponds to IDD Field `Minimum Value of x`
-        
-        {u'type': u'real', u'unitsBasedOnField': u'A2', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Minimum Value of x`
@@ -4281,8 +4113,6 @@ class CurveBicubic(object):
     @maximum_value_of_x.setter
     def maximum_value_of_x(self, value=None):
         """  Corresponds to IDD Field `Maximum Value of x`
-        
-        {u'type': u'real', u'unitsBasedOnField': u'A2', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Maximum Value of x`
@@ -4312,8 +4142,6 @@ class CurveBicubic(object):
     @minimum_value_of_y.setter
     def minimum_value_of_y(self, value=None):
         """  Corresponds to IDD Field `Minimum Value of y`
-        
-        {u'type': u'real', u'unitsBasedOnField': u'A3', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Minimum Value of y`
@@ -4343,8 +4171,6 @@ class CurveBicubic(object):
     @maximum_value_of_y.setter
     def maximum_value_of_y(self, value=None):
         """  Corresponds to IDD Field `Maximum Value of y`
-        
-        {u'type': u'real', u'unitsBasedOnField': u'A3', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Maximum Value of y`
@@ -4375,8 +4201,6 @@ class CurveBicubic(object):
     def minimum_curve_output(self, value=None):
         """  Corresponds to IDD Field `Minimum Curve Output`
         Specify the minimum value calculated by this curve object
-        
-        {u'note': [u'Specify the minimum value calculated by this curve object'], u'type': u'real', u'unitsBasedOnField': u'A4', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Minimum Curve Output`
@@ -4407,8 +4231,6 @@ class CurveBicubic(object):
     def maximum_curve_output(self, value=None):
         """  Corresponds to IDD Field `Maximum Curve Output`
         Specify the maximum value calculated by this curve object
-        
-        {u'note': [u'Specify the maximum value calculated by this curve object'], u'type': u'real', u'unitsBasedOnField': u'A4', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Maximum Curve Output`
@@ -4438,8 +4260,6 @@ class CurveBicubic(object):
     @input_unit_type_for_x.setter
     def input_unit_type_for_x(self, value="Dimensionless"):
         """  Corresponds to IDD Field `Input Unit Type for X`
-        
-        {u'default': u'Dimensionless', u'type': u'choice', u'key': [u'Dimensionless', u'Temperature', u'VolumetricFlow', u'MassFlow', u'Power', u'Distance'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Input Unit Type for X`
@@ -4504,8 +4324,6 @@ class CurveBicubic(object):
     @input_unit_type_for_y.setter
     def input_unit_type_for_y(self, value="Dimensionless"):
         """  Corresponds to IDD Field `Input Unit Type for Y`
-        
-        {u'default': u'Dimensionless', u'type': u'choice', u'key': [u'Dimensionless', u'Temperature', u'VolumetricFlow', u'MassFlow', u'Power', u'Distance'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Input Unit Type for Y`
@@ -4570,8 +4388,6 @@ class CurveBicubic(object):
     @output_unit_type.setter
     def output_unit_type(self, value="Dimensionless"):
         """  Corresponds to IDD Field `Output Unit Type`
-        
-        {u'default': u'Dimensionless', u'type': u'choice', u'key': [u'Dimensionless', u'Capacity', u'Power'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Output Unit Type`
@@ -4820,8 +4636,6 @@ class CurveBiquadratic(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'reference': u'BicubicBiquadraticCurves', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -4857,8 +4671,6 @@ class CurveBiquadratic(object):
     @coefficient1_constant.setter
     def coefficient1_constant(self, value=None):
         """  Corresponds to IDD Field `Coefficient1 Constant`
-        
-        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient1 Constant`
@@ -4888,8 +4700,6 @@ class CurveBiquadratic(object):
     @coefficient2_x.setter
     def coefficient2_x(self, value=None):
         """  Corresponds to IDD Field `Coefficient2 x`
-        
-        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient2 x`
@@ -4919,8 +4729,6 @@ class CurveBiquadratic(object):
     @coefficient3_x2.setter
     def coefficient3_x2(self, value=None):
         """  Corresponds to IDD Field `Coefficient3 x**2`
-        
-        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient3 x**2`
@@ -4950,8 +4758,6 @@ class CurveBiquadratic(object):
     @coefficient4_y.setter
     def coefficient4_y(self, value=None):
         """  Corresponds to IDD Field `Coefficient4 y`
-        
-        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient4 y`
@@ -4981,8 +4787,6 @@ class CurveBiquadratic(object):
     @coefficient5_y2.setter
     def coefficient5_y2(self, value=None):
         """  Corresponds to IDD Field `Coefficient5 y**2`
-        
-        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient5 y**2`
@@ -5012,8 +4816,6 @@ class CurveBiquadratic(object):
     @coefficient6_xy.setter
     def coefficient6_xy(self, value=None):
         """  Corresponds to IDD Field `Coefficient6 x*y`
-        
-        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient6 x*y`
@@ -5043,8 +4845,6 @@ class CurveBiquadratic(object):
     @minimum_value_of_x.setter
     def minimum_value_of_x(self, value=None):
         """  Corresponds to IDD Field `Minimum Value of x`
-        
-        {u'type': u'real', u'unitsBasedOnField': u'A2', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Minimum Value of x`
@@ -5074,8 +4874,6 @@ class CurveBiquadratic(object):
     @maximum_value_of_x.setter
     def maximum_value_of_x(self, value=None):
         """  Corresponds to IDD Field `Maximum Value of x`
-        
-        {u'type': u'real', u'unitsBasedOnField': u'A2', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Maximum Value of x`
@@ -5105,8 +4903,6 @@ class CurveBiquadratic(object):
     @minimum_value_of_y.setter
     def minimum_value_of_y(self, value=None):
         """  Corresponds to IDD Field `Minimum Value of y`
-        
-        {u'type': u'real', u'unitsBasedOnField': u'A3', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Minimum Value of y`
@@ -5136,8 +4932,6 @@ class CurveBiquadratic(object):
     @maximum_value_of_y.setter
     def maximum_value_of_y(self, value=None):
         """  Corresponds to IDD Field `Maximum Value of y`
-        
-        {u'type': u'real', u'unitsBasedOnField': u'A3', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Maximum Value of y`
@@ -5168,8 +4962,6 @@ class CurveBiquadratic(object):
     def minimum_curve_output(self, value=None):
         """  Corresponds to IDD Field `Minimum Curve Output`
         Specify the minimum value calculated by this curve object
-        
-        {u'note': [u'Specify the minimum value calculated by this curve object'], u'type': u'real', u'unitsBasedOnField': u'A4', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Minimum Curve Output`
@@ -5200,8 +4992,6 @@ class CurveBiquadratic(object):
     def maximum_curve_output(self, value=None):
         """  Corresponds to IDD Field `Maximum Curve Output`
         Specify the maximum value calculated by this curve object
-        
-        {u'note': [u'Specify the maximum value calculated by this curve object'], u'type': u'real', u'unitsBasedOnField': u'A4', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Maximum Curve Output`
@@ -5231,8 +5021,6 @@ class CurveBiquadratic(object):
     @input_unit_type_for_x.setter
     def input_unit_type_for_x(self, value="Dimensionless"):
         """  Corresponds to IDD Field `Input Unit Type for X`
-        
-        {u'default': u'Dimensionless', u'type': u'choice', u'key': [u'Dimensionless', u'Temperature', u'VolumetricFlow', u'MassFlow', u'Power', u'Distance'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Input Unit Type for X`
@@ -5297,8 +5085,6 @@ class CurveBiquadratic(object):
     @input_unit_type_for_y.setter
     def input_unit_type_for_y(self, value="Dimensionless"):
         """  Corresponds to IDD Field `Input Unit Type for Y`
-        
-        {u'default': u'Dimensionless', u'type': u'choice', u'key': [u'Dimensionless', u'Temperature', u'VolumetricFlow', u'MassFlow', u'Power', u'Distance'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Input Unit Type for Y`
@@ -5363,8 +5149,6 @@ class CurveBiquadratic(object):
     @output_unit_type.setter
     def output_unit_type(self, value="Dimensionless"):
         """  Corresponds to IDD Field `Output Unit Type`
-        
-        {u'default': u'Dimensionless', u'type': u'choice', u'key': [u'Dimensionless', u'Capacity', u'Power'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Output Unit Type`
@@ -5613,8 +5397,6 @@ class CurveQuadraticLinear(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'reference': u'AllCurves', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -5650,8 +5432,6 @@ class CurveQuadraticLinear(object):
     @coefficient1_constant.setter
     def coefficient1_constant(self, value=None):
         """  Corresponds to IDD Field `Coefficient1 Constant`
-        
-        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient1 Constant`
@@ -5681,8 +5461,6 @@ class CurveQuadraticLinear(object):
     @coefficient2_x.setter
     def coefficient2_x(self, value=None):
         """  Corresponds to IDD Field `Coefficient2 x`
-        
-        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient2 x`
@@ -5712,8 +5490,6 @@ class CurveQuadraticLinear(object):
     @coefficient3_x2.setter
     def coefficient3_x2(self, value=None):
         """  Corresponds to IDD Field `Coefficient3 x**2`
-        
-        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient3 x**2`
@@ -5743,8 +5519,6 @@ class CurveQuadraticLinear(object):
     @coefficient4_y.setter
     def coefficient4_y(self, value=None):
         """  Corresponds to IDD Field `Coefficient4 y`
-        
-        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient4 y`
@@ -5774,8 +5548,6 @@ class CurveQuadraticLinear(object):
     @coefficient5_xy.setter
     def coefficient5_xy(self, value=None):
         """  Corresponds to IDD Field `Coefficient5 x*y`
-        
-        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient5 x*y`
@@ -5805,8 +5577,6 @@ class CurveQuadraticLinear(object):
     @coefficient6_x2y.setter
     def coefficient6_x2y(self, value=None):
         """  Corresponds to IDD Field `Coefficient6 x**2*y`
-        
-        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient6 x**2*y`
@@ -5836,8 +5606,6 @@ class CurveQuadraticLinear(object):
     @minimum_value_of_x.setter
     def minimum_value_of_x(self, value=None):
         """  Corresponds to IDD Field `Minimum Value of x`
-        
-        {u'type': u'real', u'unitsBasedOnField': u'A2', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Minimum Value of x`
@@ -5867,8 +5635,6 @@ class CurveQuadraticLinear(object):
     @maximum_value_of_x.setter
     def maximum_value_of_x(self, value=None):
         """  Corresponds to IDD Field `Maximum Value of x`
-        
-        {u'type': u'real', u'unitsBasedOnField': u'A2', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Maximum Value of x`
@@ -5898,8 +5664,6 @@ class CurveQuadraticLinear(object):
     @minimum_value_of_y.setter
     def minimum_value_of_y(self, value=None):
         """  Corresponds to IDD Field `Minimum Value of y`
-        
-        {u'type': u'real', u'unitsBasedOnField': u'A3', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Minimum Value of y`
@@ -5929,8 +5693,6 @@ class CurveQuadraticLinear(object):
     @maximum_value_of_y.setter
     def maximum_value_of_y(self, value=None):
         """  Corresponds to IDD Field `Maximum Value of y`
-        
-        {u'type': u'real', u'unitsBasedOnField': u'A3', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Maximum Value of y`
@@ -5961,8 +5723,6 @@ class CurveQuadraticLinear(object):
     def minimum_curve_output(self, value=None):
         """  Corresponds to IDD Field `Minimum Curve Output`
         Specify the minimum value calculated by this curve object
-        
-        {u'note': [u'Specify the minimum value calculated by this curve object'], u'type': u'real', u'unitsBasedOnField': u'A4', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Minimum Curve Output`
@@ -5993,8 +5753,6 @@ class CurveQuadraticLinear(object):
     def maximum_curve_output(self, value=None):
         """  Corresponds to IDD Field `Maximum Curve Output`
         Specify the maximum value calculated by this curve object
-        
-        {u'note': [u'Specify the maximum value calculated by this curve object'], u'type': u'real', u'unitsBasedOnField': u'A4', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Maximum Curve Output`
@@ -6024,8 +5782,6 @@ class CurveQuadraticLinear(object):
     @input_unit_type_for_x.setter
     def input_unit_type_for_x(self, value="Dimensionless"):
         """  Corresponds to IDD Field `Input Unit Type for X`
-        
-        {u'default': u'Dimensionless', u'type': u'choice', u'key': [u'Dimensionless', u'Temperature', u'VolumetricFlow', u'MassFlow', u'Power', u'Distance'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Input Unit Type for X`
@@ -6090,8 +5846,6 @@ class CurveQuadraticLinear(object):
     @input_unit_type_for_y.setter
     def input_unit_type_for_y(self, value="Dimensionless"):
         """  Corresponds to IDD Field `Input Unit Type for Y`
-        
-        {u'default': u'Dimensionless', u'type': u'choice', u'key': [u'Dimensionless', u'Temperature', u'VolumetricFlow', u'MassFlow', u'Power', u'Distance'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Input Unit Type for Y`
@@ -6156,8 +5910,6 @@ class CurveQuadraticLinear(object):
     @output_unit_type.setter
     def output_unit_type(self, value="Dimensionless"):
         """  Corresponds to IDD Field `Output Unit Type`
-        
-        {u'default': u'Dimensionless', u'type': u'choice', u'key': [u'Dimensionless', u'Capacity', u'Power'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Output Unit Type`
@@ -6604,8 +6356,6 @@ class CurveTriquadratic(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'reference': u'AllCurves', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -6641,8 +6391,6 @@ class CurveTriquadratic(object):
     @coefficient1_constant.setter
     def coefficient1_constant(self, value=None):
         """  Corresponds to IDD Field `Coefficient1 Constant`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient1 Constant`
@@ -6672,8 +6420,6 @@ class CurveTriquadratic(object):
     @coefficient2_x2.setter
     def coefficient2_x2(self, value=None):
         """  Corresponds to IDD Field `Coefficient2 x**2`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient2 x**2`
@@ -6703,8 +6449,6 @@ class CurveTriquadratic(object):
     @coefficient3_x.setter
     def coefficient3_x(self, value=None):
         """  Corresponds to IDD Field `Coefficient3 x`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient3 x`
@@ -6734,8 +6478,6 @@ class CurveTriquadratic(object):
     @coefficient4_y2.setter
     def coefficient4_y2(self, value=None):
         """  Corresponds to IDD Field `Coefficient4 y**2`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient4 y**2`
@@ -6765,8 +6507,6 @@ class CurveTriquadratic(object):
     @coefficient5_y.setter
     def coefficient5_y(self, value=None):
         """  Corresponds to IDD Field `Coefficient5 y`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient5 y`
@@ -6796,8 +6536,6 @@ class CurveTriquadratic(object):
     @coefficient6_z2.setter
     def coefficient6_z2(self, value=None):
         """  Corresponds to IDD Field `Coefficient6 z**2`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient6 z**2`
@@ -6827,8 +6565,6 @@ class CurveTriquadratic(object):
     @coefficient7_z.setter
     def coefficient7_z(self, value=None):
         """  Corresponds to IDD Field `Coefficient7 z`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient7 z`
@@ -6858,8 +6594,6 @@ class CurveTriquadratic(object):
     @coefficient8_x2y2.setter
     def coefficient8_x2y2(self, value=None):
         """  Corresponds to IDD Field `Coefficient8 x**2*y**2`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient8 x**2*y**2`
@@ -6889,8 +6623,6 @@ class CurveTriquadratic(object):
     @coefficient9_xy.setter
     def coefficient9_xy(self, value=None):
         """  Corresponds to IDD Field `Coefficient9 x*y`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient9 x*y`
@@ -6920,8 +6652,6 @@ class CurveTriquadratic(object):
     @coefficient10_xy2.setter
     def coefficient10_xy2(self, value=None):
         """  Corresponds to IDD Field `Coefficient10 x*y**2`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient10 x*y**2`
@@ -6951,8 +6681,6 @@ class CurveTriquadratic(object):
     @coefficient11_x2y.setter
     def coefficient11_x2y(self, value=None):
         """  Corresponds to IDD Field `Coefficient11 x**2*y`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient11 x**2*y`
@@ -6982,8 +6710,6 @@ class CurveTriquadratic(object):
     @coefficient12_x2z2.setter
     def coefficient12_x2z2(self, value=None):
         """  Corresponds to IDD Field `Coefficient12 x**2*z**2`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient12 x**2*z**2`
@@ -7013,8 +6739,6 @@ class CurveTriquadratic(object):
     @coefficient13_xz.setter
     def coefficient13_xz(self, value=None):
         """  Corresponds to IDD Field `Coefficient13 x*z`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient13 x*z`
@@ -7044,8 +6768,6 @@ class CurveTriquadratic(object):
     @coefficient14_xz2.setter
     def coefficient14_xz2(self, value=None):
         """  Corresponds to IDD Field `Coefficient14 x*z**2`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient14 x*z**2`
@@ -7075,8 +6797,6 @@ class CurveTriquadratic(object):
     @coefficient15_x2z.setter
     def coefficient15_x2z(self, value=None):
         """  Corresponds to IDD Field `Coefficient15 x**2*z`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient15 x**2*z`
@@ -7106,8 +6826,6 @@ class CurveTriquadratic(object):
     @coefficient16_y2z2.setter
     def coefficient16_y2z2(self, value=None):
         """  Corresponds to IDD Field `Coefficient16 y**2*z**2`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient16 y**2*z**2`
@@ -7137,8 +6855,6 @@ class CurveTriquadratic(object):
     @coefficient17_yz.setter
     def coefficient17_yz(self, value=None):
         """  Corresponds to IDD Field `Coefficient17 y*z`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient17 y*z`
@@ -7168,8 +6884,6 @@ class CurveTriquadratic(object):
     @coefficient18_yz2.setter
     def coefficient18_yz2(self, value=None):
         """  Corresponds to IDD Field `Coefficient18 y*z**2`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient18 y*z**2`
@@ -7199,8 +6913,6 @@ class CurveTriquadratic(object):
     @coefficient19_y2z.setter
     def coefficient19_y2z(self, value=None):
         """  Corresponds to IDD Field `Coefficient19 y**2*z`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient19 y**2*z`
@@ -7230,8 +6942,6 @@ class CurveTriquadratic(object):
     @coefficient20_x2y2z2.setter
     def coefficient20_x2y2z2(self, value=None):
         """  Corresponds to IDD Field `Coefficient20 x**2*y**2*z**2`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient20 x**2*y**2*z**2`
@@ -7261,8 +6971,6 @@ class CurveTriquadratic(object):
     @coefficient21_x2y2z.setter
     def coefficient21_x2y2z(self, value=None):
         """  Corresponds to IDD Field `Coefficient21 x**2*y**2*z`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient21 x**2*y**2*z`
@@ -7292,8 +7000,6 @@ class CurveTriquadratic(object):
     @coefficient22_x2yz2.setter
     def coefficient22_x2yz2(self, value=None):
         """  Corresponds to IDD Field `Coefficient22 x**2*y*z**2`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient22 x**2*y*z**2`
@@ -7323,8 +7029,6 @@ class CurveTriquadratic(object):
     @coefficient23_xy2z2.setter
     def coefficient23_xy2z2(self, value=None):
         """  Corresponds to IDD Field `Coefficient23 x*y**2*z**2`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient23 x*y**2*z**2`
@@ -7354,8 +7058,6 @@ class CurveTriquadratic(object):
     @coefficient24_x2yz.setter
     def coefficient24_x2yz(self, value=None):
         """  Corresponds to IDD Field `Coefficient24 x**2*y*z`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient24 x**2*y*z`
@@ -7385,8 +7087,6 @@ class CurveTriquadratic(object):
     @coefficient25_xy2z.setter
     def coefficient25_xy2z(self, value=None):
         """  Corresponds to IDD Field `Coefficient25 x*y**2*z`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient25 x*y**2*z`
@@ -7416,8 +7116,6 @@ class CurveTriquadratic(object):
     @coefficient26_xyz2.setter
     def coefficient26_xyz2(self, value=None):
         """  Corresponds to IDD Field `Coefficient26 x*y*z**2`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient26 x*y*z**2`
@@ -7447,8 +7145,6 @@ class CurveTriquadratic(object):
     @coefficient27_xyz.setter
     def coefficient27_xyz(self, value=None):
         """  Corresponds to IDD Field `Coefficient27 x*y*z`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient27 x*y*z`
@@ -7478,8 +7174,6 @@ class CurveTriquadratic(object):
     @minimum_value_of_x.setter
     def minimum_value_of_x(self, value=None):
         """  Corresponds to IDD Field `Minimum Value of x`
-        
-        {u'type': u'real', u'unitsBasedOnField': u'A2', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Minimum Value of x`
@@ -7509,8 +7203,6 @@ class CurveTriquadratic(object):
     @maximum_value_of_x.setter
     def maximum_value_of_x(self, value=None):
         """  Corresponds to IDD Field `Maximum Value of x`
-        
-        {u'type': u'real', u'unitsBasedOnField': u'A2', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Maximum Value of x`
@@ -7540,8 +7232,6 @@ class CurveTriquadratic(object):
     @minimum_value_of_y.setter
     def minimum_value_of_y(self, value=None):
         """  Corresponds to IDD Field `Minimum Value of y`
-        
-        {u'type': u'real', u'unitsBasedOnField': u'A3', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Minimum Value of y`
@@ -7571,8 +7261,6 @@ class CurveTriquadratic(object):
     @maximum_value_of_y.setter
     def maximum_value_of_y(self, value=None):
         """  Corresponds to IDD Field `Maximum Value of y`
-        
-        {u'type': u'real', u'unitsBasedOnField': u'A3', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Maximum Value of y`
@@ -7602,8 +7290,6 @@ class CurveTriquadratic(object):
     @minimum_value_of_z.setter
     def minimum_value_of_z(self, value=None):
         """  Corresponds to IDD Field `Minimum Value of z`
-        
-        {u'type': u'real', u'unitsBasedOnField': u'A4', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Minimum Value of z`
@@ -7633,8 +7319,6 @@ class CurveTriquadratic(object):
     @maximum_value_of_z.setter
     def maximum_value_of_z(self, value=None):
         """  Corresponds to IDD Field `Maximum Value of z`
-        
-        {u'type': u'real', u'unitsBasedOnField': u'A4', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Maximum Value of z`
@@ -7665,8 +7349,6 @@ class CurveTriquadratic(object):
     def minimum_curve_output(self, value=None):
         """  Corresponds to IDD Field `Minimum Curve Output`
         Specify the minimum value calculated by this curve object
-        
-        {u'note': [u'Specify the minimum value calculated by this curve object'], u'type': u'real', u'unitsBasedOnField': u'A5', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Minimum Curve Output`
@@ -7697,8 +7379,6 @@ class CurveTriquadratic(object):
     def maximum_curve_output(self, value=None):
         """  Corresponds to IDD Field `Maximum Curve Output`
         Specify the maximum value calculated by this curve object
-        
-        {u'note': [u'Specify the maximum value calculated by this curve object'], u'type': u'real', u'unitsBasedOnField': u'A5', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Maximum Curve Output`
@@ -7728,8 +7408,6 @@ class CurveTriquadratic(object):
     @input_unit_type_for_x.setter
     def input_unit_type_for_x(self, value="Dimensionless"):
         """  Corresponds to IDD Field `Input Unit Type for X`
-        
-        {u'default': u'Dimensionless', u'type': u'choice', u'key': [u'Dimensionless', u'Temperature', u'VolumetricFlow', u'MassFlow', u'Power', u'Distance'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Input Unit Type for X`
@@ -7794,8 +7472,6 @@ class CurveTriquadratic(object):
     @input_unit_type_for_y.setter
     def input_unit_type_for_y(self, value="Dimensionless"):
         """  Corresponds to IDD Field `Input Unit Type for Y`
-        
-        {u'default': u'Dimensionless', u'type': u'choice', u'key': [u'Dimensionless', u'Temperature', u'VolumetricFlow', u'MassFlow', u'Power', u'Distance'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Input Unit Type for Y`
@@ -7860,8 +7536,6 @@ class CurveTriquadratic(object):
     @input_unit_type_for_z.setter
     def input_unit_type_for_z(self, value="Dimensionless"):
         """  Corresponds to IDD Field `Input Unit Type for Z`
-        
-        {u'default': u'Dimensionless', u'type': u'choice', u'key': [u'Dimensionless', u'Temperature', u'VolumetricFlow', u'MassFlow', u'Power', u'Distance'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Input Unit Type for Z`
@@ -7926,8 +7600,6 @@ class CurveTriquadratic(object):
     @output_unit_type.setter
     def output_unit_type(self, value="Dimensionless"):
         """  Corresponds to IDD Field `Output Unit Type`
-        
-        {u'default': u'Dimensionless', u'type': u'choice', u'key': [u'Dimensionless', u'Capacity', u'Power'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Output Unit Type`
@@ -8094,8 +7766,6 @@ class CurveFunctionalPressureDrop(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'reference': u'PressureDropCurves', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -8132,8 +7802,6 @@ class CurveFunctionalPressureDrop(object):
     def diameter(self, value=None):
         """  Corresponds to IDD Field `Diameter`
         "D" in above expression, used to also calculate local velocity
-        
-        {'pytype': 'float', u'minimum>': '0.0', u'required-field': True, u'note': [u'"D" in above expression, used to also calculate local velocity'], u'units': u'm', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Diameter`
@@ -8169,8 +7837,6 @@ class CurveFunctionalPressureDrop(object):
     def minor_loss_coefficient(self, value=None):
         """  Corresponds to IDD Field `Minor Loss Coefficient`
         "K" in above expression
-        
-        {u'units': u'dimensionless', u'note': [u'"K" in above expression'], u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Minor Loss Coefficient`
@@ -8206,8 +7872,6 @@ class CurveFunctionalPressureDrop(object):
     def length(self, value=None):
         """  Corresponds to IDD Field `Length`
         "L" in above expression
-        
-        {u'units': u'm', u'note': [u'"L" in above expression'], u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Length`
@@ -8243,8 +7907,6 @@ class CurveFunctionalPressureDrop(object):
     def roughness(self, value=None):
         """  Corresponds to IDD Field `Roughness`
         This will be used to calculate "f" from Moody-chart approximations
-        
-        {u'units': u'm', u'note': [u'This will be used to calculate "f" from Moody-chart approximations'], u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Roughness`
@@ -8281,8 +7943,6 @@ class CurveFunctionalPressureDrop(object):
         """  Corresponds to IDD Field `Fixed Friction Factor`
         Optional way to set a constant value for "f", instead of using
         internal Moody-chart approximations
-        
-        {u'note': [u'Optional way to set a constant value for "f", instead of using', u'internal Moody-chart approximations'], u'minimum>': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fixed Friction Factor`
@@ -8469,8 +8129,6 @@ class CurveFanPressureRise(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'reference': u'AllCurves', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -8506,8 +8164,6 @@ class CurveFanPressureRise(object):
     @coefficient1_c1.setter
     def coefficient1_c1(self, value=None):
         """  Corresponds to IDD Field `Coefficient1 C1`
-        
-        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient1 C1`
@@ -8537,8 +8193,6 @@ class CurveFanPressureRise(object):
     @coefficient2_c2.setter
     def coefficient2_c2(self, value=None):
         """  Corresponds to IDD Field `Coefficient2 C2`
-        
-        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient2 C2`
@@ -8568,8 +8222,6 @@ class CurveFanPressureRise(object):
     @coefficient3_c3.setter
     def coefficient3_c3(self, value=None):
         """  Corresponds to IDD Field `Coefficient3 C3`
-        
-        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient3 C3`
@@ -8599,8 +8251,6 @@ class CurveFanPressureRise(object):
     @coefficient4_c4.setter
     def coefficient4_c4(self, value=None):
         """  Corresponds to IDD Field `Coefficient4 C4`
-        
-        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient4 C4`
@@ -8630,8 +8280,6 @@ class CurveFanPressureRise(object):
     @minimum_value_of_qfan.setter
     def minimum_value_of_qfan(self, value=None):
         """  Corresponds to IDD Field `Minimum Value of Qfan`
-        
-        {u'units': u'm3/s', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Minimum Value of Qfan`
@@ -8662,8 +8310,6 @@ class CurveFanPressureRise(object):
     @maximum_value_of_qfan.setter
     def maximum_value_of_qfan(self, value=None):
         """  Corresponds to IDD Field `Maximum Value of Qfan`
-        
-        {u'units': u'm3/s', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Maximum Value of Qfan`
@@ -8694,8 +8340,6 @@ class CurveFanPressureRise(object):
     @minimum_value_of_psm.setter
     def minimum_value_of_psm(self, value=None):
         """  Corresponds to IDD Field `Minimum Value of Psm`
-        
-        {u'units': u'Pa', u'ip-units': u'Pa', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Minimum Value of Psm`
@@ -8727,8 +8371,6 @@ class CurveFanPressureRise(object):
     @maximum_value_of_psm.setter
     def maximum_value_of_psm(self, value=None):
         """  Corresponds to IDD Field `Maximum Value of Psm`
-        
-        {u'units': u'Pa', u'ip-units': u'Pa', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Maximum Value of Psm`
@@ -8761,8 +8403,6 @@ class CurveFanPressureRise(object):
     def minimum_curve_output(self, value=None):
         """  Corresponds to IDD Field `Minimum Curve Output`
         Specify the minimum value calculated by this curve object
-        
-        {u'units': u'Pa', u'ip-units': u'Pa', u'note': [u'Specify the minimum value calculated by this curve object'], u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Minimum Curve Output`
@@ -8795,8 +8435,6 @@ class CurveFanPressureRise(object):
     def maximum_curve_output(self, value=None):
         """  Corresponds to IDD Field `Maximum Curve Output`
         Specify the maximum value calculated by this curve object
-        
-        {u'units': u'Pa', u'ip-units': u'Pa', u'note': [u'Specify the maximum value calculated by this curve object'], u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Maximum Curve Output`
@@ -8979,8 +8617,6 @@ class CurveExponentialSkewNormal(object):
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
         See InputOut Reference for curve description
-        
-        {u'note': [u'See InputOut Reference for curve description'], u'type': u'alpha', u'reference': u'AllCurves', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -9016,8 +8652,6 @@ class CurveExponentialSkewNormal(object):
     @coefficient1_c1.setter
     def coefficient1_c1(self, value=None):
         """  Corresponds to IDD Field `Coefficient1 C1`
-        
-        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient1 C1`
@@ -9047,8 +8681,6 @@ class CurveExponentialSkewNormal(object):
     @coefficient2_c2.setter
     def coefficient2_c2(self, value=None):
         """  Corresponds to IDD Field `Coefficient2 C2`
-        
-        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient2 C2`
@@ -9078,8 +8710,6 @@ class CurveExponentialSkewNormal(object):
     @coefficient3_c3.setter
     def coefficient3_c3(self, value=None):
         """  Corresponds to IDD Field `Coefficient3 C3`
-        
-        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient3 C3`
@@ -9109,8 +8739,6 @@ class CurveExponentialSkewNormal(object):
     @coefficient4_c4.setter
     def coefficient4_c4(self, value=None):
         """  Corresponds to IDD Field `Coefficient4 C4`
-        
-        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient4 C4`
@@ -9140,8 +8768,6 @@ class CurveExponentialSkewNormal(object):
     @minimum_value_of_x.setter
     def minimum_value_of_x(self, value=None):
         """  Corresponds to IDD Field `Minimum Value of x`
-        
-        {u'type': u'real', u'unitsBasedOnField': u'A2', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Minimum Value of x`
@@ -9171,8 +8797,6 @@ class CurveExponentialSkewNormal(object):
     @maximum_value_of_x.setter
     def maximum_value_of_x(self, value=None):
         """  Corresponds to IDD Field `Maximum Value of x`
-        
-        {u'type': u'real', u'unitsBasedOnField': u'A2', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Maximum Value of x`
@@ -9203,8 +8827,6 @@ class CurveExponentialSkewNormal(object):
     def minimum_curve_output(self, value=None):
         """  Corresponds to IDD Field `Minimum Curve Output`
         Specify the minimum value calculated by this curve object
-        
-        {u'note': [u'Specify the minimum value calculated by this curve object'], u'type': u'real', u'unitsBasedOnField': u'A3', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Minimum Curve Output`
@@ -9235,8 +8857,6 @@ class CurveExponentialSkewNormal(object):
     def maximum_curve_output(self, value=None):
         """  Corresponds to IDD Field `Maximum Curve Output`
         Specify the maximum value calculated by this curve object
-        
-        {u'note': [u'Specify the maximum value calculated by this curve object'], u'type': u'real', u'unitsBasedOnField': u'A3', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Maximum Curve Output`
@@ -9266,8 +8886,6 @@ class CurveExponentialSkewNormal(object):
     @input_unit_type_for_x.setter
     def input_unit_type_for_x(self, value="Dimensionless"):
         """  Corresponds to IDD Field `Input Unit Type for x`
-        
-        {u'default': u'Dimensionless', u'type': u'choice', u'key': [u'Dimensionless'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Input Unit Type for x`
@@ -9322,8 +8940,6 @@ class CurveExponentialSkewNormal(object):
     @output_unit_type.setter
     def output_unit_type(self, value="Dimensionless"):
         """  Corresponds to IDD Field `Output Unit Type`
-        
-        {u'default': u'Dimensionless', u'type': u'choice', u'key': [u'Dimensionless'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Output Unit Type`
@@ -9537,8 +9153,6 @@ class CurveSigmoid(object):
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
         See InputOut Reference for curve description
-        
-        {u'note': [u'See InputOut Reference for curve description'], u'type': u'alpha', u'reference': u'AllCurves', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -9574,8 +9188,6 @@ class CurveSigmoid(object):
     @coefficient1_c1.setter
     def coefficient1_c1(self, value=None):
         """  Corresponds to IDD Field `Coefficient1 C1`
-        
-        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient1 C1`
@@ -9605,8 +9217,6 @@ class CurveSigmoid(object):
     @coefficient2_c2.setter
     def coefficient2_c2(self, value=None):
         """  Corresponds to IDD Field `Coefficient2 C2`
-        
-        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient2 C2`
@@ -9636,8 +9246,6 @@ class CurveSigmoid(object):
     @coefficient3_c3.setter
     def coefficient3_c3(self, value=None):
         """  Corresponds to IDD Field `Coefficient3 C3`
-        
-        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient3 C3`
@@ -9667,8 +9275,6 @@ class CurveSigmoid(object):
     @coefficient4_c4.setter
     def coefficient4_c4(self, value=None):
         """  Corresponds to IDD Field `Coefficient4 C4`
-        
-        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient4 C4`
@@ -9698,8 +9304,6 @@ class CurveSigmoid(object):
     @coefficient5_c5.setter
     def coefficient5_c5(self, value=None):
         """  Corresponds to IDD Field `Coefficient5 C5`
-        
-        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient5 C5`
@@ -9729,8 +9333,6 @@ class CurveSigmoid(object):
     @minimum_value_of_x.setter
     def minimum_value_of_x(self, value=None):
         """  Corresponds to IDD Field `Minimum Value of x`
-        
-        {u'type': u'real', u'unitsBasedOnField': u'A2', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Minimum Value of x`
@@ -9760,8 +9362,6 @@ class CurveSigmoid(object):
     @maximum_value_of_x.setter
     def maximum_value_of_x(self, value=None):
         """  Corresponds to IDD Field `Maximum Value of x`
-        
-        {u'type': u'real', u'unitsBasedOnField': u'A2', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Maximum Value of x`
@@ -9792,8 +9392,6 @@ class CurveSigmoid(object):
     def minimum_curve_output(self, value=None):
         """  Corresponds to IDD Field `Minimum Curve Output`
         Specify the minimum value calculated by this curve object
-        
-        {u'note': [u'Specify the minimum value calculated by this curve object'], u'type': u'real', u'unitsBasedOnField': u'A3', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Minimum Curve Output`
@@ -9824,8 +9422,6 @@ class CurveSigmoid(object):
     def maximum_curve_output(self, value=None):
         """  Corresponds to IDD Field `Maximum Curve Output`
         Specify the maximum value calculated by this curve object
-        
-        {u'note': [u'Specify the maximum value calculated by this curve object'], u'type': u'real', u'unitsBasedOnField': u'A3', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Maximum Curve Output`
@@ -9855,8 +9451,6 @@ class CurveSigmoid(object):
     @input_unit_type_for_x.setter
     def input_unit_type_for_x(self, value="Dimensionless"):
         """  Corresponds to IDD Field `Input Unit Type for x`
-        
-        {u'default': u'Dimensionless', u'type': u'choice', u'key': [u'Dimensionless'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Input Unit Type for x`
@@ -9911,8 +9505,6 @@ class CurveSigmoid(object):
     @output_unit_type.setter
     def output_unit_type(self, value="Dimensionless"):
         """  Corresponds to IDD Field `Output Unit Type`
-        
-        {u'default': u'Dimensionless', u'type': u'choice', u'key': [u'Dimensionless'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Output Unit Type`
@@ -10109,8 +9701,6 @@ class CurveRectangularHyperbola1(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'reference': u'AllCurves', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -10146,8 +9736,6 @@ class CurveRectangularHyperbola1(object):
     @coefficient1_c1.setter
     def coefficient1_c1(self, value=None):
         """  Corresponds to IDD Field `Coefficient1 C1`
-        
-        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient1 C1`
@@ -10177,8 +9765,6 @@ class CurveRectangularHyperbola1(object):
     @coefficient2_c2.setter
     def coefficient2_c2(self, value=None):
         """  Corresponds to IDD Field `Coefficient2 C2`
-        
-        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient2 C2`
@@ -10208,8 +9794,6 @@ class CurveRectangularHyperbola1(object):
     @coefficient3_c3.setter
     def coefficient3_c3(self, value=None):
         """  Corresponds to IDD Field `Coefficient3 C3`
-        
-        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient3 C3`
@@ -10239,8 +9823,6 @@ class CurveRectangularHyperbola1(object):
     @minimum_value_of_x.setter
     def minimum_value_of_x(self, value=None):
         """  Corresponds to IDD Field `Minimum Value of x`
-        
-        {u'type': u'real', u'unitsBasedOnField': u'A2', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Minimum Value of x`
@@ -10270,8 +9852,6 @@ class CurveRectangularHyperbola1(object):
     @maximum_value_of_x.setter
     def maximum_value_of_x(self, value=None):
         """  Corresponds to IDD Field `Maximum Value of x`
-        
-        {u'type': u'real', u'unitsBasedOnField': u'A2', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Maximum Value of x`
@@ -10302,8 +9882,6 @@ class CurveRectangularHyperbola1(object):
     def minimum_curve_output(self, value=None):
         """  Corresponds to IDD Field `Minimum Curve Output`
         Specify the minimum value calculated by this curve object
-        
-        {u'note': [u'Specify the minimum value calculated by this curve object'], u'type': u'real', u'unitsBasedOnField': u'A3', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Minimum Curve Output`
@@ -10334,8 +9912,6 @@ class CurveRectangularHyperbola1(object):
     def maximum_curve_output(self, value=None):
         """  Corresponds to IDD Field `Maximum Curve Output`
         Specify the maximum value calculated by this curve object
-        
-        {u'note': [u'Specify the maximum value calculated by this curve object'], u'type': u'real', u'unitsBasedOnField': u'A3', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Maximum Curve Output`
@@ -10365,8 +9941,6 @@ class CurveRectangularHyperbola1(object):
     @input_unit_type_for_x.setter
     def input_unit_type_for_x(self, value="Dimensionless"):
         """  Corresponds to IDD Field `Input Unit Type for x`
-        
-        {u'default': u'Dimensionless', u'type': u'choice', u'key': [u'Dimensionless'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Input Unit Type for x`
@@ -10421,8 +9995,6 @@ class CurveRectangularHyperbola1(object):
     @output_unit_type.setter
     def output_unit_type(self, value="Dimensionless"):
         """  Corresponds to IDD Field `Output Unit Type`
-        
-        {u'default': u'Dimensionless', u'type': u'choice', u'key': [u'Dimensionless'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Output Unit Type`
@@ -10619,8 +10191,6 @@ class CurveRectangularHyperbola2(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'reference': u'AllCurves', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -10656,8 +10226,6 @@ class CurveRectangularHyperbola2(object):
     @coefficient1_c1.setter
     def coefficient1_c1(self, value=None):
         """  Corresponds to IDD Field `Coefficient1 C1`
-        
-        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient1 C1`
@@ -10687,8 +10255,6 @@ class CurveRectangularHyperbola2(object):
     @coefficient2_c2.setter
     def coefficient2_c2(self, value=None):
         """  Corresponds to IDD Field `Coefficient2 C2`
-        
-        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient2 C2`
@@ -10718,8 +10284,6 @@ class CurveRectangularHyperbola2(object):
     @coefficient3_c3.setter
     def coefficient3_c3(self, value=None):
         """  Corresponds to IDD Field `Coefficient3 C3`
-        
-        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient3 C3`
@@ -10749,8 +10313,6 @@ class CurveRectangularHyperbola2(object):
     @minimum_value_of_x.setter
     def minimum_value_of_x(self, value=None):
         """  Corresponds to IDD Field `Minimum Value of x`
-        
-        {u'type': u'real', u'unitsBasedOnField': u'A2', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Minimum Value of x`
@@ -10780,8 +10342,6 @@ class CurveRectangularHyperbola2(object):
     @maximum_value_of_x.setter
     def maximum_value_of_x(self, value=None):
         """  Corresponds to IDD Field `Maximum Value of x`
-        
-        {u'type': u'real', u'unitsBasedOnField': u'A2', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Maximum Value of x`
@@ -10812,8 +10372,6 @@ class CurveRectangularHyperbola2(object):
     def minimum_curve_output(self, value=None):
         """  Corresponds to IDD Field `Minimum Curve Output`
         Specify the minimum value calculated by this curve object
-        
-        {u'note': [u'Specify the minimum value calculated by this curve object'], u'type': u'real', u'unitsBasedOnField': u'A3', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Minimum Curve Output`
@@ -10844,8 +10402,6 @@ class CurveRectangularHyperbola2(object):
     def maximum_curve_output(self, value=None):
         """  Corresponds to IDD Field `Maximum Curve Output`
         Specify the maximum value calculated by this curve object
-        
-        {u'note': [u'Specify the maximum value calculated by this curve object'], u'type': u'real', u'unitsBasedOnField': u'A3', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Maximum Curve Output`
@@ -10875,8 +10431,6 @@ class CurveRectangularHyperbola2(object):
     @input_unit_type_for_x.setter
     def input_unit_type_for_x(self, value="Dimensionless"):
         """  Corresponds to IDD Field `Input Unit Type for x`
-        
-        {u'default': u'Dimensionless', u'type': u'choice', u'key': [u'Dimensionless'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Input Unit Type for x`
@@ -10931,8 +10485,6 @@ class CurveRectangularHyperbola2(object):
     @output_unit_type.setter
     def output_unit_type(self, value="Dimensionless"):
         """  Corresponds to IDD Field `Output Unit Type`
-        
-        {u'default': u'Dimensionless', u'type': u'choice', u'key': [u'Dimensionless'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Output Unit Type`
@@ -11129,8 +10681,6 @@ class CurveExponentialDecay(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'reference': u'AllCurves', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -11166,8 +10716,6 @@ class CurveExponentialDecay(object):
     @coefficient1_c1.setter
     def coefficient1_c1(self, value=None):
         """  Corresponds to IDD Field `Coefficient1 C1`
-        
-        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient1 C1`
@@ -11197,8 +10745,6 @@ class CurveExponentialDecay(object):
     @coefficient2_c2.setter
     def coefficient2_c2(self, value=None):
         """  Corresponds to IDD Field `Coefficient2 C2`
-        
-        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient2 C2`
@@ -11228,8 +10774,6 @@ class CurveExponentialDecay(object):
     @coefficient3_c3.setter
     def coefficient3_c3(self, value=None):
         """  Corresponds to IDD Field `Coefficient3 C3`
-        
-        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient3 C3`
@@ -11259,8 +10803,6 @@ class CurveExponentialDecay(object):
     @minimum_value_of_x.setter
     def minimum_value_of_x(self, value=None):
         """  Corresponds to IDD Field `Minimum Value of x`
-        
-        {u'type': u'real', u'unitsBasedOnField': u'A2', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Minimum Value of x`
@@ -11290,8 +10832,6 @@ class CurveExponentialDecay(object):
     @maximum_value_of_x.setter
     def maximum_value_of_x(self, value=None):
         """  Corresponds to IDD Field `Maximum Value of x`
-        
-        {u'type': u'real', u'unitsBasedOnField': u'A2', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Maximum Value of x`
@@ -11322,8 +10862,6 @@ class CurveExponentialDecay(object):
     def minimum_curve_output(self, value=None):
         """  Corresponds to IDD Field `Minimum Curve Output`
         Specify the minimum value calculated by this curve object
-        
-        {u'note': [u'Specify the minimum value calculated by this curve object'], u'type': u'real', u'unitsBasedOnField': u'A3', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Minimum Curve Output`
@@ -11354,8 +10892,6 @@ class CurveExponentialDecay(object):
     def maximum_curve_output(self, value=None):
         """  Corresponds to IDD Field `Maximum Curve Output`
         Specify the maximum value calculated by this curve object
-        
-        {u'note': [u'Specify the maximum value calculated by this curve object'], u'type': u'real', u'unitsBasedOnField': u'A3', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Maximum Curve Output`
@@ -11385,8 +10921,6 @@ class CurveExponentialDecay(object):
     @input_unit_type_for_x.setter
     def input_unit_type_for_x(self, value="Dimensionless"):
         """  Corresponds to IDD Field `Input Unit Type for x`
-        
-        {u'default': u'Dimensionless', u'type': u'choice', u'key': [u'Dimensionless'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Input Unit Type for x`
@@ -11441,8 +10975,6 @@ class CurveExponentialDecay(object):
     @output_unit_type.setter
     def output_unit_type(self, value="Dimensionless"):
         """  Corresponds to IDD Field `Output Unit Type`
-        
-        {u'default': u'Dimensionless', u'type': u'choice', u'key': [u'Dimensionless'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Output Unit Type`
@@ -11655,8 +11187,6 @@ class CurveDoubleExponentialDecay(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'reference': u'DoubleExponentialDecayCurves', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -11692,8 +11222,6 @@ class CurveDoubleExponentialDecay(object):
     @coefficient1_c1.setter
     def coefficient1_c1(self, value=None):
         """  Corresponds to IDD Field `Coefficient1 C1`
-        
-        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient1 C1`
@@ -11723,8 +11251,6 @@ class CurveDoubleExponentialDecay(object):
     @coefficient2_c2.setter
     def coefficient2_c2(self, value=None):
         """  Corresponds to IDD Field `Coefficient2 C2`
-        
-        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient2 C2`
@@ -11754,8 +11280,6 @@ class CurveDoubleExponentialDecay(object):
     @coefficient3_c3.setter
     def coefficient3_c3(self, value=None):
         """  Corresponds to IDD Field `Coefficient3 C3`
-        
-        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient3 C3`
@@ -11785,8 +11309,6 @@ class CurveDoubleExponentialDecay(object):
     @coefficient3_c4.setter
     def coefficient3_c4(self, value=None):
         """  Corresponds to IDD Field `Coefficient3 C4`
-        
-        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient3 C4`
@@ -11816,8 +11338,6 @@ class CurveDoubleExponentialDecay(object):
     @coefficient3_c5.setter
     def coefficient3_c5(self, value=None):
         """  Corresponds to IDD Field `Coefficient3 C5`
-        
-        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient3 C5`
@@ -11847,8 +11367,6 @@ class CurveDoubleExponentialDecay(object):
     @minimum_value_of_x.setter
     def minimum_value_of_x(self, value=None):
         """  Corresponds to IDD Field `Minimum Value of x`
-        
-        {u'type': u'real', u'unitsBasedOnField': u'A2', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Minimum Value of x`
@@ -11878,8 +11396,6 @@ class CurveDoubleExponentialDecay(object):
     @maximum_value_of_x.setter
     def maximum_value_of_x(self, value=None):
         """  Corresponds to IDD Field `Maximum Value of x`
-        
-        {u'type': u'real', u'unitsBasedOnField': u'A2', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Maximum Value of x`
@@ -11910,8 +11426,6 @@ class CurveDoubleExponentialDecay(object):
     def minimum_curve_output(self, value=None):
         """  Corresponds to IDD Field `Minimum Curve Output`
         Specify the minimum value calculated by this curve object
-        
-        {u'note': [u'Specify the minimum value calculated by this curve object'], u'type': u'real', u'unitsBasedOnField': u'A3', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Minimum Curve Output`
@@ -11942,8 +11456,6 @@ class CurveDoubleExponentialDecay(object):
     def maximum_curve_output(self, value=None):
         """  Corresponds to IDD Field `Maximum Curve Output`
         Specify the maximum value calculated by this curve object
-        
-        {u'note': [u'Specify the maximum value calculated by this curve object'], u'type': u'real', u'unitsBasedOnField': u'A3', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Maximum Curve Output`
@@ -11973,8 +11485,6 @@ class CurveDoubleExponentialDecay(object):
     @input_unit_type_for_x.setter
     def input_unit_type_for_x(self, value="Dimensionless"):
         """  Corresponds to IDD Field `Input Unit Type for x`
-        
-        {u'default': u'Dimensionless', u'type': u'choice', u'key': [u'Dimensionless'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Input Unit Type for x`
@@ -12029,8 +11539,6 @@ class CurveDoubleExponentialDecay(object):
     @output_unit_type.setter
     def output_unit_type(self, value="Dimensionless"):
         """  Corresponds to IDD Field `Output Unit Type`
-        
-        {u'default': u'Dimensionless', u'type': u'choice', u'key': [u'Dimensionless'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Output Unit Type`

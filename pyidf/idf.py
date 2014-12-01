@@ -12,28 +12,43 @@ import re
 from collections import OrderedDict
 from internal_gains import *
 from water_heaters_and_thermal_storage import *
+from demand_limiting_controls import *
 from variable_refrigerant_flow_equipment import *
 from condenser_equipment_and_heat_exchangers import *
 from exterior_equipment import *
 from energy_management_system import *
 from schedules import *
+from non import *
 from location_and_climate import *
 from unitary_equipment import *
+from economics import *
 from zone_hvac_radiative import *
+from parametrics import *
 from external_interface import *
-from performance_tables import *
-from natural_ventilation_and_duct_leakage import *
+from water_systems import *
+from fluid_properties import *
+from coils import *
+from evaporative_coolers import *
+from humidifiers_and_dehumidifiers import *
+from zone_hvac_controls_and_thermostats import *
 from simulation_parameters import *
+from operational_faults import *
 from performance_curves import *
+from output_reporting import *
+from fans import *
 from compliance_objects import *
 from refrigeration import *
 from advanced_construction import *
+from heat_recovery import *
 from daylighting import *
 from node import *
 from plant import *
 from zone_hvac_forced_air_units import *
+from plant_heating_and_cooling_equipment import *
+from solar_collectors import *
 from zone_hvac_air_loop_terminal_units import *
 from surface_construction_elements import *
+from pumps import *
 from zone_hvac_equipment_connections import *
 from setpoint_managers import *
 from hvac_design_objects import *
@@ -42,10 +57,13 @@ from room_air_models import *
 from user_defined_hvac_and_plant_component_models import *
 from thermal_zones_and_surfaces import *
 from system_availability_managers import *
+from natural_ventilation_and_duct_leakage import *
 from detailed_ground_heat_transfer import *
 from air_distribution import *
 from controllers import *
+from hvac_templates import *
 from energyplus import *
+from electric_load_center import *
 
 
 class IDF(object):
@@ -512,6 +530,11 @@ class IDF(object):
         self._data["coilsystem:cooling:water:heatexchangerassisted"] = []
         self._data["coilsystem:cooling:dx:heatexchangerassisted"] = []
         self._data["coil:cooling:dx:singlespeed:thermalstorage"] = []
+        self._data["evaporativecooler:direct:celdekpad"] = []
+        self._data["evaporativecooler:indirect:celdekpad"] = []
+        self._data["evaporativecooler:indirect:wetcoil"] = []
+        self._data["evaporativecooler:indirect:researchspecial"] = []
+        self._data["evaporativecooler:direct:researchspecial"] = []
         self._data["humidifier:steam:electric"] = []
         self._data["dehumidifier:desiccant:nofans"] = []
         self._data["dehumidifier:desiccant:system"] = []
@@ -558,10 +581,12 @@ class IDF(object):
         self._data["pump:constantspeed"] = []
         self._data["pump:variablespeed:condensate"] = []
         self._data["headeredpumps:constantspeed"] = []
+        self._data["headeredpumps:variablespeed"] = []
         self._data["temperingvalve"] = []
         self._data["loadprofile:plant"] = []
         self._data["solarcollectorperformance:flatplate"] = []
         self._data["solarcollector:flatplate:water"] = []
+        self._data["solarcollector:flatplate:photovoltaicthermal"] = []
         self._data["solarcollectorperformance:photovoltaicthermal:simple"] = []
         self._data["solarcollector:integralcollectorstorage"] = []
         self._data["solarcollectorperformance:integralcollectorstorage"] = []
@@ -1736,6 +1761,17 @@ class IDF(object):
         if internal_name.lower(
         ) == "coil:cooling:dx:singlespeed:thermalstorage":
             return CoilCoolingDxSingleSpeedThermalStorage()
+        if internal_name.lower() == "evaporativecooler:direct:celdekpad":
+            return EvaporativeCoolerDirectCelDekPad()
+        if internal_name.lower() == "evaporativecooler:indirect:celdekpad":
+            return EvaporativeCoolerIndirectCelDekPad()
+        if internal_name.lower() == "evaporativecooler:indirect:wetcoil":
+            return EvaporativeCoolerIndirectWetCoil()
+        if internal_name.lower(
+        ) == "evaporativecooler:indirect:researchspecial":
+            return EvaporativeCoolerIndirectResearchSpecial()
+        if internal_name.lower() == "evaporativecooler:direct:researchspecial":
+            return EvaporativeCoolerDirectResearchSpecial()
         if internal_name.lower() == "humidifier:steam:electric":
             return HumidifierSteamElectric()
         if internal_name.lower() == "dehumidifier:desiccant:nofans":
@@ -1831,6 +1867,8 @@ class IDF(object):
             return PumpVariableSpeedCondensate()
         if internal_name.lower() == "headeredpumps:constantspeed":
             return HeaderedPumpsConstantSpeed()
+        if internal_name.lower() == "headeredpumps:variablespeed":
+            return HeaderedPumpsVariableSpeed()
         if internal_name.lower() == "temperingvalve":
             return TemperingValve()
         if internal_name.lower() == "loadprofile:plant":
@@ -1839,6 +1877,9 @@ class IDF(object):
             return SolarCollectorPerformanceFlatPlate()
         if internal_name.lower() == "solarcollector:flatplate:water":
             return SolarCollectorFlatPlateWater()
+        if internal_name.lower(
+        ) == "solarcollector:flatplate:photovoltaicthermal":
+            return SolarCollectorFlatPlatePhotovoltaicThermal()
         if internal_name.lower(
         ) == "solarcollectorperformance:photovoltaicthermal:simple":
             return SolarCollectorPerformancePhotovoltaicThermalSimple()

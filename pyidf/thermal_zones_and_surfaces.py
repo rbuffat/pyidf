@@ -80,8 +80,6 @@ class GlobalGeometryRules(object):
         Specified as entry for a 4 sided surface/rectangle
         Surfaces are specified as viewed from outside the surface
         Shading surfaces as viewed from behind.  (towards what they are shading)
-        
-        {u'note': [u'Specified as entry for a 4 sided surface/rectangle', u'Surfaces are specified as viewed from outside the surface', u'Shading surfaces as viewed from behind.  (towards what they are shading)'], u'type': u'choice', u'key': [u'UpperLeftCorner', u'LowerLeftCorner', u'UpperRightCorner', u'LowerRightCorner'], u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Starting Vertex Position`
@@ -141,8 +139,6 @@ class GlobalGeometryRules(object):
     @vertex_entry_direction.setter
     def vertex_entry_direction(self, value=None):
         """  Corresponds to IDD Field `Vertex Entry Direction`
-        
-        {u'type': u'choice', u'key': [u'Counterclockwise', u'Clockwise'], u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Vertex Entry Direction`
@@ -201,8 +197,6 @@ class GlobalGeometryRules(object):
         relative -- coordinates are entered relative to zone origin
         world -- all coordinates entered are "absolute" for this facility
         absolute -- same as world
-        
-        {u'note': [u'relative -- coordinates are entered relative to zone origin', u'world -- all coordinates entered are "absolute" for this facility', u'absolute -- same as world'], u'type': u'choice', u'key': [u'Relative', u'World', u'Absolute'], u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Coordinate System`
@@ -263,8 +257,6 @@ class GlobalGeometryRules(object):
         Relative -- coordinates are entered relative to zone origin
         World -- all coordinates entered are "absolute" for this facility
         absolute -- same as world
-        
-        {u'default': u'Relative', u'note': [u'Relative -- coordinates are entered relative to zone origin', u'World -- all coordinates entered are "absolute" for this facility', u'absolute -- same as world'], u'type': u'choice', u'key': [u'Relative', u'World', u'Absolute'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Daylighting Reference Point Coordinate System`
@@ -326,8 +318,6 @@ class GlobalGeometryRules(object):
         Relative -- Starting corner is entered relative to zone origin
         World -- Starting corner is entered in "absolute"
         absolute -- same as world
-        
-        {u'default': u'Relative', u'note': [u'Relative -- Starting corner is entered relative to zone origin', u'World -- Starting corner is entered in "absolute"', u'absolute -- same as world'], u'type': u'choice', u'key': [u'Relative', u'World', u'Absolute'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Rectangular Surface Coordinate System`
@@ -471,8 +461,6 @@ class GeometryTransform(object):
     def plane_of_transform(self, value="XY"):
         """  Corresponds to IDD Field `Plane of Transform`
         only current allowed value is "XY"
-        
-        {'pytype': 'str', u'default': u'XY', u'required-field': True, u'note': [u'only current allowed value is "XY"'], u'key': [u'XY'], u'type': u'choice'}
 
         Args:
             value (str): value for IDD Field `Plane of Transform`
@@ -528,8 +516,6 @@ class GeometryTransform(object):
     def current_aspect_ratio(self, value=None):
         """  Corresponds to IDD Field `Current Aspect Ratio`
         Aspect ratio of building as described in idf
-        
-        {u'note': [u'Aspect ratio of building as described in idf'], u'minimum>': '0.0', 'type': 'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Current Aspect Ratio`
@@ -564,8 +550,6 @@ class GeometryTransform(object):
     def new_aspect_ratio(self, value=None):
         """  Corresponds to IDD Field `New Aspect Ratio`
         Aspect ratio to transform to during run
-        
-        {u'note': [u'Aspect ratio to transform to during run'], u'minimum>': '0.0', 'type': 'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `New Aspect Ratio`
@@ -761,8 +745,6 @@ class Zone(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'reference': u'AirflowNetworkNodeAndZoneNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -796,10 +778,8 @@ class Zone(object):
         return self._data["Direction of Relative North"]
 
     @direction_of_relative_north.setter
-    def direction_of_relative_north(self, value=0.0 ):
+    def direction_of_relative_north(self, value=0.0):
         """  Corresponds to IDD Field `Direction of Relative North`
-        
-        {u'units': u'deg', u'default': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Direction of Relative North`
@@ -829,10 +809,8 @@ class Zone(object):
         return self._data["X Origin"]
 
     @x_origin.setter
-    def x_origin(self, value=0.0 ):
+    def x_origin(self, value=0.0):
         """  Corresponds to IDD Field `X Origin`
-        
-        {u'units': u'm', u'default': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `X Origin`
@@ -862,10 +840,8 @@ class Zone(object):
         return self._data["Y Origin"]
 
     @y_origin.setter
-    def y_origin(self, value=0.0 ):
+    def y_origin(self, value=0.0):
         """  Corresponds to IDD Field `Y Origin`
-        
-        {u'units': u'm', u'default': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Y Origin`
@@ -895,10 +871,8 @@ class Zone(object):
         return self._data["Z Origin"]
 
     @z_origin.setter
-    def z_origin(self, value=0.0 ):
+    def z_origin(self, value=0.0):
         """  Corresponds to IDD Field `Z Origin`
-        
-        {u'units': u'm', u'default': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Z Origin`
@@ -928,10 +902,8 @@ class Zone(object):
         return self._data["Type"]
 
     @type.setter
-    def type(self, value=1 ):
+    def type(self, value=1):
         """  Corresponds to IDD Field `Type`
-        
-        {u'default': '1', u'minimum': '1', u'type': u'integer', u'maximum': '1', 'pytype': 'int'}
 
         Args:
             value (int): value for IDD Field `Type`
@@ -968,10 +940,8 @@ class Zone(object):
         return self._data["Multiplier"]
 
     @multiplier.setter
-    def multiplier(self, value=1 ):
+    def multiplier(self, value=1):
         """  Corresponds to IDD Field `Multiplier`
-        
-        {u'default': '1', u'minimum': '1', u'type': u'integer', 'pytype': 'int'}
 
         Args:
             value (int): value for IDD Field `Multiplier`
@@ -1004,15 +974,13 @@ class Zone(object):
         return self._data["Ceiling Height"]
 
     @ceiling_height.setter
-    def ceiling_height(self, value="autocalculate" ):
+    def ceiling_height(self, value="autocalculate"):
         """  Corresponds to IDD Field `Ceiling Height`
         If this field is 0.0, negative or autocalculate, then the average height
         of the zone is automatically calculated and used in subsequent calculations.
         If this field is positive, then the number entered here will be used.
         Note that the Zone Ceiling Height is the distance from the Floor to
         the Ceiling in the Zone, not an absolute height from the ground.
-        
-        {'pytype': 'float', u'default': '"autocalculate"', u'note': [u'If this field is 0.0, negative or autocalculate, then the average height', u'of the zone is automatically calculated and used in subsequent calculations.', u'If this field is positive, then the number entered here will be used.', u'Note that the Zone Ceiling Height is the distance from the Floor to', u'the Ceiling in the Zone, not an absolute height from the ground.'], u'units': u'm', u'autocalculatable': True, u'type': u'real'}
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `Ceiling Height`
@@ -1028,7 +996,7 @@ class Zone(object):
             try:
                 value_lower = str(value).lower()
                 if value_lower == "autocalculate":
-                    self._data["Ceiling Height"] = value
+                    self._data["Ceiling Height"] = "Autocalculate"
                     return
             except ValueError:
                 pass
@@ -1049,13 +1017,11 @@ class Zone(object):
         return self._data["Volume"]
 
     @volume.setter
-    def volume(self, value="autocalculate" ):
+    def volume(self, value="autocalculate"):
         """  Corresponds to IDD Field `Volume`
         If this field is 0.0, negative or autocalculate, then the volume of the zone
         is automatically calculated and used in subsequent calculations.
         If this field is positive, then the number entered here will be used.
-        
-        {'pytype': 'float', u'default': '"autocalculate"', u'note': [u'If this field is 0.0, negative or autocalculate, then the volume of the zone', u'is automatically calculated and used in subsequent calculations.', u'If this field is positive, then the number entered here will be used.'], u'units': u'm3', u'autocalculatable': True, u'type': u'real'}
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `Volume`
@@ -1071,7 +1037,7 @@ class Zone(object):
             try:
                 value_lower = str(value).lower()
                 if value_lower == "autocalculate":
-                    self._data["Volume"] = value
+                    self._data["Volume"] = "Autocalculate"
                     return
             except ValueError:
                 pass
@@ -1092,13 +1058,11 @@ class Zone(object):
         return self._data["Floor Area"]
 
     @floor_area.setter
-    def floor_area(self, value="autocalculate" ):
+    def floor_area(self, value="autocalculate"):
         """  Corresponds to IDD Field `Floor Area`
         If this field is 0.0, negative or autocalculate, then the floor area of the zone
         is automatically calculated and used in subsequent calculations.
         If this field is positive, then the number entered here will be used.
-        
-        {'pytype': 'float', u'default': '"autocalculate"', u'note': [u'If this field is 0.0, negative or autocalculate, then the floor area of the zone', u'is automatically calculated and used in subsequent calculations.', u'If this field is positive, then the number entered here will be used.'], u'units': u'm2', u'autocalculatable': True, u'type': u'real'}
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `Floor Area`
@@ -1114,7 +1078,7 @@ class Zone(object):
             try:
                 value_lower = str(value).lower()
                 if value_lower == "autocalculate":
-                    self._data["Floor Area"] = value
+                    self._data["Floor Area"] = "Autocalculate"
                     return
             except ValueError:
                 pass
@@ -1145,8 +1109,6 @@ class Zone(object):
         for ceiling diffuser configuration with simple natural convection limit
         AdaptiveConvectionAlgorithm = dynamic selection of convection models based on conditions
         TrombeWall = variable natural convection in an enclosed rectangular cavity
-        
-        {u'note': [u'Will default to same value as SurfaceConvectionAlgorithm:Inside object', u'setting this field overrides the default SurfaceConvectionAlgorithm:Inside for this zone', u'Simple = constant natural convection (ASHRAE)', u'TARP = variable natural convection based on temperature difference (ASHRAE)', u'CeilingDiffuser = ACH based forced and mixed convection correlations', u'for ceiling diffuser configuration with simple natural convection limit', u'AdaptiveConvectionAlgorithm = dynamic selection of convection models based on conditions', u'TrombeWall = variable natural convection in an enclosed rectangular cavity'], u'type': u'choice', u'key': [u'Simple', u'TARP', u'CeilingDiffuser', u'AdaptiveConvectionAlgorithm', u'TrombeWall'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Zone Inside Convection Algorithm`
@@ -1215,8 +1177,6 @@ class Zone(object):
         MoWiTT = correlation from measurements by Klems and Yazdanian for smooth surfaces
         DOE-2 = correlation from measurements by Klems and Yazdanian for rough surfaces
         AdaptiveConvectionAlgorithm = dynamic selection of correlations based on conditions
-        
-        {u'note': [u'Will default to same value as SurfaceConvectionAlgorithm:Outside object', u'setting this field overrides the default SurfaceConvectionAlgorithm:Outside for this zone', u'SimpleCombined = Combined radiation and convection coefficient using simple ASHRAE model', u'TARP = correlation from models developed by ASHRAE, Walton, and Sparrow et. al.', u'MoWiTT = correlation from measurements by Klems and Yazdanian for smooth surfaces', u'DOE-2 = correlation from measurements by Klems and Yazdanian for rough surfaces', u'AdaptiveConvectionAlgorithm = dynamic selection of correlations based on conditions'], u'type': u'choice', u'key': [u'SimpleCombined', u'TARP', u'DOE-2', u'MoWiTT', u'AdaptiveConvectionAlgorithm'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Zone Outside Convection Algorithm`
@@ -1278,8 +1238,6 @@ class Zone(object):
     @part_of_total_floor_area.setter
     def part_of_total_floor_area(self, value="Yes"):
         """  Corresponds to IDD Field `Part of Total Floor Area`
-        
-        {u'default': u'Yes', u'type': u'choice', u'key': [u'Yes', u'No'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Part of Total Floor Area`
@@ -1421,8 +1379,6 @@ class ZoneGroup(object):
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
         Name of the Zone Group
-        
-        {u'note': [u'Name of the Zone Group'], u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -1458,8 +1414,6 @@ class ZoneGroup(object):
     @zone_list_name.setter
     def zone_list_name(self, value=None):
         """  Corresponds to IDD Field `Zone List Name`
-        
-        {u'type': u'object-list', u'object-list': u'ZoneListNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Zone List Name`
@@ -1493,10 +1447,8 @@ class ZoneGroup(object):
         return self._data["Zone List Multiplier"]
 
     @zone_list_multiplier.setter
-    def zone_list_multiplier(self, value=1 ):
+    def zone_list_multiplier(self, value=1):
         """  Corresponds to IDD Field `Zone List Multiplier`
-        
-        {u'default': '1', u'minimum': '1', u'type': u'integer', 'pytype': 'int'}
 
         Args:
             value (int): value for IDD Field `Zone List Multiplier`
@@ -4549,8 +4501,6 @@ class BuildingSurfaceDetailed(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'reference': u'AllShadingAndHTSurfNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -4586,8 +4536,6 @@ class BuildingSurfaceDetailed(object):
     @surface_type.setter
     def surface_type(self, value=None):
         """  Corresponds to IDD Field `Surface Type`
-        
-        {u'type': u'choice', u'key': [u'Floor', u'Wall', u'Ceiling', u'Roof'], u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface Type`
@@ -4648,8 +4596,6 @@ class BuildingSurfaceDetailed(object):
     def construction_name(self, value=None):
         """  Corresponds to IDD Field `Construction Name`
         To be matched with a construction in this input file
-        
-        {u'note': [u'To be matched with a construction in this input file'], u'type': u'object-list', u'object-list': u'ConstructionNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Construction Name`
@@ -4686,8 +4632,6 @@ class BuildingSurfaceDetailed(object):
     def zone_name(self, value=None):
         """  Corresponds to IDD Field `Zone Name`
         Zone the surface is a part of
-        
-        {u'note': [u'Zone the surface is a part of'], u'type': u'object-list', u'object-list': u'ZoneNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Zone Name`
@@ -4723,8 +4667,6 @@ class BuildingSurfaceDetailed(object):
     @outside_boundary_condition.setter
     def outside_boundary_condition(self, value=None):
         """  Corresponds to IDD Field `Outside Boundary Condition`
-        
-        {u'type': u'choice', u'key': [u'Adiabatic', u'Surface', u'Zone', u'Outdoors', u'Ground', u'GroundFCfactorMethod', u'OtherSideCoefficients', u'OtherSideConditionsModel', u'GroundSlabPreprocessorAverage', u'GroundSlabPreprocessorCore', u'GroundSlabPreprocessorPerimeter', u'GroundBasementPreprocessorAverageWall', u'GroundBasementPreprocessorAverageFloor', u'GroundBasementPreprocessorUpperWall', u'GroundBasementPreprocessorLowerWall'], u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Outside Boundary Condition`
@@ -4814,8 +4756,6 @@ class BuildingSurfaceDetailed(object):
         the program will generate the corresponding interzone surface
         If OtherSideCoefficients, specify name of SurfaceProperty:OtherSideCoefficients
         If OtherSideConditionsModel, specify name of SurfaceProperty:OtherSideConditionsModel
-        
-        {u'note': [u'Non-blank only if the field Outside Boundary Condition is Surface,', u'Zone, OtherSideCoefficients or OtherSideConditionsModel', u'If Surface, specify name of corresponding surface in adjacent zone or', u'specify current surface name for internal partition separating like zones', u'If Zone, specify the name of the corresponding zone and', u'the program will generate the corresponding interzone surface', u'If OtherSideCoefficients, specify name of SurfaceProperty:OtherSideCoefficients', u'If OtherSideConditionsModel, specify name of SurfaceProperty:OtherSideConditionsModel'], u'type': u'object-list', u'object-list': u'OutFaceEnvNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Outside Boundary Condition Object`
@@ -4851,8 +4791,6 @@ class BuildingSurfaceDetailed(object):
     @sun_exposure.setter
     def sun_exposure(self, value="SunExposed"):
         """  Corresponds to IDD Field `Sun Exposure`
-        
-        {u'default': u'SunExposed', u'type': u'choice', u'key': [u'SunExposed', u'NoSun'], u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Sun Exposure`
@@ -4909,8 +4847,6 @@ class BuildingSurfaceDetailed(object):
     @wind_exposure.setter
     def wind_exposure(self, value="WindExposed"):
         """  Corresponds to IDD Field `Wind Exposure`
-        
-        {u'default': u'WindExposed', u'type': u'choice', u'key': [u'WindExposed', u'NoWind'], u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Wind Exposure`
@@ -4965,14 +4901,12 @@ class BuildingSurfaceDetailed(object):
         return self._data["View Factor to Ground"]
 
     @view_factor_to_ground.setter
-    def view_factor_to_ground(self, value="autocalculate" ):
+    def view_factor_to_ground(self, value="autocalculate"):
         """  Corresponds to IDD Field `View Factor to Ground`
         From the exterior of the surface
         Unused if one uses the "reflections" options in Solar Distribution in Building input
         unless a DaylightingDevice:Shelf or DaylightingDevice:Tubular object has been specified.
         autocalculate will automatically calculate this value from the tilt of the surface
-        
-        {'pytype': 'float', u'default': '"autocalculate"', u'maximum': '1.0', u'note': [u'From the exterior of the surface', u'Unused if one uses the "reflections" options in Solar Distribution in Building input', u'unless a DaylightingDevice:Shelf or DaylightingDevice:Tubular object has been specified.', u'autocalculate will automatically calculate this value from the tilt of the surface'], u'minimum': '0.0', u'autocalculatable': True, u'type': u'real'}
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `View Factor to Ground`
@@ -4989,7 +4923,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value_lower = str(value).lower()
                 if value_lower == "autocalculate":
-                    self._data["View Factor to Ground"] = value
+                    self._data["View Factor to Ground"] = "Autocalculate"
                     return
             except ValueError:
                 pass
@@ -5016,7 +4950,7 @@ class BuildingSurfaceDetailed(object):
         return self._data["Number of Vertices"]
 
     @number_of_vertices.setter
-    def number_of_vertices(self, value="autocalculate" ):
+    def number_of_vertices(self, value="autocalculate"):
         """  Corresponds to IDD Field `Number of Vertices`
         shown with 120 vertex coordinates -- extensible object
         "extensible" -- duplicate last set of x,y,z coordinates (last 3 fields),
@@ -5026,8 +4960,6 @@ class BuildingSurfaceDetailed(object):
         vertices are given in GlobalGeometryRules coordinates -- if relative, all surface coordinates
         are "relative" to the Zone Origin.  If world, then building and zone origins are used
         for some internal calculations, but all coordinates are given in an "absolute" system.
-        
-        {'pytype': 'float', u'default': '"autocalculate"', u'note': [u'shown with 120 vertex coordinates -- extensible object', u'"extensible" -- duplicate last set of x,y,z coordinates (last 3 fields),', u'remembering to remove ; from "inner" fields.', u'for clarity in any error messages, renumber the fields as well.', u'(and changing z terminator to a comma "," for all but last one which needs a semi-colon ";")', u'vertices are given in GlobalGeometryRules coordinates -- if relative, all surface coordinates', u'are "relative" to the Zone Origin.  If world, then building and zone origins are used', u'for some internal calculations, but all coordinates are given in an "absolute" system.'], u'minimum': '3.0', u'autocalculatable': True, 'type': 'real'}
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `Number of Vertices`
@@ -5043,7 +4975,7 @@ class BuildingSurfaceDetailed(object):
             try:
                 value_lower = str(value).lower()
                 if value_lower == "autocalculate":
-                    self._data["Number of Vertices"] = value
+                    self._data["Number of Vertices"] = "Autocalculate"
                     return
             except ValueError:
                 pass
@@ -5069,8 +5001,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_1_xcoordinate.setter
     def vertex_1_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 1 X-coordinate`
-        
-        {u'units': u'm', 'pytype': 'float', u'type': u'real', u'required-field': True, u'begin-extensible': u''}
 
         Args:
             value (float): value for IDD Field `Vertex 1 X-coordinate`
@@ -5101,8 +5031,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_1_ycoordinate.setter
     def vertex_1_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 1 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 1 Y-coordinate`
@@ -5133,8 +5061,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_1_zcoordinate.setter
     def vertex_1_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 1 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 1 Z-coordinate`
@@ -5165,8 +5091,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_2_xcoordinate.setter
     def vertex_2_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 2 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 2 X-coordinate`
@@ -5197,8 +5121,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_2_ycoordinate.setter
     def vertex_2_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 2 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 2 Y-coordinate`
@@ -5229,8 +5151,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_2_zcoordinate.setter
     def vertex_2_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 2 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 2 Z-coordinate`
@@ -5261,8 +5181,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_3_xcoordinate.setter
     def vertex_3_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 3 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 3 X-coordinate`
@@ -5293,8 +5211,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_3_ycoordinate.setter
     def vertex_3_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 3 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 3 Y-coordinate`
@@ -5325,8 +5241,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_3_zcoordinate.setter
     def vertex_3_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 3 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 3 Z-coordinate`
@@ -5357,8 +5271,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_4_xcoordinate.setter
     def vertex_4_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 4 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 4 X-coordinate`
@@ -5389,8 +5301,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_4_ycoordinate.setter
     def vertex_4_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 4 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 4 Y-coordinate`
@@ -5421,8 +5331,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_4_zcoordinate.setter
     def vertex_4_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 4 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 4 Z-coordinate`
@@ -5453,8 +5361,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_5_xcoordinate.setter
     def vertex_5_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 5 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 5 X-coordinate`
@@ -5485,8 +5391,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_5_ycoordinate.setter
     def vertex_5_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 5 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 5 Y-coordinate`
@@ -5517,8 +5421,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_5_zcoordinate.setter
     def vertex_5_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 5 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 5 Z-coordinate`
@@ -5549,8 +5451,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_6_xcoordinate.setter
     def vertex_6_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 6 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 6 X-coordinate`
@@ -5581,8 +5481,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_6_ycoordinate.setter
     def vertex_6_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 6 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 6 Y-coordinate`
@@ -5613,8 +5511,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_6_zcoordinate.setter
     def vertex_6_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 6 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 6 Z-coordinate`
@@ -5645,8 +5541,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_7_xcoordinate.setter
     def vertex_7_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 7 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 7 X-coordinate`
@@ -5677,8 +5571,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_7_ycoordinate.setter
     def vertex_7_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 7 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 7 Y-coordinate`
@@ -5709,8 +5601,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_7_zcoordinate.setter
     def vertex_7_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 7 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 7 Z-coordinate`
@@ -5741,8 +5631,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_8_xcoordinate.setter
     def vertex_8_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 8 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 8 X-coordinate`
@@ -5773,8 +5661,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_8_ycoordinate.setter
     def vertex_8_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 8 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 8 Y-coordinate`
@@ -5805,8 +5691,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_8_zcoordinate.setter
     def vertex_8_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 8 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 8 Z-coordinate`
@@ -5837,8 +5721,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_9_xcoordinate.setter
     def vertex_9_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 9 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 9 X-coordinate`
@@ -5869,8 +5751,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_9_ycoordinate.setter
     def vertex_9_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 9 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 9 Y-coordinate`
@@ -5901,8 +5781,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_9_zcoordinate.setter
     def vertex_9_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 9 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 9 Z-coordinate`
@@ -5933,8 +5811,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_10_xcoordinate.setter
     def vertex_10_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 10 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 10 X-coordinate`
@@ -5965,8 +5841,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_10_ycoordinate.setter
     def vertex_10_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 10 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 10 Y-coordinate`
@@ -5997,8 +5871,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_10_zcoordinate.setter
     def vertex_10_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 10 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 10 Z-coordinate`
@@ -6029,8 +5901,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_11_xcoordinate.setter
     def vertex_11_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 11 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 11 X-coordinate`
@@ -6061,8 +5931,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_11_ycoordinate.setter
     def vertex_11_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 11 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 11 Y-coordinate`
@@ -6093,8 +5961,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_11_zcoordinate.setter
     def vertex_11_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 11 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 11 Z-coordinate`
@@ -6125,8 +5991,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_12_xcoordinate.setter
     def vertex_12_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 12 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 12 X-coordinate`
@@ -6157,8 +6021,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_12_ycoordinate.setter
     def vertex_12_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 12 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 12 Y-coordinate`
@@ -6189,8 +6051,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_12_zcoordinate.setter
     def vertex_12_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 12 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 12 Z-coordinate`
@@ -6221,8 +6081,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_13_xcoordinate.setter
     def vertex_13_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 13 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 13 X-coordinate`
@@ -6253,8 +6111,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_13_ycoordinate.setter
     def vertex_13_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 13 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 13 Y-coordinate`
@@ -6285,8 +6141,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_13_zcoordinate.setter
     def vertex_13_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 13 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 13 Z-coordinate`
@@ -6317,8 +6171,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_14_xcoordinate.setter
     def vertex_14_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 14 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 14 X-coordinate`
@@ -6349,8 +6201,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_14_ycoordinate.setter
     def vertex_14_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 14 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 14 Y-coordinate`
@@ -6381,8 +6231,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_14_zcoordinate.setter
     def vertex_14_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 14 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 14 Z-coordinate`
@@ -6413,8 +6261,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_15_xcoordinate.setter
     def vertex_15_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 15 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 15 X-coordinate`
@@ -6445,8 +6291,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_15_ycoordinate.setter
     def vertex_15_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 15 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 15 Y-coordinate`
@@ -6477,8 +6321,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_15_zcoordinate.setter
     def vertex_15_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 15 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 15 Z-coordinate`
@@ -6509,8 +6351,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_16_xcoordinate.setter
     def vertex_16_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 16 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 16 X-coordinate`
@@ -6541,8 +6381,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_16_ycoordinate.setter
     def vertex_16_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 16 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 16 Y-coordinate`
@@ -6573,8 +6411,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_16_zcoordinate.setter
     def vertex_16_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 16 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 16 Z-coordinate`
@@ -6605,8 +6441,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_17_xcoordinate.setter
     def vertex_17_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 17 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 17 X-coordinate`
@@ -6637,8 +6471,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_17_ycoordinate.setter
     def vertex_17_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 17 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 17 Y-coordinate`
@@ -6669,8 +6501,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_17_zcoordinate.setter
     def vertex_17_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 17 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 17 Z-coordinate`
@@ -6701,8 +6531,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_18_xcoordinate.setter
     def vertex_18_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 18 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 18 X-coordinate`
@@ -6733,8 +6561,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_18_ycoordinate.setter
     def vertex_18_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 18 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 18 Y-coordinate`
@@ -6765,8 +6591,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_18_zcoordinate.setter
     def vertex_18_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 18 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 18 Z-coordinate`
@@ -6797,8 +6621,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_19_xcoordinate.setter
     def vertex_19_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 19 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 19 X-coordinate`
@@ -6829,8 +6651,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_19_ycoordinate.setter
     def vertex_19_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 19 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 19 Y-coordinate`
@@ -6861,8 +6681,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_19_zcoordinate.setter
     def vertex_19_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 19 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 19 Z-coordinate`
@@ -6893,8 +6711,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_20_xcoordinate.setter
     def vertex_20_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 20 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 20 X-coordinate`
@@ -6925,8 +6741,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_20_ycoordinate.setter
     def vertex_20_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 20 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 20 Y-coordinate`
@@ -6957,8 +6771,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_20_zcoordinate.setter
     def vertex_20_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 20 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 20 Z-coordinate`
@@ -6989,8 +6801,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_21_xcoordinate.setter
     def vertex_21_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 21 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 21 X-coordinate`
@@ -7021,8 +6831,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_21_ycoordinate.setter
     def vertex_21_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 21 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 21 Y-coordinate`
@@ -7053,8 +6861,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_21_zcoordinate.setter
     def vertex_21_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 21 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 21 Z-coordinate`
@@ -7085,8 +6891,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_22_xcoordinate.setter
     def vertex_22_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 22 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 22 X-coordinate`
@@ -7117,8 +6921,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_22_ycoordinate.setter
     def vertex_22_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 22 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 22 Y-coordinate`
@@ -7149,8 +6951,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_22_zcoordinate.setter
     def vertex_22_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 22 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 22 Z-coordinate`
@@ -7181,8 +6981,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_23_xcoordinate.setter
     def vertex_23_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 23 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 23 X-coordinate`
@@ -7213,8 +7011,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_23_ycoordinate.setter
     def vertex_23_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 23 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 23 Y-coordinate`
@@ -7245,8 +7041,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_23_zcoordinate.setter
     def vertex_23_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 23 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 23 Z-coordinate`
@@ -7277,8 +7071,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_24_xcoordinate.setter
     def vertex_24_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 24 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 24 X-coordinate`
@@ -7309,8 +7101,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_24_ycoordinate.setter
     def vertex_24_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 24 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 24 Y-coordinate`
@@ -7341,8 +7131,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_24_zcoordinate.setter
     def vertex_24_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 24 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 24 Z-coordinate`
@@ -7373,8 +7161,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_25_xcoordinate.setter
     def vertex_25_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 25 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 25 X-coordinate`
@@ -7405,8 +7191,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_25_ycoordinate.setter
     def vertex_25_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 25 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 25 Y-coordinate`
@@ -7437,8 +7221,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_25_zcoordinate.setter
     def vertex_25_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 25 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 25 Z-coordinate`
@@ -7469,8 +7251,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_26_xcoordinate.setter
     def vertex_26_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 26 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 26 X-coordinate`
@@ -7501,8 +7281,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_26_ycoordinate.setter
     def vertex_26_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 26 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 26 Y-coordinate`
@@ -7533,8 +7311,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_26_zcoordinate.setter
     def vertex_26_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 26 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 26 Z-coordinate`
@@ -7565,8 +7341,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_27_xcoordinate.setter
     def vertex_27_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 27 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 27 X-coordinate`
@@ -7597,8 +7371,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_27_ycoordinate.setter
     def vertex_27_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 27 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 27 Y-coordinate`
@@ -7629,8 +7401,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_27_zcoordinate.setter
     def vertex_27_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 27 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 27 Z-coordinate`
@@ -7661,8 +7431,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_28_xcoordinate.setter
     def vertex_28_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 28 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 28 X-coordinate`
@@ -7693,8 +7461,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_28_ycoordinate.setter
     def vertex_28_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 28 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 28 Y-coordinate`
@@ -7725,8 +7491,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_28_zcoordinate.setter
     def vertex_28_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 28 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 28 Z-coordinate`
@@ -7757,8 +7521,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_29_xcoordinate.setter
     def vertex_29_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 29 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 29 X-coordinate`
@@ -7789,8 +7551,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_29_ycoordinate.setter
     def vertex_29_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 29 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 29 Y-coordinate`
@@ -7821,8 +7581,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_29_zcoordinate.setter
     def vertex_29_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 29 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 29 Z-coordinate`
@@ -7853,8 +7611,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_30_xcoordinate.setter
     def vertex_30_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 30 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 30 X-coordinate`
@@ -7885,8 +7641,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_30_ycoordinate.setter
     def vertex_30_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 30 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 30 Y-coordinate`
@@ -7917,8 +7671,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_30_zcoordinate.setter
     def vertex_30_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 30 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 30 Z-coordinate`
@@ -7949,8 +7701,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_31_xcoordinate.setter
     def vertex_31_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 31 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 31 X-coordinate`
@@ -7981,8 +7731,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_31_ycoordinate.setter
     def vertex_31_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 31 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 31 Y-coordinate`
@@ -8013,8 +7761,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_31_zcoordinate.setter
     def vertex_31_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 31 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 31 Z-coordinate`
@@ -8045,8 +7791,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_32_xcoordinate.setter
     def vertex_32_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 32 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 32 X-coordinate`
@@ -8077,8 +7821,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_32_ycoordinate.setter
     def vertex_32_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 32 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 32 Y-coordinate`
@@ -8109,8 +7851,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_32_zcoordinate.setter
     def vertex_32_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 32 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 32 Z-coordinate`
@@ -8141,8 +7881,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_33_xcoordinate.setter
     def vertex_33_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 33 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 33 X-coordinate`
@@ -8173,8 +7911,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_33_ycoordinate.setter
     def vertex_33_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 33 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 33 Y-coordinate`
@@ -8205,8 +7941,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_33_zcoordinate.setter
     def vertex_33_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 33 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 33 Z-coordinate`
@@ -8237,8 +7971,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_34_xcoordinate.setter
     def vertex_34_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 34 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 34 X-coordinate`
@@ -8269,8 +8001,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_34_ycoordinate.setter
     def vertex_34_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 34 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 34 Y-coordinate`
@@ -8301,8 +8031,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_34_zcoordinate.setter
     def vertex_34_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 34 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 34 Z-coordinate`
@@ -8333,8 +8061,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_35_xcoordinate.setter
     def vertex_35_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 35 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 35 X-coordinate`
@@ -8365,8 +8091,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_35_ycoordinate.setter
     def vertex_35_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 35 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 35 Y-coordinate`
@@ -8397,8 +8121,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_35_zcoordinate.setter
     def vertex_35_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 35 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 35 Z-coordinate`
@@ -8429,8 +8151,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_36_xcoordinate.setter
     def vertex_36_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 36 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 36 X-coordinate`
@@ -8461,8 +8181,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_36_ycoordinate.setter
     def vertex_36_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 36 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 36 Y-coordinate`
@@ -8493,8 +8211,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_36_zcoordinate.setter
     def vertex_36_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 36 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 36 Z-coordinate`
@@ -8525,8 +8241,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_37_xcoordinate.setter
     def vertex_37_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 37 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 37 X-coordinate`
@@ -8557,8 +8271,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_37_ycoordinate.setter
     def vertex_37_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 37 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 37 Y-coordinate`
@@ -8589,8 +8301,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_37_zcoordinate.setter
     def vertex_37_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 37 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 37 Z-coordinate`
@@ -8621,8 +8331,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_38_xcoordinate.setter
     def vertex_38_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 38 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 38 X-coordinate`
@@ -8653,8 +8361,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_38_ycoordinate.setter
     def vertex_38_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 38 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 38 Y-coordinate`
@@ -8685,8 +8391,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_38_zcoordinate.setter
     def vertex_38_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 38 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 38 Z-coordinate`
@@ -8717,8 +8421,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_39_xcoordinate.setter
     def vertex_39_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 39 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 39 X-coordinate`
@@ -8749,8 +8451,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_39_ycoordinate.setter
     def vertex_39_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 39 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 39 Y-coordinate`
@@ -8781,8 +8481,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_39_zcoordinate.setter
     def vertex_39_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 39 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 39 Z-coordinate`
@@ -8813,8 +8511,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_40_xcoordinate.setter
     def vertex_40_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 40 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 40 X-coordinate`
@@ -8845,8 +8541,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_40_ycoordinate.setter
     def vertex_40_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 40 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 40 Y-coordinate`
@@ -8877,8 +8571,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_40_zcoordinate.setter
     def vertex_40_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 40 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 40 Z-coordinate`
@@ -8909,8 +8601,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_41_xcoordinate.setter
     def vertex_41_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 41 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 41 X-coordinate`
@@ -8941,8 +8631,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_41_ycoordinate.setter
     def vertex_41_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 41 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 41 Y-coordinate`
@@ -8973,8 +8661,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_41_zcoordinate.setter
     def vertex_41_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 41 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 41 Z-coordinate`
@@ -9005,8 +8691,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_42_xcoordinate.setter
     def vertex_42_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 42 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 42 X-coordinate`
@@ -9037,8 +8721,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_42_ycoordinate.setter
     def vertex_42_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 42 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 42 Y-coordinate`
@@ -9069,8 +8751,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_42_zcoordinate.setter
     def vertex_42_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 42 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 42 Z-coordinate`
@@ -9101,8 +8781,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_43_xcoordinate.setter
     def vertex_43_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 43 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 43 X-coordinate`
@@ -9133,8 +8811,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_43_ycoordinate.setter
     def vertex_43_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 43 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 43 Y-coordinate`
@@ -9165,8 +8841,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_43_zcoordinate.setter
     def vertex_43_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 43 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 43 Z-coordinate`
@@ -9197,8 +8871,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_44_xcoordinate.setter
     def vertex_44_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 44 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 44 X-coordinate`
@@ -9229,8 +8901,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_44_ycoordinate.setter
     def vertex_44_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 44 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 44 Y-coordinate`
@@ -9261,8 +8931,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_44_zcoordinate.setter
     def vertex_44_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 44 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 44 Z-coordinate`
@@ -9293,8 +8961,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_45_xcoordinate.setter
     def vertex_45_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 45 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 45 X-coordinate`
@@ -9325,8 +8991,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_45_ycoordinate.setter
     def vertex_45_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 45 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 45 Y-coordinate`
@@ -9357,8 +9021,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_45_zcoordinate.setter
     def vertex_45_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 45 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 45 Z-coordinate`
@@ -9389,8 +9051,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_46_xcoordinate.setter
     def vertex_46_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 46 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 46 X-coordinate`
@@ -9421,8 +9081,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_46_ycoordinate.setter
     def vertex_46_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 46 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 46 Y-coordinate`
@@ -9453,8 +9111,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_46_zcoordinate.setter
     def vertex_46_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 46 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 46 Z-coordinate`
@@ -9485,8 +9141,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_47_xcoordinate.setter
     def vertex_47_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 47 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 47 X-coordinate`
@@ -9517,8 +9171,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_47_ycoordinate.setter
     def vertex_47_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 47 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 47 Y-coordinate`
@@ -9549,8 +9201,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_47_zcoordinate.setter
     def vertex_47_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 47 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 47 Z-coordinate`
@@ -9581,8 +9231,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_48_xcoordinate.setter
     def vertex_48_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 48 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 48 X-coordinate`
@@ -9613,8 +9261,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_48_ycoordinate.setter
     def vertex_48_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 48 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 48 Y-coordinate`
@@ -9645,8 +9291,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_48_zcoordinate.setter
     def vertex_48_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 48 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 48 Z-coordinate`
@@ -9677,8 +9321,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_49_xcoordinate.setter
     def vertex_49_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 49 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 49 X-coordinate`
@@ -9709,8 +9351,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_49_ycoordinate.setter
     def vertex_49_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 49 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 49 Y-coordinate`
@@ -9741,8 +9381,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_49_zcoordinate.setter
     def vertex_49_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 49 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 49 Z-coordinate`
@@ -9773,8 +9411,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_50_xcoordinate.setter
     def vertex_50_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 50 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 50 X-coordinate`
@@ -9805,8 +9441,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_50_ycoordinate.setter
     def vertex_50_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 50 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 50 Y-coordinate`
@@ -9837,8 +9471,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_50_zcoordinate.setter
     def vertex_50_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 50 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 50 Z-coordinate`
@@ -9869,8 +9501,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_51_xcoordinate.setter
     def vertex_51_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 51 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 51 X-coordinate`
@@ -9901,8 +9531,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_51_ycoordinate.setter
     def vertex_51_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 51 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 51 Y-coordinate`
@@ -9933,8 +9561,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_51_zcoordinate.setter
     def vertex_51_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 51 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 51 Z-coordinate`
@@ -9965,8 +9591,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_52_xcoordinate.setter
     def vertex_52_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 52 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 52 X-coordinate`
@@ -9997,8 +9621,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_52_ycoordinate.setter
     def vertex_52_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 52 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 52 Y-coordinate`
@@ -10029,8 +9651,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_52_zcoordinate.setter
     def vertex_52_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 52 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 52 Z-coordinate`
@@ -10061,8 +9681,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_53_xcoordinate.setter
     def vertex_53_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 53 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 53 X-coordinate`
@@ -10093,8 +9711,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_53_ycoordinate.setter
     def vertex_53_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 53 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 53 Y-coordinate`
@@ -10125,8 +9741,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_53_zcoordinate.setter
     def vertex_53_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 53 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 53 Z-coordinate`
@@ -10157,8 +9771,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_54_xcoordinate.setter
     def vertex_54_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 54 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 54 X-coordinate`
@@ -10189,8 +9801,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_54_ycoordinate.setter
     def vertex_54_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 54 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 54 Y-coordinate`
@@ -10221,8 +9831,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_54_zcoordinate.setter
     def vertex_54_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 54 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 54 Z-coordinate`
@@ -10253,8 +9861,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_55_xcoordinate.setter
     def vertex_55_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 55 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 55 X-coordinate`
@@ -10285,8 +9891,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_55_ycoordinate.setter
     def vertex_55_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 55 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 55 Y-coordinate`
@@ -10317,8 +9921,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_55_zcoordinate.setter
     def vertex_55_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 55 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 55 Z-coordinate`
@@ -10349,8 +9951,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_56_xcoordinate.setter
     def vertex_56_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 56 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 56 X-coordinate`
@@ -10381,8 +9981,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_56_ycoordinate.setter
     def vertex_56_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 56 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 56 Y-coordinate`
@@ -10413,8 +10011,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_56_zcoordinate.setter
     def vertex_56_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 56 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 56 Z-coordinate`
@@ -10445,8 +10041,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_57_xcoordinate.setter
     def vertex_57_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 57 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 57 X-coordinate`
@@ -10477,8 +10071,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_57_ycoordinate.setter
     def vertex_57_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 57 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 57 Y-coordinate`
@@ -10509,8 +10101,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_57_zcoordinate.setter
     def vertex_57_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 57 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 57 Z-coordinate`
@@ -10541,8 +10131,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_58_xcoordinate.setter
     def vertex_58_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 58 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 58 X-coordinate`
@@ -10573,8 +10161,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_58_ycoordinate.setter
     def vertex_58_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 58 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 58 Y-coordinate`
@@ -10605,8 +10191,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_58_zcoordinate.setter
     def vertex_58_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 58 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 58 Z-coordinate`
@@ -10637,8 +10221,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_59_xcoordinate.setter
     def vertex_59_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 59 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 59 X-coordinate`
@@ -10669,8 +10251,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_59_ycoordinate.setter
     def vertex_59_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 59 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 59 Y-coordinate`
@@ -10701,8 +10281,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_59_zcoordinate.setter
     def vertex_59_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 59 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 59 Z-coordinate`
@@ -10733,8 +10311,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_60_xcoordinate.setter
     def vertex_60_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 60 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 60 X-coordinate`
@@ -10765,8 +10341,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_60_ycoordinate.setter
     def vertex_60_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 60 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 60 Y-coordinate`
@@ -10797,8 +10371,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_60_zcoordinate.setter
     def vertex_60_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 60 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 60 Z-coordinate`
@@ -10829,8 +10401,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_61_xcoordinate.setter
     def vertex_61_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 61 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 61 X-coordinate`
@@ -10861,8 +10431,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_61_ycoordinate.setter
     def vertex_61_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 61 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 61 Y-coordinate`
@@ -10893,8 +10461,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_61_zcoordinate.setter
     def vertex_61_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 61 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 61 Z-coordinate`
@@ -10925,8 +10491,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_62_xcoordinate.setter
     def vertex_62_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 62 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 62 X-coordinate`
@@ -10957,8 +10521,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_62_ycoordinate.setter
     def vertex_62_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 62 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 62 Y-coordinate`
@@ -10989,8 +10551,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_62_zcoordinate.setter
     def vertex_62_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 62 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 62 Z-coordinate`
@@ -11021,8 +10581,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_63_xcoordinate.setter
     def vertex_63_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 63 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 63 X-coordinate`
@@ -11053,8 +10611,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_63_ycoordinate.setter
     def vertex_63_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 63 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 63 Y-coordinate`
@@ -11085,8 +10641,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_63_zcoordinate.setter
     def vertex_63_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 63 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 63 Z-coordinate`
@@ -11117,8 +10671,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_64_xcoordinate.setter
     def vertex_64_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 64 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 64 X-coordinate`
@@ -11149,8 +10701,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_64_ycoordinate.setter
     def vertex_64_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 64 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 64 Y-coordinate`
@@ -11181,8 +10731,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_64_zcoordinate.setter
     def vertex_64_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 64 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 64 Z-coordinate`
@@ -11213,8 +10761,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_65_xcoordinate.setter
     def vertex_65_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 65 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 65 X-coordinate`
@@ -11245,8 +10791,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_65_ycoordinate.setter
     def vertex_65_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 65 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 65 Y-coordinate`
@@ -11277,8 +10821,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_65_zcoordinate.setter
     def vertex_65_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 65 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 65 Z-coordinate`
@@ -11309,8 +10851,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_66_xcoordinate.setter
     def vertex_66_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 66 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 66 X-coordinate`
@@ -11341,8 +10881,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_66_ycoordinate.setter
     def vertex_66_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 66 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 66 Y-coordinate`
@@ -11373,8 +10911,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_66_zcoordinate.setter
     def vertex_66_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 66 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 66 Z-coordinate`
@@ -11405,8 +10941,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_67_xcoordinate.setter
     def vertex_67_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 67 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 67 X-coordinate`
@@ -11437,8 +10971,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_67_ycoordinate.setter
     def vertex_67_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 67 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 67 Y-coordinate`
@@ -11469,8 +11001,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_67_zcoordinate.setter
     def vertex_67_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 67 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 67 Z-coordinate`
@@ -11501,8 +11031,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_68_xcoordinate.setter
     def vertex_68_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 68 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 68 X-coordinate`
@@ -11533,8 +11061,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_68_ycoordinate.setter
     def vertex_68_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 68 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 68 Y-coordinate`
@@ -11565,8 +11091,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_68_zcoordinate.setter
     def vertex_68_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 68 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 68 Z-coordinate`
@@ -11597,8 +11121,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_69_xcoordinate.setter
     def vertex_69_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 69 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 69 X-coordinate`
@@ -11629,8 +11151,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_69_ycoordinate.setter
     def vertex_69_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 69 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 69 Y-coordinate`
@@ -11661,8 +11181,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_69_zcoordinate.setter
     def vertex_69_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 69 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 69 Z-coordinate`
@@ -11693,8 +11211,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_70_xcoordinate.setter
     def vertex_70_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 70 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 70 X-coordinate`
@@ -11725,8 +11241,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_70_ycoordinate.setter
     def vertex_70_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 70 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 70 Y-coordinate`
@@ -11757,8 +11271,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_70_zcoordinate.setter
     def vertex_70_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 70 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 70 Z-coordinate`
@@ -11789,8 +11301,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_71_xcoordinate.setter
     def vertex_71_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 71 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 71 X-coordinate`
@@ -11821,8 +11331,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_71_ycoordinate.setter
     def vertex_71_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 71 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 71 Y-coordinate`
@@ -11853,8 +11361,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_71_zcoordinate.setter
     def vertex_71_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 71 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 71 Z-coordinate`
@@ -11885,8 +11391,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_72_xcoordinate.setter
     def vertex_72_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 72 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 72 X-coordinate`
@@ -11917,8 +11421,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_72_ycoordinate.setter
     def vertex_72_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 72 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 72 Y-coordinate`
@@ -11949,8 +11451,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_72_zcoordinate.setter
     def vertex_72_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 72 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 72 Z-coordinate`
@@ -11981,8 +11481,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_73_xcoordinate.setter
     def vertex_73_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 73 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 73 X-coordinate`
@@ -12013,8 +11511,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_73_ycoordinate.setter
     def vertex_73_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 73 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 73 Y-coordinate`
@@ -12045,8 +11541,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_73_zcoordinate.setter
     def vertex_73_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 73 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 73 Z-coordinate`
@@ -12077,8 +11571,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_74_xcoordinate.setter
     def vertex_74_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 74 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 74 X-coordinate`
@@ -12109,8 +11601,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_74_ycoordinate.setter
     def vertex_74_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 74 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 74 Y-coordinate`
@@ -12141,8 +11631,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_74_zcoordinate.setter
     def vertex_74_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 74 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 74 Z-coordinate`
@@ -12173,8 +11661,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_75_xcoordinate.setter
     def vertex_75_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 75 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 75 X-coordinate`
@@ -12205,8 +11691,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_75_ycoordinate.setter
     def vertex_75_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 75 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 75 Y-coordinate`
@@ -12237,8 +11721,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_75_zcoordinate.setter
     def vertex_75_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 75 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 75 Z-coordinate`
@@ -12269,8 +11751,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_76_xcoordinate.setter
     def vertex_76_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 76 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 76 X-coordinate`
@@ -12301,8 +11781,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_76_ycoordinate.setter
     def vertex_76_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 76 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 76 Y-coordinate`
@@ -12333,8 +11811,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_76_zcoordinate.setter
     def vertex_76_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 76 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 76 Z-coordinate`
@@ -12365,8 +11841,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_77_xcoordinate.setter
     def vertex_77_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 77 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 77 X-coordinate`
@@ -12397,8 +11871,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_77_ycoordinate.setter
     def vertex_77_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 77 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 77 Y-coordinate`
@@ -12429,8 +11901,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_77_zcoordinate.setter
     def vertex_77_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 77 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 77 Z-coordinate`
@@ -12461,8 +11931,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_78_xcoordinate.setter
     def vertex_78_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 78 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 78 X-coordinate`
@@ -12493,8 +11961,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_78_ycoordinate.setter
     def vertex_78_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 78 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 78 Y-coordinate`
@@ -12525,8 +11991,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_78_zcoordinate.setter
     def vertex_78_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 78 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 78 Z-coordinate`
@@ -12557,8 +12021,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_79_xcoordinate.setter
     def vertex_79_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 79 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 79 X-coordinate`
@@ -12589,8 +12051,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_79_ycoordinate.setter
     def vertex_79_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 79 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 79 Y-coordinate`
@@ -12621,8 +12081,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_79_zcoordinate.setter
     def vertex_79_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 79 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 79 Z-coordinate`
@@ -12653,8 +12111,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_80_xcoordinate.setter
     def vertex_80_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 80 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 80 X-coordinate`
@@ -12685,8 +12141,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_80_ycoordinate.setter
     def vertex_80_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 80 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 80 Y-coordinate`
@@ -12717,8 +12171,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_80_zcoordinate.setter
     def vertex_80_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 80 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 80 Z-coordinate`
@@ -12749,8 +12201,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_81_xcoordinate.setter
     def vertex_81_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 81 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 81 X-coordinate`
@@ -12781,8 +12231,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_81_ycoordinate.setter
     def vertex_81_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 81 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 81 Y-coordinate`
@@ -12813,8 +12261,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_81_zcoordinate.setter
     def vertex_81_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 81 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 81 Z-coordinate`
@@ -12845,8 +12291,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_82_xcoordinate.setter
     def vertex_82_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 82 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 82 X-coordinate`
@@ -12877,8 +12321,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_82_ycoordinate.setter
     def vertex_82_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 82 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 82 Y-coordinate`
@@ -12909,8 +12351,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_82_zcoordinate.setter
     def vertex_82_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 82 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 82 Z-coordinate`
@@ -12941,8 +12381,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_83_xcoordinate.setter
     def vertex_83_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 83 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 83 X-coordinate`
@@ -12973,8 +12411,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_83_ycoordinate.setter
     def vertex_83_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 83 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 83 Y-coordinate`
@@ -13005,8 +12441,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_83_zcoordinate.setter
     def vertex_83_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 83 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 83 Z-coordinate`
@@ -13037,8 +12471,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_84_xcoordinate.setter
     def vertex_84_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 84 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 84 X-coordinate`
@@ -13069,8 +12501,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_84_ycoordinate.setter
     def vertex_84_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 84 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 84 Y-coordinate`
@@ -13101,8 +12531,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_84_zcoordinate.setter
     def vertex_84_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 84 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 84 Z-coordinate`
@@ -13133,8 +12561,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_85_xcoordinate.setter
     def vertex_85_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 85 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 85 X-coordinate`
@@ -13165,8 +12591,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_85_ycoordinate.setter
     def vertex_85_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 85 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 85 Y-coordinate`
@@ -13197,8 +12621,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_85_zcoordinate.setter
     def vertex_85_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 85 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 85 Z-coordinate`
@@ -13229,8 +12651,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_86_xcoordinate.setter
     def vertex_86_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 86 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 86 X-coordinate`
@@ -13261,8 +12681,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_86_ycoordinate.setter
     def vertex_86_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 86 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 86 Y-coordinate`
@@ -13293,8 +12711,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_86_zcoordinate.setter
     def vertex_86_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 86 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 86 Z-coordinate`
@@ -13325,8 +12741,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_87_xcoordinate.setter
     def vertex_87_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 87 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 87 X-coordinate`
@@ -13357,8 +12771,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_87_ycoordinate.setter
     def vertex_87_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 87 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 87 Y-coordinate`
@@ -13389,8 +12801,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_87_zcoordinate.setter
     def vertex_87_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 87 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 87 Z-coordinate`
@@ -13421,8 +12831,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_88_xcoordinate.setter
     def vertex_88_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 88 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 88 X-coordinate`
@@ -13453,8 +12861,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_88_ycoordinate.setter
     def vertex_88_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 88 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 88 Y-coordinate`
@@ -13485,8 +12891,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_88_zcoordinate.setter
     def vertex_88_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 88 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 88 Z-coordinate`
@@ -13517,8 +12921,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_89_xcoordinate.setter
     def vertex_89_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 89 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 89 X-coordinate`
@@ -13549,8 +12951,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_89_ycoordinate.setter
     def vertex_89_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 89 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 89 Y-coordinate`
@@ -13581,8 +12981,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_89_zcoordinate.setter
     def vertex_89_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 89 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 89 Z-coordinate`
@@ -13613,8 +13011,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_90_xcoordinate.setter
     def vertex_90_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 90 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 90 X-coordinate`
@@ -13645,8 +13041,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_90_ycoordinate.setter
     def vertex_90_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 90 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 90 Y-coordinate`
@@ -13677,8 +13071,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_90_zcoordinate.setter
     def vertex_90_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 90 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 90 Z-coordinate`
@@ -13709,8 +13101,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_91_xcoordinate.setter
     def vertex_91_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 91 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 91 X-coordinate`
@@ -13741,8 +13131,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_91_ycoordinate.setter
     def vertex_91_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 91 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 91 Y-coordinate`
@@ -13773,8 +13161,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_91_zcoordinate.setter
     def vertex_91_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 91 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 91 Z-coordinate`
@@ -13805,8 +13191,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_92_xcoordinate.setter
     def vertex_92_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 92 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 92 X-coordinate`
@@ -13837,8 +13221,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_92_ycoordinate.setter
     def vertex_92_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 92 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 92 Y-coordinate`
@@ -13869,8 +13251,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_92_zcoordinate.setter
     def vertex_92_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 92 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 92 Z-coordinate`
@@ -13901,8 +13281,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_93_xcoordinate.setter
     def vertex_93_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 93 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 93 X-coordinate`
@@ -13933,8 +13311,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_93_ycoordinate.setter
     def vertex_93_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 93 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 93 Y-coordinate`
@@ -13965,8 +13341,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_93_zcoordinate.setter
     def vertex_93_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 93 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 93 Z-coordinate`
@@ -13997,8 +13371,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_94_xcoordinate.setter
     def vertex_94_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 94 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 94 X-coordinate`
@@ -14029,8 +13401,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_94_ycoordinate.setter
     def vertex_94_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 94 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 94 Y-coordinate`
@@ -14061,8 +13431,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_94_zcoordinate.setter
     def vertex_94_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 94 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 94 Z-coordinate`
@@ -14093,8 +13461,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_95_xcoordinate.setter
     def vertex_95_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 95 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 95 X-coordinate`
@@ -14125,8 +13491,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_95_ycoordinate.setter
     def vertex_95_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 95 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 95 Y-coordinate`
@@ -14157,8 +13521,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_95_zcoordinate.setter
     def vertex_95_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 95 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 95 Z-coordinate`
@@ -14189,8 +13551,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_96_xcoordinate.setter
     def vertex_96_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 96 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 96 X-coordinate`
@@ -14221,8 +13581,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_96_ycoordinate.setter
     def vertex_96_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 96 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 96 Y-coordinate`
@@ -14253,8 +13611,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_96_zcoordinate.setter
     def vertex_96_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 96 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 96 Z-coordinate`
@@ -14285,8 +13641,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_97_xcoordinate.setter
     def vertex_97_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 97 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 97 X-coordinate`
@@ -14317,8 +13671,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_97_ycoordinate.setter
     def vertex_97_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 97 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 97 Y-coordinate`
@@ -14349,8 +13701,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_97_zcoordinate.setter
     def vertex_97_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 97 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 97 Z-coordinate`
@@ -14381,8 +13731,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_98_xcoordinate.setter
     def vertex_98_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 98 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 98 X-coordinate`
@@ -14413,8 +13761,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_98_ycoordinate.setter
     def vertex_98_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 98 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 98 Y-coordinate`
@@ -14445,8 +13791,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_98_zcoordinate.setter
     def vertex_98_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 98 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 98 Z-coordinate`
@@ -14477,8 +13821,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_99_xcoordinate.setter
     def vertex_99_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 99 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 99 X-coordinate`
@@ -14509,8 +13851,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_99_ycoordinate.setter
     def vertex_99_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 99 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 99 Y-coordinate`
@@ -14541,8 +13881,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_99_zcoordinate.setter
     def vertex_99_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 99 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 99 Z-coordinate`
@@ -14573,8 +13911,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_100_xcoordinate.setter
     def vertex_100_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 100 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 100 X-coordinate`
@@ -14605,8 +13941,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_100_ycoordinate.setter
     def vertex_100_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 100 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 100 Y-coordinate`
@@ -14637,8 +13971,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_100_zcoordinate.setter
     def vertex_100_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 100 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 100 Z-coordinate`
@@ -14669,8 +14001,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_101_xcoordinate.setter
     def vertex_101_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 101 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 101 X-coordinate`
@@ -14701,8 +14031,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_101_ycoordinate.setter
     def vertex_101_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 101 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 101 Y-coordinate`
@@ -14733,8 +14061,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_101_zcoordinate.setter
     def vertex_101_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 101 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 101 Z-coordinate`
@@ -14765,8 +14091,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_102_xcoordinate.setter
     def vertex_102_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 102 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 102 X-coordinate`
@@ -14797,8 +14121,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_102_ycoordinate.setter
     def vertex_102_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 102 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 102 Y-coordinate`
@@ -14829,8 +14151,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_102_zcoordinate.setter
     def vertex_102_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 102 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 102 Z-coordinate`
@@ -14861,8 +14181,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_103_xcoordinate.setter
     def vertex_103_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 103 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 103 X-coordinate`
@@ -14893,8 +14211,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_103_ycoordinate.setter
     def vertex_103_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 103 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 103 Y-coordinate`
@@ -14925,8 +14241,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_103_zcoordinate.setter
     def vertex_103_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 103 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 103 Z-coordinate`
@@ -14957,8 +14271,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_104_xcoordinate.setter
     def vertex_104_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 104 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 104 X-coordinate`
@@ -14989,8 +14301,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_104_ycoordinate.setter
     def vertex_104_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 104 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 104 Y-coordinate`
@@ -15021,8 +14331,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_104_zcoordinate.setter
     def vertex_104_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 104 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 104 Z-coordinate`
@@ -15053,8 +14361,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_105_xcoordinate.setter
     def vertex_105_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 105 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 105 X-coordinate`
@@ -15085,8 +14391,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_105_ycoordinate.setter
     def vertex_105_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 105 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 105 Y-coordinate`
@@ -15117,8 +14421,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_105_zcoordinate.setter
     def vertex_105_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 105 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 105 Z-coordinate`
@@ -15149,8 +14451,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_106_xcoordinate.setter
     def vertex_106_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 106 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 106 X-coordinate`
@@ -15181,8 +14481,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_106_ycoordinate.setter
     def vertex_106_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 106 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 106 Y-coordinate`
@@ -15213,8 +14511,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_106_zcoordinate.setter
     def vertex_106_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 106 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 106 Z-coordinate`
@@ -15245,8 +14541,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_107_xcoordinate.setter
     def vertex_107_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 107 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 107 X-coordinate`
@@ -15277,8 +14571,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_107_ycoordinate.setter
     def vertex_107_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 107 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 107 Y-coordinate`
@@ -15309,8 +14601,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_107_zcoordinate.setter
     def vertex_107_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 107 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 107 Z-coordinate`
@@ -15341,8 +14631,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_108_xcoordinate.setter
     def vertex_108_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 108 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 108 X-coordinate`
@@ -15373,8 +14661,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_108_ycoordinate.setter
     def vertex_108_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 108 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 108 Y-coordinate`
@@ -15405,8 +14691,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_108_zcoordinate.setter
     def vertex_108_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 108 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 108 Z-coordinate`
@@ -15437,8 +14721,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_109_xcoordinate.setter
     def vertex_109_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 109 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 109 X-coordinate`
@@ -15469,8 +14751,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_109_ycoordinate.setter
     def vertex_109_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 109 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 109 Y-coordinate`
@@ -15501,8 +14781,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_109_zcoordinate.setter
     def vertex_109_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 109 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 109 Z-coordinate`
@@ -15533,8 +14811,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_110_xcoordinate.setter
     def vertex_110_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 110 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 110 X-coordinate`
@@ -15565,8 +14841,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_110_ycoordinate.setter
     def vertex_110_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 110 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 110 Y-coordinate`
@@ -15597,8 +14871,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_110_zcoordinate.setter
     def vertex_110_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 110 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 110 Z-coordinate`
@@ -15629,8 +14901,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_111_xcoordinate.setter
     def vertex_111_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 111 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 111 X-coordinate`
@@ -15661,8 +14931,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_111_ycoordinate.setter
     def vertex_111_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 111 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 111 Y-coordinate`
@@ -15693,8 +14961,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_111_zcoordinate.setter
     def vertex_111_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 111 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 111 Z-coordinate`
@@ -15725,8 +14991,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_112_xcoordinate.setter
     def vertex_112_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 112 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 112 X-coordinate`
@@ -15757,8 +15021,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_112_ycoordinate.setter
     def vertex_112_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 112 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 112 Y-coordinate`
@@ -15789,8 +15051,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_112_zcoordinate.setter
     def vertex_112_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 112 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 112 Z-coordinate`
@@ -15821,8 +15081,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_113_xcoordinate.setter
     def vertex_113_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 113 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 113 X-coordinate`
@@ -15853,8 +15111,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_113_ycoordinate.setter
     def vertex_113_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 113 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 113 Y-coordinate`
@@ -15885,8 +15141,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_113_zcoordinate.setter
     def vertex_113_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 113 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 113 Z-coordinate`
@@ -15917,8 +15171,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_114_xcoordinate.setter
     def vertex_114_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 114 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 114 X-coordinate`
@@ -15949,8 +15201,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_114_ycoordinate.setter
     def vertex_114_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 114 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 114 Y-coordinate`
@@ -15981,8 +15231,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_114_zcoordinate.setter
     def vertex_114_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 114 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 114 Z-coordinate`
@@ -16013,8 +15261,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_115_xcoordinate.setter
     def vertex_115_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 115 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 115 X-coordinate`
@@ -16045,8 +15291,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_115_ycoordinate.setter
     def vertex_115_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 115 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 115 Y-coordinate`
@@ -16077,8 +15321,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_115_zcoordinate.setter
     def vertex_115_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 115 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 115 Z-coordinate`
@@ -16109,8 +15351,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_116_xcoordinate.setter
     def vertex_116_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 116 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 116 X-coordinate`
@@ -16141,8 +15381,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_116_ycoordinate.setter
     def vertex_116_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 116 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 116 Y-coordinate`
@@ -16173,8 +15411,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_116_zcoordinate.setter
     def vertex_116_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 116 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 116 Z-coordinate`
@@ -16205,8 +15441,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_117_xcoordinate.setter
     def vertex_117_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 117 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 117 X-coordinate`
@@ -16237,8 +15471,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_117_ycoordinate.setter
     def vertex_117_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 117 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 117 Y-coordinate`
@@ -16269,8 +15501,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_117_zcoordinate.setter
     def vertex_117_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 117 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 117 Z-coordinate`
@@ -16301,8 +15531,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_118_xcoordinate.setter
     def vertex_118_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 118 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 118 X-coordinate`
@@ -16333,8 +15561,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_118_ycoordinate.setter
     def vertex_118_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 118 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 118 Y-coordinate`
@@ -16365,8 +15591,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_118_zcoordinate.setter
     def vertex_118_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 118 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 118 Z-coordinate`
@@ -16397,8 +15621,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_119_xcoordinate.setter
     def vertex_119_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 119 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 119 X-coordinate`
@@ -16429,8 +15651,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_119_ycoordinate.setter
     def vertex_119_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 119 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 119 Y-coordinate`
@@ -16461,8 +15681,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_119_zcoordinate.setter
     def vertex_119_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 119 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 119 Z-coordinate`
@@ -16493,8 +15711,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_120_xcoordinate.setter
     def vertex_120_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 120 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 120 X-coordinate`
@@ -16525,8 +15741,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_120_ycoordinate.setter
     def vertex_120_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 120 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 120 Y-coordinate`
@@ -16557,8 +15771,6 @@ class BuildingSurfaceDetailed(object):
     @vertex_120_zcoordinate.setter
     def vertex_120_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 120 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 120 Z-coordinate`
@@ -16959,8 +16171,6 @@ class WallDetailed(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'reference': u'AllShadingAndHTSurfNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -16997,8 +16207,6 @@ class WallDetailed(object):
     def construction_name(self, value=None):
         """  Corresponds to IDD Field `Construction Name`
         To be matched with a construction in this input file
-        
-        {u'note': [u'To be matched with a construction in this input file'], u'type': u'object-list', u'object-list': u'ConstructionNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Construction Name`
@@ -17035,8 +16243,6 @@ class WallDetailed(object):
     def zone_name(self, value=None):
         """  Corresponds to IDD Field `Zone Name`
         Zone the surface is a part of
-        
-        {u'note': [u'Zone the surface is a part of'], u'type': u'object-list', u'object-list': u'ZoneNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Zone Name`
@@ -17072,8 +16278,6 @@ class WallDetailed(object):
     @outside_boundary_condition.setter
     def outside_boundary_condition(self, value=None):
         """  Corresponds to IDD Field `Outside Boundary Condition`
-        
-        {u'type': u'choice', u'key': [u'Adiabatic', u'Surface', u'Zone', u'Outdoors', u'Ground', u'GroundFCfactorMethod', u'OtherSideCoefficients', u'OtherSideConditionsModel', u'GroundSlabPreprocessorAverage', u'GroundSlabPreprocessorCore', u'GroundSlabPreprocessorPerimeter', u'GroundBasementPreprocessorAverageWall', u'GroundBasementPreprocessorAverageFloor', u'GroundBasementPreprocessorUpperWall', u'GroundBasementPreprocessorLowerWall'], u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Outside Boundary Condition`
@@ -17163,8 +16367,6 @@ class WallDetailed(object):
         the program will generate the corresponding interzone surface
         If OtherSideCoefficients, specify name of SurfaceProperty:OtherSideCoefficients
         If OtherSideConditionsModel, specify name of SurfaceProperty:OtherSideConditionsModel
-        
-        {u'note': [u'Non-blank only if the field Outside Boundary Condition is Surface,', u'Zone, OtherSideCoefficients or OtherSideConditionsModel', u'If Surface, specify name of corresponding surface in adjacent zone or', u'specify current surface name for internal partition separating like zones', u'If Zone, specify the name of the corresponding zone and', u'the program will generate the corresponding interzone surface', u'If OtherSideCoefficients, specify name of SurfaceProperty:OtherSideCoefficients', u'If OtherSideConditionsModel, specify name of SurfaceProperty:OtherSideConditionsModel'], u'type': u'object-list', u'object-list': u'OutFaceEnvNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Outside Boundary Condition Object`
@@ -17200,8 +16402,6 @@ class WallDetailed(object):
     @sun_exposure.setter
     def sun_exposure(self, value="SunExposed"):
         """  Corresponds to IDD Field `Sun Exposure`
-        
-        {u'default': u'SunExposed', u'type': u'choice', u'key': [u'SunExposed', u'NoSun'], u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Sun Exposure`
@@ -17258,8 +16458,6 @@ class WallDetailed(object):
     @wind_exposure.setter
     def wind_exposure(self, value="WindExposed"):
         """  Corresponds to IDD Field `Wind Exposure`
-        
-        {u'default': u'WindExposed', u'type': u'choice', u'key': [u'WindExposed', u'NoWind'], u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Wind Exposure`
@@ -17314,14 +16512,12 @@ class WallDetailed(object):
         return self._data["View Factor to Ground"]
 
     @view_factor_to_ground.setter
-    def view_factor_to_ground(self, value="autocalculate" ):
+    def view_factor_to_ground(self, value="autocalculate"):
         """  Corresponds to IDD Field `View Factor to Ground`
         From the exterior of the surface
         Unused if one uses the "reflections" options in Solar Distribution in Building input
         unless a DaylightingDevice:Shelf or DaylightingDevice:Tubular object has been specified.
         autocalculate will automatically calculate this value from the tilt of the surface
-        
-        {'pytype': 'float', u'default': '"autocalculate"', u'maximum': '1.0', u'note': [u'From the exterior of the surface', u'Unused if one uses the "reflections" options in Solar Distribution in Building input', u'unless a DaylightingDevice:Shelf or DaylightingDevice:Tubular object has been specified.', u'autocalculate will automatically calculate this value from the tilt of the surface'], u'minimum': '0.0', u'autocalculatable': True, u'type': u'real'}
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `View Factor to Ground`
@@ -17338,7 +16534,7 @@ class WallDetailed(object):
             try:
                 value_lower = str(value).lower()
                 if value_lower == "autocalculate":
-                    self._data["View Factor to Ground"] = value
+                    self._data["View Factor to Ground"] = "Autocalculate"
                     return
             except ValueError:
                 pass
@@ -17365,7 +16561,7 @@ class WallDetailed(object):
         return self._data["Number of Vertices"]
 
     @number_of_vertices.setter
-    def number_of_vertices(self, value="autocalculate" ):
+    def number_of_vertices(self, value="autocalculate"):
         """  Corresponds to IDD Field `Number of Vertices`
         shown with 10 vertex coordinates -- extensible object
         "extensible" -- duplicate last set of x,y,z coordinates, renumbering please
@@ -17373,8 +16569,6 @@ class WallDetailed(object):
         vertices are given in GlobalGeometryRules coordinates -- if relative, all surface coordinates
         are "relative" to the Zone Origin.  If world, then building and zone origins are used
         for some internal calculations, but all coordinates are given in an "absolute" system.
-        
-        {'pytype': 'float', u'default': '"autocalculate"', u'note': [u'shown with 10 vertex coordinates -- extensible object', u'"extensible" -- duplicate last set of x,y,z coordinates, renumbering please', u'(and changing z terminator to a comma "," for all but last one which needs a semi-colon ";")', u'vertices are given in GlobalGeometryRules coordinates -- if relative, all surface coordinates', u'are "relative" to the Zone Origin.  If world, then building and zone origins are used', u'for some internal calculations, but all coordinates are given in an "absolute" system.'], u'minimum': '3.0', u'autocalculatable': True, 'type': 'real'}
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `Number of Vertices`
@@ -17390,7 +16584,7 @@ class WallDetailed(object):
             try:
                 value_lower = str(value).lower()
                 if value_lower == "autocalculate":
-                    self._data["Number of Vertices"] = value
+                    self._data["Number of Vertices"] = "Autocalculate"
                     return
             except ValueError:
                 pass
@@ -17416,8 +16610,6 @@ class WallDetailed(object):
     @vertex_1_xcoordinate.setter
     def vertex_1_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 1 X-coordinate`
-        
-        {u'units': u'm', 'pytype': 'float', u'type': u'real', u'required-field': True, u'begin-extensible': u''}
 
         Args:
             value (float): value for IDD Field `Vertex 1 X-coordinate`
@@ -17448,8 +16640,6 @@ class WallDetailed(object):
     @vertex_1_ycoordinate.setter
     def vertex_1_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 1 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 1 Y-coordinate`
@@ -17480,8 +16670,6 @@ class WallDetailed(object):
     @vertex_1_zcoordinate.setter
     def vertex_1_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 1 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 1 Z-coordinate`
@@ -17512,8 +16700,6 @@ class WallDetailed(object):
     @vertex_2_xcoordinate.setter
     def vertex_2_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 2 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 2 X-coordinate`
@@ -17544,8 +16730,6 @@ class WallDetailed(object):
     @vertex_2_ycoordinate.setter
     def vertex_2_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 2 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 2 Y-coordinate`
@@ -17576,8 +16760,6 @@ class WallDetailed(object):
     @vertex_2_zcoordinate.setter
     def vertex_2_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 2 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 2 Z-coordinate`
@@ -17608,8 +16790,6 @@ class WallDetailed(object):
     @vertex_3_xcoordinate.setter
     def vertex_3_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 3 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 3 X-coordinate`
@@ -17640,8 +16820,6 @@ class WallDetailed(object):
     @vertex_3_ycoordinate.setter
     def vertex_3_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 3 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 3 Y-coordinate`
@@ -17672,8 +16850,6 @@ class WallDetailed(object):
     @vertex_3_zcoordinate.setter
     def vertex_3_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 3 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 3 Z-coordinate`
@@ -17704,8 +16880,6 @@ class WallDetailed(object):
     @vertex_4_xcoordinate.setter
     def vertex_4_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 4 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 4 X-coordinate`
@@ -17736,8 +16910,6 @@ class WallDetailed(object):
     @vertex_4_ycoordinate.setter
     def vertex_4_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 4 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 4 Y-coordinate`
@@ -17768,8 +16940,6 @@ class WallDetailed(object):
     @vertex_4_zcoordinate.setter
     def vertex_4_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 4 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 4 Z-coordinate`
@@ -17800,8 +16970,6 @@ class WallDetailed(object):
     @vertex_5_xcoordinate.setter
     def vertex_5_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 5 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 5 X-coordinate`
@@ -17832,8 +17000,6 @@ class WallDetailed(object):
     @vertex_5_ycoordinate.setter
     def vertex_5_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 5 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 5 Y-coordinate`
@@ -17864,8 +17030,6 @@ class WallDetailed(object):
     @vertex_5_zcoordinate.setter
     def vertex_5_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 5 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 5 Z-coordinate`
@@ -17896,8 +17060,6 @@ class WallDetailed(object):
     @vertex_6_xcoordinate.setter
     def vertex_6_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 6 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 6 X-coordinate`
@@ -17928,8 +17090,6 @@ class WallDetailed(object):
     @vertex_6_ycoordinate.setter
     def vertex_6_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 6 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 6 Y-coordinate`
@@ -17960,8 +17120,6 @@ class WallDetailed(object):
     @vertex_6_zcoordinate.setter
     def vertex_6_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 6 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 6 Z-coordinate`
@@ -17992,8 +17150,6 @@ class WallDetailed(object):
     @vertex_7_xcoordinate.setter
     def vertex_7_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 7 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 7 X-coordinate`
@@ -18024,8 +17180,6 @@ class WallDetailed(object):
     @vertex_7_ycoordinate.setter
     def vertex_7_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 7 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 7 Y-coordinate`
@@ -18056,8 +17210,6 @@ class WallDetailed(object):
     @vertex_7_zcoordinate.setter
     def vertex_7_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 7 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 7 Z-coordinate`
@@ -18088,8 +17240,6 @@ class WallDetailed(object):
     @vertex_8_xcoordinate.setter
     def vertex_8_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 8 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 8 X-coordinate`
@@ -18120,8 +17270,6 @@ class WallDetailed(object):
     @vertex_8_ycoordinate.setter
     def vertex_8_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 8 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 8 Y-coordinate`
@@ -18152,8 +17300,6 @@ class WallDetailed(object):
     @vertex_8_zcoordinate.setter
     def vertex_8_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 8 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 8 Z-coordinate`
@@ -18184,8 +17330,6 @@ class WallDetailed(object):
     @vertex_9_xcoordinate.setter
     def vertex_9_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 9 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 9 X-coordinate`
@@ -18216,8 +17360,6 @@ class WallDetailed(object):
     @vertex_9_ycoordinate.setter
     def vertex_9_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 9 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 9 Y-coordinate`
@@ -18248,8 +17390,6 @@ class WallDetailed(object):
     @vertex_9_zcoordinate.setter
     def vertex_9_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 9 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 9 Z-coordinate`
@@ -18280,8 +17420,6 @@ class WallDetailed(object):
     @vertex_10_xcoordinate.setter
     def vertex_10_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 10 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 10 X-coordinate`
@@ -18312,8 +17450,6 @@ class WallDetailed(object):
     @vertex_10_ycoordinate.setter
     def vertex_10_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 10 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 10 Y-coordinate`
@@ -18344,8 +17480,6 @@ class WallDetailed(object):
     @vertex_10_zcoordinate.setter
     def vertex_10_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 10 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 10 Z-coordinate`
@@ -18746,8 +17880,6 @@ class RoofCeilingDetailed(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'reference': u'AllShadingAndHTSurfNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -18784,8 +17916,6 @@ class RoofCeilingDetailed(object):
     def construction_name(self, value=None):
         """  Corresponds to IDD Field `Construction Name`
         To be matched with a construction in this input file
-        
-        {u'note': [u'To be matched with a construction in this input file'], u'type': u'object-list', u'object-list': u'ConstructionNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Construction Name`
@@ -18822,8 +17952,6 @@ class RoofCeilingDetailed(object):
     def zone_name(self, value=None):
         """  Corresponds to IDD Field `Zone Name`
         Zone the surface is a part of
-        
-        {u'note': [u'Zone the surface is a part of'], u'type': u'object-list', u'object-list': u'ZoneNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Zone Name`
@@ -18859,8 +17987,6 @@ class RoofCeilingDetailed(object):
     @outside_boundary_condition.setter
     def outside_boundary_condition(self, value=None):
         """  Corresponds to IDD Field `Outside Boundary Condition`
-        
-        {u'type': u'choice', u'key': [u'Adiabatic', u'Surface', u'Zone', u'Outdoors', u'Ground', u'OtherSideCoefficients', u'OtherSideConditionsModel', u'GroundSlabPreprocessorAverage', u'GroundSlabPreprocessorCore', u'GroundSlabPreprocessorPerimeter', u'GroundBasementPreprocessorAverageWall', u'GroundBasementPreprocessorAverageFloor', u'GroundBasementPreprocessorUpperWall', u'GroundBasementPreprocessorLowerWall'], u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Outside Boundary Condition`
@@ -18948,8 +18074,6 @@ class RoofCeilingDetailed(object):
         the program will generate the corresponding interzone surface
         If OtherSideCoefficients, specify name of SurfaceProperty:OtherSideCoefficients
         If OtherSideConditionsModel, specify name of SurfaceProperty:OtherSideConditionsModel
-        
-        {u'note': [u'Non-blank only if the field Outside Boundary Condition is Surface,', u'Zone, OtherSideCoefficients or OtherSideConditionsModel', u'If Surface, specify name of corresponding surface in adjacent zone or', u'specify current surface name for internal partition separating like zones', u'If Zone, specify the name of the corresponding zone and', u'the program will generate the corresponding interzone surface', u'If OtherSideCoefficients, specify name of SurfaceProperty:OtherSideCoefficients', u'If OtherSideConditionsModel, specify name of SurfaceProperty:OtherSideConditionsModel'], u'type': u'object-list', u'object-list': u'OutFaceEnvNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Outside Boundary Condition Object`
@@ -18985,8 +18109,6 @@ class RoofCeilingDetailed(object):
     @sun_exposure.setter
     def sun_exposure(self, value="SunExposed"):
         """  Corresponds to IDD Field `Sun Exposure`
-        
-        {u'default': u'SunExposed', u'type': u'choice', u'key': [u'SunExposed', u'NoSun'], u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Sun Exposure`
@@ -19043,8 +18165,6 @@ class RoofCeilingDetailed(object):
     @wind_exposure.setter
     def wind_exposure(self, value="WindExposed"):
         """  Corresponds to IDD Field `Wind Exposure`
-        
-        {u'default': u'WindExposed', u'type': u'choice', u'key': [u'WindExposed', u'NoWind'], u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Wind Exposure`
@@ -19099,14 +18219,12 @@ class RoofCeilingDetailed(object):
         return self._data["View Factor to Ground"]
 
     @view_factor_to_ground.setter
-    def view_factor_to_ground(self, value="autocalculate" ):
+    def view_factor_to_ground(self, value="autocalculate"):
         """  Corresponds to IDD Field `View Factor to Ground`
         From the exterior of the surface
         Unused if one uses the "reflections" options in Solar Distribution in Building input
         unless a DaylightingDevice:Shelf or DaylightingDevice:Tubular object has been specified.
         autocalculate will automatically calculate this value from the tilt of the surface
-        
-        {'pytype': 'float', u'default': '"autocalculate"', u'maximum': '1.0', u'note': [u'From the exterior of the surface', u'Unused if one uses the "reflections" options in Solar Distribution in Building input', u'unless a DaylightingDevice:Shelf or DaylightingDevice:Tubular object has been specified.', u'autocalculate will automatically calculate this value from the tilt of the surface'], u'minimum': '0.0', u'autocalculatable': True, u'type': u'real'}
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `View Factor to Ground`
@@ -19123,7 +18241,7 @@ class RoofCeilingDetailed(object):
             try:
                 value_lower = str(value).lower()
                 if value_lower == "autocalculate":
-                    self._data["View Factor to Ground"] = value
+                    self._data["View Factor to Ground"] = "Autocalculate"
                     return
             except ValueError:
                 pass
@@ -19150,7 +18268,7 @@ class RoofCeilingDetailed(object):
         return self._data["Number of Vertices"]
 
     @number_of_vertices.setter
-    def number_of_vertices(self, value="autocalculate" ):
+    def number_of_vertices(self, value="autocalculate"):
         """  Corresponds to IDD Field `Number of Vertices`
         shown with 10 vertex coordinates -- extensible object
         "extensible" -- duplicate last set of x,y,z coordinates, renumbering please
@@ -19158,8 +18276,6 @@ class RoofCeilingDetailed(object):
         vertices are given in GlobalGeometryRules coordinates -- if relative, all surface coordinates
         are "relative" to the Zone Origin.  If world, then building and zone origins are used
         for some internal calculations, but all coordinates are given in an "absolute" system.
-        
-        {'pytype': 'float', u'default': '"autocalculate"', u'note': [u'shown with 10 vertex coordinates -- extensible object', u'"extensible" -- duplicate last set of x,y,z coordinates, renumbering please', u'(and changing z terminator to a comma "," for all but last one which needs a semi-colon ";")', u'vertices are given in GlobalGeometryRules coordinates -- if relative, all surface coordinates', u'are "relative" to the Zone Origin.  If world, then building and zone origins are used', u'for some internal calculations, but all coordinates are given in an "absolute" system.'], u'minimum': '3.0', u'autocalculatable': True, 'type': 'real'}
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `Number of Vertices`
@@ -19175,7 +18291,7 @@ class RoofCeilingDetailed(object):
             try:
                 value_lower = str(value).lower()
                 if value_lower == "autocalculate":
-                    self._data["Number of Vertices"] = value
+                    self._data["Number of Vertices"] = "Autocalculate"
                     return
             except ValueError:
                 pass
@@ -19201,8 +18317,6 @@ class RoofCeilingDetailed(object):
     @vertex_1_xcoordinate.setter
     def vertex_1_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 1 X-coordinate`
-        
-        {u'units': u'm', 'pytype': 'float', u'type': u'real', u'required-field': True, u'begin-extensible': u''}
 
         Args:
             value (float): value for IDD Field `Vertex 1 X-coordinate`
@@ -19233,8 +18347,6 @@ class RoofCeilingDetailed(object):
     @vertex_1_ycoordinate.setter
     def vertex_1_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 1 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 1 Y-coordinate`
@@ -19265,8 +18377,6 @@ class RoofCeilingDetailed(object):
     @vertex_1_zcoordinate.setter
     def vertex_1_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 1 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 1 Z-coordinate`
@@ -19297,8 +18407,6 @@ class RoofCeilingDetailed(object):
     @vertex_2_xcoordinate.setter
     def vertex_2_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 2 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 2 X-coordinate`
@@ -19329,8 +18437,6 @@ class RoofCeilingDetailed(object):
     @vertex_2_ycoordinate.setter
     def vertex_2_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 2 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 2 Y-coordinate`
@@ -19361,8 +18467,6 @@ class RoofCeilingDetailed(object):
     @vertex_2_zcoordinate.setter
     def vertex_2_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 2 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 2 Z-coordinate`
@@ -19393,8 +18497,6 @@ class RoofCeilingDetailed(object):
     @vertex_3_xcoordinate.setter
     def vertex_3_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 3 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 3 X-coordinate`
@@ -19425,8 +18527,6 @@ class RoofCeilingDetailed(object):
     @vertex_3_ycoordinate.setter
     def vertex_3_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 3 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 3 Y-coordinate`
@@ -19457,8 +18557,6 @@ class RoofCeilingDetailed(object):
     @vertex_3_zcoordinate.setter
     def vertex_3_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 3 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 3 Z-coordinate`
@@ -19489,8 +18587,6 @@ class RoofCeilingDetailed(object):
     @vertex_4_xcoordinate.setter
     def vertex_4_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 4 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 4 X-coordinate`
@@ -19521,8 +18617,6 @@ class RoofCeilingDetailed(object):
     @vertex_4_ycoordinate.setter
     def vertex_4_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 4 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 4 Y-coordinate`
@@ -19553,8 +18647,6 @@ class RoofCeilingDetailed(object):
     @vertex_4_zcoordinate.setter
     def vertex_4_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 4 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 4 Z-coordinate`
@@ -19585,8 +18677,6 @@ class RoofCeilingDetailed(object):
     @vertex_5_xcoordinate.setter
     def vertex_5_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 5 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 5 X-coordinate`
@@ -19617,8 +18707,6 @@ class RoofCeilingDetailed(object):
     @vertex_5_ycoordinate.setter
     def vertex_5_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 5 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 5 Y-coordinate`
@@ -19649,8 +18737,6 @@ class RoofCeilingDetailed(object):
     @vertex_5_zcoordinate.setter
     def vertex_5_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 5 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 5 Z-coordinate`
@@ -19681,8 +18767,6 @@ class RoofCeilingDetailed(object):
     @vertex_6_xcoordinate.setter
     def vertex_6_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 6 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 6 X-coordinate`
@@ -19713,8 +18797,6 @@ class RoofCeilingDetailed(object):
     @vertex_6_ycoordinate.setter
     def vertex_6_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 6 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 6 Y-coordinate`
@@ -19745,8 +18827,6 @@ class RoofCeilingDetailed(object):
     @vertex_6_zcoordinate.setter
     def vertex_6_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 6 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 6 Z-coordinate`
@@ -19777,8 +18857,6 @@ class RoofCeilingDetailed(object):
     @vertex_7_xcoordinate.setter
     def vertex_7_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 7 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 7 X-coordinate`
@@ -19809,8 +18887,6 @@ class RoofCeilingDetailed(object):
     @vertex_7_ycoordinate.setter
     def vertex_7_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 7 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 7 Y-coordinate`
@@ -19841,8 +18917,6 @@ class RoofCeilingDetailed(object):
     @vertex_7_zcoordinate.setter
     def vertex_7_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 7 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 7 Z-coordinate`
@@ -19873,8 +18947,6 @@ class RoofCeilingDetailed(object):
     @vertex_8_xcoordinate.setter
     def vertex_8_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 8 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 8 X-coordinate`
@@ -19905,8 +18977,6 @@ class RoofCeilingDetailed(object):
     @vertex_8_ycoordinate.setter
     def vertex_8_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 8 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 8 Y-coordinate`
@@ -19937,8 +19007,6 @@ class RoofCeilingDetailed(object):
     @vertex_8_zcoordinate.setter
     def vertex_8_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 8 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 8 Z-coordinate`
@@ -19969,8 +19037,6 @@ class RoofCeilingDetailed(object):
     @vertex_9_xcoordinate.setter
     def vertex_9_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 9 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 9 X-coordinate`
@@ -20001,8 +19067,6 @@ class RoofCeilingDetailed(object):
     @vertex_9_ycoordinate.setter
     def vertex_9_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 9 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 9 Y-coordinate`
@@ -20033,8 +19097,6 @@ class RoofCeilingDetailed(object):
     @vertex_9_zcoordinate.setter
     def vertex_9_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 9 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 9 Z-coordinate`
@@ -20065,8 +19127,6 @@ class RoofCeilingDetailed(object):
     @vertex_10_xcoordinate.setter
     def vertex_10_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 10 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 10 X-coordinate`
@@ -20097,8 +19157,6 @@ class RoofCeilingDetailed(object):
     @vertex_10_ycoordinate.setter
     def vertex_10_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 10 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 10 Y-coordinate`
@@ -20129,8 +19187,6 @@ class RoofCeilingDetailed(object):
     @vertex_10_zcoordinate.setter
     def vertex_10_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 10 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 10 Z-coordinate`
@@ -20531,8 +19587,6 @@ class FloorDetailed(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'reference': u'AllShadingAndHTSurfNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -20569,8 +19623,6 @@ class FloorDetailed(object):
     def construction_name(self, value=None):
         """  Corresponds to IDD Field `Construction Name`
         To be matched with a construction in this input file
-        
-        {u'note': [u'To be matched with a construction in this input file'], u'type': u'object-list', u'object-list': u'ConstructionNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Construction Name`
@@ -20607,8 +19659,6 @@ class FloorDetailed(object):
     def zone_name(self, value=None):
         """  Corresponds to IDD Field `Zone Name`
         Zone the surface is a part of
-        
-        {u'note': [u'Zone the surface is a part of'], u'type': u'object-list', u'object-list': u'ZoneNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Zone Name`
@@ -20644,8 +19694,6 @@ class FloorDetailed(object):
     @outside_boundary_condition.setter
     def outside_boundary_condition(self, value=None):
         """  Corresponds to IDD Field `Outside Boundary Condition`
-        
-        {u'type': u'choice', u'key': [u'Adiabatic', u'Surface', u'Zone', u'Outdoors', u'Ground', u'GroundFCfactorMethod', u'OtherSideCoefficients', u'OtherSideConditionsModel', u'GroundSlabPreprocessorAverage', u'GroundSlabPreprocessorCore', u'GroundSlabPreprocessorPerimeter', u'GroundBasementPreprocessorAverageWall', u'GroundBasementPreprocessorAverageFloor', u'GroundBasementPreprocessorUpperWall', u'GroundBasementPreprocessorLowerWall'], u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Outside Boundary Condition`
@@ -20735,8 +19783,6 @@ class FloorDetailed(object):
         the program will generate the corresponding interzone surface
         If OtherSideCoefficients, specify name of SurfaceProperty:OtherSideCoefficients
         If OtherSideConditionsModel, specify name of SurfaceProperty:OtherSideConditionsModel
-        
-        {u'note': [u'Non-blank only if the field Outside Boundary Condition is Surface,', u'Zone, OtherSideCoefficients or OtherSideConditionsModel', u'If Surface, specify name of corresponding surface in adjacent zone or', u'specify current surface name for internal partition separating like zones', u'If Zone, specify the name of the corresponding zone and', u'the program will generate the corresponding interzone surface', u'If OtherSideCoefficients, specify name of SurfaceProperty:OtherSideCoefficients', u'If OtherSideConditionsModel, specify name of SurfaceProperty:OtherSideConditionsModel'], u'type': u'object-list', u'object-list': u'OutFaceEnvNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Outside Boundary Condition Object`
@@ -20772,8 +19818,6 @@ class FloorDetailed(object):
     @sun_exposure.setter
     def sun_exposure(self, value="SunExposed"):
         """  Corresponds to IDD Field `Sun Exposure`
-        
-        {u'default': u'SunExposed', u'type': u'choice', u'key': [u'SunExposed', u'NoSun'], u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Sun Exposure`
@@ -20830,8 +19874,6 @@ class FloorDetailed(object):
     @wind_exposure.setter
     def wind_exposure(self, value="WindExposed"):
         """  Corresponds to IDD Field `Wind Exposure`
-        
-        {u'default': u'WindExposed', u'type': u'choice', u'key': [u'WindExposed', u'NoWind'], u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Wind Exposure`
@@ -20886,14 +19928,12 @@ class FloorDetailed(object):
         return self._data["View Factor to Ground"]
 
     @view_factor_to_ground.setter
-    def view_factor_to_ground(self, value="autocalculate" ):
+    def view_factor_to_ground(self, value="autocalculate"):
         """  Corresponds to IDD Field `View Factor to Ground`
         From the exterior of the surface
         Unused if one uses the "reflections" options in Solar Distribution in Building input
         unless a DaylightingDevice:Shelf or DaylightingDevice:Tubular object has been specified.
         autocalculate will automatically calculate this value from the tilt of the surface
-        
-        {'pytype': 'float', u'default': '"autocalculate"', u'maximum': '1.0', u'note': [u'From the exterior of the surface', u'Unused if one uses the "reflections" options in Solar Distribution in Building input', u'unless a DaylightingDevice:Shelf or DaylightingDevice:Tubular object has been specified.', u'autocalculate will automatically calculate this value from the tilt of the surface'], u'minimum': '0.0', u'autocalculatable': True, u'type': u'real'}
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `View Factor to Ground`
@@ -20910,7 +19950,7 @@ class FloorDetailed(object):
             try:
                 value_lower = str(value).lower()
                 if value_lower == "autocalculate":
-                    self._data["View Factor to Ground"] = value
+                    self._data["View Factor to Ground"] = "Autocalculate"
                     return
             except ValueError:
                 pass
@@ -20937,7 +19977,7 @@ class FloorDetailed(object):
         return self._data["Number of Vertices"]
 
     @number_of_vertices.setter
-    def number_of_vertices(self, value="autocalculate" ):
+    def number_of_vertices(self, value="autocalculate"):
         """  Corresponds to IDD Field `Number of Vertices`
         shown with 10 vertex coordinates -- extensible object
         "extensible" -- duplicate last set of x,y,z coordinates, renumbering please
@@ -20945,8 +19985,6 @@ class FloorDetailed(object):
         vertices are given in GlobalGeometryRules coordinates -- if relative, all surface coordinates
         are "relative" to the Zone Origin.  If world, then building and zone origins are used
         for some internal calculations, but all coordinates are given in an "absolute" system.
-        
-        {'pytype': 'float', u'default': '"autocalculate"', u'note': [u'shown with 10 vertex coordinates -- extensible object', u'"extensible" -- duplicate last set of x,y,z coordinates, renumbering please', u'(and changing z terminator to a comma "," for all but last one which needs a semi-colon ";")', u'vertices are given in GlobalGeometryRules coordinates -- if relative, all surface coordinates', u'are "relative" to the Zone Origin.  If world, then building and zone origins are used', u'for some internal calculations, but all coordinates are given in an "absolute" system.'], u'minimum': '3.0', u'autocalculatable': True, 'type': 'real'}
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `Number of Vertices`
@@ -20962,7 +20000,7 @@ class FloorDetailed(object):
             try:
                 value_lower = str(value).lower()
                 if value_lower == "autocalculate":
-                    self._data["Number of Vertices"] = value
+                    self._data["Number of Vertices"] = "Autocalculate"
                     return
             except ValueError:
                 pass
@@ -20988,8 +20026,6 @@ class FloorDetailed(object):
     @vertex_1_xcoordinate.setter
     def vertex_1_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 1 X-coordinate`
-        
-        {u'units': u'm', 'pytype': 'float', u'type': u'real', u'required-field': True, u'begin-extensible': u''}
 
         Args:
             value (float): value for IDD Field `Vertex 1 X-coordinate`
@@ -21020,8 +20056,6 @@ class FloorDetailed(object):
     @vertex_1_ycoordinate.setter
     def vertex_1_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 1 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 1 Y-coordinate`
@@ -21052,8 +20086,6 @@ class FloorDetailed(object):
     @vertex_1_zcoordinate.setter
     def vertex_1_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 1 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 1 Z-coordinate`
@@ -21084,8 +20116,6 @@ class FloorDetailed(object):
     @vertex_2_xcoordinate.setter
     def vertex_2_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 2 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 2 X-coordinate`
@@ -21116,8 +20146,6 @@ class FloorDetailed(object):
     @vertex_2_ycoordinate.setter
     def vertex_2_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 2 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 2 Y-coordinate`
@@ -21148,8 +20176,6 @@ class FloorDetailed(object):
     @vertex_2_zcoordinate.setter
     def vertex_2_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 2 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 2 Z-coordinate`
@@ -21180,8 +20206,6 @@ class FloorDetailed(object):
     @vertex_3_xcoordinate.setter
     def vertex_3_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 3 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 3 X-coordinate`
@@ -21212,8 +20236,6 @@ class FloorDetailed(object):
     @vertex_3_ycoordinate.setter
     def vertex_3_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 3 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 3 Y-coordinate`
@@ -21244,8 +20266,6 @@ class FloorDetailed(object):
     @vertex_3_zcoordinate.setter
     def vertex_3_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 3 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 3 Z-coordinate`
@@ -21276,8 +20296,6 @@ class FloorDetailed(object):
     @vertex_4_xcoordinate.setter
     def vertex_4_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 4 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 4 X-coordinate`
@@ -21308,8 +20326,6 @@ class FloorDetailed(object):
     @vertex_4_ycoordinate.setter
     def vertex_4_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 4 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 4 Y-coordinate`
@@ -21340,8 +20356,6 @@ class FloorDetailed(object):
     @vertex_4_zcoordinate.setter
     def vertex_4_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 4 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 4 Z-coordinate`
@@ -21372,8 +20386,6 @@ class FloorDetailed(object):
     @vertex_5_xcoordinate.setter
     def vertex_5_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 5 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 5 X-coordinate`
@@ -21404,8 +20416,6 @@ class FloorDetailed(object):
     @vertex_5_ycoordinate.setter
     def vertex_5_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 5 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 5 Y-coordinate`
@@ -21436,8 +20446,6 @@ class FloorDetailed(object):
     @vertex_5_zcoordinate.setter
     def vertex_5_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 5 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 5 Z-coordinate`
@@ -21468,8 +20476,6 @@ class FloorDetailed(object):
     @vertex_6_xcoordinate.setter
     def vertex_6_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 6 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 6 X-coordinate`
@@ -21500,8 +20506,6 @@ class FloorDetailed(object):
     @vertex_6_ycoordinate.setter
     def vertex_6_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 6 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 6 Y-coordinate`
@@ -21532,8 +20536,6 @@ class FloorDetailed(object):
     @vertex_6_zcoordinate.setter
     def vertex_6_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 6 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 6 Z-coordinate`
@@ -21564,8 +20566,6 @@ class FloorDetailed(object):
     @vertex_7_xcoordinate.setter
     def vertex_7_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 7 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 7 X-coordinate`
@@ -21596,8 +20596,6 @@ class FloorDetailed(object):
     @vertex_7_ycoordinate.setter
     def vertex_7_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 7 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 7 Y-coordinate`
@@ -21628,8 +20626,6 @@ class FloorDetailed(object):
     @vertex_7_zcoordinate.setter
     def vertex_7_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 7 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 7 Z-coordinate`
@@ -21660,8 +20656,6 @@ class FloorDetailed(object):
     @vertex_8_xcoordinate.setter
     def vertex_8_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 8 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 8 X-coordinate`
@@ -21692,8 +20686,6 @@ class FloorDetailed(object):
     @vertex_8_ycoordinate.setter
     def vertex_8_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 8 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 8 Y-coordinate`
@@ -21724,8 +20716,6 @@ class FloorDetailed(object):
     @vertex_8_zcoordinate.setter
     def vertex_8_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 8 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 8 Z-coordinate`
@@ -21756,8 +20746,6 @@ class FloorDetailed(object):
     @vertex_9_xcoordinate.setter
     def vertex_9_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 9 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 9 X-coordinate`
@@ -21788,8 +20776,6 @@ class FloorDetailed(object):
     @vertex_9_ycoordinate.setter
     def vertex_9_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 9 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 9 Y-coordinate`
@@ -21820,8 +20806,6 @@ class FloorDetailed(object):
     @vertex_9_zcoordinate.setter
     def vertex_9_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 9 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 9 Z-coordinate`
@@ -21852,8 +20836,6 @@ class FloorDetailed(object):
     @vertex_10_xcoordinate.setter
     def vertex_10_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 10 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 10 X-coordinate`
@@ -21884,8 +20866,6 @@ class FloorDetailed(object):
     @vertex_10_ycoordinate.setter
     def vertex_10_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 10 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 10 Y-coordinate`
@@ -21916,8 +20896,6 @@ class FloorDetailed(object):
     @vertex_10_zcoordinate.setter
     def vertex_10_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 10 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 10 Z-coordinate`
@@ -22087,8 +21065,6 @@ class WallExterior(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'reference': u'AllShadingAndHTSurfNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -22125,8 +21101,6 @@ class WallExterior(object):
     def construction_name(self, value=None):
         """  Corresponds to IDD Field `Construction Name`
         To be matched with a construction in this input file
-        
-        {u'note': [u'To be matched with a construction in this input file'], u'type': u'object-list', u'object-list': u'ConstructionNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Construction Name`
@@ -22163,8 +21137,6 @@ class WallExterior(object):
     def zone_name(self, value=None):
         """  Corresponds to IDD Field `Zone Name`
         Zone the surface is a part of
-        
-        {u'note': [u'Zone the surface is a part of'], u'type': u'object-list', u'object-list': u'ZoneNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Zone Name`
@@ -22201,8 +21173,6 @@ class WallExterior(object):
     def azimuth_angle(self, value=None):
         """  Corresponds to IDD Field `Azimuth Angle`
         Facing direction of outside of wall (S=180,N=0,E=90,W=270)
-        
-        {'pytype': 'float', u'maximum': '360.0', u'note': [u'Facing direction of outside of wall (S=180,N=0,E=90,W=270)'], u'minimum': '0.0', u'units': u'deg', 'type': 'real'}
 
         Args:
             value (float): value for IDD Field `Azimuth Angle`
@@ -22239,11 +21209,9 @@ class WallExterior(object):
         return self._data["Tilt Angle"]
 
     @tilt_angle.setter
-    def tilt_angle(self, value=90.0 ):
+    def tilt_angle(self, value=90.0):
         """  Corresponds to IDD Field `Tilt Angle`
         Walls are usually tilted 90 degrees
-        
-        {'pytype': 'float', u'default': '90.0', u'maximum': '180.0', u'note': [u'Walls are usually tilted 90 degrees'], u'minimum': '0.0', u'units': u'deg', 'type': 'real'}
 
         Args:
             value (float): value for IDD Field `Tilt Angle`
@@ -22284,8 +21252,6 @@ class WallExterior(object):
     def starting_x_coordinate(self, value=None):
         """  Corresponds to IDD Field `Starting X Coordinate`
         Starting (x,y,z) coordinate is the Lower Left Corner of the Wall
-        
-        {u'note': [u'Starting (x,y,z) coordinate is the Lower Left Corner of the Wall'], u'units': u'm', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Starting X Coordinate`
@@ -22316,8 +21282,6 @@ class WallExterior(object):
     @starting_y_coordinate.setter
     def starting_y_coordinate(self, value=None):
         """  Corresponds to IDD Field `Starting Y Coordinate`
-        
-        {u'units': u'm', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Starting Y Coordinate`
@@ -22348,8 +21312,6 @@ class WallExterior(object):
     @starting_z_coordinate.setter
     def starting_z_coordinate(self, value=None):
         """  Corresponds to IDD Field `Starting Z Coordinate`
-        
-        {u'units': u'm', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Starting Z Coordinate`
@@ -22380,8 +21342,6 @@ class WallExterior(object):
     @length.setter
     def length(self, value=None):
         """  Corresponds to IDD Field `Length`
-        
-        {u'units': u'm', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Length`
@@ -22412,8 +21372,6 @@ class WallExterior(object):
     @height.setter
     def height(self, value=None):
         """  Corresponds to IDD Field `Height`
-        
-        {u'units': u'm', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Height`
@@ -22582,8 +21540,6 @@ class WallAdiabatic(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'reference': u'AllShadingAndHTSurfNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -22620,8 +21576,6 @@ class WallAdiabatic(object):
     def construction_name(self, value=None):
         """  Corresponds to IDD Field `Construction Name`
         To be matched with a construction in this input file
-        
-        {u'note': [u'To be matched with a construction in this input file'], u'type': u'object-list', u'object-list': u'ConstructionNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Construction Name`
@@ -22658,8 +21612,6 @@ class WallAdiabatic(object):
     def zone_name(self, value=None):
         """  Corresponds to IDD Field `Zone Name`
         Zone the surface is a part of
-        
-        {u'note': [u'Zone the surface is a part of'], u'type': u'object-list', u'object-list': u'ZoneNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Zone Name`
@@ -22696,8 +21648,6 @@ class WallAdiabatic(object):
     def azimuth_angle(self, value=None):
         """  Corresponds to IDD Field `Azimuth Angle`
         Facing direction of outside of wall (S=180,N=0,E=90,W=270)
-        
-        {'pytype': 'float', u'maximum': '360.0', u'note': [u'Facing direction of outside of wall (S=180,N=0,E=90,W=270)'], u'minimum': '0.0', u'units': u'deg', 'type': 'real'}
 
         Args:
             value (float): value for IDD Field `Azimuth Angle`
@@ -22734,11 +21684,9 @@ class WallAdiabatic(object):
         return self._data["Tilt Angle"]
 
     @tilt_angle.setter
-    def tilt_angle(self, value=90.0 ):
+    def tilt_angle(self, value=90.0):
         """  Corresponds to IDD Field `Tilt Angle`
         Walls are usually tilted 90 degrees
-        
-        {'pytype': 'float', u'default': '90.0', u'maximum': '180.0', u'note': [u'Walls are usually tilted 90 degrees'], u'minimum': '0.0', u'units': u'deg', 'type': 'real'}
 
         Args:
             value (float): value for IDD Field `Tilt Angle`
@@ -22779,8 +21727,6 @@ class WallAdiabatic(object):
     def starting_x_coordinate(self, value=None):
         """  Corresponds to IDD Field `Starting X Coordinate`
         Starting (x,y,z) coordinate is the Lower Left Corner of the Wall
-        
-        {u'note': [u'Starting (x,y,z) coordinate is the Lower Left Corner of the Wall'], u'units': u'm', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Starting X Coordinate`
@@ -22811,8 +21757,6 @@ class WallAdiabatic(object):
     @starting_y_coordinate.setter
     def starting_y_coordinate(self, value=None):
         """  Corresponds to IDD Field `Starting Y Coordinate`
-        
-        {u'units': u'm', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Starting Y Coordinate`
@@ -22843,8 +21787,6 @@ class WallAdiabatic(object):
     @starting_z_coordinate.setter
     def starting_z_coordinate(self, value=None):
         """  Corresponds to IDD Field `Starting Z Coordinate`
-        
-        {u'units': u'm', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Starting Z Coordinate`
@@ -22875,8 +21817,6 @@ class WallAdiabatic(object):
     @length.setter
     def length(self, value=None):
         """  Corresponds to IDD Field `Length`
-        
-        {u'units': u'm', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Length`
@@ -22907,8 +21847,6 @@ class WallAdiabatic(object):
     @height.setter
     def height(self, value=None):
         """  Corresponds to IDD Field `Height`
-        
-        {u'units': u'm', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Height`
@@ -23077,8 +22015,6 @@ class WallUnderground(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'reference': u'AllShadingAndHTSurfNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -23117,8 +22053,6 @@ class WallUnderground(object):
         To be matched with a construction in this input file.
         If the construction is type "Construction:CfactorUndergroundWall",
         then the GroundFCfactorMethod will be used.
-        
-        {u'note': [u'To be matched with a construction in this input file.', u'If the construction is type "Construction:CfactorUndergroundWall",', u'then the GroundFCfactorMethod will be used.'], u'type': u'object-list', u'object-list': u'ConstructionNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Construction Name`
@@ -23155,8 +22089,6 @@ class WallUnderground(object):
     def zone_name(self, value=None):
         """  Corresponds to IDD Field `Zone Name`
         Zone the surface is a part of
-        
-        {u'note': [u'Zone the surface is a part of'], u'type': u'object-list', u'object-list': u'ZoneNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Zone Name`
@@ -23193,8 +22125,6 @@ class WallUnderground(object):
     def azimuth_angle(self, value=None):
         """  Corresponds to IDD Field `Azimuth Angle`
         Facing direction of outside of wall (S=180,N=0,E=90,W=270)
-        
-        {'pytype': 'float', u'maximum': '360.0', u'note': [u'Facing direction of outside of wall (S=180,N=0,E=90,W=270)'], u'minimum': '0.0', u'units': u'deg', 'type': 'real'}
 
         Args:
             value (float): value for IDD Field `Azimuth Angle`
@@ -23231,11 +22161,9 @@ class WallUnderground(object):
         return self._data["Tilt Angle"]
 
     @tilt_angle.setter
-    def tilt_angle(self, value=90.0 ):
+    def tilt_angle(self, value=90.0):
         """  Corresponds to IDD Field `Tilt Angle`
         Walls are usually tilted 90 degrees
-        
-        {'pytype': 'float', u'default': '90.0', u'maximum': '180.0', u'note': [u'Walls are usually tilted 90 degrees'], u'minimum': '0.0', u'units': u'deg', 'type': 'real'}
 
         Args:
             value (float): value for IDD Field `Tilt Angle`
@@ -23276,8 +22204,6 @@ class WallUnderground(object):
     def starting_x_coordinate(self, value=None):
         """  Corresponds to IDD Field `Starting X Coordinate`
         Starting (x,y,z) coordinate is the Lower Left Corner of the Wall
-        
-        {u'note': [u'Starting (x,y,z) coordinate is the Lower Left Corner of the Wall'], u'units': u'm', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Starting X Coordinate`
@@ -23308,8 +22234,6 @@ class WallUnderground(object):
     @starting_y_coordinate.setter
     def starting_y_coordinate(self, value=None):
         """  Corresponds to IDD Field `Starting Y Coordinate`
-        
-        {u'units': u'm', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Starting Y Coordinate`
@@ -23340,8 +22264,6 @@ class WallUnderground(object):
     @starting_z_coordinate.setter
     def starting_z_coordinate(self, value=None):
         """  Corresponds to IDD Field `Starting Z Coordinate`
-        
-        {u'units': u'm', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Starting Z Coordinate`
@@ -23372,8 +22294,6 @@ class WallUnderground(object):
     @length.setter
     def length(self, value=None):
         """  Corresponds to IDD Field `Length`
-        
-        {u'units': u'm', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Length`
@@ -23404,8 +22324,6 @@ class WallUnderground(object):
     @height.setter
     def height(self, value=None):
         """  Corresponds to IDD Field `Height`
-        
-        {u'units': u'm', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Height`
@@ -23582,8 +22500,6 @@ class WallInterzone(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'reference': u'AllShadingAndHTSurfNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -23620,8 +22536,6 @@ class WallInterzone(object):
     def construction_name(self, value=None):
         """  Corresponds to IDD Field `Construction Name`
         To be matched with a construction in this input file
-        
-        {u'note': [u'To be matched with a construction in this input file'], u'type': u'object-list', u'object-list': u'ConstructionNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Construction Name`
@@ -23658,8 +22572,6 @@ class WallInterzone(object):
     def zone_name(self, value=None):
         """  Corresponds to IDD Field `Zone Name`
         Zone for the inside of the surface
-        
-        {u'note': [u'Zone for the inside of the surface'], u'type': u'object-list', u'object-list': u'ZoneNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Zone Name`
@@ -23698,8 +22610,6 @@ class WallInterzone(object):
         Specify a surface name in an adjacent zone for known interior walls.
         Specify a zone name of an adjacent zone to automatically generate
         the interior wall in the adjacent zone.
-        
-        {u'note': [u'Specify a surface name in an adjacent zone for known interior walls.', u'Specify a zone name of an adjacent zone to automatically generate', u'the interior wall in the adjacent zone.'], u'type': u'object-list', u'object-list': u'OutFaceEnvNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Outside Boundary Condition Object`
@@ -23736,8 +22646,6 @@ class WallInterzone(object):
     def azimuth_angle(self, value=None):
         """  Corresponds to IDD Field `Azimuth Angle`
         Facing direction of outside of wall (S=180,N=0,E=90,W=270)
-        
-        {'pytype': 'float', u'maximum': '360.0', u'note': [u'Facing direction of outside of wall (S=180,N=0,E=90,W=270)'], u'minimum': '0.0', u'units': u'deg', 'type': 'real'}
 
         Args:
             value (float): value for IDD Field `Azimuth Angle`
@@ -23774,11 +22682,9 @@ class WallInterzone(object):
         return self._data["Tilt Angle"]
 
     @tilt_angle.setter
-    def tilt_angle(self, value=90.0 ):
+    def tilt_angle(self, value=90.0):
         """  Corresponds to IDD Field `Tilt Angle`
         Walls are usually tilted 90 degrees
-        
-        {'pytype': 'float', u'default': '90.0', u'maximum': '180.0', u'note': [u'Walls are usually tilted 90 degrees'], u'minimum': '0.0', u'units': u'deg', 'type': 'real'}
 
         Args:
             value (float): value for IDD Field `Tilt Angle`
@@ -23819,8 +22725,6 @@ class WallInterzone(object):
     def starting_x_coordinate(self, value=None):
         """  Corresponds to IDD Field `Starting X Coordinate`
         Starting (x,y,z) coordinate is the Lower Left Corner of the Wall
-        
-        {u'note': [u'Starting (x,y,z) coordinate is the Lower Left Corner of the Wall'], u'units': u'm', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Starting X Coordinate`
@@ -23851,8 +22755,6 @@ class WallInterzone(object):
     @starting_y_coordinate.setter
     def starting_y_coordinate(self, value=None):
         """  Corresponds to IDD Field `Starting Y Coordinate`
-        
-        {u'units': u'm', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Starting Y Coordinate`
@@ -23883,8 +22785,6 @@ class WallInterzone(object):
     @starting_z_coordinate.setter
     def starting_z_coordinate(self, value=None):
         """  Corresponds to IDD Field `Starting Z Coordinate`
-        
-        {u'units': u'm', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Starting Z Coordinate`
@@ -23915,8 +22815,6 @@ class WallInterzone(object):
     @length.setter
     def length(self, value=None):
         """  Corresponds to IDD Field `Length`
-        
-        {u'units': u'm', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Length`
@@ -23947,8 +22845,6 @@ class WallInterzone(object):
     @height.setter
     def height(self, value=None):
         """  Corresponds to IDD Field `Height`
-        
-        {u'units': u'm', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Height`
@@ -24118,8 +23014,6 @@ class Roof(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'reference': u'AllShadingAndHTSurfNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -24156,8 +23050,6 @@ class Roof(object):
     def construction_name(self, value=None):
         """  Corresponds to IDD Field `Construction Name`
         To be matched with a construction in this input file
-        
-        {u'note': [u'To be matched with a construction in this input file'], u'type': u'object-list', u'object-list': u'ConstructionNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Construction Name`
@@ -24194,8 +23086,6 @@ class Roof(object):
     def zone_name(self, value=None):
         """  Corresponds to IDD Field `Zone Name`
         Zone the surface is a part of
-        
-        {u'note': [u'Zone the surface is a part of'], u'type': u'object-list', u'object-list': u'ZoneNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Zone Name`
@@ -24232,8 +23122,6 @@ class Roof(object):
     def azimuth_angle(self, value=None):
         """  Corresponds to IDD Field `Azimuth Angle`
         Facing direction of outside of Roof
-        
-        {'pytype': 'float', u'maximum': '360.0', u'note': [u'Facing direction of outside of Roof'], u'minimum': '0.0', u'units': u'deg', 'type': 'real'}
 
         Args:
             value (float): value for IDD Field `Azimuth Angle`
@@ -24270,11 +23158,9 @@ class Roof(object):
         return self._data["Tilt Angle"]
 
     @tilt_angle.setter
-    def tilt_angle(self, value=0.0 ):
+    def tilt_angle(self, value=0.0):
         """  Corresponds to IDD Field `Tilt Angle`
         Flat Roofs are tilted 0 degrees
-        
-        {'pytype': 'float', u'default': '0.0', u'maximum': '180.0', u'note': [u'Flat Roofs are tilted 0 degrees'], u'minimum': '0.0', u'units': u'deg', 'type': 'real'}
 
         Args:
             value (float): value for IDD Field `Tilt Angle`
@@ -24315,8 +23201,6 @@ class Roof(object):
     def starting_x_coordinate(self, value=None):
         """  Corresponds to IDD Field `Starting X Coordinate`
         If not Flat, Starting coordinate is the Lower Left Corner of the Roof
-        
-        {u'note': [u'If not Flat, Starting coordinate is the Lower Left Corner of the Roof'], u'units': u'm', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Starting X Coordinate`
@@ -24347,8 +23231,6 @@ class Roof(object):
     @starting_y_coordinate.setter
     def starting_y_coordinate(self, value=None):
         """  Corresponds to IDD Field `Starting Y Coordinate`
-        
-        {u'units': u'm', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Starting Y Coordinate`
@@ -24379,8 +23261,6 @@ class Roof(object):
     @starting_z_coordinate.setter
     def starting_z_coordinate(self, value=None):
         """  Corresponds to IDD Field `Starting Z Coordinate`
-        
-        {u'units': u'm', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Starting Z Coordinate`
@@ -24412,8 +23292,6 @@ class Roof(object):
     def length(self, value=None):
         """  Corresponds to IDD Field `Length`
         Along X Axis
-        
-        {u'note': [u'Along X Axis'], u'units': u'm', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Length`
@@ -24445,8 +23323,6 @@ class Roof(object):
     def width(self, value=None):
         """  Corresponds to IDD Field `Width`
         Along Y Axis
-        
-        {u'note': [u'Along Y Axis'], u'units': u'm', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Width`
@@ -24615,8 +23491,6 @@ class CeilingAdiabatic(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'reference': u'AllShadingAndHTSurfNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -24653,8 +23527,6 @@ class CeilingAdiabatic(object):
     def construction_name(self, value=None):
         """  Corresponds to IDD Field `Construction Name`
         To be matched with a construction in this input file
-        
-        {u'note': [u'To be matched with a construction in this input file'], u'type': u'object-list', u'object-list': u'ConstructionNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Construction Name`
@@ -24691,8 +23563,6 @@ class CeilingAdiabatic(object):
     def zone_name(self, value=None):
         """  Corresponds to IDD Field `Zone Name`
         Zone the surface is a part of
-        
-        {u'note': [u'Zone the surface is a part of'], u'type': u'object-list', u'object-list': u'ZoneNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Zone Name`
@@ -24729,8 +23599,6 @@ class CeilingAdiabatic(object):
     def azimuth_angle(self, value=None):
         """  Corresponds to IDD Field `Azimuth Angle`
         Facing direction of outside of Ceiling
-        
-        {'pytype': 'float', u'maximum': '360.0', u'note': [u'Facing direction of outside of Ceiling'], u'minimum': '0.0', u'units': u'deg', 'type': 'real'}
 
         Args:
             value (float): value for IDD Field `Azimuth Angle`
@@ -24767,11 +23635,9 @@ class CeilingAdiabatic(object):
         return self._data["Tilt Angle"]
 
     @tilt_angle.setter
-    def tilt_angle(self, value=0.0 ):
+    def tilt_angle(self, value=0.0):
         """  Corresponds to IDD Field `Tilt Angle`
         Ceilings are usually tilted 0 degrees
-        
-        {'pytype': 'float', u'default': '0.0', u'maximum': '180.0', u'note': [u'Ceilings are usually tilted 0 degrees'], u'minimum': '0.0', u'units': u'deg', 'type': 'real'}
 
         Args:
             value (float): value for IDD Field `Tilt Angle`
@@ -24812,8 +23678,6 @@ class CeilingAdiabatic(object):
     def starting_x_coordinate(self, value=None):
         """  Corresponds to IDD Field `Starting X Coordinate`
         If not Flat, Starting coordinate is the Lower Left Corner of the Ceiling
-        
-        {u'note': [u'If not Flat, Starting coordinate is the Lower Left Corner of the Ceiling'], u'units': u'm', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Starting X Coordinate`
@@ -24844,8 +23708,6 @@ class CeilingAdiabatic(object):
     @starting_y_coordinate.setter
     def starting_y_coordinate(self, value=None):
         """  Corresponds to IDD Field `Starting Y Coordinate`
-        
-        {u'units': u'm', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Starting Y Coordinate`
@@ -24876,8 +23738,6 @@ class CeilingAdiabatic(object):
     @starting_z_coordinate.setter
     def starting_z_coordinate(self, value=None):
         """  Corresponds to IDD Field `Starting Z Coordinate`
-        
-        {u'units': u'm', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Starting Z Coordinate`
@@ -24909,8 +23769,6 @@ class CeilingAdiabatic(object):
     def length(self, value=None):
         """  Corresponds to IDD Field `Length`
         Along X Axis
-        
-        {u'note': [u'Along X Axis'], u'units': u'm', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Length`
@@ -24942,8 +23800,6 @@ class CeilingAdiabatic(object):
     def width(self, value=None):
         """  Corresponds to IDD Field `Width`
         Along Y Axis
-        
-        {u'note': [u'Along Y Axis'], u'units': u'm', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Width`
@@ -25121,8 +23977,6 @@ class CeilingInterzone(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'reference': u'AllShadingAndHTSurfNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -25159,8 +24013,6 @@ class CeilingInterzone(object):
     def construction_name(self, value=None):
         """  Corresponds to IDD Field `Construction Name`
         To be matched with a construction in this input file
-        
-        {u'note': [u'To be matched with a construction in this input file'], u'type': u'object-list', u'object-list': u'ConstructionNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Construction Name`
@@ -25197,8 +24049,6 @@ class CeilingInterzone(object):
     def zone_name(self, value=None):
         """  Corresponds to IDD Field `Zone Name`
         Zone for the inside of the surface
-        
-        {u'note': [u'Zone for the inside of the surface'], u'type': u'object-list', u'object-list': u'ZoneNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Zone Name`
@@ -25237,8 +24087,6 @@ class CeilingInterzone(object):
         Specify a surface name in an adjacent zone for known interior floors
         Specify a zone name of an adjacent zone to automatically generate
         the interior floor in the adjacent zone.
-        
-        {u'note': [u'Specify a surface name in an adjacent zone for known interior floors', u'Specify a zone name of an adjacent zone to automatically generate', u'the interior floor in the adjacent zone.'], u'type': u'object-list', u'object-list': u'OutFaceEnvNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Outside Boundary Condition Object`
@@ -25275,8 +24123,6 @@ class CeilingInterzone(object):
     def azimuth_angle(self, value=None):
         """  Corresponds to IDD Field `Azimuth Angle`
         Facing direction of outside of wall (S=180,N=0,E=90,W=270)
-        
-        {'pytype': 'float', u'maximum': '360.0', u'note': [u'Facing direction of outside of wall (S=180,N=0,E=90,W=270)'], u'minimum': '0.0', u'units': u'deg', 'type': 'real'}
 
         Args:
             value (float): value for IDD Field `Azimuth Angle`
@@ -25313,11 +24159,9 @@ class CeilingInterzone(object):
         return self._data["Tilt Angle"]
 
     @tilt_angle.setter
-    def tilt_angle(self, value=0.0 ):
+    def tilt_angle(self, value=0.0):
         """  Corresponds to IDD Field `Tilt Angle`
         Ceilings are usually tilted 0 degrees
-        
-        {'pytype': 'float', u'default': '0.0', u'maximum': '180.0', u'note': [u'Ceilings are usually tilted 0 degrees'], u'minimum': '0.0', u'units': u'deg', 'type': 'real'}
 
         Args:
             value (float): value for IDD Field `Tilt Angle`
@@ -25358,8 +24202,6 @@ class CeilingInterzone(object):
     def starting_x_coordinate(self, value=None):
         """  Corresponds to IDD Field `Starting X Coordinate`
         If not Flat, should be Lower Left Corner (from outside)
-        
-        {u'note': [u'If not Flat, should be Lower Left Corner (from outside)'], u'units': u'm', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Starting X Coordinate`
@@ -25390,8 +24232,6 @@ class CeilingInterzone(object):
     @starting_y_coordinate.setter
     def starting_y_coordinate(self, value=None):
         """  Corresponds to IDD Field `Starting Y Coordinate`
-        
-        {u'units': u'm', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Starting Y Coordinate`
@@ -25422,8 +24262,6 @@ class CeilingInterzone(object):
     @starting_z_coordinate.setter
     def starting_z_coordinate(self, value=None):
         """  Corresponds to IDD Field `Starting Z Coordinate`
-        
-        {u'units': u'm', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Starting Z Coordinate`
@@ -25455,8 +24293,6 @@ class CeilingInterzone(object):
     def length(self, value=None):
         """  Corresponds to IDD Field `Length`
         Along X Axis
-        
-        {u'note': [u'Along X Axis'], u'units': u'm', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Length`
@@ -25488,8 +24324,6 @@ class CeilingInterzone(object):
     def width(self, value=None):
         """  Corresponds to IDD Field `Width`
         Along Y Axis
-        
-        {u'note': [u'Along Y Axis'], u'units': u'm', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Width`
@@ -25659,8 +24493,6 @@ class FloorGroundContact(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'reference': u'AllShadingAndHTSurfNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -25699,8 +24531,6 @@ class FloorGroundContact(object):
         To be matched with a construction in this input file
         If the construction is type "Construction:FfactorGroundFloor",
         then the GroundFCfactorMethod will be used.
-        
-        {u'note': [u'To be matched with a construction in this input file', u'If the construction is type "Construction:FfactorGroundFloor",', u'then the GroundFCfactorMethod will be used.'], u'type': u'object-list', u'object-list': u'ConstructionNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Construction Name`
@@ -25737,8 +24567,6 @@ class FloorGroundContact(object):
     def zone_name(self, value=None):
         """  Corresponds to IDD Field `Zone Name`
         Zone the surface is a part of
-        
-        {u'note': [u'Zone the surface is a part of'], u'type': u'object-list', u'object-list': u'ZoneNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Zone Name`
@@ -25774,8 +24602,6 @@ class FloorGroundContact(object):
     @azimuth_angle.setter
     def azimuth_angle(self, value=None):
         """  Corresponds to IDD Field `Azimuth Angle`
-        
-        {u'units': u'deg', u'minimum': '0.0', 'type': 'real', u'maximum': '360.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Azimuth Angle`
@@ -25812,11 +24638,9 @@ class FloorGroundContact(object):
         return self._data["Tilt Angle"]
 
     @tilt_angle.setter
-    def tilt_angle(self, value=180.0 ):
+    def tilt_angle(self, value=180.0):
         """  Corresponds to IDD Field `Tilt Angle`
         Floors are usually tilted 180 degrees
-        
-        {'pytype': 'float', u'default': '180.0', u'maximum': '180.0', u'note': [u'Floors are usually tilted 180 degrees'], u'minimum': '0.0', u'units': u'deg', 'type': 'real'}
 
         Args:
             value (float): value for IDD Field `Tilt Angle`
@@ -25857,8 +24681,6 @@ class FloorGroundContact(object):
     def starting_x_coordinate(self, value=None):
         """  Corresponds to IDD Field `Starting X Coordinate`
         if not flat, should be lower left corner (from outside)
-        
-        {u'note': [u'if not flat, should be lower left corner (from outside)'], u'units': u'm', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Starting X Coordinate`
@@ -25889,8 +24711,6 @@ class FloorGroundContact(object):
     @starting_y_coordinate.setter
     def starting_y_coordinate(self, value=None):
         """  Corresponds to IDD Field `Starting Y Coordinate`
-        
-        {u'units': u'm', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Starting Y Coordinate`
@@ -25921,8 +24741,6 @@ class FloorGroundContact(object):
     @starting_z_coordinate.setter
     def starting_z_coordinate(self, value=None):
         """  Corresponds to IDD Field `Starting Z Coordinate`
-        
-        {u'units': u'm', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Starting Z Coordinate`
@@ -25954,8 +24772,6 @@ class FloorGroundContact(object):
     def length(self, value=None):
         """  Corresponds to IDD Field `Length`
         Along X Axis
-        
-        {u'note': [u'Along X Axis'], u'units': u'm', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Length`
@@ -25987,8 +24803,6 @@ class FloorGroundContact(object):
     def width(self, value=None):
         """  Corresponds to IDD Field `Width`
         Along Y Axis
-        
-        {u'note': [u'Along Y Axis'], u'units': u'm', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Width`
@@ -26159,8 +24973,6 @@ class FloorAdiabatic(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'reference': u'AllShadingAndHTSurfNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -26197,8 +25009,6 @@ class FloorAdiabatic(object):
     def construction_name(self, value=None):
         """  Corresponds to IDD Field `Construction Name`
         To be matched with a construction in this input file
-        
-        {u'note': [u'To be matched with a construction in this input file'], u'type': u'object-list', u'object-list': u'ConstructionNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Construction Name`
@@ -26235,8 +25045,6 @@ class FloorAdiabatic(object):
     def zone_name(self, value=None):
         """  Corresponds to IDD Field `Zone Name`
         Zone the surface is a part of
-        
-        {u'note': [u'Zone the surface is a part of'], u'type': u'object-list', u'object-list': u'ZoneNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Zone Name`
@@ -26272,8 +25080,6 @@ class FloorAdiabatic(object):
     @azimuth_angle.setter
     def azimuth_angle(self, value=None):
         """  Corresponds to IDD Field `Azimuth Angle`
-        
-        {u'units': u'deg', u'minimum': '0.0', 'type': 'real', u'maximum': '360.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Azimuth Angle`
@@ -26310,11 +25116,9 @@ class FloorAdiabatic(object):
         return self._data["Tilt Angle"]
 
     @tilt_angle.setter
-    def tilt_angle(self, value=180.0 ):
+    def tilt_angle(self, value=180.0):
         """  Corresponds to IDD Field `Tilt Angle`
         Floors are usually tilted 180 degrees
-        
-        {'pytype': 'float', u'default': '180.0', u'maximum': '180.0', u'note': [u'Floors are usually tilted 180 degrees'], u'minimum': '0.0', u'units': u'deg', 'type': 'real'}
 
         Args:
             value (float): value for IDD Field `Tilt Angle`
@@ -26355,8 +25159,6 @@ class FloorAdiabatic(object):
     def starting_x_coordinate(self, value=None):
         """  Corresponds to IDD Field `Starting X Coordinate`
         if not flat, should be lower left corner (from outside)
-        
-        {u'note': [u'if not flat, should be lower left corner (from outside)'], u'units': u'm', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Starting X Coordinate`
@@ -26387,8 +25189,6 @@ class FloorAdiabatic(object):
     @starting_y_coordinate.setter
     def starting_y_coordinate(self, value=None):
         """  Corresponds to IDD Field `Starting Y Coordinate`
-        
-        {u'units': u'm', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Starting Y Coordinate`
@@ -26419,8 +25219,6 @@ class FloorAdiabatic(object):
     @starting_z_coordinate.setter
     def starting_z_coordinate(self, value=None):
         """  Corresponds to IDD Field `Starting Z Coordinate`
-        
-        {u'units': u'm', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Starting Z Coordinate`
@@ -26452,8 +25250,6 @@ class FloorAdiabatic(object):
     def length(self, value=None):
         """  Corresponds to IDD Field `Length`
         Along X Axis
-        
-        {u'note': [u'Along X Axis'], u'units': u'm', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Length`
@@ -26485,8 +25281,6 @@ class FloorAdiabatic(object):
     def width(self, value=None):
         """  Corresponds to IDD Field `Width`
         Along Y Axis
-        
-        {u'note': [u'Along Y Axis'], u'units': u'm', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Width`
@@ -26664,8 +25458,6 @@ class FloorInterzone(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'reference': u'AllShadingAndHTSurfNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -26702,8 +25494,6 @@ class FloorInterzone(object):
     def construction_name(self, value=None):
         """  Corresponds to IDD Field `Construction Name`
         To be matched with a construction in this input file
-        
-        {u'note': [u'To be matched with a construction in this input file'], u'type': u'object-list', u'object-list': u'ConstructionNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Construction Name`
@@ -26740,8 +25530,6 @@ class FloorInterzone(object):
     def zone_name(self, value=None):
         """  Corresponds to IDD Field `Zone Name`
         Zone for the inside of the surface
-        
-        {u'note': [u'Zone for the inside of the surface'], u'type': u'object-list', u'object-list': u'ZoneNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Zone Name`
@@ -26780,8 +25568,6 @@ class FloorInterzone(object):
         Specify a surface name in an adjacent zone for known interior ceilings.
         Specify a zone name of an adjacent zone to automatically generate
         the interior ceiling in the adjacent zone.
-        
-        {u'note': [u'Specify a surface name in an adjacent zone for known interior ceilings.', u'Specify a zone name of an adjacent zone to automatically generate', u'the interior ceiling in the adjacent zone.'], u'type': u'object-list', u'object-list': u'OutFaceEnvNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Outside Boundary Condition Object`
@@ -26817,8 +25603,6 @@ class FloorInterzone(object):
     @azimuth_angle.setter
     def azimuth_angle(self, value=None):
         """  Corresponds to IDD Field `Azimuth Angle`
-        
-        {u'units': u'deg', u'minimum': '0.0', 'type': 'real', u'maximum': '360.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Azimuth Angle`
@@ -26855,11 +25639,9 @@ class FloorInterzone(object):
         return self._data["Tilt Angle"]
 
     @tilt_angle.setter
-    def tilt_angle(self, value=180.0 ):
+    def tilt_angle(self, value=180.0):
         """  Corresponds to IDD Field `Tilt Angle`
         Floors are usually tilted 180 degrees
-        
-        {'pytype': 'float', u'default': '180.0', u'maximum': '180.0', u'note': [u'Floors are usually tilted 180 degrees'], u'minimum': '0.0', u'units': u'deg', 'type': 'real'}
 
         Args:
             value (float): value for IDD Field `Tilt Angle`
@@ -26900,8 +25682,6 @@ class FloorInterzone(object):
     def starting_x_coordinate(self, value=None):
         """  Corresponds to IDD Field `Starting X Coordinate`
         If not Flat, should be Lower Left Corner (from outside)
-        
-        {u'note': [u'If not Flat, should be Lower Left Corner (from outside)'], u'units': u'm', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Starting X Coordinate`
@@ -26932,8 +25712,6 @@ class FloorInterzone(object):
     @starting_y_coordinate.setter
     def starting_y_coordinate(self, value=None):
         """  Corresponds to IDD Field `Starting Y Coordinate`
-        
-        {u'units': u'm', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Starting Y Coordinate`
@@ -26964,8 +25742,6 @@ class FloorInterzone(object):
     @starting_z_coordinate.setter
     def starting_z_coordinate(self, value=None):
         """  Corresponds to IDD Field `Starting Z Coordinate`
-        
-        {u'units': u'm', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Starting Z Coordinate`
@@ -26997,8 +25773,6 @@ class FloorInterzone(object):
     def length(self, value=None):
         """  Corresponds to IDD Field `Length`
         Along X Axis
-        
-        {u'note': [u'Along X Axis'], u'units': u'm', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Length`
@@ -27030,8 +25804,6 @@ class FloorInterzone(object):
     def width(self, value=None):
         """  Corresponds to IDD Field `Width`
         Along Y Axis
-        
-        {u'note': [u'Along Y Axis'], u'units': u'm', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Width`
@@ -27297,8 +26069,6 @@ class FenestrationSurfaceDetailed(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'reference': u'AllShadingAndHTSurfNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -27334,8 +26104,6 @@ class FenestrationSurfaceDetailed(object):
     @surface_type.setter
     def surface_type(self, value=None):
         """  Corresponds to IDD Field `Surface Type`
-        
-        {u'type': u'choice', u'key': [u'Window', u'Door', u'GlassDoor', u'TubularDaylightDome', u'TubularDaylightDiffuser'], u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Surface Type`
@@ -27398,8 +26166,6 @@ class FenestrationSurfaceDetailed(object):
     def construction_name(self, value=None):
         """  Corresponds to IDD Field `Construction Name`
         To be matched with a construction in this input file
-        
-        {u'note': [u'To be matched with a construction in this input file'], u'type': u'object-list', u'object-list': u'ComplexFenestrationStates', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Construction Name`
@@ -27435,8 +26201,6 @@ class FenestrationSurfaceDetailed(object):
     @building_surface_name.setter
     def building_surface_name(self, value=None):
         """  Corresponds to IDD Field `Building Surface Name`
-        
-        {u'type': u'object-list', u'object-list': u'SurfaceNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Building Surface Name`
@@ -27478,8 +26242,6 @@ class FenestrationSurfaceDetailed(object):
         specify current subsurface name for internal partition separating like zones
         If OtherSideCoefficients, specify name of SurfaceProperty:OtherSideCoefficients
         or leave blank to inherit Base Surface's OtherSide Coefficients
-        
-        {u'note': [u'Non-blank only if base surface field Outside Boundary Condition is', u'Surface or OtherSideCoefficients', u"If Base Surface's Surface, specify name of corresponding subsurface in adjacent zone or", u'specify current subsurface name for internal partition separating like zones', u'If OtherSideCoefficients, specify name of SurfaceProperty:OtherSideCoefficients', u"or leave blank to inherit Base Surface's OtherSide Coefficients"], u'type': u'object-list', u'object-list': u'OutFaceEnvNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Outside Boundary Condition Object`
@@ -27513,14 +26275,12 @@ class FenestrationSurfaceDetailed(object):
         return self._data["View Factor to Ground"]
 
     @view_factor_to_ground.setter
-    def view_factor_to_ground(self, value="autocalculate" ):
+    def view_factor_to_ground(self, value="autocalculate"):
         """  Corresponds to IDD Field `View Factor to Ground`
         From the exterior of the surface
         Unused if one uses the "reflections" options in Solar Distribution in Building input
         unless a DaylightingDevice:Shelf or DaylightingDevice:Tubular object has been specified.
         autocalculate will automatically calculate this value from the tilt of the surface
-        
-        {'pytype': 'float', u'default': '"autocalculate"', u'maximum': '1.0', u'note': [u'From the exterior of the surface', u'Unused if one uses the "reflections" options in Solar Distribution in Building input', u'unless a DaylightingDevice:Shelf or DaylightingDevice:Tubular object has been specified.', u'autocalculate will automatically calculate this value from the tilt of the surface'], u'minimum': '0.0', u'autocalculatable': True, u'type': u'real'}
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `View Factor to Ground`
@@ -27537,7 +26297,7 @@ class FenestrationSurfaceDetailed(object):
             try:
                 value_lower = str(value).lower()
                 if value_lower == "autocalculate":
-                    self._data["View Factor to Ground"] = value
+                    self._data["View Factor to Ground"] = "Autocalculate"
                     return
             except ValueError:
                 pass
@@ -27569,8 +26329,6 @@ class FenestrationSurfaceDetailed(object):
         enter the name of a WindowProperty:ShadingControl object
         used for windows and glass doors only
         If not specified, window or glass door has no shading (blind, roller shade, etc.)
-        
-        {u'note': [u'enter the name of a WindowProperty:ShadingControl object', u'used for windows and glass doors only', u'If not specified, window or glass door has no shading (blind, roller shade, etc.)'], u'type': u'object-list', u'object-list': u'WindowShadeControlNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Shading Control Name`
@@ -27611,8 +26369,6 @@ class FenestrationSurfaceDetailed(object):
         Unused for triangular windows.
         If not specified (blank), window or glass door has no frame or divider
         and no beam solar reflection from reveal surfaces.
-        
-        {u'note': [u'Enter the name of a WindowProperty:FrameAndDivider object', u'Used only for exterior windows (rectangular) and glass doors.', u'Unused for triangular windows.', u'If not specified (blank), window or glass door has no frame or divider', u'and no beam solar reflection from reveal surfaces.'], u'type': u'object-list', u'object-list': u'WindowFrameAndDividerNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Frame and Divider Name`
@@ -27646,12 +26402,10 @@ class FenestrationSurfaceDetailed(object):
         return self._data["Multiplier"]
 
     @multiplier.setter
-    def multiplier(self, value=1.0 ):
+    def multiplier(self, value=1.0):
         """  Corresponds to IDD Field `Multiplier`
         Used only for Surface Type = WINDOW, GLASSDOOR or DOOR
         Non-integer values will be truncated to integer
-        
-        {u'note': [u'Used only for Surface Type = WINDOW, GLASSDOOR or DOOR', u'Non-integer values will be truncated to integer'], u'default': '1.0', u'minimum': '1.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Multiplier`
@@ -27684,13 +26438,11 @@ class FenestrationSurfaceDetailed(object):
         return self._data["Number of Vertices"]
 
     @number_of_vertices.setter
-    def number_of_vertices(self, value="autocalculate" ):
+    def number_of_vertices(self, value="autocalculate"):
         """  Corresponds to IDD Field `Number of Vertices`
         vertices are given in GlobalGeometryRules coordinates -- if relative, all surface coordinates
         are "relative" to the Zone Origin.  If world, then building and zone origins are used
         for some internal calculations, but all coordinates are given in an "absolute" system.
-        
-        {'pytype': 'float', u'default': '"autocalculate"', u'maximum': '4.0', u'note': [u'vertices are given in GlobalGeometryRules coordinates -- if relative, all surface coordinates', u'are "relative" to the Zone Origin.  If world, then building and zone origins are used', u'for some internal calculations, but all coordinates are given in an "absolute" system.'], u'minimum': '3.0', u'autocalculatable': True, 'type': 'real'}
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `Number of Vertices`
@@ -27707,7 +26459,7 @@ class FenestrationSurfaceDetailed(object):
             try:
                 value_lower = str(value).lower()
                 if value_lower == "autocalculate":
-                    self._data["Number of Vertices"] = value
+                    self._data["Number of Vertices"] = "Autocalculate"
                     return
             except ValueError:
                 pass
@@ -27736,8 +26488,6 @@ class FenestrationSurfaceDetailed(object):
     @vertex_1_xcoordinate.setter
     def vertex_1_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 1 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 1 X-coordinate`
@@ -27768,8 +26518,6 @@ class FenestrationSurfaceDetailed(object):
     @vertex_1_ycoordinate.setter
     def vertex_1_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 1 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 1 Y-coordinate`
@@ -27800,8 +26548,6 @@ class FenestrationSurfaceDetailed(object):
     @vertex_1_zcoordinate.setter
     def vertex_1_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 1 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 1 Z-coordinate`
@@ -27832,8 +26578,6 @@ class FenestrationSurfaceDetailed(object):
     @vertex_2_xcoordinate.setter
     def vertex_2_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 2 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 2 X-coordinate`
@@ -27864,8 +26608,6 @@ class FenestrationSurfaceDetailed(object):
     @vertex_2_ycoordinate.setter
     def vertex_2_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 2 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 2 Y-coordinate`
@@ -27896,8 +26638,6 @@ class FenestrationSurfaceDetailed(object):
     @vertex_2_zcoordinate.setter
     def vertex_2_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 2 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 2 Z-coordinate`
@@ -27928,8 +26668,6 @@ class FenestrationSurfaceDetailed(object):
     @vertex_3_xcoordinate.setter
     def vertex_3_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 3 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 3 X-coordinate`
@@ -27960,8 +26698,6 @@ class FenestrationSurfaceDetailed(object):
     @vertex_3_ycoordinate.setter
     def vertex_3_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 3 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 3 Y-coordinate`
@@ -27992,8 +26728,6 @@ class FenestrationSurfaceDetailed(object):
     @vertex_3_zcoordinate.setter
     def vertex_3_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 3 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 3 Z-coordinate`
@@ -28025,8 +26759,6 @@ class FenestrationSurfaceDetailed(object):
     def vertex_4_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 4 X-coordinate`
         Not used for triangles
-        
-        {u'units': u'm', u'note': [u'Not used for triangles'], u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 4 X-coordinate`
@@ -28058,8 +26790,6 @@ class FenestrationSurfaceDetailed(object):
     def vertex_4_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 4 Y-coordinate`
         Not used for triangles
-        
-        {u'units': u'm', u'note': [u'Not used for triangles'], u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 4 Y-coordinate`
@@ -28091,8 +26821,6 @@ class FenestrationSurfaceDetailed(object):
     def vertex_4_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 4 Z-coordinate`
         Not used for triangles
-        
-        {u'units': u'm', u'note': [u'Not used for triangles'], u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 4 Z-coordinate`
@@ -28261,8 +26989,6 @@ class Window(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'reference': u'AllShadingAndHTSurfNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -28299,8 +27025,6 @@ class Window(object):
     def construction_name(self, value=None):
         """  Corresponds to IDD Field `Construction Name`
         To be matched with a construction in this input file
-        
-        {u'note': [u'To be matched with a construction in this input file'], u'type': u'object-list', u'object-list': u'ConstructionNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Construction Name`
@@ -28338,8 +27062,6 @@ class Window(object):
         """  Corresponds to IDD Field `Building Surface Name`
         Name of Surface (Wall, usually) the Window is on (i.e., Base Surface)
         Window assumes the azimuth and tilt angles of the surface it is on.
-        
-        {u'note': [u'Name of Surface (Wall, usually) the Window is on (i.e., Base Surface)', u'Window assumes the azimuth and tilt angles of the surface it is on.'], u'type': u'object-list', u'object-list': u'SurfaceNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Building Surface Name`
@@ -28378,8 +27100,6 @@ class Window(object):
         enter the name of a WindowProperty:ShadingControl object
         used for windows and glass doors only
         If not specified, window or glass door has no shading (blind, roller shade, etc.)
-        
-        {u'note': [u'enter the name of a WindowProperty:ShadingControl object', u'used for windows and glass doors only', u'If not specified, window or glass door has no shading (blind, roller shade, etc.)'], u'type': u'object-list', u'object-list': u'WindowShadeControlNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Shading Control Name`
@@ -28420,8 +27140,6 @@ class Window(object):
         Unused for triangular windows.
         If not specified (blank), window or glass door has no frame or divider
         and no beam solar reflection from reveal surfaces.
-        
-        {u'note': [u'Enter the name of a WindowProperty:FrameAndDivider object', u'Used only for exterior windows (rectangular) and glass doors.', u'Unused for triangular windows.', u'If not specified (blank), window or glass door has no frame or divider', u'and no beam solar reflection from reveal surfaces.'], u'type': u'object-list', u'object-list': u'WindowFrameAndDividerNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Frame and Divider Name`
@@ -28455,12 +27173,10 @@ class Window(object):
         return self._data["Multiplier"]
 
     @multiplier.setter
-    def multiplier(self, value=1.0 ):
+    def multiplier(self, value=1.0):
         """  Corresponds to IDD Field `Multiplier`
         Used only for Surface Type = WINDOW, GLASSDOOR or DOOR
         Non-integer values will be truncated to integer
-        
-        {u'note': [u'Used only for Surface Type = WINDOW, GLASSDOOR or DOOR', u'Non-integer values will be truncated to integer'], u'default': '1.0', u'minimum': '1.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Multiplier`
@@ -28496,8 +27212,6 @@ class Window(object):
     def starting_x_coordinate(self, value=None):
         """  Corresponds to IDD Field `Starting X Coordinate`
         Window starting coordinate is specified relative to the Base Surface origin.
-        
-        {u'note': [u'Window starting coordinate is specified relative to the Base Surface origin.'], u'units': u'm', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Starting X Coordinate`
@@ -28529,8 +27243,6 @@ class Window(object):
     def starting_z_coordinate(self, value=None):
         """  Corresponds to IDD Field `Starting Z Coordinate`
         How far up the wall the Window starts. (in 2-d, this would be a Y Coordinate)
-        
-        {u'note': [u'How far up the wall the Window starts. (in 2-d, this would be a Y Coordinate)'], u'units': u'm', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Starting Z Coordinate`
@@ -28561,8 +27273,6 @@ class Window(object):
     @length.setter
     def length(self, value=None):
         """  Corresponds to IDD Field `Length`
-        
-        {u'units': u'm', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Length`
@@ -28593,8 +27303,6 @@ class Window(object):
     @height.setter
     def height(self, value=None):
         """  Corresponds to IDD Field `Height`
-        
-        {u'units': u'm', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Height`
@@ -28747,8 +27455,6 @@ class Door(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'reference': u'AllShadingAndHTSurfNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -28785,8 +27491,6 @@ class Door(object):
     def construction_name(self, value=None):
         """  Corresponds to IDD Field `Construction Name`
         To be matched with a construction in this input file
-        
-        {u'note': [u'To be matched with a construction in this input file'], u'type': u'object-list', u'object-list': u'ConstructionNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Construction Name`
@@ -28824,8 +27528,6 @@ class Door(object):
         """  Corresponds to IDD Field `Building Surface Name`
         Name of Surface (Wall, usually) the Door is on (i.e., Base Surface)
         Door assumes the azimuth and tilt angles of the surface it is on.
-        
-        {u'note': [u'Name of Surface (Wall, usually) the Door is on (i.e., Base Surface)', u'Door assumes the azimuth and tilt angles of the surface it is on.'], u'type': u'object-list', u'object-list': u'SurfaceNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Building Surface Name`
@@ -28859,12 +27561,10 @@ class Door(object):
         return self._data["Multiplier"]
 
     @multiplier.setter
-    def multiplier(self, value=1.0 ):
+    def multiplier(self, value=1.0):
         """  Corresponds to IDD Field `Multiplier`
         Used only for Surface Type = WINDOW, GLASSDOOR or DOOR
         Non-integer values will be truncated to integer
-        
-        {u'note': [u'Used only for Surface Type = WINDOW, GLASSDOOR or DOOR', u'Non-integer values will be truncated to integer'], u'default': '1.0', u'minimum': '1.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Multiplier`
@@ -28900,8 +27600,6 @@ class Door(object):
     def starting_x_coordinate(self, value=None):
         """  Corresponds to IDD Field `Starting X Coordinate`
         Door starting coordinate is specified relative to the Base Surface origin.
-        
-        {u'note': [u'Door starting coordinate is specified relative to the Base Surface origin.'], u'units': u'm', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Starting X Coordinate`
@@ -28933,8 +27631,6 @@ class Door(object):
     def starting_z_coordinate(self, value=None):
         """  Corresponds to IDD Field `Starting Z Coordinate`
         How far up the wall the Door starts. (in 2-d, this would be a Y Coordinate)
-        
-        {u'note': [u'How far up the wall the Door starts. (in 2-d, this would be a Y Coordinate)'], u'units': u'm', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Starting Z Coordinate`
@@ -28965,8 +27661,6 @@ class Door(object):
     @length.setter
     def length(self, value=None):
         """  Corresponds to IDD Field `Length`
-        
-        {u'units': u'm', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Length`
@@ -28997,8 +27691,6 @@ class Door(object):
     @height.setter
     def height(self, value=None):
         """  Corresponds to IDD Field `Height`
-        
-        {u'units': u'm', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Height`
@@ -29167,8 +27859,6 @@ class GlazedDoor(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'reference': u'AllShadingAndHTSurfNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -29205,8 +27895,6 @@ class GlazedDoor(object):
     def construction_name(self, value=None):
         """  Corresponds to IDD Field `Construction Name`
         To be matched with a construction in this input file
-        
-        {u'note': [u'To be matched with a construction in this input file'], u'type': u'object-list', u'object-list': u'ConstructionNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Construction Name`
@@ -29244,8 +27932,6 @@ class GlazedDoor(object):
         """  Corresponds to IDD Field `Building Surface Name`
         Name of Surface (Wall, usually) the Door is on (i.e., Base Surface)
         Door assumes the azimuth and tilt angles of the surface it is on.
-        
-        {u'note': [u'Name of Surface (Wall, usually) the Door is on (i.e., Base Surface)', u'Door assumes the azimuth and tilt angles of the surface it is on.'], u'type': u'object-list', u'object-list': u'SurfaceNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Building Surface Name`
@@ -29284,8 +27970,6 @@ class GlazedDoor(object):
         enter the name of a WindowProperty:ShadingControl object
         used for windows and glass doors only
         If not specified, window or glass door has no shading (blind, roller shade, etc.)
-        
-        {u'note': [u'enter the name of a WindowProperty:ShadingControl object', u'used for windows and glass doors only', u'If not specified, window or glass door has no shading (blind, roller shade, etc.)'], u'type': u'object-list', u'object-list': u'WindowShadeControlNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Shading Control Name`
@@ -29326,8 +28010,6 @@ class GlazedDoor(object):
         Unused for triangular windows.
         If not specified (blank), window or glass door has no frame or divider
         and no beam solar reflection from reveal surfaces.
-        
-        {u'note': [u'Enter the name of a WindowProperty:FrameAndDivider object', u'Used only for exterior windows (rectangular) and glass doors.', u'Unused for triangular windows.', u'If not specified (blank), window or glass door has no frame or divider', u'and no beam solar reflection from reveal surfaces.'], u'type': u'object-list', u'object-list': u'WindowFrameAndDividerNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Frame and Divider Name`
@@ -29361,12 +28043,10 @@ class GlazedDoor(object):
         return self._data["Multiplier"]
 
     @multiplier.setter
-    def multiplier(self, value=1.0 ):
+    def multiplier(self, value=1.0):
         """  Corresponds to IDD Field `Multiplier`
         Used only for Surface Type = WINDOW, GLASSDOOR or DOOR
         Non-integer values will be truncated to integer
-        
-        {u'note': [u'Used only for Surface Type = WINDOW, GLASSDOOR or DOOR', u'Non-integer values will be truncated to integer'], u'default': '1.0', u'minimum': '1.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Multiplier`
@@ -29402,8 +28082,6 @@ class GlazedDoor(object):
     def starting_x_coordinate(self, value=None):
         """  Corresponds to IDD Field `Starting X Coordinate`
         Door starting coordinate is specified relative to the Base Surface origin.
-        
-        {u'note': [u'Door starting coordinate is specified relative to the Base Surface origin.'], u'units': u'm', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Starting X Coordinate`
@@ -29435,8 +28113,6 @@ class GlazedDoor(object):
     def starting_z_coordinate(self, value=None):
         """  Corresponds to IDD Field `Starting Z Coordinate`
         How far up the wall the Door starts. (in 2-d, this would be a Y Coordinate)
-        
-        {u'note': [u'How far up the wall the Door starts. (in 2-d, this would be a Y Coordinate)'], u'units': u'm', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Starting Z Coordinate`
@@ -29467,8 +28143,6 @@ class GlazedDoor(object):
     @length.setter
     def length(self, value=None):
         """  Corresponds to IDD Field `Length`
-        
-        {u'units': u'm', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Length`
@@ -29499,8 +28173,6 @@ class GlazedDoor(object):
     @height.setter
     def height(self, value=None):
         """  Corresponds to IDD Field `Height`
-        
-        {u'units': u'm', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Height`
@@ -29662,8 +28334,6 @@ class WindowInterzone(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'reference': u'AllShadingAndHTSurfNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -29700,8 +28370,6 @@ class WindowInterzone(object):
     def construction_name(self, value=None):
         """  Corresponds to IDD Field `Construction Name`
         To be matched with a construction in this input file
-        
-        {u'note': [u'To be matched with a construction in this input file'], u'type': u'object-list', u'object-list': u'ConstructionNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Construction Name`
@@ -29739,8 +28407,6 @@ class WindowInterzone(object):
         """  Corresponds to IDD Field `Building Surface Name`
         Name of Surface (Wall, usually) the Window is on (i.e., Base Surface)
         Window assumes the azimuth and tilt angles of the surface it is on.
-        
-        {u'note': [u'Name of Surface (Wall, usually) the Window is on (i.e., Base Surface)', u'Window assumes the azimuth and tilt angles of the surface it is on.'], u'type': u'object-list', u'object-list': u'SurfaceNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Building Surface Name`
@@ -29781,8 +28447,6 @@ class WindowInterzone(object):
         the interior window in the adjacent zone.
         a blank field will set up a Window in an adjacent zone
         (same zone as adjacent to base surface)
-        
-        {u'note': [u'Specify a surface name in an adjacent zone for known interior windows.', u'Specify a zone name of an adjacent zone to automatically generate', u'the interior window in the adjacent zone.', u'a blank field will set up a Window in an adjacent zone', u'(same zone as adjacent to base surface)'], u'type': u'object-list', u'object-list': u'OutFaceEnvNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Outside Boundary Condition Object`
@@ -29816,12 +28480,10 @@ class WindowInterzone(object):
         return self._data["Multiplier"]
 
     @multiplier.setter
-    def multiplier(self, value=1.0 ):
+    def multiplier(self, value=1.0):
         """  Corresponds to IDD Field `Multiplier`
         Used only for Surface Type = WINDOW, GLASSDOOR or DOOR
         Non-integer values will be truncated to integer
-        
-        {u'note': [u'Used only for Surface Type = WINDOW, GLASSDOOR or DOOR', u'Non-integer values will be truncated to integer'], u'default': '1.0', u'minimum': '1.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Multiplier`
@@ -29857,8 +28519,6 @@ class WindowInterzone(object):
     def starting_x_coordinate(self, value=None):
         """  Corresponds to IDD Field `Starting X Coordinate`
         Window starting coordinate is specified relative to the Base Surface origin.
-        
-        {u'note': [u'Window starting coordinate is specified relative to the Base Surface origin.'], u'units': u'm', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Starting X Coordinate`
@@ -29890,8 +28550,6 @@ class WindowInterzone(object):
     def starting_z_coordinate(self, value=None):
         """  Corresponds to IDD Field `Starting Z Coordinate`
         How far up the wall the Window starts. (in 2-d, this would be a Y Coordinate)
-        
-        {u'note': [u'How far up the wall the Window starts. (in 2-d, this would be a Y Coordinate)'], u'units': u'm', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Starting Z Coordinate`
@@ -29922,8 +28580,6 @@ class WindowInterzone(object):
     @length.setter
     def length(self, value=None):
         """  Corresponds to IDD Field `Length`
-        
-        {u'units': u'm', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Length`
@@ -29954,8 +28610,6 @@ class WindowInterzone(object):
     @height.setter
     def height(self, value=None):
         """  Corresponds to IDD Field `Height`
-        
-        {u'units': u'm', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Height`
@@ -30117,8 +28771,6 @@ class DoorInterzone(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'reference': u'AllShadingAndHTSurfNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -30155,8 +28807,6 @@ class DoorInterzone(object):
     def construction_name(self, value=None):
         """  Corresponds to IDD Field `Construction Name`
         To be matched with a construction in this input file
-        
-        {u'note': [u'To be matched with a construction in this input file'], u'type': u'object-list', u'object-list': u'ConstructionNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Construction Name`
@@ -30194,8 +28844,6 @@ class DoorInterzone(object):
         """  Corresponds to IDD Field `Building Surface Name`
         Name of Surface (Wall, usually) the Door is on (i.e., Base Surface)
         Door assumes the azimuth and tilt angles of the surface it is on.
-        
-        {u'note': [u'Name of Surface (Wall, usually) the Door is on (i.e., Base Surface)', u'Door assumes the azimuth and tilt angles of the surface it is on.'], u'type': u'object-list', u'object-list': u'SurfaceNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Building Surface Name`
@@ -30236,8 +28884,6 @@ class DoorInterzone(object):
         the interior door in the adjacent zone.
         a blank field will set up a Window in an adjacent zone
         (same zone as adjacent to base surface)
-        
-        {u'note': [u'Specify a surface name in an adjacent zone for known interior doors.', u'Specify a zone name of an adjacent zone to automatically generate', u'the interior door in the adjacent zone.', u'a blank field will set up a Window in an adjacent zone', u'(same zone as adjacent to base surface)'], u'type': u'object-list', u'object-list': u'OutFaceEnvNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Outside Boundary Condition Object`
@@ -30271,12 +28917,10 @@ class DoorInterzone(object):
         return self._data["Multiplier"]
 
     @multiplier.setter
-    def multiplier(self, value=1.0 ):
+    def multiplier(self, value=1.0):
         """  Corresponds to IDD Field `Multiplier`
         Used only for Surface Type = WINDOW, GLASSDOOR or DOOR
         Non-integer values will be truncated to integer
-        
-        {u'note': [u'Used only for Surface Type = WINDOW, GLASSDOOR or DOOR', u'Non-integer values will be truncated to integer'], u'default': '1.0', u'minimum': '1.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Multiplier`
@@ -30312,8 +28956,6 @@ class DoorInterzone(object):
     def starting_x_coordinate(self, value=None):
         """  Corresponds to IDD Field `Starting X Coordinate`
         Door starting coordinate is specified relative to the Base Surface origin.
-        
-        {u'note': [u'Door starting coordinate is specified relative to the Base Surface origin.'], u'units': u'm', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Starting X Coordinate`
@@ -30345,8 +28987,6 @@ class DoorInterzone(object):
     def starting_z_coordinate(self, value=None):
         """  Corresponds to IDD Field `Starting Z Coordinate`
         How far up the wall the Door starts. (in 2-d, this would be a Y Coordinate)
-        
-        {u'note': [u'How far up the wall the Door starts. (in 2-d, this would be a Y Coordinate)'], u'units': u'm', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Starting Z Coordinate`
@@ -30377,8 +29017,6 @@ class DoorInterzone(object):
     @length.setter
     def length(self, value=None):
         """  Corresponds to IDD Field `Length`
-        
-        {u'units': u'm', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Length`
@@ -30409,8 +29047,6 @@ class DoorInterzone(object):
     @height.setter
     def height(self, value=None):
         """  Corresponds to IDD Field `Height`
-        
-        {u'units': u'm', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Height`
@@ -30572,8 +29208,6 @@ class GlazedDoorInterzone(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'reference': u'AllShadingAndHTSurfNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -30610,8 +29244,6 @@ class GlazedDoorInterzone(object):
     def construction_name(self, value=None):
         """  Corresponds to IDD Field `Construction Name`
         To be matched with a construction in this input file
-        
-        {u'note': [u'To be matched with a construction in this input file'], u'type': u'object-list', u'object-list': u'ConstructionNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Construction Name`
@@ -30649,8 +29281,6 @@ class GlazedDoorInterzone(object):
         """  Corresponds to IDD Field `Building Surface Name`
         Name of Surface (Wall, usually) the Door is on (i.e., Base Surface)
         Door assumes the azimuth and tilt angles of the surface it is on.
-        
-        {u'note': [u'Name of Surface (Wall, usually) the Door is on (i.e., Base Surface)', u'Door assumes the azimuth and tilt angles of the surface it is on.'], u'type': u'object-list', u'object-list': u'SurfaceNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Building Surface Name`
@@ -30691,8 +29321,6 @@ class GlazedDoorInterzone(object):
         the interior door in the adjacent zone.
         a blank field will set up a Window in an adjacent zone
         (same zone as adjacent to base surface)
-        
-        {u'note': [u'Specify a surface name in an adjacent zone for known interior doors.', u'Specify a zone name of an adjacent zone to automatically generate', u'the interior door in the adjacent zone.', u'a blank field will set up a Window in an adjacent zone', u'(same zone as adjacent to base surface)'], u'type': u'object-list', u'object-list': u'OutFaceEnvNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Outside Boundary Condition Object`
@@ -30726,12 +29354,10 @@ class GlazedDoorInterzone(object):
         return self._data["Multiplier"]
 
     @multiplier.setter
-    def multiplier(self, value=1.0 ):
+    def multiplier(self, value=1.0):
         """  Corresponds to IDD Field `Multiplier`
         Used only for Surface Type = WINDOW, GLASSDOOR or DOOR
         Non-integer values will be truncated to integer
-        
-        {u'note': [u'Used only for Surface Type = WINDOW, GLASSDOOR or DOOR', u'Non-integer values will be truncated to integer'], u'default': '1.0', u'minimum': '1.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Multiplier`
@@ -30767,8 +29393,6 @@ class GlazedDoorInterzone(object):
     def starting_x_coordinate(self, value=None):
         """  Corresponds to IDD Field `Starting X Coordinate`
         Door starting coordinate is specified relative to the Base Surface origin.
-        
-        {u'note': [u'Door starting coordinate is specified relative to the Base Surface origin.'], u'units': u'm', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Starting X Coordinate`
@@ -30800,8 +29424,6 @@ class GlazedDoorInterzone(object):
     def starting_z_coordinate(self, value=None):
         """  Corresponds to IDD Field `Starting Z Coordinate`
         How far up the wall the Door starts. (in 2-d, this would be a Y Coordinate)
-        
-        {u'note': [u'How far up the wall the Door starts. (in 2-d, this would be a Y Coordinate)'], u'units': u'm', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Starting Z Coordinate`
@@ -30832,8 +29454,6 @@ class GlazedDoorInterzone(object):
     @length.setter
     def length(self, value=None):
         """  Corresponds to IDD Field `Length`
-        
-        {u'units': u'm', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Length`
@@ -30864,8 +29484,6 @@ class GlazedDoorInterzone(object):
     @height.setter
     def height(self, value=None):
         """  Corresponds to IDD Field `Height`
-        
-        {u'units': u'm', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Height`
@@ -31054,8 +29672,6 @@ class WindowPropertyShadingControl(object):
         """  Corresponds to IDD Field `Name`
         Referenced by surfaces that are exterior windows
         Not used by interzone windows
-        
-        {u'note': [u'Referenced by surfaces that are exterior windows', u'Not used by interzone windows'], u'type': u'alpha', u'reference': u'WindowShadeControlNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -31091,8 +29707,6 @@ class WindowPropertyShadingControl(object):
     @shading_type.setter
     def shading_type(self, value=None):
         """  Corresponds to IDD Field `Shading Type`
-        
-        {u'type': u'choice', u'key': [u'InteriorShade', u'ExteriorShade', u'ExteriorScreen', u'InteriorBlind', u'ExteriorBlind', u'BetweenGlassShade', u'BetweenGlassBlind', u'SwitchableGlazing'], u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Shading Type`
@@ -31165,8 +29779,6 @@ class WindowPropertyShadingControl(object):
         "Shading Device Material Name" is not specified.
         If both "Construction with Shading Name" and "Shading Device Material Name" are entered,
         the former takes precedence.
-        
-        {u'note': [u'Required if Shading Type = SwitchableGlazing', u'Required if Shading Type = interior or exterior shade or blind, or exterior screen, and', u'"Shading Device Material Name" is not specified.', u'If both "Construction with Shading Name" and "Shading Device Material Name" are entered,', u'the former takes precedence.'], u'type': u'object-list', u'object-list': u'ConstructionNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Construction with Shading Name`
@@ -31222,8 +29834,6 @@ class WindowPropertyShadingControl(object):
         The following four control types require that both Setpoint and Setpoint2 be specified
         Setpoint will correspond to outdoor air temp or zone air temp (deg C)
         Setpoint2 will correspond to solar on window or horizontal solar (W/m2)
-        
-        {u'note': [u'OnIfScheduleAllows requires that Schedule Name be specified and', u'Shading Control Is Scheduled = Yes.', u'AlwaysOn, AlwaysOff and OnIfScheduleAllows are the only valid control types for ExteriorScreen.', u'The following six control types are used primarily to reduce', u'zone cooling load due to window solar gain', u'Following entry should be used only if Shading Type = SwitchableGlazing', u'and window is in a daylit zone', u'The following three control types are used to reduce zone Heating load. They can be', u'used with any Shading Type but are most appropriate for opaque interior or exterior', u'shades with high insulating value ("opaque movable insulation")', u'The following two control types are used to reduce zone heating and cooling load.', u'They can be used with any Shading Type but are most appropriate for translucent interior', u'or exterior shades with high insulating value ("translucent movable insulation")', u'The following two control types are used to reduce zone Cooling load.', u'They can be used with any Shading Type but are most appropriate for interior', u'or exterior blinds,interior or exterior shades with low insulating value, or', u'switchable glazing', u'The following four control types require that both Setpoint and Setpoint2 be specified', u'Setpoint will correspond to outdoor air temp or zone air temp (deg C)', u'Setpoint2 will correspond to solar on window or horizontal solar (W/m2)'], u'type': u'choice', u'key': [u'AlwaysOn', u'AlwaysOff', u'OnIfScheduleAllows', u'OnIfHighSolarOnWindow', u'OnIfHighHorizontalSolar', u'OnIfHighOutdoorAirTemperature', u'OnIfHighZoneAirTemperature', u'OnIfHighZoneCooling', u'OnIfHighGlare', u'MeetDaylightIlluminanceSetpoint', u'OnNightIfLowOutdoorTempAndOffDay', u'OnNightIfLowInsideTempAndOffDay', u'OnNightIfHeatingAndOffDay', u'OnNightIfLowOutdoorTempAndOnDayIfCooling', u'OnNightIfHeatingAndOnDayIfCooling', u'OffNightAndOnDayIfCoolingAndHighSolarOnWindow', u'OnNightAndOnDayIfCoolingAndHighSolarOnWindow', u'OnIfHighOutdoorAirTempAndHighSolarOnWindow', u'OnIfHighOutdoorAirTempAndHighHorizontalSolar', u'OnIfHighZoneAirTempAndHighSolarOnWindow', u'OnIfHighZoneAirTempAndHighHorizontalSolar'], u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Shading Control Type`
@@ -31322,8 +29932,6 @@ class WindowPropertyShadingControl(object):
         if the control test passes. If schedule value = 0, shading is off whether or not
         the control test passes. Schedule Name is required if Shading Control Is Scheduled = Yes.
         If Schedule Name is not specified, shading control is assumed to be active at all times.
-        
-        {u'note': [u'Required if Shading Control Is Scheduled = Yes.', u'If schedule value = 1, shading control is active, i.e., shading can take place only', u'if the control test passes. If schedule value = 0, shading is off whether or not', u'the control test passes. Schedule Name is required if Shading Control Is Scheduled = Yes.', u'If Schedule Name is not specified, shading control is assumed to be active at all times.'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Schedule Name`
@@ -31363,8 +29971,6 @@ class WindowPropertyShadingControl(object):
         deg C for temperature-based controls.
         Unused for Shading Control Type = AlwaysOn, AlwaysOff, OnIfScheduleAllows,
         OnIfHighGlare, Glare, and DaylightIlluminance
-        
-        {u'units': u'W/m2, W or deg C', u'note': [u'W/m2 for solar-based controls, W for cooling- or heating-based controls,', u'deg C for temperature-based controls.', u'Unused for Shading Control Type = AlwaysOn, AlwaysOff, OnIfScheduleAllows,', u'OnIfHighGlare, Glare, and DaylightIlluminance'], u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Setpoint`
@@ -31397,8 +30003,6 @@ class WindowPropertyShadingControl(object):
         """  Corresponds to IDD Field `Shading Control Is Scheduled`
         If Yes, Schedule Name is required; if No, Schedule Name is not used.
         Shading Control Is Scheduled = Yes is required if Shading Control Type = OnIfScheduleAllows.
-        
-        {u'default': u'No', u'note': [u'If Yes, Schedule Name is required; if No, Schedule Name is not used.', u'Shading Control Is Scheduled = Yes is required if Shading Control Type = OnIfScheduleAllows.'], u'type': u'choice', u'key': [u'No', u'Yes'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Shading Control Is Scheduled`
@@ -31459,8 +30063,6 @@ class WindowPropertyShadingControl(object):
         the maximum discomfort glare index specified in the Daylighting object referenced by the zone.
         The glare test is OR'ed with the test specified by Shading Control Type.
         Glare Control Is Active = Yes is required if Shading Control Type = OnIfHighGlare.
-        
-        {u'default': u'No', u'note': [u"If Yes and window is in a daylit zone, shading is on if zone's discomfort glare index exceeds", u'the maximum discomfort glare index specified in the Daylighting object referenced by the zone.', u"The glare test is OR'ed with the test specified by Shading Control Type.", u'Glare Control Is Active = Yes is required if Shading Control Type = OnIfHighGlare.'], u'type': u'choice', u'key': [u'No', u'Yes'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Glare Control Is Active`
@@ -31522,8 +30124,6 @@ class WindowPropertyShadingControl(object):
         Not used if Shading Control Type = SwitchableGlazing, BetweenGlassShade, or BetweenGlassBlind.
         If both "Construction with Shading Name" and "Shading Device Material Name" are entered,
         the former takes precedence.
-        
-        {u'note': [u'Enter the name of a WindowMaterial:Shade, WindowMaterial:Screen or WindowMaterial:Blind object.', u'Required if "Construction with Shading Name" is not specified.', u'Not used if Shading Control Type = SwitchableGlazing, BetweenGlassShade, or BetweenGlassBlind.', u'If both "Construction with Shading Name" and "Shading Device Material Name" are entered,', u'the former takes precedence.'], u'type': u'object-list', u'object-list': u'WindowShadesScreensAndBlinds', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Shading Device Material Name`
@@ -31561,8 +30161,6 @@ class WindowPropertyShadingControl(object):
         """  Corresponds to IDD Field `Type of Slat Angle Control for Blinds`
         Used only if Shading Type = InteriorBlind, ExteriorBlind or BetweenGlassBlind.
         If choice is ScheduledSlatAngle then Slat Angle Schedule Name is required.
-        
-        {u'default': u'FixedSlatAngle', u'note': [u'Used only if Shading Type = InteriorBlind, ExteriorBlind or BetweenGlassBlind.', u'If choice is ScheduledSlatAngle then Slat Angle Schedule Name is required.'], u'type': u'choice', u'key': [u'FixedSlatAngle', u'ScheduledSlatAngle', u'BlockBeamSolar'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Type of Slat Angle Control for Blinds`
@@ -31624,8 +30222,6 @@ class WindowPropertyShadingControl(object):
         Used only if Shading Type = InteriorBlind, ExteriorBlind or BetweenGlassBlind.
         Required if Type of Slat Angle Control for Blinds = ScheduledSlatAngle
         Schedule values should be degrees (0 minimum, 180 maximum)
-        
-        {u'note': [u'Used only if Shading Type = InteriorBlind, ExteriorBlind or BetweenGlassBlind.', u'Required if Type of Slat Angle Control for Blinds = ScheduledSlatAngle', u'Schedule values should be degrees (0 minimum, 180 maximum)'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Slat Angle Schedule Name`
@@ -31665,8 +30261,6 @@ class WindowPropertyShadingControl(object):
         Used only as the second setpoint for the following two-setpoint control types:
         OnIfHighOutdoorAirTempAndHighSolarOnWindow, OnIfHighOutdoorAirTempAndHighHorizontalSolar,
         OnIfHighZoneAirTempAndHighSolarOnWindow, and OnIfHighZoneAirTempAndHighHorizontalSolar
-        
-        {u'units': u'W/m2 or deg C', u'note': [u'W/m2 for solar-based controls, deg C for temperature-based controls.', u'Used only as the second setpoint for the following two-setpoint control types:', u'OnIfHighOutdoorAirTempAndHighSolarOnWindow, OnIfHighOutdoorAirTempAndHighHorizontalSolar,', u'OnIfHighZoneAirTempAndHighSolarOnWindow, and OnIfHighZoneAirTempAndHighHorizontalSolar'], 'pytype': 'float', u'type': u'real', u'ip-units': u'unknown'}
 
         Args:
             value (float): value for IDD Field `Setpoint 2`
@@ -31960,8 +30554,6 @@ class WindowPropertyFrameAndDivider(object):
         """  Corresponds to IDD Field `Name`
         Referenced by surfaces that are exterior windows
         Not used by interzone windows
-        
-        {u'note': [u'Referenced by surfaces that are exterior windows', u'Not used by interzone windows'], u'type': u'alpha', u'reference': u'WindowFrameAndDividerNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -31995,12 +30587,10 @@ class WindowPropertyFrameAndDivider(object):
         return self._data["Frame Width"]
 
     @frame_width.setter
-    def frame_width(self, value=0.0 ):
+    def frame_width(self, value=0.0):
         """  Corresponds to IDD Field `Frame Width`
         Width of frame in plane of window
         Frame width assumed the same on all sides of window
-        
-        {'pytype': 'float', u'default': '0.0', u'maximum': '1.0', u'note': [u'Width of frame in plane of window', u'Frame width assumed the same on all sides of window'], u'minimum': '0.0', u'units': u'm', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Frame Width`
@@ -32038,11 +30628,9 @@ class WindowPropertyFrameAndDivider(object):
         return self._data["Frame Outside Projection"]
 
     @frame_outside_projection.setter
-    def frame_outside_projection(self, value=0.0 ):
+    def frame_outside_projection(self, value=0.0):
         """  Corresponds to IDD Field `Frame Outside Projection`
         Amount that frame projects outward from the outside face of the glazing
-        
-        {'pytype': 'float', u'default': '0.0', u'maximum': '0.5', u'note': [u'Amount that frame projects outward from the outside face of the glazing'], u'minimum': '0.0', u'units': u'm', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Frame Outside Projection`
@@ -32080,11 +30668,9 @@ class WindowPropertyFrameAndDivider(object):
         return self._data["Frame Inside Projection"]
 
     @frame_inside_projection.setter
-    def frame_inside_projection(self, value=0.0 ):
+    def frame_inside_projection(self, value=0.0):
         """  Corresponds to IDD Field `Frame Inside Projection`
         Amount that frame projects inward from the inside face of the glazing
-        
-        {'pytype': 'float', u'default': '0.0', u'maximum': '0.5', u'note': [u'Amount that frame projects inward from the inside face of the glazing'], u'minimum': '0.0', u'units': u'm', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Frame Inside Projection`
@@ -32127,8 +30713,6 @@ class WindowPropertyFrameAndDivider(object):
         Effective conductance of frame
         Excludes air films
         Obtained from WINDOW 5 or other 2-D calculation
-        
-        {u'units': u'W/m2-K', u'note': [u'Effective conductance of frame', u'Excludes air films', u'Obtained from WINDOW 5 or other 2-D calculation'], u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Frame Conductance`
@@ -32161,12 +30745,10 @@ class WindowPropertyFrameAndDivider(object):
         return self._data["Ratio of Frame-Edge Glass Conductance to Center-Of-Glass Conductance"]
 
     @ratio_of_frameedge_glass_conductance_to_centerofglass_conductance.setter
-    def ratio_of_frameedge_glass_conductance_to_centerofglass_conductance(self, value=1.0 ):
+    def ratio_of_frameedge_glass_conductance_to_centerofglass_conductance(self, value=1.0):
         """  Corresponds to IDD Field `Ratio of Frame-Edge Glass Conductance to Center-Of-Glass Conductance`
         Excludes air films; applies only to multipane windows
         Obtained from WINDOW 5 or other 2-D calculation
-        
-        {'pytype': 'float', u'default': '1.0', u'minimum>': '0.0', u'maximum': '4.0', u'note': [u'Excludes air films; applies only to multipane windows', u'Obtained from WINDOW 5 or other 2-D calculation'], u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Ratio of Frame-Edge Glass Conductance to Center-Of-Glass Conductance`
@@ -32203,11 +30785,9 @@ class WindowPropertyFrameAndDivider(object):
         return self._data["Frame Solar Absorptance"]
 
     @frame_solar_absorptance.setter
-    def frame_solar_absorptance(self, value=0.7 ):
+    def frame_solar_absorptance(self, value=0.7):
         """  Corresponds to IDD Field `Frame Solar Absorptance`
         Assumed same on outside and inside of frame
-        
-        {'pytype': 'float', u'default': '0.7', u'maximum': '1.0', u'note': [u'Assumed same on outside and inside of frame'], u'minimum': '0.0', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Frame Solar Absorptance`
@@ -32244,11 +30824,9 @@ class WindowPropertyFrameAndDivider(object):
         return self._data["Frame Visible Absorptance"]
 
     @frame_visible_absorptance.setter
-    def frame_visible_absorptance(self, value=0.7 ):
+    def frame_visible_absorptance(self, value=0.7):
         """  Corresponds to IDD Field `Frame Visible Absorptance`
         Assumed same on outside and inside of frame
-        
-        {'pytype': 'float', u'default': '0.7', u'maximum': '1.0', u'note': [u'Assumed same on outside and inside of frame'], u'minimum': '0.0', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Frame Visible Absorptance`
@@ -32285,11 +30863,9 @@ class WindowPropertyFrameAndDivider(object):
         return self._data["Frame Thermal Hemispherical Emissivity"]
 
     @frame_thermal_hemispherical_emissivity.setter
-    def frame_thermal_hemispherical_emissivity(self, value=0.9 ):
+    def frame_thermal_hemispherical_emissivity(self, value=0.9):
         """  Corresponds to IDD Field `Frame Thermal Hemispherical Emissivity`
         Assumed same on outside and inside of frame
-        
-        {u'default': '0.9', u'note': [u'Assumed same on outside and inside of frame'], u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Frame Thermal Hemispherical Emissivity`
@@ -32324,8 +30900,6 @@ class WindowPropertyFrameAndDivider(object):
     @divider_type.setter
     def divider_type(self, value="DividedLite"):
         """  Corresponds to IDD Field `Divider Type`
-        
-        {u'default': u'DividedLite', u'type': u'choice', u'key': [u'DividedLite', u'Suspended'], u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Divider Type`
@@ -32380,12 +30954,10 @@ class WindowPropertyFrameAndDivider(object):
         return self._data["Divider Width"]
 
     @divider_width.setter
-    def divider_width(self, value=0.0 ):
+    def divider_width(self, value=0.0):
         """  Corresponds to IDD Field `Divider Width`
         Width of dividers in plane of window
         Width assumed the same for all dividers
-        
-        {'pytype': 'float', u'default': '0.0', u'maximum': '0.5', u'note': [u'Width of dividers in plane of window', u'Width assumed the same for all dividers'], u'minimum': '0.0', u'units': u'm', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Divider Width`
@@ -32423,11 +30995,9 @@ class WindowPropertyFrameAndDivider(object):
         return self._data["Number of Horizontal Dividers"]
 
     @number_of_horizontal_dividers.setter
-    def number_of_horizontal_dividers(self, value=0.0 ):
+    def number_of_horizontal_dividers(self, value=0.0):
         """  Corresponds to IDD Field `Number of Horizontal Dividers`
         "Horizontal" means parallel to local window X-axis
-        
-        {u'default': '0.0', u'note': [u'"Horizontal" means parallel to local window X-axis'], u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Number of Horizontal Dividers`
@@ -32460,11 +31030,9 @@ class WindowPropertyFrameAndDivider(object):
         return self._data["Number of Vertical Dividers"]
 
     @number_of_vertical_dividers.setter
-    def number_of_vertical_dividers(self, value=0.0 ):
+    def number_of_vertical_dividers(self, value=0.0):
         """  Corresponds to IDD Field `Number of Vertical Dividers`
         "Vertical" means parallel to local window Y-axis
-        
-        {u'default': '0.0', u'note': [u'"Vertical" means parallel to local window Y-axis'], u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Number of Vertical Dividers`
@@ -32497,12 +31065,10 @@ class WindowPropertyFrameAndDivider(object):
         return self._data["Divider Outside Projection"]
 
     @divider_outside_projection.setter
-    def divider_outside_projection(self, value=0.0 ):
+    def divider_outside_projection(self, value=0.0):
         """  Corresponds to IDD Field `Divider Outside Projection`
         Amount that divider projects outward from the outside face of the glazing
         Outside projection assumed the same for all divider elements
-        
-        {'pytype': 'float', u'default': '0.0', u'maximum': '0.5', u'note': [u'Amount that divider projects outward from the outside face of the glazing', u'Outside projection assumed the same for all divider elements'], u'minimum': '0.0', u'units': u'm', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Divider Outside Projection`
@@ -32540,12 +31106,10 @@ class WindowPropertyFrameAndDivider(object):
         return self._data["Divider Inside Projection"]
 
     @divider_inside_projection.setter
-    def divider_inside_projection(self, value=0.0 ):
+    def divider_inside_projection(self, value=0.0):
         """  Corresponds to IDD Field `Divider Inside Projection`
         Amount that divider projects inward from the inside face of the glazing
         Inside projection assumed the same for all divider elements
-        
-        {'pytype': 'float', u'default': '0.0', u'maximum': '0.5', u'note': [u'Amount that divider projects inward from the inside face of the glazing', u'Inside projection assumed the same for all divider elements'], u'minimum': '0.0', u'units': u'm', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Divider Inside Projection`
@@ -32583,13 +31147,11 @@ class WindowPropertyFrameAndDivider(object):
         return self._data["Divider Conductance"]
 
     @divider_conductance.setter
-    def divider_conductance(self, value=0.0 ):
+    def divider_conductance(self, value=0.0):
         """  Corresponds to IDD Field `Divider Conductance`
         Effective conductance of divider
         Excludes air films
         Obtained from WINDOW 5 or other 2-D calculation
-        
-        {'pytype': 'float', u'default': '0.0', u'note': [u'Effective conductance of divider', u'Excludes air films', u'Obtained from WINDOW 5 or other 2-D calculation'], u'minimum': '0.0', u'units': u'W/m2-K', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Divider Conductance`
@@ -32623,12 +31185,10 @@ class WindowPropertyFrameAndDivider(object):
         return self._data["Ratio of Divider-Edge Glass Conductance to Center-Of-Glass Conductance"]
 
     @ratio_of_divideredge_glass_conductance_to_centerofglass_conductance.setter
-    def ratio_of_divideredge_glass_conductance_to_centerofglass_conductance(self, value=1.0 ):
+    def ratio_of_divideredge_glass_conductance_to_centerofglass_conductance(self, value=1.0):
         """  Corresponds to IDD Field `Ratio of Divider-Edge Glass Conductance to Center-Of-Glass Conductance`
         Excludes air films
         Obtained from WINDOW 5 or other 2-D calculation
-        
-        {'pytype': 'float', u'default': '1.0', u'minimum>': '0.0', u'maximum': '4.0', u'note': [u'Excludes air films', u'Obtained from WINDOW 5 or other 2-D calculation'], u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Ratio of Divider-Edge Glass Conductance to Center-Of-Glass Conductance`
@@ -32665,11 +31225,9 @@ class WindowPropertyFrameAndDivider(object):
         return self._data["Divider Solar Absorptance"]
 
     @divider_solar_absorptance.setter
-    def divider_solar_absorptance(self, value=0.0 ):
+    def divider_solar_absorptance(self, value=0.0):
         """  Corresponds to IDD Field `Divider Solar Absorptance`
         Assumed same on outside and inside of divider
-        
-        {'pytype': 'float', u'default': '0.0', u'maximum': '1.0', u'note': [u'Assumed same on outside and inside of divider'], u'minimum': '0.0', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Divider Solar Absorptance`
@@ -32706,11 +31264,9 @@ class WindowPropertyFrameAndDivider(object):
         return self._data["Divider Visible Absorptance"]
 
     @divider_visible_absorptance.setter
-    def divider_visible_absorptance(self, value=0.0 ):
+    def divider_visible_absorptance(self, value=0.0):
         """  Corresponds to IDD Field `Divider Visible Absorptance`
         Assumed same on outside and inside of divider
-        
-        {'pytype': 'float', u'default': '0.0', u'maximum': '1.0', u'note': [u'Assumed same on outside and inside of divider'], u'minimum': '0.0', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Divider Visible Absorptance`
@@ -32747,11 +31303,9 @@ class WindowPropertyFrameAndDivider(object):
         return self._data["Divider Thermal Hemispherical Emissivity"]
 
     @divider_thermal_hemispherical_emissivity.setter
-    def divider_thermal_hemispherical_emissivity(self, value=0.9 ):
+    def divider_thermal_hemispherical_emissivity(self, value=0.9):
         """  Corresponds to IDD Field `Divider Thermal Hemispherical Emissivity`
         Assumed same on outside and inside of divider
-        
-        {'pytype': 'float', u'default': '0.9', u'minimum>': '0.0', u'note': [u'Assumed same on outside and inside of divider'], u'type': u'real', u'maximum<': '1.0'}
 
         Args:
             value (float): value for IDD Field `Divider Thermal Hemispherical Emissivity`
@@ -32788,10 +31342,8 @@ class WindowPropertyFrameAndDivider(object):
         return self._data["Outside Reveal Solar Absorptance"]
 
     @outside_reveal_solar_absorptance.setter
-    def outside_reveal_solar_absorptance(self, value=0.0 ):
+    def outside_reveal_solar_absorptance(self, value=0.0):
         """  Corresponds to IDD Field `Outside Reveal Solar Absorptance`
-        
-        {u'default': '0.0', u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Outside Reveal Solar Absorptance`
@@ -32828,10 +31380,8 @@ class WindowPropertyFrameAndDivider(object):
         return self._data["Inside Sill Depth"]
 
     @inside_sill_depth.setter
-    def inside_sill_depth(self, value=0.0 ):
+    def inside_sill_depth(self, value=0.0):
         """  Corresponds to IDD Field `Inside Sill Depth`
-        
-        {'pytype': 'float', u'default': '0.0', u'maximum': '2.0', u'minimum': '0.0', u'units': u'm', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Inside Sill Depth`
@@ -32869,10 +31419,8 @@ class WindowPropertyFrameAndDivider(object):
         return self._data["Inside Sill Solar Absorptance"]
 
     @inside_sill_solar_absorptance.setter
-    def inside_sill_solar_absorptance(self, value=0.0 ):
+    def inside_sill_solar_absorptance(self, value=0.0):
         """  Corresponds to IDD Field `Inside Sill Solar Absorptance`
-        
-        {u'default': '0.0', u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Inside Sill Solar Absorptance`
@@ -32909,7 +31457,7 @@ class WindowPropertyFrameAndDivider(object):
         return self._data["Inside Reveal Depth"]
 
     @inside_reveal_depth.setter
-    def inside_reveal_depth(self, value=0.0 ):
+    def inside_reveal_depth(self, value=0.0):
         """  Corresponds to IDD Field `Inside Reveal Depth`
         Distance from plane of inside surface of glazing
         to plane of inside surface of wall.
@@ -32917,8 +31465,6 @@ class WindowPropertyFrameAndDivider(object):
         of the window and the wall it is on; it is non-zero if the plane of
         the outside surface of the glazing is set back from the plane of the
         outside surface of the wall.
-        
-        {'pytype': 'float', u'default': '0.0', u'maximum': '2.0', u'note': [u'Distance from plane of inside surface of glazing', u'to plane of inside surface of wall.', u'Outside reveal depth is determined from the geometry', u'of the window and the wall it is on; it is non-zero if the plane of', u'the outside surface of the glazing is set back from the plane of the', u'outside surface of the wall.'], u'minimum': '0.0', u'units': u'm', 'type': 'real'}
 
         Args:
             value (float): value for IDD Field `Inside Reveal Depth`
@@ -32956,10 +31502,8 @@ class WindowPropertyFrameAndDivider(object):
         return self._data["Inside Reveal Solar Absorptance"]
 
     @inside_reveal_solar_absorptance.setter
-    def inside_reveal_solar_absorptance(self, value=0.0 ):
+    def inside_reveal_solar_absorptance(self, value=0.0):
         """  Corresponds to IDD Field `Inside Reveal Solar Absorptance`
-        
-        {u'default': '0.0', u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Inside Reveal Solar Absorptance`
@@ -33113,8 +31657,6 @@ class WindowPropertyAirflowControl(object):
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
         Name must be that of an exterior window with two or three glass layers.
-        
-        {u'note': [u'Name must be that of an exterior window with two or three glass layers.'], u'type': u'object-list', u'object-list': u'SubSurfNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -33150,8 +31692,6 @@ class WindowPropertyAirflowControl(object):
     @airflow_source.setter
     def airflow_source(self, value="IndoorAir"):
         """  Corresponds to IDD Field `Airflow Source`
-        
-        {u'default': u'IndoorAir', u'type': u'choice', u'key': [u'IndoorAir', u'OutdoorAir'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Airflow Source`
@@ -33208,8 +31748,6 @@ class WindowPropertyAirflowControl(object):
     @airflow_destination.setter
     def airflow_destination(self, value="OutdoorAir"):
         """  Corresponds to IDD Field `Airflow Destination`
-        
-        {u'default': u'OutdoorAir', u'type': u'choice', u'key': [u'IndoorAir', u'OutdoorAir', u'ReturnAir'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Airflow Destination`
@@ -33266,11 +31804,9 @@ class WindowPropertyAirflowControl(object):
         return self._data["Maximum Flow Rate"]
 
     @maximum_flow_rate.setter
-    def maximum_flow_rate(self, value=0.0 ):
+    def maximum_flow_rate(self, value=0.0):
         """  Corresponds to IDD Field `Maximum Flow Rate`
         Above is m3/s per m of glazing width
-        
-        {'pytype': 'float', u'default': '0.0', u'note': [u'Above is m3/s per m of glazing width'], u'ip-units': u'ft3/min-ft', u'minimum': '0.0', u'units': u'm3/s-m', 'type': 'real'}
 
         Args:
             value (float): value for IDD Field `Maximum Flow Rate`
@@ -33309,8 +31845,6 @@ class WindowPropertyAirflowControl(object):
         """  Corresponds to IDD Field `Airflow Control Type`
         ScheduledOnly requires that Airflow Has Multiplier Schedule Name = Yes
         and that Airflow Multiplier Schedule Name is specified.
-        
-        {u'note': [u'ScheduledOnly requires that Airflow Has Multiplier Schedule Name = Yes', u'and that Airflow Multiplier Schedule Name is specified.'], u'default': u'AlwaysOnAtMaximumFlow', u'type': u'choice', u'key': [u'AlwaysOnAtMaximumFlow', u'AlwaysOff', u'ScheduledOnly'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Airflow Control Type`
@@ -33370,8 +31904,6 @@ class WindowPropertyAirflowControl(object):
     def airflow_is_scheduled(self, value="No"):
         """  Corresponds to IDD Field `Airflow Is Scheduled`
         If Yes, then Airflow Multiplier Schedule Name must be specified
-        
-        {u'default': u'No', u'note': [u'If Yes, then Airflow Multiplier Schedule Name must be specified'], u'type': u'choice', u'key': [u'Yes', u'No'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Airflow Is Scheduled`
@@ -33430,8 +31962,6 @@ class WindowPropertyAirflowControl(object):
         """  Corresponds to IDD Field `Airflow Multiplier Schedule Name`
         Required if Airflow Is Scheduled = Yes.
         Schedule values are 0.0 or 1.0 and multiply Maximum Air Flow.
-        
-        {u'note': [u'Required if Airflow Is Scheduled = Yes.', u'Schedule values are 0.0 or 1.0 and multiply Maximum Air Flow.'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Airflow Multiplier Schedule Name`
@@ -33584,8 +32114,6 @@ class WindowPropertyStormWindow(object):
         """  Corresponds to IDD Field `Window Name`
         Must be the name of a FenestrationSurface:Detailed object with Surface Type = WINDOW.
         The WindowProperty:StormWindow object can only be used with exterior windows.
-        
-        {u'note': [u'Must be the name of a FenestrationSurface:Detailed object with Surface Type = WINDOW.', u'The WindowProperty:StormWindow object can only be used with exterior windows.'], u'type': u'alpha', u'object-list': u'SubSurfNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Window Name`
@@ -33624,8 +32152,6 @@ class WindowPropertyStormWindow(object):
         Must be a WindowMaterial:Glazing or WindowMaterial:Glazing:RefractionExtinctionMethod
         Gap between storm glass layer and adjacent glass layer is assumed to be filled
         with Air
-        
-        {u'note': [u'Must be a WindowMaterial:Glazing or WindowMaterial:Glazing:RefractionExtinctionMethod', u'Gap between storm glass layer and adjacent glass layer is assumed to be filled', u'with Air'], u'type': u'object-list', u'object-list': u'GlazingMaterialName', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Storm Glass Layer Name`
@@ -33659,10 +32185,8 @@ class WindowPropertyStormWindow(object):
         return self._data["Distance Between Storm Glass Layer and Adjacent Glass"]
 
     @distance_between_storm_glass_layer_and_adjacent_glass.setter
-    def distance_between_storm_glass_layer_and_adjacent_glass(self, value=0.05 ):
+    def distance_between_storm_glass_layer_and_adjacent_glass(self, value=0.05):
         """  Corresponds to IDD Field `Distance Between Storm Glass Layer and Adjacent Glass`
-        
-        {'pytype': 'float', u'default': '0.05', u'minimum>': '0.0', u'maximum': '0.5', u'units': u'm', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Distance Between Storm Glass Layer and Adjacent Glass`
@@ -33702,8 +32226,6 @@ class WindowPropertyStormWindow(object):
     @month_that_storm_glass_layer_is_put_on.setter
     def month_that_storm_glass_layer_is_put_on(self, value=None):
         """  Corresponds to IDD Field `Month that Storm Glass Layer is Put On`
-        
-        {u'minimum': '1', u'type': u'integer', u'maximum': '12', u'required-field': True, 'pytype': 'int'}
 
         Args:
             value (int): value for IDD Field `Month that Storm Glass Layer is Put On`
@@ -33741,8 +32263,6 @@ class WindowPropertyStormWindow(object):
     @day_of_month_that_storm_glass_layer_is_put_on.setter
     def day_of_month_that_storm_glass_layer_is_put_on(self, value=None):
         """  Corresponds to IDD Field `Day of Month that Storm Glass Layer is Put On`
-        
-        {u'minimum': '1', u'type': u'integer', u'maximum': '31', u'required-field': True, 'pytype': 'int'}
 
         Args:
             value (int): value for IDD Field `Day of Month that Storm Glass Layer is Put On`
@@ -33780,8 +32300,6 @@ class WindowPropertyStormWindow(object):
     @month_that_storm_glass_layer_is_taken_off.setter
     def month_that_storm_glass_layer_is_taken_off(self, value=None):
         """  Corresponds to IDD Field `Month that Storm Glass Layer is Taken Off`
-        
-        {u'minimum': '1', u'type': u'integer', u'maximum': '12', u'required-field': True, 'pytype': 'int'}
 
         Args:
             value (int): value for IDD Field `Month that Storm Glass Layer is Taken Off`
@@ -33819,8 +32337,6 @@ class WindowPropertyStormWindow(object):
     @day_of_month_that_storm_glass_layer_is_taken_off.setter
     def day_of_month_that_storm_glass_layer_is_taken_off(self, value=None):
         """  Corresponds to IDD Field `Day of Month that Storm Glass Layer is Taken Off`
-        
-        {u'minimum': '1', u'type': u'integer', u'maximum': '31', u'required-field': True, 'pytype': 'int'}
 
         Args:
             value (int): value for IDD Field `Day of Month that Storm Glass Layer is Taken Off`
@@ -33949,8 +32465,6 @@ class InternalMass(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'reference': u'SurfGroupAndHTSurfNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -33987,8 +32501,6 @@ class InternalMass(object):
     def construction_name(self, value=None):
         """  Corresponds to IDD Field `Construction Name`
         To be matched with a construction in this input file
-        
-        {u'note': [u'To be matched with a construction in this input file'], u'type': u'object-list', u'object-list': u'ConstructionNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Construction Name`
@@ -34026,8 +32538,6 @@ class InternalMass(object):
         """  Corresponds to IDD Field `Zone Name`
         Zone the surface is a part of
         used to be Interior Environment
-        
-        {u'note': [u'Zone the surface is a part of', u'used to be Interior Environment'], u'type': u'object-list', u'object-list': u'ZoneNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Zone Name`
@@ -34063,8 +32573,6 @@ class InternalMass(object):
     @surface_area.setter
     def surface_area(self, value=None):
         """  Corresponds to IDD Field `Surface Area`
-        
-        {u'units': u'm2', u'minimum>': '0.0', 'type': 'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Surface Area`
@@ -34222,8 +32730,6 @@ class ShadingSite(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'reference': u'AllShadingSurfNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -34260,8 +32766,6 @@ class ShadingSite(object):
     def azimuth_angle(self, value=None):
         """  Corresponds to IDD Field `Azimuth Angle`
         Facing direction of outside of shading device (S=180,N=0,E=90,W=270)
-        
-        {'pytype': 'float', u'maximum': '360.0', u'note': [u'Facing direction of outside of shading device (S=180,N=0,E=90,W=270)'], u'minimum': '0.0', u'units': u'deg', 'type': 'real'}
 
         Args:
             value (float): value for IDD Field `Azimuth Angle`
@@ -34298,10 +32802,8 @@ class ShadingSite(object):
         return self._data["Tilt Angle"]
 
     @tilt_angle.setter
-    def tilt_angle(self, value=90.0 ):
+    def tilt_angle(self, value=90.0):
         """  Corresponds to IDD Field `Tilt Angle`
-        
-        {'pytype': 'float', u'default': '90.0', u'maximum': '180.0', u'minimum': '0.0', u'units': u'deg', 'type': 'real'}
 
         Args:
             value (float): value for IDD Field `Tilt Angle`
@@ -34342,8 +32844,6 @@ class ShadingSite(object):
     def starting_x_coordinate(self, value=None):
         """  Corresponds to IDD Field `Starting X Coordinate`
         Starting coordinate is the Lower Left Corner of the Shade
-        
-        {u'note': [u'Starting coordinate is the Lower Left Corner of the Shade'], u'units': u'm', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Starting X Coordinate`
@@ -34374,8 +32874,6 @@ class ShadingSite(object):
     @starting_y_coordinate.setter
     def starting_y_coordinate(self, value=None):
         """  Corresponds to IDD Field `Starting Y Coordinate`
-        
-        {u'units': u'm', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Starting Y Coordinate`
@@ -34406,8 +32904,6 @@ class ShadingSite(object):
     @starting_z_coordinate.setter
     def starting_z_coordinate(self, value=None):
         """  Corresponds to IDD Field `Starting Z Coordinate`
-        
-        {u'units': u'm', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Starting Z Coordinate`
@@ -34438,8 +32934,6 @@ class ShadingSite(object):
     @length.setter
     def length(self, value=None):
         """  Corresponds to IDD Field `Length`
-        
-        {u'units': u'm', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Length`
@@ -34470,8 +32964,6 @@ class ShadingSite(object):
     @height.setter
     def height(self, value=None):
         """  Corresponds to IDD Field `Height`
-        
-        {u'units': u'm', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Height`
@@ -34625,8 +33117,6 @@ class ShadingBuilding(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'reference': u'AllShadingSurfNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -34663,8 +33153,6 @@ class ShadingBuilding(object):
     def azimuth_angle(self, value=None):
         """  Corresponds to IDD Field `Azimuth Angle`
         Facing direction of outside of shading device (S=180,N=0,E=90,W=270)
-        
-        {'pytype': 'float', u'maximum': '360.0', u'note': [u'Facing direction of outside of shading device (S=180,N=0,E=90,W=270)'], u'minimum': '0.0', u'units': u'deg', 'type': 'real'}
 
         Args:
             value (float): value for IDD Field `Azimuth Angle`
@@ -34701,10 +33189,8 @@ class ShadingBuilding(object):
         return self._data["Tilt Angle"]
 
     @tilt_angle.setter
-    def tilt_angle(self, value=90.0 ):
+    def tilt_angle(self, value=90.0):
         """  Corresponds to IDD Field `Tilt Angle`
-        
-        {'pytype': 'float', u'default': '90.0', u'maximum': '180.0', u'minimum': '0.0', u'units': u'deg', 'type': 'real'}
 
         Args:
             value (float): value for IDD Field `Tilt Angle`
@@ -34745,8 +33231,6 @@ class ShadingBuilding(object):
     def starting_x_coordinate(self, value=None):
         """  Corresponds to IDD Field `Starting X Coordinate`
         Starting coordinate is the Lower Left Corner of the Shade
-        
-        {u'note': [u'Starting coordinate is the Lower Left Corner of the Shade'], u'units': u'm', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Starting X Coordinate`
@@ -34777,8 +33261,6 @@ class ShadingBuilding(object):
     @starting_y_coordinate.setter
     def starting_y_coordinate(self, value=None):
         """  Corresponds to IDD Field `Starting Y Coordinate`
-        
-        {u'units': u'm', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Starting Y Coordinate`
@@ -34809,8 +33291,6 @@ class ShadingBuilding(object):
     @starting_z_coordinate.setter
     def starting_z_coordinate(self, value=None):
         """  Corresponds to IDD Field `Starting Z Coordinate`
-        
-        {u'units': u'm', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Starting Z Coordinate`
@@ -34841,8 +33321,6 @@ class ShadingBuilding(object):
     @length.setter
     def length(self, value=None):
         """  Corresponds to IDD Field `Length`
-        
-        {u'units': u'm', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Length`
@@ -34873,8 +33351,6 @@ class ShadingBuilding(object):
     @height.setter
     def height(self, value=None):
         """  Corresponds to IDD Field `Height`
-        
-        {u'units': u'm', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Height`
@@ -37868,8 +36344,6 @@ class ShadingSiteDetailed(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'reference': u'AllShadingSurfNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -37906,8 +36380,6 @@ class ShadingSiteDetailed(object):
     def transmittance_schedule_name(self, value=None):
         """  Corresponds to IDD Field `Transmittance Schedule Name`
         Transmittance schedule for the shading device, defaults to zero (always opaque)
-        
-        {u'note': [u'Transmittance schedule for the shading device, defaults to zero (always opaque)'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Transmittance Schedule Name`
@@ -37941,13 +36413,11 @@ class ShadingSiteDetailed(object):
         return self._data["Number of Vertices"]
 
     @number_of_vertices.setter
-    def number_of_vertices(self, value="autocalculate" ):
+    def number_of_vertices(self, value="autocalculate"):
         """  Corresponds to IDD Field `Number of Vertices`
         shown with 6 vertex coordinates -- extensible object
         Rules for vertices are given in GlobalGeometryRules coordinates --
         For this object all surface coordinates are in world coordinates.
-        
-        {'pytype': 'float', u'default': '"autocalculate"', u'required-field': True, u'note': [u'shown with 6 vertex coordinates -- extensible object', u'Rules for vertices are given in GlobalGeometryRules coordinates --', u'For this object all surface coordinates are in world coordinates.'], u'minimum': '3.0', u'autocalculatable': True, 'type': 'real'}
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `Number of Vertices`
@@ -37963,7 +36433,7 @@ class ShadingSiteDetailed(object):
             try:
                 value_lower = str(value).lower()
                 if value_lower == "autocalculate":
-                    self._data["Number of Vertices"] = value
+                    self._data["Number of Vertices"] = "Autocalculate"
                     return
             except ValueError:
                 pass
@@ -37989,8 +36459,6 @@ class ShadingSiteDetailed(object):
     @vertex_1_xcoordinate.setter
     def vertex_1_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 1 X-coordinate`
-        
-        {u'units': u'm', 'pytype': 'float', u'type': u'real', u'required-field': True, u'begin-extensible': u''}
 
         Args:
             value (float): value for IDD Field `Vertex 1 X-coordinate`
@@ -38021,8 +36489,6 @@ class ShadingSiteDetailed(object):
     @vertex_1_ycoordinate.setter
     def vertex_1_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 1 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 1 Y-coordinate`
@@ -38053,8 +36519,6 @@ class ShadingSiteDetailed(object):
     @vertex_1_zcoordinate.setter
     def vertex_1_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 1 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 1 Z-coordinate`
@@ -38085,8 +36549,6 @@ class ShadingSiteDetailed(object):
     @vertex_2_xcoordinate.setter
     def vertex_2_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 2 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 2 X-coordinate`
@@ -38117,8 +36579,6 @@ class ShadingSiteDetailed(object):
     @vertex_2_ycoordinate.setter
     def vertex_2_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 2 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 2 Y-coordinate`
@@ -38149,8 +36609,6 @@ class ShadingSiteDetailed(object):
     @vertex_2_zcoordinate.setter
     def vertex_2_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 2 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 2 Z-coordinate`
@@ -38181,8 +36639,6 @@ class ShadingSiteDetailed(object):
     @vertex_3_xcoordinate.setter
     def vertex_3_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 3 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 3 X-coordinate`
@@ -38213,8 +36669,6 @@ class ShadingSiteDetailed(object):
     @vertex_3_ycoordinate.setter
     def vertex_3_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 3 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 3 Y-coordinate`
@@ -38245,8 +36699,6 @@ class ShadingSiteDetailed(object):
     @vertex_3_zcoordinate.setter
     def vertex_3_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 3 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 3 Z-coordinate`
@@ -38277,8 +36729,6 @@ class ShadingSiteDetailed(object):
     @vertex_4_xcoordinate.setter
     def vertex_4_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 4 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 4 X-coordinate`
@@ -38309,8 +36759,6 @@ class ShadingSiteDetailed(object):
     @vertex_4_ycoordinate.setter
     def vertex_4_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 4 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 4 Y-coordinate`
@@ -38341,8 +36789,6 @@ class ShadingSiteDetailed(object):
     @vertex_4_zcoordinate.setter
     def vertex_4_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 4 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 4 Z-coordinate`
@@ -38373,8 +36819,6 @@ class ShadingSiteDetailed(object):
     @vertex_5_xcoordinate.setter
     def vertex_5_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 5 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 5 X-coordinate`
@@ -38405,8 +36849,6 @@ class ShadingSiteDetailed(object):
     @vertex_5_ycoordinate.setter
     def vertex_5_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 5 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 5 Y-coordinate`
@@ -38437,8 +36879,6 @@ class ShadingSiteDetailed(object):
     @vertex_5_zcoordinate.setter
     def vertex_5_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 5 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 5 Z-coordinate`
@@ -38469,8 +36909,6 @@ class ShadingSiteDetailed(object):
     @vertex_6_xcoordinate.setter
     def vertex_6_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 6 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 6 X-coordinate`
@@ -38501,8 +36939,6 @@ class ShadingSiteDetailed(object):
     @vertex_6_ycoordinate.setter
     def vertex_6_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 6 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 6 Y-coordinate`
@@ -38533,8 +36969,6 @@ class ShadingSiteDetailed(object):
     @vertex_6_zcoordinate.setter
     def vertex_6_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 6 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 6 Z-coordinate`
@@ -38565,8 +36999,6 @@ class ShadingSiteDetailed(object):
     @vertex_7_xcoordinate.setter
     def vertex_7_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 7 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 7 X-coordinate`
@@ -38597,8 +37029,6 @@ class ShadingSiteDetailed(object):
     @vertex_7_ycoordinate.setter
     def vertex_7_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 7 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 7 Y-coordinate`
@@ -38629,8 +37059,6 @@ class ShadingSiteDetailed(object):
     @vertex_7_zcoordinate.setter
     def vertex_7_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 7 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 7 Z-coordinate`
@@ -38661,8 +37089,6 @@ class ShadingSiteDetailed(object):
     @vertex_8_xcoordinate.setter
     def vertex_8_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 8 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 8 X-coordinate`
@@ -38693,8 +37119,6 @@ class ShadingSiteDetailed(object):
     @vertex_8_ycoordinate.setter
     def vertex_8_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 8 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 8 Y-coordinate`
@@ -38725,8 +37149,6 @@ class ShadingSiteDetailed(object):
     @vertex_8_zcoordinate.setter
     def vertex_8_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 8 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 8 Z-coordinate`
@@ -38757,8 +37179,6 @@ class ShadingSiteDetailed(object):
     @vertex_9_xcoordinate.setter
     def vertex_9_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 9 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 9 X-coordinate`
@@ -38789,8 +37209,6 @@ class ShadingSiteDetailed(object):
     @vertex_9_ycoordinate.setter
     def vertex_9_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 9 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 9 Y-coordinate`
@@ -38821,8 +37239,6 @@ class ShadingSiteDetailed(object):
     @vertex_9_zcoordinate.setter
     def vertex_9_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 9 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 9 Z-coordinate`
@@ -38853,8 +37269,6 @@ class ShadingSiteDetailed(object):
     @vertex_10_xcoordinate.setter
     def vertex_10_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 10 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 10 X-coordinate`
@@ -38885,8 +37299,6 @@ class ShadingSiteDetailed(object):
     @vertex_10_ycoordinate.setter
     def vertex_10_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 10 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 10 Y-coordinate`
@@ -38917,8 +37329,6 @@ class ShadingSiteDetailed(object):
     @vertex_10_zcoordinate.setter
     def vertex_10_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 10 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 10 Z-coordinate`
@@ -38949,8 +37359,6 @@ class ShadingSiteDetailed(object):
     @vertex_11_xcoordinate.setter
     def vertex_11_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 11 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 11 X-coordinate`
@@ -38981,8 +37389,6 @@ class ShadingSiteDetailed(object):
     @vertex_11_ycoordinate.setter
     def vertex_11_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 11 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 11 Y-coordinate`
@@ -39013,8 +37419,6 @@ class ShadingSiteDetailed(object):
     @vertex_11_zcoordinate.setter
     def vertex_11_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 11 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 11 Z-coordinate`
@@ -39045,8 +37449,6 @@ class ShadingSiteDetailed(object):
     @vertex_12_xcoordinate.setter
     def vertex_12_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 12 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 12 X-coordinate`
@@ -39077,8 +37479,6 @@ class ShadingSiteDetailed(object):
     @vertex_12_ycoordinate.setter
     def vertex_12_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 12 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 12 Y-coordinate`
@@ -39109,8 +37509,6 @@ class ShadingSiteDetailed(object):
     @vertex_12_zcoordinate.setter
     def vertex_12_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 12 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 12 Z-coordinate`
@@ -39141,8 +37539,6 @@ class ShadingSiteDetailed(object):
     @vertex_13_xcoordinate.setter
     def vertex_13_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 13 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 13 X-coordinate`
@@ -39173,8 +37569,6 @@ class ShadingSiteDetailed(object):
     @vertex_13_ycoordinate.setter
     def vertex_13_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 13 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 13 Y-coordinate`
@@ -39205,8 +37599,6 @@ class ShadingSiteDetailed(object):
     @vertex_13_zcoordinate.setter
     def vertex_13_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 13 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 13 Z-coordinate`
@@ -39237,8 +37629,6 @@ class ShadingSiteDetailed(object):
     @vertex_14_xcoordinate.setter
     def vertex_14_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 14 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 14 X-coordinate`
@@ -39269,8 +37659,6 @@ class ShadingSiteDetailed(object):
     @vertex_14_ycoordinate.setter
     def vertex_14_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 14 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 14 Y-coordinate`
@@ -39301,8 +37689,6 @@ class ShadingSiteDetailed(object):
     @vertex_14_zcoordinate.setter
     def vertex_14_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 14 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 14 Z-coordinate`
@@ -39333,8 +37719,6 @@ class ShadingSiteDetailed(object):
     @vertex_15_xcoordinate.setter
     def vertex_15_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 15 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 15 X-coordinate`
@@ -39365,8 +37749,6 @@ class ShadingSiteDetailed(object):
     @vertex_15_ycoordinate.setter
     def vertex_15_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 15 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 15 Y-coordinate`
@@ -39397,8 +37779,6 @@ class ShadingSiteDetailed(object):
     @vertex_15_zcoordinate.setter
     def vertex_15_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 15 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 15 Z-coordinate`
@@ -39429,8 +37809,6 @@ class ShadingSiteDetailed(object):
     @vertex_16_xcoordinate.setter
     def vertex_16_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 16 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 16 X-coordinate`
@@ -39461,8 +37839,6 @@ class ShadingSiteDetailed(object):
     @vertex_16_ycoordinate.setter
     def vertex_16_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 16 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 16 Y-coordinate`
@@ -39493,8 +37869,6 @@ class ShadingSiteDetailed(object):
     @vertex_16_zcoordinate.setter
     def vertex_16_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 16 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 16 Z-coordinate`
@@ -39525,8 +37899,6 @@ class ShadingSiteDetailed(object):
     @vertex_17_xcoordinate.setter
     def vertex_17_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 17 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 17 X-coordinate`
@@ -39557,8 +37929,6 @@ class ShadingSiteDetailed(object):
     @vertex_17_ycoordinate.setter
     def vertex_17_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 17 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 17 Y-coordinate`
@@ -39589,8 +37959,6 @@ class ShadingSiteDetailed(object):
     @vertex_17_zcoordinate.setter
     def vertex_17_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 17 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 17 Z-coordinate`
@@ -39621,8 +37989,6 @@ class ShadingSiteDetailed(object):
     @vertex_18_xcoordinate.setter
     def vertex_18_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 18 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 18 X-coordinate`
@@ -39653,8 +38019,6 @@ class ShadingSiteDetailed(object):
     @vertex_18_ycoordinate.setter
     def vertex_18_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 18 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 18 Y-coordinate`
@@ -39685,8 +38049,6 @@ class ShadingSiteDetailed(object):
     @vertex_18_zcoordinate.setter
     def vertex_18_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 18 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 18 Z-coordinate`
@@ -39717,8 +38079,6 @@ class ShadingSiteDetailed(object):
     @vertex_19_xcoordinate.setter
     def vertex_19_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 19 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 19 X-coordinate`
@@ -39749,8 +38109,6 @@ class ShadingSiteDetailed(object):
     @vertex_19_ycoordinate.setter
     def vertex_19_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 19 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 19 Y-coordinate`
@@ -39781,8 +38139,6 @@ class ShadingSiteDetailed(object):
     @vertex_19_zcoordinate.setter
     def vertex_19_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 19 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 19 Z-coordinate`
@@ -39813,8 +38169,6 @@ class ShadingSiteDetailed(object):
     @vertex_20_xcoordinate.setter
     def vertex_20_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 20 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 20 X-coordinate`
@@ -39845,8 +38199,6 @@ class ShadingSiteDetailed(object):
     @vertex_20_ycoordinate.setter
     def vertex_20_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 20 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 20 Y-coordinate`
@@ -39877,8 +38229,6 @@ class ShadingSiteDetailed(object):
     @vertex_20_zcoordinate.setter
     def vertex_20_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 20 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 20 Z-coordinate`
@@ -39909,8 +38259,6 @@ class ShadingSiteDetailed(object):
     @vertex_21_xcoordinate.setter
     def vertex_21_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 21 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 21 X-coordinate`
@@ -39941,8 +38289,6 @@ class ShadingSiteDetailed(object):
     @vertex_21_ycoordinate.setter
     def vertex_21_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 21 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 21 Y-coordinate`
@@ -39973,8 +38319,6 @@ class ShadingSiteDetailed(object):
     @vertex_21_zcoordinate.setter
     def vertex_21_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 21 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 21 Z-coordinate`
@@ -40005,8 +38349,6 @@ class ShadingSiteDetailed(object):
     @vertex_22_xcoordinate.setter
     def vertex_22_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 22 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 22 X-coordinate`
@@ -40037,8 +38379,6 @@ class ShadingSiteDetailed(object):
     @vertex_22_ycoordinate.setter
     def vertex_22_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 22 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 22 Y-coordinate`
@@ -40069,8 +38409,6 @@ class ShadingSiteDetailed(object):
     @vertex_22_zcoordinate.setter
     def vertex_22_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 22 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 22 Z-coordinate`
@@ -40101,8 +38439,6 @@ class ShadingSiteDetailed(object):
     @vertex_23_xcoordinate.setter
     def vertex_23_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 23 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 23 X-coordinate`
@@ -40133,8 +38469,6 @@ class ShadingSiteDetailed(object):
     @vertex_23_ycoordinate.setter
     def vertex_23_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 23 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 23 Y-coordinate`
@@ -40165,8 +38499,6 @@ class ShadingSiteDetailed(object):
     @vertex_23_zcoordinate.setter
     def vertex_23_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 23 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 23 Z-coordinate`
@@ -40197,8 +38529,6 @@ class ShadingSiteDetailed(object):
     @vertex_24_xcoordinate.setter
     def vertex_24_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 24 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 24 X-coordinate`
@@ -40229,8 +38559,6 @@ class ShadingSiteDetailed(object):
     @vertex_24_ycoordinate.setter
     def vertex_24_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 24 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 24 Y-coordinate`
@@ -40261,8 +38589,6 @@ class ShadingSiteDetailed(object):
     @vertex_24_zcoordinate.setter
     def vertex_24_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 24 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 24 Z-coordinate`
@@ -40293,8 +38619,6 @@ class ShadingSiteDetailed(object):
     @vertex_25_xcoordinate.setter
     def vertex_25_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 25 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 25 X-coordinate`
@@ -40325,8 +38649,6 @@ class ShadingSiteDetailed(object):
     @vertex_25_ycoordinate.setter
     def vertex_25_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 25 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 25 Y-coordinate`
@@ -40357,8 +38679,6 @@ class ShadingSiteDetailed(object):
     @vertex_25_zcoordinate.setter
     def vertex_25_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 25 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 25 Z-coordinate`
@@ -40389,8 +38709,6 @@ class ShadingSiteDetailed(object):
     @vertex_26_xcoordinate.setter
     def vertex_26_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 26 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 26 X-coordinate`
@@ -40421,8 +38739,6 @@ class ShadingSiteDetailed(object):
     @vertex_26_ycoordinate.setter
     def vertex_26_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 26 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 26 Y-coordinate`
@@ -40453,8 +38769,6 @@ class ShadingSiteDetailed(object):
     @vertex_26_zcoordinate.setter
     def vertex_26_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 26 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 26 Z-coordinate`
@@ -40485,8 +38799,6 @@ class ShadingSiteDetailed(object):
     @vertex_27_xcoordinate.setter
     def vertex_27_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 27 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 27 X-coordinate`
@@ -40517,8 +38829,6 @@ class ShadingSiteDetailed(object):
     @vertex_27_ycoordinate.setter
     def vertex_27_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 27 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 27 Y-coordinate`
@@ -40549,8 +38859,6 @@ class ShadingSiteDetailed(object):
     @vertex_27_zcoordinate.setter
     def vertex_27_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 27 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 27 Z-coordinate`
@@ -40581,8 +38889,6 @@ class ShadingSiteDetailed(object):
     @vertex_28_xcoordinate.setter
     def vertex_28_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 28 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 28 X-coordinate`
@@ -40613,8 +38919,6 @@ class ShadingSiteDetailed(object):
     @vertex_28_ycoordinate.setter
     def vertex_28_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 28 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 28 Y-coordinate`
@@ -40645,8 +38949,6 @@ class ShadingSiteDetailed(object):
     @vertex_28_zcoordinate.setter
     def vertex_28_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 28 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 28 Z-coordinate`
@@ -40677,8 +38979,6 @@ class ShadingSiteDetailed(object):
     @vertex_29_xcoordinate.setter
     def vertex_29_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 29 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 29 X-coordinate`
@@ -40709,8 +39009,6 @@ class ShadingSiteDetailed(object):
     @vertex_29_ycoordinate.setter
     def vertex_29_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 29 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 29 Y-coordinate`
@@ -40741,8 +39039,6 @@ class ShadingSiteDetailed(object):
     @vertex_29_zcoordinate.setter
     def vertex_29_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 29 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 29 Z-coordinate`
@@ -40773,8 +39069,6 @@ class ShadingSiteDetailed(object):
     @vertex_30_xcoordinate.setter
     def vertex_30_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 30 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 30 X-coordinate`
@@ -40805,8 +39099,6 @@ class ShadingSiteDetailed(object):
     @vertex_30_ycoordinate.setter
     def vertex_30_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 30 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 30 Y-coordinate`
@@ -40837,8 +39129,6 @@ class ShadingSiteDetailed(object):
     @vertex_30_zcoordinate.setter
     def vertex_30_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 30 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 30 Z-coordinate`
@@ -40869,8 +39159,6 @@ class ShadingSiteDetailed(object):
     @vertex_31_xcoordinate.setter
     def vertex_31_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 31 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 31 X-coordinate`
@@ -40901,8 +39189,6 @@ class ShadingSiteDetailed(object):
     @vertex_31_ycoordinate.setter
     def vertex_31_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 31 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 31 Y-coordinate`
@@ -40933,8 +39219,6 @@ class ShadingSiteDetailed(object):
     @vertex_31_zcoordinate.setter
     def vertex_31_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 31 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 31 Z-coordinate`
@@ -40965,8 +39249,6 @@ class ShadingSiteDetailed(object):
     @vertex_32_xcoordinate.setter
     def vertex_32_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 32 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 32 X-coordinate`
@@ -40997,8 +39279,6 @@ class ShadingSiteDetailed(object):
     @vertex_32_ycoordinate.setter
     def vertex_32_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 32 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 32 Y-coordinate`
@@ -41029,8 +39309,6 @@ class ShadingSiteDetailed(object):
     @vertex_32_zcoordinate.setter
     def vertex_32_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 32 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 32 Z-coordinate`
@@ -41061,8 +39339,6 @@ class ShadingSiteDetailed(object):
     @vertex_33_xcoordinate.setter
     def vertex_33_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 33 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 33 X-coordinate`
@@ -41093,8 +39369,6 @@ class ShadingSiteDetailed(object):
     @vertex_33_ycoordinate.setter
     def vertex_33_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 33 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 33 Y-coordinate`
@@ -41125,8 +39399,6 @@ class ShadingSiteDetailed(object):
     @vertex_33_zcoordinate.setter
     def vertex_33_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 33 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 33 Z-coordinate`
@@ -41157,8 +39429,6 @@ class ShadingSiteDetailed(object):
     @vertex_34_xcoordinate.setter
     def vertex_34_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 34 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 34 X-coordinate`
@@ -41189,8 +39459,6 @@ class ShadingSiteDetailed(object):
     @vertex_34_ycoordinate.setter
     def vertex_34_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 34 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 34 Y-coordinate`
@@ -41221,8 +39489,6 @@ class ShadingSiteDetailed(object):
     @vertex_34_zcoordinate.setter
     def vertex_34_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 34 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 34 Z-coordinate`
@@ -41253,8 +39519,6 @@ class ShadingSiteDetailed(object):
     @vertex_35_xcoordinate.setter
     def vertex_35_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 35 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 35 X-coordinate`
@@ -41285,8 +39549,6 @@ class ShadingSiteDetailed(object):
     @vertex_35_ycoordinate.setter
     def vertex_35_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 35 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 35 Y-coordinate`
@@ -41317,8 +39579,6 @@ class ShadingSiteDetailed(object):
     @vertex_35_zcoordinate.setter
     def vertex_35_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 35 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 35 Z-coordinate`
@@ -41349,8 +39609,6 @@ class ShadingSiteDetailed(object):
     @vertex_36_xcoordinate.setter
     def vertex_36_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 36 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 36 X-coordinate`
@@ -41381,8 +39639,6 @@ class ShadingSiteDetailed(object):
     @vertex_36_ycoordinate.setter
     def vertex_36_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 36 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 36 Y-coordinate`
@@ -41413,8 +39669,6 @@ class ShadingSiteDetailed(object):
     @vertex_36_zcoordinate.setter
     def vertex_36_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 36 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 36 Z-coordinate`
@@ -41445,8 +39699,6 @@ class ShadingSiteDetailed(object):
     @vertex_37_xcoordinate.setter
     def vertex_37_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 37 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 37 X-coordinate`
@@ -41477,8 +39729,6 @@ class ShadingSiteDetailed(object):
     @vertex_37_ycoordinate.setter
     def vertex_37_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 37 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 37 Y-coordinate`
@@ -41509,8 +39759,6 @@ class ShadingSiteDetailed(object):
     @vertex_37_zcoordinate.setter
     def vertex_37_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 37 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 37 Z-coordinate`
@@ -41541,8 +39789,6 @@ class ShadingSiteDetailed(object):
     @vertex_38_xcoordinate.setter
     def vertex_38_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 38 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 38 X-coordinate`
@@ -41573,8 +39819,6 @@ class ShadingSiteDetailed(object):
     @vertex_38_ycoordinate.setter
     def vertex_38_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 38 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 38 Y-coordinate`
@@ -41605,8 +39849,6 @@ class ShadingSiteDetailed(object):
     @vertex_38_zcoordinate.setter
     def vertex_38_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 38 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 38 Z-coordinate`
@@ -41637,8 +39879,6 @@ class ShadingSiteDetailed(object):
     @vertex_39_xcoordinate.setter
     def vertex_39_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 39 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 39 X-coordinate`
@@ -41669,8 +39909,6 @@ class ShadingSiteDetailed(object):
     @vertex_39_ycoordinate.setter
     def vertex_39_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 39 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 39 Y-coordinate`
@@ -41701,8 +39939,6 @@ class ShadingSiteDetailed(object):
     @vertex_39_zcoordinate.setter
     def vertex_39_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 39 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 39 Z-coordinate`
@@ -41733,8 +39969,6 @@ class ShadingSiteDetailed(object):
     @vertex_40_xcoordinate.setter
     def vertex_40_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 40 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 40 X-coordinate`
@@ -41765,8 +39999,6 @@ class ShadingSiteDetailed(object):
     @vertex_40_ycoordinate.setter
     def vertex_40_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 40 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 40 Y-coordinate`
@@ -41797,8 +40029,6 @@ class ShadingSiteDetailed(object):
     @vertex_40_zcoordinate.setter
     def vertex_40_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 40 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 40 Z-coordinate`
@@ -41829,8 +40059,6 @@ class ShadingSiteDetailed(object):
     @vertex_41_xcoordinate.setter
     def vertex_41_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 41 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 41 X-coordinate`
@@ -41861,8 +40089,6 @@ class ShadingSiteDetailed(object):
     @vertex_41_ycoordinate.setter
     def vertex_41_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 41 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 41 Y-coordinate`
@@ -41893,8 +40119,6 @@ class ShadingSiteDetailed(object):
     @vertex_41_zcoordinate.setter
     def vertex_41_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 41 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 41 Z-coordinate`
@@ -41925,8 +40149,6 @@ class ShadingSiteDetailed(object):
     @vertex_42_xcoordinate.setter
     def vertex_42_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 42 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 42 X-coordinate`
@@ -41957,8 +40179,6 @@ class ShadingSiteDetailed(object):
     @vertex_42_ycoordinate.setter
     def vertex_42_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 42 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 42 Y-coordinate`
@@ -41989,8 +40209,6 @@ class ShadingSiteDetailed(object):
     @vertex_42_zcoordinate.setter
     def vertex_42_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 42 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 42 Z-coordinate`
@@ -42021,8 +40239,6 @@ class ShadingSiteDetailed(object):
     @vertex_43_xcoordinate.setter
     def vertex_43_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 43 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 43 X-coordinate`
@@ -42053,8 +40269,6 @@ class ShadingSiteDetailed(object):
     @vertex_43_ycoordinate.setter
     def vertex_43_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 43 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 43 Y-coordinate`
@@ -42085,8 +40299,6 @@ class ShadingSiteDetailed(object):
     @vertex_43_zcoordinate.setter
     def vertex_43_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 43 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 43 Z-coordinate`
@@ -42117,8 +40329,6 @@ class ShadingSiteDetailed(object):
     @vertex_44_xcoordinate.setter
     def vertex_44_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 44 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 44 X-coordinate`
@@ -42149,8 +40359,6 @@ class ShadingSiteDetailed(object):
     @vertex_44_ycoordinate.setter
     def vertex_44_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 44 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 44 Y-coordinate`
@@ -42181,8 +40389,6 @@ class ShadingSiteDetailed(object):
     @vertex_44_zcoordinate.setter
     def vertex_44_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 44 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 44 Z-coordinate`
@@ -42213,8 +40419,6 @@ class ShadingSiteDetailed(object):
     @vertex_45_xcoordinate.setter
     def vertex_45_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 45 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 45 X-coordinate`
@@ -42245,8 +40449,6 @@ class ShadingSiteDetailed(object):
     @vertex_45_ycoordinate.setter
     def vertex_45_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 45 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 45 Y-coordinate`
@@ -42277,8 +40479,6 @@ class ShadingSiteDetailed(object):
     @vertex_45_zcoordinate.setter
     def vertex_45_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 45 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 45 Z-coordinate`
@@ -42309,8 +40509,6 @@ class ShadingSiteDetailed(object):
     @vertex_46_xcoordinate.setter
     def vertex_46_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 46 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 46 X-coordinate`
@@ -42341,8 +40539,6 @@ class ShadingSiteDetailed(object):
     @vertex_46_ycoordinate.setter
     def vertex_46_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 46 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 46 Y-coordinate`
@@ -42373,8 +40569,6 @@ class ShadingSiteDetailed(object):
     @vertex_46_zcoordinate.setter
     def vertex_46_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 46 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 46 Z-coordinate`
@@ -42405,8 +40599,6 @@ class ShadingSiteDetailed(object):
     @vertex_47_xcoordinate.setter
     def vertex_47_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 47 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 47 X-coordinate`
@@ -42437,8 +40629,6 @@ class ShadingSiteDetailed(object):
     @vertex_47_ycoordinate.setter
     def vertex_47_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 47 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 47 Y-coordinate`
@@ -42469,8 +40659,6 @@ class ShadingSiteDetailed(object):
     @vertex_47_zcoordinate.setter
     def vertex_47_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 47 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 47 Z-coordinate`
@@ -42501,8 +40689,6 @@ class ShadingSiteDetailed(object):
     @vertex_48_xcoordinate.setter
     def vertex_48_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 48 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 48 X-coordinate`
@@ -42533,8 +40719,6 @@ class ShadingSiteDetailed(object):
     @vertex_48_ycoordinate.setter
     def vertex_48_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 48 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 48 Y-coordinate`
@@ -42565,8 +40749,6 @@ class ShadingSiteDetailed(object):
     @vertex_48_zcoordinate.setter
     def vertex_48_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 48 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 48 Z-coordinate`
@@ -42597,8 +40779,6 @@ class ShadingSiteDetailed(object):
     @vertex_49_xcoordinate.setter
     def vertex_49_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 49 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 49 X-coordinate`
@@ -42629,8 +40809,6 @@ class ShadingSiteDetailed(object):
     @vertex_49_ycoordinate.setter
     def vertex_49_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 49 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 49 Y-coordinate`
@@ -42661,8 +40839,6 @@ class ShadingSiteDetailed(object):
     @vertex_49_zcoordinate.setter
     def vertex_49_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 49 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 49 Z-coordinate`
@@ -42693,8 +40869,6 @@ class ShadingSiteDetailed(object):
     @vertex_50_xcoordinate.setter
     def vertex_50_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 50 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 50 X-coordinate`
@@ -42725,8 +40899,6 @@ class ShadingSiteDetailed(object):
     @vertex_50_ycoordinate.setter
     def vertex_50_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 50 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 50 Y-coordinate`
@@ -42757,8 +40929,6 @@ class ShadingSiteDetailed(object):
     @vertex_50_zcoordinate.setter
     def vertex_50_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 50 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 50 Z-coordinate`
@@ -42789,8 +40959,6 @@ class ShadingSiteDetailed(object):
     @vertex_51_xcoordinate.setter
     def vertex_51_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 51 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 51 X-coordinate`
@@ -42821,8 +40989,6 @@ class ShadingSiteDetailed(object):
     @vertex_51_ycoordinate.setter
     def vertex_51_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 51 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 51 Y-coordinate`
@@ -42853,8 +41019,6 @@ class ShadingSiteDetailed(object):
     @vertex_51_zcoordinate.setter
     def vertex_51_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 51 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 51 Z-coordinate`
@@ -42885,8 +41049,6 @@ class ShadingSiteDetailed(object):
     @vertex_52_xcoordinate.setter
     def vertex_52_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 52 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 52 X-coordinate`
@@ -42917,8 +41079,6 @@ class ShadingSiteDetailed(object):
     @vertex_52_ycoordinate.setter
     def vertex_52_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 52 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 52 Y-coordinate`
@@ -42949,8 +41109,6 @@ class ShadingSiteDetailed(object):
     @vertex_52_zcoordinate.setter
     def vertex_52_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 52 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 52 Z-coordinate`
@@ -42981,8 +41139,6 @@ class ShadingSiteDetailed(object):
     @vertex_53_xcoordinate.setter
     def vertex_53_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 53 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 53 X-coordinate`
@@ -43013,8 +41169,6 @@ class ShadingSiteDetailed(object):
     @vertex_53_ycoordinate.setter
     def vertex_53_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 53 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 53 Y-coordinate`
@@ -43045,8 +41199,6 @@ class ShadingSiteDetailed(object):
     @vertex_53_zcoordinate.setter
     def vertex_53_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 53 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 53 Z-coordinate`
@@ -43077,8 +41229,6 @@ class ShadingSiteDetailed(object):
     @vertex_54_xcoordinate.setter
     def vertex_54_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 54 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 54 X-coordinate`
@@ -43109,8 +41259,6 @@ class ShadingSiteDetailed(object):
     @vertex_54_ycoordinate.setter
     def vertex_54_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 54 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 54 Y-coordinate`
@@ -43141,8 +41289,6 @@ class ShadingSiteDetailed(object):
     @vertex_54_zcoordinate.setter
     def vertex_54_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 54 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 54 Z-coordinate`
@@ -43173,8 +41319,6 @@ class ShadingSiteDetailed(object):
     @vertex_55_xcoordinate.setter
     def vertex_55_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 55 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 55 X-coordinate`
@@ -43205,8 +41349,6 @@ class ShadingSiteDetailed(object):
     @vertex_55_ycoordinate.setter
     def vertex_55_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 55 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 55 Y-coordinate`
@@ -43237,8 +41379,6 @@ class ShadingSiteDetailed(object):
     @vertex_55_zcoordinate.setter
     def vertex_55_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 55 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 55 Z-coordinate`
@@ -43269,8 +41409,6 @@ class ShadingSiteDetailed(object):
     @vertex_56_xcoordinate.setter
     def vertex_56_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 56 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 56 X-coordinate`
@@ -43301,8 +41439,6 @@ class ShadingSiteDetailed(object):
     @vertex_56_ycoordinate.setter
     def vertex_56_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 56 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 56 Y-coordinate`
@@ -43333,8 +41469,6 @@ class ShadingSiteDetailed(object):
     @vertex_56_zcoordinate.setter
     def vertex_56_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 56 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 56 Z-coordinate`
@@ -43365,8 +41499,6 @@ class ShadingSiteDetailed(object):
     @vertex_57_xcoordinate.setter
     def vertex_57_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 57 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 57 X-coordinate`
@@ -43397,8 +41529,6 @@ class ShadingSiteDetailed(object):
     @vertex_57_ycoordinate.setter
     def vertex_57_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 57 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 57 Y-coordinate`
@@ -43429,8 +41559,6 @@ class ShadingSiteDetailed(object):
     @vertex_57_zcoordinate.setter
     def vertex_57_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 57 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 57 Z-coordinate`
@@ -43461,8 +41589,6 @@ class ShadingSiteDetailed(object):
     @vertex_58_xcoordinate.setter
     def vertex_58_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 58 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 58 X-coordinate`
@@ -43493,8 +41619,6 @@ class ShadingSiteDetailed(object):
     @vertex_58_ycoordinate.setter
     def vertex_58_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 58 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 58 Y-coordinate`
@@ -43525,8 +41649,6 @@ class ShadingSiteDetailed(object):
     @vertex_58_zcoordinate.setter
     def vertex_58_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 58 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 58 Z-coordinate`
@@ -43557,8 +41679,6 @@ class ShadingSiteDetailed(object):
     @vertex_59_xcoordinate.setter
     def vertex_59_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 59 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 59 X-coordinate`
@@ -43589,8 +41709,6 @@ class ShadingSiteDetailed(object):
     @vertex_59_ycoordinate.setter
     def vertex_59_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 59 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 59 Y-coordinate`
@@ -43621,8 +41739,6 @@ class ShadingSiteDetailed(object):
     @vertex_59_zcoordinate.setter
     def vertex_59_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 59 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 59 Z-coordinate`
@@ -43653,8 +41769,6 @@ class ShadingSiteDetailed(object):
     @vertex_60_xcoordinate.setter
     def vertex_60_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 60 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 60 X-coordinate`
@@ -43685,8 +41799,6 @@ class ShadingSiteDetailed(object):
     @vertex_60_ycoordinate.setter
     def vertex_60_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 60 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 60 Y-coordinate`
@@ -43717,8 +41829,6 @@ class ShadingSiteDetailed(object):
     @vertex_60_zcoordinate.setter
     def vertex_60_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 60 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 60 Z-coordinate`
@@ -43749,8 +41859,6 @@ class ShadingSiteDetailed(object):
     @vertex_61_xcoordinate.setter
     def vertex_61_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 61 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 61 X-coordinate`
@@ -43781,8 +41889,6 @@ class ShadingSiteDetailed(object):
     @vertex_61_ycoordinate.setter
     def vertex_61_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 61 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 61 Y-coordinate`
@@ -43813,8 +41919,6 @@ class ShadingSiteDetailed(object):
     @vertex_61_zcoordinate.setter
     def vertex_61_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 61 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 61 Z-coordinate`
@@ -43845,8 +41949,6 @@ class ShadingSiteDetailed(object):
     @vertex_62_xcoordinate.setter
     def vertex_62_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 62 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 62 X-coordinate`
@@ -43877,8 +41979,6 @@ class ShadingSiteDetailed(object):
     @vertex_62_ycoordinate.setter
     def vertex_62_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 62 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 62 Y-coordinate`
@@ -43909,8 +42009,6 @@ class ShadingSiteDetailed(object):
     @vertex_62_zcoordinate.setter
     def vertex_62_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 62 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 62 Z-coordinate`
@@ -43941,8 +42039,6 @@ class ShadingSiteDetailed(object):
     @vertex_63_xcoordinate.setter
     def vertex_63_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 63 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 63 X-coordinate`
@@ -43973,8 +42069,6 @@ class ShadingSiteDetailed(object):
     @vertex_63_ycoordinate.setter
     def vertex_63_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 63 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 63 Y-coordinate`
@@ -44005,8 +42099,6 @@ class ShadingSiteDetailed(object):
     @vertex_63_zcoordinate.setter
     def vertex_63_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 63 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 63 Z-coordinate`
@@ -44037,8 +42129,6 @@ class ShadingSiteDetailed(object):
     @vertex_64_xcoordinate.setter
     def vertex_64_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 64 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 64 X-coordinate`
@@ -44069,8 +42159,6 @@ class ShadingSiteDetailed(object):
     @vertex_64_ycoordinate.setter
     def vertex_64_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 64 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 64 Y-coordinate`
@@ -44101,8 +42189,6 @@ class ShadingSiteDetailed(object):
     @vertex_64_zcoordinate.setter
     def vertex_64_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 64 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 64 Z-coordinate`
@@ -44133,8 +42219,6 @@ class ShadingSiteDetailed(object):
     @vertex_65_xcoordinate.setter
     def vertex_65_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 65 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 65 X-coordinate`
@@ -44165,8 +42249,6 @@ class ShadingSiteDetailed(object):
     @vertex_65_ycoordinate.setter
     def vertex_65_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 65 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 65 Y-coordinate`
@@ -44197,8 +42279,6 @@ class ShadingSiteDetailed(object):
     @vertex_65_zcoordinate.setter
     def vertex_65_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 65 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 65 Z-coordinate`
@@ -44229,8 +42309,6 @@ class ShadingSiteDetailed(object):
     @vertex_66_xcoordinate.setter
     def vertex_66_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 66 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 66 X-coordinate`
@@ -44261,8 +42339,6 @@ class ShadingSiteDetailed(object):
     @vertex_66_ycoordinate.setter
     def vertex_66_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 66 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 66 Y-coordinate`
@@ -44293,8 +42369,6 @@ class ShadingSiteDetailed(object):
     @vertex_66_zcoordinate.setter
     def vertex_66_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 66 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 66 Z-coordinate`
@@ -44325,8 +42399,6 @@ class ShadingSiteDetailed(object):
     @vertex_67_xcoordinate.setter
     def vertex_67_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 67 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 67 X-coordinate`
@@ -44357,8 +42429,6 @@ class ShadingSiteDetailed(object):
     @vertex_67_ycoordinate.setter
     def vertex_67_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 67 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 67 Y-coordinate`
@@ -44389,8 +42459,6 @@ class ShadingSiteDetailed(object):
     @vertex_67_zcoordinate.setter
     def vertex_67_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 67 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 67 Z-coordinate`
@@ -44421,8 +42489,6 @@ class ShadingSiteDetailed(object):
     @vertex_68_xcoordinate.setter
     def vertex_68_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 68 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 68 X-coordinate`
@@ -44453,8 +42519,6 @@ class ShadingSiteDetailed(object):
     @vertex_68_ycoordinate.setter
     def vertex_68_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 68 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 68 Y-coordinate`
@@ -44485,8 +42549,6 @@ class ShadingSiteDetailed(object):
     @vertex_68_zcoordinate.setter
     def vertex_68_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 68 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 68 Z-coordinate`
@@ -44517,8 +42579,6 @@ class ShadingSiteDetailed(object):
     @vertex_69_xcoordinate.setter
     def vertex_69_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 69 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 69 X-coordinate`
@@ -44549,8 +42609,6 @@ class ShadingSiteDetailed(object):
     @vertex_69_ycoordinate.setter
     def vertex_69_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 69 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 69 Y-coordinate`
@@ -44581,8 +42639,6 @@ class ShadingSiteDetailed(object):
     @vertex_69_zcoordinate.setter
     def vertex_69_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 69 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 69 Z-coordinate`
@@ -44613,8 +42669,6 @@ class ShadingSiteDetailed(object):
     @vertex_70_xcoordinate.setter
     def vertex_70_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 70 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 70 X-coordinate`
@@ -44645,8 +42699,6 @@ class ShadingSiteDetailed(object):
     @vertex_70_ycoordinate.setter
     def vertex_70_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 70 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 70 Y-coordinate`
@@ -44677,8 +42729,6 @@ class ShadingSiteDetailed(object):
     @vertex_70_zcoordinate.setter
     def vertex_70_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 70 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 70 Z-coordinate`
@@ -44709,8 +42759,6 @@ class ShadingSiteDetailed(object):
     @vertex_71_xcoordinate.setter
     def vertex_71_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 71 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 71 X-coordinate`
@@ -44741,8 +42789,6 @@ class ShadingSiteDetailed(object):
     @vertex_71_ycoordinate.setter
     def vertex_71_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 71 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 71 Y-coordinate`
@@ -44773,8 +42819,6 @@ class ShadingSiteDetailed(object):
     @vertex_71_zcoordinate.setter
     def vertex_71_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 71 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 71 Z-coordinate`
@@ -44805,8 +42849,6 @@ class ShadingSiteDetailed(object):
     @vertex_72_xcoordinate.setter
     def vertex_72_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 72 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 72 X-coordinate`
@@ -44837,8 +42879,6 @@ class ShadingSiteDetailed(object):
     @vertex_72_ycoordinate.setter
     def vertex_72_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 72 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 72 Y-coordinate`
@@ -44869,8 +42909,6 @@ class ShadingSiteDetailed(object):
     @vertex_72_zcoordinate.setter
     def vertex_72_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 72 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 72 Z-coordinate`
@@ -44901,8 +42939,6 @@ class ShadingSiteDetailed(object):
     @vertex_73_xcoordinate.setter
     def vertex_73_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 73 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 73 X-coordinate`
@@ -44933,8 +42969,6 @@ class ShadingSiteDetailed(object):
     @vertex_73_ycoordinate.setter
     def vertex_73_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 73 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 73 Y-coordinate`
@@ -44965,8 +42999,6 @@ class ShadingSiteDetailed(object):
     @vertex_73_zcoordinate.setter
     def vertex_73_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 73 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 73 Z-coordinate`
@@ -44997,8 +43029,6 @@ class ShadingSiteDetailed(object):
     @vertex_74_xcoordinate.setter
     def vertex_74_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 74 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 74 X-coordinate`
@@ -45029,8 +43059,6 @@ class ShadingSiteDetailed(object):
     @vertex_74_ycoordinate.setter
     def vertex_74_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 74 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 74 Y-coordinate`
@@ -45061,8 +43089,6 @@ class ShadingSiteDetailed(object):
     @vertex_74_zcoordinate.setter
     def vertex_74_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 74 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 74 Z-coordinate`
@@ -45093,8 +43119,6 @@ class ShadingSiteDetailed(object):
     @vertex_75_xcoordinate.setter
     def vertex_75_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 75 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 75 X-coordinate`
@@ -45125,8 +43149,6 @@ class ShadingSiteDetailed(object):
     @vertex_75_ycoordinate.setter
     def vertex_75_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 75 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 75 Y-coordinate`
@@ -45157,8 +43179,6 @@ class ShadingSiteDetailed(object):
     @vertex_75_zcoordinate.setter
     def vertex_75_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 75 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 75 Z-coordinate`
@@ -45189,8 +43209,6 @@ class ShadingSiteDetailed(object):
     @vertex_76_xcoordinate.setter
     def vertex_76_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 76 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 76 X-coordinate`
@@ -45221,8 +43239,6 @@ class ShadingSiteDetailed(object):
     @vertex_76_ycoordinate.setter
     def vertex_76_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 76 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 76 Y-coordinate`
@@ -45253,8 +43269,6 @@ class ShadingSiteDetailed(object):
     @vertex_76_zcoordinate.setter
     def vertex_76_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 76 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 76 Z-coordinate`
@@ -45285,8 +43299,6 @@ class ShadingSiteDetailed(object):
     @vertex_77_xcoordinate.setter
     def vertex_77_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 77 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 77 X-coordinate`
@@ -45317,8 +43329,6 @@ class ShadingSiteDetailed(object):
     @vertex_77_ycoordinate.setter
     def vertex_77_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 77 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 77 Y-coordinate`
@@ -45349,8 +43359,6 @@ class ShadingSiteDetailed(object):
     @vertex_77_zcoordinate.setter
     def vertex_77_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 77 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 77 Z-coordinate`
@@ -45381,8 +43389,6 @@ class ShadingSiteDetailed(object):
     @vertex_78_xcoordinate.setter
     def vertex_78_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 78 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 78 X-coordinate`
@@ -45413,8 +43419,6 @@ class ShadingSiteDetailed(object):
     @vertex_78_ycoordinate.setter
     def vertex_78_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 78 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 78 Y-coordinate`
@@ -45445,8 +43449,6 @@ class ShadingSiteDetailed(object):
     @vertex_78_zcoordinate.setter
     def vertex_78_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 78 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 78 Z-coordinate`
@@ -45477,8 +43479,6 @@ class ShadingSiteDetailed(object):
     @vertex_79_xcoordinate.setter
     def vertex_79_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 79 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 79 X-coordinate`
@@ -45509,8 +43509,6 @@ class ShadingSiteDetailed(object):
     @vertex_79_ycoordinate.setter
     def vertex_79_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 79 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 79 Y-coordinate`
@@ -45541,8 +43539,6 @@ class ShadingSiteDetailed(object):
     @vertex_79_zcoordinate.setter
     def vertex_79_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 79 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 79 Z-coordinate`
@@ -45573,8 +43569,6 @@ class ShadingSiteDetailed(object):
     @vertex_80_xcoordinate.setter
     def vertex_80_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 80 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 80 X-coordinate`
@@ -45605,8 +43599,6 @@ class ShadingSiteDetailed(object):
     @vertex_80_ycoordinate.setter
     def vertex_80_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 80 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 80 Y-coordinate`
@@ -45637,8 +43629,6 @@ class ShadingSiteDetailed(object):
     @vertex_80_zcoordinate.setter
     def vertex_80_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 80 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 80 Z-coordinate`
@@ -45669,8 +43659,6 @@ class ShadingSiteDetailed(object):
     @vertex_81_xcoordinate.setter
     def vertex_81_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 81 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 81 X-coordinate`
@@ -45701,8 +43689,6 @@ class ShadingSiteDetailed(object):
     @vertex_81_ycoordinate.setter
     def vertex_81_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 81 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 81 Y-coordinate`
@@ -45733,8 +43719,6 @@ class ShadingSiteDetailed(object):
     @vertex_81_zcoordinate.setter
     def vertex_81_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 81 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 81 Z-coordinate`
@@ -45765,8 +43749,6 @@ class ShadingSiteDetailed(object):
     @vertex_82_xcoordinate.setter
     def vertex_82_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 82 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 82 X-coordinate`
@@ -45797,8 +43779,6 @@ class ShadingSiteDetailed(object):
     @vertex_82_ycoordinate.setter
     def vertex_82_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 82 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 82 Y-coordinate`
@@ -45829,8 +43809,6 @@ class ShadingSiteDetailed(object):
     @vertex_82_zcoordinate.setter
     def vertex_82_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 82 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 82 Z-coordinate`
@@ -45861,8 +43839,6 @@ class ShadingSiteDetailed(object):
     @vertex_83_xcoordinate.setter
     def vertex_83_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 83 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 83 X-coordinate`
@@ -45893,8 +43869,6 @@ class ShadingSiteDetailed(object):
     @vertex_83_ycoordinate.setter
     def vertex_83_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 83 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 83 Y-coordinate`
@@ -45925,8 +43899,6 @@ class ShadingSiteDetailed(object):
     @vertex_83_zcoordinate.setter
     def vertex_83_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 83 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 83 Z-coordinate`
@@ -45957,8 +43929,6 @@ class ShadingSiteDetailed(object):
     @vertex_84_xcoordinate.setter
     def vertex_84_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 84 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 84 X-coordinate`
@@ -45989,8 +43959,6 @@ class ShadingSiteDetailed(object):
     @vertex_84_ycoordinate.setter
     def vertex_84_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 84 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 84 Y-coordinate`
@@ -46021,8 +43989,6 @@ class ShadingSiteDetailed(object):
     @vertex_84_zcoordinate.setter
     def vertex_84_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 84 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 84 Z-coordinate`
@@ -46053,8 +44019,6 @@ class ShadingSiteDetailed(object):
     @vertex_85_xcoordinate.setter
     def vertex_85_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 85 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 85 X-coordinate`
@@ -46085,8 +44049,6 @@ class ShadingSiteDetailed(object):
     @vertex_85_ycoordinate.setter
     def vertex_85_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 85 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 85 Y-coordinate`
@@ -46117,8 +44079,6 @@ class ShadingSiteDetailed(object):
     @vertex_85_zcoordinate.setter
     def vertex_85_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 85 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 85 Z-coordinate`
@@ -46149,8 +44109,6 @@ class ShadingSiteDetailed(object):
     @vertex_86_xcoordinate.setter
     def vertex_86_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 86 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 86 X-coordinate`
@@ -46181,8 +44139,6 @@ class ShadingSiteDetailed(object):
     @vertex_86_ycoordinate.setter
     def vertex_86_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 86 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 86 Y-coordinate`
@@ -46213,8 +44169,6 @@ class ShadingSiteDetailed(object):
     @vertex_86_zcoordinate.setter
     def vertex_86_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 86 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 86 Z-coordinate`
@@ -46245,8 +44199,6 @@ class ShadingSiteDetailed(object):
     @vertex_87_xcoordinate.setter
     def vertex_87_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 87 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 87 X-coordinate`
@@ -46277,8 +44229,6 @@ class ShadingSiteDetailed(object):
     @vertex_87_ycoordinate.setter
     def vertex_87_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 87 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 87 Y-coordinate`
@@ -46309,8 +44259,6 @@ class ShadingSiteDetailed(object):
     @vertex_87_zcoordinate.setter
     def vertex_87_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 87 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 87 Z-coordinate`
@@ -46341,8 +44289,6 @@ class ShadingSiteDetailed(object):
     @vertex_88_xcoordinate.setter
     def vertex_88_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 88 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 88 X-coordinate`
@@ -46373,8 +44319,6 @@ class ShadingSiteDetailed(object):
     @vertex_88_ycoordinate.setter
     def vertex_88_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 88 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 88 Y-coordinate`
@@ -46405,8 +44349,6 @@ class ShadingSiteDetailed(object):
     @vertex_88_zcoordinate.setter
     def vertex_88_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 88 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 88 Z-coordinate`
@@ -46437,8 +44379,6 @@ class ShadingSiteDetailed(object):
     @vertex_89_xcoordinate.setter
     def vertex_89_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 89 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 89 X-coordinate`
@@ -46469,8 +44409,6 @@ class ShadingSiteDetailed(object):
     @vertex_89_ycoordinate.setter
     def vertex_89_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 89 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 89 Y-coordinate`
@@ -46501,8 +44439,6 @@ class ShadingSiteDetailed(object):
     @vertex_89_zcoordinate.setter
     def vertex_89_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 89 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 89 Z-coordinate`
@@ -46533,8 +44469,6 @@ class ShadingSiteDetailed(object):
     @vertex_90_xcoordinate.setter
     def vertex_90_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 90 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 90 X-coordinate`
@@ -46565,8 +44499,6 @@ class ShadingSiteDetailed(object):
     @vertex_90_ycoordinate.setter
     def vertex_90_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 90 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 90 Y-coordinate`
@@ -46597,8 +44529,6 @@ class ShadingSiteDetailed(object):
     @vertex_90_zcoordinate.setter
     def vertex_90_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 90 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 90 Z-coordinate`
@@ -46629,8 +44559,6 @@ class ShadingSiteDetailed(object):
     @vertex_91_xcoordinate.setter
     def vertex_91_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 91 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 91 X-coordinate`
@@ -46661,8 +44589,6 @@ class ShadingSiteDetailed(object):
     @vertex_91_ycoordinate.setter
     def vertex_91_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 91 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 91 Y-coordinate`
@@ -46693,8 +44619,6 @@ class ShadingSiteDetailed(object):
     @vertex_91_zcoordinate.setter
     def vertex_91_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 91 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 91 Z-coordinate`
@@ -46725,8 +44649,6 @@ class ShadingSiteDetailed(object):
     @vertex_92_xcoordinate.setter
     def vertex_92_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 92 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 92 X-coordinate`
@@ -46757,8 +44679,6 @@ class ShadingSiteDetailed(object):
     @vertex_92_ycoordinate.setter
     def vertex_92_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 92 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 92 Y-coordinate`
@@ -46789,8 +44709,6 @@ class ShadingSiteDetailed(object):
     @vertex_92_zcoordinate.setter
     def vertex_92_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 92 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 92 Z-coordinate`
@@ -46821,8 +44739,6 @@ class ShadingSiteDetailed(object):
     @vertex_93_xcoordinate.setter
     def vertex_93_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 93 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 93 X-coordinate`
@@ -46853,8 +44769,6 @@ class ShadingSiteDetailed(object):
     @vertex_93_ycoordinate.setter
     def vertex_93_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 93 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 93 Y-coordinate`
@@ -46885,8 +44799,6 @@ class ShadingSiteDetailed(object):
     @vertex_93_zcoordinate.setter
     def vertex_93_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 93 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 93 Z-coordinate`
@@ -46917,8 +44829,6 @@ class ShadingSiteDetailed(object):
     @vertex_94_xcoordinate.setter
     def vertex_94_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 94 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 94 X-coordinate`
@@ -46949,8 +44859,6 @@ class ShadingSiteDetailed(object):
     @vertex_94_ycoordinate.setter
     def vertex_94_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 94 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 94 Y-coordinate`
@@ -46981,8 +44889,6 @@ class ShadingSiteDetailed(object):
     @vertex_94_zcoordinate.setter
     def vertex_94_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 94 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 94 Z-coordinate`
@@ -47013,8 +44919,6 @@ class ShadingSiteDetailed(object):
     @vertex_95_xcoordinate.setter
     def vertex_95_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 95 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 95 X-coordinate`
@@ -47045,8 +44949,6 @@ class ShadingSiteDetailed(object):
     @vertex_95_ycoordinate.setter
     def vertex_95_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 95 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 95 Y-coordinate`
@@ -47077,8 +44979,6 @@ class ShadingSiteDetailed(object):
     @vertex_95_zcoordinate.setter
     def vertex_95_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 95 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 95 Z-coordinate`
@@ -47109,8 +45009,6 @@ class ShadingSiteDetailed(object):
     @vertex_96_xcoordinate.setter
     def vertex_96_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 96 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 96 X-coordinate`
@@ -47141,8 +45039,6 @@ class ShadingSiteDetailed(object):
     @vertex_96_ycoordinate.setter
     def vertex_96_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 96 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 96 Y-coordinate`
@@ -47173,8 +45069,6 @@ class ShadingSiteDetailed(object):
     @vertex_96_zcoordinate.setter
     def vertex_96_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 96 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 96 Z-coordinate`
@@ -47205,8 +45099,6 @@ class ShadingSiteDetailed(object):
     @vertex_97_xcoordinate.setter
     def vertex_97_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 97 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 97 X-coordinate`
@@ -47237,8 +45129,6 @@ class ShadingSiteDetailed(object):
     @vertex_97_ycoordinate.setter
     def vertex_97_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 97 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 97 Y-coordinate`
@@ -47269,8 +45159,6 @@ class ShadingSiteDetailed(object):
     @vertex_97_zcoordinate.setter
     def vertex_97_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 97 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 97 Z-coordinate`
@@ -47301,8 +45189,6 @@ class ShadingSiteDetailed(object):
     @vertex_98_xcoordinate.setter
     def vertex_98_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 98 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 98 X-coordinate`
@@ -47333,8 +45219,6 @@ class ShadingSiteDetailed(object):
     @vertex_98_ycoordinate.setter
     def vertex_98_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 98 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 98 Y-coordinate`
@@ -47365,8 +45249,6 @@ class ShadingSiteDetailed(object):
     @vertex_98_zcoordinate.setter
     def vertex_98_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 98 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 98 Z-coordinate`
@@ -47397,8 +45279,6 @@ class ShadingSiteDetailed(object):
     @vertex_99_xcoordinate.setter
     def vertex_99_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 99 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 99 X-coordinate`
@@ -47429,8 +45309,6 @@ class ShadingSiteDetailed(object):
     @vertex_99_ycoordinate.setter
     def vertex_99_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 99 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 99 Y-coordinate`
@@ -47461,8 +45339,6 @@ class ShadingSiteDetailed(object):
     @vertex_99_zcoordinate.setter
     def vertex_99_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 99 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 99 Z-coordinate`
@@ -47493,8 +45369,6 @@ class ShadingSiteDetailed(object):
     @vertex_100_xcoordinate.setter
     def vertex_100_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 100 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 100 X-coordinate`
@@ -47525,8 +45399,6 @@ class ShadingSiteDetailed(object):
     @vertex_100_ycoordinate.setter
     def vertex_100_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 100 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 100 Y-coordinate`
@@ -47557,8 +45429,6 @@ class ShadingSiteDetailed(object):
     @vertex_100_zcoordinate.setter
     def vertex_100_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 100 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 100 Z-coordinate`
@@ -47589,8 +45459,6 @@ class ShadingSiteDetailed(object):
     @vertex_101_xcoordinate.setter
     def vertex_101_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 101 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 101 X-coordinate`
@@ -47621,8 +45489,6 @@ class ShadingSiteDetailed(object):
     @vertex_101_ycoordinate.setter
     def vertex_101_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 101 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 101 Y-coordinate`
@@ -47653,8 +45519,6 @@ class ShadingSiteDetailed(object):
     @vertex_101_zcoordinate.setter
     def vertex_101_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 101 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 101 Z-coordinate`
@@ -47685,8 +45549,6 @@ class ShadingSiteDetailed(object):
     @vertex_102_xcoordinate.setter
     def vertex_102_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 102 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 102 X-coordinate`
@@ -47717,8 +45579,6 @@ class ShadingSiteDetailed(object):
     @vertex_102_ycoordinate.setter
     def vertex_102_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 102 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 102 Y-coordinate`
@@ -47749,8 +45609,6 @@ class ShadingSiteDetailed(object):
     @vertex_102_zcoordinate.setter
     def vertex_102_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 102 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 102 Z-coordinate`
@@ -47781,8 +45639,6 @@ class ShadingSiteDetailed(object):
     @vertex_103_xcoordinate.setter
     def vertex_103_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 103 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 103 X-coordinate`
@@ -47813,8 +45669,6 @@ class ShadingSiteDetailed(object):
     @vertex_103_ycoordinate.setter
     def vertex_103_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 103 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 103 Y-coordinate`
@@ -47845,8 +45699,6 @@ class ShadingSiteDetailed(object):
     @vertex_103_zcoordinate.setter
     def vertex_103_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 103 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 103 Z-coordinate`
@@ -47877,8 +45729,6 @@ class ShadingSiteDetailed(object):
     @vertex_104_xcoordinate.setter
     def vertex_104_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 104 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 104 X-coordinate`
@@ -47909,8 +45759,6 @@ class ShadingSiteDetailed(object):
     @vertex_104_ycoordinate.setter
     def vertex_104_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 104 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 104 Y-coordinate`
@@ -47941,8 +45789,6 @@ class ShadingSiteDetailed(object):
     @vertex_104_zcoordinate.setter
     def vertex_104_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 104 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 104 Z-coordinate`
@@ -47973,8 +45819,6 @@ class ShadingSiteDetailed(object):
     @vertex_105_xcoordinate.setter
     def vertex_105_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 105 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 105 X-coordinate`
@@ -48005,8 +45849,6 @@ class ShadingSiteDetailed(object):
     @vertex_105_ycoordinate.setter
     def vertex_105_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 105 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 105 Y-coordinate`
@@ -48037,8 +45879,6 @@ class ShadingSiteDetailed(object):
     @vertex_105_zcoordinate.setter
     def vertex_105_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 105 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 105 Z-coordinate`
@@ -48069,8 +45909,6 @@ class ShadingSiteDetailed(object):
     @vertex_106_xcoordinate.setter
     def vertex_106_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 106 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 106 X-coordinate`
@@ -48101,8 +45939,6 @@ class ShadingSiteDetailed(object):
     @vertex_106_ycoordinate.setter
     def vertex_106_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 106 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 106 Y-coordinate`
@@ -48133,8 +45969,6 @@ class ShadingSiteDetailed(object):
     @vertex_106_zcoordinate.setter
     def vertex_106_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 106 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 106 Z-coordinate`
@@ -48165,8 +45999,6 @@ class ShadingSiteDetailed(object):
     @vertex_107_xcoordinate.setter
     def vertex_107_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 107 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 107 X-coordinate`
@@ -48197,8 +46029,6 @@ class ShadingSiteDetailed(object):
     @vertex_107_ycoordinate.setter
     def vertex_107_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 107 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 107 Y-coordinate`
@@ -48229,8 +46059,6 @@ class ShadingSiteDetailed(object):
     @vertex_107_zcoordinate.setter
     def vertex_107_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 107 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 107 Z-coordinate`
@@ -48261,8 +46089,6 @@ class ShadingSiteDetailed(object):
     @vertex_108_xcoordinate.setter
     def vertex_108_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 108 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 108 X-coordinate`
@@ -48293,8 +46119,6 @@ class ShadingSiteDetailed(object):
     @vertex_108_ycoordinate.setter
     def vertex_108_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 108 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 108 Y-coordinate`
@@ -48325,8 +46149,6 @@ class ShadingSiteDetailed(object):
     @vertex_108_zcoordinate.setter
     def vertex_108_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 108 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 108 Z-coordinate`
@@ -48357,8 +46179,6 @@ class ShadingSiteDetailed(object):
     @vertex_109_xcoordinate.setter
     def vertex_109_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 109 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 109 X-coordinate`
@@ -48389,8 +46209,6 @@ class ShadingSiteDetailed(object):
     @vertex_109_ycoordinate.setter
     def vertex_109_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 109 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 109 Y-coordinate`
@@ -48421,8 +46239,6 @@ class ShadingSiteDetailed(object):
     @vertex_109_zcoordinate.setter
     def vertex_109_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 109 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 109 Z-coordinate`
@@ -48453,8 +46269,6 @@ class ShadingSiteDetailed(object):
     @vertex_110_xcoordinate.setter
     def vertex_110_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 110 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 110 X-coordinate`
@@ -48485,8 +46299,6 @@ class ShadingSiteDetailed(object):
     @vertex_110_ycoordinate.setter
     def vertex_110_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 110 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 110 Y-coordinate`
@@ -48517,8 +46329,6 @@ class ShadingSiteDetailed(object):
     @vertex_110_zcoordinate.setter
     def vertex_110_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 110 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 110 Z-coordinate`
@@ -48549,8 +46359,6 @@ class ShadingSiteDetailed(object):
     @vertex_111_xcoordinate.setter
     def vertex_111_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 111 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 111 X-coordinate`
@@ -48581,8 +46389,6 @@ class ShadingSiteDetailed(object):
     @vertex_111_ycoordinate.setter
     def vertex_111_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 111 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 111 Y-coordinate`
@@ -48613,8 +46419,6 @@ class ShadingSiteDetailed(object):
     @vertex_111_zcoordinate.setter
     def vertex_111_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 111 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 111 Z-coordinate`
@@ -48645,8 +46449,6 @@ class ShadingSiteDetailed(object):
     @vertex_112_xcoordinate.setter
     def vertex_112_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 112 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 112 X-coordinate`
@@ -48677,8 +46479,6 @@ class ShadingSiteDetailed(object):
     @vertex_112_ycoordinate.setter
     def vertex_112_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 112 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 112 Y-coordinate`
@@ -48709,8 +46509,6 @@ class ShadingSiteDetailed(object):
     @vertex_112_zcoordinate.setter
     def vertex_112_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 112 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 112 Z-coordinate`
@@ -48741,8 +46539,6 @@ class ShadingSiteDetailed(object):
     @vertex_113_xcoordinate.setter
     def vertex_113_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 113 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 113 X-coordinate`
@@ -48773,8 +46569,6 @@ class ShadingSiteDetailed(object):
     @vertex_113_ycoordinate.setter
     def vertex_113_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 113 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 113 Y-coordinate`
@@ -48805,8 +46599,6 @@ class ShadingSiteDetailed(object):
     @vertex_113_zcoordinate.setter
     def vertex_113_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 113 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 113 Z-coordinate`
@@ -48837,8 +46629,6 @@ class ShadingSiteDetailed(object):
     @vertex_114_xcoordinate.setter
     def vertex_114_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 114 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 114 X-coordinate`
@@ -48869,8 +46659,6 @@ class ShadingSiteDetailed(object):
     @vertex_114_ycoordinate.setter
     def vertex_114_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 114 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 114 Y-coordinate`
@@ -48901,8 +46689,6 @@ class ShadingSiteDetailed(object):
     @vertex_114_zcoordinate.setter
     def vertex_114_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 114 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 114 Z-coordinate`
@@ -48933,8 +46719,6 @@ class ShadingSiteDetailed(object):
     @vertex_115_xcoordinate.setter
     def vertex_115_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 115 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 115 X-coordinate`
@@ -48965,8 +46749,6 @@ class ShadingSiteDetailed(object):
     @vertex_115_ycoordinate.setter
     def vertex_115_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 115 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 115 Y-coordinate`
@@ -48997,8 +46779,6 @@ class ShadingSiteDetailed(object):
     @vertex_115_zcoordinate.setter
     def vertex_115_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 115 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 115 Z-coordinate`
@@ -49029,8 +46809,6 @@ class ShadingSiteDetailed(object):
     @vertex_116_xcoordinate.setter
     def vertex_116_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 116 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 116 X-coordinate`
@@ -49061,8 +46839,6 @@ class ShadingSiteDetailed(object):
     @vertex_116_ycoordinate.setter
     def vertex_116_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 116 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 116 Y-coordinate`
@@ -49093,8 +46869,6 @@ class ShadingSiteDetailed(object):
     @vertex_116_zcoordinate.setter
     def vertex_116_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 116 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 116 Z-coordinate`
@@ -49125,8 +46899,6 @@ class ShadingSiteDetailed(object):
     @vertex_117_xcoordinate.setter
     def vertex_117_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 117 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 117 X-coordinate`
@@ -49157,8 +46929,6 @@ class ShadingSiteDetailed(object):
     @vertex_117_ycoordinate.setter
     def vertex_117_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 117 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 117 Y-coordinate`
@@ -49189,8 +46959,6 @@ class ShadingSiteDetailed(object):
     @vertex_117_zcoordinate.setter
     def vertex_117_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 117 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 117 Z-coordinate`
@@ -49221,8 +46989,6 @@ class ShadingSiteDetailed(object):
     @vertex_118_xcoordinate.setter
     def vertex_118_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 118 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 118 X-coordinate`
@@ -49253,8 +47019,6 @@ class ShadingSiteDetailed(object):
     @vertex_118_ycoordinate.setter
     def vertex_118_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 118 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 118 Y-coordinate`
@@ -49285,8 +47049,6 @@ class ShadingSiteDetailed(object):
     @vertex_118_zcoordinate.setter
     def vertex_118_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 118 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 118 Z-coordinate`
@@ -49317,8 +47079,6 @@ class ShadingSiteDetailed(object):
     @vertex_119_xcoordinate.setter
     def vertex_119_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 119 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 119 X-coordinate`
@@ -49349,8 +47109,6 @@ class ShadingSiteDetailed(object):
     @vertex_119_ycoordinate.setter
     def vertex_119_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 119 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 119 Y-coordinate`
@@ -49381,8 +47139,6 @@ class ShadingSiteDetailed(object):
     @vertex_119_zcoordinate.setter
     def vertex_119_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 119 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 119 Z-coordinate`
@@ -49413,8 +47169,6 @@ class ShadingSiteDetailed(object):
     @vertex_120_xcoordinate.setter
     def vertex_120_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 120 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 120 X-coordinate`
@@ -49445,8 +47199,6 @@ class ShadingSiteDetailed(object):
     @vertex_120_ycoordinate.setter
     def vertex_120_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 120 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 120 Y-coordinate`
@@ -49477,8 +47229,6 @@ class ShadingSiteDetailed(object):
     @vertex_120_zcoordinate.setter
     def vertex_120_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 120 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 120 Z-coordinate`
@@ -52472,8 +50222,6 @@ class ShadingBuildingDetailed(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'reference': u'AllShadingSurfNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -52510,8 +50258,6 @@ class ShadingBuildingDetailed(object):
     def transmittance_schedule_name(self, value=None):
         """  Corresponds to IDD Field `Transmittance Schedule Name`
         Transmittance schedule for the shading device, defaults to zero (always opaque)
-        
-        {u'note': [u'Transmittance schedule for the shading device, defaults to zero (always opaque)'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Transmittance Schedule Name`
@@ -52545,14 +50291,12 @@ class ShadingBuildingDetailed(object):
         return self._data["Number of Vertices"]
 
     @number_of_vertices.setter
-    def number_of_vertices(self, value="autocalculate" ):
+    def number_of_vertices(self, value="autocalculate"):
         """  Corresponds to IDD Field `Number of Vertices`
         shown with 6 vertex coordinates -- extensible object
         Rules for vertices are given in GlobalGeometryRules coordinates --
         For this object all surface coordinates are relative to the building origin (0,0,0)
         and will rotate with the BUILDING north axis.
-        
-        {'pytype': 'float', u'default': '"autocalculate"', u'required-field': True, u'note': [u'shown with 6 vertex coordinates -- extensible object', u'Rules for vertices are given in GlobalGeometryRules coordinates --', u'For this object all surface coordinates are relative to the building origin (0,0,0)', u'and will rotate with the BUILDING north axis.'], u'minimum': '3.0', u'autocalculatable': True, 'type': 'real'}
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `Number of Vertices`
@@ -52568,7 +50312,7 @@ class ShadingBuildingDetailed(object):
             try:
                 value_lower = str(value).lower()
                 if value_lower == "autocalculate":
-                    self._data["Number of Vertices"] = value
+                    self._data["Number of Vertices"] = "Autocalculate"
                     return
             except ValueError:
                 pass
@@ -52594,8 +50338,6 @@ class ShadingBuildingDetailed(object):
     @vertex_1_xcoordinate.setter
     def vertex_1_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 1 X-coordinate`
-        
-        {u'units': u'm', 'pytype': 'float', u'type': u'real', u'required-field': True, u'begin-extensible': u''}
 
         Args:
             value (float): value for IDD Field `Vertex 1 X-coordinate`
@@ -52626,8 +50368,6 @@ class ShadingBuildingDetailed(object):
     @vertex_1_ycoordinate.setter
     def vertex_1_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 1 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 1 Y-coordinate`
@@ -52658,8 +50398,6 @@ class ShadingBuildingDetailed(object):
     @vertex_1_zcoordinate.setter
     def vertex_1_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 1 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 1 Z-coordinate`
@@ -52690,8 +50428,6 @@ class ShadingBuildingDetailed(object):
     @vertex_2_xcoordinate.setter
     def vertex_2_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 2 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 2 X-coordinate`
@@ -52722,8 +50458,6 @@ class ShadingBuildingDetailed(object):
     @vertex_2_ycoordinate.setter
     def vertex_2_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 2 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 2 Y-coordinate`
@@ -52754,8 +50488,6 @@ class ShadingBuildingDetailed(object):
     @vertex_2_zcoordinate.setter
     def vertex_2_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 2 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 2 Z-coordinate`
@@ -52786,8 +50518,6 @@ class ShadingBuildingDetailed(object):
     @vertex_3_xcoordinate.setter
     def vertex_3_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 3 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 3 X-coordinate`
@@ -52818,8 +50548,6 @@ class ShadingBuildingDetailed(object):
     @vertex_3_ycoordinate.setter
     def vertex_3_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 3 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 3 Y-coordinate`
@@ -52850,8 +50578,6 @@ class ShadingBuildingDetailed(object):
     @vertex_3_zcoordinate.setter
     def vertex_3_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 3 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 3 Z-coordinate`
@@ -52882,8 +50608,6 @@ class ShadingBuildingDetailed(object):
     @vertex_4_xcoordinate.setter
     def vertex_4_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 4 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 4 X-coordinate`
@@ -52914,8 +50638,6 @@ class ShadingBuildingDetailed(object):
     @vertex_4_ycoordinate.setter
     def vertex_4_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 4 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 4 Y-coordinate`
@@ -52946,8 +50668,6 @@ class ShadingBuildingDetailed(object):
     @vertex_4_zcoordinate.setter
     def vertex_4_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 4 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 4 Z-coordinate`
@@ -52978,8 +50698,6 @@ class ShadingBuildingDetailed(object):
     @vertex_5_xcoordinate.setter
     def vertex_5_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 5 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 5 X-coordinate`
@@ -53010,8 +50728,6 @@ class ShadingBuildingDetailed(object):
     @vertex_5_ycoordinate.setter
     def vertex_5_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 5 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 5 Y-coordinate`
@@ -53042,8 +50758,6 @@ class ShadingBuildingDetailed(object):
     @vertex_5_zcoordinate.setter
     def vertex_5_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 5 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 5 Z-coordinate`
@@ -53074,8 +50788,6 @@ class ShadingBuildingDetailed(object):
     @vertex_6_xcoordinate.setter
     def vertex_6_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 6 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 6 X-coordinate`
@@ -53106,8 +50818,6 @@ class ShadingBuildingDetailed(object):
     @vertex_6_ycoordinate.setter
     def vertex_6_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 6 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 6 Y-coordinate`
@@ -53138,8 +50848,6 @@ class ShadingBuildingDetailed(object):
     @vertex_6_zcoordinate.setter
     def vertex_6_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 6 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 6 Z-coordinate`
@@ -53170,8 +50878,6 @@ class ShadingBuildingDetailed(object):
     @vertex_7_xcoordinate.setter
     def vertex_7_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 7 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 7 X-coordinate`
@@ -53202,8 +50908,6 @@ class ShadingBuildingDetailed(object):
     @vertex_7_ycoordinate.setter
     def vertex_7_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 7 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 7 Y-coordinate`
@@ -53234,8 +50938,6 @@ class ShadingBuildingDetailed(object):
     @vertex_7_zcoordinate.setter
     def vertex_7_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 7 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 7 Z-coordinate`
@@ -53266,8 +50968,6 @@ class ShadingBuildingDetailed(object):
     @vertex_8_xcoordinate.setter
     def vertex_8_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 8 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 8 X-coordinate`
@@ -53298,8 +50998,6 @@ class ShadingBuildingDetailed(object):
     @vertex_8_ycoordinate.setter
     def vertex_8_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 8 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 8 Y-coordinate`
@@ -53330,8 +51028,6 @@ class ShadingBuildingDetailed(object):
     @vertex_8_zcoordinate.setter
     def vertex_8_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 8 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 8 Z-coordinate`
@@ -53362,8 +51058,6 @@ class ShadingBuildingDetailed(object):
     @vertex_9_xcoordinate.setter
     def vertex_9_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 9 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 9 X-coordinate`
@@ -53394,8 +51088,6 @@ class ShadingBuildingDetailed(object):
     @vertex_9_ycoordinate.setter
     def vertex_9_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 9 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 9 Y-coordinate`
@@ -53426,8 +51118,6 @@ class ShadingBuildingDetailed(object):
     @vertex_9_zcoordinate.setter
     def vertex_9_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 9 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 9 Z-coordinate`
@@ -53458,8 +51148,6 @@ class ShadingBuildingDetailed(object):
     @vertex_10_xcoordinate.setter
     def vertex_10_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 10 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 10 X-coordinate`
@@ -53490,8 +51178,6 @@ class ShadingBuildingDetailed(object):
     @vertex_10_ycoordinate.setter
     def vertex_10_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 10 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 10 Y-coordinate`
@@ -53522,8 +51208,6 @@ class ShadingBuildingDetailed(object):
     @vertex_10_zcoordinate.setter
     def vertex_10_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 10 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 10 Z-coordinate`
@@ -53554,8 +51238,6 @@ class ShadingBuildingDetailed(object):
     @vertex_11_xcoordinate.setter
     def vertex_11_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 11 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 11 X-coordinate`
@@ -53586,8 +51268,6 @@ class ShadingBuildingDetailed(object):
     @vertex_11_ycoordinate.setter
     def vertex_11_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 11 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 11 Y-coordinate`
@@ -53618,8 +51298,6 @@ class ShadingBuildingDetailed(object):
     @vertex_11_zcoordinate.setter
     def vertex_11_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 11 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 11 Z-coordinate`
@@ -53650,8 +51328,6 @@ class ShadingBuildingDetailed(object):
     @vertex_12_xcoordinate.setter
     def vertex_12_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 12 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 12 X-coordinate`
@@ -53682,8 +51358,6 @@ class ShadingBuildingDetailed(object):
     @vertex_12_ycoordinate.setter
     def vertex_12_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 12 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 12 Y-coordinate`
@@ -53714,8 +51388,6 @@ class ShadingBuildingDetailed(object):
     @vertex_12_zcoordinate.setter
     def vertex_12_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 12 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 12 Z-coordinate`
@@ -53746,8 +51418,6 @@ class ShadingBuildingDetailed(object):
     @vertex_13_xcoordinate.setter
     def vertex_13_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 13 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 13 X-coordinate`
@@ -53778,8 +51448,6 @@ class ShadingBuildingDetailed(object):
     @vertex_13_ycoordinate.setter
     def vertex_13_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 13 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 13 Y-coordinate`
@@ -53810,8 +51478,6 @@ class ShadingBuildingDetailed(object):
     @vertex_13_zcoordinate.setter
     def vertex_13_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 13 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 13 Z-coordinate`
@@ -53842,8 +51508,6 @@ class ShadingBuildingDetailed(object):
     @vertex_14_xcoordinate.setter
     def vertex_14_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 14 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 14 X-coordinate`
@@ -53874,8 +51538,6 @@ class ShadingBuildingDetailed(object):
     @vertex_14_ycoordinate.setter
     def vertex_14_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 14 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 14 Y-coordinate`
@@ -53906,8 +51568,6 @@ class ShadingBuildingDetailed(object):
     @vertex_14_zcoordinate.setter
     def vertex_14_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 14 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 14 Z-coordinate`
@@ -53938,8 +51598,6 @@ class ShadingBuildingDetailed(object):
     @vertex_15_xcoordinate.setter
     def vertex_15_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 15 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 15 X-coordinate`
@@ -53970,8 +51628,6 @@ class ShadingBuildingDetailed(object):
     @vertex_15_ycoordinate.setter
     def vertex_15_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 15 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 15 Y-coordinate`
@@ -54002,8 +51658,6 @@ class ShadingBuildingDetailed(object):
     @vertex_15_zcoordinate.setter
     def vertex_15_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 15 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 15 Z-coordinate`
@@ -54034,8 +51688,6 @@ class ShadingBuildingDetailed(object):
     @vertex_16_xcoordinate.setter
     def vertex_16_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 16 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 16 X-coordinate`
@@ -54066,8 +51718,6 @@ class ShadingBuildingDetailed(object):
     @vertex_16_ycoordinate.setter
     def vertex_16_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 16 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 16 Y-coordinate`
@@ -54098,8 +51748,6 @@ class ShadingBuildingDetailed(object):
     @vertex_16_zcoordinate.setter
     def vertex_16_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 16 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 16 Z-coordinate`
@@ -54130,8 +51778,6 @@ class ShadingBuildingDetailed(object):
     @vertex_17_xcoordinate.setter
     def vertex_17_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 17 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 17 X-coordinate`
@@ -54162,8 +51808,6 @@ class ShadingBuildingDetailed(object):
     @vertex_17_ycoordinate.setter
     def vertex_17_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 17 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 17 Y-coordinate`
@@ -54194,8 +51838,6 @@ class ShadingBuildingDetailed(object):
     @vertex_17_zcoordinate.setter
     def vertex_17_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 17 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 17 Z-coordinate`
@@ -54226,8 +51868,6 @@ class ShadingBuildingDetailed(object):
     @vertex_18_xcoordinate.setter
     def vertex_18_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 18 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 18 X-coordinate`
@@ -54258,8 +51898,6 @@ class ShadingBuildingDetailed(object):
     @vertex_18_ycoordinate.setter
     def vertex_18_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 18 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 18 Y-coordinate`
@@ -54290,8 +51928,6 @@ class ShadingBuildingDetailed(object):
     @vertex_18_zcoordinate.setter
     def vertex_18_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 18 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 18 Z-coordinate`
@@ -54322,8 +51958,6 @@ class ShadingBuildingDetailed(object):
     @vertex_19_xcoordinate.setter
     def vertex_19_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 19 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 19 X-coordinate`
@@ -54354,8 +51988,6 @@ class ShadingBuildingDetailed(object):
     @vertex_19_ycoordinate.setter
     def vertex_19_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 19 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 19 Y-coordinate`
@@ -54386,8 +52018,6 @@ class ShadingBuildingDetailed(object):
     @vertex_19_zcoordinate.setter
     def vertex_19_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 19 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 19 Z-coordinate`
@@ -54418,8 +52048,6 @@ class ShadingBuildingDetailed(object):
     @vertex_20_xcoordinate.setter
     def vertex_20_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 20 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 20 X-coordinate`
@@ -54450,8 +52078,6 @@ class ShadingBuildingDetailed(object):
     @vertex_20_ycoordinate.setter
     def vertex_20_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 20 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 20 Y-coordinate`
@@ -54482,8 +52108,6 @@ class ShadingBuildingDetailed(object):
     @vertex_20_zcoordinate.setter
     def vertex_20_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 20 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 20 Z-coordinate`
@@ -54514,8 +52138,6 @@ class ShadingBuildingDetailed(object):
     @vertex_21_xcoordinate.setter
     def vertex_21_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 21 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 21 X-coordinate`
@@ -54546,8 +52168,6 @@ class ShadingBuildingDetailed(object):
     @vertex_21_ycoordinate.setter
     def vertex_21_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 21 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 21 Y-coordinate`
@@ -54578,8 +52198,6 @@ class ShadingBuildingDetailed(object):
     @vertex_21_zcoordinate.setter
     def vertex_21_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 21 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 21 Z-coordinate`
@@ -54610,8 +52228,6 @@ class ShadingBuildingDetailed(object):
     @vertex_22_xcoordinate.setter
     def vertex_22_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 22 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 22 X-coordinate`
@@ -54642,8 +52258,6 @@ class ShadingBuildingDetailed(object):
     @vertex_22_ycoordinate.setter
     def vertex_22_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 22 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 22 Y-coordinate`
@@ -54674,8 +52288,6 @@ class ShadingBuildingDetailed(object):
     @vertex_22_zcoordinate.setter
     def vertex_22_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 22 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 22 Z-coordinate`
@@ -54706,8 +52318,6 @@ class ShadingBuildingDetailed(object):
     @vertex_23_xcoordinate.setter
     def vertex_23_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 23 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 23 X-coordinate`
@@ -54738,8 +52348,6 @@ class ShadingBuildingDetailed(object):
     @vertex_23_ycoordinate.setter
     def vertex_23_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 23 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 23 Y-coordinate`
@@ -54770,8 +52378,6 @@ class ShadingBuildingDetailed(object):
     @vertex_23_zcoordinate.setter
     def vertex_23_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 23 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 23 Z-coordinate`
@@ -54802,8 +52408,6 @@ class ShadingBuildingDetailed(object):
     @vertex_24_xcoordinate.setter
     def vertex_24_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 24 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 24 X-coordinate`
@@ -54834,8 +52438,6 @@ class ShadingBuildingDetailed(object):
     @vertex_24_ycoordinate.setter
     def vertex_24_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 24 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 24 Y-coordinate`
@@ -54866,8 +52468,6 @@ class ShadingBuildingDetailed(object):
     @vertex_24_zcoordinate.setter
     def vertex_24_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 24 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 24 Z-coordinate`
@@ -54898,8 +52498,6 @@ class ShadingBuildingDetailed(object):
     @vertex_25_xcoordinate.setter
     def vertex_25_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 25 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 25 X-coordinate`
@@ -54930,8 +52528,6 @@ class ShadingBuildingDetailed(object):
     @vertex_25_ycoordinate.setter
     def vertex_25_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 25 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 25 Y-coordinate`
@@ -54962,8 +52558,6 @@ class ShadingBuildingDetailed(object):
     @vertex_25_zcoordinate.setter
     def vertex_25_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 25 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 25 Z-coordinate`
@@ -54994,8 +52588,6 @@ class ShadingBuildingDetailed(object):
     @vertex_26_xcoordinate.setter
     def vertex_26_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 26 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 26 X-coordinate`
@@ -55026,8 +52618,6 @@ class ShadingBuildingDetailed(object):
     @vertex_26_ycoordinate.setter
     def vertex_26_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 26 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 26 Y-coordinate`
@@ -55058,8 +52648,6 @@ class ShadingBuildingDetailed(object):
     @vertex_26_zcoordinate.setter
     def vertex_26_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 26 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 26 Z-coordinate`
@@ -55090,8 +52678,6 @@ class ShadingBuildingDetailed(object):
     @vertex_27_xcoordinate.setter
     def vertex_27_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 27 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 27 X-coordinate`
@@ -55122,8 +52708,6 @@ class ShadingBuildingDetailed(object):
     @vertex_27_ycoordinate.setter
     def vertex_27_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 27 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 27 Y-coordinate`
@@ -55154,8 +52738,6 @@ class ShadingBuildingDetailed(object):
     @vertex_27_zcoordinate.setter
     def vertex_27_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 27 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 27 Z-coordinate`
@@ -55186,8 +52768,6 @@ class ShadingBuildingDetailed(object):
     @vertex_28_xcoordinate.setter
     def vertex_28_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 28 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 28 X-coordinate`
@@ -55218,8 +52798,6 @@ class ShadingBuildingDetailed(object):
     @vertex_28_ycoordinate.setter
     def vertex_28_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 28 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 28 Y-coordinate`
@@ -55250,8 +52828,6 @@ class ShadingBuildingDetailed(object):
     @vertex_28_zcoordinate.setter
     def vertex_28_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 28 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 28 Z-coordinate`
@@ -55282,8 +52858,6 @@ class ShadingBuildingDetailed(object):
     @vertex_29_xcoordinate.setter
     def vertex_29_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 29 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 29 X-coordinate`
@@ -55314,8 +52888,6 @@ class ShadingBuildingDetailed(object):
     @vertex_29_ycoordinate.setter
     def vertex_29_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 29 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 29 Y-coordinate`
@@ -55346,8 +52918,6 @@ class ShadingBuildingDetailed(object):
     @vertex_29_zcoordinate.setter
     def vertex_29_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 29 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 29 Z-coordinate`
@@ -55378,8 +52948,6 @@ class ShadingBuildingDetailed(object):
     @vertex_30_xcoordinate.setter
     def vertex_30_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 30 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 30 X-coordinate`
@@ -55410,8 +52978,6 @@ class ShadingBuildingDetailed(object):
     @vertex_30_ycoordinate.setter
     def vertex_30_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 30 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 30 Y-coordinate`
@@ -55442,8 +53008,6 @@ class ShadingBuildingDetailed(object):
     @vertex_30_zcoordinate.setter
     def vertex_30_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 30 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 30 Z-coordinate`
@@ -55474,8 +53038,6 @@ class ShadingBuildingDetailed(object):
     @vertex_31_xcoordinate.setter
     def vertex_31_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 31 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 31 X-coordinate`
@@ -55506,8 +53068,6 @@ class ShadingBuildingDetailed(object):
     @vertex_31_ycoordinate.setter
     def vertex_31_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 31 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 31 Y-coordinate`
@@ -55538,8 +53098,6 @@ class ShadingBuildingDetailed(object):
     @vertex_31_zcoordinate.setter
     def vertex_31_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 31 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 31 Z-coordinate`
@@ -55570,8 +53128,6 @@ class ShadingBuildingDetailed(object):
     @vertex_32_xcoordinate.setter
     def vertex_32_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 32 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 32 X-coordinate`
@@ -55602,8 +53158,6 @@ class ShadingBuildingDetailed(object):
     @vertex_32_ycoordinate.setter
     def vertex_32_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 32 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 32 Y-coordinate`
@@ -55634,8 +53188,6 @@ class ShadingBuildingDetailed(object):
     @vertex_32_zcoordinate.setter
     def vertex_32_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 32 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 32 Z-coordinate`
@@ -55666,8 +53218,6 @@ class ShadingBuildingDetailed(object):
     @vertex_33_xcoordinate.setter
     def vertex_33_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 33 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 33 X-coordinate`
@@ -55698,8 +53248,6 @@ class ShadingBuildingDetailed(object):
     @vertex_33_ycoordinate.setter
     def vertex_33_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 33 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 33 Y-coordinate`
@@ -55730,8 +53278,6 @@ class ShadingBuildingDetailed(object):
     @vertex_33_zcoordinate.setter
     def vertex_33_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 33 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 33 Z-coordinate`
@@ -55762,8 +53308,6 @@ class ShadingBuildingDetailed(object):
     @vertex_34_xcoordinate.setter
     def vertex_34_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 34 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 34 X-coordinate`
@@ -55794,8 +53338,6 @@ class ShadingBuildingDetailed(object):
     @vertex_34_ycoordinate.setter
     def vertex_34_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 34 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 34 Y-coordinate`
@@ -55826,8 +53368,6 @@ class ShadingBuildingDetailed(object):
     @vertex_34_zcoordinate.setter
     def vertex_34_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 34 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 34 Z-coordinate`
@@ -55858,8 +53398,6 @@ class ShadingBuildingDetailed(object):
     @vertex_35_xcoordinate.setter
     def vertex_35_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 35 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 35 X-coordinate`
@@ -55890,8 +53428,6 @@ class ShadingBuildingDetailed(object):
     @vertex_35_ycoordinate.setter
     def vertex_35_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 35 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 35 Y-coordinate`
@@ -55922,8 +53458,6 @@ class ShadingBuildingDetailed(object):
     @vertex_35_zcoordinate.setter
     def vertex_35_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 35 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 35 Z-coordinate`
@@ -55954,8 +53488,6 @@ class ShadingBuildingDetailed(object):
     @vertex_36_xcoordinate.setter
     def vertex_36_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 36 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 36 X-coordinate`
@@ -55986,8 +53518,6 @@ class ShadingBuildingDetailed(object):
     @vertex_36_ycoordinate.setter
     def vertex_36_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 36 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 36 Y-coordinate`
@@ -56018,8 +53548,6 @@ class ShadingBuildingDetailed(object):
     @vertex_36_zcoordinate.setter
     def vertex_36_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 36 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 36 Z-coordinate`
@@ -56050,8 +53578,6 @@ class ShadingBuildingDetailed(object):
     @vertex_37_xcoordinate.setter
     def vertex_37_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 37 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 37 X-coordinate`
@@ -56082,8 +53608,6 @@ class ShadingBuildingDetailed(object):
     @vertex_37_ycoordinate.setter
     def vertex_37_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 37 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 37 Y-coordinate`
@@ -56114,8 +53638,6 @@ class ShadingBuildingDetailed(object):
     @vertex_37_zcoordinate.setter
     def vertex_37_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 37 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 37 Z-coordinate`
@@ -56146,8 +53668,6 @@ class ShadingBuildingDetailed(object):
     @vertex_38_xcoordinate.setter
     def vertex_38_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 38 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 38 X-coordinate`
@@ -56178,8 +53698,6 @@ class ShadingBuildingDetailed(object):
     @vertex_38_ycoordinate.setter
     def vertex_38_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 38 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 38 Y-coordinate`
@@ -56210,8 +53728,6 @@ class ShadingBuildingDetailed(object):
     @vertex_38_zcoordinate.setter
     def vertex_38_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 38 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 38 Z-coordinate`
@@ -56242,8 +53758,6 @@ class ShadingBuildingDetailed(object):
     @vertex_39_xcoordinate.setter
     def vertex_39_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 39 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 39 X-coordinate`
@@ -56274,8 +53788,6 @@ class ShadingBuildingDetailed(object):
     @vertex_39_ycoordinate.setter
     def vertex_39_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 39 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 39 Y-coordinate`
@@ -56306,8 +53818,6 @@ class ShadingBuildingDetailed(object):
     @vertex_39_zcoordinate.setter
     def vertex_39_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 39 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 39 Z-coordinate`
@@ -56338,8 +53848,6 @@ class ShadingBuildingDetailed(object):
     @vertex_40_xcoordinate.setter
     def vertex_40_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 40 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 40 X-coordinate`
@@ -56370,8 +53878,6 @@ class ShadingBuildingDetailed(object):
     @vertex_40_ycoordinate.setter
     def vertex_40_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 40 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 40 Y-coordinate`
@@ -56402,8 +53908,6 @@ class ShadingBuildingDetailed(object):
     @vertex_40_zcoordinate.setter
     def vertex_40_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 40 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 40 Z-coordinate`
@@ -56434,8 +53938,6 @@ class ShadingBuildingDetailed(object):
     @vertex_41_xcoordinate.setter
     def vertex_41_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 41 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 41 X-coordinate`
@@ -56466,8 +53968,6 @@ class ShadingBuildingDetailed(object):
     @vertex_41_ycoordinate.setter
     def vertex_41_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 41 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 41 Y-coordinate`
@@ -56498,8 +53998,6 @@ class ShadingBuildingDetailed(object):
     @vertex_41_zcoordinate.setter
     def vertex_41_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 41 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 41 Z-coordinate`
@@ -56530,8 +54028,6 @@ class ShadingBuildingDetailed(object):
     @vertex_42_xcoordinate.setter
     def vertex_42_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 42 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 42 X-coordinate`
@@ -56562,8 +54058,6 @@ class ShadingBuildingDetailed(object):
     @vertex_42_ycoordinate.setter
     def vertex_42_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 42 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 42 Y-coordinate`
@@ -56594,8 +54088,6 @@ class ShadingBuildingDetailed(object):
     @vertex_42_zcoordinate.setter
     def vertex_42_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 42 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 42 Z-coordinate`
@@ -56626,8 +54118,6 @@ class ShadingBuildingDetailed(object):
     @vertex_43_xcoordinate.setter
     def vertex_43_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 43 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 43 X-coordinate`
@@ -56658,8 +54148,6 @@ class ShadingBuildingDetailed(object):
     @vertex_43_ycoordinate.setter
     def vertex_43_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 43 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 43 Y-coordinate`
@@ -56690,8 +54178,6 @@ class ShadingBuildingDetailed(object):
     @vertex_43_zcoordinate.setter
     def vertex_43_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 43 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 43 Z-coordinate`
@@ -56722,8 +54208,6 @@ class ShadingBuildingDetailed(object):
     @vertex_44_xcoordinate.setter
     def vertex_44_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 44 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 44 X-coordinate`
@@ -56754,8 +54238,6 @@ class ShadingBuildingDetailed(object):
     @vertex_44_ycoordinate.setter
     def vertex_44_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 44 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 44 Y-coordinate`
@@ -56786,8 +54268,6 @@ class ShadingBuildingDetailed(object):
     @vertex_44_zcoordinate.setter
     def vertex_44_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 44 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 44 Z-coordinate`
@@ -56818,8 +54298,6 @@ class ShadingBuildingDetailed(object):
     @vertex_45_xcoordinate.setter
     def vertex_45_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 45 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 45 X-coordinate`
@@ -56850,8 +54328,6 @@ class ShadingBuildingDetailed(object):
     @vertex_45_ycoordinate.setter
     def vertex_45_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 45 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 45 Y-coordinate`
@@ -56882,8 +54358,6 @@ class ShadingBuildingDetailed(object):
     @vertex_45_zcoordinate.setter
     def vertex_45_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 45 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 45 Z-coordinate`
@@ -56914,8 +54388,6 @@ class ShadingBuildingDetailed(object):
     @vertex_46_xcoordinate.setter
     def vertex_46_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 46 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 46 X-coordinate`
@@ -56946,8 +54418,6 @@ class ShadingBuildingDetailed(object):
     @vertex_46_ycoordinate.setter
     def vertex_46_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 46 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 46 Y-coordinate`
@@ -56978,8 +54448,6 @@ class ShadingBuildingDetailed(object):
     @vertex_46_zcoordinate.setter
     def vertex_46_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 46 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 46 Z-coordinate`
@@ -57010,8 +54478,6 @@ class ShadingBuildingDetailed(object):
     @vertex_47_xcoordinate.setter
     def vertex_47_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 47 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 47 X-coordinate`
@@ -57042,8 +54508,6 @@ class ShadingBuildingDetailed(object):
     @vertex_47_ycoordinate.setter
     def vertex_47_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 47 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 47 Y-coordinate`
@@ -57074,8 +54538,6 @@ class ShadingBuildingDetailed(object):
     @vertex_47_zcoordinate.setter
     def vertex_47_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 47 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 47 Z-coordinate`
@@ -57106,8 +54568,6 @@ class ShadingBuildingDetailed(object):
     @vertex_48_xcoordinate.setter
     def vertex_48_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 48 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 48 X-coordinate`
@@ -57138,8 +54598,6 @@ class ShadingBuildingDetailed(object):
     @vertex_48_ycoordinate.setter
     def vertex_48_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 48 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 48 Y-coordinate`
@@ -57170,8 +54628,6 @@ class ShadingBuildingDetailed(object):
     @vertex_48_zcoordinate.setter
     def vertex_48_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 48 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 48 Z-coordinate`
@@ -57202,8 +54658,6 @@ class ShadingBuildingDetailed(object):
     @vertex_49_xcoordinate.setter
     def vertex_49_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 49 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 49 X-coordinate`
@@ -57234,8 +54688,6 @@ class ShadingBuildingDetailed(object):
     @vertex_49_ycoordinate.setter
     def vertex_49_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 49 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 49 Y-coordinate`
@@ -57266,8 +54718,6 @@ class ShadingBuildingDetailed(object):
     @vertex_49_zcoordinate.setter
     def vertex_49_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 49 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 49 Z-coordinate`
@@ -57298,8 +54748,6 @@ class ShadingBuildingDetailed(object):
     @vertex_50_xcoordinate.setter
     def vertex_50_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 50 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 50 X-coordinate`
@@ -57330,8 +54778,6 @@ class ShadingBuildingDetailed(object):
     @vertex_50_ycoordinate.setter
     def vertex_50_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 50 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 50 Y-coordinate`
@@ -57362,8 +54808,6 @@ class ShadingBuildingDetailed(object):
     @vertex_50_zcoordinate.setter
     def vertex_50_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 50 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 50 Z-coordinate`
@@ -57394,8 +54838,6 @@ class ShadingBuildingDetailed(object):
     @vertex_51_xcoordinate.setter
     def vertex_51_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 51 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 51 X-coordinate`
@@ -57426,8 +54868,6 @@ class ShadingBuildingDetailed(object):
     @vertex_51_ycoordinate.setter
     def vertex_51_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 51 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 51 Y-coordinate`
@@ -57458,8 +54898,6 @@ class ShadingBuildingDetailed(object):
     @vertex_51_zcoordinate.setter
     def vertex_51_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 51 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 51 Z-coordinate`
@@ -57490,8 +54928,6 @@ class ShadingBuildingDetailed(object):
     @vertex_52_xcoordinate.setter
     def vertex_52_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 52 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 52 X-coordinate`
@@ -57522,8 +54958,6 @@ class ShadingBuildingDetailed(object):
     @vertex_52_ycoordinate.setter
     def vertex_52_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 52 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 52 Y-coordinate`
@@ -57554,8 +54988,6 @@ class ShadingBuildingDetailed(object):
     @vertex_52_zcoordinate.setter
     def vertex_52_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 52 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 52 Z-coordinate`
@@ -57586,8 +55018,6 @@ class ShadingBuildingDetailed(object):
     @vertex_53_xcoordinate.setter
     def vertex_53_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 53 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 53 X-coordinate`
@@ -57618,8 +55048,6 @@ class ShadingBuildingDetailed(object):
     @vertex_53_ycoordinate.setter
     def vertex_53_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 53 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 53 Y-coordinate`
@@ -57650,8 +55078,6 @@ class ShadingBuildingDetailed(object):
     @vertex_53_zcoordinate.setter
     def vertex_53_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 53 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 53 Z-coordinate`
@@ -57682,8 +55108,6 @@ class ShadingBuildingDetailed(object):
     @vertex_54_xcoordinate.setter
     def vertex_54_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 54 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 54 X-coordinate`
@@ -57714,8 +55138,6 @@ class ShadingBuildingDetailed(object):
     @vertex_54_ycoordinate.setter
     def vertex_54_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 54 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 54 Y-coordinate`
@@ -57746,8 +55168,6 @@ class ShadingBuildingDetailed(object):
     @vertex_54_zcoordinate.setter
     def vertex_54_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 54 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 54 Z-coordinate`
@@ -57778,8 +55198,6 @@ class ShadingBuildingDetailed(object):
     @vertex_55_xcoordinate.setter
     def vertex_55_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 55 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 55 X-coordinate`
@@ -57810,8 +55228,6 @@ class ShadingBuildingDetailed(object):
     @vertex_55_ycoordinate.setter
     def vertex_55_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 55 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 55 Y-coordinate`
@@ -57842,8 +55258,6 @@ class ShadingBuildingDetailed(object):
     @vertex_55_zcoordinate.setter
     def vertex_55_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 55 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 55 Z-coordinate`
@@ -57874,8 +55288,6 @@ class ShadingBuildingDetailed(object):
     @vertex_56_xcoordinate.setter
     def vertex_56_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 56 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 56 X-coordinate`
@@ -57906,8 +55318,6 @@ class ShadingBuildingDetailed(object):
     @vertex_56_ycoordinate.setter
     def vertex_56_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 56 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 56 Y-coordinate`
@@ -57938,8 +55348,6 @@ class ShadingBuildingDetailed(object):
     @vertex_56_zcoordinate.setter
     def vertex_56_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 56 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 56 Z-coordinate`
@@ -57970,8 +55378,6 @@ class ShadingBuildingDetailed(object):
     @vertex_57_xcoordinate.setter
     def vertex_57_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 57 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 57 X-coordinate`
@@ -58002,8 +55408,6 @@ class ShadingBuildingDetailed(object):
     @vertex_57_ycoordinate.setter
     def vertex_57_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 57 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 57 Y-coordinate`
@@ -58034,8 +55438,6 @@ class ShadingBuildingDetailed(object):
     @vertex_57_zcoordinate.setter
     def vertex_57_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 57 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 57 Z-coordinate`
@@ -58066,8 +55468,6 @@ class ShadingBuildingDetailed(object):
     @vertex_58_xcoordinate.setter
     def vertex_58_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 58 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 58 X-coordinate`
@@ -58098,8 +55498,6 @@ class ShadingBuildingDetailed(object):
     @vertex_58_ycoordinate.setter
     def vertex_58_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 58 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 58 Y-coordinate`
@@ -58130,8 +55528,6 @@ class ShadingBuildingDetailed(object):
     @vertex_58_zcoordinate.setter
     def vertex_58_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 58 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 58 Z-coordinate`
@@ -58162,8 +55558,6 @@ class ShadingBuildingDetailed(object):
     @vertex_59_xcoordinate.setter
     def vertex_59_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 59 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 59 X-coordinate`
@@ -58194,8 +55588,6 @@ class ShadingBuildingDetailed(object):
     @vertex_59_ycoordinate.setter
     def vertex_59_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 59 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 59 Y-coordinate`
@@ -58226,8 +55618,6 @@ class ShadingBuildingDetailed(object):
     @vertex_59_zcoordinate.setter
     def vertex_59_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 59 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 59 Z-coordinate`
@@ -58258,8 +55648,6 @@ class ShadingBuildingDetailed(object):
     @vertex_60_xcoordinate.setter
     def vertex_60_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 60 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 60 X-coordinate`
@@ -58290,8 +55678,6 @@ class ShadingBuildingDetailed(object):
     @vertex_60_ycoordinate.setter
     def vertex_60_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 60 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 60 Y-coordinate`
@@ -58322,8 +55708,6 @@ class ShadingBuildingDetailed(object):
     @vertex_60_zcoordinate.setter
     def vertex_60_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 60 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 60 Z-coordinate`
@@ -58354,8 +55738,6 @@ class ShadingBuildingDetailed(object):
     @vertex_61_xcoordinate.setter
     def vertex_61_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 61 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 61 X-coordinate`
@@ -58386,8 +55768,6 @@ class ShadingBuildingDetailed(object):
     @vertex_61_ycoordinate.setter
     def vertex_61_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 61 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 61 Y-coordinate`
@@ -58418,8 +55798,6 @@ class ShadingBuildingDetailed(object):
     @vertex_61_zcoordinate.setter
     def vertex_61_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 61 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 61 Z-coordinate`
@@ -58450,8 +55828,6 @@ class ShadingBuildingDetailed(object):
     @vertex_62_xcoordinate.setter
     def vertex_62_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 62 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 62 X-coordinate`
@@ -58482,8 +55858,6 @@ class ShadingBuildingDetailed(object):
     @vertex_62_ycoordinate.setter
     def vertex_62_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 62 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 62 Y-coordinate`
@@ -58514,8 +55888,6 @@ class ShadingBuildingDetailed(object):
     @vertex_62_zcoordinate.setter
     def vertex_62_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 62 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 62 Z-coordinate`
@@ -58546,8 +55918,6 @@ class ShadingBuildingDetailed(object):
     @vertex_63_xcoordinate.setter
     def vertex_63_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 63 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 63 X-coordinate`
@@ -58578,8 +55948,6 @@ class ShadingBuildingDetailed(object):
     @vertex_63_ycoordinate.setter
     def vertex_63_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 63 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 63 Y-coordinate`
@@ -58610,8 +55978,6 @@ class ShadingBuildingDetailed(object):
     @vertex_63_zcoordinate.setter
     def vertex_63_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 63 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 63 Z-coordinate`
@@ -58642,8 +56008,6 @@ class ShadingBuildingDetailed(object):
     @vertex_64_xcoordinate.setter
     def vertex_64_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 64 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 64 X-coordinate`
@@ -58674,8 +56038,6 @@ class ShadingBuildingDetailed(object):
     @vertex_64_ycoordinate.setter
     def vertex_64_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 64 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 64 Y-coordinate`
@@ -58706,8 +56068,6 @@ class ShadingBuildingDetailed(object):
     @vertex_64_zcoordinate.setter
     def vertex_64_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 64 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 64 Z-coordinate`
@@ -58738,8 +56098,6 @@ class ShadingBuildingDetailed(object):
     @vertex_65_xcoordinate.setter
     def vertex_65_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 65 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 65 X-coordinate`
@@ -58770,8 +56128,6 @@ class ShadingBuildingDetailed(object):
     @vertex_65_ycoordinate.setter
     def vertex_65_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 65 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 65 Y-coordinate`
@@ -58802,8 +56158,6 @@ class ShadingBuildingDetailed(object):
     @vertex_65_zcoordinate.setter
     def vertex_65_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 65 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 65 Z-coordinate`
@@ -58834,8 +56188,6 @@ class ShadingBuildingDetailed(object):
     @vertex_66_xcoordinate.setter
     def vertex_66_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 66 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 66 X-coordinate`
@@ -58866,8 +56218,6 @@ class ShadingBuildingDetailed(object):
     @vertex_66_ycoordinate.setter
     def vertex_66_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 66 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 66 Y-coordinate`
@@ -58898,8 +56248,6 @@ class ShadingBuildingDetailed(object):
     @vertex_66_zcoordinate.setter
     def vertex_66_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 66 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 66 Z-coordinate`
@@ -58930,8 +56278,6 @@ class ShadingBuildingDetailed(object):
     @vertex_67_xcoordinate.setter
     def vertex_67_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 67 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 67 X-coordinate`
@@ -58962,8 +56308,6 @@ class ShadingBuildingDetailed(object):
     @vertex_67_ycoordinate.setter
     def vertex_67_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 67 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 67 Y-coordinate`
@@ -58994,8 +56338,6 @@ class ShadingBuildingDetailed(object):
     @vertex_67_zcoordinate.setter
     def vertex_67_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 67 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 67 Z-coordinate`
@@ -59026,8 +56368,6 @@ class ShadingBuildingDetailed(object):
     @vertex_68_xcoordinate.setter
     def vertex_68_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 68 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 68 X-coordinate`
@@ -59058,8 +56398,6 @@ class ShadingBuildingDetailed(object):
     @vertex_68_ycoordinate.setter
     def vertex_68_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 68 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 68 Y-coordinate`
@@ -59090,8 +56428,6 @@ class ShadingBuildingDetailed(object):
     @vertex_68_zcoordinate.setter
     def vertex_68_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 68 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 68 Z-coordinate`
@@ -59122,8 +56458,6 @@ class ShadingBuildingDetailed(object):
     @vertex_69_xcoordinate.setter
     def vertex_69_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 69 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 69 X-coordinate`
@@ -59154,8 +56488,6 @@ class ShadingBuildingDetailed(object):
     @vertex_69_ycoordinate.setter
     def vertex_69_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 69 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 69 Y-coordinate`
@@ -59186,8 +56518,6 @@ class ShadingBuildingDetailed(object):
     @vertex_69_zcoordinate.setter
     def vertex_69_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 69 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 69 Z-coordinate`
@@ -59218,8 +56548,6 @@ class ShadingBuildingDetailed(object):
     @vertex_70_xcoordinate.setter
     def vertex_70_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 70 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 70 X-coordinate`
@@ -59250,8 +56578,6 @@ class ShadingBuildingDetailed(object):
     @vertex_70_ycoordinate.setter
     def vertex_70_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 70 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 70 Y-coordinate`
@@ -59282,8 +56608,6 @@ class ShadingBuildingDetailed(object):
     @vertex_70_zcoordinate.setter
     def vertex_70_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 70 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 70 Z-coordinate`
@@ -59314,8 +56638,6 @@ class ShadingBuildingDetailed(object):
     @vertex_71_xcoordinate.setter
     def vertex_71_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 71 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 71 X-coordinate`
@@ -59346,8 +56668,6 @@ class ShadingBuildingDetailed(object):
     @vertex_71_ycoordinate.setter
     def vertex_71_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 71 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 71 Y-coordinate`
@@ -59378,8 +56698,6 @@ class ShadingBuildingDetailed(object):
     @vertex_71_zcoordinate.setter
     def vertex_71_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 71 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 71 Z-coordinate`
@@ -59410,8 +56728,6 @@ class ShadingBuildingDetailed(object):
     @vertex_72_xcoordinate.setter
     def vertex_72_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 72 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 72 X-coordinate`
@@ -59442,8 +56758,6 @@ class ShadingBuildingDetailed(object):
     @vertex_72_ycoordinate.setter
     def vertex_72_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 72 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 72 Y-coordinate`
@@ -59474,8 +56788,6 @@ class ShadingBuildingDetailed(object):
     @vertex_72_zcoordinate.setter
     def vertex_72_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 72 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 72 Z-coordinate`
@@ -59506,8 +56818,6 @@ class ShadingBuildingDetailed(object):
     @vertex_73_xcoordinate.setter
     def vertex_73_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 73 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 73 X-coordinate`
@@ -59538,8 +56848,6 @@ class ShadingBuildingDetailed(object):
     @vertex_73_ycoordinate.setter
     def vertex_73_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 73 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 73 Y-coordinate`
@@ -59570,8 +56878,6 @@ class ShadingBuildingDetailed(object):
     @vertex_73_zcoordinate.setter
     def vertex_73_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 73 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 73 Z-coordinate`
@@ -59602,8 +56908,6 @@ class ShadingBuildingDetailed(object):
     @vertex_74_xcoordinate.setter
     def vertex_74_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 74 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 74 X-coordinate`
@@ -59634,8 +56938,6 @@ class ShadingBuildingDetailed(object):
     @vertex_74_ycoordinate.setter
     def vertex_74_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 74 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 74 Y-coordinate`
@@ -59666,8 +56968,6 @@ class ShadingBuildingDetailed(object):
     @vertex_74_zcoordinate.setter
     def vertex_74_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 74 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 74 Z-coordinate`
@@ -59698,8 +56998,6 @@ class ShadingBuildingDetailed(object):
     @vertex_75_xcoordinate.setter
     def vertex_75_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 75 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 75 X-coordinate`
@@ -59730,8 +57028,6 @@ class ShadingBuildingDetailed(object):
     @vertex_75_ycoordinate.setter
     def vertex_75_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 75 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 75 Y-coordinate`
@@ -59762,8 +57058,6 @@ class ShadingBuildingDetailed(object):
     @vertex_75_zcoordinate.setter
     def vertex_75_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 75 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 75 Z-coordinate`
@@ -59794,8 +57088,6 @@ class ShadingBuildingDetailed(object):
     @vertex_76_xcoordinate.setter
     def vertex_76_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 76 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 76 X-coordinate`
@@ -59826,8 +57118,6 @@ class ShadingBuildingDetailed(object):
     @vertex_76_ycoordinate.setter
     def vertex_76_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 76 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 76 Y-coordinate`
@@ -59858,8 +57148,6 @@ class ShadingBuildingDetailed(object):
     @vertex_76_zcoordinate.setter
     def vertex_76_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 76 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 76 Z-coordinate`
@@ -59890,8 +57178,6 @@ class ShadingBuildingDetailed(object):
     @vertex_77_xcoordinate.setter
     def vertex_77_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 77 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 77 X-coordinate`
@@ -59922,8 +57208,6 @@ class ShadingBuildingDetailed(object):
     @vertex_77_ycoordinate.setter
     def vertex_77_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 77 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 77 Y-coordinate`
@@ -59954,8 +57238,6 @@ class ShadingBuildingDetailed(object):
     @vertex_77_zcoordinate.setter
     def vertex_77_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 77 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 77 Z-coordinate`
@@ -59986,8 +57268,6 @@ class ShadingBuildingDetailed(object):
     @vertex_78_xcoordinate.setter
     def vertex_78_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 78 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 78 X-coordinate`
@@ -60018,8 +57298,6 @@ class ShadingBuildingDetailed(object):
     @vertex_78_ycoordinate.setter
     def vertex_78_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 78 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 78 Y-coordinate`
@@ -60050,8 +57328,6 @@ class ShadingBuildingDetailed(object):
     @vertex_78_zcoordinate.setter
     def vertex_78_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 78 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 78 Z-coordinate`
@@ -60082,8 +57358,6 @@ class ShadingBuildingDetailed(object):
     @vertex_79_xcoordinate.setter
     def vertex_79_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 79 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 79 X-coordinate`
@@ -60114,8 +57388,6 @@ class ShadingBuildingDetailed(object):
     @vertex_79_ycoordinate.setter
     def vertex_79_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 79 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 79 Y-coordinate`
@@ -60146,8 +57418,6 @@ class ShadingBuildingDetailed(object):
     @vertex_79_zcoordinate.setter
     def vertex_79_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 79 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 79 Z-coordinate`
@@ -60178,8 +57448,6 @@ class ShadingBuildingDetailed(object):
     @vertex_80_xcoordinate.setter
     def vertex_80_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 80 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 80 X-coordinate`
@@ -60210,8 +57478,6 @@ class ShadingBuildingDetailed(object):
     @vertex_80_ycoordinate.setter
     def vertex_80_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 80 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 80 Y-coordinate`
@@ -60242,8 +57508,6 @@ class ShadingBuildingDetailed(object):
     @vertex_80_zcoordinate.setter
     def vertex_80_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 80 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 80 Z-coordinate`
@@ -60274,8 +57538,6 @@ class ShadingBuildingDetailed(object):
     @vertex_81_xcoordinate.setter
     def vertex_81_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 81 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 81 X-coordinate`
@@ -60306,8 +57568,6 @@ class ShadingBuildingDetailed(object):
     @vertex_81_ycoordinate.setter
     def vertex_81_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 81 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 81 Y-coordinate`
@@ -60338,8 +57598,6 @@ class ShadingBuildingDetailed(object):
     @vertex_81_zcoordinate.setter
     def vertex_81_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 81 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 81 Z-coordinate`
@@ -60370,8 +57628,6 @@ class ShadingBuildingDetailed(object):
     @vertex_82_xcoordinate.setter
     def vertex_82_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 82 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 82 X-coordinate`
@@ -60402,8 +57658,6 @@ class ShadingBuildingDetailed(object):
     @vertex_82_ycoordinate.setter
     def vertex_82_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 82 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 82 Y-coordinate`
@@ -60434,8 +57688,6 @@ class ShadingBuildingDetailed(object):
     @vertex_82_zcoordinate.setter
     def vertex_82_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 82 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 82 Z-coordinate`
@@ -60466,8 +57718,6 @@ class ShadingBuildingDetailed(object):
     @vertex_83_xcoordinate.setter
     def vertex_83_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 83 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 83 X-coordinate`
@@ -60498,8 +57748,6 @@ class ShadingBuildingDetailed(object):
     @vertex_83_ycoordinate.setter
     def vertex_83_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 83 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 83 Y-coordinate`
@@ -60530,8 +57778,6 @@ class ShadingBuildingDetailed(object):
     @vertex_83_zcoordinate.setter
     def vertex_83_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 83 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 83 Z-coordinate`
@@ -60562,8 +57808,6 @@ class ShadingBuildingDetailed(object):
     @vertex_84_xcoordinate.setter
     def vertex_84_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 84 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 84 X-coordinate`
@@ -60594,8 +57838,6 @@ class ShadingBuildingDetailed(object):
     @vertex_84_ycoordinate.setter
     def vertex_84_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 84 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 84 Y-coordinate`
@@ -60626,8 +57868,6 @@ class ShadingBuildingDetailed(object):
     @vertex_84_zcoordinate.setter
     def vertex_84_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 84 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 84 Z-coordinate`
@@ -60658,8 +57898,6 @@ class ShadingBuildingDetailed(object):
     @vertex_85_xcoordinate.setter
     def vertex_85_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 85 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 85 X-coordinate`
@@ -60690,8 +57928,6 @@ class ShadingBuildingDetailed(object):
     @vertex_85_ycoordinate.setter
     def vertex_85_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 85 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 85 Y-coordinate`
@@ -60722,8 +57958,6 @@ class ShadingBuildingDetailed(object):
     @vertex_85_zcoordinate.setter
     def vertex_85_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 85 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 85 Z-coordinate`
@@ -60754,8 +57988,6 @@ class ShadingBuildingDetailed(object):
     @vertex_86_xcoordinate.setter
     def vertex_86_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 86 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 86 X-coordinate`
@@ -60786,8 +58018,6 @@ class ShadingBuildingDetailed(object):
     @vertex_86_ycoordinate.setter
     def vertex_86_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 86 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 86 Y-coordinate`
@@ -60818,8 +58048,6 @@ class ShadingBuildingDetailed(object):
     @vertex_86_zcoordinate.setter
     def vertex_86_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 86 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 86 Z-coordinate`
@@ -60850,8 +58078,6 @@ class ShadingBuildingDetailed(object):
     @vertex_87_xcoordinate.setter
     def vertex_87_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 87 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 87 X-coordinate`
@@ -60882,8 +58108,6 @@ class ShadingBuildingDetailed(object):
     @vertex_87_ycoordinate.setter
     def vertex_87_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 87 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 87 Y-coordinate`
@@ -60914,8 +58138,6 @@ class ShadingBuildingDetailed(object):
     @vertex_87_zcoordinate.setter
     def vertex_87_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 87 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 87 Z-coordinate`
@@ -60946,8 +58168,6 @@ class ShadingBuildingDetailed(object):
     @vertex_88_xcoordinate.setter
     def vertex_88_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 88 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 88 X-coordinate`
@@ -60978,8 +58198,6 @@ class ShadingBuildingDetailed(object):
     @vertex_88_ycoordinate.setter
     def vertex_88_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 88 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 88 Y-coordinate`
@@ -61010,8 +58228,6 @@ class ShadingBuildingDetailed(object):
     @vertex_88_zcoordinate.setter
     def vertex_88_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 88 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 88 Z-coordinate`
@@ -61042,8 +58258,6 @@ class ShadingBuildingDetailed(object):
     @vertex_89_xcoordinate.setter
     def vertex_89_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 89 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 89 X-coordinate`
@@ -61074,8 +58288,6 @@ class ShadingBuildingDetailed(object):
     @vertex_89_ycoordinate.setter
     def vertex_89_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 89 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 89 Y-coordinate`
@@ -61106,8 +58318,6 @@ class ShadingBuildingDetailed(object):
     @vertex_89_zcoordinate.setter
     def vertex_89_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 89 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 89 Z-coordinate`
@@ -61138,8 +58348,6 @@ class ShadingBuildingDetailed(object):
     @vertex_90_xcoordinate.setter
     def vertex_90_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 90 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 90 X-coordinate`
@@ -61170,8 +58378,6 @@ class ShadingBuildingDetailed(object):
     @vertex_90_ycoordinate.setter
     def vertex_90_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 90 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 90 Y-coordinate`
@@ -61202,8 +58408,6 @@ class ShadingBuildingDetailed(object):
     @vertex_90_zcoordinate.setter
     def vertex_90_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 90 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 90 Z-coordinate`
@@ -61234,8 +58438,6 @@ class ShadingBuildingDetailed(object):
     @vertex_91_xcoordinate.setter
     def vertex_91_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 91 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 91 X-coordinate`
@@ -61266,8 +58468,6 @@ class ShadingBuildingDetailed(object):
     @vertex_91_ycoordinate.setter
     def vertex_91_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 91 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 91 Y-coordinate`
@@ -61298,8 +58498,6 @@ class ShadingBuildingDetailed(object):
     @vertex_91_zcoordinate.setter
     def vertex_91_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 91 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 91 Z-coordinate`
@@ -61330,8 +58528,6 @@ class ShadingBuildingDetailed(object):
     @vertex_92_xcoordinate.setter
     def vertex_92_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 92 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 92 X-coordinate`
@@ -61362,8 +58558,6 @@ class ShadingBuildingDetailed(object):
     @vertex_92_ycoordinate.setter
     def vertex_92_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 92 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 92 Y-coordinate`
@@ -61394,8 +58588,6 @@ class ShadingBuildingDetailed(object):
     @vertex_92_zcoordinate.setter
     def vertex_92_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 92 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 92 Z-coordinate`
@@ -61426,8 +58618,6 @@ class ShadingBuildingDetailed(object):
     @vertex_93_xcoordinate.setter
     def vertex_93_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 93 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 93 X-coordinate`
@@ -61458,8 +58648,6 @@ class ShadingBuildingDetailed(object):
     @vertex_93_ycoordinate.setter
     def vertex_93_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 93 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 93 Y-coordinate`
@@ -61490,8 +58678,6 @@ class ShadingBuildingDetailed(object):
     @vertex_93_zcoordinate.setter
     def vertex_93_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 93 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 93 Z-coordinate`
@@ -61522,8 +58708,6 @@ class ShadingBuildingDetailed(object):
     @vertex_94_xcoordinate.setter
     def vertex_94_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 94 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 94 X-coordinate`
@@ -61554,8 +58738,6 @@ class ShadingBuildingDetailed(object):
     @vertex_94_ycoordinate.setter
     def vertex_94_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 94 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 94 Y-coordinate`
@@ -61586,8 +58768,6 @@ class ShadingBuildingDetailed(object):
     @vertex_94_zcoordinate.setter
     def vertex_94_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 94 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 94 Z-coordinate`
@@ -61618,8 +58798,6 @@ class ShadingBuildingDetailed(object):
     @vertex_95_xcoordinate.setter
     def vertex_95_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 95 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 95 X-coordinate`
@@ -61650,8 +58828,6 @@ class ShadingBuildingDetailed(object):
     @vertex_95_ycoordinate.setter
     def vertex_95_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 95 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 95 Y-coordinate`
@@ -61682,8 +58858,6 @@ class ShadingBuildingDetailed(object):
     @vertex_95_zcoordinate.setter
     def vertex_95_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 95 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 95 Z-coordinate`
@@ -61714,8 +58888,6 @@ class ShadingBuildingDetailed(object):
     @vertex_96_xcoordinate.setter
     def vertex_96_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 96 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 96 X-coordinate`
@@ -61746,8 +58918,6 @@ class ShadingBuildingDetailed(object):
     @vertex_96_ycoordinate.setter
     def vertex_96_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 96 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 96 Y-coordinate`
@@ -61778,8 +58948,6 @@ class ShadingBuildingDetailed(object):
     @vertex_96_zcoordinate.setter
     def vertex_96_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 96 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 96 Z-coordinate`
@@ -61810,8 +58978,6 @@ class ShadingBuildingDetailed(object):
     @vertex_97_xcoordinate.setter
     def vertex_97_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 97 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 97 X-coordinate`
@@ -61842,8 +59008,6 @@ class ShadingBuildingDetailed(object):
     @vertex_97_ycoordinate.setter
     def vertex_97_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 97 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 97 Y-coordinate`
@@ -61874,8 +59038,6 @@ class ShadingBuildingDetailed(object):
     @vertex_97_zcoordinate.setter
     def vertex_97_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 97 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 97 Z-coordinate`
@@ -61906,8 +59068,6 @@ class ShadingBuildingDetailed(object):
     @vertex_98_xcoordinate.setter
     def vertex_98_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 98 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 98 X-coordinate`
@@ -61938,8 +59098,6 @@ class ShadingBuildingDetailed(object):
     @vertex_98_ycoordinate.setter
     def vertex_98_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 98 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 98 Y-coordinate`
@@ -61970,8 +59128,6 @@ class ShadingBuildingDetailed(object):
     @vertex_98_zcoordinate.setter
     def vertex_98_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 98 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 98 Z-coordinate`
@@ -62002,8 +59158,6 @@ class ShadingBuildingDetailed(object):
     @vertex_99_xcoordinate.setter
     def vertex_99_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 99 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 99 X-coordinate`
@@ -62034,8 +59188,6 @@ class ShadingBuildingDetailed(object):
     @vertex_99_ycoordinate.setter
     def vertex_99_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 99 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 99 Y-coordinate`
@@ -62066,8 +59218,6 @@ class ShadingBuildingDetailed(object):
     @vertex_99_zcoordinate.setter
     def vertex_99_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 99 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 99 Z-coordinate`
@@ -62098,8 +59248,6 @@ class ShadingBuildingDetailed(object):
     @vertex_100_xcoordinate.setter
     def vertex_100_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 100 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 100 X-coordinate`
@@ -62130,8 +59278,6 @@ class ShadingBuildingDetailed(object):
     @vertex_100_ycoordinate.setter
     def vertex_100_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 100 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 100 Y-coordinate`
@@ -62162,8 +59308,6 @@ class ShadingBuildingDetailed(object):
     @vertex_100_zcoordinate.setter
     def vertex_100_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 100 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 100 Z-coordinate`
@@ -62194,8 +59338,6 @@ class ShadingBuildingDetailed(object):
     @vertex_101_xcoordinate.setter
     def vertex_101_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 101 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 101 X-coordinate`
@@ -62226,8 +59368,6 @@ class ShadingBuildingDetailed(object):
     @vertex_101_ycoordinate.setter
     def vertex_101_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 101 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 101 Y-coordinate`
@@ -62258,8 +59398,6 @@ class ShadingBuildingDetailed(object):
     @vertex_101_zcoordinate.setter
     def vertex_101_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 101 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 101 Z-coordinate`
@@ -62290,8 +59428,6 @@ class ShadingBuildingDetailed(object):
     @vertex_102_xcoordinate.setter
     def vertex_102_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 102 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 102 X-coordinate`
@@ -62322,8 +59458,6 @@ class ShadingBuildingDetailed(object):
     @vertex_102_ycoordinate.setter
     def vertex_102_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 102 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 102 Y-coordinate`
@@ -62354,8 +59488,6 @@ class ShadingBuildingDetailed(object):
     @vertex_102_zcoordinate.setter
     def vertex_102_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 102 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 102 Z-coordinate`
@@ -62386,8 +59518,6 @@ class ShadingBuildingDetailed(object):
     @vertex_103_xcoordinate.setter
     def vertex_103_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 103 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 103 X-coordinate`
@@ -62418,8 +59548,6 @@ class ShadingBuildingDetailed(object):
     @vertex_103_ycoordinate.setter
     def vertex_103_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 103 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 103 Y-coordinate`
@@ -62450,8 +59578,6 @@ class ShadingBuildingDetailed(object):
     @vertex_103_zcoordinate.setter
     def vertex_103_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 103 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 103 Z-coordinate`
@@ -62482,8 +59608,6 @@ class ShadingBuildingDetailed(object):
     @vertex_104_xcoordinate.setter
     def vertex_104_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 104 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 104 X-coordinate`
@@ -62514,8 +59638,6 @@ class ShadingBuildingDetailed(object):
     @vertex_104_ycoordinate.setter
     def vertex_104_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 104 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 104 Y-coordinate`
@@ -62546,8 +59668,6 @@ class ShadingBuildingDetailed(object):
     @vertex_104_zcoordinate.setter
     def vertex_104_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 104 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 104 Z-coordinate`
@@ -62578,8 +59698,6 @@ class ShadingBuildingDetailed(object):
     @vertex_105_xcoordinate.setter
     def vertex_105_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 105 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 105 X-coordinate`
@@ -62610,8 +59728,6 @@ class ShadingBuildingDetailed(object):
     @vertex_105_ycoordinate.setter
     def vertex_105_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 105 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 105 Y-coordinate`
@@ -62642,8 +59758,6 @@ class ShadingBuildingDetailed(object):
     @vertex_105_zcoordinate.setter
     def vertex_105_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 105 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 105 Z-coordinate`
@@ -62674,8 +59788,6 @@ class ShadingBuildingDetailed(object):
     @vertex_106_xcoordinate.setter
     def vertex_106_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 106 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 106 X-coordinate`
@@ -62706,8 +59818,6 @@ class ShadingBuildingDetailed(object):
     @vertex_106_ycoordinate.setter
     def vertex_106_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 106 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 106 Y-coordinate`
@@ -62738,8 +59848,6 @@ class ShadingBuildingDetailed(object):
     @vertex_106_zcoordinate.setter
     def vertex_106_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 106 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 106 Z-coordinate`
@@ -62770,8 +59878,6 @@ class ShadingBuildingDetailed(object):
     @vertex_107_xcoordinate.setter
     def vertex_107_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 107 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 107 X-coordinate`
@@ -62802,8 +59908,6 @@ class ShadingBuildingDetailed(object):
     @vertex_107_ycoordinate.setter
     def vertex_107_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 107 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 107 Y-coordinate`
@@ -62834,8 +59938,6 @@ class ShadingBuildingDetailed(object):
     @vertex_107_zcoordinate.setter
     def vertex_107_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 107 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 107 Z-coordinate`
@@ -62866,8 +59968,6 @@ class ShadingBuildingDetailed(object):
     @vertex_108_xcoordinate.setter
     def vertex_108_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 108 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 108 X-coordinate`
@@ -62898,8 +59998,6 @@ class ShadingBuildingDetailed(object):
     @vertex_108_ycoordinate.setter
     def vertex_108_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 108 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 108 Y-coordinate`
@@ -62930,8 +60028,6 @@ class ShadingBuildingDetailed(object):
     @vertex_108_zcoordinate.setter
     def vertex_108_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 108 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 108 Z-coordinate`
@@ -62962,8 +60058,6 @@ class ShadingBuildingDetailed(object):
     @vertex_109_xcoordinate.setter
     def vertex_109_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 109 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 109 X-coordinate`
@@ -62994,8 +60088,6 @@ class ShadingBuildingDetailed(object):
     @vertex_109_ycoordinate.setter
     def vertex_109_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 109 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 109 Y-coordinate`
@@ -63026,8 +60118,6 @@ class ShadingBuildingDetailed(object):
     @vertex_109_zcoordinate.setter
     def vertex_109_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 109 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 109 Z-coordinate`
@@ -63058,8 +60148,6 @@ class ShadingBuildingDetailed(object):
     @vertex_110_xcoordinate.setter
     def vertex_110_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 110 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 110 X-coordinate`
@@ -63090,8 +60178,6 @@ class ShadingBuildingDetailed(object):
     @vertex_110_ycoordinate.setter
     def vertex_110_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 110 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 110 Y-coordinate`
@@ -63122,8 +60208,6 @@ class ShadingBuildingDetailed(object):
     @vertex_110_zcoordinate.setter
     def vertex_110_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 110 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 110 Z-coordinate`
@@ -63154,8 +60238,6 @@ class ShadingBuildingDetailed(object):
     @vertex_111_xcoordinate.setter
     def vertex_111_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 111 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 111 X-coordinate`
@@ -63186,8 +60268,6 @@ class ShadingBuildingDetailed(object):
     @vertex_111_ycoordinate.setter
     def vertex_111_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 111 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 111 Y-coordinate`
@@ -63218,8 +60298,6 @@ class ShadingBuildingDetailed(object):
     @vertex_111_zcoordinate.setter
     def vertex_111_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 111 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 111 Z-coordinate`
@@ -63250,8 +60328,6 @@ class ShadingBuildingDetailed(object):
     @vertex_112_xcoordinate.setter
     def vertex_112_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 112 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 112 X-coordinate`
@@ -63282,8 +60358,6 @@ class ShadingBuildingDetailed(object):
     @vertex_112_ycoordinate.setter
     def vertex_112_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 112 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 112 Y-coordinate`
@@ -63314,8 +60388,6 @@ class ShadingBuildingDetailed(object):
     @vertex_112_zcoordinate.setter
     def vertex_112_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 112 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 112 Z-coordinate`
@@ -63346,8 +60418,6 @@ class ShadingBuildingDetailed(object):
     @vertex_113_xcoordinate.setter
     def vertex_113_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 113 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 113 X-coordinate`
@@ -63378,8 +60448,6 @@ class ShadingBuildingDetailed(object):
     @vertex_113_ycoordinate.setter
     def vertex_113_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 113 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 113 Y-coordinate`
@@ -63410,8 +60478,6 @@ class ShadingBuildingDetailed(object):
     @vertex_113_zcoordinate.setter
     def vertex_113_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 113 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 113 Z-coordinate`
@@ -63442,8 +60508,6 @@ class ShadingBuildingDetailed(object):
     @vertex_114_xcoordinate.setter
     def vertex_114_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 114 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 114 X-coordinate`
@@ -63474,8 +60538,6 @@ class ShadingBuildingDetailed(object):
     @vertex_114_ycoordinate.setter
     def vertex_114_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 114 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 114 Y-coordinate`
@@ -63506,8 +60568,6 @@ class ShadingBuildingDetailed(object):
     @vertex_114_zcoordinate.setter
     def vertex_114_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 114 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 114 Z-coordinate`
@@ -63538,8 +60598,6 @@ class ShadingBuildingDetailed(object):
     @vertex_115_xcoordinate.setter
     def vertex_115_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 115 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 115 X-coordinate`
@@ -63570,8 +60628,6 @@ class ShadingBuildingDetailed(object):
     @vertex_115_ycoordinate.setter
     def vertex_115_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 115 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 115 Y-coordinate`
@@ -63602,8 +60658,6 @@ class ShadingBuildingDetailed(object):
     @vertex_115_zcoordinate.setter
     def vertex_115_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 115 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 115 Z-coordinate`
@@ -63634,8 +60688,6 @@ class ShadingBuildingDetailed(object):
     @vertex_116_xcoordinate.setter
     def vertex_116_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 116 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 116 X-coordinate`
@@ -63666,8 +60718,6 @@ class ShadingBuildingDetailed(object):
     @vertex_116_ycoordinate.setter
     def vertex_116_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 116 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 116 Y-coordinate`
@@ -63698,8 +60748,6 @@ class ShadingBuildingDetailed(object):
     @vertex_116_zcoordinate.setter
     def vertex_116_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 116 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 116 Z-coordinate`
@@ -63730,8 +60778,6 @@ class ShadingBuildingDetailed(object):
     @vertex_117_xcoordinate.setter
     def vertex_117_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 117 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 117 X-coordinate`
@@ -63762,8 +60808,6 @@ class ShadingBuildingDetailed(object):
     @vertex_117_ycoordinate.setter
     def vertex_117_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 117 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 117 Y-coordinate`
@@ -63794,8 +60838,6 @@ class ShadingBuildingDetailed(object):
     @vertex_117_zcoordinate.setter
     def vertex_117_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 117 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 117 Z-coordinate`
@@ -63826,8 +60868,6 @@ class ShadingBuildingDetailed(object):
     @vertex_118_xcoordinate.setter
     def vertex_118_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 118 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 118 X-coordinate`
@@ -63858,8 +60898,6 @@ class ShadingBuildingDetailed(object):
     @vertex_118_ycoordinate.setter
     def vertex_118_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 118 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 118 Y-coordinate`
@@ -63890,8 +60928,6 @@ class ShadingBuildingDetailed(object):
     @vertex_118_zcoordinate.setter
     def vertex_118_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 118 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 118 Z-coordinate`
@@ -63922,8 +60958,6 @@ class ShadingBuildingDetailed(object):
     @vertex_119_xcoordinate.setter
     def vertex_119_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 119 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 119 X-coordinate`
@@ -63954,8 +60988,6 @@ class ShadingBuildingDetailed(object):
     @vertex_119_ycoordinate.setter
     def vertex_119_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 119 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 119 Y-coordinate`
@@ -63986,8 +61018,6 @@ class ShadingBuildingDetailed(object):
     @vertex_119_zcoordinate.setter
     def vertex_119_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 119 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 119 Z-coordinate`
@@ -64018,8 +61048,6 @@ class ShadingBuildingDetailed(object):
     @vertex_120_xcoordinate.setter
     def vertex_120_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 120 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 120 X-coordinate`
@@ -64050,8 +61078,6 @@ class ShadingBuildingDetailed(object):
     @vertex_120_ycoordinate.setter
     def vertex_120_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 120 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 120 Y-coordinate`
@@ -64082,8 +61108,6 @@ class ShadingBuildingDetailed(object):
     @vertex_120_zcoordinate.setter
     def vertex_120_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 120 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 120 Z-coordinate`
@@ -64228,8 +61252,6 @@ class ShadingOverhang(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'reference': u'AllShadingSurfNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -64265,8 +61287,6 @@ class ShadingOverhang(object):
     @window_or_door_name.setter
     def window_or_door_name(self, value=None):
         """  Corresponds to IDD Field `Window or Door Name`
-        
-        {u'type': u'object-list', u'object-list': u'SubSurfNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Window or Door Name`
@@ -64302,8 +61322,6 @@ class ShadingOverhang(object):
     @height_above_window_or_door.setter
     def height_above_window_or_door(self, value=None):
         """  Corresponds to IDD Field `Height above Window or Door`
-        
-        {u'units': u'm', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Height above Window or Door`
@@ -64332,10 +61350,8 @@ class ShadingOverhang(object):
         return self._data["Tilt Angle from Window/Door"]
 
     @tilt_angle_from_window_or_door.setter
-    def tilt_angle_from_window_or_door(self, value=90.0 ):
+    def tilt_angle_from_window_or_door(self, value=90.0):
         """  Corresponds to IDD Field `Tilt Angle from Window/Door`
-        
-        {'pytype': 'float', u'default': '90.0', u'maximum': '180.0', u'minimum': '0.0', u'units': u'deg', 'type': 'real'}
 
         Args:
             value (float): value for IDD Field `Tilt Angle from Window/Door`
@@ -64375,8 +61391,6 @@ class ShadingOverhang(object):
     @left_extension_from_window_or_door_width.setter
     def left_extension_from_window_or_door_width(self, value=None):
         """  Corresponds to IDD Field `Left extension from Window/Door Width`
-        
-        {u'units': u'm', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Left extension from Window/Door Width`
@@ -64408,8 +61422,6 @@ class ShadingOverhang(object):
     def right_extension_from_window_or_door_width(self, value=None):
         """  Corresponds to IDD Field `Right extension from Window/Door Width`
         N3 + N4 + Window/Door Width is Overhang Length
-        
-        {u'note': [u'N3 + N4 + Window/Door Width is Overhang Length'], u'units': u'm', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Right extension from Window/Door Width`
@@ -64440,8 +61452,6 @@ class ShadingOverhang(object):
     @depth.setter
     def depth(self, value=None):
         """  Corresponds to IDD Field `Depth`
-        
-        {u'units': u'm', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Depth`
@@ -64590,8 +61600,6 @@ class ShadingOverhangProjection(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'reference': u'AllShadingSurfNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -64627,8 +61635,6 @@ class ShadingOverhangProjection(object):
     @window_or_door_name.setter
     def window_or_door_name(self, value=None):
         """  Corresponds to IDD Field `Window or Door Name`
-        
-        {u'type': u'object-list', u'object-list': u'SubSurfNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Window or Door Name`
@@ -64664,8 +61670,6 @@ class ShadingOverhangProjection(object):
     @height_above_window_or_door.setter
     def height_above_window_or_door(self, value=None):
         """  Corresponds to IDD Field `Height above Window or Door`
-        
-        {u'units': u'm', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Height above Window or Door`
@@ -64694,10 +61698,8 @@ class ShadingOverhangProjection(object):
         return self._data["Tilt Angle from Window/Door"]
 
     @tilt_angle_from_window_or_door.setter
-    def tilt_angle_from_window_or_door(self, value=90.0 ):
+    def tilt_angle_from_window_or_door(self, value=90.0):
         """  Corresponds to IDD Field `Tilt Angle from Window/Door`
-        
-        {'pytype': 'float', u'default': '90.0', u'maximum': '180.0', u'minimum': '0.0', u'units': u'deg', 'type': 'real'}
 
         Args:
             value (float): value for IDD Field `Tilt Angle from Window/Door`
@@ -64737,8 +61739,6 @@ class ShadingOverhangProjection(object):
     @left_extension_from_window_or_door_width.setter
     def left_extension_from_window_or_door_width(self, value=None):
         """  Corresponds to IDD Field `Left extension from Window/Door Width`
-        
-        {u'units': u'm', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Left extension from Window/Door Width`
@@ -64770,8 +61770,6 @@ class ShadingOverhangProjection(object):
     def right_extension_from_window_or_door_width(self, value=None):
         """  Corresponds to IDD Field `Right extension from Window/Door Width`
         N3 + N4 + Window/Door Width is Overhang Length
-        
-        {u'units': u'm', u'note': [u'N3 + N4 + Window/Door Width is Overhang Length'], 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Right extension from Window/Door Width`
@@ -64802,8 +61800,6 @@ class ShadingOverhangProjection(object):
     @depth_as_fraction_of_window_or_door_height.setter
     def depth_as_fraction_of_window_or_door_height(self, value=None):
         """  Corresponds to IDD Field `Depth as Fraction of Window/Door Height`
-        
-        {u'units': u'dimensionless', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Depth as Fraction of Window/Door Height`
@@ -64992,8 +61988,6 @@ class ShadingFin(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'reference': u'AllShadingSurfNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -65029,8 +62023,6 @@ class ShadingFin(object):
     @window_or_door_name.setter
     def window_or_door_name(self, value=None):
         """  Corresponds to IDD Field `Window or Door Name`
-        
-        {u'type': u'object-list', u'object-list': u'SubSurfNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Window or Door Name`
@@ -65066,8 +62058,6 @@ class ShadingFin(object):
     @left_extension_from_window_or_door.setter
     def left_extension_from_window_or_door(self, value=None):
         """  Corresponds to IDD Field `Left Extension from Window/Door`
-        
-        {u'units': u'm', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Left Extension from Window/Door`
@@ -65098,8 +62088,6 @@ class ShadingFin(object):
     @left_distance_above_top_of_window.setter
     def left_distance_above_top_of_window(self, value=None):
         """  Corresponds to IDD Field `Left Distance Above Top of Window`
-        
-        {u'units': u'm', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Left Distance Above Top of Window`
@@ -65131,8 +62119,6 @@ class ShadingFin(object):
     def left_distance_below_bottom_of_window(self, value=None):
         """  Corresponds to IDD Field `Left Distance Below Bottom of Window`
         N2 + N3 + height of Window/Door is height of Fin
-        
-        {u'units': u'm', u'note': [u'N2 + N3 + height of Window/Door is height of Fin'], 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Left Distance Below Bottom of Window`
@@ -65161,10 +62147,8 @@ class ShadingFin(object):
         return self._data["Left Tilt Angle from Window/Door"]
 
     @left_tilt_angle_from_window_or_door.setter
-    def left_tilt_angle_from_window_or_door(self, value=90.0 ):
+    def left_tilt_angle_from_window_or_door(self, value=90.0):
         """  Corresponds to IDD Field `Left Tilt Angle from Window/Door`
-        
-        {'pytype': 'float', u'default': '90.0', u'maximum': '180.0', u'minimum': '0.0', u'units': u'deg', 'type': 'real'}
 
         Args:
             value (float): value for IDD Field `Left Tilt Angle from Window/Door`
@@ -65204,8 +62188,6 @@ class ShadingFin(object):
     @left_depth.setter
     def left_depth(self, value=None):
         """  Corresponds to IDD Field `Left Depth`
-        
-        {u'units': u'm', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Left Depth`
@@ -65240,8 +62222,6 @@ class ShadingFin(object):
     @right_extension_from_window_or_door.setter
     def right_extension_from_window_or_door(self, value=None):
         """  Corresponds to IDD Field `Right Extension from Window/Door`
-        
-        {u'units': u'm', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Right Extension from Window/Door`
@@ -65272,8 +62252,6 @@ class ShadingFin(object):
     @right_distance_above_top_of_window.setter
     def right_distance_above_top_of_window(self, value=None):
         """  Corresponds to IDD Field `Right Distance Above Top of Window`
-        
-        {u'units': u'm', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Right Distance Above Top of Window`
@@ -65305,8 +62283,6 @@ class ShadingFin(object):
     def right_distance_below_bottom_of_window(self, value=None):
         """  Corresponds to IDD Field `Right Distance Below Bottom of Window`
         N7 + N8 + height of Window/Door is height of Fin
-        
-        {u'note': [u'N7 + N8 + height of Window/Door is height of Fin'], u'units': u'm', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Right Distance Below Bottom of Window`
@@ -65335,10 +62311,8 @@ class ShadingFin(object):
         return self._data["Right Tilt Angle from Window/Door"]
 
     @right_tilt_angle_from_window_or_door.setter
-    def right_tilt_angle_from_window_or_door(self, value=90.0 ):
+    def right_tilt_angle_from_window_or_door(self, value=90.0):
         """  Corresponds to IDD Field `Right Tilt Angle from Window/Door`
-        
-        {'pytype': 'float', u'default': '90.0', u'maximum': '180.0', u'minimum': '0.0', u'units': u'deg', 'type': 'real'}
 
         Args:
             value (float): value for IDD Field `Right Tilt Angle from Window/Door`
@@ -65378,8 +62352,6 @@ class ShadingFin(object):
     @right_depth.setter
     def right_depth(self, value=None):
         """  Corresponds to IDD Field `Right Depth`
-        
-        {u'units': u'm', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Right Depth`
@@ -65568,8 +62540,6 @@ class ShadingFinProjection(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'reference': u'AllShadingSurfNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -65605,8 +62575,6 @@ class ShadingFinProjection(object):
     @window_or_door_name.setter
     def window_or_door_name(self, value=None):
         """  Corresponds to IDD Field `Window or Door Name`
-        
-        {u'type': u'object-list', u'object-list': u'SubSurfNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Window or Door Name`
@@ -65642,8 +62610,6 @@ class ShadingFinProjection(object):
     @left_extension_from_window_or_door.setter
     def left_extension_from_window_or_door(self, value=None):
         """  Corresponds to IDD Field `Left Extension from Window/Door`
-        
-        {u'units': u'm', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Left Extension from Window/Door`
@@ -65674,8 +62640,6 @@ class ShadingFinProjection(object):
     @left_distance_above_top_of_window.setter
     def left_distance_above_top_of_window(self, value=None):
         """  Corresponds to IDD Field `Left Distance Above Top of Window`
-        
-        {u'units': u'm', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Left Distance Above Top of Window`
@@ -65707,8 +62671,6 @@ class ShadingFinProjection(object):
     def left_distance_below_bottom_of_window(self, value=None):
         """  Corresponds to IDD Field `Left Distance Below Bottom of Window`
         N2 + N3 + height of Window/Door is height of Fin
-        
-        {u'units': u'm', u'note': [u'N2 + N3 + height of Window/Door is height of Fin'], 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Left Distance Below Bottom of Window`
@@ -65737,10 +62699,8 @@ class ShadingFinProjection(object):
         return self._data["Left Tilt Angle from Window/Door"]
 
     @left_tilt_angle_from_window_or_door.setter
-    def left_tilt_angle_from_window_or_door(self, value=90.0 ):
+    def left_tilt_angle_from_window_or_door(self, value=90.0):
         """  Corresponds to IDD Field `Left Tilt Angle from Window/Door`
-        
-        {'pytype': 'float', u'default': '90.0', u'maximum': '180.0', u'minimum': '0.0', u'units': u'deg', 'type': 'real'}
 
         Args:
             value (float): value for IDD Field `Left Tilt Angle from Window/Door`
@@ -65780,8 +62740,6 @@ class ShadingFinProjection(object):
     @left_depth_as_fraction_of_window_or_door_width.setter
     def left_depth_as_fraction_of_window_or_door_width(self, value=None):
         """  Corresponds to IDD Field `Left Depth as Fraction of Window/Door Width`
-        
-        {u'units': u'dimensionless', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Left Depth as Fraction of Window/Door Width`
@@ -65816,8 +62774,6 @@ class ShadingFinProjection(object):
     @right_extension_from_window_or_door.setter
     def right_extension_from_window_or_door(self, value=None):
         """  Corresponds to IDD Field `Right Extension from Window/Door`
-        
-        {u'units': u'm', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Right Extension from Window/Door`
@@ -65848,8 +62804,6 @@ class ShadingFinProjection(object):
     @right_distance_above_top_of_window.setter
     def right_distance_above_top_of_window(self, value=None):
         """  Corresponds to IDD Field `Right Distance Above Top of Window`
-        
-        {u'units': u'm', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Right Distance Above Top of Window`
@@ -65881,8 +62835,6 @@ class ShadingFinProjection(object):
     def right_distance_below_bottom_of_window(self, value=None):
         """  Corresponds to IDD Field `Right Distance Below Bottom of Window`
         N7 + N8 + height of Window/Door is height of Fin
-        
-        {u'note': [u'N7 + N8 + height of Window/Door is height of Fin'], u'units': u'm', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Right Distance Below Bottom of Window`
@@ -65911,10 +62863,8 @@ class ShadingFinProjection(object):
         return self._data["Right Tilt Angle from Window/Door"]
 
     @right_tilt_angle_from_window_or_door.setter
-    def right_tilt_angle_from_window_or_door(self, value=90.0 ):
+    def right_tilt_angle_from_window_or_door(self, value=90.0):
         """  Corresponds to IDD Field `Right Tilt Angle from Window/Door`
-        
-        {'pytype': 'float', u'default': '90.0', u'maximum': '180.0', u'minimum': '0.0', u'units': u'deg', 'type': 'real'}
 
         Args:
             value (float): value for IDD Field `Right Tilt Angle from Window/Door`
@@ -65954,8 +62904,6 @@ class ShadingFinProjection(object):
     @right_depth_as_fraction_of_window_or_door_width.setter
     def right_depth_as_fraction_of_window_or_door_width(self, value=None):
         """  Corresponds to IDD Field `Right Depth as Fraction of Window/Door Width`
-        
-        {u'units': u'dimensionless', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Right Depth as Fraction of Window/Door Width`
@@ -68961,8 +65909,6 @@ class ShadingZoneDetailed(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'reference': u'AllShadingSurfNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -68998,8 +65944,6 @@ class ShadingZoneDetailed(object):
     @base_surface_name.setter
     def base_surface_name(self, value=None):
         """  Corresponds to IDD Field `Base Surface Name`
-        
-        {u'type': u'object-list', u'object-list': u'SurfaceNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Base Surface Name`
@@ -69036,8 +65980,6 @@ class ShadingZoneDetailed(object):
     def transmittance_schedule_name(self, value=None):
         """  Corresponds to IDD Field `Transmittance Schedule Name`
         Transmittance schedule for the shading device, defaults to zero (always opaque)
-        
-        {u'note': [u'Transmittance schedule for the shading device, defaults to zero (always opaque)'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Transmittance Schedule Name`
@@ -69071,14 +66013,12 @@ class ShadingZoneDetailed(object):
         return self._data["Number of Vertices"]
 
     @number_of_vertices.setter
-    def number_of_vertices(self, value="autocalculate" ):
+    def number_of_vertices(self, value="autocalculate"):
         """  Corresponds to IDD Field `Number of Vertices`
         shown with 6 vertex coordinates -- extensible object
         vertices are given in GlobalGeometryRules coordinates -- if relative, all surface coordinates
         are "relative" to the Zone Origin.  if world, then building and zone origins are used
         for some internal calculations, but all coordinates are given in an "absolute" system.
-        
-        {'pytype': 'float', u'default': '"autocalculate"', u'required-field': True, u'note': [u'shown with 6 vertex coordinates -- extensible object', u'vertices are given in GlobalGeometryRules coordinates -- if relative, all surface coordinates', u'are "relative" to the Zone Origin.  if world, then building and zone origins are used', u'for some internal calculations, but all coordinates are given in an "absolute" system.'], u'minimum': '3.0', u'autocalculatable': True, 'type': 'real'}
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `Number of Vertices`
@@ -69094,7 +66034,7 @@ class ShadingZoneDetailed(object):
             try:
                 value_lower = str(value).lower()
                 if value_lower == "autocalculate":
-                    self._data["Number of Vertices"] = value
+                    self._data["Number of Vertices"] = "Autocalculate"
                     return
             except ValueError:
                 pass
@@ -69120,8 +66060,6 @@ class ShadingZoneDetailed(object):
     @vertex_1_xcoordinate.setter
     def vertex_1_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 1 X-coordinate`
-        
-        {u'units': u'm', 'pytype': 'float', u'type': u'real', u'required-field': True, u'begin-extensible': u''}
 
         Args:
             value (float): value for IDD Field `Vertex 1 X-coordinate`
@@ -69152,8 +66090,6 @@ class ShadingZoneDetailed(object):
     @vertex_1_ycoordinate.setter
     def vertex_1_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 1 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 1 Y-coordinate`
@@ -69184,8 +66120,6 @@ class ShadingZoneDetailed(object):
     @vertex_1_zcoordinate.setter
     def vertex_1_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 1 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 1 Z-coordinate`
@@ -69216,8 +66150,6 @@ class ShadingZoneDetailed(object):
     @vertex_2_xcoordinate.setter
     def vertex_2_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 2 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 2 X-coordinate`
@@ -69248,8 +66180,6 @@ class ShadingZoneDetailed(object):
     @vertex_2_ycoordinate.setter
     def vertex_2_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 2 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 2 Y-coordinate`
@@ -69280,8 +66210,6 @@ class ShadingZoneDetailed(object):
     @vertex_2_zcoordinate.setter
     def vertex_2_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 2 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 2 Z-coordinate`
@@ -69312,8 +66240,6 @@ class ShadingZoneDetailed(object):
     @vertex_3_xcoordinate.setter
     def vertex_3_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 3 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 3 X-coordinate`
@@ -69344,8 +66270,6 @@ class ShadingZoneDetailed(object):
     @vertex_3_ycoordinate.setter
     def vertex_3_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 3 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 3 Y-coordinate`
@@ -69376,8 +66300,6 @@ class ShadingZoneDetailed(object):
     @vertex_3_zcoordinate.setter
     def vertex_3_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 3 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 3 Z-coordinate`
@@ -69408,8 +66330,6 @@ class ShadingZoneDetailed(object):
     @vertex_4_xcoordinate.setter
     def vertex_4_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 4 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 4 X-coordinate`
@@ -69440,8 +66360,6 @@ class ShadingZoneDetailed(object):
     @vertex_4_ycoordinate.setter
     def vertex_4_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 4 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 4 Y-coordinate`
@@ -69472,8 +66390,6 @@ class ShadingZoneDetailed(object):
     @vertex_4_zcoordinate.setter
     def vertex_4_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 4 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 4 Z-coordinate`
@@ -69504,8 +66420,6 @@ class ShadingZoneDetailed(object):
     @vertex_5_xcoordinate.setter
     def vertex_5_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 5 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 5 X-coordinate`
@@ -69536,8 +66450,6 @@ class ShadingZoneDetailed(object):
     @vertex_5_ycoordinate.setter
     def vertex_5_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 5 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 5 Y-coordinate`
@@ -69568,8 +66480,6 @@ class ShadingZoneDetailed(object):
     @vertex_5_zcoordinate.setter
     def vertex_5_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 5 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 5 Z-coordinate`
@@ -69600,8 +66510,6 @@ class ShadingZoneDetailed(object):
     @vertex_6_xcoordinate.setter
     def vertex_6_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 6 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 6 X-coordinate`
@@ -69632,8 +66540,6 @@ class ShadingZoneDetailed(object):
     @vertex_6_ycoordinate.setter
     def vertex_6_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 6 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 6 Y-coordinate`
@@ -69664,8 +66570,6 @@ class ShadingZoneDetailed(object):
     @vertex_6_zcoordinate.setter
     def vertex_6_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 6 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 6 Z-coordinate`
@@ -69696,8 +66600,6 @@ class ShadingZoneDetailed(object):
     @vertex_7_xcoordinate.setter
     def vertex_7_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 7 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 7 X-coordinate`
@@ -69728,8 +66630,6 @@ class ShadingZoneDetailed(object):
     @vertex_7_ycoordinate.setter
     def vertex_7_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 7 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 7 Y-coordinate`
@@ -69760,8 +66660,6 @@ class ShadingZoneDetailed(object):
     @vertex_7_zcoordinate.setter
     def vertex_7_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 7 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 7 Z-coordinate`
@@ -69792,8 +66690,6 @@ class ShadingZoneDetailed(object):
     @vertex_8_xcoordinate.setter
     def vertex_8_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 8 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 8 X-coordinate`
@@ -69824,8 +66720,6 @@ class ShadingZoneDetailed(object):
     @vertex_8_ycoordinate.setter
     def vertex_8_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 8 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 8 Y-coordinate`
@@ -69856,8 +66750,6 @@ class ShadingZoneDetailed(object):
     @vertex_8_zcoordinate.setter
     def vertex_8_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 8 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 8 Z-coordinate`
@@ -69888,8 +66780,6 @@ class ShadingZoneDetailed(object):
     @vertex_9_xcoordinate.setter
     def vertex_9_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 9 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 9 X-coordinate`
@@ -69920,8 +66810,6 @@ class ShadingZoneDetailed(object):
     @vertex_9_ycoordinate.setter
     def vertex_9_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 9 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 9 Y-coordinate`
@@ -69952,8 +66840,6 @@ class ShadingZoneDetailed(object):
     @vertex_9_zcoordinate.setter
     def vertex_9_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 9 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 9 Z-coordinate`
@@ -69984,8 +66870,6 @@ class ShadingZoneDetailed(object):
     @vertex_10_xcoordinate.setter
     def vertex_10_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 10 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 10 X-coordinate`
@@ -70016,8 +66900,6 @@ class ShadingZoneDetailed(object):
     @vertex_10_ycoordinate.setter
     def vertex_10_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 10 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 10 Y-coordinate`
@@ -70048,8 +66930,6 @@ class ShadingZoneDetailed(object):
     @vertex_10_zcoordinate.setter
     def vertex_10_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 10 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 10 Z-coordinate`
@@ -70080,8 +66960,6 @@ class ShadingZoneDetailed(object):
     @vertex_11_xcoordinate.setter
     def vertex_11_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 11 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 11 X-coordinate`
@@ -70112,8 +66990,6 @@ class ShadingZoneDetailed(object):
     @vertex_11_ycoordinate.setter
     def vertex_11_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 11 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 11 Y-coordinate`
@@ -70144,8 +67020,6 @@ class ShadingZoneDetailed(object):
     @vertex_11_zcoordinate.setter
     def vertex_11_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 11 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 11 Z-coordinate`
@@ -70176,8 +67050,6 @@ class ShadingZoneDetailed(object):
     @vertex_12_xcoordinate.setter
     def vertex_12_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 12 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 12 X-coordinate`
@@ -70208,8 +67080,6 @@ class ShadingZoneDetailed(object):
     @vertex_12_ycoordinate.setter
     def vertex_12_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 12 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 12 Y-coordinate`
@@ -70240,8 +67110,6 @@ class ShadingZoneDetailed(object):
     @vertex_12_zcoordinate.setter
     def vertex_12_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 12 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 12 Z-coordinate`
@@ -70272,8 +67140,6 @@ class ShadingZoneDetailed(object):
     @vertex_13_xcoordinate.setter
     def vertex_13_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 13 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 13 X-coordinate`
@@ -70304,8 +67170,6 @@ class ShadingZoneDetailed(object):
     @vertex_13_ycoordinate.setter
     def vertex_13_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 13 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 13 Y-coordinate`
@@ -70336,8 +67200,6 @@ class ShadingZoneDetailed(object):
     @vertex_13_zcoordinate.setter
     def vertex_13_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 13 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 13 Z-coordinate`
@@ -70368,8 +67230,6 @@ class ShadingZoneDetailed(object):
     @vertex_14_xcoordinate.setter
     def vertex_14_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 14 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 14 X-coordinate`
@@ -70400,8 +67260,6 @@ class ShadingZoneDetailed(object):
     @vertex_14_ycoordinate.setter
     def vertex_14_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 14 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 14 Y-coordinate`
@@ -70432,8 +67290,6 @@ class ShadingZoneDetailed(object):
     @vertex_14_zcoordinate.setter
     def vertex_14_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 14 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 14 Z-coordinate`
@@ -70464,8 +67320,6 @@ class ShadingZoneDetailed(object):
     @vertex_15_xcoordinate.setter
     def vertex_15_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 15 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 15 X-coordinate`
@@ -70496,8 +67350,6 @@ class ShadingZoneDetailed(object):
     @vertex_15_ycoordinate.setter
     def vertex_15_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 15 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 15 Y-coordinate`
@@ -70528,8 +67380,6 @@ class ShadingZoneDetailed(object):
     @vertex_15_zcoordinate.setter
     def vertex_15_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 15 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 15 Z-coordinate`
@@ -70560,8 +67410,6 @@ class ShadingZoneDetailed(object):
     @vertex_16_xcoordinate.setter
     def vertex_16_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 16 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 16 X-coordinate`
@@ -70592,8 +67440,6 @@ class ShadingZoneDetailed(object):
     @vertex_16_ycoordinate.setter
     def vertex_16_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 16 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 16 Y-coordinate`
@@ -70624,8 +67470,6 @@ class ShadingZoneDetailed(object):
     @vertex_16_zcoordinate.setter
     def vertex_16_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 16 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 16 Z-coordinate`
@@ -70656,8 +67500,6 @@ class ShadingZoneDetailed(object):
     @vertex_17_xcoordinate.setter
     def vertex_17_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 17 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 17 X-coordinate`
@@ -70688,8 +67530,6 @@ class ShadingZoneDetailed(object):
     @vertex_17_ycoordinate.setter
     def vertex_17_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 17 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 17 Y-coordinate`
@@ -70720,8 +67560,6 @@ class ShadingZoneDetailed(object):
     @vertex_17_zcoordinate.setter
     def vertex_17_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 17 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 17 Z-coordinate`
@@ -70752,8 +67590,6 @@ class ShadingZoneDetailed(object):
     @vertex_18_xcoordinate.setter
     def vertex_18_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 18 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 18 X-coordinate`
@@ -70784,8 +67620,6 @@ class ShadingZoneDetailed(object):
     @vertex_18_ycoordinate.setter
     def vertex_18_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 18 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 18 Y-coordinate`
@@ -70816,8 +67650,6 @@ class ShadingZoneDetailed(object):
     @vertex_18_zcoordinate.setter
     def vertex_18_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 18 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 18 Z-coordinate`
@@ -70848,8 +67680,6 @@ class ShadingZoneDetailed(object):
     @vertex_19_xcoordinate.setter
     def vertex_19_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 19 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 19 X-coordinate`
@@ -70880,8 +67710,6 @@ class ShadingZoneDetailed(object):
     @vertex_19_ycoordinate.setter
     def vertex_19_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 19 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 19 Y-coordinate`
@@ -70912,8 +67740,6 @@ class ShadingZoneDetailed(object):
     @vertex_19_zcoordinate.setter
     def vertex_19_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 19 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 19 Z-coordinate`
@@ -70944,8 +67770,6 @@ class ShadingZoneDetailed(object):
     @vertex_20_xcoordinate.setter
     def vertex_20_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 20 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 20 X-coordinate`
@@ -70976,8 +67800,6 @@ class ShadingZoneDetailed(object):
     @vertex_20_ycoordinate.setter
     def vertex_20_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 20 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 20 Y-coordinate`
@@ -71008,8 +67830,6 @@ class ShadingZoneDetailed(object):
     @vertex_20_zcoordinate.setter
     def vertex_20_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 20 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 20 Z-coordinate`
@@ -71040,8 +67860,6 @@ class ShadingZoneDetailed(object):
     @vertex_21_xcoordinate.setter
     def vertex_21_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 21 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 21 X-coordinate`
@@ -71072,8 +67890,6 @@ class ShadingZoneDetailed(object):
     @vertex_21_ycoordinate.setter
     def vertex_21_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 21 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 21 Y-coordinate`
@@ -71104,8 +67920,6 @@ class ShadingZoneDetailed(object):
     @vertex_21_zcoordinate.setter
     def vertex_21_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 21 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 21 Z-coordinate`
@@ -71136,8 +67950,6 @@ class ShadingZoneDetailed(object):
     @vertex_22_xcoordinate.setter
     def vertex_22_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 22 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 22 X-coordinate`
@@ -71168,8 +67980,6 @@ class ShadingZoneDetailed(object):
     @vertex_22_ycoordinate.setter
     def vertex_22_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 22 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 22 Y-coordinate`
@@ -71200,8 +68010,6 @@ class ShadingZoneDetailed(object):
     @vertex_22_zcoordinate.setter
     def vertex_22_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 22 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 22 Z-coordinate`
@@ -71232,8 +68040,6 @@ class ShadingZoneDetailed(object):
     @vertex_23_xcoordinate.setter
     def vertex_23_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 23 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 23 X-coordinate`
@@ -71264,8 +68070,6 @@ class ShadingZoneDetailed(object):
     @vertex_23_ycoordinate.setter
     def vertex_23_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 23 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 23 Y-coordinate`
@@ -71296,8 +68100,6 @@ class ShadingZoneDetailed(object):
     @vertex_23_zcoordinate.setter
     def vertex_23_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 23 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 23 Z-coordinate`
@@ -71328,8 +68130,6 @@ class ShadingZoneDetailed(object):
     @vertex_24_xcoordinate.setter
     def vertex_24_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 24 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 24 X-coordinate`
@@ -71360,8 +68160,6 @@ class ShadingZoneDetailed(object):
     @vertex_24_ycoordinate.setter
     def vertex_24_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 24 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 24 Y-coordinate`
@@ -71392,8 +68190,6 @@ class ShadingZoneDetailed(object):
     @vertex_24_zcoordinate.setter
     def vertex_24_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 24 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 24 Z-coordinate`
@@ -71424,8 +68220,6 @@ class ShadingZoneDetailed(object):
     @vertex_25_xcoordinate.setter
     def vertex_25_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 25 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 25 X-coordinate`
@@ -71456,8 +68250,6 @@ class ShadingZoneDetailed(object):
     @vertex_25_ycoordinate.setter
     def vertex_25_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 25 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 25 Y-coordinate`
@@ -71488,8 +68280,6 @@ class ShadingZoneDetailed(object):
     @vertex_25_zcoordinate.setter
     def vertex_25_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 25 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 25 Z-coordinate`
@@ -71520,8 +68310,6 @@ class ShadingZoneDetailed(object):
     @vertex_26_xcoordinate.setter
     def vertex_26_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 26 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 26 X-coordinate`
@@ -71552,8 +68340,6 @@ class ShadingZoneDetailed(object):
     @vertex_26_ycoordinate.setter
     def vertex_26_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 26 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 26 Y-coordinate`
@@ -71584,8 +68370,6 @@ class ShadingZoneDetailed(object):
     @vertex_26_zcoordinate.setter
     def vertex_26_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 26 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 26 Z-coordinate`
@@ -71616,8 +68400,6 @@ class ShadingZoneDetailed(object):
     @vertex_27_xcoordinate.setter
     def vertex_27_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 27 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 27 X-coordinate`
@@ -71648,8 +68430,6 @@ class ShadingZoneDetailed(object):
     @vertex_27_ycoordinate.setter
     def vertex_27_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 27 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 27 Y-coordinate`
@@ -71680,8 +68460,6 @@ class ShadingZoneDetailed(object):
     @vertex_27_zcoordinate.setter
     def vertex_27_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 27 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 27 Z-coordinate`
@@ -71712,8 +68490,6 @@ class ShadingZoneDetailed(object):
     @vertex_28_xcoordinate.setter
     def vertex_28_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 28 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 28 X-coordinate`
@@ -71744,8 +68520,6 @@ class ShadingZoneDetailed(object):
     @vertex_28_ycoordinate.setter
     def vertex_28_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 28 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 28 Y-coordinate`
@@ -71776,8 +68550,6 @@ class ShadingZoneDetailed(object):
     @vertex_28_zcoordinate.setter
     def vertex_28_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 28 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 28 Z-coordinate`
@@ -71808,8 +68580,6 @@ class ShadingZoneDetailed(object):
     @vertex_29_xcoordinate.setter
     def vertex_29_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 29 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 29 X-coordinate`
@@ -71840,8 +68610,6 @@ class ShadingZoneDetailed(object):
     @vertex_29_ycoordinate.setter
     def vertex_29_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 29 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 29 Y-coordinate`
@@ -71872,8 +68640,6 @@ class ShadingZoneDetailed(object):
     @vertex_29_zcoordinate.setter
     def vertex_29_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 29 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 29 Z-coordinate`
@@ -71904,8 +68670,6 @@ class ShadingZoneDetailed(object):
     @vertex_30_xcoordinate.setter
     def vertex_30_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 30 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 30 X-coordinate`
@@ -71936,8 +68700,6 @@ class ShadingZoneDetailed(object):
     @vertex_30_ycoordinate.setter
     def vertex_30_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 30 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 30 Y-coordinate`
@@ -71968,8 +68730,6 @@ class ShadingZoneDetailed(object):
     @vertex_30_zcoordinate.setter
     def vertex_30_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 30 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 30 Z-coordinate`
@@ -72000,8 +68760,6 @@ class ShadingZoneDetailed(object):
     @vertex_31_xcoordinate.setter
     def vertex_31_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 31 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 31 X-coordinate`
@@ -72032,8 +68790,6 @@ class ShadingZoneDetailed(object):
     @vertex_31_ycoordinate.setter
     def vertex_31_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 31 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 31 Y-coordinate`
@@ -72064,8 +68820,6 @@ class ShadingZoneDetailed(object):
     @vertex_31_zcoordinate.setter
     def vertex_31_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 31 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 31 Z-coordinate`
@@ -72096,8 +68850,6 @@ class ShadingZoneDetailed(object):
     @vertex_32_xcoordinate.setter
     def vertex_32_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 32 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 32 X-coordinate`
@@ -72128,8 +68880,6 @@ class ShadingZoneDetailed(object):
     @vertex_32_ycoordinate.setter
     def vertex_32_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 32 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 32 Y-coordinate`
@@ -72160,8 +68910,6 @@ class ShadingZoneDetailed(object):
     @vertex_32_zcoordinate.setter
     def vertex_32_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 32 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 32 Z-coordinate`
@@ -72192,8 +68940,6 @@ class ShadingZoneDetailed(object):
     @vertex_33_xcoordinate.setter
     def vertex_33_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 33 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 33 X-coordinate`
@@ -72224,8 +68970,6 @@ class ShadingZoneDetailed(object):
     @vertex_33_ycoordinate.setter
     def vertex_33_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 33 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 33 Y-coordinate`
@@ -72256,8 +69000,6 @@ class ShadingZoneDetailed(object):
     @vertex_33_zcoordinate.setter
     def vertex_33_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 33 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 33 Z-coordinate`
@@ -72288,8 +69030,6 @@ class ShadingZoneDetailed(object):
     @vertex_34_xcoordinate.setter
     def vertex_34_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 34 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 34 X-coordinate`
@@ -72320,8 +69060,6 @@ class ShadingZoneDetailed(object):
     @vertex_34_ycoordinate.setter
     def vertex_34_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 34 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 34 Y-coordinate`
@@ -72352,8 +69090,6 @@ class ShadingZoneDetailed(object):
     @vertex_34_zcoordinate.setter
     def vertex_34_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 34 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 34 Z-coordinate`
@@ -72384,8 +69120,6 @@ class ShadingZoneDetailed(object):
     @vertex_35_xcoordinate.setter
     def vertex_35_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 35 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 35 X-coordinate`
@@ -72416,8 +69150,6 @@ class ShadingZoneDetailed(object):
     @vertex_35_ycoordinate.setter
     def vertex_35_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 35 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 35 Y-coordinate`
@@ -72448,8 +69180,6 @@ class ShadingZoneDetailed(object):
     @vertex_35_zcoordinate.setter
     def vertex_35_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 35 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 35 Z-coordinate`
@@ -72480,8 +69210,6 @@ class ShadingZoneDetailed(object):
     @vertex_36_xcoordinate.setter
     def vertex_36_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 36 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 36 X-coordinate`
@@ -72512,8 +69240,6 @@ class ShadingZoneDetailed(object):
     @vertex_36_ycoordinate.setter
     def vertex_36_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 36 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 36 Y-coordinate`
@@ -72544,8 +69270,6 @@ class ShadingZoneDetailed(object):
     @vertex_36_zcoordinate.setter
     def vertex_36_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 36 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 36 Z-coordinate`
@@ -72576,8 +69300,6 @@ class ShadingZoneDetailed(object):
     @vertex_37_xcoordinate.setter
     def vertex_37_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 37 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 37 X-coordinate`
@@ -72608,8 +69330,6 @@ class ShadingZoneDetailed(object):
     @vertex_37_ycoordinate.setter
     def vertex_37_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 37 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 37 Y-coordinate`
@@ -72640,8 +69360,6 @@ class ShadingZoneDetailed(object):
     @vertex_37_zcoordinate.setter
     def vertex_37_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 37 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 37 Z-coordinate`
@@ -72672,8 +69390,6 @@ class ShadingZoneDetailed(object):
     @vertex_38_xcoordinate.setter
     def vertex_38_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 38 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 38 X-coordinate`
@@ -72704,8 +69420,6 @@ class ShadingZoneDetailed(object):
     @vertex_38_ycoordinate.setter
     def vertex_38_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 38 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 38 Y-coordinate`
@@ -72736,8 +69450,6 @@ class ShadingZoneDetailed(object):
     @vertex_38_zcoordinate.setter
     def vertex_38_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 38 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 38 Z-coordinate`
@@ -72768,8 +69480,6 @@ class ShadingZoneDetailed(object):
     @vertex_39_xcoordinate.setter
     def vertex_39_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 39 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 39 X-coordinate`
@@ -72800,8 +69510,6 @@ class ShadingZoneDetailed(object):
     @vertex_39_ycoordinate.setter
     def vertex_39_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 39 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 39 Y-coordinate`
@@ -72832,8 +69540,6 @@ class ShadingZoneDetailed(object):
     @vertex_39_zcoordinate.setter
     def vertex_39_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 39 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 39 Z-coordinate`
@@ -72864,8 +69570,6 @@ class ShadingZoneDetailed(object):
     @vertex_40_xcoordinate.setter
     def vertex_40_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 40 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 40 X-coordinate`
@@ -72896,8 +69600,6 @@ class ShadingZoneDetailed(object):
     @vertex_40_ycoordinate.setter
     def vertex_40_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 40 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 40 Y-coordinate`
@@ -72928,8 +69630,6 @@ class ShadingZoneDetailed(object):
     @vertex_40_zcoordinate.setter
     def vertex_40_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 40 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 40 Z-coordinate`
@@ -72960,8 +69660,6 @@ class ShadingZoneDetailed(object):
     @vertex_41_xcoordinate.setter
     def vertex_41_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 41 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 41 X-coordinate`
@@ -72992,8 +69690,6 @@ class ShadingZoneDetailed(object):
     @vertex_41_ycoordinate.setter
     def vertex_41_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 41 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 41 Y-coordinate`
@@ -73024,8 +69720,6 @@ class ShadingZoneDetailed(object):
     @vertex_41_zcoordinate.setter
     def vertex_41_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 41 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 41 Z-coordinate`
@@ -73056,8 +69750,6 @@ class ShadingZoneDetailed(object):
     @vertex_42_xcoordinate.setter
     def vertex_42_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 42 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 42 X-coordinate`
@@ -73088,8 +69780,6 @@ class ShadingZoneDetailed(object):
     @vertex_42_ycoordinate.setter
     def vertex_42_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 42 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 42 Y-coordinate`
@@ -73120,8 +69810,6 @@ class ShadingZoneDetailed(object):
     @vertex_42_zcoordinate.setter
     def vertex_42_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 42 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 42 Z-coordinate`
@@ -73152,8 +69840,6 @@ class ShadingZoneDetailed(object):
     @vertex_43_xcoordinate.setter
     def vertex_43_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 43 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 43 X-coordinate`
@@ -73184,8 +69870,6 @@ class ShadingZoneDetailed(object):
     @vertex_43_ycoordinate.setter
     def vertex_43_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 43 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 43 Y-coordinate`
@@ -73216,8 +69900,6 @@ class ShadingZoneDetailed(object):
     @vertex_43_zcoordinate.setter
     def vertex_43_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 43 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 43 Z-coordinate`
@@ -73248,8 +69930,6 @@ class ShadingZoneDetailed(object):
     @vertex_44_xcoordinate.setter
     def vertex_44_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 44 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 44 X-coordinate`
@@ -73280,8 +69960,6 @@ class ShadingZoneDetailed(object):
     @vertex_44_ycoordinate.setter
     def vertex_44_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 44 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 44 Y-coordinate`
@@ -73312,8 +69990,6 @@ class ShadingZoneDetailed(object):
     @vertex_44_zcoordinate.setter
     def vertex_44_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 44 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 44 Z-coordinate`
@@ -73344,8 +70020,6 @@ class ShadingZoneDetailed(object):
     @vertex_45_xcoordinate.setter
     def vertex_45_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 45 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 45 X-coordinate`
@@ -73376,8 +70050,6 @@ class ShadingZoneDetailed(object):
     @vertex_45_ycoordinate.setter
     def vertex_45_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 45 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 45 Y-coordinate`
@@ -73408,8 +70080,6 @@ class ShadingZoneDetailed(object):
     @vertex_45_zcoordinate.setter
     def vertex_45_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 45 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 45 Z-coordinate`
@@ -73440,8 +70110,6 @@ class ShadingZoneDetailed(object):
     @vertex_46_xcoordinate.setter
     def vertex_46_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 46 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 46 X-coordinate`
@@ -73472,8 +70140,6 @@ class ShadingZoneDetailed(object):
     @vertex_46_ycoordinate.setter
     def vertex_46_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 46 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 46 Y-coordinate`
@@ -73504,8 +70170,6 @@ class ShadingZoneDetailed(object):
     @vertex_46_zcoordinate.setter
     def vertex_46_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 46 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 46 Z-coordinate`
@@ -73536,8 +70200,6 @@ class ShadingZoneDetailed(object):
     @vertex_47_xcoordinate.setter
     def vertex_47_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 47 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 47 X-coordinate`
@@ -73568,8 +70230,6 @@ class ShadingZoneDetailed(object):
     @vertex_47_ycoordinate.setter
     def vertex_47_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 47 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 47 Y-coordinate`
@@ -73600,8 +70260,6 @@ class ShadingZoneDetailed(object):
     @vertex_47_zcoordinate.setter
     def vertex_47_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 47 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 47 Z-coordinate`
@@ -73632,8 +70290,6 @@ class ShadingZoneDetailed(object):
     @vertex_48_xcoordinate.setter
     def vertex_48_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 48 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 48 X-coordinate`
@@ -73664,8 +70320,6 @@ class ShadingZoneDetailed(object):
     @vertex_48_ycoordinate.setter
     def vertex_48_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 48 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 48 Y-coordinate`
@@ -73696,8 +70350,6 @@ class ShadingZoneDetailed(object):
     @vertex_48_zcoordinate.setter
     def vertex_48_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 48 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 48 Z-coordinate`
@@ -73728,8 +70380,6 @@ class ShadingZoneDetailed(object):
     @vertex_49_xcoordinate.setter
     def vertex_49_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 49 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 49 X-coordinate`
@@ -73760,8 +70410,6 @@ class ShadingZoneDetailed(object):
     @vertex_49_ycoordinate.setter
     def vertex_49_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 49 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 49 Y-coordinate`
@@ -73792,8 +70440,6 @@ class ShadingZoneDetailed(object):
     @vertex_49_zcoordinate.setter
     def vertex_49_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 49 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 49 Z-coordinate`
@@ -73824,8 +70470,6 @@ class ShadingZoneDetailed(object):
     @vertex_50_xcoordinate.setter
     def vertex_50_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 50 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 50 X-coordinate`
@@ -73856,8 +70500,6 @@ class ShadingZoneDetailed(object):
     @vertex_50_ycoordinate.setter
     def vertex_50_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 50 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 50 Y-coordinate`
@@ -73888,8 +70530,6 @@ class ShadingZoneDetailed(object):
     @vertex_50_zcoordinate.setter
     def vertex_50_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 50 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 50 Z-coordinate`
@@ -73920,8 +70560,6 @@ class ShadingZoneDetailed(object):
     @vertex_51_xcoordinate.setter
     def vertex_51_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 51 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 51 X-coordinate`
@@ -73952,8 +70590,6 @@ class ShadingZoneDetailed(object):
     @vertex_51_ycoordinate.setter
     def vertex_51_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 51 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 51 Y-coordinate`
@@ -73984,8 +70620,6 @@ class ShadingZoneDetailed(object):
     @vertex_51_zcoordinate.setter
     def vertex_51_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 51 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 51 Z-coordinate`
@@ -74016,8 +70650,6 @@ class ShadingZoneDetailed(object):
     @vertex_52_xcoordinate.setter
     def vertex_52_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 52 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 52 X-coordinate`
@@ -74048,8 +70680,6 @@ class ShadingZoneDetailed(object):
     @vertex_52_ycoordinate.setter
     def vertex_52_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 52 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 52 Y-coordinate`
@@ -74080,8 +70710,6 @@ class ShadingZoneDetailed(object):
     @vertex_52_zcoordinate.setter
     def vertex_52_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 52 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 52 Z-coordinate`
@@ -74112,8 +70740,6 @@ class ShadingZoneDetailed(object):
     @vertex_53_xcoordinate.setter
     def vertex_53_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 53 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 53 X-coordinate`
@@ -74144,8 +70770,6 @@ class ShadingZoneDetailed(object):
     @vertex_53_ycoordinate.setter
     def vertex_53_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 53 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 53 Y-coordinate`
@@ -74176,8 +70800,6 @@ class ShadingZoneDetailed(object):
     @vertex_53_zcoordinate.setter
     def vertex_53_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 53 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 53 Z-coordinate`
@@ -74208,8 +70830,6 @@ class ShadingZoneDetailed(object):
     @vertex_54_xcoordinate.setter
     def vertex_54_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 54 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 54 X-coordinate`
@@ -74240,8 +70860,6 @@ class ShadingZoneDetailed(object):
     @vertex_54_ycoordinate.setter
     def vertex_54_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 54 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 54 Y-coordinate`
@@ -74272,8 +70890,6 @@ class ShadingZoneDetailed(object):
     @vertex_54_zcoordinate.setter
     def vertex_54_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 54 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 54 Z-coordinate`
@@ -74304,8 +70920,6 @@ class ShadingZoneDetailed(object):
     @vertex_55_xcoordinate.setter
     def vertex_55_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 55 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 55 X-coordinate`
@@ -74336,8 +70950,6 @@ class ShadingZoneDetailed(object):
     @vertex_55_ycoordinate.setter
     def vertex_55_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 55 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 55 Y-coordinate`
@@ -74368,8 +70980,6 @@ class ShadingZoneDetailed(object):
     @vertex_55_zcoordinate.setter
     def vertex_55_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 55 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 55 Z-coordinate`
@@ -74400,8 +71010,6 @@ class ShadingZoneDetailed(object):
     @vertex_56_xcoordinate.setter
     def vertex_56_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 56 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 56 X-coordinate`
@@ -74432,8 +71040,6 @@ class ShadingZoneDetailed(object):
     @vertex_56_ycoordinate.setter
     def vertex_56_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 56 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 56 Y-coordinate`
@@ -74464,8 +71070,6 @@ class ShadingZoneDetailed(object):
     @vertex_56_zcoordinate.setter
     def vertex_56_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 56 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 56 Z-coordinate`
@@ -74496,8 +71100,6 @@ class ShadingZoneDetailed(object):
     @vertex_57_xcoordinate.setter
     def vertex_57_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 57 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 57 X-coordinate`
@@ -74528,8 +71130,6 @@ class ShadingZoneDetailed(object):
     @vertex_57_ycoordinate.setter
     def vertex_57_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 57 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 57 Y-coordinate`
@@ -74560,8 +71160,6 @@ class ShadingZoneDetailed(object):
     @vertex_57_zcoordinate.setter
     def vertex_57_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 57 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 57 Z-coordinate`
@@ -74592,8 +71190,6 @@ class ShadingZoneDetailed(object):
     @vertex_58_xcoordinate.setter
     def vertex_58_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 58 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 58 X-coordinate`
@@ -74624,8 +71220,6 @@ class ShadingZoneDetailed(object):
     @vertex_58_ycoordinate.setter
     def vertex_58_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 58 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 58 Y-coordinate`
@@ -74656,8 +71250,6 @@ class ShadingZoneDetailed(object):
     @vertex_58_zcoordinate.setter
     def vertex_58_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 58 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 58 Z-coordinate`
@@ -74688,8 +71280,6 @@ class ShadingZoneDetailed(object):
     @vertex_59_xcoordinate.setter
     def vertex_59_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 59 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 59 X-coordinate`
@@ -74720,8 +71310,6 @@ class ShadingZoneDetailed(object):
     @vertex_59_ycoordinate.setter
     def vertex_59_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 59 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 59 Y-coordinate`
@@ -74752,8 +71340,6 @@ class ShadingZoneDetailed(object):
     @vertex_59_zcoordinate.setter
     def vertex_59_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 59 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 59 Z-coordinate`
@@ -74784,8 +71370,6 @@ class ShadingZoneDetailed(object):
     @vertex_60_xcoordinate.setter
     def vertex_60_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 60 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 60 X-coordinate`
@@ -74816,8 +71400,6 @@ class ShadingZoneDetailed(object):
     @vertex_60_ycoordinate.setter
     def vertex_60_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 60 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 60 Y-coordinate`
@@ -74848,8 +71430,6 @@ class ShadingZoneDetailed(object):
     @vertex_60_zcoordinate.setter
     def vertex_60_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 60 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 60 Z-coordinate`
@@ -74880,8 +71460,6 @@ class ShadingZoneDetailed(object):
     @vertex_61_xcoordinate.setter
     def vertex_61_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 61 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 61 X-coordinate`
@@ -74912,8 +71490,6 @@ class ShadingZoneDetailed(object):
     @vertex_61_ycoordinate.setter
     def vertex_61_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 61 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 61 Y-coordinate`
@@ -74944,8 +71520,6 @@ class ShadingZoneDetailed(object):
     @vertex_61_zcoordinate.setter
     def vertex_61_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 61 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 61 Z-coordinate`
@@ -74976,8 +71550,6 @@ class ShadingZoneDetailed(object):
     @vertex_62_xcoordinate.setter
     def vertex_62_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 62 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 62 X-coordinate`
@@ -75008,8 +71580,6 @@ class ShadingZoneDetailed(object):
     @vertex_62_ycoordinate.setter
     def vertex_62_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 62 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 62 Y-coordinate`
@@ -75040,8 +71610,6 @@ class ShadingZoneDetailed(object):
     @vertex_62_zcoordinate.setter
     def vertex_62_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 62 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 62 Z-coordinate`
@@ -75072,8 +71640,6 @@ class ShadingZoneDetailed(object):
     @vertex_63_xcoordinate.setter
     def vertex_63_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 63 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 63 X-coordinate`
@@ -75104,8 +71670,6 @@ class ShadingZoneDetailed(object):
     @vertex_63_ycoordinate.setter
     def vertex_63_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 63 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 63 Y-coordinate`
@@ -75136,8 +71700,6 @@ class ShadingZoneDetailed(object):
     @vertex_63_zcoordinate.setter
     def vertex_63_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 63 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 63 Z-coordinate`
@@ -75168,8 +71730,6 @@ class ShadingZoneDetailed(object):
     @vertex_64_xcoordinate.setter
     def vertex_64_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 64 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 64 X-coordinate`
@@ -75200,8 +71760,6 @@ class ShadingZoneDetailed(object):
     @vertex_64_ycoordinate.setter
     def vertex_64_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 64 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 64 Y-coordinate`
@@ -75232,8 +71790,6 @@ class ShadingZoneDetailed(object):
     @vertex_64_zcoordinate.setter
     def vertex_64_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 64 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 64 Z-coordinate`
@@ -75264,8 +71820,6 @@ class ShadingZoneDetailed(object):
     @vertex_65_xcoordinate.setter
     def vertex_65_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 65 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 65 X-coordinate`
@@ -75296,8 +71850,6 @@ class ShadingZoneDetailed(object):
     @vertex_65_ycoordinate.setter
     def vertex_65_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 65 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 65 Y-coordinate`
@@ -75328,8 +71880,6 @@ class ShadingZoneDetailed(object):
     @vertex_65_zcoordinate.setter
     def vertex_65_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 65 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 65 Z-coordinate`
@@ -75360,8 +71910,6 @@ class ShadingZoneDetailed(object):
     @vertex_66_xcoordinate.setter
     def vertex_66_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 66 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 66 X-coordinate`
@@ -75392,8 +71940,6 @@ class ShadingZoneDetailed(object):
     @vertex_66_ycoordinate.setter
     def vertex_66_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 66 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 66 Y-coordinate`
@@ -75424,8 +71970,6 @@ class ShadingZoneDetailed(object):
     @vertex_66_zcoordinate.setter
     def vertex_66_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 66 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 66 Z-coordinate`
@@ -75456,8 +72000,6 @@ class ShadingZoneDetailed(object):
     @vertex_67_xcoordinate.setter
     def vertex_67_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 67 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 67 X-coordinate`
@@ -75488,8 +72030,6 @@ class ShadingZoneDetailed(object):
     @vertex_67_ycoordinate.setter
     def vertex_67_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 67 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 67 Y-coordinate`
@@ -75520,8 +72060,6 @@ class ShadingZoneDetailed(object):
     @vertex_67_zcoordinate.setter
     def vertex_67_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 67 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 67 Z-coordinate`
@@ -75552,8 +72090,6 @@ class ShadingZoneDetailed(object):
     @vertex_68_xcoordinate.setter
     def vertex_68_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 68 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 68 X-coordinate`
@@ -75584,8 +72120,6 @@ class ShadingZoneDetailed(object):
     @vertex_68_ycoordinate.setter
     def vertex_68_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 68 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 68 Y-coordinate`
@@ -75616,8 +72150,6 @@ class ShadingZoneDetailed(object):
     @vertex_68_zcoordinate.setter
     def vertex_68_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 68 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 68 Z-coordinate`
@@ -75648,8 +72180,6 @@ class ShadingZoneDetailed(object):
     @vertex_69_xcoordinate.setter
     def vertex_69_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 69 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 69 X-coordinate`
@@ -75680,8 +72210,6 @@ class ShadingZoneDetailed(object):
     @vertex_69_ycoordinate.setter
     def vertex_69_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 69 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 69 Y-coordinate`
@@ -75712,8 +72240,6 @@ class ShadingZoneDetailed(object):
     @vertex_69_zcoordinate.setter
     def vertex_69_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 69 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 69 Z-coordinate`
@@ -75744,8 +72270,6 @@ class ShadingZoneDetailed(object):
     @vertex_70_xcoordinate.setter
     def vertex_70_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 70 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 70 X-coordinate`
@@ -75776,8 +72300,6 @@ class ShadingZoneDetailed(object):
     @vertex_70_ycoordinate.setter
     def vertex_70_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 70 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 70 Y-coordinate`
@@ -75808,8 +72330,6 @@ class ShadingZoneDetailed(object):
     @vertex_70_zcoordinate.setter
     def vertex_70_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 70 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 70 Z-coordinate`
@@ -75840,8 +72360,6 @@ class ShadingZoneDetailed(object):
     @vertex_71_xcoordinate.setter
     def vertex_71_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 71 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 71 X-coordinate`
@@ -75872,8 +72390,6 @@ class ShadingZoneDetailed(object):
     @vertex_71_ycoordinate.setter
     def vertex_71_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 71 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 71 Y-coordinate`
@@ -75904,8 +72420,6 @@ class ShadingZoneDetailed(object):
     @vertex_71_zcoordinate.setter
     def vertex_71_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 71 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 71 Z-coordinate`
@@ -75936,8 +72450,6 @@ class ShadingZoneDetailed(object):
     @vertex_72_xcoordinate.setter
     def vertex_72_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 72 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 72 X-coordinate`
@@ -75968,8 +72480,6 @@ class ShadingZoneDetailed(object):
     @vertex_72_ycoordinate.setter
     def vertex_72_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 72 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 72 Y-coordinate`
@@ -76000,8 +72510,6 @@ class ShadingZoneDetailed(object):
     @vertex_72_zcoordinate.setter
     def vertex_72_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 72 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 72 Z-coordinate`
@@ -76032,8 +72540,6 @@ class ShadingZoneDetailed(object):
     @vertex_73_xcoordinate.setter
     def vertex_73_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 73 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 73 X-coordinate`
@@ -76064,8 +72570,6 @@ class ShadingZoneDetailed(object):
     @vertex_73_ycoordinate.setter
     def vertex_73_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 73 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 73 Y-coordinate`
@@ -76096,8 +72600,6 @@ class ShadingZoneDetailed(object):
     @vertex_73_zcoordinate.setter
     def vertex_73_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 73 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 73 Z-coordinate`
@@ -76128,8 +72630,6 @@ class ShadingZoneDetailed(object):
     @vertex_74_xcoordinate.setter
     def vertex_74_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 74 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 74 X-coordinate`
@@ -76160,8 +72660,6 @@ class ShadingZoneDetailed(object):
     @vertex_74_ycoordinate.setter
     def vertex_74_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 74 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 74 Y-coordinate`
@@ -76192,8 +72690,6 @@ class ShadingZoneDetailed(object):
     @vertex_74_zcoordinate.setter
     def vertex_74_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 74 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 74 Z-coordinate`
@@ -76224,8 +72720,6 @@ class ShadingZoneDetailed(object):
     @vertex_75_xcoordinate.setter
     def vertex_75_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 75 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 75 X-coordinate`
@@ -76256,8 +72750,6 @@ class ShadingZoneDetailed(object):
     @vertex_75_ycoordinate.setter
     def vertex_75_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 75 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 75 Y-coordinate`
@@ -76288,8 +72780,6 @@ class ShadingZoneDetailed(object):
     @vertex_75_zcoordinate.setter
     def vertex_75_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 75 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 75 Z-coordinate`
@@ -76320,8 +72810,6 @@ class ShadingZoneDetailed(object):
     @vertex_76_xcoordinate.setter
     def vertex_76_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 76 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 76 X-coordinate`
@@ -76352,8 +72840,6 @@ class ShadingZoneDetailed(object):
     @vertex_76_ycoordinate.setter
     def vertex_76_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 76 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 76 Y-coordinate`
@@ -76384,8 +72870,6 @@ class ShadingZoneDetailed(object):
     @vertex_76_zcoordinate.setter
     def vertex_76_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 76 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 76 Z-coordinate`
@@ -76416,8 +72900,6 @@ class ShadingZoneDetailed(object):
     @vertex_77_xcoordinate.setter
     def vertex_77_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 77 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 77 X-coordinate`
@@ -76448,8 +72930,6 @@ class ShadingZoneDetailed(object):
     @vertex_77_ycoordinate.setter
     def vertex_77_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 77 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 77 Y-coordinate`
@@ -76480,8 +72960,6 @@ class ShadingZoneDetailed(object):
     @vertex_77_zcoordinate.setter
     def vertex_77_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 77 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 77 Z-coordinate`
@@ -76512,8 +72990,6 @@ class ShadingZoneDetailed(object):
     @vertex_78_xcoordinate.setter
     def vertex_78_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 78 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 78 X-coordinate`
@@ -76544,8 +73020,6 @@ class ShadingZoneDetailed(object):
     @vertex_78_ycoordinate.setter
     def vertex_78_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 78 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 78 Y-coordinate`
@@ -76576,8 +73050,6 @@ class ShadingZoneDetailed(object):
     @vertex_78_zcoordinate.setter
     def vertex_78_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 78 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 78 Z-coordinate`
@@ -76608,8 +73080,6 @@ class ShadingZoneDetailed(object):
     @vertex_79_xcoordinate.setter
     def vertex_79_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 79 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 79 X-coordinate`
@@ -76640,8 +73110,6 @@ class ShadingZoneDetailed(object):
     @vertex_79_ycoordinate.setter
     def vertex_79_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 79 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 79 Y-coordinate`
@@ -76672,8 +73140,6 @@ class ShadingZoneDetailed(object):
     @vertex_79_zcoordinate.setter
     def vertex_79_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 79 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 79 Z-coordinate`
@@ -76704,8 +73170,6 @@ class ShadingZoneDetailed(object):
     @vertex_80_xcoordinate.setter
     def vertex_80_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 80 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 80 X-coordinate`
@@ -76736,8 +73200,6 @@ class ShadingZoneDetailed(object):
     @vertex_80_ycoordinate.setter
     def vertex_80_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 80 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 80 Y-coordinate`
@@ -76768,8 +73230,6 @@ class ShadingZoneDetailed(object):
     @vertex_80_zcoordinate.setter
     def vertex_80_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 80 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 80 Z-coordinate`
@@ -76800,8 +73260,6 @@ class ShadingZoneDetailed(object):
     @vertex_81_xcoordinate.setter
     def vertex_81_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 81 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 81 X-coordinate`
@@ -76832,8 +73290,6 @@ class ShadingZoneDetailed(object):
     @vertex_81_ycoordinate.setter
     def vertex_81_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 81 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 81 Y-coordinate`
@@ -76864,8 +73320,6 @@ class ShadingZoneDetailed(object):
     @vertex_81_zcoordinate.setter
     def vertex_81_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 81 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 81 Z-coordinate`
@@ -76896,8 +73350,6 @@ class ShadingZoneDetailed(object):
     @vertex_82_xcoordinate.setter
     def vertex_82_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 82 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 82 X-coordinate`
@@ -76928,8 +73380,6 @@ class ShadingZoneDetailed(object):
     @vertex_82_ycoordinate.setter
     def vertex_82_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 82 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 82 Y-coordinate`
@@ -76960,8 +73410,6 @@ class ShadingZoneDetailed(object):
     @vertex_82_zcoordinate.setter
     def vertex_82_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 82 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 82 Z-coordinate`
@@ -76992,8 +73440,6 @@ class ShadingZoneDetailed(object):
     @vertex_83_xcoordinate.setter
     def vertex_83_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 83 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 83 X-coordinate`
@@ -77024,8 +73470,6 @@ class ShadingZoneDetailed(object):
     @vertex_83_ycoordinate.setter
     def vertex_83_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 83 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 83 Y-coordinate`
@@ -77056,8 +73500,6 @@ class ShadingZoneDetailed(object):
     @vertex_83_zcoordinate.setter
     def vertex_83_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 83 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 83 Z-coordinate`
@@ -77088,8 +73530,6 @@ class ShadingZoneDetailed(object):
     @vertex_84_xcoordinate.setter
     def vertex_84_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 84 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 84 X-coordinate`
@@ -77120,8 +73560,6 @@ class ShadingZoneDetailed(object):
     @vertex_84_ycoordinate.setter
     def vertex_84_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 84 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 84 Y-coordinate`
@@ -77152,8 +73590,6 @@ class ShadingZoneDetailed(object):
     @vertex_84_zcoordinate.setter
     def vertex_84_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 84 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 84 Z-coordinate`
@@ -77184,8 +73620,6 @@ class ShadingZoneDetailed(object):
     @vertex_85_xcoordinate.setter
     def vertex_85_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 85 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 85 X-coordinate`
@@ -77216,8 +73650,6 @@ class ShadingZoneDetailed(object):
     @vertex_85_ycoordinate.setter
     def vertex_85_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 85 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 85 Y-coordinate`
@@ -77248,8 +73680,6 @@ class ShadingZoneDetailed(object):
     @vertex_85_zcoordinate.setter
     def vertex_85_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 85 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 85 Z-coordinate`
@@ -77280,8 +73710,6 @@ class ShadingZoneDetailed(object):
     @vertex_86_xcoordinate.setter
     def vertex_86_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 86 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 86 X-coordinate`
@@ -77312,8 +73740,6 @@ class ShadingZoneDetailed(object):
     @vertex_86_ycoordinate.setter
     def vertex_86_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 86 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 86 Y-coordinate`
@@ -77344,8 +73770,6 @@ class ShadingZoneDetailed(object):
     @vertex_86_zcoordinate.setter
     def vertex_86_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 86 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 86 Z-coordinate`
@@ -77376,8 +73800,6 @@ class ShadingZoneDetailed(object):
     @vertex_87_xcoordinate.setter
     def vertex_87_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 87 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 87 X-coordinate`
@@ -77408,8 +73830,6 @@ class ShadingZoneDetailed(object):
     @vertex_87_ycoordinate.setter
     def vertex_87_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 87 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 87 Y-coordinate`
@@ -77440,8 +73860,6 @@ class ShadingZoneDetailed(object):
     @vertex_87_zcoordinate.setter
     def vertex_87_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 87 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 87 Z-coordinate`
@@ -77472,8 +73890,6 @@ class ShadingZoneDetailed(object):
     @vertex_88_xcoordinate.setter
     def vertex_88_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 88 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 88 X-coordinate`
@@ -77504,8 +73920,6 @@ class ShadingZoneDetailed(object):
     @vertex_88_ycoordinate.setter
     def vertex_88_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 88 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 88 Y-coordinate`
@@ -77536,8 +73950,6 @@ class ShadingZoneDetailed(object):
     @vertex_88_zcoordinate.setter
     def vertex_88_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 88 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 88 Z-coordinate`
@@ -77568,8 +73980,6 @@ class ShadingZoneDetailed(object):
     @vertex_89_xcoordinate.setter
     def vertex_89_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 89 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 89 X-coordinate`
@@ -77600,8 +74010,6 @@ class ShadingZoneDetailed(object):
     @vertex_89_ycoordinate.setter
     def vertex_89_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 89 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 89 Y-coordinate`
@@ -77632,8 +74040,6 @@ class ShadingZoneDetailed(object):
     @vertex_89_zcoordinate.setter
     def vertex_89_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 89 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 89 Z-coordinate`
@@ -77664,8 +74070,6 @@ class ShadingZoneDetailed(object):
     @vertex_90_xcoordinate.setter
     def vertex_90_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 90 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 90 X-coordinate`
@@ -77696,8 +74100,6 @@ class ShadingZoneDetailed(object):
     @vertex_90_ycoordinate.setter
     def vertex_90_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 90 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 90 Y-coordinate`
@@ -77728,8 +74130,6 @@ class ShadingZoneDetailed(object):
     @vertex_90_zcoordinate.setter
     def vertex_90_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 90 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 90 Z-coordinate`
@@ -77760,8 +74160,6 @@ class ShadingZoneDetailed(object):
     @vertex_91_xcoordinate.setter
     def vertex_91_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 91 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 91 X-coordinate`
@@ -77792,8 +74190,6 @@ class ShadingZoneDetailed(object):
     @vertex_91_ycoordinate.setter
     def vertex_91_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 91 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 91 Y-coordinate`
@@ -77824,8 +74220,6 @@ class ShadingZoneDetailed(object):
     @vertex_91_zcoordinate.setter
     def vertex_91_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 91 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 91 Z-coordinate`
@@ -77856,8 +74250,6 @@ class ShadingZoneDetailed(object):
     @vertex_92_xcoordinate.setter
     def vertex_92_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 92 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 92 X-coordinate`
@@ -77888,8 +74280,6 @@ class ShadingZoneDetailed(object):
     @vertex_92_ycoordinate.setter
     def vertex_92_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 92 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 92 Y-coordinate`
@@ -77920,8 +74310,6 @@ class ShadingZoneDetailed(object):
     @vertex_92_zcoordinate.setter
     def vertex_92_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 92 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 92 Z-coordinate`
@@ -77952,8 +74340,6 @@ class ShadingZoneDetailed(object):
     @vertex_93_xcoordinate.setter
     def vertex_93_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 93 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 93 X-coordinate`
@@ -77984,8 +74370,6 @@ class ShadingZoneDetailed(object):
     @vertex_93_ycoordinate.setter
     def vertex_93_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 93 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 93 Y-coordinate`
@@ -78016,8 +74400,6 @@ class ShadingZoneDetailed(object):
     @vertex_93_zcoordinate.setter
     def vertex_93_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 93 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 93 Z-coordinate`
@@ -78048,8 +74430,6 @@ class ShadingZoneDetailed(object):
     @vertex_94_xcoordinate.setter
     def vertex_94_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 94 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 94 X-coordinate`
@@ -78080,8 +74460,6 @@ class ShadingZoneDetailed(object):
     @vertex_94_ycoordinate.setter
     def vertex_94_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 94 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 94 Y-coordinate`
@@ -78112,8 +74490,6 @@ class ShadingZoneDetailed(object):
     @vertex_94_zcoordinate.setter
     def vertex_94_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 94 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 94 Z-coordinate`
@@ -78144,8 +74520,6 @@ class ShadingZoneDetailed(object):
     @vertex_95_xcoordinate.setter
     def vertex_95_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 95 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 95 X-coordinate`
@@ -78176,8 +74550,6 @@ class ShadingZoneDetailed(object):
     @vertex_95_ycoordinate.setter
     def vertex_95_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 95 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 95 Y-coordinate`
@@ -78208,8 +74580,6 @@ class ShadingZoneDetailed(object):
     @vertex_95_zcoordinate.setter
     def vertex_95_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 95 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 95 Z-coordinate`
@@ -78240,8 +74610,6 @@ class ShadingZoneDetailed(object):
     @vertex_96_xcoordinate.setter
     def vertex_96_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 96 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 96 X-coordinate`
@@ -78272,8 +74640,6 @@ class ShadingZoneDetailed(object):
     @vertex_96_ycoordinate.setter
     def vertex_96_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 96 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 96 Y-coordinate`
@@ -78304,8 +74670,6 @@ class ShadingZoneDetailed(object):
     @vertex_96_zcoordinate.setter
     def vertex_96_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 96 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 96 Z-coordinate`
@@ -78336,8 +74700,6 @@ class ShadingZoneDetailed(object):
     @vertex_97_xcoordinate.setter
     def vertex_97_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 97 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 97 X-coordinate`
@@ -78368,8 +74730,6 @@ class ShadingZoneDetailed(object):
     @vertex_97_ycoordinate.setter
     def vertex_97_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 97 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 97 Y-coordinate`
@@ -78400,8 +74760,6 @@ class ShadingZoneDetailed(object):
     @vertex_97_zcoordinate.setter
     def vertex_97_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 97 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 97 Z-coordinate`
@@ -78432,8 +74790,6 @@ class ShadingZoneDetailed(object):
     @vertex_98_xcoordinate.setter
     def vertex_98_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 98 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 98 X-coordinate`
@@ -78464,8 +74820,6 @@ class ShadingZoneDetailed(object):
     @vertex_98_ycoordinate.setter
     def vertex_98_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 98 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 98 Y-coordinate`
@@ -78496,8 +74850,6 @@ class ShadingZoneDetailed(object):
     @vertex_98_zcoordinate.setter
     def vertex_98_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 98 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 98 Z-coordinate`
@@ -78528,8 +74880,6 @@ class ShadingZoneDetailed(object):
     @vertex_99_xcoordinate.setter
     def vertex_99_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 99 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 99 X-coordinate`
@@ -78560,8 +74910,6 @@ class ShadingZoneDetailed(object):
     @vertex_99_ycoordinate.setter
     def vertex_99_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 99 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 99 Y-coordinate`
@@ -78592,8 +74940,6 @@ class ShadingZoneDetailed(object):
     @vertex_99_zcoordinate.setter
     def vertex_99_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 99 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 99 Z-coordinate`
@@ -78624,8 +74970,6 @@ class ShadingZoneDetailed(object):
     @vertex_100_xcoordinate.setter
     def vertex_100_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 100 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 100 X-coordinate`
@@ -78656,8 +75000,6 @@ class ShadingZoneDetailed(object):
     @vertex_100_ycoordinate.setter
     def vertex_100_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 100 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 100 Y-coordinate`
@@ -78688,8 +75030,6 @@ class ShadingZoneDetailed(object):
     @vertex_100_zcoordinate.setter
     def vertex_100_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 100 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 100 Z-coordinate`
@@ -78720,8 +75060,6 @@ class ShadingZoneDetailed(object):
     @vertex_101_xcoordinate.setter
     def vertex_101_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 101 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 101 X-coordinate`
@@ -78752,8 +75090,6 @@ class ShadingZoneDetailed(object):
     @vertex_101_ycoordinate.setter
     def vertex_101_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 101 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 101 Y-coordinate`
@@ -78784,8 +75120,6 @@ class ShadingZoneDetailed(object):
     @vertex_101_zcoordinate.setter
     def vertex_101_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 101 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 101 Z-coordinate`
@@ -78816,8 +75150,6 @@ class ShadingZoneDetailed(object):
     @vertex_102_xcoordinate.setter
     def vertex_102_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 102 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 102 X-coordinate`
@@ -78848,8 +75180,6 @@ class ShadingZoneDetailed(object):
     @vertex_102_ycoordinate.setter
     def vertex_102_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 102 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 102 Y-coordinate`
@@ -78880,8 +75210,6 @@ class ShadingZoneDetailed(object):
     @vertex_102_zcoordinate.setter
     def vertex_102_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 102 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 102 Z-coordinate`
@@ -78912,8 +75240,6 @@ class ShadingZoneDetailed(object):
     @vertex_103_xcoordinate.setter
     def vertex_103_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 103 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 103 X-coordinate`
@@ -78944,8 +75270,6 @@ class ShadingZoneDetailed(object):
     @vertex_103_ycoordinate.setter
     def vertex_103_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 103 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 103 Y-coordinate`
@@ -78976,8 +75300,6 @@ class ShadingZoneDetailed(object):
     @vertex_103_zcoordinate.setter
     def vertex_103_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 103 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 103 Z-coordinate`
@@ -79008,8 +75330,6 @@ class ShadingZoneDetailed(object):
     @vertex_104_xcoordinate.setter
     def vertex_104_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 104 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 104 X-coordinate`
@@ -79040,8 +75360,6 @@ class ShadingZoneDetailed(object):
     @vertex_104_ycoordinate.setter
     def vertex_104_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 104 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 104 Y-coordinate`
@@ -79072,8 +75390,6 @@ class ShadingZoneDetailed(object):
     @vertex_104_zcoordinate.setter
     def vertex_104_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 104 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 104 Z-coordinate`
@@ -79104,8 +75420,6 @@ class ShadingZoneDetailed(object):
     @vertex_105_xcoordinate.setter
     def vertex_105_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 105 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 105 X-coordinate`
@@ -79136,8 +75450,6 @@ class ShadingZoneDetailed(object):
     @vertex_105_ycoordinate.setter
     def vertex_105_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 105 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 105 Y-coordinate`
@@ -79168,8 +75480,6 @@ class ShadingZoneDetailed(object):
     @vertex_105_zcoordinate.setter
     def vertex_105_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 105 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 105 Z-coordinate`
@@ -79200,8 +75510,6 @@ class ShadingZoneDetailed(object):
     @vertex_106_xcoordinate.setter
     def vertex_106_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 106 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 106 X-coordinate`
@@ -79232,8 +75540,6 @@ class ShadingZoneDetailed(object):
     @vertex_106_ycoordinate.setter
     def vertex_106_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 106 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 106 Y-coordinate`
@@ -79264,8 +75570,6 @@ class ShadingZoneDetailed(object):
     @vertex_106_zcoordinate.setter
     def vertex_106_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 106 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 106 Z-coordinate`
@@ -79296,8 +75600,6 @@ class ShadingZoneDetailed(object):
     @vertex_107_xcoordinate.setter
     def vertex_107_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 107 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 107 X-coordinate`
@@ -79328,8 +75630,6 @@ class ShadingZoneDetailed(object):
     @vertex_107_ycoordinate.setter
     def vertex_107_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 107 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 107 Y-coordinate`
@@ -79360,8 +75660,6 @@ class ShadingZoneDetailed(object):
     @vertex_107_zcoordinate.setter
     def vertex_107_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 107 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 107 Z-coordinate`
@@ -79392,8 +75690,6 @@ class ShadingZoneDetailed(object):
     @vertex_108_xcoordinate.setter
     def vertex_108_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 108 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 108 X-coordinate`
@@ -79424,8 +75720,6 @@ class ShadingZoneDetailed(object):
     @vertex_108_ycoordinate.setter
     def vertex_108_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 108 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 108 Y-coordinate`
@@ -79456,8 +75750,6 @@ class ShadingZoneDetailed(object):
     @vertex_108_zcoordinate.setter
     def vertex_108_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 108 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 108 Z-coordinate`
@@ -79488,8 +75780,6 @@ class ShadingZoneDetailed(object):
     @vertex_109_xcoordinate.setter
     def vertex_109_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 109 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 109 X-coordinate`
@@ -79520,8 +75810,6 @@ class ShadingZoneDetailed(object):
     @vertex_109_ycoordinate.setter
     def vertex_109_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 109 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 109 Y-coordinate`
@@ -79552,8 +75840,6 @@ class ShadingZoneDetailed(object):
     @vertex_109_zcoordinate.setter
     def vertex_109_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 109 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 109 Z-coordinate`
@@ -79584,8 +75870,6 @@ class ShadingZoneDetailed(object):
     @vertex_110_xcoordinate.setter
     def vertex_110_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 110 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 110 X-coordinate`
@@ -79616,8 +75900,6 @@ class ShadingZoneDetailed(object):
     @vertex_110_ycoordinate.setter
     def vertex_110_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 110 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 110 Y-coordinate`
@@ -79648,8 +75930,6 @@ class ShadingZoneDetailed(object):
     @vertex_110_zcoordinate.setter
     def vertex_110_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 110 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 110 Z-coordinate`
@@ -79680,8 +75960,6 @@ class ShadingZoneDetailed(object):
     @vertex_111_xcoordinate.setter
     def vertex_111_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 111 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 111 X-coordinate`
@@ -79712,8 +75990,6 @@ class ShadingZoneDetailed(object):
     @vertex_111_ycoordinate.setter
     def vertex_111_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 111 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 111 Y-coordinate`
@@ -79744,8 +76020,6 @@ class ShadingZoneDetailed(object):
     @vertex_111_zcoordinate.setter
     def vertex_111_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 111 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 111 Z-coordinate`
@@ -79776,8 +76050,6 @@ class ShadingZoneDetailed(object):
     @vertex_112_xcoordinate.setter
     def vertex_112_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 112 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 112 X-coordinate`
@@ -79808,8 +76080,6 @@ class ShadingZoneDetailed(object):
     @vertex_112_ycoordinate.setter
     def vertex_112_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 112 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 112 Y-coordinate`
@@ -79840,8 +76110,6 @@ class ShadingZoneDetailed(object):
     @vertex_112_zcoordinate.setter
     def vertex_112_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 112 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 112 Z-coordinate`
@@ -79872,8 +76140,6 @@ class ShadingZoneDetailed(object):
     @vertex_113_xcoordinate.setter
     def vertex_113_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 113 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 113 X-coordinate`
@@ -79904,8 +76170,6 @@ class ShadingZoneDetailed(object):
     @vertex_113_ycoordinate.setter
     def vertex_113_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 113 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 113 Y-coordinate`
@@ -79936,8 +76200,6 @@ class ShadingZoneDetailed(object):
     @vertex_113_zcoordinate.setter
     def vertex_113_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 113 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 113 Z-coordinate`
@@ -79968,8 +76230,6 @@ class ShadingZoneDetailed(object):
     @vertex_114_xcoordinate.setter
     def vertex_114_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 114 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 114 X-coordinate`
@@ -80000,8 +76260,6 @@ class ShadingZoneDetailed(object):
     @vertex_114_ycoordinate.setter
     def vertex_114_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 114 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 114 Y-coordinate`
@@ -80032,8 +76290,6 @@ class ShadingZoneDetailed(object):
     @vertex_114_zcoordinate.setter
     def vertex_114_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 114 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 114 Z-coordinate`
@@ -80064,8 +76320,6 @@ class ShadingZoneDetailed(object):
     @vertex_115_xcoordinate.setter
     def vertex_115_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 115 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 115 X-coordinate`
@@ -80096,8 +76350,6 @@ class ShadingZoneDetailed(object):
     @vertex_115_ycoordinate.setter
     def vertex_115_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 115 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 115 Y-coordinate`
@@ -80128,8 +76380,6 @@ class ShadingZoneDetailed(object):
     @vertex_115_zcoordinate.setter
     def vertex_115_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 115 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 115 Z-coordinate`
@@ -80160,8 +76410,6 @@ class ShadingZoneDetailed(object):
     @vertex_116_xcoordinate.setter
     def vertex_116_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 116 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 116 X-coordinate`
@@ -80192,8 +76440,6 @@ class ShadingZoneDetailed(object):
     @vertex_116_ycoordinate.setter
     def vertex_116_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 116 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 116 Y-coordinate`
@@ -80224,8 +76470,6 @@ class ShadingZoneDetailed(object):
     @vertex_116_zcoordinate.setter
     def vertex_116_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 116 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 116 Z-coordinate`
@@ -80256,8 +76500,6 @@ class ShadingZoneDetailed(object):
     @vertex_117_xcoordinate.setter
     def vertex_117_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 117 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 117 X-coordinate`
@@ -80288,8 +76530,6 @@ class ShadingZoneDetailed(object):
     @vertex_117_ycoordinate.setter
     def vertex_117_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 117 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 117 Y-coordinate`
@@ -80320,8 +76560,6 @@ class ShadingZoneDetailed(object):
     @vertex_117_zcoordinate.setter
     def vertex_117_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 117 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 117 Z-coordinate`
@@ -80352,8 +76590,6 @@ class ShadingZoneDetailed(object):
     @vertex_118_xcoordinate.setter
     def vertex_118_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 118 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 118 X-coordinate`
@@ -80384,8 +76620,6 @@ class ShadingZoneDetailed(object):
     @vertex_118_ycoordinate.setter
     def vertex_118_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 118 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 118 Y-coordinate`
@@ -80416,8 +76650,6 @@ class ShadingZoneDetailed(object):
     @vertex_118_zcoordinate.setter
     def vertex_118_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 118 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 118 Z-coordinate`
@@ -80448,8 +76680,6 @@ class ShadingZoneDetailed(object):
     @vertex_119_xcoordinate.setter
     def vertex_119_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 119 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 119 X-coordinate`
@@ -80480,8 +76710,6 @@ class ShadingZoneDetailed(object):
     @vertex_119_ycoordinate.setter
     def vertex_119_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 119 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 119 Y-coordinate`
@@ -80512,8 +76740,6 @@ class ShadingZoneDetailed(object):
     @vertex_119_zcoordinate.setter
     def vertex_119_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 119 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 119 Z-coordinate`
@@ -80544,8 +76770,6 @@ class ShadingZoneDetailed(object):
     @vertex_120_xcoordinate.setter
     def vertex_120_xcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 120 X-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 120 X-coordinate`
@@ -80576,8 +76800,6 @@ class ShadingZoneDetailed(object):
     @vertex_120_ycoordinate.setter
     def vertex_120_ycoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 120 Y-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 120 Y-coordinate`
@@ -80608,8 +76830,6 @@ class ShadingZoneDetailed(object):
     @vertex_120_zcoordinate.setter
     def vertex_120_zcoordinate(self, value=None):
         """  Corresponds to IDD Field `Vertex 120 Z-coordinate`
-        
-        {u'units': u'm', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Vertex 120 Z-coordinate`
@@ -80739,8 +76959,6 @@ class ShadingPropertyReflectance(object):
     @shading_surface_name.setter
     def shading_surface_name(self, value=None):
         """  Corresponds to IDD Field `Shading Surface Name`
-        
-        {u'type': u'object-list', u'object-list': u'AllShadingSurfNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Shading Surface Name`
@@ -80774,10 +76992,8 @@ class ShadingPropertyReflectance(object):
         return self._data["Diffuse Solar Reflectance of Unglazed Part of Shading Surface"]
 
     @diffuse_solar_reflectance_of_unglazed_part_of_shading_surface.setter
-    def diffuse_solar_reflectance_of_unglazed_part_of_shading_surface(self, value=0.2 ):
+    def diffuse_solar_reflectance_of_unglazed_part_of_shading_surface(self, value=0.2):
         """  Corresponds to IDD Field `Diffuse Solar Reflectance of Unglazed Part of Shading Surface`
-        
-        {u'default': '0.2', u'minimum': '0.0', 'type': 'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Diffuse Solar Reflectance of Unglazed Part of Shading Surface`
@@ -80814,10 +77030,8 @@ class ShadingPropertyReflectance(object):
         return self._data["Diffuse Visible Reflectance of Unglazed Part of Shading Surface"]
 
     @diffuse_visible_reflectance_of_unglazed_part_of_shading_surface.setter
-    def diffuse_visible_reflectance_of_unglazed_part_of_shading_surface(self, value=0.2 ):
+    def diffuse_visible_reflectance_of_unglazed_part_of_shading_surface(self, value=0.2):
         """  Corresponds to IDD Field `Diffuse Visible Reflectance of Unglazed Part of Shading Surface`
-        
-        {u'default': '0.2', u'minimum': '0.0', 'type': 'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Diffuse Visible Reflectance of Unglazed Part of Shading Surface`
@@ -80854,10 +77068,8 @@ class ShadingPropertyReflectance(object):
         return self._data["Fraction of Shading Surface That Is Glazed"]
 
     @fraction_of_shading_surface_that_is_glazed.setter
-    def fraction_of_shading_surface_that_is_glazed(self, value=0.0 ):
+    def fraction_of_shading_surface_that_is_glazed(self, value=0.0):
         """  Corresponds to IDD Field `Fraction of Shading Surface That Is Glazed`
-        
-        {u'default': '0.0', u'minimum': '0.0', 'type': 'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fraction of Shading Surface That Is Glazed`
@@ -80897,8 +77109,6 @@ class ShadingPropertyReflectance(object):
     def glazing_construction_name(self, value=None):
         """  Corresponds to IDD Field `Glazing Construction Name`
         Required if Fraction of Shading Surface That Is Glazed > 0.0
-        
-        {u'note': [u'Required if Fraction of Shading Surface That Is Glazed > 0.0'], 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Glazing Construction Name`

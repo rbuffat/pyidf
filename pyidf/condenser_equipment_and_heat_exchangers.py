@@ -306,8 +306,6 @@ class CoolingTowerSingleSpeed(object):
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
         Tower Name
-        
-        {u'note': [u'Tower Name'], u'type': u'alpha', u'reference': u'CoolingTowers', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -344,8 +342,6 @@ class CoolingTowerSingleSpeed(object):
     def water_inlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Water Inlet Node Name`
         Name of tower water inlet node
-        
-        {u'note': [u'Name of tower water inlet node'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Water Inlet Node Name`
@@ -382,8 +378,6 @@ class CoolingTowerSingleSpeed(object):
     def water_outlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Water Outlet Node Name`
         Name of tower water outlet node
-        
-        {u'note': [u'Name of tower water outlet node'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Water Outlet Node Name`
@@ -420,11 +414,9 @@ class CoolingTowerSingleSpeed(object):
     def design_water_flow_rate(self, value=None):
         """  Corresponds to IDD Field `Design Water Flow Rate`
         Leave field blank if tower performance input method is NominalCapacity
-        
-        {'pytype': 'float', u'minimum>': '0.0', u'note': [u'Leave field blank if tower performance input method is NominalCapacity'], u'ip-units': u'gal/min', u'autosizable': u'', u'units': u'm3/s', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `Design Water Flow Rate`
+            value (float or "Autosize"): value for IDD Field `Design Water Flow Rate`
                 Units: m3/s
                 IP-Units: gal/min
                 value > 0.0
@@ -435,6 +427,13 @@ class CoolingTowerSingleSpeed(object):
             ValueError: if `value` is not a valid value
         """
         if value is not None:
+            try:
+                value_lower = str(value).lower()
+                if value_lower == "autosize":
+                    self._data["Design Water Flow Rate"] = "Autosize"
+                    return
+            except ValueError:
+                pass
             try:
                 value = float(value)
             except ValueError:
@@ -457,11 +456,9 @@ class CoolingTowerSingleSpeed(object):
     @design_air_flow_rate.setter
     def design_air_flow_rate(self, value=None):
         """  Corresponds to IDD Field `Design Air Flow Rate`
-        
-        {'pytype': 'float', u'minimum>': '0.0', u'required-field': True, u'autosizable': u'', u'units': u'm3/s', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `Design Air Flow Rate`
+            value (float or "Autosize"): value for IDD Field `Design Air Flow Rate`
                 Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -471,6 +468,13 @@ class CoolingTowerSingleSpeed(object):
             ValueError: if `value` is not a valid value
         """
         if value is not None:
+            try:
+                value_lower = str(value).lower()
+                if value_lower == "autosize":
+                    self._data["Design Air Flow Rate"] = "Autosize"
+                    return
+            except ValueError:
+                pass
             try:
                 value = float(value)
             except ValueError:
@@ -494,11 +498,9 @@ class CoolingTowerSingleSpeed(object):
     def design_fan_power(self, value=None):
         """  Corresponds to IDD Field `Design Fan Power`
         This is the fan motor electric input power
-        
-        {'pytype': 'float', u'minimum>': '0.0', u'required-field': True, u'note': [u'This is the fan motor electric input power'], u'ip-units': u'W', u'autosizable': u'', u'units': u'W', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `Design Fan Power`
+            value (float or "Autosize"): value for IDD Field `Design Fan Power`
                 Units: W
                 IP-Units: W
                 value > 0.0
@@ -509,6 +511,13 @@ class CoolingTowerSingleSpeed(object):
             ValueError: if `value` is not a valid value
         """
         if value is not None:
+            try:
+                value_lower = str(value).lower()
+                if value_lower == "autosize":
+                    self._data["Design Fan Power"] = "Autosize"
+                    return
+            except ValueError:
+                pass
             try:
                 value = float(value)
             except ValueError:
@@ -532,11 +541,9 @@ class CoolingTowerSingleSpeed(object):
     def design_ufactor_times_area_value(self, value=None):
         """  Corresponds to IDD Field `Design U-Factor Times Area Value`
         Leave field blank if tower performance input method is NominalCapacity
-        
-        {'pytype': 'float', u'minimum>': '0.0', u'maximum': '2100000.0', u'note': [u'Leave field blank if tower performance input method is NominalCapacity'], u'autosizable': u'', u'units': u'W/K', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `Design U-Factor Times Area Value`
+            value (float or "Autosize"): value for IDD Field `Design U-Factor Times Area Value`
                 Units: W/K
                 value > 0.0
                 value <= 2100000.0
@@ -547,6 +554,13 @@ class CoolingTowerSingleSpeed(object):
             ValueError: if `value` is not a valid value
         """
         if value is not None:
+            try:
+                value_lower = str(value).lower()
+                if value_lower == "autosize":
+                    self._data["Design U-Factor Times Area Value"] = "Autosize"
+                    return
+            except ValueError:
+                pass
             try:
                 value = float(value)
             except ValueError:
@@ -570,10 +584,8 @@ class CoolingTowerSingleSpeed(object):
         return self._data["Free Convection Air Flow Rate"]
 
     @free_convection_air_flow_rate.setter
-    def free_convection_air_flow_rate(self, value=0.0 ):
+    def free_convection_air_flow_rate(self, value=0.0):
         """  Corresponds to IDD Field `Free Convection Air Flow Rate`
-        
-        {'pytype': 'float', u'default': '0.0', u'minimum': '0.0', u'units': u'm3/s', u'autocalculatable': True, u'type': u'real'}
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `Free Convection Air Flow Rate`
@@ -590,7 +602,7 @@ class CoolingTowerSingleSpeed(object):
             try:
                 value_lower = str(value).lower()
                 if value_lower == "autocalculate":
-                    self._data["Free Convection Air Flow Rate"] = value
+                    self._data["Free Convection Air Flow Rate"] = "Autocalculate"
                     return
             except ValueError:
                 pass
@@ -614,11 +626,9 @@ class CoolingTowerSingleSpeed(object):
         return self._data["Free Convection Air Flow Rate Sizing Factor"]
 
     @free_convection_air_flow_rate_sizing_factor.setter
-    def free_convection_air_flow_rate_sizing_factor(self, value=0.1 ):
+    def free_convection_air_flow_rate_sizing_factor(self, value=0.1):
         """  Corresponds to IDD Field `Free Convection Air Flow Rate Sizing Factor`
         This field is only used if the previous field is set to autocalculate.
-        
-        {'pytype': 'float', u'default': '0.1', u'minimum>': '0.0', u'required-field': True, u'note': [u'This field is only used if the previous field is set to autocalculate.'], u'type': u'real', u'maximum<': '1.0'}
 
         Args:
             value (float): value for IDD Field `Free Convection Air Flow Rate Sizing Factor`
@@ -655,10 +665,8 @@ class CoolingTowerSingleSpeed(object):
         return self._data["Free Convection U-Factor Times Area Value"]
 
     @free_convection_ufactor_times_area_value.setter
-    def free_convection_ufactor_times_area_value(self, value=0.0 ):
+    def free_convection_ufactor_times_area_value(self, value=0.0):
         """  Corresponds to IDD Field `Free Convection U-Factor Times Area Value`
-        
-        {'pytype': 'float', u'default': '0.0', u'maximum': '300000.0', u'minimum': '0.0', u'units': u'W/K', u'autocalculatable': True, u'type': u'real'}
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `Free Convection U-Factor Times Area Value`
@@ -676,7 +684,7 @@ class CoolingTowerSingleSpeed(object):
             try:
                 value_lower = str(value).lower()
                 if value_lower == "autocalculate":
-                    self._data["Free Convection U-Factor Times Area Value"] = value
+                    self._data["Free Convection U-Factor Times Area Value"] = "Autocalculate"
                     return
             except ValueError:
                 pass
@@ -703,12 +711,10 @@ class CoolingTowerSingleSpeed(object):
         return self._data["Free Convection U-Factor Times Area Value Sizing Factor"]
 
     @free_convection_ufactor_times_area_value_sizing_factor.setter
-    def free_convection_ufactor_times_area_value_sizing_factor(self, value=0.1 ):
+    def free_convection_ufactor_times_area_value_sizing_factor(self, value=0.1):
         """  Corresponds to IDD Field `Free Convection U-Factor Times Area Value Sizing Factor`
         This field is only used if the previous field is set to autocalculate and
         the Performance Input Method is UFactorTimesAreaAndDesignWaterFlowRate
-        
-        {'pytype': 'float', u'default': '0.1', u'minimum>': '0.0', u'required-field': True, u'note': [u'This field is only used if the previous field is set to autocalculate and', u'the Performance Input Method is UFactorTimesAreaAndDesignWaterFlowRate'], u'type': u'real', u'maximum<': '1.0'}
 
         Args:
             value (float): value for IDD Field `Free Convection U-Factor Times Area Value Sizing Factor`
@@ -750,8 +756,6 @@ class CoolingTowerSingleSpeed(object):
         User can define tower thermal performance by specifying the tower UA,
         the Design Air Flow Rate and the Design Water Flow Rate,
         or by specifying the tower nominal capacity
-        
-        {u'default': u'UFactorTimesAreaAndDesignWaterFlowRate', u'note': [u'User can define tower thermal performance by specifying the tower UA,', u'the Design Air Flow Rate and the Design Water Flow Rate,', u'or by specifying the tower nominal capacity'], u'type': u'Choice', u'key': [u'UFactorTimesAreaAndDesignWaterFlowRate', u'NominalCapacity'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Performance Input Method`
@@ -786,10 +790,8 @@ class CoolingTowerSingleSpeed(object):
         return self._data["Heat Rejection Capacity and Nominal Capacity Sizing Ratio"]
 
     @heat_rejection_capacity_and_nominal_capacity_sizing_ratio.setter
-    def heat_rejection_capacity_and_nominal_capacity_sizing_ratio(self, value=1.25 ):
+    def heat_rejection_capacity_and_nominal_capacity_sizing_ratio(self, value=1.25):
         """  Corresponds to IDD Field `Heat Rejection Capacity and Nominal Capacity Sizing Ratio`
-        
-        {u'default': '1.25', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Heat Rejection Capacity and Nominal Capacity Sizing Ratio`
@@ -825,8 +827,6 @@ class CoolingTowerSingleSpeed(object):
         dry-bulb temperature. Design water flow rate assumed to be 5.382E-8 m3/s per watt
         (3 gpm/ton). Nominal tower capacity times (1.25) gives the actual tower
         heat rejection at these operating conditions.
-        
-        {u'units': u'W', u'note': [u'Nominal tower capacity with entering water at 35C (95F), leaving water at', u'29.44C (85F), entering air at 25.56C (78F) wet-bulb temperature and 35C (95F)', u'dry-bulb temperature. Design water flow rate assumed to be 5.382E-8 m3/s per watt', u'(3 gpm/ton). Nominal tower capacity times (1.25) gives the actual tower', u'heat rejection at these operating conditions.'], u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Nominal Capacity`
@@ -867,8 +867,6 @@ class CoolingTowerSingleSpeed(object):
         5.382E-8 m3/s per watt of nominal tower capacity (3 gpm/ton). Tower free
         convection capacity times (1.25) gives the actual tower heat rejection at these
         operating conditions.
-        
-        {'pytype': 'float', u'note': [u'Tower capacity in free convection regime with entering water at 35C (95F),', u'leaving water at 29.44C (85F), entering air at 25.56C (78F) wet-bulb temperature', u'and 35C (95F) dry-bulb temperature. Design water flow rate assumed to be', u'5.382E-8 m3/s per watt of nominal tower capacity (3 gpm/ton). Tower free', u'convection capacity times (1.25) gives the actual tower heat rejection at these', u'operating conditions.'], u'minimum': '0.0', u'units': u'W', u'autocalculatable': True, u'type': u'real'}
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `Free Convection Capacity`
@@ -884,7 +882,7 @@ class CoolingTowerSingleSpeed(object):
             try:
                 value_lower = str(value).lower()
                 if value_lower == "autocalculate":
-                    self._data["Free Convection Capacity"] = value
+                    self._data["Free Convection Capacity"] = "Autocalculate"
                     return
             except ValueError:
                 pass
@@ -908,11 +906,9 @@ class CoolingTowerSingleSpeed(object):
         return self._data["Free Convection Nominal Capacity Sizing Factor"]
 
     @free_convection_nominal_capacity_sizing_factor.setter
-    def free_convection_nominal_capacity_sizing_factor(self, value=0.1 ):
+    def free_convection_nominal_capacity_sizing_factor(self, value=0.1):
         """  Corresponds to IDD Field `Free Convection Nominal Capacity Sizing Factor`
         This field is only used if the previous field is set to autocalculate
-        
-        {'pytype': 'float', u'default': '0.1', u'minimum>': '0.0', u'required-field': True, u'note': [u'This field is only used if the previous field is set to autocalculate'], u'type': u'real', u'maximum<': '1.0'}
 
         Args:
             value (float): value for IDD Field `Free Convection Nominal Capacity Sizing Factor`
@@ -949,13 +945,11 @@ class CoolingTowerSingleSpeed(object):
         return self._data["Basin Heater Capacity"]
 
     @basin_heater_capacity.setter
-    def basin_heater_capacity(self, value=0.0 ):
+    def basin_heater_capacity(self, value=0.0):
         """  Corresponds to IDD Field `Basin Heater Capacity`
         This heater maintains the basin water temperature at the basin heater setpoint
         temperature when the outdoor air temperature falls below the setpoint temperature.
         The basin heater only operates when water is not flowing through the tower.
-        
-        {'pytype': 'float', u'default': '0.0', u'note': [u'This heater maintains the basin water temperature at the basin heater setpoint', u'temperature when the outdoor air temperature falls below the setpoint temperature.', u'The basin heater only operates when water is not flowing through the tower.'], u'minimum': '0.0', u'units': u'W/K', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Basin Heater Capacity`
@@ -989,11 +983,9 @@ class CoolingTowerSingleSpeed(object):
         return self._data["Basin Heater Setpoint Temperature"]
 
     @basin_heater_setpoint_temperature.setter
-    def basin_heater_setpoint_temperature(self, value=2.0 ):
+    def basin_heater_setpoint_temperature(self, value=2.0):
         """  Corresponds to IDD Field `Basin Heater Setpoint Temperature`
         Enter the outdoor dry-bulb temperature when the basin heater turns on
-        
-        {'pytype': 'float', u'default': '2.0', u'note': [u'Enter the outdoor dry-bulb temperature when the basin heater turns on'], u'minimum': '2.0', u'units': u'C', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Basin Heater Setpoint Temperature`
@@ -1033,8 +1025,6 @@ class CoolingTowerSingleSpeed(object):
         air dry-bulb temperature is below the basin heater setpoint temperature.
         If a schedule name is not entered, the basin heater is allowed to operate
         throughout the entire simulation.
-        
-        {u'note': [u'Schedule values greater than 0 allow the basin heater to operate whenever the outdoor', u'air dry-bulb temperature is below the basin heater setpoint temperature.', u'If a schedule name is not entered, the basin heater is allowed to operate', u'throughout the entire simulation.'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Basin Heater Operating Schedule Name`
@@ -1070,8 +1060,6 @@ class CoolingTowerSingleSpeed(object):
     @evaporation_loss_mode.setter
     def evaporation_loss_mode(self, value=None):
         """  Corresponds to IDD Field `Evaporation Loss Mode`
-        
-        {u'type': u'choice', u'key': [u'LossFactor', u'SaturatedExit'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Evaporation Loss Mode`
@@ -1125,14 +1113,12 @@ class CoolingTowerSingleSpeed(object):
         return self._data["Evaporation Loss Factor"]
 
     @evaporation_loss_factor.setter
-    def evaporation_loss_factor(self, value=0.2 ):
+    def evaporation_loss_factor(self, value=0.2):
         """  Corresponds to IDD Field `Evaporation Loss Factor`
         Rate of water evaporation from the cooling tower and lost to the outdoor air [%/K]
         Evaporation loss is calculated as percentage of the circulating condenser water rate
         Value entered here is percent-per-degree K of temperature drop in the condenser water
         Typical values are from 0.15 to 0.27 [%/K].
-        
-        {u'units': u'percent/K', u'note': [u'Rate of water evaporation from the cooling tower and lost to the outdoor air [%/K]', u'Evaporation loss is calculated as percentage of the circulating condenser water rate', u'Value entered here is percent-per-degree K of temperature drop in the condenser water', u'Typical values are from 0.15 to 0.27 [%/K].'], u'default': '0.2', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Evaporation Loss Factor`
@@ -1162,12 +1148,10 @@ class CoolingTowerSingleSpeed(object):
         return self._data["Drift Loss Percent"]
 
     @drift_loss_percent.setter
-    def drift_loss_percent(self, value=0.008 ):
+    def drift_loss_percent(self, value=0.008):
         """  Corresponds to IDD Field `Drift Loss Percent`
         Rate of drift loss as a percentage of circulating condenser water flow rate
         Typical values are between 0.002 and 0.2% The default value is 0.008%
-        
-        {u'default': '0.008', u'units': u'percent', u'note': [u'Rate of drift loss as a percentage of circulating condenser water flow rate', u'Typical values are between 0.002 and 0.2% The default value is 0.008%'], u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Drift Loss Percent`
@@ -1199,8 +1183,6 @@ class CoolingTowerSingleSpeed(object):
     @blowdown_calculation_mode.setter
     def blowdown_calculation_mode(self, value=None):
         """  Corresponds to IDD Field `Blowdown Calculation Mode`
-        
-        {u'type': u'choice', u'key': [u'ConcentrationRatio', u'ScheduledRate'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Blowdown Calculation Mode`
@@ -1254,15 +1236,13 @@ class CoolingTowerSingleSpeed(object):
         return self._data["Blowdown Concentration Ratio"]
 
     @blowdown_concentration_ratio.setter
-    def blowdown_concentration_ratio(self, value=3.0 ):
+    def blowdown_concentration_ratio(self, value=3.0):
         """  Corresponds to IDD Field `Blowdown Concentration Ratio`
         Characterizes the rate of blowdown in the cooling tower.
         Blowdown is water intentionally drained from the tower in order to offset the build up
         of solids in the water that would otherwise occur because of evaporation.
         Ratio of solids in the blowdown water to solids in the make up water.
         Typical values for tower operation are 3 to 5.  The default value is 3.
-        
-        {u'default': '3.0', u'note': [u'Characterizes the rate of blowdown in the cooling tower.', u'Blowdown is water intentionally drained from the tower in order to offset the build up', u'of solids in the water that would otherwise occur because of evaporation.', u'Ratio of solids in the blowdown water to solids in the make up water.', u'Typical values for tower operation are 3 to 5.  The default value is 3.'], u'minimum': '2.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Blowdown Concentration Ratio`
@@ -1301,8 +1281,6 @@ class CoolingTowerSingleSpeed(object):
         of water in the tower basin to purge scale or other contaminants to reduce their
         concentration in order to maintain an acceptable level of water quality.
         Schedule values should reflect water usage in m3/s.
-        
-        {u'note': [u'Makeup water usage due to blowdown results from occasionally draining a small amount', u'of water in the tower basin to purge scale or other contaminants to reduce their', u'concentration in order to maintain an acceptable level of water quality.', u'Schedule values should reflect water usage in m3/s.'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Blowdown Makeup Water Usage Schedule Name`
@@ -1338,8 +1316,6 @@ class CoolingTowerSingleSpeed(object):
     @supply_water_storage_tank_name.setter
     def supply_water_storage_tank_name(self, value=None):
         """  Corresponds to IDD Field `Supply Water Storage Tank Name`
-        
-        {u'type': u'object-list', u'object-list': u'WaterStorageTankNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Supply Water Storage Tank Name`
@@ -1376,8 +1352,6 @@ class CoolingTowerSingleSpeed(object):
     def outdoor_air_inlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Outdoor Air Inlet Node Name`
         Enter the name of an outdoor air node
-        
-        {u'note': [u'Enter the name of an outdoor air node'], u'type': u'node', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Outdoor Air Inlet Node Name`
@@ -1413,8 +1387,6 @@ class CoolingTowerSingleSpeed(object):
     @capacity_control.setter
     def capacity_control(self, value="FanCycling"):
         """  Corresponds to IDD Field `Capacity Control`
-        
-        {u'default': u'FanCycling', u'type': u'choice', u'key': [u'FanCycling', u'FluidBypass'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Capacity Control`
@@ -1469,10 +1441,8 @@ class CoolingTowerSingleSpeed(object):
         return self._data["Number of Cells"]
 
     @number_of_cells.setter
-    def number_of_cells(self, value=1 ):
+    def number_of_cells(self, value=1):
         """  Corresponds to IDD Field `Number of Cells`
-        
-        {u'default': '1', u'minimum': '1', u'type': u'integer', 'pytype': 'int'}
 
         Args:
             value (int): value for IDD Field `Number of Cells`
@@ -1507,8 +1477,6 @@ class CoolingTowerSingleSpeed(object):
     @cell_control.setter
     def cell_control(self, value="MinimalCell"):
         """  Corresponds to IDD Field `Cell Control`
-        
-        {u'default': u'MinimalCell', u'type': u'Choice', u'key': [u'MinimalCell', u'MaximalCell'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Cell Control`
@@ -1543,11 +1511,9 @@ class CoolingTowerSingleSpeed(object):
         return self._data["Cell Minimum  Water Flow Rate Fraction"]
 
     @cell_minimum_water_flow_rate_fraction.setter
-    def cell_minimum_water_flow_rate_fraction(self, value=0.33 ):
+    def cell_minimum_water_flow_rate_fraction(self, value=0.33):
         """  Corresponds to IDD Field `Cell Minimum  Water Flow Rate Fraction`
         The allowable minimal fraction of the nominal flow rate per cell
-        
-        {'pytype': 'float', u'default': '0.33', u'minimum>': '0.0', u'maximum': '1.0', u'note': [u'The allowable minimal fraction of the nominal flow rate per cell'], u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Cell Minimum  Water Flow Rate Fraction`
@@ -1584,11 +1550,9 @@ class CoolingTowerSingleSpeed(object):
         return self._data["Cell Maximum Water Flow Rate Fraction"]
 
     @cell_maximum_water_flow_rate_fraction.setter
-    def cell_maximum_water_flow_rate_fraction(self, value=2.5 ):
+    def cell_maximum_water_flow_rate_fraction(self, value=2.5):
         """  Corresponds to IDD Field `Cell Maximum Water Flow Rate Fraction`
         The allowable maximal fraction of the nominal flow rate per cell
-        
-        {u'default': '2.5', u'note': [u'The allowable maximal fraction of the nominal flow rate per cell'], u'minimum': '1.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Cell Maximum Water Flow Rate Fraction`
@@ -1621,11 +1585,9 @@ class CoolingTowerSingleSpeed(object):
         return self._data["Sizing Factor"]
 
     @sizing_factor.setter
-    def sizing_factor(self, value=1.0 ):
+    def sizing_factor(self, value=1.0):
         """  Corresponds to IDD Field `Sizing Factor`
         Multiplies the autosized capacity and flow rates
-        
-        {u'note': [u'Multiplies the autosized capacity and flow rates'], u'default': '1.0', u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Sizing Factor`
@@ -2043,8 +2005,6 @@ class CoolingTowerTwoSpeed(object):
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
         Tower Name
-        
-        {u'note': [u'Tower Name'], u'type': u'alpha', u'reference': u'CoolingTowers', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -2081,8 +2041,6 @@ class CoolingTowerTwoSpeed(object):
     def water_inlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Water Inlet Node Name`
         Name of tower Water Inlet Node
-        
-        {u'note': [u'Name of tower Water Inlet Node'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Water Inlet Node Name`
@@ -2119,8 +2077,6 @@ class CoolingTowerTwoSpeed(object):
     def water_outlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Water Outlet Node Name`
         Name of tower Water Outlet Node
-        
-        {u'note': [u'Name of tower Water Outlet Node'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Water Outlet Node Name`
@@ -2157,11 +2113,9 @@ class CoolingTowerTwoSpeed(object):
     def design_water_flow_rate(self, value=None):
         """  Corresponds to IDD Field `Design Water Flow Rate`
         Leave field blank if Tower Performance Input Method is NominalCapacity
-        
-        {'pytype': 'float', u'minimum>': '0.0', u'note': [u'Leave field blank if Tower Performance Input Method is NominalCapacity'], u'ip-units': u'gal/min', u'autosizable': u'', u'units': u'm3/s', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `Design Water Flow Rate`
+            value (float or "Autosize"): value for IDD Field `Design Water Flow Rate`
                 Units: m3/s
                 IP-Units: gal/min
                 value > 0.0
@@ -2172,6 +2126,13 @@ class CoolingTowerTwoSpeed(object):
             ValueError: if `value` is not a valid value
         """
         if value is not None:
+            try:
+                value_lower = str(value).lower()
+                if value_lower == "autosize":
+                    self._data["Design Water Flow Rate"] = "Autosize"
+                    return
+            except ValueError:
+                pass
             try:
                 value = float(value)
             except ValueError:
@@ -2194,11 +2155,9 @@ class CoolingTowerTwoSpeed(object):
     @high_fan_speed_air_flow_rate.setter
     def high_fan_speed_air_flow_rate(self, value=None):
         """  Corresponds to IDD Field `High Fan Speed Air Flow Rate`
-        
-        {'pytype': 'float', u'minimum>': '0.0', u'required-field': True, u'autosizable': u'', u'units': u'm3/s', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `High Fan Speed Air Flow Rate`
+            value (float or "Autosize"): value for IDD Field `High Fan Speed Air Flow Rate`
                 Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -2208,6 +2167,13 @@ class CoolingTowerTwoSpeed(object):
             ValueError: if `value` is not a valid value
         """
         if value is not None:
+            try:
+                value_lower = str(value).lower()
+                if value_lower == "autosize":
+                    self._data["High Fan Speed Air Flow Rate"] = "Autosize"
+                    return
+            except ValueError:
+                pass
             try:
                 value = float(value)
             except ValueError:
@@ -2231,11 +2197,9 @@ class CoolingTowerTwoSpeed(object):
     def high_fan_speed_fan_power(self, value=None):
         """  Corresponds to IDD Field `High Fan Speed Fan Power`
         This is the fan motor electric input power at high speed
-        
-        {'pytype': 'float', u'minimum>': '0.0', u'required-field': True, u'note': [u'This is the fan motor electric input power at high speed'], u'ip-units': u'W', u'autosizable': u'', u'units': u'W', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `High Fan Speed Fan Power`
+            value (float or "Autosize"): value for IDD Field `High Fan Speed Fan Power`
                 Units: W
                 IP-Units: W
                 value > 0.0
@@ -2246,6 +2210,13 @@ class CoolingTowerTwoSpeed(object):
             ValueError: if `value` is not a valid value
         """
         if value is not None:
+            try:
+                value_lower = str(value).lower()
+                if value_lower == "autosize":
+                    self._data["High Fan Speed Fan Power"] = "Autosize"
+                    return
+            except ValueError:
+                pass
             try:
                 value = float(value)
             except ValueError:
@@ -2269,11 +2240,9 @@ class CoolingTowerTwoSpeed(object):
     def high_fan_speed_ufactor_times_area_value(self, value=None):
         """  Corresponds to IDD Field `High Fan Speed U-Factor Times Area Value`
         Leave field blank if Tower Performance Input Method is NominalCapacity
-        
-        {'pytype': 'float', u'minimum>': '0.0', u'maximum': '2100000.0', u'note': [u'Leave field blank if Tower Performance Input Method is NominalCapacity'], u'autosizable': u'', u'units': u'W/K', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `High Fan Speed U-Factor Times Area Value`
+            value (float or "Autosize"): value for IDD Field `High Fan Speed U-Factor Times Area Value`
                 Units: W/K
                 value > 0.0
                 value <= 2100000.0
@@ -2284,6 +2253,13 @@ class CoolingTowerTwoSpeed(object):
             ValueError: if `value` is not a valid value
         """
         if value is not None:
+            try:
+                value_lower = str(value).lower()
+                if value_lower == "autosize":
+                    self._data["High Fan Speed U-Factor Times Area Value"] = "Autosize"
+                    return
+            except ValueError:
+                pass
             try:
                 value = float(value)
             except ValueError:
@@ -2311,8 +2287,6 @@ class CoolingTowerTwoSpeed(object):
         """  Corresponds to IDD Field `Low Fan Speed Air Flow Rate`
         Low speed air flow rate must be less than high speed air flow rate
         Low speed air flow rate must be greater than free convection air flow rate
-        
-        {'pytype': 'float', u'minimum>': '0.0', u'required-field': True, u'note': [u'Low speed air flow rate must be less than high speed air flow rate', u'Low speed air flow rate must be greater than free convection air flow rate'], u'units': u'm3/s', u'autocalculatable': True, u'type': u'real'}
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `Low Fan Speed Air Flow Rate`
@@ -2328,7 +2302,7 @@ class CoolingTowerTwoSpeed(object):
             try:
                 value_lower = str(value).lower()
                 if value_lower == "autocalculate":
-                    self._data["Low Fan Speed Air Flow Rate"] = value
+                    self._data["Low Fan Speed Air Flow Rate"] = "Autocalculate"
                     return
             except ValueError:
                 pass
@@ -2352,11 +2326,9 @@ class CoolingTowerTwoSpeed(object):
         return self._data["Low Fan Speed Air Flow Rate Sizing Factor"]
 
     @low_fan_speed_air_flow_rate_sizing_factor.setter
-    def low_fan_speed_air_flow_rate_sizing_factor(self, value=0.5 ):
+    def low_fan_speed_air_flow_rate_sizing_factor(self, value=0.5):
         """  Corresponds to IDD Field `Low Fan Speed Air Flow Rate Sizing Factor`
         This field is only used if the previous field is set to autocalculate.
-        
-        {'pytype': 'float', u'default': '0.5', u'minimum>': '0.0', u'required-field': True, u'note': [u'This field is only used if the previous field is set to autocalculate.'], u'type': u'real', u'maximum<': '1.0'}
 
         Args:
             value (float): value for IDD Field `Low Fan Speed Air Flow Rate Sizing Factor`
@@ -2396,8 +2368,6 @@ class CoolingTowerTwoSpeed(object):
     def low_fan_speed_fan_power(self, value=None):
         """  Corresponds to IDD Field `Low Fan Speed Fan Power`
         This is the fan motor electric input power at low speed
-        
-        {'pytype': 'float', u'minimum>': '0.0', u'required-field': True, u'note': [u'This is the fan motor electric input power at low speed'], u'ip-units': u'W', u'units': u'W', u'autocalculatable': True, u'type': u'real'}
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `Low Fan Speed Fan Power`
@@ -2414,7 +2384,7 @@ class CoolingTowerTwoSpeed(object):
             try:
                 value_lower = str(value).lower()
                 if value_lower == "autocalculate":
-                    self._data["Low Fan Speed Fan Power"] = value
+                    self._data["Low Fan Speed Fan Power"] = "Autocalculate"
                     return
             except ValueError:
                 pass
@@ -2438,11 +2408,9 @@ class CoolingTowerTwoSpeed(object):
         return self._data["Low Fan Speed Fan Power Sizing Factor"]
 
     @low_fan_speed_fan_power_sizing_factor.setter
-    def low_fan_speed_fan_power_sizing_factor(self, value=0.16 ):
+    def low_fan_speed_fan_power_sizing_factor(self, value=0.16):
         """  Corresponds to IDD Field `Low Fan Speed Fan Power Sizing Factor`
         This field is only used if the previous field is set to autocalculate.
-        
-        {'pytype': 'float', u'default': '0.16', u'minimum>': '0.0', u'required-field': True, u'note': [u'This field is only used if the previous field is set to autocalculate.'], u'type': u'real', u'maximum<': '1.0'}
 
         Args:
             value (float): value for IDD Field `Low Fan Speed Fan Power Sizing Factor`
@@ -2484,8 +2452,6 @@ class CoolingTowerTwoSpeed(object):
         Leave field blank if tower Performance Input Method is NominalCapacity
         Low speed tower UA must be less than high speed tower UA
         Low speed tower UA must be greater than free convection tower UA
-        
-        {'pytype': 'float', u'minimum>': '0.0', u'maximum': '300000.0', u'note': [u'Leave field blank if tower Performance Input Method is NominalCapacity', u'Low speed tower UA must be less than high speed tower UA', u'Low speed tower UA must be greater than free convection tower UA'], u'units': u'W/K', u'autocalculatable': True, u'type': u'real'}
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `Low Fan Speed U-Factor Times Area Value`
@@ -2502,7 +2468,7 @@ class CoolingTowerTwoSpeed(object):
             try:
                 value_lower = str(value).lower()
                 if value_lower == "autocalculate":
-                    self._data["Low Fan Speed U-Factor Times Area Value"] = value
+                    self._data["Low Fan Speed U-Factor Times Area Value"] = "Autocalculate"
                     return
             except ValueError:
                 pass
@@ -2529,12 +2495,10 @@ class CoolingTowerTwoSpeed(object):
         return self._data["Low Fan Speed U-Factor Times Area Sizing Factor"]
 
     @low_fan_speed_ufactor_times_area_sizing_factor.setter
-    def low_fan_speed_ufactor_times_area_sizing_factor(self, value=0.6 ):
+    def low_fan_speed_ufactor_times_area_sizing_factor(self, value=0.6):
         """  Corresponds to IDD Field `Low Fan Speed U-Factor Times Area Sizing Factor`
         This field is only used if the previous field is set to autocalculate and
         the Performance Input Method is UFactorTimesAreaAndDesignWaterFlowRate
-        
-        {'pytype': 'float', u'default': '0.6', u'minimum>': '0.0', u'required-field': True, u'note': [u'This field is only used if the previous field is set to autocalculate and', u'the Performance Input Method is UFactorTimesAreaAndDesignWaterFlowRate'], u'type': u'real', u'maximum<': '1.0'}
 
         Args:
             value (float): value for IDD Field `Low Fan Speed U-Factor Times Area Sizing Factor`
@@ -2571,10 +2535,8 @@ class CoolingTowerTwoSpeed(object):
         return self._data["Free Convection Regime Air Flow Rate"]
 
     @free_convection_regime_air_flow_rate.setter
-    def free_convection_regime_air_flow_rate(self, value=0.0 ):
+    def free_convection_regime_air_flow_rate(self, value=0.0):
         """  Corresponds to IDD Field `Free Convection Regime Air Flow Rate`
-        
-        {'pytype': 'float', u'default': '0.0', u'minimum': '0.0', u'units': u'm3/s', u'autocalculatable': True, u'type': u'real'}
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `Free Convection Regime Air Flow Rate`
@@ -2591,7 +2553,7 @@ class CoolingTowerTwoSpeed(object):
             try:
                 value_lower = str(value).lower()
                 if value_lower == "autocalculate":
-                    self._data["Free Convection Regime Air Flow Rate"] = value
+                    self._data["Free Convection Regime Air Flow Rate"] = "Autocalculate"
                     return
             except ValueError:
                 pass
@@ -2615,11 +2577,9 @@ class CoolingTowerTwoSpeed(object):
         return self._data["Free Convection Regime Air Flow Rate Sizing Factor"]
 
     @free_convection_regime_air_flow_rate_sizing_factor.setter
-    def free_convection_regime_air_flow_rate_sizing_factor(self, value=0.1 ):
+    def free_convection_regime_air_flow_rate_sizing_factor(self, value=0.1):
         """  Corresponds to IDD Field `Free Convection Regime Air Flow Rate Sizing Factor`
         This field is only used if the previous field is set to autocalculate.
-        
-        {'pytype': 'float', u'default': '0.1', u'minimum>': '0.0', u'required-field': True, u'note': [u'This field is only used if the previous field is set to autocalculate.'], u'type': u'real', u'maximum<': '1.0'}
 
         Args:
             value (float): value for IDD Field `Free Convection Regime Air Flow Rate Sizing Factor`
@@ -2656,11 +2616,9 @@ class CoolingTowerTwoSpeed(object):
         return self._data["Free Convection Regime U-Factor Times Area Value"]
 
     @free_convection_regime_ufactor_times_area_value.setter
-    def free_convection_regime_ufactor_times_area_value(self, value=0.0 ):
+    def free_convection_regime_ufactor_times_area_value(self, value=0.0):
         """  Corresponds to IDD Field `Free Convection Regime U-Factor Times Area Value`
         Leave field blank if Tower Performance Input Method is NominalCapacity
-        
-        {'pytype': 'float', u'default': '0.0', u'maximum': '300000.0', u'note': [u'Leave field blank if Tower Performance Input Method is NominalCapacity'], u'minimum': '0.0', u'units': u'W/K', u'autocalculatable': True, u'type': u'real'}
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `Free Convection Regime U-Factor Times Area Value`
@@ -2678,7 +2636,7 @@ class CoolingTowerTwoSpeed(object):
             try:
                 value_lower = str(value).lower()
                 if value_lower == "autocalculate":
-                    self._data["Free Convection Regime U-Factor Times Area Value"] = value
+                    self._data["Free Convection Regime U-Factor Times Area Value"] = "Autocalculate"
                     return
             except ValueError:
                 pass
@@ -2705,12 +2663,10 @@ class CoolingTowerTwoSpeed(object):
         return self._data["Free Convection U-Factor Times Area Value Sizing Factor"]
 
     @free_convection_ufactor_times_area_value_sizing_factor.setter
-    def free_convection_ufactor_times_area_value_sizing_factor(self, value=0.1 ):
+    def free_convection_ufactor_times_area_value_sizing_factor(self, value=0.1):
         """  Corresponds to IDD Field `Free Convection U-Factor Times Area Value Sizing Factor`
         This field is only used if the previous field is set to autocalculate and
         the Performance Input Method is UFactorTimesAreaAndDesignWaterFlowRate
-        
-        {'pytype': 'float', u'default': '0.1', u'minimum>': '0.0', u'required-field': True, u'note': [u'This field is only used if the previous field is set to autocalculate and', u'the Performance Input Method is UFactorTimesAreaAndDesignWaterFlowRate'], u'type': u'real', u'maximum<': '1.0'}
 
         Args:
             value (float): value for IDD Field `Free Convection U-Factor Times Area Value Sizing Factor`
@@ -2752,8 +2708,6 @@ class CoolingTowerTwoSpeed(object):
         User can define tower thermal performance by specifying the tower UA,
         the Design Air Flow Rate and the Design Water Flow Rate,
         or by specifying the tower nominal capacity
-        
-        {u'default': u'UFactorTimesAreaAndDesignWaterFlowRate', u'note': [u'User can define tower thermal performance by specifying the tower UA,', u'the Design Air Flow Rate and the Design Water Flow Rate,', u'or by specifying the tower nominal capacity'], u'type': u'Choice', u'key': [u'UFactorTimesAreaAndDesignWaterFlowRate', u'NominalCapacity'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Performance Input Method`
@@ -2788,10 +2742,8 @@ class CoolingTowerTwoSpeed(object):
         return self._data["Heat Rejection Capacity and Nominal Capacity Sizing Ratio"]
 
     @heat_rejection_capacity_and_nominal_capacity_sizing_ratio.setter
-    def heat_rejection_capacity_and_nominal_capacity_sizing_ratio(self, value=1.25 ):
+    def heat_rejection_capacity_and_nominal_capacity_sizing_ratio(self, value=1.25):
         """  Corresponds to IDD Field `Heat Rejection Capacity and Nominal Capacity Sizing Ratio`
-        
-        {u'default': '1.25', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Heat Rejection Capacity and Nominal Capacity Sizing Ratio`
@@ -2828,8 +2780,6 @@ class CoolingTowerTwoSpeed(object):
         flow rate assumed to be 5.382E-8 m3/s per watt(3 gpm/ton). Nominal tower capacity
         times the Heat Rejection Capacity and Nominal Capacity Sizing Ratio (e.g. 1.25)
         gives the actual tower heat rejection at these operating conditions.
-        
-        {u'units': u'W', u'note': [u'Nominal tower capacity with entering water at 35C (95F), leaving water at', u'29.44C (85F), entering air at 25.56C (78F) wet-bulb temperature and 35C (95F)', u'dry-bulb temperature, with the tower fan operating at high speed. Design water', u'flow rate assumed to be 5.382E-8 m3/s per watt(3 gpm/ton). Nominal tower capacity', u'times the Heat Rejection Capacity and Nominal Capacity Sizing Ratio (e.g. 1.25)', u'gives the actual tower heat rejection at these operating conditions.'], u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `High Speed Nominal Capacity`
@@ -2871,8 +2821,6 @@ class CoolingTowerTwoSpeed(object):
         (3 gpm/ton). Nominal tower capacity times the Heat Rejection Capacity and Nominal
         Capacity Sizing Ratio (e.g. 1.25) gives the actual tower heat
         rejection at these operating conditions.
-        
-        {'pytype': 'float', u'minimum>': '0.0', u'note': [u'Nominal tower capacity with entering water at 35C (95F), leaving water at', u'29.44C (85F), entering air at 25.56C (78F) wet-bulb temperature and 35C (95F)', u'dry-bulb temperature, with the tower fan operating at low speed. Design water flow', u'rate assumed to be 5.382E-8 m3/s per watt of tower high-speed nominal capacity', u'(3 gpm/ton). Nominal tower capacity times the Heat Rejection Capacity and Nominal', u'Capacity Sizing Ratio (e.g. 1.25) gives the actual tower heat', u'rejection at these operating conditions.'], u'units': u'W', u'autocalculatable': True, u'type': u'real'}
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `Low Speed Nominal Capacity`
@@ -2888,7 +2836,7 @@ class CoolingTowerTwoSpeed(object):
             try:
                 value_lower = str(value).lower()
                 if value_lower == "autocalculate":
-                    self._data["Low Speed Nominal Capacity"] = value
+                    self._data["Low Speed Nominal Capacity"] = "Autocalculate"
                     return
             except ValueError:
                 pass
@@ -2912,11 +2860,9 @@ class CoolingTowerTwoSpeed(object):
         return self._data["Low Speed Nominal Capacity Sizing Factor"]
 
     @low_speed_nominal_capacity_sizing_factor.setter
-    def low_speed_nominal_capacity_sizing_factor(self, value=0.5 ):
+    def low_speed_nominal_capacity_sizing_factor(self, value=0.5):
         """  Corresponds to IDD Field `Low Speed Nominal Capacity Sizing Factor`
         This field is only used if the previous field is set to autocalculate
-        
-        {'pytype': 'float', u'default': '0.5', u'minimum>': '0.0', u'required-field': True, u'note': [u'This field is only used if the previous field is set to autocalculate'], u'type': u'real', u'maximum<': '1.0'}
 
         Args:
             value (float): value for IDD Field `Low Speed Nominal Capacity Sizing Factor`
@@ -2961,8 +2907,6 @@ class CoolingTowerTwoSpeed(object):
         5.382E-8 m3/s per watt of tower high-speed nominal capacity (3 gpm/ton). Tower
         free convection capacity times the Heat Rejection Capacity and Nominal Capacity Sizing Ratio
         (e.g. 1.25)  gives the actual tower heat rejection at these operating conditions
-        
-        {'pytype': 'float', u'note': [u'Tower capacity in free convection regime with entering water at 35C (95F),', u'leaving water at 29.44C (85F), entering air at 25.56C (78F) wet-bulb temperature', u'and 35C (95F) dry-bulb temperature. Design water flow rate assumed to be', u'5.382E-8 m3/s per watt of tower high-speed nominal capacity (3 gpm/ton). Tower', u'free convection capacity times the Heat Rejection Capacity and Nominal Capacity Sizing Ratio', u'(e.g. 1.25)  gives the actual tower heat rejection at these operating conditions'], u'minimum': '0.0', u'units': u'W', u'autocalculatable': True, u'type': u'real'}
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `Free Convection Nominal Capacity`
@@ -2978,7 +2922,7 @@ class CoolingTowerTwoSpeed(object):
             try:
                 value_lower = str(value).lower()
                 if value_lower == "autocalculate":
-                    self._data["Free Convection Nominal Capacity"] = value
+                    self._data["Free Convection Nominal Capacity"] = "Autocalculate"
                     return
             except ValueError:
                 pass
@@ -3002,11 +2946,9 @@ class CoolingTowerTwoSpeed(object):
         return self._data["Free Convection Nominal Capacity Sizing Factor"]
 
     @free_convection_nominal_capacity_sizing_factor.setter
-    def free_convection_nominal_capacity_sizing_factor(self, value=0.1 ):
+    def free_convection_nominal_capacity_sizing_factor(self, value=0.1):
         """  Corresponds to IDD Field `Free Convection Nominal Capacity Sizing Factor`
         This field is only used if the previous field is set to autocalculate
-        
-        {'pytype': 'float', u'default': '0.1', u'minimum>': '0.0', u'required-field': True, u'note': [u'This field is only used if the previous field is set to autocalculate'], u'type': u'real', u'maximum<': '1.0'}
 
         Args:
             value (float): value for IDD Field `Free Convection Nominal Capacity Sizing Factor`
@@ -3043,13 +2985,11 @@ class CoolingTowerTwoSpeed(object):
         return self._data["Basin Heater Capacity"]
 
     @basin_heater_capacity.setter
-    def basin_heater_capacity(self, value=0.0 ):
+    def basin_heater_capacity(self, value=0.0):
         """  Corresponds to IDD Field `Basin Heater Capacity`
         This heater maintains the basin water temperature at the basin heater setpoint
         temperature when the outdoor air temperature falls below the setpoint temperature.
         The basin heater only operates when water is not flowing through the tower.
-        
-        {'pytype': 'float', u'default': '0.0', u'note': [u'This heater maintains the basin water temperature at the basin heater setpoint', u'temperature when the outdoor air temperature falls below the setpoint temperature.', u'The basin heater only operates when water is not flowing through the tower.'], u'minimum': '0.0', u'units': u'W/K', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Basin Heater Capacity`
@@ -3083,11 +3023,9 @@ class CoolingTowerTwoSpeed(object):
         return self._data["Basin Heater Setpoint Temperature"]
 
     @basin_heater_setpoint_temperature.setter
-    def basin_heater_setpoint_temperature(self, value=2.0 ):
+    def basin_heater_setpoint_temperature(self, value=2.0):
         """  Corresponds to IDD Field `Basin Heater Setpoint Temperature`
         Enter the outdoor dry-bulb temperature when the basin heater turns on
-        
-        {'pytype': 'float', u'default': '2.0', u'note': [u'Enter the outdoor dry-bulb temperature when the basin heater turns on'], u'minimum': '2.0', u'units': u'C', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Basin Heater Setpoint Temperature`
@@ -3127,8 +3065,6 @@ class CoolingTowerTwoSpeed(object):
         air dry-bulb temperature is below the basin heater setpoint temperature.
         If a schedule name is not entered, the basin heater is allowed to operate
         throughout the entire simulation.
-        
-        {u'note': [u'Schedule values greater than 0 allow the basin heater to operate whenever the outdoor', u'air dry-bulb temperature is below the basin heater setpoint temperature.', u'If a schedule name is not entered, the basin heater is allowed to operate', u'throughout the entire simulation.'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Basin Heater Operating Schedule Name`
@@ -3164,8 +3100,6 @@ class CoolingTowerTwoSpeed(object):
     @evaporation_loss_mode.setter
     def evaporation_loss_mode(self, value=None):
         """  Corresponds to IDD Field `Evaporation Loss Mode`
-        
-        {u'type': u'choice', u'key': [u'LossFactor', u'SaturatedExit'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Evaporation Loss Mode`
@@ -3219,14 +3153,12 @@ class CoolingTowerTwoSpeed(object):
         return self._data["Evaporation Loss Factor"]
 
     @evaporation_loss_factor.setter
-    def evaporation_loss_factor(self, value=0.2 ):
+    def evaporation_loss_factor(self, value=0.2):
         """  Corresponds to IDD Field `Evaporation Loss Factor`
         Rate of water evaporated from the cooling tower and lost to the outdoor air [%/K]
         Evaporation loss is calculated as percentage of the circulating condenser water rate
         Value entered here is percent-per-degree K of temperature drop in the condenser water
         Typical values are from 0.15 to 0.27 [%/K].
-        
-        {u'units': u'percent/K', u'note': [u'Rate of water evaporated from the cooling tower and lost to the outdoor air [%/K]', u'Evaporation loss is calculated as percentage of the circulating condenser water rate', u'Value entered here is percent-per-degree K of temperature drop in the condenser water', u'Typical values are from 0.15 to 0.27 [%/K].'], u'default': '0.2', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Evaporation Loss Factor`
@@ -3256,12 +3188,10 @@ class CoolingTowerTwoSpeed(object):
         return self._data["Drift Loss Percent"]
 
     @drift_loss_percent.setter
-    def drift_loss_percent(self, value=0.008 ):
+    def drift_loss_percent(self, value=0.008):
         """  Corresponds to IDD Field `Drift Loss Percent`
         Rate of drift loss as a percentage of circulating condenser water flow rate
         Typical values are between 0.002 and 0.2% The default value is 0.008%
-        
-        {u'units': u'percent', u'default': '0.008', u'note': [u'Rate of drift loss as a percentage of circulating condenser water flow rate', u'Typical values are between 0.002 and 0.2% The default value is 0.008%'], u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Drift Loss Percent`
@@ -3293,8 +3223,6 @@ class CoolingTowerTwoSpeed(object):
     @blowdown_calculation_mode.setter
     def blowdown_calculation_mode(self, value=None):
         """  Corresponds to IDD Field `Blowdown Calculation Mode`
-        
-        {u'type': u'choice', u'key': [u'ConcentrationRatio', u'ScheduledRate'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Blowdown Calculation Mode`
@@ -3348,15 +3276,13 @@ class CoolingTowerTwoSpeed(object):
         return self._data["Blowdown Concentration Ratio"]
 
     @blowdown_concentration_ratio.setter
-    def blowdown_concentration_ratio(self, value=3.0 ):
+    def blowdown_concentration_ratio(self, value=3.0):
         """  Corresponds to IDD Field `Blowdown Concentration Ratio`
         Characterizes the rate of blowdown in the cooling tower.
         Blowdown is water intentionally drained from the tower in order to offset the build up
         of solids in the water that would otherwise occur because of evaporation.
         Ratio of solids in the blowdown water to solids in the make up water.
         Typical values for tower operation are 3 to 5.  The default value is 3.
-        
-        {u'default': '3.0', u'note': [u'Characterizes the rate of blowdown in the cooling tower.', u'Blowdown is water intentionally drained from the tower in order to offset the build up', u'of solids in the water that would otherwise occur because of evaporation.', u'Ratio of solids in the blowdown water to solids in the make up water.', u'Typical values for tower operation are 3 to 5.  The default value is 3.'], u'minimum': '2.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Blowdown Concentration Ratio`
@@ -3395,8 +3321,6 @@ class CoolingTowerTwoSpeed(object):
         of water in the tower basin to purge scale or other contaminants to reduce their
         concentration in order to maintain an acceptable level of water quality.
         Schedule values should reflect water usage in m3/s.
-        
-        {u'note': [u'Makeup water usage due to blowdown results from occasionally draining some amount', u'of water in the tower basin to purge scale or other contaminants to reduce their', u'concentration in order to maintain an acceptable level of water quality.', u'Schedule values should reflect water usage in m3/s.'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Blowdown Makeup Water Usage Schedule Name`
@@ -3432,8 +3356,6 @@ class CoolingTowerTwoSpeed(object):
     @supply_water_storage_tank_name.setter
     def supply_water_storage_tank_name(self, value=None):
         """  Corresponds to IDD Field `Supply Water Storage Tank Name`
-        
-        {u'type': u'object-list', u'object-list': u'WaterStorageTankNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Supply Water Storage Tank Name`
@@ -3470,8 +3392,6 @@ class CoolingTowerTwoSpeed(object):
     def outdoor_air_inlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Outdoor Air Inlet Node Name`
         Enter the name of an outdoor air node
-        
-        {u'note': [u'Enter the name of an outdoor air node'], u'type': u'node', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Outdoor Air Inlet Node Name`
@@ -3505,10 +3425,8 @@ class CoolingTowerTwoSpeed(object):
         return self._data["Number of Cells"]
 
     @number_of_cells.setter
-    def number_of_cells(self, value=1 ):
+    def number_of_cells(self, value=1):
         """  Corresponds to IDD Field `Number of Cells`
-        
-        {u'default': '1', u'minimum': '1', u'type': u'integer', 'pytype': 'int'}
 
         Args:
             value (int): value for IDD Field `Number of Cells`
@@ -3543,8 +3461,6 @@ class CoolingTowerTwoSpeed(object):
     @cell_control.setter
     def cell_control(self, value="MinimalCell"):
         """  Corresponds to IDD Field `Cell Control`
-        
-        {u'default': u'MinimalCell', u'type': u'Choice', u'key': [u'MinimalCell', u'MaximalCell'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Cell Control`
@@ -3579,11 +3495,9 @@ class CoolingTowerTwoSpeed(object):
         return self._data["Cell Minimum  Water Flow Rate Fraction"]
 
     @cell_minimum_water_flow_rate_fraction.setter
-    def cell_minimum_water_flow_rate_fraction(self, value=0.33 ):
+    def cell_minimum_water_flow_rate_fraction(self, value=0.33):
         """  Corresponds to IDD Field `Cell Minimum  Water Flow Rate Fraction`
         The allowable mininal fraction of the nominal flow rate per cell
-        
-        {'pytype': 'float', u'default': '0.33', u'minimum>': '0.0', u'maximum': '1.0', u'note': [u'The allowable mininal fraction of the nominal flow rate per cell'], u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Cell Minimum  Water Flow Rate Fraction`
@@ -3620,11 +3534,9 @@ class CoolingTowerTwoSpeed(object):
         return self._data["Cell Maximum Water Flow Rate Fraction"]
 
     @cell_maximum_water_flow_rate_fraction.setter
-    def cell_maximum_water_flow_rate_fraction(self, value=2.5 ):
+    def cell_maximum_water_flow_rate_fraction(self, value=2.5):
         """  Corresponds to IDD Field `Cell Maximum Water Flow Rate Fraction`
         The allowable maximal fraction of the nominal flow rate per cell
-        
-        {u'default': '2.5', u'note': [u'The allowable maximal fraction of the nominal flow rate per cell'], u'minimum': '1.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Cell Maximum Water Flow Rate Fraction`
@@ -3657,11 +3569,9 @@ class CoolingTowerTwoSpeed(object):
         return self._data["Sizing Factor"]
 
     @sizing_factor.setter
-    def sizing_factor(self, value=1.0 ):
+    def sizing_factor(self, value=1.0):
         """  Corresponds to IDD Field `Sizing Factor`
         Multiplies the autosized capacity and flow rates
-        
-        {u'note': [u'Multiplies the autosized capacity and flow rates'], u'default': '1.0', u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Sizing Factor`
@@ -4079,8 +3989,6 @@ class CoolingTowerVariableSpeedMerkel(object):
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
         Tower Name
-        
-        {u'note': [u'Tower Name'], u'type': u'alpha', u'reference': u'CoolingTowers', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -4117,8 +4025,6 @@ class CoolingTowerVariableSpeedMerkel(object):
     def water_inlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Water Inlet Node Name`
         Name of tower water inlet node
-        
-        {u'note': [u'Name of tower water inlet node'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Water Inlet Node Name`
@@ -4155,8 +4061,6 @@ class CoolingTowerVariableSpeedMerkel(object):
     def water_outlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Water Outlet Node Name`
         Name of tower water outlet node
-        
-        {u'note': [u'Name of tower water outlet node'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Water Outlet Node Name`
@@ -4195,8 +4099,6 @@ class CoolingTowerVariableSpeedMerkel(object):
         User can define tower thermal performance by specifying the tower UA,
         the Design Air Flow Rate and the Design Water Flow Rate,
         or by specifying the tower nominal capacity
-        
-        {'pytype': 'str', u'default': u'NominalCapacity', u'required-field': True, u'note': [u'User can define tower thermal performance by specifying the tower UA,', u'the Design Air Flow Rate and the Design Water Flow Rate,', u'or by specifying the tower nominal capacity'], u'key': [u'UFactorTimesAreaAndDesignWaterFlowRate', u'NominalCapacity'], u'type': u'Choice'}
 
         Args:
             value (str): value for IDD Field `Performance Input Method`
@@ -4231,10 +4133,8 @@ class CoolingTowerVariableSpeedMerkel(object):
         return self._data["Heat Rejection Capacity and Nominal Capacity Sizing Ratio"]
 
     @heat_rejection_capacity_and_nominal_capacity_sizing_ratio.setter
-    def heat_rejection_capacity_and_nominal_capacity_sizing_ratio(self, value=1.25 ):
+    def heat_rejection_capacity_and_nominal_capacity_sizing_ratio(self, value=1.25):
         """  Corresponds to IDD Field `Heat Rejection Capacity and Nominal Capacity Sizing Ratio`
-        
-        {u'default': '1.25', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Heat Rejection Capacity and Nominal Capacity Sizing Ratio`
@@ -4271,11 +4171,9 @@ class CoolingTowerVariableSpeedMerkel(object):
         flow rate is as set in Design Water Flow Rate per Unit of Nominal Capacity. Nominal tower capacity
         times the Heat Rejection Capacity and Nominal Capacity Sizing Ratio (e.g. 1.25)
         gives the actual tower heat rejection at these operating conditions.
-        
-        {'pytype': 'float', u'minimum>': '0.0', u'note': [u'Nominal tower capacity with entering water at 35C (95F), leaving water at', u'29.44C (85F), entering air at 25.56C (78F) wet-bulb temperature and 35C (95F)', u'dry-bulb temperature, with the tower fan operating at Design Air Flow Rate (full speed). Design water', u'flow rate is as set in Design Water Flow Rate per Unit of Nominal Capacity. Nominal tower capacity', u'times the Heat Rejection Capacity and Nominal Capacity Sizing Ratio (e.g. 1.25)', u'gives the actual tower heat rejection at these operating conditions.'], u'autosizable': u'', u'units': u'W', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `Nominal Capacity`
+            value (float or "Autosize"): value for IDD Field `Nominal Capacity`
                 Units: W
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -4285,6 +4183,13 @@ class CoolingTowerVariableSpeedMerkel(object):
             ValueError: if `value` is not a valid value
         """
         if value is not None:
+            try:
+                value_lower = str(value).lower()
+                if value_lower == "autosize":
+                    self._data["Nominal Capacity"] = "Autosize"
+                    return
+            except ValueError:
+                pass
             try:
                 value = float(value)
             except ValueError:
@@ -4314,8 +4219,6 @@ class CoolingTowerVariableSpeedMerkel(object):
         in Design Water Flow Rate per Unit of Nominal Capacity. Tower
         free convection capacity times the Heat Rejection Capacity and Nominal Capacity Sizing Ratio
         (e.g. 1.25)  gives the actual tower heat rejection at these operating conditions
-        
-        {'pytype': 'float', u'note': [u'required field when performance method is NominalCapacity', u'Tower capacity in free convection regime with entering water at 35C (95F),', u'leaving water at 29.44C (85F), entering air at 25.56C (78F) wet-bulb temperature', u'and 35C (95F) dry-bulb temperature. Design water flow rate is as set', u'in Design Water Flow Rate per Unit of Nominal Capacity. Tower', u'free convection capacity times the Heat Rejection Capacity and Nominal Capacity Sizing Ratio', u'(e.g. 1.25)  gives the actual tower heat rejection at these operating conditions'], u'minimum': '0.0', u'units': u'W', u'autocalculatable': True, u'type': u'real'}
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `Free Convection Nominal Capacity`
@@ -4331,7 +4234,7 @@ class CoolingTowerVariableSpeedMerkel(object):
             try:
                 value_lower = str(value).lower()
                 if value_lower == "autocalculate":
-                    self._data["Free Convection Nominal Capacity"] = value
+                    self._data["Free Convection Nominal Capacity"] = "Autocalculate"
                     return
             except ValueError:
                 pass
@@ -4355,11 +4258,9 @@ class CoolingTowerVariableSpeedMerkel(object):
         return self._data["Free Convection Nominal Capacity Sizing Factor"]
 
     @free_convection_nominal_capacity_sizing_factor.setter
-    def free_convection_nominal_capacity_sizing_factor(self, value=0.1 ):
+    def free_convection_nominal_capacity_sizing_factor(self, value=0.1):
         """  Corresponds to IDD Field `Free Convection Nominal Capacity Sizing Factor`
         This field is only used if the previous field is set to autocalculate
-        
-        {'pytype': 'float', u'default': '0.1', u'minimum>': '0.0', u'required-field': True, u'note': [u'This field is only used if the previous field is set to autocalculate'], u'type': u'real', u'maximum<': '1.0'}
 
         Args:
             value (float): value for IDD Field `Free Convection Nominal Capacity Sizing Factor`
@@ -4398,11 +4299,9 @@ class CoolingTowerVariableSpeedMerkel(object):
     @design_water_flow_rate.setter
     def design_water_flow_rate(self, value=None):
         """  Corresponds to IDD Field `Design Water Flow Rate`
-        
-        {'pytype': 'float', u'minimum>': '0.0', u'required-field': True, u'ip-units': u'gal/min', u'autosizable': u'', u'units': u'm3/s', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `Design Water Flow Rate`
+            value (float or "Autosize"): value for IDD Field `Design Water Flow Rate`
                 Units: m3/s
                 IP-Units: gal/min
                 value > 0.0
@@ -4413,6 +4312,13 @@ class CoolingTowerVariableSpeedMerkel(object):
             ValueError: if `value` is not a valid value
         """
         if value is not None:
+            try:
+                value_lower = str(value).lower()
+                if value_lower == "autosize":
+                    self._data["Design Water Flow Rate"] = "Autosize"
+                    return
+            except ValueError:
+                pass
             try:
                 value = float(value)
             except ValueError:
@@ -4433,11 +4339,9 @@ class CoolingTowerVariableSpeedMerkel(object):
         return self._data["Design Water Flow Rate per Unit of Nominal Capacity"]
 
     @design_water_flow_rate_per_unit_of_nominal_capacity.setter
-    def design_water_flow_rate_per_unit_of_nominal_capacity(self, value=5.382e-08 ):
+    def design_water_flow_rate_per_unit_of_nominal_capacity(self, value=5.382e-08):
         """  Corresponds to IDD Field `Design Water Flow Rate per Unit of Nominal Capacity`
         This field is only used if the previous is set to autocalculate and performance input method is NominalCapacity
-        
-        {u'note': [u'This field is only used if the previous is set to autocalculate and performance input method is NominalCapacity'], u'units': u'm3/s-W', u'default': '5.382e-08', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Design Water Flow Rate per Unit of Nominal Capacity`
@@ -4470,8 +4374,6 @@ class CoolingTowerVariableSpeedMerkel(object):
     def design_air_flow_rate(self, value=None):
         """  Corresponds to IDD Field `Design Air Flow Rate`
         This is the air flow rate at full fan speed
-        
-        {'pytype': 'float', u'minimum>': '0.0', u'required-field': True, u'note': [u'This is the air flow rate at full fan speed'], u'units': u'm3/s', u'autocalculatable': True, u'type': u'real'}
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `Design Air Flow Rate`
@@ -4487,7 +4389,7 @@ class CoolingTowerVariableSpeedMerkel(object):
             try:
                 value_lower = str(value).lower()
                 if value_lower == "autocalculate":
-                    self._data["Design Air Flow Rate"] = value
+                    self._data["Design Air Flow Rate"] = "Autocalculate"
                     return
             except ValueError:
                 pass
@@ -4511,13 +4413,11 @@ class CoolingTowerVariableSpeedMerkel(object):
         return self._data["Design Air Flow Rate Per Unit of Nominal Capacity"]
 
     @design_air_flow_rate_per_unit_of_nominal_capacity.setter
-    def design_air_flow_rate_per_unit_of_nominal_capacity(self, value=2.76316e-05 ):
+    def design_air_flow_rate_per_unit_of_nominal_capacity(self, value=2.76316e-05):
         """  Corresponds to IDD Field `Design Air Flow Rate Per Unit of Nominal Capacity`
         This field is only used if the previous is set to autocalculate
         When field is left blank the default scaling factor is adjusted for elevation to increase volume flow at altitude
         When field has a value the scaling factor is used without adjusting for elevation
-        
-        {u'note': [u'This field is only used if the previous is set to autocalculate', u'When field is left blank the default scaling factor is adjusted for elevation to increase volume flow at altitude', u'When field has a value the scaling factor is used without adjusting for elevation'], u'units': u'm3/s-W', u'default': '2.76316e-05', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Design Air Flow Rate Per Unit of Nominal Capacity`
@@ -4547,12 +4447,10 @@ class CoolingTowerVariableSpeedMerkel(object):
         return self._data["Minimum Air Flow Rate Ratio"]
 
     @minimum_air_flow_rate_ratio.setter
-    def minimum_air_flow_rate_ratio(self, value=0.2 ):
+    def minimum_air_flow_rate_ratio(self, value=0.2):
         """  Corresponds to IDD Field `Minimum Air Flow Rate Ratio`
         Enter the minimum air flow rate ratio. This is typically determined by the variable
         speed drive that controls the fan motor speed. Valid entries are from 0.1 to 0.5.
-        
-        {'pytype': 'float', u'default': '0.2', u'maximum': '0.5', u'note': [u'Enter the minimum air flow rate ratio. This is typically determined by the variable', u'speed drive that controls the fan motor speed. Valid entries are from 0.1 to 0.5.'], u'minimum': '0.1', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Minimum Air Flow Rate Ratio`
@@ -4592,8 +4490,6 @@ class CoolingTowerVariableSpeedMerkel(object):
     def design_fan_power(self, value=None):
         """  Corresponds to IDD Field `Design Fan Power`
         This is the fan motor electric input power at high speed
-        
-        {'pytype': 'float', u'minimum>': '0.0', u'required-field': True, u'note': [u'This is the fan motor electric input power at high speed'], u'ip-units': u'W', u'units': u'W', u'autocalculatable': True, u'type': u'real'}
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `Design Fan Power`
@@ -4610,7 +4506,7 @@ class CoolingTowerVariableSpeedMerkel(object):
             try:
                 value_lower = str(value).lower()
                 if value_lower == "autocalculate":
-                    self._data["Design Fan Power"] = value
+                    self._data["Design Fan Power"] = "Autocalculate"
                     return
             except ValueError:
                 pass
@@ -4634,12 +4530,10 @@ class CoolingTowerVariableSpeedMerkel(object):
         return self._data["Design Fan Power Per Unit of Nominal Capacity"]
 
     @design_fan_power_per_unit_of_nominal_capacity.setter
-    def design_fan_power_per_unit_of_nominal_capacity(self, value=0.0105 ):
+    def design_fan_power_per_unit_of_nominal_capacity(self, value=0.0105):
         """  Corresponds to IDD Field `Design Fan Power Per Unit of Nominal Capacity`
         This field is only used if the previous is set to autocalculate
         [W/W] Watts of fan power per Watt of tower nominal capacity
-        
-        {u'note': [u'This field is only used if the previous is set to autocalculate', u'[W/W] Watts of fan power per Watt of tower nominal capacity'], u'units': u'dimensionless', u'default': '0.0105', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Design Fan Power Per Unit of Nominal Capacity`
@@ -4679,8 +4573,6 @@ class CoolingTowerVariableSpeedMerkel(object):
         cubic curve = a + b*AFR + c*AFR**2 + d*AFR**3
         quartic curve = a + b*AFR + c*AFR**2 + d*AFR**3 + e*AFR**4
         x = AFR = Ratio of current operating air flow rate to Design Air Flow Rate
-        
-        {u'note': [u'Any curve or table with one independent variable can be used:', u'Curve:Linear, Curve:Quadratic, Curve:Cubic, Curve:Quartic, Curve:Exponent,', u'Curve:ExponentialSkewNormal, Curve:Sigmoid, Curve:RectuangularHyperbola1,', u'Curve:RectangularHyperbola2, Curve:ExponentialDecay, Curve:DoubleExponentialDecay,', u'Table:OneIndependentVariable', u'cubic curve = a + b*AFR + c*AFR**2 + d*AFR**3', u'quartic curve = a + b*AFR + c*AFR**2 + d*AFR**3 + e*AFR**4', u'x = AFR = Ratio of current operating air flow rate to Design Air Flow Rate'], u'type': u'object-list', u'object-list': u'AllCurves', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Fan Power Modifier Function of Air Flow Rate Ratio Curve Name`
@@ -4714,10 +4606,8 @@ class CoolingTowerVariableSpeedMerkel(object):
         return self._data["Free Convection Regime Air Flow Rate"]
 
     @free_convection_regime_air_flow_rate.setter
-    def free_convection_regime_air_flow_rate(self, value=0.0 ):
+    def free_convection_regime_air_flow_rate(self, value=0.0):
         """  Corresponds to IDD Field `Free Convection Regime Air Flow Rate`
-        
-        {'pytype': 'float', u'default': '0.0', u'minimum': '0.0', u'units': u'm3/s', u'autocalculatable': True, u'type': u'real'}
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `Free Convection Regime Air Flow Rate`
@@ -4734,7 +4624,7 @@ class CoolingTowerVariableSpeedMerkel(object):
             try:
                 value_lower = str(value).lower()
                 if value_lower == "autocalculate":
-                    self._data["Free Convection Regime Air Flow Rate"] = value
+                    self._data["Free Convection Regime Air Flow Rate"] = "Autocalculate"
                     return
             except ValueError:
                 pass
@@ -4758,11 +4648,9 @@ class CoolingTowerVariableSpeedMerkel(object):
         return self._data["Free Convection Regime Air Flow Rate Sizing Factor"]
 
     @free_convection_regime_air_flow_rate_sizing_factor.setter
-    def free_convection_regime_air_flow_rate_sizing_factor(self, value=0.1 ):
+    def free_convection_regime_air_flow_rate_sizing_factor(self, value=0.1):
         """  Corresponds to IDD Field `Free Convection Regime Air Flow Rate Sizing Factor`
         This field is only used if the previous field is set to autocalculate.
-        
-        {'pytype': 'float', u'default': '0.1', u'minimum>': '0.0', u'required-field': True, u'note': [u'This field is only used if the previous field is set to autocalculate.'], u'type': u'real', u'maximum<': '1.0'}
 
         Args:
             value (float): value for IDD Field `Free Convection Regime Air Flow Rate Sizing Factor`
@@ -4803,11 +4691,9 @@ class CoolingTowerVariableSpeedMerkel(object):
         """  Corresponds to IDD Field `Design Air Flow Rate U-Factor Times Area Value`
         required field when performance method is UFactorTimesAreaAndDesignWaterFlowRate
         when performance method is NominalCapacity the program will solve for this UA
-        
-        {u'note': [u'required field when performance method is UFactorTimesAreaAndDesignWaterFlowRate', u'when performance method is NominalCapacity the program will solve for this UA'], u'units': u'W/K', u'autosizable': u'', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `Design Air Flow Rate U-Factor Times Area Value`
+            value (float or "Autosize"): value for IDD Field `Design Air Flow Rate U-Factor Times Area Value`
                 Units: W/K
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -4816,6 +4702,13 @@ class CoolingTowerVariableSpeedMerkel(object):
             ValueError: if `value` is not a valid value
         """
         if value is not None:
+            try:
+                value_lower = str(value).lower()
+                if value_lower == "autosize":
+                    self._data["Design Air Flow Rate U-Factor Times Area Value"] = "Autosize"
+                    return
+            except ValueError:
+                pass
             try:
                 value = float(value)
             except ValueError:
@@ -4833,12 +4726,10 @@ class CoolingTowerVariableSpeedMerkel(object):
         return self._data["Free Convection Regime U-Factor Times Area Value"]
 
     @free_convection_regime_ufactor_times_area_value.setter
-    def free_convection_regime_ufactor_times_area_value(self, value=0.0 ):
+    def free_convection_regime_ufactor_times_area_value(self, value=0.0):
         """  Corresponds to IDD Field `Free Convection Regime U-Factor Times Area Value`
         required field when performance input method is UFactorTimesAreaAndDesignWaterFlowRate
         Leave field blank if performance input method is NominalCapacity
-        
-        {'pytype': 'float', u'default': '0.0', u'maximum': '300000.0', u'note': [u'required field when performance input method is UFactorTimesAreaAndDesignWaterFlowRate', u'Leave field blank if performance input method is NominalCapacity'], u'minimum': '0.0', u'units': u'W/K', u'autocalculatable': True, u'type': u'real'}
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `Free Convection Regime U-Factor Times Area Value`
@@ -4856,7 +4747,7 @@ class CoolingTowerVariableSpeedMerkel(object):
             try:
                 value_lower = str(value).lower()
                 if value_lower == "autocalculate":
-                    self._data["Free Convection Regime U-Factor Times Area Value"] = value
+                    self._data["Free Convection Regime U-Factor Times Area Value"] = "Autocalculate"
                     return
             except ValueError:
                 pass
@@ -4883,13 +4774,11 @@ class CoolingTowerVariableSpeedMerkel(object):
         return self._data["Free Convection U-Factor Times Area Value Sizing Factor"]
 
     @free_convection_ufactor_times_area_value_sizing_factor.setter
-    def free_convection_ufactor_times_area_value_sizing_factor(self, value=0.1 ):
+    def free_convection_ufactor_times_area_value_sizing_factor(self, value=0.1):
         """  Corresponds to IDD Field `Free Convection U-Factor Times Area Value Sizing Factor`
         required field when performance input method is UFactorTimesAreaAndDesignWaterFlowRate
         This field is only used if the previous field is set to autocalculate and
         the performance input method is UFactorTimesAreaAndDesignWaterFlowRate
-        
-        {'pytype': 'float', u'default': '0.1', u'minimum>': '0.0', u'note': [u'required field when performance input method is UFactorTimesAreaAndDesignWaterFlowRate', u'This field is only used if the previous field is set to autocalculate and', u'the performance input method is UFactorTimesAreaAndDesignWaterFlowRate'], u'type': u'real', u'maximum<': '1.0'}
 
         Args:
             value (float): value for IDD Field `Free Convection U-Factor Times Area Value Sizing Factor`
@@ -4937,8 +4826,6 @@ class CoolingTowerVariableSpeedMerkel(object):
         cubic curve = a + b*AFR + c*AFR**2 + d*AFR**3
         quartic curve = a + b*AFR + c*AFR**2 + d*AFR**3 + e*AFR**4
         x = AFR = Ratio of current operating air flow rate to Design Air Flow Rate
-        
-        {u'note': [u"This curve describes how tower's design UA changes with variable air flow rate", u'Any curve or table with one independent variable can be used:', u'Curve:Linear, Curve:Quadratic, Curve:Cubic, Curve:Quartic, Curve:Exponent,', u'Curve:ExponentialSkewNormal, Curve:Sigmoid, Curve:RectuangularHyperbola1,', u'Curve:RectangularHyperbola2, Curve:ExponentialDecay, Curve:DoubleExponentialDecay,', u'Table:OneIndependentVariable', u'cubic curve = a + b*AFR + c*AFR**2 + d*AFR**3', u'quartic curve = a + b*AFR + c*AFR**2 + d*AFR**3 + e*AFR**4', u'x = AFR = Ratio of current operating air flow rate to Design Air Flow Rate'], u'type': u'object-list', u'object-list': u'AllCurves', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `U-Factor Times Area Modifier Function of Air Flow Ratio Curve Name`
@@ -4984,8 +4871,6 @@ class CoolingTowerVariableSpeedMerkel(object):
         quartic curve = a + b*DeltaWB + c*DeltaWB**2 + d*DeltaWB**3 + e*DeltaWB**4
         x = DeltaWB = (design wetbulb temperature in C - current wetbulb temperature in C)
         where design wetbulb temperature of entering air is 25.56C (78F)
-        
-        {u'note': [u'curve describes how tower UA changes with outdoor air wetbulb temperature difference from design wetbulb', u'Any curve or table with one independent variable can be used:', u'Curve:Linear, Curve:Quadratic, Curve:Cubic, Curve:Quartic, Curve:Exponent,', u'Curve:ExponentialSkewNormal, Curve:Sigmoid, Curve:RectuangularHyperbola1,', u'Curve:RectangularHyperbola2, Curve:ExponentialDecay, Curve:DoubleExponentialDecay,', u'Table:OneIndependentVariable', u'cubic curve = a + b*DeltaWB + c*DeltaWB**2 + d*DeltaWB**3', u'quartic curve = a + b*DeltaWB + c*DeltaWB**2 + d*DeltaWB**3 + e*DeltaWB**4', u'x = DeltaWB = (design wetbulb temperature in C - current wetbulb temperature in C)', u'where design wetbulb temperature of entering air is 25.56C (78F)'], u'type': u'object-list', u'object-list': u'AllCurves', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `U-Factor Times Area Modifier Function of Wetbulb Temperature Difference Curve Name`
@@ -5030,8 +4915,6 @@ class CoolingTowerVariableSpeedMerkel(object):
         cubic curve = a + b*WFR + c*WFR**2 + d*WFR**3
         quartic curve = a + b*WFR + c*WFR**2 + d*WFR**3 + e*WFR**4
         x = WFR = Ratio of current operationg water flow rate to Design Water Flow Rate
-        
-        {u'note': [u'curve describes how tower UA changes with the flow rate of condenser water through the tower', u'Any curve or table with one independent variable can be used:', u'Curve:Linear, Curve:Quadratic, Curve:Cubic, Curve:Quartic, Curve:Exponent,', u'Curve:ExponentialSkewNormal, Curve:Sigmoid, Curve:RectuangularHyperbola1,', u'Curve:RectangularHyperbola2, Curve:ExponentialDecay, Curve:DoubleExponentialDecay,', u'Table:OneIndependentVariable', u'cubic curve = a + b*WFR + c*WFR**2 + d*WFR**3', u'quartic curve = a + b*WFR + c*WFR**2 + d*WFR**3 + e*WFR**4', u'x = WFR = Ratio of current operationg water flow rate to Design Water Flow Rate'], u'type': u'object-list', u'object-list': u'AllCurves', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `U-Factor Times Area Modifier Function of Water Flow Ratio Curve Name`
@@ -5065,13 +4948,11 @@ class CoolingTowerVariableSpeedMerkel(object):
         return self._data["Basin Heater Capacity"]
 
     @basin_heater_capacity.setter
-    def basin_heater_capacity(self, value=0.0 ):
+    def basin_heater_capacity(self, value=0.0):
         """  Corresponds to IDD Field `Basin Heater Capacity`
         This heater maintains the basin water temperature at the basin heater setpoint
         temperature when the outdoor air temperature falls below the setpoint temperature.
         The basin heater only operates when water is not flowing through the tower.
-        
-        {'pytype': 'float', u'default': '0.0', u'note': [u'This heater maintains the basin water temperature at the basin heater setpoint', u'temperature when the outdoor air temperature falls below the setpoint temperature.', u'The basin heater only operates when water is not flowing through the tower.'], u'minimum': '0.0', u'units': u'W/K', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Basin Heater Capacity`
@@ -5105,11 +4986,9 @@ class CoolingTowerVariableSpeedMerkel(object):
         return self._data["Basin Heater Setpoint Temperature"]
 
     @basin_heater_setpoint_temperature.setter
-    def basin_heater_setpoint_temperature(self, value=2.0 ):
+    def basin_heater_setpoint_temperature(self, value=2.0):
         """  Corresponds to IDD Field `Basin Heater Setpoint Temperature`
         Enter the outdoor dry-bulb temperature when the basin heater turns on
-        
-        {'pytype': 'float', u'default': '2.0', u'note': [u'Enter the outdoor dry-bulb temperature when the basin heater turns on'], u'minimum': '2.0', u'units': u'C', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Basin Heater Setpoint Temperature`
@@ -5149,8 +5028,6 @@ class CoolingTowerVariableSpeedMerkel(object):
         air dry-bulb temperature is below the basin heater setpoint temperature.
         If a schedule name is not entered, the basin heater is allowed to operate
         throughout the entire simulation.
-        
-        {u'note': [u'Schedule values greater than 0 allow the basin heater to operate whenever the outdoor', u'air dry-bulb temperature is below the basin heater setpoint temperature.', u'If a schedule name is not entered, the basin heater is allowed to operate', u'throughout the entire simulation.'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Basin Heater Operating Schedule Name`
@@ -5186,8 +5063,6 @@ class CoolingTowerVariableSpeedMerkel(object):
     @evaporation_loss_mode.setter
     def evaporation_loss_mode(self, value=None):
         """  Corresponds to IDD Field `Evaporation Loss Mode`
-        
-        {u'type': u'choice', u'key': [u'LossFactor', u'SaturatedExit'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Evaporation Loss Mode`
@@ -5241,14 +5116,12 @@ class CoolingTowerVariableSpeedMerkel(object):
         return self._data["Evaporation Loss Factor"]
 
     @evaporation_loss_factor.setter
-    def evaporation_loss_factor(self, value=0.2 ):
+    def evaporation_loss_factor(self, value=0.2):
         """  Corresponds to IDD Field `Evaporation Loss Factor`
         Rate of water evaporated from the cooling tower and lost to the outdoor air [%/K]
         Evaporation loss is calculated as percentage of the circulating condenser water rate
         Value entered here is percent-per-degree K of temperature drop in the condenser water
         Typical values are from 0.15 to 0.27 [%/K].
-        
-        {u'units': u'percent/K', u'note': [u'Rate of water evaporated from the cooling tower and lost to the outdoor air [%/K]', u'Evaporation loss is calculated as percentage of the circulating condenser water rate', u'Value entered here is percent-per-degree K of temperature drop in the condenser water', u'Typical values are from 0.15 to 0.27 [%/K].'], u'default': '0.2', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Evaporation Loss Factor`
@@ -5278,12 +5151,10 @@ class CoolingTowerVariableSpeedMerkel(object):
         return self._data["Drift Loss Percent"]
 
     @drift_loss_percent.setter
-    def drift_loss_percent(self, value=0.008 ):
+    def drift_loss_percent(self, value=0.008):
         """  Corresponds to IDD Field `Drift Loss Percent`
         Rate of drift loss as a percentage of circulating condenser water flow rate
         Typical values are between 0.002 and 0.2% The default value is 0.008%
-        
-        {u'units': u'percent', u'default': '0.008', u'note': [u'Rate of drift loss as a percentage of circulating condenser water flow rate', u'Typical values are between 0.002 and 0.2% The default value is 0.008%'], u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Drift Loss Percent`
@@ -5315,8 +5186,6 @@ class CoolingTowerVariableSpeedMerkel(object):
     @blowdown_calculation_mode.setter
     def blowdown_calculation_mode(self, value=None):
         """  Corresponds to IDD Field `Blowdown Calculation Mode`
-        
-        {u'type': u'choice', u'key': [u'ConcentrationRatio', u'ScheduledRate'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Blowdown Calculation Mode`
@@ -5370,15 +5239,13 @@ class CoolingTowerVariableSpeedMerkel(object):
         return self._data["Blowdown Concentration Ratio"]
 
     @blowdown_concentration_ratio.setter
-    def blowdown_concentration_ratio(self, value=3.0 ):
+    def blowdown_concentration_ratio(self, value=3.0):
         """  Corresponds to IDD Field `Blowdown Concentration Ratio`
         Characterizes the rate of blowdown in the cooling tower.
         Blowdown is water intentionally drained from the tower in order to offset the build up
         of solids in the water that would otherwise occur because of evaporation.
         Ratio of solids in the blowdown water to solids in the make up water.
         Typical values for tower operation are 3 to 5.  The default value is 3.
-        
-        {u'default': '3.0', u'note': [u'Characterizes the rate of blowdown in the cooling tower.', u'Blowdown is water intentionally drained from the tower in order to offset the build up', u'of solids in the water that would otherwise occur because of evaporation.', u'Ratio of solids in the blowdown water to solids in the make up water.', u'Typical values for tower operation are 3 to 5.  The default value is 3.'], u'minimum': '2.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Blowdown Concentration Ratio`
@@ -5417,8 +5284,6 @@ class CoolingTowerVariableSpeedMerkel(object):
         of water in the tower basin to purge scale or other contaminants to reduce their
         concentration in order to maintain an acceptable level of water quality.
         Schedule values should reflect water usage in m3/s.
-        
-        {u'note': [u'Makeup water usage due to blowdown results from occasionally draining some amount', u'of water in the tower basin to purge scale or other contaminants to reduce their', u'concentration in order to maintain an acceptable level of water quality.', u'Schedule values should reflect water usage in m3/s.'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Blowdown Makeup Water Usage Schedule Name`
@@ -5454,8 +5319,6 @@ class CoolingTowerVariableSpeedMerkel(object):
     @supply_water_storage_tank_name.setter
     def supply_water_storage_tank_name(self, value=None):
         """  Corresponds to IDD Field `Supply Water Storage Tank Name`
-        
-        {u'type': u'object-list', u'object-list': u'WaterStorageTankNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Supply Water Storage Tank Name`
@@ -5492,8 +5355,6 @@ class CoolingTowerVariableSpeedMerkel(object):
     def outdoor_air_inlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Outdoor Air Inlet Node Name`
         Enter the name of an outdoor air node
-        
-        {u'note': [u'Enter the name of an outdoor air node'], u'type': u'node', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Outdoor Air Inlet Node Name`
@@ -5527,10 +5388,8 @@ class CoolingTowerVariableSpeedMerkel(object):
         return self._data["Number of Cells"]
 
     @number_of_cells.setter
-    def number_of_cells(self, value=1 ):
+    def number_of_cells(self, value=1):
         """  Corresponds to IDD Field `Number of Cells`
-        
-        {u'default': '1', u'minimum': '1', u'type': u'integer', 'pytype': 'int'}
 
         Args:
             value (int): value for IDD Field `Number of Cells`
@@ -5565,8 +5424,6 @@ class CoolingTowerVariableSpeedMerkel(object):
     @cell_control.setter
     def cell_control(self, value="MinimalCell"):
         """  Corresponds to IDD Field `Cell Control`
-        
-        {u'default': u'MinimalCell', u'type': u'Choice', u'key': [u'MinimalCell', u'MaximalCell'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Cell Control`
@@ -5601,11 +5458,9 @@ class CoolingTowerVariableSpeedMerkel(object):
         return self._data["Cell Minimum  Water Flow Rate Fraction"]
 
     @cell_minimum_water_flow_rate_fraction.setter
-    def cell_minimum_water_flow_rate_fraction(self, value=0.33 ):
+    def cell_minimum_water_flow_rate_fraction(self, value=0.33):
         """  Corresponds to IDD Field `Cell Minimum  Water Flow Rate Fraction`
         The allowable mininal fraction of the nominal flow rate per cell
-        
-        {'pytype': 'float', u'default': '0.33', u'minimum>': '0.0', u'maximum': '1.0', u'note': [u'The allowable mininal fraction of the nominal flow rate per cell'], u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Cell Minimum  Water Flow Rate Fraction`
@@ -5642,11 +5497,9 @@ class CoolingTowerVariableSpeedMerkel(object):
         return self._data["Cell Maximum Water Flow Rate Fraction"]
 
     @cell_maximum_water_flow_rate_fraction.setter
-    def cell_maximum_water_flow_rate_fraction(self, value=2.5 ):
+    def cell_maximum_water_flow_rate_fraction(self, value=2.5):
         """  Corresponds to IDD Field `Cell Maximum Water Flow Rate Fraction`
         The allowable maximal fraction of the nominal flow rate per cell
-        
-        {u'default': '2.5', u'note': [u'The allowable maximal fraction of the nominal flow rate per cell'], u'minimum': '1.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Cell Maximum Water Flow Rate Fraction`
@@ -5679,11 +5532,9 @@ class CoolingTowerVariableSpeedMerkel(object):
         return self._data["Sizing Factor"]
 
     @sizing_factor.setter
-    def sizing_factor(self, value=1.0 ):
+    def sizing_factor(self, value=1.0):
         """  Corresponds to IDD Field `Sizing Factor`
         Multiplies the autosized capacity and flow rates
-        
-        {u'note': [u'Multiplies the autosized capacity and flow rates'], u'default': '1.0', u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Sizing Factor`
@@ -6021,8 +5872,6 @@ class CoolingTowerVariableSpeed(object):
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
         Tower Name
-        
-        {u'note': [u'Tower Name'], u'type': u'alpha', u'reference': u'CoolingTowers', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -6059,8 +5908,6 @@ class CoolingTowerVariableSpeed(object):
     def water_inlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Water Inlet Node Name`
         Name of tower water inlet node
-        
-        {u'note': [u'Name of tower water inlet node'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Water Inlet Node Name`
@@ -6097,8 +5944,6 @@ class CoolingTowerVariableSpeed(object):
     def water_outlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Water Outlet Node Name`
         Name of tower water outlet node
-        
-        {u'note': [u'Name of tower water outlet node'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Water Outlet Node Name`
@@ -6136,8 +5981,6 @@ class CoolingTowerVariableSpeed(object):
         """  Corresponds to IDD Field `Model Type`
         Determines the coefficients and form of the equation for calculating
         approach temperature
-        
-        {u'default': u'YorkCalc', u'note': [u'Determines the coefficients and form of the equation for calculating', u'approach temperature'], u'type': u'choice', u'key': [u'CoolToolsCrossFlow', u'CoolToolsUserDefined', u'YorkCalc', u'YorkCalcUserDefined'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Model Type`
@@ -6200,8 +6043,6 @@ class CoolingTowerVariableSpeed(object):
         """  Corresponds to IDD Field `Model Coefficient Name`
         Name of the tower model coefficient object.
         Used only when tower Model Type is either CoolToolsUserDefined or YorkCalcUserDefined.
-        
-        {u'note': [u'Name of the tower model coefficient object.', u'Used only when tower Model Type is either CoolToolsUserDefined or YorkCalcUserDefined.'], u'type': u'object-list', u'object-list': u'VariableSpeedTowerCoefficient', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Model Coefficient Name`
@@ -6235,11 +6076,9 @@ class CoolingTowerVariableSpeed(object):
         return self._data["Design Inlet Air Wet-Bulb Temperature"]
 
     @design_inlet_air_wetbulb_temperature.setter
-    def design_inlet_air_wetbulb_temperature(self, value=25.6 ):
+    def design_inlet_air_wetbulb_temperature(self, value=25.6):
         """  Corresponds to IDD Field `Design Inlet Air Wet-Bulb Temperature`
         Enter the tower's design inlet air wet-bulb temperature
-        
-        {'pytype': 'float', u'default': '25.6', u'note': [u"Enter the tower's design inlet air wet-bulb temperature"], u'minimum': '20.0', u'units': u'C', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Design Inlet Air Wet-Bulb Temperature`
@@ -6273,14 +6112,12 @@ class CoolingTowerVariableSpeed(object):
         return self._data["Design Approach Temperature"]
 
     @design_approach_temperature.setter
-    def design_approach_temperature(self, value=3.9 ):
+    def design_approach_temperature(self, value=3.9):
         """  Corresponds to IDD Field `Design Approach Temperature`
         Enter the approach temperature corresponding to the design inlet air
         wet-bulb temperature and design range temperature.
         Design approach temp = outlet water temperature minus inlet air wet-bulb temperature
         at design conditions.
-        
-        {'pytype': 'float', u'default': '3.9', u'minimum>': '0.0', u'note': [u'Enter the approach temperature corresponding to the design inlet air', u'wet-bulb temperature and design range temperature.', u'Design approach temp = outlet water temperature minus inlet air wet-bulb temperature', u'at design conditions.'], u'units': u'deltaC', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Design Approach Temperature`
@@ -6314,14 +6151,12 @@ class CoolingTowerVariableSpeed(object):
         return self._data["Design Range Temperature"]
 
     @design_range_temperature.setter
-    def design_range_temperature(self, value=5.6 ):
+    def design_range_temperature(self, value=5.6):
         """  Corresponds to IDD Field `Design Range Temperature`
         Enter the range temperature corresponding to the design inlet air
         wet-bulb temperature and design approach temperature.
         Design range = inlet water temperature minus outlet water temperature
         at design conditions.
-        
-        {'pytype': 'float', u'default': '5.6', u'minimum>': '0.0', u'note': [u'Enter the range temperature corresponding to the design inlet air', u'wet-bulb temperature and design approach temperature.', u'Design range = inlet water temperature minus outlet water temperature', u'at design conditions.'], u'units': u'deltaC', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Design Range Temperature`
@@ -6358,11 +6193,9 @@ class CoolingTowerVariableSpeed(object):
     def design_water_flow_rate(self, value=None):
         """  Corresponds to IDD Field `Design Water Flow Rate`
         Water flow rate through the tower at design conditions
-        
-        {'pytype': 'float', u'minimum>': '0.0', u'required-field': True, u'note': [u'Water flow rate through the tower at design conditions'], u'ip-units': u'gal/min', u'autosizable': u'', u'units': u'm3/s', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `Design Water Flow Rate`
+            value (float or "Autosize"): value for IDD Field `Design Water Flow Rate`
                 Units: m3/s
                 IP-Units: gal/min
                 value > 0.0
@@ -6373,6 +6206,13 @@ class CoolingTowerVariableSpeed(object):
             ValueError: if `value` is not a valid value
         """
         if value is not None:
+            try:
+                value_lower = str(value).lower()
+                if value_lower == "autosize":
+                    self._data["Design Water Flow Rate"] = "Autosize"
+                    return
+            except ValueError:
+                pass
             try:
                 value = float(value)
             except ValueError:
@@ -6396,11 +6236,9 @@ class CoolingTowerVariableSpeed(object):
     def design_air_flow_rate(self, value=None):
         """  Corresponds to IDD Field `Design Air Flow Rate`
         Design (maximum) air flow rate through the tower
-        
-        {'pytype': 'float', u'minimum>': '0.0', u'required-field': True, u'note': [u'Design (maximum) air flow rate through the tower'], u'autosizable': u'', u'units': u'm3/s', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `Design Air Flow Rate`
+            value (float or "Autosize"): value for IDD Field `Design Air Flow Rate`
                 Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -6410,6 +6248,13 @@ class CoolingTowerVariableSpeed(object):
             ValueError: if `value` is not a valid value
         """
         if value is not None:
+            try:
+                value_lower = str(value).lower()
+                if value_lower == "autosize":
+                    self._data["Design Air Flow Rate"] = "Autosize"
+                    return
+            except ValueError:
+                pass
             try:
                 value = float(value)
             except ValueError:
@@ -6434,11 +6279,9 @@ class CoolingTowerVariableSpeed(object):
         """  Corresponds to IDD Field `Design Fan Power`
         Enter the fan motor electric input power at design (max) air flow through the tower
         Standard conversion for horsepower is 1 HP = 745.7 W
-        
-        {'pytype': 'float', u'minimum>': '0.0', u'required-field': True, u'note': [u'Enter the fan motor electric input power at design (max) air flow through the tower', u'Standard conversion for horsepower is 1 HP = 745.7 W'], u'ip-units': u'W', u'autosizable': u'', u'units': u'W', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `Design Fan Power`
+            value (float or "Autosize"): value for IDD Field `Design Fan Power`
                 Units: W
                 IP-Units: W
                 value > 0.0
@@ -6449,6 +6292,13 @@ class CoolingTowerVariableSpeed(object):
             ValueError: if `value` is not a valid value
         """
         if value is not None:
+            try:
+                value_lower = str(value).lower()
+                if value_lower == "autosize":
+                    self._data["Design Fan Power"] = "Autosize"
+                    return
+            except ValueError:
+                pass
             try:
                 value = float(value)
             except ValueError:
@@ -6477,8 +6327,6 @@ class CoolingTowerVariableSpeed(object):
         AFR = fraction of the design air flow rate
         If left blank, then fan power is assumed to be proportional to
         (air flow rate ratio)^3
-        
-        {u'note': [u'Table:OneIndependentVariable object can also be used', u'FPR = a + b*AFR + c*AFR**2 + d*AFR**3', u'FPR = fraction of the design fan power', u'AFR = fraction of the design air flow rate', u'If left blank, then fan power is assumed to be proportional to', u'(air flow rate ratio)^3'], u'type': u'object-list', u'object-list': u'CubicCurves', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Fan Power Ratio Function of Air Flow Rate Ratio Curve Name`
@@ -6512,12 +6360,10 @@ class CoolingTowerVariableSpeed(object):
         return self._data["Minimum Air Flow Rate Ratio"]
 
     @minimum_air_flow_rate_ratio.setter
-    def minimum_air_flow_rate_ratio(self, value=0.2 ):
+    def minimum_air_flow_rate_ratio(self, value=0.2):
         """  Corresponds to IDD Field `Minimum Air Flow Rate Ratio`
         Enter the minimum air flow rate ratio. This is typically determined by the variable
         speed drive that controls the fan motor speed. Valid entries are from 0.2 to 0.5.
-        
-        {'pytype': 'float', u'default': '0.2', u'maximum': '0.5', u'note': [u'Enter the minimum air flow rate ratio. This is typically determined by the variable', u'speed drive that controls the fan motor speed. Valid entries are from 0.2 to 0.5.'], u'minimum': '0.2', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Minimum Air Flow Rate Ratio`
@@ -6554,15 +6400,13 @@ class CoolingTowerVariableSpeed(object):
         return self._data["Fraction of Tower Capacity in Free Convection Regime"]
 
     @fraction_of_tower_capacity_in_free_convection_regime.setter
-    def fraction_of_tower_capacity_in_free_convection_regime(self, value=0.125 ):
+    def fraction_of_tower_capacity_in_free_convection_regime(self, value=0.125):
         """  Corresponds to IDD Field `Fraction of Tower Capacity in Free Convection Regime`
         Enter the fraction of tower capacity in the free convection regime. This is the
         fraction of the tower capacity, at the current inlet air wet-bulb temperature,
         that is available when the tower fan is off. Manufacturers typically estimate the
         free convection capacity at approximately 10-15%. Values are entered as a fraction
         and can range from 0 to 0.2.
-        
-        {'pytype': 'float', u'default': '0.125', u'maximum': '0.2', u'note': [u'Enter the fraction of tower capacity in the free convection regime. This is the', u'fraction of the tower capacity, at the current inlet air wet-bulb temperature,', u'that is available when the tower fan is off. Manufacturers typically estimate the', u'free convection capacity at approximately 10-15%. Values are entered as a fraction', u'and can range from 0 to 0.2.'], u'minimum': '0.0', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Fraction of Tower Capacity in Free Convection Regime`
@@ -6599,13 +6443,11 @@ class CoolingTowerVariableSpeed(object):
         return self._data["Basin Heater Capacity"]
 
     @basin_heater_capacity.setter
-    def basin_heater_capacity(self, value=0.0 ):
+    def basin_heater_capacity(self, value=0.0):
         """  Corresponds to IDD Field `Basin Heater Capacity`
         This heater maintains the basin water temperature at the basin heater setpoint
         temperature when the outdoor air temperature falls below the setpoint temperature.
         The basin heater only operates when water is not flowing through the tower.
-        
-        {'pytype': 'float', u'default': '0.0', u'note': [u'This heater maintains the basin water temperature at the basin heater setpoint', u'temperature when the outdoor air temperature falls below the setpoint temperature.', u'The basin heater only operates when water is not flowing through the tower.'], u'minimum': '0.0', u'units': u'W/K', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Basin Heater Capacity`
@@ -6639,11 +6481,9 @@ class CoolingTowerVariableSpeed(object):
         return self._data["Basin Heater Setpoint Temperature"]
 
     @basin_heater_setpoint_temperature.setter
-    def basin_heater_setpoint_temperature(self, value=2.0 ):
+    def basin_heater_setpoint_temperature(self, value=2.0):
         """  Corresponds to IDD Field `Basin Heater Setpoint Temperature`
         Enter the outdoor dry-bulb temperature when the basin heater turns on
-        
-        {'pytype': 'float', u'default': '2.0', u'note': [u'Enter the outdoor dry-bulb temperature when the basin heater turns on'], u'minimum': '2.0', u'units': u'C', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Basin Heater Setpoint Temperature`
@@ -6683,8 +6523,6 @@ class CoolingTowerVariableSpeed(object):
         air dry-bulb temperature is below the basin heater setpoint temperature.
         If a schedule name is not entered, the basin heater is allowed to operate
         throughout the entire simulation.
-        
-        {u'note': [u'Schedule values greater than 0 allow the basin heater to operate whenever the outdoor', u'air dry-bulb temperature is below the basin heater setpoint temperature.', u'If a schedule name is not entered, the basin heater is allowed to operate', u'throughout the entire simulation.'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Basin Heater Operating Schedule Name`
@@ -6720,8 +6558,6 @@ class CoolingTowerVariableSpeed(object):
     @evaporation_loss_mode.setter
     def evaporation_loss_mode(self, value=None):
         """  Corresponds to IDD Field `Evaporation Loss Mode`
-        
-        {u'type': u'choice', u'key': [u'LossFactor', u'SaturatedExit'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Evaporation Loss Mode`
@@ -6775,14 +6611,12 @@ class CoolingTowerVariableSpeed(object):
         return self._data["Evaporation Loss Factor"]
 
     @evaporation_loss_factor.setter
-    def evaporation_loss_factor(self, value=0.2 ):
+    def evaporation_loss_factor(self, value=0.2):
         """  Corresponds to IDD Field `Evaporation Loss Factor`
         Rate of water evaporated from the cooling tower and lost to the outdoor air [%/K]
         Evaporation loss is calculated as percentage of the circulating condenser water rate
         Value entered here is percent-per-degree K of temperature drop in the condenser water
         Typical values are from 0.15 to 0.27 [percent/K].
-        
-        {u'units': u'percent/K', u'note': [u'Rate of water evaporated from the cooling tower and lost to the outdoor air [%/K]', u'Evaporation loss is calculated as percentage of the circulating condenser water rate', u'Value entered here is percent-per-degree K of temperature drop in the condenser water', u'Typical values are from 0.15 to 0.27 [percent/K].'], u'default': '0.2', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Evaporation Loss Factor`
@@ -6816,8 +6650,6 @@ class CoolingTowerVariableSpeed(object):
         """  Corresponds to IDD Field `Drift Loss Percent`
         Rate of drift loss as a percentage of circulating condenser water flow rate
         Typical values are between 0.002 and 0.2% The default value is 0.008%
-        
-        {u'units': u'percent', u'note': [u'Rate of drift loss as a percentage of circulating condenser water flow rate', u'Typical values are between 0.002 and 0.2% The default value is 0.008%'], u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Drift Loss Percent`
@@ -6848,8 +6680,6 @@ class CoolingTowerVariableSpeed(object):
     @blowdown_calculation_mode.setter
     def blowdown_calculation_mode(self, value=None):
         """  Corresponds to IDD Field `Blowdown Calculation Mode`
-        
-        {u'type': u'choice', u'key': [u'ConcentrationRatio', u'ScheduledRate'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Blowdown Calculation Mode`
@@ -6903,15 +6733,13 @@ class CoolingTowerVariableSpeed(object):
         return self._data["Blowdown Concentration Ratio"]
 
     @blowdown_concentration_ratio.setter
-    def blowdown_concentration_ratio(self, value=3.0 ):
+    def blowdown_concentration_ratio(self, value=3.0):
         """  Corresponds to IDD Field `Blowdown Concentration Ratio`
         Characterizes the rate of blowdown in the cooling tower.
         Blowdown is water intentionally drained from the tower in order to offset the build up
         of solids in the water that would otherwise occur because of evaporation.
         Ratio of solids in the blowdown water to solids in the make up water.
         Typical values for tower operation are 3 to 5.  The default value is 3.
-        
-        {u'default': '3.0', u'note': [u'Characterizes the rate of blowdown in the cooling tower.', u'Blowdown is water intentionally drained from the tower in order to offset the build up', u'of solids in the water that would otherwise occur because of evaporation.', u'Ratio of solids in the blowdown water to solids in the make up water.', u'Typical values for tower operation are 3 to 5.  The default value is 3.'], u'minimum': '2.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Blowdown Concentration Ratio`
@@ -6950,8 +6778,6 @@ class CoolingTowerVariableSpeed(object):
         of water in the tower basin to purge scale or other contaminants to reduce their
         concentration in order to maintain an acceptable level of water quality.
         Schedule values should reflect water usage in m3/s.
-        
-        {u'note': [u'Makeup water usage due to blowdown results from occasionally draining a small amount', u'of water in the tower basin to purge scale or other contaminants to reduce their', u'concentration in order to maintain an acceptable level of water quality.', u'Schedule values should reflect water usage in m3/s.'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Blowdown Makeup Water Usage Schedule Name`
@@ -6987,8 +6813,6 @@ class CoolingTowerVariableSpeed(object):
     @supply_water_storage_tank_name.setter
     def supply_water_storage_tank_name(self, value=None):
         """  Corresponds to IDD Field `Supply Water Storage Tank Name`
-        
-        {u'type': u'object-list', u'object-list': u'WaterStorageTankNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Supply Water Storage Tank Name`
@@ -7025,8 +6849,6 @@ class CoolingTowerVariableSpeed(object):
     def outdoor_air_inlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Outdoor Air Inlet Node Name`
         Enter the name of an outdoor air node
-        
-        {u'note': [u'Enter the name of an outdoor air node'], u'type': u'node', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Outdoor Air Inlet Node Name`
@@ -7060,10 +6882,8 @@ class CoolingTowerVariableSpeed(object):
         return self._data["Number of Cells"]
 
     @number_of_cells.setter
-    def number_of_cells(self, value=1 ):
+    def number_of_cells(self, value=1):
         """  Corresponds to IDD Field `Number of Cells`
-        
-        {u'default': '1', u'minimum': '1', u'type': u'integer', 'pytype': 'int'}
 
         Args:
             value (int): value for IDD Field `Number of Cells`
@@ -7098,8 +6918,6 @@ class CoolingTowerVariableSpeed(object):
     @cell_control.setter
     def cell_control(self, value="MinimalCell"):
         """  Corresponds to IDD Field `Cell Control`
-        
-        {u'default': u'MinimalCell', u'type': u'Choice', u'key': [u'MinimalCell', u'MaximalCell'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Cell Control`
@@ -7134,11 +6952,9 @@ class CoolingTowerVariableSpeed(object):
         return self._data["Cell Minimum  Water Flow Rate Fraction"]
 
     @cell_minimum_water_flow_rate_fraction.setter
-    def cell_minimum_water_flow_rate_fraction(self, value=0.33 ):
+    def cell_minimum_water_flow_rate_fraction(self, value=0.33):
         """  Corresponds to IDD Field `Cell Minimum  Water Flow Rate Fraction`
         The allowable mininal fraction of the nominal flow rate per cell
-        
-        {'pytype': 'float', u'default': '0.33', u'minimum>': '0.0', u'maximum': '1.0', u'note': [u'The allowable mininal fraction of the nominal flow rate per cell'], u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Cell Minimum  Water Flow Rate Fraction`
@@ -7175,11 +6991,9 @@ class CoolingTowerVariableSpeed(object):
         return self._data["Cell Maximum Water Flow Rate Fraction"]
 
     @cell_maximum_water_flow_rate_fraction.setter
-    def cell_maximum_water_flow_rate_fraction(self, value=2.5 ):
+    def cell_maximum_water_flow_rate_fraction(self, value=2.5):
         """  Corresponds to IDD Field `Cell Maximum Water Flow Rate Fraction`
         The allowable maximal fraction of the nominal flow rate per cell
-        
-        {u'default': '2.5', u'note': [u'The allowable maximal fraction of the nominal flow rate per cell'], u'minimum': '1.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Cell Maximum Water Flow Rate Fraction`
@@ -7212,11 +7026,9 @@ class CoolingTowerVariableSpeed(object):
         return self._data["Sizing Factor"]
 
     @sizing_factor.setter
-    def sizing_factor(self, value=1.0 ):
+    def sizing_factor(self, value=1.0):
         """  Corresponds to IDD Field `Sizing Factor`
         Multiplies the autosized capacity and flow rates
-        
-        {u'note': [u'Multiplies the autosized capacity and flow rates'], u'default': '1.0', u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Sizing Factor`
@@ -7663,8 +7475,6 @@ class CoolingTowerPerformanceCoolTools(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'reference': u'VariableSpeedTowerCoefficient', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -7702,8 +7512,6 @@ class CoolingTowerPerformanceCoolTools(object):
         """  Corresponds to IDD Field `Minimum Inlet Air Wet-Bulb Temperature`
         Minimum valid inlet air wet-bulb temperature for this approach
         temperature correlation.
-        
-        {u'units': u'C', u'note': [u'Minimum valid inlet air wet-bulb temperature for this approach', u'temperature correlation.'], u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Minimum Inlet Air Wet-Bulb Temperature`
@@ -7736,8 +7544,6 @@ class CoolingTowerPerformanceCoolTools(object):
         """  Corresponds to IDD Field `Maximum Inlet Air Wet-Bulb Temperature`
         Maximum valid inlet air wet-bulb temperature for this approach
         temperature correlation.
-        
-        {u'units': u'C', u'note': [u'Maximum valid inlet air wet-bulb temperature for this approach', u'temperature correlation.'], u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Maximum Inlet Air Wet-Bulb Temperature`
@@ -7770,8 +7576,6 @@ class CoolingTowerPerformanceCoolTools(object):
         """  Corresponds to IDD Field `Minimum Range Temperature`
         Minimum valid range temperature for this approach temperature
         correlation.
-        
-        {u'units': u'deltaC', u'note': [u'Minimum valid range temperature for this approach temperature', u'correlation.'], u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Minimum Range Temperature`
@@ -7804,8 +7608,6 @@ class CoolingTowerPerformanceCoolTools(object):
         """  Corresponds to IDD Field `Maximum Range Temperature`
         Maximum valid range temperature for this approach temperature
         correlation.
-        
-        {u'units': u'deltaC', u'note': [u'Maximum valid range temperature for this approach temperature', u'correlation.'], u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Maximum Range Temperature`
@@ -7837,8 +7639,6 @@ class CoolingTowerPerformanceCoolTools(object):
     def minimum_approach_temperature(self, value=None):
         """  Corresponds to IDD Field `Minimum Approach Temperature`
         Minimum valid approach temperature for this correlation.
-        
-        {u'units': u'deltaC', u'note': [u'Minimum valid approach temperature for this correlation.'], u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Minimum Approach Temperature`
@@ -7870,8 +7670,6 @@ class CoolingTowerPerformanceCoolTools(object):
     def maximum_approach_temperature(self, value=None):
         """  Corresponds to IDD Field `Maximum Approach Temperature`
         Maximum valid approach temperature for this correlation.
-        
-        {u'units': u'deltaC', u'note': [u'Maximum valid approach temperature for this correlation.'], u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Maximum Approach Temperature`
@@ -7904,8 +7702,6 @@ class CoolingTowerPerformanceCoolTools(object):
         """  Corresponds to IDD Field `Minimum Water Flow Rate Ratio`
         Minimum valid water flow rate ratio for this approach
         temperature correlation.
-        
-        {u'note': [u'Minimum valid water flow rate ratio for this approach', u'temperature correlation.'], u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Minimum Water Flow Rate Ratio`
@@ -7937,8 +7733,6 @@ class CoolingTowerPerformanceCoolTools(object):
         """  Corresponds to IDD Field `Maximum Water Flow Rate Ratio`
         Maximum valid water flow rate ratio for this approach
         temperature correlation.
-        
-        {u'note': [u'Maximum valid water flow rate ratio for this approach', u'temperature correlation.'], u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Maximum Water Flow Rate Ratio`
@@ -7968,8 +7762,6 @@ class CoolingTowerPerformanceCoolTools(object):
     @coefficient_1.setter
     def coefficient_1(self, value=None):
         """  Corresponds to IDD Field `Coefficient 1`
-        
-        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient 1`
@@ -7999,8 +7791,6 @@ class CoolingTowerPerformanceCoolTools(object):
     @coefficient_2.setter
     def coefficient_2(self, value=None):
         """  Corresponds to IDD Field `Coefficient 2`
-        
-        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient 2`
@@ -8030,8 +7820,6 @@ class CoolingTowerPerformanceCoolTools(object):
     @coefficient_3.setter
     def coefficient_3(self, value=None):
         """  Corresponds to IDD Field `Coefficient 3`
-        
-        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient 3`
@@ -8061,8 +7849,6 @@ class CoolingTowerPerformanceCoolTools(object):
     @coefficient_4.setter
     def coefficient_4(self, value=None):
         """  Corresponds to IDD Field `Coefficient 4`
-        
-        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient 4`
@@ -8092,8 +7878,6 @@ class CoolingTowerPerformanceCoolTools(object):
     @coefficient_5.setter
     def coefficient_5(self, value=None):
         """  Corresponds to IDD Field `Coefficient 5`
-        
-        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient 5`
@@ -8123,8 +7907,6 @@ class CoolingTowerPerformanceCoolTools(object):
     @coefficient_6.setter
     def coefficient_6(self, value=None):
         """  Corresponds to IDD Field `Coefficient 6`
-        
-        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient 6`
@@ -8154,8 +7936,6 @@ class CoolingTowerPerformanceCoolTools(object):
     @coefficient_7.setter
     def coefficient_7(self, value=None):
         """  Corresponds to IDD Field `Coefficient 7`
-        
-        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient 7`
@@ -8185,8 +7965,6 @@ class CoolingTowerPerformanceCoolTools(object):
     @coefficient_8.setter
     def coefficient_8(self, value=None):
         """  Corresponds to IDD Field `Coefficient 8`
-        
-        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient 8`
@@ -8216,8 +7994,6 @@ class CoolingTowerPerformanceCoolTools(object):
     @coefficient_9.setter
     def coefficient_9(self, value=None):
         """  Corresponds to IDD Field `Coefficient 9`
-        
-        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient 9`
@@ -8247,8 +8023,6 @@ class CoolingTowerPerformanceCoolTools(object):
     @coefficient_10.setter
     def coefficient_10(self, value=None):
         """  Corresponds to IDD Field `Coefficient 10`
-        
-        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient 10`
@@ -8278,8 +8052,6 @@ class CoolingTowerPerformanceCoolTools(object):
     @coefficient_11.setter
     def coefficient_11(self, value=None):
         """  Corresponds to IDD Field `Coefficient 11`
-        
-        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient 11`
@@ -8309,8 +8081,6 @@ class CoolingTowerPerformanceCoolTools(object):
     @coefficient_12.setter
     def coefficient_12(self, value=None):
         """  Corresponds to IDD Field `Coefficient 12`
-        
-        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient 12`
@@ -8340,8 +8110,6 @@ class CoolingTowerPerformanceCoolTools(object):
     @coefficient_13.setter
     def coefficient_13(self, value=None):
         """  Corresponds to IDD Field `Coefficient 13`
-        
-        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient 13`
@@ -8371,8 +8139,6 @@ class CoolingTowerPerformanceCoolTools(object):
     @coefficient_14.setter
     def coefficient_14(self, value=None):
         """  Corresponds to IDD Field `Coefficient 14`
-        
-        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient 14`
@@ -8402,8 +8168,6 @@ class CoolingTowerPerformanceCoolTools(object):
     @coefficient_15.setter
     def coefficient_15(self, value=None):
         """  Corresponds to IDD Field `Coefficient 15`
-        
-        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient 15`
@@ -8433,8 +8197,6 @@ class CoolingTowerPerformanceCoolTools(object):
     @coefficient_16.setter
     def coefficient_16(self, value=None):
         """  Corresponds to IDD Field `Coefficient 16`
-        
-        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient 16`
@@ -8464,8 +8226,6 @@ class CoolingTowerPerformanceCoolTools(object):
     @coefficient_17.setter
     def coefficient_17(self, value=None):
         """  Corresponds to IDD Field `Coefficient 17`
-        
-        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient 17`
@@ -8495,8 +8255,6 @@ class CoolingTowerPerformanceCoolTools(object):
     @coefficient_18.setter
     def coefficient_18(self, value=None):
         """  Corresponds to IDD Field `Coefficient 18`
-        
-        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient 18`
@@ -8526,8 +8284,6 @@ class CoolingTowerPerformanceCoolTools(object):
     @coefficient_19.setter
     def coefficient_19(self, value=None):
         """  Corresponds to IDD Field `Coefficient 19`
-        
-        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient 19`
@@ -8557,8 +8313,6 @@ class CoolingTowerPerformanceCoolTools(object):
     @coefficient_20.setter
     def coefficient_20(self, value=None):
         """  Corresponds to IDD Field `Coefficient 20`
-        
-        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient 20`
@@ -8588,8 +8342,6 @@ class CoolingTowerPerformanceCoolTools(object):
     @coefficient_21.setter
     def coefficient_21(self, value=None):
         """  Corresponds to IDD Field `Coefficient 21`
-        
-        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient 21`
@@ -8619,8 +8371,6 @@ class CoolingTowerPerformanceCoolTools(object):
     @coefficient_22.setter
     def coefficient_22(self, value=None):
         """  Corresponds to IDD Field `Coefficient 22`
-        
-        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient 22`
@@ -8650,8 +8400,6 @@ class CoolingTowerPerformanceCoolTools(object):
     @coefficient_23.setter
     def coefficient_23(self, value=None):
         """  Corresponds to IDD Field `Coefficient 23`
-        
-        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient 23`
@@ -8681,8 +8429,6 @@ class CoolingTowerPerformanceCoolTools(object):
     @coefficient_24.setter
     def coefficient_24(self, value=None):
         """  Corresponds to IDD Field `Coefficient 24`
-        
-        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient 24`
@@ -8712,8 +8458,6 @@ class CoolingTowerPerformanceCoolTools(object):
     @coefficient_25.setter
     def coefficient_25(self, value=None):
         """  Corresponds to IDD Field `Coefficient 25`
-        
-        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient 25`
@@ -8743,8 +8487,6 @@ class CoolingTowerPerformanceCoolTools(object):
     @coefficient_26.setter
     def coefficient_26(self, value=None):
         """  Corresponds to IDD Field `Coefficient 26`
-        
-        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient 26`
@@ -8774,8 +8516,6 @@ class CoolingTowerPerformanceCoolTools(object):
     @coefficient_27.setter
     def coefficient_27(self, value=None):
         """  Corresponds to IDD Field `Coefficient 27`
-        
-        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient 27`
@@ -8805,8 +8545,6 @@ class CoolingTowerPerformanceCoolTools(object):
     @coefficient_28.setter
     def coefficient_28(self, value=None):
         """  Corresponds to IDD Field `Coefficient 28`
-        
-        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient 28`
@@ -8836,8 +8574,6 @@ class CoolingTowerPerformanceCoolTools(object):
     @coefficient_29.setter
     def coefficient_29(self, value=None):
         """  Corresponds to IDD Field `Coefficient 29`
-        
-        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient 29`
@@ -8867,8 +8603,6 @@ class CoolingTowerPerformanceCoolTools(object):
     @coefficient_30.setter
     def coefficient_30(self, value=None):
         """  Corresponds to IDD Field `Coefficient 30`
-        
-        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient 30`
@@ -8898,8 +8632,6 @@ class CoolingTowerPerformanceCoolTools(object):
     @coefficient_31.setter
     def coefficient_31(self, value=None):
         """  Corresponds to IDD Field `Coefficient 31`
-        
-        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient 31`
@@ -8929,8 +8661,6 @@ class CoolingTowerPerformanceCoolTools(object):
     @coefficient_32.setter
     def coefficient_32(self, value=None):
         """  Corresponds to IDD Field `Coefficient 32`
-        
-        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient 32`
@@ -8960,8 +8690,6 @@ class CoolingTowerPerformanceCoolTools(object):
     @coefficient_33.setter
     def coefficient_33(self, value=None):
         """  Corresponds to IDD Field `Coefficient 33`
-        
-        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient 33`
@@ -8991,8 +8719,6 @@ class CoolingTowerPerformanceCoolTools(object):
     @coefficient_34.setter
     def coefficient_34(self, value=None):
         """  Corresponds to IDD Field `Coefficient 34`
-        
-        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient 34`
@@ -9022,8 +8748,6 @@ class CoolingTowerPerformanceCoolTools(object):
     @coefficient_35.setter
     def coefficient_35(self, value=None):
         """  Corresponds to IDD Field `Coefficient 35`
-        
-        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient 35`
@@ -9409,8 +9133,6 @@ class CoolingTowerPerformanceYorkCalc(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'reference': u'VariableSpeedTowerCoefficient', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -9448,8 +9170,6 @@ class CoolingTowerPerformanceYorkCalc(object):
         """  Corresponds to IDD Field `Minimum Inlet Air Wet-Bulb Temperature`
         Minimum valid inlet air wet-bulb temperature for this approach
         temperature correlation.
-        
-        {u'units': u'C', u'note': [u'Minimum valid inlet air wet-bulb temperature for this approach', u'temperature correlation.'], u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Minimum Inlet Air Wet-Bulb Temperature`
@@ -9482,8 +9202,6 @@ class CoolingTowerPerformanceYorkCalc(object):
         """  Corresponds to IDD Field `Maximum Inlet Air Wet-Bulb Temperature`
         Maximum valid inlet air wet-bulb temperature for this approach
         temperature correlation.
-        
-        {u'units': u'C', u'note': [u'Maximum valid inlet air wet-bulb temperature for this approach', u'temperature correlation.'], u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Maximum Inlet Air Wet-Bulb Temperature`
@@ -9516,8 +9234,6 @@ class CoolingTowerPerformanceYorkCalc(object):
         """  Corresponds to IDD Field `Minimum Range Temperature`
         Minimum valid range temperature for this approach temperature
         correlation.
-        
-        {u'units': u'deltaC', u'note': [u'Minimum valid range temperature for this approach temperature', u'correlation.'], u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Minimum Range Temperature`
@@ -9550,8 +9266,6 @@ class CoolingTowerPerformanceYorkCalc(object):
         """  Corresponds to IDD Field `Maximum Range Temperature`
         Maximum valid range temperature for this approach temperature
         correlation.
-        
-        {u'units': u'deltaC', u'note': [u'Maximum valid range temperature for this approach temperature', u'correlation.'], u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Maximum Range Temperature`
@@ -9583,8 +9297,6 @@ class CoolingTowerPerformanceYorkCalc(object):
     def minimum_approach_temperature(self, value=None):
         """  Corresponds to IDD Field `Minimum Approach Temperature`
         Minimum valid approach temperature for this correlation.
-        
-        {u'units': u'deltaC', u'note': [u'Minimum valid approach temperature for this correlation.'], u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Minimum Approach Temperature`
@@ -9616,8 +9328,6 @@ class CoolingTowerPerformanceYorkCalc(object):
     def maximum_approach_temperature(self, value=None):
         """  Corresponds to IDD Field `Maximum Approach Temperature`
         Maximum valid approach temperature for this correlation.
-        
-        {u'units': u'deltaC', u'note': [u'Maximum valid approach temperature for this correlation.'], u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Maximum Approach Temperature`
@@ -9650,8 +9360,6 @@ class CoolingTowerPerformanceYorkCalc(object):
         """  Corresponds to IDD Field `Minimum Water Flow Rate Ratio`
         Minimum valid water flow rate ratio for this approach
         temperature correlation.
-        
-        {u'note': [u'Minimum valid water flow rate ratio for this approach', u'temperature correlation.'], u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Minimum Water Flow Rate Ratio`
@@ -9683,8 +9391,6 @@ class CoolingTowerPerformanceYorkCalc(object):
         """  Corresponds to IDD Field `Maximum Water Flow Rate Ratio`
         Maximum valid water flow rate ratio for this approach
         temperature correlation.
-        
-        {u'note': [u'Maximum valid water flow rate ratio for this approach', u'temperature correlation.'], u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Maximum Water Flow Rate Ratio`
@@ -9716,8 +9422,6 @@ class CoolingTowerPerformanceYorkCalc(object):
         """  Corresponds to IDD Field `Maximum Liquid to Gas Ratio`
         Maximum liquid (water) to gas (air) ratio for this approach
         temperature correlation.
-        
-        {u'note': [u'Maximum liquid (water) to gas (air) ratio for this approach', u'temperature correlation.'], u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Maximum Liquid to Gas Ratio`
@@ -9747,8 +9451,6 @@ class CoolingTowerPerformanceYorkCalc(object):
     @coefficient_1.setter
     def coefficient_1(self, value=None):
         """  Corresponds to IDD Field `Coefficient 1`
-        
-        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient 1`
@@ -9778,8 +9480,6 @@ class CoolingTowerPerformanceYorkCalc(object):
     @coefficient_2.setter
     def coefficient_2(self, value=None):
         """  Corresponds to IDD Field `Coefficient 2`
-        
-        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient 2`
@@ -9809,8 +9509,6 @@ class CoolingTowerPerformanceYorkCalc(object):
     @coefficient_3.setter
     def coefficient_3(self, value=None):
         """  Corresponds to IDD Field `Coefficient 3`
-        
-        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient 3`
@@ -9840,8 +9538,6 @@ class CoolingTowerPerformanceYorkCalc(object):
     @coefficient_4.setter
     def coefficient_4(self, value=None):
         """  Corresponds to IDD Field `Coefficient 4`
-        
-        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient 4`
@@ -9871,8 +9567,6 @@ class CoolingTowerPerformanceYorkCalc(object):
     @coefficient_5.setter
     def coefficient_5(self, value=None):
         """  Corresponds to IDD Field `Coefficient 5`
-        
-        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient 5`
@@ -9902,8 +9596,6 @@ class CoolingTowerPerformanceYorkCalc(object):
     @coefficient_6.setter
     def coefficient_6(self, value=None):
         """  Corresponds to IDD Field `Coefficient 6`
-        
-        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient 6`
@@ -9933,8 +9625,6 @@ class CoolingTowerPerformanceYorkCalc(object):
     @coefficient_7.setter
     def coefficient_7(self, value=None):
         """  Corresponds to IDD Field `Coefficient 7`
-        
-        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient 7`
@@ -9964,8 +9654,6 @@ class CoolingTowerPerformanceYorkCalc(object):
     @coefficient_8.setter
     def coefficient_8(self, value=None):
         """  Corresponds to IDD Field `Coefficient 8`
-        
-        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient 8`
@@ -9995,8 +9683,6 @@ class CoolingTowerPerformanceYorkCalc(object):
     @coefficient_9.setter
     def coefficient_9(self, value=None):
         """  Corresponds to IDD Field `Coefficient 9`
-        
-        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient 9`
@@ -10026,8 +9712,6 @@ class CoolingTowerPerformanceYorkCalc(object):
     @coefficient_10.setter
     def coefficient_10(self, value=None):
         """  Corresponds to IDD Field `Coefficient 10`
-        
-        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient 10`
@@ -10057,8 +9741,6 @@ class CoolingTowerPerformanceYorkCalc(object):
     @coefficient_11.setter
     def coefficient_11(self, value=None):
         """  Corresponds to IDD Field `Coefficient 11`
-        
-        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient 11`
@@ -10088,8 +9770,6 @@ class CoolingTowerPerformanceYorkCalc(object):
     @coefficient_12.setter
     def coefficient_12(self, value=None):
         """  Corresponds to IDD Field `Coefficient 12`
-        
-        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient 12`
@@ -10119,8 +9799,6 @@ class CoolingTowerPerformanceYorkCalc(object):
     @coefficient_13.setter
     def coefficient_13(self, value=None):
         """  Corresponds to IDD Field `Coefficient 13`
-        
-        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient 13`
@@ -10150,8 +9828,6 @@ class CoolingTowerPerformanceYorkCalc(object):
     @coefficient_14.setter
     def coefficient_14(self, value=None):
         """  Corresponds to IDD Field `Coefficient 14`
-        
-        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient 14`
@@ -10181,8 +9857,6 @@ class CoolingTowerPerformanceYorkCalc(object):
     @coefficient_15.setter
     def coefficient_15(self, value=None):
         """  Corresponds to IDD Field `Coefficient 15`
-        
-        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient 15`
@@ -10212,8 +9886,6 @@ class CoolingTowerPerformanceYorkCalc(object):
     @coefficient_16.setter
     def coefficient_16(self, value=None):
         """  Corresponds to IDD Field `Coefficient 16`
-        
-        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient 16`
@@ -10243,8 +9915,6 @@ class CoolingTowerPerformanceYorkCalc(object):
     @coefficient_17.setter
     def coefficient_17(self, value=None):
         """  Corresponds to IDD Field `Coefficient 17`
-        
-        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient 17`
@@ -10274,8 +9944,6 @@ class CoolingTowerPerformanceYorkCalc(object):
     @coefficient_18.setter
     def coefficient_18(self, value=None):
         """  Corresponds to IDD Field `Coefficient 18`
-        
-        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient 18`
@@ -10305,8 +9973,6 @@ class CoolingTowerPerformanceYorkCalc(object):
     @coefficient_19.setter
     def coefficient_19(self, value=None):
         """  Corresponds to IDD Field `Coefficient 19`
-        
-        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient 19`
@@ -10336,8 +10002,6 @@ class CoolingTowerPerformanceYorkCalc(object):
     @coefficient_20.setter
     def coefficient_20(self, value=None):
         """  Corresponds to IDD Field `Coefficient 20`
-        
-        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient 20`
@@ -10367,8 +10031,6 @@ class CoolingTowerPerformanceYorkCalc(object):
     @coefficient_21.setter
     def coefficient_21(self, value=None):
         """  Corresponds to IDD Field `Coefficient 21`
-        
-        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient 21`
@@ -10398,8 +10060,6 @@ class CoolingTowerPerformanceYorkCalc(object):
     @coefficient_22.setter
     def coefficient_22(self, value=None):
         """  Corresponds to IDD Field `Coefficient 22`
-        
-        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient 22`
@@ -10429,8 +10089,6 @@ class CoolingTowerPerformanceYorkCalc(object):
     @coefficient_23.setter
     def coefficient_23(self, value=None):
         """  Corresponds to IDD Field `Coefficient 23`
-        
-        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient 23`
@@ -10460,8 +10118,6 @@ class CoolingTowerPerformanceYorkCalc(object):
     @coefficient_24.setter
     def coefficient_24(self, value=None):
         """  Corresponds to IDD Field `Coefficient 24`
-        
-        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient 24`
@@ -10491,8 +10147,6 @@ class CoolingTowerPerformanceYorkCalc(object):
     @coefficient_25.setter
     def coefficient_25(self, value=None):
         """  Corresponds to IDD Field `Coefficient 25`
-        
-        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient 25`
@@ -10522,8 +10176,6 @@ class CoolingTowerPerformanceYorkCalc(object):
     @coefficient_26.setter
     def coefficient_26(self, value=None):
         """  Corresponds to IDD Field `Coefficient 26`
-        
-        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient 26`
@@ -10553,8 +10205,6 @@ class CoolingTowerPerformanceYorkCalc(object):
     @coefficient_27.setter
     def coefficient_27(self, value=None):
         """  Corresponds to IDD Field `Coefficient 27`
-        
-        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coefficient 27`
@@ -10845,8 +10495,6 @@ class EvaporativeFluidCoolerSingleSpeed(object):
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
         Fluid Cooler Name
-        
-        {u'note': [u'Fluid Cooler Name'], u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -10883,8 +10531,6 @@ class EvaporativeFluidCoolerSingleSpeed(object):
     def water_inlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Water Inlet Node Name`
         Name of Fluid Cooler water inlet node
-        
-        {u'note': [u'Name of Fluid Cooler water inlet node'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Water Inlet Node Name`
@@ -10921,8 +10567,6 @@ class EvaporativeFluidCoolerSingleSpeed(object):
     def water_outlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Water Outlet Node Name`
         Name of Fluid Cooler water outlet node
-        
-        {u'note': [u'Name of Fluid Cooler water outlet node'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Water Outlet Node Name`
@@ -10958,11 +10602,9 @@ class EvaporativeFluidCoolerSingleSpeed(object):
     @design_air_flow_rate.setter
     def design_air_flow_rate(self, value=None):
         """  Corresponds to IDD Field `Design Air Flow Rate`
-        
-        {'pytype': 'float', u'minimum>': '0.0', u'required-field': True, u'autosizable': u'', u'units': u'm3/s', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `Design Air Flow Rate`
+            value (float or "Autosize"): value for IDD Field `Design Air Flow Rate`
                 Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -10972,6 +10614,13 @@ class EvaporativeFluidCoolerSingleSpeed(object):
             ValueError: if `value` is not a valid value
         """
         if value is not None:
+            try:
+                value_lower = str(value).lower()
+                if value_lower == "autosize":
+                    self._data["Design Air Flow Rate"] = "Autosize"
+                    return
+            except ValueError:
+                pass
             try:
                 value = float(value)
             except ValueError:
@@ -10995,11 +10644,9 @@ class EvaporativeFluidCoolerSingleSpeed(object):
     def design_air_flow_rate_fan_power(self, value=None):
         """  Corresponds to IDD Field `Design Air Flow Rate Fan Power`
         This is the fan motor electric input power
-        
-        {'pytype': 'float', u'minimum>': '0.0', u'required-field': True, u'note': [u'This is the fan motor electric input power'], u'ip-units': u'W', u'autosizable': u'', u'units': u'W', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `Design Air Flow Rate Fan Power`
+            value (float or "Autosize"): value for IDD Field `Design Air Flow Rate Fan Power`
                 Units: W
                 IP-Units: W
                 value > 0.0
@@ -11010,6 +10657,13 @@ class EvaporativeFluidCoolerSingleSpeed(object):
             ValueError: if `value` is not a valid value
         """
         if value is not None:
+            try:
+                value_lower = str(value).lower()
+                if value_lower == "autosize":
+                    self._data["Design Air Flow Rate Fan Power"] = "Autosize"
+                    return
+            except ValueError:
+                pass
             try:
                 value = float(value)
             except ValueError:
@@ -11032,8 +10686,6 @@ class EvaporativeFluidCoolerSingleSpeed(object):
     @design_spray_water_flow_rate.setter
     def design_spray_water_flow_rate(self, value=None):
         """  Corresponds to IDD Field `Design Spray Water Flow Rate`
-        
-        {'pytype': 'float', u'minimum>': '0.0', u'required-field': True, u'ip-units': u'gal/min', u'units': u'm3/s', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Design Spray Water Flow Rate`
@@ -11072,8 +10724,6 @@ class EvaporativeFluidCoolerSingleSpeed(object):
         User can define fluid cooler thermal performance by specifying the fluid cooler UA
         and the Design Water Flow Rate, or by specifying the fluid cooler Standard Design
         Capacity or by specifying Design Capacity for Non standard conditions.
-        
-        {u'note': [u'User can define fluid cooler thermal performance by specifying the fluid cooler UA', u'and the Design Water Flow Rate, or by specifying the fluid cooler Standard Design', u'Capacity or by specifying Design Capacity for Non standard conditions.'], u'type': u'Choice', u'key': [u'UFactorTimesAreaAndDesignWaterFlowRate', u'StandardDesignCapacity', u'UserSpecifiedDesignCapacity'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Performance Input Method`
@@ -11110,8 +10760,6 @@ class EvaporativeFluidCoolerSingleSpeed(object):
     def outdoor_air_inlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Outdoor Air Inlet Node Name`
         Enter the name of an outdoor air node
-        
-        {u'note': [u'Enter the name of an outdoor air node'], u'type': u'node', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Outdoor Air Inlet Node Name`
@@ -11145,10 +10793,8 @@ class EvaporativeFluidCoolerSingleSpeed(object):
         return self._data["Heat Rejection Capacity and Nominal Capacity Sizing Ratio"]
 
     @heat_rejection_capacity_and_nominal_capacity_sizing_ratio.setter
-    def heat_rejection_capacity_and_nominal_capacity_sizing_ratio(self, value=1.25 ):
+    def heat_rejection_capacity_and_nominal_capacity_sizing_ratio(self, value=1.25):
         """  Corresponds to IDD Field `Heat Rejection Capacity and Nominal Capacity Sizing Ratio`
-        
-        {u'default': '1.25', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Heat Rejection Capacity and Nominal Capacity Sizing Ratio`
@@ -11193,8 +10839,6 @@ class EvaporativeFluidCoolerSingleSpeed(object):
         provided in the input, will be ignored for the StandardDesignCapacity performance input
         method. Also, the standard conditions are for water as a fluid type so this performance input
         method can only be used with water as a fluid type (as specified in CondenserLoop object).
-        
-        {u'units': u'W', u'note': [u'Standard design capacity with entering water at 35C (95F), leaving water at', u'29.44C (85F), entering air at 25.56C (78F) wet-bulb temperature and 35C (95F)', u'dry-bulb temperature. Design water flow rate assumed to be 5.382E-8 m3/s per watt', u'(3 gpm/ton). Standard design capacity times the Heat Rejection Capacity and', u'Nominal Capacity Sizing Ratio (e.g. 1.25) gives the actual fluid cooler', u'heat rejection at these operating conditions.', u'Only used for Performance Input Method = StandardDesignCapacity;', u'for other input methods, this field is ignored.', u'The standard conditions mentioned above for Standard design capacity are already', u'specified in the EnergyPlus. So the input fields such as design entering water', u'temp., design entering air wet-bulb and dry-bulb temp. and design water flow rate, if', u'provided in the input, will be ignored for the StandardDesignCapacity performance input', u'method. Also, the standard conditions are for water as a fluid type so this performance input', u'method can only be used with water as a fluid type (as specified in CondenserLoop object).'], u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Standard Design Capacity`
@@ -11231,11 +10875,9 @@ class EvaporativeFluidCoolerSingleSpeed(object):
         """  Corresponds to IDD Field `Design Air Flow Rate U-factor Times Area Value`
         Only used for Performance Input Method = UFactorTimesAreaAndDesignWaterFlowRate;
         for other Performance Input Methods, this field is ignored.
-        
-        {'pytype': 'float', u'minimum>': '0.0', u'maximum': '2100000.0', u'note': [u'Only used for Performance Input Method = UFactorTimesAreaAndDesignWaterFlowRate;', u'for other Performance Input Methods, this field is ignored.'], u'autosizable': u'', u'units': u'W/K', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `Design Air Flow Rate U-factor Times Area Value`
+            value (float or "Autosize"): value for IDD Field `Design Air Flow Rate U-factor Times Area Value`
                 Units: W/K
                 value > 0.0
                 value <= 2100000.0
@@ -11246,6 +10888,13 @@ class EvaporativeFluidCoolerSingleSpeed(object):
             ValueError: if `value` is not a valid value
         """
         if value is not None:
+            try:
+                value_lower = str(value).lower()
+                if value_lower == "autosize":
+                    self._data["Design Air Flow Rate U-factor Times Area Value"] = "Autosize"
+                    return
+            except ValueError:
+                pass
             try:
                 value = float(value)
             except ValueError:
@@ -11272,11 +10921,9 @@ class EvaporativeFluidCoolerSingleSpeed(object):
     def design_water_flow_rate(self, value=None):
         """  Corresponds to IDD Field `Design Water Flow Rate`
         Input value is ignored if fluid cooler Performance Input Method= StandardDesignCapacity.
-        
-        {'pytype': 'float', u'minimum>': '0.0', u'note': [u'Input value is ignored if fluid cooler Performance Input Method= StandardDesignCapacity.'], u'ip-units': u'gal/min', u'autosizable': u'', u'units': u'm3/s', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `Design Water Flow Rate`
+            value (float or "Autosize"): value for IDD Field `Design Water Flow Rate`
                 Units: m3/s
                 IP-Units: gal/min
                 value > 0.0
@@ -11287,6 +10934,13 @@ class EvaporativeFluidCoolerSingleSpeed(object):
             ValueError: if `value` is not a valid value
         """
         if value is not None:
+            try:
+                value_lower = str(value).lower()
+                if value_lower == "autosize":
+                    self._data["Design Water Flow Rate"] = "Autosize"
+                    return
+            except ValueError:
+                pass
             try:
                 value = float(value)
             except ValueError:
@@ -11311,8 +10965,6 @@ class EvaporativeFluidCoolerSingleSpeed(object):
         """  Corresponds to IDD Field `User Specified Design Capacity`
         Only used for Performance Input Method = UserSpecifiedDesignCapacity;
         for other Performance Input Methods, this field is ignored.
-        
-        {u'units': u'W', u'note': [u'Only used for Performance Input Method = UserSpecifiedDesignCapacity;', u'for other Performance Input Methods, this field is ignored.'], u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `User Specified Design Capacity`
@@ -11350,8 +11002,6 @@ class EvaporativeFluidCoolerSingleSpeed(object):
         Only used for Performance Input Method = UserSpecifiedDesignCapacity;
         for other Performance Input Methods, this field is ignored.
         Design Entering Water Temperature must be greater than Design Entering Air Temperature.
-        
-        {'pytype': 'float', u'minimum>': '0.0', u'note': [u'Only used for Performance Input Method = UserSpecifiedDesignCapacity;', u'for other Performance Input Methods, this field is ignored.', u'Design Entering Water Temperature must be greater than Design Entering Air Temperature.'], u'ip-units': u'F', u'units': u'C', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Design Entering Water Temperature`
@@ -11391,8 +11041,6 @@ class EvaporativeFluidCoolerSingleSpeed(object):
         for other Performance Input Methods, this field is ignored.
         Design Entering Air Temperature must be greater than Design Entering Air Wet-bulb
         Temperature.
-        
-        {'pytype': 'float', u'minimum>': '0.0', u'note': [u'Only used for Performance Input Method = UserSpecifiedDesignCapacity;', u'for other Performance Input Methods, this field is ignored.', u'Design Entering Air Temperature must be greater than Design Entering Air Wet-bulb', u'Temperature.'], u'ip-units': u'F', u'units': u'C', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Design Entering Air Temperature`
@@ -11432,8 +11080,6 @@ class EvaporativeFluidCoolerSingleSpeed(object):
         for other Performance Input Methods, this field is ignored.
         Design Entering Air Wet-bulb Temperature must be less than Design Entering Air
         Temperature.
-        
-        {'pytype': 'float', u'minimum>': '0.0', u'note': [u'Only used for Performance Input Method = UserSpecifiedDesignCapacity;', u'for other Performance Input Methods, this field is ignored.', u'Design Entering Air Wet-bulb Temperature must be less than Design Entering Air', u'Temperature.'], u'ip-units': u'F', u'units': u'C', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Design Entering Air Wet-bulb Temperature`
@@ -11469,8 +11115,6 @@ class EvaporativeFluidCoolerSingleSpeed(object):
     @capacity_control.setter
     def capacity_control(self, value="FanCycling"):
         """  Corresponds to IDD Field `Capacity Control`
-        
-        {u'default': u'FanCycling', u'type': u'choice', u'key': [u'FanCycling', u'FluidBypass'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Capacity Control`
@@ -11525,11 +11169,9 @@ class EvaporativeFluidCoolerSingleSpeed(object):
         return self._data["Sizing Factor"]
 
     @sizing_factor.setter
-    def sizing_factor(self, value=1.0 ):
+    def sizing_factor(self, value=1.0):
         """  Corresponds to IDD Field `Sizing Factor`
         Multiplies the autosized capacity and flow rates
-        
-        {u'note': [u'Multiplies the autosized capacity and flow rates'], u'default': '1.0', u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Sizing Factor`
@@ -11564,8 +11206,6 @@ class EvaporativeFluidCoolerSingleSpeed(object):
     @evaporation_loss_mode.setter
     def evaporation_loss_mode(self, value="SaturatedExit"):
         """  Corresponds to IDD Field `Evaporation Loss Mode`
-        
-        {u'default': u'SaturatedExit', u'type': u'choice', u'key': [u'LossFactor', u'SaturatedExit'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Evaporation Loss Mode`
@@ -11624,8 +11264,6 @@ class EvaporativeFluidCoolerSingleSpeed(object):
         """  Corresponds to IDD Field `Evaporation Loss Factor`
         Rate of water evaporation from the Fluid Cooler and lost to the outdoor air [%/K]
         Empirical correlation is used to calculate default loss factor if it not explicitly provided.
-        
-        {u'units': u'percent/K', u'note': [u'Rate of water evaporation from the Fluid Cooler and lost to the outdoor air [%/K]', u'Empirical correlation is used to calculate default loss factor if it not explicitly provided.'], u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Evaporation Loss Factor`
@@ -11654,13 +11292,11 @@ class EvaporativeFluidCoolerSingleSpeed(object):
         return self._data["Drift Loss Percent"]
 
     @drift_loss_percent.setter
-    def drift_loss_percent(self, value=0.008 ):
+    def drift_loss_percent(self, value=0.008):
         """  Corresponds to IDD Field `Drift Loss Percent`
         Rate of drift loss as a percentage of circulating spray water flow rate
         Default value for this field in under investigation. For now Cooling towers drift loss
         percent default value is taken here.
-        
-        {u'default': '0.008', u'units': u'percent', u'note': [u'Rate of drift loss as a percentage of circulating spray water flow rate', u'Default value for this field in under investigation. For now Cooling towers drift loss', u'percent default value is taken here.'], u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Drift Loss Percent`
@@ -11692,8 +11328,6 @@ class EvaporativeFluidCoolerSingleSpeed(object):
     @blowdown_calculation_mode.setter
     def blowdown_calculation_mode(self, value="ConcentrationRatio"):
         """  Corresponds to IDD Field `Blowdown Calculation Mode`
-        
-        {u'default': u'ConcentrationRatio', u'type': u'choice', u'key': [u'ConcentrationRatio', u'ScheduledRate'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Blowdown Calculation Mode`
@@ -11748,7 +11382,7 @@ class EvaporativeFluidCoolerSingleSpeed(object):
         return self._data["Blowdown Concentration Ratio"]
 
     @blowdown_concentration_ratio.setter
-    def blowdown_concentration_ratio(self, value=3.0 ):
+    def blowdown_concentration_ratio(self, value=3.0):
         """  Corresponds to IDD Field `Blowdown Concentration Ratio`
         Characterizes the rate of blowdown in the Evaporative Fluid Cooler.
         Blowdown is water intentionally drained from the basin in order to offset the build
@@ -11756,8 +11390,6 @@ class EvaporativeFluidCoolerSingleSpeed(object):
         Ratio of solids in the blowdown water to solids in the make up water.
         Default value for this field in under investigation. For now Cooling towers
         Blowdown Concentration Ratio percent default value is taken here.
-        
-        {u'default': '3.0', u'note': [u'Characterizes the rate of blowdown in the Evaporative Fluid Cooler.', u'Blowdown is water intentionally drained from the basin in order to offset the build', u'up of solids in the water that would otherwise occur because of evaporation.', u'Ratio of solids in the blowdown water to solids in the make up water.', u'Default value for this field in under investigation. For now Cooling towers', u'Blowdown Concentration Ratio percent default value is taken here.'], u'minimum': '2.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Blowdown Concentration Ratio`
@@ -11796,8 +11428,6 @@ class EvaporativeFluidCoolerSingleSpeed(object):
         amount of water in the Fluid Cooler basin to purge scale or other contaminants to
         reduce their concentration in order to maintain an acceptable level of water quality.
         Schedule values should reflect water usage in m3/s.
-        
-        {u'note': [u'Makeup water usage due to blowdown results from occasionally draining a small', u'amount of water in the Fluid Cooler basin to purge scale or other contaminants to', u'reduce their concentration in order to maintain an acceptable level of water quality.', u'Schedule values should reflect water usage in m3/s.'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Blowdown Makeup Water Usage Schedule Name`
@@ -11833,8 +11463,6 @@ class EvaporativeFluidCoolerSingleSpeed(object):
     @supply_water_storage_tank_name.setter
     def supply_water_storage_tank_name(self, value=None):
         """  Corresponds to IDD Field `Supply Water Storage Tank Name`
-        
-        {u'type': u'object-list', u'object-list': u'WaterStorageTankNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Supply Water Storage Tank Name`
@@ -12203,8 +11831,6 @@ class EvaporativeFluidCoolerTwoSpeed(object):
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
         fluid cooler name
-        
-        {u'note': [u'fluid cooler name'], u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -12241,8 +11867,6 @@ class EvaporativeFluidCoolerTwoSpeed(object):
     def water_inlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Water Inlet Node Name`
         Name of fluid cooler water inlet node
-        
-        {u'note': [u'Name of fluid cooler water inlet node'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Water Inlet Node Name`
@@ -12279,8 +11903,6 @@ class EvaporativeFluidCoolerTwoSpeed(object):
     def water_outlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Water Outlet Node Name`
         Name of fluid cooler water outlet node
-        
-        {u'note': [u'Name of fluid cooler water outlet node'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Water Outlet Node Name`
@@ -12316,11 +11938,9 @@ class EvaporativeFluidCoolerTwoSpeed(object):
     @high_fan_speed_air_flow_rate.setter
     def high_fan_speed_air_flow_rate(self, value=None):
         """  Corresponds to IDD Field `High Fan Speed Air Flow Rate`
-        
-        {'pytype': 'float', u'minimum>': '0.0', u'required-field': True, u'autosizable': u'', u'units': u'm3/s', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `High Fan Speed Air Flow Rate`
+            value (float or "Autosize"): value for IDD Field `High Fan Speed Air Flow Rate`
                 Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -12330,6 +11950,13 @@ class EvaporativeFluidCoolerTwoSpeed(object):
             ValueError: if `value` is not a valid value
         """
         if value is not None:
+            try:
+                value_lower = str(value).lower()
+                if value_lower == "autosize":
+                    self._data["High Fan Speed Air Flow Rate"] = "Autosize"
+                    return
+            except ValueError:
+                pass
             try:
                 value = float(value)
             except ValueError:
@@ -12353,11 +11980,9 @@ class EvaporativeFluidCoolerTwoSpeed(object):
     def high_fan_speed_fan_power(self, value=None):
         """  Corresponds to IDD Field `High Fan Speed Fan Power`
         This is the fan motor electric input power at high speed
-        
-        {'pytype': 'float', u'minimum>': '0.0', u'required-field': True, u'note': [u'This is the fan motor electric input power at high speed'], u'ip-units': u'W', u'autosizable': u'', u'units': u'W', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `High Fan Speed Fan Power`
+            value (float or "Autosize"): value for IDD Field `High Fan Speed Fan Power`
                 Units: W
                 IP-Units: W
                 value > 0.0
@@ -12368,6 +11993,13 @@ class EvaporativeFluidCoolerTwoSpeed(object):
             ValueError: if `value` is not a valid value
         """
         if value is not None:
+            try:
+                value_lower = str(value).lower()
+                if value_lower == "autosize":
+                    self._data["High Fan Speed Fan Power"] = "Autosize"
+                    return
+            except ValueError:
+                pass
             try:
                 value = float(value)
             except ValueError:
@@ -12391,8 +12023,6 @@ class EvaporativeFluidCoolerTwoSpeed(object):
     def low_fan_speed_air_flow_rate(self, value=None):
         """  Corresponds to IDD Field `Low Fan Speed Air Flow Rate`
         Low speed air flow rate must be less than high speed air flow rate
-        
-        {'pytype': 'float', u'minimum>': '0.0', u'required-field': True, u'note': [u'Low speed air flow rate must be less than high speed air flow rate'], u'units': u'm3/s', u'autocalculatable': True, u'type': u'real'}
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `Low Fan Speed Air Flow Rate`
@@ -12408,7 +12038,7 @@ class EvaporativeFluidCoolerTwoSpeed(object):
             try:
                 value_lower = str(value).lower()
                 if value_lower == "autocalculate":
-                    self._data["Low Fan Speed Air Flow Rate"] = value
+                    self._data["Low Fan Speed Air Flow Rate"] = "Autocalculate"
                     return
             except ValueError:
                 pass
@@ -12432,11 +12062,9 @@ class EvaporativeFluidCoolerTwoSpeed(object):
         return self._data["Low Fan Speed Air Flow Rate Sizing Factor"]
 
     @low_fan_speed_air_flow_rate_sizing_factor.setter
-    def low_fan_speed_air_flow_rate_sizing_factor(self, value=0.5 ):
+    def low_fan_speed_air_flow_rate_sizing_factor(self, value=0.5):
         """  Corresponds to IDD Field `Low Fan Speed Air Flow Rate Sizing Factor`
         This field is only used if the previous field is set to autocalculate
-        
-        {u'default': '0.5', u'note': [u'This field is only used if the previous field is set to autocalculate'], u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Low Fan Speed Air Flow Rate Sizing Factor`
@@ -12468,8 +12096,6 @@ class EvaporativeFluidCoolerTwoSpeed(object):
     def low_fan_speed_fan_power(self, value=None):
         """  Corresponds to IDD Field `Low Fan Speed Fan Power`
         This is the fan motor electric input power at low speed
-        
-        {'pytype': 'float', u'minimum>': '0.0', u'required-field': True, u'note': [u'This is the fan motor electric input power at low speed'], u'ip-units': u'W', u'units': u'W', u'autocalculatable': True, u'type': u'real'}
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `Low Fan Speed Fan Power`
@@ -12486,7 +12112,7 @@ class EvaporativeFluidCoolerTwoSpeed(object):
             try:
                 value_lower = str(value).lower()
                 if value_lower == "autocalculate":
-                    self._data["Low Fan Speed Fan Power"] = value
+                    self._data["Low Fan Speed Fan Power"] = "Autocalculate"
                     return
             except ValueError:
                 pass
@@ -12510,11 +12136,9 @@ class EvaporativeFluidCoolerTwoSpeed(object):
         return self._data["Low Fan Speed Fan Power Sizing Factor"]
 
     @low_fan_speed_fan_power_sizing_factor.setter
-    def low_fan_speed_fan_power_sizing_factor(self, value=0.16 ):
+    def low_fan_speed_fan_power_sizing_factor(self, value=0.16):
         """  Corresponds to IDD Field `Low Fan Speed Fan Power Sizing Factor`
         This field is only used if the previous field is set to autocalculate.
-        
-        {u'default': '0.16', u'note': [u'This field is only used if the previous field is set to autocalculate.'], u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Low Fan Speed Fan Power Sizing Factor`
@@ -12545,8 +12169,6 @@ class EvaporativeFluidCoolerTwoSpeed(object):
     @design_spray_water_flow_rate.setter
     def design_spray_water_flow_rate(self, value=None):
         """  Corresponds to IDD Field `Design Spray Water Flow Rate`
-        
-        {'pytype': 'float', u'minimum>': '0.0', u'required-field': True, u'ip-units': u'gal/min', u'units': u'm3/s', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Design Spray Water Flow Rate`
@@ -12585,8 +12207,6 @@ class EvaporativeFluidCoolerTwoSpeed(object):
         User can define fluid cooler thermal performance by specifying the fluid cooler UA
         and the Design Water Flow Rate, or by specifying the fluid cooler Standard Design
         Capacity or by specifying Design Capacity for Non standard conditions.
-        
-        {u'note': [u'User can define fluid cooler thermal performance by specifying the fluid cooler UA', u'and the Design Water Flow Rate, or by specifying the fluid cooler Standard Design', u'Capacity or by specifying Design Capacity for Non standard conditions.'], u'type': u'Choice', u'key': [u'UFactorTimesAreaAndDesignWaterFlowRate', u'StandardDesignCapacity', u'UserSpecifiedDesignCapacity'], u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Performance Input Method`
@@ -12623,8 +12243,6 @@ class EvaporativeFluidCoolerTwoSpeed(object):
     def outdoor_air_inlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Outdoor Air Inlet Node Name`
         Enter the name of an outdoor air node
-        
-        {u'note': [u'Enter the name of an outdoor air node'], u'type': u'node', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Outdoor Air Inlet Node Name`
@@ -12658,10 +12276,8 @@ class EvaporativeFluidCoolerTwoSpeed(object):
         return self._data["Heat Rejection Capacity and Nominal Capacity Sizing Ratio"]
 
     @heat_rejection_capacity_and_nominal_capacity_sizing_ratio.setter
-    def heat_rejection_capacity_and_nominal_capacity_sizing_ratio(self, value=1.25 ):
+    def heat_rejection_capacity_and_nominal_capacity_sizing_ratio(self, value=1.25):
         """  Corresponds to IDD Field `Heat Rejection Capacity and Nominal Capacity Sizing Ratio`
-        
-        {u'default': '1.25', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Heat Rejection Capacity and Nominal Capacity Sizing Ratio`
@@ -12706,8 +12322,6 @@ class EvaporativeFluidCoolerTwoSpeed(object):
         provided in the input, will be ignored for the StandardDesignCapacity performance input
         method. Also, the standard conditions are for water as a fluid type so this performance input
         method can only be used with water as a fluid type (as specified in CondenserLoop object).
-        
-        {u'units': u'W', u'note': [u'Standard design capacity with entering water at 35C (95F), leaving water at', u'29.44C (85F), entering air at 25.56C (78F) wet-bulb temperature and 35C (95F)', u'dry-bulb temperature. Design water flow rate assumed to be 5.382E-8 m3/s per watt', u'(3 gpm/ton). Standard design capacity times the Heat Rejection Capacity and', u'Nominal Capacity Sizing Ratio (e.g. 1.25) gives the actual fluid cooler', u'heat rejection at these operating conditions.', u'Only used for Performance Input Method = StandardDesignCapacity;', u'for other input methods, this field is ignored.', u'The standard conditions mentioned above for Standard design capacity are already', u'specified in the EnergyPlus. So the input fields such as design entering water', u'temp., design entering air wet-bulb and dry-bulb temp. and design water flow rate, if', u'provided in the input, will be ignored for the StandardDesignCapacity performance input', u'method. Also, the standard conditions are for water as a fluid type so this performance input', u'method can only be used with water as a fluid type (as specified in CondenserLoop object).'], u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `High Speed Standard Design Capacity`
@@ -12756,8 +12370,6 @@ class EvaporativeFluidCoolerTwoSpeed(object):
         provided in the input, will be ignored for the StandardDesignCapacity performance input
         method. Also, the standard conditions are for water as a fluid type so this performance input
         method can only be used with water as a fluid type (as specified in CondenserLoop object).
-        
-        {'pytype': 'float', u'minimum>': '0.0', u'note': [u'Standard design capacity with entering water at 35C (95F), leaving water at', u'29.44C (85F), entering air at 25.56C (78F) wet-bulb temperature and 35C (95F)', u'dry-bulb temperature. Design water flow rate assumed to be 5.382E-8 m3/s per watt', u'(3 gpm/ton). Standard design capacity times the Heat Rejection Capacity and', u'Nominal Capacity Sizing Ratio (e.g. 1.25) gives the actual fluid cooler', u'heat rejection at these operating conditions.', u'Only used for Performance Input Method = StandardDesignCapacity;', u'for other input methods, this field is ignored.', u'The standard conditions mentioned above for Standard design capacity are already', u'specified in the EnergyPlus. So the input fields such as design entering water', u'temp., design entering air wet-bulb and dry-bulb temp. and design water flow rate, if', u'provided in the input, will be ignored for the StandardDesignCapacity performance input', u'method. Also, the standard conditions are for water as a fluid type so this performance input', u'method can only be used with water as a fluid type (as specified in CondenserLoop object).'], u'units': u'W', u'autocalculatable': True, u'type': u'real'}
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `Low Speed Standard Design Capacity`
@@ -12773,7 +12385,7 @@ class EvaporativeFluidCoolerTwoSpeed(object):
             try:
                 value_lower = str(value).lower()
                 if value_lower == "autocalculate":
-                    self._data["Low Speed Standard Design Capacity"] = value
+                    self._data["Low Speed Standard Design Capacity"] = "Autocalculate"
                     return
             except ValueError:
                 pass
@@ -12797,11 +12409,9 @@ class EvaporativeFluidCoolerTwoSpeed(object):
         return self._data["Low Speed Standard Capacity Sizing Factor"]
 
     @low_speed_standard_capacity_sizing_factor.setter
-    def low_speed_standard_capacity_sizing_factor(self, value=0.5 ):
+    def low_speed_standard_capacity_sizing_factor(self, value=0.5):
         """  Corresponds to IDD Field `Low Speed Standard Capacity Sizing Factor`
         This field is only used if the previous field is set to autocalculate
-        
-        {u'default': '0.5', u'note': [u'This field is only used if the previous field is set to autocalculate'], u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Low Speed Standard Capacity Sizing Factor`
@@ -12834,11 +12444,9 @@ class EvaporativeFluidCoolerTwoSpeed(object):
         """  Corresponds to IDD Field `High Fan Speed U-factor Times Area Value`
         Only used for Performance Input Method = UFactorTimesAreaAndDesignWaterFlowRate;
         for other Performance Input Methods, this field is ignored.
-        
-        {'pytype': 'float', u'minimum>': '0.0', u'maximum': '2100000.0', u'note': [u'Only used for Performance Input Method = UFactorTimesAreaAndDesignWaterFlowRate;', u'for other Performance Input Methods, this field is ignored.'], u'autosizable': u'', u'units': u'W/K', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `High Fan Speed U-factor Times Area Value`
+            value (float or "Autosize"): value for IDD Field `High Fan Speed U-factor Times Area Value`
                 Units: W/K
                 value > 0.0
                 value <= 2100000.0
@@ -12849,6 +12457,13 @@ class EvaporativeFluidCoolerTwoSpeed(object):
             ValueError: if `value` is not a valid value
         """
         if value is not None:
+            try:
+                value_lower = str(value).lower()
+                if value_lower == "autosize":
+                    self._data["High Fan Speed U-factor Times Area Value"] = "Autosize"
+                    return
+            except ValueError:
+                pass
             try:
                 value = float(value)
             except ValueError:
@@ -12877,8 +12492,6 @@ class EvaporativeFluidCoolerTwoSpeed(object):
         Only used for Performance Input Method = UFactorTimesAreaAndDesignWaterFlowRate;
         for other input methods, this field is ignored.
         Low speed fluid cooler UA must be less than high speed fluid cooler UA
-        
-        {'pytype': 'float', u'minimum>': '0.0', u'maximum': '300000.0', u'note': [u'Only used for Performance Input Method = UFactorTimesAreaAndDesignWaterFlowRate;', u'for other input methods, this field is ignored.', u'Low speed fluid cooler UA must be less than high speed fluid cooler UA'], u'units': u'W/K', u'autocalculatable': True, u'type': u'real'}
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `Low Fan Speed U-factor Times Area Value`
@@ -12895,7 +12508,7 @@ class EvaporativeFluidCoolerTwoSpeed(object):
             try:
                 value_lower = str(value).lower()
                 if value_lower == "autocalculate":
-                    self._data["Low Fan Speed U-factor Times Area Value"] = value
+                    self._data["Low Fan Speed U-factor Times Area Value"] = "Autocalculate"
                     return
             except ValueError:
                 pass
@@ -12922,12 +12535,10 @@ class EvaporativeFluidCoolerTwoSpeed(object):
         return self._data["Low Fan Speed U-Factor Times Area Sizing Factor"]
 
     @low_fan_speed_ufactor_times_area_sizing_factor.setter
-    def low_fan_speed_ufactor_times_area_sizing_factor(self, value=0.6 ):
+    def low_fan_speed_ufactor_times_area_sizing_factor(self, value=0.6):
         """  Corresponds to IDD Field `Low Fan Speed U-Factor Times Area Sizing Factor`
         This field is only used if the previous field is set to autocalculate and
         the Performance Input Method is UFactorTimesAreaAndDesignWaterFlowRate
-        
-        {u'default': '0.6', u'note': [u'This field is only used if the previous field is set to autocalculate and', u'the Performance Input Method is UFactorTimesAreaAndDesignWaterFlowRate'], u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Low Fan Speed U-Factor Times Area Sizing Factor`
@@ -12959,11 +12570,9 @@ class EvaporativeFluidCoolerTwoSpeed(object):
     def design_water_flow_rate(self, value=None):
         """  Corresponds to IDD Field `Design Water Flow Rate`
         Input value is ignored if fluid cooler Performance Input Method= StandardDesignCapacity
-        
-        {'pytype': 'float', u'minimum>': '0.0', u'note': [u'Input value is ignored if fluid cooler Performance Input Method= StandardDesignCapacity'], u'ip-units': u'gal/min', u'autosizable': u'', u'units': u'm3/s', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `Design Water Flow Rate`
+            value (float or "Autosize"): value for IDD Field `Design Water Flow Rate`
                 Units: m3/s
                 IP-Units: gal/min
                 value > 0.0
@@ -12974,6 +12583,13 @@ class EvaporativeFluidCoolerTwoSpeed(object):
             ValueError: if `value` is not a valid value
         """
         if value is not None:
+            try:
+                value_lower = str(value).lower()
+                if value_lower == "autosize":
+                    self._data["Design Water Flow Rate"] = "Autosize"
+                    return
+            except ValueError:
+                pass
             try:
                 value = float(value)
             except ValueError:
@@ -12998,8 +12614,6 @@ class EvaporativeFluidCoolerTwoSpeed(object):
         """  Corresponds to IDD Field `High Speed User Specified Design Capacity`
         Only used for Performance Input Method = UserSpecifiedDesignCapacity;
         for other Performance Input Methods, this field is ignored.
-        
-        {u'units': u'W', u'note': [u'Only used for Performance Input Method = UserSpecifiedDesignCapacity;', u'for other Performance Input Methods, this field is ignored.'], u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `High Speed User Specified Design Capacity`
@@ -13036,8 +12650,6 @@ class EvaporativeFluidCoolerTwoSpeed(object):
         """  Corresponds to IDD Field `Low Speed User Specified Design Capacity`
         Only used for Performance Input Method = UserSpecifiedDesignCapacity;
         for other Performance Input Methods, this field is ignored.
-        
-        {'pytype': 'float', u'minimum>': '0.0', u'note': [u'Only used for Performance Input Method = UserSpecifiedDesignCapacity;', u'for other Performance Input Methods, this field is ignored.'], u'units': u'W', u'autocalculatable': True, u'type': u'real'}
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `Low Speed User Specified Design Capacity`
@@ -13053,7 +12665,7 @@ class EvaporativeFluidCoolerTwoSpeed(object):
             try:
                 value_lower = str(value).lower()
                 if value_lower == "autocalculate":
-                    self._data["Low Speed User Specified Design Capacity"] = value
+                    self._data["Low Speed User Specified Design Capacity"] = "Autocalculate"
                     return
             except ValueError:
                 pass
@@ -13077,11 +12689,9 @@ class EvaporativeFluidCoolerTwoSpeed(object):
         return self._data["Low Speed User Specified Design Capacity Sizing Factor"]
 
     @low_speed_user_specified_design_capacity_sizing_factor.setter
-    def low_speed_user_specified_design_capacity_sizing_factor(self, value=0.5 ):
+    def low_speed_user_specified_design_capacity_sizing_factor(self, value=0.5):
         """  Corresponds to IDD Field `Low Speed User Specified Design Capacity Sizing Factor`
         This field is only used if the previous field is set to autocalculate
-        
-        {u'default': '0.5', u'note': [u'This field is only used if the previous field is set to autocalculate'], u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Low Speed User Specified Design Capacity Sizing Factor`
@@ -13115,8 +12725,6 @@ class EvaporativeFluidCoolerTwoSpeed(object):
         Only used for Performance Input Method = UserSpecifiedDesignCapacity;
         for other Performance Input Methods, this field is ignored.
         Design Entering Water Temperature must be greater than Design Entering Air Temperature.
-        
-        {'pytype': 'float', u'minimum>': '0.0', u'note': [u'Only used for Performance Input Method = UserSpecifiedDesignCapacity;', u'for other Performance Input Methods, this field is ignored.', u'Design Entering Water Temperature must be greater than Design Entering Air Temperature.'], u'ip-units': u'F', u'units': u'C', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Design Entering Water Temperature`
@@ -13156,8 +12764,6 @@ class EvaporativeFluidCoolerTwoSpeed(object):
         for other Performance Input Methods, this field is ignored.
         Design Entering Air Temperature must be greater than Design Entering Air Wet-bulb
         Temperature.
-        
-        {'pytype': 'float', u'minimum>': '0.0', u'note': [u'Only used for Performance Input Method = UserSpecifiedDesignCapacity;', u'for other Performance Input Methods, this field is ignored.', u'Design Entering Air Temperature must be greater than Design Entering Air Wet-bulb', u'Temperature.'], u'ip-units': u'F', u'units': u'C', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Design Entering Air Temperature`
@@ -13197,8 +12803,6 @@ class EvaporativeFluidCoolerTwoSpeed(object):
         for other Performance Input Methods, this field is ignored.
         Design Entering Air Wet-bulb Temperature must be less than Design Entering Air
         Temperature.
-        
-        {'pytype': 'float', u'minimum>': '0.0', u'note': [u'Only used for Performance Input Method = UserSpecifiedDesignCapacity;', u'for other Performance Input Methods, this field is ignored.', u'Design Entering Air Wet-bulb Temperature must be less than Design Entering Air', u'Temperature.'], u'ip-units': u'F', u'units': u'C', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Design Entering Air Wet-bulb Temperature`
@@ -13232,11 +12836,9 @@ class EvaporativeFluidCoolerTwoSpeed(object):
         return self._data["High Speed Sizing Factor"]
 
     @high_speed_sizing_factor.setter
-    def high_speed_sizing_factor(self, value=1.0 ):
+    def high_speed_sizing_factor(self, value=1.0):
         """  Corresponds to IDD Field `High Speed Sizing Factor`
         Multiplies the autosized capacity and flow rates
-        
-        {u'note': [u'Multiplies the autosized capacity and flow rates'], u'default': '1.0', u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `High Speed Sizing Factor`
@@ -13271,8 +12873,6 @@ class EvaporativeFluidCoolerTwoSpeed(object):
     @evaporation_loss_mode.setter
     def evaporation_loss_mode(self, value="SaturatedExit"):
         """  Corresponds to IDD Field `Evaporation Loss Mode`
-        
-        {u'default': u'SaturatedExit', u'type': u'choice', u'key': [u'LossFactor', u'SaturatedExit'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Evaporation Loss Mode`
@@ -13331,8 +12931,6 @@ class EvaporativeFluidCoolerTwoSpeed(object):
         """  Corresponds to IDD Field `Evaporation Loss Factor`
         Rate of water evaporation from the Fluid Cooler and lost to the outdoor air [%/K]
         Empirical correlation is used to calculate default loss factor if it not explicitly provided.
-        
-        {u'units': u'percent/K', u'note': [u'Rate of water evaporation from the Fluid Cooler and lost to the outdoor air [%/K]', u'Empirical correlation is used to calculate default loss factor if it not explicitly provided.'], u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Evaporation Loss Factor`
@@ -13361,11 +12959,9 @@ class EvaporativeFluidCoolerTwoSpeed(object):
         return self._data["Drift Loss Percent"]
 
     @drift_loss_percent.setter
-    def drift_loss_percent(self, value=0.008 ):
+    def drift_loss_percent(self, value=0.008):
         """  Corresponds to IDD Field `Drift Loss Percent`
         Default value is under investigation. For now cooling towers default value is taken.
-        
-        {u'units': u'percent', u'default': '0.008', u'note': [u'Default value is under investigation. For now cooling towers default value is taken.'], u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Drift Loss Percent`
@@ -13397,8 +12993,6 @@ class EvaporativeFluidCoolerTwoSpeed(object):
     @blowdown_calculation_mode.setter
     def blowdown_calculation_mode(self, value="ConcentrationRatio"):
         """  Corresponds to IDD Field `Blowdown Calculation Mode`
-        
-        {u'default': u'ConcentrationRatio', u'type': u'choice', u'key': [u'ConcentrationRatio', u'ScheduledRate'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Blowdown Calculation Mode`
@@ -13453,15 +13047,13 @@ class EvaporativeFluidCoolerTwoSpeed(object):
         return self._data["Blowdown Concentration Ratio"]
 
     @blowdown_concentration_ratio.setter
-    def blowdown_concentration_ratio(self, value=3.0 ):
+    def blowdown_concentration_ratio(self, value=3.0):
         """  Corresponds to IDD Field `Blowdown Concentration Ratio`
         Characterizes the rate of blowdown in the Evaporative Fluid Cooler.
         Blowdown is water intentionally drained from the Evaporative Fluid Cooler in order to offset the
         build up of solids in the water that would otherwise occur because of evaporation.
         Ratio of solids in the blowdown water to solids in the make up water.
         Default value is under investigation. For now cooling towers default value is taken.
-        
-        {u'default': '3.0', u'note': [u'Characterizes the rate of blowdown in the Evaporative Fluid Cooler.', u'Blowdown is water intentionally drained from the Evaporative Fluid Cooler in order to offset the', u'build up of solids in the water that would otherwise occur because of evaporation.', u'Ratio of solids in the blowdown water to solids in the make up water.', u'Default value is under investigation. For now cooling towers default value is taken.'], u'minimum': '2.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Blowdown Concentration Ratio`
@@ -13500,8 +13092,6 @@ class EvaporativeFluidCoolerTwoSpeed(object):
         of water in the Evaporative Fluid Cooler basin to purge scale or other contaminants to reduce
         their concentration in order to maintain an acceptable level of water quality.
         Schedule values should reflect water usage in m3/s.
-        
-        {u'note': [u'Makeup water usage due to blowdown results from occasionally draining some amount', u'of water in the Evaporative Fluid Cooler basin to purge scale or other contaminants to reduce', u'their concentration in order to maintain an acceptable level of water quality.', u'Schedule values should reflect water usage in m3/s.'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Blowdown Makeup Water Usage Schedule Name`
@@ -13537,8 +13127,6 @@ class EvaporativeFluidCoolerTwoSpeed(object):
     @supply_water_storage_tank_name.setter
     def supply_water_storage_tank_name(self, value=None):
         """  Corresponds to IDD Field `Supply Water Storage Tank Name`
-        
-        {u'type': u'object-list', u'object-list': u'WaterStorageTankNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Supply Water Storage Tank Name`
@@ -13738,8 +13326,6 @@ class FluidCoolerSingleSpeed(object):
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
         fluid cooler name
-        
-        {u'note': [u'fluid cooler name'], u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -13776,8 +13362,6 @@ class FluidCoolerSingleSpeed(object):
     def water_inlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Water Inlet Node Name`
         Name of fluid cooler water inlet node
-        
-        {u'note': [u'Name of fluid cooler water inlet node'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Water Inlet Node Name`
@@ -13814,8 +13398,6 @@ class FluidCoolerSingleSpeed(object):
     def water_outlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Water Outlet Node Name`
         Name of fluid cooler water outlet node
-        
-        {u'note': [u'Name of fluid cooler water outlet node'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Water Outlet Node Name`
@@ -13853,8 +13435,6 @@ class FluidCoolerSingleSpeed(object):
         """  Corresponds to IDD Field `Performance Input Method`
         User can define fluid cooler thermal performance by specifying the fluid cooler UA
         and the Design Water Flow Rate, or by specifying the fluid cooler nominal capacity
-        
-        {u'default': u'NominalCapacity', u'note': [u'User can define fluid cooler thermal performance by specifying the fluid cooler UA', u'and the Design Water Flow Rate, or by specifying the fluid cooler nominal capacity'], u'type': u'Choice', u'key': [u'UFactorTimesAreaAndDesignWaterFlowRate', u'NominalCapacity'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Performance Input Method`
@@ -13892,11 +13472,9 @@ class FluidCoolerSingleSpeed(object):
     def design_air_flow_rate_ufactor_times_area_value(self, value=None):
         """  Corresponds to IDD Field `Design Air Flow Rate U-factor Times Area Value`
         Leave field blank if fluid cooler Performance Input Method is NominalCapacity
-        
-        {'pytype': 'float', u'minimum>': '0.0', u'maximum': '2100000.0', u'note': [u'Leave field blank if fluid cooler Performance Input Method is NominalCapacity'], u'autosizable': u'', u'units': u'W/K', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `Design Air Flow Rate U-factor Times Area Value`
+            value (float or "Autosize"): value for IDD Field `Design Air Flow Rate U-factor Times Area Value`
                 Units: W/K
                 value > 0.0
                 value <= 2100000.0
@@ -13907,6 +13485,13 @@ class FluidCoolerSingleSpeed(object):
             ValueError: if `value` is not a valid value
         """
         if value is not None:
+            try:
+                value_lower = str(value).lower()
+                if value_lower == "autosize":
+                    self._data["Design Air Flow Rate U-factor Times Area Value"] = "Autosize"
+                    return
+            except ValueError:
+                pass
             try:
                 value = float(value)
             except ValueError:
@@ -13933,8 +13518,6 @@ class FluidCoolerSingleSpeed(object):
     def nominal_capacity(self, value=None):
         """  Corresponds to IDD Field `Nominal Capacity`
         Nominal fluid cooler capacity
-        
-        {u'units': u'W', u'note': [u'Nominal fluid cooler capacity'], u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Nominal Capacity`
@@ -13971,8 +13554,6 @@ class FluidCoolerSingleSpeed(object):
         """  Corresponds to IDD Field `Design Entering Water Temperature`
         Design Entering Water Temperature must be specified for both the performance input methods and
         its value must be greater than Design Entering Air Temperature.
-        
-        {'pytype': 'float', u'minimum>': '0.0', u'required-field': True, u'note': [u'Design Entering Water Temperature must be specified for both the performance input methods and', u'its value must be greater than Design Entering Air Temperature.'], u'ip-units': u'F', u'units': u'C', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Design Entering Water Temperature`
@@ -14010,8 +13591,6 @@ class FluidCoolerSingleSpeed(object):
         """  Corresponds to IDD Field `Design Entering Air Temperature`
         Design Entering Air Temperature must be specified for both the performance input methods and
         its value must be greater than Design Entering Air Wet-bulb Temperature.
-        
-        {'pytype': 'float', u'minimum>': '0.0', u'required-field': True, u'note': [u'Design Entering Air Temperature must be specified for both the performance input methods and', u'its value must be greater than Design Entering Air Wet-bulb Temperature.'], u'ip-units': u'F', u'units': u'C', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Design Entering Air Temperature`
@@ -14049,8 +13628,6 @@ class FluidCoolerSingleSpeed(object):
         """  Corresponds to IDD Field `Design Entering Air Wetbulb Temperature`
         Design Entering Air Wet-bulb Temperature must be specified for both the performance input methods and
         its value must be less than Design Entering Air Temperature.
-        
-        {'pytype': 'float', u'minimum>': '0.0', u'required-field': True, u'note': [u'Design Entering Air Wet-bulb Temperature must be specified for both the performance input methods and', u'its value must be less than Design Entering Air Temperature.'], u'ip-units': u'F', u'units': u'C', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Design Entering Air Wetbulb Temperature`
@@ -14086,11 +13663,9 @@ class FluidCoolerSingleSpeed(object):
     @design_water_flow_rate.setter
     def design_water_flow_rate(self, value=None):
         """  Corresponds to IDD Field `Design Water Flow Rate`
-        
-        {'pytype': 'float', u'minimum>': '0.0', u'required-field': True, u'ip-units': u'gal/min', u'autosizable': u'', u'units': u'm3/s', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `Design Water Flow Rate`
+            value (float or "Autosize"): value for IDD Field `Design Water Flow Rate`
                 Units: m3/s
                 IP-Units: gal/min
                 value > 0.0
@@ -14101,6 +13676,13 @@ class FluidCoolerSingleSpeed(object):
             ValueError: if `value` is not a valid value
         """
         if value is not None:
+            try:
+                value_lower = str(value).lower()
+                if value_lower == "autosize":
+                    self._data["Design Water Flow Rate"] = "Autosize"
+                    return
+            except ValueError:
+                pass
             try:
                 value = float(value)
             except ValueError:
@@ -14123,11 +13705,9 @@ class FluidCoolerSingleSpeed(object):
     @design_air_flow_rate.setter
     def design_air_flow_rate(self, value=None):
         """  Corresponds to IDD Field `Design Air Flow Rate`
-        
-        {'pytype': 'float', u'minimum>': '0.0', u'required-field': True, u'autosizable': u'', u'units': u'm3/s', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `Design Air Flow Rate`
+            value (float or "Autosize"): value for IDD Field `Design Air Flow Rate`
                 Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -14137,6 +13717,13 @@ class FluidCoolerSingleSpeed(object):
             ValueError: if `value` is not a valid value
         """
         if value is not None:
+            try:
+                value_lower = str(value).lower()
+                if value_lower == "autosize":
+                    self._data["Design Air Flow Rate"] = "Autosize"
+                    return
+            except ValueError:
+                pass
             try:
                 value = float(value)
             except ValueError:
@@ -14160,11 +13747,9 @@ class FluidCoolerSingleSpeed(object):
     def design_air_flow_rate_fan_power(self, value=None):
         """  Corresponds to IDD Field `Design Air Flow Rate Fan Power`
         This is the fan motor electric input power
-        
-        {'pytype': 'float', u'minimum>': '0.0', u'required-field': True, u'note': [u'This is the fan motor electric input power'], u'ip-units': u'W', u'autosizable': u'', u'units': u'W', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `Design Air Flow Rate Fan Power`
+            value (float or "Autosize"): value for IDD Field `Design Air Flow Rate Fan Power`
                 Units: W
                 IP-Units: W
                 value > 0.0
@@ -14175,6 +13760,13 @@ class FluidCoolerSingleSpeed(object):
             ValueError: if `value` is not a valid value
         """
         if value is not None:
+            try:
+                value_lower = str(value).lower()
+                if value_lower == "autosize":
+                    self._data["Design Air Flow Rate Fan Power"] = "Autosize"
+                    return
+            except ValueError:
+                pass
             try:
                 value = float(value)
             except ValueError:
@@ -14198,8 +13790,6 @@ class FluidCoolerSingleSpeed(object):
     def outdoor_air_inlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Outdoor Air Inlet Node Name`
         Enter the name of an outdoor air node
-        
-        {u'note': [u'Enter the name of an outdoor air node'], u'type': u'node', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Outdoor Air Inlet Node Name`
@@ -14463,8 +14053,6 @@ class FluidCoolerTwoSpeed(object):
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
         fluid cooler name
-        
-        {u'note': [u'fluid cooler name'], u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -14501,8 +14089,6 @@ class FluidCoolerTwoSpeed(object):
     def water_inlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Water Inlet Node Name`
         Name of fluid cooler water inlet node
-        
-        {u'note': [u'Name of fluid cooler water inlet node'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Water Inlet Node Name`
@@ -14539,8 +14125,6 @@ class FluidCoolerTwoSpeed(object):
     def water_outlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Water Outlet Node Name`
         Name of fluid cooler water outlet node
-        
-        {u'note': [u'Name of fluid cooler water outlet node'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Water Outlet Node Name`
@@ -14578,8 +14162,6 @@ class FluidCoolerTwoSpeed(object):
         """  Corresponds to IDD Field `Performance Input Method`
         User can define fluid cooler thermal performance by specifying the fluid cooler UA
         and the Design Water Flow Rate, or by specifying the fluid cooler nominal capacity
-        
-        {u'default': u'NominalCapacity', u'note': [u'User can define fluid cooler thermal performance by specifying the fluid cooler UA', u'and the Design Water Flow Rate, or by specifying the fluid cooler nominal capacity'], u'type': u'Choice', u'key': [u'UFactorTimesAreaAndDesignWaterFlowRate', u'NominalCapacity'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Performance Input Method`
@@ -14617,11 +14199,9 @@ class FluidCoolerTwoSpeed(object):
     def high_fan_speed_ufactor_times_area_value(self, value=None):
         """  Corresponds to IDD Field `High Fan Speed U-factor Times Area Value`
         Leave field blank if fluid cooler Performance Input Method is NominalCapacity
-        
-        {'pytype': 'float', u'minimum>': '0.0', u'maximum': '2100000.0', u'note': [u'Leave field blank if fluid cooler Performance Input Method is NominalCapacity'], u'autosizable': u'', u'units': u'W/K', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `High Fan Speed U-factor Times Area Value`
+            value (float or "Autosize"): value for IDD Field `High Fan Speed U-factor Times Area Value`
                 Units: W/K
                 value > 0.0
                 value <= 2100000.0
@@ -14632,6 +14212,13 @@ class FluidCoolerTwoSpeed(object):
             ValueError: if `value` is not a valid value
         """
         if value is not None:
+            try:
+                value_lower = str(value).lower()
+                if value_lower == "autosize":
+                    self._data["High Fan Speed U-factor Times Area Value"] = "Autosize"
+                    return
+            except ValueError:
+                pass
             try:
                 value = float(value)
             except ValueError:
@@ -14660,8 +14247,6 @@ class FluidCoolerTwoSpeed(object):
         Leave field blank if fluid cooler Performance Input Method is NominalCapacity
         Low speed fluid cooler UA must be less than high speed fluid cooler UA
         Low speed fluid cooler UA must be greater than free convection fluid cooler UA
-        
-        {'pytype': 'float', u'minimum>': '0.0', u'maximum': '300000.0', u'note': [u'Leave field blank if fluid cooler Performance Input Method is NominalCapacity', u'Low speed fluid cooler UA must be less than high speed fluid cooler UA', u'Low speed fluid cooler UA must be greater than free convection fluid cooler UA'], u'units': u'W/K', u'autocalculatable': True, u'type': u'real'}
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `Low Fan Speed U-factor Times Area Value`
@@ -14678,7 +14263,7 @@ class FluidCoolerTwoSpeed(object):
             try:
                 value_lower = str(value).lower()
                 if value_lower == "autocalculate":
-                    self._data["Low Fan Speed U-factor Times Area Value"] = value
+                    self._data["Low Fan Speed U-factor Times Area Value"] = "Autocalculate"
                     return
             except ValueError:
                 pass
@@ -14705,12 +14290,10 @@ class FluidCoolerTwoSpeed(object):
         return self._data["Low Fan Speed U-Factor Times Area Sizing Factor"]
 
     @low_fan_speed_ufactor_times_area_sizing_factor.setter
-    def low_fan_speed_ufactor_times_area_sizing_factor(self, value=0.6 ):
+    def low_fan_speed_ufactor_times_area_sizing_factor(self, value=0.6):
         """  Corresponds to IDD Field `Low Fan Speed U-Factor Times Area Sizing Factor`
         This field is only used if the previous field is set to autocalculate and
         the Performance Input Method is UFactorTimesAreaAndDesignWaterFlowRate
-        
-        {u'default': '0.6', u'note': [u'This field is only used if the previous field is set to autocalculate and', u'the Performance Input Method is UFactorTimesAreaAndDesignWaterFlowRate'], u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Low Fan Speed U-Factor Times Area Sizing Factor`
@@ -14742,8 +14325,6 @@ class FluidCoolerTwoSpeed(object):
     def high_speed_nominal_capacity(self, value=None):
         """  Corresponds to IDD Field `High Speed Nominal Capacity`
         Nominal fluid cooler capacity at high fan speed
-        
-        {u'units': u'W', u'note': [u'Nominal fluid cooler capacity at high fan speed'], u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `High Speed Nominal Capacity`
@@ -14779,8 +14360,6 @@ class FluidCoolerTwoSpeed(object):
     def low_speed_nominal_capacity(self, value=None):
         """  Corresponds to IDD Field `Low Speed Nominal Capacity`
         Nominal fluid cooler capacity at low fan speed
-        
-        {'pytype': 'float', u'minimum>': '0.0', u'note': [u'Nominal fluid cooler capacity at low fan speed'], u'units': u'W', u'autocalculatable': True, u'type': u'real'}
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `Low Speed Nominal Capacity`
@@ -14796,7 +14375,7 @@ class FluidCoolerTwoSpeed(object):
             try:
                 value_lower = str(value).lower()
                 if value_lower == "autocalculate":
-                    self._data["Low Speed Nominal Capacity"] = value
+                    self._data["Low Speed Nominal Capacity"] = "Autocalculate"
                     return
             except ValueError:
                 pass
@@ -14820,12 +14399,10 @@ class FluidCoolerTwoSpeed(object):
         return self._data["Low Speed Nominal Capacity Sizing Factor"]
 
     @low_speed_nominal_capacity_sizing_factor.setter
-    def low_speed_nominal_capacity_sizing_factor(self, value=0.5 ):
+    def low_speed_nominal_capacity_sizing_factor(self, value=0.5):
         """  Corresponds to IDD Field `Low Speed Nominal Capacity Sizing Factor`
         This field is only used if the previous field is set to autocalculate and
         the Performance Input Method is NominalCapacity
-        
-        {u'default': '0.5', u'note': [u'This field is only used if the previous field is set to autocalculate and', u'the Performance Input Method is NominalCapacity'], u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Low Speed Nominal Capacity Sizing Factor`
@@ -14858,8 +14435,6 @@ class FluidCoolerTwoSpeed(object):
         """  Corresponds to IDD Field `Design Entering Water Temperature`
         Design Entering Water Temperature must be specified for both the performance input methods and
         its value must be greater than Design Entering Air Temperature.
-        
-        {'pytype': 'float', u'minimum>': '0.0', u'required-field': True, u'note': [u'Design Entering Water Temperature must be specified for both the performance input methods and', u'its value must be greater than Design Entering Air Temperature.'], u'ip-units': u'F', u'units': u'C', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Design Entering Water Temperature`
@@ -14897,8 +14472,6 @@ class FluidCoolerTwoSpeed(object):
         """  Corresponds to IDD Field `Design Entering Air Temperature`
         Design Entering Air Temperature must be specified for both the performance input methods and
         its value must be greater than Design Entering Air Wet-bulb Temperature.
-        
-        {'pytype': 'float', u'minimum>': '0.0', u'required-field': True, u'note': [u'Design Entering Air Temperature must be specified for both the performance input methods and', u'its value must be greater than Design Entering Air Wet-bulb Temperature.'], u'ip-units': u'F', u'units': u'C', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Design Entering Air Temperature`
@@ -14936,8 +14509,6 @@ class FluidCoolerTwoSpeed(object):
         """  Corresponds to IDD Field `Design Entering Air Wet-bulb Temperature`
         Design Entering Air Wet-bulb Temperature must be specified for both the performance input methods and
         its value must be less than Design Entering Air Temperature.
-        
-        {'pytype': 'float', u'minimum>': '0.0', u'required-field': True, u'note': [u'Design Entering Air Wet-bulb Temperature must be specified for both the performance input methods and', u'its value must be less than Design Entering Air Temperature.'], u'ip-units': u'F', u'units': u'C', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Design Entering Air Wet-bulb Temperature`
@@ -14973,11 +14544,9 @@ class FluidCoolerTwoSpeed(object):
     @design_water_flow_rate.setter
     def design_water_flow_rate(self, value=None):
         """  Corresponds to IDD Field `Design Water Flow Rate`
-        
-        {'pytype': 'float', u'minimum>': '0.0', u'required-field': True, u'ip-units': u'gal/min', u'autosizable': u'', u'units': u'm3/s', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `Design Water Flow Rate`
+            value (float or "Autosize"): value for IDD Field `Design Water Flow Rate`
                 Units: m3/s
                 IP-Units: gal/min
                 value > 0.0
@@ -14988,6 +14557,13 @@ class FluidCoolerTwoSpeed(object):
             ValueError: if `value` is not a valid value
         """
         if value is not None:
+            try:
+                value_lower = str(value).lower()
+                if value_lower == "autosize":
+                    self._data["Design Water Flow Rate"] = "Autosize"
+                    return
+            except ValueError:
+                pass
             try:
                 value = float(value)
             except ValueError:
@@ -15011,11 +14587,9 @@ class FluidCoolerTwoSpeed(object):
     def high_fan_speed_air_flow_rate(self, value=None):
         """  Corresponds to IDD Field `High Fan Speed Air Flow Rate`
         Air Flow Rate at High Fan Speed must be greater than Air Flow Rate at Low Fan Speed
-        
-        {'pytype': 'float', u'minimum>': '0.0', u'required-field': True, u'note': [u'Air Flow Rate at High Fan Speed must be greater than Air Flow Rate at Low Fan Speed'], u'autosizable': u'', u'units': u'm3/s', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `High Fan Speed Air Flow Rate`
+            value (float or "Autosize"): value for IDD Field `High Fan Speed Air Flow Rate`
                 Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -15025,6 +14599,13 @@ class FluidCoolerTwoSpeed(object):
             ValueError: if `value` is not a valid value
         """
         if value is not None:
+            try:
+                value_lower = str(value).lower()
+                if value_lower == "autosize":
+                    self._data["High Fan Speed Air Flow Rate"] = "Autosize"
+                    return
+            except ValueError:
+                pass
             try:
                 value = float(value)
             except ValueError:
@@ -15048,11 +14629,9 @@ class FluidCoolerTwoSpeed(object):
     def high_fan_speed_fan_power(self, value=None):
         """  Corresponds to IDD Field `High Fan Speed Fan Power`
         This is the fan motor electric input power at high speed
-        
-        {'pytype': 'float', u'minimum>': '0.0', u'required-field': True, u'note': [u'This is the fan motor electric input power at high speed'], u'ip-units': u'W', u'autosizable': u'', u'units': u'W', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `High Fan Speed Fan Power`
+            value (float or "Autosize"): value for IDD Field `High Fan Speed Fan Power`
                 Units: W
                 IP-Units: W
                 value > 0.0
@@ -15063,6 +14642,13 @@ class FluidCoolerTwoSpeed(object):
             ValueError: if `value` is not a valid value
         """
         if value is not None:
+            try:
+                value_lower = str(value).lower()
+                if value_lower == "autosize":
+                    self._data["High Fan Speed Fan Power"] = "Autosize"
+                    return
+            except ValueError:
+                pass
             try:
                 value = float(value)
             except ValueError:
@@ -15086,8 +14672,6 @@ class FluidCoolerTwoSpeed(object):
     def low_fan_speed_air_flow_rate(self, value=None):
         """  Corresponds to IDD Field `Low Fan Speed Air Flow Rate`
         Air Flow Rate at Low Fan Speed must be less than Air Flow Rate at High Fan Speed
-        
-        {'pytype': 'float', u'minimum>': '0.0', u'required-field': True, u'note': [u'Air Flow Rate at Low Fan Speed must be less than Air Flow Rate at High Fan Speed'], u'units': u'm3/s', u'autocalculatable': True, u'type': u'real'}
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `Low Fan Speed Air Flow Rate`
@@ -15103,7 +14687,7 @@ class FluidCoolerTwoSpeed(object):
             try:
                 value_lower = str(value).lower()
                 if value_lower == "autocalculate":
-                    self._data["Low Fan Speed Air Flow Rate"] = value
+                    self._data["Low Fan Speed Air Flow Rate"] = "Autocalculate"
                     return
             except ValueError:
                 pass
@@ -15127,11 +14711,9 @@ class FluidCoolerTwoSpeed(object):
         return self._data["Low Fan Speed Air Flow Rate Sizing Factor"]
 
     @low_fan_speed_air_flow_rate_sizing_factor.setter
-    def low_fan_speed_air_flow_rate_sizing_factor(self, value=0.5 ):
+    def low_fan_speed_air_flow_rate_sizing_factor(self, value=0.5):
         """  Corresponds to IDD Field `Low Fan Speed Air Flow Rate Sizing Factor`
         This field is only used if the previous field is set to autocalculate.
-        
-        {u'default': '0.5', u'note': [u'This field is only used if the previous field is set to autocalculate.'], u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Low Fan Speed Air Flow Rate Sizing Factor`
@@ -15163,8 +14745,6 @@ class FluidCoolerTwoSpeed(object):
     def low_fan_speed_fan_power(self, value=None):
         """  Corresponds to IDD Field `Low Fan Speed Fan Power`
         This is the fan motor electric input power at low speed
-        
-        {'pytype': 'float', u'minimum>': '0.0', u'required-field': True, u'note': [u'This is the fan motor electric input power at low speed'], u'ip-units': u'W', u'units': u'W', u'autocalculatable': True, u'type': u'real'}
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `Low Fan Speed Fan Power`
@@ -15181,7 +14761,7 @@ class FluidCoolerTwoSpeed(object):
             try:
                 value_lower = str(value).lower()
                 if value_lower == "autocalculate":
-                    self._data["Low Fan Speed Fan Power"] = value
+                    self._data["Low Fan Speed Fan Power"] = "Autocalculate"
                     return
             except ValueError:
                 pass
@@ -15205,11 +14785,9 @@ class FluidCoolerTwoSpeed(object):
         return self._data["Low Fan Speed Fan Power Sizing Factor"]
 
     @low_fan_speed_fan_power_sizing_factor.setter
-    def low_fan_speed_fan_power_sizing_factor(self, value=0.16 ):
+    def low_fan_speed_fan_power_sizing_factor(self, value=0.16):
         """  Corresponds to IDD Field `Low Fan Speed Fan Power Sizing Factor`
         This field is only used if the previous field is set to autocalculate.
-        
-        {u'default': '0.16', u'note': [u'This field is only used if the previous field is set to autocalculate.'], u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Low Fan Speed Fan Power Sizing Factor`
@@ -15240,8 +14818,6 @@ class FluidCoolerTwoSpeed(object):
     @outdoor_air_inlet_node_name.setter
     def outdoor_air_inlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Outdoor Air Inlet Node Name`
-        
-        {u'type': u'node', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Outdoor Air Inlet Node Name`
@@ -17091,8 +16667,6 @@ class GroundHeatExchangerVertical(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {'type': 'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -17128,8 +16702,6 @@ class GroundHeatExchangerVertical(object):
     @inlet_node_name.setter
     def inlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Inlet Node Name`
-        
-        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Inlet Node Name`
@@ -17165,8 +16737,6 @@ class GroundHeatExchangerVertical(object):
     @outlet_node_name.setter
     def outlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Outlet Node Name`
-        
-        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Outlet Node Name`
@@ -17202,8 +16772,6 @@ class GroundHeatExchangerVertical(object):
     @maximum_flow_rate.setter
     def maximum_flow_rate(self, value=None):
         """  Corresponds to IDD Field `Maximum Flow Rate`
-        
-        {u'units': u'm3/s', u'ip-units': u'gal/min', u'minimum>': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Maximum Flow Rate`
@@ -17239,8 +16807,6 @@ class GroundHeatExchangerVertical(object):
     @number_of_bore_holes.setter
     def number_of_bore_holes(self, value=None):
         """  Corresponds to IDD Field `Number of Bore Holes`
-        
-        {u'minimum>': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Number of Bore Holes`
@@ -17274,8 +16840,6 @@ class GroundHeatExchangerVertical(object):
     @bore_hole_length.setter
     def bore_hole_length(self, value=None):
         """  Corresponds to IDD Field `Bore Hole Length`
-        
-        {u'units': u'm', u'minimum>': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Bore Hole Length`
@@ -17310,8 +16874,6 @@ class GroundHeatExchangerVertical(object):
     @bore_hole_radius.setter
     def bore_hole_radius(self, value=None):
         """  Corresponds to IDD Field `Bore Hole Radius`
-        
-        {u'units': u'm', u'minimum>': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Bore Hole Radius`
@@ -17346,8 +16908,6 @@ class GroundHeatExchangerVertical(object):
     @ground_thermal_conductivity.setter
     def ground_thermal_conductivity(self, value=None):
         """  Corresponds to IDD Field `Ground Thermal Conductivity`
-        
-        {u'units': u'W/m-K', u'minimum>': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Ground Thermal Conductivity`
@@ -17382,8 +16942,6 @@ class GroundHeatExchangerVertical(object):
     @ground_thermal_heat_capacity.setter
     def ground_thermal_heat_capacity(self, value=None):
         """  Corresponds to IDD Field `Ground Thermal Heat Capacity`
-        
-        {u'units': u'J/m3-K', u'minimum>': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Ground Thermal Heat Capacity`
@@ -17418,8 +16976,6 @@ class GroundHeatExchangerVertical(object):
     @ground_temperature.setter
     def ground_temperature(self, value=None):
         """  Corresponds to IDD Field `Ground Temperature`
-        
-        {u'units': u'C', u'minimum>': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Ground Temperature`
@@ -17454,8 +17010,6 @@ class GroundHeatExchangerVertical(object):
     @design_flow_rate.setter
     def design_flow_rate(self, value=None):
         """  Corresponds to IDD Field `Design Flow Rate`
-        
-        {u'units': u'm3/s', u'ip-units': u'gal/min', u'minimum>': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Design Flow Rate`
@@ -17491,8 +17045,6 @@ class GroundHeatExchangerVertical(object):
     @grout_thermal_conductivity.setter
     def grout_thermal_conductivity(self, value=None):
         """  Corresponds to IDD Field `Grout Thermal Conductivity`
-        
-        {u'units': u'W/m-K', u'minimum>': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Grout Thermal Conductivity`
@@ -17527,8 +17079,6 @@ class GroundHeatExchangerVertical(object):
     @pipe_thermal_conductivity.setter
     def pipe_thermal_conductivity(self, value=None):
         """  Corresponds to IDD Field `Pipe Thermal Conductivity`
-        
-        {u'units': u'W/m-K', u'minimum>': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Pipe Thermal Conductivity`
@@ -17563,8 +17113,6 @@ class GroundHeatExchangerVertical(object):
     @pipe_out_diameter.setter
     def pipe_out_diameter(self, value=None):
         """  Corresponds to IDD Field `Pipe Out Diameter`
-        
-        {u'units': u'm', u'ip-units': u'in', u'minimum>': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Pipe Out Diameter`
@@ -17600,8 +17148,6 @@ class GroundHeatExchangerVertical(object):
     @utube_distance.setter
     def utube_distance(self, value=None):
         """  Corresponds to IDD Field `U-Tube Distance`
-        
-        {u'units': u'm', u'minimum>': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `U-Tube Distance`
@@ -17636,8 +17182,6 @@ class GroundHeatExchangerVertical(object):
     @pipe_thickness.setter
     def pipe_thickness(self, value=None):
         """  Corresponds to IDD Field `Pipe Thickness`
-        
-        {u'units': u'm', u'ip-units': u'in', u'minimum>': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Pipe Thickness`
@@ -17673,8 +17217,6 @@ class GroundHeatExchangerVertical(object):
     @maximum_length_of_simulation.setter
     def maximum_length_of_simulation(self, value=None):
         """  Corresponds to IDD Field `Maximum Length of Simulation`
-        
-        {u'minimum>': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Maximum Length of Simulation`
@@ -17706,10 +17248,8 @@ class GroundHeatExchangerVertical(object):
         return self._data["G-Function Reference Ratio"]
 
     @gfunction_reference_ratio.setter
-    def gfunction_reference_ratio(self, value=0.0005 ):
+    def gfunction_reference_ratio(self, value=0.0005):
         """  Corresponds to IDD Field `G-Function Reference Ratio`
-        
-        {u'units': u'dimensionless', u'default': '0.0005', u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function Reference Ratio`
@@ -17745,8 +17285,6 @@ class GroundHeatExchangerVertical(object):
     @number_of_data_pairs_of_the_g_function.setter
     def number_of_data_pairs_of_the_g_function(self, value=None):
         """  Corresponds to IDD Field `Number of Data Pairs of the G Function`
-        
-        {u'minimum>': '0.0', 'type': 'real', u'maximum': '100.0', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Number of Data Pairs of the G Function`
@@ -17784,8 +17322,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_lnt_or_ts_value_1.setter
     def gfunction_lnt_or_ts_value_1(self, value=None):
         """  Corresponds to IDD Field `G-Function Ln(T/Ts) Value 1`
-        
-        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 1`
@@ -17815,8 +17351,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_g_value_1.setter
     def gfunction_g_value_1(self, value=None):
         """  Corresponds to IDD Field `G-Function G Value 1`
-        
-        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function G Value 1`
@@ -17846,8 +17380,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_lnt_or_ts_value_2.setter
     def gfunction_lnt_or_ts_value_2(self, value=None):
         """  Corresponds to IDD Field `G-Function Ln(T/Ts) Value 2`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 2`
@@ -17877,8 +17409,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_g_value_2.setter
     def gfunction_g_value_2(self, value=None):
         """  Corresponds to IDD Field `G-Function G Value 2`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function G Value 2`
@@ -17908,8 +17438,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_lnt_or_ts_value_3.setter
     def gfunction_lnt_or_ts_value_3(self, value=None):
         """  Corresponds to IDD Field `G-Function Ln(T/Ts) Value 3`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 3`
@@ -17939,8 +17467,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_g_value_3.setter
     def gfunction_g_value_3(self, value=None):
         """  Corresponds to IDD Field `G-Function G Value 3`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function G Value 3`
@@ -17970,8 +17496,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_lnt_or_ts_value_4.setter
     def gfunction_lnt_or_ts_value_4(self, value=None):
         """  Corresponds to IDD Field `G-Function Ln(T/Ts) Value 4`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 4`
@@ -18001,8 +17525,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_g_value_4.setter
     def gfunction_g_value_4(self, value=None):
         """  Corresponds to IDD Field `G-Function G Value 4`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function G Value 4`
@@ -18032,8 +17554,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_lnt_or_ts_value_5.setter
     def gfunction_lnt_or_ts_value_5(self, value=None):
         """  Corresponds to IDD Field `G-Function Ln(T/Ts) Value 5`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 5`
@@ -18063,8 +17583,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_g_value_5.setter
     def gfunction_g_value_5(self, value=None):
         """  Corresponds to IDD Field `G-Function G Value 5`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function G Value 5`
@@ -18094,8 +17612,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_lnt_or_ts_value_6.setter
     def gfunction_lnt_or_ts_value_6(self, value=None):
         """  Corresponds to IDD Field `G-Function Ln(T/Ts) Value 6`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 6`
@@ -18125,8 +17641,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_g_value_6.setter
     def gfunction_g_value_6(self, value=None):
         """  Corresponds to IDD Field `G-Function G Value 6`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function G Value 6`
@@ -18156,8 +17670,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_lnt_or_ts_value_7.setter
     def gfunction_lnt_or_ts_value_7(self, value=None):
         """  Corresponds to IDD Field `G-Function Ln(T/Ts) Value 7`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 7`
@@ -18187,8 +17699,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_g_value_7.setter
     def gfunction_g_value_7(self, value=None):
         """  Corresponds to IDD Field `G-Function G Value 7`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function G Value 7`
@@ -18218,8 +17728,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_lnt_or_ts_value_8.setter
     def gfunction_lnt_or_ts_value_8(self, value=None):
         """  Corresponds to IDD Field `G-Function Ln(T/Ts) Value 8`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 8`
@@ -18249,8 +17757,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_g_value_8.setter
     def gfunction_g_value_8(self, value=None):
         """  Corresponds to IDD Field `G-Function G Value 8`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function G Value 8`
@@ -18280,8 +17786,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_lnt_or_ts_value_9.setter
     def gfunction_lnt_or_ts_value_9(self, value=None):
         """  Corresponds to IDD Field `G-Function Ln(T/Ts) Value 9`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 9`
@@ -18311,8 +17815,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_g_value_9.setter
     def gfunction_g_value_9(self, value=None):
         """  Corresponds to IDD Field `G-Function G Value 9`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function G Value 9`
@@ -18342,8 +17844,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_lnt_or_ts_value_10.setter
     def gfunction_lnt_or_ts_value_10(self, value=None):
         """  Corresponds to IDD Field `G-Function Ln(T/Ts) Value 10`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 10`
@@ -18373,8 +17873,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_g_value_10.setter
     def gfunction_g_value_10(self, value=None):
         """  Corresponds to IDD Field `G-Function G Value 10`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function G Value 10`
@@ -18404,8 +17902,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_lnt_or_ts_value_11.setter
     def gfunction_lnt_or_ts_value_11(self, value=None):
         """  Corresponds to IDD Field `G-Function Ln(T/Ts) Value 11`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 11`
@@ -18435,8 +17931,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_g_value_11.setter
     def gfunction_g_value_11(self, value=None):
         """  Corresponds to IDD Field `G-Function G Value 11`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function G Value 11`
@@ -18466,8 +17960,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_lnt_or_ts_value_12.setter
     def gfunction_lnt_or_ts_value_12(self, value=None):
         """  Corresponds to IDD Field `G-Function Ln(T/Ts) Value 12`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 12`
@@ -18497,8 +17989,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_g_value_12.setter
     def gfunction_g_value_12(self, value=None):
         """  Corresponds to IDD Field `G-Function G Value 12`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function G Value 12`
@@ -18528,8 +18018,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_lnt_or_ts_value_13.setter
     def gfunction_lnt_or_ts_value_13(self, value=None):
         """  Corresponds to IDD Field `G-Function Ln(T/Ts) Value 13`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 13`
@@ -18559,8 +18047,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_g_value_13.setter
     def gfunction_g_value_13(self, value=None):
         """  Corresponds to IDD Field `G-Function G Value 13`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function G Value 13`
@@ -18590,8 +18076,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_lnt_or_ts_value_14.setter
     def gfunction_lnt_or_ts_value_14(self, value=None):
         """  Corresponds to IDD Field `G-Function Ln(T/Ts) Value 14`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 14`
@@ -18621,8 +18105,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_g_value_14.setter
     def gfunction_g_value_14(self, value=None):
         """  Corresponds to IDD Field `G-Function G Value 14`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function G Value 14`
@@ -18652,8 +18134,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_lnt_or_ts_value_15.setter
     def gfunction_lnt_or_ts_value_15(self, value=None):
         """  Corresponds to IDD Field `G-Function Ln(T/Ts) Value 15`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 15`
@@ -18683,8 +18163,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_g_value_15.setter
     def gfunction_g_value_15(self, value=None):
         """  Corresponds to IDD Field `G-Function G Value 15`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function G Value 15`
@@ -18714,8 +18192,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_lnt_or_ts_value_16.setter
     def gfunction_lnt_or_ts_value_16(self, value=None):
         """  Corresponds to IDD Field `G-Function Ln(T/Ts) Value 16`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 16`
@@ -18745,8 +18221,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_g_value_16.setter
     def gfunction_g_value_16(self, value=None):
         """  Corresponds to IDD Field `G-Function G Value 16`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function G Value 16`
@@ -18776,8 +18250,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_lnt_or_ts_value_17.setter
     def gfunction_lnt_or_ts_value_17(self, value=None):
         """  Corresponds to IDD Field `G-Function Ln(T/Ts) Value 17`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 17`
@@ -18807,8 +18279,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_g_value_17.setter
     def gfunction_g_value_17(self, value=None):
         """  Corresponds to IDD Field `G-Function G Value 17`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function G Value 17`
@@ -18838,8 +18308,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_lnt_or_ts_value_18.setter
     def gfunction_lnt_or_ts_value_18(self, value=None):
         """  Corresponds to IDD Field `G-Function Ln(T/Ts) Value 18`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 18`
@@ -18869,8 +18337,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_g_value_18.setter
     def gfunction_g_value_18(self, value=None):
         """  Corresponds to IDD Field `G-Function G Value 18`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function G Value 18`
@@ -18900,8 +18366,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_lnt_or_ts_value_19.setter
     def gfunction_lnt_or_ts_value_19(self, value=None):
         """  Corresponds to IDD Field `G-Function Ln(T/Ts) Value 19`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 19`
@@ -18931,8 +18395,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_g_value_19.setter
     def gfunction_g_value_19(self, value=None):
         """  Corresponds to IDD Field `G-Function G Value 19`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function G Value 19`
@@ -18962,8 +18424,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_lnt_or_ts_value_20.setter
     def gfunction_lnt_or_ts_value_20(self, value=None):
         """  Corresponds to IDD Field `G-Function Ln(T/Ts) Value 20`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 20`
@@ -18993,8 +18453,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_g_value_20.setter
     def gfunction_g_value_20(self, value=None):
         """  Corresponds to IDD Field `G-Function G Value 20`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function G Value 20`
@@ -19024,8 +18482,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_lnt_or_ts_value_21.setter
     def gfunction_lnt_or_ts_value_21(self, value=None):
         """  Corresponds to IDD Field `G-Function Ln(T/Ts) Value 21`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 21`
@@ -19055,8 +18511,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_g_value_21.setter
     def gfunction_g_value_21(self, value=None):
         """  Corresponds to IDD Field `G-Function G Value 21`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function G Value 21`
@@ -19086,8 +18540,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_lnt_or_ts_value_22.setter
     def gfunction_lnt_or_ts_value_22(self, value=None):
         """  Corresponds to IDD Field `G-Function Ln(T/Ts) Value 22`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 22`
@@ -19117,8 +18569,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_g_value_22.setter
     def gfunction_g_value_22(self, value=None):
         """  Corresponds to IDD Field `G-Function G Value 22`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function G Value 22`
@@ -19148,8 +18598,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_lnt_or_ts_value_23.setter
     def gfunction_lnt_or_ts_value_23(self, value=None):
         """  Corresponds to IDD Field `G-Function Ln(T/Ts) Value 23`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 23`
@@ -19179,8 +18627,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_g_value_23.setter
     def gfunction_g_value_23(self, value=None):
         """  Corresponds to IDD Field `G-Function G Value 23`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function G Value 23`
@@ -19210,8 +18656,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_lnt_or_ts_value_24.setter
     def gfunction_lnt_or_ts_value_24(self, value=None):
         """  Corresponds to IDD Field `G-Function Ln(T/Ts) Value 24`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 24`
@@ -19241,8 +18685,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_g_value_24.setter
     def gfunction_g_value_24(self, value=None):
         """  Corresponds to IDD Field `G-Function G Value 24`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function G Value 24`
@@ -19272,8 +18714,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_lnt_or_ts_value_25.setter
     def gfunction_lnt_or_ts_value_25(self, value=None):
         """  Corresponds to IDD Field `G-Function Ln(T/Ts) Value 25`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 25`
@@ -19303,8 +18743,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_g_value_25.setter
     def gfunction_g_value_25(self, value=None):
         """  Corresponds to IDD Field `G-Function G Value 25`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function G Value 25`
@@ -19334,8 +18772,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_lnt_or_ts_value_26.setter
     def gfunction_lnt_or_ts_value_26(self, value=None):
         """  Corresponds to IDD Field `G-Function Ln(T/Ts) Value 26`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 26`
@@ -19365,8 +18801,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_g_value_26.setter
     def gfunction_g_value_26(self, value=None):
         """  Corresponds to IDD Field `G-Function G Value 26`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function G Value 26`
@@ -19396,8 +18830,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_lnt_or_ts_value_27.setter
     def gfunction_lnt_or_ts_value_27(self, value=None):
         """  Corresponds to IDD Field `G-Function Ln(T/Ts) Value 27`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 27`
@@ -19427,8 +18859,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_g_value_27.setter
     def gfunction_g_value_27(self, value=None):
         """  Corresponds to IDD Field `G-Function G Value 27`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function G Value 27`
@@ -19458,8 +18888,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_lnt_or_ts_value_28.setter
     def gfunction_lnt_or_ts_value_28(self, value=None):
         """  Corresponds to IDD Field `G-Function Ln(T/Ts) Value 28`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 28`
@@ -19489,8 +18917,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_g_value_28.setter
     def gfunction_g_value_28(self, value=None):
         """  Corresponds to IDD Field `G-Function G Value 28`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function G Value 28`
@@ -19520,8 +18946,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_lnt_or_ts_value_29.setter
     def gfunction_lnt_or_ts_value_29(self, value=None):
         """  Corresponds to IDD Field `G-Function Ln(T/Ts) Value 29`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 29`
@@ -19551,8 +18975,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_g_value_29.setter
     def gfunction_g_value_29(self, value=None):
         """  Corresponds to IDD Field `G-Function G Value 29`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function G Value 29`
@@ -19582,8 +19004,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_lnt_or_ts_value_30.setter
     def gfunction_lnt_or_ts_value_30(self, value=None):
         """  Corresponds to IDD Field `G-Function Ln(T/Ts) Value 30`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 30`
@@ -19613,8 +19033,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_g_value_30.setter
     def gfunction_g_value_30(self, value=None):
         """  Corresponds to IDD Field `G-Function G Value 30`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function G Value 30`
@@ -19644,8 +19062,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_lnt_or_ts_value_31.setter
     def gfunction_lnt_or_ts_value_31(self, value=None):
         """  Corresponds to IDD Field `G-Function Ln(T/Ts) Value 31`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 31`
@@ -19675,8 +19091,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_g_value_31.setter
     def gfunction_g_value_31(self, value=None):
         """  Corresponds to IDD Field `G-Function G Value 31`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function G Value 31`
@@ -19706,8 +19120,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_lnt_or_ts_value_32.setter
     def gfunction_lnt_or_ts_value_32(self, value=None):
         """  Corresponds to IDD Field `G-Function Ln(T/Ts) Value 32`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 32`
@@ -19737,8 +19149,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_g_value_32.setter
     def gfunction_g_value_32(self, value=None):
         """  Corresponds to IDD Field `G-Function G Value 32`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function G Value 32`
@@ -19768,8 +19178,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_lnt_or_ts_value_33.setter
     def gfunction_lnt_or_ts_value_33(self, value=None):
         """  Corresponds to IDD Field `G-Function Ln(T/Ts) Value 33`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 33`
@@ -19799,8 +19207,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_g_value_33.setter
     def gfunction_g_value_33(self, value=None):
         """  Corresponds to IDD Field `G-Function G Value 33`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function G Value 33`
@@ -19830,8 +19236,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_lnt_or_ts_value_34.setter
     def gfunction_lnt_or_ts_value_34(self, value=None):
         """  Corresponds to IDD Field `G-Function Ln(T/Ts) Value 34`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 34`
@@ -19861,8 +19265,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_g_value_34.setter
     def gfunction_g_value_34(self, value=None):
         """  Corresponds to IDD Field `G-Function G Value 34`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function G Value 34`
@@ -19892,8 +19294,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_lnt_or_ts_value_35.setter
     def gfunction_lnt_or_ts_value_35(self, value=None):
         """  Corresponds to IDD Field `G-Function Ln(T/Ts) Value 35`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 35`
@@ -19923,8 +19323,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_g_value_35.setter
     def gfunction_g_value_35(self, value=None):
         """  Corresponds to IDD Field `G-Function G Value 35`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function G Value 35`
@@ -19954,8 +19352,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_lnt_or_ts_value_36.setter
     def gfunction_lnt_or_ts_value_36(self, value=None):
         """  Corresponds to IDD Field `G-Function Ln(T/Ts) Value 36`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 36`
@@ -19985,8 +19381,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_g_value_36.setter
     def gfunction_g_value_36(self, value=None):
         """  Corresponds to IDD Field `G-Function G Value 36`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function G Value 36`
@@ -20016,8 +19410,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_lnt_or_ts_value_37.setter
     def gfunction_lnt_or_ts_value_37(self, value=None):
         """  Corresponds to IDD Field `G-Function Ln(T/Ts) Value 37`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 37`
@@ -20047,8 +19439,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_g_value_37.setter
     def gfunction_g_value_37(self, value=None):
         """  Corresponds to IDD Field `G-Function G Value 37`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function G Value 37`
@@ -20078,8 +19468,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_lnt_or_ts_value_38.setter
     def gfunction_lnt_or_ts_value_38(self, value=None):
         """  Corresponds to IDD Field `G-Function Ln(T/Ts) Value 38`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 38`
@@ -20109,8 +19497,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_g_value_38.setter
     def gfunction_g_value_38(self, value=None):
         """  Corresponds to IDD Field `G-Function G Value 38`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function G Value 38`
@@ -20140,8 +19526,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_lnt_or_ts_value_39.setter
     def gfunction_lnt_or_ts_value_39(self, value=None):
         """  Corresponds to IDD Field `G-Function Ln(T/Ts) Value 39`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 39`
@@ -20171,8 +19555,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_g_value_39.setter
     def gfunction_g_value_39(self, value=None):
         """  Corresponds to IDD Field `G-Function G Value 39`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function G Value 39`
@@ -20202,8 +19584,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_lnt_or_ts_value_40.setter
     def gfunction_lnt_or_ts_value_40(self, value=None):
         """  Corresponds to IDD Field `G-Function Ln(T/Ts) Value 40`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 40`
@@ -20233,8 +19613,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_g_value_40.setter
     def gfunction_g_value_40(self, value=None):
         """  Corresponds to IDD Field `G-Function G Value 40`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function G Value 40`
@@ -20264,8 +19642,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_lnt_or_ts_value_41.setter
     def gfunction_lnt_or_ts_value_41(self, value=None):
         """  Corresponds to IDD Field `G-Function Ln(T/Ts) Value 41`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 41`
@@ -20295,8 +19671,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_g_value_41.setter
     def gfunction_g_value_41(self, value=None):
         """  Corresponds to IDD Field `G-Function G Value 41`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function G Value 41`
@@ -20326,8 +19700,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_lnt_or_ts_value_42.setter
     def gfunction_lnt_or_ts_value_42(self, value=None):
         """  Corresponds to IDD Field `G-Function Ln(T/Ts) Value 42`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 42`
@@ -20357,8 +19729,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_g_value_42.setter
     def gfunction_g_value_42(self, value=None):
         """  Corresponds to IDD Field `G-Function G Value 42`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function G Value 42`
@@ -20388,8 +19758,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_lnt_or_ts_value_43.setter
     def gfunction_lnt_or_ts_value_43(self, value=None):
         """  Corresponds to IDD Field `G-Function Ln(T/Ts) Value 43`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 43`
@@ -20419,8 +19787,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_g_value_43.setter
     def gfunction_g_value_43(self, value=None):
         """  Corresponds to IDD Field `G-Function G Value 43`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function G Value 43`
@@ -20450,8 +19816,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_lnt_or_ts_value_44.setter
     def gfunction_lnt_or_ts_value_44(self, value=None):
         """  Corresponds to IDD Field `G-Function Ln(T/Ts) Value 44`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 44`
@@ -20481,8 +19845,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_g_value_44.setter
     def gfunction_g_value_44(self, value=None):
         """  Corresponds to IDD Field `G-Function G Value 44`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function G Value 44`
@@ -20512,8 +19874,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_lnt_or_ts_value_45.setter
     def gfunction_lnt_or_ts_value_45(self, value=None):
         """  Corresponds to IDD Field `G-Function Ln(T/Ts) Value 45`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 45`
@@ -20543,8 +19903,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_g_value_45.setter
     def gfunction_g_value_45(self, value=None):
         """  Corresponds to IDD Field `G-Function G Value 45`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function G Value 45`
@@ -20574,8 +19932,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_lnt_or_ts_value_46.setter
     def gfunction_lnt_or_ts_value_46(self, value=None):
         """  Corresponds to IDD Field `G-Function Ln(T/Ts) Value 46`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 46`
@@ -20605,8 +19961,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_g_value_46.setter
     def gfunction_g_value_46(self, value=None):
         """  Corresponds to IDD Field `G-Function G Value 46`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function G Value 46`
@@ -20636,8 +19990,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_lnt_or_ts_value_47.setter
     def gfunction_lnt_or_ts_value_47(self, value=None):
         """  Corresponds to IDD Field `G-Function Ln(T/Ts) Value 47`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 47`
@@ -20667,8 +20019,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_g_value_47.setter
     def gfunction_g_value_47(self, value=None):
         """  Corresponds to IDD Field `G-Function G Value 47`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function G Value 47`
@@ -20698,8 +20048,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_lnt_or_ts_value_48.setter
     def gfunction_lnt_or_ts_value_48(self, value=None):
         """  Corresponds to IDD Field `G-Function Ln(T/Ts) Value 48`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 48`
@@ -20729,8 +20077,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_g_value_48.setter
     def gfunction_g_value_48(self, value=None):
         """  Corresponds to IDD Field `G-Function G Value 48`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function G Value 48`
@@ -20760,8 +20106,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_lnt_or_ts_value_49.setter
     def gfunction_lnt_or_ts_value_49(self, value=None):
         """  Corresponds to IDD Field `G-Function Ln(T/Ts) Value 49`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 49`
@@ -20791,8 +20135,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_g_value_49.setter
     def gfunction_g_value_49(self, value=None):
         """  Corresponds to IDD Field `G-Function G Value 49`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function G Value 49`
@@ -20822,8 +20164,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_lnt_or_ts_value_50.setter
     def gfunction_lnt_or_ts_value_50(self, value=None):
         """  Corresponds to IDD Field `G-Function Ln(T/Ts) Value 50`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 50`
@@ -20853,8 +20193,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_g_value_50.setter
     def gfunction_g_value_50(self, value=None):
         """  Corresponds to IDD Field `G-Function G Value 50`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function G Value 50`
@@ -20884,8 +20222,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_lnt_or_ts_value_51.setter
     def gfunction_lnt_or_ts_value_51(self, value=None):
         """  Corresponds to IDD Field `G-Function Ln(T/Ts) Value 51`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 51`
@@ -20915,8 +20251,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_g_value_51.setter
     def gfunction_g_value_51(self, value=None):
         """  Corresponds to IDD Field `G-Function G Value 51`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function G Value 51`
@@ -20946,8 +20280,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_lnt_or_ts_value_52.setter
     def gfunction_lnt_or_ts_value_52(self, value=None):
         """  Corresponds to IDD Field `G-Function Ln(T/Ts) Value 52`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 52`
@@ -20977,8 +20309,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_g_value_52.setter
     def gfunction_g_value_52(self, value=None):
         """  Corresponds to IDD Field `G-Function G Value 52`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function G Value 52`
@@ -21008,8 +20338,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_lnt_or_ts_value_53.setter
     def gfunction_lnt_or_ts_value_53(self, value=None):
         """  Corresponds to IDD Field `G-Function Ln(T/Ts) Value 53`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 53`
@@ -21039,8 +20367,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_g_value_53.setter
     def gfunction_g_value_53(self, value=None):
         """  Corresponds to IDD Field `G-Function G Value 53`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function G Value 53`
@@ -21070,8 +20396,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_lnt_or_ts_value_54.setter
     def gfunction_lnt_or_ts_value_54(self, value=None):
         """  Corresponds to IDD Field `G-Function Ln(T/Ts) Value 54`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 54`
@@ -21101,8 +20425,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_g_value_54.setter
     def gfunction_g_value_54(self, value=None):
         """  Corresponds to IDD Field `G-Function G Value 54`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function G Value 54`
@@ -21132,8 +20454,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_lnt_or_ts_value_55.setter
     def gfunction_lnt_or_ts_value_55(self, value=None):
         """  Corresponds to IDD Field `G-Function Ln(T/Ts) Value 55`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 55`
@@ -21163,8 +20483,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_g_value_55.setter
     def gfunction_g_value_55(self, value=None):
         """  Corresponds to IDD Field `G-Function G Value 55`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function G Value 55`
@@ -21194,8 +20512,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_lnt_or_ts_value_56.setter
     def gfunction_lnt_or_ts_value_56(self, value=None):
         """  Corresponds to IDD Field `G-Function Ln(T/Ts) Value 56`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 56`
@@ -21225,8 +20541,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_g_value_56.setter
     def gfunction_g_value_56(self, value=None):
         """  Corresponds to IDD Field `G-Function G Value 56`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function G Value 56`
@@ -21256,8 +20570,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_lnt_or_ts_value_57.setter
     def gfunction_lnt_or_ts_value_57(self, value=None):
         """  Corresponds to IDD Field `G-Function Ln(T/Ts) Value 57`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 57`
@@ -21287,8 +20599,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_g_value_57.setter
     def gfunction_g_value_57(self, value=None):
         """  Corresponds to IDD Field `G-Function G Value 57`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function G Value 57`
@@ -21318,8 +20628,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_lnt_or_ts_value_58.setter
     def gfunction_lnt_or_ts_value_58(self, value=None):
         """  Corresponds to IDD Field `G-Function Ln(T/Ts) Value 58`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 58`
@@ -21349,8 +20657,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_g_value_58.setter
     def gfunction_g_value_58(self, value=None):
         """  Corresponds to IDD Field `G-Function G Value 58`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function G Value 58`
@@ -21380,8 +20686,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_lnt_or_ts_value_59.setter
     def gfunction_lnt_or_ts_value_59(self, value=None):
         """  Corresponds to IDD Field `G-Function Ln(T/Ts) Value 59`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 59`
@@ -21411,8 +20715,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_g_value_59.setter
     def gfunction_g_value_59(self, value=None):
         """  Corresponds to IDD Field `G-Function G Value 59`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function G Value 59`
@@ -21442,8 +20744,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_lnt_or_ts_value_60.setter
     def gfunction_lnt_or_ts_value_60(self, value=None):
         """  Corresponds to IDD Field `G-Function Ln(T/Ts) Value 60`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 60`
@@ -21473,8 +20773,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_g_value_60.setter
     def gfunction_g_value_60(self, value=None):
         """  Corresponds to IDD Field `G-Function G Value 60`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function G Value 60`
@@ -21504,8 +20802,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_lnt_or_ts_value_61.setter
     def gfunction_lnt_or_ts_value_61(self, value=None):
         """  Corresponds to IDD Field `G-Function Ln(T/Ts) Value 61`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 61`
@@ -21535,8 +20831,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_g_value_61.setter
     def gfunction_g_value_61(self, value=None):
         """  Corresponds to IDD Field `G-Function G Value 61`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function G Value 61`
@@ -21566,8 +20860,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_lnt_or_ts_value_62.setter
     def gfunction_lnt_or_ts_value_62(self, value=None):
         """  Corresponds to IDD Field `G-Function Ln(T/Ts) Value 62`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 62`
@@ -21597,8 +20889,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_g_value_62.setter
     def gfunction_g_value_62(self, value=None):
         """  Corresponds to IDD Field `G-Function G Value 62`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function G Value 62`
@@ -21628,8 +20918,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_lnt_or_ts_value_63.setter
     def gfunction_lnt_or_ts_value_63(self, value=None):
         """  Corresponds to IDD Field `G-Function Ln(T/Ts) Value 63`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 63`
@@ -21659,8 +20947,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_g_value_63.setter
     def gfunction_g_value_63(self, value=None):
         """  Corresponds to IDD Field `G-Function G Value 63`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function G Value 63`
@@ -21690,8 +20976,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_lnt_or_ts_value_64.setter
     def gfunction_lnt_or_ts_value_64(self, value=None):
         """  Corresponds to IDD Field `G-Function Ln(T/Ts) Value 64`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 64`
@@ -21721,8 +21005,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_g_value_64.setter
     def gfunction_g_value_64(self, value=None):
         """  Corresponds to IDD Field `G-Function G Value 64`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function G Value 64`
@@ -21752,8 +21034,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_lnt_or_ts_value_65.setter
     def gfunction_lnt_or_ts_value_65(self, value=None):
         """  Corresponds to IDD Field `G-Function Ln(T/Ts) Value 65`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 65`
@@ -21783,8 +21063,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_g_value_65.setter
     def gfunction_g_value_65(self, value=None):
         """  Corresponds to IDD Field `G-Function G Value 65`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function G Value 65`
@@ -21814,8 +21092,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_lnt_or_ts_value_66.setter
     def gfunction_lnt_or_ts_value_66(self, value=None):
         """  Corresponds to IDD Field `G-Function Ln(T/Ts) Value 66`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 66`
@@ -21845,8 +21121,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_g_value_66.setter
     def gfunction_g_value_66(self, value=None):
         """  Corresponds to IDD Field `G-Function G Value 66`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function G Value 66`
@@ -21876,8 +21150,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_lnt_or_ts_value_67.setter
     def gfunction_lnt_or_ts_value_67(self, value=None):
         """  Corresponds to IDD Field `G-Function Ln(T/Ts) Value 67`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 67`
@@ -21907,8 +21179,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_g_value_67.setter
     def gfunction_g_value_67(self, value=None):
         """  Corresponds to IDD Field `G-Function G Value 67`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function G Value 67`
@@ -21938,8 +21208,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_lnt_or_ts_value_68.setter
     def gfunction_lnt_or_ts_value_68(self, value=None):
         """  Corresponds to IDD Field `G-Function Ln(T/Ts) Value 68`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 68`
@@ -21969,8 +21237,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_g_value_68.setter
     def gfunction_g_value_68(self, value=None):
         """  Corresponds to IDD Field `G-Function G Value 68`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function G Value 68`
@@ -22000,8 +21266,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_lnt_or_ts_value_69.setter
     def gfunction_lnt_or_ts_value_69(self, value=None):
         """  Corresponds to IDD Field `G-Function Ln(T/Ts) Value 69`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 69`
@@ -22031,8 +21295,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_g_value_69.setter
     def gfunction_g_value_69(self, value=None):
         """  Corresponds to IDD Field `G-Function G Value 69`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function G Value 69`
@@ -22062,8 +21324,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_lnt_or_ts_value_70.setter
     def gfunction_lnt_or_ts_value_70(self, value=None):
         """  Corresponds to IDD Field `G-Function Ln(T/Ts) Value 70`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 70`
@@ -22093,8 +21353,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_g_value_70.setter
     def gfunction_g_value_70(self, value=None):
         """  Corresponds to IDD Field `G-Function G Value 70`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function G Value 70`
@@ -22124,8 +21382,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_lnt_or_ts_value_71.setter
     def gfunction_lnt_or_ts_value_71(self, value=None):
         """  Corresponds to IDD Field `G-Function Ln(T/Ts) Value 71`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 71`
@@ -22155,8 +21411,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_g_value_71.setter
     def gfunction_g_value_71(self, value=None):
         """  Corresponds to IDD Field `G-Function G Value 71`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function G Value 71`
@@ -22186,8 +21440,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_lnt_or_ts_value_72.setter
     def gfunction_lnt_or_ts_value_72(self, value=None):
         """  Corresponds to IDD Field `G-Function Ln(T/Ts) Value 72`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 72`
@@ -22217,8 +21469,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_g_value_72.setter
     def gfunction_g_value_72(self, value=None):
         """  Corresponds to IDD Field `G-Function G Value 72`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function G Value 72`
@@ -22248,8 +21498,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_lnt_or_ts_value_73.setter
     def gfunction_lnt_or_ts_value_73(self, value=None):
         """  Corresponds to IDD Field `G-Function Ln(T/Ts) Value 73`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 73`
@@ -22279,8 +21527,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_g_value_73.setter
     def gfunction_g_value_73(self, value=None):
         """  Corresponds to IDD Field `G-Function G Value 73`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function G Value 73`
@@ -22310,8 +21556,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_lnt_or_ts_value_74.setter
     def gfunction_lnt_or_ts_value_74(self, value=None):
         """  Corresponds to IDD Field `G-Function Ln(T/Ts) Value 74`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 74`
@@ -22341,8 +21585,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_g_value_74.setter
     def gfunction_g_value_74(self, value=None):
         """  Corresponds to IDD Field `G-Function G Value 74`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function G Value 74`
@@ -22372,8 +21614,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_lnt_or_ts_value_75.setter
     def gfunction_lnt_or_ts_value_75(self, value=None):
         """  Corresponds to IDD Field `G-Function Ln(T/Ts) Value 75`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 75`
@@ -22403,8 +21643,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_g_value_75.setter
     def gfunction_g_value_75(self, value=None):
         """  Corresponds to IDD Field `G-Function G Value 75`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function G Value 75`
@@ -22434,8 +21672,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_lnt_or_ts_value_76.setter
     def gfunction_lnt_or_ts_value_76(self, value=None):
         """  Corresponds to IDD Field `G-Function Ln(T/Ts) Value 76`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 76`
@@ -22465,8 +21701,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_g_value_76.setter
     def gfunction_g_value_76(self, value=None):
         """  Corresponds to IDD Field `G-Function G Value 76`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function G Value 76`
@@ -22496,8 +21730,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_lnt_or_ts_value_77.setter
     def gfunction_lnt_or_ts_value_77(self, value=None):
         """  Corresponds to IDD Field `G-Function Ln(T/Ts) Value 77`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 77`
@@ -22527,8 +21759,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_g_value_77.setter
     def gfunction_g_value_77(self, value=None):
         """  Corresponds to IDD Field `G-Function G Value 77`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function G Value 77`
@@ -22558,8 +21788,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_lnt_or_ts_value_78.setter
     def gfunction_lnt_or_ts_value_78(self, value=None):
         """  Corresponds to IDD Field `G-Function Ln(T/Ts) Value 78`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 78`
@@ -22589,8 +21817,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_g_value_78.setter
     def gfunction_g_value_78(self, value=None):
         """  Corresponds to IDD Field `G-Function G Value 78`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function G Value 78`
@@ -22620,8 +21846,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_lnt_or_ts_value_79.setter
     def gfunction_lnt_or_ts_value_79(self, value=None):
         """  Corresponds to IDD Field `G-Function Ln(T/Ts) Value 79`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 79`
@@ -22651,8 +21875,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_g_value_79.setter
     def gfunction_g_value_79(self, value=None):
         """  Corresponds to IDD Field `G-Function G Value 79`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function G Value 79`
@@ -22682,8 +21904,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_lnt_or_ts_value_80.setter
     def gfunction_lnt_or_ts_value_80(self, value=None):
         """  Corresponds to IDD Field `G-Function Ln(T/Ts) Value 80`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 80`
@@ -22713,8 +21933,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_g_value_80.setter
     def gfunction_g_value_80(self, value=None):
         """  Corresponds to IDD Field `G-Function G Value 80`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function G Value 80`
@@ -22744,8 +21962,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_lnt_or_ts_value_81.setter
     def gfunction_lnt_or_ts_value_81(self, value=None):
         """  Corresponds to IDD Field `G-Function Ln(T/Ts) Value 81`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 81`
@@ -22775,8 +21991,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_g_value_81.setter
     def gfunction_g_value_81(self, value=None):
         """  Corresponds to IDD Field `G-Function G Value 81`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function G Value 81`
@@ -22806,8 +22020,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_lnt_or_ts_value_82.setter
     def gfunction_lnt_or_ts_value_82(self, value=None):
         """  Corresponds to IDD Field `G-Function Ln(T/Ts) Value 82`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 82`
@@ -22837,8 +22049,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_g_value_82.setter
     def gfunction_g_value_82(self, value=None):
         """  Corresponds to IDD Field `G-Function G Value 82`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function G Value 82`
@@ -22868,8 +22078,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_lnt_or_ts_value_83.setter
     def gfunction_lnt_or_ts_value_83(self, value=None):
         """  Corresponds to IDD Field `G-Function Ln(T/Ts) Value 83`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 83`
@@ -22899,8 +22107,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_g_value_83.setter
     def gfunction_g_value_83(self, value=None):
         """  Corresponds to IDD Field `G-Function G Value 83`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function G Value 83`
@@ -22930,8 +22136,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_lnt_or_ts_value_84.setter
     def gfunction_lnt_or_ts_value_84(self, value=None):
         """  Corresponds to IDD Field `G-Function Ln(T/Ts) Value 84`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 84`
@@ -22961,8 +22165,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_g_value_84.setter
     def gfunction_g_value_84(self, value=None):
         """  Corresponds to IDD Field `G-Function G Value 84`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function G Value 84`
@@ -22992,8 +22194,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_lnt_or_ts_value_85.setter
     def gfunction_lnt_or_ts_value_85(self, value=None):
         """  Corresponds to IDD Field `G-Function Ln(T/Ts) Value 85`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 85`
@@ -23023,8 +22223,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_g_value_85.setter
     def gfunction_g_value_85(self, value=None):
         """  Corresponds to IDD Field `G-Function G Value 85`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function G Value 85`
@@ -23054,8 +22252,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_lnt_or_ts_value_86.setter
     def gfunction_lnt_or_ts_value_86(self, value=None):
         """  Corresponds to IDD Field `G-Function Ln(T/Ts) Value 86`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 86`
@@ -23085,8 +22281,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_g_value_86.setter
     def gfunction_g_value_86(self, value=None):
         """  Corresponds to IDD Field `G-Function G Value 86`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function G Value 86`
@@ -23116,8 +22310,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_lnt_or_ts_value_87.setter
     def gfunction_lnt_or_ts_value_87(self, value=None):
         """  Corresponds to IDD Field `G-Function Ln(T/Ts) Value 87`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 87`
@@ -23147,8 +22339,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_g_value_87.setter
     def gfunction_g_value_87(self, value=None):
         """  Corresponds to IDD Field `G-Function G Value 87`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function G Value 87`
@@ -23178,8 +22368,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_lnt_or_ts_value_88.setter
     def gfunction_lnt_or_ts_value_88(self, value=None):
         """  Corresponds to IDD Field `G-Function Ln(T/Ts) Value 88`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 88`
@@ -23209,8 +22397,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_g_value_88.setter
     def gfunction_g_value_88(self, value=None):
         """  Corresponds to IDD Field `G-Function G Value 88`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function G Value 88`
@@ -23240,8 +22426,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_lnt_or_ts_value_89.setter
     def gfunction_lnt_or_ts_value_89(self, value=None):
         """  Corresponds to IDD Field `G-Function Ln(T/Ts) Value 89`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 89`
@@ -23271,8 +22455,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_g_value_89.setter
     def gfunction_g_value_89(self, value=None):
         """  Corresponds to IDD Field `G-Function G Value 89`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function G Value 89`
@@ -23302,8 +22484,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_lnt_or_ts_value_90.setter
     def gfunction_lnt_or_ts_value_90(self, value=None):
         """  Corresponds to IDD Field `G-Function Ln(T/Ts) Value 90`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 90`
@@ -23333,8 +22513,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_g_value_90.setter
     def gfunction_g_value_90(self, value=None):
         """  Corresponds to IDD Field `G-Function G Value 90`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function G Value 90`
@@ -23364,8 +22542,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_lnt_or_ts_value_91.setter
     def gfunction_lnt_or_ts_value_91(self, value=None):
         """  Corresponds to IDD Field `G-Function Ln(T/Ts) Value 91`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 91`
@@ -23395,8 +22571,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_g_value_91.setter
     def gfunction_g_value_91(self, value=None):
         """  Corresponds to IDD Field `G-Function G Value 91`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function G Value 91`
@@ -23426,8 +22600,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_lnt_or_ts_value_92.setter
     def gfunction_lnt_or_ts_value_92(self, value=None):
         """  Corresponds to IDD Field `G-Function Ln(T/Ts) Value 92`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 92`
@@ -23457,8 +22629,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_g_value_92.setter
     def gfunction_g_value_92(self, value=None):
         """  Corresponds to IDD Field `G-Function G Value 92`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function G Value 92`
@@ -23488,8 +22658,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_lnt_or_ts_value_93.setter
     def gfunction_lnt_or_ts_value_93(self, value=None):
         """  Corresponds to IDD Field `G-Function Ln(T/Ts) Value 93`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 93`
@@ -23519,8 +22687,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_g_value_93.setter
     def gfunction_g_value_93(self, value=None):
         """  Corresponds to IDD Field `G-Function G Value 93`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function G Value 93`
@@ -23550,8 +22716,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_lnt_or_ts_value_94.setter
     def gfunction_lnt_or_ts_value_94(self, value=None):
         """  Corresponds to IDD Field `G-Function Ln(T/Ts) Value 94`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 94`
@@ -23581,8 +22745,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_g_value_94.setter
     def gfunction_g_value_94(self, value=None):
         """  Corresponds to IDD Field `G-Function G Value 94`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function G Value 94`
@@ -23612,8 +22774,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_lnt_or_ts_value_95.setter
     def gfunction_lnt_or_ts_value_95(self, value=None):
         """  Corresponds to IDD Field `G-Function Ln(T/Ts) Value 95`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 95`
@@ -23643,8 +22803,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_g_value_95.setter
     def gfunction_g_value_95(self, value=None):
         """  Corresponds to IDD Field `G-Function G Value 95`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function G Value 95`
@@ -23674,8 +22832,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_lnt_or_ts_value_96.setter
     def gfunction_lnt_or_ts_value_96(self, value=None):
         """  Corresponds to IDD Field `G-Function Ln(T/Ts) Value 96`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 96`
@@ -23705,8 +22861,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_g_value_96.setter
     def gfunction_g_value_96(self, value=None):
         """  Corresponds to IDD Field `G-Function G Value 96`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function G Value 96`
@@ -23736,8 +22890,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_lnt_or_ts_value_97.setter
     def gfunction_lnt_or_ts_value_97(self, value=None):
         """  Corresponds to IDD Field `G-Function Ln(T/Ts) Value 97`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 97`
@@ -23767,8 +22919,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_g_value_97.setter
     def gfunction_g_value_97(self, value=None):
         """  Corresponds to IDD Field `G-Function G Value 97`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function G Value 97`
@@ -23798,8 +22948,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_lnt_or_ts_value_98.setter
     def gfunction_lnt_or_ts_value_98(self, value=None):
         """  Corresponds to IDD Field `G-Function Ln(T/Ts) Value 98`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 98`
@@ -23829,8 +22977,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_g_value_98.setter
     def gfunction_g_value_98(self, value=None):
         """  Corresponds to IDD Field `G-Function G Value 98`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function G Value 98`
@@ -23860,8 +23006,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_lnt_or_ts_value_99.setter
     def gfunction_lnt_or_ts_value_99(self, value=None):
         """  Corresponds to IDD Field `G-Function Ln(T/Ts) Value 99`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 99`
@@ -23891,8 +23035,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_g_value_99.setter
     def gfunction_g_value_99(self, value=None):
         """  Corresponds to IDD Field `G-Function G Value 99`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function G Value 99`
@@ -23922,8 +23064,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_lnt_or_ts_value_100.setter
     def gfunction_lnt_or_ts_value_100(self, value=None):
         """  Corresponds to IDD Field `G-Function Ln(T/Ts) Value 100`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function Ln(T/Ts) Value 100`
@@ -23953,8 +23093,6 @@ class GroundHeatExchangerVertical(object):
     @gfunction_g_value_100.setter
     def gfunction_g_value_100(self, value=None):
         """  Corresponds to IDD Field `G-Function G Value 100`
-        
-        {u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `G-Function G Value 100`
@@ -24132,8 +23270,6 @@ class GroundHeatExchangerPond(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {'type': 'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -24169,8 +23305,6 @@ class GroundHeatExchangerPond(object):
     @fluid_inlet_node_name.setter
     def fluid_inlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Fluid Inlet Node Name`
-        
-        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Fluid Inlet Node Name`
@@ -24206,8 +23340,6 @@ class GroundHeatExchangerPond(object):
     @fluid_outlet_node_name.setter
     def fluid_outlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Fluid Outlet Node Name`
-        
-        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Fluid Outlet Node Name`
@@ -24243,8 +23375,6 @@ class GroundHeatExchangerPond(object):
     @pond_depth.setter
     def pond_depth(self, value=None):
         """  Corresponds to IDD Field `Pond Depth`
-        
-        {u'units': u'm', u'minimum>': '0.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Pond Depth`
@@ -24279,8 +23409,6 @@ class GroundHeatExchangerPond(object):
     @pond_area.setter
     def pond_area(self, value=None):
         """  Corresponds to IDD Field `Pond Area`
-        
-        {u'units': u'm2', u'minimum>': '0.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Pond Area`
@@ -24315,8 +23443,6 @@ class GroundHeatExchangerPond(object):
     @hydronic_tubing_inside_diameter.setter
     def hydronic_tubing_inside_diameter(self, value=None):
         """  Corresponds to IDD Field `Hydronic Tubing Inside Diameter`
-        
-        {'pytype': 'float', u'minimum>': '0.0', u'required-field': True, u'ip-units': u'in', u'units': u'm', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Hydronic Tubing Inside Diameter`
@@ -24352,8 +23478,6 @@ class GroundHeatExchangerPond(object):
     @hydronic_tubing_outside_diameter.setter
     def hydronic_tubing_outside_diameter(self, value=None):
         """  Corresponds to IDD Field `Hydronic Tubing Outside Diameter`
-        
-        {'pytype': 'float', u'minimum>': '0.0', u'required-field': True, u'ip-units': u'in', u'units': u'm', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Hydronic Tubing Outside Diameter`
@@ -24389,8 +23513,6 @@ class GroundHeatExchangerPond(object):
     @hydronic_tubing_thermal_conductivity.setter
     def hydronic_tubing_thermal_conductivity(self, value=None):
         """  Corresponds to IDD Field `Hydronic Tubing Thermal Conductivity`
-        
-        {u'units': u'W/m-K', u'minimum>': '0.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Hydronic Tubing Thermal Conductivity`
@@ -24425,8 +23547,6 @@ class GroundHeatExchangerPond(object):
     @ground_thermal_conductivity.setter
     def ground_thermal_conductivity(self, value=None):
         """  Corresponds to IDD Field `Ground Thermal Conductivity`
-        
-        {u'units': u'W/m2-K', u'minimum>': '0.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Ground Thermal Conductivity`
@@ -24461,8 +23581,6 @@ class GroundHeatExchangerPond(object):
     @number_of_tubing_circuits.setter
     def number_of_tubing_circuits(self, value=None):
         """  Corresponds to IDD Field `Number of Tubing Circuits`
-        
-        {u'minimum': '1', u'type': u'integer', u'required-field': True, 'pytype': 'int'}
 
         Args:
             value (int): value for IDD Field `Number of Tubing Circuits`
@@ -24496,8 +23614,6 @@ class GroundHeatExchangerPond(object):
     @length_of_each_tubing_circuit.setter
     def length_of_each_tubing_circuit(self, value=None):
         """  Corresponds to IDD Field `Length of Each Tubing Circuit`
-        
-        {u'units': u'm', u'minimum': '0.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Length of Each Tubing Circuit`
@@ -24673,8 +23789,6 @@ class GroundHeatExchangerSurface(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {'type': 'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -24710,8 +23824,6 @@ class GroundHeatExchangerSurface(object):
     @construction_name.setter
     def construction_name(self, value=None):
         """  Corresponds to IDD Field `Construction Name`
-        
-        {u'type': u'object-list', u'object-list': u'ConstructionNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Construction Name`
@@ -24747,8 +23859,6 @@ class GroundHeatExchangerSurface(object):
     @fluid_inlet_node_name.setter
     def fluid_inlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Fluid Inlet Node Name`
-        
-        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Fluid Inlet Node Name`
@@ -24784,8 +23894,6 @@ class GroundHeatExchangerSurface(object):
     @fluid_outlet_node_name.setter
     def fluid_outlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Fluid Outlet Node Name`
-        
-        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Fluid Outlet Node Name`
@@ -24821,8 +23929,6 @@ class GroundHeatExchangerSurface(object):
     @hydronic_tubing_inside_diameter.setter
     def hydronic_tubing_inside_diameter(self, value=None):
         """  Corresponds to IDD Field `Hydronic Tubing Inside Diameter`
-        
-        {u'units': u'm', u'ip-units': u'in', u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Hydronic Tubing Inside Diameter`
@@ -24858,8 +23964,6 @@ class GroundHeatExchangerSurface(object):
     @number_of_tubing_circuits.setter
     def number_of_tubing_circuits(self, value=None):
         """  Corresponds to IDD Field `Number of Tubing Circuits`
-        
-        {u'minimum': '1', u'type': u'integer', 'pytype': 'int'}
 
         Args:
             value (int): value for IDD Field `Number of Tubing Circuits`
@@ -24893,8 +23997,6 @@ class GroundHeatExchangerSurface(object):
     @hydronic_tube_spacing.setter
     def hydronic_tube_spacing(self, value=None):
         """  Corresponds to IDD Field `Hydronic Tube Spacing`
-        
-        {u'units': u'm', u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Hydronic Tube Spacing`
@@ -24929,8 +24031,6 @@ class GroundHeatExchangerSurface(object):
     @surface_length.setter
     def surface_length(self, value=None):
         """  Corresponds to IDD Field `Surface Length`
-        
-        {u'units': u'm', u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Surface Length`
@@ -24965,8 +24065,6 @@ class GroundHeatExchangerSurface(object):
     @surface_width.setter
     def surface_width(self, value=None):
         """  Corresponds to IDD Field `Surface Width`
-        
-        {u'units': u'm', u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Surface Width`
@@ -25001,8 +24099,6 @@ class GroundHeatExchangerSurface(object):
     @lower_surface_environment.setter
     def lower_surface_environment(self, value="Ground"):
         """  Corresponds to IDD Field `Lower Surface Environment`
-        
-        {u'default': u'Ground', u'type': u'choice', u'key': [u'Ground', u'Exposed'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Lower Surface Environment`
@@ -25295,8 +24391,6 @@ class GroundHeatExchangerHorizontalTrench(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {'type': 'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -25332,8 +24426,6 @@ class GroundHeatExchangerHorizontalTrench(object):
     @inlet_node_name.setter
     def inlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Inlet Node Name`
-        
-        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Inlet Node Name`
@@ -25369,8 +24461,6 @@ class GroundHeatExchangerHorizontalTrench(object):
     @outlet_node_name.setter
     def outlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Outlet Node Name`
-        
-        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Outlet Node Name`
@@ -25406,8 +24496,6 @@ class GroundHeatExchangerHorizontalTrench(object):
     @design_flow_rate.setter
     def design_flow_rate(self, value=None):
         """  Corresponds to IDD Field `Design Flow Rate`
-        
-        {u'units': u'm3/s', u'minimum>': '0.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Design Flow Rate`
@@ -25440,14 +24528,12 @@ class GroundHeatExchangerHorizontalTrench(object):
         return self._data["Trench Length in Pipe Axial Direction"]
 
     @trench_length_in_pipe_axial_direction.setter
-    def trench_length_in_pipe_axial_direction(self, value=50.0 ):
+    def trench_length_in_pipe_axial_direction(self, value=50.0):
         """  Corresponds to IDD Field `Trench Length in Pipe Axial Direction`
         This is the total pipe axial length of the heat exchanger
         If all pipe trenches are parallel, this is the length of a
         single trench.  If a single, long run of pipe is used with one
         trench, this is the full length of the pipe run.
-        
-        {'pytype': 'float', u'default': '50.0', u'minimum>': '0.0', u'note': [u'This is the total pipe axial length of the heat exchanger', u'If all pipe trenches are parallel, this is the length of a', u'single trench.  If a single, long run of pipe is used with one', u'trench, this is the full length of the pipe run.'], u'ip-units': u'ft', u'units': u'm', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Trench Length in Pipe Axial Direction`
@@ -25482,12 +24568,10 @@ class GroundHeatExchangerHorizontalTrench(object):
         return self._data["Number of Trenches"]
 
     @number_of_trenches.setter
-    def number_of_trenches(self, value=1 ):
+    def number_of_trenches(self, value=1):
         """  Corresponds to IDD Field `Number of Trenches`
         This is the number of horizontal legs that will be used
         in the entire heat exchanger, one pipe per trench
-        
-        {u'note': [u'This is the number of horizontal legs that will be used', u'in the entire heat exchanger, one pipe per trench'], u'default': '1', u'minimum': '1', u'type': u'integer', 'pytype': 'int'}
 
         Args:
             value (int): value for IDD Field `Number of Trenches`
@@ -25520,12 +24604,10 @@ class GroundHeatExchangerHorizontalTrench(object):
         return self._data["Horizontal Spacing Between Pipes"]
 
     @horizontal_spacing_between_pipes.setter
-    def horizontal_spacing_between_pipes(self, value=1.0 ):
+    def horizontal_spacing_between_pipes(self, value=1.0):
         """  Corresponds to IDD Field `Horizontal Spacing Between Pipes`
         This represents the average horizontal spacing between any two
         trenches for heat exchangers that have multiple trenches
-        
-        {'pytype': 'float', u'default': '1.0', u'minimum>': '0.0', u'note': [u'This represents the average horizontal spacing between any two', u'trenches for heat exchangers that have multiple trenches'], u'units': u'm', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Horizontal Spacing Between Pipes`
@@ -25559,10 +24641,8 @@ class GroundHeatExchangerHorizontalTrench(object):
         return self._data["Pipe Inner Diameter"]
 
     @pipe_inner_diameter.setter
-    def pipe_inner_diameter(self, value=0.016 ):
+    def pipe_inner_diameter(self, value=0.016):
         """  Corresponds to IDD Field `Pipe Inner Diameter`
-        
-        {'pytype': 'float', u'default': '0.016', u'minimum>': '0.0', u'ip-units': u'in', u'units': u'm', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Pipe Inner Diameter`
@@ -25597,10 +24677,8 @@ class GroundHeatExchangerHorizontalTrench(object):
         return self._data["Pipe Outer Diameter"]
 
     @pipe_outer_diameter.setter
-    def pipe_outer_diameter(self, value=0.026 ):
+    def pipe_outer_diameter(self, value=0.026):
         """  Corresponds to IDD Field `Pipe Outer Diameter`
-        
-        {'pytype': 'float', u'default': '0.026', u'minimum>': '0.0', u'ip-units': u'in', u'units': u'm', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Pipe Outer Diameter`
@@ -25635,12 +24713,10 @@ class GroundHeatExchangerHorizontalTrench(object):
         return self._data["Burial Depth"]
 
     @burial_depth.setter
-    def burial_depth(self, value=1.5 ):
+    def burial_depth(self, value=1.5):
         """  Corresponds to IDD Field `Burial Depth`
         This is the burial depth of the pipes, or the trenches
         containing the pipes
-        
-        {'pytype': 'float', u'default': '1.5', u'minimum>': '0.0', u'note': [u'This is the burial depth of the pipes, or the trenches', u'containing the pipes'], u'ip-units': u'ft', u'units': u'm', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Burial Depth`
@@ -25675,10 +24751,8 @@ class GroundHeatExchangerHorizontalTrench(object):
         return self._data["Soil Thermal Conductivity"]
 
     @soil_thermal_conductivity.setter
-    def soil_thermal_conductivity(self, value=1.08 ):
+    def soil_thermal_conductivity(self, value=1.08):
         """  Corresponds to IDD Field `Soil Thermal Conductivity`
-        
-        {u'units': u'W/m-K', u'default': '1.08', u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Soil Thermal Conductivity`
@@ -25712,10 +24786,8 @@ class GroundHeatExchangerHorizontalTrench(object):
         return self._data["Soil Density"]
 
     @soil_density.setter
-    def soil_density(self, value=962.0 ):
+    def soil_density(self, value=962.0):
         """  Corresponds to IDD Field `Soil Density`
-        
-        {u'units': u'kg/m3', u'default': '962.0', u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Soil Density`
@@ -25749,10 +24821,8 @@ class GroundHeatExchangerHorizontalTrench(object):
         return self._data["Soil Specific Heat"]
 
     @soil_specific_heat.setter
-    def soil_specific_heat(self, value=2576.0 ):
+    def soil_specific_heat(self, value=2576.0):
         """  Corresponds to IDD Field `Soil Specific Heat`
-        
-        {'pytype': 'float', u'default': '2576.0', u'minimum>': '0.0', u'required-field': True, u'units': u'J/kg-K', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Soil Specific Heat`
@@ -25786,10 +24856,8 @@ class GroundHeatExchangerHorizontalTrench(object):
         return self._data["Pipe Thermal Conductivity"]
 
     @pipe_thermal_conductivity.setter
-    def pipe_thermal_conductivity(self, value=0.3895 ):
+    def pipe_thermal_conductivity(self, value=0.3895):
         """  Corresponds to IDD Field `Pipe Thermal Conductivity`
-        
-        {u'units': u'W/m-K', u'default': '0.3895', u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Pipe Thermal Conductivity`
@@ -25823,10 +24891,8 @@ class GroundHeatExchangerHorizontalTrench(object):
         return self._data["Pipe Density"]
 
     @pipe_density.setter
-    def pipe_density(self, value=641.0 ):
+    def pipe_density(self, value=641.0):
         """  Corresponds to IDD Field `Pipe Density`
-        
-        {u'units': u'kg/m3', u'default': '641.0', u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Pipe Density`
@@ -25860,10 +24926,8 @@ class GroundHeatExchangerHorizontalTrench(object):
         return self._data["Pipe Specific Heat"]
 
     @pipe_specific_heat.setter
-    def pipe_specific_heat(self, value=2405.0 ):
+    def pipe_specific_heat(self, value=2405.0):
         """  Corresponds to IDD Field `Pipe Specific Heat`
-        
-        {u'units': u'J/kg-K', u'default': '2405.0', u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Pipe Specific Heat`
@@ -25897,10 +24961,8 @@ class GroundHeatExchangerHorizontalTrench(object):
         return self._data["Soil Moisture Content Percent"]
 
     @soil_moisture_content_percent.setter
-    def soil_moisture_content_percent(self, value=30.0 ):
+    def soil_moisture_content_percent(self, value=30.0):
         """  Corresponds to IDD Field `Soil Moisture Content Percent`
-        
-        {'pytype': 'float', u'default': '30.0', u'maximum': '100.0', u'minimum': '0.0', u'units': u'percent', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Soil Moisture Content Percent`
@@ -25938,10 +25000,8 @@ class GroundHeatExchangerHorizontalTrench(object):
         return self._data["Soil Moisture Content Percent at Saturation"]
 
     @soil_moisture_content_percent_at_saturation.setter
-    def soil_moisture_content_percent_at_saturation(self, value=50.0 ):
+    def soil_moisture_content_percent_at_saturation(self, value=50.0):
         """  Corresponds to IDD Field `Soil Moisture Content Percent at Saturation`
-        
-        {'pytype': 'float', u'default': '50.0', u'maximum': '100.0', u'minimum': '0.0', u'units': u'percent', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Soil Moisture Content Percent at Saturation`
@@ -25985,8 +25045,6 @@ class GroundHeatExchangerHorizontalTrench(object):
         This is an optional input in that if it is missing, a
         Site:GroundTemperature:Shallow object must be found in the input
         The undisturbed ground temperature will be approximated from this object
-        
-        {u'note': [u'This is the parameter for average annual surface temperature', u'This is an optional input in that if it is missing, a', u'Site:GroundTemperature:Shallow object must be found in the input', u'The undisturbed ground temperature will be approximated from this object'], u'units': u'C', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Kusuda-Achenbach Average Surface Temperature`
@@ -26021,8 +25079,6 @@ class GroundHeatExchangerHorizontalTrench(object):
         This is an optional input in that if it is missing, a
         Site:GroundTemperature:Shallow object must be found in the input
         The undisturbed ground temperature will be approximated from this object
-        
-        {u'note': [u'This is the parameter for annual average amplitude from average surface temperature', u'This is an optional input in that if it is missing, a', u'Site:GroundTemperature:Shallow object must be found in the input', u'The undisturbed ground temperature will be approximated from this object'], u'units': u'C', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Kusuda-Achenbach Average Amplitude of Surface Temperature`
@@ -26057,8 +25113,6 @@ class GroundHeatExchangerHorizontalTrench(object):
         This is an optional input in that if it is missing, a
         Site:GroundTemperature:Shallow object must be found in the input
         The undisturbed ground temperature will be approximated from this object
-        
-        {u'note': [u'This is the parameter for phase shift from minimum surface temperature', u'This is an optional input in that if it is missing, a', u'Site:GroundTemperature:Shallow object must be found in the input', u'The undisturbed ground temperature will be approximated from this object'], u'units': u'days', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Kusuda-Achenbach Phase Shift of Minimum Surface Temperature`
@@ -26087,7 +25141,7 @@ class GroundHeatExchangerHorizontalTrench(object):
         return self._data["Evapotranspiration Ground Cover Parameter"]
 
     @evapotranspiration_ground_cover_parameter.setter
-    def evapotranspiration_ground_cover_parameter(self, value=0.4 ):
+    def evapotranspiration_ground_cover_parameter(self, value=0.4):
         """  Corresponds to IDD Field `Evapotranspiration Ground Cover Parameter`
         This specifies the ground cover effects during evapotranspiration
         calculations.  The value roughly represents the following cases:
@@ -26095,8 +25149,6 @@ class GroundHeatExchangerHorizontalTrench(object):
         = 0.5 : short grass, much like a manicured lawn
         = 1   : standard reference state (12 cm grass)
         = 1.5 : wild growth
-        
-        {'pytype': 'float', u'default': '0.4', u'maximum': '1.5', u'note': [u'This specifies the ground cover effects during evapotranspiration', u'calculations.  The value roughly represents the following cases:', u'= 0   : concrete or other solid, non-permeable ground surface material', u'= 0.5 : short grass, much like a manicured lawn', u'= 1   : standard reference state (12 cm grass)', u'= 1.5 : wild growth'], u'minimum': '0.0', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Evapotranspiration Ground Cover Parameter`
@@ -26354,8 +25406,6 @@ class HeatExchangerFluidToFluid(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {'type': 'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -26394,8 +25444,6 @@ class HeatExchangerFluidToFluid(object):
         Availability schedule name for this system. Schedule value > 0 means the system is available.
         If this field is blank, the system is always available.
         default is that heat exchanger is on
-        
-        {u'note': [u'Availability schedule name for this system. Schedule value > 0 means the system is available.', u'If this field is blank, the system is always available.', u'default is that heat exchanger is on'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Availability Schedule Name`
@@ -26432,8 +25480,6 @@ class HeatExchangerFluidToFluid(object):
     def loop_demand_side_inlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Loop Demand Side Inlet Node Name`
         This connection is to the demand side of a loop and is the inlet to the heat exchanger
-        
-        {u'note': [u'This connection is to the demand side of a loop and is the inlet to the heat exchanger'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Loop Demand Side Inlet Node Name`
@@ -26470,8 +25516,6 @@ class HeatExchangerFluidToFluid(object):
     def loop_demand_side_outlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Loop Demand Side Outlet Node Name`
         This connection is to the demand side of a loop
-        
-        {u'note': [u'This connection is to the demand side of a loop'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Loop Demand Side Outlet Node Name`
@@ -26507,11 +25551,9 @@ class HeatExchangerFluidToFluid(object):
     @loop_demand_side_design_flow_rate.setter
     def loop_demand_side_design_flow_rate(self, value=None):
         """  Corresponds to IDD Field `Loop Demand Side Design Flow Rate`
-        
-        {'pytype': 'float', u'minimum>': '0.0', u'required-field': True, u'ip-units': u'gal/min', u'autosizable': u'', u'units': u'm3/s', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `Loop Demand Side Design Flow Rate`
+            value (float or "Autosize"): value for IDD Field `Loop Demand Side Design Flow Rate`
                 Units: m3/s
                 IP-Units: gal/min
                 value > 0.0
@@ -26522,6 +25564,13 @@ class HeatExchangerFluidToFluid(object):
             ValueError: if `value` is not a valid value
         """
         if value is not None:
+            try:
+                value_lower = str(value).lower()
+                if value_lower == "autosize":
+                    self._data["Loop Demand Side Design Flow Rate"] = "Autosize"
+                    return
+            except ValueError:
+                pass
             try:
                 value = float(value)
             except ValueError:
@@ -26544,8 +25593,6 @@ class HeatExchangerFluidToFluid(object):
     @loop_supply_side_inlet_node_name.setter
     def loop_supply_side_inlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Loop Supply Side Inlet Node Name`
-        
-        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Loop Supply Side Inlet Node Name`
@@ -26581,8 +25628,6 @@ class HeatExchangerFluidToFluid(object):
     @loop_supply_side_outlet_node_name.setter
     def loop_supply_side_outlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Loop Supply Side Outlet Node Name`
-        
-        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Loop Supply Side Outlet Node Name`
@@ -26618,11 +25663,9 @@ class HeatExchangerFluidToFluid(object):
     @loop_supply_side_design_flow_rate.setter
     def loop_supply_side_design_flow_rate(self, value=None):
         """  Corresponds to IDD Field `Loop Supply Side Design Flow Rate`
-        
-        {'pytype': 'float', u'minimum>': '0.0', u'required-field': True, u'ip-units': u'gal/min', u'autosizable': u'', u'units': u'm3/s', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `Loop Supply Side Design Flow Rate`
+            value (float or "Autosize"): value for IDD Field `Loop Supply Side Design Flow Rate`
                 Units: m3/s
                 IP-Units: gal/min
                 value > 0.0
@@ -26633,6 +25676,13 @@ class HeatExchangerFluidToFluid(object):
             ValueError: if `value` is not a valid value
         """
         if value is not None:
+            try:
+                value_lower = str(value).lower()
+                if value_lower == "autosize":
+                    self._data["Loop Supply Side Design Flow Rate"] = "Autosize"
+                    return
+            except ValueError:
+                pass
             try:
                 value = float(value)
             except ValueError:
@@ -26655,8 +25705,6 @@ class HeatExchangerFluidToFluid(object):
     @heat_exchange_model_type.setter
     def heat_exchange_model_type(self, value="Ideal"):
         """  Corresponds to IDD Field `Heat Exchange Model Type`
-        
-        {u'default': u'Ideal', u'type': u'choice', u'required-field': True, u'key': [u'CrossFlowBothUnMixed', u'CrossFlowBothMixed', u'CrossFlowSupplyMixedDemandUnMixed', u'CrossFlowSupplyUnMixedDemandMixed', u'ParallelFlow', u'CounterFlow', u'Ideal'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Heat Exchange Model Type`
@@ -26723,11 +25771,9 @@ class HeatExchangerFluidToFluid(object):
     @heat_exchanger_ufactor_times_area_value.setter
     def heat_exchanger_ufactor_times_area_value(self, value=None):
         """  Corresponds to IDD Field `Heat Exchanger U-Factor Times Area Value`
-        
-        {'pytype': 'float', u'minimum>': '0.0', u'required-field': True, u'autosizable': u'', u'units': u'W/k', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `Heat Exchanger U-Factor Times Area Value`
+            value (float or "Autosize"): value for IDD Field `Heat Exchanger U-Factor Times Area Value`
                 Units: W/k
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -26737,6 +25783,13 @@ class HeatExchangerFluidToFluid(object):
             ValueError: if `value` is not a valid value
         """
         if value is not None:
+            try:
+                value_lower = str(value).lower()
+                if value_lower == "autosize":
+                    self._data["Heat Exchanger U-Factor Times Area Value"] = "Autosize"
+                    return
+            except ValueError:
+                pass
             try:
                 value = float(value)
             except ValueError:
@@ -26759,8 +25812,6 @@ class HeatExchangerFluidToFluid(object):
     @control_type.setter
     def control_type(self, value="UncontrolledOn"):
         """  Corresponds to IDD Field `Control Type`
-        
-        {u'default': u'UncontrolledOn', u'type': u'choice', u'required-field': True, u'key': [u'UncontrolledOn', u'OperationSchemeModulated', u'OperationSchemeOnOff', u'HeatingSetpointModulated', u'HeatingSetpointOnOff', u'CoolingSetpointModulated', u'CoolingSetpointOnOff', u'DualDeadbandSetpointModulated', u'DualDeadbandSetpointOnOff', u'CoolingDifferentialOnOff', u'CoolingSetpointOnOffWithComponentOverride'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Control Type`
@@ -26836,8 +25887,6 @@ class HeatExchangerFluidToFluid(object):
     def heat_exchanger_setpoint_node_name(self, value=None):
         """  Corresponds to IDD Field `Heat Exchanger Setpoint Node Name`
         Setpoint node is needed with any Control Type that is "*Setpoint*"
-        
-        {u'note': [u'Setpoint node is needed with any Control Type that is "*Setpoint*"'], u'type': u'node', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Heat Exchanger Setpoint Node Name`
@@ -26871,11 +25920,9 @@ class HeatExchangerFluidToFluid(object):
         return self._data["Minimum Temperature Difference to Activate Heat Exchanger"]
 
     @minimum_temperature_difference_to_activate_heat_exchanger.setter
-    def minimum_temperature_difference_to_activate_heat_exchanger(self, value=0.01 ):
+    def minimum_temperature_difference_to_activate_heat_exchanger(self, value=0.01):
         """  Corresponds to IDD Field `Minimum Temperature Difference to Activate Heat Exchanger`
         Tolerance between control temperatures used to determine if heat exchanger should run.
-        
-        {'pytype': 'float', u'default': '0.01', u'maximum': '50.0', u'note': [u'Tolerance between control temperatures used to determine if heat exchanger should run.'], u'minimum': '0.0', u'units': u'deltaC', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Minimum Temperature Difference to Activate Heat Exchanger`
@@ -26916,8 +25963,6 @@ class HeatExchangerFluidToFluid(object):
     def heat_transfer_metering_end_use_type(self, value="LoopToLoop"):
         """  Corresponds to IDD Field `Heat Transfer Metering End Use Type`
         This feild controls end use reporting for heat transfer meters
-        
-        {'pytype': 'str', u'default': u'LoopToLoop', u'required-field': True, u'note': [u'This feild controls end use reporting for heat transfer meters'], u'key': [u'FreeCooling', u'HeatRecovery', u'HeatRejection', u'HeatRecoveryForCooling', u'HeatRecoveryForHeating', u'LoopToLoop'], u'type': u'choice'}
 
         Args:
             value (str): value for IDD Field `Heat Transfer Metering End Use Type`
@@ -26983,8 +26028,6 @@ class HeatExchangerFluidToFluid(object):
     def component_override_loop_supply_side_inlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Component Override Loop Supply Side Inlet Node Name`
         This field is only used if Control Type is set to CoolingSetpointOnOffWithComponentOverride
-        
-        {u'note': [u'This field is only used if Control Type is set to CoolingSetpointOnOffWithComponentOverride'], u'type': u'node', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component Override Loop Supply Side Inlet Node Name`
@@ -27021,8 +26064,6 @@ class HeatExchangerFluidToFluid(object):
     def component_override_loop_demand_side_inlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Component Override Loop Demand Side Inlet Node Name`
         This field is only used if Control Type is set to CoolingSetpointOnOffWithComponentOverride
-        
-        {u'note': [u'This field is only used if Control Type is set to CoolingSetpointOnOffWithComponentOverride'], u'type': u'node', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component Override Loop Demand Side Inlet Node Name`
@@ -27059,8 +26100,6 @@ class HeatExchangerFluidToFluid(object):
     def component_override_cooling_control_temperature_mode(self, value="Loop"):
         """  Corresponds to IDD Field `Component Override Cooling Control Temperature Mode`
         This field is only used if Control Type is set to CoolingSetpointOnOffWithComponentOverride
-        
-        {u'default': u'Loop', u'note': [u'This field is only used if Control Type is set to CoolingSetpointOnOffWithComponentOverride'], u'type': u'choice', u'key': [u'WetBulbTemperature', u'DryBulbTemperature', u'Loop'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Component Override Cooling Control Temperature Mode`
@@ -27117,11 +26156,9 @@ class HeatExchangerFluidToFluid(object):
         return self._data["Sizing Factor"]
 
     @sizing_factor.setter
-    def sizing_factor(self, value=1.0 ):
+    def sizing_factor(self, value=1.0):
         """  Corresponds to IDD Field `Sizing Factor`
         Multiplies the autosized flow rates for this device
-        
-        {u'note': [u'Multiplies the autosized flow rates for this device'], u'default': '1.0', u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Sizing Factor`
@@ -27157,8 +26194,6 @@ class HeatExchangerFluidToFluid(object):
     def operation_minimum_temperature_limit(self, value=None):
         """  Corresponds to IDD Field `Operation Minimum Temperature Limit`
         Lower limit on inlet temperatures, heat exchanger will not operate if either inlet is below this limit
-        
-        {u'note': [u'Lower limit on inlet temperatures, heat exchanger will not operate if either inlet is below this limit'], u'units': u'C', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Operation Minimum Temperature Limit`
@@ -27190,8 +26225,6 @@ class HeatExchangerFluidToFluid(object):
     def operation_maximum_temperature_limit(self, value=None):
         """  Corresponds to IDD Field `Operation Maximum Temperature Limit`
         Upper limit on inlet temperatures, heat exchanger will not operate if either inlet is above this limit
-        
-        {u'note': [u'Upper limit on inlet temperatures, heat exchanger will not operate if either inlet is above this limit'], u'units': u'C', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Operation Maximum Temperature Limit`

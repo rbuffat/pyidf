@@ -69,8 +69,6 @@ class SetpointManagerScheduled(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {'type': 'alpha', u'reference': u'SetpointManagers', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -106,8 +104,6 @@ class SetpointManagerScheduled(object):
     @control_variable.setter
     def control_variable(self, value=None):
         """  Corresponds to IDD Field `Control Variable`
-        
-        {u'type': u'choice', u'required-field': True, u'key': [u'Temperature', u'MaximumTemperature', u'MinimumTemperature', u'HumidityRatio', u'MaximumHumidityRatio', u'MinimumHumidityRatio', u'MassFlowRate', u'MaximumMassFlowRate', u'MinimumMassFlowRate'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Control Variable`
@@ -177,8 +173,6 @@ class SetpointManagerScheduled(object):
     @schedule_name.setter
     def schedule_name(self, value=None):
         """  Corresponds to IDD Field `Schedule Name`
-        
-        {u'type': u'object-list', u'object-list': u'ScheduleNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Schedule Name`
@@ -215,8 +209,6 @@ class SetpointManagerScheduled(object):
     def setpoint_node_or_nodelist_name(self, value=None):
         """  Corresponds to IDD Field `Setpoint Node or NodeList Name`
         Node(s) at which control variable will be set
-        
-        {u'note': [u'Node(s) at which control variable will be set'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Setpoint Node or NodeList Name`
@@ -351,8 +343,6 @@ class SetpointManagerScheduledDualSetpoint(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {'type': 'alpha', u'reference': u'SetpointManagers', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -388,8 +378,6 @@ class SetpointManagerScheduledDualSetpoint(object):
     @control_variable.setter
     def control_variable(self, value="Temperature"):
         """  Corresponds to IDD Field `Control Variable`
-        
-        {u'default': u'Temperature', u'type': u'choice', u'key': [u'Temperature'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Control Variable`
@@ -444,8 +432,6 @@ class SetpointManagerScheduledDualSetpoint(object):
     @high_setpoint_schedule_name.setter
     def high_setpoint_schedule_name(self, value=None):
         """  Corresponds to IDD Field `High Setpoint Schedule Name`
-        
-        {u'type': u'object-list', u'object-list': u'ScheduleNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `High Setpoint Schedule Name`
@@ -481,8 +467,6 @@ class SetpointManagerScheduledDualSetpoint(object):
     @low_setpoint_schedule_name.setter
     def low_setpoint_schedule_name(self, value=None):
         """  Corresponds to IDD Field `Low Setpoint Schedule Name`
-        
-        {u'type': u'object-list', u'object-list': u'ScheduleNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Low Setpoint Schedule Name`
@@ -519,8 +503,6 @@ class SetpointManagerScheduledDualSetpoint(object):
     def setpoint_node_or_nodelist_name(self, value=None):
         """  Corresponds to IDD Field `Setpoint Node or NodeList Name`
         Node(s) at which temperature will be set
-        
-        {u'note': [u'Node(s) at which temperature will be set'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Setpoint Node or NodeList Name`
@@ -711,8 +693,6 @@ class SetpointManagerOutdoorAirReset(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {'type': 'alpha', u'reference': u'SetpointManagers', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -748,8 +728,6 @@ class SetpointManagerOutdoorAirReset(object):
     @control_variable.setter
     def control_variable(self, value="Temperature"):
         """  Corresponds to IDD Field `Control Variable`
-        
-        {u'default': u'Temperature', u'type': u'choice', u'key': [u'Temperature'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Control Variable`
@@ -804,8 +782,6 @@ class SetpointManagerOutdoorAirReset(object):
     @setpoint_at_outdoor_low_temperature.setter
     def setpoint_at_outdoor_low_temperature(self, value=None):
         """  Corresponds to IDD Field `Setpoint at Outdoor Low Temperature`
-        
-        {u'units': u'C', 'type': 'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Setpoint at Outdoor Low Temperature`
@@ -836,8 +812,6 @@ class SetpointManagerOutdoorAirReset(object):
     @outdoor_low_temperature.setter
     def outdoor_low_temperature(self, value=None):
         """  Corresponds to IDD Field `Outdoor Low Temperature`
-        
-        {u'units': u'C', 'type': 'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Outdoor Low Temperature`
@@ -868,8 +842,6 @@ class SetpointManagerOutdoorAirReset(object):
     @setpoint_at_outdoor_high_temperature.setter
     def setpoint_at_outdoor_high_temperature(self, value=None):
         """  Corresponds to IDD Field `Setpoint at Outdoor High Temperature`
-        
-        {u'units': u'C', 'type': 'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Setpoint at Outdoor High Temperature`
@@ -900,8 +872,6 @@ class SetpointManagerOutdoorAirReset(object):
     @outdoor_high_temperature.setter
     def outdoor_high_temperature(self, value=None):
         """  Corresponds to IDD Field `Outdoor High Temperature`
-        
-        {u'units': u'C', 'type': 'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Outdoor High Temperature`
@@ -933,8 +903,6 @@ class SetpointManagerOutdoorAirReset(object):
     def setpoint_node_or_nodelist_name(self, value=None):
         """  Corresponds to IDD Field `Setpoint Node or NodeList Name`
         Node(s) at which temperature will be set
-        
-        {u'note': [u'Node(s) at which temperature will be set'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Setpoint Node or NodeList Name`
@@ -973,8 +941,6 @@ class SetpointManagerOutdoorAirReset(object):
         Optional input.
         Schedule allows scheduling of the outdoor air reset rule - a schedule value
         of 1 means use the first rule; a value of 2 means use the second rule.
-        
-        {u'note': [u'Optional input.', u'Schedule allows scheduling of the outdoor air reset rule - a schedule value', u'of 1 means use the first rule; a value of 2 means use the second rule.'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Schedule Name`
@@ -1011,8 +977,6 @@ class SetpointManagerOutdoorAirReset(object):
     def setpoint_at_outdoor_low_temperature_2(self, value=None):
         """  Corresponds to IDD Field `Setpoint at Outdoor Low Temperature 2`
         2nd outdoor air temperature reset rule
-        
-        {u'note': [u'2nd outdoor air temperature reset rule'], u'units': u'C', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Setpoint at Outdoor Low Temperature 2`
@@ -1044,8 +1008,6 @@ class SetpointManagerOutdoorAirReset(object):
     def outdoor_low_temperature_2(self, value=None):
         """  Corresponds to IDD Field `Outdoor Low Temperature 2`
         2nd outdoor air temperature reset rule
-        
-        {u'note': [u'2nd outdoor air temperature reset rule'], u'units': u'C', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Outdoor Low Temperature 2`
@@ -1077,8 +1039,6 @@ class SetpointManagerOutdoorAirReset(object):
     def setpoint_at_outdoor_high_temperature_2(self, value=None):
         """  Corresponds to IDD Field `Setpoint at Outdoor High Temperature 2`
         2nd outdoor air temperature reset rule
-        
-        {u'note': [u'2nd outdoor air temperature reset rule'], u'units': u'C', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Setpoint at Outdoor High Temperature 2`
@@ -1110,8 +1070,6 @@ class SetpointManagerOutdoorAirReset(object):
     def outdoor_high_temperature_2(self, value=None):
         """  Corresponds to IDD Field `Outdoor High Temperature 2`
         2nd outdoor air temperature reset rule
-        
-        {u'note': [u'2nd outdoor air temperature reset rule'], u'units': u'C', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Outdoor High Temperature 2`
@@ -1267,8 +1225,6 @@ class SetpointManagerSingleZoneReheat(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {'type': 'alpha', u'reference': u'SetpointManagers', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -1304,8 +1260,6 @@ class SetpointManagerSingleZoneReheat(object):
     @control_variable.setter
     def control_variable(self, value="Temperature"):
         """  Corresponds to IDD Field `Control Variable`
-        
-        {u'default': u'Temperature', u'type': u'choice', u'key': [u'Temperature'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Control Variable`
@@ -1358,10 +1312,8 @@ class SetpointManagerSingleZoneReheat(object):
         return self._data["Minimum Supply Air Temperature"]
 
     @minimum_supply_air_temperature.setter
-    def minimum_supply_air_temperature(self, value=-99.0 ):
+    def minimum_supply_air_temperature(self, value=-99.0):
         """  Corresponds to IDD Field `Minimum Supply Air Temperature`
-        
-        {u'units': u'C', u'default': '-99.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Minimum Supply Air Temperature`
@@ -1391,10 +1343,8 @@ class SetpointManagerSingleZoneReheat(object):
         return self._data["Maximum Supply Air Temperature"]
 
     @maximum_supply_air_temperature.setter
-    def maximum_supply_air_temperature(self, value=99.0 ):
+    def maximum_supply_air_temperature(self, value=99.0):
         """  Corresponds to IDD Field `Maximum Supply Air Temperature`
-        
-        {u'units': u'C', u'default': '99.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Maximum Supply Air Temperature`
@@ -1426,8 +1376,6 @@ class SetpointManagerSingleZoneReheat(object):
     @control_zone_name.setter
     def control_zone_name(self, value=None):
         """  Corresponds to IDD Field `Control Zone Name`
-        
-        {u'type': u'object-list', u'object-list': u'ZoneNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Control Zone Name`
@@ -1463,8 +1411,6 @@ class SetpointManagerSingleZoneReheat(object):
     @zone_node_name.setter
     def zone_node_name(self, value=None):
         """  Corresponds to IDD Field `Zone Node Name`
-        
-        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Zone Node Name`
@@ -1500,8 +1446,6 @@ class SetpointManagerSingleZoneReheat(object):
     @zone_inlet_node_name.setter
     def zone_inlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Zone Inlet Node Name`
-        
-        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Zone Inlet Node Name`
@@ -1538,8 +1482,6 @@ class SetpointManagerSingleZoneReheat(object):
     def setpoint_node_or_nodelist_name(self, value=None):
         """  Corresponds to IDD Field `Setpoint Node or NodeList Name`
         Node(s) at which the temperature will be set
-        
-        {u'note': [u'Node(s) at which the temperature will be set'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Setpoint Node or NodeList Name`
@@ -1700,8 +1642,6 @@ class SetpointManagerSingleZoneHeating(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {'type': 'alpha', u'reference': u'SetpointManagers', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -1737,8 +1677,6 @@ class SetpointManagerSingleZoneHeating(object):
     @control_variable.setter
     def control_variable(self, value="Temperature"):
         """  Corresponds to IDD Field `Control Variable`
-        
-        {u'default': u'Temperature', u'type': u'choice', u'key': [u'Temperature'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Control Variable`
@@ -1791,10 +1729,8 @@ class SetpointManagerSingleZoneHeating(object):
         return self._data["Minimum Supply Air Temperature"]
 
     @minimum_supply_air_temperature.setter
-    def minimum_supply_air_temperature(self, value=-99.0 ):
+    def minimum_supply_air_temperature(self, value=-99.0):
         """  Corresponds to IDD Field `Minimum Supply Air Temperature`
-        
-        {u'units': u'C', u'default': '-99.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Minimum Supply Air Temperature`
@@ -1824,10 +1760,8 @@ class SetpointManagerSingleZoneHeating(object):
         return self._data["Maximum Supply Air Temperature"]
 
     @maximum_supply_air_temperature.setter
-    def maximum_supply_air_temperature(self, value=99.0 ):
+    def maximum_supply_air_temperature(self, value=99.0):
         """  Corresponds to IDD Field `Maximum Supply Air Temperature`
-        
-        {u'units': u'C', u'default': '99.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Maximum Supply Air Temperature`
@@ -1859,8 +1793,6 @@ class SetpointManagerSingleZoneHeating(object):
     @control_zone_name.setter
     def control_zone_name(self, value=None):
         """  Corresponds to IDD Field `Control Zone Name`
-        
-        {u'type': u'object-list', u'object-list': u'ZoneNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Control Zone Name`
@@ -1896,8 +1828,6 @@ class SetpointManagerSingleZoneHeating(object):
     @zone_node_name.setter
     def zone_node_name(self, value=None):
         """  Corresponds to IDD Field `Zone Node Name`
-        
-        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Zone Node Name`
@@ -1933,8 +1863,6 @@ class SetpointManagerSingleZoneHeating(object):
     @zone_inlet_node_name.setter
     def zone_inlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Zone Inlet Node Name`
-        
-        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Zone Inlet Node Name`
@@ -1971,8 +1899,6 @@ class SetpointManagerSingleZoneHeating(object):
     def setpoint_node_or_nodelist_name(self, value=None):
         """  Corresponds to IDD Field `Setpoint Node or NodeList Name`
         Node(s) at which the temperature will be set
-        
-        {u'note': [u'Node(s) at which the temperature will be set'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Setpoint Node or NodeList Name`
@@ -2133,8 +2059,6 @@ class SetpointManagerSingleZoneCooling(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {'type': 'alpha', u'reference': u'SetpointManagers', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -2170,8 +2094,6 @@ class SetpointManagerSingleZoneCooling(object):
     @control_variable.setter
     def control_variable(self, value="Temperature"):
         """  Corresponds to IDD Field `Control Variable`
-        
-        {u'default': u'Temperature', u'type': u'choice', u'key': [u'Temperature'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Control Variable`
@@ -2224,10 +2146,8 @@ class SetpointManagerSingleZoneCooling(object):
         return self._data["Minimum Supply Air Temperature"]
 
     @minimum_supply_air_temperature.setter
-    def minimum_supply_air_temperature(self, value=-99.0 ):
+    def minimum_supply_air_temperature(self, value=-99.0):
         """  Corresponds to IDD Field `Minimum Supply Air Temperature`
-        
-        {u'units': u'C', u'default': '-99.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Minimum Supply Air Temperature`
@@ -2257,10 +2177,8 @@ class SetpointManagerSingleZoneCooling(object):
         return self._data["Maximum Supply Air Temperature"]
 
     @maximum_supply_air_temperature.setter
-    def maximum_supply_air_temperature(self, value=99.0 ):
+    def maximum_supply_air_temperature(self, value=99.0):
         """  Corresponds to IDD Field `Maximum Supply Air Temperature`
-        
-        {u'units': u'C', u'default': '99.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Maximum Supply Air Temperature`
@@ -2292,8 +2210,6 @@ class SetpointManagerSingleZoneCooling(object):
     @control_zone_name.setter
     def control_zone_name(self, value=None):
         """  Corresponds to IDD Field `Control Zone Name`
-        
-        {u'type': u'object-list', u'object-list': u'ZoneNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Control Zone Name`
@@ -2329,8 +2245,6 @@ class SetpointManagerSingleZoneCooling(object):
     @zone_node_name.setter
     def zone_node_name(self, value=None):
         """  Corresponds to IDD Field `Zone Node Name`
-        
-        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Zone Node Name`
@@ -2366,8 +2280,6 @@ class SetpointManagerSingleZoneCooling(object):
     @zone_inlet_node_name.setter
     def zone_inlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Zone Inlet Node Name`
-        
-        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Zone Inlet Node Name`
@@ -2404,8 +2316,6 @@ class SetpointManagerSingleZoneCooling(object):
     def setpoint_node_or_nodelist_name(self, value=None):
         """  Corresponds to IDD Field `Setpoint Node or NodeList Name`
         Node(s) at which the temperature will be set
-        
-        {u'note': [u'Node(s) at which the temperature will be set'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Setpoint Node or NodeList Name`
@@ -2542,8 +2452,6 @@ class SetpointManagerSingleZoneHumidityMinimum(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {'type': 'alpha', u'reference': u'SetpointManagers', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -2579,8 +2487,6 @@ class SetpointManagerSingleZoneHumidityMinimum(object):
     @control_variable.setter
     def control_variable(self, value=None):
         """  Corresponds to IDD Field `Control Variable`
-        
-        {u'deprecated': u'', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Control Variable`
@@ -2616,8 +2522,6 @@ class SetpointManagerSingleZoneHumidityMinimum(object):
     @schedule_name.setter
     def schedule_name(self, value=None):
         """  Corresponds to IDD Field `Schedule Name`
-        
-        {u'deprecated': u'', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Schedule Name`
@@ -2654,8 +2558,6 @@ class SetpointManagerSingleZoneHumidityMinimum(object):
     def setpoint_node_or_nodelist_name(self, value=None):
         """  Corresponds to IDD Field `Setpoint Node or NodeList Name`
         Node(s) at which humidity ratio setpoint will be set
-        
-        {u'note': [u'Node(s) at which humidity ratio setpoint will be set'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Setpoint Node or NodeList Name`
@@ -2692,8 +2594,6 @@ class SetpointManagerSingleZoneHumidityMinimum(object):
     def control_zone_air_node_name(self, value=None):
         """  Corresponds to IDD Field `Control Zone Air Node Name`
         Name of the zone air node for the humidity control zone
-        
-        {u'note': [u'Name of the zone air node for the humidity control zone'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Control Zone Air Node Name`
@@ -2830,8 +2730,6 @@ class SetpointManagerSingleZoneHumidityMaximum(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {'type': 'alpha', u'reference': u'SetpointManagers', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -2867,8 +2765,6 @@ class SetpointManagerSingleZoneHumidityMaximum(object):
     @control_variable.setter
     def control_variable(self, value=None):
         """  Corresponds to IDD Field `Control Variable`
-        
-        {u'deprecated': u'', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Control Variable`
@@ -2904,8 +2800,6 @@ class SetpointManagerSingleZoneHumidityMaximum(object):
     @schedule_name.setter
     def schedule_name(self, value=None):
         """  Corresponds to IDD Field `Schedule Name`
-        
-        {u'deprecated': u'', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Schedule Name`
@@ -2942,8 +2836,6 @@ class SetpointManagerSingleZoneHumidityMaximum(object):
     def setpoint_node_or_nodelist_name(self, value=None):
         """  Corresponds to IDD Field `Setpoint Node or NodeList Name`
         Node(s) at which humidity ratio setpoint will be set
-        
-        {u'note': [u'Node(s) at which humidity ratio setpoint will be set'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Setpoint Node or NodeList Name`
@@ -2980,8 +2872,6 @@ class SetpointManagerSingleZoneHumidityMaximum(object):
     def control_zone_air_node_name(self, value=None):
         """  Corresponds to IDD Field `Control Zone Air Node Name`
         Name of the zone air node for the humidity control zone
-        
-        {u'note': [u'Name of the zone air node for the humidity control zone'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Control Zone Air Node Name`
@@ -3125,8 +3015,6 @@ class SetpointManagerMixedAir(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {'type': 'alpha', u'reference': u'SetpointManagers', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -3162,8 +3050,6 @@ class SetpointManagerMixedAir(object):
     @control_variable.setter
     def control_variable(self, value="Temperature"):
         """  Corresponds to IDD Field `Control Variable`
-        
-        {u'default': u'Temperature', u'type': u'choice', u'key': [u'Temperature'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Control Variable`
@@ -3218,8 +3104,6 @@ class SetpointManagerMixedAir(object):
     @reference_setpoint_node_name.setter
     def reference_setpoint_node_name(self, value=None):
         """  Corresponds to IDD Field `Reference Setpoint Node Name`
-        
-        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Reference Setpoint Node Name`
@@ -3255,8 +3139,6 @@ class SetpointManagerMixedAir(object):
     @fan_inlet_node_name.setter
     def fan_inlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Fan Inlet Node Name`
-        
-        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Fan Inlet Node Name`
@@ -3292,8 +3174,6 @@ class SetpointManagerMixedAir(object):
     @fan_outlet_node_name.setter
     def fan_outlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Fan Outlet Node Name`
-        
-        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Fan Outlet Node Name`
@@ -3330,8 +3210,6 @@ class SetpointManagerMixedAir(object):
     def setpoint_node_or_nodelist_name(self, value=None):
         """  Corresponds to IDD Field `Setpoint Node or NodeList Name`
         Node(s) at which the temperature will be set
-        
-        {u'note': [u'Node(s) at which the temperature will be set'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Setpoint Node or NodeList Name`
@@ -3516,8 +3394,6 @@ class SetpointManagerOutdoorAirPretreat(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {'type': 'alpha', u'reference': u'SetpointManagers', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -3553,8 +3429,6 @@ class SetpointManagerOutdoorAirPretreat(object):
     @control_variable.setter
     def control_variable(self, value=None):
         """  Corresponds to IDD Field `Control Variable`
-        
-        {u'type': u'choice', u'key': [u'Temperature', u'HumidityRatio', u'MaximumHumidityRatio', u'MinimumHumidityRatio'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Control Variable`
@@ -3612,11 +3486,9 @@ class SetpointManagerOutdoorAirPretreat(object):
         return self._data["Minimum Setpoint Temperature"]
 
     @minimum_setpoint_temperature.setter
-    def minimum_setpoint_temperature(self, value=-99.0 ):
+    def minimum_setpoint_temperature(self, value=-99.0):
         """  Corresponds to IDD Field `Minimum Setpoint Temperature`
         Applicable only if Control variable is Temperature
-        
-        {u'units': u'C', u'default': '-99.0', u'note': [u'Applicable only if Control variable is Temperature'], 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Minimum Setpoint Temperature`
@@ -3646,11 +3518,9 @@ class SetpointManagerOutdoorAirPretreat(object):
         return self._data["Maximum Setpoint Temperature"]
 
     @maximum_setpoint_temperature.setter
-    def maximum_setpoint_temperature(self, value=99.0 ):
+    def maximum_setpoint_temperature(self, value=99.0):
         """  Corresponds to IDD Field `Maximum Setpoint Temperature`
         Applicable only if Control variable is Temperature
-        
-        {u'units': u'C', u'default': '99.0', u'note': [u'Applicable only if Control variable is Temperature'], 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Maximum Setpoint Temperature`
@@ -3680,12 +3550,10 @@ class SetpointManagerOutdoorAirPretreat(object):
         return self._data["Minimum Setpoint Humidity Ratio"]
 
     @minimum_setpoint_humidity_ratio.setter
-    def minimum_setpoint_humidity_ratio(self, value=1e-05 ):
+    def minimum_setpoint_humidity_ratio(self, value=1e-05):
         """  Corresponds to IDD Field `Minimum Setpoint Humidity Ratio`
         Applicable only if Control variable is
         MaximumHumidityRatio, MinimumHumidityRatio, or HumidityRatio - then minimum is 0.00001
-        
-        {'pytype': 'float', u'default': '1e-05', u'maximum': '1.0', u'note': [u'Applicable only if Control variable is', u'MaximumHumidityRatio, MinimumHumidityRatio, or HumidityRatio - then minimum is 0.00001'], u'units': u'kgWater/kgDryAir', 'type': 'real'}
 
         Args:
             value (float): value for IDD Field `Minimum Setpoint Humidity Ratio`
@@ -3719,12 +3587,10 @@ class SetpointManagerOutdoorAirPretreat(object):
         return self._data["Maximum Setpoint Humidity Ratio"]
 
     @maximum_setpoint_humidity_ratio.setter
-    def maximum_setpoint_humidity_ratio(self, value=1.0 ):
+    def maximum_setpoint_humidity_ratio(self, value=1.0):
         """  Corresponds to IDD Field `Maximum Setpoint Humidity Ratio`
         Applicable only if Control variable is
         MaximumHumidityRatio, MinimumHumidityRatio, or HumidityRatio - then minimum is 0.00001
-        
-        {'pytype': 'float', u'default': '1.0', u'maximum': '1.0', u'note': [u'Applicable only if Control variable is', u'MaximumHumidityRatio, MinimumHumidityRatio, or HumidityRatio - then minimum is 0.00001'], u'units': u'kgWater/kgDryAir', 'type': 'real'}
 
         Args:
             value (float): value for IDD Field `Maximum Setpoint Humidity Ratio`
@@ -3764,8 +3630,6 @@ class SetpointManagerOutdoorAirPretreat(object):
         desired condition for the Mixed Air Node
         This node must have a valid setpoint
         which has been set by another setpoint manager
-        
-        {u'note': [u'The current setpoint at this node is the', u'desired condition for the Mixed Air Node', u'This node must have a valid setpoint', u'which has been set by another setpoint manager'], u'type': u'node', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Reference Setpoint Node Name`
@@ -3802,8 +3666,6 @@ class SetpointManagerOutdoorAirPretreat(object):
     def mixed_air_stream_node_name(self, value=None):
         """  Corresponds to IDD Field `Mixed Air Stream Node Name`
         Name of Mixed Air Node
-        
-        {u'note': [u'Name of Mixed Air Node'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Mixed Air Stream Node Name`
@@ -3840,8 +3702,6 @@ class SetpointManagerOutdoorAirPretreat(object):
     def outdoor_air_stream_node_name(self, value=None):
         """  Corresponds to IDD Field `Outdoor Air Stream Node Name`
         Name of Outdoor Air Stream Node
-        
-        {u'note': [u'Name of Outdoor Air Stream Node'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Outdoor Air Stream Node Name`
@@ -3878,8 +3738,6 @@ class SetpointManagerOutdoorAirPretreat(object):
     def return_air_stream_node_name(self, value=None):
         """  Corresponds to IDD Field `Return Air Stream Node Name`
         Name of Return Air Stream Node
-        
-        {u'note': [u'Name of Return Air Stream Node'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Return Air Stream Node Name`
@@ -3917,8 +3775,6 @@ class SetpointManagerOutdoorAirPretreat(object):
         """  Corresponds to IDD Field `Setpoint Node or NodeList Name`
         Node(s) at which the temperature or humidity
         ratio will be set
-        
-        {u'note': [u'Node(s) at which the temperature or humidity', u'ratio will be set'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Setpoint Node or NodeList Name`
@@ -4070,8 +3926,6 @@ class SetpointManagerWarmest(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {'type': 'alpha', u'reference': u'SetpointManagers', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -4107,8 +3961,6 @@ class SetpointManagerWarmest(object):
     @control_variable.setter
     def control_variable(self, value="Temperature"):
         """  Corresponds to IDD Field `Control Variable`
-        
-        {u'default': u'Temperature', u'type': u'choice', u'key': [u'Temperature'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Control Variable`
@@ -4164,8 +4016,6 @@ class SetpointManagerWarmest(object):
     def hvac_air_loop_name(self, value=None):
         """  Corresponds to IDD Field `HVAC Air Loop Name`
         Enter the name of an AirLoopHVAC object
-        
-        {u'note': [u'Enter the name of an AirLoopHVAC object'], u'type': u'object-list', u'object-list': u'AirPrimaryLoops', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `HVAC Air Loop Name`
@@ -4199,10 +4049,8 @@ class SetpointManagerWarmest(object):
         return self._data["Minimum Setpoint Temperature"]
 
     @minimum_setpoint_temperature.setter
-    def minimum_setpoint_temperature(self, value=12.0 ):
+    def minimum_setpoint_temperature(self, value=12.0):
         """  Corresponds to IDD Field `Minimum Setpoint Temperature`
-        
-        {u'units': u'C', u'default': '12.0', u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Minimum Setpoint Temperature`
@@ -4236,10 +4084,8 @@ class SetpointManagerWarmest(object):
         return self._data["Maximum Setpoint Temperature"]
 
     @maximum_setpoint_temperature.setter
-    def maximum_setpoint_temperature(self, value=18.0 ):
+    def maximum_setpoint_temperature(self, value=18.0):
         """  Corresponds to IDD Field `Maximum Setpoint Temperature`
-        
-        {u'units': u'C', u'default': '18.0', u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Maximum Setpoint Temperature`
@@ -4275,8 +4121,6 @@ class SetpointManagerWarmest(object):
     @strategy.setter
     def strategy(self, value="MaximumTemperature"):
         """  Corresponds to IDD Field `Strategy`
-        
-        {u'default': u'MaximumTemperature', u'type': u'choice', u'key': [u'MaximumTemperature'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Strategy`
@@ -4332,8 +4176,6 @@ class SetpointManagerWarmest(object):
     def setpoint_node_or_nodelist_name(self, value=None):
         """  Corresponds to IDD Field `Setpoint Node or NodeList Name`
         Node(s) at which the temperature will be set
-        
-        {u'note': [u'Node(s) at which the temperature will be set'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Setpoint Node or NodeList Name`
@@ -4486,8 +4328,6 @@ class SetpointManagerColdest(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {'type': 'alpha', u'reference': u'SetpointManagers', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -4523,8 +4363,6 @@ class SetpointManagerColdest(object):
     @control_variable.setter
     def control_variable(self, value="Temperature"):
         """  Corresponds to IDD Field `Control Variable`
-        
-        {u'default': u'Temperature', u'type': u'choice', u'key': [u'Temperature'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Control Variable`
@@ -4580,8 +4418,6 @@ class SetpointManagerColdest(object):
     def hvac_air_loop_name(self, value=None):
         """  Corresponds to IDD Field `HVAC Air Loop Name`
         Enter the name of an AirLoopHVAC object.
-        
-        {u'note': [u'Enter the name of an AirLoopHVAC object.'], u'type': u'object-list', u'object-list': u'AirPrimaryLoops', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `HVAC Air Loop Name`
@@ -4615,10 +4451,8 @@ class SetpointManagerColdest(object):
         return self._data["Minimum Setpoint Temperature"]
 
     @minimum_setpoint_temperature.setter
-    def minimum_setpoint_temperature(self, value=20.0 ):
+    def minimum_setpoint_temperature(self, value=20.0):
         """  Corresponds to IDD Field `Minimum Setpoint Temperature`
-        
-        {u'units': u'C', u'default': '20.0', u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Minimum Setpoint Temperature`
@@ -4652,10 +4486,8 @@ class SetpointManagerColdest(object):
         return self._data["Maximum Setpoint Temperature"]
 
     @maximum_setpoint_temperature.setter
-    def maximum_setpoint_temperature(self, value=50.0 ):
+    def maximum_setpoint_temperature(self, value=50.0):
         """  Corresponds to IDD Field `Maximum Setpoint Temperature`
-        
-        {u'units': u'C', u'default': '50.0', u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Maximum Setpoint Temperature`
@@ -4691,8 +4523,6 @@ class SetpointManagerColdest(object):
     @strategy.setter
     def strategy(self, value="MinimumTemperature"):
         """  Corresponds to IDD Field `Strategy`
-        
-        {u'default': u'MinimumTemperature', u'type': u'choice', u'key': [u'MinimumTemperature'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Strategy`
@@ -4748,8 +4578,6 @@ class SetpointManagerColdest(object):
     def setpoint_node_or_nodelist_name(self, value=None):
         """  Corresponds to IDD Field `Setpoint Node or NodeList Name`
         Node(s) at which the temperature will be set
-        
-        {u'note': [u'Node(s) at which the temperature will be set'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Setpoint Node or NodeList Name`
@@ -4877,8 +4705,6 @@ class SetpointManagerReturnAirBypassFlow(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {'type': 'alpha', u'reference': u'SetpointManagers', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -4914,8 +4740,6 @@ class SetpointManagerReturnAirBypassFlow(object):
     @control_variable.setter
     def control_variable(self, value="Flow"):
         """  Corresponds to IDD Field `Control Variable`
-        
-        {u'default': u'Flow', u'type': u'choice', u'key': [u'Flow'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Control Variable`
@@ -4971,8 +4795,6 @@ class SetpointManagerReturnAirBypassFlow(object):
     def hvac_air_loop_name(self, value=None):
         """  Corresponds to IDD Field `HVAC Air Loop Name`
         Enter the name of an AirLoopHVAC object.
-        
-        {u'note': [u'Enter the name of an AirLoopHVAC object.'], u'type': u'object-list', u'object-list': u'AirPrimaryLoops', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `HVAC Air Loop Name`
@@ -5008,8 +4830,6 @@ class SetpointManagerReturnAirBypassFlow(object):
     @temperature_setpoint_schedule_name.setter
     def temperature_setpoint_schedule_name(self, value=None):
         """  Corresponds to IDD Field `Temperature Setpoint Schedule Name`
-        
-        {u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Temperature Setpoint Schedule Name`
@@ -5168,8 +4988,6 @@ class SetpointManagerWarmestTemperatureFlow(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {'type': 'alpha', u'reference': u'SetpointManagers', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -5205,8 +5023,6 @@ class SetpointManagerWarmestTemperatureFlow(object):
     @control_variable.setter
     def control_variable(self, value=None):
         """  Corresponds to IDD Field `Control Variable`
-        
-        {u'type': u'choice', u'key': [u'Temperature'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Control Variable`
@@ -5261,8 +5077,6 @@ class SetpointManagerWarmestTemperatureFlow(object):
     def hvac_air_loop_name(self, value=None):
         """  Corresponds to IDD Field `HVAC Air Loop Name`
         Enter the name of an AirLoopHVAC object.
-        
-        {u'note': [u'Enter the name of an AirLoopHVAC object.'], u'type': u'object-list', u'object-list': u'AirPrimaryLoops', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `HVAC Air Loop Name`
@@ -5296,10 +5110,8 @@ class SetpointManagerWarmestTemperatureFlow(object):
         return self._data["Minimum Setpoint Temperature"]
 
     @minimum_setpoint_temperature.setter
-    def minimum_setpoint_temperature(self, value=12.0 ):
+    def minimum_setpoint_temperature(self, value=12.0):
         """  Corresponds to IDD Field `Minimum Setpoint Temperature`
-        
-        {u'units': u'C', u'default': '12.0', u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Minimum Setpoint Temperature`
@@ -5333,10 +5145,8 @@ class SetpointManagerWarmestTemperatureFlow(object):
         return self._data["Maximum Setpoint Temperature"]
 
     @maximum_setpoint_temperature.setter
-    def maximum_setpoint_temperature(self, value=18.0 ):
+    def maximum_setpoint_temperature(self, value=18.0):
         """  Corresponds to IDD Field `Maximum Setpoint Temperature`
-        
-        {u'units': u'C', u'default': '18.0', u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Maximum Setpoint Temperature`
@@ -5380,8 +5190,6 @@ class SetpointManagerWarmestTemperatureFlow(object):
         that will satisfy all the zone cooling loads at the maximum setpoint temperature.
         If this flow is greater than the maximum, the flow is set to the maximum and the
         setpoint temperature is reduced to satisfy the cooling loads.
-        
-        {u'note': [u'For TemperatureFirst the manager tries to find the highest setpoint temperature', u'that will satisfy all the zone cooling loads at minimum supply air flow rate.', u'If this setpoint temperature is less than the minimum, the setpoint temperature is set', u'to the minimum, and the supply air flow rate is increased to meet the loads.', u'For FlowFirst the manager tries to find the lowest supply air flow rate', u'that will satisfy all the zone cooling loads at the maximum setpoint temperature.', u'If this flow is greater than the maximum, the flow is set to the maximum and the', u'setpoint temperature is reduced to satisfy the cooling loads.'], u'default': u'TemperatureFirst', u'type': u'choice', u'key': [u'TemperatureFirst', u'FlowFirst'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Strategy`
@@ -5439,8 +5247,6 @@ class SetpointManagerWarmestTemperatureFlow(object):
     def setpoint_node_or_nodelist_name(self, value=None):
         """  Corresponds to IDD Field `Setpoint Node or NodeList Name`
         Node(s) at which the temperature will be set
-        
-        {u'note': [u'Node(s) at which the temperature will be set'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Setpoint Node or NodeList Name`
@@ -5474,12 +5280,10 @@ class SetpointManagerWarmestTemperatureFlow(object):
         return self._data["Minimum Turndown Ratio"]
 
     @minimum_turndown_ratio.setter
-    def minimum_turndown_ratio(self, value=0.2 ):
+    def minimum_turndown_ratio(self, value=0.2):
         """  Corresponds to IDD Field `Minimum Turndown Ratio`
         Fraction of the maximum supply air flow rate.
         Used to define the minimum supply flow for the TemperatureFirst strategy.
-        
-        {'pytype': 'float', u'default': '0.2', u'minimum>': '0.0', u'note': [u'Fraction of the maximum supply air flow rate.', u'Used to define the minimum supply flow for the TemperatureFirst strategy.'], u'units': u'dimensionless', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Minimum Turndown Ratio`
@@ -5614,8 +5418,6 @@ class SetpointManagerMultiZoneHeatingAverage(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {'type': 'alpha', u'reference': u'SetpointManagers', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -5652,8 +5454,6 @@ class SetpointManagerMultiZoneHeatingAverage(object):
     def hvac_air_loop_name(self, value=None):
         """  Corresponds to IDD Field `HVAC Air Loop Name`
         Enter the name of an AirLoopHVAC object
-        
-        {u'note': [u'Enter the name of an AirLoopHVAC object'], u'type': u'object-list', u'object-list': u'AirPrimaryLoops', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `HVAC Air Loop Name`
@@ -5687,10 +5487,8 @@ class SetpointManagerMultiZoneHeatingAverage(object):
         return self._data["Minimum Setpoint Temperature"]
 
     @minimum_setpoint_temperature.setter
-    def minimum_setpoint_temperature(self, value=20.0 ):
+    def minimum_setpoint_temperature(self, value=20.0):
         """  Corresponds to IDD Field `Minimum Setpoint Temperature`
-        
-        {u'units': u'C', u'default': '20.0', u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Minimum Setpoint Temperature`
@@ -5724,10 +5522,8 @@ class SetpointManagerMultiZoneHeatingAverage(object):
         return self._data["Maximum Setpoint Temperature"]
 
     @maximum_setpoint_temperature.setter
-    def maximum_setpoint_temperature(self, value=50.0 ):
+    def maximum_setpoint_temperature(self, value=50.0):
         """  Corresponds to IDD Field `Maximum Setpoint Temperature`
-        
-        {u'units': u'C', u'default': '50.0', u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Maximum Setpoint Temperature`
@@ -5764,8 +5560,6 @@ class SetpointManagerMultiZoneHeatingAverage(object):
     def setpoint_node_or_nodelist_name(self, value=None):
         """  Corresponds to IDD Field `Setpoint Node or NodeList Name`
         Node(s) at which the temperature will be set
-        
-        {u'note': [u'Node(s) at which the temperature will be set'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Setpoint Node or NodeList Name`
@@ -5900,8 +5694,6 @@ class SetpointManagerMultiZoneCoolingAverage(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {'type': 'alpha', u'reference': u'SetpointManagers', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -5938,8 +5730,6 @@ class SetpointManagerMultiZoneCoolingAverage(object):
     def hvac_air_loop_name(self, value=None):
         """  Corresponds to IDD Field `HVAC Air Loop Name`
         Enter the name of an AirLoopHVAC object
-        
-        {u'note': [u'Enter the name of an AirLoopHVAC object'], u'type': u'object-list', u'object-list': u'AirPrimaryLoops', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `HVAC Air Loop Name`
@@ -5973,10 +5763,8 @@ class SetpointManagerMultiZoneCoolingAverage(object):
         return self._data["Minimum Setpoint Temperature"]
 
     @minimum_setpoint_temperature.setter
-    def minimum_setpoint_temperature(self, value=12.0 ):
+    def minimum_setpoint_temperature(self, value=12.0):
         """  Corresponds to IDD Field `Minimum Setpoint Temperature`
-        
-        {u'units': u'C', u'default': '12.0', u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Minimum Setpoint Temperature`
@@ -6010,10 +5798,8 @@ class SetpointManagerMultiZoneCoolingAverage(object):
         return self._data["Maximum Setpoint Temperature"]
 
     @maximum_setpoint_temperature.setter
-    def maximum_setpoint_temperature(self, value=18.0 ):
+    def maximum_setpoint_temperature(self, value=18.0):
         """  Corresponds to IDD Field `Maximum Setpoint Temperature`
-        
-        {u'units': u'C', u'default': '18.0', u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Maximum Setpoint Temperature`
@@ -6050,8 +5836,6 @@ class SetpointManagerMultiZoneCoolingAverage(object):
     def setpoint_node_or_nodelist_name(self, value=None):
         """  Corresponds to IDD Field `Setpoint Node or NodeList Name`
         Node(s) at which the temperature will be set
-        
-        {u'note': [u'Node(s) at which the temperature will be set'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Setpoint Node or NodeList Name`
@@ -6186,8 +5970,6 @@ class SetpointManagerMultiZoneMinimumHumidityAverage(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {'type': 'alpha', u'reference': u'SetpointManagers', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -6224,8 +6006,6 @@ class SetpointManagerMultiZoneMinimumHumidityAverage(object):
     def hvac_air_loop_name(self, value=None):
         """  Corresponds to IDD Field `HVAC Air Loop Name`
         Enter the name of an AirLoopHVAC object
-        
-        {u'note': [u'Enter the name of an AirLoopHVAC object'], u'type': u'object-list', u'object-list': u'AirPrimaryLoops', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `HVAC Air Loop Name`
@@ -6259,10 +6039,8 @@ class SetpointManagerMultiZoneMinimumHumidityAverage(object):
         return self._data["Minimum Setpoint Humidity Ratio"]
 
     @minimum_setpoint_humidity_ratio.setter
-    def minimum_setpoint_humidity_ratio(self, value=0.005 ):
+    def minimum_setpoint_humidity_ratio(self, value=0.005):
         """  Corresponds to IDD Field `Minimum Setpoint Humidity Ratio`
-        
-        {u'units': u'kgWater/kgDryAir', u'default': '0.005', u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Minimum Setpoint Humidity Ratio`
@@ -6296,10 +6074,8 @@ class SetpointManagerMultiZoneMinimumHumidityAverage(object):
         return self._data["Maximum Setpoint Humidity Ratio"]
 
     @maximum_setpoint_humidity_ratio.setter
-    def maximum_setpoint_humidity_ratio(self, value=0.012 ):
+    def maximum_setpoint_humidity_ratio(self, value=0.012):
         """  Corresponds to IDD Field `Maximum Setpoint Humidity Ratio`
-        
-        {u'units': u'kgWater/kgDryAir', u'default': '0.012', u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Maximum Setpoint Humidity Ratio`
@@ -6336,8 +6112,6 @@ class SetpointManagerMultiZoneMinimumHumidityAverage(object):
     def setpoint_node_or_nodelist_name(self, value=None):
         """  Corresponds to IDD Field `Setpoint Node or NodeList Name`
         Node(s) at which the humidity ratio will be set
-        
-        {u'note': [u'Node(s) at which the humidity ratio will be set'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Setpoint Node or NodeList Name`
@@ -6472,8 +6246,6 @@ class SetpointManagerMultiZoneMaximumHumidityAverage(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {'type': 'alpha', u'reference': u'SetpointManagers', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -6510,8 +6282,6 @@ class SetpointManagerMultiZoneMaximumHumidityAverage(object):
     def hvac_air_loop_name(self, value=None):
         """  Corresponds to IDD Field `HVAC Air Loop Name`
         Enter the name of an AirLoopHVAC object
-        
-        {u'note': [u'Enter the name of an AirLoopHVAC object'], u'type': u'object-list', u'object-list': u'AirPrimaryLoops', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `HVAC Air Loop Name`
@@ -6545,10 +6315,8 @@ class SetpointManagerMultiZoneMaximumHumidityAverage(object):
         return self._data["Minimum Setpoint Humidity Ratio"]
 
     @minimum_setpoint_humidity_ratio.setter
-    def minimum_setpoint_humidity_ratio(self, value=0.008 ):
+    def minimum_setpoint_humidity_ratio(self, value=0.008):
         """  Corresponds to IDD Field `Minimum Setpoint Humidity Ratio`
-        
-        {u'units': u'kgWater/kgDryAir', u'default': '0.008', u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Minimum Setpoint Humidity Ratio`
@@ -6582,10 +6350,8 @@ class SetpointManagerMultiZoneMaximumHumidityAverage(object):
         return self._data["Maximum Setpoint Humidity Ratio"]
 
     @maximum_setpoint_humidity_ratio.setter
-    def maximum_setpoint_humidity_ratio(self, value=0.015 ):
+    def maximum_setpoint_humidity_ratio(self, value=0.015):
         """  Corresponds to IDD Field `Maximum Setpoint Humidity Ratio`
-        
-        {u'units': u'kgWater/kgDryAir', u'default': '0.015', u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Maximum Setpoint Humidity Ratio`
@@ -6622,8 +6388,6 @@ class SetpointManagerMultiZoneMaximumHumidityAverage(object):
     def setpoint_node_or_nodelist_name(self, value=None):
         """  Corresponds to IDD Field `Setpoint Node or NodeList Name`
         Node(s) at which the humidity ratio will be set
-        
-        {u'note': [u'Node(s) at which the humidity ratio will be set'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Setpoint Node or NodeList Name`
@@ -6759,8 +6523,6 @@ class SetpointManagerMultiZoneHumidityMinimum(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {'type': 'alpha', u'reference': u'SetpointManagers', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -6797,8 +6559,6 @@ class SetpointManagerMultiZoneHumidityMinimum(object):
     def hvac_air_loop_name(self, value=None):
         """  Corresponds to IDD Field `HVAC Air Loop Name`
         Enter the name of an AirLoopHVAC object
-        
-        {u'note': [u'Enter the name of an AirLoopHVAC object'], u'type': u'object-list', u'object-list': u'AirPrimaryLoops', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `HVAC Air Loop Name`
@@ -6832,10 +6592,8 @@ class SetpointManagerMultiZoneHumidityMinimum(object):
         return self._data["Minimum Setpoint Humidity Ratio"]
 
     @minimum_setpoint_humidity_ratio.setter
-    def minimum_setpoint_humidity_ratio(self, value=0.005 ):
+    def minimum_setpoint_humidity_ratio(self, value=0.005):
         """  Corresponds to IDD Field `Minimum Setpoint Humidity Ratio`
-        
-        {u'units': u'kgWater/kgDryAir', u'default': '0.005', u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Minimum Setpoint Humidity Ratio`
@@ -6869,10 +6627,8 @@ class SetpointManagerMultiZoneHumidityMinimum(object):
         return self._data["Maximum Setpoint Humidity Ratio"]
 
     @maximum_setpoint_humidity_ratio.setter
-    def maximum_setpoint_humidity_ratio(self, value=0.012 ):
+    def maximum_setpoint_humidity_ratio(self, value=0.012):
         """  Corresponds to IDD Field `Maximum Setpoint Humidity Ratio`
-        
-        {u'units': u'kgWater/kgDryAir', u'default': '0.012', u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Maximum Setpoint Humidity Ratio`
@@ -6909,8 +6665,6 @@ class SetpointManagerMultiZoneHumidityMinimum(object):
     def setpoint_node_or_nodelist_name(self, value=None):
         """  Corresponds to IDD Field `Setpoint Node or NodeList Name`
         Node(s) at which the humidity ratio will be set
-        
-        {u'note': [u'Node(s) at which the humidity ratio will be set'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Setpoint Node or NodeList Name`
@@ -7046,8 +6800,6 @@ class SetpointManagerMultiZoneHumidityMaximum(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {'type': 'alpha', u'reference': u'SetpointManagers', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -7084,8 +6836,6 @@ class SetpointManagerMultiZoneHumidityMaximum(object):
     def hvac_air_loop_name(self, value=None):
         """  Corresponds to IDD Field `HVAC Air Loop Name`
         Enter the name of an AirLoopHVAC object
-        
-        {u'note': [u'Enter the name of an AirLoopHVAC object'], u'type': u'object-list', u'object-list': u'AirPrimaryLoops', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `HVAC Air Loop Name`
@@ -7119,10 +6869,8 @@ class SetpointManagerMultiZoneHumidityMaximum(object):
         return self._data["Minimum Setpoint Humidity Ratio"]
 
     @minimum_setpoint_humidity_ratio.setter
-    def minimum_setpoint_humidity_ratio(self, value=0.008 ):
+    def minimum_setpoint_humidity_ratio(self, value=0.008):
         """  Corresponds to IDD Field `Minimum Setpoint Humidity Ratio`
-        
-        {u'units': u'kgWater/kgDryAir', u'default': '0.008', u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Minimum Setpoint Humidity Ratio`
@@ -7156,10 +6904,8 @@ class SetpointManagerMultiZoneHumidityMaximum(object):
         return self._data["Maximum Setpoint Humidity Ratio"]
 
     @maximum_setpoint_humidity_ratio.setter
-    def maximum_setpoint_humidity_ratio(self, value=0.015 ):
+    def maximum_setpoint_humidity_ratio(self, value=0.015):
         """  Corresponds to IDD Field `Maximum Setpoint Humidity Ratio`
-        
-        {u'units': u'kgWater/kgDryAir', u'default': '0.015', u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Maximum Setpoint Humidity Ratio`
@@ -7196,8 +6942,6 @@ class SetpointManagerMultiZoneHumidityMaximum(object):
     def setpoint_node_or_nodelist_name(self, value=None):
         """  Corresponds to IDD Field `Setpoint Node or NodeList Name`
         Node(s) at which the humidity ratio will be set
-        
-        {u'note': [u'Node(s) at which the humidity ratio will be set'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Setpoint Node or NodeList Name`
@@ -7349,8 +7093,6 @@ class SetpointManagerFollowOutdoorAirTemperature(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {'type': 'alpha', u'reference': u'SetpointManagers', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -7386,8 +7128,6 @@ class SetpointManagerFollowOutdoorAirTemperature(object):
     @control_variable.setter
     def control_variable(self, value="Temperature"):
         """  Corresponds to IDD Field `Control Variable`
-        
-        {u'default': u'Temperature', u'type': u'choice', u'key': [u'Temperature', u'MinimumTemperature', u'MaximumTemperature'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Control Variable`
@@ -7446,8 +7186,6 @@ class SetpointManagerFollowOutdoorAirTemperature(object):
     @reference_temperature_type.setter
     def reference_temperature_type(self, value="OutdoorAirWetBulb"):
         """  Corresponds to IDD Field `Reference Temperature Type`
-        
-        {u'default': u'OutdoorAirWetBulb', u'type': u'choice', u'key': [u'OutdoorAirWetBulb', u'OutdoorAirDryBulb'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Reference Temperature Type`
@@ -7504,8 +7242,6 @@ class SetpointManagerFollowOutdoorAirTemperature(object):
     @offset_temperature_difference.setter
     def offset_temperature_difference(self, value=None):
         """  Corresponds to IDD Field `Offset Temperature Difference`
-        
-        {u'units': u'deltaC', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Offset Temperature Difference`
@@ -7536,8 +7272,6 @@ class SetpointManagerFollowOutdoorAirTemperature(object):
     @maximum_setpoint_temperature.setter
     def maximum_setpoint_temperature(self, value=None):
         """  Corresponds to IDD Field `Maximum Setpoint Temperature`
-        
-        {u'units': u'C', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Maximum Setpoint Temperature`
@@ -7568,8 +7302,6 @@ class SetpointManagerFollowOutdoorAirTemperature(object):
     @minimum_setpoint_temperature.setter
     def minimum_setpoint_temperature(self, value=None):
         """  Corresponds to IDD Field `Minimum Setpoint Temperature`
-        
-        {u'units': u'C', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Minimum Setpoint Temperature`
@@ -7601,8 +7333,6 @@ class SetpointManagerFollowOutdoorAirTemperature(object):
     def setpoint_node_or_nodelist_name(self, value=None):
         """  Corresponds to IDD Field `Setpoint Node or NodeList Name`
         Node(s) at which control variable will be set
-        
-        {u'note': [u'Node(s) at which control variable will be set'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Setpoint Node or NodeList Name`
@@ -7766,8 +7496,6 @@ class SetpointManagerFollowSystemNodeTemperature(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {'type': 'alpha', u'reference': u'SetpointManagers', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -7803,8 +7531,6 @@ class SetpointManagerFollowSystemNodeTemperature(object):
     @control_variable.setter
     def control_variable(self, value="Temperature"):
         """  Corresponds to IDD Field `Control Variable`
-        
-        {u'default': u'Temperature', u'type': u'choice', u'key': [u'Temperature', u'MinimumTemperature', u'MaximumTemperature'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Control Variable`
@@ -7863,8 +7589,6 @@ class SetpointManagerFollowSystemNodeTemperature(object):
     @reference_node_name.setter
     def reference_node_name(self, value=None):
         """  Corresponds to IDD Field `Reference Node Name`
-        
-        {u'type': u'node', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Reference Node Name`
@@ -7900,8 +7624,6 @@ class SetpointManagerFollowSystemNodeTemperature(object):
     @reference_temperature_type.setter
     def reference_temperature_type(self, value="NodeDryBulb"):
         """  Corresponds to IDD Field `Reference Temperature Type`
-        
-        {u'default': u'NodeDryBulb', u'type': u'choice', u'key': [u'NodeWetBulb', u'NodeDryBulb'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Reference Temperature Type`
@@ -7958,8 +7680,6 @@ class SetpointManagerFollowSystemNodeTemperature(object):
     @offset_temperature_difference.setter
     def offset_temperature_difference(self, value=None):
         """  Corresponds to IDD Field `Offset Temperature Difference`
-        
-        {u'units': u'deltaC', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Offset Temperature Difference`
@@ -7990,8 +7710,6 @@ class SetpointManagerFollowSystemNodeTemperature(object):
     @maximum_limit_setpoint_temperature.setter
     def maximum_limit_setpoint_temperature(self, value=None):
         """  Corresponds to IDD Field `Maximum Limit Setpoint Temperature`
-        
-        {u'units': u'C', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Maximum Limit Setpoint Temperature`
@@ -8022,8 +7740,6 @@ class SetpointManagerFollowSystemNodeTemperature(object):
     @minimum_limit_setpoint_temperature.setter
     def minimum_limit_setpoint_temperature(self, value=None):
         """  Corresponds to IDD Field `Minimum Limit Setpoint Temperature`
-        
-        {u'units': u'C', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Minimum Limit Setpoint Temperature`
@@ -8055,8 +7771,6 @@ class SetpointManagerFollowSystemNodeTemperature(object):
     def setpoint_node_or_nodelist_name(self, value=None):
         """  Corresponds to IDD Field `Setpoint Node or NodeList Name`
         Node(s) at which control variable will be set
-        
-        {u'note': [u'Node(s) at which control variable will be set'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Setpoint Node or NodeList Name`
@@ -8211,8 +7925,6 @@ class SetpointManagerFollowGroundTemperature(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {'type': 'alpha', u'reference': u'SetpointManagers', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -8248,8 +7960,6 @@ class SetpointManagerFollowGroundTemperature(object):
     @control_variable.setter
     def control_variable(self, value="Temperature"):
         """  Corresponds to IDD Field `Control Variable`
-        
-        {u'default': u'Temperature', u'type': u'choice', u'key': [u'Temperature', u'MinimumTemperature', u'MaximumTemperature'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Control Variable`
@@ -8308,8 +8018,6 @@ class SetpointManagerFollowGroundTemperature(object):
     @reference_ground_temperature_object_type.setter
     def reference_ground_temperature_object_type(self, value=None):
         """  Corresponds to IDD Field `Reference Ground Temperature Object Type`
-        
-        {u'type': u'choice', u'key': [u'Site:GroundTemperature:BuildingSurface', u'Site:GroundTemperature:Shallow', u'Site:GroundTemperature:Deep', u'Site:GroundTemperature:FCfactorMethod'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Reference Ground Temperature Object Type`
@@ -8369,8 +8077,6 @@ class SetpointManagerFollowGroundTemperature(object):
     @offset_temperature_difference.setter
     def offset_temperature_difference(self, value=None):
         """  Corresponds to IDD Field `Offset Temperature Difference`
-        
-        {u'units': u'deltaC', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Offset Temperature Difference`
@@ -8401,8 +8107,6 @@ class SetpointManagerFollowGroundTemperature(object):
     @maximum_setpoint_temperature.setter
     def maximum_setpoint_temperature(self, value=None):
         """  Corresponds to IDD Field `Maximum Setpoint Temperature`
-        
-        {u'units': u'C', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Maximum Setpoint Temperature`
@@ -8433,8 +8137,6 @@ class SetpointManagerFollowGroundTemperature(object):
     @minimum_setpoint_temperature.setter
     def minimum_setpoint_temperature(self, value=None):
         """  Corresponds to IDD Field `Minimum Setpoint Temperature`
-        
-        {u'units': u'C', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Minimum Setpoint Temperature`
@@ -8466,8 +8168,6 @@ class SetpointManagerFollowGroundTemperature(object):
     def setpoint_node_or_nodelist_name(self, value=None):
         """  Corresponds to IDD Field `Setpoint Node or NodeList Name`
         Node(s) at which control variable will be set
-        
-        {u'note': [u'Node(s) at which control variable will be set'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Setpoint Node or NodeList Name`
@@ -8642,8 +8342,6 @@ class SetpointManagerCondenserEnteringReset(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'reference': u'SetpointManagers', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -8679,8 +8377,6 @@ class SetpointManagerCondenserEnteringReset(object):
     @control_variable.setter
     def control_variable(self, value="Temperature"):
         """  Corresponds to IDD Field `Control Variable`
-        
-        {u'default': u'Temperature', u'type': u'choice', u'key': [u'Temperature'], u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Control Variable`
@@ -8738,8 +8434,6 @@ class SetpointManagerCondenserEnteringReset(object):
         This scheduled setpoint value is only used in a given timestep if the
         "Optimized" Condenser Entering Temperature does not fall within the prescribed
         boundary conditions.
-        
-        {u'note': [u'This scheduled setpoint value is only used in a given timestep if the', u'"Optimized" Condenser Entering Temperature does not fall within the prescribed', u'boundary conditions.'], u'type': u'object-list', u'object-list': u'ScheduleNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Default Condenser Entering Water Temperature Schedule Name`
@@ -8776,8 +8470,6 @@ class SetpointManagerCondenserEnteringReset(object):
     def minimum_design_wetbulb_temperature_curve_name(self, value=None):
         """  Corresponds to IDD Field `Minimum Design Wetbulb Temperature Curve Name`
         Table:OneIndependentVariable object can also be used
-        
-        {u'note': [u'Table:OneIndependentVariable object can also be used'], u'type': u'object-list', u'object-list': u'QuadLinearCurves', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Minimum Design Wetbulb Temperature Curve Name`
@@ -8814,8 +8506,6 @@ class SetpointManagerCondenserEnteringReset(object):
     def minimum_outside_air_wetbulb_temperature_curve_name(self, value=None):
         """  Corresponds to IDD Field `Minimum Outside Air Wetbulb Temperature Curve Name`
         Table:OneIndependentVariable object can also be used
-        
-        {u'note': [u'Table:OneIndependentVariable object can also be used'], u'type': u'object-list', u'object-list': u'QuadLinearCurves', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Minimum Outside Air Wetbulb Temperature Curve Name`
@@ -8852,8 +8542,6 @@ class SetpointManagerCondenserEnteringReset(object):
     def optimized_cond_entering_water_temperature_curve_name(self, value=None):
         """  Corresponds to IDD Field `Optimized Cond Entering Water Temperature Curve Name`
         Table:OneIndependentVariable
-        
-        {u'note': [u'Table:OneIndependentVariable'], u'type': u'object-list', u'object-list': u'QuadLinearCurves', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Optimized Cond Entering Water Temperature Curve Name`
@@ -8887,10 +8575,8 @@ class SetpointManagerCondenserEnteringReset(object):
         return self._data["Minimum Lift"]
 
     @minimum_lift.setter
-    def minimum_lift(self, value=11.1 ):
+    def minimum_lift(self, value=11.1):
         """  Corresponds to IDD Field `Minimum Lift`
-        
-        {u'units': u'deltaC', u'default': '11.1', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Minimum Lift`
@@ -8920,10 +8606,8 @@ class SetpointManagerCondenserEnteringReset(object):
         return self._data["Maximum Condenser Entering Water Temperature"]
 
     @maximum_condenser_entering_water_temperature.setter
-    def maximum_condenser_entering_water_temperature(self, value=32.0 ):
+    def maximum_condenser_entering_water_temperature(self, value=32.0):
         """  Corresponds to IDD Field `Maximum Condenser Entering Water Temperature`
-        
-        {u'units': u'C', u'default': '32.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Maximum Condenser Entering Water Temperature`
@@ -8953,10 +8637,8 @@ class SetpointManagerCondenserEnteringReset(object):
         return self._data["Cooling Tower Design Inlet Air Wet-Bulb Temperature"]
 
     @cooling_tower_design_inlet_air_wetbulb_temperature.setter
-    def cooling_tower_design_inlet_air_wetbulb_temperature(self, value=25.56 ):
+    def cooling_tower_design_inlet_air_wetbulb_temperature(self, value=25.56):
         """  Corresponds to IDD Field `Cooling Tower Design Inlet Air Wet-Bulb Temperature`
-        
-        {u'units': u'C', u'default': '25.56', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Cooling Tower Design Inlet Air Wet-Bulb Temperature`
@@ -8989,8 +8671,6 @@ class SetpointManagerCondenserEnteringReset(object):
     def setpoint_node_or_nodelist_name(self, value=None):
         """  Corresponds to IDD Field `Setpoint Node or NodeList Name`
         Node(s) at which control variable will be set
-        
-        {u'note': [u'Node(s) at which control variable will be set'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Setpoint Node or NodeList Name`
@@ -9125,8 +8805,6 @@ class SetpointManagerCondenserEnteringResetIdeal(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'reference': u'SetpointManagers', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -9162,8 +8840,6 @@ class SetpointManagerCondenserEnteringResetIdeal(object):
     @control_variable.setter
     def control_variable(self, value="Temperature"):
         """  Corresponds to IDD Field `Control Variable`
-        
-        {u'default': u'Temperature', u'type': u'choice', u'key': [u'Temperature'], u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Control Variable`
@@ -9216,10 +8892,8 @@ class SetpointManagerCondenserEnteringResetIdeal(object):
         return self._data["Minimum Lift"]
 
     @minimum_lift.setter
-    def minimum_lift(self, value=11.1 ):
+    def minimum_lift(self, value=11.1):
         """  Corresponds to IDD Field `Minimum Lift`
-        
-        {u'units': u'deltaC', u'default': '11.1', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Minimum Lift`
@@ -9249,10 +8923,8 @@ class SetpointManagerCondenserEnteringResetIdeal(object):
         return self._data["Maximum Condenser Entering Water Temperature"]
 
     @maximum_condenser_entering_water_temperature.setter
-    def maximum_condenser_entering_water_temperature(self, value=32.0 ):
+    def maximum_condenser_entering_water_temperature(self, value=32.0):
         """  Corresponds to IDD Field `Maximum Condenser Entering Water Temperature`
-        
-        {u'units': u'C', u'default': '32.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Maximum Condenser Entering Water Temperature`
@@ -9285,8 +8957,6 @@ class SetpointManagerCondenserEnteringResetIdeal(object):
     def setpoint_node_or_nodelist_name(self, value=None):
         """  Corresponds to IDD Field `Setpoint Node or NodeList Name`
         Node(s) at which control variable will be set
-        
-        {u'note': [u'Node(s) at which control variable will be set'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Setpoint Node or NodeList Name`
@@ -9422,8 +9092,6 @@ class SetpointManagerSingleZoneOneStageCooling(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {'type': 'alpha', u'reference': u'SetpointManagers', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -9457,11 +9125,9 @@ class SetpointManagerSingleZoneOneStageCooling(object):
         return self._data["Cooling Stage On Supply Air Setpoint Temperature"]
 
     @cooling_stage_on_supply_air_setpoint_temperature.setter
-    def cooling_stage_on_supply_air_setpoint_temperature(self, value=-99.0 ):
+    def cooling_stage_on_supply_air_setpoint_temperature(self, value=-99.0):
         """  Corresponds to IDD Field `Cooling Stage On Supply Air Setpoint Temperature`
         This is the setpoint value applied when cooling device is to cycle ON
-        
-        {'pytype': 'float', u'default': '-99.0', u'required-field': True, u'note': [u'This is the setpoint value applied when cooling device is to cycle ON'], u'units': u'C', 'type': 'real'}
 
         Args:
             value (float): value for IDD Field `Cooling Stage On Supply Air Setpoint Temperature`
@@ -9491,11 +9157,9 @@ class SetpointManagerSingleZoneOneStageCooling(object):
         return self._data["Cooling Stage Off Supply Air Setpoint Temperature"]
 
     @cooling_stage_off_supply_air_setpoint_temperature.setter
-    def cooling_stage_off_supply_air_setpoint_temperature(self, value=99.0 ):
+    def cooling_stage_off_supply_air_setpoint_temperature(self, value=99.0):
         """  Corresponds to IDD Field `Cooling Stage Off Supply Air Setpoint Temperature`
         This is the setpoint value applied when cooling device is to cycle OFF
-        
-        {'pytype': 'float', u'default': '99.0', u'required-field': True, u'note': [u'This is the setpoint value applied when cooling device is to cycle OFF'], u'units': u'C', 'type': 'real'}
 
         Args:
             value (float): value for IDD Field `Cooling Stage Off Supply Air Setpoint Temperature`
@@ -9527,8 +9191,6 @@ class SetpointManagerSingleZoneOneStageCooling(object):
     @control_zone_name.setter
     def control_zone_name(self, value=None):
         """  Corresponds to IDD Field `Control Zone Name`
-        
-        {u'type': u'object-list', u'object-list': u'ZoneNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Control Zone Name`
@@ -9565,8 +9227,6 @@ class SetpointManagerSingleZoneOneStageCooling(object):
     def setpoint_node_or_nodelist_name(self, value=None):
         """  Corresponds to IDD Field `Setpoint Node or NodeList Name`
         Node(s) at which the temperature will be set
-        
-        {u'note': [u'Node(s) at which the temperature will be set'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Setpoint Node or NodeList Name`
@@ -9703,8 +9363,6 @@ class SetpointManagerSingleZoneOneStageHeating(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {'type': 'alpha', u'reference': u'SetpointManagers', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -9738,11 +9396,9 @@ class SetpointManagerSingleZoneOneStageHeating(object):
         return self._data["Heating Stage On Supply Air Setpoint Temperature"]
 
     @heating_stage_on_supply_air_setpoint_temperature.setter
-    def heating_stage_on_supply_air_setpoint_temperature(self, value=99.0 ):
+    def heating_stage_on_supply_air_setpoint_temperature(self, value=99.0):
         """  Corresponds to IDD Field `Heating Stage On Supply Air Setpoint Temperature`
         This is the setpoint value applied when heating device is to cycle ON
-        
-        {'pytype': 'float', u'default': '99.0', u'required-field': True, u'note': [u'This is the setpoint value applied when heating device is to cycle ON'], u'units': u'C', 'type': 'real'}
 
         Args:
             value (float): value for IDD Field `Heating Stage On Supply Air Setpoint Temperature`
@@ -9772,11 +9428,9 @@ class SetpointManagerSingleZoneOneStageHeating(object):
         return self._data["Heating Stage Off Supply Air Setpoint Temperature"]
 
     @heating_stage_off_supply_air_setpoint_temperature.setter
-    def heating_stage_off_supply_air_setpoint_temperature(self, value=-99.0 ):
+    def heating_stage_off_supply_air_setpoint_temperature(self, value=-99.0):
         """  Corresponds to IDD Field `Heating Stage Off Supply Air Setpoint Temperature`
         This is the setpoint value applied when heating device is to cycle OFF
-        
-        {'pytype': 'float', u'default': '-99.0', u'required-field': True, u'note': [u'This is the setpoint value applied when heating device is to cycle OFF'], u'units': u'C', 'type': 'real'}
 
         Args:
             value (float): value for IDD Field `Heating Stage Off Supply Air Setpoint Temperature`
@@ -9808,8 +9462,6 @@ class SetpointManagerSingleZoneOneStageHeating(object):
     @control_zone_name.setter
     def control_zone_name(self, value=None):
         """  Corresponds to IDD Field `Control Zone Name`
-        
-        {u'type': u'object-list', u'object-list': u'ZoneNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Control Zone Name`
@@ -9846,8 +9498,6 @@ class SetpointManagerSingleZoneOneStageHeating(object):
     def setpoint_node_or_nodelist_name(self, value=None):
         """  Corresponds to IDD Field `Setpoint Node or NodeList Name`
         Node(s) at which the temperature will be set
-        
-        {u'note': [u'Node(s) at which the temperature will be set'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Setpoint Node or NodeList Name`

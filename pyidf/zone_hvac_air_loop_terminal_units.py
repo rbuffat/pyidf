@@ -69,8 +69,6 @@ class AirTerminalSingleDuctUncontrolled(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {'type': 'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -108,8 +106,6 @@ class AirTerminalSingleDuctUncontrolled(object):
         """  Corresponds to IDD Field `Availability Schedule Name`
         Availability schedule name for this system. Schedule value > 0 means the system is available.
         If this field is blank, the system is always available.
-        
-        {u'note': [u'Availability schedule name for this system. Schedule value > 0 means the system is available.', u'If this field is blank, the system is always available.'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Availability Schedule Name`
@@ -145,8 +141,6 @@ class AirTerminalSingleDuctUncontrolled(object):
     @zone_supply_air_node_name.setter
     def zone_supply_air_node_name(self, value=None):
         """  Corresponds to IDD Field `Zone Supply Air Node Name`
-        
-        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Zone Supply Air Node Name`
@@ -182,11 +176,9 @@ class AirTerminalSingleDuctUncontrolled(object):
     @maximum_air_flow_rate.setter
     def maximum_air_flow_rate(self, value=None):
         """  Corresponds to IDD Field `Maximum Air Flow Rate`
-        
-        {'pytype': 'float', u'required-field': True, u'autosizable': u'', u'minimum': '0.0', u'units': u'm3/s', 'type': 'real'}
 
         Args:
-            value (float): value for IDD Field `Maximum Air Flow Rate`
+            value (float or "Autosize"): value for IDD Field `Maximum Air Flow Rate`
                 Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -196,6 +188,13 @@ class AirTerminalSingleDuctUncontrolled(object):
             ValueError: if `value` is not a valid value
         """
         if value is not None:
+            try:
+                value_lower = str(value).lower()
+                if value_lower == "autosize":
+                    self._data["Maximum Air Flow Rate"] = "Autosize"
+                    return
+            except ValueError:
+                pass
             try:
                 value = float(value)
             except ValueError:
@@ -373,8 +372,6 @@ class AirTerminalSingleDuctConstantVolumeReheat(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {'type': 'alpha', u'reference': u'AFNTerminalUnitNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -412,8 +409,6 @@ class AirTerminalSingleDuctConstantVolumeReheat(object):
         """  Corresponds to IDD Field `Availability Schedule Name`
         Availability schedule name for this system. Schedule value > 0 means the system is available.
         If this field is blank, the system is always available.
-        
-        {u'note': [u'Availability schedule name for this system. Schedule value > 0 means the system is available.', u'If this field is blank, the system is always available.'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Availability Schedule Name`
@@ -449,8 +444,6 @@ class AirTerminalSingleDuctConstantVolumeReheat(object):
     @air_outlet_node_name.setter
     def air_outlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Air Outlet Node Name`
-        
-        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Air Outlet Node Name`
@@ -486,8 +479,6 @@ class AirTerminalSingleDuctConstantVolumeReheat(object):
     @air_inlet_node_name.setter
     def air_inlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Air Inlet Node Name`
-        
-        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Air Inlet Node Name`
@@ -523,11 +514,9 @@ class AirTerminalSingleDuctConstantVolumeReheat(object):
     @maximum_air_flow_rate.setter
     def maximum_air_flow_rate(self, value=None):
         """  Corresponds to IDD Field `Maximum Air Flow Rate`
-        
-        {'pytype': 'float', u'required-field': True, u'autosizable': u'', u'minimum': '0.0', u'units': u'm3/s', 'type': 'real'}
 
         Args:
-            value (float): value for IDD Field `Maximum Air Flow Rate`
+            value (float or "Autosize"): value for IDD Field `Maximum Air Flow Rate`
                 Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -537,6 +526,13 @@ class AirTerminalSingleDuctConstantVolumeReheat(object):
             ValueError: if `value` is not a valid value
         """
         if value is not None:
+            try:
+                value_lower = str(value).lower()
+                if value_lower == "autosize":
+                    self._data["Maximum Air Flow Rate"] = "Autosize"
+                    return
+            except ValueError:
+                pass
             try:
                 value = float(value)
             except ValueError:
@@ -559,8 +555,6 @@ class AirTerminalSingleDuctConstantVolumeReheat(object):
     @hot_water_or_steam_inlet_node_name.setter
     def hot_water_or_steam_inlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Hot Water or Steam Inlet Node Name`
-        
-        {u'deprecated': u'', u'type': u'node', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Hot Water or Steam Inlet Node Name`
@@ -596,8 +590,6 @@ class AirTerminalSingleDuctConstantVolumeReheat(object):
     @reheat_coil_object_type.setter
     def reheat_coil_object_type(self, value=None):
         """  Corresponds to IDD Field `Reheat Coil Object Type`
-        
-        {u'type': u'choice', u'key': [u'Coil:Heating:Water', u'Coil:Heating:Electric', u'Coil:Heating:Gas', u'Coil:Heating:Steam'], u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Reheat Coil Object Type`
@@ -657,8 +649,6 @@ class AirTerminalSingleDuctConstantVolumeReheat(object):
     @reheat_coil_name.setter
     def reheat_coil_name(self, value=None):
         """  Corresponds to IDD Field `Reheat Coil Name`
-        
-        {u'type': u'object-list', u'object-list': u'HeatingCoilName', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Reheat Coil Name`
@@ -695,11 +685,9 @@ class AirTerminalSingleDuctConstantVolumeReheat(object):
     def maximum_hot_water_or_steam_flow_rate(self, value=None):
         """  Corresponds to IDD Field `Maximum Hot Water or Steam Flow Rate`
         Not used when reheat coil type is gas or electric
-        
-        {'pytype': 'float', u'note': [u'Not used when reheat coil type is gas or electric'], u'ip-units': u'gal/min', u'autosizable': u'', u'minimum': '0.0', u'units': u'm3/s', 'type': 'real'}
 
         Args:
-            value (float): value for IDD Field `Maximum Hot Water or Steam Flow Rate`
+            value (float or "Autosize"): value for IDD Field `Maximum Hot Water or Steam Flow Rate`
                 Units: m3/s
                 IP-Units: gal/min
                 value >= 0.0
@@ -710,6 +698,13 @@ class AirTerminalSingleDuctConstantVolumeReheat(object):
             ValueError: if `value` is not a valid value
         """
         if value is not None:
+            try:
+                value_lower = str(value).lower()
+                if value_lower == "autosize":
+                    self._data["Maximum Hot Water or Steam Flow Rate"] = "Autosize"
+                    return
+            except ValueError:
+                pass
             try:
                 value = float(value)
             except ValueError:
@@ -730,11 +725,9 @@ class AirTerminalSingleDuctConstantVolumeReheat(object):
         return self._data["Minimum Hot Water or Steam Flow Rate"]
 
     @minimum_hot_water_or_steam_flow_rate.setter
-    def minimum_hot_water_or_steam_flow_rate(self, value=0.0 ):
+    def minimum_hot_water_or_steam_flow_rate(self, value=0.0):
         """  Corresponds to IDD Field `Minimum Hot Water or Steam Flow Rate`
         Not used when reheat coil type is gas or electric
-        
-        {'pytype': 'float', u'default': '0.0', u'note': [u'Not used when reheat coil type is gas or electric'], u'ip-units': u'gal/min', u'minimum': '0.0', u'units': u'm3/s', 'type': 'real'}
 
         Args:
             value (float): value for IDD Field `Minimum Hot Water or Steam Flow Rate`
@@ -769,10 +762,8 @@ class AirTerminalSingleDuctConstantVolumeReheat(object):
         return self._data["Convergence Tolerance"]
 
     @convergence_tolerance.setter
-    def convergence_tolerance(self, value=0.001 ):
+    def convergence_tolerance(self, value=0.001):
         """  Corresponds to IDD Field `Convergence Tolerance`
-        
-        {u'default': '0.001', u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Convergence Tolerance`
@@ -809,8 +800,6 @@ class AirTerminalSingleDuctConstantVolumeReheat(object):
         """  Corresponds to IDD Field `Maximum Reheat Air Temperature`
         Specifies the maximum allowable supply air temperature leaving the reheat coil.
         If left blank, there is no limit and no default. If unknown, 35C (95F) is recommended.
-        
-        {u'note': [u'Specifies the maximum allowable supply air temperature leaving the reheat coil.', u'If left blank, there is no limit and no default. If unknown, 35C (95F) is recommended.'], u'units': u'C', u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Maximum Reheat Air Temperature`
@@ -983,8 +972,6 @@ class AirTerminalSingleDuctVavNoReheat(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {'type': 'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -1022,8 +1009,6 @@ class AirTerminalSingleDuctVavNoReheat(object):
         """  Corresponds to IDD Field `Availability Schedule Name`
         Availability schedule name for this system. Schedule value > 0 means the system is available.
         If this field is blank, the system is always available.
-        
-        {u'note': [u'Availability schedule name for this system. Schedule value > 0 means the system is available.', u'If this field is blank, the system is always available.'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Availability Schedule Name`
@@ -1059,8 +1044,6 @@ class AirTerminalSingleDuctVavNoReheat(object):
     @air_outlet_node_name.setter
     def air_outlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Air Outlet Node Name`
-        
-        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Air Outlet Node Name`
@@ -1096,8 +1079,6 @@ class AirTerminalSingleDuctVavNoReheat(object):
     @air_inlet_node_name.setter
     def air_inlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Air Inlet Node Name`
-        
-        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Air Inlet Node Name`
@@ -1133,11 +1114,9 @@ class AirTerminalSingleDuctVavNoReheat(object):
     @maximum_air_flow_rate.setter
     def maximum_air_flow_rate(self, value=None):
         """  Corresponds to IDD Field `Maximum Air Flow Rate`
-        
-        {'pytype': 'float', u'required-field': True, u'autosizable': u'', u'minimum': '0.0', u'units': u'm3/s', 'type': 'real'}
 
         Args:
-            value (float): value for IDD Field `Maximum Air Flow Rate`
+            value (float or "Autosize"): value for IDD Field `Maximum Air Flow Rate`
                 Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -1147,6 +1126,13 @@ class AirTerminalSingleDuctVavNoReheat(object):
             ValueError: if `value` is not a valid value
         """
         if value is not None:
+            try:
+                value_lower = str(value).lower()
+                if value_lower == "autosize":
+                    self._data["Maximum Air Flow Rate"] = "Autosize"
+                    return
+            except ValueError:
+                pass
             try:
                 value = float(value)
             except ValueError:
@@ -1172,8 +1158,6 @@ class AirTerminalSingleDuctVavNoReheat(object):
         Constant = Constant Minimum Air Flow Fraction (a fraction of Maximum Air Flow Rate)
         FixedFlowRate = Fixed Minimum Air Flow Rate (a fixed minimum air volume flow rate)
         Scheduled = Scheduled Minimum Air Flow Fraction (a fraction of Maximum Air Flow
-        
-        {u'note': [u'Constant = Constant Minimum Air Flow Fraction (a fraction of Maximum Air Flow Rate)', u'FixedFlowRate = Fixed Minimum Air Flow Rate (a fixed minimum air volume flow rate)', u'Scheduled = Scheduled Minimum Air Flow Fraction (a fraction of Maximum Air Flow'], u'type': u'choice', u'key': [u'Constant', u'FixedFlowRate', u'Scheduled'], u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Zone Minimum Air Flow Input Method`
@@ -1235,8 +1219,6 @@ class AirTerminalSingleDuctVavNoReheat(object):
         If the field Zone Minimum Air Flow Input Method is Scheduled, then this field
         is optional; if a value is entered, then it is used for sizing normal-action reheat coils.
         If both this field and the following field are entered, the larger result is used.
-        
-        {u'note': [u'This field is used if the field Zone Minimum Air Flow Input Method is Constant', u'If the field Zone Minimum Air Flow Input Method is Scheduled, then this field', u'is optional; if a value is entered, then it is used for sizing normal-action reheat coils.', u'If both this field and the following field are entered, the larger result is used.'], 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Constant Minimum Air Flow Fraction`
@@ -1270,8 +1252,6 @@ class AirTerminalSingleDuctVavNoReheat(object):
         If the field Zone Minimum Air Flow Input Method is Scheduled, then this field
         is optional; if a value is entered, then it is used for sizing normal-action reheat coils.
         If both this field and the previous field are entered, the larger result is used.
-        
-        {u'units': u'm3/s', u'note': [u'This field is used if the field Zone Minimum Air Flow Input Method is FixedFlowRate.', u'If the field Zone Minimum Air Flow Input Method is Scheduled, then this field', u'is optional; if a value is entered, then it is used for sizing normal-action reheat coils.', u'If both this field and the previous field are entered, the larger result is used.'], u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fixed Minimum Air Flow Rate`
@@ -1306,8 +1286,6 @@ class AirTerminalSingleDuctVavNoReheat(object):
         Schedule values are fractions, 0.0 to 1.0.
         If the field Constant Minimum Air Flow Fraction is blank, then the average of the
         minimum and maximum schedule values is used for sizing normal-action reheat coils.
-        
-        {u'note': [u'This field is used if the field Zone Minimum Air Flow Input Method is Scheduled', u'Schedule values are fractions, 0.0 to 1.0.', u'If the field Constant Minimum Air Flow Fraction is blank, then the average of the', u'minimum and maximum schedule values is used for sizing normal-action reheat coils.'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Minimum Air Flow Fraction Schedule Name`
@@ -1349,8 +1327,6 @@ class AirTerminalSingleDuctVavNoReheat(object):
         be computed based on the current number of occupants in the zone.
         At no time will the supply air flow rate exceed the value for Maximum Air Flow Rate.
         If this field is blank, then the terminal unit will not be controlled for outdoor air flow.
-        
-        {u'note': [u'When the name of a DesignSpecification:OutdoorAir object is entered, the terminal', u'unit will increase flow as needed to meet this outdoor air requirement.', u'If Outdoor Air Flow per Person is non-zero, then the outdoor air requirement will', u'be computed based on the current number of occupants in the zone.', u'At no time will the supply air flow rate exceed the value for Maximum Air Flow Rate.', u'If this field is blank, then the terminal unit will not be controlled for outdoor air flow.'], u'type': u'object-list', u'object-list': u'DesignSpecificationOutdoorAirNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Design Specification Outdoor Air Object Name`
@@ -1605,8 +1581,6 @@ class AirTerminalSingleDuctVavReheat(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {'type': 'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -1644,8 +1618,6 @@ class AirTerminalSingleDuctVavReheat(object):
         """  Corresponds to IDD Field `Availability Schedule Name`
         Availability schedule name for this system. Schedule value > 0 means the system is available.
         If this field is blank, the system is always available.
-        
-        {u'note': [u'Availability schedule name for this system. Schedule value > 0 means the system is available.', u'If this field is blank, the system is always available.'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Availability Schedule Name`
@@ -1683,8 +1655,6 @@ class AirTerminalSingleDuctVavReheat(object):
         """  Corresponds to IDD Field `Damper Air Outlet Node Name`
         the outlet node of the damper and the inlet node of the reheat coil
         this is an internal node to the terminal unit and connects the damper and reheat coil
-        
-        {u'note': [u'the outlet node of the damper and the inlet node of the reheat coil', u'this is an internal node to the terminal unit and connects the damper and reheat coil'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Damper Air Outlet Node Name`
@@ -1721,8 +1691,6 @@ class AirTerminalSingleDuctVavReheat(object):
     def air_inlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Air Inlet Node Name`
         the inlet node to the terminal unit and the damper
-        
-        {u'note': [u'the inlet node to the terminal unit and the damper'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Air Inlet Node Name`
@@ -1758,11 +1726,9 @@ class AirTerminalSingleDuctVavReheat(object):
     @maximum_air_flow_rate.setter
     def maximum_air_flow_rate(self, value=None):
         """  Corresponds to IDD Field `Maximum Air Flow Rate`
-        
-        {'pytype': 'float', u'required-field': True, u'autosizable': u'', u'minimum': '0.0', u'units': u'm3/s', 'type': 'real'}
 
         Args:
-            value (float): value for IDD Field `Maximum Air Flow Rate`
+            value (float or "Autosize"): value for IDD Field `Maximum Air Flow Rate`
                 Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -1772,6 +1738,13 @@ class AirTerminalSingleDuctVavReheat(object):
             ValueError: if `value` is not a valid value
         """
         if value is not None:
+            try:
+                value_lower = str(value).lower()
+                if value_lower == "autosize":
+                    self._data["Maximum Air Flow Rate"] = "Autosize"
+                    return
+            except ValueError:
+                pass
             try:
                 value = float(value)
             except ValueError:
@@ -1797,8 +1770,6 @@ class AirTerminalSingleDuctVavReheat(object):
         Constant = Constant Minimum Air Flow Fraction (a fraction of Maximum Air Flow Rate)
         FixedFlowRate = Fixed Minimum Air Flow Rate (a fixed minimum air volume flow rate)
         Scheduled = Scheduled Minimum Air Flow Fraction (a fraction of Maximum Air Flow
-        
-        {u'note': [u'Constant = Constant Minimum Air Flow Fraction (a fraction of Maximum Air Flow Rate)', u'FixedFlowRate = Fixed Minimum Air Flow Rate (a fixed minimum air volume flow rate)', u'Scheduled = Scheduled Minimum Air Flow Fraction (a fraction of Maximum Air Flow'], u'type': u'choice', u'key': [u'Constant', u'FixedFlowRate', u'Scheduled'], u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Zone Minimum Air Flow Input Method`
@@ -1860,8 +1831,6 @@ class AirTerminalSingleDuctVavReheat(object):
         If the field Zone Minimum Air Flow Input Method is Scheduled, then this field
         is optional; if a value is entered, then it is used for sizing normal-action reheat coils.
         If both this field and the following field are entered, the larger result is used.
-        
-        {u'note': [u'This field is used if the field Zone Minimum Air Flow Input Method is Constant', u'If the field Zone Minimum Air Flow Input Method is Scheduled, then this field', u'is optional; if a value is entered, then it is used for sizing normal-action reheat coils.', u'If both this field and the following field are entered, the larger result is used.'], 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Constant Minimum Air Flow Fraction`
@@ -1895,8 +1864,6 @@ class AirTerminalSingleDuctVavReheat(object):
         If the field Zone Minimum Air Flow Input Method is Scheduled, then this field
         is optional; if a value is entered, then it is used for sizing normal-action reheat coils.
         If both this field and the previous field are entered, the larger result is used.
-        
-        {u'units': u'm3/s', u'note': [u'This field is used if the field Zone Minimum Air Flow Input Method is FixedFlowRate.', u'If the field Zone Minimum Air Flow Input Method is Scheduled, then this field', u'is optional; if a value is entered, then it is used for sizing normal-action reheat coils.', u'If both this field and the previous field are entered, the larger result is used.'], u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Fixed Minimum Air Flow Rate`
@@ -1931,8 +1898,6 @@ class AirTerminalSingleDuctVavReheat(object):
         Schedule values are fractions, 0.0 to 1.0.
         If the field Constant Minimum Air Flow Fraction is blank, then the average of the
         minimum and maximum schedule values is used for sizing normal-action reheat coils.
-        
-        {u'note': [u'This field is used if the field Zone Minimum Air Flow Input Method is Scheduled', u'Schedule values are fractions, 0.0 to 1.0.', u'If the field Constant Minimum Air Flow Fraction is blank, then the average of the', u'minimum and maximum schedule values is used for sizing normal-action reheat coils.'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Minimum Air Flow Fraction Schedule Name`
@@ -1968,8 +1933,6 @@ class AirTerminalSingleDuctVavReheat(object):
     @reheat_coil_object_type.setter
     def reheat_coil_object_type(self, value=None):
         """  Corresponds to IDD Field `Reheat Coil Object Type`
-        
-        {u'type': u'choice', u'key': [u'Coil:Heating:Water', u'Coil:Heating:Electric', u'Coil:Heating:Gas', u'Coil:Heating:Steam'], u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Reheat Coil Object Type`
@@ -2029,8 +1992,6 @@ class AirTerminalSingleDuctVavReheat(object):
     @reheat_coil_name.setter
     def reheat_coil_name(self, value=None):
         """  Corresponds to IDD Field `Reheat Coil Name`
-        
-        {u'type': u'object-list', u'object-list': u'HeatingCoilName', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Reheat Coil Name`
@@ -2067,11 +2028,9 @@ class AirTerminalSingleDuctVavReheat(object):
     def maximum_hot_water_or_steam_flow_rate(self, value=None):
         """  Corresponds to IDD Field `Maximum Hot Water or Steam Flow Rate`
         Not used when reheat coil type is gas or electric
-        
-        {'pytype': 'float', u'note': [u'Not used when reheat coil type is gas or electric'], u'ip-units': u'gal/min', u'autosizable': u'', u'minimum': '0.0', u'units': u'm3/s', 'type': 'real'}
 
         Args:
-            value (float): value for IDD Field `Maximum Hot Water or Steam Flow Rate`
+            value (float or "Autosize"): value for IDD Field `Maximum Hot Water or Steam Flow Rate`
                 Units: m3/s
                 IP-Units: gal/min
                 value >= 0.0
@@ -2082,6 +2041,13 @@ class AirTerminalSingleDuctVavReheat(object):
             ValueError: if `value` is not a valid value
         """
         if value is not None:
+            try:
+                value_lower = str(value).lower()
+                if value_lower == "autosize":
+                    self._data["Maximum Hot Water or Steam Flow Rate"] = "Autosize"
+                    return
+            except ValueError:
+                pass
             try:
                 value = float(value)
             except ValueError:
@@ -2102,11 +2068,9 @@ class AirTerminalSingleDuctVavReheat(object):
         return self._data["Minimum Hot Water or Steam Flow Rate"]
 
     @minimum_hot_water_or_steam_flow_rate.setter
-    def minimum_hot_water_or_steam_flow_rate(self, value=0.0 ):
+    def minimum_hot_water_or_steam_flow_rate(self, value=0.0):
         """  Corresponds to IDD Field `Minimum Hot Water or Steam Flow Rate`
         Not used when reheat coil type is gas or electric
-        
-        {'pytype': 'float', u'default': '0.0', u'note': [u'Not used when reheat coil type is gas or electric'], u'ip-units': u'gal/min', u'minimum': '0.0', u'units': u'm3/s', 'type': 'real'}
 
         Args:
             value (float): value for IDD Field `Minimum Hot Water or Steam Flow Rate`
@@ -2145,8 +2109,6 @@ class AirTerminalSingleDuctVavReheat(object):
         """  Corresponds to IDD Field `Air Outlet Node Name`
         The outlet node of the terminal unit and the reheat coil.
         This is also the zone inlet node.
-        
-        {u'note': [u'The outlet node of the terminal unit and the reheat coil.', u'This is also the zone inlet node.'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Air Outlet Node Name`
@@ -2180,10 +2142,8 @@ class AirTerminalSingleDuctVavReheat(object):
         return self._data["Convergence Tolerance"]
 
     @convergence_tolerance.setter
-    def convergence_tolerance(self, value=0.001 ):
+    def convergence_tolerance(self, value=0.001):
         """  Corresponds to IDD Field `Convergence Tolerance`
-        
-        {u'default': '0.001', u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Convergence Tolerance`
@@ -2218,8 +2178,6 @@ class AirTerminalSingleDuctVavReheat(object):
     @damper_heating_action.setter
     def damper_heating_action(self, value="Normal"):
         """  Corresponds to IDD Field `Damper Heating Action`
-        
-        {u'default': u'Normal', u'type': u'choice', u'key': [u'Normal', u'Reverse'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Damper Heating Action`
@@ -2282,8 +2240,6 @@ class AirTerminalSingleDuctVavReheat(object):
         If this field and the following field are left blank, the maximum flow will not be limited.
         At no time will the maximum flow rate calculated here exceed the value of
         Maximum Air Flow Rate.
-        
-        {u'units': u'm3/s-m2', u'note': [u'Used only when Reheat Coil Object Type = Coil:Heating:Water and Damper Heating Action = Reverse', u'When autocalculating, the maximum flow per zone is set to 0.002032 m3/s-m2 (0.4 cfm/sqft)', u'This optional field limits the maximum flow allowed in reheat mode.', u'If this field and the following field are left blank, the maximum flow will not be limited.', u'At no time will the maximum flow rate calculated here exceed the value of', u'Maximum Air Flow Rate.'], u'autocalculatable': True, u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `Maximum Flow per Zone Floor Area During Reheat`
@@ -2298,7 +2254,7 @@ class AirTerminalSingleDuctVavReheat(object):
             try:
                 value_lower = str(value).lower()
                 if value_lower == "autocalculate":
-                    self._data["Maximum Flow per Zone Floor Area During Reheat"] = value
+                    self._data["Maximum Flow per Zone Floor Area During Reheat"] = "Autocalculate"
                     return
             except ValueError:
                 pass
@@ -2329,8 +2285,6 @@ class AirTerminalSingleDuctVavReheat(object):
         If this field and the previous field are left blank, the maximum flow will not be limited.
         At no time will the maximum flow rate calculated here exceed the value of
         Maximum Air Flow Rate.
-        
-        {u'note': [u'Used only when Reheat Coil Object Type = Coil:Heating:Water and Damper Heating Action = Reverse', u'When autocalculating, the maximum flow fraction is set to the ratio of', u'0.002032 m3/s-m2 (0.4 cfm/sqft) multiplied by the zone floor area and the', u'Maximum Air Flow Rate.', u'This optional field limits the maximum flow allowed in reheat mode.', u'If this field and the previous field are left blank, the maximum flow will not be limited.', u'At no time will the maximum flow rate calculated here exceed the value of', u'Maximum Air Flow Rate.'], u'autocalculatable': True, u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `Maximum Flow Fraction During Reheat`
@@ -2344,7 +2298,7 @@ class AirTerminalSingleDuctVavReheat(object):
             try:
                 value_lower = str(value).lower()
                 if value_lower == "autocalculate":
-                    self._data["Maximum Flow Fraction During Reheat"] = value
+                    self._data["Maximum Flow Fraction During Reheat"] = "Autocalculate"
                     return
             except ValueError:
                 pass
@@ -2369,8 +2323,6 @@ class AirTerminalSingleDuctVavReheat(object):
         """  Corresponds to IDD Field `Maximum Reheat Air Temperature`
         Specifies the maximum allowable supply air temperature leaving the reheat coil.
         If left blank, there is no limit and no default. If unknown, 35C (95F) is recommended.
-        
-        {u'units': u'C', u'note': [u'Specifies the maximum allowable supply air temperature leaving the reheat coil.', u'If left blank, there is no limit and no default. If unknown, 35C (95F) is recommended.'], u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Maximum Reheat Air Temperature`
@@ -2411,8 +2363,6 @@ class AirTerminalSingleDuctVavReheat(object):
         be computed based on the current number of occupants in the zone.
         At no time will the supply air flow rate exceed the value for Maximum Air Flow Rate.
         If this field is blank, then the terminal unit will not be controlled for outdoor air flow.
-        
-        {u'note': [u'When the name of a DesignSpecification:OutdoorAir object is entered, the terminal', u'unit will increase flow as needed to meet this outdoor air requirement.', u'If Outdoor Air Flow per Person is non-zero, then the outdoor air requirement will', u'be computed based on the current number of occupants in the zone.', u'At no time will the supply air flow rate exceed the value for Maximum Air Flow Rate.', u'If this field is blank, then the terminal unit will not be controlled for outdoor air flow.'], u'type': u'object-list', u'object-list': u'DesignSpecificationOutdoorAirNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Design Specification Outdoor Air Object Name`
@@ -2638,8 +2588,6 @@ class AirTerminalSingleDuctVavReheatVariableSpeedFan(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {'type': 'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -2677,8 +2625,6 @@ class AirTerminalSingleDuctVavReheatVariableSpeedFan(object):
         """  Corresponds to IDD Field `Availability Schedule Name`
         Availability schedule name for this system. Schedule value > 0 means the system is available.
         If this field is blank, the system is always available.
-        
-        {u'note': [u'Availability schedule name for this system. Schedule value > 0 means the system is available.', u'If this field is blank, the system is always available.'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Availability Schedule Name`
@@ -2714,11 +2660,9 @@ class AirTerminalSingleDuctVavReheatVariableSpeedFan(object):
     @maximum_cooling_air_flow_rate.setter
     def maximum_cooling_air_flow_rate(self, value=None):
         """  Corresponds to IDD Field `Maximum Cooling Air Flow Rate`
-        
-        {'pytype': 'float', u'required-field': True, u'autosizable': u'', u'minimum': '0.0', u'units': u'm3/s', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `Maximum Cooling Air Flow Rate`
+            value (float or "Autosize"): value for IDD Field `Maximum Cooling Air Flow Rate`
                 Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -2728,6 +2672,13 @@ class AirTerminalSingleDuctVavReheatVariableSpeedFan(object):
             ValueError: if `value` is not a valid value
         """
         if value is not None:
+            try:
+                value_lower = str(value).lower()
+                if value_lower == "autosize":
+                    self._data["Maximum Cooling Air Flow Rate"] = "Autosize"
+                    return
+            except ValueError:
+                pass
             try:
                 value = float(value)
             except ValueError:
@@ -2750,11 +2701,9 @@ class AirTerminalSingleDuctVavReheatVariableSpeedFan(object):
     @maximum_heating_air_flow_rate.setter
     def maximum_heating_air_flow_rate(self, value=None):
         """  Corresponds to IDD Field `Maximum Heating Air Flow Rate`
-        
-        {'pytype': 'float', u'required-field': True, u'autosizable': u'', u'minimum': '0.0', u'units': u'm3/s', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `Maximum Heating Air Flow Rate`
+            value (float or "Autosize"): value for IDD Field `Maximum Heating Air Flow Rate`
                 Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -2764,6 +2713,13 @@ class AirTerminalSingleDuctVavReheatVariableSpeedFan(object):
             ValueError: if `value` is not a valid value
         """
         if value is not None:
+            try:
+                value_lower = str(value).lower()
+                if value_lower == "autosize":
+                    self._data["Maximum Heating Air Flow Rate"] = "Autosize"
+                    return
+            except ValueError:
+                pass
             try:
                 value = float(value)
             except ValueError:
@@ -2787,8 +2743,6 @@ class AirTerminalSingleDuctVavReheatVariableSpeedFan(object):
     def zone_minimum_air_flow_fraction(self, value=None):
         """  Corresponds to IDD Field `Zone Minimum Air Flow Fraction`
         fraction of cooling air flow rate
-        
-        {'pytype': 'float', u'maximum': '1.0', u'required-field': True, u'note': [u'fraction of cooling air flow rate'], u'minimum': '0.0', 'type': 'real'}
 
         Args:
             value (float): value for IDD Field `Zone Minimum Air Flow Fraction`
@@ -2826,8 +2780,6 @@ class AirTerminalSingleDuctVavReheatVariableSpeedFan(object):
     @air_inlet_node_name.setter
     def air_inlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Air Inlet Node Name`
-        
-        {u'deprecated': u'', u'type': u'node', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Air Inlet Node Name`
@@ -2863,8 +2815,6 @@ class AirTerminalSingleDuctVavReheatVariableSpeedFan(object):
     @air_outlet_node_name.setter
     def air_outlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Air Outlet Node Name`
-        
-        {u'deprecated': u'', u'type': u'node', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Air Outlet Node Name`
@@ -2900,8 +2850,6 @@ class AirTerminalSingleDuctVavReheatVariableSpeedFan(object):
     @heating_coil_air_inlet_node_name.setter
     def heating_coil_air_inlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Heating Coil Air Inlet Node Name`
-        
-        {u'deprecated': u'', u'type': u'node', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Heating Coil Air Inlet Node Name`
@@ -2937,8 +2885,6 @@ class AirTerminalSingleDuctVavReheatVariableSpeedFan(object):
     @hot_water_or_steam_inlet_node_name.setter
     def hot_water_or_steam_inlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Hot Water or Steam Inlet Node Name`
-        
-        {u'deprecated': u'', u'type': u'node', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Hot Water or Steam Inlet Node Name`
@@ -2974,8 +2920,6 @@ class AirTerminalSingleDuctVavReheatVariableSpeedFan(object):
     @fan_object_type.setter
     def fan_object_type(self, value=None):
         """  Corresponds to IDD Field `Fan Object Type`
-        
-        {u'type': u'choice', u'key': [u'Fan:VariableVolume'], u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Fan Object Type`
@@ -3029,8 +2973,6 @@ class AirTerminalSingleDuctVavReheatVariableSpeedFan(object):
     @fan_name.setter
     def fan_name(self, value=None):
         """  Corresponds to IDD Field `Fan Name`
-        
-        {u'type': u'object-list', u'object-list': u'FansVAV', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Fan Name`
@@ -3066,8 +3008,6 @@ class AirTerminalSingleDuctVavReheatVariableSpeedFan(object):
     @heating_coil_object_type.setter
     def heating_coil_object_type(self, value=None):
         """  Corresponds to IDD Field `Heating Coil Object Type`
-        
-        {u'type': u'choice', u'key': [u'Coil:Heating:Water', u'Coil:Heating:Electric', u'Coil:Heating:Gas', u'Coil:Heating:Steam'], u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Heating Coil Object Type`
@@ -3127,8 +3067,6 @@ class AirTerminalSingleDuctVavReheatVariableSpeedFan(object):
     @heating_coil_name.setter
     def heating_coil_name(self, value=None):
         """  Corresponds to IDD Field `Heating Coil Name`
-        
-        {u'type': u'object-list', u'object-list': u'HeatingCoilName', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Heating Coil Name`
@@ -3165,11 +3103,9 @@ class AirTerminalSingleDuctVavReheatVariableSpeedFan(object):
     def maximum_hot_water_or_steam_flow_rate(self, value=None):
         """  Corresponds to IDD Field `Maximum Hot Water or Steam Flow Rate`
         Not used when heating coil type is gas or electric
-        
-        {'pytype': 'float', u'note': [u'Not used when heating coil type is gas or electric'], u'ip-units': u'gal/min', u'autosizable': u'', u'units': u'm3/s', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `Maximum Hot Water or Steam Flow Rate`
+            value (float or "Autosize"): value for IDD Field `Maximum Hot Water or Steam Flow Rate`
                 Units: m3/s
                 IP-Units: gal/min
                 if `value` is None it will not be checked against the
@@ -3179,6 +3115,13 @@ class AirTerminalSingleDuctVavReheatVariableSpeedFan(object):
             ValueError: if `value` is not a valid value
         """
         if value is not None:
+            try:
+                value_lower = str(value).lower()
+                if value_lower == "autosize":
+                    self._data["Maximum Hot Water or Steam Flow Rate"] = "Autosize"
+                    return
+            except ValueError:
+                pass
             try:
                 value = float(value)
             except ValueError:
@@ -3196,11 +3139,9 @@ class AirTerminalSingleDuctVavReheatVariableSpeedFan(object):
         return self._data["Minimum Hot Water or Steam Flow Rate"]
 
     @minimum_hot_water_or_steam_flow_rate.setter
-    def minimum_hot_water_or_steam_flow_rate(self, value=0.0 ):
+    def minimum_hot_water_or_steam_flow_rate(self, value=0.0):
         """  Corresponds to IDD Field `Minimum Hot Water or Steam Flow Rate`
         Not used when heating coil type is gas or electric
-        
-        {'pytype': 'float', u'default': '0.0', u'note': [u'Not used when heating coil type is gas or electric'], u'ip-units': u'gal/min', u'minimum': '0.0', u'units': u'm3/s', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Minimum Hot Water or Steam Flow Rate`
@@ -3235,10 +3176,8 @@ class AirTerminalSingleDuctVavReheatVariableSpeedFan(object):
         return self._data["Heating Convergence Tolerance"]
 
     @heating_convergence_tolerance.setter
-    def heating_convergence_tolerance(self, value=0.001 ):
+    def heating_convergence_tolerance(self, value=0.001):
         """  Corresponds to IDD Field `Heating Convergence Tolerance`
-        
-        {u'default': '0.001', u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Heating Convergence Tolerance`
@@ -3380,8 +3319,6 @@ class AirTerminalSingleDuctVavHeatAndCoolNoReheat(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {'type': 'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -3419,8 +3356,6 @@ class AirTerminalSingleDuctVavHeatAndCoolNoReheat(object):
         """  Corresponds to IDD Field `Availability Schedule Name`
         Availability schedule name for this system. Schedule value > 0 means the system is available.
         If this field is blank, the system is always available.
-        
-        {u'note': [u'Availability schedule name for this system. Schedule value > 0 means the system is available.', u'If this field is blank, the system is always available.'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Availability Schedule Name`
@@ -3458,8 +3393,6 @@ class AirTerminalSingleDuctVavHeatAndCoolNoReheat(object):
         """  Corresponds to IDD Field `Air Outlet Node Name`
         The outlet node of the terminal unit.
         This is also the zone inlet node.
-        
-        {u'note': [u'The outlet node of the terminal unit.', u'This is also the zone inlet node.'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Air Outlet Node Name`
@@ -3495,8 +3428,6 @@ class AirTerminalSingleDuctVavHeatAndCoolNoReheat(object):
     @air_inlet_node_name.setter
     def air_inlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Air Inlet Node Name`
-        
-        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Air Inlet Node Name`
@@ -3532,11 +3463,9 @@ class AirTerminalSingleDuctVavHeatAndCoolNoReheat(object):
     @maximum_air_flow_rate.setter
     def maximum_air_flow_rate(self, value=None):
         """  Corresponds to IDD Field `Maximum Air Flow Rate`
-        
-        {'pytype': 'float', u'minimum>': '0.0', u'required-field': True, u'autosizable': u'', u'units': u'm3/s', 'type': 'real'}
 
         Args:
-            value (float): value for IDD Field `Maximum Air Flow Rate`
+            value (float or "Autosize"): value for IDD Field `Maximum Air Flow Rate`
                 Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -3546,6 +3475,13 @@ class AirTerminalSingleDuctVavHeatAndCoolNoReheat(object):
             ValueError: if `value` is not a valid value
         """
         if value is not None:
+            try:
+                value_lower = str(value).lower()
+                if value_lower == "autosize":
+                    self._data["Maximum Air Flow Rate"] = "Autosize"
+                    return
+            except ValueError:
+                pass
             try:
                 value = float(value)
             except ValueError:
@@ -3569,8 +3505,6 @@ class AirTerminalSingleDuctVavHeatAndCoolNoReheat(object):
     def zone_minimum_air_flow_fraction(self, value=None):
         """  Corresponds to IDD Field `Zone Minimum Air Flow Fraction`
         fraction of maximum air flow
-        
-        {'pytype': 'float', u'maximum': '1.0', u'required-field': True, u'note': [u'fraction of maximum air flow'], u'minimum': '0.0', 'type': 'real'}
 
         Args:
             value (float): value for IDD Field `Zone Minimum Air Flow Fraction`
@@ -3779,8 +3713,6 @@ class AirTerminalSingleDuctVavHeatAndCoolReheat(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {'type': 'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -3818,8 +3750,6 @@ class AirTerminalSingleDuctVavHeatAndCoolReheat(object):
         """  Corresponds to IDD Field `Availability Schedule Name`
         Availability schedule name for this system. Schedule value > 0 means the system is available.
         If this field is blank, the system is always available.
-        
-        {u'note': [u'Availability schedule name for this system. Schedule value > 0 means the system is available.', u'If this field is blank, the system is always available.'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Availability Schedule Name`
@@ -3857,8 +3787,6 @@ class AirTerminalSingleDuctVavHeatAndCoolReheat(object):
         """  Corresponds to IDD Field `Damper Air Outlet Node Name`
         the outlet node of the damper and the inlet node of the reheat coil
         this is an internal node to the terminal unit and connects the damper and reheat coil
-        
-        {u'note': [u'the outlet node of the damper and the inlet node of the reheat coil', u'this is an internal node to the terminal unit and connects the damper and reheat coil'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Damper Air Outlet Node Name`
@@ -3895,8 +3823,6 @@ class AirTerminalSingleDuctVavHeatAndCoolReheat(object):
     def air_inlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Air Inlet Node Name`
         the inlet node to the terminal unit and the damper
-        
-        {u'note': [u'the inlet node to the terminal unit and the damper'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Air Inlet Node Name`
@@ -3932,11 +3858,9 @@ class AirTerminalSingleDuctVavHeatAndCoolReheat(object):
     @maximum_air_flow_rate.setter
     def maximum_air_flow_rate(self, value=None):
         """  Corresponds to IDD Field `Maximum Air Flow Rate`
-        
-        {'pytype': 'float', u'minimum>': '0.0', u'required-field': True, u'autosizable': u'', u'units': u'm3/s', 'type': 'real'}
 
         Args:
-            value (float): value for IDD Field `Maximum Air Flow Rate`
+            value (float or "Autosize"): value for IDD Field `Maximum Air Flow Rate`
                 Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -3946,6 +3870,13 @@ class AirTerminalSingleDuctVavHeatAndCoolReheat(object):
             ValueError: if `value` is not a valid value
         """
         if value is not None:
+            try:
+                value_lower = str(value).lower()
+                if value_lower == "autosize":
+                    self._data["Maximum Air Flow Rate"] = "Autosize"
+                    return
+            except ValueError:
+                pass
             try:
                 value = float(value)
             except ValueError:
@@ -3969,8 +3900,6 @@ class AirTerminalSingleDuctVavHeatAndCoolReheat(object):
     def zone_minimum_air_flow_fraction(self, value=None):
         """  Corresponds to IDD Field `Zone Minimum Air Flow Fraction`
         fraction of maximum air flow
-        
-        {'pytype': 'float', u'maximum': '1.0', u'required-field': True, u'note': [u'fraction of maximum air flow'], u'minimum': '0.0', 'type': 'real'}
 
         Args:
             value (float): value for IDD Field `Zone Minimum Air Flow Fraction`
@@ -4008,8 +3937,6 @@ class AirTerminalSingleDuctVavHeatAndCoolReheat(object):
     @hot_water_or_steam_inlet_node_name.setter
     def hot_water_or_steam_inlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Hot Water or Steam Inlet Node Name`
-        
-        {u'deprecated': u'', u'type': u'node', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Hot Water or Steam Inlet Node Name`
@@ -4045,8 +3972,6 @@ class AirTerminalSingleDuctVavHeatAndCoolReheat(object):
     @reheat_coil_object_type.setter
     def reheat_coil_object_type(self, value=None):
         """  Corresponds to IDD Field `Reheat Coil Object Type`
-        
-        {u'type': u'choice', u'key': [u'Coil:Heating:Water', u'Coil:Heating:Electric', u'Coil:Heating:Gas', u'Coil:Heating:Steam'], u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Reheat Coil Object Type`
@@ -4106,8 +4031,6 @@ class AirTerminalSingleDuctVavHeatAndCoolReheat(object):
     @reheat_coil_name.setter
     def reheat_coil_name(self, value=None):
         """  Corresponds to IDD Field `Reheat Coil Name`
-        
-        {u'type': u'object-list', u'object-list': u'HeatingCoilName', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Reheat Coil Name`
@@ -4144,11 +4067,9 @@ class AirTerminalSingleDuctVavHeatAndCoolReheat(object):
     def maximum_hot_water_or_steam_flow_rate(self, value=None):
         """  Corresponds to IDD Field `Maximum Hot Water or Steam Flow Rate`
         Not used when reheat coil type is gas or electric
-        
-        {'pytype': 'float', u'note': [u'Not used when reheat coil type is gas or electric'], u'ip-units': u'gal/min', u'autosizable': u'', u'minimum': '0.0', u'units': u'm3/s', 'type': 'real'}
 
         Args:
-            value (float): value for IDD Field `Maximum Hot Water or Steam Flow Rate`
+            value (float or "Autosize"): value for IDD Field `Maximum Hot Water or Steam Flow Rate`
                 Units: m3/s
                 IP-Units: gal/min
                 value >= 0.0
@@ -4159,6 +4080,13 @@ class AirTerminalSingleDuctVavHeatAndCoolReheat(object):
             ValueError: if `value` is not a valid value
         """
         if value is not None:
+            try:
+                value_lower = str(value).lower()
+                if value_lower == "autosize":
+                    self._data["Maximum Hot Water or Steam Flow Rate"] = "Autosize"
+                    return
+            except ValueError:
+                pass
             try:
                 value = float(value)
             except ValueError:
@@ -4179,11 +4107,9 @@ class AirTerminalSingleDuctVavHeatAndCoolReheat(object):
         return self._data["Minimum Hot Water or Steam Flow Rate"]
 
     @minimum_hot_water_or_steam_flow_rate.setter
-    def minimum_hot_water_or_steam_flow_rate(self, value=0.0 ):
+    def minimum_hot_water_or_steam_flow_rate(self, value=0.0):
         """  Corresponds to IDD Field `Minimum Hot Water or Steam Flow Rate`
         Not used when reheat coil type is gas or electric
-        
-        {'pytype': 'float', u'default': '0.0', u'note': [u'Not used when reheat coil type is gas or electric'], u'ip-units': u'gal/min', u'minimum': '0.0', u'units': u'm3/s', 'type': 'real'}
 
         Args:
             value (float): value for IDD Field `Minimum Hot Water or Steam Flow Rate`
@@ -4222,8 +4148,6 @@ class AirTerminalSingleDuctVavHeatAndCoolReheat(object):
         """  Corresponds to IDD Field `Air Outlet Node Name`
         The outlet node of the terminal unit and the reheat coil.
         This is also the zone inlet node.
-        
-        {u'note': [u'The outlet node of the terminal unit and the reheat coil.', u'This is also the zone inlet node.'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Air Outlet Node Name`
@@ -4257,10 +4181,8 @@ class AirTerminalSingleDuctVavHeatAndCoolReheat(object):
         return self._data["Convergence Tolerance"]
 
     @convergence_tolerance.setter
-    def convergence_tolerance(self, value=0.001 ):
+    def convergence_tolerance(self, value=0.001):
         """  Corresponds to IDD Field `Convergence Tolerance`
-        
-        {u'default': '0.001', u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Convergence Tolerance`
@@ -4297,8 +4219,6 @@ class AirTerminalSingleDuctVavHeatAndCoolReheat(object):
         """  Corresponds to IDD Field `Maximum Reheat Air Temperature`
         Specifies the maximum allowable supply air temperature leaving the reheat coil.
         If left blank, there is no limit and no default. If unknown, 35C (95F) is recommended.
-        
-        {u'note': [u'Specifies the maximum allowable supply air temperature leaving the reheat coil.', u'If left blank, there is no limit and no default. If unknown, 35C (95F) is recommended.'], u'units': u'C', u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Maximum Reheat Air Temperature`
@@ -4528,8 +4448,6 @@ class AirTerminalSingleDuctSeriesPiuReheat(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -4567,8 +4485,6 @@ class AirTerminalSingleDuctSeriesPiuReheat(object):
         """  Corresponds to IDD Field `Availability Schedule Name`
         Availability schedule name for this system. Schedule value > 0 means the system is available.
         If this field is blank, the system is always available.
-        
-        {u'note': [u'Availability schedule name for this system. Schedule value > 0 means the system is available.', u'If this field is blank, the system is always available.'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Availability Schedule Name`
@@ -4604,11 +4520,9 @@ class AirTerminalSingleDuctSeriesPiuReheat(object):
     @maximum_air_flow_rate.setter
     def maximum_air_flow_rate(self, value=None):
         """  Corresponds to IDD Field `Maximum Air Flow Rate`
-        
-        {'pytype': 'float', u'required-field': True, u'autosizable': u'', u'minimum': '0.0', u'units': u'm3/s', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `Maximum Air Flow Rate`
+            value (float or "Autosize"): value for IDD Field `Maximum Air Flow Rate`
                 Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -4618,6 +4532,13 @@ class AirTerminalSingleDuctSeriesPiuReheat(object):
             ValueError: if `value` is not a valid value
         """
         if value is not None:
+            try:
+                value_lower = str(value).lower()
+                if value_lower == "autosize":
+                    self._data["Maximum Air Flow Rate"] = "Autosize"
+                    return
+            except ValueError:
+                pass
             try:
                 value = float(value)
             except ValueError:
@@ -4640,11 +4561,9 @@ class AirTerminalSingleDuctSeriesPiuReheat(object):
     @maximum_primary_air_flow_rate.setter
     def maximum_primary_air_flow_rate(self, value=None):
         """  Corresponds to IDD Field `Maximum Primary Air Flow Rate`
-        
-        {'pytype': 'float', u'required-field': True, u'autosizable': u'', u'minimum': '0.0', u'units': u'm3/s', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `Maximum Primary Air Flow Rate`
+            value (float or "Autosize"): value for IDD Field `Maximum Primary Air Flow Rate`
                 Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -4654,6 +4573,13 @@ class AirTerminalSingleDuctSeriesPiuReheat(object):
             ValueError: if `value` is not a valid value
         """
         if value is not None:
+            try:
+                value_lower = str(value).lower()
+                if value_lower == "autosize":
+                    self._data["Maximum Primary Air Flow Rate"] = "Autosize"
+                    return
+            except ValueError:
+                pass
             try:
                 value = float(value)
             except ValueError:
@@ -4676,11 +4602,9 @@ class AirTerminalSingleDuctSeriesPiuReheat(object):
     @minimum_primary_air_flow_fraction.setter
     def minimum_primary_air_flow_fraction(self, value=None):
         """  Corresponds to IDD Field `Minimum Primary Air Flow Fraction`
-        
-        {'pytype': 'float', u'maximum': '1.0', u'required-field': True, u'autosizable': u'', u'minimum': '0.0', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `Minimum Primary Air Flow Fraction`
+            value (float or "Autosize"): value for IDD Field `Minimum Primary Air Flow Fraction`
                 value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
@@ -4690,6 +4614,13 @@ class AirTerminalSingleDuctSeriesPiuReheat(object):
             ValueError: if `value` is not a valid value
         """
         if value is not None:
+            try:
+                value_lower = str(value).lower()
+                if value_lower == "autosize":
+                    self._data["Minimum Primary Air Flow Fraction"] = "Autosize"
+                    return
+            except ValueError:
+                pass
             try:
                 value = float(value)
             except ValueError:
@@ -4715,8 +4646,6 @@ class AirTerminalSingleDuctSeriesPiuReheat(object):
     @supply_air_inlet_node_name.setter
     def supply_air_inlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Supply Air Inlet Node Name`
-        
-        {u'type': u'node', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Supply Air Inlet Node Name`
@@ -4752,8 +4681,6 @@ class AirTerminalSingleDuctSeriesPiuReheat(object):
     @secondary_air_inlet_node_name.setter
     def secondary_air_inlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Secondary Air Inlet Node Name`
-        
-        {u'type': u'node', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Secondary Air Inlet Node Name`
@@ -4789,8 +4716,6 @@ class AirTerminalSingleDuctSeriesPiuReheat(object):
     @outlet_node_name.setter
     def outlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Outlet Node Name`
-        
-        {u'type': u'node', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Outlet Node Name`
@@ -4826,8 +4751,6 @@ class AirTerminalSingleDuctSeriesPiuReheat(object):
     @reheat_coil_air_inlet_node_name.setter
     def reheat_coil_air_inlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Reheat Coil Air Inlet Node Name`
-        
-        {u'type': u'node', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Reheat Coil Air Inlet Node Name`
@@ -4863,8 +4786,6 @@ class AirTerminalSingleDuctSeriesPiuReheat(object):
     @zone_mixer_name.setter
     def zone_mixer_name(self, value=None):
         """  Corresponds to IDD Field `Zone Mixer Name`
-        
-        {u'type': u'object-list', u'object-list': u'ZoneMixers', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Zone Mixer Name`
@@ -4901,8 +4822,6 @@ class AirTerminalSingleDuctSeriesPiuReheat(object):
     def fan_name(self, value=None):
         """  Corresponds to IDD Field `Fan Name`
         Fan type must be Fan:ConstantVolume
-        
-        {u'note': [u'Fan type must be Fan:ConstantVolume'], u'type': u'object-list', u'object-list': u'FansCV', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Fan Name`
@@ -4938,8 +4857,6 @@ class AirTerminalSingleDuctSeriesPiuReheat(object):
     @reheat_coil_object_type.setter
     def reheat_coil_object_type(self, value=None):
         """  Corresponds to IDD Field `Reheat Coil Object Type`
-        
-        {u'type': u'choice', u'key': [u'Coil:Heating:Water', u'Coil:Heating:Electric', u'Coil:Heating:Gas', u'Coil:Heating:Steam'], u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Reheat Coil Object Type`
@@ -4999,8 +4916,6 @@ class AirTerminalSingleDuctSeriesPiuReheat(object):
     @reheat_coil_name.setter
     def reheat_coil_name(self, value=None):
         """  Corresponds to IDD Field `Reheat Coil Name`
-        
-        {u'type': u'object-list', u'object-list': u'HeatingCoilName', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Reheat Coil Name`
@@ -5037,11 +4952,9 @@ class AirTerminalSingleDuctSeriesPiuReheat(object):
     def maximum_hot_water_or_steam_flow_rate(self, value=None):
         """  Corresponds to IDD Field `Maximum Hot Water or Steam Flow Rate`
         Not used when reheat coil type is gas or electric
-        
-        {'pytype': 'float', u'note': [u'Not used when reheat coil type is gas or electric'], u'ip-units': u'gal/min', u'autosizable': u'', u'units': u'm3/s', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `Maximum Hot Water or Steam Flow Rate`
+            value (float or "Autosize"): value for IDD Field `Maximum Hot Water or Steam Flow Rate`
                 Units: m3/s
                 IP-Units: gal/min
                 if `value` is None it will not be checked against the
@@ -5051,6 +4964,13 @@ class AirTerminalSingleDuctSeriesPiuReheat(object):
             ValueError: if `value` is not a valid value
         """
         if value is not None:
+            try:
+                value_lower = str(value).lower()
+                if value_lower == "autosize":
+                    self._data["Maximum Hot Water or Steam Flow Rate"] = "Autosize"
+                    return
+            except ValueError:
+                pass
             try:
                 value = float(value)
             except ValueError:
@@ -5068,11 +4988,9 @@ class AirTerminalSingleDuctSeriesPiuReheat(object):
         return self._data["Minimum Hot Water or Steam Flow Rate"]
 
     @minimum_hot_water_or_steam_flow_rate.setter
-    def minimum_hot_water_or_steam_flow_rate(self, value=0.0 ):
+    def minimum_hot_water_or_steam_flow_rate(self, value=0.0):
         """  Corresponds to IDD Field `Minimum Hot Water or Steam Flow Rate`
         Not used when reheat coil type is gas or electric
-        
-        {'pytype': 'float', u'default': '0.0', u'note': [u'Not used when reheat coil type is gas or electric'], u'ip-units': u'gal/min', u'minimum': '0.0', u'units': u'm3/s', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Minimum Hot Water or Steam Flow Rate`
@@ -5109,8 +5027,6 @@ class AirTerminalSingleDuctSeriesPiuReheat(object):
     @hot_water_or_steam_inlet_node_name.setter
     def hot_water_or_steam_inlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Hot Water or Steam Inlet Node Name`
-        
-        {u'deprecated': u'', u'type': u'node', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Hot Water or Steam Inlet Node Name`
@@ -5144,10 +5060,8 @@ class AirTerminalSingleDuctSeriesPiuReheat(object):
         return self._data["Convergence Tolerance"]
 
     @convergence_tolerance.setter
-    def convergence_tolerance(self, value=0.001 ):
+    def convergence_tolerance(self, value=0.001):
         """  Corresponds to IDD Field `Convergence Tolerance`
-        
-        {u'default': '0.001', u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Convergence Tolerance`
@@ -5385,8 +5299,6 @@ class AirTerminalSingleDuctParallelPiuReheat(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -5424,8 +5336,6 @@ class AirTerminalSingleDuctParallelPiuReheat(object):
         """  Corresponds to IDD Field `Availability Schedule Name`
         Availability schedule name for this system. Schedule value > 0 means the system is available.
         If this field is blank, the system is always available.
-        
-        {u'note': [u'Availability schedule name for this system. Schedule value > 0 means the system is available.', u'If this field is blank, the system is always available.'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Availability Schedule Name`
@@ -5461,11 +5371,9 @@ class AirTerminalSingleDuctParallelPiuReheat(object):
     @maximum_primary_air_flow_rate.setter
     def maximum_primary_air_flow_rate(self, value=None):
         """  Corresponds to IDD Field `Maximum Primary Air Flow Rate`
-        
-        {'pytype': 'float', u'required-field': True, u'autosizable': u'', u'minimum': '0.0', u'units': u'm3/s', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `Maximum Primary Air Flow Rate`
+            value (float or "Autosize"): value for IDD Field `Maximum Primary Air Flow Rate`
                 Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -5475,6 +5383,13 @@ class AirTerminalSingleDuctParallelPiuReheat(object):
             ValueError: if `value` is not a valid value
         """
         if value is not None:
+            try:
+                value_lower = str(value).lower()
+                if value_lower == "autosize":
+                    self._data["Maximum Primary Air Flow Rate"] = "Autosize"
+                    return
+            except ValueError:
+                pass
             try:
                 value = float(value)
             except ValueError:
@@ -5497,11 +5412,9 @@ class AirTerminalSingleDuctParallelPiuReheat(object):
     @maximum_secondary_air_flow_rate.setter
     def maximum_secondary_air_flow_rate(self, value=None):
         """  Corresponds to IDD Field `Maximum Secondary Air Flow Rate`
-        
-        {'pytype': 'float', u'required-field': True, u'autosizable': u'', u'minimum': '0.0', u'units': u'm3/s', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `Maximum Secondary Air Flow Rate`
+            value (float or "Autosize"): value for IDD Field `Maximum Secondary Air Flow Rate`
                 Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -5511,6 +5424,13 @@ class AirTerminalSingleDuctParallelPiuReheat(object):
             ValueError: if `value` is not a valid value
         """
         if value is not None:
+            try:
+                value_lower = str(value).lower()
+                if value_lower == "autosize":
+                    self._data["Maximum Secondary Air Flow Rate"] = "Autosize"
+                    return
+            except ValueError:
+                pass
             try:
                 value = float(value)
             except ValueError:
@@ -5533,11 +5453,9 @@ class AirTerminalSingleDuctParallelPiuReheat(object):
     @minimum_primary_air_flow_fraction.setter
     def minimum_primary_air_flow_fraction(self, value=None):
         """  Corresponds to IDD Field `Minimum Primary Air Flow Fraction`
-        
-        {'pytype': 'float', u'maximum': '1.0', u'required-field': True, u'autosizable': u'', u'minimum': '0.0', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `Minimum Primary Air Flow Fraction`
+            value (float or "Autosize"): value for IDD Field `Minimum Primary Air Flow Fraction`
                 value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
@@ -5547,6 +5465,13 @@ class AirTerminalSingleDuctParallelPiuReheat(object):
             ValueError: if `value` is not a valid value
         """
         if value is not None:
+            try:
+                value_lower = str(value).lower()
+                if value_lower == "autosize":
+                    self._data["Minimum Primary Air Flow Fraction"] = "Autosize"
+                    return
+            except ValueError:
+                pass
             try:
                 value = float(value)
             except ValueError:
@@ -5573,11 +5498,9 @@ class AirTerminalSingleDuctParallelPiuReheat(object):
     def fan_on_flow_fraction(self, value=None):
         """  Corresponds to IDD Field `Fan On Flow Fraction`
         the fraction of the primary air flow at which fan turns on
-        
-        {'pytype': 'float', u'maximum': '1.0', u'required-field': True, u'note': [u'the fraction of the primary air flow at which fan turns on'], u'autosizable': u'', u'minimum': '0.0', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `Fan On Flow Fraction`
+            value (float or "Autosize"): value for IDD Field `Fan On Flow Fraction`
                 value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
@@ -5587,6 +5510,13 @@ class AirTerminalSingleDuctParallelPiuReheat(object):
             ValueError: if `value` is not a valid value
         """
         if value is not None:
+            try:
+                value_lower = str(value).lower()
+                if value_lower == "autosize":
+                    self._data["Fan On Flow Fraction"] = "Autosize"
+                    return
+            except ValueError:
+                pass
             try:
                 value = float(value)
             except ValueError:
@@ -5612,8 +5542,6 @@ class AirTerminalSingleDuctParallelPiuReheat(object):
     @supply_air_inlet_node_name.setter
     def supply_air_inlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Supply Air Inlet Node Name`
-        
-        {u'type': u'node', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Supply Air Inlet Node Name`
@@ -5649,8 +5577,6 @@ class AirTerminalSingleDuctParallelPiuReheat(object):
     @secondary_air_inlet_node_name.setter
     def secondary_air_inlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Secondary Air Inlet Node Name`
-        
-        {u'type': u'node', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Secondary Air Inlet Node Name`
@@ -5686,8 +5612,6 @@ class AirTerminalSingleDuctParallelPiuReheat(object):
     @outlet_node_name.setter
     def outlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Outlet Node Name`
-        
-        {u'type': u'node', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Outlet Node Name`
@@ -5724,8 +5648,6 @@ class AirTerminalSingleDuctParallelPiuReheat(object):
     def reheat_coil_air_inlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Reheat Coil Air Inlet Node Name`
         mixer outlet node
-        
-        {u'note': [u'mixer outlet node'], u'type': u'node', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Reheat Coil Air Inlet Node Name`
@@ -5761,8 +5683,6 @@ class AirTerminalSingleDuctParallelPiuReheat(object):
     @zone_mixer_name.setter
     def zone_mixer_name(self, value=None):
         """  Corresponds to IDD Field `Zone Mixer Name`
-        
-        {u'type': u'object-list', u'object-list': u'ZoneMixers', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Zone Mixer Name`
@@ -5799,8 +5719,6 @@ class AirTerminalSingleDuctParallelPiuReheat(object):
     def fan_name(self, value=None):
         """  Corresponds to IDD Field `Fan Name`
         Fan type must be Fan:ConstantVolume
-        
-        {u'note': [u'Fan type must be Fan:ConstantVolume'], u'type': u'object-list', u'object-list': u'FansCV', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Fan Name`
@@ -5836,8 +5754,6 @@ class AirTerminalSingleDuctParallelPiuReheat(object):
     @reheat_coil_object_type.setter
     def reheat_coil_object_type(self, value=None):
         """  Corresponds to IDD Field `Reheat Coil Object Type`
-        
-        {u'type': u'choice', u'key': [u'Coil:Heating:Water', u'Coil:Heating:Electric', u'Coil:Heating:Gas', u'Coil:Heating:Steam'], u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Reheat Coil Object Type`
@@ -5897,8 +5813,6 @@ class AirTerminalSingleDuctParallelPiuReheat(object):
     @reheat_coil_name.setter
     def reheat_coil_name(self, value=None):
         """  Corresponds to IDD Field `Reheat Coil Name`
-        
-        {u'type': u'object-list', u'object-list': u'HeatingCoilName', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Reheat Coil Name`
@@ -5935,11 +5849,9 @@ class AirTerminalSingleDuctParallelPiuReheat(object):
     def maximum_hot_water_or_steam_flow_rate(self, value=None):
         """  Corresponds to IDD Field `Maximum Hot Water or Steam Flow Rate`
         Not used when reheat coil type is gas or electric
-        
-        {'pytype': 'float', u'note': [u'Not used when reheat coil type is gas or electric'], u'ip-units': u'gal/min', u'autosizable': u'', u'units': u'm3/s', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `Maximum Hot Water or Steam Flow Rate`
+            value (float or "Autosize"): value for IDD Field `Maximum Hot Water or Steam Flow Rate`
                 Units: m3/s
                 IP-Units: gal/min
                 if `value` is None it will not be checked against the
@@ -5949,6 +5861,13 @@ class AirTerminalSingleDuctParallelPiuReheat(object):
             ValueError: if `value` is not a valid value
         """
         if value is not None:
+            try:
+                value_lower = str(value).lower()
+                if value_lower == "autosize":
+                    self._data["Maximum Hot Water or Steam Flow Rate"] = "Autosize"
+                    return
+            except ValueError:
+                pass
             try:
                 value = float(value)
             except ValueError:
@@ -5966,11 +5885,9 @@ class AirTerminalSingleDuctParallelPiuReheat(object):
         return self._data["Minimum Hot Water or Steam Flow Rate"]
 
     @minimum_hot_water_or_steam_flow_rate.setter
-    def minimum_hot_water_or_steam_flow_rate(self, value=0.0 ):
+    def minimum_hot_water_or_steam_flow_rate(self, value=0.0):
         """  Corresponds to IDD Field `Minimum Hot Water or Steam Flow Rate`
         Not used when reheat coil type is gas or electric
-        
-        {'pytype': 'float', u'default': '0.0', u'note': [u'Not used when reheat coil type is gas or electric'], u'ip-units': u'gal/min', u'minimum': '0.0', u'units': u'm3/s', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Minimum Hot Water or Steam Flow Rate`
@@ -6007,8 +5924,6 @@ class AirTerminalSingleDuctParallelPiuReheat(object):
     @hot_water_or_steam_inlet_node_name.setter
     def hot_water_or_steam_inlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Hot Water or Steam Inlet Node Name`
-        
-        {u'deprecated': u'', u'type': u'node', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Hot Water or Steam Inlet Node Name`
@@ -6042,10 +5957,8 @@ class AirTerminalSingleDuctParallelPiuReheat(object):
         return self._data["Convergence Tolerance"]
 
     @convergence_tolerance.setter
-    def convergence_tolerance(self, value=0.001 ):
+    def convergence_tolerance(self, value=0.001):
         """  Corresponds to IDD Field `Convergence Tolerance`
-        
-        {u'default': '0.001', u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Convergence Tolerance`
@@ -6299,8 +6212,6 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -6338,8 +6249,6 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(object):
         """  Corresponds to IDD Field `Availability Schedule Name`
         Availability schedule name for this system. Schedule value > 0 means the system is available.
         If this field is blank, the system is always available.
-        
-        {u'note': [u'Availability schedule name for this system. Schedule value > 0 means the system is available.', u'If this field is blank, the system is always available.'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Availability Schedule Name`
@@ -6375,11 +6284,9 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(object):
     @maximum_total_air_flow_rate.setter
     def maximum_total_air_flow_rate(self, value=None):
         """  Corresponds to IDD Field `Maximum Total Air Flow Rate`
-        
-        {'pytype': 'float', u'required-field': True, u'autosizable': u'', u'minimum': '0.0', u'units': u'm3/s', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `Maximum Total Air Flow Rate`
+            value (float or "Autosize"): value for IDD Field `Maximum Total Air Flow Rate`
                 Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -6389,6 +6296,13 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(object):
             ValueError: if `value` is not a valid value
         """
         if value is not None:
+            try:
+                value_lower = str(value).lower()
+                if value_lower == "autosize":
+                    self._data["Maximum Total Air Flow Rate"] = "Autosize"
+                    return
+            except ValueError:
+                pass
             try:
                 value = float(value)
             except ValueError:
@@ -6409,11 +6323,9 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(object):
         return self._data["Induction Ratio"]
 
     @induction_ratio.setter
-    def induction_ratio(self, value=2.5 ):
+    def induction_ratio(self, value=2.5):
         """  Corresponds to IDD Field `Induction Ratio`
         ratio of induced air flow rate to primary air flow rate
-        
-        {'pytype': 'float', u'default': '2.5', u'required-field': True, u'note': [u'ratio of induced air flow rate to primary air flow rate'], u'minimum': '0.0', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Induction Ratio`
@@ -6448,8 +6360,6 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(object):
     @supply_air_inlet_node_name.setter
     def supply_air_inlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Supply Air Inlet Node Name`
-        
-        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Supply Air Inlet Node Name`
@@ -6486,8 +6396,6 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(object):
     def induced_air_inlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Induced Air Inlet Node Name`
         should be a zone exhaust node, also the heating coil inlet node
-        
-        {u'note': [u'should be a zone exhaust node, also the heating coil inlet node'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Induced Air Inlet Node Name`
@@ -6524,8 +6432,6 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(object):
     def air_outlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Air Outlet Node Name`
         should be a zone inlet node
-        
-        {u'note': [u'should be a zone inlet node'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Air Outlet Node Name`
@@ -6561,8 +6467,6 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(object):
     @hot_water_inlet_node_name.setter
     def hot_water_inlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Hot Water Inlet Node Name`
-        
-        {u'deprecated': u'', u'type': u'node', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Hot Water Inlet Node Name`
@@ -6598,8 +6502,6 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(object):
     @cold_water_inlet_node_name.setter
     def cold_water_inlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Cold Water Inlet Node Name`
-        
-        {u'deprecated': u'', u'type': u'node', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Cold Water Inlet Node Name`
@@ -6635,8 +6537,6 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(object):
     @heating_coil_object_type.setter
     def heating_coil_object_type(self, value=None):
         """  Corresponds to IDD Field `Heating Coil Object Type`
-        
-        {u'type': u'choice', u'key': [u'Coil:Heating:Water'], u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Heating Coil Object Type`
@@ -6690,8 +6590,6 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(object):
     @heating_coil_name.setter
     def heating_coil_name(self, value=None):
         """  Corresponds to IDD Field `Heating Coil Name`
-        
-        {u'type': u'object-list', u'object-list': u'HeatingCoilName', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Heating Coil Name`
@@ -6728,11 +6626,9 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(object):
     def maximum_hot_water_flow_rate(self, value=None):
         """  Corresponds to IDD Field `Maximum Hot Water Flow Rate`
         Not used when heating coil type is gas or electric
-        
-        {'pytype': 'float', u'note': [u'Not used when heating coil type is gas or electric'], u'ip-units': u'gal/min', u'autosizable': u'', u'units': u'm3/s', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `Maximum Hot Water Flow Rate`
+            value (float or "Autosize"): value for IDD Field `Maximum Hot Water Flow Rate`
                 Units: m3/s
                 IP-Units: gal/min
                 if `value` is None it will not be checked against the
@@ -6742,6 +6638,13 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(object):
             ValueError: if `value` is not a valid value
         """
         if value is not None:
+            try:
+                value_lower = str(value).lower()
+                if value_lower == "autosize":
+                    self._data["Maximum Hot Water Flow Rate"] = "Autosize"
+                    return
+            except ValueError:
+                pass
             try:
                 value = float(value)
             except ValueError:
@@ -6759,11 +6662,9 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(object):
         return self._data["Minimum Hot Water Flow Rate"]
 
     @minimum_hot_water_flow_rate.setter
-    def minimum_hot_water_flow_rate(self, value=0.0 ):
+    def minimum_hot_water_flow_rate(self, value=0.0):
         """  Corresponds to IDD Field `Minimum Hot Water Flow Rate`
         Not used when heating coil type is gas or electric
-        
-        {'pytype': 'float', u'default': '0.0', u'note': [u'Not used when heating coil type is gas or electric'], u'ip-units': u'gal/min', u'minimum': '0.0', u'units': u'm3/s', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Minimum Hot Water Flow Rate`
@@ -6798,10 +6699,8 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(object):
         return self._data["Heating Convergence Tolerance"]
 
     @heating_convergence_tolerance.setter
-    def heating_convergence_tolerance(self, value=0.001 ):
+    def heating_convergence_tolerance(self, value=0.001):
         """  Corresponds to IDD Field `Heating Convergence Tolerance`
-        
-        {u'default': '0.001', u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Heating Convergence Tolerance`
@@ -6836,8 +6735,6 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(object):
     @cooling_coil_object_type.setter
     def cooling_coil_object_type(self, value=None):
         """  Corresponds to IDD Field `Cooling Coil Object Type`
-        
-        {u'type': u'choice', u'key': [u'Coil:Cooling:Water', u'Coil:Cooling:Water:DetailedGeometry'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Cooling Coil Object Type`
@@ -6893,8 +6790,6 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(object):
     @cooling_coil_name.setter
     def cooling_coil_name(self, value=None):
         """  Corresponds to IDD Field `Cooling Coil Name`
-        
-        {u'type': u'object-list', u'object-list': u'CoolingCoilName', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Cooling Coil Name`
@@ -6930,11 +6825,9 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(object):
     @maximum_cold_water_flow_rate.setter
     def maximum_cold_water_flow_rate(self, value=None):
         """  Corresponds to IDD Field `Maximum Cold Water Flow Rate`
-        
-        {u'units': u'm3/s', u'ip-units': u'gal/min', u'autosizable': u'', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `Maximum Cold Water Flow Rate`
+            value (float or "Autosize"): value for IDD Field `Maximum Cold Water Flow Rate`
                 Units: m3/s
                 IP-Units: gal/min
                 if `value` is None it will not be checked against the
@@ -6944,6 +6837,13 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(object):
             ValueError: if `value` is not a valid value
         """
         if value is not None:
+            try:
+                value_lower = str(value).lower()
+                if value_lower == "autosize":
+                    self._data["Maximum Cold Water Flow Rate"] = "Autosize"
+                    return
+            except ValueError:
+                pass
             try:
                 value = float(value)
             except ValueError:
@@ -6961,10 +6861,8 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(object):
         return self._data["Minimum Cold Water Flow Rate"]
 
     @minimum_cold_water_flow_rate.setter
-    def minimum_cold_water_flow_rate(self, value=0.0 ):
+    def minimum_cold_water_flow_rate(self, value=0.0):
         """  Corresponds to IDD Field `Minimum Cold Water Flow Rate`
-        
-        {'pytype': 'float', u'default': '0.0', u'ip-units': u'gal/min', u'minimum': '0.0', u'units': u'm3/s', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Minimum Cold Water Flow Rate`
@@ -6999,10 +6897,8 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(object):
         return self._data["Cooling Convergence Tolerance"]
 
     @cooling_convergence_tolerance.setter
-    def cooling_convergence_tolerance(self, value=0.001 ):
+    def cooling_convergence_tolerance(self, value=0.001):
         """  Corresponds to IDD Field `Cooling Convergence Tolerance`
-        
-        {u'default': '0.001', u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Cooling Convergence Tolerance`
@@ -7037,8 +6933,6 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(object):
     @zone_mixer_name.setter
     def zone_mixer_name(self, value=None):
         """  Corresponds to IDD Field `Zone Mixer Name`
-        
-        {u'type': u'object-list', u'object-list': u'ZoneMixers', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Zone Mixer Name`
@@ -7317,8 +7211,6 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -7356,8 +7248,6 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(object):
         """  Corresponds to IDD Field `Availability Schedule Name`
         Availability schedule name for this system. Schedule value > 0 means the system is available.
         If this field is blank, the system is always available.
-        
-        {u'note': [u'Availability schedule name for this system. Schedule value > 0 means the system is available.', u'If this field is blank, the system is always available.'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Availability Schedule Name`
@@ -7393,8 +7283,6 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(object):
     @cooled_beam_type.setter
     def cooled_beam_type(self, value=None):
         """  Corresponds to IDD Field `Cooled Beam Type`
-        
-        {u'type': u'choice', u'key': [u'Active', u'Passive'], u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Cooled Beam Type`
@@ -7450,8 +7338,6 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(object):
     @supply_air_inlet_node_name.setter
     def supply_air_inlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Supply Air Inlet Node Name`
-        
-        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Supply Air Inlet Node Name`
@@ -7487,8 +7373,6 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(object):
     @supply_air_outlet_node_name.setter
     def supply_air_outlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Supply Air Outlet Node Name`
-        
-        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Supply Air Outlet Node Name`
@@ -7524,8 +7408,6 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(object):
     @chilled_water_inlet_node_name.setter
     def chilled_water_inlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Chilled Water Inlet Node Name`
-        
-        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Chilled Water Inlet Node Name`
@@ -7561,8 +7443,6 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(object):
     @chilled_water_outlet_node_name.setter
     def chilled_water_outlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Chilled Water Outlet Node Name`
-        
-        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Chilled Water Outlet Node Name`
@@ -7596,13 +7476,11 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(object):
         return self._data["Supply Air Volumetric Flow Rate"]
 
     @supply_air_volumetric_flow_rate.setter
-    def supply_air_volumetric_flow_rate(self, value="autosize" ):
+    def supply_air_volumetric_flow_rate(self, value="autosize"):
         """  Corresponds to IDD Field `Supply Air Volumetric Flow Rate`
-        
-        {'pytype': 'float', u'default': '"autosize"', u'autosizable': u'', u'minimum': '0.0', u'units': u'm3/s', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `Supply Air Volumetric Flow Rate`
+            value (float or "Autosize"): value for IDD Field `Supply Air Volumetric Flow Rate`
                 Units: m3/s
                 Default value: "autosize"
                 value >= 0.0
@@ -7613,6 +7491,13 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(object):
             ValueError: if `value` is not a valid value
         """
         if value is not None:
+            try:
+                value_lower = str(value).lower()
+                if value_lower == "autosize":
+                    self._data["Supply Air Volumetric Flow Rate"] = "Autosize"
+                    return
+            except ValueError:
+                pass
             try:
                 value = float(value)
             except ValueError:
@@ -7633,13 +7518,11 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(object):
         return self._data["Maximum Total Chilled Water Volumetric Flow Rate"]
 
     @maximum_total_chilled_water_volumetric_flow_rate.setter
-    def maximum_total_chilled_water_volumetric_flow_rate(self, value="autosize" ):
+    def maximum_total_chilled_water_volumetric_flow_rate(self, value="autosize"):
         """  Corresponds to IDD Field `Maximum Total Chilled Water Volumetric Flow Rate`
-        
-        {'pytype': 'float', u'default': '"autosize"', u'autosizable': u'', u'minimum': '0.0', u'units': u'm3/s', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `Maximum Total Chilled Water Volumetric Flow Rate`
+            value (float or "Autosize"): value for IDD Field `Maximum Total Chilled Water Volumetric Flow Rate`
                 Units: m3/s
                 Default value: "autosize"
                 value >= 0.0
@@ -7650,6 +7533,13 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(object):
             ValueError: if `value` is not a valid value
         """
         if value is not None:
+            try:
+                value_lower = str(value).lower()
+                if value_lower == "autosize":
+                    self._data["Maximum Total Chilled Water Volumetric Flow Rate"] = "Autosize"
+                    return
+            except ValueError:
+                pass
             try:
                 value = float(value)
             except ValueError:
@@ -7670,14 +7560,12 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(object):
         return self._data["Number of Beams"]
 
     @number_of_beams.setter
-    def number_of_beams(self, value="autosize" ):
+    def number_of_beams(self, value="autosize"):
         """  Corresponds to IDD Field `Number of Beams`
         Number of individual beam units in the zone
-        
-        {'pytype': 'int', u'default': '"autosize"', u'minimum>': '0', u'note': [u'Number of individual beam units in the zone'], u'autosizable': u'', u'type': u'integer'}
 
         Args:
-            value (int): value for IDD Field `Number of Beams`
+            value (int or "Autosize"): value for IDD Field `Number of Beams`
                 Default value: "autosize"
                 value > 0
                 if `value` is None it will not be checked against the
@@ -7687,6 +7575,13 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(object):
             ValueError: if `value` is not a valid value
         """
         if value is not None:
+            try:
+                value_lower = str(value).lower()
+                if value_lower == "autosize":
+                    self._data["Number of Beams"] = "Autosize"
+                    return
+            except ValueError:
+                pass
             try:
                 value = int(value)
             except ValueError:
@@ -7707,14 +7602,12 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(object):
         return self._data["Beam Length"]
 
     @beam_length.setter
-    def beam_length(self, value="autosize" ):
+    def beam_length(self, value="autosize"):
         """  Corresponds to IDD Field `Beam Length`
         Length of an individual beam unit
-        
-        {'pytype': 'float', u'default': '"autosize"', u'minimum>': '0.0', u'note': [u'Length of an individual beam unit'], u'autosizable': u'', u'units': u'm', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `Beam Length`
+            value (float or "Autosize"): value for IDD Field `Beam Length`
                 Units: m
                 Default value: "autosize"
                 value > 0.0
@@ -7725,6 +7618,13 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(object):
             ValueError: if `value` is not a valid value
         """
         if value is not None:
+            try:
+                value_lower = str(value).lower()
+                if value_lower == "autosize":
+                    self._data["Beam Length"] = "Autosize"
+                    return
+            except ValueError:
+                pass
             try:
                 value = float(value)
             except ValueError:
@@ -7745,10 +7645,8 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(object):
         return self._data["Design Inlet Water Temperature"]
 
     @design_inlet_water_temperature.setter
-    def design_inlet_water_temperature(self, value=15.0 ):
+    def design_inlet_water_temperature(self, value=15.0):
         """  Corresponds to IDD Field `Design Inlet Water Temperature`
-        
-        {u'units': u'C', u'default': '15.0', u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Design Inlet Water Temperature`
@@ -7782,10 +7680,8 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(object):
         return self._data["Design Outlet Water Temperature"]
 
     @design_outlet_water_temperature.setter
-    def design_outlet_water_temperature(self, value=17.0 ):
+    def design_outlet_water_temperature(self, value=17.0):
         """  Corresponds to IDD Field `Design Outlet Water Temperature`
-        
-        {u'units': u'C', u'default': '17.0', u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Design Outlet Water Temperature`
@@ -7819,10 +7715,8 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(object):
         return self._data["Coil Surface Area per Coil Length"]
 
     @coil_surface_area_per_coil_length.setter
-    def coil_surface_area_per_coil_length(self, value=5.422 ):
+    def coil_surface_area_per_coil_length(self, value=5.422):
         """  Corresponds to IDD Field `Coil Surface Area per Coil Length`
-        
-        {u'units': u'm2/m', u'default': '5.422', u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Coil Surface Area per Coil Length`
@@ -7856,10 +7750,8 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(object):
         return self._data["Model Parameter a"]
 
     @model_parameter_a.setter
-    def model_parameter_a(self, value=15.3 ):
+    def model_parameter_a(self, value=15.3):
         """  Corresponds to IDD Field `Model Parameter a`
-        
-        {u'default': '15.3', u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Model Parameter a`
@@ -7892,10 +7784,8 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(object):
         return self._data["Model Parameter n1"]
 
     @model_parameter_n1.setter
-    def model_parameter_n1(self, value=0.0 ):
+    def model_parameter_n1(self, value=0.0):
         """  Corresponds to IDD Field `Model Parameter n1`
-        
-        {u'default': '0.0', u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Model Parameter n1`
@@ -7928,10 +7818,8 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(object):
         return self._data["Model Parameter n2"]
 
     @model_parameter_n2.setter
-    def model_parameter_n2(self, value=0.84 ):
+    def model_parameter_n2(self, value=0.84):
         """  Corresponds to IDD Field `Model Parameter n2`
-        
-        {u'default': '0.84', u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Model Parameter n2`
@@ -7964,10 +7852,8 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(object):
         return self._data["Model Parameter n3"]
 
     @model_parameter_n3.setter
-    def model_parameter_n3(self, value=0.12 ):
+    def model_parameter_n3(self, value=0.12):
         """  Corresponds to IDD Field `Model Parameter n3`
-        
-        {u'default': '0.12', u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Model Parameter n3`
@@ -8000,11 +7886,9 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(object):
         return self._data["Model Parameter a0"]
 
     @model_parameter_a0.setter
-    def model_parameter_a0(self, value=0.171 ):
+    def model_parameter_a0(self, value=0.171):
         """  Corresponds to IDD Field `Model Parameter a0`
         Free area of the coil in plan view per unit beam length
-        
-        {'pytype': 'float', u'default': '0.171', u'note': [u'Free area of the coil in plan view per unit beam length'], u'minimum': '0.0', u'units': u'm2/m', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Model Parameter a0`
@@ -8038,10 +7922,8 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(object):
         return self._data["Model Parameter K1"]
 
     @model_parameter_k1.setter
-    def model_parameter_k1(self, value=0.0057 ):
+    def model_parameter_k1(self, value=0.0057):
         """  Corresponds to IDD Field `Model Parameter K1`
-        
-        {u'default': '0.0057', u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Model Parameter K1`
@@ -8074,10 +7956,8 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(object):
         return self._data["Model Parameter n"]
 
     @model_parameter_n.setter
-    def model_parameter_n(self, value=0.4 ):
+    def model_parameter_n(self, value=0.4):
         """  Corresponds to IDD Field `Model Parameter n`
-        
-        {u'default': '0.4', u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Model Parameter n`
@@ -8110,10 +7990,8 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(object):
         return self._data["Coefficient of Induction Kin"]
 
     @coefficient_of_induction_kin.setter
-    def coefficient_of_induction_kin(self, value="Autocalculate" ):
+    def coefficient_of_induction_kin(self, value="Autocalculate"):
         """  Corresponds to IDD Field `Coefficient of Induction Kin`
-        
-        {'pytype': 'float', u'default': '"Autocalculate"', u'maximum': '4.0', u'minimum': '0.0', u'autocalculatable': True, u'type': u'real'}
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `Coefficient of Induction Kin`
@@ -8130,7 +8008,7 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(object):
             try:
                 value_lower = str(value).lower()
                 if value_lower == "autocalculate":
-                    self._data["Coefficient of Induction Kin"] = value
+                    self._data["Coefficient of Induction Kin"] = "Autocalculate"
                     return
             except ValueError:
                 pass
@@ -8157,10 +8035,8 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(object):
         return self._data["Leaving Pipe Inside Diameter"]
 
     @leaving_pipe_inside_diameter.setter
-    def leaving_pipe_inside_diameter(self, value=0.0145 ):
+    def leaving_pipe_inside_diameter(self, value=0.0145):
         """  Corresponds to IDD Field `Leaving Pipe Inside Diameter`
-        
-        {u'units': u'm', u'default': '0.0145', u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Leaving Pipe Inside Diameter`
@@ -8302,8 +8178,6 @@ class AirTerminalSingleDuctInletSideMixer(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {'type': 'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -8339,8 +8213,6 @@ class AirTerminalSingleDuctInletSideMixer(object):
     @zonehvac_terminal_unit_object_type.setter
     def zonehvac_terminal_unit_object_type(self, value=None):
         """  Corresponds to IDD Field `ZoneHVAC Terminal Unit Object Type`
-        
-        {'type': 'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `ZoneHVAC Terminal Unit Object Type`
@@ -8376,8 +8248,6 @@ class AirTerminalSingleDuctInletSideMixer(object):
     @zonehvac_terminal_unit_name.setter
     def zonehvac_terminal_unit_name(self, value=None):
         """  Corresponds to IDD Field `ZoneHVAC Terminal Unit Name`
-        
-        {'type': 'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `ZoneHVAC Terminal Unit Name`
@@ -8413,8 +8283,6 @@ class AirTerminalSingleDuctInletSideMixer(object):
     @terminal_unit_outlet_node_name.setter
     def terminal_unit_outlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Terminal Unit Outlet Node Name`
-        
-        {'type': 'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Terminal Unit Outlet Node Name`
@@ -8450,8 +8318,6 @@ class AirTerminalSingleDuctInletSideMixer(object):
     @terminal_unit_primary_air_inlet_node_name.setter
     def terminal_unit_primary_air_inlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Terminal Unit Primary Air Inlet Node Name`
-        
-        {'type': 'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Terminal Unit Primary Air Inlet Node Name`
@@ -8487,8 +8353,6 @@ class AirTerminalSingleDuctInletSideMixer(object):
     @terminal_unit_secondary_air_inlet_node_name.setter
     def terminal_unit_secondary_air_inlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Terminal Unit Secondary Air Inlet Node Name`
-        
-        {'type': 'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Terminal Unit Secondary Air Inlet Node Name`
@@ -8630,8 +8494,6 @@ class AirTerminalSingleDuctSupplySideMixer(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {'type': 'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -8667,8 +8529,6 @@ class AirTerminalSingleDuctSupplySideMixer(object):
     @zonehvac_terminal_unit_object_type.setter
     def zonehvac_terminal_unit_object_type(self, value=None):
         """  Corresponds to IDD Field `ZoneHVAC Terminal Unit Object Type`
-        
-        {'type': 'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `ZoneHVAC Terminal Unit Object Type`
@@ -8704,8 +8564,6 @@ class AirTerminalSingleDuctSupplySideMixer(object):
     @zonehvac_terminal_unit_name.setter
     def zonehvac_terminal_unit_name(self, value=None):
         """  Corresponds to IDD Field `ZoneHVAC Terminal Unit Name`
-        
-        {'type': 'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `ZoneHVAC Terminal Unit Name`
@@ -8741,8 +8599,6 @@ class AirTerminalSingleDuctSupplySideMixer(object):
     @terminal_unit_outlet_node_name.setter
     def terminal_unit_outlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Terminal Unit Outlet Node Name`
-        
-        {'type': 'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Terminal Unit Outlet Node Name`
@@ -8778,8 +8634,6 @@ class AirTerminalSingleDuctSupplySideMixer(object):
     @terminal_unit_primary_air_inlet_node_name.setter
     def terminal_unit_primary_air_inlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Terminal Unit Primary Air Inlet Node Name`
-        
-        {'type': 'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Terminal Unit Primary Air Inlet Node Name`
@@ -8815,8 +8669,6 @@ class AirTerminalSingleDuctSupplySideMixer(object):
     @terminal_unit_secondary_air_inlet_node_name.setter
     def terminal_unit_secondary_air_inlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Terminal Unit Secondary Air Inlet Node Name`
-        
-        {'type': 'alpha', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Terminal Unit Secondary Air Inlet Node Name`
@@ -8958,8 +8810,6 @@ class AirTerminalDualDuctConstantVolume(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {'type': 'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -8997,8 +8847,6 @@ class AirTerminalDualDuctConstantVolume(object):
         """  Corresponds to IDD Field `Availability Schedule Name`
         Availability schedule name for this system. Schedule value > 0 means the system is available.
         If this field is blank, the system is always available.
-        
-        {u'note': [u'Availability schedule name for this system. Schedule value > 0 means the system is available.', u'If this field is blank, the system is always available.'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Availability Schedule Name`
@@ -9036,8 +8884,6 @@ class AirTerminalDualDuctConstantVolume(object):
         """  Corresponds to IDD Field `Air Outlet Node Name`
         The outlet node of the terminal unit.
         This is also the zone inlet node.
-        
-        {u'note': [u'The outlet node of the terminal unit.', u'This is also the zone inlet node.'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Air Outlet Node Name`
@@ -9073,8 +8919,6 @@ class AirTerminalDualDuctConstantVolume(object):
     @hot_air_inlet_node_name.setter
     def hot_air_inlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Hot Air Inlet Node Name`
-        
-        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Hot Air Inlet Node Name`
@@ -9110,8 +8954,6 @@ class AirTerminalDualDuctConstantVolume(object):
     @cold_air_inlet_node_name.setter
     def cold_air_inlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Cold Air Inlet Node Name`
-        
-        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Cold Air Inlet Node Name`
@@ -9147,11 +8989,9 @@ class AirTerminalDualDuctConstantVolume(object):
     @maximum_air_flow_rate.setter
     def maximum_air_flow_rate(self, value=None):
         """  Corresponds to IDD Field `Maximum Air Flow Rate`
-        
-        {'pytype': 'float', u'required-field': True, u'autosizable': u'', u'minimum': '0.0', u'units': u'm3/s', 'type': 'real'}
 
         Args:
-            value (float): value for IDD Field `Maximum Air Flow Rate`
+            value (float or "Autosize"): value for IDD Field `Maximum Air Flow Rate`
                 Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -9161,6 +9001,13 @@ class AirTerminalDualDuctConstantVolume(object):
             ValueError: if `value` is not a valid value
         """
         if value is not None:
+            try:
+                value_lower = str(value).lower()
+                if value_lower == "autosize":
+                    self._data["Maximum Air Flow Rate"] = "Autosize"
+                    return
+            except ValueError:
+                pass
             try:
                 value = float(value)
             except ValueError:
@@ -9305,8 +9152,6 @@ class AirTerminalDualDuctVav(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {'type': 'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -9344,8 +9189,6 @@ class AirTerminalDualDuctVav(object):
         """  Corresponds to IDD Field `Availability Schedule Name`
         Availability schedule name for this system. Schedule value > 0 means the system is available.
         If this field is blank, the system is always available.
-        
-        {u'note': [u'Availability schedule name for this system. Schedule value > 0 means the system is available.', u'If this field is blank, the system is always available.'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Availability Schedule Name`
@@ -9383,8 +9226,6 @@ class AirTerminalDualDuctVav(object):
         """  Corresponds to IDD Field `Air Outlet Node Name`
         The outlet node of the terminal unit.
         This is also the zone inlet node.
-        
-        {u'note': [u'The outlet node of the terminal unit.', u'This is also the zone inlet node.'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Air Outlet Node Name`
@@ -9420,8 +9261,6 @@ class AirTerminalDualDuctVav(object):
     @hot_air_inlet_node_name.setter
     def hot_air_inlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Hot Air Inlet Node Name`
-        
-        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Hot Air Inlet Node Name`
@@ -9457,8 +9296,6 @@ class AirTerminalDualDuctVav(object):
     @cold_air_inlet_node_name.setter
     def cold_air_inlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Cold Air Inlet Node Name`
-        
-        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Cold Air Inlet Node Name`
@@ -9494,11 +9331,9 @@ class AirTerminalDualDuctVav(object):
     @maximum_damper_air_flow_rate.setter
     def maximum_damper_air_flow_rate(self, value=None):
         """  Corresponds to IDD Field `Maximum Damper Air Flow Rate`
-        
-        {'pytype': 'float', u'required-field': True, u'autosizable': u'', u'minimum': '0.0', u'units': u'm3/s', 'type': 'real'}
 
         Args:
-            value (float): value for IDD Field `Maximum Damper Air Flow Rate`
+            value (float or "Autosize"): value for IDD Field `Maximum Damper Air Flow Rate`
                 Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -9508,6 +9343,13 @@ class AirTerminalDualDuctVav(object):
             ValueError: if `value` is not a valid value
         """
         if value is not None:
+            try:
+                value_lower = str(value).lower()
+                if value_lower == "autosize":
+                    self._data["Maximum Damper Air Flow Rate"] = "Autosize"
+                    return
+            except ValueError:
+                pass
             try:
                 value = float(value)
             except ValueError:
@@ -9528,11 +9370,9 @@ class AirTerminalDualDuctVav(object):
         return self._data["Zone Minimum Air Flow Fraction"]
 
     @zone_minimum_air_flow_fraction.setter
-    def zone_minimum_air_flow_fraction(self, value=0.2 ):
+    def zone_minimum_air_flow_fraction(self, value=0.2):
         """  Corresponds to IDD Field `Zone Minimum Air Flow Fraction`
         fraction of maximum air flow
-        
-        {'pytype': 'float', u'default': '0.2', u'maximum': '1.0', u'required-field': True, u'note': [u'fraction of maximum air flow'], u'minimum': '0.0', 'type': 'real'}
 
         Args:
             value (float): value for IDD Field `Zone Minimum Air Flow Fraction`
@@ -9577,8 +9417,6 @@ class AirTerminalDualDuctVav(object):
         be computed based on the current number of occupants in the zone.
         At no time will the supply air flow rate exceed the value for Maximum Air Flow Rate.
         If this field is blank, then the terminal unit will not be controlled for outdoor air flow.
-        
-        {u'note': [u'When the name of a DesignSpecification:OutdoorAir object is entered, the terminal', u'unit will increase flow as needed to meet this outdoor air requirement.', u'If Outdoor Air Flow per Person is non-zero, then the outdoor air requirement will', u'be computed based on the current number of occupants in the zone.', u'At no time will the supply air flow rate exceed the value for Maximum Air Flow Rate.', u'If this field is blank, then the terminal unit will not be controlled for outdoor air flow.'], u'type': u'object-list', u'object-list': u'DesignSpecificationOutdoorAirNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Design Specification Outdoor Air Object Name`
@@ -9738,8 +9576,6 @@ class AirTerminalDualDuctVavOutdoorAir(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {'type': 'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -9777,8 +9613,6 @@ class AirTerminalDualDuctVavOutdoorAir(object):
         """  Corresponds to IDD Field `Availability Schedule Name`
         Availability schedule name for this system. Schedule value > 0 means the system is available.
         If this field is blank, the system is always available.
-        
-        {u'note': [u'Availability schedule name for this system. Schedule value > 0 means the system is available.', u'If this field is blank, the system is always available.'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Availability Schedule Name`
@@ -9816,8 +9650,6 @@ class AirTerminalDualDuctVavOutdoorAir(object):
         """  Corresponds to IDD Field `Air Outlet Node Name`
         The outlet node of the terminal unit.
         This is also the zone inlet node.
-        
-        {u'note': [u'The outlet node of the terminal unit.', u'This is also the zone inlet node.'], 'type': 'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Air Outlet Node Name`
@@ -9853,8 +9685,6 @@ class AirTerminalDualDuctVavOutdoorAir(object):
     @outdoor_air_inlet_node_name.setter
     def outdoor_air_inlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Outdoor Air Inlet Node Name`
-        
-        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Outdoor Air Inlet Node Name`
@@ -9890,8 +9720,6 @@ class AirTerminalDualDuctVavOutdoorAir(object):
     @recirculated_air_inlet_node_name.setter
     def recirculated_air_inlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Recirculated Air Inlet Node Name`
-        
-        {u'type': u'node', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Recirculated Air Inlet Node Name`
@@ -9928,11 +9756,9 @@ class AirTerminalDualDuctVavOutdoorAir(object):
     def maximum_terminal_air_flow_rate(self, value=None):
         """  Corresponds to IDD Field `Maximum Terminal Air Flow Rate`
         If autosized this is the sum of flow needed for cooling and maximum required outdoor air
-        
-        {'pytype': 'float', u'required-field': True, u'note': [u'If autosized this is the sum of flow needed for cooling and maximum required outdoor air'], u'autosizable': u'', u'minimum': '0.0', u'units': u'm3/s', 'type': 'real'}
 
         Args:
-            value (float): value for IDD Field `Maximum Terminal Air Flow Rate`
+            value (float or "Autosize"): value for IDD Field `Maximum Terminal Air Flow Rate`
                 Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -9942,6 +9768,13 @@ class AirTerminalDualDuctVavOutdoorAir(object):
             ValueError: if `value` is not a valid value
         """
         if value is not None:
+            try:
+                value_lower = str(value).lower()
+                if value_lower == "autosize":
+                    self._data["Maximum Terminal Air Flow Rate"] = "Autosize"
+                    return
+            except ValueError:
+                pass
             try:
                 value = float(value)
             except ValueError:
@@ -9969,8 +9802,6 @@ class AirTerminalDualDuctVavOutdoorAir(object):
         If Outdoor Air Flow per Person is non-zero, then the outdoor air requirement will
         be computed based mode selected in the next field.
         At no time will the supply air flow rate exceed the value for Maximum Air Flow Rate.
-        
-        {u'note': [u'When the name of a DesignSpecification:OutdoorAir object is entered, the terminal', u'unit will increase flow as needed to meet this outdoor air requirement.', u'If Outdoor Air Flow per Person is non-zero, then the outdoor air requirement will', u'be computed based mode selected in the next field.', u'At no time will the supply air flow rate exceed the value for Maximum Air Flow Rate.'], u'type': u'object-list', u'object-list': u'DesignSpecificationOutdoorAirNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Design Specification Outdoor Air Object Name`
@@ -10008,8 +9839,6 @@ class AirTerminalDualDuctVavOutdoorAir(object):
         """  Corresponds to IDD Field `Per Person Ventilation Rate Mode`
         CurrentOccupancy models demand controlled ventilation using the current number of people
         DesignOccupancy uses the total Number of People in the zone and is constant
-        
-        {u'note': [u'CurrentOccupancy models demand controlled ventilation using the current number of people', u'DesignOccupancy uses the total Number of People in the zone and is constant'], u'type': u'choice', u'key': [u'CurrentOccupancy', u'DesignOccupancy'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Per Person Ventilation Rate Mode`
@@ -10172,8 +10001,6 @@ class ZoneHvacAirDistributionUnit(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {'type': 'alpha', u'reference': u'AirDistributionUnits', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -10209,8 +10036,6 @@ class ZoneHvacAirDistributionUnit(object):
     @air_distribution_unit_outlet_node_name.setter
     def air_distribution_unit_outlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Air Distribution Unit Outlet Node Name`
-        
-        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Air Distribution Unit Outlet Node Name`
@@ -10246,8 +10071,6 @@ class ZoneHvacAirDistributionUnit(object):
     @air_terminal_object_type.setter
     def air_terminal_object_type(self, value=None):
         """  Corresponds to IDD Field `Air Terminal Object Type`
-        
-        {u'type': u'choice', u'required-field': True, u'key': [u'AirTerminal:DualDuct:ConstantVolume', u'AirTerminal:DualDuct:VAV', u'AirTerminal:SingleDuct:ConstantVolume:Reheat', u'AirTerminal:SingleDuct:VAV:Reheat', u'AirTerminal:SingleDuct:VAV:NoReheat', u'AirTerminal:SingleDuct:SeriesPIU:Reheat', u'AirTerminal:SingleDuct:ParallelPIU:Reheat', u'AirTerminal:SingleDuct:ConstantVolume:FourPipeInduction', u'AirTerminal:SingleDuct:VAV:Reheat:VariableSpeedFan', u'AirTerminal:SingleDuct:VAV:HeatAndCool:Reheat', u'AirTerminal:SingleDuct:VAV:HeatAndCool:NoReheat', u'AirTerminal:SingleDuct:ConstantVolume:CooledBeam', u'AirTerminal:DualDuct:VAV:OutdoorAir', u'AirTerminal:SingleDuct:UserDefined'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Air Terminal Object Type`
@@ -10327,8 +10150,6 @@ class ZoneHvacAirDistributionUnit(object):
     @air_terminal_name.setter
     def air_terminal_name(self, value=None):
         """  Corresponds to IDD Field `Air Terminal Name`
-        
-        {'type': 'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Air Terminal Name`
@@ -10362,12 +10183,10 @@ class ZoneHvacAirDistributionUnit(object):
         return self._data["Nominal Upstream Leakage Fraction"]
 
     @nominal_upstream_leakage_fraction.setter
-    def nominal_upstream_leakage_fraction(self, value=0.0 ):
+    def nominal_upstream_leakage_fraction(self, value=0.0):
         """  Corresponds to IDD Field `Nominal Upstream Leakage Fraction`
         fraction at system design Flow; leakage Flow constant, leakage fraction
         varies with variable system Flow Rate.
-        
-        {'pytype': 'float', u'default': '0.0', u'maximum': '0.3', u'note': [u'fraction at system design Flow; leakage Flow constant, leakage fraction', u'varies with variable system Flow Rate.'], u'minimum': '0.0', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Nominal Upstream Leakage Fraction`
@@ -10404,10 +10223,8 @@ class ZoneHvacAirDistributionUnit(object):
         return self._data["Constant Downstream Leakage Fraction"]
 
     @constant_downstream_leakage_fraction.setter
-    def constant_downstream_leakage_fraction(self, value=0.0 ):
+    def constant_downstream_leakage_fraction(self, value=0.0):
         """  Corresponds to IDD Field `Constant Downstream Leakage Fraction`
-        
-        {u'default': '0.0', u'minimum': '0.0', u'type': u'real', u'maximum': '0.3', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Constant Downstream Leakage Fraction`

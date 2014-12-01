@@ -44,8 +44,6 @@ class Version(object):
     @version_identifier.setter
     def version_identifier(self, value="7.0"):
         """  Corresponds to IDD Field `Version Identifier`
-        
-        {u'default': '7.0', 'type': 'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Version Identifier`
@@ -187,8 +185,6 @@ class SimulationControl(object):
         """  Corresponds to IDD Field `Do Zone Sizing Calculation`
         If Yes, Zone sizing is accomplished from corresponding Sizing:Zone objects
         and autosize fields.
-        
-        {u'note': [u'If Yes, Zone sizing is accomplished from corresponding Sizing:Zone objects', u'and autosize fields.'], u'default': u'No', u'type': u'choice', u'key': [u'Yes', u'No'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Do Zone Sizing Calculation`
@@ -248,8 +244,6 @@ class SimulationControl(object):
         If Yes, System sizing is accomplished from corresponding Sizing:System objects
         and autosize fields.
         If Yes, Zone sizing (previous field) must also be Yes.
-        
-        {u'note': [u'If Yes, System sizing is accomplished from corresponding Sizing:System objects', u'and autosize fields.', u'If Yes, Zone sizing (previous field) must also be Yes.'], u'default': u'No', u'type': u'choice', u'key': [u'Yes', u'No'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Do System Sizing Calculation`
@@ -308,8 +302,6 @@ class SimulationControl(object):
         """  Corresponds to IDD Field `Do Plant Sizing Calculation`
         If Yes, Plant sizing is accomplished from corresponding Sizing:Plant objects
         and autosize fields.
-        
-        {u'note': [u'If Yes, Plant sizing is accomplished from corresponding Sizing:Plant objects', u'and autosize fields.'], u'default': u'No', u'type': u'choice', u'key': [u'Yes', u'No'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Do Plant Sizing Calculation`
@@ -367,8 +359,6 @@ class SimulationControl(object):
     def run_simulation_for_sizing_periods(self, value="Yes"):
         """  Corresponds to IDD Field `Run Simulation for Sizing Periods`
         If Yes, SizingPeriod:* objects are executed and results from those may be displayed..
-        
-        {u'note': [u'If Yes, SizingPeriod:* objects are executed and results from those may be displayed..'], u'default': u'Yes', u'type': u'choice', u'key': [u'Yes', u'No'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Run Simulation for Sizing Periods`
@@ -426,8 +416,6 @@ class SimulationControl(object):
     def run_simulation_for_weather_file_run_periods(self, value="Yes"):
         """  Corresponds to IDD Field `Run Simulation for Weather File Run Periods`
         If Yes, RunPeriod:* objects are executed and results from those may be displayed..
-        
-        {u'note': [u'If Yes, RunPeriod:* objects are executed and results from those may be displayed..'], u'default': u'Yes', u'type': u'choice', u'key': [u'Yes', u'No'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Run Simulation for Weather File Run Periods`
@@ -609,8 +597,6 @@ class Building(object):
     @name.setter
     def name(self, value="NONE"):
         """  Corresponds to IDD Field `Name`
-        
-        {u'default': 'NONE', u'retaincase': u'', 'type': 'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -645,11 +631,9 @@ class Building(object):
         return self._data["North Axis"]
 
     @north_axis.setter
-    def north_axis(self, value=0.0 ):
+    def north_axis(self, value=0.0):
         """  Corresponds to IDD Field `North Axis`
         degrees from true North
-        
-        {u'note': [u'degrees from true North'], u'units': u'deg', u'default': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `North Axis`
@@ -682,8 +666,6 @@ class Building(object):
     def terrain(self, value="Suburbs"):
         """  Corresponds to IDD Field `Terrain`
         Country=FlatOpenCountry | Suburbs=CountryTownsSuburbs | City=CityCenter | Ocean=body of water (5km) | Urban=Urban-Industrial-Forest
-        
-        {u'note': [u'Country=FlatOpenCountry | Suburbs=CountryTownsSuburbs | City=CityCenter | Ocean=body of water (5km) | Urban=Urban-Industrial-Forest'], u'default': u'Suburbs', u'type': u'choice', u'key': [u'Country', u'Suburbs', u'City', u'Ocean', u'Urban'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Terrain`
@@ -744,11 +726,9 @@ class Building(object):
         return self._data["Loads Convergence Tolerance Value"]
 
     @loads_convergence_tolerance_value.setter
-    def loads_convergence_tolerance_value(self, value=0.04 ):
+    def loads_convergence_tolerance_value(self, value=0.04):
         """  Corresponds to IDD Field `Loads Convergence Tolerance Value`
         Loads Convergence Tolerance Value is a fraction of load
-        
-        {'pytype': 'float', u'default': '0.04', u'minimum>': '0.0', u'maximum': '0.5', u'note': [u'Loads Convergence Tolerance Value is a fraction of load'], u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Loads Convergence Tolerance Value`
@@ -785,10 +765,8 @@ class Building(object):
         return self._data["Temperature Convergence Tolerance Value"]
 
     @temperature_convergence_tolerance_value.setter
-    def temperature_convergence_tolerance_value(self, value=0.4 ):
+    def temperature_convergence_tolerance_value(self, value=0.4):
         """  Corresponds to IDD Field `Temperature Convergence Tolerance Value`
-        
-        {'pytype': 'float', u'default': '0.4', u'minimum>': '0.0', u'maximum': '0.5', u'units': u'deltaC', u'type': u'real'}
 
         Args:
             value (float): value for IDD Field `Temperature Convergence Tolerance Value`
@@ -829,8 +807,6 @@ class Building(object):
     def solar_distribution(self, value="FullExterior"):
         """  Corresponds to IDD Field `Solar Distribution`
         MinimalShadowing | FullExterior | FullInteriorAndExterior | FullExteriorWithReflections | FullInteriorAndExteriorWithReflections
-        
-        {u'note': [u'MinimalShadowing | FullExterior | FullInteriorAndExterior | FullExteriorWithReflections | FullInteriorAndExteriorWithReflections'], u'default': u'FullExterior', u'type': u'choice', u'key': [u'MinimalShadowing', u'FullExterior', u'FullInteriorAndExterior', u'FullExteriorWithReflections', u'FullInteriorAndExteriorWithReflections'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Solar Distribution`
@@ -891,12 +867,10 @@ class Building(object):
         return self._data["Maximum Number of Warmup Days"]
 
     @maximum_number_of_warmup_days.setter
-    def maximum_number_of_warmup_days(self, value=25 ):
+    def maximum_number_of_warmup_days(self, value=25):
         """  Corresponds to IDD Field `Maximum Number of Warmup Days`
         EnergyPlus will only use as many warmup days as needed to reach convergence tolerance.
         This field's value should NOT be set less than 25.
-        
-        {u'note': [u'EnergyPlus will only use as many warmup days as needed to reach convergence tolerance.', u"This field's value should NOT be set less than 25."], u'default': '25', u'minimum>': '0', u'type': u'integer', 'pytype': 'int'}
 
         Args:
             value (int): value for IDD Field `Maximum Number of Warmup Days`
@@ -929,15 +903,13 @@ class Building(object):
         return self._data["Minimum Number of Warmup Days"]
 
     @minimum_number_of_warmup_days.setter
-    def minimum_number_of_warmup_days(self, value=6 ):
+    def minimum_number_of_warmup_days(self, value=6):
         """  Corresponds to IDD Field `Minimum Number of Warmup Days`
         The minimum number of warmup days that produce enough temperature and flux history
         to start EnergyPlus simulation for all reference buildings was suggested to be 6.
         When this field is greater than the maximum warmup days defined previous field
         the maximum number of warmup days will be reset to the minimum value entered here.
         Warmup days will be set to be the value you entered when it is less than the default 6.
-        
-        {u'note': [u'The minimum number of warmup days that produce enough temperature and flux history', u'to start EnergyPlus simulation for all reference buildings was suggested to be 6.', u'When this field is greater than the maximum warmup days defined previous field', u'the maximum number of warmup days will be reset to the minimum value entered here.', u'Warmup days will be set to be the value you entered when it is less than the default 6.'], u'default': '6', u'minimum>': '0', u'type': u'integer', 'pytype': 'int'}
 
         Args:
             value (int): value for IDD Field `Minimum Number of Warmup Days`
@@ -1072,8 +1044,6 @@ class ShadowCalculation(object):
         """  Corresponds to IDD Field `Calculation Method`
         choose calculation method. note that TimestepFrequency is only needed for certain cases
         and can increase execution time significantly.
-        
-        {u'note': [u'choose calculation method. note that TimestepFrequency is only needed for certain cases', u'and can increase execution time significantly.'], u'default': u'AverageOverDaysInFrequency', u'type': u'choice', u'key': [u'AverageOverDaysInFrequency', u'TimestepFrequency'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Calculation Method`
@@ -1128,15 +1098,13 @@ class ShadowCalculation(object):
         return self._data["Calculation Frequency"]
 
     @calculation_frequency.setter
-    def calculation_frequency(self, value=20 ):
+    def calculation_frequency(self, value=20):
         """  Corresponds to IDD Field `Calculation Frequency`
         enter number of days
         this field is only used if the previous field is set to AverageOverDaysInFrequency
         0=Use Default Periodic Calculation|<else> calculate every <value> day
         only really applicable to RunPeriods
         warning issued if >31
-        
-        {'pytype': 'int', u'default': '20', u'required-field': True, u'note': [u'enter number of days', u'this field is only used if the previous field is set to AverageOverDaysInFrequency', u'0=Use Default Periodic Calculation|<else> calculate every <value> day', u'only really applicable to RunPeriods', u'warning issued if >31'], u'minimum': '1', u'type': u'integer'}
 
         Args:
             value (int): value for IDD Field `Calculation Frequency`
@@ -1169,11 +1137,9 @@ class ShadowCalculation(object):
         return self._data["Maximum Figures in Shadow Overlap Calculations"]
 
     @maximum_figures_in_shadow_overlap_calculations.setter
-    def maximum_figures_in_shadow_overlap_calculations(self, value=15000 ):
+    def maximum_figures_in_shadow_overlap_calculations(self, value=15000):
         """  Corresponds to IDD Field `Maximum Figures in Shadow Overlap Calculations`
         Number of allowable figures in shadow overlap calculations
-        
-        {u'note': [u'Number of allowable figures in shadow overlap calculations'], u'default': '15000', u'minimum': '200', u'type': u'integer', 'pytype': 'int'}
 
         Args:
             value (int): value for IDD Field `Maximum Figures in Shadow Overlap Calculations`
@@ -1210,8 +1176,6 @@ class ShadowCalculation(object):
         """  Corresponds to IDD Field `Polygon Clipping Algorithm`
         Advanced Feature.  Internal default is SutherlandHodgman
         Refer to InputOutput Reference and Engineering Reference for more information
-        
-        {u'note': [u'Advanced Feature.  Internal default is SutherlandHodgman', u'Refer to InputOutput Reference and Engineering Reference for more information'], u'type': u'choice', u'key': [u'ConvexWeilerAtherton', u'SutherlandHodgman'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Polygon Clipping Algorithm`
@@ -1271,8 +1235,6 @@ class ShadowCalculation(object):
         If you have shading elements that change transmittance over the
         year, you may wish to choose the detailed method.
         Refer to InputOutput Reference and Engineering Reference for more information
-        
-        {u'note': [u'Advanced Feature.  Internal default is SimpleSkyDiffuseModeling', u'If you have shading elements that change transmittance over the', u'year, you may wish to choose the detailed method.', u'Refer to InputOutput Reference and Engineering Reference for more information'], u'type': u'choice', u'key': [u'SimpleSkyDiffuseModeling', u'DetailedSkyDiffuseModeling'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Sky Diffuse Modeling Algorithm`
@@ -1399,8 +1361,6 @@ class SurfaceConvectionAlgorithmInside(object):
         CeilingDiffuser = ACH-based forced and mixed convection correlations
         for ceiling diffuser configuration with simple natural convection limit
         AdaptiveConvectionAlgorithm = dynamic selection of convection models based on conditions
-        
-        {'pytype': 'str', u'default': u'TARP', u'required-field': True, u'note': [u'Simple = constant value natural convection (ASHRAE)', u'TARP = variable natural convection based on temperature difference (ASHRAE, Walton)', u'CeilingDiffuser = ACH-based forced and mixed convection correlations', u'for ceiling diffuser configuration with simple natural convection limit', u'AdaptiveConvectionAlgorithm = dynamic selection of convection models based on conditions'], u'key': [u'Simple', u'TARP', u'CeilingDiffuser', u'AdaptiveConvectionAlgorithm'], u'type': u'choice'}
 
         Args:
             value (str): value for IDD Field `Algorithm`
@@ -1532,8 +1492,6 @@ class SurfaceConvectionAlgorithmOutside(object):
         MoWiTT = correlation from measurements by Klems and Yazdanian for smooth surfaces
         DOE-2 = correlation from measurements by Klems and Yazdanian for rough surfaces
         AdaptiveConvectionAlgorithm = dynamic selection of correlations based on conditions
-        
-        {'pytype': 'str', u'default': u'DOE-2', u'required-field': True, u'note': [u'SimpleCombined = Combined radiation and convection coefficient using simple ASHRAE model', u'TARP = correlation from models developed by ASHRAE, Walton, and Sparrow et. al.', u'MoWiTT = correlation from measurements by Klems and Yazdanian for smooth surfaces', u'DOE-2 = correlation from measurements by Klems and Yazdanian for rough surfaces', u'AdaptiveConvectionAlgorithm = dynamic selection of correlations based on conditions'], u'key': [u'SimpleCombined', u'TARP', u'MoWiTT', u'DOE-2', u'AdaptiveConvectionAlgorithm'], u'type': u'choice'}
 
         Args:
             value (str): value for IDD Field `Algorithm`
@@ -1691,8 +1649,6 @@ class HeatBalanceAlgorithm(object):
     @algorithm.setter
     def algorithm(self, value="ConductionTransferFunction"):
         """  Corresponds to IDD Field `Algorithm`
-        
-        {u'default': u'ConductionTransferFunction', u'type': u'choice', u'key': [u'ConductionTransferFunction', u'MoisturePenetrationDepthConductionTransferFunction', u'ConductionFiniteDifference', u'CombinedHeatAndMoistureFiniteElement'], u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Algorithm`
@@ -1751,10 +1707,8 @@ class HeatBalanceAlgorithm(object):
         return self._data["Surface Temperature Upper Limit"]
 
     @surface_temperature_upper_limit.setter
-    def surface_temperature_upper_limit(self, value=200.0 ):
+    def surface_temperature_upper_limit(self, value=200.0):
         """  Corresponds to IDD Field `Surface Temperature Upper Limit`
-        
-        {u'default': '200.0', u'units': u'C', u'minimum': '200.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Surface Temperature Upper Limit`
@@ -1788,10 +1742,8 @@ class HeatBalanceAlgorithm(object):
         return self._data["Minimum Surface Convection Heat Transfer Coefficient Value"]
 
     @minimum_surface_convection_heat_transfer_coefficient_value.setter
-    def minimum_surface_convection_heat_transfer_coefficient_value(self, value=0.1 ):
+    def minimum_surface_convection_heat_transfer_coefficient_value(self, value=0.1):
         """  Corresponds to IDD Field `Minimum Surface Convection Heat Transfer Coefficient Value`
-        
-        {u'units': u'W/m2-K', u'default': '0.1', u'minimum>': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Minimum Surface Convection Heat Transfer Coefficient Value`
@@ -1825,10 +1777,8 @@ class HeatBalanceAlgorithm(object):
         return self._data["Maximum Surface Convection Heat Transfer Coefficient Value"]
 
     @maximum_surface_convection_heat_transfer_coefficient_value.setter
-    def maximum_surface_convection_heat_transfer_coefficient_value(self, value=1000.0 ):
+    def maximum_surface_convection_heat_transfer_coefficient_value(self, value=1000.0):
         """  Corresponds to IDD Field `Maximum Surface Convection Heat Transfer Coefficient Value`
-        
-        {u'units': u'W/m2-K', u'default': '1000.0', u'minimum': '1.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Maximum Surface Convection Heat Transfer Coefficient Value`
@@ -1955,8 +1905,6 @@ class HeatBalanceSettingsConductionFiniteDifference(object):
     @difference_scheme.setter
     def difference_scheme(self, value="FullyImplicitFirstOrder"):
         """  Corresponds to IDD Field `Difference Scheme`
-        
-        {u'default': u'FullyImplicitFirstOrder', u'type': u'choice', u'key': [u'CrankNicholsonSecondOrder', u'FullyImplicitFirstOrder'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Difference Scheme`
@@ -2011,11 +1959,9 @@ class HeatBalanceSettingsConductionFiniteDifference(object):
         return self._data["Space Discretization Constant"]
 
     @space_discretization_constant.setter
-    def space_discretization_constant(self, value=3.0 ):
+    def space_discretization_constant(self, value=3.0):
         """  Corresponds to IDD Field `Space Discretization Constant`
         increase or decrease number of nodes
-        
-        {u'note': [u'increase or decrease number of nodes'], u'default': '3.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Space Discretization Constant`
@@ -2044,10 +1990,8 @@ class HeatBalanceSettingsConductionFiniteDifference(object):
         return self._data["Relaxation Factor"]
 
     @relaxation_factor.setter
-    def relaxation_factor(self, value=1.0 ):
+    def relaxation_factor(self, value=1.0):
         """  Corresponds to IDD Field `Relaxation Factor`
-        
-        {u'default': '1.0', u'minimum': '0.01', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Relaxation Factor`
@@ -2084,10 +2028,8 @@ class HeatBalanceSettingsConductionFiniteDifference(object):
         return self._data["Inside Face Surface Temperature Convergence Criteria"]
 
     @inside_face_surface_temperature_convergence_criteria.setter
-    def inside_face_surface_temperature_convergence_criteria(self, value=0.002 ):
+    def inside_face_surface_temperature_convergence_criteria(self, value=0.002):
         """  Corresponds to IDD Field `Inside Face Surface Temperature Convergence Criteria`
-        
-        {u'default': '0.002', u'minimum': '1e-07', u'type': u'real', u'maximum': '0.01', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Inside Face Surface Temperature Convergence Criteria`
@@ -2192,8 +2134,6 @@ class ZoneAirHeatBalanceAlgorithm(object):
     @algorithm.setter
     def algorithm(self, value="ThirdOrderBackwardDifference"):
         """  Corresponds to IDD Field `Algorithm`
-        
-        {u'default': u'ThirdOrderBackwardDifference', u'type': u'choice', u'key': [u'ThirdOrderBackwardDifference', u'AnalyticalSolution', u'EulerMethod'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Algorithm`
@@ -2343,8 +2283,6 @@ class ZoneAirContaminantBalance(object):
     def carbon_dioxide_concentration(self, value="No"):
         """  Corresponds to IDD Field `Carbon Dioxide Concentration`
         If Yes, CO2 simulation will be performed.
-        
-        {u'note': [u'If Yes, CO2 simulation will be performed.'], u'default': u'No', u'type': u'choice', u'key': [u'Yes', u'No'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Carbon Dioxide Concentration`
@@ -2402,8 +2340,6 @@ class ZoneAirContaminantBalance(object):
     def outdoor_carbon_dioxide_schedule_name(self, value=None):
         """  Corresponds to IDD Field `Outdoor Carbon Dioxide Schedule Name`
         Schedule values should be in parts per million (ppm)
-        
-        {u'note': [u'Schedule values should be in parts per million (ppm)'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Outdoor Carbon Dioxide Schedule Name`
@@ -2440,8 +2376,6 @@ class ZoneAirContaminantBalance(object):
     def generic_contaminant_concentration(self, value="No"):
         """  Corresponds to IDD Field `Generic Contaminant Concentration`
         If Yes, generic contaminant simulation will be performed.
-        
-        {u'note': [u'If Yes, generic contaminant simulation will be performed.'], u'default': u'No', u'type': u'choice', u'key': [u'Yes', u'No'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Generic Contaminant Concentration`
@@ -2500,8 +2434,6 @@ class ZoneAirContaminantBalance(object):
         """  Corresponds to IDD Field `Outdoor Generic Contaminant Schedule Name`
         Schedule values should be generic contaminant concentration in parts per
         million (ppm)
-        
-        {u'note': [u'Schedule values should be generic contaminant concentration in parts per', u'million (ppm)'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Outdoor Generic Contaminant Schedule Name`
@@ -2627,8 +2559,6 @@ class ZoneAirMassFlowConservation(object):
         and source zones if there is at least one mixing object defined. The default input
         is No. (Note that No input may also results in balanced flow depending on the
         system specified).
-        
-        {u'note': [u'If Yes, Zone mixing object flow rates are adjusted to balance the zone air mass flow', u'and additional infiltration air flow may be added if required in order to balance the', u'zone air mass flow.', u'This optional choice input field allows users triggering the zone air mass flow', u'balance calculation when desired. This global object has two choice KEYs: Yes and', u'No. If this input field is specified as Yes, then EnergyPlus attempts to enforce', u'the zone air mass flow conservation, or else if it is specified as No, then EnergyPlus', u'calculation defaults to zone air mass flow balance that does not include zone mixing', u'objects and that assumes self-balanced simple flow objects per the default procedure,', u'which may not necessarily enforce zone mass conservation unless the user specified', u'a balanced flow to begin with. Mass conservation is enforced both for the receiving', u'and source zones if there is at least one mixing object defined. The default input', u'is No. (Note that No input may also results in balanced flow depending on the', u'system specified).'], u'default': u'No', u'type': u'choice', u'key': [u'Yes', u'No'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Adjust Zone Mixing For Zone Air Mass Flow Balance`
@@ -2698,8 +2628,6 @@ class ZoneAirMassFlowConservation(object):
         specified infiltration object inputs, then the base infiltration air mass flow
         is assumed self-balanced. If the above input field specified as "No", then this input
         field has no impact on the simulation.
-        
-        {u'note': [u'This input field allows user to choose how zone infiltration flow is treated during', u'the zone air mass flow balance calculation.', u'It has two choice KEYs: AddInfiltrationFlow and AdjustInfiltrationFlow.  If this', u'input is specified as AddInfiltrationFlow, then energy plus adds infiltration air', u'mass flow on top of the base flow, which is calculated using the infiltration object', u'user inputs, in order to balance the zone air mass flow.  The additional infiltration', u'air mass flow is not self-balanced.  If this input is specified as', u'AdjustInfiltrationFlow, then energy plus may adjust the base flow calculated using', u'the infiltration object user inputs in order to balance the zone air mass flow. If it', u'is not required to adjust the base infiltration air flow calculated from the user', u'specified infiltration object inputs, then the base infiltration air mass flow', u'is assumed self-balanced. If the above input field specified as "No", then this input', u'field has no impact on the simulation.'], u'default': u'AddInfiltrationFlow', u'type': u'choice', u'key': [u'AddInfiltrationFlow', u'AdjustInfiltrationFlow'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Source Zone Infiltration Treatment`
@@ -2844,11 +2772,9 @@ class ZoneCapacitanceMultiplierResearchSpecial(object):
         return self._data["Temperature Capacity Multiplier"]
 
     @temperature_capacity_multiplier.setter
-    def temperature_capacity_multiplier(self, value=1.0 ):
+    def temperature_capacity_multiplier(self, value=1.0):
         """  Corresponds to IDD Field `Temperature Capacity Multiplier`
         Used to alter the capacitance of zone air with respect to heat or temperature
-        
-        {u'default': '1.0', u'note': [u'Used to alter the capacitance of zone air with respect to heat or temperature'], u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Temperature Capacity Multiplier`
@@ -2881,11 +2807,9 @@ class ZoneCapacitanceMultiplierResearchSpecial(object):
         return self._data["Humidity Capacity Multiplier"]
 
     @humidity_capacity_multiplier.setter
-    def humidity_capacity_multiplier(self, value=1.0 ):
+    def humidity_capacity_multiplier(self, value=1.0):
         """  Corresponds to IDD Field `Humidity Capacity Multiplier`
         Used to alter the capacitance of zone air with respect to moisture or humidity ratio
-        
-        {u'default': '1.0', u'note': [u'Used to alter the capacitance of zone air with respect to moisture or humidity ratio'], u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Humidity Capacity Multiplier`
@@ -2918,11 +2842,9 @@ class ZoneCapacitanceMultiplierResearchSpecial(object):
         return self._data["Carbon Dioxide Capacity Multiplier"]
 
     @carbon_dioxide_capacity_multiplier.setter
-    def carbon_dioxide_capacity_multiplier(self, value=1.0 ):
+    def carbon_dioxide_capacity_multiplier(self, value=1.0):
         """  Corresponds to IDD Field `Carbon Dioxide Capacity Multiplier`
         Used to alter the capacitance of zone air with respect to zone air carbob dioxide concentration
-        
-        {u'default': '1.0', u'note': [u'Used to alter the capacitance of zone air with respect to zone air carbob dioxide concentration'], u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Carbon Dioxide Capacity Multiplier`
@@ -2955,11 +2877,9 @@ class ZoneCapacitanceMultiplierResearchSpecial(object):
         return self._data["Generic Contaminant Capacity Multiplier"]
 
     @generic_contaminant_capacity_multiplier.setter
-    def generic_contaminant_capacity_multiplier(self, value=1.0 ):
+    def generic_contaminant_capacity_multiplier(self, value=1.0):
         """  Corresponds to IDD Field `Generic Contaminant Capacity Multiplier`
         Used to alter the capacitance of zone air with respect to zone air generic contaminant concentration
-        
-        {u'default': '1.0', u'note': [u'Used to alter the capacitance of zone air with respect to zone air generic contaminant concentration'], u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Generic Contaminant Capacity Multiplier`
@@ -3061,7 +2981,7 @@ class Timestep(object):
         return self._data["Number of Timesteps per Hour"]
 
     @number_of_timesteps_per_hour.setter
-    def number_of_timesteps_per_hour(self, value=6 ):
+    def number_of_timesteps_per_hour(self, value=6):
         """  Corresponds to IDD Field `Number of Timesteps per Hour`
         Number in hour: normal validity 4 to 60: 6 suggested
         Must be evenly divisible into 60
@@ -3070,8 +2990,6 @@ class Timestep(object):
         A minimum value of 20 is suggested for both ConductionFiniteDifference
         and CombinedHeatAndMoistureFiniteElement surface heat balance alogorithms
         A minimum of 12 is suggested for simulations involving a Vegetated Roof (Material:RoofVegetation).
-        
-        {'pytype': 'int', u'default': '6', u'maximum': '60', u'required-field': True, u'note': [u'Number in hour: normal validity 4 to 60: 6 suggested', u'Must be evenly divisible into 60', u'Allowable values include 1, 2, 3, 4, 5, 6, 10, 12, 15, 20, 30, and 60', u'Normal 6 is mimimum as lower values may cause inaccuracies', u'A minimum value of 20 is suggested for both ConductionFiniteDifference', u'and CombinedHeatAndMoistureFiniteElement surface heat balance alogorithms', u'A minimum of 12 is suggested for simulations involving a Vegetated Roof (Material:RoofVegetation).'], u'minimum': '1', u'type': u'integer'}
 
         Args:
             value (int): value for IDD Field `Number of Timesteps per Hour`
@@ -3204,8 +3122,6 @@ class ConvergenceLimits(object):
         0 sets the minimum to the zone timestep (ref: Timestep)
         1 is normal (ratchet down to 1 minute)
         setting greater than zone timestep (in minutes) will effectively set to zone timestep
-        
-        {'pytype': 'int', u'maximum': '60', u'note': [u'0 sets the minimum to the zone timestep (ref: Timestep)', u'1 is normal (ratchet down to 1 minute)', u'setting greater than zone timestep (in minutes) will effectively set to zone timestep'], u'minimum': '0', u'units': u'minutes', u'type': u'integer'}
 
         Args:
             value (int): value for IDD Field `Minimum System Timestep`
@@ -3242,10 +3158,8 @@ class ConvergenceLimits(object):
         return self._data["Maximum HVAC Iterations"]
 
     @maximum_hvac_iterations.setter
-    def maximum_hvac_iterations(self, value=20 ):
+    def maximum_hvac_iterations(self, value=20):
         """  Corresponds to IDD Field `Maximum HVAC Iterations`
-        
-        {u'default': '20', u'minimum': '1', u'type': u'integer', 'pytype': 'int'}
 
         Args:
             value (int): value for IDD Field `Maximum HVAC Iterations`
@@ -3278,13 +3192,11 @@ class ConvergenceLimits(object):
         return self._data["Minimum Plant Iterations"]
 
     @minimum_plant_iterations.setter
-    def minimum_plant_iterations(self, value=2 ):
+    def minimum_plant_iterations(self, value=2):
         """  Corresponds to IDD Field `Minimum Plant Iterations`
         Controls the minimum number of plant system solver iterations within a single HVAC iteration
         Larger values will increase runtime but might improve solution accuracy for complicated plant systems
         Complex plants include: several interconnected loops, heat recovery, thermal load following generators, etc.
-        
-        {u'note': [u'Controls the minimum number of plant system solver iterations within a single HVAC iteration', u'Larger values will increase runtime but might improve solution accuracy for complicated plant systems', u'Complex plants include: several interconnected loops, heat recovery, thermal load following generators, etc.'], u'default': '2', u'minimum': '1', u'type': u'integer', 'pytype': 'int'}
 
         Args:
             value (int): value for IDD Field `Minimum Plant Iterations`
@@ -3317,12 +3229,10 @@ class ConvergenceLimits(object):
         return self._data["Maximum Plant Iterations"]
 
     @maximum_plant_iterations.setter
-    def maximum_plant_iterations(self, value=8 ):
+    def maximum_plant_iterations(self, value=8):
         """  Corresponds to IDD Field `Maximum Plant Iterations`
         Controls the maximum number of plant system solver iterations within a single HVAC iteration
         Smaller values might decrease runtime but could decrease solution accuracy for complicated plant systems
-        
-        {u'note': [u'Controls the maximum number of plant system solver iterations within a single HVAC iteration', u'Smaller values might decrease runtime but could decrease solution accuracy for complicated plant systems'], u'default': '8', u'minimum': '2', u'type': u'integer', 'pytype': 'int'}
 
         Args:
             value (int): value for IDD Field `Maximum Plant Iterations`
@@ -3425,8 +3335,6 @@ class ProgramControl(object):
         """  Corresponds to IDD Field `Number of Threads Allowed`
         This is currently used only in the Interior Radiant Exchange module -- view factors on # surfaces
         if value is 0, then maximum number allowed will be used.
-        
-        {u'note': [u'This is currently used only in the Interior Radiant Exchange module -- view factors on # surfaces', u'if value is 0, then maximum number allowed will be used.'], u'minimum': '0', u'type': u'integer', 'pytype': 'int'}
 
         Args:
             value (int): value for IDD Field `Number of Threads Allowed`

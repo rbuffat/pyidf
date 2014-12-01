@@ -112,8 +112,6 @@ class ControllerWaterCoil(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'reference': u'AirLoopControllers', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -154,8 +152,6 @@ class ControllerWaterCoil(object):
         with SetpointManager:SingleZone:Humidity:Maximum,
         SetpointManager:MultiZone:MaximumHumidity:Average, or
         SetpointManager:Multizone:Humidity:Maximum object
-        
-        {u'note': [u'keys HumidityRatio or TemperatureAndHumidityRatio', u'requires a ZoneControl:Humidistat object along', u'with SetpointManager:SingleZone:Humidity:Maximum,', u'SetpointManager:MultiZone:MaximumHumidity:Average, or', u'SetpointManager:Multizone:Humidity:Maximum object'], u'type': u'choice', u'key': [u'Temperature', u'HumidityRatio', u'TemperatureAndHumidityRatio'], u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Control Variable`
@@ -216,8 +212,6 @@ class ControllerWaterCoil(object):
         Leave blank to have this automatically selected from coil type.
         Chilled water coils should be reverse action
         Hot water coils should be normal action
-        
-        {u'note': [u'Leave blank to have this automatically selected from coil type.', u'Chilled water coils should be reverse action', u'Hot water coils should be normal action'], u'type': u'choice', u'key': [u'Normal', u'Reverse'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Action`
@@ -273,8 +267,6 @@ class ControllerWaterCoil(object):
     @actuator_variable.setter
     def actuator_variable(self, value=None):
         """  Corresponds to IDD Field `Actuator Variable`
-        
-        {u'type': u'choice', u'key': [u'Flow'], u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Actuator Variable`
@@ -328,8 +320,6 @@ class ControllerWaterCoil(object):
     @sensor_node_name.setter
     def sensor_node_name(self, value=None):
         """  Corresponds to IDD Field `Sensor Node Name`
-        
-        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Sensor Node Name`
@@ -365,8 +355,6 @@ class ControllerWaterCoil(object):
     @actuator_node_name.setter
     def actuator_node_name(self, value=None):
         """  Corresponds to IDD Field `Actuator Node Name`
-        
-        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Actuator Node Name`
@@ -400,13 +388,11 @@ class ControllerWaterCoil(object):
         return self._data["Controller Convergence Tolerance"]
 
     @controller_convergence_tolerance.setter
-    def controller_convergence_tolerance(self, value="autosize" ):
+    def controller_convergence_tolerance(self, value="autosize"):
         """  Corresponds to IDD Field `Controller Convergence Tolerance`
-        
-        {u'units': u'deltaC', u'default': '"autosize"', u'autosizable': u'', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `Controller Convergence Tolerance`
+            value (float or "Autosize"): value for IDD Field `Controller Convergence Tolerance`
                 Units: deltaC
                 Default value: "autosize"
                 if `value` is None it will not be checked against the
@@ -416,6 +402,13 @@ class ControllerWaterCoil(object):
             ValueError: if `value` is not a valid value
         """
         if value is not None:
+            try:
+                value_lower = str(value).lower()
+                if value_lower == "autosize":
+                    self._data["Controller Convergence Tolerance"] = "Autosize"
+                    return
+            except ValueError:
+                pass
             try:
                 value = float(value)
             except ValueError:
@@ -435,11 +428,9 @@ class ControllerWaterCoil(object):
     @maximum_actuated_flow.setter
     def maximum_actuated_flow(self, value=None):
         """  Corresponds to IDD Field `Maximum Actuated Flow`
-        
-        {u'units': u'm3/s', u'autosizable': u'', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `Maximum Actuated Flow`
+            value (float or "Autosize"): value for IDD Field `Maximum Actuated Flow`
                 Units: m3/s
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -448,6 +439,13 @@ class ControllerWaterCoil(object):
             ValueError: if `value` is not a valid value
         """
         if value is not None:
+            try:
+                value_lower = str(value).lower()
+                if value_lower == "autosize":
+                    self._data["Maximum Actuated Flow"] = "Autosize"
+                    return
+            except ValueError:
+                pass
             try:
                 value = float(value)
             except ValueError:
@@ -465,10 +463,8 @@ class ControllerWaterCoil(object):
         return self._data["Minimum Actuated Flow"]
 
     @minimum_actuated_flow.setter
-    def minimum_actuated_flow(self, value=1e-07 ):
+    def minimum_actuated_flow(self, value=1e-07):
         """  Corresponds to IDD Field `Minimum Actuated Flow`
-        
-        {u'default': '1e-07', u'units': u'm3/s', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Minimum Actuated Flow`
@@ -767,8 +763,6 @@ class ControllerOutdoorAir(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'reference': u'OAControllerNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -804,8 +798,6 @@ class ControllerOutdoorAir(object):
     @relief_air_outlet_node_name.setter
     def relief_air_outlet_node_name(self, value=None):
         """  Corresponds to IDD Field `Relief Air Outlet Node Name`
-        
-        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Relief Air Outlet Node Name`
@@ -841,8 +833,6 @@ class ControllerOutdoorAir(object):
     @return_air_node_name.setter
     def return_air_node_name(self, value=None):
         """  Corresponds to IDD Field `Return Air Node Name`
-        
-        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Return Air Node Name`
@@ -878,8 +868,6 @@ class ControllerOutdoorAir(object):
     @mixed_air_node_name.setter
     def mixed_air_node_name(self, value=None):
         """  Corresponds to IDD Field `Mixed Air Node Name`
-        
-        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Mixed Air Node Name`
@@ -916,8 +904,6 @@ class ControllerOutdoorAir(object):
     def actuator_node_name(self, value=None):
         """  Corresponds to IDD Field `Actuator Node Name`
         Outdoor air inlet node entering the first pre-treat component if any
-        
-        {u'note': [u'Outdoor air inlet node entering the first pre-treat component if any'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Actuator Node Name`
@@ -953,11 +939,9 @@ class ControllerOutdoorAir(object):
     @minimum_outdoor_air_flow_rate.setter
     def minimum_outdoor_air_flow_rate(self, value=None):
         """  Corresponds to IDD Field `Minimum Outdoor Air Flow Rate`
-        
-        {u'units': u'm3/s', u'autosizable': u'', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `Minimum Outdoor Air Flow Rate`
+            value (float or "Autosize"): value for IDD Field `Minimum Outdoor Air Flow Rate`
                 Units: m3/s
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -966,6 +950,13 @@ class ControllerOutdoorAir(object):
             ValueError: if `value` is not a valid value
         """
         if value is not None:
+            try:
+                value_lower = str(value).lower()
+                if value_lower == "autosize":
+                    self._data["Minimum Outdoor Air Flow Rate"] = "Autosize"
+                    return
+            except ValueError:
+                pass
             try:
                 value = float(value)
             except ValueError:
@@ -985,11 +976,9 @@ class ControllerOutdoorAir(object):
     @maximum_outdoor_air_flow_rate.setter
     def maximum_outdoor_air_flow_rate(self, value=None):
         """  Corresponds to IDD Field `Maximum Outdoor Air Flow Rate`
-        
-        {u'units': u'm3/s', u'autosizable': u'', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `Maximum Outdoor Air Flow Rate`
+            value (float or "Autosize"): value for IDD Field `Maximum Outdoor Air Flow Rate`
                 Units: m3/s
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -998,6 +987,13 @@ class ControllerOutdoorAir(object):
             ValueError: if `value` is not a valid value
         """
         if value is not None:
+            try:
+                value_lower = str(value).lower()
+                if value_lower == "autosize":
+                    self._data["Maximum Outdoor Air Flow Rate"] = "Autosize"
+                    return
+            except ValueError:
+                pass
             try:
                 value = float(value)
             except ValueError:
@@ -1017,8 +1013,6 @@ class ControllerOutdoorAir(object):
     @economizer_control_type.setter
     def economizer_control_type(self, value="NoEconomizer"):
         """  Corresponds to IDD Field `Economizer Control Type`
-        
-        {u'default': u'NoEconomizer', u'type': u'choice', u'key': [u'FixedDryBulb', u'FixedEnthalpy', u'DifferentialDryBulb', u'DifferentialEnthalpy', u'FixedDewPointAndDryBulb', u'ElectronicEnthalpy', u'DifferentialDryBulbAndEnthalpy', u'NoEconomizer'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Economizer Control Type`
@@ -1087,8 +1081,6 @@ class ControllerOutdoorAir(object):
     @economizer_control_action_type.setter
     def economizer_control_action_type(self, value="ModulateFlow"):
         """  Corresponds to IDD Field `Economizer Control Action Type`
-        
-        {u'default': u'ModulateFlow', u'type': u'choice', u'key': [u'ModulateFlow', u'MinimumFlowWithBypass'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Economizer Control Action Type`
@@ -1148,8 +1140,6 @@ class ControllerOutdoorAir(object):
         Enter the maximum outdoor dry-bulb temperature limit for FixedDryBulb
         economizer control type. No input or blank input means this limit is
         not operative. Limit is applied regardless of economizer control type.
-        
-        {u'units': u'C', u'note': [u'Enter the maximum outdoor dry-bulb temperature limit for FixedDryBulb', u'economizer control type. No input or blank input means this limit is', u'not operative. Limit is applied regardless of economizer control type.'], u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Economizer Maximum Limit Dry-Bulb Temperature`
@@ -1183,8 +1173,6 @@ class ControllerOutdoorAir(object):
         Enter the maximum outdoor enthalpy limit for FixedEnthalpy economizer control type.
         No input or blank input means this limit is not operative
         Limit is applied regardless of economizer control type.
-        
-        {u'units': u'J/kg', u'note': [u'Enter the maximum outdoor enthalpy limit for FixedEnthalpy economizer control type.', u'No input or blank input means this limit is not operative', u'Limit is applied regardless of economizer control type.'], u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Economizer Maximum Limit Enthalpy`
@@ -1218,8 +1206,6 @@ class ControllerOutdoorAir(object):
         Enter the maximum outdoor dewpoint temperature limit for FixedDewPointAndDryBulb
         economizer control type. No input or blank input means this limit is not operative.
         Limit is applied regardless of economizer control type.
-        
-        {u'units': u'C', u'note': [u'Enter the maximum outdoor dewpoint temperature limit for FixedDewPointAndDryBulb', u'economizer control type. No input or blank input means this limit is not operative.', u'Limit is applied regardless of economizer control type.'], u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Economizer Maximum Limit Dewpoint Temperature`
@@ -1255,8 +1241,6 @@ class ControllerOutdoorAir(object):
         humidity ratio (function of outdoor dry-bulb temperature) for ElectronicEnthalpy
         economizer control type. No input or blank input means this limit is not operative
         Limit is applied regardless of economizer control type.
-        
-        {u'note': [u'Table:OneIndependentVariable object can also be used', u'Enter the name of a quadratic or cubic curve which defines the maximum outdoor', u'humidity ratio (function of outdoor dry-bulb temperature) for ElectronicEnthalpy', u'economizer control type. No input or blank input means this limit is not operative', u'Limit is applied regardless of economizer control type.'], u'type': u'object-list', u'object-list': u'QuadraticCubicCurves', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Electronic Enthalpy Limit Curve Name`
@@ -1295,8 +1279,6 @@ class ControllerOutdoorAir(object):
         Enter the minimum outdoor dry-bulb temperature limit for economizer control.
         No input or blank input means this limit is not operative
         Limit is applied regardless of economizer control type.
-        
-        {u'units': u'C', u'note': [u'Enter the minimum outdoor dry-bulb temperature limit for economizer control.', u'No input or blank input means this limit is not operative', u'Limit is applied regardless of economizer control type.'], u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Economizer Minimum Limit Dry-Bulb Temperature`
@@ -1327,8 +1309,6 @@ class ControllerOutdoorAir(object):
     @lockout_type.setter
     def lockout_type(self, value="NoLockout"):
         """  Corresponds to IDD Field `Lockout Type`
-        
-        {u'default': u'NoLockout', u'type': u'choice', u'key': [u'NoLockout', u'LockoutWithHeating', u'LockoutWithCompressor'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Lockout Type`
@@ -1387,8 +1367,6 @@ class ControllerOutdoorAir(object):
     @minimum_limit_type.setter
     def minimum_limit_type(self, value="ProportionalMinimum"):
         """  Corresponds to IDD Field `Minimum Limit Type`
-        
-        {u'default': u'ProportionalMinimum', u'type': u'choice', u'key': [u'FixedMinimum', u'ProportionalMinimum'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Minimum Limit Type`
@@ -1446,8 +1424,6 @@ class ControllerOutdoorAir(object):
     def minimum_outdoor_air_schedule_name(self, value=None):
         """  Corresponds to IDD Field `Minimum Outdoor Air Schedule Name`
         Schedule values multiply the minimum outdoor air flow rate
-        
-        {u'note': [u'Schedule values multiply the minimum outdoor air flow rate'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Minimum Outdoor Air Schedule Name`
@@ -1484,8 +1460,6 @@ class ControllerOutdoorAir(object):
     def minimum_fraction_of_outdoor_air_schedule_name(self, value=None):
         """  Corresponds to IDD Field `Minimum Fraction of Outdoor Air Schedule Name`
         schedule values multiply the design/mixed air flow rate
-        
-        {u'note': [u'schedule values multiply the design/mixed air flow rate'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Minimum Fraction of Outdoor Air Schedule Name`
@@ -1522,8 +1496,6 @@ class ControllerOutdoorAir(object):
     def maximum_fraction_of_outdoor_air_schedule_name(self, value=None):
         """  Corresponds to IDD Field `Maximum Fraction of Outdoor Air Schedule Name`
         schedule values multiply the design/mixed air flow rate
-        
-        {u'note': [u'schedule values multiply the design/mixed air flow rate'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Maximum Fraction of Outdoor Air Schedule Name`
@@ -1562,8 +1534,6 @@ class ControllerOutdoorAir(object):
         Enter the name of a Controller:MechanicalVentilation object.
         Optional field for defining outdoor ventilation air based on flow rate per unit floor
         area and flow rate per person. Simplified method of demand-controlled ventilation.
-        
-        {u'note': [u'Enter the name of a Controller:MechanicalVentilation object.', u'Optional field for defining outdoor ventilation air based on flow rate per unit floor', u'area and flow rate per person. Simplified method of demand-controlled ventilation.'], u'type': u'object-list', u'object-list': u'ControllerMechanicalVentNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Mechanical Ventilation Controller Name`
@@ -1604,8 +1574,6 @@ class ControllerOutdoorAir(object):
         Economizer control may be used with or without the high humidity control option.
         When used together, high humidity control has priority over economizer control.
         If the field Economizer Control Type = NoEconomizer, then this option is disabled.
-        
-        {u'note': [u'Optional schedule to simulate "push-button" type economizer control.', u'Schedule values greater than 0 indicate time-of-day economizer control is enabled.', u'Economizer control may be used with or without the high humidity control option.', u'When used together, high humidity control has priority over economizer control.', u'If the field Economizer Control Type = NoEconomizer, then this option is disabled.'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Time of Day Economizer Control Schedule Name`
@@ -1645,8 +1613,6 @@ class ControllerOutdoorAir(object):
         Select Yes to modify outdoor air flow rate based on a zone humidistat.
         Select No to disable this feature.
         If the field Economizer Control Type = NoEconomizer, then this option is disabled.
-        
-        {u'default': u'No', u'note': [u'Optional field to enable modified outdoor air flow rates based on zone relative humidity.', u'Select Yes to modify outdoor air flow rate based on a zone humidistat.', u'Select No to disable this feature.', u'If the field Economizer Control Type = NoEconomizer, then this option is disabled.'], u'type': u'choice', u'key': [u'Yes', u'No'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `High Humidity Control`
@@ -1705,8 +1671,6 @@ class ControllerOutdoorAir(object):
         """  Corresponds to IDD Field `Humidistat Control Zone Name`
         Enter the name of the zone where the humidistat is located.
         This field is only used when the field High Humidity Control = Yes.
-        
-        {u'note': [u'Enter the name of the zone where the humidistat is located.', u'This field is only used when the field High Humidity Control = Yes.'], u'type': u'object-list', u'object-list': u'ZoneNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Humidistat Control Zone Name`
@@ -1740,14 +1704,12 @@ class ControllerOutdoorAir(object):
         return self._data["High Humidity Outdoor Air Flow Ratio"]
 
     @high_humidity_outdoor_air_flow_ratio.setter
-    def high_humidity_outdoor_air_flow_ratio(self, value=1.0 ):
+    def high_humidity_outdoor_air_flow_ratio(self, value=1.0):
         """  Corresponds to IDD Field `High Humidity Outdoor Air Flow Ratio`
         Enter the ratio of outdoor air to the maximum outdoor air flow rate when modified air
         flow rates are active based on high indoor humidity.
         The minimum value must be greater than 0.
         This field is only used when the field High Humidity Control = Yes.
-        
-        {u'default': '1.0', u'note': [u'Enter the ratio of outdoor air to the maximum outdoor air flow rate when modified air', u'flow rates are active based on high indoor humidity.', u'The minimum value must be greater than 0.', u'This field is only used when the field High Humidity Control = Yes.'], u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `High Humidity Outdoor Air Flow Ratio`
@@ -1787,8 +1749,6 @@ class ControllerOutdoorAir(object):
         flow rate is modified any time the indoor relative humidity is above the humidistat
         setpoint and the outdoor humidity ratio is less than the indoor humidity ratio.
         This field is only used when the field High Humidity Control = Yes.
-        
-        {u'default': u'Yes', u'note': [u'If No is selected, the outdoor air flow rate is modified any time indoor relative', u'humidity is above the humidistat setpoint. If Yes is selected, the outdoor air', u'flow rate is modified any time the indoor relative humidity is above the humidistat', u'setpoint and the outdoor humidity ratio is less than the indoor humidity ratio.', u'This field is only used when the field High Humidity Control = Yes.'], u'type': u'choice', u'key': [u'Yes', u'No'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Control High Indoor Humidity Based on Outdoor Humidity Ratio`
@@ -1851,8 +1811,6 @@ class ControllerOutdoorAir(object):
         BypassWhenOAFlowGreaterThanMinimum specifies enhanced economizer
         controls to allow heat recovery when economizer is active
         (within limits) but the outdoor air flow rate is at the minimum.
-        
-        {u'default': u'BypassWhenWithinEconomizerLimits', u'note': [u'BypassWhenWithinEconomizerLimits specifies that heat recovery', u'is active only when the economizer is off because conditions', u'are outside the economizer control limits', u'BypassWhenOAFlowGreaterThanMinimum specifies enhanced economizer', u'controls to allow heat recovery when economizer is active', u'(within limits) but the outdoor air flow rate is at the minimum.'], u'type': u'Choice', u'key': [u'BypassWhenWithinEconomizerLimits', u'BypassWhenOAFlowGreaterThanMinimum'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Heat Recovery Bypass Control Type`
@@ -3193,8 +3151,6 @@ class ControllerMechanicalVentilation(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'reference': u'ControllerMechanicalVentNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -3232,8 +3188,6 @@ class ControllerMechanicalVentilation(object):
         """  Corresponds to IDD Field `Availability Schedule Name`
         If this field is blank, the controller uses the values from the associated Controller:OutdoorAir.
         Schedule values greater than 0 indicate mechanical ventilation is enabled
-        
-        {u'note': [u'If this field is blank, the controller uses the values from the associated Controller:OutdoorAir.', u'Schedule values greater than 0 indicate mechanical ventilation is enabled'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Availability Schedule Name`
@@ -3269,8 +3223,6 @@ class ControllerMechanicalVentilation(object):
     @demand_controlled_ventilation.setter
     def demand_controlled_ventilation(self, value="No"):
         """  Corresponds to IDD Field `Demand Controlled Ventilation`
-        
-        {u'default': u'No', u'type': u'choice', u'key': [u'Yes', u'No'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Demand Controlled Ventilation`
@@ -3327,8 +3279,6 @@ class ControllerMechanicalVentilation(object):
     @system_outdoor_air_method.setter
     def system_outdoor_air_method(self, value="VentilationRateProcedure"):
         """  Corresponds to IDD Field `System Outdoor Air Method`
-        
-        {u'default': u'VentilationRateProcedure', u'type': u'choice', u'key': [u'ZoneSum', u'VentilationRateProcedure', u'IndoorAirQualityProcedure', u'ProportionalControl', u'IndoorAirQualityProcedureGenericContaminant'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `System Outdoor Air Method`
@@ -3389,10 +3339,8 @@ class ControllerMechanicalVentilation(object):
         return self._data["Zone Maximum Outdoor Air Fraction"]
 
     @zone_maximum_outdoor_air_fraction.setter
-    def zone_maximum_outdoor_air_fraction(self, value=1.0 ):
+    def zone_maximum_outdoor_air_fraction(self, value=1.0):
         """  Corresponds to IDD Field `Zone Maximum Outdoor Air Fraction`
-        
-        {u'default': '1.0', u'units': u'dimensionless', u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
             value (float): value for IDD Field `Zone Maximum Outdoor Air Fraction`
@@ -3429,8 +3377,6 @@ class ControllerMechanicalVentilation(object):
     def zone_1_name(self, value=None):
         """  Corresponds to IDD Field `Zone 1 Name`
         A zone name or a zone list name may be used here
-        
-        {'pytype': 'str', u'begin-extensible': u'', u'required-field': True, u'note': [u'A zone name or a zone list name may be used here'], u'object-list': u'ZoneAndZoneListNames', u'type': u'object-list'}
 
         Args:
             value (str): value for IDD Field `Zone 1 Name`
@@ -3466,8 +3412,6 @@ class ControllerMechanicalVentilation(object):
     @design_specification_outdoor_air_object_name_1.setter
     def design_specification_outdoor_air_object_name_1(self, value=None):
         """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 1`
-        
-        {u'type': u'object-list', u'object-list': u'DesignSpecificationOutdoorAirNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Design Specification Outdoor Air Object Name 1`
@@ -3503,8 +3447,6 @@ class ControllerMechanicalVentilation(object):
     @design_specification_zone_air_distribution_object_name_1.setter
     def design_specification_zone_air_distribution_object_name_1(self, value=None):
         """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 1`
-        
-        {u'type': u'object-list', u'object-list': u'DesignSpecificationZoneAirDistributionNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 1`
@@ -3541,8 +3483,6 @@ class ControllerMechanicalVentilation(object):
     def zone_2_name(self, value=None):
         """  Corresponds to IDD Field `Zone 2 Name`
         A zone name or a zone list name may be used here
-        
-        {u'note': [u'A zone name or a zone list name may be used here'], u'type': u'object-list', u'object-list': u'ZoneAndZoneListNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Zone 2 Name`
@@ -3578,8 +3518,6 @@ class ControllerMechanicalVentilation(object):
     @design_specification_outdoor_air_object_name_2.setter
     def design_specification_outdoor_air_object_name_2(self, value=None):
         """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 2`
-        
-        {u'type': u'object-list', u'object-list': u'DesignSpecificationOutdoorAirNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Design Specification Outdoor Air Object Name 2`
@@ -3615,8 +3553,6 @@ class ControllerMechanicalVentilation(object):
     @design_specification_zone_air_distribution_object_name_2.setter
     def design_specification_zone_air_distribution_object_name_2(self, value=None):
         """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 2`
-        
-        {u'type': u'object-list', u'object-list': u'DesignSpecificationZoneAirDistributionNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 2`
@@ -3653,8 +3589,6 @@ class ControllerMechanicalVentilation(object):
     def zone_3_name(self, value=None):
         """  Corresponds to IDD Field `Zone 3 Name`
         A zone name or a zone list name may be used here
-        
-        {u'note': [u'A zone name or a zone list name may be used here'], u'type': u'object-list', u'object-list': u'ZoneAndZoneListNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Zone 3 Name`
@@ -3690,8 +3624,6 @@ class ControllerMechanicalVentilation(object):
     @design_specification_outdoor_air_object_name_3.setter
     def design_specification_outdoor_air_object_name_3(self, value=None):
         """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 3`
-        
-        {u'type': u'object-list', u'object-list': u'DesignSpecificationOutdoorAirNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Design Specification Outdoor Air Object Name 3`
@@ -3727,8 +3659,6 @@ class ControllerMechanicalVentilation(object):
     @design_specification_zone_air_distribution_object_name_3.setter
     def design_specification_zone_air_distribution_object_name_3(self, value=None):
         """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 3`
-        
-        {u'type': u'object-list', u'object-list': u'DesignSpecificationZoneAirDistributionNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 3`
@@ -3765,8 +3695,6 @@ class ControllerMechanicalVentilation(object):
     def zone_4_name(self, value=None):
         """  Corresponds to IDD Field `Zone 4 Name`
         A zone name or a zone list name may be used here
-        
-        {u'note': [u'A zone name or a zone list name may be used here'], u'type': u'object-list', u'object-list': u'ZoneAndZoneListNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Zone 4 Name`
@@ -3802,8 +3730,6 @@ class ControllerMechanicalVentilation(object):
     @design_specification_outdoor_air_object_name_4.setter
     def design_specification_outdoor_air_object_name_4(self, value=None):
         """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 4`
-        
-        {u'type': u'object-list', u'object-list': u'DesignSpecificationOutdoorAirNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Design Specification Outdoor Air Object Name 4`
@@ -3839,8 +3765,6 @@ class ControllerMechanicalVentilation(object):
     @design_specification_zone_air_distribution_object_name_4.setter
     def design_specification_zone_air_distribution_object_name_4(self, value=None):
         """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 4`
-        
-        {u'type': u'object-list', u'object-list': u'DesignSpecificationZoneAirDistributionNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 4`
@@ -3877,8 +3801,6 @@ class ControllerMechanicalVentilation(object):
     def zone_5_name(self, value=None):
         """  Corresponds to IDD Field `Zone 5 Name`
         A zone name or a zone list name may be used here
-        
-        {u'note': [u'A zone name or a zone list name may be used here'], u'type': u'object-list', u'object-list': u'ZoneAndZoneListNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Zone 5 Name`
@@ -3914,8 +3836,6 @@ class ControllerMechanicalVentilation(object):
     @design_specification_outdoor_air_object_name_5.setter
     def design_specification_outdoor_air_object_name_5(self, value=None):
         """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 5`
-        
-        {u'type': u'object-list', u'object-list': u'DesignSpecificationOutdoorAirNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Design Specification Outdoor Air Object Name 5`
@@ -3951,8 +3871,6 @@ class ControllerMechanicalVentilation(object):
     @design_specification_zone_air_distribution_object_name_5.setter
     def design_specification_zone_air_distribution_object_name_5(self, value=None):
         """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 5`
-        
-        {u'type': u'object-list', u'object-list': u'DesignSpecificationZoneAirDistributionNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 5`
@@ -3989,8 +3907,6 @@ class ControllerMechanicalVentilation(object):
     def zone_6_name(self, value=None):
         """  Corresponds to IDD Field `Zone 6 Name`
         A zone name or a zone list name may be used here
-        
-        {u'note': [u'A zone name or a zone list name may be used here'], u'type': u'object-list', u'object-list': u'ZoneAndZoneListNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Zone 6 Name`
@@ -4026,8 +3942,6 @@ class ControllerMechanicalVentilation(object):
     @design_specification_outdoor_air_object_name_6.setter
     def design_specification_outdoor_air_object_name_6(self, value=None):
         """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 6`
-        
-        {u'type': u'object-list', u'object-list': u'DesignSpecificationOutdoorAirNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Design Specification Outdoor Air Object Name 6`
@@ -4063,8 +3977,6 @@ class ControllerMechanicalVentilation(object):
     @design_specification_zone_air_distribution_object_name_6.setter
     def design_specification_zone_air_distribution_object_name_6(self, value=None):
         """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 6`
-        
-        {u'type': u'object-list', u'object-list': u'DesignSpecificationZoneAirDistributionNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 6`
@@ -4101,8 +4013,6 @@ class ControllerMechanicalVentilation(object):
     def zone_7_name(self, value=None):
         """  Corresponds to IDD Field `Zone 7 Name`
         A zone name or a zone list name may be used here
-        
-        {u'note': [u'A zone name or a zone list name may be used here'], u'type': u'object-list', u'object-list': u'ZoneAndZoneListNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Zone 7 Name`
@@ -4138,8 +4048,6 @@ class ControllerMechanicalVentilation(object):
     @design_specification_outdoor_air_object_name_7.setter
     def design_specification_outdoor_air_object_name_7(self, value=None):
         """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 7`
-        
-        {u'type': u'object-list', u'object-list': u'DesignSpecificationOutdoorAirNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Design Specification Outdoor Air Object Name 7`
@@ -4175,8 +4083,6 @@ class ControllerMechanicalVentilation(object):
     @design_specification_zone_air_distribution_object_name_7.setter
     def design_specification_zone_air_distribution_object_name_7(self, value=None):
         """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 7`
-        
-        {u'type': u'object-list', u'object-list': u'DesignSpecificationZoneAirDistributionNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 7`
@@ -4213,8 +4119,6 @@ class ControllerMechanicalVentilation(object):
     def zone_8_name(self, value=None):
         """  Corresponds to IDD Field `Zone 8 Name`
         A zone name or a zone list name may be used here
-        
-        {u'note': [u'A zone name or a zone list name may be used here'], u'type': u'object-list', u'object-list': u'ZoneAndZoneListNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Zone 8 Name`
@@ -4250,8 +4154,6 @@ class ControllerMechanicalVentilation(object):
     @design_specification_outdoor_air_object_name_8.setter
     def design_specification_outdoor_air_object_name_8(self, value=None):
         """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 8`
-        
-        {u'type': u'object-list', u'object-list': u'DesignSpecificationOutdoorAirNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Design Specification Outdoor Air Object Name 8`
@@ -4287,8 +4189,6 @@ class ControllerMechanicalVentilation(object):
     @design_specification_zone_air_distribution_object_name_8.setter
     def design_specification_zone_air_distribution_object_name_8(self, value=None):
         """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 8`
-        
-        {u'type': u'object-list', u'object-list': u'DesignSpecificationZoneAirDistributionNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 8`
@@ -4325,8 +4225,6 @@ class ControllerMechanicalVentilation(object):
     def zone_9_name(self, value=None):
         """  Corresponds to IDD Field `Zone 9 Name`
         A zone name or a zone list name may be used here
-        
-        {u'note': [u'A zone name or a zone list name may be used here'], u'type': u'object-list', u'object-list': u'ZoneAndZoneListNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Zone 9 Name`
@@ -4362,8 +4260,6 @@ class ControllerMechanicalVentilation(object):
     @design_specification_outdoor_air_object_name_9.setter
     def design_specification_outdoor_air_object_name_9(self, value=None):
         """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 9`
-        
-        {u'type': u'object-list', u'object-list': u'DesignSpecificationOutdoorAirNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Design Specification Outdoor Air Object Name 9`
@@ -4399,8 +4295,6 @@ class ControllerMechanicalVentilation(object):
     @design_specification_zone_air_distribution_object_name_9.setter
     def design_specification_zone_air_distribution_object_name_9(self, value=None):
         """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 9`
-        
-        {u'type': u'object-list', u'object-list': u'DesignSpecificationZoneAirDistributionNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 9`
@@ -4437,8 +4331,6 @@ class ControllerMechanicalVentilation(object):
     def zone_10_name(self, value=None):
         """  Corresponds to IDD Field `Zone 10 Name`
         A zone name or a zone list name may be used here
-        
-        {u'note': [u'A zone name or a zone list name may be used here'], u'type': u'object-list', u'object-list': u'ZoneAndZoneListNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Zone 10 Name`
@@ -4474,8 +4366,6 @@ class ControllerMechanicalVentilation(object):
     @design_specification_outdoor_air_object_name_10.setter
     def design_specification_outdoor_air_object_name_10(self, value=None):
         """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 10`
-        
-        {u'type': u'object-list', u'object-list': u'DesignSpecificationOutdoorAirNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Design Specification Outdoor Air Object Name 10`
@@ -4511,8 +4401,6 @@ class ControllerMechanicalVentilation(object):
     @design_specification_zone_air_distribution_object_name_10.setter
     def design_specification_zone_air_distribution_object_name_10(self, value=None):
         """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 10`
-        
-        {u'type': u'object-list', u'object-list': u'DesignSpecificationZoneAirDistributionNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 10`
@@ -4549,8 +4437,6 @@ class ControllerMechanicalVentilation(object):
     def zone_11_name(self, value=None):
         """  Corresponds to IDD Field `Zone 11 Name`
         A zone name or a zone list name may be used here
-        
-        {u'note': [u'A zone name or a zone list name may be used here'], u'type': u'object-list', u'object-list': u'ZoneAndZoneListNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Zone 11 Name`
@@ -4586,8 +4472,6 @@ class ControllerMechanicalVentilation(object):
     @design_specification_outdoor_air_object_name_11.setter
     def design_specification_outdoor_air_object_name_11(self, value=None):
         """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 11`
-        
-        {u'type': u'object-list', u'object-list': u'DesignSpecificationOutdoorAirNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Design Specification Outdoor Air Object Name 11`
@@ -4623,8 +4507,6 @@ class ControllerMechanicalVentilation(object):
     @design_specification_zone_air_distribution_object_name_11.setter
     def design_specification_zone_air_distribution_object_name_11(self, value=None):
         """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 11`
-        
-        {u'type': u'object-list', u'object-list': u'DesignSpecificationZoneAirDistributionNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 11`
@@ -4661,8 +4543,6 @@ class ControllerMechanicalVentilation(object):
     def zone_12_name(self, value=None):
         """  Corresponds to IDD Field `Zone 12 Name`
         A zone name or a zone list name may be used here
-        
-        {u'note': [u'A zone name or a zone list name may be used here'], u'type': u'object-list', u'object-list': u'ZoneAndZoneListNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Zone 12 Name`
@@ -4698,8 +4578,6 @@ class ControllerMechanicalVentilation(object):
     @design_specification_outdoor_air_object_name_12.setter
     def design_specification_outdoor_air_object_name_12(self, value=None):
         """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 12`
-        
-        {u'type': u'object-list', u'object-list': u'DesignSpecificationOutdoorAirNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Design Specification Outdoor Air Object Name 12`
@@ -4735,8 +4613,6 @@ class ControllerMechanicalVentilation(object):
     @design_specification_zone_air_distribution_object_name_12.setter
     def design_specification_zone_air_distribution_object_name_12(self, value=None):
         """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 12`
-        
-        {u'type': u'object-list', u'object-list': u'DesignSpecificationZoneAirDistributionNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 12`
@@ -4773,8 +4649,6 @@ class ControllerMechanicalVentilation(object):
     def zone_13_name(self, value=None):
         """  Corresponds to IDD Field `Zone 13 Name`
         A zone name or a zone list name may be used here
-        
-        {u'note': [u'A zone name or a zone list name may be used here'], u'type': u'object-list', u'object-list': u'ZoneAndZoneListNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Zone 13 Name`
@@ -4810,8 +4684,6 @@ class ControllerMechanicalVentilation(object):
     @design_specification_outdoor_air_object_name_13.setter
     def design_specification_outdoor_air_object_name_13(self, value=None):
         """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 13`
-        
-        {u'type': u'object-list', u'object-list': u'DesignSpecificationOutdoorAirNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Design Specification Outdoor Air Object Name 13`
@@ -4847,8 +4719,6 @@ class ControllerMechanicalVentilation(object):
     @design_specification_zone_air_distribution_object_name_13.setter
     def design_specification_zone_air_distribution_object_name_13(self, value=None):
         """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 13`
-        
-        {u'type': u'object-list', u'object-list': u'DesignSpecificationZoneAirDistributionNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 13`
@@ -4885,8 +4755,6 @@ class ControllerMechanicalVentilation(object):
     def zone_14_name(self, value=None):
         """  Corresponds to IDD Field `Zone 14 Name`
         A zone name or a zone list name may be used here
-        
-        {u'note': [u'A zone name or a zone list name may be used here'], u'type': u'object-list', u'object-list': u'ZoneAndZoneListNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Zone 14 Name`
@@ -4922,8 +4790,6 @@ class ControllerMechanicalVentilation(object):
     @design_specification_outdoor_air_object_name_14.setter
     def design_specification_outdoor_air_object_name_14(self, value=None):
         """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 14`
-        
-        {u'type': u'object-list', u'object-list': u'DesignSpecificationOutdoorAirNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Design Specification Outdoor Air Object Name 14`
@@ -4959,8 +4825,6 @@ class ControllerMechanicalVentilation(object):
     @design_specification_zone_air_distribution_object_name_14.setter
     def design_specification_zone_air_distribution_object_name_14(self, value=None):
         """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 14`
-        
-        {u'type': u'object-list', u'object-list': u'DesignSpecificationZoneAirDistributionNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 14`
@@ -4997,8 +4861,6 @@ class ControllerMechanicalVentilation(object):
     def zone_15_name(self, value=None):
         """  Corresponds to IDD Field `Zone 15 Name`
         A zone name or a zone list name may be used here
-        
-        {u'note': [u'A zone name or a zone list name may be used here'], u'type': u'object-list', u'object-list': u'ZoneAndZoneListNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Zone 15 Name`
@@ -5034,8 +4896,6 @@ class ControllerMechanicalVentilation(object):
     @design_specification_outdoor_air_object_name_15.setter
     def design_specification_outdoor_air_object_name_15(self, value=None):
         """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 15`
-        
-        {u'type': u'object-list', u'object-list': u'DesignSpecificationOutdoorAirNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Design Specification Outdoor Air Object Name 15`
@@ -5071,8 +4931,6 @@ class ControllerMechanicalVentilation(object):
     @design_specification_zone_air_distribution_object_name_15.setter
     def design_specification_zone_air_distribution_object_name_15(self, value=None):
         """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 15`
-        
-        {u'type': u'object-list', u'object-list': u'DesignSpecificationZoneAirDistributionNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 15`
@@ -5109,8 +4967,6 @@ class ControllerMechanicalVentilation(object):
     def zone_16_name(self, value=None):
         """  Corresponds to IDD Field `Zone 16 Name`
         A zone name or a zone list name may be used here
-        
-        {u'note': [u'A zone name or a zone list name may be used here'], u'type': u'object-list', u'object-list': u'ZoneAndZoneListNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Zone 16 Name`
@@ -5146,8 +5002,6 @@ class ControllerMechanicalVentilation(object):
     @design_specification_outdoor_air_object_name_16.setter
     def design_specification_outdoor_air_object_name_16(self, value=None):
         """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 16`
-        
-        {u'type': u'object-list', u'object-list': u'DesignSpecificationOutdoorAirNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Design Specification Outdoor Air Object Name 16`
@@ -5183,8 +5037,6 @@ class ControllerMechanicalVentilation(object):
     @design_specification_zone_air_distribution_object_name_16.setter
     def design_specification_zone_air_distribution_object_name_16(self, value=None):
         """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 16`
-        
-        {u'type': u'object-list', u'object-list': u'DesignSpecificationZoneAirDistributionNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 16`
@@ -5221,8 +5073,6 @@ class ControllerMechanicalVentilation(object):
     def zone_17_name(self, value=None):
         """  Corresponds to IDD Field `Zone 17 Name`
         A zone name or a zone list name may be used here
-        
-        {u'note': [u'A zone name or a zone list name may be used here'], u'type': u'object-list', u'object-list': u'ZoneAndZoneListNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Zone 17 Name`
@@ -5258,8 +5108,6 @@ class ControllerMechanicalVentilation(object):
     @design_specification_outdoor_air_object_name_17.setter
     def design_specification_outdoor_air_object_name_17(self, value=None):
         """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 17`
-        
-        {u'type': u'object-list', u'object-list': u'DesignSpecificationOutdoorAirNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Design Specification Outdoor Air Object Name 17`
@@ -5295,8 +5143,6 @@ class ControllerMechanicalVentilation(object):
     @design_specification_zone_air_distribution_object_name_17.setter
     def design_specification_zone_air_distribution_object_name_17(self, value=None):
         """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 17`
-        
-        {u'type': u'object-list', u'object-list': u'DesignSpecificationZoneAirDistributionNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 17`
@@ -5333,8 +5179,6 @@ class ControllerMechanicalVentilation(object):
     def zone_18_name(self, value=None):
         """  Corresponds to IDD Field `Zone 18 Name`
         A zone name or a zone list name may be used here
-        
-        {u'note': [u'A zone name or a zone list name may be used here'], u'type': u'object-list', u'object-list': u'ZoneAndZoneListNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Zone 18 Name`
@@ -5370,8 +5214,6 @@ class ControllerMechanicalVentilation(object):
     @design_specification_outdoor_air_object_name_18.setter
     def design_specification_outdoor_air_object_name_18(self, value=None):
         """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 18`
-        
-        {u'type': u'object-list', u'object-list': u'DesignSpecificationOutdoorAirNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Design Specification Outdoor Air Object Name 18`
@@ -5407,8 +5249,6 @@ class ControllerMechanicalVentilation(object):
     @design_specification_zone_air_distribution_object_name_18.setter
     def design_specification_zone_air_distribution_object_name_18(self, value=None):
         """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 18`
-        
-        {u'type': u'object-list', u'object-list': u'DesignSpecificationZoneAirDistributionNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 18`
@@ -5445,8 +5285,6 @@ class ControllerMechanicalVentilation(object):
     def zone_19_name(self, value=None):
         """  Corresponds to IDD Field `Zone 19 Name`
         A zone name or a zone list name may be used here
-        
-        {u'note': [u'A zone name or a zone list name may be used here'], u'type': u'object-list', u'object-list': u'ZoneAndZoneListNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Zone 19 Name`
@@ -5482,8 +5320,6 @@ class ControllerMechanicalVentilation(object):
     @design_specification_outdoor_air_object_name_19.setter
     def design_specification_outdoor_air_object_name_19(self, value=None):
         """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 19`
-        
-        {u'type': u'object-list', u'object-list': u'DesignSpecificationOutdoorAirNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Design Specification Outdoor Air Object Name 19`
@@ -5519,8 +5355,6 @@ class ControllerMechanicalVentilation(object):
     @design_specification_zone_air_distribution_object_name_19.setter
     def design_specification_zone_air_distribution_object_name_19(self, value=None):
         """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 19`
-        
-        {u'type': u'object-list', u'object-list': u'DesignSpecificationZoneAirDistributionNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 19`
@@ -5557,8 +5391,6 @@ class ControllerMechanicalVentilation(object):
     def zone_20_name(self, value=None):
         """  Corresponds to IDD Field `Zone 20 Name`
         A zone name or a zone list name may be used here
-        
-        {u'note': [u'A zone name or a zone list name may be used here'], u'type': u'object-list', u'object-list': u'ZoneAndZoneListNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Zone 20 Name`
@@ -5594,8 +5426,6 @@ class ControllerMechanicalVentilation(object):
     @design_specification_outdoor_air_object_name_20.setter
     def design_specification_outdoor_air_object_name_20(self, value=None):
         """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 20`
-        
-        {u'type': u'object-list', u'object-list': u'DesignSpecificationOutdoorAirNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Design Specification Outdoor Air Object Name 20`
@@ -5631,8 +5461,6 @@ class ControllerMechanicalVentilation(object):
     @design_specification_zone_air_distribution_object_name_20.setter
     def design_specification_zone_air_distribution_object_name_20(self, value=None):
         """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 20`
-        
-        {u'type': u'object-list', u'object-list': u'DesignSpecificationZoneAirDistributionNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 20`
@@ -5669,8 +5497,6 @@ class ControllerMechanicalVentilation(object):
     def zone_21_name(self, value=None):
         """  Corresponds to IDD Field `Zone 21 Name`
         A zone name or a zone list name may be used here
-        
-        {u'note': [u'A zone name or a zone list name may be used here'], u'type': u'object-list', u'object-list': u'ZoneAndZoneListNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Zone 21 Name`
@@ -5706,8 +5532,6 @@ class ControllerMechanicalVentilation(object):
     @design_specification_outdoor_air_object_name_21.setter
     def design_specification_outdoor_air_object_name_21(self, value=None):
         """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 21`
-        
-        {u'type': u'object-list', u'object-list': u'DesignSpecificationOutdoorAirNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Design Specification Outdoor Air Object Name 21`
@@ -5743,8 +5567,6 @@ class ControllerMechanicalVentilation(object):
     @design_specification_zone_air_distribution_object_name_21.setter
     def design_specification_zone_air_distribution_object_name_21(self, value=None):
         """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 21`
-        
-        {u'type': u'object-list', u'object-list': u'DesignSpecificationZoneAirDistributionNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 21`
@@ -5781,8 +5603,6 @@ class ControllerMechanicalVentilation(object):
     def zone_22_name(self, value=None):
         """  Corresponds to IDD Field `Zone 22 Name`
         A zone name or a zone list name may be used here
-        
-        {u'note': [u'A zone name or a zone list name may be used here'], u'type': u'object-list', u'object-list': u'ZoneAndZoneListNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Zone 22 Name`
@@ -5818,8 +5638,6 @@ class ControllerMechanicalVentilation(object):
     @design_specification_outdoor_air_object_name_22.setter
     def design_specification_outdoor_air_object_name_22(self, value=None):
         """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 22`
-        
-        {u'type': u'object-list', u'object-list': u'DesignSpecificationOutdoorAirNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Design Specification Outdoor Air Object Name 22`
@@ -5855,8 +5673,6 @@ class ControllerMechanicalVentilation(object):
     @design_specification_zone_air_distribution_object_name_22.setter
     def design_specification_zone_air_distribution_object_name_22(self, value=None):
         """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 22`
-        
-        {u'type': u'object-list', u'object-list': u'DesignSpecificationZoneAirDistributionNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 22`
@@ -5893,8 +5709,6 @@ class ControllerMechanicalVentilation(object):
     def zone_23_name(self, value=None):
         """  Corresponds to IDD Field `Zone 23 Name`
         A zone name or a zone list name may be used here
-        
-        {u'note': [u'A zone name or a zone list name may be used here'], u'type': u'object-list', u'object-list': u'ZoneAndZoneListNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Zone 23 Name`
@@ -5930,8 +5744,6 @@ class ControllerMechanicalVentilation(object):
     @design_specification_outdoor_air_object_name_23.setter
     def design_specification_outdoor_air_object_name_23(self, value=None):
         """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 23`
-        
-        {u'type': u'object-list', u'object-list': u'DesignSpecificationOutdoorAirNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Design Specification Outdoor Air Object Name 23`
@@ -5967,8 +5779,6 @@ class ControllerMechanicalVentilation(object):
     @design_specification_zone_air_distribution_object_name_23.setter
     def design_specification_zone_air_distribution_object_name_23(self, value=None):
         """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 23`
-        
-        {u'type': u'object-list', u'object-list': u'DesignSpecificationZoneAirDistributionNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 23`
@@ -6005,8 +5815,6 @@ class ControllerMechanicalVentilation(object):
     def zone_24_name(self, value=None):
         """  Corresponds to IDD Field `Zone 24 Name`
         A zone name or a zone list name may be used here
-        
-        {u'note': [u'A zone name or a zone list name may be used here'], u'type': u'object-list', u'object-list': u'ZoneAndZoneListNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Zone 24 Name`
@@ -6042,8 +5850,6 @@ class ControllerMechanicalVentilation(object):
     @design_specification_outdoor_air_object_name_24.setter
     def design_specification_outdoor_air_object_name_24(self, value=None):
         """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 24`
-        
-        {u'type': u'object-list', u'object-list': u'DesignSpecificationOutdoorAirNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Design Specification Outdoor Air Object Name 24`
@@ -6079,8 +5885,6 @@ class ControllerMechanicalVentilation(object):
     @design_specification_zone_air_distribution_object_name_24.setter
     def design_specification_zone_air_distribution_object_name_24(self, value=None):
         """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 24`
-        
-        {u'type': u'object-list', u'object-list': u'DesignSpecificationZoneAirDistributionNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 24`
@@ -6117,8 +5921,6 @@ class ControllerMechanicalVentilation(object):
     def zone_25_name(self, value=None):
         """  Corresponds to IDD Field `Zone 25 Name`
         A zone name or a zone list name may be used here
-        
-        {u'note': [u'A zone name or a zone list name may be used here'], u'type': u'object-list', u'object-list': u'ZoneAndZoneListNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Zone 25 Name`
@@ -6154,8 +5956,6 @@ class ControllerMechanicalVentilation(object):
     @design_specification_outdoor_air_object_name_25.setter
     def design_specification_outdoor_air_object_name_25(self, value=None):
         """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 25`
-        
-        {u'type': u'object-list', u'object-list': u'DesignSpecificationOutdoorAirNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Design Specification Outdoor Air Object Name 25`
@@ -6191,8 +5991,6 @@ class ControllerMechanicalVentilation(object):
     @design_specification_zone_air_distribution_object_name_25.setter
     def design_specification_zone_air_distribution_object_name_25(self, value=None):
         """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 25`
-        
-        {u'type': u'object-list', u'object-list': u'DesignSpecificationZoneAirDistributionNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 25`
@@ -6229,8 +6027,6 @@ class ControllerMechanicalVentilation(object):
     def zone_26_name(self, value=None):
         """  Corresponds to IDD Field `Zone 26 Name`
         A zone name or a zone list name may be used here
-        
-        {u'note': [u'A zone name or a zone list name may be used here'], u'type': u'object-list', u'object-list': u'ZoneAndZoneListNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Zone 26 Name`
@@ -6266,8 +6062,6 @@ class ControllerMechanicalVentilation(object):
     @design_specification_outdoor_air_object_name_26.setter
     def design_specification_outdoor_air_object_name_26(self, value=None):
         """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 26`
-        
-        {u'type': u'object-list', u'object-list': u'DesignSpecificationOutdoorAirNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Design Specification Outdoor Air Object Name 26`
@@ -6303,8 +6097,6 @@ class ControllerMechanicalVentilation(object):
     @design_specification_zone_air_distribution_object_name_26.setter
     def design_specification_zone_air_distribution_object_name_26(self, value=None):
         """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 26`
-        
-        {u'type': u'object-list', u'object-list': u'DesignSpecificationZoneAirDistributionNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 26`
@@ -6341,8 +6133,6 @@ class ControllerMechanicalVentilation(object):
     def zone_27_name(self, value=None):
         """  Corresponds to IDD Field `Zone 27 Name`
         A zone name or a zone list name may be used here
-        
-        {u'note': [u'A zone name or a zone list name may be used here'], u'type': u'object-list', u'object-list': u'ZoneAndZoneListNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Zone 27 Name`
@@ -6378,8 +6168,6 @@ class ControllerMechanicalVentilation(object):
     @design_specification_outdoor_air_object_name_27.setter
     def design_specification_outdoor_air_object_name_27(self, value=None):
         """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 27`
-        
-        {u'type': u'object-list', u'object-list': u'DesignSpecificationOutdoorAirNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Design Specification Outdoor Air Object Name 27`
@@ -6415,8 +6203,6 @@ class ControllerMechanicalVentilation(object):
     @design_specification_zone_air_distribution_object_name_27.setter
     def design_specification_zone_air_distribution_object_name_27(self, value=None):
         """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 27`
-        
-        {u'type': u'object-list', u'object-list': u'DesignSpecificationZoneAirDistributionNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 27`
@@ -6453,8 +6239,6 @@ class ControllerMechanicalVentilation(object):
     def zone_28_name(self, value=None):
         """  Corresponds to IDD Field `Zone 28 Name`
         A zone name or a zone list name may be used here
-        
-        {u'note': [u'A zone name or a zone list name may be used here'], u'type': u'object-list', u'object-list': u'ZoneAndZoneListNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Zone 28 Name`
@@ -6490,8 +6274,6 @@ class ControllerMechanicalVentilation(object):
     @design_specification_outdoor_air_object_name_28.setter
     def design_specification_outdoor_air_object_name_28(self, value=None):
         """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 28`
-        
-        {u'type': u'object-list', u'object-list': u'DesignSpecificationOutdoorAirNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Design Specification Outdoor Air Object Name 28`
@@ -6527,8 +6309,6 @@ class ControllerMechanicalVentilation(object):
     @design_specification_zone_air_distribution_object_name_28.setter
     def design_specification_zone_air_distribution_object_name_28(self, value=None):
         """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 28`
-        
-        {u'type': u'object-list', u'object-list': u'DesignSpecificationZoneAirDistributionNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 28`
@@ -6565,8 +6345,6 @@ class ControllerMechanicalVentilation(object):
     def zone_29_name(self, value=None):
         """  Corresponds to IDD Field `Zone 29 Name`
         A zone name or a zone list name may be used here
-        
-        {u'note': [u'A zone name or a zone list name may be used here'], u'type': u'object-list', u'object-list': u'ZoneAndZoneListNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Zone 29 Name`
@@ -6602,8 +6380,6 @@ class ControllerMechanicalVentilation(object):
     @design_specification_outdoor_air_object_name_29.setter
     def design_specification_outdoor_air_object_name_29(self, value=None):
         """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 29`
-        
-        {u'type': u'object-list', u'object-list': u'DesignSpecificationOutdoorAirNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Design Specification Outdoor Air Object Name 29`
@@ -6639,8 +6415,6 @@ class ControllerMechanicalVentilation(object):
     @design_specification_zone_air_distribution_object_name_29.setter
     def design_specification_zone_air_distribution_object_name_29(self, value=None):
         """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 29`
-        
-        {u'type': u'object-list', u'object-list': u'DesignSpecificationZoneAirDistributionNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 29`
@@ -6677,8 +6451,6 @@ class ControllerMechanicalVentilation(object):
     def zone_30_name(self, value=None):
         """  Corresponds to IDD Field `Zone 30 Name`
         A zone name or a zone list name may be used here
-        
-        {u'note': [u'A zone name or a zone list name may be used here'], u'type': u'object-list', u'object-list': u'ZoneAndZoneListNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Zone 30 Name`
@@ -6714,8 +6486,6 @@ class ControllerMechanicalVentilation(object):
     @design_specification_outdoor_air_object_name_30.setter
     def design_specification_outdoor_air_object_name_30(self, value=None):
         """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 30`
-        
-        {u'type': u'object-list', u'object-list': u'DesignSpecificationOutdoorAirNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Design Specification Outdoor Air Object Name 30`
@@ -6751,8 +6521,6 @@ class ControllerMechanicalVentilation(object):
     @design_specification_zone_air_distribution_object_name_30.setter
     def design_specification_zone_air_distribution_object_name_30(self, value=None):
         """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 30`
-        
-        {u'type': u'object-list', u'object-list': u'DesignSpecificationZoneAirDistributionNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 30`
@@ -6789,8 +6557,6 @@ class ControllerMechanicalVentilation(object):
     def zone_31_name(self, value=None):
         """  Corresponds to IDD Field `Zone 31 Name`
         A zone name or a zone list name may be used here
-        
-        {u'note': [u'A zone name or a zone list name may be used here'], u'type': u'object-list', u'object-list': u'ZoneAndZoneListNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Zone 31 Name`
@@ -6826,8 +6592,6 @@ class ControllerMechanicalVentilation(object):
     @design_specification_outdoor_air_object_name_31.setter
     def design_specification_outdoor_air_object_name_31(self, value=None):
         """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 31`
-        
-        {u'type': u'object-list', u'object-list': u'DesignSpecificationOutdoorAirNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Design Specification Outdoor Air Object Name 31`
@@ -6863,8 +6627,6 @@ class ControllerMechanicalVentilation(object):
     @design_specification_zone_air_distribution_object_name_31.setter
     def design_specification_zone_air_distribution_object_name_31(self, value=None):
         """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 31`
-        
-        {u'type': u'object-list', u'object-list': u'DesignSpecificationZoneAirDistributionNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 31`
@@ -6901,8 +6663,6 @@ class ControllerMechanicalVentilation(object):
     def zone_32_name(self, value=None):
         """  Corresponds to IDD Field `Zone 32 Name`
         A zone name or a zone list name may be used here
-        
-        {u'note': [u'A zone name or a zone list name may be used here'], u'type': u'object-list', u'object-list': u'ZoneAndZoneListNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Zone 32 Name`
@@ -6938,8 +6698,6 @@ class ControllerMechanicalVentilation(object):
     @design_specification_outdoor_air_object_name_32.setter
     def design_specification_outdoor_air_object_name_32(self, value=None):
         """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 32`
-        
-        {u'type': u'object-list', u'object-list': u'DesignSpecificationOutdoorAirNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Design Specification Outdoor Air Object Name 32`
@@ -6975,8 +6733,6 @@ class ControllerMechanicalVentilation(object):
     @design_specification_zone_air_distribution_object_name_32.setter
     def design_specification_zone_air_distribution_object_name_32(self, value=None):
         """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 32`
-        
-        {u'type': u'object-list', u'object-list': u'DesignSpecificationZoneAirDistributionNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 32`
@@ -7013,8 +6769,6 @@ class ControllerMechanicalVentilation(object):
     def zone_33_name(self, value=None):
         """  Corresponds to IDD Field `Zone 33 Name`
         A zone name or a zone list name may be used here
-        
-        {u'note': [u'A zone name or a zone list name may be used here'], u'type': u'object-list', u'object-list': u'ZoneAndZoneListNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Zone 33 Name`
@@ -7050,8 +6804,6 @@ class ControllerMechanicalVentilation(object):
     @design_specification_outdoor_air_object_name_33.setter
     def design_specification_outdoor_air_object_name_33(self, value=None):
         """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 33`
-        
-        {u'type': u'object-list', u'object-list': u'DesignSpecificationOutdoorAirNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Design Specification Outdoor Air Object Name 33`
@@ -7087,8 +6839,6 @@ class ControllerMechanicalVentilation(object):
     @design_specification_zone_air_distribution_object_name_33.setter
     def design_specification_zone_air_distribution_object_name_33(self, value=None):
         """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 33`
-        
-        {u'type': u'object-list', u'object-list': u'DesignSpecificationZoneAirDistributionNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 33`
@@ -7125,8 +6875,6 @@ class ControllerMechanicalVentilation(object):
     def zone_34_name(self, value=None):
         """  Corresponds to IDD Field `Zone 34 Name`
         A zone name or a zone list name may be used here
-        
-        {u'note': [u'A zone name or a zone list name may be used here'], u'type': u'object-list', u'object-list': u'ZoneAndZoneListNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Zone 34 Name`
@@ -7162,8 +6910,6 @@ class ControllerMechanicalVentilation(object):
     @design_specification_outdoor_air_object_name_34.setter
     def design_specification_outdoor_air_object_name_34(self, value=None):
         """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 34`
-        
-        {u'type': u'object-list', u'object-list': u'DesignSpecificationOutdoorAirNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Design Specification Outdoor Air Object Name 34`
@@ -7199,8 +6945,6 @@ class ControllerMechanicalVentilation(object):
     @design_specification_zone_air_distribution_object_name_34.setter
     def design_specification_zone_air_distribution_object_name_34(self, value=None):
         """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 34`
-        
-        {u'type': u'object-list', u'object-list': u'DesignSpecificationZoneAirDistributionNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 34`
@@ -7237,8 +6981,6 @@ class ControllerMechanicalVentilation(object):
     def zone_35_name(self, value=None):
         """  Corresponds to IDD Field `Zone 35 Name`
         A zone name or a zone list name may be used here
-        
-        {u'note': [u'A zone name or a zone list name may be used here'], u'type': u'object-list', u'object-list': u'ZoneAndZoneListNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Zone 35 Name`
@@ -7274,8 +7016,6 @@ class ControllerMechanicalVentilation(object):
     @design_specification_outdoor_air_object_name_35.setter
     def design_specification_outdoor_air_object_name_35(self, value=None):
         """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 35`
-        
-        {u'type': u'object-list', u'object-list': u'DesignSpecificationOutdoorAirNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Design Specification Outdoor Air Object Name 35`
@@ -7311,8 +7051,6 @@ class ControllerMechanicalVentilation(object):
     @design_specification_zone_air_distribution_object_name_35.setter
     def design_specification_zone_air_distribution_object_name_35(self, value=None):
         """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 35`
-        
-        {u'type': u'object-list', u'object-list': u'DesignSpecificationZoneAirDistributionNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 35`
@@ -7349,8 +7087,6 @@ class ControllerMechanicalVentilation(object):
     def zone_36_name(self, value=None):
         """  Corresponds to IDD Field `Zone 36 Name`
         A zone name or a zone list name may be used here
-        
-        {u'note': [u'A zone name or a zone list name may be used here'], u'type': u'object-list', u'object-list': u'ZoneAndZoneListNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Zone 36 Name`
@@ -7386,8 +7122,6 @@ class ControllerMechanicalVentilation(object):
     @design_specification_outdoor_air_object_name_36.setter
     def design_specification_outdoor_air_object_name_36(self, value=None):
         """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 36`
-        
-        {u'type': u'object-list', u'object-list': u'DesignSpecificationOutdoorAirNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Design Specification Outdoor Air Object Name 36`
@@ -7423,8 +7157,6 @@ class ControllerMechanicalVentilation(object):
     @design_specification_zone_air_distribution_object_name_36.setter
     def design_specification_zone_air_distribution_object_name_36(self, value=None):
         """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 36`
-        
-        {u'type': u'object-list', u'object-list': u'DesignSpecificationZoneAirDistributionNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 36`
@@ -7461,8 +7193,6 @@ class ControllerMechanicalVentilation(object):
     def zone_37_name(self, value=None):
         """  Corresponds to IDD Field `Zone 37 Name`
         A zone name or a zone list name may be used here
-        
-        {u'note': [u'A zone name or a zone list name may be used here'], u'type': u'object-list', u'object-list': u'ZoneAndZoneListNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Zone 37 Name`
@@ -7498,8 +7228,6 @@ class ControllerMechanicalVentilation(object):
     @design_specification_outdoor_air_object_name_37.setter
     def design_specification_outdoor_air_object_name_37(self, value=None):
         """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 37`
-        
-        {u'type': u'object-list', u'object-list': u'DesignSpecificationOutdoorAirNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Design Specification Outdoor Air Object Name 37`
@@ -7535,8 +7263,6 @@ class ControllerMechanicalVentilation(object):
     @design_specification_zone_air_distribution_object_name_37.setter
     def design_specification_zone_air_distribution_object_name_37(self, value=None):
         """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 37`
-        
-        {u'type': u'object-list', u'object-list': u'DesignSpecificationZoneAirDistributionNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 37`
@@ -7573,8 +7299,6 @@ class ControllerMechanicalVentilation(object):
     def zone_38_name(self, value=None):
         """  Corresponds to IDD Field `Zone 38 Name`
         A zone name or a zone list name may be used here
-        
-        {u'note': [u'A zone name or a zone list name may be used here'], u'type': u'object-list', u'object-list': u'ZoneAndZoneListNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Zone 38 Name`
@@ -7610,8 +7334,6 @@ class ControllerMechanicalVentilation(object):
     @design_specification_outdoor_air_object_name_38.setter
     def design_specification_outdoor_air_object_name_38(self, value=None):
         """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 38`
-        
-        {u'type': u'object-list', u'object-list': u'DesignSpecificationOutdoorAirNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Design Specification Outdoor Air Object Name 38`
@@ -7647,8 +7369,6 @@ class ControllerMechanicalVentilation(object):
     @design_specification_zone_air_distribution_object_name_38.setter
     def design_specification_zone_air_distribution_object_name_38(self, value=None):
         """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 38`
-        
-        {u'type': u'object-list', u'object-list': u'DesignSpecificationZoneAirDistributionNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 38`
@@ -7685,8 +7405,6 @@ class ControllerMechanicalVentilation(object):
     def zone_39_name(self, value=None):
         """  Corresponds to IDD Field `Zone 39 Name`
         A zone name or a zone list name may be used here
-        
-        {u'note': [u'A zone name or a zone list name may be used here'], u'type': u'object-list', u'object-list': u'ZoneAndZoneListNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Zone 39 Name`
@@ -7722,8 +7440,6 @@ class ControllerMechanicalVentilation(object):
     @design_specification_outdoor_air_object_name_39.setter
     def design_specification_outdoor_air_object_name_39(self, value=None):
         """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 39`
-        
-        {u'type': u'object-list', u'object-list': u'DesignSpecificationOutdoorAirNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Design Specification Outdoor Air Object Name 39`
@@ -7759,8 +7475,6 @@ class ControllerMechanicalVentilation(object):
     @design_specification_zone_air_distribution_object_name_39.setter
     def design_specification_zone_air_distribution_object_name_39(self, value=None):
         """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 39`
-        
-        {u'type': u'object-list', u'object-list': u'DesignSpecificationZoneAirDistributionNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 39`
@@ -7797,8 +7511,6 @@ class ControllerMechanicalVentilation(object):
     def zone_40_name(self, value=None):
         """  Corresponds to IDD Field `Zone 40 Name`
         A zone name or a zone list name may be used here
-        
-        {u'note': [u'A zone name or a zone list name may be used here'], u'type': u'object-list', u'object-list': u'ZoneAndZoneListNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Zone 40 Name`
@@ -7834,8 +7546,6 @@ class ControllerMechanicalVentilation(object):
     @design_specification_outdoor_air_object_name_40.setter
     def design_specification_outdoor_air_object_name_40(self, value=None):
         """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 40`
-        
-        {u'type': u'object-list', u'object-list': u'DesignSpecificationOutdoorAirNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Design Specification Outdoor Air Object Name 40`
@@ -7871,8 +7581,6 @@ class ControllerMechanicalVentilation(object):
     @design_specification_zone_air_distribution_object_name_40.setter
     def design_specification_zone_air_distribution_object_name_40(self, value=None):
         """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 40`
-        
-        {u'type': u'object-list', u'object-list': u'DesignSpecificationZoneAirDistributionNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 40`
@@ -7909,8 +7617,6 @@ class ControllerMechanicalVentilation(object):
     def zone_41_name(self, value=None):
         """  Corresponds to IDD Field `Zone 41 Name`
         A zone name or a zone list name may be used here
-        
-        {u'note': [u'A zone name or a zone list name may be used here'], u'type': u'object-list', u'object-list': u'ZoneAndZoneListNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Zone 41 Name`
@@ -7946,8 +7652,6 @@ class ControllerMechanicalVentilation(object):
     @design_specification_outdoor_air_object_name_41.setter
     def design_specification_outdoor_air_object_name_41(self, value=None):
         """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 41`
-        
-        {u'type': u'object-list', u'object-list': u'DesignSpecificationOutdoorAirNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Design Specification Outdoor Air Object Name 41`
@@ -7983,8 +7687,6 @@ class ControllerMechanicalVentilation(object):
     @design_specification_zone_air_distribution_object_name_41.setter
     def design_specification_zone_air_distribution_object_name_41(self, value=None):
         """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 41`
-        
-        {u'type': u'object-list', u'object-list': u'DesignSpecificationZoneAirDistributionNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 41`
@@ -8021,8 +7723,6 @@ class ControllerMechanicalVentilation(object):
     def zone_42_name(self, value=None):
         """  Corresponds to IDD Field `Zone 42 Name`
         A zone name or a zone list name may be used here
-        
-        {u'note': [u'A zone name or a zone list name may be used here'], u'type': u'object-list', u'object-list': u'ZoneAndZoneListNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Zone 42 Name`
@@ -8058,8 +7758,6 @@ class ControllerMechanicalVentilation(object):
     @design_specification_outdoor_air_object_name_42.setter
     def design_specification_outdoor_air_object_name_42(self, value=None):
         """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 42`
-        
-        {u'type': u'object-list', u'object-list': u'DesignSpecificationOutdoorAirNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Design Specification Outdoor Air Object Name 42`
@@ -8095,8 +7793,6 @@ class ControllerMechanicalVentilation(object):
     @design_specification_zone_air_distribution_object_name_42.setter
     def design_specification_zone_air_distribution_object_name_42(self, value=None):
         """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 42`
-        
-        {u'type': u'object-list', u'object-list': u'DesignSpecificationZoneAirDistributionNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 42`
@@ -8133,8 +7829,6 @@ class ControllerMechanicalVentilation(object):
     def zone_43_name(self, value=None):
         """  Corresponds to IDD Field `Zone 43 Name`
         A zone name or a zone list name may be used here
-        
-        {u'note': [u'A zone name or a zone list name may be used here'], u'type': u'object-list', u'object-list': u'ZoneAndZoneListNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Zone 43 Name`
@@ -8170,8 +7864,6 @@ class ControllerMechanicalVentilation(object):
     @design_specification_outdoor_air_object_name_43.setter
     def design_specification_outdoor_air_object_name_43(self, value=None):
         """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 43`
-        
-        {u'type': u'object-list', u'object-list': u'DesignSpecificationOutdoorAirNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Design Specification Outdoor Air Object Name 43`
@@ -8207,8 +7899,6 @@ class ControllerMechanicalVentilation(object):
     @design_specification_zone_air_distribution_object_name_43.setter
     def design_specification_zone_air_distribution_object_name_43(self, value=None):
         """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 43`
-        
-        {u'type': u'object-list', u'object-list': u'DesignSpecificationZoneAirDistributionNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 43`
@@ -8245,8 +7935,6 @@ class ControllerMechanicalVentilation(object):
     def zone_44_name(self, value=None):
         """  Corresponds to IDD Field `Zone 44 Name`
         A zone name or a zone list name may be used here
-        
-        {u'note': [u'A zone name or a zone list name may be used here'], u'type': u'object-list', u'object-list': u'ZoneAndZoneListNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Zone 44 Name`
@@ -8282,8 +7970,6 @@ class ControllerMechanicalVentilation(object):
     @design_specification_outdoor_air_object_name_44.setter
     def design_specification_outdoor_air_object_name_44(self, value=None):
         """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 44`
-        
-        {u'type': u'object-list', u'object-list': u'DesignSpecificationOutdoorAirNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Design Specification Outdoor Air Object Name 44`
@@ -8319,8 +8005,6 @@ class ControllerMechanicalVentilation(object):
     @design_specification_zone_air_distribution_object_name_44.setter
     def design_specification_zone_air_distribution_object_name_44(self, value=None):
         """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 44`
-        
-        {u'type': u'object-list', u'object-list': u'DesignSpecificationZoneAirDistributionNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 44`
@@ -8357,8 +8041,6 @@ class ControllerMechanicalVentilation(object):
     def zone_45_name(self, value=None):
         """  Corresponds to IDD Field `Zone 45 Name`
         A zone name or a zone list name may be used here
-        
-        {u'note': [u'A zone name or a zone list name may be used here'], u'type': u'object-list', u'object-list': u'ZoneAndZoneListNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Zone 45 Name`
@@ -8394,8 +8076,6 @@ class ControllerMechanicalVentilation(object):
     @design_specification_outdoor_air_object_name_45.setter
     def design_specification_outdoor_air_object_name_45(self, value=None):
         """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 45`
-        
-        {u'type': u'object-list', u'object-list': u'DesignSpecificationOutdoorAirNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Design Specification Outdoor Air Object Name 45`
@@ -8431,8 +8111,6 @@ class ControllerMechanicalVentilation(object):
     @design_specification_zone_air_distribution_object_name_45.setter
     def design_specification_zone_air_distribution_object_name_45(self, value=None):
         """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 45`
-        
-        {u'type': u'object-list', u'object-list': u'DesignSpecificationZoneAirDistributionNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 45`
@@ -8469,8 +8147,6 @@ class ControllerMechanicalVentilation(object):
     def zone_46_name(self, value=None):
         """  Corresponds to IDD Field `Zone 46 Name`
         A zone name or a zone list name may be used here
-        
-        {u'note': [u'A zone name or a zone list name may be used here'], u'type': u'object-list', u'object-list': u'ZoneAndZoneListNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Zone 46 Name`
@@ -8506,8 +8182,6 @@ class ControllerMechanicalVentilation(object):
     @design_specification_outdoor_air_object_name_46.setter
     def design_specification_outdoor_air_object_name_46(self, value=None):
         """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 46`
-        
-        {u'type': u'object-list', u'object-list': u'DesignSpecificationOutdoorAirNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Design Specification Outdoor Air Object Name 46`
@@ -8543,8 +8217,6 @@ class ControllerMechanicalVentilation(object):
     @design_specification_zone_air_distribution_object_name_46.setter
     def design_specification_zone_air_distribution_object_name_46(self, value=None):
         """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 46`
-        
-        {u'type': u'object-list', u'object-list': u'DesignSpecificationZoneAirDistributionNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 46`
@@ -8581,8 +8253,6 @@ class ControllerMechanicalVentilation(object):
     def zone_47_name(self, value=None):
         """  Corresponds to IDD Field `Zone 47 Name`
         A zone name or a zone list name may be used here
-        
-        {u'note': [u'A zone name or a zone list name may be used here'], u'type': u'object-list', u'object-list': u'ZoneAndZoneListNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Zone 47 Name`
@@ -8618,8 +8288,6 @@ class ControllerMechanicalVentilation(object):
     @design_specification_outdoor_air_object_name_47.setter
     def design_specification_outdoor_air_object_name_47(self, value=None):
         """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 47`
-        
-        {u'type': u'object-list', u'object-list': u'DesignSpecificationOutdoorAirNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Design Specification Outdoor Air Object Name 47`
@@ -8655,8 +8323,6 @@ class ControllerMechanicalVentilation(object):
     @design_specification_zone_air_distribution_object_name_47.setter
     def design_specification_zone_air_distribution_object_name_47(self, value=None):
         """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 47`
-        
-        {u'type': u'object-list', u'object-list': u'DesignSpecificationZoneAirDistributionNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 47`
@@ -8693,8 +8359,6 @@ class ControllerMechanicalVentilation(object):
     def zone_48_name(self, value=None):
         """  Corresponds to IDD Field `Zone 48 Name`
         A zone name or a zone list name may be used here
-        
-        {u'note': [u'A zone name or a zone list name may be used here'], u'type': u'object-list', u'object-list': u'ZoneAndZoneListNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Zone 48 Name`
@@ -8730,8 +8394,6 @@ class ControllerMechanicalVentilation(object):
     @design_specification_outdoor_air_object_name_48.setter
     def design_specification_outdoor_air_object_name_48(self, value=None):
         """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 48`
-        
-        {u'type': u'object-list', u'object-list': u'DesignSpecificationOutdoorAirNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Design Specification Outdoor Air Object Name 48`
@@ -8767,8 +8429,6 @@ class ControllerMechanicalVentilation(object):
     @design_specification_zone_air_distribution_object_name_48.setter
     def design_specification_zone_air_distribution_object_name_48(self, value=None):
         """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 48`
-        
-        {u'type': u'object-list', u'object-list': u'DesignSpecificationZoneAirDistributionNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 48`
@@ -8805,8 +8465,6 @@ class ControllerMechanicalVentilation(object):
     def zone_49_name(self, value=None):
         """  Corresponds to IDD Field `Zone 49 Name`
         A zone name or a zone list name may be used here
-        
-        {u'note': [u'A zone name or a zone list name may be used here'], u'type': u'object-list', u'object-list': u'ZoneAndZoneListNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Zone 49 Name`
@@ -8842,8 +8500,6 @@ class ControllerMechanicalVentilation(object):
     @design_specification_outdoor_air_object_name_49.setter
     def design_specification_outdoor_air_object_name_49(self, value=None):
         """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 49`
-        
-        {u'type': u'object-list', u'object-list': u'DesignSpecificationOutdoorAirNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Design Specification Outdoor Air Object Name 49`
@@ -8879,8 +8535,6 @@ class ControllerMechanicalVentilation(object):
     @design_specification_zone_air_distribution_object_name_49.setter
     def design_specification_zone_air_distribution_object_name_49(self, value=None):
         """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 49`
-        
-        {u'type': u'object-list', u'object-list': u'DesignSpecificationZoneAirDistributionNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 49`
@@ -8917,8 +8571,6 @@ class ControllerMechanicalVentilation(object):
     def zone_50_name(self, value=None):
         """  Corresponds to IDD Field `Zone 50 Name`
         A zone name or a zone list name may be used here
-        
-        {u'note': [u'A zone name or a zone list name may be used here'], u'type': u'object-list', u'object-list': u'ZoneAndZoneListNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Zone 50 Name`
@@ -8954,8 +8606,6 @@ class ControllerMechanicalVentilation(object):
     @design_specification_outdoor_air_object_name_50.setter
     def design_specification_outdoor_air_object_name_50(self, value=None):
         """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 50`
-        
-        {u'type': u'object-list', u'object-list': u'DesignSpecificationOutdoorAirNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Design Specification Outdoor Air Object Name 50`
@@ -8991,8 +8641,6 @@ class ControllerMechanicalVentilation(object):
     @design_specification_zone_air_distribution_object_name_50.setter
     def design_specification_zone_air_distribution_object_name_50(self, value=None):
         """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 50`
-        
-        {u'type': u'object-list', u'object-list': u'DesignSpecificationZoneAirDistributionNames', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 50`
@@ -9222,8 +8870,6 @@ class AirLoopHvacControllerList(object):
     @name.setter
     def name(self, value=None):
         """  Corresponds to IDD Field `Name`
-        
-        {u'type': u'alpha', u'reference': u'ControllerLists', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Name`
@@ -9259,8 +8905,6 @@ class AirLoopHvacControllerList(object):
     @controller_1_object_type.setter
     def controller_1_object_type(self, value=None):
         """  Corresponds to IDD Field `Controller 1 Object Type`
-        
-        {u'type': u'choice', u'key': [u'Controller:WaterCoil', u'Controller:OutdoorAir'], u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Controller 1 Object Type`
@@ -9316,8 +8960,6 @@ class AirLoopHvacControllerList(object):
     @controller_1_name.setter
     def controller_1_name(self, value=None):
         """  Corresponds to IDD Field `Controller 1 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AirLoopControllers', u'required-field': True, 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Controller 1 Name`
@@ -9353,8 +8995,6 @@ class AirLoopHvacControllerList(object):
     @controller_2_object_type.setter
     def controller_2_object_type(self, value=None):
         """  Corresponds to IDD Field `Controller 2 Object Type`
-        
-        {u'type': u'choice', u'key': [u'Controller:WaterCoil', u'Controller:OutdoorAir'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Controller 2 Object Type`
@@ -9410,8 +9050,6 @@ class AirLoopHvacControllerList(object):
     @controller_2_name.setter
     def controller_2_name(self, value=None):
         """  Corresponds to IDD Field `Controller 2 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AirLoopControllers', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Controller 2 Name`
@@ -9447,8 +9085,6 @@ class AirLoopHvacControllerList(object):
     @controller_3_object_type.setter
     def controller_3_object_type(self, value=None):
         """  Corresponds to IDD Field `Controller 3 Object Type`
-        
-        {u'type': u'choice', u'key': [u'Controller:WaterCoil', u'Controller:OutdoorAir'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Controller 3 Object Type`
@@ -9504,8 +9140,6 @@ class AirLoopHvacControllerList(object):
     @controller_3_name.setter
     def controller_3_name(self, value=None):
         """  Corresponds to IDD Field `Controller 3 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AirLoopControllers', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Controller 3 Name`
@@ -9541,8 +9175,6 @@ class AirLoopHvacControllerList(object):
     @controller_4_object_type.setter
     def controller_4_object_type(self, value=None):
         """  Corresponds to IDD Field `Controller 4 Object Type`
-        
-        {u'type': u'choice', u'key': [u'Controller:WaterCoil', u'Controller:OutdoorAir'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Controller 4 Object Type`
@@ -9598,8 +9230,6 @@ class AirLoopHvacControllerList(object):
     @controller_4_name.setter
     def controller_4_name(self, value=None):
         """  Corresponds to IDD Field `Controller 4 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AirLoopControllers', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Controller 4 Name`
@@ -9635,8 +9265,6 @@ class AirLoopHvacControllerList(object):
     @controller_5_object_type.setter
     def controller_5_object_type(self, value=None):
         """  Corresponds to IDD Field `Controller 5 Object Type`
-        
-        {u'type': u'choice', u'key': [u'Controller:WaterCoil', u'Controller:OutdoorAir'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Controller 5 Object Type`
@@ -9692,8 +9320,6 @@ class AirLoopHvacControllerList(object):
     @controller_5_name.setter
     def controller_5_name(self, value=None):
         """  Corresponds to IDD Field `Controller 5 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AirLoopControllers', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Controller 5 Name`
@@ -9729,8 +9355,6 @@ class AirLoopHvacControllerList(object):
     @controller_6_object_type.setter
     def controller_6_object_type(self, value=None):
         """  Corresponds to IDD Field `Controller 6 Object Type`
-        
-        {u'type': u'choice', u'key': [u'Controller:WaterCoil', u'Controller:OutdoorAir'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Controller 6 Object Type`
@@ -9786,8 +9410,6 @@ class AirLoopHvacControllerList(object):
     @controller_6_name.setter
     def controller_6_name(self, value=None):
         """  Corresponds to IDD Field `Controller 6 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AirLoopControllers', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Controller 6 Name`
@@ -9823,8 +9445,6 @@ class AirLoopHvacControllerList(object):
     @controller_7_object_type.setter
     def controller_7_object_type(self, value=None):
         """  Corresponds to IDD Field `Controller 7 Object Type`
-        
-        {u'type': u'choice', u'key': [u'Controller:WaterCoil', u'Controller:OutdoorAir'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Controller 7 Object Type`
@@ -9880,8 +9500,6 @@ class AirLoopHvacControllerList(object):
     @controller_7_name.setter
     def controller_7_name(self, value=None):
         """  Corresponds to IDD Field `Controller 7 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AirLoopControllers', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Controller 7 Name`
@@ -9917,8 +9535,6 @@ class AirLoopHvacControllerList(object):
     @controller_8_object_type.setter
     def controller_8_object_type(self, value=None):
         """  Corresponds to IDD Field `Controller 8 Object Type`
-        
-        {u'type': u'choice', u'key': [u'Controller:WaterCoil', u'Controller:OutdoorAir'], 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Controller 8 Object Type`
@@ -9974,8 +9590,6 @@ class AirLoopHvacControllerList(object):
     @controller_8_name.setter
     def controller_8_name(self, value=None):
         """  Corresponds to IDD Field `Controller 8 Name`
-        
-        {u'type': u'object-list', u'object-list': u'AirLoopControllers', 'pytype': 'str'}
 
         Args:
             value (str): value for IDD Field `Controller 8 Name`
