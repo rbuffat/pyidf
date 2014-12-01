@@ -111,10 +111,12 @@ class CurveLinear(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {u'type': u'alpha', u'reference': u'AllCurves', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -124,7 +126,7 @@ class CurveLinear(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -133,7 +135,6 @@ class CurveLinear(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -147,10 +148,12 @@ class CurveLinear(object):
 
     @coefficient1_constant.setter
     def coefficient1_constant(self, value=None):
-        """  Corresponds to IDD Field `coefficient1_constant`
+        """  Corresponds to IDD Field `Coefficient1 Constant`
+        
+        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `coefficient1_constant`
+            value (float): value for IDD Field `Coefficient1 Constant`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -160,10 +163,9 @@ class CurveLinear(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `coefficient1_constant`'.format(value))
-
         self._data["Coefficient1 Constant"] = value
 
     @property
@@ -177,10 +179,12 @@ class CurveLinear(object):
 
     @coefficient2_x.setter
     def coefficient2_x(self, value=None):
-        """  Corresponds to IDD Field `coefficient2_x`
+        """  Corresponds to IDD Field `Coefficient2 x`
+        
+        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `coefficient2_x`
+            value (float): value for IDD Field `Coefficient2 x`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -190,10 +194,9 @@ class CurveLinear(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `coefficient2_x`'.format(value))
-
         self._data["Coefficient2 x"] = value
 
     @property
@@ -207,10 +210,12 @@ class CurveLinear(object):
 
     @minimum_value_of_x.setter
     def minimum_value_of_x(self, value=None):
-        """  Corresponds to IDD Field `minimum_value_of_x`
+        """  Corresponds to IDD Field `Minimum Value of x`
+        
+        {u'type': u'real', u'unitsBasedOnField': u'A2', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `minimum_value_of_x`
+            value (float): value for IDD Field `Minimum Value of x`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -220,10 +225,9 @@ class CurveLinear(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `minimum_value_of_x`'.format(value))
-
         self._data["Minimum Value of x"] = value
 
     @property
@@ -237,10 +241,12 @@ class CurveLinear(object):
 
     @maximum_value_of_x.setter
     def maximum_value_of_x(self, value=None):
-        """  Corresponds to IDD Field `maximum_value_of_x`
+        """  Corresponds to IDD Field `Maximum Value of x`
+        
+        {u'type': u'real', u'unitsBasedOnField': u'A2', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `maximum_value_of_x`
+            value (float): value for IDD Field `Maximum Value of x`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -250,10 +256,9 @@ class CurveLinear(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `maximum_value_of_x`'.format(value))
-
         self._data["Maximum Value of x"] = value
 
     @property
@@ -267,11 +272,13 @@ class CurveLinear(object):
 
     @minimum_curve_output.setter
     def minimum_curve_output(self, value=None):
-        """  Corresponds to IDD Field `minimum_curve_output`
+        """  Corresponds to IDD Field `Minimum Curve Output`
         Specify the minimum value calculated by this curve object
+        
+        {u'note': [u'Specify the minimum value calculated by this curve object'], u'type': u'real', u'unitsBasedOnField': u'A3', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `minimum_curve_output`
+            value (float): value for IDD Field `Minimum Curve Output`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -281,10 +288,9 @@ class CurveLinear(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `minimum_curve_output`'.format(value))
-
         self._data["Minimum Curve Output"] = value
 
     @property
@@ -298,11 +304,13 @@ class CurveLinear(object):
 
     @maximum_curve_output.setter
     def maximum_curve_output(self, value=None):
-        """  Corresponds to IDD Field `maximum_curve_output`
+        """  Corresponds to IDD Field `Maximum Curve Output`
         Specify the maximum value calculated by this curve object
+        
+        {u'note': [u'Specify the maximum value calculated by this curve object'], u'type': u'real', u'unitsBasedOnField': u'A3', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `maximum_curve_output`
+            value (float): value for IDD Field `Maximum Curve Output`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -312,10 +320,9 @@ class CurveLinear(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `maximum_curve_output`'.format(value))
-
         self._data["Maximum Curve Output"] = value
 
     @property
@@ -329,10 +336,12 @@ class CurveLinear(object):
 
     @input_unit_type_for_x.setter
     def input_unit_type_for_x(self, value="Dimensionless"):
-        """  Corresponds to IDD Field `input_unit_type_for_x`
+        """  Corresponds to IDD Field `Input Unit Type for X`
+        
+        {u'default': u'Dimensionless', u'type': u'choice', u'key': [u'Dimensionless', u'Temperature', u'VolumetricFlow', u'Pressure', u'MassFlow', u'Power', u'Distance'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `input_unit_type_for_x`
+            value (str): value for IDD Field `Input Unit Type for X`
                 Accepted values are:
                       - Dimensionless
                       - Temperature
@@ -351,7 +360,7 @@ class CurveLinear(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `input_unit_type_for_x`'.format(value))
             if ',' in value:
@@ -382,7 +391,6 @@ class CurveLinear(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `input_unit_type_for_x`'.format(value))
             value = vals[value_lower]
-
         self._data["Input Unit Type for X"] = value
 
     @property
@@ -396,10 +404,12 @@ class CurveLinear(object):
 
     @output_unit_type.setter
     def output_unit_type(self, value="Dimensionless"):
-        """  Corresponds to IDD Field `output_unit_type`
+        """  Corresponds to IDD Field `Output Unit Type`
+        
+        {u'default': u'Dimensionless', u'type': u'choice', u'key': [u'Dimensionless', u'Capacity', u'Power'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `output_unit_type`
+            value (str): value for IDD Field `Output Unit Type`
                 Accepted values are:
                       - Dimensionless
                       - Capacity
@@ -414,7 +424,7 @@ class CurveLinear(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `output_unit_type`'.format(value))
             if ',' in value:
@@ -441,7 +451,6 @@ class CurveLinear(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `output_unit_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Output Unit Type"] = value
 
     def check(self):
@@ -677,10 +686,12 @@ class CurveQuadLinear(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {u'type': u'alpha', u'reference': u'AllCurves', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -690,7 +701,7 @@ class CurveQuadLinear(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -699,7 +710,6 @@ class CurveQuadLinear(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -713,10 +723,12 @@ class CurveQuadLinear(object):
 
     @coefficient1_constant.setter
     def coefficient1_constant(self, value=None):
-        """  Corresponds to IDD Field `coefficient1_constant`
+        """  Corresponds to IDD Field `Coefficient1 Constant`
+        
+        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `coefficient1_constant`
+            value (float): value for IDD Field `Coefficient1 Constant`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -726,10 +738,9 @@ class CurveQuadLinear(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `coefficient1_constant`'.format(value))
-
         self._data["Coefficient1 Constant"] = value
 
     @property
@@ -743,10 +754,12 @@ class CurveQuadLinear(object):
 
     @coefficient2_w.setter
     def coefficient2_w(self, value=None):
-        """  Corresponds to IDD Field `coefficient2_w`
+        """  Corresponds to IDD Field `Coefficient2 w`
+        
+        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `coefficient2_w`
+            value (float): value for IDD Field `Coefficient2 w`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -756,10 +769,9 @@ class CurveQuadLinear(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `coefficient2_w`'.format(value))
-
         self._data["Coefficient2 w"] = value
 
     @property
@@ -773,10 +785,12 @@ class CurveQuadLinear(object):
 
     @coefficient3_x.setter
     def coefficient3_x(self, value=None):
-        """  Corresponds to IDD Field `coefficient3_x`
+        """  Corresponds to IDD Field `Coefficient3 x`
+        
+        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `coefficient3_x`
+            value (float): value for IDD Field `Coefficient3 x`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -786,10 +800,9 @@ class CurveQuadLinear(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `coefficient3_x`'.format(value))
-
         self._data["Coefficient3 x"] = value
 
     @property
@@ -803,10 +816,12 @@ class CurveQuadLinear(object):
 
     @coefficient4_y.setter
     def coefficient4_y(self, value=None):
-        """  Corresponds to IDD Field `coefficient4_y`
+        """  Corresponds to IDD Field `Coefficient4 y`
+        
+        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `coefficient4_y`
+            value (float): value for IDD Field `Coefficient4 y`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -816,10 +831,9 @@ class CurveQuadLinear(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `coefficient4_y`'.format(value))
-
         self._data["Coefficient4 y"] = value
 
     @property
@@ -833,10 +847,12 @@ class CurveQuadLinear(object):
 
     @coefficient5_z.setter
     def coefficient5_z(self, value=None):
-        """  Corresponds to IDD Field `coefficient5_z`
+        """  Corresponds to IDD Field `Coefficient5 z`
+        
+        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `coefficient5_z`
+            value (float): value for IDD Field `Coefficient5 z`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -846,10 +862,9 @@ class CurveQuadLinear(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `coefficient5_z`'.format(value))
-
         self._data["Coefficient5 z"] = value
 
     @property
@@ -863,10 +878,12 @@ class CurveQuadLinear(object):
 
     @minimum_value_of_w.setter
     def minimum_value_of_w(self, value=None):
-        """  Corresponds to IDD Field `minimum_value_of_w`
+        """  Corresponds to IDD Field `Minimum Value of w`
+        
+        {u'type': u'real', u'unitsBasedOnField': u'A2', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `minimum_value_of_w`
+            value (float): value for IDD Field `Minimum Value of w`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -876,10 +893,9 @@ class CurveQuadLinear(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `minimum_value_of_w`'.format(value))
-
         self._data["Minimum Value of w"] = value
 
     @property
@@ -893,10 +909,12 @@ class CurveQuadLinear(object):
 
     @maximum_value_of_w.setter
     def maximum_value_of_w(self, value=None):
-        """  Corresponds to IDD Field `maximum_value_of_w`
+        """  Corresponds to IDD Field `Maximum Value of w`
+        
+        {u'type': u'real', u'unitsBasedOnField': u'A2', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `maximum_value_of_w`
+            value (float): value for IDD Field `Maximum Value of w`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -906,10 +924,9 @@ class CurveQuadLinear(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `maximum_value_of_w`'.format(value))
-
         self._data["Maximum Value of w"] = value
 
     @property
@@ -923,10 +940,12 @@ class CurveQuadLinear(object):
 
     @minimum_value_of_x.setter
     def minimum_value_of_x(self, value=None):
-        """  Corresponds to IDD Field `minimum_value_of_x`
+        """  Corresponds to IDD Field `Minimum Value of x`
+        
+        {u'type': u'real', u'unitsBasedOnField': u'A3', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `minimum_value_of_x`
+            value (float): value for IDD Field `Minimum Value of x`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -936,10 +955,9 @@ class CurveQuadLinear(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `minimum_value_of_x`'.format(value))
-
         self._data["Minimum Value of x"] = value
 
     @property
@@ -953,10 +971,12 @@ class CurveQuadLinear(object):
 
     @maximum_value_of_x.setter
     def maximum_value_of_x(self, value=None):
-        """  Corresponds to IDD Field `maximum_value_of_x`
+        """  Corresponds to IDD Field `Maximum Value of x`
+        
+        {u'type': u'real', u'unitsBasedOnField': u'A3', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `maximum_value_of_x`
+            value (float): value for IDD Field `Maximum Value of x`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -966,10 +986,9 @@ class CurveQuadLinear(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `maximum_value_of_x`'.format(value))
-
         self._data["Maximum Value of x"] = value
 
     @property
@@ -983,10 +1002,12 @@ class CurveQuadLinear(object):
 
     @minimum_value_of_y.setter
     def minimum_value_of_y(self, value=None):
-        """  Corresponds to IDD Field `minimum_value_of_y`
+        """  Corresponds to IDD Field `Minimum Value of y`
+        
+        {u'type': u'real', u'unitsBasedOnField': u'A4', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `minimum_value_of_y`
+            value (float): value for IDD Field `Minimum Value of y`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -996,10 +1017,9 @@ class CurveQuadLinear(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `minimum_value_of_y`'.format(value))
-
         self._data["Minimum Value of y"] = value
 
     @property
@@ -1013,10 +1033,12 @@ class CurveQuadLinear(object):
 
     @maximum_value_of_y.setter
     def maximum_value_of_y(self, value=None):
-        """  Corresponds to IDD Field `maximum_value_of_y`
+        """  Corresponds to IDD Field `Maximum Value of y`
+        
+        {u'type': u'real', u'unitsBasedOnField': u'A4', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `maximum_value_of_y`
+            value (float): value for IDD Field `Maximum Value of y`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1026,10 +1048,9 @@ class CurveQuadLinear(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `maximum_value_of_y`'.format(value))
-
         self._data["Maximum Value of y"] = value
 
     @property
@@ -1043,10 +1064,12 @@ class CurveQuadLinear(object):
 
     @minimum_value_of_z.setter
     def minimum_value_of_z(self, value=None):
-        """  Corresponds to IDD Field `minimum_value_of_z`
+        """  Corresponds to IDD Field `Minimum Value of z`
+        
+        {u'type': u'real', u'unitsBasedOnField': u'A5', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `minimum_value_of_z`
+            value (float): value for IDD Field `Minimum Value of z`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1056,10 +1079,9 @@ class CurveQuadLinear(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `minimum_value_of_z`'.format(value))
-
         self._data["Minimum Value of z"] = value
 
     @property
@@ -1073,10 +1095,12 @@ class CurveQuadLinear(object):
 
     @maximum_value_of_z.setter
     def maximum_value_of_z(self, value=None):
-        """  Corresponds to IDD Field `maximum_value_of_z`
+        """  Corresponds to IDD Field `Maximum Value of z`
+        
+        {u'type': u'real', u'unitsBasedOnField': u'A5', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `maximum_value_of_z`
+            value (float): value for IDD Field `Maximum Value of z`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1086,10 +1110,9 @@ class CurveQuadLinear(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `maximum_value_of_z`'.format(value))
-
         self._data["Maximum Value of z"] = value
 
     @property
@@ -1103,11 +1126,13 @@ class CurveQuadLinear(object):
 
     @minimum_curve_output.setter
     def minimum_curve_output(self, value=None):
-        """  Corresponds to IDD Field `minimum_curve_output`
+        """  Corresponds to IDD Field `Minimum Curve Output`
         Specify the minimum value calculated by this curve object
+        
+        {u'note': [u'Specify the minimum value calculated by this curve object'], u'type': u'real', u'unitsBasedOnField': u'A4', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `minimum_curve_output`
+            value (float): value for IDD Field `Minimum Curve Output`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1117,10 +1142,9 @@ class CurveQuadLinear(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `minimum_curve_output`'.format(value))
-
         self._data["Minimum Curve Output"] = value
 
     @property
@@ -1134,11 +1158,13 @@ class CurveQuadLinear(object):
 
     @maximum_curve_output.setter
     def maximum_curve_output(self, value=None):
-        """  Corresponds to IDD Field `maximum_curve_output`
+        """  Corresponds to IDD Field `Maximum Curve Output`
         Specify the maximum value calculated by this curve object
+        
+        {u'note': [u'Specify the maximum value calculated by this curve object'], u'type': u'real', u'unitsBasedOnField': u'A4', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `maximum_curve_output`
+            value (float): value for IDD Field `Maximum Curve Output`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1148,10 +1174,9 @@ class CurveQuadLinear(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `maximum_curve_output`'.format(value))
-
         self._data["Maximum Curve Output"] = value
 
     @property
@@ -1165,10 +1190,12 @@ class CurveQuadLinear(object):
 
     @input_unit_type_for_w.setter
     def input_unit_type_for_w(self, value="Dimensionless"):
-        """  Corresponds to IDD Field `input_unit_type_for_w`
+        """  Corresponds to IDD Field `Input Unit Type for w`
+        
+        {u'default': u'Dimensionless', u'type': u'choice', u'key': [u'Dimensionless', u'Temperature', u'VolumetricFlow', u'MassFlow', u'Power', u'Distance', u'VolumetricFlowPerPower'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `input_unit_type_for_w`
+            value (str): value for IDD Field `Input Unit Type for w`
                 Accepted values are:
                       - Dimensionless
                       - Temperature
@@ -1187,7 +1214,7 @@ class CurveQuadLinear(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `input_unit_type_for_w`'.format(value))
             if ',' in value:
@@ -1218,7 +1245,6 @@ class CurveQuadLinear(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `input_unit_type_for_w`'.format(value))
             value = vals[value_lower]
-
         self._data["Input Unit Type for w"] = value
 
     @property
@@ -1232,10 +1258,12 @@ class CurveQuadLinear(object):
 
     @input_unit_type_for_x.setter
     def input_unit_type_for_x(self, value="Dimensionless"):
-        """  Corresponds to IDD Field `input_unit_type_for_x`
+        """  Corresponds to IDD Field `Input Unit Type for x`
+        
+        {u'default': u'Dimensionless', u'type': u'choice', u'key': [u'Dimensionless', u'Temperature', u'VolumetricFlow', u'MassFlow', u'Power', u'Distance', u'VolumetricFlowPerPower'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `input_unit_type_for_x`
+            value (str): value for IDD Field `Input Unit Type for x`
                 Accepted values are:
                       - Dimensionless
                       - Temperature
@@ -1254,7 +1282,7 @@ class CurveQuadLinear(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `input_unit_type_for_x`'.format(value))
             if ',' in value:
@@ -1285,7 +1313,6 @@ class CurveQuadLinear(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `input_unit_type_for_x`'.format(value))
             value = vals[value_lower]
-
         self._data["Input Unit Type for x"] = value
 
     @property
@@ -1299,10 +1326,12 @@ class CurveQuadLinear(object):
 
     @input_unit_type_for_y.setter
     def input_unit_type_for_y(self, value="Dimensionless"):
-        """  Corresponds to IDD Field `input_unit_type_for_y`
+        """  Corresponds to IDD Field `Input Unit Type for y`
+        
+        {u'default': u'Dimensionless', u'type': u'choice', u'key': [u'Dimensionless', u'Temperature', u'VolumetricFlow', u'MassFlow', u'Power', u'Distance', u'VolumetricFlowPerPower'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `input_unit_type_for_y`
+            value (str): value for IDD Field `Input Unit Type for y`
                 Accepted values are:
                       - Dimensionless
                       - Temperature
@@ -1321,7 +1350,7 @@ class CurveQuadLinear(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `input_unit_type_for_y`'.format(value))
             if ',' in value:
@@ -1352,7 +1381,6 @@ class CurveQuadLinear(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `input_unit_type_for_y`'.format(value))
             value = vals[value_lower]
-
         self._data["Input Unit Type for y"] = value
 
     @property
@@ -1366,10 +1394,12 @@ class CurveQuadLinear(object):
 
     @input_unit_type_for_z.setter
     def input_unit_type_for_z(self, value="Dimensionless"):
-        """  Corresponds to IDD Field `input_unit_type_for_z`
+        """  Corresponds to IDD Field `Input Unit Type for z`
+        
+        {u'default': u'Dimensionless', u'type': u'choice', u'key': [u'Dimensionless', u'Temperature', u'VolumetricFlow', u'MassFlow', u'Power', u'Distance', u'VolumetricFlowPerPower'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `input_unit_type_for_z`
+            value (str): value for IDD Field `Input Unit Type for z`
                 Accepted values are:
                       - Dimensionless
                       - Temperature
@@ -1388,7 +1418,7 @@ class CurveQuadLinear(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `input_unit_type_for_z`'.format(value))
             if ',' in value:
@@ -1419,7 +1449,6 @@ class CurveQuadLinear(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `input_unit_type_for_z`'.format(value))
             value = vals[value_lower]
-
         self._data["Input Unit Type for z"] = value
 
     def check(self):
@@ -1575,10 +1604,12 @@ class CurveQuadratic(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {u'type': u'alpha', u'reference': u'BiquadraticQuadraticCubicCurves', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1588,7 +1619,7 @@ class CurveQuadratic(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -1597,7 +1628,6 @@ class CurveQuadratic(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -1611,10 +1641,12 @@ class CurveQuadratic(object):
 
     @coefficient1_constant.setter
     def coefficient1_constant(self, value=None):
-        """  Corresponds to IDD Field `coefficient1_constant`
+        """  Corresponds to IDD Field `Coefficient1 Constant`
+        
+        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `coefficient1_constant`
+            value (float): value for IDD Field `Coefficient1 Constant`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1624,10 +1656,9 @@ class CurveQuadratic(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `coefficient1_constant`'.format(value))
-
         self._data["Coefficient1 Constant"] = value
 
     @property
@@ -1641,10 +1672,12 @@ class CurveQuadratic(object):
 
     @coefficient2_x.setter
     def coefficient2_x(self, value=None):
-        """  Corresponds to IDD Field `coefficient2_x`
+        """  Corresponds to IDD Field `Coefficient2 x`
+        
+        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `coefficient2_x`
+            value (float): value for IDD Field `Coefficient2 x`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1654,10 +1687,9 @@ class CurveQuadratic(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `coefficient2_x`'.format(value))
-
         self._data["Coefficient2 x"] = value
 
     @property
@@ -1671,10 +1703,12 @@ class CurveQuadratic(object):
 
     @coefficient3_x2.setter
     def coefficient3_x2(self, value=None):
-        """  Corresponds to IDD Field `coefficient3_x2`
+        """  Corresponds to IDD Field `Coefficient3 x**2`
+        
+        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `coefficient3_x2`
+            value (float): value for IDD Field `Coefficient3 x**2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1684,10 +1718,9 @@ class CurveQuadratic(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `coefficient3_x2`'.format(value))
-
         self._data["Coefficient3 x**2"] = value
 
     @property
@@ -1701,10 +1734,12 @@ class CurveQuadratic(object):
 
     @minimum_value_of_x.setter
     def minimum_value_of_x(self, value=None):
-        """  Corresponds to IDD Field `minimum_value_of_x`
+        """  Corresponds to IDD Field `Minimum Value of x`
+        
+        {u'type': u'real', u'unitsBasedOnField': u'A2', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `minimum_value_of_x`
+            value (float): value for IDD Field `Minimum Value of x`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1714,10 +1749,9 @@ class CurveQuadratic(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `minimum_value_of_x`'.format(value))
-
         self._data["Minimum Value of x"] = value
 
     @property
@@ -1731,10 +1765,12 @@ class CurveQuadratic(object):
 
     @maximum_value_of_x.setter
     def maximum_value_of_x(self, value=None):
-        """  Corresponds to IDD Field `maximum_value_of_x`
+        """  Corresponds to IDD Field `Maximum Value of x`
+        
+        {u'type': u'real', u'unitsBasedOnField': u'A2', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `maximum_value_of_x`
+            value (float): value for IDD Field `Maximum Value of x`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1744,10 +1780,9 @@ class CurveQuadratic(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `maximum_value_of_x`'.format(value))
-
         self._data["Maximum Value of x"] = value
 
     @property
@@ -1761,11 +1796,13 @@ class CurveQuadratic(object):
 
     @minimum_curve_output.setter
     def minimum_curve_output(self, value=None):
-        """  Corresponds to IDD Field `minimum_curve_output`
+        """  Corresponds to IDD Field `Minimum Curve Output`
         Specify the minimum value calculated by this curve object
+        
+        {u'note': [u'Specify the minimum value calculated by this curve object'], u'type': u'real', u'unitsBasedOnField': u'A3', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `minimum_curve_output`
+            value (float): value for IDD Field `Minimum Curve Output`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1775,10 +1812,9 @@ class CurveQuadratic(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `minimum_curve_output`'.format(value))
-
         self._data["Minimum Curve Output"] = value
 
     @property
@@ -1792,11 +1828,13 @@ class CurveQuadratic(object):
 
     @maximum_curve_output.setter
     def maximum_curve_output(self, value=None):
-        """  Corresponds to IDD Field `maximum_curve_output`
+        """  Corresponds to IDD Field `Maximum Curve Output`
         Specify the maximum value calculated by this curve object
+        
+        {u'note': [u'Specify the maximum value calculated by this curve object'], u'type': u'real', u'unitsBasedOnField': u'A3', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `maximum_curve_output`
+            value (float): value for IDD Field `Maximum Curve Output`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1806,10 +1844,9 @@ class CurveQuadratic(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `maximum_curve_output`'.format(value))
-
         self._data["Maximum Curve Output"] = value
 
     @property
@@ -1823,10 +1860,12 @@ class CurveQuadratic(object):
 
     @input_unit_type_for_x.setter
     def input_unit_type_for_x(self, value="Dimensionless"):
-        """  Corresponds to IDD Field `input_unit_type_for_x`
+        """  Corresponds to IDD Field `Input Unit Type for X`
+        
+        {u'default': u'Dimensionless', u'type': u'choice', u'key': [u'Dimensionless', u'Temperature', u'VolumetricFlow', u'MassFlow', u'Power', u'Distance'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `input_unit_type_for_x`
+            value (str): value for IDD Field `Input Unit Type for X`
                 Accepted values are:
                       - Dimensionless
                       - Temperature
@@ -1844,7 +1883,7 @@ class CurveQuadratic(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `input_unit_type_for_x`'.format(value))
             if ',' in value:
@@ -1874,7 +1913,6 @@ class CurveQuadratic(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `input_unit_type_for_x`'.format(value))
             value = vals[value_lower]
-
         self._data["Input Unit Type for X"] = value
 
     @property
@@ -1888,10 +1926,12 @@ class CurveQuadratic(object):
 
     @output_unit_type.setter
     def output_unit_type(self, value="Dimensionless"):
-        """  Corresponds to IDD Field `output_unit_type`
+        """  Corresponds to IDD Field `Output Unit Type`
+        
+        {u'default': u'Dimensionless', u'type': u'choice', u'key': [u'Dimensionless', u'Capacity', u'Power'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `output_unit_type`
+            value (str): value for IDD Field `Output Unit Type`
                 Accepted values are:
                       - Dimensionless
                       - Capacity
@@ -1906,7 +1946,7 @@ class CurveQuadratic(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `output_unit_type`'.format(value))
             if ',' in value:
@@ -1933,7 +1973,6 @@ class CurveQuadratic(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `output_unit_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Output Unit Type"] = value
 
     def check(self):
@@ -2097,10 +2136,12 @@ class CurveCubic(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {u'type': u'alpha', u'reference': u'BiquadraticQuadraticCubicCurves', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2110,7 +2151,7 @@ class CurveCubic(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -2119,7 +2160,6 @@ class CurveCubic(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -2133,10 +2173,12 @@ class CurveCubic(object):
 
     @coefficient1_constant.setter
     def coefficient1_constant(self, value=None):
-        """  Corresponds to IDD Field `coefficient1_constant`
+        """  Corresponds to IDD Field `Coefficient1 Constant`
+        
+        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `coefficient1_constant`
+            value (float): value for IDD Field `Coefficient1 Constant`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2146,10 +2188,9 @@ class CurveCubic(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `coefficient1_constant`'.format(value))
-
         self._data["Coefficient1 Constant"] = value
 
     @property
@@ -2163,10 +2204,12 @@ class CurveCubic(object):
 
     @coefficient2_x.setter
     def coefficient2_x(self, value=None):
-        """  Corresponds to IDD Field `coefficient2_x`
+        """  Corresponds to IDD Field `Coefficient2 x`
+        
+        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `coefficient2_x`
+            value (float): value for IDD Field `Coefficient2 x`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2176,10 +2219,9 @@ class CurveCubic(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `coefficient2_x`'.format(value))
-
         self._data["Coefficient2 x"] = value
 
     @property
@@ -2193,10 +2235,12 @@ class CurveCubic(object):
 
     @coefficient3_x2.setter
     def coefficient3_x2(self, value=None):
-        """  Corresponds to IDD Field `coefficient3_x2`
+        """  Corresponds to IDD Field `Coefficient3 x**2`
+        
+        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `coefficient3_x2`
+            value (float): value for IDD Field `Coefficient3 x**2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2206,10 +2250,9 @@ class CurveCubic(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `coefficient3_x2`'.format(value))
-
         self._data["Coefficient3 x**2"] = value
 
     @property
@@ -2223,10 +2266,12 @@ class CurveCubic(object):
 
     @coefficient4_x3.setter
     def coefficient4_x3(self, value=None):
-        """  Corresponds to IDD Field `coefficient4_x3`
+        """  Corresponds to IDD Field `Coefficient4 x**3`
+        
+        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `coefficient4_x3`
+            value (float): value for IDD Field `Coefficient4 x**3`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2236,10 +2281,9 @@ class CurveCubic(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `coefficient4_x3`'.format(value))
-
         self._data["Coefficient4 x**3"] = value
 
     @property
@@ -2253,10 +2297,12 @@ class CurveCubic(object):
 
     @minimum_value_of_x.setter
     def minimum_value_of_x(self, value=None):
-        """  Corresponds to IDD Field `minimum_value_of_x`
+        """  Corresponds to IDD Field `Minimum Value of x`
+        
+        {u'type': u'real', u'unitsBasedOnField': u'A2', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `minimum_value_of_x`
+            value (float): value for IDD Field `Minimum Value of x`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2266,10 +2312,9 @@ class CurveCubic(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `minimum_value_of_x`'.format(value))
-
         self._data["Minimum Value of x"] = value
 
     @property
@@ -2283,10 +2328,12 @@ class CurveCubic(object):
 
     @maximum_value_of_x.setter
     def maximum_value_of_x(self, value=None):
-        """  Corresponds to IDD Field `maximum_value_of_x`
+        """  Corresponds to IDD Field `Maximum Value of x`
+        
+        {u'type': u'real', u'unitsBasedOnField': u'A2', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `maximum_value_of_x`
+            value (float): value for IDD Field `Maximum Value of x`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2296,10 +2343,9 @@ class CurveCubic(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `maximum_value_of_x`'.format(value))
-
         self._data["Maximum Value of x"] = value
 
     @property
@@ -2313,11 +2359,13 @@ class CurveCubic(object):
 
     @minimum_curve_output.setter
     def minimum_curve_output(self, value=None):
-        """  Corresponds to IDD Field `minimum_curve_output`
+        """  Corresponds to IDD Field `Minimum Curve Output`
         Specify the minimum value calculated by this curve object
+        
+        {u'note': [u'Specify the minimum value calculated by this curve object'], u'type': u'real', u'unitsBasedOnField': u'A3', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `minimum_curve_output`
+            value (float): value for IDD Field `Minimum Curve Output`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2327,10 +2375,9 @@ class CurveCubic(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `minimum_curve_output`'.format(value))
-
         self._data["Minimum Curve Output"] = value
 
     @property
@@ -2344,11 +2391,13 @@ class CurveCubic(object):
 
     @maximum_curve_output.setter
     def maximum_curve_output(self, value=None):
-        """  Corresponds to IDD Field `maximum_curve_output`
+        """  Corresponds to IDD Field `Maximum Curve Output`
         Specify the maximum value calculated by this curve object
+        
+        {u'note': [u'Specify the maximum value calculated by this curve object'], u'type': u'real', u'unitsBasedOnField': u'A3', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `maximum_curve_output`
+            value (float): value for IDD Field `Maximum Curve Output`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2358,10 +2407,9 @@ class CurveCubic(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `maximum_curve_output`'.format(value))
-
         self._data["Maximum Curve Output"] = value
 
     @property
@@ -2375,10 +2423,12 @@ class CurveCubic(object):
 
     @input_unit_type_for_x.setter
     def input_unit_type_for_x(self, value="Dimensionless"):
-        """  Corresponds to IDD Field `input_unit_type_for_x`
+        """  Corresponds to IDD Field `Input Unit Type for X`
+        
+        {u'default': u'Dimensionless', u'type': u'choice', u'key': [u'Dimensionless', u'Temperature', u'VolumetricFlow', u'MassFlow', u'Power', u'Distance'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `input_unit_type_for_x`
+            value (str): value for IDD Field `Input Unit Type for X`
                 Accepted values are:
                       - Dimensionless
                       - Temperature
@@ -2396,7 +2446,7 @@ class CurveCubic(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `input_unit_type_for_x`'.format(value))
             if ',' in value:
@@ -2426,7 +2476,6 @@ class CurveCubic(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `input_unit_type_for_x`'.format(value))
             value = vals[value_lower]
-
         self._data["Input Unit Type for X"] = value
 
     @property
@@ -2440,10 +2489,12 @@ class CurveCubic(object):
 
     @output_unit_type.setter
     def output_unit_type(self, value="Dimensionless"):
-        """  Corresponds to IDD Field `output_unit_type`
+        """  Corresponds to IDD Field `Output Unit Type`
+        
+        {u'default': u'Dimensionless', u'type': u'choice', u'key': [u'Dimensionless', u'Capacity', u'Power'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `output_unit_type`
+            value (str): value for IDD Field `Output Unit Type`
                 Accepted values are:
                       - Dimensionless
                       - Capacity
@@ -2458,7 +2509,7 @@ class CurveCubic(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `output_unit_type`'.format(value))
             if ',' in value:
@@ -2485,7 +2536,6 @@ class CurveCubic(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `output_unit_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Output Unit Type"] = value
 
     def check(self):
@@ -2658,10 +2708,12 @@ class CurveQuartic(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {u'type': u'alpha', u'reference': u'AllCurves', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2671,7 +2723,7 @@ class CurveQuartic(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -2680,7 +2732,6 @@ class CurveQuartic(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -2694,10 +2745,12 @@ class CurveQuartic(object):
 
     @coefficient1_constant.setter
     def coefficient1_constant(self, value=None):
-        """  Corresponds to IDD Field `coefficient1_constant`
+        """  Corresponds to IDD Field `Coefficient1 Constant`
+        
+        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `coefficient1_constant`
+            value (float): value for IDD Field `Coefficient1 Constant`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2707,10 +2760,9 @@ class CurveQuartic(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `coefficient1_constant`'.format(value))
-
         self._data["Coefficient1 Constant"] = value
 
     @property
@@ -2724,10 +2776,12 @@ class CurveQuartic(object):
 
     @coefficient2_x.setter
     def coefficient2_x(self, value=None):
-        """  Corresponds to IDD Field `coefficient2_x`
+        """  Corresponds to IDD Field `Coefficient2 x`
+        
+        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `coefficient2_x`
+            value (float): value for IDD Field `Coefficient2 x`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2737,10 +2791,9 @@ class CurveQuartic(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `coefficient2_x`'.format(value))
-
         self._data["Coefficient2 x"] = value
 
     @property
@@ -2754,10 +2807,12 @@ class CurveQuartic(object):
 
     @coefficient3_x2.setter
     def coefficient3_x2(self, value=None):
-        """  Corresponds to IDD Field `coefficient3_x2`
+        """  Corresponds to IDD Field `Coefficient3 x**2`
+        
+        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `coefficient3_x2`
+            value (float): value for IDD Field `Coefficient3 x**2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2767,10 +2822,9 @@ class CurveQuartic(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `coefficient3_x2`'.format(value))
-
         self._data["Coefficient3 x**2"] = value
 
     @property
@@ -2784,10 +2838,12 @@ class CurveQuartic(object):
 
     @coefficient4_x3.setter
     def coefficient4_x3(self, value=None):
-        """  Corresponds to IDD Field `coefficient4_x3`
+        """  Corresponds to IDD Field `Coefficient4 x**3`
+        
+        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `coefficient4_x3`
+            value (float): value for IDD Field `Coefficient4 x**3`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2797,10 +2853,9 @@ class CurveQuartic(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `coefficient4_x3`'.format(value))
-
         self._data["Coefficient4 x**3"] = value
 
     @property
@@ -2814,10 +2869,12 @@ class CurveQuartic(object):
 
     @coefficient5_x4.setter
     def coefficient5_x4(self, value=None):
-        """  Corresponds to IDD Field `coefficient5_x4`
+        """  Corresponds to IDD Field `Coefficient5 x**4`
+        
+        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `coefficient5_x4`
+            value (float): value for IDD Field `Coefficient5 x**4`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2827,10 +2884,9 @@ class CurveQuartic(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `coefficient5_x4`'.format(value))
-
         self._data["Coefficient5 x**4"] = value
 
     @property
@@ -2844,10 +2900,12 @@ class CurveQuartic(object):
 
     @minimum_value_of_x.setter
     def minimum_value_of_x(self, value=None):
-        """  Corresponds to IDD Field `minimum_value_of_x`
+        """  Corresponds to IDD Field `Minimum Value of x`
+        
+        {u'type': u'real', u'unitsBasedOnField': u'A2', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `minimum_value_of_x`
+            value (float): value for IDD Field `Minimum Value of x`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2857,10 +2915,9 @@ class CurveQuartic(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `minimum_value_of_x`'.format(value))
-
         self._data["Minimum Value of x"] = value
 
     @property
@@ -2874,10 +2931,12 @@ class CurveQuartic(object):
 
     @maximum_value_of_x.setter
     def maximum_value_of_x(self, value=None):
-        """  Corresponds to IDD Field `maximum_value_of_x`
+        """  Corresponds to IDD Field `Maximum Value of x`
+        
+        {u'type': u'real', u'unitsBasedOnField': u'A2', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `maximum_value_of_x`
+            value (float): value for IDD Field `Maximum Value of x`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2887,10 +2946,9 @@ class CurveQuartic(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `maximum_value_of_x`'.format(value))
-
         self._data["Maximum Value of x"] = value
 
     @property
@@ -2904,11 +2962,13 @@ class CurveQuartic(object):
 
     @minimum_curve_output.setter
     def minimum_curve_output(self, value=None):
-        """  Corresponds to IDD Field `minimum_curve_output`
+        """  Corresponds to IDD Field `Minimum Curve Output`
         Specify the minimum value calculated by this curve object
+        
+        {u'note': [u'Specify the minimum value calculated by this curve object'], u'type': u'real', u'unitsBasedOnField': u'A3', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `minimum_curve_output`
+            value (float): value for IDD Field `Minimum Curve Output`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2918,10 +2978,9 @@ class CurveQuartic(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `minimum_curve_output`'.format(value))
-
         self._data["Minimum Curve Output"] = value
 
     @property
@@ -2935,11 +2994,13 @@ class CurveQuartic(object):
 
     @maximum_curve_output.setter
     def maximum_curve_output(self, value=None):
-        """  Corresponds to IDD Field `maximum_curve_output`
+        """  Corresponds to IDD Field `Maximum Curve Output`
         Specify the maximum value calculated by this curve object
+        
+        {u'note': [u'Specify the maximum value calculated by this curve object'], u'type': u'real', u'unitsBasedOnField': u'A3', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `maximum_curve_output`
+            value (float): value for IDD Field `Maximum Curve Output`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2949,10 +3010,9 @@ class CurveQuartic(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `maximum_curve_output`'.format(value))
-
         self._data["Maximum Curve Output"] = value
 
     @property
@@ -2966,10 +3026,12 @@ class CurveQuartic(object):
 
     @input_unit_type_for_x.setter
     def input_unit_type_for_x(self, value="Dimensionless"):
-        """  Corresponds to IDD Field `input_unit_type_for_x`
+        """  Corresponds to IDD Field `Input Unit Type for X`
+        
+        {u'default': u'Dimensionless', u'type': u'choice', u'key': [u'Dimensionless', u'Temperature', u'VolumetricFlow', u'MassFlow', u'Power', u'Distance'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `input_unit_type_for_x`
+            value (str): value for IDD Field `Input Unit Type for X`
                 Accepted values are:
                       - Dimensionless
                       - Temperature
@@ -2987,7 +3049,7 @@ class CurveQuartic(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `input_unit_type_for_x`'.format(value))
             if ',' in value:
@@ -3017,7 +3079,6 @@ class CurveQuartic(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `input_unit_type_for_x`'.format(value))
             value = vals[value_lower]
-
         self._data["Input Unit Type for X"] = value
 
     @property
@@ -3031,10 +3092,12 @@ class CurveQuartic(object):
 
     @output_unit_type.setter
     def output_unit_type(self, value="Dimensionless"):
-        """  Corresponds to IDD Field `output_unit_type`
+        """  Corresponds to IDD Field `Output Unit Type`
+        
+        {u'default': u'Dimensionless', u'type': u'choice', u'key': [u'Dimensionless', u'Capacity', u'Power'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `output_unit_type`
+            value (str): value for IDD Field `Output Unit Type`
                 Accepted values are:
                       - Dimensionless
                       - Capacity
@@ -3049,7 +3112,7 @@ class CurveQuartic(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `output_unit_type`'.format(value))
             if ',' in value:
@@ -3076,7 +3139,6 @@ class CurveQuartic(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `output_unit_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Output Unit Type"] = value
 
     def check(self):
@@ -3233,10 +3295,12 @@ class CurveExponent(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {u'type': u'alpha', u'reference': u'AllCurves', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3246,7 +3310,7 @@ class CurveExponent(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -3255,7 +3319,6 @@ class CurveExponent(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -3269,10 +3332,12 @@ class CurveExponent(object):
 
     @coefficient1_constant.setter
     def coefficient1_constant(self, value=None):
-        """  Corresponds to IDD Field `coefficient1_constant`
+        """  Corresponds to IDD Field `Coefficient1 Constant`
+        
+        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `coefficient1_constant`
+            value (float): value for IDD Field `Coefficient1 Constant`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3282,10 +3347,9 @@ class CurveExponent(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `coefficient1_constant`'.format(value))
-
         self._data["Coefficient1 Constant"] = value
 
     @property
@@ -3299,10 +3363,12 @@ class CurveExponent(object):
 
     @coefficient2_constant.setter
     def coefficient2_constant(self, value=None):
-        """  Corresponds to IDD Field `coefficient2_constant`
+        """  Corresponds to IDD Field `Coefficient2 Constant`
+        
+        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `coefficient2_constant`
+            value (float): value for IDD Field `Coefficient2 Constant`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3312,10 +3378,9 @@ class CurveExponent(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `coefficient2_constant`'.format(value))
-
         self._data["Coefficient2 Constant"] = value
 
     @property
@@ -3329,10 +3394,12 @@ class CurveExponent(object):
 
     @coefficient3_constant.setter
     def coefficient3_constant(self, value=None):
-        """  Corresponds to IDD Field `coefficient3_constant`
+        """  Corresponds to IDD Field `Coefficient3 Constant`
+        
+        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `coefficient3_constant`
+            value (float): value for IDD Field `Coefficient3 Constant`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3342,10 +3409,9 @@ class CurveExponent(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `coefficient3_constant`'.format(value))
-
         self._data["Coefficient3 Constant"] = value
 
     @property
@@ -3359,11 +3425,13 @@ class CurveExponent(object):
 
     @minimum_value_of_x.setter
     def minimum_value_of_x(self, value=None):
-        """  Corresponds to IDD Field `minimum_value_of_x`
+        """  Corresponds to IDD Field `Minimum Value of x`
         Specify the minimum value of the independent variable x allowed
+        
+        {u'note': [u'Specify the minimum value of the independent variable x allowed'], u'type': u'real', u'unitsBasedOnField': u'A2', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `minimum_value_of_x`
+            value (float): value for IDD Field `Minimum Value of x`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3373,10 +3441,9 @@ class CurveExponent(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `minimum_value_of_x`'.format(value))
-
         self._data["Minimum Value of x"] = value
 
     @property
@@ -3390,11 +3457,13 @@ class CurveExponent(object):
 
     @maximum_value_of_x.setter
     def maximum_value_of_x(self, value=None):
-        """  Corresponds to IDD Field `maximum_value_of_x`
+        """  Corresponds to IDD Field `Maximum Value of x`
         Specify the maximum value of the independent variable x allowed
+        
+        {u'note': [u'Specify the maximum value of the independent variable x allowed'], u'type': u'real', u'unitsBasedOnField': u'A2', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `maximum_value_of_x`
+            value (float): value for IDD Field `Maximum Value of x`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3404,10 +3473,9 @@ class CurveExponent(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `maximum_value_of_x`'.format(value))
-
         self._data["Maximum Value of x"] = value
 
     @property
@@ -3421,11 +3489,13 @@ class CurveExponent(object):
 
     @minimum_curve_output.setter
     def minimum_curve_output(self, value=None):
-        """  Corresponds to IDD Field `minimum_curve_output`
+        """  Corresponds to IDD Field `Minimum Curve Output`
         Specify the minimum value calculated by this curve object
+        
+        {u'note': [u'Specify the minimum value calculated by this curve object'], u'type': u'real', u'unitsBasedOnField': u'A3', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `minimum_curve_output`
+            value (float): value for IDD Field `Minimum Curve Output`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3435,10 +3505,9 @@ class CurveExponent(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `minimum_curve_output`'.format(value))
-
         self._data["Minimum Curve Output"] = value
 
     @property
@@ -3452,11 +3521,13 @@ class CurveExponent(object):
 
     @maximum_curve_output.setter
     def maximum_curve_output(self, value=None):
-        """  Corresponds to IDD Field `maximum_curve_output`
+        """  Corresponds to IDD Field `Maximum Curve Output`
         Specify the maximum value calculated by this curve object
+        
+        {u'note': [u'Specify the maximum value calculated by this curve object'], u'type': u'real', u'unitsBasedOnField': u'A3', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `maximum_curve_output`
+            value (float): value for IDD Field `Maximum Curve Output`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3466,10 +3537,9 @@ class CurveExponent(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `maximum_curve_output`'.format(value))
-
         self._data["Maximum Curve Output"] = value
 
     @property
@@ -3483,10 +3553,12 @@ class CurveExponent(object):
 
     @input_unit_type_for_x.setter
     def input_unit_type_for_x(self, value="Dimensionless"):
-        """  Corresponds to IDD Field `input_unit_type_for_x`
+        """  Corresponds to IDD Field `Input Unit Type for X`
+        
+        {u'default': u'Dimensionless', u'type': u'choice', u'key': [u'Dimensionless', u'Temperature', u'VolumetricFlow', u'MassFlow', u'Power', u'Distance'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `input_unit_type_for_x`
+            value (str): value for IDD Field `Input Unit Type for X`
                 Accepted values are:
                       - Dimensionless
                       - Temperature
@@ -3504,7 +3576,7 @@ class CurveExponent(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `input_unit_type_for_x`'.format(value))
             if ',' in value:
@@ -3534,7 +3606,6 @@ class CurveExponent(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `input_unit_type_for_x`'.format(value))
             value = vals[value_lower]
-
         self._data["Input Unit Type for X"] = value
 
     @property
@@ -3548,10 +3619,12 @@ class CurveExponent(object):
 
     @output_unit_type.setter
     def output_unit_type(self, value="Dimensionless"):
-        """  Corresponds to IDD Field `output_unit_type`
+        """  Corresponds to IDD Field `Output Unit Type`
+        
+        {u'default': u'Dimensionless', u'type': u'choice', u'key': [u'Dimensionless', u'Capacity', u'Power'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `output_unit_type`
+            value (str): value for IDD Field `Output Unit Type`
                 Accepted values are:
                       - Dimensionless
                       - Capacity
@@ -3566,7 +3639,7 @@ class CurveExponent(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `output_unit_type`'.format(value))
             if ',' in value:
@@ -3593,7 +3666,6 @@ class CurveExponent(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `output_unit_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Output Unit Type"] = value
 
     def check(self):
@@ -3830,10 +3902,12 @@ class CurveBicubic(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {u'type': u'alpha', u'reference': u'BicubicBiquadraticCurves', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3843,7 +3917,7 @@ class CurveBicubic(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -3852,7 +3926,6 @@ class CurveBicubic(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -3866,10 +3939,12 @@ class CurveBicubic(object):
 
     @coefficient1_constant.setter
     def coefficient1_constant(self, value=None):
-        """  Corresponds to IDD Field `coefficient1_constant`
+        """  Corresponds to IDD Field `Coefficient1 Constant`
+        
+        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `coefficient1_constant`
+            value (float): value for IDD Field `Coefficient1 Constant`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3879,10 +3954,9 @@ class CurveBicubic(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `coefficient1_constant`'.format(value))
-
         self._data["Coefficient1 Constant"] = value
 
     @property
@@ -3896,10 +3970,12 @@ class CurveBicubic(object):
 
     @coefficient2_x.setter
     def coefficient2_x(self, value=None):
-        """  Corresponds to IDD Field `coefficient2_x`
+        """  Corresponds to IDD Field `Coefficient2 x`
+        
+        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `coefficient2_x`
+            value (float): value for IDD Field `Coefficient2 x`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3909,10 +3985,9 @@ class CurveBicubic(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `coefficient2_x`'.format(value))
-
         self._data["Coefficient2 x"] = value
 
     @property
@@ -3926,10 +4001,12 @@ class CurveBicubic(object):
 
     @coefficient3_x2.setter
     def coefficient3_x2(self, value=None):
-        """  Corresponds to IDD Field `coefficient3_x2`
+        """  Corresponds to IDD Field `Coefficient3 x**2`
+        
+        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `coefficient3_x2`
+            value (float): value for IDD Field `Coefficient3 x**2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3939,10 +4016,9 @@ class CurveBicubic(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `coefficient3_x2`'.format(value))
-
         self._data["Coefficient3 x**2"] = value
 
     @property
@@ -3956,10 +4032,12 @@ class CurveBicubic(object):
 
     @coefficient4_y.setter
     def coefficient4_y(self, value=None):
-        """  Corresponds to IDD Field `coefficient4_y`
+        """  Corresponds to IDD Field `Coefficient4 y`
+        
+        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `coefficient4_y`
+            value (float): value for IDD Field `Coefficient4 y`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3969,10 +4047,9 @@ class CurveBicubic(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `coefficient4_y`'.format(value))
-
         self._data["Coefficient4 y"] = value
 
     @property
@@ -3986,10 +4063,12 @@ class CurveBicubic(object):
 
     @coefficient5_y2.setter
     def coefficient5_y2(self, value=None):
-        """  Corresponds to IDD Field `coefficient5_y2`
+        """  Corresponds to IDD Field `Coefficient5 y**2`
+        
+        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `coefficient5_y2`
+            value (float): value for IDD Field `Coefficient5 y**2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3999,10 +4078,9 @@ class CurveBicubic(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `coefficient5_y2`'.format(value))
-
         self._data["Coefficient5 y**2"] = value
 
     @property
@@ -4016,10 +4094,12 @@ class CurveBicubic(object):
 
     @coefficient6_xy.setter
     def coefficient6_xy(self, value=None):
-        """  Corresponds to IDD Field `coefficient6_xy`
+        """  Corresponds to IDD Field `Coefficient6 x*y`
+        
+        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `coefficient6_xy`
+            value (float): value for IDD Field `Coefficient6 x*y`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4029,10 +4109,9 @@ class CurveBicubic(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `coefficient6_xy`'.format(value))
-
         self._data["Coefficient6 x*y"] = value
 
     @property
@@ -4046,10 +4125,12 @@ class CurveBicubic(object):
 
     @coefficient7_x3.setter
     def coefficient7_x3(self, value=None):
-        """  Corresponds to IDD Field `coefficient7_x3`
+        """  Corresponds to IDD Field `Coefficient7 x**3`
+        
+        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `coefficient7_x3`
+            value (float): value for IDD Field `Coefficient7 x**3`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4059,10 +4140,9 @@ class CurveBicubic(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `coefficient7_x3`'.format(value))
-
         self._data["Coefficient7 x**3"] = value
 
     @property
@@ -4076,10 +4156,12 @@ class CurveBicubic(object):
 
     @coefficient8_y3.setter
     def coefficient8_y3(self, value=None):
-        """  Corresponds to IDD Field `coefficient8_y3`
+        """  Corresponds to IDD Field `Coefficient8 y**3`
+        
+        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `coefficient8_y3`
+            value (float): value for IDD Field `Coefficient8 y**3`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4089,10 +4171,9 @@ class CurveBicubic(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `coefficient8_y3`'.format(value))
-
         self._data["Coefficient8 y**3"] = value
 
     @property
@@ -4106,10 +4187,12 @@ class CurveBicubic(object):
 
     @coefficient9_x2y.setter
     def coefficient9_x2y(self, value=None):
-        """  Corresponds to IDD Field `coefficient9_x2y`
+        """  Corresponds to IDD Field `Coefficient9 x**2*y`
+        
+        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `coefficient9_x2y`
+            value (float): value for IDD Field `Coefficient9 x**2*y`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4119,10 +4202,9 @@ class CurveBicubic(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `coefficient9_x2y`'.format(value))
-
         self._data["Coefficient9 x**2*y"] = value
 
     @property
@@ -4136,10 +4218,12 @@ class CurveBicubic(object):
 
     @coefficient10_xy2.setter
     def coefficient10_xy2(self, value=None):
-        """  Corresponds to IDD Field `coefficient10_xy2`
+        """  Corresponds to IDD Field `Coefficient10 x*y**2`
+        
+        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `coefficient10_xy2`
+            value (float): value for IDD Field `Coefficient10 x*y**2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4149,10 +4233,9 @@ class CurveBicubic(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `coefficient10_xy2`'.format(value))
-
         self._data["Coefficient10 x*y**2"] = value
 
     @property
@@ -4166,10 +4249,12 @@ class CurveBicubic(object):
 
     @minimum_value_of_x.setter
     def minimum_value_of_x(self, value=None):
-        """  Corresponds to IDD Field `minimum_value_of_x`
+        """  Corresponds to IDD Field `Minimum Value of x`
+        
+        {u'type': u'real', u'unitsBasedOnField': u'A2', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `minimum_value_of_x`
+            value (float): value for IDD Field `Minimum Value of x`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4179,10 +4264,9 @@ class CurveBicubic(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `minimum_value_of_x`'.format(value))
-
         self._data["Minimum Value of x"] = value
 
     @property
@@ -4196,10 +4280,12 @@ class CurveBicubic(object):
 
     @maximum_value_of_x.setter
     def maximum_value_of_x(self, value=None):
-        """  Corresponds to IDD Field `maximum_value_of_x`
+        """  Corresponds to IDD Field `Maximum Value of x`
+        
+        {u'type': u'real', u'unitsBasedOnField': u'A2', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `maximum_value_of_x`
+            value (float): value for IDD Field `Maximum Value of x`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4209,10 +4295,9 @@ class CurveBicubic(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `maximum_value_of_x`'.format(value))
-
         self._data["Maximum Value of x"] = value
 
     @property
@@ -4226,10 +4311,12 @@ class CurveBicubic(object):
 
     @minimum_value_of_y.setter
     def minimum_value_of_y(self, value=None):
-        """  Corresponds to IDD Field `minimum_value_of_y`
+        """  Corresponds to IDD Field `Minimum Value of y`
+        
+        {u'type': u'real', u'unitsBasedOnField': u'A3', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `minimum_value_of_y`
+            value (float): value for IDD Field `Minimum Value of y`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4239,10 +4326,9 @@ class CurveBicubic(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `minimum_value_of_y`'.format(value))
-
         self._data["Minimum Value of y"] = value
 
     @property
@@ -4256,10 +4342,12 @@ class CurveBicubic(object):
 
     @maximum_value_of_y.setter
     def maximum_value_of_y(self, value=None):
-        """  Corresponds to IDD Field `maximum_value_of_y`
+        """  Corresponds to IDD Field `Maximum Value of y`
+        
+        {u'type': u'real', u'unitsBasedOnField': u'A3', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `maximum_value_of_y`
+            value (float): value for IDD Field `Maximum Value of y`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4269,10 +4357,9 @@ class CurveBicubic(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `maximum_value_of_y`'.format(value))
-
         self._data["Maximum Value of y"] = value
 
     @property
@@ -4286,11 +4373,13 @@ class CurveBicubic(object):
 
     @minimum_curve_output.setter
     def minimum_curve_output(self, value=None):
-        """  Corresponds to IDD Field `minimum_curve_output`
+        """  Corresponds to IDD Field `Minimum Curve Output`
         Specify the minimum value calculated by this curve object
+        
+        {u'note': [u'Specify the minimum value calculated by this curve object'], u'type': u'real', u'unitsBasedOnField': u'A4', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `minimum_curve_output`
+            value (float): value for IDD Field `Minimum Curve Output`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4300,10 +4389,9 @@ class CurveBicubic(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `minimum_curve_output`'.format(value))
-
         self._data["Minimum Curve Output"] = value
 
     @property
@@ -4317,11 +4405,13 @@ class CurveBicubic(object):
 
     @maximum_curve_output.setter
     def maximum_curve_output(self, value=None):
-        """  Corresponds to IDD Field `maximum_curve_output`
+        """  Corresponds to IDD Field `Maximum Curve Output`
         Specify the maximum value calculated by this curve object
+        
+        {u'note': [u'Specify the maximum value calculated by this curve object'], u'type': u'real', u'unitsBasedOnField': u'A4', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `maximum_curve_output`
+            value (float): value for IDD Field `Maximum Curve Output`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4331,10 +4421,9 @@ class CurveBicubic(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `maximum_curve_output`'.format(value))
-
         self._data["Maximum Curve Output"] = value
 
     @property
@@ -4348,10 +4437,12 @@ class CurveBicubic(object):
 
     @input_unit_type_for_x.setter
     def input_unit_type_for_x(self, value="Dimensionless"):
-        """  Corresponds to IDD Field `input_unit_type_for_x`
+        """  Corresponds to IDD Field `Input Unit Type for X`
+        
+        {u'default': u'Dimensionless', u'type': u'choice', u'key': [u'Dimensionless', u'Temperature', u'VolumetricFlow', u'MassFlow', u'Power', u'Distance'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `input_unit_type_for_x`
+            value (str): value for IDD Field `Input Unit Type for X`
                 Accepted values are:
                       - Dimensionless
                       - Temperature
@@ -4369,7 +4460,7 @@ class CurveBicubic(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `input_unit_type_for_x`'.format(value))
             if ',' in value:
@@ -4399,7 +4490,6 @@ class CurveBicubic(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `input_unit_type_for_x`'.format(value))
             value = vals[value_lower]
-
         self._data["Input Unit Type for X"] = value
 
     @property
@@ -4413,10 +4503,12 @@ class CurveBicubic(object):
 
     @input_unit_type_for_y.setter
     def input_unit_type_for_y(self, value="Dimensionless"):
-        """  Corresponds to IDD Field `input_unit_type_for_y`
+        """  Corresponds to IDD Field `Input Unit Type for Y`
+        
+        {u'default': u'Dimensionless', u'type': u'choice', u'key': [u'Dimensionless', u'Temperature', u'VolumetricFlow', u'MassFlow', u'Power', u'Distance'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `input_unit_type_for_y`
+            value (str): value for IDD Field `Input Unit Type for Y`
                 Accepted values are:
                       - Dimensionless
                       - Temperature
@@ -4434,7 +4526,7 @@ class CurveBicubic(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `input_unit_type_for_y`'.format(value))
             if ',' in value:
@@ -4464,7 +4556,6 @@ class CurveBicubic(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `input_unit_type_for_y`'.format(value))
             value = vals[value_lower]
-
         self._data["Input Unit Type for Y"] = value
 
     @property
@@ -4478,10 +4569,12 @@ class CurveBicubic(object):
 
     @output_unit_type.setter
     def output_unit_type(self, value="Dimensionless"):
-        """  Corresponds to IDD Field `output_unit_type`
+        """  Corresponds to IDD Field `Output Unit Type`
+        
+        {u'default': u'Dimensionless', u'type': u'choice', u'key': [u'Dimensionless', u'Capacity', u'Power'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `output_unit_type`
+            value (str): value for IDD Field `Output Unit Type`
                 Accepted values are:
                       - Dimensionless
                       - Capacity
@@ -4496,7 +4589,7 @@ class CurveBicubic(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `output_unit_type`'.format(value))
             if ',' in value:
@@ -4523,7 +4616,6 @@ class CurveBicubic(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `output_unit_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Output Unit Type"] = value
 
     def check(self):
@@ -4727,10 +4819,12 @@ class CurveBiquadratic(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {u'type': u'alpha', u'reference': u'BicubicBiquadraticCurves', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4740,7 +4834,7 @@ class CurveBiquadratic(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -4749,7 +4843,6 @@ class CurveBiquadratic(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -4763,10 +4856,12 @@ class CurveBiquadratic(object):
 
     @coefficient1_constant.setter
     def coefficient1_constant(self, value=None):
-        """  Corresponds to IDD Field `coefficient1_constant`
+        """  Corresponds to IDD Field `Coefficient1 Constant`
+        
+        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `coefficient1_constant`
+            value (float): value for IDD Field `Coefficient1 Constant`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4776,10 +4871,9 @@ class CurveBiquadratic(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `coefficient1_constant`'.format(value))
-
         self._data["Coefficient1 Constant"] = value
 
     @property
@@ -4793,10 +4887,12 @@ class CurveBiquadratic(object):
 
     @coefficient2_x.setter
     def coefficient2_x(self, value=None):
-        """  Corresponds to IDD Field `coefficient2_x`
+        """  Corresponds to IDD Field `Coefficient2 x`
+        
+        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `coefficient2_x`
+            value (float): value for IDD Field `Coefficient2 x`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4806,10 +4902,9 @@ class CurveBiquadratic(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `coefficient2_x`'.format(value))
-
         self._data["Coefficient2 x"] = value
 
     @property
@@ -4823,10 +4918,12 @@ class CurveBiquadratic(object):
 
     @coefficient3_x2.setter
     def coefficient3_x2(self, value=None):
-        """  Corresponds to IDD Field `coefficient3_x2`
+        """  Corresponds to IDD Field `Coefficient3 x**2`
+        
+        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `coefficient3_x2`
+            value (float): value for IDD Field `Coefficient3 x**2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4836,10 +4933,9 @@ class CurveBiquadratic(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `coefficient3_x2`'.format(value))
-
         self._data["Coefficient3 x**2"] = value
 
     @property
@@ -4853,10 +4949,12 @@ class CurveBiquadratic(object):
 
     @coefficient4_y.setter
     def coefficient4_y(self, value=None):
-        """  Corresponds to IDD Field `coefficient4_y`
+        """  Corresponds to IDD Field `Coefficient4 y`
+        
+        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `coefficient4_y`
+            value (float): value for IDD Field `Coefficient4 y`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4866,10 +4964,9 @@ class CurveBiquadratic(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `coefficient4_y`'.format(value))
-
         self._data["Coefficient4 y"] = value
 
     @property
@@ -4883,10 +4980,12 @@ class CurveBiquadratic(object):
 
     @coefficient5_y2.setter
     def coefficient5_y2(self, value=None):
-        """  Corresponds to IDD Field `coefficient5_y2`
+        """  Corresponds to IDD Field `Coefficient5 y**2`
+        
+        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `coefficient5_y2`
+            value (float): value for IDD Field `Coefficient5 y**2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4896,10 +4995,9 @@ class CurveBiquadratic(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `coefficient5_y2`'.format(value))
-
         self._data["Coefficient5 y**2"] = value
 
     @property
@@ -4913,10 +5011,12 @@ class CurveBiquadratic(object):
 
     @coefficient6_xy.setter
     def coefficient6_xy(self, value=None):
-        """  Corresponds to IDD Field `coefficient6_xy`
+        """  Corresponds to IDD Field `Coefficient6 x*y`
+        
+        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `coefficient6_xy`
+            value (float): value for IDD Field `Coefficient6 x*y`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4926,10 +5026,9 @@ class CurveBiquadratic(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `coefficient6_xy`'.format(value))
-
         self._data["Coefficient6 x*y"] = value
 
     @property
@@ -4943,10 +5042,12 @@ class CurveBiquadratic(object):
 
     @minimum_value_of_x.setter
     def minimum_value_of_x(self, value=None):
-        """  Corresponds to IDD Field `minimum_value_of_x`
+        """  Corresponds to IDD Field `Minimum Value of x`
+        
+        {u'type': u'real', u'unitsBasedOnField': u'A2', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `minimum_value_of_x`
+            value (float): value for IDD Field `Minimum Value of x`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4956,10 +5057,9 @@ class CurveBiquadratic(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `minimum_value_of_x`'.format(value))
-
         self._data["Minimum Value of x"] = value
 
     @property
@@ -4973,10 +5073,12 @@ class CurveBiquadratic(object):
 
     @maximum_value_of_x.setter
     def maximum_value_of_x(self, value=None):
-        """  Corresponds to IDD Field `maximum_value_of_x`
+        """  Corresponds to IDD Field `Maximum Value of x`
+        
+        {u'type': u'real', u'unitsBasedOnField': u'A2', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `maximum_value_of_x`
+            value (float): value for IDD Field `Maximum Value of x`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4986,10 +5088,9 @@ class CurveBiquadratic(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `maximum_value_of_x`'.format(value))
-
         self._data["Maximum Value of x"] = value
 
     @property
@@ -5003,10 +5104,12 @@ class CurveBiquadratic(object):
 
     @minimum_value_of_y.setter
     def minimum_value_of_y(self, value=None):
-        """  Corresponds to IDD Field `minimum_value_of_y`
+        """  Corresponds to IDD Field `Minimum Value of y`
+        
+        {u'type': u'real', u'unitsBasedOnField': u'A3', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `minimum_value_of_y`
+            value (float): value for IDD Field `Minimum Value of y`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5016,10 +5119,9 @@ class CurveBiquadratic(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `minimum_value_of_y`'.format(value))
-
         self._data["Minimum Value of y"] = value
 
     @property
@@ -5033,10 +5135,12 @@ class CurveBiquadratic(object):
 
     @maximum_value_of_y.setter
     def maximum_value_of_y(self, value=None):
-        """  Corresponds to IDD Field `maximum_value_of_y`
+        """  Corresponds to IDD Field `Maximum Value of y`
+        
+        {u'type': u'real', u'unitsBasedOnField': u'A3', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `maximum_value_of_y`
+            value (float): value for IDD Field `Maximum Value of y`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5046,10 +5150,9 @@ class CurveBiquadratic(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `maximum_value_of_y`'.format(value))
-
         self._data["Maximum Value of y"] = value
 
     @property
@@ -5063,11 +5166,13 @@ class CurveBiquadratic(object):
 
     @minimum_curve_output.setter
     def minimum_curve_output(self, value=None):
-        """  Corresponds to IDD Field `minimum_curve_output`
+        """  Corresponds to IDD Field `Minimum Curve Output`
         Specify the minimum value calculated by this curve object
+        
+        {u'note': [u'Specify the minimum value calculated by this curve object'], u'type': u'real', u'unitsBasedOnField': u'A4', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `minimum_curve_output`
+            value (float): value for IDD Field `Minimum Curve Output`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5077,10 +5182,9 @@ class CurveBiquadratic(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `minimum_curve_output`'.format(value))
-
         self._data["Minimum Curve Output"] = value
 
     @property
@@ -5094,11 +5198,13 @@ class CurveBiquadratic(object):
 
     @maximum_curve_output.setter
     def maximum_curve_output(self, value=None):
-        """  Corresponds to IDD Field `maximum_curve_output`
+        """  Corresponds to IDD Field `Maximum Curve Output`
         Specify the maximum value calculated by this curve object
+        
+        {u'note': [u'Specify the maximum value calculated by this curve object'], u'type': u'real', u'unitsBasedOnField': u'A4', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `maximum_curve_output`
+            value (float): value for IDD Field `Maximum Curve Output`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5108,10 +5214,9 @@ class CurveBiquadratic(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `maximum_curve_output`'.format(value))
-
         self._data["Maximum Curve Output"] = value
 
     @property
@@ -5125,10 +5230,12 @@ class CurveBiquadratic(object):
 
     @input_unit_type_for_x.setter
     def input_unit_type_for_x(self, value="Dimensionless"):
-        """  Corresponds to IDD Field `input_unit_type_for_x`
+        """  Corresponds to IDD Field `Input Unit Type for X`
+        
+        {u'default': u'Dimensionless', u'type': u'choice', u'key': [u'Dimensionless', u'Temperature', u'VolumetricFlow', u'MassFlow', u'Power', u'Distance'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `input_unit_type_for_x`
+            value (str): value for IDD Field `Input Unit Type for X`
                 Accepted values are:
                       - Dimensionless
                       - Temperature
@@ -5146,7 +5253,7 @@ class CurveBiquadratic(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `input_unit_type_for_x`'.format(value))
             if ',' in value:
@@ -5176,7 +5283,6 @@ class CurveBiquadratic(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `input_unit_type_for_x`'.format(value))
             value = vals[value_lower]
-
         self._data["Input Unit Type for X"] = value
 
     @property
@@ -5190,10 +5296,12 @@ class CurveBiquadratic(object):
 
     @input_unit_type_for_y.setter
     def input_unit_type_for_y(self, value="Dimensionless"):
-        """  Corresponds to IDD Field `input_unit_type_for_y`
+        """  Corresponds to IDD Field `Input Unit Type for Y`
+        
+        {u'default': u'Dimensionless', u'type': u'choice', u'key': [u'Dimensionless', u'Temperature', u'VolumetricFlow', u'MassFlow', u'Power', u'Distance'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `input_unit_type_for_y`
+            value (str): value for IDD Field `Input Unit Type for Y`
                 Accepted values are:
                       - Dimensionless
                       - Temperature
@@ -5211,7 +5319,7 @@ class CurveBiquadratic(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `input_unit_type_for_y`'.format(value))
             if ',' in value:
@@ -5241,7 +5349,6 @@ class CurveBiquadratic(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `input_unit_type_for_y`'.format(value))
             value = vals[value_lower]
-
         self._data["Input Unit Type for Y"] = value
 
     @property
@@ -5255,10 +5362,12 @@ class CurveBiquadratic(object):
 
     @output_unit_type.setter
     def output_unit_type(self, value="Dimensionless"):
-        """  Corresponds to IDD Field `output_unit_type`
+        """  Corresponds to IDD Field `Output Unit Type`
+        
+        {u'default': u'Dimensionless', u'type': u'choice', u'key': [u'Dimensionless', u'Capacity', u'Power'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `output_unit_type`
+            value (str): value for IDD Field `Output Unit Type`
                 Accepted values are:
                       - Dimensionless
                       - Capacity
@@ -5273,7 +5382,7 @@ class CurveBiquadratic(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `output_unit_type`'.format(value))
             if ',' in value:
@@ -5300,7 +5409,6 @@ class CurveBiquadratic(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `output_unit_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Output Unit Type"] = value
 
     def check(self):
@@ -5504,10 +5612,12 @@ class CurveQuadraticLinear(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {u'type': u'alpha', u'reference': u'AllCurves', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5517,7 +5627,7 @@ class CurveQuadraticLinear(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -5526,7 +5636,6 @@ class CurveQuadraticLinear(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -5540,10 +5649,12 @@ class CurveQuadraticLinear(object):
 
     @coefficient1_constant.setter
     def coefficient1_constant(self, value=None):
-        """  Corresponds to IDD Field `coefficient1_constant`
+        """  Corresponds to IDD Field `Coefficient1 Constant`
+        
+        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `coefficient1_constant`
+            value (float): value for IDD Field `Coefficient1 Constant`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5553,10 +5664,9 @@ class CurveQuadraticLinear(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `coefficient1_constant`'.format(value))
-
         self._data["Coefficient1 Constant"] = value
 
     @property
@@ -5570,10 +5680,12 @@ class CurveQuadraticLinear(object):
 
     @coefficient2_x.setter
     def coefficient2_x(self, value=None):
-        """  Corresponds to IDD Field `coefficient2_x`
+        """  Corresponds to IDD Field `Coefficient2 x`
+        
+        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `coefficient2_x`
+            value (float): value for IDD Field `Coefficient2 x`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5583,10 +5695,9 @@ class CurveQuadraticLinear(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `coefficient2_x`'.format(value))
-
         self._data["Coefficient2 x"] = value
 
     @property
@@ -5600,10 +5711,12 @@ class CurveQuadraticLinear(object):
 
     @coefficient3_x2.setter
     def coefficient3_x2(self, value=None):
-        """  Corresponds to IDD Field `coefficient3_x2`
+        """  Corresponds to IDD Field `Coefficient3 x**2`
+        
+        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `coefficient3_x2`
+            value (float): value for IDD Field `Coefficient3 x**2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5613,10 +5726,9 @@ class CurveQuadraticLinear(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `coefficient3_x2`'.format(value))
-
         self._data["Coefficient3 x**2"] = value
 
     @property
@@ -5630,10 +5742,12 @@ class CurveQuadraticLinear(object):
 
     @coefficient4_y.setter
     def coefficient4_y(self, value=None):
-        """  Corresponds to IDD Field `coefficient4_y`
+        """  Corresponds to IDD Field `Coefficient4 y`
+        
+        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `coefficient4_y`
+            value (float): value for IDD Field `Coefficient4 y`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5643,10 +5757,9 @@ class CurveQuadraticLinear(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `coefficient4_y`'.format(value))
-
         self._data["Coefficient4 y"] = value
 
     @property
@@ -5660,10 +5773,12 @@ class CurveQuadraticLinear(object):
 
     @coefficient5_xy.setter
     def coefficient5_xy(self, value=None):
-        """  Corresponds to IDD Field `coefficient5_xy`
+        """  Corresponds to IDD Field `Coefficient5 x*y`
+        
+        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `coefficient5_xy`
+            value (float): value for IDD Field `Coefficient5 x*y`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5673,10 +5788,9 @@ class CurveQuadraticLinear(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `coefficient5_xy`'.format(value))
-
         self._data["Coefficient5 x*y"] = value
 
     @property
@@ -5690,10 +5804,12 @@ class CurveQuadraticLinear(object):
 
     @coefficient6_x2y.setter
     def coefficient6_x2y(self, value=None):
-        """  Corresponds to IDD Field `coefficient6_x2y`
+        """  Corresponds to IDD Field `Coefficient6 x**2*y`
+        
+        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `coefficient6_x2y`
+            value (float): value for IDD Field `Coefficient6 x**2*y`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5703,10 +5819,9 @@ class CurveQuadraticLinear(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `coefficient6_x2y`'.format(value))
-
         self._data["Coefficient6 x**2*y"] = value
 
     @property
@@ -5720,10 +5835,12 @@ class CurveQuadraticLinear(object):
 
     @minimum_value_of_x.setter
     def minimum_value_of_x(self, value=None):
-        """  Corresponds to IDD Field `minimum_value_of_x`
+        """  Corresponds to IDD Field `Minimum Value of x`
+        
+        {u'type': u'real', u'unitsBasedOnField': u'A2', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `minimum_value_of_x`
+            value (float): value for IDD Field `Minimum Value of x`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5733,10 +5850,9 @@ class CurveQuadraticLinear(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `minimum_value_of_x`'.format(value))
-
         self._data["Minimum Value of x"] = value
 
     @property
@@ -5750,10 +5866,12 @@ class CurveQuadraticLinear(object):
 
     @maximum_value_of_x.setter
     def maximum_value_of_x(self, value=None):
-        """  Corresponds to IDD Field `maximum_value_of_x`
+        """  Corresponds to IDD Field `Maximum Value of x`
+        
+        {u'type': u'real', u'unitsBasedOnField': u'A2', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `maximum_value_of_x`
+            value (float): value for IDD Field `Maximum Value of x`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5763,10 +5881,9 @@ class CurveQuadraticLinear(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `maximum_value_of_x`'.format(value))
-
         self._data["Maximum Value of x"] = value
 
     @property
@@ -5780,10 +5897,12 @@ class CurveQuadraticLinear(object):
 
     @minimum_value_of_y.setter
     def minimum_value_of_y(self, value=None):
-        """  Corresponds to IDD Field `minimum_value_of_y`
+        """  Corresponds to IDD Field `Minimum Value of y`
+        
+        {u'type': u'real', u'unitsBasedOnField': u'A3', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `minimum_value_of_y`
+            value (float): value for IDD Field `Minimum Value of y`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5793,10 +5912,9 @@ class CurveQuadraticLinear(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `minimum_value_of_y`'.format(value))
-
         self._data["Minimum Value of y"] = value
 
     @property
@@ -5810,10 +5928,12 @@ class CurveQuadraticLinear(object):
 
     @maximum_value_of_y.setter
     def maximum_value_of_y(self, value=None):
-        """  Corresponds to IDD Field `maximum_value_of_y`
+        """  Corresponds to IDD Field `Maximum Value of y`
+        
+        {u'type': u'real', u'unitsBasedOnField': u'A3', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `maximum_value_of_y`
+            value (float): value for IDD Field `Maximum Value of y`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5823,10 +5943,9 @@ class CurveQuadraticLinear(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `maximum_value_of_y`'.format(value))
-
         self._data["Maximum Value of y"] = value
 
     @property
@@ -5840,11 +5959,13 @@ class CurveQuadraticLinear(object):
 
     @minimum_curve_output.setter
     def minimum_curve_output(self, value=None):
-        """  Corresponds to IDD Field `minimum_curve_output`
+        """  Corresponds to IDD Field `Minimum Curve Output`
         Specify the minimum value calculated by this curve object
+        
+        {u'note': [u'Specify the minimum value calculated by this curve object'], u'type': u'real', u'unitsBasedOnField': u'A4', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `minimum_curve_output`
+            value (float): value for IDD Field `Minimum Curve Output`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5854,10 +5975,9 @@ class CurveQuadraticLinear(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `minimum_curve_output`'.format(value))
-
         self._data["Minimum Curve Output"] = value
 
     @property
@@ -5871,11 +5991,13 @@ class CurveQuadraticLinear(object):
 
     @maximum_curve_output.setter
     def maximum_curve_output(self, value=None):
-        """  Corresponds to IDD Field `maximum_curve_output`
+        """  Corresponds to IDD Field `Maximum Curve Output`
         Specify the maximum value calculated by this curve object
+        
+        {u'note': [u'Specify the maximum value calculated by this curve object'], u'type': u'real', u'unitsBasedOnField': u'A4', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `maximum_curve_output`
+            value (float): value for IDD Field `Maximum Curve Output`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5885,10 +6007,9 @@ class CurveQuadraticLinear(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `maximum_curve_output`'.format(value))
-
         self._data["Maximum Curve Output"] = value
 
     @property
@@ -5902,10 +6023,12 @@ class CurveQuadraticLinear(object):
 
     @input_unit_type_for_x.setter
     def input_unit_type_for_x(self, value="Dimensionless"):
-        """  Corresponds to IDD Field `input_unit_type_for_x`
+        """  Corresponds to IDD Field `Input Unit Type for X`
+        
+        {u'default': u'Dimensionless', u'type': u'choice', u'key': [u'Dimensionless', u'Temperature', u'VolumetricFlow', u'MassFlow', u'Power', u'Distance'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `input_unit_type_for_x`
+            value (str): value for IDD Field `Input Unit Type for X`
                 Accepted values are:
                       - Dimensionless
                       - Temperature
@@ -5923,7 +6046,7 @@ class CurveQuadraticLinear(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `input_unit_type_for_x`'.format(value))
             if ',' in value:
@@ -5953,7 +6076,6 @@ class CurveQuadraticLinear(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `input_unit_type_for_x`'.format(value))
             value = vals[value_lower]
-
         self._data["Input Unit Type for X"] = value
 
     @property
@@ -5967,10 +6089,12 @@ class CurveQuadraticLinear(object):
 
     @input_unit_type_for_y.setter
     def input_unit_type_for_y(self, value="Dimensionless"):
-        """  Corresponds to IDD Field `input_unit_type_for_y`
+        """  Corresponds to IDD Field `Input Unit Type for Y`
+        
+        {u'default': u'Dimensionless', u'type': u'choice', u'key': [u'Dimensionless', u'Temperature', u'VolumetricFlow', u'MassFlow', u'Power', u'Distance'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `input_unit_type_for_y`
+            value (str): value for IDD Field `Input Unit Type for Y`
                 Accepted values are:
                       - Dimensionless
                       - Temperature
@@ -5988,7 +6112,7 @@ class CurveQuadraticLinear(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `input_unit_type_for_y`'.format(value))
             if ',' in value:
@@ -6018,7 +6142,6 @@ class CurveQuadraticLinear(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `input_unit_type_for_y`'.format(value))
             value = vals[value_lower]
-
         self._data["Input Unit Type for Y"] = value
 
     @property
@@ -6032,10 +6155,12 @@ class CurveQuadraticLinear(object):
 
     @output_unit_type.setter
     def output_unit_type(self, value="Dimensionless"):
-        """  Corresponds to IDD Field `output_unit_type`
+        """  Corresponds to IDD Field `Output Unit Type`
+        
+        {u'default': u'Dimensionless', u'type': u'choice', u'key': [u'Dimensionless', u'Capacity', u'Power'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `output_unit_type`
+            value (str): value for IDD Field `Output Unit Type`
                 Accepted values are:
                       - Dimensionless
                       - Capacity
@@ -6050,7 +6175,7 @@ class CurveQuadraticLinear(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `output_unit_type`'.format(value))
             if ',' in value:
@@ -6077,7 +6202,6 @@ class CurveQuadraticLinear(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `output_unit_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Output Unit Type"] = value
 
     def check(self):
@@ -6479,10 +6603,12 @@ class CurveTriquadratic(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {u'type': u'alpha', u'reference': u'AllCurves', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6492,7 +6618,7 @@ class CurveTriquadratic(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -6501,7 +6627,6 @@ class CurveTriquadratic(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -6515,10 +6640,12 @@ class CurveTriquadratic(object):
 
     @coefficient1_constant.setter
     def coefficient1_constant(self, value=None):
-        """  Corresponds to IDD Field `coefficient1_constant`
+        """  Corresponds to IDD Field `Coefficient1 Constant`
+        
+        {u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `coefficient1_constant`
+            value (float): value for IDD Field `Coefficient1 Constant`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6528,10 +6655,9 @@ class CurveTriquadratic(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `coefficient1_constant`'.format(value))
-
         self._data["Coefficient1 Constant"] = value
 
     @property
@@ -6545,10 +6671,12 @@ class CurveTriquadratic(object):
 
     @coefficient2_x2.setter
     def coefficient2_x2(self, value=None):
-        """  Corresponds to IDD Field `coefficient2_x2`
+        """  Corresponds to IDD Field `Coefficient2 x**2`
+        
+        {u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `coefficient2_x2`
+            value (float): value for IDD Field `Coefficient2 x**2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6558,10 +6686,9 @@ class CurveTriquadratic(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `coefficient2_x2`'.format(value))
-
         self._data["Coefficient2 x**2"] = value
 
     @property
@@ -6575,10 +6702,12 @@ class CurveTriquadratic(object):
 
     @coefficient3_x.setter
     def coefficient3_x(self, value=None):
-        """  Corresponds to IDD Field `coefficient3_x`
+        """  Corresponds to IDD Field `Coefficient3 x`
+        
+        {u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `coefficient3_x`
+            value (float): value for IDD Field `Coefficient3 x`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6588,10 +6717,9 @@ class CurveTriquadratic(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `coefficient3_x`'.format(value))
-
         self._data["Coefficient3 x"] = value
 
     @property
@@ -6605,10 +6733,12 @@ class CurveTriquadratic(object):
 
     @coefficient4_y2.setter
     def coefficient4_y2(self, value=None):
-        """  Corresponds to IDD Field `coefficient4_y2`
+        """  Corresponds to IDD Field `Coefficient4 y**2`
+        
+        {u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `coefficient4_y2`
+            value (float): value for IDD Field `Coefficient4 y**2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6618,10 +6748,9 @@ class CurveTriquadratic(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `coefficient4_y2`'.format(value))
-
         self._data["Coefficient4 y**2"] = value
 
     @property
@@ -6635,10 +6764,12 @@ class CurveTriquadratic(object):
 
     @coefficient5_y.setter
     def coefficient5_y(self, value=None):
-        """  Corresponds to IDD Field `coefficient5_y`
+        """  Corresponds to IDD Field `Coefficient5 y`
+        
+        {u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `coefficient5_y`
+            value (float): value for IDD Field `Coefficient5 y`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6648,10 +6779,9 @@ class CurveTriquadratic(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `coefficient5_y`'.format(value))
-
         self._data["Coefficient5 y"] = value
 
     @property
@@ -6665,10 +6795,12 @@ class CurveTriquadratic(object):
 
     @coefficient6_z2.setter
     def coefficient6_z2(self, value=None):
-        """  Corresponds to IDD Field `coefficient6_z2`
+        """  Corresponds to IDD Field `Coefficient6 z**2`
+        
+        {u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `coefficient6_z2`
+            value (float): value for IDD Field `Coefficient6 z**2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6678,10 +6810,9 @@ class CurveTriquadratic(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `coefficient6_z2`'.format(value))
-
         self._data["Coefficient6 z**2"] = value
 
     @property
@@ -6695,10 +6826,12 @@ class CurveTriquadratic(object):
 
     @coefficient7_z.setter
     def coefficient7_z(self, value=None):
-        """  Corresponds to IDD Field `coefficient7_z`
+        """  Corresponds to IDD Field `Coefficient7 z`
+        
+        {u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `coefficient7_z`
+            value (float): value for IDD Field `Coefficient7 z`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6708,10 +6841,9 @@ class CurveTriquadratic(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `coefficient7_z`'.format(value))
-
         self._data["Coefficient7 z"] = value
 
     @property
@@ -6725,10 +6857,12 @@ class CurveTriquadratic(object):
 
     @coefficient8_x2y2.setter
     def coefficient8_x2y2(self, value=None):
-        """  Corresponds to IDD Field `coefficient8_x2y2`
+        """  Corresponds to IDD Field `Coefficient8 x**2*y**2`
+        
+        {u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `coefficient8_x2y2`
+            value (float): value for IDD Field `Coefficient8 x**2*y**2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6738,10 +6872,9 @@ class CurveTriquadratic(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `coefficient8_x2y2`'.format(value))
-
         self._data["Coefficient8 x**2*y**2"] = value
 
     @property
@@ -6755,10 +6888,12 @@ class CurveTriquadratic(object):
 
     @coefficient9_xy.setter
     def coefficient9_xy(self, value=None):
-        """  Corresponds to IDD Field `coefficient9_xy`
+        """  Corresponds to IDD Field `Coefficient9 x*y`
+        
+        {u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `coefficient9_xy`
+            value (float): value for IDD Field `Coefficient9 x*y`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6768,10 +6903,9 @@ class CurveTriquadratic(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `coefficient9_xy`'.format(value))
-
         self._data["Coefficient9 x*y"] = value
 
     @property
@@ -6785,10 +6919,12 @@ class CurveTriquadratic(object):
 
     @coefficient10_xy2.setter
     def coefficient10_xy2(self, value=None):
-        """  Corresponds to IDD Field `coefficient10_xy2`
+        """  Corresponds to IDD Field `Coefficient10 x*y**2`
+        
+        {u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `coefficient10_xy2`
+            value (float): value for IDD Field `Coefficient10 x*y**2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6798,10 +6934,9 @@ class CurveTriquadratic(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `coefficient10_xy2`'.format(value))
-
         self._data["Coefficient10 x*y**2"] = value
 
     @property
@@ -6815,10 +6950,12 @@ class CurveTriquadratic(object):
 
     @coefficient11_x2y.setter
     def coefficient11_x2y(self, value=None):
-        """  Corresponds to IDD Field `coefficient11_x2y`
+        """  Corresponds to IDD Field `Coefficient11 x**2*y`
+        
+        {u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `coefficient11_x2y`
+            value (float): value for IDD Field `Coefficient11 x**2*y`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6828,10 +6965,9 @@ class CurveTriquadratic(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `coefficient11_x2y`'.format(value))
-
         self._data["Coefficient11 x**2*y"] = value
 
     @property
@@ -6845,10 +6981,12 @@ class CurveTriquadratic(object):
 
     @coefficient12_x2z2.setter
     def coefficient12_x2z2(self, value=None):
-        """  Corresponds to IDD Field `coefficient12_x2z2`
+        """  Corresponds to IDD Field `Coefficient12 x**2*z**2`
+        
+        {u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `coefficient12_x2z2`
+            value (float): value for IDD Field `Coefficient12 x**2*z**2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6858,10 +6996,9 @@ class CurveTriquadratic(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `coefficient12_x2z2`'.format(value))
-
         self._data["Coefficient12 x**2*z**2"] = value
 
     @property
@@ -6875,10 +7012,12 @@ class CurveTriquadratic(object):
 
     @coefficient13_xz.setter
     def coefficient13_xz(self, value=None):
-        """  Corresponds to IDD Field `coefficient13_xz`
+        """  Corresponds to IDD Field `Coefficient13 x*z`
+        
+        {u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `coefficient13_xz`
+            value (float): value for IDD Field `Coefficient13 x*z`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6888,10 +7027,9 @@ class CurveTriquadratic(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `coefficient13_xz`'.format(value))
-
         self._data["Coefficient13 x*z"] = value
 
     @property
@@ -6905,10 +7043,12 @@ class CurveTriquadratic(object):
 
     @coefficient14_xz2.setter
     def coefficient14_xz2(self, value=None):
-        """  Corresponds to IDD Field `coefficient14_xz2`
+        """  Corresponds to IDD Field `Coefficient14 x*z**2`
+        
+        {u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `coefficient14_xz2`
+            value (float): value for IDD Field `Coefficient14 x*z**2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6918,10 +7058,9 @@ class CurveTriquadratic(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `coefficient14_xz2`'.format(value))
-
         self._data["Coefficient14 x*z**2"] = value
 
     @property
@@ -6935,10 +7074,12 @@ class CurveTriquadratic(object):
 
     @coefficient15_x2z.setter
     def coefficient15_x2z(self, value=None):
-        """  Corresponds to IDD Field `coefficient15_x2z`
+        """  Corresponds to IDD Field `Coefficient15 x**2*z`
+        
+        {u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `coefficient15_x2z`
+            value (float): value for IDD Field `Coefficient15 x**2*z`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6948,10 +7089,9 @@ class CurveTriquadratic(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `coefficient15_x2z`'.format(value))
-
         self._data["Coefficient15 x**2*z"] = value
 
     @property
@@ -6965,10 +7105,12 @@ class CurveTriquadratic(object):
 
     @coefficient16_y2z2.setter
     def coefficient16_y2z2(self, value=None):
-        """  Corresponds to IDD Field `coefficient16_y2z2`
+        """  Corresponds to IDD Field `Coefficient16 y**2*z**2`
+        
+        {u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `coefficient16_y2z2`
+            value (float): value for IDD Field `Coefficient16 y**2*z**2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6978,10 +7120,9 @@ class CurveTriquadratic(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `coefficient16_y2z2`'.format(value))
-
         self._data["Coefficient16 y**2*z**2"] = value
 
     @property
@@ -6995,10 +7136,12 @@ class CurveTriquadratic(object):
 
     @coefficient17_yz.setter
     def coefficient17_yz(self, value=None):
-        """  Corresponds to IDD Field `coefficient17_yz`
+        """  Corresponds to IDD Field `Coefficient17 y*z`
+        
+        {u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `coefficient17_yz`
+            value (float): value for IDD Field `Coefficient17 y*z`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7008,10 +7151,9 @@ class CurveTriquadratic(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `coefficient17_yz`'.format(value))
-
         self._data["Coefficient17 y*z"] = value
 
     @property
@@ -7025,10 +7167,12 @@ class CurveTriquadratic(object):
 
     @coefficient18_yz2.setter
     def coefficient18_yz2(self, value=None):
-        """  Corresponds to IDD Field `coefficient18_yz2`
+        """  Corresponds to IDD Field `Coefficient18 y*z**2`
+        
+        {u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `coefficient18_yz2`
+            value (float): value for IDD Field `Coefficient18 y*z**2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7038,10 +7182,9 @@ class CurveTriquadratic(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `coefficient18_yz2`'.format(value))
-
         self._data["Coefficient18 y*z**2"] = value
 
     @property
@@ -7055,10 +7198,12 @@ class CurveTriquadratic(object):
 
     @coefficient19_y2z.setter
     def coefficient19_y2z(self, value=None):
-        """  Corresponds to IDD Field `coefficient19_y2z`
+        """  Corresponds to IDD Field `Coefficient19 y**2*z`
+        
+        {u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `coefficient19_y2z`
+            value (float): value for IDD Field `Coefficient19 y**2*z`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7068,10 +7213,9 @@ class CurveTriquadratic(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `coefficient19_y2z`'.format(value))
-
         self._data["Coefficient19 y**2*z"] = value
 
     @property
@@ -7085,10 +7229,12 @@ class CurveTriquadratic(object):
 
     @coefficient20_x2y2z2.setter
     def coefficient20_x2y2z2(self, value=None):
-        """  Corresponds to IDD Field `coefficient20_x2y2z2`
+        """  Corresponds to IDD Field `Coefficient20 x**2*y**2*z**2`
+        
+        {u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `coefficient20_x2y2z2`
+            value (float): value for IDD Field `Coefficient20 x**2*y**2*z**2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7098,10 +7244,9 @@ class CurveTriquadratic(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `coefficient20_x2y2z2`'.format(value))
-
         self._data["Coefficient20 x**2*y**2*z**2"] = value
 
     @property
@@ -7115,10 +7260,12 @@ class CurveTriquadratic(object):
 
     @coefficient21_x2y2z.setter
     def coefficient21_x2y2z(self, value=None):
-        """  Corresponds to IDD Field `coefficient21_x2y2z`
+        """  Corresponds to IDD Field `Coefficient21 x**2*y**2*z`
+        
+        {u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `coefficient21_x2y2z`
+            value (float): value for IDD Field `Coefficient21 x**2*y**2*z`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7128,10 +7275,9 @@ class CurveTriquadratic(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `coefficient21_x2y2z`'.format(value))
-
         self._data["Coefficient21 x**2*y**2*z"] = value
 
     @property
@@ -7145,10 +7291,12 @@ class CurveTriquadratic(object):
 
     @coefficient22_x2yz2.setter
     def coefficient22_x2yz2(self, value=None):
-        """  Corresponds to IDD Field `coefficient22_x2yz2`
+        """  Corresponds to IDD Field `Coefficient22 x**2*y*z**2`
+        
+        {u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `coefficient22_x2yz2`
+            value (float): value for IDD Field `Coefficient22 x**2*y*z**2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7158,10 +7306,9 @@ class CurveTriquadratic(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `coefficient22_x2yz2`'.format(value))
-
         self._data["Coefficient22 x**2*y*z**2"] = value
 
     @property
@@ -7175,10 +7322,12 @@ class CurveTriquadratic(object):
 
     @coefficient23_xy2z2.setter
     def coefficient23_xy2z2(self, value=None):
-        """  Corresponds to IDD Field `coefficient23_xy2z2`
+        """  Corresponds to IDD Field `Coefficient23 x*y**2*z**2`
+        
+        {u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `coefficient23_xy2z2`
+            value (float): value for IDD Field `Coefficient23 x*y**2*z**2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7188,10 +7337,9 @@ class CurveTriquadratic(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `coefficient23_xy2z2`'.format(value))
-
         self._data["Coefficient23 x*y**2*z**2"] = value
 
     @property
@@ -7205,10 +7353,12 @@ class CurveTriquadratic(object):
 
     @coefficient24_x2yz.setter
     def coefficient24_x2yz(self, value=None):
-        """  Corresponds to IDD Field `coefficient24_x2yz`
+        """  Corresponds to IDD Field `Coefficient24 x**2*y*z`
+        
+        {u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `coefficient24_x2yz`
+            value (float): value for IDD Field `Coefficient24 x**2*y*z`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7218,10 +7368,9 @@ class CurveTriquadratic(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `coefficient24_x2yz`'.format(value))
-
         self._data["Coefficient24 x**2*y*z"] = value
 
     @property
@@ -7235,10 +7384,12 @@ class CurveTriquadratic(object):
 
     @coefficient25_xy2z.setter
     def coefficient25_xy2z(self, value=None):
-        """  Corresponds to IDD Field `coefficient25_xy2z`
+        """  Corresponds to IDD Field `Coefficient25 x*y**2*z`
+        
+        {u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `coefficient25_xy2z`
+            value (float): value for IDD Field `Coefficient25 x*y**2*z`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7248,10 +7399,9 @@ class CurveTriquadratic(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `coefficient25_xy2z`'.format(value))
-
         self._data["Coefficient25 x*y**2*z"] = value
 
     @property
@@ -7265,10 +7415,12 @@ class CurveTriquadratic(object):
 
     @coefficient26_xyz2.setter
     def coefficient26_xyz2(self, value=None):
-        """  Corresponds to IDD Field `coefficient26_xyz2`
+        """  Corresponds to IDD Field `Coefficient26 x*y*z**2`
+        
+        {u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `coefficient26_xyz2`
+            value (float): value for IDD Field `Coefficient26 x*y*z**2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7278,10 +7430,9 @@ class CurveTriquadratic(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `coefficient26_xyz2`'.format(value))
-
         self._data["Coefficient26 x*y*z**2"] = value
 
     @property
@@ -7295,10 +7446,12 @@ class CurveTriquadratic(object):
 
     @coefficient27_xyz.setter
     def coefficient27_xyz(self, value=None):
-        """  Corresponds to IDD Field `coefficient27_xyz`
+        """  Corresponds to IDD Field `Coefficient27 x*y*z`
+        
+        {u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `coefficient27_xyz`
+            value (float): value for IDD Field `Coefficient27 x*y*z`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7308,10 +7461,9 @@ class CurveTriquadratic(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `coefficient27_xyz`'.format(value))
-
         self._data["Coefficient27 x*y*z"] = value
 
     @property
@@ -7325,10 +7477,12 @@ class CurveTriquadratic(object):
 
     @minimum_value_of_x.setter
     def minimum_value_of_x(self, value=None):
-        """  Corresponds to IDD Field `minimum_value_of_x`
+        """  Corresponds to IDD Field `Minimum Value of x`
+        
+        {u'type': u'real', u'unitsBasedOnField': u'A2', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `minimum_value_of_x`
+            value (float): value for IDD Field `Minimum Value of x`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7338,10 +7492,9 @@ class CurveTriquadratic(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `minimum_value_of_x`'.format(value))
-
         self._data["Minimum Value of x"] = value
 
     @property
@@ -7355,10 +7508,12 @@ class CurveTriquadratic(object):
 
     @maximum_value_of_x.setter
     def maximum_value_of_x(self, value=None):
-        """  Corresponds to IDD Field `maximum_value_of_x`
+        """  Corresponds to IDD Field `Maximum Value of x`
+        
+        {u'type': u'real', u'unitsBasedOnField': u'A2', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `maximum_value_of_x`
+            value (float): value for IDD Field `Maximum Value of x`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7368,10 +7523,9 @@ class CurveTriquadratic(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `maximum_value_of_x`'.format(value))
-
         self._data["Maximum Value of x"] = value
 
     @property
@@ -7385,10 +7539,12 @@ class CurveTriquadratic(object):
 
     @minimum_value_of_y.setter
     def minimum_value_of_y(self, value=None):
-        """  Corresponds to IDD Field `minimum_value_of_y`
+        """  Corresponds to IDD Field `Minimum Value of y`
+        
+        {u'type': u'real', u'unitsBasedOnField': u'A3', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `minimum_value_of_y`
+            value (float): value for IDD Field `Minimum Value of y`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7398,10 +7554,9 @@ class CurveTriquadratic(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `minimum_value_of_y`'.format(value))
-
         self._data["Minimum Value of y"] = value
 
     @property
@@ -7415,10 +7570,12 @@ class CurveTriquadratic(object):
 
     @maximum_value_of_y.setter
     def maximum_value_of_y(self, value=None):
-        """  Corresponds to IDD Field `maximum_value_of_y`
+        """  Corresponds to IDD Field `Maximum Value of y`
+        
+        {u'type': u'real', u'unitsBasedOnField': u'A3', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `maximum_value_of_y`
+            value (float): value for IDD Field `Maximum Value of y`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7428,10 +7585,9 @@ class CurveTriquadratic(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `maximum_value_of_y`'.format(value))
-
         self._data["Maximum Value of y"] = value
 
     @property
@@ -7445,10 +7601,12 @@ class CurveTriquadratic(object):
 
     @minimum_value_of_z.setter
     def minimum_value_of_z(self, value=None):
-        """  Corresponds to IDD Field `minimum_value_of_z`
+        """  Corresponds to IDD Field `Minimum Value of z`
+        
+        {u'type': u'real', u'unitsBasedOnField': u'A4', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `minimum_value_of_z`
+            value (float): value for IDD Field `Minimum Value of z`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7458,10 +7616,9 @@ class CurveTriquadratic(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `minimum_value_of_z`'.format(value))
-
         self._data["Minimum Value of z"] = value
 
     @property
@@ -7475,10 +7632,12 @@ class CurveTriquadratic(object):
 
     @maximum_value_of_z.setter
     def maximum_value_of_z(self, value=None):
-        """  Corresponds to IDD Field `maximum_value_of_z`
+        """  Corresponds to IDD Field `Maximum Value of z`
+        
+        {u'type': u'real', u'unitsBasedOnField': u'A4', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `maximum_value_of_z`
+            value (float): value for IDD Field `Maximum Value of z`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7488,10 +7647,9 @@ class CurveTriquadratic(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `maximum_value_of_z`'.format(value))
-
         self._data["Maximum Value of z"] = value
 
     @property
@@ -7505,11 +7663,13 @@ class CurveTriquadratic(object):
 
     @minimum_curve_output.setter
     def minimum_curve_output(self, value=None):
-        """  Corresponds to IDD Field `minimum_curve_output`
+        """  Corresponds to IDD Field `Minimum Curve Output`
         Specify the minimum value calculated by this curve object
+        
+        {u'note': [u'Specify the minimum value calculated by this curve object'], u'type': u'real', u'unitsBasedOnField': u'A5', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `minimum_curve_output`
+            value (float): value for IDD Field `Minimum Curve Output`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7519,10 +7679,9 @@ class CurveTriquadratic(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `minimum_curve_output`'.format(value))
-
         self._data["Minimum Curve Output"] = value
 
     @property
@@ -7536,11 +7695,13 @@ class CurveTriquadratic(object):
 
     @maximum_curve_output.setter
     def maximum_curve_output(self, value=None):
-        """  Corresponds to IDD Field `maximum_curve_output`
+        """  Corresponds to IDD Field `Maximum Curve Output`
         Specify the maximum value calculated by this curve object
+        
+        {u'note': [u'Specify the maximum value calculated by this curve object'], u'type': u'real', u'unitsBasedOnField': u'A5', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `maximum_curve_output`
+            value (float): value for IDD Field `Maximum Curve Output`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7550,10 +7711,9 @@ class CurveTriquadratic(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `maximum_curve_output`'.format(value))
-
         self._data["Maximum Curve Output"] = value
 
     @property
@@ -7567,10 +7727,12 @@ class CurveTriquadratic(object):
 
     @input_unit_type_for_x.setter
     def input_unit_type_for_x(self, value="Dimensionless"):
-        """  Corresponds to IDD Field `input_unit_type_for_x`
+        """  Corresponds to IDD Field `Input Unit Type for X`
+        
+        {u'default': u'Dimensionless', u'type': u'choice', u'key': [u'Dimensionless', u'Temperature', u'VolumetricFlow', u'MassFlow', u'Power', u'Distance'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `input_unit_type_for_x`
+            value (str): value for IDD Field `Input Unit Type for X`
                 Accepted values are:
                       - Dimensionless
                       - Temperature
@@ -7588,7 +7750,7 @@ class CurveTriquadratic(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `input_unit_type_for_x`'.format(value))
             if ',' in value:
@@ -7618,7 +7780,6 @@ class CurveTriquadratic(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `input_unit_type_for_x`'.format(value))
             value = vals[value_lower]
-
         self._data["Input Unit Type for X"] = value
 
     @property
@@ -7632,10 +7793,12 @@ class CurveTriquadratic(object):
 
     @input_unit_type_for_y.setter
     def input_unit_type_for_y(self, value="Dimensionless"):
-        """  Corresponds to IDD Field `input_unit_type_for_y`
+        """  Corresponds to IDD Field `Input Unit Type for Y`
+        
+        {u'default': u'Dimensionless', u'type': u'choice', u'key': [u'Dimensionless', u'Temperature', u'VolumetricFlow', u'MassFlow', u'Power', u'Distance'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `input_unit_type_for_y`
+            value (str): value for IDD Field `Input Unit Type for Y`
                 Accepted values are:
                       - Dimensionless
                       - Temperature
@@ -7653,7 +7816,7 @@ class CurveTriquadratic(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `input_unit_type_for_y`'.format(value))
             if ',' in value:
@@ -7683,7 +7846,6 @@ class CurveTriquadratic(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `input_unit_type_for_y`'.format(value))
             value = vals[value_lower]
-
         self._data["Input Unit Type for Y"] = value
 
     @property
@@ -7697,10 +7859,12 @@ class CurveTriquadratic(object):
 
     @input_unit_type_for_z.setter
     def input_unit_type_for_z(self, value="Dimensionless"):
-        """  Corresponds to IDD Field `input_unit_type_for_z`
+        """  Corresponds to IDD Field `Input Unit Type for Z`
+        
+        {u'default': u'Dimensionless', u'type': u'choice', u'key': [u'Dimensionless', u'Temperature', u'VolumetricFlow', u'MassFlow', u'Power', u'Distance'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `input_unit_type_for_z`
+            value (str): value for IDD Field `Input Unit Type for Z`
                 Accepted values are:
                       - Dimensionless
                       - Temperature
@@ -7718,7 +7882,7 @@ class CurveTriquadratic(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `input_unit_type_for_z`'.format(value))
             if ',' in value:
@@ -7748,7 +7912,6 @@ class CurveTriquadratic(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `input_unit_type_for_z`'.format(value))
             value = vals[value_lower]
-
         self._data["Input Unit Type for Z"] = value
 
     @property
@@ -7762,10 +7925,12 @@ class CurveTriquadratic(object):
 
     @output_unit_type.setter
     def output_unit_type(self, value="Dimensionless"):
-        """  Corresponds to IDD Field `output_unit_type`
+        """  Corresponds to IDD Field `Output Unit Type`
+        
+        {u'default': u'Dimensionless', u'type': u'choice', u'key': [u'Dimensionless', u'Capacity', u'Power'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `output_unit_type`
+            value (str): value for IDD Field `Output Unit Type`
                 Accepted values are:
                       - Dimensionless
                       - Capacity
@@ -7780,7 +7945,7 @@ class CurveTriquadratic(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `output_unit_type`'.format(value))
             if ',' in value:
@@ -7807,7 +7972,6 @@ class CurveTriquadratic(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `output_unit_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Output Unit Type"] = value
 
     def check(self):
@@ -7929,10 +8093,12 @@ class CurveFunctionalPressureDrop(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {u'type': u'alpha', u'reference': u'PressureDropCurves', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7942,7 +8108,7 @@ class CurveFunctionalPressureDrop(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -7951,7 +8117,6 @@ class CurveFunctionalPressureDrop(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -7965,11 +8130,13 @@ class CurveFunctionalPressureDrop(object):
 
     @diameter.setter
     def diameter(self, value=None):
-        """  Corresponds to IDD Field `diameter`
+        """  Corresponds to IDD Field `Diameter`
         "D" in above expression, used to also calculate local velocity
+        
+        {'pytype': 'float', u'minimum>': '0.0', u'required-field': True, u'note': [u'"D" in above expression, used to also calculate local velocity'], u'units': u'm', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `diameter`
+            value (float): value for IDD Field `Diameter`
                 Units: m
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -7981,13 +8148,12 @@ class CurveFunctionalPressureDrop(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `diameter`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `diameter`')
-
         self._data["Diameter"] = value
 
     @property
@@ -8001,11 +8167,13 @@ class CurveFunctionalPressureDrop(object):
 
     @minor_loss_coefficient.setter
     def minor_loss_coefficient(self, value=None):
-        """  Corresponds to IDD Field `minor_loss_coefficient`
+        """  Corresponds to IDD Field `Minor Loss Coefficient`
         "K" in above expression
+        
+        {u'units': u'dimensionless', u'note': [u'"K" in above expression'], u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `minor_loss_coefficient`
+            value (float): value for IDD Field `Minor Loss Coefficient`
                 Units: dimensionless
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -8017,13 +8185,12 @@ class CurveFunctionalPressureDrop(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `minor_loss_coefficient`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `minor_loss_coefficient`')
-
         self._data["Minor Loss Coefficient"] = value
 
     @property
@@ -8037,11 +8204,13 @@ class CurveFunctionalPressureDrop(object):
 
     @length.setter
     def length(self, value=None):
-        """  Corresponds to IDD Field `length`
+        """  Corresponds to IDD Field `Length`
         "L" in above expression
+        
+        {u'units': u'm', u'note': [u'"L" in above expression'], u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `length`
+            value (float): value for IDD Field `Length`
                 Units: m
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -8053,13 +8222,12 @@ class CurveFunctionalPressureDrop(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `length`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `length`')
-
         self._data["Length"] = value
 
     @property
@@ -8073,11 +8241,13 @@ class CurveFunctionalPressureDrop(object):
 
     @roughness.setter
     def roughness(self, value=None):
-        """  Corresponds to IDD Field `roughness`
+        """  Corresponds to IDD Field `Roughness`
         This will be used to calculate "f" from Moody-chart approximations
+        
+        {u'units': u'm', u'note': [u'This will be used to calculate "f" from Moody-chart approximations'], u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `roughness`
+            value (float): value for IDD Field `Roughness`
                 Units: m
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -8089,13 +8259,12 @@ class CurveFunctionalPressureDrop(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `roughness`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `roughness`')
-
         self._data["Roughness"] = value
 
     @property
@@ -8109,12 +8278,14 @@ class CurveFunctionalPressureDrop(object):
 
     @fixed_friction_factor.setter
     def fixed_friction_factor(self, value=None):
-        """  Corresponds to IDD Field `fixed_friction_factor`
+        """  Corresponds to IDD Field `Fixed Friction Factor`
         Optional way to set a constant value for "f", instead of using
         internal Moody-chart approximations
+        
+        {u'note': [u'Optional way to set a constant value for "f", instead of using', u'internal Moody-chart approximations'], u'minimum>': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `fixed_friction_factor`
+            value (float): value for IDD Field `Fixed Friction Factor`
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -8125,13 +8296,12 @@ class CurveFunctionalPressureDrop(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `fixed_friction_factor`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `fixed_friction_factor`')
-
         self._data["Fixed Friction Factor"] = value
 
     def check(self):
@@ -8298,10 +8468,12 @@ class CurveFanPressureRise(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {u'type': u'alpha', u'reference': u'AllCurves', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8311,7 +8483,7 @@ class CurveFanPressureRise(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -8320,7 +8492,6 @@ class CurveFanPressureRise(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -8334,10 +8505,12 @@ class CurveFanPressureRise(object):
 
     @coefficient1_c1.setter
     def coefficient1_c1(self, value=None):
-        """  Corresponds to IDD Field `coefficient1_c1`
+        """  Corresponds to IDD Field `Coefficient1 C1`
+        
+        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `coefficient1_c1`
+            value (float): value for IDD Field `Coefficient1 C1`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8347,10 +8520,9 @@ class CurveFanPressureRise(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `coefficient1_c1`'.format(value))
-
         self._data["Coefficient1 C1"] = value
 
     @property
@@ -8364,10 +8536,12 @@ class CurveFanPressureRise(object):
 
     @coefficient2_c2.setter
     def coefficient2_c2(self, value=None):
-        """  Corresponds to IDD Field `coefficient2_c2`
+        """  Corresponds to IDD Field `Coefficient2 C2`
+        
+        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `coefficient2_c2`
+            value (float): value for IDD Field `Coefficient2 C2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8377,10 +8551,9 @@ class CurveFanPressureRise(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `coefficient2_c2`'.format(value))
-
         self._data["Coefficient2 C2"] = value
 
     @property
@@ -8394,10 +8567,12 @@ class CurveFanPressureRise(object):
 
     @coefficient3_c3.setter
     def coefficient3_c3(self, value=None):
-        """  Corresponds to IDD Field `coefficient3_c3`
+        """  Corresponds to IDD Field `Coefficient3 C3`
+        
+        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `coefficient3_c3`
+            value (float): value for IDD Field `Coefficient3 C3`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8407,10 +8582,9 @@ class CurveFanPressureRise(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `coefficient3_c3`'.format(value))
-
         self._data["Coefficient3 C3"] = value
 
     @property
@@ -8424,10 +8598,12 @@ class CurveFanPressureRise(object):
 
     @coefficient4_c4.setter
     def coefficient4_c4(self, value=None):
-        """  Corresponds to IDD Field `coefficient4_c4`
+        """  Corresponds to IDD Field `Coefficient4 C4`
+        
+        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `coefficient4_c4`
+            value (float): value for IDD Field `Coefficient4 C4`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8437,10 +8613,9 @@ class CurveFanPressureRise(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `coefficient4_c4`'.format(value))
-
         self._data["Coefficient4 C4"] = value
 
     @property
@@ -8454,10 +8629,12 @@ class CurveFanPressureRise(object):
 
     @minimum_value_of_qfan.setter
     def minimum_value_of_qfan(self, value=None):
-        """  Corresponds to IDD Field `minimum_value_of_qfan`
+        """  Corresponds to IDD Field `Minimum Value of Qfan`
+        
+        {u'units': u'm3/s', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `minimum_value_of_qfan`
+            value (float): value for IDD Field `Minimum Value of Qfan`
                 Units: m3/s
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -8468,10 +8645,9 @@ class CurveFanPressureRise(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `minimum_value_of_qfan`'.format(value))
-
         self._data["Minimum Value of Qfan"] = value
 
     @property
@@ -8485,10 +8661,12 @@ class CurveFanPressureRise(object):
 
     @maximum_value_of_qfan.setter
     def maximum_value_of_qfan(self, value=None):
-        """  Corresponds to IDD Field `maximum_value_of_qfan`
+        """  Corresponds to IDD Field `Maximum Value of Qfan`
+        
+        {u'units': u'm3/s', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `maximum_value_of_qfan`
+            value (float): value for IDD Field `Maximum Value of Qfan`
                 Units: m3/s
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -8499,10 +8677,9 @@ class CurveFanPressureRise(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `maximum_value_of_qfan`'.format(value))
-
         self._data["Maximum Value of Qfan"] = value
 
     @property
@@ -8516,10 +8693,12 @@ class CurveFanPressureRise(object):
 
     @minimum_value_of_psm.setter
     def minimum_value_of_psm(self, value=None):
-        """  Corresponds to IDD Field `minimum_value_of_psm`
+        """  Corresponds to IDD Field `Minimum Value of Psm`
+        
+        {u'units': u'Pa', u'ip-units': u'Pa', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `minimum_value_of_psm`
+            value (float): value for IDD Field `Minimum Value of Psm`
                 Units: Pa
                 IP-Units: Pa
                 if `value` is None it will not be checked against the
@@ -8531,10 +8710,9 @@ class CurveFanPressureRise(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `minimum_value_of_psm`'.format(value))
-
         self._data["Minimum Value of Psm"] = value
 
     @property
@@ -8548,10 +8726,12 @@ class CurveFanPressureRise(object):
 
     @maximum_value_of_psm.setter
     def maximum_value_of_psm(self, value=None):
-        """  Corresponds to IDD Field `maximum_value_of_psm`
+        """  Corresponds to IDD Field `Maximum Value of Psm`
+        
+        {u'units': u'Pa', u'ip-units': u'Pa', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `maximum_value_of_psm`
+            value (float): value for IDD Field `Maximum Value of Psm`
                 Units: Pa
                 IP-Units: Pa
                 if `value` is None it will not be checked against the
@@ -8563,10 +8743,9 @@ class CurveFanPressureRise(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `maximum_value_of_psm`'.format(value))
-
         self._data["Maximum Value of Psm"] = value
 
     @property
@@ -8580,11 +8759,13 @@ class CurveFanPressureRise(object):
 
     @minimum_curve_output.setter
     def minimum_curve_output(self, value=None):
-        """  Corresponds to IDD Field `minimum_curve_output`
+        """  Corresponds to IDD Field `Minimum Curve Output`
         Specify the minimum value calculated by this curve object
+        
+        {u'units': u'Pa', u'ip-units': u'Pa', u'note': [u'Specify the minimum value calculated by this curve object'], u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `minimum_curve_output`
+            value (float): value for IDD Field `Minimum Curve Output`
                 Units: Pa
                 IP-Units: Pa
                 if `value` is None it will not be checked against the
@@ -8596,10 +8777,9 @@ class CurveFanPressureRise(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `minimum_curve_output`'.format(value))
-
         self._data["Minimum Curve Output"] = value
 
     @property
@@ -8613,11 +8793,13 @@ class CurveFanPressureRise(object):
 
     @maximum_curve_output.setter
     def maximum_curve_output(self, value=None):
-        """  Corresponds to IDD Field `maximum_curve_output`
+        """  Corresponds to IDD Field `Maximum Curve Output`
         Specify the maximum value calculated by this curve object
+        
+        {u'units': u'Pa', u'ip-units': u'Pa', u'note': [u'Specify the maximum value calculated by this curve object'], u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `maximum_curve_output`
+            value (float): value for IDD Field `Maximum Curve Output`
                 Units: Pa
                 IP-Units: Pa
                 if `value` is None it will not be checked against the
@@ -8629,10 +8811,9 @@ class CurveFanPressureRise(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `maximum_curve_output`'.format(value))
-
         self._data["Maximum Curve Output"] = value
 
     def check(self):
@@ -8796,11 +8977,13 @@ class CurveExponentialSkewNormal(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
         See InputOut Reference for curve description
+        
+        {u'note': [u'See InputOut Reference for curve description'], u'type': u'alpha', u'reference': u'AllCurves', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8810,7 +8993,7 @@ class CurveExponentialSkewNormal(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -8819,7 +9002,6 @@ class CurveExponentialSkewNormal(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -8833,10 +9015,12 @@ class CurveExponentialSkewNormal(object):
 
     @coefficient1_c1.setter
     def coefficient1_c1(self, value=None):
-        """  Corresponds to IDD Field `coefficient1_c1`
+        """  Corresponds to IDD Field `Coefficient1 C1`
+        
+        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `coefficient1_c1`
+            value (float): value for IDD Field `Coefficient1 C1`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8846,10 +9030,9 @@ class CurveExponentialSkewNormal(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `coefficient1_c1`'.format(value))
-
         self._data["Coefficient1 C1"] = value
 
     @property
@@ -8863,10 +9046,12 @@ class CurveExponentialSkewNormal(object):
 
     @coefficient2_c2.setter
     def coefficient2_c2(self, value=None):
-        """  Corresponds to IDD Field `coefficient2_c2`
+        """  Corresponds to IDD Field `Coefficient2 C2`
+        
+        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `coefficient2_c2`
+            value (float): value for IDD Field `Coefficient2 C2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8876,10 +9061,9 @@ class CurveExponentialSkewNormal(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `coefficient2_c2`'.format(value))
-
         self._data["Coefficient2 C2"] = value
 
     @property
@@ -8893,10 +9077,12 @@ class CurveExponentialSkewNormal(object):
 
     @coefficient3_c3.setter
     def coefficient3_c3(self, value=None):
-        """  Corresponds to IDD Field `coefficient3_c3`
+        """  Corresponds to IDD Field `Coefficient3 C3`
+        
+        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `coefficient3_c3`
+            value (float): value for IDD Field `Coefficient3 C3`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8906,10 +9092,9 @@ class CurveExponentialSkewNormal(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `coefficient3_c3`'.format(value))
-
         self._data["Coefficient3 C3"] = value
 
     @property
@@ -8923,10 +9108,12 @@ class CurveExponentialSkewNormal(object):
 
     @coefficient4_c4.setter
     def coefficient4_c4(self, value=None):
-        """  Corresponds to IDD Field `coefficient4_c4`
+        """  Corresponds to IDD Field `Coefficient4 C4`
+        
+        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `coefficient4_c4`
+            value (float): value for IDD Field `Coefficient4 C4`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8936,10 +9123,9 @@ class CurveExponentialSkewNormal(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `coefficient4_c4`'.format(value))
-
         self._data["Coefficient4 C4"] = value
 
     @property
@@ -8953,10 +9139,12 @@ class CurveExponentialSkewNormal(object):
 
     @minimum_value_of_x.setter
     def minimum_value_of_x(self, value=None):
-        """  Corresponds to IDD Field `minimum_value_of_x`
+        """  Corresponds to IDD Field `Minimum Value of x`
+        
+        {u'type': u'real', u'unitsBasedOnField': u'A2', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `minimum_value_of_x`
+            value (float): value for IDD Field `Minimum Value of x`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8966,10 +9154,9 @@ class CurveExponentialSkewNormal(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `minimum_value_of_x`'.format(value))
-
         self._data["Minimum Value of x"] = value
 
     @property
@@ -8983,10 +9170,12 @@ class CurveExponentialSkewNormal(object):
 
     @maximum_value_of_x.setter
     def maximum_value_of_x(self, value=None):
-        """  Corresponds to IDD Field `maximum_value_of_x`
+        """  Corresponds to IDD Field `Maximum Value of x`
+        
+        {u'type': u'real', u'unitsBasedOnField': u'A2', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `maximum_value_of_x`
+            value (float): value for IDD Field `Maximum Value of x`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8996,10 +9185,9 @@ class CurveExponentialSkewNormal(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `maximum_value_of_x`'.format(value))
-
         self._data["Maximum Value of x"] = value
 
     @property
@@ -9013,11 +9201,13 @@ class CurveExponentialSkewNormal(object):
 
     @minimum_curve_output.setter
     def minimum_curve_output(self, value=None):
-        """  Corresponds to IDD Field `minimum_curve_output`
+        """  Corresponds to IDD Field `Minimum Curve Output`
         Specify the minimum value calculated by this curve object
+        
+        {u'note': [u'Specify the minimum value calculated by this curve object'], u'type': u'real', u'unitsBasedOnField': u'A3', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `minimum_curve_output`
+            value (float): value for IDD Field `Minimum Curve Output`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9027,10 +9217,9 @@ class CurveExponentialSkewNormal(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `minimum_curve_output`'.format(value))
-
         self._data["Minimum Curve Output"] = value
 
     @property
@@ -9044,11 +9233,13 @@ class CurveExponentialSkewNormal(object):
 
     @maximum_curve_output.setter
     def maximum_curve_output(self, value=None):
-        """  Corresponds to IDD Field `maximum_curve_output`
+        """  Corresponds to IDD Field `Maximum Curve Output`
         Specify the maximum value calculated by this curve object
+        
+        {u'note': [u'Specify the maximum value calculated by this curve object'], u'type': u'real', u'unitsBasedOnField': u'A3', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `maximum_curve_output`
+            value (float): value for IDD Field `Maximum Curve Output`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9058,10 +9249,9 @@ class CurveExponentialSkewNormal(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `maximum_curve_output`'.format(value))
-
         self._data["Maximum Curve Output"] = value
 
     @property
@@ -9075,10 +9265,12 @@ class CurveExponentialSkewNormal(object):
 
     @input_unit_type_for_x.setter
     def input_unit_type_for_x(self, value="Dimensionless"):
-        """  Corresponds to IDD Field `input_unit_type_for_x`
+        """  Corresponds to IDD Field `Input Unit Type for x`
+        
+        {u'default': u'Dimensionless', u'type': u'choice', u'key': [u'Dimensionless'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `input_unit_type_for_x`
+            value (str): value for IDD Field `Input Unit Type for x`
                 Accepted values are:
                       - Dimensionless
                 Default value: Dimensionless
@@ -9091,7 +9283,7 @@ class CurveExponentialSkewNormal(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `input_unit_type_for_x`'.format(value))
             if ',' in value:
@@ -9116,7 +9308,6 @@ class CurveExponentialSkewNormal(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `input_unit_type_for_x`'.format(value))
             value = vals[value_lower]
-
         self._data["Input Unit Type for x"] = value
 
     @property
@@ -9130,10 +9321,12 @@ class CurveExponentialSkewNormal(object):
 
     @output_unit_type.setter
     def output_unit_type(self, value="Dimensionless"):
-        """  Corresponds to IDD Field `output_unit_type`
+        """  Corresponds to IDD Field `Output Unit Type`
+        
+        {u'default': u'Dimensionless', u'type': u'choice', u'key': [u'Dimensionless'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `output_unit_type`
+            value (str): value for IDD Field `Output Unit Type`
                 Accepted values are:
                       - Dimensionless
                 Default value: Dimensionless
@@ -9146,7 +9339,7 @@ class CurveExponentialSkewNormal(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `output_unit_type`'.format(value))
             if ',' in value:
@@ -9171,7 +9364,6 @@ class CurveExponentialSkewNormal(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `output_unit_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Output Unit Type"] = value
 
     def check(self):
@@ -9343,11 +9535,13 @@ class CurveSigmoid(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
         See InputOut Reference for curve description
+        
+        {u'note': [u'See InputOut Reference for curve description'], u'type': u'alpha', u'reference': u'AllCurves', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9357,7 +9551,7 @@ class CurveSigmoid(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -9366,7 +9560,6 @@ class CurveSigmoid(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -9380,10 +9573,12 @@ class CurveSigmoid(object):
 
     @coefficient1_c1.setter
     def coefficient1_c1(self, value=None):
-        """  Corresponds to IDD Field `coefficient1_c1`
+        """  Corresponds to IDD Field `Coefficient1 C1`
+        
+        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `coefficient1_c1`
+            value (float): value for IDD Field `Coefficient1 C1`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9393,10 +9588,9 @@ class CurveSigmoid(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `coefficient1_c1`'.format(value))
-
         self._data["Coefficient1 C1"] = value
 
     @property
@@ -9410,10 +9604,12 @@ class CurveSigmoid(object):
 
     @coefficient2_c2.setter
     def coefficient2_c2(self, value=None):
-        """  Corresponds to IDD Field `coefficient2_c2`
+        """  Corresponds to IDD Field `Coefficient2 C2`
+        
+        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `coefficient2_c2`
+            value (float): value for IDD Field `Coefficient2 C2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9423,10 +9619,9 @@ class CurveSigmoid(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `coefficient2_c2`'.format(value))
-
         self._data["Coefficient2 C2"] = value
 
     @property
@@ -9440,10 +9635,12 @@ class CurveSigmoid(object):
 
     @coefficient3_c3.setter
     def coefficient3_c3(self, value=None):
-        """  Corresponds to IDD Field `coefficient3_c3`
+        """  Corresponds to IDD Field `Coefficient3 C3`
+        
+        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `coefficient3_c3`
+            value (float): value for IDD Field `Coefficient3 C3`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9453,10 +9650,9 @@ class CurveSigmoid(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `coefficient3_c3`'.format(value))
-
         self._data["Coefficient3 C3"] = value
 
     @property
@@ -9470,10 +9666,12 @@ class CurveSigmoid(object):
 
     @coefficient4_c4.setter
     def coefficient4_c4(self, value=None):
-        """  Corresponds to IDD Field `coefficient4_c4`
+        """  Corresponds to IDD Field `Coefficient4 C4`
+        
+        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `coefficient4_c4`
+            value (float): value for IDD Field `Coefficient4 C4`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9483,10 +9681,9 @@ class CurveSigmoid(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `coefficient4_c4`'.format(value))
-
         self._data["Coefficient4 C4"] = value
 
     @property
@@ -9500,10 +9697,12 @@ class CurveSigmoid(object):
 
     @coefficient5_c5.setter
     def coefficient5_c5(self, value=None):
-        """  Corresponds to IDD Field `coefficient5_c5`
+        """  Corresponds to IDD Field `Coefficient5 C5`
+        
+        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `coefficient5_c5`
+            value (float): value for IDD Field `Coefficient5 C5`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9513,10 +9712,9 @@ class CurveSigmoid(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `coefficient5_c5`'.format(value))
-
         self._data["Coefficient5 C5"] = value
 
     @property
@@ -9530,10 +9728,12 @@ class CurveSigmoid(object):
 
     @minimum_value_of_x.setter
     def minimum_value_of_x(self, value=None):
-        """  Corresponds to IDD Field `minimum_value_of_x`
+        """  Corresponds to IDD Field `Minimum Value of x`
+        
+        {u'type': u'real', u'unitsBasedOnField': u'A2', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `minimum_value_of_x`
+            value (float): value for IDD Field `Minimum Value of x`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9543,10 +9743,9 @@ class CurveSigmoid(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `minimum_value_of_x`'.format(value))
-
         self._data["Minimum Value of x"] = value
 
     @property
@@ -9560,10 +9759,12 @@ class CurveSigmoid(object):
 
     @maximum_value_of_x.setter
     def maximum_value_of_x(self, value=None):
-        """  Corresponds to IDD Field `maximum_value_of_x`
+        """  Corresponds to IDD Field `Maximum Value of x`
+        
+        {u'type': u'real', u'unitsBasedOnField': u'A2', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `maximum_value_of_x`
+            value (float): value for IDD Field `Maximum Value of x`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9573,10 +9774,9 @@ class CurveSigmoid(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `maximum_value_of_x`'.format(value))
-
         self._data["Maximum Value of x"] = value
 
     @property
@@ -9590,11 +9790,13 @@ class CurveSigmoid(object):
 
     @minimum_curve_output.setter
     def minimum_curve_output(self, value=None):
-        """  Corresponds to IDD Field `minimum_curve_output`
+        """  Corresponds to IDD Field `Minimum Curve Output`
         Specify the minimum value calculated by this curve object
+        
+        {u'note': [u'Specify the minimum value calculated by this curve object'], u'type': u'real', u'unitsBasedOnField': u'A3', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `minimum_curve_output`
+            value (float): value for IDD Field `Minimum Curve Output`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9604,10 +9806,9 @@ class CurveSigmoid(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `minimum_curve_output`'.format(value))
-
         self._data["Minimum Curve Output"] = value
 
     @property
@@ -9621,11 +9822,13 @@ class CurveSigmoid(object):
 
     @maximum_curve_output.setter
     def maximum_curve_output(self, value=None):
-        """  Corresponds to IDD Field `maximum_curve_output`
+        """  Corresponds to IDD Field `Maximum Curve Output`
         Specify the maximum value calculated by this curve object
+        
+        {u'note': [u'Specify the maximum value calculated by this curve object'], u'type': u'real', u'unitsBasedOnField': u'A3', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `maximum_curve_output`
+            value (float): value for IDD Field `Maximum Curve Output`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9635,10 +9838,9 @@ class CurveSigmoid(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `maximum_curve_output`'.format(value))
-
         self._data["Maximum Curve Output"] = value
 
     @property
@@ -9652,10 +9854,12 @@ class CurveSigmoid(object):
 
     @input_unit_type_for_x.setter
     def input_unit_type_for_x(self, value="Dimensionless"):
-        """  Corresponds to IDD Field `input_unit_type_for_x`
+        """  Corresponds to IDD Field `Input Unit Type for x`
+        
+        {u'default': u'Dimensionless', u'type': u'choice', u'key': [u'Dimensionless'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `input_unit_type_for_x`
+            value (str): value for IDD Field `Input Unit Type for x`
                 Accepted values are:
                       - Dimensionless
                 Default value: Dimensionless
@@ -9668,7 +9872,7 @@ class CurveSigmoid(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `input_unit_type_for_x`'.format(value))
             if ',' in value:
@@ -9693,7 +9897,6 @@ class CurveSigmoid(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `input_unit_type_for_x`'.format(value))
             value = vals[value_lower]
-
         self._data["Input Unit Type for x"] = value
 
     @property
@@ -9707,10 +9910,12 @@ class CurveSigmoid(object):
 
     @output_unit_type.setter
     def output_unit_type(self, value="Dimensionless"):
-        """  Corresponds to IDD Field `output_unit_type`
+        """  Corresponds to IDD Field `Output Unit Type`
+        
+        {u'default': u'Dimensionless', u'type': u'choice', u'key': [u'Dimensionless'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `output_unit_type`
+            value (str): value for IDD Field `Output Unit Type`
                 Accepted values are:
                       - Dimensionless
                 Default value: Dimensionless
@@ -9723,7 +9928,7 @@ class CurveSigmoid(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `output_unit_type`'.format(value))
             if ',' in value:
@@ -9748,7 +9953,6 @@ class CurveSigmoid(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `output_unit_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Output Unit Type"] = value
 
     def check(self):
@@ -9904,10 +10108,12 @@ class CurveRectangularHyperbola1(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {u'type': u'alpha', u'reference': u'AllCurves', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9917,7 +10123,7 @@ class CurveRectangularHyperbola1(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -9926,7 +10132,6 @@ class CurveRectangularHyperbola1(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -9940,10 +10145,12 @@ class CurveRectangularHyperbola1(object):
 
     @coefficient1_c1.setter
     def coefficient1_c1(self, value=None):
-        """  Corresponds to IDD Field `coefficient1_c1`
+        """  Corresponds to IDD Field `Coefficient1 C1`
+        
+        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `coefficient1_c1`
+            value (float): value for IDD Field `Coefficient1 C1`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9953,10 +10160,9 @@ class CurveRectangularHyperbola1(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `coefficient1_c1`'.format(value))
-
         self._data["Coefficient1 C1"] = value
 
     @property
@@ -9970,10 +10176,12 @@ class CurveRectangularHyperbola1(object):
 
     @coefficient2_c2.setter
     def coefficient2_c2(self, value=None):
-        """  Corresponds to IDD Field `coefficient2_c2`
+        """  Corresponds to IDD Field `Coefficient2 C2`
+        
+        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `coefficient2_c2`
+            value (float): value for IDD Field `Coefficient2 C2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9983,10 +10191,9 @@ class CurveRectangularHyperbola1(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `coefficient2_c2`'.format(value))
-
         self._data["Coefficient2 C2"] = value
 
     @property
@@ -10000,10 +10207,12 @@ class CurveRectangularHyperbola1(object):
 
     @coefficient3_c3.setter
     def coefficient3_c3(self, value=None):
-        """  Corresponds to IDD Field `coefficient3_c3`
+        """  Corresponds to IDD Field `Coefficient3 C3`
+        
+        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `coefficient3_c3`
+            value (float): value for IDD Field `Coefficient3 C3`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -10013,10 +10222,9 @@ class CurveRectangularHyperbola1(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `coefficient3_c3`'.format(value))
-
         self._data["Coefficient3 C3"] = value
 
     @property
@@ -10030,10 +10238,12 @@ class CurveRectangularHyperbola1(object):
 
     @minimum_value_of_x.setter
     def minimum_value_of_x(self, value=None):
-        """  Corresponds to IDD Field `minimum_value_of_x`
+        """  Corresponds to IDD Field `Minimum Value of x`
+        
+        {u'type': u'real', u'unitsBasedOnField': u'A2', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `minimum_value_of_x`
+            value (float): value for IDD Field `Minimum Value of x`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -10043,10 +10253,9 @@ class CurveRectangularHyperbola1(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `minimum_value_of_x`'.format(value))
-
         self._data["Minimum Value of x"] = value
 
     @property
@@ -10060,10 +10269,12 @@ class CurveRectangularHyperbola1(object):
 
     @maximum_value_of_x.setter
     def maximum_value_of_x(self, value=None):
-        """  Corresponds to IDD Field `maximum_value_of_x`
+        """  Corresponds to IDD Field `Maximum Value of x`
+        
+        {u'type': u'real', u'unitsBasedOnField': u'A2', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `maximum_value_of_x`
+            value (float): value for IDD Field `Maximum Value of x`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -10073,10 +10284,9 @@ class CurveRectangularHyperbola1(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `maximum_value_of_x`'.format(value))
-
         self._data["Maximum Value of x"] = value
 
     @property
@@ -10090,11 +10300,13 @@ class CurveRectangularHyperbola1(object):
 
     @minimum_curve_output.setter
     def minimum_curve_output(self, value=None):
-        """  Corresponds to IDD Field `minimum_curve_output`
+        """  Corresponds to IDD Field `Minimum Curve Output`
         Specify the minimum value calculated by this curve object
+        
+        {u'note': [u'Specify the minimum value calculated by this curve object'], u'type': u'real', u'unitsBasedOnField': u'A3', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `minimum_curve_output`
+            value (float): value for IDD Field `Minimum Curve Output`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -10104,10 +10316,9 @@ class CurveRectangularHyperbola1(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `minimum_curve_output`'.format(value))
-
         self._data["Minimum Curve Output"] = value
 
     @property
@@ -10121,11 +10332,13 @@ class CurveRectangularHyperbola1(object):
 
     @maximum_curve_output.setter
     def maximum_curve_output(self, value=None):
-        """  Corresponds to IDD Field `maximum_curve_output`
+        """  Corresponds to IDD Field `Maximum Curve Output`
         Specify the maximum value calculated by this curve object
+        
+        {u'note': [u'Specify the maximum value calculated by this curve object'], u'type': u'real', u'unitsBasedOnField': u'A3', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `maximum_curve_output`
+            value (float): value for IDD Field `Maximum Curve Output`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -10135,10 +10348,9 @@ class CurveRectangularHyperbola1(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `maximum_curve_output`'.format(value))
-
         self._data["Maximum Curve Output"] = value
 
     @property
@@ -10152,10 +10364,12 @@ class CurveRectangularHyperbola1(object):
 
     @input_unit_type_for_x.setter
     def input_unit_type_for_x(self, value="Dimensionless"):
-        """  Corresponds to IDD Field `input_unit_type_for_x`
+        """  Corresponds to IDD Field `Input Unit Type for x`
+        
+        {u'default': u'Dimensionless', u'type': u'choice', u'key': [u'Dimensionless'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `input_unit_type_for_x`
+            value (str): value for IDD Field `Input Unit Type for x`
                 Accepted values are:
                       - Dimensionless
                 Default value: Dimensionless
@@ -10168,7 +10382,7 @@ class CurveRectangularHyperbola1(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `input_unit_type_for_x`'.format(value))
             if ',' in value:
@@ -10193,7 +10407,6 @@ class CurveRectangularHyperbola1(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `input_unit_type_for_x`'.format(value))
             value = vals[value_lower]
-
         self._data["Input Unit Type for x"] = value
 
     @property
@@ -10207,10 +10420,12 @@ class CurveRectangularHyperbola1(object):
 
     @output_unit_type.setter
     def output_unit_type(self, value="Dimensionless"):
-        """  Corresponds to IDD Field `output_unit_type`
+        """  Corresponds to IDD Field `Output Unit Type`
+        
+        {u'default': u'Dimensionless', u'type': u'choice', u'key': [u'Dimensionless'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `output_unit_type`
+            value (str): value for IDD Field `Output Unit Type`
                 Accepted values are:
                       - Dimensionless
                 Default value: Dimensionless
@@ -10223,7 +10438,7 @@ class CurveRectangularHyperbola1(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `output_unit_type`'.format(value))
             if ',' in value:
@@ -10248,7 +10463,6 @@ class CurveRectangularHyperbola1(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `output_unit_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Output Unit Type"] = value
 
     def check(self):
@@ -10404,10 +10618,12 @@ class CurveRectangularHyperbola2(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {u'type': u'alpha', u'reference': u'AllCurves', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -10417,7 +10633,7 @@ class CurveRectangularHyperbola2(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -10426,7 +10642,6 @@ class CurveRectangularHyperbola2(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -10440,10 +10655,12 @@ class CurveRectangularHyperbola2(object):
 
     @coefficient1_c1.setter
     def coefficient1_c1(self, value=None):
-        """  Corresponds to IDD Field `coefficient1_c1`
+        """  Corresponds to IDD Field `Coefficient1 C1`
+        
+        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `coefficient1_c1`
+            value (float): value for IDD Field `Coefficient1 C1`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -10453,10 +10670,9 @@ class CurveRectangularHyperbola2(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `coefficient1_c1`'.format(value))
-
         self._data["Coefficient1 C1"] = value
 
     @property
@@ -10470,10 +10686,12 @@ class CurveRectangularHyperbola2(object):
 
     @coefficient2_c2.setter
     def coefficient2_c2(self, value=None):
-        """  Corresponds to IDD Field `coefficient2_c2`
+        """  Corresponds to IDD Field `Coefficient2 C2`
+        
+        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `coefficient2_c2`
+            value (float): value for IDD Field `Coefficient2 C2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -10483,10 +10701,9 @@ class CurveRectangularHyperbola2(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `coefficient2_c2`'.format(value))
-
         self._data["Coefficient2 C2"] = value
 
     @property
@@ -10500,10 +10717,12 @@ class CurveRectangularHyperbola2(object):
 
     @coefficient3_c3.setter
     def coefficient3_c3(self, value=None):
-        """  Corresponds to IDD Field `coefficient3_c3`
+        """  Corresponds to IDD Field `Coefficient3 C3`
+        
+        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `coefficient3_c3`
+            value (float): value for IDD Field `Coefficient3 C3`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -10513,10 +10732,9 @@ class CurveRectangularHyperbola2(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `coefficient3_c3`'.format(value))
-
         self._data["Coefficient3 C3"] = value
 
     @property
@@ -10530,10 +10748,12 @@ class CurveRectangularHyperbola2(object):
 
     @minimum_value_of_x.setter
     def minimum_value_of_x(self, value=None):
-        """  Corresponds to IDD Field `minimum_value_of_x`
+        """  Corresponds to IDD Field `Minimum Value of x`
+        
+        {u'type': u'real', u'unitsBasedOnField': u'A2', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `minimum_value_of_x`
+            value (float): value for IDD Field `Minimum Value of x`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -10543,10 +10763,9 @@ class CurveRectangularHyperbola2(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `minimum_value_of_x`'.format(value))
-
         self._data["Minimum Value of x"] = value
 
     @property
@@ -10560,10 +10779,12 @@ class CurveRectangularHyperbola2(object):
 
     @maximum_value_of_x.setter
     def maximum_value_of_x(self, value=None):
-        """  Corresponds to IDD Field `maximum_value_of_x`
+        """  Corresponds to IDD Field `Maximum Value of x`
+        
+        {u'type': u'real', u'unitsBasedOnField': u'A2', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `maximum_value_of_x`
+            value (float): value for IDD Field `Maximum Value of x`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -10573,10 +10794,9 @@ class CurveRectangularHyperbola2(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `maximum_value_of_x`'.format(value))
-
         self._data["Maximum Value of x"] = value
 
     @property
@@ -10590,11 +10810,13 @@ class CurveRectangularHyperbola2(object):
 
     @minimum_curve_output.setter
     def minimum_curve_output(self, value=None):
-        """  Corresponds to IDD Field `minimum_curve_output`
+        """  Corresponds to IDD Field `Minimum Curve Output`
         Specify the minimum value calculated by this curve object
+        
+        {u'note': [u'Specify the minimum value calculated by this curve object'], u'type': u'real', u'unitsBasedOnField': u'A3', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `minimum_curve_output`
+            value (float): value for IDD Field `Minimum Curve Output`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -10604,10 +10826,9 @@ class CurveRectangularHyperbola2(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `minimum_curve_output`'.format(value))
-
         self._data["Minimum Curve Output"] = value
 
     @property
@@ -10621,11 +10842,13 @@ class CurveRectangularHyperbola2(object):
 
     @maximum_curve_output.setter
     def maximum_curve_output(self, value=None):
-        """  Corresponds to IDD Field `maximum_curve_output`
+        """  Corresponds to IDD Field `Maximum Curve Output`
         Specify the maximum value calculated by this curve object
+        
+        {u'note': [u'Specify the maximum value calculated by this curve object'], u'type': u'real', u'unitsBasedOnField': u'A3', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `maximum_curve_output`
+            value (float): value for IDD Field `Maximum Curve Output`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -10635,10 +10858,9 @@ class CurveRectangularHyperbola2(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `maximum_curve_output`'.format(value))
-
         self._data["Maximum Curve Output"] = value
 
     @property
@@ -10652,10 +10874,12 @@ class CurveRectangularHyperbola2(object):
 
     @input_unit_type_for_x.setter
     def input_unit_type_for_x(self, value="Dimensionless"):
-        """  Corresponds to IDD Field `input_unit_type_for_x`
+        """  Corresponds to IDD Field `Input Unit Type for x`
+        
+        {u'default': u'Dimensionless', u'type': u'choice', u'key': [u'Dimensionless'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `input_unit_type_for_x`
+            value (str): value for IDD Field `Input Unit Type for x`
                 Accepted values are:
                       - Dimensionless
                 Default value: Dimensionless
@@ -10668,7 +10892,7 @@ class CurveRectangularHyperbola2(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `input_unit_type_for_x`'.format(value))
             if ',' in value:
@@ -10693,7 +10917,6 @@ class CurveRectangularHyperbola2(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `input_unit_type_for_x`'.format(value))
             value = vals[value_lower]
-
         self._data["Input Unit Type for x"] = value
 
     @property
@@ -10707,10 +10930,12 @@ class CurveRectangularHyperbola2(object):
 
     @output_unit_type.setter
     def output_unit_type(self, value="Dimensionless"):
-        """  Corresponds to IDD Field `output_unit_type`
+        """  Corresponds to IDD Field `Output Unit Type`
+        
+        {u'default': u'Dimensionless', u'type': u'choice', u'key': [u'Dimensionless'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `output_unit_type`
+            value (str): value for IDD Field `Output Unit Type`
                 Accepted values are:
                       - Dimensionless
                 Default value: Dimensionless
@@ -10723,7 +10948,7 @@ class CurveRectangularHyperbola2(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `output_unit_type`'.format(value))
             if ',' in value:
@@ -10748,7 +10973,6 @@ class CurveRectangularHyperbola2(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `output_unit_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Output Unit Type"] = value
 
     def check(self):
@@ -10904,10 +11128,12 @@ class CurveExponentialDecay(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {u'type': u'alpha', u'reference': u'AllCurves', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -10917,7 +11143,7 @@ class CurveExponentialDecay(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -10926,7 +11152,6 @@ class CurveExponentialDecay(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -10940,10 +11165,12 @@ class CurveExponentialDecay(object):
 
     @coefficient1_c1.setter
     def coefficient1_c1(self, value=None):
-        """  Corresponds to IDD Field `coefficient1_c1`
+        """  Corresponds to IDD Field `Coefficient1 C1`
+        
+        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `coefficient1_c1`
+            value (float): value for IDD Field `Coefficient1 C1`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -10953,10 +11180,9 @@ class CurveExponentialDecay(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `coefficient1_c1`'.format(value))
-
         self._data["Coefficient1 C1"] = value
 
     @property
@@ -10970,10 +11196,12 @@ class CurveExponentialDecay(object):
 
     @coefficient2_c2.setter
     def coefficient2_c2(self, value=None):
-        """  Corresponds to IDD Field `coefficient2_c2`
+        """  Corresponds to IDD Field `Coefficient2 C2`
+        
+        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `coefficient2_c2`
+            value (float): value for IDD Field `Coefficient2 C2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -10983,10 +11211,9 @@ class CurveExponentialDecay(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `coefficient2_c2`'.format(value))
-
         self._data["Coefficient2 C2"] = value
 
     @property
@@ -11000,10 +11227,12 @@ class CurveExponentialDecay(object):
 
     @coefficient3_c3.setter
     def coefficient3_c3(self, value=None):
-        """  Corresponds to IDD Field `coefficient3_c3`
+        """  Corresponds to IDD Field `Coefficient3 C3`
+        
+        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `coefficient3_c3`
+            value (float): value for IDD Field `Coefficient3 C3`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -11013,10 +11242,9 @@ class CurveExponentialDecay(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `coefficient3_c3`'.format(value))
-
         self._data["Coefficient3 C3"] = value
 
     @property
@@ -11030,10 +11258,12 @@ class CurveExponentialDecay(object):
 
     @minimum_value_of_x.setter
     def minimum_value_of_x(self, value=None):
-        """  Corresponds to IDD Field `minimum_value_of_x`
+        """  Corresponds to IDD Field `Minimum Value of x`
+        
+        {u'type': u'real', u'unitsBasedOnField': u'A2', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `minimum_value_of_x`
+            value (float): value for IDD Field `Minimum Value of x`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -11043,10 +11273,9 @@ class CurveExponentialDecay(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `minimum_value_of_x`'.format(value))
-
         self._data["Minimum Value of x"] = value
 
     @property
@@ -11060,10 +11289,12 @@ class CurveExponentialDecay(object):
 
     @maximum_value_of_x.setter
     def maximum_value_of_x(self, value=None):
-        """  Corresponds to IDD Field `maximum_value_of_x`
+        """  Corresponds to IDD Field `Maximum Value of x`
+        
+        {u'type': u'real', u'unitsBasedOnField': u'A2', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `maximum_value_of_x`
+            value (float): value for IDD Field `Maximum Value of x`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -11073,10 +11304,9 @@ class CurveExponentialDecay(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `maximum_value_of_x`'.format(value))
-
         self._data["Maximum Value of x"] = value
 
     @property
@@ -11090,11 +11320,13 @@ class CurveExponentialDecay(object):
 
     @minimum_curve_output.setter
     def minimum_curve_output(self, value=None):
-        """  Corresponds to IDD Field `minimum_curve_output`
+        """  Corresponds to IDD Field `Minimum Curve Output`
         Specify the minimum value calculated by this curve object
+        
+        {u'note': [u'Specify the minimum value calculated by this curve object'], u'type': u'real', u'unitsBasedOnField': u'A3', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `minimum_curve_output`
+            value (float): value for IDD Field `Minimum Curve Output`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -11104,10 +11336,9 @@ class CurveExponentialDecay(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `minimum_curve_output`'.format(value))
-
         self._data["Minimum Curve Output"] = value
 
     @property
@@ -11121,11 +11352,13 @@ class CurveExponentialDecay(object):
 
     @maximum_curve_output.setter
     def maximum_curve_output(self, value=None):
-        """  Corresponds to IDD Field `maximum_curve_output`
+        """  Corresponds to IDD Field `Maximum Curve Output`
         Specify the maximum value calculated by this curve object
+        
+        {u'note': [u'Specify the maximum value calculated by this curve object'], u'type': u'real', u'unitsBasedOnField': u'A3', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `maximum_curve_output`
+            value (float): value for IDD Field `Maximum Curve Output`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -11135,10 +11368,9 @@ class CurveExponentialDecay(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `maximum_curve_output`'.format(value))
-
         self._data["Maximum Curve Output"] = value
 
     @property
@@ -11152,10 +11384,12 @@ class CurveExponentialDecay(object):
 
     @input_unit_type_for_x.setter
     def input_unit_type_for_x(self, value="Dimensionless"):
-        """  Corresponds to IDD Field `input_unit_type_for_x`
+        """  Corresponds to IDD Field `Input Unit Type for x`
+        
+        {u'default': u'Dimensionless', u'type': u'choice', u'key': [u'Dimensionless'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `input_unit_type_for_x`
+            value (str): value for IDD Field `Input Unit Type for x`
                 Accepted values are:
                       - Dimensionless
                 Default value: Dimensionless
@@ -11168,7 +11402,7 @@ class CurveExponentialDecay(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `input_unit_type_for_x`'.format(value))
             if ',' in value:
@@ -11193,7 +11427,6 @@ class CurveExponentialDecay(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `input_unit_type_for_x`'.format(value))
             value = vals[value_lower]
-
         self._data["Input Unit Type for x"] = value
 
     @property
@@ -11207,10 +11440,12 @@ class CurveExponentialDecay(object):
 
     @output_unit_type.setter
     def output_unit_type(self, value="Dimensionless"):
-        """  Corresponds to IDD Field `output_unit_type`
+        """  Corresponds to IDD Field `Output Unit Type`
+        
+        {u'default': u'Dimensionless', u'type': u'choice', u'key': [u'Dimensionless'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `output_unit_type`
+            value (str): value for IDD Field `Output Unit Type`
                 Accepted values are:
                       - Dimensionless
                 Default value: Dimensionless
@@ -11223,7 +11458,7 @@ class CurveExponentialDecay(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `output_unit_type`'.format(value))
             if ',' in value:
@@ -11248,7 +11483,6 @@ class CurveExponentialDecay(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `output_unit_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Output Unit Type"] = value
 
     def check(self):
@@ -11420,10 +11654,12 @@ class CurveDoubleExponentialDecay(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {u'type': u'alpha', u'reference': u'DoubleExponentialDecayCurves', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -11433,7 +11669,7 @@ class CurveDoubleExponentialDecay(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -11442,7 +11678,6 @@ class CurveDoubleExponentialDecay(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -11456,10 +11691,12 @@ class CurveDoubleExponentialDecay(object):
 
     @coefficient1_c1.setter
     def coefficient1_c1(self, value=None):
-        """  Corresponds to IDD Field `coefficient1_c1`
+        """  Corresponds to IDD Field `Coefficient1 C1`
+        
+        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `coefficient1_c1`
+            value (float): value for IDD Field `Coefficient1 C1`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -11469,10 +11706,9 @@ class CurveDoubleExponentialDecay(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `coefficient1_c1`'.format(value))
-
         self._data["Coefficient1 C1"] = value
 
     @property
@@ -11486,10 +11722,12 @@ class CurveDoubleExponentialDecay(object):
 
     @coefficient2_c2.setter
     def coefficient2_c2(self, value=None):
-        """  Corresponds to IDD Field `coefficient2_c2`
+        """  Corresponds to IDD Field `Coefficient2 C2`
+        
+        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `coefficient2_c2`
+            value (float): value for IDD Field `Coefficient2 C2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -11499,10 +11737,9 @@ class CurveDoubleExponentialDecay(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `coefficient2_c2`'.format(value))
-
         self._data["Coefficient2 C2"] = value
 
     @property
@@ -11516,10 +11753,12 @@ class CurveDoubleExponentialDecay(object):
 
     @coefficient3_c3.setter
     def coefficient3_c3(self, value=None):
-        """  Corresponds to IDD Field `coefficient3_c3`
+        """  Corresponds to IDD Field `Coefficient3 C3`
+        
+        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `coefficient3_c3`
+            value (float): value for IDD Field `Coefficient3 C3`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -11529,10 +11768,9 @@ class CurveDoubleExponentialDecay(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `coefficient3_c3`'.format(value))
-
         self._data["Coefficient3 C3"] = value
 
     @property
@@ -11546,10 +11784,12 @@ class CurveDoubleExponentialDecay(object):
 
     @coefficient3_c4.setter
     def coefficient3_c4(self, value=None):
-        """  Corresponds to IDD Field `coefficient3_c4`
+        """  Corresponds to IDD Field `Coefficient3 C4`
+        
+        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `coefficient3_c4`
+            value (float): value for IDD Field `Coefficient3 C4`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -11559,10 +11799,9 @@ class CurveDoubleExponentialDecay(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `coefficient3_c4`'.format(value))
-
         self._data["Coefficient3 C4"] = value
 
     @property
@@ -11576,10 +11815,12 @@ class CurveDoubleExponentialDecay(object):
 
     @coefficient3_c5.setter
     def coefficient3_c5(self, value=None):
-        """  Corresponds to IDD Field `coefficient3_c5`
+        """  Corresponds to IDD Field `Coefficient3 C5`
+        
+        {u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `coefficient3_c5`
+            value (float): value for IDD Field `Coefficient3 C5`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -11589,10 +11830,9 @@ class CurveDoubleExponentialDecay(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `coefficient3_c5`'.format(value))
-
         self._data["Coefficient3 C5"] = value
 
     @property
@@ -11606,10 +11846,12 @@ class CurveDoubleExponentialDecay(object):
 
     @minimum_value_of_x.setter
     def minimum_value_of_x(self, value=None):
-        """  Corresponds to IDD Field `minimum_value_of_x`
+        """  Corresponds to IDD Field `Minimum Value of x`
+        
+        {u'type': u'real', u'unitsBasedOnField': u'A2', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `minimum_value_of_x`
+            value (float): value for IDD Field `Minimum Value of x`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -11619,10 +11861,9 @@ class CurveDoubleExponentialDecay(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `minimum_value_of_x`'.format(value))
-
         self._data["Minimum Value of x"] = value
 
     @property
@@ -11636,10 +11877,12 @@ class CurveDoubleExponentialDecay(object):
 
     @maximum_value_of_x.setter
     def maximum_value_of_x(self, value=None):
-        """  Corresponds to IDD Field `maximum_value_of_x`
+        """  Corresponds to IDD Field `Maximum Value of x`
+        
+        {u'type': u'real', u'unitsBasedOnField': u'A2', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `maximum_value_of_x`
+            value (float): value for IDD Field `Maximum Value of x`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -11649,10 +11892,9 @@ class CurveDoubleExponentialDecay(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `maximum_value_of_x`'.format(value))
-
         self._data["Maximum Value of x"] = value
 
     @property
@@ -11666,11 +11908,13 @@ class CurveDoubleExponentialDecay(object):
 
     @minimum_curve_output.setter
     def minimum_curve_output(self, value=None):
-        """  Corresponds to IDD Field `minimum_curve_output`
+        """  Corresponds to IDD Field `Minimum Curve Output`
         Specify the minimum value calculated by this curve object
+        
+        {u'note': [u'Specify the minimum value calculated by this curve object'], u'type': u'real', u'unitsBasedOnField': u'A3', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `minimum_curve_output`
+            value (float): value for IDD Field `Minimum Curve Output`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -11680,10 +11924,9 @@ class CurveDoubleExponentialDecay(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `minimum_curve_output`'.format(value))
-
         self._data["Minimum Curve Output"] = value
 
     @property
@@ -11697,11 +11940,13 @@ class CurveDoubleExponentialDecay(object):
 
     @maximum_curve_output.setter
     def maximum_curve_output(self, value=None):
-        """  Corresponds to IDD Field `maximum_curve_output`
+        """  Corresponds to IDD Field `Maximum Curve Output`
         Specify the maximum value calculated by this curve object
+        
+        {u'note': [u'Specify the maximum value calculated by this curve object'], u'type': u'real', u'unitsBasedOnField': u'A3', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `maximum_curve_output`
+            value (float): value for IDD Field `Maximum Curve Output`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -11711,10 +11956,9 @@ class CurveDoubleExponentialDecay(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `maximum_curve_output`'.format(value))
-
         self._data["Maximum Curve Output"] = value
 
     @property
@@ -11728,10 +11972,12 @@ class CurveDoubleExponentialDecay(object):
 
     @input_unit_type_for_x.setter
     def input_unit_type_for_x(self, value="Dimensionless"):
-        """  Corresponds to IDD Field `input_unit_type_for_x`
+        """  Corresponds to IDD Field `Input Unit Type for x`
+        
+        {u'default': u'Dimensionless', u'type': u'choice', u'key': [u'Dimensionless'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `input_unit_type_for_x`
+            value (str): value for IDD Field `Input Unit Type for x`
                 Accepted values are:
                       - Dimensionless
                 Default value: Dimensionless
@@ -11744,7 +11990,7 @@ class CurveDoubleExponentialDecay(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `input_unit_type_for_x`'.format(value))
             if ',' in value:
@@ -11769,7 +12015,6 @@ class CurveDoubleExponentialDecay(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `input_unit_type_for_x`'.format(value))
             value = vals[value_lower]
-
         self._data["Input Unit Type for x"] = value
 
     @property
@@ -11783,10 +12028,12 @@ class CurveDoubleExponentialDecay(object):
 
     @output_unit_type.setter
     def output_unit_type(self, value="Dimensionless"):
-        """  Corresponds to IDD Field `output_unit_type`
+        """  Corresponds to IDD Field `Output Unit Type`
+        
+        {u'default': u'Dimensionless', u'type': u'choice', u'key': [u'Dimensionless'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `output_unit_type`
+            value (str): value for IDD Field `Output Unit Type`
                 Accepted values are:
                       - Dimensionless
                 Default value: Dimensionless
@@ -11799,7 +12046,7 @@ class CurveDoubleExponentialDecay(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `output_unit_type`'.format(value))
             if ',' in value:
@@ -11824,7 +12071,6 @@ class CurveDoubleExponentialDecay(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `output_unit_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Output Unit Type"] = value
 
     def check(self):

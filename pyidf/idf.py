@@ -5,7 +5,7 @@ It is based on a modified Energy+.idd specification file.
 
 Do not expect (yet) that it actually works!
 
-Generation date: 2014-11-30
+Generation date: 2014-12-01
 
 """
 import re

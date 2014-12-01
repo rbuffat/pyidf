@@ -68,10 +68,12 @@ class AirTerminalSingleDuctUncontrolled(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {'type': 'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -81,7 +83,7 @@ class AirTerminalSingleDuctUncontrolled(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -90,7 +92,6 @@ class AirTerminalSingleDuctUncontrolled(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -104,12 +105,14 @@ class AirTerminalSingleDuctUncontrolled(object):
 
     @availability_schedule_name.setter
     def availability_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `availability_schedule_name`
+        """  Corresponds to IDD Field `Availability Schedule Name`
         Availability schedule name for this system. Schedule value > 0 means the system is available.
         If this field is blank, the system is always available.
+        
+        {u'note': [u'Availability schedule name for this system. Schedule value > 0 means the system is available.', u'If this field is blank, the system is always available.'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `availability_schedule_name`
+            value (str): value for IDD Field `Availability Schedule Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -119,7 +122,7 @@ class AirTerminalSingleDuctUncontrolled(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `availability_schedule_name`'.format(value))
             if ',' in value:
@@ -128,7 +131,6 @@ class AirTerminalSingleDuctUncontrolled(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `availability_schedule_name`')
-
         self._data["Availability Schedule Name"] = value
 
     @property
@@ -142,10 +144,12 @@ class AirTerminalSingleDuctUncontrolled(object):
 
     @zone_supply_air_node_name.setter
     def zone_supply_air_node_name(self, value=None):
-        """  Corresponds to IDD Field `zone_supply_air_node_name`
+        """  Corresponds to IDD Field `Zone Supply Air Node Name`
+        
+        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `zone_supply_air_node_name`
+            value (str): value for IDD Field `Zone Supply Air Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -155,7 +159,7 @@ class AirTerminalSingleDuctUncontrolled(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `zone_supply_air_node_name`'.format(value))
             if ',' in value:
@@ -164,7 +168,6 @@ class AirTerminalSingleDuctUncontrolled(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `zone_supply_air_node_name`')
-
         self._data["Zone Supply Air Node Name"] = value
 
     @property
@@ -178,10 +181,12 @@ class AirTerminalSingleDuctUncontrolled(object):
 
     @maximum_air_flow_rate.setter
     def maximum_air_flow_rate(self, value=None):
-        """  Corresponds to IDD Field `maximum_air_flow_rate`
+        """  Corresponds to IDD Field `Maximum Air Flow Rate`
+        
+        {'pytype': 'float', u'required-field': True, u'autosizable': u'', u'minimum': '0.0', u'units': u'm3/s', 'type': 'real'}
 
         Args:
-            value (float): value for IDD Field `maximum_air_flow_rate`
+            value (float): value for IDD Field `Maximum Air Flow Rate`
                 Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -193,13 +198,12 @@ class AirTerminalSingleDuctUncontrolled(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `maximum_air_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `maximum_air_flow_rate`')
-
         self._data["Maximum Air Flow Rate"] = value
 
     def check(self):
@@ -368,10 +372,12 @@ class AirTerminalSingleDuctConstantVolumeReheat(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {'type': 'alpha', u'reference': u'AFNTerminalUnitNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -381,7 +387,7 @@ class AirTerminalSingleDuctConstantVolumeReheat(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -390,7 +396,6 @@ class AirTerminalSingleDuctConstantVolumeReheat(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -404,12 +409,14 @@ class AirTerminalSingleDuctConstantVolumeReheat(object):
 
     @availability_schedule_name.setter
     def availability_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `availability_schedule_name`
+        """  Corresponds to IDD Field `Availability Schedule Name`
         Availability schedule name for this system. Schedule value > 0 means the system is available.
         If this field is blank, the system is always available.
+        
+        {u'note': [u'Availability schedule name for this system. Schedule value > 0 means the system is available.', u'If this field is blank, the system is always available.'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `availability_schedule_name`
+            value (str): value for IDD Field `Availability Schedule Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -419,7 +426,7 @@ class AirTerminalSingleDuctConstantVolumeReheat(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `availability_schedule_name`'.format(value))
             if ',' in value:
@@ -428,7 +435,6 @@ class AirTerminalSingleDuctConstantVolumeReheat(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `availability_schedule_name`')
-
         self._data["Availability Schedule Name"] = value
 
     @property
@@ -442,10 +448,12 @@ class AirTerminalSingleDuctConstantVolumeReheat(object):
 
     @air_outlet_node_name.setter
     def air_outlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `air_outlet_node_name`
+        """  Corresponds to IDD Field `Air Outlet Node Name`
+        
+        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `air_outlet_node_name`
+            value (str): value for IDD Field `Air Outlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -455,7 +463,7 @@ class AirTerminalSingleDuctConstantVolumeReheat(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `air_outlet_node_name`'.format(value))
             if ',' in value:
@@ -464,7 +472,6 @@ class AirTerminalSingleDuctConstantVolumeReheat(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `air_outlet_node_name`')
-
         self._data["Air Outlet Node Name"] = value
 
     @property
@@ -478,10 +485,12 @@ class AirTerminalSingleDuctConstantVolumeReheat(object):
 
     @air_inlet_node_name.setter
     def air_inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `air_inlet_node_name`
+        """  Corresponds to IDD Field `Air Inlet Node Name`
+        
+        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `air_inlet_node_name`
+            value (str): value for IDD Field `Air Inlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -491,7 +500,7 @@ class AirTerminalSingleDuctConstantVolumeReheat(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `air_inlet_node_name`'.format(value))
             if ',' in value:
@@ -500,7 +509,6 @@ class AirTerminalSingleDuctConstantVolumeReheat(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `air_inlet_node_name`')
-
         self._data["Air Inlet Node Name"] = value
 
     @property
@@ -514,10 +522,12 @@ class AirTerminalSingleDuctConstantVolumeReheat(object):
 
     @maximum_air_flow_rate.setter
     def maximum_air_flow_rate(self, value=None):
-        """  Corresponds to IDD Field `maximum_air_flow_rate`
+        """  Corresponds to IDD Field `Maximum Air Flow Rate`
+        
+        {'pytype': 'float', u'required-field': True, u'autosizable': u'', u'minimum': '0.0', u'units': u'm3/s', 'type': 'real'}
 
         Args:
-            value (float): value for IDD Field `maximum_air_flow_rate`
+            value (float): value for IDD Field `Maximum Air Flow Rate`
                 Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -529,13 +539,12 @@ class AirTerminalSingleDuctConstantVolumeReheat(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `maximum_air_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `maximum_air_flow_rate`')
-
         self._data["Maximum Air Flow Rate"] = value
 
     @property
@@ -549,10 +558,12 @@ class AirTerminalSingleDuctConstantVolumeReheat(object):
 
     @hot_water_or_steam_inlet_node_name.setter
     def hot_water_or_steam_inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `hot_water_or_steam_inlet_node_name`
+        """  Corresponds to IDD Field `Hot Water or Steam Inlet Node Name`
+        
+        {u'deprecated': u'', u'type': u'node', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `hot_water_or_steam_inlet_node_name`
+            value (str): value for IDD Field `Hot Water or Steam Inlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -562,7 +573,7 @@ class AirTerminalSingleDuctConstantVolumeReheat(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `hot_water_or_steam_inlet_node_name`'.format(value))
             if ',' in value:
@@ -571,7 +582,6 @@ class AirTerminalSingleDuctConstantVolumeReheat(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `hot_water_or_steam_inlet_node_name`')
-
         self._data["Hot Water or Steam Inlet Node Name"] = value
 
     @property
@@ -585,10 +595,12 @@ class AirTerminalSingleDuctConstantVolumeReheat(object):
 
     @reheat_coil_object_type.setter
     def reheat_coil_object_type(self, value=None):
-        """  Corresponds to IDD Field `reheat_coil_object_type`
+        """  Corresponds to IDD Field `Reheat Coil Object Type`
+        
+        {u'type': u'choice', u'key': [u'Coil:Heating:Water', u'Coil:Heating:Electric', u'Coil:Heating:Gas', u'Coil:Heating:Steam'], u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `reheat_coil_object_type`
+            value (str): value for IDD Field `Reheat Coil Object Type`
                 Accepted values are:
                       - Coil:Heating:Water
                       - Coil:Heating:Electric
@@ -603,7 +615,7 @@ class AirTerminalSingleDuctConstantVolumeReheat(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `reheat_coil_object_type`'.format(value))
             if ',' in value:
@@ -631,7 +643,6 @@ class AirTerminalSingleDuctConstantVolumeReheat(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `reheat_coil_object_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Reheat Coil Object Type"] = value
 
     @property
@@ -645,10 +656,12 @@ class AirTerminalSingleDuctConstantVolumeReheat(object):
 
     @reheat_coil_name.setter
     def reheat_coil_name(self, value=None):
-        """  Corresponds to IDD Field `reheat_coil_name`
+        """  Corresponds to IDD Field `Reheat Coil Name`
+        
+        {u'type': u'object-list', u'object-list': u'HeatingCoilName', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `reheat_coil_name`
+            value (str): value for IDD Field `Reheat Coil Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -658,7 +671,7 @@ class AirTerminalSingleDuctConstantVolumeReheat(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `reheat_coil_name`'.format(value))
             if ',' in value:
@@ -667,7 +680,6 @@ class AirTerminalSingleDuctConstantVolumeReheat(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `reheat_coil_name`')
-
         self._data["Reheat Coil Name"] = value
 
     @property
@@ -681,11 +693,13 @@ class AirTerminalSingleDuctConstantVolumeReheat(object):
 
     @maximum_hot_water_or_steam_flow_rate.setter
     def maximum_hot_water_or_steam_flow_rate(self, value=None):
-        """  Corresponds to IDD Field `maximum_hot_water_or_steam_flow_rate`
+        """  Corresponds to IDD Field `Maximum Hot Water or Steam Flow Rate`
         Not used when reheat coil type is gas or electric
+        
+        {'pytype': 'float', u'note': [u'Not used when reheat coil type is gas or electric'], u'ip-units': u'gal/min', u'autosizable': u'', u'minimum': '0.0', u'units': u'm3/s', 'type': 'real'}
 
         Args:
-            value (float): value for IDD Field `maximum_hot_water_or_steam_flow_rate`
+            value (float): value for IDD Field `Maximum Hot Water or Steam Flow Rate`
                 Units: m3/s
                 IP-Units: gal/min
                 value >= 0.0
@@ -698,13 +712,12 @@ class AirTerminalSingleDuctConstantVolumeReheat(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `maximum_hot_water_or_steam_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `maximum_hot_water_or_steam_flow_rate`')
-
         self._data["Maximum Hot Water or Steam Flow Rate"] = value
 
     @property
@@ -718,11 +731,13 @@ class AirTerminalSingleDuctConstantVolumeReheat(object):
 
     @minimum_hot_water_or_steam_flow_rate.setter
     def minimum_hot_water_or_steam_flow_rate(self, value=0.0 ):
-        """  Corresponds to IDD Field `minimum_hot_water_or_steam_flow_rate`
+        """  Corresponds to IDD Field `Minimum Hot Water or Steam Flow Rate`
         Not used when reheat coil type is gas or electric
+        
+        {'pytype': 'float', u'default': '0.0', u'note': [u'Not used when reheat coil type is gas or electric'], u'ip-units': u'gal/min', u'minimum': '0.0', u'units': u'm3/s', 'type': 'real'}
 
         Args:
-            value (float): value for IDD Field `minimum_hot_water_or_steam_flow_rate`
+            value (float): value for IDD Field `Minimum Hot Water or Steam Flow Rate`
                 Units: m3/s
                 IP-Units: gal/min
                 Default value: 0.0
@@ -736,13 +751,12 @@ class AirTerminalSingleDuctConstantVolumeReheat(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `minimum_hot_water_or_steam_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `minimum_hot_water_or_steam_flow_rate`')
-
         self._data["Minimum Hot Water or Steam Flow Rate"] = value
 
     @property
@@ -756,10 +770,12 @@ class AirTerminalSingleDuctConstantVolumeReheat(object):
 
     @convergence_tolerance.setter
     def convergence_tolerance(self, value=0.001 ):
-        """  Corresponds to IDD Field `convergence_tolerance`
+        """  Corresponds to IDD Field `Convergence Tolerance`
+        
+        {u'default': '0.001', u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `convergence_tolerance`
+            value (float): value for IDD Field `Convergence Tolerance`
                 Default value: 0.001
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -771,13 +787,12 @@ class AirTerminalSingleDuctConstantVolumeReheat(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `convergence_tolerance`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `convergence_tolerance`')
-
         self._data["Convergence Tolerance"] = value
 
     @property
@@ -791,12 +806,14 @@ class AirTerminalSingleDuctConstantVolumeReheat(object):
 
     @maximum_reheat_air_temperature.setter
     def maximum_reheat_air_temperature(self, value=None):
-        """  Corresponds to IDD Field `maximum_reheat_air_temperature`
+        """  Corresponds to IDD Field `Maximum Reheat Air Temperature`
         Specifies the maximum allowable supply air temperature leaving the reheat coil.
         If left blank, there is no limit and no default. If unknown, 35C (95F) is recommended.
+        
+        {u'note': [u'Specifies the maximum allowable supply air temperature leaving the reheat coil.', u'If left blank, there is no limit and no default. If unknown, 35C (95F) is recommended.'], u'units': u'C', u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `maximum_reheat_air_temperature`
+            value (float): value for IDD Field `Maximum Reheat Air Temperature`
                 Units: C
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -808,13 +825,12 @@ class AirTerminalSingleDuctConstantVolumeReheat(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `maximum_reheat_air_temperature`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `maximum_reheat_air_temperature`')
-
         self._data["Maximum Reheat Air Temperature"] = value
 
     def check(self):
@@ -966,10 +982,12 @@ class AirTerminalSingleDuctVavNoReheat(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {'type': 'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -979,7 +997,7 @@ class AirTerminalSingleDuctVavNoReheat(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -988,7 +1006,6 @@ class AirTerminalSingleDuctVavNoReheat(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -1002,12 +1019,14 @@ class AirTerminalSingleDuctVavNoReheat(object):
 
     @availability_schedule_name.setter
     def availability_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `availability_schedule_name`
+        """  Corresponds to IDD Field `Availability Schedule Name`
         Availability schedule name for this system. Schedule value > 0 means the system is available.
         If this field is blank, the system is always available.
+        
+        {u'note': [u'Availability schedule name for this system. Schedule value > 0 means the system is available.', u'If this field is blank, the system is always available.'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `availability_schedule_name`
+            value (str): value for IDD Field `Availability Schedule Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1017,7 +1036,7 @@ class AirTerminalSingleDuctVavNoReheat(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `availability_schedule_name`'.format(value))
             if ',' in value:
@@ -1026,7 +1045,6 @@ class AirTerminalSingleDuctVavNoReheat(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `availability_schedule_name`')
-
         self._data["Availability Schedule Name"] = value
 
     @property
@@ -1040,10 +1058,12 @@ class AirTerminalSingleDuctVavNoReheat(object):
 
     @air_outlet_node_name.setter
     def air_outlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `air_outlet_node_name`
+        """  Corresponds to IDD Field `Air Outlet Node Name`
+        
+        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `air_outlet_node_name`
+            value (str): value for IDD Field `Air Outlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1053,7 +1073,7 @@ class AirTerminalSingleDuctVavNoReheat(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `air_outlet_node_name`'.format(value))
             if ',' in value:
@@ -1062,7 +1082,6 @@ class AirTerminalSingleDuctVavNoReheat(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `air_outlet_node_name`')
-
         self._data["Air Outlet Node Name"] = value
 
     @property
@@ -1076,10 +1095,12 @@ class AirTerminalSingleDuctVavNoReheat(object):
 
     @air_inlet_node_name.setter
     def air_inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `air_inlet_node_name`
+        """  Corresponds to IDD Field `Air Inlet Node Name`
+        
+        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `air_inlet_node_name`
+            value (str): value for IDD Field `Air Inlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1089,7 +1110,7 @@ class AirTerminalSingleDuctVavNoReheat(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `air_inlet_node_name`'.format(value))
             if ',' in value:
@@ -1098,7 +1119,6 @@ class AirTerminalSingleDuctVavNoReheat(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `air_inlet_node_name`')
-
         self._data["Air Inlet Node Name"] = value
 
     @property
@@ -1112,10 +1132,12 @@ class AirTerminalSingleDuctVavNoReheat(object):
 
     @maximum_air_flow_rate.setter
     def maximum_air_flow_rate(self, value=None):
-        """  Corresponds to IDD Field `maximum_air_flow_rate`
+        """  Corresponds to IDD Field `Maximum Air Flow Rate`
+        
+        {'pytype': 'float', u'required-field': True, u'autosizable': u'', u'minimum': '0.0', u'units': u'm3/s', 'type': 'real'}
 
         Args:
-            value (float): value for IDD Field `maximum_air_flow_rate`
+            value (float): value for IDD Field `Maximum Air Flow Rate`
                 Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -1127,13 +1149,12 @@ class AirTerminalSingleDuctVavNoReheat(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `maximum_air_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `maximum_air_flow_rate`')
-
         self._data["Maximum Air Flow Rate"] = value
 
     @property
@@ -1147,13 +1168,15 @@ class AirTerminalSingleDuctVavNoReheat(object):
 
     @zone_minimum_air_flow_input_method.setter
     def zone_minimum_air_flow_input_method(self, value=None):
-        """  Corresponds to IDD Field `zone_minimum_air_flow_input_method`
+        """  Corresponds to IDD Field `Zone Minimum Air Flow Input Method`
         Constant = Constant Minimum Air Flow Fraction (a fraction of Maximum Air Flow Rate)
         FixedFlowRate = Fixed Minimum Air Flow Rate (a fixed minimum air volume flow rate)
         Scheduled = Scheduled Minimum Air Flow Fraction (a fraction of Maximum Air Flow
+        
+        {u'note': [u'Constant = Constant Minimum Air Flow Fraction (a fraction of Maximum Air Flow Rate)', u'FixedFlowRate = Fixed Minimum Air Flow Rate (a fixed minimum air volume flow rate)', u'Scheduled = Scheduled Minimum Air Flow Fraction (a fraction of Maximum Air Flow'], u'type': u'choice', u'key': [u'Constant', u'FixedFlowRate', u'Scheduled'], u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `zone_minimum_air_flow_input_method`
+            value (str): value for IDD Field `Zone Minimum Air Flow Input Method`
                 Accepted values are:
                       - Constant
                       - FixedFlowRate
@@ -1167,7 +1190,7 @@ class AirTerminalSingleDuctVavNoReheat(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `zone_minimum_air_flow_input_method`'.format(value))
             if ',' in value:
@@ -1194,7 +1217,6 @@ class AirTerminalSingleDuctVavNoReheat(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `zone_minimum_air_flow_input_method`'.format(value))
             value = vals[value_lower]
-
         self._data["Zone Minimum Air Flow Input Method"] = value
 
     @property
@@ -1208,14 +1230,16 @@ class AirTerminalSingleDuctVavNoReheat(object):
 
     @constant_minimum_air_flow_fraction.setter
     def constant_minimum_air_flow_fraction(self, value=None):
-        """  Corresponds to IDD Field `constant_minimum_air_flow_fraction`
+        """  Corresponds to IDD Field `Constant Minimum Air Flow Fraction`
         This field is used if the field Zone Minimum Air Flow Input Method is Constant
         If the field Zone Minimum Air Flow Input Method is Scheduled, then this field
         is optional; if a value is entered, then it is used for sizing normal-action reheat coils.
         If both this field and the following field are entered, the larger result is used.
+        
+        {u'note': [u'This field is used if the field Zone Minimum Air Flow Input Method is Constant', u'If the field Zone Minimum Air Flow Input Method is Scheduled, then this field', u'is optional; if a value is entered, then it is used for sizing normal-action reheat coils.', u'If both this field and the following field are entered, the larger result is used.'], 'type': 'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `constant_minimum_air_flow_fraction`
+            value (float): value for IDD Field `Constant Minimum Air Flow Fraction`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1225,10 +1249,9 @@ class AirTerminalSingleDuctVavNoReheat(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `constant_minimum_air_flow_fraction`'.format(value))
-
         self._data["Constant Minimum Air Flow Fraction"] = value
 
     @property
@@ -1242,14 +1265,16 @@ class AirTerminalSingleDuctVavNoReheat(object):
 
     @fixed_minimum_air_flow_rate.setter
     def fixed_minimum_air_flow_rate(self, value=None):
-        """  Corresponds to IDD Field `fixed_minimum_air_flow_rate`
+        """  Corresponds to IDD Field `Fixed Minimum Air Flow Rate`
         This field is used if the field Zone Minimum Air Flow Input Method is FixedFlowRate.
         If the field Zone Minimum Air Flow Input Method is Scheduled, then this field
         is optional; if a value is entered, then it is used for sizing normal-action reheat coils.
         If both this field and the previous field are entered, the larger result is used.
+        
+        {u'units': u'm3/s', u'note': [u'This field is used if the field Zone Minimum Air Flow Input Method is FixedFlowRate.', u'If the field Zone Minimum Air Flow Input Method is Scheduled, then this field', u'is optional; if a value is entered, then it is used for sizing normal-action reheat coils.', u'If both this field and the previous field are entered, the larger result is used.'], u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `fixed_minimum_air_flow_rate`
+            value (float): value for IDD Field `Fixed Minimum Air Flow Rate`
                 Units: m3/s
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1260,10 +1285,9 @@ class AirTerminalSingleDuctVavNoReheat(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `fixed_minimum_air_flow_rate`'.format(value))
-
         self._data["Fixed Minimum Air Flow Rate"] = value
 
     @property
@@ -1277,14 +1301,16 @@ class AirTerminalSingleDuctVavNoReheat(object):
 
     @minimum_air_flow_fraction_schedule_name.setter
     def minimum_air_flow_fraction_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `minimum_air_flow_fraction_schedule_name`
+        """  Corresponds to IDD Field `Minimum Air Flow Fraction Schedule Name`
         This field is used if the field Zone Minimum Air Flow Input Method is Scheduled
         Schedule values are fractions, 0.0 to 1.0.
         If the field Constant Minimum Air Flow Fraction is blank, then the average of the
         minimum and maximum schedule values is used for sizing normal-action reheat coils.
+        
+        {u'note': [u'This field is used if the field Zone Minimum Air Flow Input Method is Scheduled', u'Schedule values are fractions, 0.0 to 1.0.', u'If the field Constant Minimum Air Flow Fraction is blank, then the average of the', u'minimum and maximum schedule values is used for sizing normal-action reheat coils.'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `minimum_air_flow_fraction_schedule_name`
+            value (str): value for IDD Field `Minimum Air Flow Fraction Schedule Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1294,7 +1320,7 @@ class AirTerminalSingleDuctVavNoReheat(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `minimum_air_flow_fraction_schedule_name`'.format(value))
             if ',' in value:
@@ -1303,7 +1329,6 @@ class AirTerminalSingleDuctVavNoReheat(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `minimum_air_flow_fraction_schedule_name`')
-
         self._data["Minimum Air Flow Fraction Schedule Name"] = value
 
     @property
@@ -1317,16 +1342,18 @@ class AirTerminalSingleDuctVavNoReheat(object):
 
     @design_specification_outdoor_air_object_name.setter
     def design_specification_outdoor_air_object_name(self, value=None):
-        """  Corresponds to IDD Field `design_specification_outdoor_air_object_name`
+        """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name`
         When the name of a DesignSpecification:OutdoorAir object is entered, the terminal
         unit will increase flow as needed to meet this outdoor air requirement.
         If Outdoor Air Flow per Person is non-zero, then the outdoor air requirement will
         be computed based on the current number of occupants in the zone.
         At no time will the supply air flow rate exceed the value for Maximum Air Flow Rate.
         If this field is blank, then the terminal unit will not be controlled for outdoor air flow.
+        
+        {u'note': [u'When the name of a DesignSpecification:OutdoorAir object is entered, the terminal', u'unit will increase flow as needed to meet this outdoor air requirement.', u'If Outdoor Air Flow per Person is non-zero, then the outdoor air requirement will', u'be computed based on the current number of occupants in the zone.', u'At no time will the supply air flow rate exceed the value for Maximum Air Flow Rate.', u'If this field is blank, then the terminal unit will not be controlled for outdoor air flow.'], u'type': u'object-list', u'object-list': u'DesignSpecificationOutdoorAirNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `design_specification_outdoor_air_object_name`
+            value (str): value for IDD Field `Design Specification Outdoor Air Object Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1336,7 +1363,7 @@ class AirTerminalSingleDuctVavNoReheat(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `design_specification_outdoor_air_object_name`'.format(value))
             if ',' in value:
@@ -1345,7 +1372,6 @@ class AirTerminalSingleDuctVavNoReheat(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `design_specification_outdoor_air_object_name`')
-
         self._data["Design Specification Outdoor Air Object Name"] = value
 
     def check(self):
@@ -1578,10 +1604,12 @@ class AirTerminalSingleDuctVavReheat(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {'type': 'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1591,7 +1619,7 @@ class AirTerminalSingleDuctVavReheat(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -1600,7 +1628,6 @@ class AirTerminalSingleDuctVavReheat(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -1614,12 +1641,14 @@ class AirTerminalSingleDuctVavReheat(object):
 
     @availability_schedule_name.setter
     def availability_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `availability_schedule_name`
+        """  Corresponds to IDD Field `Availability Schedule Name`
         Availability schedule name for this system. Schedule value > 0 means the system is available.
         If this field is blank, the system is always available.
+        
+        {u'note': [u'Availability schedule name for this system. Schedule value > 0 means the system is available.', u'If this field is blank, the system is always available.'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `availability_schedule_name`
+            value (str): value for IDD Field `Availability Schedule Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1629,7 +1658,7 @@ class AirTerminalSingleDuctVavReheat(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `availability_schedule_name`'.format(value))
             if ',' in value:
@@ -1638,7 +1667,6 @@ class AirTerminalSingleDuctVavReheat(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `availability_schedule_name`')
-
         self._data["Availability Schedule Name"] = value
 
     @property
@@ -1652,12 +1680,14 @@ class AirTerminalSingleDuctVavReheat(object):
 
     @damper_air_outlet_node_name.setter
     def damper_air_outlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `damper_air_outlet_node_name`
+        """  Corresponds to IDD Field `Damper Air Outlet Node Name`
         the outlet node of the damper and the inlet node of the reheat coil
         this is an internal node to the terminal unit and connects the damper and reheat coil
+        
+        {u'note': [u'the outlet node of the damper and the inlet node of the reheat coil', u'this is an internal node to the terminal unit and connects the damper and reheat coil'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `damper_air_outlet_node_name`
+            value (str): value for IDD Field `Damper Air Outlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1667,7 +1697,7 @@ class AirTerminalSingleDuctVavReheat(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `damper_air_outlet_node_name`'.format(value))
             if ',' in value:
@@ -1676,7 +1706,6 @@ class AirTerminalSingleDuctVavReheat(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `damper_air_outlet_node_name`')
-
         self._data["Damper Air Outlet Node Name"] = value
 
     @property
@@ -1690,11 +1719,13 @@ class AirTerminalSingleDuctVavReheat(object):
 
     @air_inlet_node_name.setter
     def air_inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `air_inlet_node_name`
+        """  Corresponds to IDD Field `Air Inlet Node Name`
         the inlet node to the terminal unit and the damper
+        
+        {u'note': [u'the inlet node to the terminal unit and the damper'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `air_inlet_node_name`
+            value (str): value for IDD Field `Air Inlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1704,7 +1735,7 @@ class AirTerminalSingleDuctVavReheat(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `air_inlet_node_name`'.format(value))
             if ',' in value:
@@ -1713,7 +1744,6 @@ class AirTerminalSingleDuctVavReheat(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `air_inlet_node_name`')
-
         self._data["Air Inlet Node Name"] = value
 
     @property
@@ -1727,10 +1757,12 @@ class AirTerminalSingleDuctVavReheat(object):
 
     @maximum_air_flow_rate.setter
     def maximum_air_flow_rate(self, value=None):
-        """  Corresponds to IDD Field `maximum_air_flow_rate`
+        """  Corresponds to IDD Field `Maximum Air Flow Rate`
+        
+        {'pytype': 'float', u'required-field': True, u'autosizable': u'', u'minimum': '0.0', u'units': u'm3/s', 'type': 'real'}
 
         Args:
-            value (float): value for IDD Field `maximum_air_flow_rate`
+            value (float): value for IDD Field `Maximum Air Flow Rate`
                 Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -1742,13 +1774,12 @@ class AirTerminalSingleDuctVavReheat(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `maximum_air_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `maximum_air_flow_rate`')
-
         self._data["Maximum Air Flow Rate"] = value
 
     @property
@@ -1762,13 +1793,15 @@ class AirTerminalSingleDuctVavReheat(object):
 
     @zone_minimum_air_flow_input_method.setter
     def zone_minimum_air_flow_input_method(self, value=None):
-        """  Corresponds to IDD Field `zone_minimum_air_flow_input_method`
+        """  Corresponds to IDD Field `Zone Minimum Air Flow Input Method`
         Constant = Constant Minimum Air Flow Fraction (a fraction of Maximum Air Flow Rate)
         FixedFlowRate = Fixed Minimum Air Flow Rate (a fixed minimum air volume flow rate)
         Scheduled = Scheduled Minimum Air Flow Fraction (a fraction of Maximum Air Flow
+        
+        {u'note': [u'Constant = Constant Minimum Air Flow Fraction (a fraction of Maximum Air Flow Rate)', u'FixedFlowRate = Fixed Minimum Air Flow Rate (a fixed minimum air volume flow rate)', u'Scheduled = Scheduled Minimum Air Flow Fraction (a fraction of Maximum Air Flow'], u'type': u'choice', u'key': [u'Constant', u'FixedFlowRate', u'Scheduled'], u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `zone_minimum_air_flow_input_method`
+            value (str): value for IDD Field `Zone Minimum Air Flow Input Method`
                 Accepted values are:
                       - Constant
                       - FixedFlowRate
@@ -1782,7 +1815,7 @@ class AirTerminalSingleDuctVavReheat(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `zone_minimum_air_flow_input_method`'.format(value))
             if ',' in value:
@@ -1809,7 +1842,6 @@ class AirTerminalSingleDuctVavReheat(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `zone_minimum_air_flow_input_method`'.format(value))
             value = vals[value_lower]
-
         self._data["Zone Minimum Air Flow Input Method"] = value
 
     @property
@@ -1823,14 +1855,16 @@ class AirTerminalSingleDuctVavReheat(object):
 
     @constant_minimum_air_flow_fraction.setter
     def constant_minimum_air_flow_fraction(self, value=None):
-        """  Corresponds to IDD Field `constant_minimum_air_flow_fraction`
+        """  Corresponds to IDD Field `Constant Minimum Air Flow Fraction`
         This field is used if the field Zone Minimum Air Flow Input Method is Constant
         If the field Zone Minimum Air Flow Input Method is Scheduled, then this field
         is optional; if a value is entered, then it is used for sizing normal-action reheat coils.
         If both this field and the following field are entered, the larger result is used.
+        
+        {u'note': [u'This field is used if the field Zone Minimum Air Flow Input Method is Constant', u'If the field Zone Minimum Air Flow Input Method is Scheduled, then this field', u'is optional; if a value is entered, then it is used for sizing normal-action reheat coils.', u'If both this field and the following field are entered, the larger result is used.'], 'type': 'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `constant_minimum_air_flow_fraction`
+            value (float): value for IDD Field `Constant Minimum Air Flow Fraction`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1840,10 +1874,9 @@ class AirTerminalSingleDuctVavReheat(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `constant_minimum_air_flow_fraction`'.format(value))
-
         self._data["Constant Minimum Air Flow Fraction"] = value
 
     @property
@@ -1857,14 +1890,16 @@ class AirTerminalSingleDuctVavReheat(object):
 
     @fixed_minimum_air_flow_rate.setter
     def fixed_minimum_air_flow_rate(self, value=None):
-        """  Corresponds to IDD Field `fixed_minimum_air_flow_rate`
+        """  Corresponds to IDD Field `Fixed Minimum Air Flow Rate`
         This field is used if the field Zone Minimum Air Flow Input Method is FixedFlowRate.
         If the field Zone Minimum Air Flow Input Method is Scheduled, then this field
         is optional; if a value is entered, then it is used for sizing normal-action reheat coils.
         If both this field and the previous field are entered, the larger result is used.
+        
+        {u'units': u'm3/s', u'note': [u'This field is used if the field Zone Minimum Air Flow Input Method is FixedFlowRate.', u'If the field Zone Minimum Air Flow Input Method is Scheduled, then this field', u'is optional; if a value is entered, then it is used for sizing normal-action reheat coils.', u'If both this field and the previous field are entered, the larger result is used.'], u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `fixed_minimum_air_flow_rate`
+            value (float): value for IDD Field `Fixed Minimum Air Flow Rate`
                 Units: m3/s
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1875,10 +1910,9 @@ class AirTerminalSingleDuctVavReheat(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `fixed_minimum_air_flow_rate`'.format(value))
-
         self._data["Fixed Minimum Air Flow Rate"] = value
 
     @property
@@ -1892,14 +1926,16 @@ class AirTerminalSingleDuctVavReheat(object):
 
     @minimum_air_flow_fraction_schedule_name.setter
     def minimum_air_flow_fraction_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `minimum_air_flow_fraction_schedule_name`
+        """  Corresponds to IDD Field `Minimum Air Flow Fraction Schedule Name`
         This field is used if the field Zone Minimum Air Flow Input Method is Scheduled
         Schedule values are fractions, 0.0 to 1.0.
         If the field Constant Minimum Air Flow Fraction is blank, then the average of the
         minimum and maximum schedule values is used for sizing normal-action reheat coils.
+        
+        {u'note': [u'This field is used if the field Zone Minimum Air Flow Input Method is Scheduled', u'Schedule values are fractions, 0.0 to 1.0.', u'If the field Constant Minimum Air Flow Fraction is blank, then the average of the', u'minimum and maximum schedule values is used for sizing normal-action reheat coils.'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `minimum_air_flow_fraction_schedule_name`
+            value (str): value for IDD Field `Minimum Air Flow Fraction Schedule Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1909,7 +1945,7 @@ class AirTerminalSingleDuctVavReheat(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `minimum_air_flow_fraction_schedule_name`'.format(value))
             if ',' in value:
@@ -1918,7 +1954,6 @@ class AirTerminalSingleDuctVavReheat(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `minimum_air_flow_fraction_schedule_name`')
-
         self._data["Minimum Air Flow Fraction Schedule Name"] = value
 
     @property
@@ -1932,10 +1967,12 @@ class AirTerminalSingleDuctVavReheat(object):
 
     @reheat_coil_object_type.setter
     def reheat_coil_object_type(self, value=None):
-        """  Corresponds to IDD Field `reheat_coil_object_type`
+        """  Corresponds to IDD Field `Reheat Coil Object Type`
+        
+        {u'type': u'choice', u'key': [u'Coil:Heating:Water', u'Coil:Heating:Electric', u'Coil:Heating:Gas', u'Coil:Heating:Steam'], u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `reheat_coil_object_type`
+            value (str): value for IDD Field `Reheat Coil Object Type`
                 Accepted values are:
                       - Coil:Heating:Water
                       - Coil:Heating:Electric
@@ -1950,7 +1987,7 @@ class AirTerminalSingleDuctVavReheat(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `reheat_coil_object_type`'.format(value))
             if ',' in value:
@@ -1978,7 +2015,6 @@ class AirTerminalSingleDuctVavReheat(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `reheat_coil_object_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Reheat Coil Object Type"] = value
 
     @property
@@ -1992,10 +2028,12 @@ class AirTerminalSingleDuctVavReheat(object):
 
     @reheat_coil_name.setter
     def reheat_coil_name(self, value=None):
-        """  Corresponds to IDD Field `reheat_coil_name`
+        """  Corresponds to IDD Field `Reheat Coil Name`
+        
+        {u'type': u'object-list', u'object-list': u'HeatingCoilName', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `reheat_coil_name`
+            value (str): value for IDD Field `Reheat Coil Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2005,7 +2043,7 @@ class AirTerminalSingleDuctVavReheat(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `reheat_coil_name`'.format(value))
             if ',' in value:
@@ -2014,7 +2052,6 @@ class AirTerminalSingleDuctVavReheat(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `reheat_coil_name`')
-
         self._data["Reheat Coil Name"] = value
 
     @property
@@ -2028,11 +2065,13 @@ class AirTerminalSingleDuctVavReheat(object):
 
     @maximum_hot_water_or_steam_flow_rate.setter
     def maximum_hot_water_or_steam_flow_rate(self, value=None):
-        """  Corresponds to IDD Field `maximum_hot_water_or_steam_flow_rate`
+        """  Corresponds to IDD Field `Maximum Hot Water or Steam Flow Rate`
         Not used when reheat coil type is gas or electric
+        
+        {'pytype': 'float', u'note': [u'Not used when reheat coil type is gas or electric'], u'ip-units': u'gal/min', u'autosizable': u'', u'minimum': '0.0', u'units': u'm3/s', 'type': 'real'}
 
         Args:
-            value (float): value for IDD Field `maximum_hot_water_or_steam_flow_rate`
+            value (float): value for IDD Field `Maximum Hot Water or Steam Flow Rate`
                 Units: m3/s
                 IP-Units: gal/min
                 value >= 0.0
@@ -2045,13 +2084,12 @@ class AirTerminalSingleDuctVavReheat(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `maximum_hot_water_or_steam_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `maximum_hot_water_or_steam_flow_rate`')
-
         self._data["Maximum Hot Water or Steam Flow Rate"] = value
 
     @property
@@ -2065,11 +2103,13 @@ class AirTerminalSingleDuctVavReheat(object):
 
     @minimum_hot_water_or_steam_flow_rate.setter
     def minimum_hot_water_or_steam_flow_rate(self, value=0.0 ):
-        """  Corresponds to IDD Field `minimum_hot_water_or_steam_flow_rate`
+        """  Corresponds to IDD Field `Minimum Hot Water or Steam Flow Rate`
         Not used when reheat coil type is gas or electric
+        
+        {'pytype': 'float', u'default': '0.0', u'note': [u'Not used when reheat coil type is gas or electric'], u'ip-units': u'gal/min', u'minimum': '0.0', u'units': u'm3/s', 'type': 'real'}
 
         Args:
-            value (float): value for IDD Field `minimum_hot_water_or_steam_flow_rate`
+            value (float): value for IDD Field `Minimum Hot Water or Steam Flow Rate`
                 Units: m3/s
                 IP-Units: gal/min
                 Default value: 0.0
@@ -2083,13 +2123,12 @@ class AirTerminalSingleDuctVavReheat(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `minimum_hot_water_or_steam_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `minimum_hot_water_or_steam_flow_rate`')
-
         self._data["Minimum Hot Water or Steam Flow Rate"] = value
 
     @property
@@ -2103,12 +2142,14 @@ class AirTerminalSingleDuctVavReheat(object):
 
     @air_outlet_node_name.setter
     def air_outlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `air_outlet_node_name`
+        """  Corresponds to IDD Field `Air Outlet Node Name`
         The outlet node of the terminal unit and the reheat coil.
         This is also the zone inlet node.
+        
+        {u'note': [u'The outlet node of the terminal unit and the reheat coil.', u'This is also the zone inlet node.'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `air_outlet_node_name`
+            value (str): value for IDD Field `Air Outlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2118,7 +2159,7 @@ class AirTerminalSingleDuctVavReheat(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `air_outlet_node_name`'.format(value))
             if ',' in value:
@@ -2127,7 +2168,6 @@ class AirTerminalSingleDuctVavReheat(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `air_outlet_node_name`')
-
         self._data["Air Outlet Node Name"] = value
 
     @property
@@ -2141,10 +2181,12 @@ class AirTerminalSingleDuctVavReheat(object):
 
     @convergence_tolerance.setter
     def convergence_tolerance(self, value=0.001 ):
-        """  Corresponds to IDD Field `convergence_tolerance`
+        """  Corresponds to IDD Field `Convergence Tolerance`
+        
+        {u'default': '0.001', u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `convergence_tolerance`
+            value (float): value for IDD Field `Convergence Tolerance`
                 Default value: 0.001
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -2156,13 +2198,12 @@ class AirTerminalSingleDuctVavReheat(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `convergence_tolerance`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `convergence_tolerance`')
-
         self._data["Convergence Tolerance"] = value
 
     @property
@@ -2176,10 +2217,12 @@ class AirTerminalSingleDuctVavReheat(object):
 
     @damper_heating_action.setter
     def damper_heating_action(self, value="Normal"):
-        """  Corresponds to IDD Field `damper_heating_action`
+        """  Corresponds to IDD Field `Damper Heating Action`
+        
+        {u'default': u'Normal', u'type': u'choice', u'key': [u'Normal', u'Reverse'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `damper_heating_action`
+            value (str): value for IDD Field `Damper Heating Action`
                 Accepted values are:
                       - Normal
                       - Reverse
@@ -2193,7 +2236,7 @@ class AirTerminalSingleDuctVavReheat(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `damper_heating_action`'.format(value))
             if ',' in value:
@@ -2219,7 +2262,6 @@ class AirTerminalSingleDuctVavReheat(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `damper_heating_action`'.format(value))
             value = vals[value_lower]
-
         self._data["Damper Heating Action"] = value
 
     @property
@@ -2233,16 +2275,18 @@ class AirTerminalSingleDuctVavReheat(object):
 
     @maximum_flow_per_zone_floor_area_during_reheat.setter
     def maximum_flow_per_zone_floor_area_during_reheat(self, value=None):
-        """  Corresponds to IDD Field `maximum_flow_per_zone_floor_area_during_reheat`
+        """  Corresponds to IDD Field `Maximum Flow per Zone Floor Area During Reheat`
         Used only when Reheat Coil Object Type = Coil:Heating:Water and Damper Heating Action = Reverse
         When autocalculating, the maximum flow per zone is set to 0.002032 m3/s-m2 (0.4 cfm/sqft)
         This optional field limits the maximum flow allowed in reheat mode.
         If this field and the following field are left blank, the maximum flow will not be limited.
         At no time will the maximum flow rate calculated here exceed the value of
         Maximum Air Flow Rate.
+        
+        {u'units': u'm3/s-m2', u'note': [u'Used only when Reheat Coil Object Type = Coil:Heating:Water and Damper Heating Action = Reverse', u'When autocalculating, the maximum flow per zone is set to 0.002032 m3/s-m2 (0.4 cfm/sqft)', u'This optional field limits the maximum flow allowed in reheat mode.', u'If this field and the following field are left blank, the maximum flow will not be limited.', u'At no time will the maximum flow rate calculated here exceed the value of', u'Maximum Air Flow Rate.'], u'autocalculatable': True, u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `maximum_flow_per_zone_floor_area_during_reheat`
+            value (float or "Autocalculate"): value for IDD Field `Maximum Flow per Zone Floor Area During Reheat`
                 Units: m3/s-m2
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -2252,11 +2296,17 @@ class AirTerminalSingleDuctVavReheat(object):
         """
         if value is not None:
             try:
+                value_lower = str(value).lower()
+                if value_lower == "autocalculate":
+                    self._data["Maximum Flow per Zone Floor Area During Reheat"] = value
+                    return
+            except ValueError:
+                pass
+            try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `maximum_flow_per_zone_floor_area_during_reheat`'.format(value))
-
         self._data["Maximum Flow per Zone Floor Area During Reheat"] = value
 
     @property
@@ -2270,7 +2320,7 @@ class AirTerminalSingleDuctVavReheat(object):
 
     @maximum_flow_fraction_during_reheat.setter
     def maximum_flow_fraction_during_reheat(self, value=None):
-        """  Corresponds to IDD Field `maximum_flow_fraction_during_reheat`
+        """  Corresponds to IDD Field `Maximum Flow Fraction During Reheat`
         Used only when Reheat Coil Object Type = Coil:Heating:Water and Damper Heating Action = Reverse
         When autocalculating, the maximum flow fraction is set to the ratio of
         0.002032 m3/s-m2 (0.4 cfm/sqft) multiplied by the zone floor area and the
@@ -2279,9 +2329,11 @@ class AirTerminalSingleDuctVavReheat(object):
         If this field and the previous field are left blank, the maximum flow will not be limited.
         At no time will the maximum flow rate calculated here exceed the value of
         Maximum Air Flow Rate.
+        
+        {u'note': [u'Used only when Reheat Coil Object Type = Coil:Heating:Water and Damper Heating Action = Reverse', u'When autocalculating, the maximum flow fraction is set to the ratio of', u'0.002032 m3/s-m2 (0.4 cfm/sqft) multiplied by the zone floor area and the', u'Maximum Air Flow Rate.', u'This optional field limits the maximum flow allowed in reheat mode.', u'If this field and the previous field are left blank, the maximum flow will not be limited.', u'At no time will the maximum flow rate calculated here exceed the value of', u'Maximum Air Flow Rate.'], u'autocalculatable': True, u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `maximum_flow_fraction_during_reheat`
+            value (float or "Autocalculate"): value for IDD Field `Maximum Flow Fraction During Reheat`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2290,11 +2342,17 @@ class AirTerminalSingleDuctVavReheat(object):
         """
         if value is not None:
             try:
+                value_lower = str(value).lower()
+                if value_lower == "autocalculate":
+                    self._data["Maximum Flow Fraction During Reheat"] = value
+                    return
+            except ValueError:
+                pass
+            try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `maximum_flow_fraction_during_reheat`'.format(value))
-
         self._data["Maximum Flow Fraction During Reheat"] = value
 
     @property
@@ -2308,12 +2366,14 @@ class AirTerminalSingleDuctVavReheat(object):
 
     @maximum_reheat_air_temperature.setter
     def maximum_reheat_air_temperature(self, value=None):
-        """  Corresponds to IDD Field `maximum_reheat_air_temperature`
+        """  Corresponds to IDD Field `Maximum Reheat Air Temperature`
         Specifies the maximum allowable supply air temperature leaving the reheat coil.
         If left blank, there is no limit and no default. If unknown, 35C (95F) is recommended.
+        
+        {u'units': u'C', u'note': [u'Specifies the maximum allowable supply air temperature leaving the reheat coil.', u'If left blank, there is no limit and no default. If unknown, 35C (95F) is recommended.'], u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `maximum_reheat_air_temperature`
+            value (float): value for IDD Field `Maximum Reheat Air Temperature`
                 Units: C
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -2325,13 +2385,12 @@ class AirTerminalSingleDuctVavReheat(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `maximum_reheat_air_temperature`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `maximum_reheat_air_temperature`')
-
         self._data["Maximum Reheat Air Temperature"] = value
 
     @property
@@ -2345,16 +2404,18 @@ class AirTerminalSingleDuctVavReheat(object):
 
     @design_specification_outdoor_air_object_name.setter
     def design_specification_outdoor_air_object_name(self, value=None):
-        """  Corresponds to IDD Field `design_specification_outdoor_air_object_name`
+        """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name`
         When the name of a DesignSpecification:OutdoorAir object is entered, the terminal
         unit will increase flow as needed to meet this outdoor air requirement.
         If Outdoor Air Flow per Person is non-zero, then the outdoor air requirement will
         be computed based on the current number of occupants in the zone.
         At no time will the supply air flow rate exceed the value for Maximum Air Flow Rate.
         If this field is blank, then the terminal unit will not be controlled for outdoor air flow.
+        
+        {u'note': [u'When the name of a DesignSpecification:OutdoorAir object is entered, the terminal', u'unit will increase flow as needed to meet this outdoor air requirement.', u'If Outdoor Air Flow per Person is non-zero, then the outdoor air requirement will', u'be computed based on the current number of occupants in the zone.', u'At no time will the supply air flow rate exceed the value for Maximum Air Flow Rate.', u'If this field is blank, then the terminal unit will not be controlled for outdoor air flow.'], u'type': u'object-list', u'object-list': u'DesignSpecificationOutdoorAirNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `design_specification_outdoor_air_object_name`
+            value (str): value for IDD Field `Design Specification Outdoor Air Object Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2364,7 +2425,7 @@ class AirTerminalSingleDuctVavReheat(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `design_specification_outdoor_air_object_name`'.format(value))
             if ',' in value:
@@ -2373,7 +2434,6 @@ class AirTerminalSingleDuctVavReheat(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `design_specification_outdoor_air_object_name`')
-
         self._data["Design Specification Outdoor Air Object Name"] = value
 
     def check(self):
@@ -2577,10 +2637,12 @@ class AirTerminalSingleDuctVavReheatVariableSpeedFan(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {'type': 'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2590,7 +2652,7 @@ class AirTerminalSingleDuctVavReheatVariableSpeedFan(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -2599,7 +2661,6 @@ class AirTerminalSingleDuctVavReheatVariableSpeedFan(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -2613,12 +2674,14 @@ class AirTerminalSingleDuctVavReheatVariableSpeedFan(object):
 
     @availability_schedule_name.setter
     def availability_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `availability_schedule_name`
+        """  Corresponds to IDD Field `Availability Schedule Name`
         Availability schedule name for this system. Schedule value > 0 means the system is available.
         If this field is blank, the system is always available.
+        
+        {u'note': [u'Availability schedule name for this system. Schedule value > 0 means the system is available.', u'If this field is blank, the system is always available.'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `availability_schedule_name`
+            value (str): value for IDD Field `Availability Schedule Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2628,7 +2691,7 @@ class AirTerminalSingleDuctVavReheatVariableSpeedFan(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `availability_schedule_name`'.format(value))
             if ',' in value:
@@ -2637,7 +2700,6 @@ class AirTerminalSingleDuctVavReheatVariableSpeedFan(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `availability_schedule_name`')
-
         self._data["Availability Schedule Name"] = value
 
     @property
@@ -2651,10 +2713,12 @@ class AirTerminalSingleDuctVavReheatVariableSpeedFan(object):
 
     @maximum_cooling_air_flow_rate.setter
     def maximum_cooling_air_flow_rate(self, value=None):
-        """  Corresponds to IDD Field `maximum_cooling_air_flow_rate`
+        """  Corresponds to IDD Field `Maximum Cooling Air Flow Rate`
+        
+        {'pytype': 'float', u'required-field': True, u'autosizable': u'', u'minimum': '0.0', u'units': u'm3/s', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `maximum_cooling_air_flow_rate`
+            value (float): value for IDD Field `Maximum Cooling Air Flow Rate`
                 Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -2666,13 +2730,12 @@ class AirTerminalSingleDuctVavReheatVariableSpeedFan(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `maximum_cooling_air_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `maximum_cooling_air_flow_rate`')
-
         self._data["Maximum Cooling Air Flow Rate"] = value
 
     @property
@@ -2686,10 +2749,12 @@ class AirTerminalSingleDuctVavReheatVariableSpeedFan(object):
 
     @maximum_heating_air_flow_rate.setter
     def maximum_heating_air_flow_rate(self, value=None):
-        """  Corresponds to IDD Field `maximum_heating_air_flow_rate`
+        """  Corresponds to IDD Field `Maximum Heating Air Flow Rate`
+        
+        {'pytype': 'float', u'required-field': True, u'autosizable': u'', u'minimum': '0.0', u'units': u'm3/s', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `maximum_heating_air_flow_rate`
+            value (float): value for IDD Field `Maximum Heating Air Flow Rate`
                 Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -2701,13 +2766,12 @@ class AirTerminalSingleDuctVavReheatVariableSpeedFan(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `maximum_heating_air_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `maximum_heating_air_flow_rate`')
-
         self._data["Maximum Heating Air Flow Rate"] = value
 
     @property
@@ -2721,11 +2785,13 @@ class AirTerminalSingleDuctVavReheatVariableSpeedFan(object):
 
     @zone_minimum_air_flow_fraction.setter
     def zone_minimum_air_flow_fraction(self, value=None):
-        """  Corresponds to IDD Field `zone_minimum_air_flow_fraction`
+        """  Corresponds to IDD Field `Zone Minimum Air Flow Fraction`
         fraction of cooling air flow rate
+        
+        {'pytype': 'float', u'maximum': '1.0', u'required-field': True, u'note': [u'fraction of cooling air flow rate'], u'minimum': '0.0', 'type': 'real'}
 
         Args:
-            value (float): value for IDD Field `zone_minimum_air_flow_fraction`
+            value (float): value for IDD Field `Zone Minimum Air Flow Fraction`
                 value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
@@ -2737,7 +2803,7 @@ class AirTerminalSingleDuctVavReheatVariableSpeedFan(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `zone_minimum_air_flow_fraction`'.format(value))
             if value < 0.0:
@@ -2746,7 +2812,6 @@ class AirTerminalSingleDuctVavReheatVariableSpeedFan(object):
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `zone_minimum_air_flow_fraction`')
-
         self._data["Zone Minimum Air Flow Fraction"] = value
 
     @property
@@ -2760,10 +2825,12 @@ class AirTerminalSingleDuctVavReheatVariableSpeedFan(object):
 
     @air_inlet_node_name.setter
     def air_inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `air_inlet_node_name`
+        """  Corresponds to IDD Field `Air Inlet Node Name`
+        
+        {u'deprecated': u'', u'type': u'node', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `air_inlet_node_name`
+            value (str): value for IDD Field `Air Inlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2773,7 +2840,7 @@ class AirTerminalSingleDuctVavReheatVariableSpeedFan(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `air_inlet_node_name`'.format(value))
             if ',' in value:
@@ -2782,7 +2849,6 @@ class AirTerminalSingleDuctVavReheatVariableSpeedFan(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `air_inlet_node_name`')
-
         self._data["Air Inlet Node Name"] = value
 
     @property
@@ -2796,10 +2862,12 @@ class AirTerminalSingleDuctVavReheatVariableSpeedFan(object):
 
     @air_outlet_node_name.setter
     def air_outlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `air_outlet_node_name`
+        """  Corresponds to IDD Field `Air Outlet Node Name`
+        
+        {u'deprecated': u'', u'type': u'node', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `air_outlet_node_name`
+            value (str): value for IDD Field `Air Outlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2809,7 +2877,7 @@ class AirTerminalSingleDuctVavReheatVariableSpeedFan(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `air_outlet_node_name`'.format(value))
             if ',' in value:
@@ -2818,7 +2886,6 @@ class AirTerminalSingleDuctVavReheatVariableSpeedFan(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `air_outlet_node_name`')
-
         self._data["Air Outlet Node Name"] = value
 
     @property
@@ -2832,10 +2899,12 @@ class AirTerminalSingleDuctVavReheatVariableSpeedFan(object):
 
     @heating_coil_air_inlet_node_name.setter
     def heating_coil_air_inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `heating_coil_air_inlet_node_name`
+        """  Corresponds to IDD Field `Heating Coil Air Inlet Node Name`
+        
+        {u'deprecated': u'', u'type': u'node', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `heating_coil_air_inlet_node_name`
+            value (str): value for IDD Field `Heating Coil Air Inlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2845,7 +2914,7 @@ class AirTerminalSingleDuctVavReheatVariableSpeedFan(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `heating_coil_air_inlet_node_name`'.format(value))
             if ',' in value:
@@ -2854,7 +2923,6 @@ class AirTerminalSingleDuctVavReheatVariableSpeedFan(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `heating_coil_air_inlet_node_name`')
-
         self._data["Heating Coil Air Inlet Node Name"] = value
 
     @property
@@ -2868,10 +2936,12 @@ class AirTerminalSingleDuctVavReheatVariableSpeedFan(object):
 
     @hot_water_or_steam_inlet_node_name.setter
     def hot_water_or_steam_inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `hot_water_or_steam_inlet_node_name`
+        """  Corresponds to IDD Field `Hot Water or Steam Inlet Node Name`
+        
+        {u'deprecated': u'', u'type': u'node', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `hot_water_or_steam_inlet_node_name`
+            value (str): value for IDD Field `Hot Water or Steam Inlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2881,7 +2951,7 @@ class AirTerminalSingleDuctVavReheatVariableSpeedFan(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `hot_water_or_steam_inlet_node_name`'.format(value))
             if ',' in value:
@@ -2890,7 +2960,6 @@ class AirTerminalSingleDuctVavReheatVariableSpeedFan(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `hot_water_or_steam_inlet_node_name`')
-
         self._data["Hot Water or Steam Inlet Node Name"] = value
 
     @property
@@ -2904,10 +2973,12 @@ class AirTerminalSingleDuctVavReheatVariableSpeedFan(object):
 
     @fan_object_type.setter
     def fan_object_type(self, value=None):
-        """  Corresponds to IDD Field `fan_object_type`
+        """  Corresponds to IDD Field `Fan Object Type`
+        
+        {u'type': u'choice', u'key': [u'Fan:VariableVolume'], u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `fan_object_type`
+            value (str): value for IDD Field `Fan Object Type`
                 Accepted values are:
                       - Fan:VariableVolume
                 if `value` is None it will not be checked against the
@@ -2919,7 +2990,7 @@ class AirTerminalSingleDuctVavReheatVariableSpeedFan(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `fan_object_type`'.format(value))
             if ',' in value:
@@ -2944,7 +3015,6 @@ class AirTerminalSingleDuctVavReheatVariableSpeedFan(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `fan_object_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Fan Object Type"] = value
 
     @property
@@ -2958,10 +3028,12 @@ class AirTerminalSingleDuctVavReheatVariableSpeedFan(object):
 
     @fan_name.setter
     def fan_name(self, value=None):
-        """  Corresponds to IDD Field `fan_name`
+        """  Corresponds to IDD Field `Fan Name`
+        
+        {u'type': u'object-list', u'object-list': u'FansVAV', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `fan_name`
+            value (str): value for IDD Field `Fan Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2971,7 +3043,7 @@ class AirTerminalSingleDuctVavReheatVariableSpeedFan(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `fan_name`'.format(value))
             if ',' in value:
@@ -2980,7 +3052,6 @@ class AirTerminalSingleDuctVavReheatVariableSpeedFan(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `fan_name`')
-
         self._data["Fan Name"] = value
 
     @property
@@ -2994,10 +3065,12 @@ class AirTerminalSingleDuctVavReheatVariableSpeedFan(object):
 
     @heating_coil_object_type.setter
     def heating_coil_object_type(self, value=None):
-        """  Corresponds to IDD Field `heating_coil_object_type`
+        """  Corresponds to IDD Field `Heating Coil Object Type`
+        
+        {u'type': u'choice', u'key': [u'Coil:Heating:Water', u'Coil:Heating:Electric', u'Coil:Heating:Gas', u'Coil:Heating:Steam'], u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `heating_coil_object_type`
+            value (str): value for IDD Field `Heating Coil Object Type`
                 Accepted values are:
                       - Coil:Heating:Water
                       - Coil:Heating:Electric
@@ -3012,7 +3085,7 @@ class AirTerminalSingleDuctVavReheatVariableSpeedFan(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `heating_coil_object_type`'.format(value))
             if ',' in value:
@@ -3040,7 +3113,6 @@ class AirTerminalSingleDuctVavReheatVariableSpeedFan(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `heating_coil_object_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Heating Coil Object Type"] = value
 
     @property
@@ -3054,10 +3126,12 @@ class AirTerminalSingleDuctVavReheatVariableSpeedFan(object):
 
     @heating_coil_name.setter
     def heating_coil_name(self, value=None):
-        """  Corresponds to IDD Field `heating_coil_name`
+        """  Corresponds to IDD Field `Heating Coil Name`
+        
+        {u'type': u'object-list', u'object-list': u'HeatingCoilName', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `heating_coil_name`
+            value (str): value for IDD Field `Heating Coil Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3067,7 +3141,7 @@ class AirTerminalSingleDuctVavReheatVariableSpeedFan(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `heating_coil_name`'.format(value))
             if ',' in value:
@@ -3076,7 +3150,6 @@ class AirTerminalSingleDuctVavReheatVariableSpeedFan(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `heating_coil_name`')
-
         self._data["Heating Coil Name"] = value
 
     @property
@@ -3090,11 +3163,13 @@ class AirTerminalSingleDuctVavReheatVariableSpeedFan(object):
 
     @maximum_hot_water_or_steam_flow_rate.setter
     def maximum_hot_water_or_steam_flow_rate(self, value=None):
-        """  Corresponds to IDD Field `maximum_hot_water_or_steam_flow_rate`
+        """  Corresponds to IDD Field `Maximum Hot Water or Steam Flow Rate`
         Not used when heating coil type is gas or electric
+        
+        {'pytype': 'float', u'note': [u'Not used when heating coil type is gas or electric'], u'ip-units': u'gal/min', u'autosizable': u'', u'units': u'm3/s', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `maximum_hot_water_or_steam_flow_rate`
+            value (float): value for IDD Field `Maximum Hot Water or Steam Flow Rate`
                 Units: m3/s
                 IP-Units: gal/min
                 if `value` is None it will not be checked against the
@@ -3106,10 +3181,9 @@ class AirTerminalSingleDuctVavReheatVariableSpeedFan(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `maximum_hot_water_or_steam_flow_rate`'.format(value))
-
         self._data["Maximum Hot Water or Steam Flow Rate"] = value
 
     @property
@@ -3123,11 +3197,13 @@ class AirTerminalSingleDuctVavReheatVariableSpeedFan(object):
 
     @minimum_hot_water_or_steam_flow_rate.setter
     def minimum_hot_water_or_steam_flow_rate(self, value=0.0 ):
-        """  Corresponds to IDD Field `minimum_hot_water_or_steam_flow_rate`
+        """  Corresponds to IDD Field `Minimum Hot Water or Steam Flow Rate`
         Not used when heating coil type is gas or electric
+        
+        {'pytype': 'float', u'default': '0.0', u'note': [u'Not used when heating coil type is gas or electric'], u'ip-units': u'gal/min', u'minimum': '0.0', u'units': u'm3/s', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `minimum_hot_water_or_steam_flow_rate`
+            value (float): value for IDD Field `Minimum Hot Water or Steam Flow Rate`
                 Units: m3/s
                 IP-Units: gal/min
                 Default value: 0.0
@@ -3141,13 +3217,12 @@ class AirTerminalSingleDuctVavReheatVariableSpeedFan(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `minimum_hot_water_or_steam_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `minimum_hot_water_or_steam_flow_rate`')
-
         self._data["Minimum Hot Water or Steam Flow Rate"] = value
 
     @property
@@ -3161,10 +3236,12 @@ class AirTerminalSingleDuctVavReheatVariableSpeedFan(object):
 
     @heating_convergence_tolerance.setter
     def heating_convergence_tolerance(self, value=0.001 ):
-        """  Corresponds to IDD Field `heating_convergence_tolerance`
+        """  Corresponds to IDD Field `Heating Convergence Tolerance`
+        
+        {u'default': '0.001', u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `heating_convergence_tolerance`
+            value (float): value for IDD Field `Heating Convergence Tolerance`
                 Default value: 0.001
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -3176,13 +3253,12 @@ class AirTerminalSingleDuctVavReheatVariableSpeedFan(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `heating_convergence_tolerance`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `heating_convergence_tolerance`')
-
         self._data["Heating Convergence Tolerance"] = value
 
     def check(self):
@@ -3303,10 +3379,12 @@ class AirTerminalSingleDuctVavHeatAndCoolNoReheat(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {'type': 'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3316,7 +3394,7 @@ class AirTerminalSingleDuctVavHeatAndCoolNoReheat(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -3325,7 +3403,6 @@ class AirTerminalSingleDuctVavHeatAndCoolNoReheat(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -3339,12 +3416,14 @@ class AirTerminalSingleDuctVavHeatAndCoolNoReheat(object):
 
     @availability_schedule_name.setter
     def availability_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `availability_schedule_name`
+        """  Corresponds to IDD Field `Availability Schedule Name`
         Availability schedule name for this system. Schedule value > 0 means the system is available.
         If this field is blank, the system is always available.
+        
+        {u'note': [u'Availability schedule name for this system. Schedule value > 0 means the system is available.', u'If this field is blank, the system is always available.'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `availability_schedule_name`
+            value (str): value for IDD Field `Availability Schedule Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3354,7 +3433,7 @@ class AirTerminalSingleDuctVavHeatAndCoolNoReheat(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `availability_schedule_name`'.format(value))
             if ',' in value:
@@ -3363,7 +3442,6 @@ class AirTerminalSingleDuctVavHeatAndCoolNoReheat(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `availability_schedule_name`')
-
         self._data["Availability Schedule Name"] = value
 
     @property
@@ -3377,12 +3455,14 @@ class AirTerminalSingleDuctVavHeatAndCoolNoReheat(object):
 
     @air_outlet_node_name.setter
     def air_outlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `air_outlet_node_name`
+        """  Corresponds to IDD Field `Air Outlet Node Name`
         The outlet node of the terminal unit.
         This is also the zone inlet node.
+        
+        {u'note': [u'The outlet node of the terminal unit.', u'This is also the zone inlet node.'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `air_outlet_node_name`
+            value (str): value for IDD Field `Air Outlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3392,7 +3472,7 @@ class AirTerminalSingleDuctVavHeatAndCoolNoReheat(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `air_outlet_node_name`'.format(value))
             if ',' in value:
@@ -3401,7 +3481,6 @@ class AirTerminalSingleDuctVavHeatAndCoolNoReheat(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `air_outlet_node_name`')
-
         self._data["Air Outlet Node Name"] = value
 
     @property
@@ -3415,10 +3494,12 @@ class AirTerminalSingleDuctVavHeatAndCoolNoReheat(object):
 
     @air_inlet_node_name.setter
     def air_inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `air_inlet_node_name`
+        """  Corresponds to IDD Field `Air Inlet Node Name`
+        
+        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `air_inlet_node_name`
+            value (str): value for IDD Field `Air Inlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3428,7 +3509,7 @@ class AirTerminalSingleDuctVavHeatAndCoolNoReheat(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `air_inlet_node_name`'.format(value))
             if ',' in value:
@@ -3437,7 +3518,6 @@ class AirTerminalSingleDuctVavHeatAndCoolNoReheat(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `air_inlet_node_name`')
-
         self._data["Air Inlet Node Name"] = value
 
     @property
@@ -3451,10 +3531,12 @@ class AirTerminalSingleDuctVavHeatAndCoolNoReheat(object):
 
     @maximum_air_flow_rate.setter
     def maximum_air_flow_rate(self, value=None):
-        """  Corresponds to IDD Field `maximum_air_flow_rate`
+        """  Corresponds to IDD Field `Maximum Air Flow Rate`
+        
+        {'pytype': 'float', u'minimum>': '0.0', u'required-field': True, u'autosizable': u'', u'units': u'm3/s', 'type': 'real'}
 
         Args:
-            value (float): value for IDD Field `maximum_air_flow_rate`
+            value (float): value for IDD Field `Maximum Air Flow Rate`
                 Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -3466,13 +3548,12 @@ class AirTerminalSingleDuctVavHeatAndCoolNoReheat(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `maximum_air_flow_rate`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `maximum_air_flow_rate`')
-
         self._data["Maximum Air Flow Rate"] = value
 
     @property
@@ -3486,11 +3567,13 @@ class AirTerminalSingleDuctVavHeatAndCoolNoReheat(object):
 
     @zone_minimum_air_flow_fraction.setter
     def zone_minimum_air_flow_fraction(self, value=None):
-        """  Corresponds to IDD Field `zone_minimum_air_flow_fraction`
+        """  Corresponds to IDD Field `Zone Minimum Air Flow Fraction`
         fraction of maximum air flow
+        
+        {'pytype': 'float', u'maximum': '1.0', u'required-field': True, u'note': [u'fraction of maximum air flow'], u'minimum': '0.0', 'type': 'real'}
 
         Args:
-            value (float): value for IDD Field `zone_minimum_air_flow_fraction`
+            value (float): value for IDD Field `Zone Minimum Air Flow Fraction`
                 value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
@@ -3502,7 +3585,7 @@ class AirTerminalSingleDuctVavHeatAndCoolNoReheat(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `zone_minimum_air_flow_fraction`'.format(value))
             if value < 0.0:
@@ -3511,7 +3594,6 @@ class AirTerminalSingleDuctVavHeatAndCoolNoReheat(object):
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `zone_minimum_air_flow_fraction`')
-
         self._data["Zone Minimum Air Flow Fraction"] = value
 
     def check(self):
@@ -3696,10 +3778,12 @@ class AirTerminalSingleDuctVavHeatAndCoolReheat(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {'type': 'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3709,7 +3793,7 @@ class AirTerminalSingleDuctVavHeatAndCoolReheat(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -3718,7 +3802,6 @@ class AirTerminalSingleDuctVavHeatAndCoolReheat(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -3732,12 +3815,14 @@ class AirTerminalSingleDuctVavHeatAndCoolReheat(object):
 
     @availability_schedule_name.setter
     def availability_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `availability_schedule_name`
+        """  Corresponds to IDD Field `Availability Schedule Name`
         Availability schedule name for this system. Schedule value > 0 means the system is available.
         If this field is blank, the system is always available.
+        
+        {u'note': [u'Availability schedule name for this system. Schedule value > 0 means the system is available.', u'If this field is blank, the system is always available.'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `availability_schedule_name`
+            value (str): value for IDD Field `Availability Schedule Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3747,7 +3832,7 @@ class AirTerminalSingleDuctVavHeatAndCoolReheat(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `availability_schedule_name`'.format(value))
             if ',' in value:
@@ -3756,7 +3841,6 @@ class AirTerminalSingleDuctVavHeatAndCoolReheat(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `availability_schedule_name`')
-
         self._data["Availability Schedule Name"] = value
 
     @property
@@ -3770,12 +3854,14 @@ class AirTerminalSingleDuctVavHeatAndCoolReheat(object):
 
     @damper_air_outlet_node_name.setter
     def damper_air_outlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `damper_air_outlet_node_name`
+        """  Corresponds to IDD Field `Damper Air Outlet Node Name`
         the outlet node of the damper and the inlet node of the reheat coil
         this is an internal node to the terminal unit and connects the damper and reheat coil
+        
+        {u'note': [u'the outlet node of the damper and the inlet node of the reheat coil', u'this is an internal node to the terminal unit and connects the damper and reheat coil'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `damper_air_outlet_node_name`
+            value (str): value for IDD Field `Damper Air Outlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3785,7 +3871,7 @@ class AirTerminalSingleDuctVavHeatAndCoolReheat(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `damper_air_outlet_node_name`'.format(value))
             if ',' in value:
@@ -3794,7 +3880,6 @@ class AirTerminalSingleDuctVavHeatAndCoolReheat(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `damper_air_outlet_node_name`')
-
         self._data["Damper Air Outlet Node Name"] = value
 
     @property
@@ -3808,11 +3893,13 @@ class AirTerminalSingleDuctVavHeatAndCoolReheat(object):
 
     @air_inlet_node_name.setter
     def air_inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `air_inlet_node_name`
+        """  Corresponds to IDD Field `Air Inlet Node Name`
         the inlet node to the terminal unit and the damper
+        
+        {u'note': [u'the inlet node to the terminal unit and the damper'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `air_inlet_node_name`
+            value (str): value for IDD Field `Air Inlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3822,7 +3909,7 @@ class AirTerminalSingleDuctVavHeatAndCoolReheat(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `air_inlet_node_name`'.format(value))
             if ',' in value:
@@ -3831,7 +3918,6 @@ class AirTerminalSingleDuctVavHeatAndCoolReheat(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `air_inlet_node_name`')
-
         self._data["Air Inlet Node Name"] = value
 
     @property
@@ -3845,10 +3931,12 @@ class AirTerminalSingleDuctVavHeatAndCoolReheat(object):
 
     @maximum_air_flow_rate.setter
     def maximum_air_flow_rate(self, value=None):
-        """  Corresponds to IDD Field `maximum_air_flow_rate`
+        """  Corresponds to IDD Field `Maximum Air Flow Rate`
+        
+        {'pytype': 'float', u'minimum>': '0.0', u'required-field': True, u'autosizable': u'', u'units': u'm3/s', 'type': 'real'}
 
         Args:
-            value (float): value for IDD Field `maximum_air_flow_rate`
+            value (float): value for IDD Field `Maximum Air Flow Rate`
                 Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -3860,13 +3948,12 @@ class AirTerminalSingleDuctVavHeatAndCoolReheat(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `maximum_air_flow_rate`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `maximum_air_flow_rate`')
-
         self._data["Maximum Air Flow Rate"] = value
 
     @property
@@ -3880,11 +3967,13 @@ class AirTerminalSingleDuctVavHeatAndCoolReheat(object):
 
     @zone_minimum_air_flow_fraction.setter
     def zone_minimum_air_flow_fraction(self, value=None):
-        """  Corresponds to IDD Field `zone_minimum_air_flow_fraction`
+        """  Corresponds to IDD Field `Zone Minimum Air Flow Fraction`
         fraction of maximum air flow
+        
+        {'pytype': 'float', u'maximum': '1.0', u'required-field': True, u'note': [u'fraction of maximum air flow'], u'minimum': '0.0', 'type': 'real'}
 
         Args:
-            value (float): value for IDD Field `zone_minimum_air_flow_fraction`
+            value (float): value for IDD Field `Zone Minimum Air Flow Fraction`
                 value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
@@ -3896,7 +3985,7 @@ class AirTerminalSingleDuctVavHeatAndCoolReheat(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `zone_minimum_air_flow_fraction`'.format(value))
             if value < 0.0:
@@ -3905,7 +3994,6 @@ class AirTerminalSingleDuctVavHeatAndCoolReheat(object):
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `zone_minimum_air_flow_fraction`')
-
         self._data["Zone Minimum Air Flow Fraction"] = value
 
     @property
@@ -3919,10 +4007,12 @@ class AirTerminalSingleDuctVavHeatAndCoolReheat(object):
 
     @hot_water_or_steam_inlet_node_name.setter
     def hot_water_or_steam_inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `hot_water_or_steam_inlet_node_name`
+        """  Corresponds to IDD Field `Hot Water or Steam Inlet Node Name`
+        
+        {u'deprecated': u'', u'type': u'node', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `hot_water_or_steam_inlet_node_name`
+            value (str): value for IDD Field `Hot Water or Steam Inlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3932,7 +4022,7 @@ class AirTerminalSingleDuctVavHeatAndCoolReheat(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `hot_water_or_steam_inlet_node_name`'.format(value))
             if ',' in value:
@@ -3941,7 +4031,6 @@ class AirTerminalSingleDuctVavHeatAndCoolReheat(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `hot_water_or_steam_inlet_node_name`')
-
         self._data["Hot Water or Steam Inlet Node Name"] = value
 
     @property
@@ -3955,10 +4044,12 @@ class AirTerminalSingleDuctVavHeatAndCoolReheat(object):
 
     @reheat_coil_object_type.setter
     def reheat_coil_object_type(self, value=None):
-        """  Corresponds to IDD Field `reheat_coil_object_type`
+        """  Corresponds to IDD Field `Reheat Coil Object Type`
+        
+        {u'type': u'choice', u'key': [u'Coil:Heating:Water', u'Coil:Heating:Electric', u'Coil:Heating:Gas', u'Coil:Heating:Steam'], u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `reheat_coil_object_type`
+            value (str): value for IDD Field `Reheat Coil Object Type`
                 Accepted values are:
                       - Coil:Heating:Water
                       - Coil:Heating:Electric
@@ -3973,7 +4064,7 @@ class AirTerminalSingleDuctVavHeatAndCoolReheat(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `reheat_coil_object_type`'.format(value))
             if ',' in value:
@@ -4001,7 +4092,6 @@ class AirTerminalSingleDuctVavHeatAndCoolReheat(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `reheat_coil_object_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Reheat Coil Object Type"] = value
 
     @property
@@ -4015,10 +4105,12 @@ class AirTerminalSingleDuctVavHeatAndCoolReheat(object):
 
     @reheat_coil_name.setter
     def reheat_coil_name(self, value=None):
-        """  Corresponds to IDD Field `reheat_coil_name`
+        """  Corresponds to IDD Field `Reheat Coil Name`
+        
+        {u'type': u'object-list', u'object-list': u'HeatingCoilName', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `reheat_coil_name`
+            value (str): value for IDD Field `Reheat Coil Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4028,7 +4120,7 @@ class AirTerminalSingleDuctVavHeatAndCoolReheat(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `reheat_coil_name`'.format(value))
             if ',' in value:
@@ -4037,7 +4129,6 @@ class AirTerminalSingleDuctVavHeatAndCoolReheat(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `reheat_coil_name`')
-
         self._data["Reheat Coil Name"] = value
 
     @property
@@ -4051,11 +4142,13 @@ class AirTerminalSingleDuctVavHeatAndCoolReheat(object):
 
     @maximum_hot_water_or_steam_flow_rate.setter
     def maximum_hot_water_or_steam_flow_rate(self, value=None):
-        """  Corresponds to IDD Field `maximum_hot_water_or_steam_flow_rate`
+        """  Corresponds to IDD Field `Maximum Hot Water or Steam Flow Rate`
         Not used when reheat coil type is gas or electric
+        
+        {'pytype': 'float', u'note': [u'Not used when reheat coil type is gas or electric'], u'ip-units': u'gal/min', u'autosizable': u'', u'minimum': '0.0', u'units': u'm3/s', 'type': 'real'}
 
         Args:
-            value (float): value for IDD Field `maximum_hot_water_or_steam_flow_rate`
+            value (float): value for IDD Field `Maximum Hot Water or Steam Flow Rate`
                 Units: m3/s
                 IP-Units: gal/min
                 value >= 0.0
@@ -4068,13 +4161,12 @@ class AirTerminalSingleDuctVavHeatAndCoolReheat(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `maximum_hot_water_or_steam_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `maximum_hot_water_or_steam_flow_rate`')
-
         self._data["Maximum Hot Water or Steam Flow Rate"] = value
 
     @property
@@ -4088,11 +4180,13 @@ class AirTerminalSingleDuctVavHeatAndCoolReheat(object):
 
     @minimum_hot_water_or_steam_flow_rate.setter
     def minimum_hot_water_or_steam_flow_rate(self, value=0.0 ):
-        """  Corresponds to IDD Field `minimum_hot_water_or_steam_flow_rate`
+        """  Corresponds to IDD Field `Minimum Hot Water or Steam Flow Rate`
         Not used when reheat coil type is gas or electric
+        
+        {'pytype': 'float', u'default': '0.0', u'note': [u'Not used when reheat coil type is gas or electric'], u'ip-units': u'gal/min', u'minimum': '0.0', u'units': u'm3/s', 'type': 'real'}
 
         Args:
-            value (float): value for IDD Field `minimum_hot_water_or_steam_flow_rate`
+            value (float): value for IDD Field `Minimum Hot Water or Steam Flow Rate`
                 Units: m3/s
                 IP-Units: gal/min
                 Default value: 0.0
@@ -4106,13 +4200,12 @@ class AirTerminalSingleDuctVavHeatAndCoolReheat(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `minimum_hot_water_or_steam_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `minimum_hot_water_or_steam_flow_rate`')
-
         self._data["Minimum Hot Water or Steam Flow Rate"] = value
 
     @property
@@ -4126,12 +4219,14 @@ class AirTerminalSingleDuctVavHeatAndCoolReheat(object):
 
     @air_outlet_node_name.setter
     def air_outlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `air_outlet_node_name`
+        """  Corresponds to IDD Field `Air Outlet Node Name`
         The outlet node of the terminal unit and the reheat coil.
         This is also the zone inlet node.
+        
+        {u'note': [u'The outlet node of the terminal unit and the reheat coil.', u'This is also the zone inlet node.'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `air_outlet_node_name`
+            value (str): value for IDD Field `Air Outlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4141,7 +4236,7 @@ class AirTerminalSingleDuctVavHeatAndCoolReheat(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `air_outlet_node_name`'.format(value))
             if ',' in value:
@@ -4150,7 +4245,6 @@ class AirTerminalSingleDuctVavHeatAndCoolReheat(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `air_outlet_node_name`')
-
         self._data["Air Outlet Node Name"] = value
 
     @property
@@ -4164,10 +4258,12 @@ class AirTerminalSingleDuctVavHeatAndCoolReheat(object):
 
     @convergence_tolerance.setter
     def convergence_tolerance(self, value=0.001 ):
-        """  Corresponds to IDD Field `convergence_tolerance`
+        """  Corresponds to IDD Field `Convergence Tolerance`
+        
+        {u'default': '0.001', u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `convergence_tolerance`
+            value (float): value for IDD Field `Convergence Tolerance`
                 Default value: 0.001
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -4179,13 +4275,12 @@ class AirTerminalSingleDuctVavHeatAndCoolReheat(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `convergence_tolerance`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `convergence_tolerance`')
-
         self._data["Convergence Tolerance"] = value
 
     @property
@@ -4199,12 +4294,14 @@ class AirTerminalSingleDuctVavHeatAndCoolReheat(object):
 
     @maximum_reheat_air_temperature.setter
     def maximum_reheat_air_temperature(self, value=None):
-        """  Corresponds to IDD Field `maximum_reheat_air_temperature`
+        """  Corresponds to IDD Field `Maximum Reheat Air Temperature`
         Specifies the maximum allowable supply air temperature leaving the reheat coil.
         If left blank, there is no limit and no default. If unknown, 35C (95F) is recommended.
+        
+        {u'note': [u'Specifies the maximum allowable supply air temperature leaving the reheat coil.', u'If left blank, there is no limit and no default. If unknown, 35C (95F) is recommended.'], u'units': u'C', u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `maximum_reheat_air_temperature`
+            value (float): value for IDD Field `Maximum Reheat Air Temperature`
                 Units: C
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -4216,13 +4313,12 @@ class AirTerminalSingleDuctVavHeatAndCoolReheat(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `maximum_reheat_air_temperature`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `maximum_reheat_air_temperature`')
-
         self._data["Maximum Reheat Air Temperature"] = value
 
     def check(self):
@@ -4431,10 +4527,12 @@ class AirTerminalSingleDuctSeriesPiuReheat(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4444,7 +4542,7 @@ class AirTerminalSingleDuctSeriesPiuReheat(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -4453,7 +4551,6 @@ class AirTerminalSingleDuctSeriesPiuReheat(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -4467,12 +4564,14 @@ class AirTerminalSingleDuctSeriesPiuReheat(object):
 
     @availability_schedule_name.setter
     def availability_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `availability_schedule_name`
+        """  Corresponds to IDD Field `Availability Schedule Name`
         Availability schedule name for this system. Schedule value > 0 means the system is available.
         If this field is blank, the system is always available.
+        
+        {u'note': [u'Availability schedule name for this system. Schedule value > 0 means the system is available.', u'If this field is blank, the system is always available.'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `availability_schedule_name`
+            value (str): value for IDD Field `Availability Schedule Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4482,7 +4581,7 @@ class AirTerminalSingleDuctSeriesPiuReheat(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `availability_schedule_name`'.format(value))
             if ',' in value:
@@ -4491,7 +4590,6 @@ class AirTerminalSingleDuctSeriesPiuReheat(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `availability_schedule_name`')
-
         self._data["Availability Schedule Name"] = value
 
     @property
@@ -4505,10 +4603,12 @@ class AirTerminalSingleDuctSeriesPiuReheat(object):
 
     @maximum_air_flow_rate.setter
     def maximum_air_flow_rate(self, value=None):
-        """  Corresponds to IDD Field `maximum_air_flow_rate`
+        """  Corresponds to IDD Field `Maximum Air Flow Rate`
+        
+        {'pytype': 'float', u'required-field': True, u'autosizable': u'', u'minimum': '0.0', u'units': u'm3/s', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `maximum_air_flow_rate`
+            value (float): value for IDD Field `Maximum Air Flow Rate`
                 Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -4520,13 +4620,12 @@ class AirTerminalSingleDuctSeriesPiuReheat(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `maximum_air_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `maximum_air_flow_rate`')
-
         self._data["Maximum Air Flow Rate"] = value
 
     @property
@@ -4540,10 +4639,12 @@ class AirTerminalSingleDuctSeriesPiuReheat(object):
 
     @maximum_primary_air_flow_rate.setter
     def maximum_primary_air_flow_rate(self, value=None):
-        """  Corresponds to IDD Field `maximum_primary_air_flow_rate`
+        """  Corresponds to IDD Field `Maximum Primary Air Flow Rate`
+        
+        {'pytype': 'float', u'required-field': True, u'autosizable': u'', u'minimum': '0.0', u'units': u'm3/s', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `maximum_primary_air_flow_rate`
+            value (float): value for IDD Field `Maximum Primary Air Flow Rate`
                 Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -4555,13 +4656,12 @@ class AirTerminalSingleDuctSeriesPiuReheat(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `maximum_primary_air_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `maximum_primary_air_flow_rate`')
-
         self._data["Maximum Primary Air Flow Rate"] = value
 
     @property
@@ -4575,10 +4675,12 @@ class AirTerminalSingleDuctSeriesPiuReheat(object):
 
     @minimum_primary_air_flow_fraction.setter
     def minimum_primary_air_flow_fraction(self, value=None):
-        """  Corresponds to IDD Field `minimum_primary_air_flow_fraction`
+        """  Corresponds to IDD Field `Minimum Primary Air Flow Fraction`
+        
+        {'pytype': 'float', u'maximum': '1.0', u'required-field': True, u'autosizable': u'', u'minimum': '0.0', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `minimum_primary_air_flow_fraction`
+            value (float): value for IDD Field `Minimum Primary Air Flow Fraction`
                 value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
@@ -4590,7 +4692,7 @@ class AirTerminalSingleDuctSeriesPiuReheat(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `minimum_primary_air_flow_fraction`'.format(value))
             if value < 0.0:
@@ -4599,7 +4701,6 @@ class AirTerminalSingleDuctSeriesPiuReheat(object):
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `minimum_primary_air_flow_fraction`')
-
         self._data["Minimum Primary Air Flow Fraction"] = value
 
     @property
@@ -4613,10 +4714,12 @@ class AirTerminalSingleDuctSeriesPiuReheat(object):
 
     @supply_air_inlet_node_name.setter
     def supply_air_inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `supply_air_inlet_node_name`
+        """  Corresponds to IDD Field `Supply Air Inlet Node Name`
+        
+        {u'type': u'node', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `supply_air_inlet_node_name`
+            value (str): value for IDD Field `Supply Air Inlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4626,7 +4729,7 @@ class AirTerminalSingleDuctSeriesPiuReheat(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `supply_air_inlet_node_name`'.format(value))
             if ',' in value:
@@ -4635,7 +4738,6 @@ class AirTerminalSingleDuctSeriesPiuReheat(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `supply_air_inlet_node_name`')
-
         self._data["Supply Air Inlet Node Name"] = value
 
     @property
@@ -4649,10 +4751,12 @@ class AirTerminalSingleDuctSeriesPiuReheat(object):
 
     @secondary_air_inlet_node_name.setter
     def secondary_air_inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `secondary_air_inlet_node_name`
+        """  Corresponds to IDD Field `Secondary Air Inlet Node Name`
+        
+        {u'type': u'node', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `secondary_air_inlet_node_name`
+            value (str): value for IDD Field `Secondary Air Inlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4662,7 +4766,7 @@ class AirTerminalSingleDuctSeriesPiuReheat(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `secondary_air_inlet_node_name`'.format(value))
             if ',' in value:
@@ -4671,7 +4775,6 @@ class AirTerminalSingleDuctSeriesPiuReheat(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `secondary_air_inlet_node_name`')
-
         self._data["Secondary Air Inlet Node Name"] = value
 
     @property
@@ -4685,10 +4788,12 @@ class AirTerminalSingleDuctSeriesPiuReheat(object):
 
     @outlet_node_name.setter
     def outlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `outlet_node_name`
+        """  Corresponds to IDD Field `Outlet Node Name`
+        
+        {u'type': u'node', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `outlet_node_name`
+            value (str): value for IDD Field `Outlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4698,7 +4803,7 @@ class AirTerminalSingleDuctSeriesPiuReheat(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `outlet_node_name`'.format(value))
             if ',' in value:
@@ -4707,7 +4812,6 @@ class AirTerminalSingleDuctSeriesPiuReheat(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `outlet_node_name`')
-
         self._data["Outlet Node Name"] = value
 
     @property
@@ -4721,10 +4825,12 @@ class AirTerminalSingleDuctSeriesPiuReheat(object):
 
     @reheat_coil_air_inlet_node_name.setter
     def reheat_coil_air_inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `reheat_coil_air_inlet_node_name`
+        """  Corresponds to IDD Field `Reheat Coil Air Inlet Node Name`
+        
+        {u'type': u'node', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `reheat_coil_air_inlet_node_name`
+            value (str): value for IDD Field `Reheat Coil Air Inlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4734,7 +4840,7 @@ class AirTerminalSingleDuctSeriesPiuReheat(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `reheat_coil_air_inlet_node_name`'.format(value))
             if ',' in value:
@@ -4743,7 +4849,6 @@ class AirTerminalSingleDuctSeriesPiuReheat(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `reheat_coil_air_inlet_node_name`')
-
         self._data["Reheat Coil Air Inlet Node Name"] = value
 
     @property
@@ -4757,10 +4862,12 @@ class AirTerminalSingleDuctSeriesPiuReheat(object):
 
     @zone_mixer_name.setter
     def zone_mixer_name(self, value=None):
-        """  Corresponds to IDD Field `zone_mixer_name`
+        """  Corresponds to IDD Field `Zone Mixer Name`
+        
+        {u'type': u'object-list', u'object-list': u'ZoneMixers', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `zone_mixer_name`
+            value (str): value for IDD Field `Zone Mixer Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4770,7 +4877,7 @@ class AirTerminalSingleDuctSeriesPiuReheat(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `zone_mixer_name`'.format(value))
             if ',' in value:
@@ -4779,7 +4886,6 @@ class AirTerminalSingleDuctSeriesPiuReheat(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `zone_mixer_name`')
-
         self._data["Zone Mixer Name"] = value
 
     @property
@@ -4793,11 +4899,13 @@ class AirTerminalSingleDuctSeriesPiuReheat(object):
 
     @fan_name.setter
     def fan_name(self, value=None):
-        """  Corresponds to IDD Field `fan_name`
+        """  Corresponds to IDD Field `Fan Name`
         Fan type must be Fan:ConstantVolume
+        
+        {u'note': [u'Fan type must be Fan:ConstantVolume'], u'type': u'object-list', u'object-list': u'FansCV', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `fan_name`
+            value (str): value for IDD Field `Fan Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4807,7 +4915,7 @@ class AirTerminalSingleDuctSeriesPiuReheat(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `fan_name`'.format(value))
             if ',' in value:
@@ -4816,7 +4924,6 @@ class AirTerminalSingleDuctSeriesPiuReheat(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `fan_name`')
-
         self._data["Fan Name"] = value
 
     @property
@@ -4830,10 +4937,12 @@ class AirTerminalSingleDuctSeriesPiuReheat(object):
 
     @reheat_coil_object_type.setter
     def reheat_coil_object_type(self, value=None):
-        """  Corresponds to IDD Field `reheat_coil_object_type`
+        """  Corresponds to IDD Field `Reheat Coil Object Type`
+        
+        {u'type': u'choice', u'key': [u'Coil:Heating:Water', u'Coil:Heating:Electric', u'Coil:Heating:Gas', u'Coil:Heating:Steam'], u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `reheat_coil_object_type`
+            value (str): value for IDD Field `Reheat Coil Object Type`
                 Accepted values are:
                       - Coil:Heating:Water
                       - Coil:Heating:Electric
@@ -4848,7 +4957,7 @@ class AirTerminalSingleDuctSeriesPiuReheat(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `reheat_coil_object_type`'.format(value))
             if ',' in value:
@@ -4876,7 +4985,6 @@ class AirTerminalSingleDuctSeriesPiuReheat(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `reheat_coil_object_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Reheat Coil Object Type"] = value
 
     @property
@@ -4890,10 +4998,12 @@ class AirTerminalSingleDuctSeriesPiuReheat(object):
 
     @reheat_coil_name.setter
     def reheat_coil_name(self, value=None):
-        """  Corresponds to IDD Field `reheat_coil_name`
+        """  Corresponds to IDD Field `Reheat Coil Name`
+        
+        {u'type': u'object-list', u'object-list': u'HeatingCoilName', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `reheat_coil_name`
+            value (str): value for IDD Field `Reheat Coil Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4903,7 +5013,7 @@ class AirTerminalSingleDuctSeriesPiuReheat(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `reheat_coil_name`'.format(value))
             if ',' in value:
@@ -4912,7 +5022,6 @@ class AirTerminalSingleDuctSeriesPiuReheat(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `reheat_coil_name`')
-
         self._data["Reheat Coil Name"] = value
 
     @property
@@ -4926,11 +5035,13 @@ class AirTerminalSingleDuctSeriesPiuReheat(object):
 
     @maximum_hot_water_or_steam_flow_rate.setter
     def maximum_hot_water_or_steam_flow_rate(self, value=None):
-        """  Corresponds to IDD Field `maximum_hot_water_or_steam_flow_rate`
+        """  Corresponds to IDD Field `Maximum Hot Water or Steam Flow Rate`
         Not used when reheat coil type is gas or electric
+        
+        {'pytype': 'float', u'note': [u'Not used when reheat coil type is gas or electric'], u'ip-units': u'gal/min', u'autosizable': u'', u'units': u'm3/s', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `maximum_hot_water_or_steam_flow_rate`
+            value (float): value for IDD Field `Maximum Hot Water or Steam Flow Rate`
                 Units: m3/s
                 IP-Units: gal/min
                 if `value` is None it will not be checked against the
@@ -4942,10 +5053,9 @@ class AirTerminalSingleDuctSeriesPiuReheat(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `maximum_hot_water_or_steam_flow_rate`'.format(value))
-
         self._data["Maximum Hot Water or Steam Flow Rate"] = value
 
     @property
@@ -4959,11 +5069,13 @@ class AirTerminalSingleDuctSeriesPiuReheat(object):
 
     @minimum_hot_water_or_steam_flow_rate.setter
     def minimum_hot_water_or_steam_flow_rate(self, value=0.0 ):
-        """  Corresponds to IDD Field `minimum_hot_water_or_steam_flow_rate`
+        """  Corresponds to IDD Field `Minimum Hot Water or Steam Flow Rate`
         Not used when reheat coil type is gas or electric
+        
+        {'pytype': 'float', u'default': '0.0', u'note': [u'Not used when reheat coil type is gas or electric'], u'ip-units': u'gal/min', u'minimum': '0.0', u'units': u'm3/s', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `minimum_hot_water_or_steam_flow_rate`
+            value (float): value for IDD Field `Minimum Hot Water or Steam Flow Rate`
                 Units: m3/s
                 IP-Units: gal/min
                 Default value: 0.0
@@ -4977,13 +5089,12 @@ class AirTerminalSingleDuctSeriesPiuReheat(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `minimum_hot_water_or_steam_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `minimum_hot_water_or_steam_flow_rate`')
-
         self._data["Minimum Hot Water or Steam Flow Rate"] = value
 
     @property
@@ -4997,10 +5108,12 @@ class AirTerminalSingleDuctSeriesPiuReheat(object):
 
     @hot_water_or_steam_inlet_node_name.setter
     def hot_water_or_steam_inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `hot_water_or_steam_inlet_node_name`
+        """  Corresponds to IDD Field `Hot Water or Steam Inlet Node Name`
+        
+        {u'deprecated': u'', u'type': u'node', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `hot_water_or_steam_inlet_node_name`
+            value (str): value for IDD Field `Hot Water or Steam Inlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5010,7 +5123,7 @@ class AirTerminalSingleDuctSeriesPiuReheat(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `hot_water_or_steam_inlet_node_name`'.format(value))
             if ',' in value:
@@ -5019,7 +5132,6 @@ class AirTerminalSingleDuctSeriesPiuReheat(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `hot_water_or_steam_inlet_node_name`')
-
         self._data["Hot Water or Steam Inlet Node Name"] = value
 
     @property
@@ -5033,10 +5145,12 @@ class AirTerminalSingleDuctSeriesPiuReheat(object):
 
     @convergence_tolerance.setter
     def convergence_tolerance(self, value=0.001 ):
-        """  Corresponds to IDD Field `convergence_tolerance`
+        """  Corresponds to IDD Field `Convergence Tolerance`
+        
+        {u'default': '0.001', u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `convergence_tolerance`
+            value (float): value for IDD Field `Convergence Tolerance`
                 Default value: 0.001
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -5048,13 +5162,12 @@ class AirTerminalSingleDuctSeriesPiuReheat(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `convergence_tolerance`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `convergence_tolerance`')
-
         self._data["Convergence Tolerance"] = value
 
     def check(self):
@@ -5271,10 +5384,12 @@ class AirTerminalSingleDuctParallelPiuReheat(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5284,7 +5399,7 @@ class AirTerminalSingleDuctParallelPiuReheat(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -5293,7 +5408,6 @@ class AirTerminalSingleDuctParallelPiuReheat(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -5307,12 +5421,14 @@ class AirTerminalSingleDuctParallelPiuReheat(object):
 
     @availability_schedule_name.setter
     def availability_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `availability_schedule_name`
+        """  Corresponds to IDD Field `Availability Schedule Name`
         Availability schedule name for this system. Schedule value > 0 means the system is available.
         If this field is blank, the system is always available.
+        
+        {u'note': [u'Availability schedule name for this system. Schedule value > 0 means the system is available.', u'If this field is blank, the system is always available.'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `availability_schedule_name`
+            value (str): value for IDD Field `Availability Schedule Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5322,7 +5438,7 @@ class AirTerminalSingleDuctParallelPiuReheat(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `availability_schedule_name`'.format(value))
             if ',' in value:
@@ -5331,7 +5447,6 @@ class AirTerminalSingleDuctParallelPiuReheat(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `availability_schedule_name`')
-
         self._data["Availability Schedule Name"] = value
 
     @property
@@ -5345,10 +5460,12 @@ class AirTerminalSingleDuctParallelPiuReheat(object):
 
     @maximum_primary_air_flow_rate.setter
     def maximum_primary_air_flow_rate(self, value=None):
-        """  Corresponds to IDD Field `maximum_primary_air_flow_rate`
+        """  Corresponds to IDD Field `Maximum Primary Air Flow Rate`
+        
+        {'pytype': 'float', u'required-field': True, u'autosizable': u'', u'minimum': '0.0', u'units': u'm3/s', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `maximum_primary_air_flow_rate`
+            value (float): value for IDD Field `Maximum Primary Air Flow Rate`
                 Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -5360,13 +5477,12 @@ class AirTerminalSingleDuctParallelPiuReheat(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `maximum_primary_air_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `maximum_primary_air_flow_rate`')
-
         self._data["Maximum Primary Air Flow Rate"] = value
 
     @property
@@ -5380,10 +5496,12 @@ class AirTerminalSingleDuctParallelPiuReheat(object):
 
     @maximum_secondary_air_flow_rate.setter
     def maximum_secondary_air_flow_rate(self, value=None):
-        """  Corresponds to IDD Field `maximum_secondary_air_flow_rate`
+        """  Corresponds to IDD Field `Maximum Secondary Air Flow Rate`
+        
+        {'pytype': 'float', u'required-field': True, u'autosizable': u'', u'minimum': '0.0', u'units': u'm3/s', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `maximum_secondary_air_flow_rate`
+            value (float): value for IDD Field `Maximum Secondary Air Flow Rate`
                 Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -5395,13 +5513,12 @@ class AirTerminalSingleDuctParallelPiuReheat(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `maximum_secondary_air_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `maximum_secondary_air_flow_rate`')
-
         self._data["Maximum Secondary Air Flow Rate"] = value
 
     @property
@@ -5415,10 +5532,12 @@ class AirTerminalSingleDuctParallelPiuReheat(object):
 
     @minimum_primary_air_flow_fraction.setter
     def minimum_primary_air_flow_fraction(self, value=None):
-        """  Corresponds to IDD Field `minimum_primary_air_flow_fraction`
+        """  Corresponds to IDD Field `Minimum Primary Air Flow Fraction`
+        
+        {'pytype': 'float', u'maximum': '1.0', u'required-field': True, u'autosizable': u'', u'minimum': '0.0', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `minimum_primary_air_flow_fraction`
+            value (float): value for IDD Field `Minimum Primary Air Flow Fraction`
                 value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
@@ -5430,7 +5549,7 @@ class AirTerminalSingleDuctParallelPiuReheat(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `minimum_primary_air_flow_fraction`'.format(value))
             if value < 0.0:
@@ -5439,7 +5558,6 @@ class AirTerminalSingleDuctParallelPiuReheat(object):
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `minimum_primary_air_flow_fraction`')
-
         self._data["Minimum Primary Air Flow Fraction"] = value
 
     @property
@@ -5453,11 +5571,13 @@ class AirTerminalSingleDuctParallelPiuReheat(object):
 
     @fan_on_flow_fraction.setter
     def fan_on_flow_fraction(self, value=None):
-        """  Corresponds to IDD Field `fan_on_flow_fraction`
+        """  Corresponds to IDD Field `Fan On Flow Fraction`
         the fraction of the primary air flow at which fan turns on
+        
+        {'pytype': 'float', u'maximum': '1.0', u'required-field': True, u'note': [u'the fraction of the primary air flow at which fan turns on'], u'autosizable': u'', u'minimum': '0.0', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `fan_on_flow_fraction`
+            value (float): value for IDD Field `Fan On Flow Fraction`
                 value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
@@ -5469,7 +5589,7 @@ class AirTerminalSingleDuctParallelPiuReheat(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `fan_on_flow_fraction`'.format(value))
             if value < 0.0:
@@ -5478,7 +5598,6 @@ class AirTerminalSingleDuctParallelPiuReheat(object):
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `fan_on_flow_fraction`')
-
         self._data["Fan On Flow Fraction"] = value
 
     @property
@@ -5492,10 +5611,12 @@ class AirTerminalSingleDuctParallelPiuReheat(object):
 
     @supply_air_inlet_node_name.setter
     def supply_air_inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `supply_air_inlet_node_name`
+        """  Corresponds to IDD Field `Supply Air Inlet Node Name`
+        
+        {u'type': u'node', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `supply_air_inlet_node_name`
+            value (str): value for IDD Field `Supply Air Inlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5505,7 +5626,7 @@ class AirTerminalSingleDuctParallelPiuReheat(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `supply_air_inlet_node_name`'.format(value))
             if ',' in value:
@@ -5514,7 +5635,6 @@ class AirTerminalSingleDuctParallelPiuReheat(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `supply_air_inlet_node_name`')
-
         self._data["Supply Air Inlet Node Name"] = value
 
     @property
@@ -5528,10 +5648,12 @@ class AirTerminalSingleDuctParallelPiuReheat(object):
 
     @secondary_air_inlet_node_name.setter
     def secondary_air_inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `secondary_air_inlet_node_name`
+        """  Corresponds to IDD Field `Secondary Air Inlet Node Name`
+        
+        {u'type': u'node', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `secondary_air_inlet_node_name`
+            value (str): value for IDD Field `Secondary Air Inlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5541,7 +5663,7 @@ class AirTerminalSingleDuctParallelPiuReheat(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `secondary_air_inlet_node_name`'.format(value))
             if ',' in value:
@@ -5550,7 +5672,6 @@ class AirTerminalSingleDuctParallelPiuReheat(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `secondary_air_inlet_node_name`')
-
         self._data["Secondary Air Inlet Node Name"] = value
 
     @property
@@ -5564,10 +5685,12 @@ class AirTerminalSingleDuctParallelPiuReheat(object):
 
     @outlet_node_name.setter
     def outlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `outlet_node_name`
+        """  Corresponds to IDD Field `Outlet Node Name`
+        
+        {u'type': u'node', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `outlet_node_name`
+            value (str): value for IDD Field `Outlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5577,7 +5700,7 @@ class AirTerminalSingleDuctParallelPiuReheat(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `outlet_node_name`'.format(value))
             if ',' in value:
@@ -5586,7 +5709,6 @@ class AirTerminalSingleDuctParallelPiuReheat(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `outlet_node_name`')
-
         self._data["Outlet Node Name"] = value
 
     @property
@@ -5600,11 +5722,13 @@ class AirTerminalSingleDuctParallelPiuReheat(object):
 
     @reheat_coil_air_inlet_node_name.setter
     def reheat_coil_air_inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `reheat_coil_air_inlet_node_name`
+        """  Corresponds to IDD Field `Reheat Coil Air Inlet Node Name`
         mixer outlet node
+        
+        {u'note': [u'mixer outlet node'], u'type': u'node', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `reheat_coil_air_inlet_node_name`
+            value (str): value for IDD Field `Reheat Coil Air Inlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5614,7 +5738,7 @@ class AirTerminalSingleDuctParallelPiuReheat(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `reheat_coil_air_inlet_node_name`'.format(value))
             if ',' in value:
@@ -5623,7 +5747,6 @@ class AirTerminalSingleDuctParallelPiuReheat(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `reheat_coil_air_inlet_node_name`')
-
         self._data["Reheat Coil Air Inlet Node Name"] = value
 
     @property
@@ -5637,10 +5760,12 @@ class AirTerminalSingleDuctParallelPiuReheat(object):
 
     @zone_mixer_name.setter
     def zone_mixer_name(self, value=None):
-        """  Corresponds to IDD Field `zone_mixer_name`
+        """  Corresponds to IDD Field `Zone Mixer Name`
+        
+        {u'type': u'object-list', u'object-list': u'ZoneMixers', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `zone_mixer_name`
+            value (str): value for IDD Field `Zone Mixer Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5650,7 +5775,7 @@ class AirTerminalSingleDuctParallelPiuReheat(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `zone_mixer_name`'.format(value))
             if ',' in value:
@@ -5659,7 +5784,6 @@ class AirTerminalSingleDuctParallelPiuReheat(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `zone_mixer_name`')
-
         self._data["Zone Mixer Name"] = value
 
     @property
@@ -5673,11 +5797,13 @@ class AirTerminalSingleDuctParallelPiuReheat(object):
 
     @fan_name.setter
     def fan_name(self, value=None):
-        """  Corresponds to IDD Field `fan_name`
+        """  Corresponds to IDD Field `Fan Name`
         Fan type must be Fan:ConstantVolume
+        
+        {u'note': [u'Fan type must be Fan:ConstantVolume'], u'type': u'object-list', u'object-list': u'FansCV', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `fan_name`
+            value (str): value for IDD Field `Fan Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5687,7 +5813,7 @@ class AirTerminalSingleDuctParallelPiuReheat(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `fan_name`'.format(value))
             if ',' in value:
@@ -5696,7 +5822,6 @@ class AirTerminalSingleDuctParallelPiuReheat(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `fan_name`')
-
         self._data["Fan Name"] = value
 
     @property
@@ -5710,10 +5835,12 @@ class AirTerminalSingleDuctParallelPiuReheat(object):
 
     @reheat_coil_object_type.setter
     def reheat_coil_object_type(self, value=None):
-        """  Corresponds to IDD Field `reheat_coil_object_type`
+        """  Corresponds to IDD Field `Reheat Coil Object Type`
+        
+        {u'type': u'choice', u'key': [u'Coil:Heating:Water', u'Coil:Heating:Electric', u'Coil:Heating:Gas', u'Coil:Heating:Steam'], u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `reheat_coil_object_type`
+            value (str): value for IDD Field `Reheat Coil Object Type`
                 Accepted values are:
                       - Coil:Heating:Water
                       - Coil:Heating:Electric
@@ -5728,7 +5855,7 @@ class AirTerminalSingleDuctParallelPiuReheat(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `reheat_coil_object_type`'.format(value))
             if ',' in value:
@@ -5756,7 +5883,6 @@ class AirTerminalSingleDuctParallelPiuReheat(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `reheat_coil_object_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Reheat Coil Object Type"] = value
 
     @property
@@ -5770,10 +5896,12 @@ class AirTerminalSingleDuctParallelPiuReheat(object):
 
     @reheat_coil_name.setter
     def reheat_coil_name(self, value=None):
-        """  Corresponds to IDD Field `reheat_coil_name`
+        """  Corresponds to IDD Field `Reheat Coil Name`
+        
+        {u'type': u'object-list', u'object-list': u'HeatingCoilName', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `reheat_coil_name`
+            value (str): value for IDD Field `Reheat Coil Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5783,7 +5911,7 @@ class AirTerminalSingleDuctParallelPiuReheat(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `reheat_coil_name`'.format(value))
             if ',' in value:
@@ -5792,7 +5920,6 @@ class AirTerminalSingleDuctParallelPiuReheat(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `reheat_coil_name`')
-
         self._data["Reheat Coil Name"] = value
 
     @property
@@ -5806,11 +5933,13 @@ class AirTerminalSingleDuctParallelPiuReheat(object):
 
     @maximum_hot_water_or_steam_flow_rate.setter
     def maximum_hot_water_or_steam_flow_rate(self, value=None):
-        """  Corresponds to IDD Field `maximum_hot_water_or_steam_flow_rate`
+        """  Corresponds to IDD Field `Maximum Hot Water or Steam Flow Rate`
         Not used when reheat coil type is gas or electric
+        
+        {'pytype': 'float', u'note': [u'Not used when reheat coil type is gas or electric'], u'ip-units': u'gal/min', u'autosizable': u'', u'units': u'm3/s', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `maximum_hot_water_or_steam_flow_rate`
+            value (float): value for IDD Field `Maximum Hot Water or Steam Flow Rate`
                 Units: m3/s
                 IP-Units: gal/min
                 if `value` is None it will not be checked against the
@@ -5822,10 +5951,9 @@ class AirTerminalSingleDuctParallelPiuReheat(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `maximum_hot_water_or_steam_flow_rate`'.format(value))
-
         self._data["Maximum Hot Water or Steam Flow Rate"] = value
 
     @property
@@ -5839,11 +5967,13 @@ class AirTerminalSingleDuctParallelPiuReheat(object):
 
     @minimum_hot_water_or_steam_flow_rate.setter
     def minimum_hot_water_or_steam_flow_rate(self, value=0.0 ):
-        """  Corresponds to IDD Field `minimum_hot_water_or_steam_flow_rate`
+        """  Corresponds to IDD Field `Minimum Hot Water or Steam Flow Rate`
         Not used when reheat coil type is gas or electric
+        
+        {'pytype': 'float', u'default': '0.0', u'note': [u'Not used when reheat coil type is gas or electric'], u'ip-units': u'gal/min', u'minimum': '0.0', u'units': u'm3/s', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `minimum_hot_water_or_steam_flow_rate`
+            value (float): value for IDD Field `Minimum Hot Water or Steam Flow Rate`
                 Units: m3/s
                 IP-Units: gal/min
                 Default value: 0.0
@@ -5857,13 +5987,12 @@ class AirTerminalSingleDuctParallelPiuReheat(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `minimum_hot_water_or_steam_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `minimum_hot_water_or_steam_flow_rate`')
-
         self._data["Minimum Hot Water or Steam Flow Rate"] = value
 
     @property
@@ -5877,10 +6006,12 @@ class AirTerminalSingleDuctParallelPiuReheat(object):
 
     @hot_water_or_steam_inlet_node_name.setter
     def hot_water_or_steam_inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `hot_water_or_steam_inlet_node_name`
+        """  Corresponds to IDD Field `Hot Water or Steam Inlet Node Name`
+        
+        {u'deprecated': u'', u'type': u'node', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `hot_water_or_steam_inlet_node_name`
+            value (str): value for IDD Field `Hot Water or Steam Inlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5890,7 +6021,7 @@ class AirTerminalSingleDuctParallelPiuReheat(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `hot_water_or_steam_inlet_node_name`'.format(value))
             if ',' in value:
@@ -5899,7 +6030,6 @@ class AirTerminalSingleDuctParallelPiuReheat(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `hot_water_or_steam_inlet_node_name`')
-
         self._data["Hot Water or Steam Inlet Node Name"] = value
 
     @property
@@ -5913,10 +6043,12 @@ class AirTerminalSingleDuctParallelPiuReheat(object):
 
     @convergence_tolerance.setter
     def convergence_tolerance(self, value=0.001 ):
-        """  Corresponds to IDD Field `convergence_tolerance`
+        """  Corresponds to IDD Field `Convergence Tolerance`
+        
+        {u'default': '0.001', u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `convergence_tolerance`
+            value (float): value for IDD Field `Convergence Tolerance`
                 Default value: 0.001
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -5928,13 +6060,12 @@ class AirTerminalSingleDuctParallelPiuReheat(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `convergence_tolerance`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `convergence_tolerance`')
-
         self._data["Convergence Tolerance"] = value
 
     def check(self):
@@ -6167,10 +6298,12 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6180,7 +6313,7 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -6189,7 +6322,6 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -6203,12 +6335,14 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(object):
 
     @availability_schedule_name.setter
     def availability_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `availability_schedule_name`
+        """  Corresponds to IDD Field `Availability Schedule Name`
         Availability schedule name for this system. Schedule value > 0 means the system is available.
         If this field is blank, the system is always available.
+        
+        {u'note': [u'Availability schedule name for this system. Schedule value > 0 means the system is available.', u'If this field is blank, the system is always available.'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `availability_schedule_name`
+            value (str): value for IDD Field `Availability Schedule Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6218,7 +6352,7 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `availability_schedule_name`'.format(value))
             if ',' in value:
@@ -6227,7 +6361,6 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `availability_schedule_name`')
-
         self._data["Availability Schedule Name"] = value
 
     @property
@@ -6241,10 +6374,12 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(object):
 
     @maximum_total_air_flow_rate.setter
     def maximum_total_air_flow_rate(self, value=None):
-        """  Corresponds to IDD Field `maximum_total_air_flow_rate`
+        """  Corresponds to IDD Field `Maximum Total Air Flow Rate`
+        
+        {'pytype': 'float', u'required-field': True, u'autosizable': u'', u'minimum': '0.0', u'units': u'm3/s', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `maximum_total_air_flow_rate`
+            value (float): value for IDD Field `Maximum Total Air Flow Rate`
                 Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -6256,13 +6391,12 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `maximum_total_air_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `maximum_total_air_flow_rate`')
-
         self._data["Maximum Total Air Flow Rate"] = value
 
     @property
@@ -6276,11 +6410,13 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(object):
 
     @induction_ratio.setter
     def induction_ratio(self, value=2.5 ):
-        """  Corresponds to IDD Field `induction_ratio`
+        """  Corresponds to IDD Field `Induction Ratio`
         ratio of induced air flow rate to primary air flow rate
+        
+        {'pytype': 'float', u'default': '2.5', u'required-field': True, u'note': [u'ratio of induced air flow rate to primary air flow rate'], u'minimum': '0.0', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `induction_ratio`
+            value (float): value for IDD Field `Induction Ratio`
                 Default value: 2.5
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -6292,13 +6428,12 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `induction_ratio`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `induction_ratio`')
-
         self._data["Induction Ratio"] = value
 
     @property
@@ -6312,10 +6447,12 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(object):
 
     @supply_air_inlet_node_name.setter
     def supply_air_inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `supply_air_inlet_node_name`
+        """  Corresponds to IDD Field `Supply Air Inlet Node Name`
+        
+        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `supply_air_inlet_node_name`
+            value (str): value for IDD Field `Supply Air Inlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6325,7 +6462,7 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `supply_air_inlet_node_name`'.format(value))
             if ',' in value:
@@ -6334,7 +6471,6 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `supply_air_inlet_node_name`')
-
         self._data["Supply Air Inlet Node Name"] = value
 
     @property
@@ -6348,11 +6484,13 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(object):
 
     @induced_air_inlet_node_name.setter
     def induced_air_inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `induced_air_inlet_node_name`
+        """  Corresponds to IDD Field `Induced Air Inlet Node Name`
         should be a zone exhaust node, also the heating coil inlet node
+        
+        {u'note': [u'should be a zone exhaust node, also the heating coil inlet node'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `induced_air_inlet_node_name`
+            value (str): value for IDD Field `Induced Air Inlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6362,7 +6500,7 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `induced_air_inlet_node_name`'.format(value))
             if ',' in value:
@@ -6371,7 +6509,6 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `induced_air_inlet_node_name`')
-
         self._data["Induced Air Inlet Node Name"] = value
 
     @property
@@ -6385,11 +6522,13 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(object):
 
     @air_outlet_node_name.setter
     def air_outlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `air_outlet_node_name`
+        """  Corresponds to IDD Field `Air Outlet Node Name`
         should be a zone inlet node
+        
+        {u'note': [u'should be a zone inlet node'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `air_outlet_node_name`
+            value (str): value for IDD Field `Air Outlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6399,7 +6538,7 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `air_outlet_node_name`'.format(value))
             if ',' in value:
@@ -6408,7 +6547,6 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `air_outlet_node_name`')
-
         self._data["Air Outlet Node Name"] = value
 
     @property
@@ -6422,10 +6560,12 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(object):
 
     @hot_water_inlet_node_name.setter
     def hot_water_inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `hot_water_inlet_node_name`
+        """  Corresponds to IDD Field `Hot Water Inlet Node Name`
+        
+        {u'deprecated': u'', u'type': u'node', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `hot_water_inlet_node_name`
+            value (str): value for IDD Field `Hot Water Inlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6435,7 +6575,7 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `hot_water_inlet_node_name`'.format(value))
             if ',' in value:
@@ -6444,7 +6584,6 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `hot_water_inlet_node_name`')
-
         self._data["Hot Water Inlet Node Name"] = value
 
     @property
@@ -6458,10 +6597,12 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(object):
 
     @cold_water_inlet_node_name.setter
     def cold_water_inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `cold_water_inlet_node_name`
+        """  Corresponds to IDD Field `Cold Water Inlet Node Name`
+        
+        {u'deprecated': u'', u'type': u'node', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `cold_water_inlet_node_name`
+            value (str): value for IDD Field `Cold Water Inlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6471,7 +6612,7 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `cold_water_inlet_node_name`'.format(value))
             if ',' in value:
@@ -6480,7 +6621,6 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `cold_water_inlet_node_name`')
-
         self._data["Cold Water Inlet Node Name"] = value
 
     @property
@@ -6494,10 +6634,12 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(object):
 
     @heating_coil_object_type.setter
     def heating_coil_object_type(self, value=None):
-        """  Corresponds to IDD Field `heating_coil_object_type`
+        """  Corresponds to IDD Field `Heating Coil Object Type`
+        
+        {u'type': u'choice', u'key': [u'Coil:Heating:Water'], u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `heating_coil_object_type`
+            value (str): value for IDD Field `Heating Coil Object Type`
                 Accepted values are:
                       - Coil:Heating:Water
                 if `value` is None it will not be checked against the
@@ -6509,7 +6651,7 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `heating_coil_object_type`'.format(value))
             if ',' in value:
@@ -6534,7 +6676,6 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `heating_coil_object_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Heating Coil Object Type"] = value
 
     @property
@@ -6548,10 +6689,12 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(object):
 
     @heating_coil_name.setter
     def heating_coil_name(self, value=None):
-        """  Corresponds to IDD Field `heating_coil_name`
+        """  Corresponds to IDD Field `Heating Coil Name`
+        
+        {u'type': u'object-list', u'object-list': u'HeatingCoilName', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `heating_coil_name`
+            value (str): value for IDD Field `Heating Coil Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6561,7 +6704,7 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `heating_coil_name`'.format(value))
             if ',' in value:
@@ -6570,7 +6713,6 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `heating_coil_name`')
-
         self._data["Heating Coil Name"] = value
 
     @property
@@ -6584,11 +6726,13 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(object):
 
     @maximum_hot_water_flow_rate.setter
     def maximum_hot_water_flow_rate(self, value=None):
-        """  Corresponds to IDD Field `maximum_hot_water_flow_rate`
+        """  Corresponds to IDD Field `Maximum Hot Water Flow Rate`
         Not used when heating coil type is gas or electric
+        
+        {'pytype': 'float', u'note': [u'Not used when heating coil type is gas or electric'], u'ip-units': u'gal/min', u'autosizable': u'', u'units': u'm3/s', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `maximum_hot_water_flow_rate`
+            value (float): value for IDD Field `Maximum Hot Water Flow Rate`
                 Units: m3/s
                 IP-Units: gal/min
                 if `value` is None it will not be checked against the
@@ -6600,10 +6744,9 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `maximum_hot_water_flow_rate`'.format(value))
-
         self._data["Maximum Hot Water Flow Rate"] = value
 
     @property
@@ -6617,11 +6760,13 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(object):
 
     @minimum_hot_water_flow_rate.setter
     def minimum_hot_water_flow_rate(self, value=0.0 ):
-        """  Corresponds to IDD Field `minimum_hot_water_flow_rate`
+        """  Corresponds to IDD Field `Minimum Hot Water Flow Rate`
         Not used when heating coil type is gas or electric
+        
+        {'pytype': 'float', u'default': '0.0', u'note': [u'Not used when heating coil type is gas or electric'], u'ip-units': u'gal/min', u'minimum': '0.0', u'units': u'm3/s', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `minimum_hot_water_flow_rate`
+            value (float): value for IDD Field `Minimum Hot Water Flow Rate`
                 Units: m3/s
                 IP-Units: gal/min
                 Default value: 0.0
@@ -6635,13 +6780,12 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `minimum_hot_water_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `minimum_hot_water_flow_rate`')
-
         self._data["Minimum Hot Water Flow Rate"] = value
 
     @property
@@ -6655,10 +6799,12 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(object):
 
     @heating_convergence_tolerance.setter
     def heating_convergence_tolerance(self, value=0.001 ):
-        """  Corresponds to IDD Field `heating_convergence_tolerance`
+        """  Corresponds to IDD Field `Heating Convergence Tolerance`
+        
+        {u'default': '0.001', u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `heating_convergence_tolerance`
+            value (float): value for IDD Field `Heating Convergence Tolerance`
                 Default value: 0.001
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -6670,13 +6816,12 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `heating_convergence_tolerance`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `heating_convergence_tolerance`')
-
         self._data["Heating Convergence Tolerance"] = value
 
     @property
@@ -6690,10 +6835,12 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(object):
 
     @cooling_coil_object_type.setter
     def cooling_coil_object_type(self, value=None):
-        """  Corresponds to IDD Field `cooling_coil_object_type`
+        """  Corresponds to IDD Field `Cooling Coil Object Type`
+        
+        {u'type': u'choice', u'key': [u'Coil:Cooling:Water', u'Coil:Cooling:Water:DetailedGeometry'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `cooling_coil_object_type`
+            value (str): value for IDD Field `Cooling Coil Object Type`
                 Accepted values are:
                       - Coil:Cooling:Water
                       - Coil:Cooling:Water:DetailedGeometry
@@ -6706,7 +6853,7 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `cooling_coil_object_type`'.format(value))
             if ',' in value:
@@ -6732,7 +6879,6 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `cooling_coil_object_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Cooling Coil Object Type"] = value
 
     @property
@@ -6746,10 +6892,12 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(object):
 
     @cooling_coil_name.setter
     def cooling_coil_name(self, value=None):
-        """  Corresponds to IDD Field `cooling_coil_name`
+        """  Corresponds to IDD Field `Cooling Coil Name`
+        
+        {u'type': u'object-list', u'object-list': u'CoolingCoilName', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `cooling_coil_name`
+            value (str): value for IDD Field `Cooling Coil Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6759,7 +6907,7 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `cooling_coil_name`'.format(value))
             if ',' in value:
@@ -6768,7 +6916,6 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `cooling_coil_name`')
-
         self._data["Cooling Coil Name"] = value
 
     @property
@@ -6782,10 +6929,12 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(object):
 
     @maximum_cold_water_flow_rate.setter
     def maximum_cold_water_flow_rate(self, value=None):
-        """  Corresponds to IDD Field `maximum_cold_water_flow_rate`
+        """  Corresponds to IDD Field `Maximum Cold Water Flow Rate`
+        
+        {u'units': u'm3/s', u'ip-units': u'gal/min', u'autosizable': u'', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `maximum_cold_water_flow_rate`
+            value (float): value for IDD Field `Maximum Cold Water Flow Rate`
                 Units: m3/s
                 IP-Units: gal/min
                 if `value` is None it will not be checked against the
@@ -6797,10 +6946,9 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `maximum_cold_water_flow_rate`'.format(value))
-
         self._data["Maximum Cold Water Flow Rate"] = value
 
     @property
@@ -6814,10 +6962,12 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(object):
 
     @minimum_cold_water_flow_rate.setter
     def minimum_cold_water_flow_rate(self, value=0.0 ):
-        """  Corresponds to IDD Field `minimum_cold_water_flow_rate`
+        """  Corresponds to IDD Field `Minimum Cold Water Flow Rate`
+        
+        {'pytype': 'float', u'default': '0.0', u'ip-units': u'gal/min', u'minimum': '0.0', u'units': u'm3/s', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `minimum_cold_water_flow_rate`
+            value (float): value for IDD Field `Minimum Cold Water Flow Rate`
                 Units: m3/s
                 IP-Units: gal/min
                 Default value: 0.0
@@ -6831,13 +6981,12 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `minimum_cold_water_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `minimum_cold_water_flow_rate`')
-
         self._data["Minimum Cold Water Flow Rate"] = value
 
     @property
@@ -6851,10 +7000,12 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(object):
 
     @cooling_convergence_tolerance.setter
     def cooling_convergence_tolerance(self, value=0.001 ):
-        """  Corresponds to IDD Field `cooling_convergence_tolerance`
+        """  Corresponds to IDD Field `Cooling Convergence Tolerance`
+        
+        {u'default': '0.001', u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `cooling_convergence_tolerance`
+            value (float): value for IDD Field `Cooling Convergence Tolerance`
                 Default value: 0.001
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -6866,13 +7017,12 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `cooling_convergence_tolerance`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `cooling_convergence_tolerance`')
-
         self._data["Cooling Convergence Tolerance"] = value
 
     @property
@@ -6886,10 +7036,12 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(object):
 
     @zone_mixer_name.setter
     def zone_mixer_name(self, value=None):
-        """  Corresponds to IDD Field `zone_mixer_name`
+        """  Corresponds to IDD Field `Zone Mixer Name`
+        
+        {u'type': u'object-list', u'object-list': u'ZoneMixers', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `zone_mixer_name`
+            value (str): value for IDD Field `Zone Mixer Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6899,7 +7051,7 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `zone_mixer_name`'.format(value))
             if ',' in value:
@@ -6908,7 +7060,6 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `zone_mixer_name`')
-
         self._data["Zone Mixer Name"] = value
 
     def check(self):
@@ -7165,10 +7316,12 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7178,7 +7331,7 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -7187,7 +7340,6 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -7201,12 +7353,14 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(object):
 
     @availability_schedule_name.setter
     def availability_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `availability_schedule_name`
+        """  Corresponds to IDD Field `Availability Schedule Name`
         Availability schedule name for this system. Schedule value > 0 means the system is available.
         If this field is blank, the system is always available.
+        
+        {u'note': [u'Availability schedule name for this system. Schedule value > 0 means the system is available.', u'If this field is blank, the system is always available.'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `availability_schedule_name`
+            value (str): value for IDD Field `Availability Schedule Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7216,7 +7370,7 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `availability_schedule_name`'.format(value))
             if ',' in value:
@@ -7225,7 +7379,6 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `availability_schedule_name`')
-
         self._data["Availability Schedule Name"] = value
 
     @property
@@ -7239,10 +7392,12 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(object):
 
     @cooled_beam_type.setter
     def cooled_beam_type(self, value=None):
-        """  Corresponds to IDD Field `cooled_beam_type`
+        """  Corresponds to IDD Field `Cooled Beam Type`
+        
+        {u'type': u'choice', u'key': [u'Active', u'Passive'], u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `cooled_beam_type`
+            value (str): value for IDD Field `Cooled Beam Type`
                 Accepted values are:
                       - Active
                       - Passive
@@ -7255,7 +7410,7 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `cooled_beam_type`'.format(value))
             if ',' in value:
@@ -7281,7 +7436,6 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `cooled_beam_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Cooled Beam Type"] = value
 
     @property
@@ -7295,10 +7449,12 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(object):
 
     @supply_air_inlet_node_name.setter
     def supply_air_inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `supply_air_inlet_node_name`
+        """  Corresponds to IDD Field `Supply Air Inlet Node Name`
+        
+        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `supply_air_inlet_node_name`
+            value (str): value for IDD Field `Supply Air Inlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7308,7 +7464,7 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `supply_air_inlet_node_name`'.format(value))
             if ',' in value:
@@ -7317,7 +7473,6 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `supply_air_inlet_node_name`')
-
         self._data["Supply Air Inlet Node Name"] = value
 
     @property
@@ -7331,10 +7486,12 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(object):
 
     @supply_air_outlet_node_name.setter
     def supply_air_outlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `supply_air_outlet_node_name`
+        """  Corresponds to IDD Field `Supply Air Outlet Node Name`
+        
+        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `supply_air_outlet_node_name`
+            value (str): value for IDD Field `Supply Air Outlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7344,7 +7501,7 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `supply_air_outlet_node_name`'.format(value))
             if ',' in value:
@@ -7353,7 +7510,6 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `supply_air_outlet_node_name`')
-
         self._data["Supply Air Outlet Node Name"] = value
 
     @property
@@ -7367,10 +7523,12 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(object):
 
     @chilled_water_inlet_node_name.setter
     def chilled_water_inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `chilled_water_inlet_node_name`
+        """  Corresponds to IDD Field `Chilled Water Inlet Node Name`
+        
+        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `chilled_water_inlet_node_name`
+            value (str): value for IDD Field `Chilled Water Inlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7380,7 +7538,7 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `chilled_water_inlet_node_name`'.format(value))
             if ',' in value:
@@ -7389,7 +7547,6 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `chilled_water_inlet_node_name`')
-
         self._data["Chilled Water Inlet Node Name"] = value
 
     @property
@@ -7403,10 +7560,12 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(object):
 
     @chilled_water_outlet_node_name.setter
     def chilled_water_outlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `chilled_water_outlet_node_name`
+        """  Corresponds to IDD Field `Chilled Water Outlet Node Name`
+        
+        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `chilled_water_outlet_node_name`
+            value (str): value for IDD Field `Chilled Water Outlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7416,7 +7575,7 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `chilled_water_outlet_node_name`'.format(value))
             if ',' in value:
@@ -7425,7 +7584,6 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `chilled_water_outlet_node_name`')
-
         self._data["Chilled Water Outlet Node Name"] = value
 
     @property
@@ -7438,12 +7596,15 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(object):
         return self._data["Supply Air Volumetric Flow Rate"]
 
     @supply_air_volumetric_flow_rate.setter
-    def supply_air_volumetric_flow_rate(self, value=None):
-        """  Corresponds to IDD Field `supply_air_volumetric_flow_rate`
+    def supply_air_volumetric_flow_rate(self, value="autosize" ):
+        """  Corresponds to IDD Field `Supply Air Volumetric Flow Rate`
+        
+        {'pytype': 'float', u'default': '"autosize"', u'autosizable': u'', u'minimum': '0.0', u'units': u'm3/s', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `supply_air_volumetric_flow_rate`
+            value (float): value for IDD Field `Supply Air Volumetric Flow Rate`
                 Units: m3/s
+                Default value: "autosize"
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -7454,13 +7615,12 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `supply_air_volumetric_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `supply_air_volumetric_flow_rate`')
-
         self._data["Supply Air Volumetric Flow Rate"] = value
 
     @property
@@ -7473,12 +7633,15 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(object):
         return self._data["Maximum Total Chilled Water Volumetric Flow Rate"]
 
     @maximum_total_chilled_water_volumetric_flow_rate.setter
-    def maximum_total_chilled_water_volumetric_flow_rate(self, value=None):
-        """  Corresponds to IDD Field `maximum_total_chilled_water_volumetric_flow_rate`
+    def maximum_total_chilled_water_volumetric_flow_rate(self, value="autosize" ):
+        """  Corresponds to IDD Field `Maximum Total Chilled Water Volumetric Flow Rate`
+        
+        {'pytype': 'float', u'default': '"autosize"', u'autosizable': u'', u'minimum': '0.0', u'units': u'm3/s', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `maximum_total_chilled_water_volumetric_flow_rate`
+            value (float): value for IDD Field `Maximum Total Chilled Water Volumetric Flow Rate`
                 Units: m3/s
+                Default value: "autosize"
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -7489,13 +7652,12 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `maximum_total_chilled_water_volumetric_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `maximum_total_chilled_water_volumetric_flow_rate`')
-
         self._data["Maximum Total Chilled Water Volumetric Flow Rate"] = value
 
     @property
@@ -7508,12 +7670,15 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(object):
         return self._data["Number of Beams"]
 
     @number_of_beams.setter
-    def number_of_beams(self, value=None):
-        """  Corresponds to IDD Field `number_of_beams`
+    def number_of_beams(self, value="autosize" ):
+        """  Corresponds to IDD Field `Number of Beams`
         Number of individual beam units in the zone
+        
+        {'pytype': 'int', u'default': '"autosize"', u'minimum>': '0', u'note': [u'Number of individual beam units in the zone'], u'autosizable': u'', u'type': u'integer'}
 
         Args:
-            value (int): value for IDD Field `number_of_beams`
+            value (int): value for IDD Field `Number of Beams`
+                Default value: "autosize"
                 value > 0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -7524,13 +7689,12 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(object):
         if value is not None:
             try:
                 value = int(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type int '
                                  'for field `number_of_beams`'.format(value))
             if value <= 0:
                 raise ValueError('value need to be greater 0 '
                                  'for field `number_of_beams`')
-
         self._data["Number of Beams"] = value
 
     @property
@@ -7543,13 +7707,16 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(object):
         return self._data["Beam Length"]
 
     @beam_length.setter
-    def beam_length(self, value=None):
-        """  Corresponds to IDD Field `beam_length`
+    def beam_length(self, value="autosize" ):
+        """  Corresponds to IDD Field `Beam Length`
         Length of an individual beam unit
+        
+        {'pytype': 'float', u'default': '"autosize"', u'minimum>': '0.0', u'note': [u'Length of an individual beam unit'], u'autosizable': u'', u'units': u'm', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `beam_length`
+            value (float): value for IDD Field `Beam Length`
                 Units: m
+                Default value: "autosize"
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -7560,13 +7727,12 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `beam_length`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `beam_length`')
-
         self._data["Beam Length"] = value
 
     @property
@@ -7580,10 +7746,12 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(object):
 
     @design_inlet_water_temperature.setter
     def design_inlet_water_temperature(self, value=15.0 ):
-        """  Corresponds to IDD Field `design_inlet_water_temperature`
+        """  Corresponds to IDD Field `Design Inlet Water Temperature`
+        
+        {u'units': u'C', u'default': '15.0', u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `design_inlet_water_temperature`
+            value (float): value for IDD Field `Design Inlet Water Temperature`
                 Units: C
                 Default value: 15.0
                 value >= 0.0
@@ -7596,13 +7764,12 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `design_inlet_water_temperature`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `design_inlet_water_temperature`')
-
         self._data["Design Inlet Water Temperature"] = value
 
     @property
@@ -7616,10 +7783,12 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(object):
 
     @design_outlet_water_temperature.setter
     def design_outlet_water_temperature(self, value=17.0 ):
-        """  Corresponds to IDD Field `design_outlet_water_temperature`
+        """  Corresponds to IDD Field `Design Outlet Water Temperature`
+        
+        {u'units': u'C', u'default': '17.0', u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `design_outlet_water_temperature`
+            value (float): value for IDD Field `Design Outlet Water Temperature`
                 Units: C
                 Default value: 17.0
                 value >= 0.0
@@ -7632,13 +7801,12 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `design_outlet_water_temperature`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `design_outlet_water_temperature`')
-
         self._data["Design Outlet Water Temperature"] = value
 
     @property
@@ -7652,10 +7820,12 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(object):
 
     @coil_surface_area_per_coil_length.setter
     def coil_surface_area_per_coil_length(self, value=5.422 ):
-        """  Corresponds to IDD Field `coil_surface_area_per_coil_length`
+        """  Corresponds to IDD Field `Coil Surface Area per Coil Length`
+        
+        {u'units': u'm2/m', u'default': '5.422', u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `coil_surface_area_per_coil_length`
+            value (float): value for IDD Field `Coil Surface Area per Coil Length`
                 Units: m2/m
                 Default value: 5.422
                 value >= 0.0
@@ -7668,13 +7838,12 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `coil_surface_area_per_coil_length`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `coil_surface_area_per_coil_length`')
-
         self._data["Coil Surface Area per Coil Length"] = value
 
     @property
@@ -7688,10 +7857,12 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(object):
 
     @model_parameter_a.setter
     def model_parameter_a(self, value=15.3 ):
-        """  Corresponds to IDD Field `model_parameter_a`
+        """  Corresponds to IDD Field `Model Parameter a`
+        
+        {u'default': '15.3', u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `model_parameter_a`
+            value (float): value for IDD Field `Model Parameter a`
                 Default value: 15.3
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -7703,13 +7874,12 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `model_parameter_a`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `model_parameter_a`')
-
         self._data["Model Parameter a"] = value
 
     @property
@@ -7723,10 +7893,12 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(object):
 
     @model_parameter_n1.setter
     def model_parameter_n1(self, value=0.0 ):
-        """  Corresponds to IDD Field `model_parameter_n1`
+        """  Corresponds to IDD Field `Model Parameter n1`
+        
+        {u'default': '0.0', u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `model_parameter_n1`
+            value (float): value for IDD Field `Model Parameter n1`
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -7738,13 +7910,12 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `model_parameter_n1`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `model_parameter_n1`')
-
         self._data["Model Parameter n1"] = value
 
     @property
@@ -7758,10 +7929,12 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(object):
 
     @model_parameter_n2.setter
     def model_parameter_n2(self, value=0.84 ):
-        """  Corresponds to IDD Field `model_parameter_n2`
+        """  Corresponds to IDD Field `Model Parameter n2`
+        
+        {u'default': '0.84', u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `model_parameter_n2`
+            value (float): value for IDD Field `Model Parameter n2`
                 Default value: 0.84
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -7773,13 +7946,12 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `model_parameter_n2`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `model_parameter_n2`')
-
         self._data["Model Parameter n2"] = value
 
     @property
@@ -7793,10 +7965,12 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(object):
 
     @model_parameter_n3.setter
     def model_parameter_n3(self, value=0.12 ):
-        """  Corresponds to IDD Field `model_parameter_n3`
+        """  Corresponds to IDD Field `Model Parameter n3`
+        
+        {u'default': '0.12', u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `model_parameter_n3`
+            value (float): value for IDD Field `Model Parameter n3`
                 Default value: 0.12
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -7808,13 +7982,12 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `model_parameter_n3`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `model_parameter_n3`')
-
         self._data["Model Parameter n3"] = value
 
     @property
@@ -7828,11 +8001,13 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(object):
 
     @model_parameter_a0.setter
     def model_parameter_a0(self, value=0.171 ):
-        """  Corresponds to IDD Field `model_parameter_a0`
+        """  Corresponds to IDD Field `Model Parameter a0`
         Free area of the coil in plan view per unit beam length
+        
+        {'pytype': 'float', u'default': '0.171', u'note': [u'Free area of the coil in plan view per unit beam length'], u'minimum': '0.0', u'units': u'm2/m', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `model_parameter_a0`
+            value (float): value for IDD Field `Model Parameter a0`
                 Units: m2/m
                 Default value: 0.171
                 value >= 0.0
@@ -7845,13 +8020,12 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `model_parameter_a0`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `model_parameter_a0`')
-
         self._data["Model Parameter a0"] = value
 
     @property
@@ -7865,10 +8039,12 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(object):
 
     @model_parameter_k1.setter
     def model_parameter_k1(self, value=0.0057 ):
-        """  Corresponds to IDD Field `model_parameter_k1`
+        """  Corresponds to IDD Field `Model Parameter K1`
+        
+        {u'default': '0.0057', u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `model_parameter_k1`
+            value (float): value for IDD Field `Model Parameter K1`
                 Default value: 0.0057
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -7880,13 +8056,12 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `model_parameter_k1`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `model_parameter_k1`')
-
         self._data["Model Parameter K1"] = value
 
     @property
@@ -7900,10 +8075,12 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(object):
 
     @model_parameter_n.setter
     def model_parameter_n(self, value=0.4 ):
-        """  Corresponds to IDD Field `model_parameter_n`
+        """  Corresponds to IDD Field `Model Parameter n`
+        
+        {u'default': '0.4', u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `model_parameter_n`
+            value (float): value for IDD Field `Model Parameter n`
                 Default value: 0.4
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -7915,13 +8092,12 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `model_parameter_n`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `model_parameter_n`')
-
         self._data["Model Parameter n"] = value
 
     @property
@@ -7934,11 +8110,14 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(object):
         return self._data["Coefficient of Induction Kin"]
 
     @coefficient_of_induction_kin.setter
-    def coefficient_of_induction_kin(self, value=None):
-        """  Corresponds to IDD Field `coefficient_of_induction_kin`
+    def coefficient_of_induction_kin(self, value="Autocalculate" ):
+        """  Corresponds to IDD Field `Coefficient of Induction Kin`
+        
+        {'pytype': 'float', u'default': '"Autocalculate"', u'maximum': '4.0', u'minimum': '0.0', u'autocalculatable': True, u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `coefficient_of_induction_kin`
+            value (float or "Autocalculate"): value for IDD Field `Coefficient of Induction Kin`
+                Default value: "Autocalculate"
                 value >= 0.0
                 value <= 4.0
                 if `value` is None it will not be checked against the
@@ -7949,8 +8128,15 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(object):
         """
         if value is not None:
             try:
+                value_lower = str(value).lower()
+                if value_lower == "autocalculate":
+                    self._data["Coefficient of Induction Kin"] = value
+                    return
+            except ValueError:
+                pass
+            try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `coefficient_of_induction_kin`'.format(value))
             if value < 0.0:
@@ -7959,7 +8145,6 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(object):
             if value > 4.0:
                 raise ValueError('value need to be smaller 4.0 '
                                  'for field `coefficient_of_induction_kin`')
-
         self._data["Coefficient of Induction Kin"] = value
 
     @property
@@ -7973,10 +8158,12 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(object):
 
     @leaving_pipe_inside_diameter.setter
     def leaving_pipe_inside_diameter(self, value=0.0145 ):
-        """  Corresponds to IDD Field `leaving_pipe_inside_diameter`
+        """  Corresponds to IDD Field `Leaving Pipe Inside Diameter`
+        
+        {u'units': u'm', u'default': '0.0145', u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `leaving_pipe_inside_diameter`
+            value (float): value for IDD Field `Leaving Pipe Inside Diameter`
                 Units: m
                 Default value: 0.0145
                 value > 0.0
@@ -7989,13 +8176,12 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `leaving_pipe_inside_diameter`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `leaving_pipe_inside_diameter`')
-
         self._data["Leaving Pipe Inside Diameter"] = value
 
     def check(self):
@@ -8115,10 +8301,12 @@ class AirTerminalSingleDuctInletSideMixer(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {'type': 'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8128,7 +8316,7 @@ class AirTerminalSingleDuctInletSideMixer(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -8137,7 +8325,6 @@ class AirTerminalSingleDuctInletSideMixer(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -8151,10 +8338,12 @@ class AirTerminalSingleDuctInletSideMixer(object):
 
     @zonehvac_terminal_unit_object_type.setter
     def zonehvac_terminal_unit_object_type(self, value=None):
-        """  Corresponds to IDD Field `zonehvac_terminal_unit_object_type`
+        """  Corresponds to IDD Field `ZoneHVAC Terminal Unit Object Type`
+        
+        {'type': 'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `zonehvac_terminal_unit_object_type`
+            value (str): value for IDD Field `ZoneHVAC Terminal Unit Object Type`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8164,7 +8353,7 @@ class AirTerminalSingleDuctInletSideMixer(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `zonehvac_terminal_unit_object_type`'.format(value))
             if ',' in value:
@@ -8173,7 +8362,6 @@ class AirTerminalSingleDuctInletSideMixer(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `zonehvac_terminal_unit_object_type`')
-
         self._data["ZoneHVAC Terminal Unit Object Type"] = value
 
     @property
@@ -8187,10 +8375,12 @@ class AirTerminalSingleDuctInletSideMixer(object):
 
     @zonehvac_terminal_unit_name.setter
     def zonehvac_terminal_unit_name(self, value=None):
-        """  Corresponds to IDD Field `zonehvac_terminal_unit_name`
+        """  Corresponds to IDD Field `ZoneHVAC Terminal Unit Name`
+        
+        {'type': 'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `zonehvac_terminal_unit_name`
+            value (str): value for IDD Field `ZoneHVAC Terminal Unit Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8200,7 +8390,7 @@ class AirTerminalSingleDuctInletSideMixer(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `zonehvac_terminal_unit_name`'.format(value))
             if ',' in value:
@@ -8209,7 +8399,6 @@ class AirTerminalSingleDuctInletSideMixer(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `zonehvac_terminal_unit_name`')
-
         self._data["ZoneHVAC Terminal Unit Name"] = value
 
     @property
@@ -8223,10 +8412,12 @@ class AirTerminalSingleDuctInletSideMixer(object):
 
     @terminal_unit_outlet_node_name.setter
     def terminal_unit_outlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `terminal_unit_outlet_node_name`
+        """  Corresponds to IDD Field `Terminal Unit Outlet Node Name`
+        
+        {'type': 'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `terminal_unit_outlet_node_name`
+            value (str): value for IDD Field `Terminal Unit Outlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8236,7 +8427,7 @@ class AirTerminalSingleDuctInletSideMixer(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `terminal_unit_outlet_node_name`'.format(value))
             if ',' in value:
@@ -8245,7 +8436,6 @@ class AirTerminalSingleDuctInletSideMixer(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `terminal_unit_outlet_node_name`')
-
         self._data["Terminal Unit Outlet Node Name"] = value
 
     @property
@@ -8259,10 +8449,12 @@ class AirTerminalSingleDuctInletSideMixer(object):
 
     @terminal_unit_primary_air_inlet_node_name.setter
     def terminal_unit_primary_air_inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `terminal_unit_primary_air_inlet_node_name`
+        """  Corresponds to IDD Field `Terminal Unit Primary Air Inlet Node Name`
+        
+        {'type': 'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `terminal_unit_primary_air_inlet_node_name`
+            value (str): value for IDD Field `Terminal Unit Primary Air Inlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8272,7 +8464,7 @@ class AirTerminalSingleDuctInletSideMixer(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `terminal_unit_primary_air_inlet_node_name`'.format(value))
             if ',' in value:
@@ -8281,7 +8473,6 @@ class AirTerminalSingleDuctInletSideMixer(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `terminal_unit_primary_air_inlet_node_name`')
-
         self._data["Terminal Unit Primary Air Inlet Node Name"] = value
 
     @property
@@ -8295,10 +8486,12 @@ class AirTerminalSingleDuctInletSideMixer(object):
 
     @terminal_unit_secondary_air_inlet_node_name.setter
     def terminal_unit_secondary_air_inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `terminal_unit_secondary_air_inlet_node_name`
+        """  Corresponds to IDD Field `Terminal Unit Secondary Air Inlet Node Name`
+        
+        {'type': 'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `terminal_unit_secondary_air_inlet_node_name`
+            value (str): value for IDD Field `Terminal Unit Secondary Air Inlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8308,7 +8501,7 @@ class AirTerminalSingleDuctInletSideMixer(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `terminal_unit_secondary_air_inlet_node_name`'.format(value))
             if ',' in value:
@@ -8317,7 +8510,6 @@ class AirTerminalSingleDuctInletSideMixer(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `terminal_unit_secondary_air_inlet_node_name`')
-
         self._data["Terminal Unit Secondary Air Inlet Node Name"] = value
 
     def check(self):
@@ -8437,10 +8629,12 @@ class AirTerminalSingleDuctSupplySideMixer(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {'type': 'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8450,7 +8644,7 @@ class AirTerminalSingleDuctSupplySideMixer(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -8459,7 +8653,6 @@ class AirTerminalSingleDuctSupplySideMixer(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -8473,10 +8666,12 @@ class AirTerminalSingleDuctSupplySideMixer(object):
 
     @zonehvac_terminal_unit_object_type.setter
     def zonehvac_terminal_unit_object_type(self, value=None):
-        """  Corresponds to IDD Field `zonehvac_terminal_unit_object_type`
+        """  Corresponds to IDD Field `ZoneHVAC Terminal Unit Object Type`
+        
+        {'type': 'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `zonehvac_terminal_unit_object_type`
+            value (str): value for IDD Field `ZoneHVAC Terminal Unit Object Type`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8486,7 +8681,7 @@ class AirTerminalSingleDuctSupplySideMixer(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `zonehvac_terminal_unit_object_type`'.format(value))
             if ',' in value:
@@ -8495,7 +8690,6 @@ class AirTerminalSingleDuctSupplySideMixer(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `zonehvac_terminal_unit_object_type`')
-
         self._data["ZoneHVAC Terminal Unit Object Type"] = value
 
     @property
@@ -8509,10 +8703,12 @@ class AirTerminalSingleDuctSupplySideMixer(object):
 
     @zonehvac_terminal_unit_name.setter
     def zonehvac_terminal_unit_name(self, value=None):
-        """  Corresponds to IDD Field `zonehvac_terminal_unit_name`
+        """  Corresponds to IDD Field `ZoneHVAC Terminal Unit Name`
+        
+        {'type': 'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `zonehvac_terminal_unit_name`
+            value (str): value for IDD Field `ZoneHVAC Terminal Unit Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8522,7 +8718,7 @@ class AirTerminalSingleDuctSupplySideMixer(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `zonehvac_terminal_unit_name`'.format(value))
             if ',' in value:
@@ -8531,7 +8727,6 @@ class AirTerminalSingleDuctSupplySideMixer(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `zonehvac_terminal_unit_name`')
-
         self._data["ZoneHVAC Terminal Unit Name"] = value
 
     @property
@@ -8545,10 +8740,12 @@ class AirTerminalSingleDuctSupplySideMixer(object):
 
     @terminal_unit_outlet_node_name.setter
     def terminal_unit_outlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `terminal_unit_outlet_node_name`
+        """  Corresponds to IDD Field `Terminal Unit Outlet Node Name`
+        
+        {'type': 'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `terminal_unit_outlet_node_name`
+            value (str): value for IDD Field `Terminal Unit Outlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8558,7 +8755,7 @@ class AirTerminalSingleDuctSupplySideMixer(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `terminal_unit_outlet_node_name`'.format(value))
             if ',' in value:
@@ -8567,7 +8764,6 @@ class AirTerminalSingleDuctSupplySideMixer(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `terminal_unit_outlet_node_name`')
-
         self._data["Terminal Unit Outlet Node Name"] = value
 
     @property
@@ -8581,10 +8777,12 @@ class AirTerminalSingleDuctSupplySideMixer(object):
 
     @terminal_unit_primary_air_inlet_node_name.setter
     def terminal_unit_primary_air_inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `terminal_unit_primary_air_inlet_node_name`
+        """  Corresponds to IDD Field `Terminal Unit Primary Air Inlet Node Name`
+        
+        {'type': 'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `terminal_unit_primary_air_inlet_node_name`
+            value (str): value for IDD Field `Terminal Unit Primary Air Inlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8594,7 +8792,7 @@ class AirTerminalSingleDuctSupplySideMixer(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `terminal_unit_primary_air_inlet_node_name`'.format(value))
             if ',' in value:
@@ -8603,7 +8801,6 @@ class AirTerminalSingleDuctSupplySideMixer(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `terminal_unit_primary_air_inlet_node_name`')
-
         self._data["Terminal Unit Primary Air Inlet Node Name"] = value
 
     @property
@@ -8617,10 +8814,12 @@ class AirTerminalSingleDuctSupplySideMixer(object):
 
     @terminal_unit_secondary_air_inlet_node_name.setter
     def terminal_unit_secondary_air_inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `terminal_unit_secondary_air_inlet_node_name`
+        """  Corresponds to IDD Field `Terminal Unit Secondary Air Inlet Node Name`
+        
+        {'type': 'alpha', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `terminal_unit_secondary_air_inlet_node_name`
+            value (str): value for IDD Field `Terminal Unit Secondary Air Inlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8630,7 +8829,7 @@ class AirTerminalSingleDuctSupplySideMixer(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `terminal_unit_secondary_air_inlet_node_name`'.format(value))
             if ',' in value:
@@ -8639,7 +8838,6 @@ class AirTerminalSingleDuctSupplySideMixer(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `terminal_unit_secondary_air_inlet_node_name`')
-
         self._data["Terminal Unit Secondary Air Inlet Node Name"] = value
 
     def check(self):
@@ -8759,10 +8957,12 @@ class AirTerminalDualDuctConstantVolume(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {'type': 'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8772,7 +8972,7 @@ class AirTerminalDualDuctConstantVolume(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -8781,7 +8981,6 @@ class AirTerminalDualDuctConstantVolume(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -8795,12 +8994,14 @@ class AirTerminalDualDuctConstantVolume(object):
 
     @availability_schedule_name.setter
     def availability_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `availability_schedule_name`
+        """  Corresponds to IDD Field `Availability Schedule Name`
         Availability schedule name for this system. Schedule value > 0 means the system is available.
         If this field is blank, the system is always available.
+        
+        {u'note': [u'Availability schedule name for this system. Schedule value > 0 means the system is available.', u'If this field is blank, the system is always available.'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `availability_schedule_name`
+            value (str): value for IDD Field `Availability Schedule Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8810,7 +9011,7 @@ class AirTerminalDualDuctConstantVolume(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `availability_schedule_name`'.format(value))
             if ',' in value:
@@ -8819,7 +9020,6 @@ class AirTerminalDualDuctConstantVolume(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `availability_schedule_name`')
-
         self._data["Availability Schedule Name"] = value
 
     @property
@@ -8833,12 +9033,14 @@ class AirTerminalDualDuctConstantVolume(object):
 
     @air_outlet_node_name.setter
     def air_outlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `air_outlet_node_name`
+        """  Corresponds to IDD Field `Air Outlet Node Name`
         The outlet node of the terminal unit.
         This is also the zone inlet node.
+        
+        {u'note': [u'The outlet node of the terminal unit.', u'This is also the zone inlet node.'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `air_outlet_node_name`
+            value (str): value for IDD Field `Air Outlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8848,7 +9050,7 @@ class AirTerminalDualDuctConstantVolume(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `air_outlet_node_name`'.format(value))
             if ',' in value:
@@ -8857,7 +9059,6 @@ class AirTerminalDualDuctConstantVolume(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `air_outlet_node_name`')
-
         self._data["Air Outlet Node Name"] = value
 
     @property
@@ -8871,10 +9072,12 @@ class AirTerminalDualDuctConstantVolume(object):
 
     @hot_air_inlet_node_name.setter
     def hot_air_inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `hot_air_inlet_node_name`
+        """  Corresponds to IDD Field `Hot Air Inlet Node Name`
+        
+        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `hot_air_inlet_node_name`
+            value (str): value for IDD Field `Hot Air Inlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8884,7 +9087,7 @@ class AirTerminalDualDuctConstantVolume(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `hot_air_inlet_node_name`'.format(value))
             if ',' in value:
@@ -8893,7 +9096,6 @@ class AirTerminalDualDuctConstantVolume(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `hot_air_inlet_node_name`')
-
         self._data["Hot Air Inlet Node Name"] = value
 
     @property
@@ -8907,10 +9109,12 @@ class AirTerminalDualDuctConstantVolume(object):
 
     @cold_air_inlet_node_name.setter
     def cold_air_inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `cold_air_inlet_node_name`
+        """  Corresponds to IDD Field `Cold Air Inlet Node Name`
+        
+        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `cold_air_inlet_node_name`
+            value (str): value for IDD Field `Cold Air Inlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8920,7 +9124,7 @@ class AirTerminalDualDuctConstantVolume(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `cold_air_inlet_node_name`'.format(value))
             if ',' in value:
@@ -8929,7 +9133,6 @@ class AirTerminalDualDuctConstantVolume(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `cold_air_inlet_node_name`')
-
         self._data["Cold Air Inlet Node Name"] = value
 
     @property
@@ -8943,10 +9146,12 @@ class AirTerminalDualDuctConstantVolume(object):
 
     @maximum_air_flow_rate.setter
     def maximum_air_flow_rate(self, value=None):
-        """  Corresponds to IDD Field `maximum_air_flow_rate`
+        """  Corresponds to IDD Field `Maximum Air Flow Rate`
+        
+        {'pytype': 'float', u'required-field': True, u'autosizable': u'', u'minimum': '0.0', u'units': u'm3/s', 'type': 'real'}
 
         Args:
-            value (float): value for IDD Field `maximum_air_flow_rate`
+            value (float): value for IDD Field `Maximum Air Flow Rate`
                 Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -8958,13 +9163,12 @@ class AirTerminalDualDuctConstantVolume(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `maximum_air_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `maximum_air_flow_rate`')
-
         self._data["Maximum Air Flow Rate"] = value
 
     def check(self):
@@ -9100,10 +9304,12 @@ class AirTerminalDualDuctVav(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {'type': 'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9113,7 +9319,7 @@ class AirTerminalDualDuctVav(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -9122,7 +9328,6 @@ class AirTerminalDualDuctVav(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -9136,12 +9341,14 @@ class AirTerminalDualDuctVav(object):
 
     @availability_schedule_name.setter
     def availability_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `availability_schedule_name`
+        """  Corresponds to IDD Field `Availability Schedule Name`
         Availability schedule name for this system. Schedule value > 0 means the system is available.
         If this field is blank, the system is always available.
+        
+        {u'note': [u'Availability schedule name for this system. Schedule value > 0 means the system is available.', u'If this field is blank, the system is always available.'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `availability_schedule_name`
+            value (str): value for IDD Field `Availability Schedule Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9151,7 +9358,7 @@ class AirTerminalDualDuctVav(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `availability_schedule_name`'.format(value))
             if ',' in value:
@@ -9160,7 +9367,6 @@ class AirTerminalDualDuctVav(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `availability_schedule_name`')
-
         self._data["Availability Schedule Name"] = value
 
     @property
@@ -9174,12 +9380,14 @@ class AirTerminalDualDuctVav(object):
 
     @air_outlet_node_name.setter
     def air_outlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `air_outlet_node_name`
+        """  Corresponds to IDD Field `Air Outlet Node Name`
         The outlet node of the terminal unit.
         This is also the zone inlet node.
+        
+        {u'note': [u'The outlet node of the terminal unit.', u'This is also the zone inlet node.'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `air_outlet_node_name`
+            value (str): value for IDD Field `Air Outlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9189,7 +9397,7 @@ class AirTerminalDualDuctVav(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `air_outlet_node_name`'.format(value))
             if ',' in value:
@@ -9198,7 +9406,6 @@ class AirTerminalDualDuctVav(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `air_outlet_node_name`')
-
         self._data["Air Outlet Node Name"] = value
 
     @property
@@ -9212,10 +9419,12 @@ class AirTerminalDualDuctVav(object):
 
     @hot_air_inlet_node_name.setter
     def hot_air_inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `hot_air_inlet_node_name`
+        """  Corresponds to IDD Field `Hot Air Inlet Node Name`
+        
+        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `hot_air_inlet_node_name`
+            value (str): value for IDD Field `Hot Air Inlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9225,7 +9434,7 @@ class AirTerminalDualDuctVav(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `hot_air_inlet_node_name`'.format(value))
             if ',' in value:
@@ -9234,7 +9443,6 @@ class AirTerminalDualDuctVav(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `hot_air_inlet_node_name`')
-
         self._data["Hot Air Inlet Node Name"] = value
 
     @property
@@ -9248,10 +9456,12 @@ class AirTerminalDualDuctVav(object):
 
     @cold_air_inlet_node_name.setter
     def cold_air_inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `cold_air_inlet_node_name`
+        """  Corresponds to IDD Field `Cold Air Inlet Node Name`
+        
+        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `cold_air_inlet_node_name`
+            value (str): value for IDD Field `Cold Air Inlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9261,7 +9471,7 @@ class AirTerminalDualDuctVav(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `cold_air_inlet_node_name`'.format(value))
             if ',' in value:
@@ -9270,7 +9480,6 @@ class AirTerminalDualDuctVav(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `cold_air_inlet_node_name`')
-
         self._data["Cold Air Inlet Node Name"] = value
 
     @property
@@ -9284,10 +9493,12 @@ class AirTerminalDualDuctVav(object):
 
     @maximum_damper_air_flow_rate.setter
     def maximum_damper_air_flow_rate(self, value=None):
-        """  Corresponds to IDD Field `maximum_damper_air_flow_rate`
+        """  Corresponds to IDD Field `Maximum Damper Air Flow Rate`
+        
+        {'pytype': 'float', u'required-field': True, u'autosizable': u'', u'minimum': '0.0', u'units': u'm3/s', 'type': 'real'}
 
         Args:
-            value (float): value for IDD Field `maximum_damper_air_flow_rate`
+            value (float): value for IDD Field `Maximum Damper Air Flow Rate`
                 Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -9299,13 +9510,12 @@ class AirTerminalDualDuctVav(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `maximum_damper_air_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `maximum_damper_air_flow_rate`')
-
         self._data["Maximum Damper Air Flow Rate"] = value
 
     @property
@@ -9319,11 +9529,13 @@ class AirTerminalDualDuctVav(object):
 
     @zone_minimum_air_flow_fraction.setter
     def zone_minimum_air_flow_fraction(self, value=0.2 ):
-        """  Corresponds to IDD Field `zone_minimum_air_flow_fraction`
+        """  Corresponds to IDD Field `Zone Minimum Air Flow Fraction`
         fraction of maximum air flow
+        
+        {'pytype': 'float', u'default': '0.2', u'maximum': '1.0', u'required-field': True, u'note': [u'fraction of maximum air flow'], u'minimum': '0.0', 'type': 'real'}
 
         Args:
-            value (float): value for IDD Field `zone_minimum_air_flow_fraction`
+            value (float): value for IDD Field `Zone Minimum Air Flow Fraction`
                 Default value: 0.2
                 value >= 0.0
                 value <= 1.0
@@ -9336,7 +9548,7 @@ class AirTerminalDualDuctVav(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `zone_minimum_air_flow_fraction`'.format(value))
             if value < 0.0:
@@ -9345,7 +9557,6 @@ class AirTerminalDualDuctVav(object):
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `zone_minimum_air_flow_fraction`')
-
         self._data["Zone Minimum Air Flow Fraction"] = value
 
     @property
@@ -9359,16 +9570,18 @@ class AirTerminalDualDuctVav(object):
 
     @design_specification_outdoor_air_object_name.setter
     def design_specification_outdoor_air_object_name(self, value=None):
-        """  Corresponds to IDD Field `design_specification_outdoor_air_object_name`
+        """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name`
         When the name of a DesignSpecification:OutdoorAir object is entered, the terminal
         unit will increase flow as needed to meet this outdoor air requirement.
         If Outdoor Air Flow per Person is non-zero, then the outdoor air requirement will
         be computed based on the current number of occupants in the zone.
         At no time will the supply air flow rate exceed the value for Maximum Air Flow Rate.
         If this field is blank, then the terminal unit will not be controlled for outdoor air flow.
+        
+        {u'note': [u'When the name of a DesignSpecification:OutdoorAir object is entered, the terminal', u'unit will increase flow as needed to meet this outdoor air requirement.', u'If Outdoor Air Flow per Person is non-zero, then the outdoor air requirement will', u'be computed based on the current number of occupants in the zone.', u'At no time will the supply air flow rate exceed the value for Maximum Air Flow Rate.', u'If this field is blank, then the terminal unit will not be controlled for outdoor air flow.'], u'type': u'object-list', u'object-list': u'DesignSpecificationOutdoorAirNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `design_specification_outdoor_air_object_name`
+            value (str): value for IDD Field `Design Specification Outdoor Air Object Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9378,7 +9591,7 @@ class AirTerminalDualDuctVav(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `design_specification_outdoor_air_object_name`'.format(value))
             if ',' in value:
@@ -9387,7 +9600,6 @@ class AirTerminalDualDuctVav(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `design_specification_outdoor_air_object_name`')
-
         self._data["Design Specification Outdoor Air Object Name"] = value
 
     def check(self):
@@ -9525,10 +9737,12 @@ class AirTerminalDualDuctVavOutdoorAir(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {'type': 'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9538,7 +9752,7 @@ class AirTerminalDualDuctVavOutdoorAir(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -9547,7 +9761,6 @@ class AirTerminalDualDuctVavOutdoorAir(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -9561,12 +9774,14 @@ class AirTerminalDualDuctVavOutdoorAir(object):
 
     @availability_schedule_name.setter
     def availability_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `availability_schedule_name`
+        """  Corresponds to IDD Field `Availability Schedule Name`
         Availability schedule name for this system. Schedule value > 0 means the system is available.
         If this field is blank, the system is always available.
+        
+        {u'note': [u'Availability schedule name for this system. Schedule value > 0 means the system is available.', u'If this field is blank, the system is always available.'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `availability_schedule_name`
+            value (str): value for IDD Field `Availability Schedule Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9576,7 +9791,7 @@ class AirTerminalDualDuctVavOutdoorAir(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `availability_schedule_name`'.format(value))
             if ',' in value:
@@ -9585,7 +9800,6 @@ class AirTerminalDualDuctVavOutdoorAir(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `availability_schedule_name`')
-
         self._data["Availability Schedule Name"] = value
 
     @property
@@ -9599,12 +9813,14 @@ class AirTerminalDualDuctVavOutdoorAir(object):
 
     @air_outlet_node_name.setter
     def air_outlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `air_outlet_node_name`
+        """  Corresponds to IDD Field `Air Outlet Node Name`
         The outlet node of the terminal unit.
         This is also the zone inlet node.
+        
+        {u'note': [u'The outlet node of the terminal unit.', u'This is also the zone inlet node.'], 'type': 'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `air_outlet_node_name`
+            value (str): value for IDD Field `Air Outlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9614,7 +9830,7 @@ class AirTerminalDualDuctVavOutdoorAir(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `air_outlet_node_name`'.format(value))
             if ',' in value:
@@ -9623,7 +9839,6 @@ class AirTerminalDualDuctVavOutdoorAir(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `air_outlet_node_name`')
-
         self._data["Air Outlet Node Name"] = value
 
     @property
@@ -9637,10 +9852,12 @@ class AirTerminalDualDuctVavOutdoorAir(object):
 
     @outdoor_air_inlet_node_name.setter
     def outdoor_air_inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `outdoor_air_inlet_node_name`
+        """  Corresponds to IDD Field `Outdoor Air Inlet Node Name`
+        
+        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `outdoor_air_inlet_node_name`
+            value (str): value for IDD Field `Outdoor Air Inlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9650,7 +9867,7 @@ class AirTerminalDualDuctVavOutdoorAir(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `outdoor_air_inlet_node_name`'.format(value))
             if ',' in value:
@@ -9659,7 +9876,6 @@ class AirTerminalDualDuctVavOutdoorAir(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `outdoor_air_inlet_node_name`')
-
         self._data["Outdoor Air Inlet Node Name"] = value
 
     @property
@@ -9673,10 +9889,12 @@ class AirTerminalDualDuctVavOutdoorAir(object):
 
     @recirculated_air_inlet_node_name.setter
     def recirculated_air_inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `recirculated_air_inlet_node_name`
+        """  Corresponds to IDD Field `Recirculated Air Inlet Node Name`
+        
+        {u'type': u'node', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `recirculated_air_inlet_node_name`
+            value (str): value for IDD Field `Recirculated Air Inlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9686,7 +9904,7 @@ class AirTerminalDualDuctVavOutdoorAir(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `recirculated_air_inlet_node_name`'.format(value))
             if ',' in value:
@@ -9695,7 +9913,6 @@ class AirTerminalDualDuctVavOutdoorAir(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `recirculated_air_inlet_node_name`')
-
         self._data["Recirculated Air Inlet Node Name"] = value
 
     @property
@@ -9709,11 +9926,13 @@ class AirTerminalDualDuctVavOutdoorAir(object):
 
     @maximum_terminal_air_flow_rate.setter
     def maximum_terminal_air_flow_rate(self, value=None):
-        """  Corresponds to IDD Field `maximum_terminal_air_flow_rate`
+        """  Corresponds to IDD Field `Maximum Terminal Air Flow Rate`
         If autosized this is the sum of flow needed for cooling and maximum required outdoor air
+        
+        {'pytype': 'float', u'required-field': True, u'note': [u'If autosized this is the sum of flow needed for cooling and maximum required outdoor air'], u'autosizable': u'', u'minimum': '0.0', u'units': u'm3/s', 'type': 'real'}
 
         Args:
-            value (float): value for IDD Field `maximum_terminal_air_flow_rate`
+            value (float): value for IDD Field `Maximum Terminal Air Flow Rate`
                 Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -9725,13 +9944,12 @@ class AirTerminalDualDuctVavOutdoorAir(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `maximum_terminal_air_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `maximum_terminal_air_flow_rate`')
-
         self._data["Maximum Terminal Air Flow Rate"] = value
 
     @property
@@ -9745,15 +9963,17 @@ class AirTerminalDualDuctVavOutdoorAir(object):
 
     @design_specification_outdoor_air_object_name.setter
     def design_specification_outdoor_air_object_name(self, value=None):
-        """  Corresponds to IDD Field `design_specification_outdoor_air_object_name`
+        """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name`
         When the name of a DesignSpecification:OutdoorAir object is entered, the terminal
         unit will increase flow as needed to meet this outdoor air requirement.
         If Outdoor Air Flow per Person is non-zero, then the outdoor air requirement will
         be computed based mode selected in the next field.
         At no time will the supply air flow rate exceed the value for Maximum Air Flow Rate.
+        
+        {u'note': [u'When the name of a DesignSpecification:OutdoorAir object is entered, the terminal', u'unit will increase flow as needed to meet this outdoor air requirement.', u'If Outdoor Air Flow per Person is non-zero, then the outdoor air requirement will', u'be computed based mode selected in the next field.', u'At no time will the supply air flow rate exceed the value for Maximum Air Flow Rate.'], u'type': u'object-list', u'object-list': u'DesignSpecificationOutdoorAirNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `design_specification_outdoor_air_object_name`
+            value (str): value for IDD Field `Design Specification Outdoor Air Object Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9763,7 +9983,7 @@ class AirTerminalDualDuctVavOutdoorAir(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `design_specification_outdoor_air_object_name`'.format(value))
             if ',' in value:
@@ -9772,7 +9992,6 @@ class AirTerminalDualDuctVavOutdoorAir(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `design_specification_outdoor_air_object_name`')
-
         self._data["Design Specification Outdoor Air Object Name"] = value
 
     @property
@@ -9786,12 +10005,14 @@ class AirTerminalDualDuctVavOutdoorAir(object):
 
     @per_person_ventilation_rate_mode.setter
     def per_person_ventilation_rate_mode(self, value=None):
-        """  Corresponds to IDD Field `per_person_ventilation_rate_mode`
+        """  Corresponds to IDD Field `Per Person Ventilation Rate Mode`
         CurrentOccupancy models demand controlled ventilation using the current number of people
         DesignOccupancy uses the total Number of People in the zone and is constant
+        
+        {u'note': [u'CurrentOccupancy models demand controlled ventilation using the current number of people', u'DesignOccupancy uses the total Number of People in the zone and is constant'], u'type': u'choice', u'key': [u'CurrentOccupancy', u'DesignOccupancy'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `per_person_ventilation_rate_mode`
+            value (str): value for IDD Field `Per Person Ventilation Rate Mode`
                 Accepted values are:
                       - CurrentOccupancy
                       - DesignOccupancy
@@ -9804,7 +10025,7 @@ class AirTerminalDualDuctVavOutdoorAir(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `per_person_ventilation_rate_mode`'.format(value))
             if ',' in value:
@@ -9830,7 +10051,6 @@ class AirTerminalDualDuctVavOutdoorAir(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `per_person_ventilation_rate_mode`'.format(value))
             value = vals[value_lower]
-
         self._data["Per Person Ventilation Rate Mode"] = value
 
     def check(self):
@@ -9951,10 +10171,12 @@ class ZoneHvacAirDistributionUnit(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {'type': 'alpha', u'reference': u'AirDistributionUnits', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9964,7 +10186,7 @@ class ZoneHvacAirDistributionUnit(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -9973,7 +10195,6 @@ class ZoneHvacAirDistributionUnit(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -9987,10 +10208,12 @@ class ZoneHvacAirDistributionUnit(object):
 
     @air_distribution_unit_outlet_node_name.setter
     def air_distribution_unit_outlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `air_distribution_unit_outlet_node_name`
+        """  Corresponds to IDD Field `Air Distribution Unit Outlet Node Name`
+        
+        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `air_distribution_unit_outlet_node_name`
+            value (str): value for IDD Field `Air Distribution Unit Outlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -10000,7 +10223,7 @@ class ZoneHvacAirDistributionUnit(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `air_distribution_unit_outlet_node_name`'.format(value))
             if ',' in value:
@@ -10009,7 +10232,6 @@ class ZoneHvacAirDistributionUnit(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `air_distribution_unit_outlet_node_name`')
-
         self._data["Air Distribution Unit Outlet Node Name"] = value
 
     @property
@@ -10023,10 +10245,12 @@ class ZoneHvacAirDistributionUnit(object):
 
     @air_terminal_object_type.setter
     def air_terminal_object_type(self, value=None):
-        """  Corresponds to IDD Field `air_terminal_object_type`
+        """  Corresponds to IDD Field `Air Terminal Object Type`
+        
+        {u'type': u'choice', u'required-field': True, u'key': [u'AirTerminal:DualDuct:ConstantVolume', u'AirTerminal:DualDuct:VAV', u'AirTerminal:SingleDuct:ConstantVolume:Reheat', u'AirTerminal:SingleDuct:VAV:Reheat', u'AirTerminal:SingleDuct:VAV:NoReheat', u'AirTerminal:SingleDuct:SeriesPIU:Reheat', u'AirTerminal:SingleDuct:ParallelPIU:Reheat', u'AirTerminal:SingleDuct:ConstantVolume:FourPipeInduction', u'AirTerminal:SingleDuct:VAV:Reheat:VariableSpeedFan', u'AirTerminal:SingleDuct:VAV:HeatAndCool:Reheat', u'AirTerminal:SingleDuct:VAV:HeatAndCool:NoReheat', u'AirTerminal:SingleDuct:ConstantVolume:CooledBeam', u'AirTerminal:DualDuct:VAV:OutdoorAir', u'AirTerminal:SingleDuct:UserDefined'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `air_terminal_object_type`
+            value (str): value for IDD Field `Air Terminal Object Type`
                 Accepted values are:
                       - AirTerminal:DualDuct:ConstantVolume
                       - AirTerminal:DualDuct:VAV
@@ -10051,7 +10275,7 @@ class ZoneHvacAirDistributionUnit(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `air_terminal_object_type`'.format(value))
             if ',' in value:
@@ -10089,7 +10313,6 @@ class ZoneHvacAirDistributionUnit(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `air_terminal_object_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Air Terminal Object Type"] = value
 
     @property
@@ -10103,10 +10326,12 @@ class ZoneHvacAirDistributionUnit(object):
 
     @air_terminal_name.setter
     def air_terminal_name(self, value=None):
-        """  Corresponds to IDD Field `air_terminal_name`
+        """  Corresponds to IDD Field `Air Terminal Name`
+        
+        {'type': 'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `air_terminal_name`
+            value (str): value for IDD Field `Air Terminal Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -10116,7 +10341,7 @@ class ZoneHvacAirDistributionUnit(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `air_terminal_name`'.format(value))
             if ',' in value:
@@ -10125,7 +10350,6 @@ class ZoneHvacAirDistributionUnit(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `air_terminal_name`')
-
         self._data["Air Terminal Name"] = value
 
     @property
@@ -10139,12 +10363,14 @@ class ZoneHvacAirDistributionUnit(object):
 
     @nominal_upstream_leakage_fraction.setter
     def nominal_upstream_leakage_fraction(self, value=0.0 ):
-        """  Corresponds to IDD Field `nominal_upstream_leakage_fraction`
+        """  Corresponds to IDD Field `Nominal Upstream Leakage Fraction`
         fraction at system design Flow; leakage Flow constant, leakage fraction
         varies with variable system Flow Rate.
+        
+        {'pytype': 'float', u'default': '0.0', u'maximum': '0.3', u'note': [u'fraction at system design Flow; leakage Flow constant, leakage fraction', u'varies with variable system Flow Rate.'], u'minimum': '0.0', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `nominal_upstream_leakage_fraction`
+            value (float): value for IDD Field `Nominal Upstream Leakage Fraction`
                 Default value: 0.0
                 value >= 0.0
                 value <= 0.3
@@ -10157,7 +10383,7 @@ class ZoneHvacAirDistributionUnit(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `nominal_upstream_leakage_fraction`'.format(value))
             if value < 0.0:
@@ -10166,7 +10392,6 @@ class ZoneHvacAirDistributionUnit(object):
             if value > 0.3:
                 raise ValueError('value need to be smaller 0.3 '
                                  'for field `nominal_upstream_leakage_fraction`')
-
         self._data["Nominal Upstream Leakage Fraction"] = value
 
     @property
@@ -10180,10 +10405,12 @@ class ZoneHvacAirDistributionUnit(object):
 
     @constant_downstream_leakage_fraction.setter
     def constant_downstream_leakage_fraction(self, value=0.0 ):
-        """  Corresponds to IDD Field `constant_downstream_leakage_fraction`
+        """  Corresponds to IDD Field `Constant Downstream Leakage Fraction`
+        
+        {u'default': '0.0', u'minimum': '0.0', u'type': u'real', u'maximum': '0.3', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `constant_downstream_leakage_fraction`
+            value (float): value for IDD Field `Constant Downstream Leakage Fraction`
                 Default value: 0.0
                 value >= 0.0
                 value <= 0.3
@@ -10196,7 +10423,7 @@ class ZoneHvacAirDistributionUnit(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `constant_downstream_leakage_fraction`'.format(value))
             if value < 0.0:
@@ -10205,7 +10432,6 @@ class ZoneHvacAirDistributionUnit(object):
             if value > 0.3:
                 raise ValueError('value need to be smaller 0.3 '
                                  'for field `constant_downstream_leakage_fraction`')
-
         self._data["Constant Downstream Leakage Fraction"] = value
 
     def check(self):

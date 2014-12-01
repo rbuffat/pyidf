@@ -43,10 +43,12 @@ class Version(object):
 
     @version_identifier.setter
     def version_identifier(self, value="7.0"):
-        """  Corresponds to IDD Field `version_identifier`
+        """  Corresponds to IDD Field `Version Identifier`
+        
+        {u'default': '7.0', 'type': 'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `version_identifier`
+            value (str): value for IDD Field `Version Identifier`
                 Default value: 7.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -57,7 +59,7 @@ class Version(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `version_identifier`'.format(value))
             if ',' in value:
@@ -66,7 +68,6 @@ class Version(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `version_identifier`')
-
         self._data["Version Identifier"] = value
 
     def check(self):
@@ -183,12 +184,14 @@ class SimulationControl(object):
 
     @do_zone_sizing_calculation.setter
     def do_zone_sizing_calculation(self, value="No"):
-        """  Corresponds to IDD Field `do_zone_sizing_calculation`
+        """  Corresponds to IDD Field `Do Zone Sizing Calculation`
         If Yes, Zone sizing is accomplished from corresponding Sizing:Zone objects
         and autosize fields.
+        
+        {u'note': [u'If Yes, Zone sizing is accomplished from corresponding Sizing:Zone objects', u'and autosize fields.'], u'default': u'No', u'type': u'choice', u'key': [u'Yes', u'No'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `do_zone_sizing_calculation`
+            value (str): value for IDD Field `Do Zone Sizing Calculation`
                 Accepted values are:
                       - Yes
                       - No
@@ -202,7 +205,7 @@ class SimulationControl(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `do_zone_sizing_calculation`'.format(value))
             if ',' in value:
@@ -228,7 +231,6 @@ class SimulationControl(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `do_zone_sizing_calculation`'.format(value))
             value = vals[value_lower]
-
         self._data["Do Zone Sizing Calculation"] = value
 
     @property
@@ -242,13 +244,15 @@ class SimulationControl(object):
 
     @do_system_sizing_calculation.setter
     def do_system_sizing_calculation(self, value="No"):
-        """  Corresponds to IDD Field `do_system_sizing_calculation`
+        """  Corresponds to IDD Field `Do System Sizing Calculation`
         If Yes, System sizing is accomplished from corresponding Sizing:System objects
         and autosize fields.
         If Yes, Zone sizing (previous field) must also be Yes.
+        
+        {u'note': [u'If Yes, System sizing is accomplished from corresponding Sizing:System objects', u'and autosize fields.', u'If Yes, Zone sizing (previous field) must also be Yes.'], u'default': u'No', u'type': u'choice', u'key': [u'Yes', u'No'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `do_system_sizing_calculation`
+            value (str): value for IDD Field `Do System Sizing Calculation`
                 Accepted values are:
                       - Yes
                       - No
@@ -262,7 +266,7 @@ class SimulationControl(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `do_system_sizing_calculation`'.format(value))
             if ',' in value:
@@ -288,7 +292,6 @@ class SimulationControl(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `do_system_sizing_calculation`'.format(value))
             value = vals[value_lower]
-
         self._data["Do System Sizing Calculation"] = value
 
     @property
@@ -302,12 +305,14 @@ class SimulationControl(object):
 
     @do_plant_sizing_calculation.setter
     def do_plant_sizing_calculation(self, value="No"):
-        """  Corresponds to IDD Field `do_plant_sizing_calculation`
+        """  Corresponds to IDD Field `Do Plant Sizing Calculation`
         If Yes, Plant sizing is accomplished from corresponding Sizing:Plant objects
         and autosize fields.
+        
+        {u'note': [u'If Yes, Plant sizing is accomplished from corresponding Sizing:Plant objects', u'and autosize fields.'], u'default': u'No', u'type': u'choice', u'key': [u'Yes', u'No'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `do_plant_sizing_calculation`
+            value (str): value for IDD Field `Do Plant Sizing Calculation`
                 Accepted values are:
                       - Yes
                       - No
@@ -321,7 +326,7 @@ class SimulationControl(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `do_plant_sizing_calculation`'.format(value))
             if ',' in value:
@@ -347,7 +352,6 @@ class SimulationControl(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `do_plant_sizing_calculation`'.format(value))
             value = vals[value_lower]
-
         self._data["Do Plant Sizing Calculation"] = value
 
     @property
@@ -361,11 +365,13 @@ class SimulationControl(object):
 
     @run_simulation_for_sizing_periods.setter
     def run_simulation_for_sizing_periods(self, value="Yes"):
-        """  Corresponds to IDD Field `run_simulation_for_sizing_periods`
+        """  Corresponds to IDD Field `Run Simulation for Sizing Periods`
         If Yes, SizingPeriod:* objects are executed and results from those may be displayed..
+        
+        {u'note': [u'If Yes, SizingPeriod:* objects are executed and results from those may be displayed..'], u'default': u'Yes', u'type': u'choice', u'key': [u'Yes', u'No'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `run_simulation_for_sizing_periods`
+            value (str): value for IDD Field `Run Simulation for Sizing Periods`
                 Accepted values are:
                       - Yes
                       - No
@@ -379,7 +385,7 @@ class SimulationControl(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `run_simulation_for_sizing_periods`'.format(value))
             if ',' in value:
@@ -405,7 +411,6 @@ class SimulationControl(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `run_simulation_for_sizing_periods`'.format(value))
             value = vals[value_lower]
-
         self._data["Run Simulation for Sizing Periods"] = value
 
     @property
@@ -419,11 +424,13 @@ class SimulationControl(object):
 
     @run_simulation_for_weather_file_run_periods.setter
     def run_simulation_for_weather_file_run_periods(self, value="Yes"):
-        """  Corresponds to IDD Field `run_simulation_for_weather_file_run_periods`
+        """  Corresponds to IDD Field `Run Simulation for Weather File Run Periods`
         If Yes, RunPeriod:* objects are executed and results from those may be displayed..
+        
+        {u'note': [u'If Yes, RunPeriod:* objects are executed and results from those may be displayed..'], u'default': u'Yes', u'type': u'choice', u'key': [u'Yes', u'No'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `run_simulation_for_weather_file_run_periods`
+            value (str): value for IDD Field `Run Simulation for Weather File Run Periods`
                 Accepted values are:
                       - Yes
                       - No
@@ -437,7 +444,7 @@ class SimulationControl(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `run_simulation_for_weather_file_run_periods`'.format(value))
             if ',' in value:
@@ -463,7 +470,6 @@ class SimulationControl(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `run_simulation_for_weather_file_run_periods`'.format(value))
             value = vals[value_lower]
-
         self._data["Run Simulation for Weather File Run Periods"] = value
 
     def check(self):
@@ -602,10 +608,12 @@ class Building(object):
 
     @name.setter
     def name(self, value="NONE"):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {u'default': 'NONE', u'retaincase': u'', 'type': 'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 Default value: NONE
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -616,7 +624,7 @@ class Building(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -625,7 +633,6 @@ class Building(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -639,11 +646,13 @@ class Building(object):
 
     @north_axis.setter
     def north_axis(self, value=0.0 ):
-        """  Corresponds to IDD Field `north_axis`
+        """  Corresponds to IDD Field `North Axis`
         degrees from true North
+        
+        {u'note': [u'degrees from true North'], u'units': u'deg', u'default': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `north_axis`
+            value (float): value for IDD Field `North Axis`
                 Units: deg
                 Default value: 0.0
                 if `value` is None it will not be checked against the
@@ -655,10 +664,9 @@ class Building(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `north_axis`'.format(value))
-
         self._data["North Axis"] = value
 
     @property
@@ -672,11 +680,13 @@ class Building(object):
 
     @terrain.setter
     def terrain(self, value="Suburbs"):
-        """  Corresponds to IDD Field `terrain`
+        """  Corresponds to IDD Field `Terrain`
         Country=FlatOpenCountry | Suburbs=CountryTownsSuburbs | City=CityCenter | Ocean=body of water (5km) | Urban=Urban-Industrial-Forest
+        
+        {u'note': [u'Country=FlatOpenCountry | Suburbs=CountryTownsSuburbs | City=CityCenter | Ocean=body of water (5km) | Urban=Urban-Industrial-Forest'], u'default': u'Suburbs', u'type': u'choice', u'key': [u'Country', u'Suburbs', u'City', u'Ocean', u'Urban'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `terrain`
+            value (str): value for IDD Field `Terrain`
                 Accepted values are:
                       - Country
                       - Suburbs
@@ -693,7 +703,7 @@ class Building(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `terrain`'.format(value))
             if ',' in value:
@@ -722,7 +732,6 @@ class Building(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `terrain`'.format(value))
             value = vals[value_lower]
-
         self._data["Terrain"] = value
 
     @property
@@ -736,11 +745,13 @@ class Building(object):
 
     @loads_convergence_tolerance_value.setter
     def loads_convergence_tolerance_value(self, value=0.04 ):
-        """  Corresponds to IDD Field `loads_convergence_tolerance_value`
+        """  Corresponds to IDD Field `Loads Convergence Tolerance Value`
         Loads Convergence Tolerance Value is a fraction of load
+        
+        {'pytype': 'float', u'default': '0.04', u'minimum>': '0.0', u'maximum': '0.5', u'note': [u'Loads Convergence Tolerance Value is a fraction of load'], u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `loads_convergence_tolerance_value`
+            value (float): value for IDD Field `Loads Convergence Tolerance Value`
                 Default value: 0.04
                 value > 0.0
                 value <= 0.5
@@ -753,7 +764,7 @@ class Building(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `loads_convergence_tolerance_value`'.format(value))
             if value <= 0.0:
@@ -762,7 +773,6 @@ class Building(object):
             if value > 0.5:
                 raise ValueError('value need to be smaller 0.5 '
                                  'for field `loads_convergence_tolerance_value`')
-
         self._data["Loads Convergence Tolerance Value"] = value
 
     @property
@@ -776,10 +786,12 @@ class Building(object):
 
     @temperature_convergence_tolerance_value.setter
     def temperature_convergence_tolerance_value(self, value=0.4 ):
-        """  Corresponds to IDD Field `temperature_convergence_tolerance_value`
+        """  Corresponds to IDD Field `Temperature Convergence Tolerance Value`
+        
+        {'pytype': 'float', u'default': '0.4', u'minimum>': '0.0', u'maximum': '0.5', u'units': u'deltaC', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `temperature_convergence_tolerance_value`
+            value (float): value for IDD Field `Temperature Convergence Tolerance Value`
                 Units: deltaC
                 Default value: 0.4
                 value > 0.0
@@ -793,7 +805,7 @@ class Building(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `temperature_convergence_tolerance_value`'.format(value))
             if value <= 0.0:
@@ -802,7 +814,6 @@ class Building(object):
             if value > 0.5:
                 raise ValueError('value need to be smaller 0.5 '
                                  'for field `temperature_convergence_tolerance_value`')
-
         self._data["Temperature Convergence Tolerance Value"] = value
 
     @property
@@ -816,11 +827,13 @@ class Building(object):
 
     @solar_distribution.setter
     def solar_distribution(self, value="FullExterior"):
-        """  Corresponds to IDD Field `solar_distribution`
+        """  Corresponds to IDD Field `Solar Distribution`
         MinimalShadowing | FullExterior | FullInteriorAndExterior | FullExteriorWithReflections | FullInteriorAndExteriorWithReflections
+        
+        {u'note': [u'MinimalShadowing | FullExterior | FullInteriorAndExterior | FullExteriorWithReflections | FullInteriorAndExteriorWithReflections'], u'default': u'FullExterior', u'type': u'choice', u'key': [u'MinimalShadowing', u'FullExterior', u'FullInteriorAndExterior', u'FullExteriorWithReflections', u'FullInteriorAndExteriorWithReflections'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `solar_distribution`
+            value (str): value for IDD Field `Solar Distribution`
                 Accepted values are:
                       - MinimalShadowing
                       - FullExterior
@@ -837,7 +850,7 @@ class Building(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `solar_distribution`'.format(value))
             if ',' in value:
@@ -866,7 +879,6 @@ class Building(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `solar_distribution`'.format(value))
             value = vals[value_lower]
-
         self._data["Solar Distribution"] = value
 
     @property
@@ -880,12 +892,14 @@ class Building(object):
 
     @maximum_number_of_warmup_days.setter
     def maximum_number_of_warmup_days(self, value=25 ):
-        """  Corresponds to IDD Field `maximum_number_of_warmup_days`
+        """  Corresponds to IDD Field `Maximum Number of Warmup Days`
         EnergyPlus will only use as many warmup days as needed to reach convergence tolerance.
         This field's value should NOT be set less than 25.
+        
+        {u'note': [u'EnergyPlus will only use as many warmup days as needed to reach convergence tolerance.', u"This field's value should NOT be set less than 25."], u'default': '25', u'minimum>': '0', u'type': u'integer', 'pytype': 'int'}
 
         Args:
-            value (int): value for IDD Field `maximum_number_of_warmup_days`
+            value (int): value for IDD Field `Maximum Number of Warmup Days`
                 Default value: 25
                 value > 0
                 if `value` is None it will not be checked against the
@@ -897,13 +911,12 @@ class Building(object):
         if value is not None:
             try:
                 value = int(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type int '
                                  'for field `maximum_number_of_warmup_days`'.format(value))
             if value <= 0:
                 raise ValueError('value need to be greater 0 '
                                  'for field `maximum_number_of_warmup_days`')
-
         self._data["Maximum Number of Warmup Days"] = value
 
     @property
@@ -917,15 +930,17 @@ class Building(object):
 
     @minimum_number_of_warmup_days.setter
     def minimum_number_of_warmup_days(self, value=6 ):
-        """  Corresponds to IDD Field `minimum_number_of_warmup_days`
+        """  Corresponds to IDD Field `Minimum Number of Warmup Days`
         The minimum number of warmup days that produce enough temperature and flux history
         to start EnergyPlus simulation for all reference buildings was suggested to be 6.
         When this field is greater than the maximum warmup days defined previous field
         the maximum number of warmup days will be reset to the minimum value entered here.
         Warmup days will be set to be the value you entered when it is less than the default 6.
+        
+        {u'note': [u'The minimum number of warmup days that produce enough temperature and flux history', u'to start EnergyPlus simulation for all reference buildings was suggested to be 6.', u'When this field is greater than the maximum warmup days defined previous field', u'the maximum number of warmup days will be reset to the minimum value entered here.', u'Warmup days will be set to be the value you entered when it is less than the default 6.'], u'default': '6', u'minimum>': '0', u'type': u'integer', 'pytype': 'int'}
 
         Args:
-            value (int): value for IDD Field `minimum_number_of_warmup_days`
+            value (int): value for IDD Field `Minimum Number of Warmup Days`
                 Default value: 6
                 value > 0
                 if `value` is None it will not be checked against the
@@ -937,13 +952,12 @@ class Building(object):
         if value is not None:
             try:
                 value = int(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type int '
                                  'for field `minimum_number_of_warmup_days`'.format(value))
             if value <= 0:
                 raise ValueError('value need to be greater 0 '
                                  'for field `minimum_number_of_warmup_days`')
-
         self._data["Minimum Number of Warmup Days"] = value
 
     def check(self):
@@ -1055,12 +1069,14 @@ class ShadowCalculation(object):
 
     @calculation_method.setter
     def calculation_method(self, value="AverageOverDaysInFrequency"):
-        """  Corresponds to IDD Field `calculation_method`
+        """  Corresponds to IDD Field `Calculation Method`
         choose calculation method. note that TimestepFrequency is only needed for certain cases
         and can increase execution time significantly.
+        
+        {u'note': [u'choose calculation method. note that TimestepFrequency is only needed for certain cases', u'and can increase execution time significantly.'], u'default': u'AverageOverDaysInFrequency', u'type': u'choice', u'key': [u'AverageOverDaysInFrequency', u'TimestepFrequency'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `calculation_method`
+            value (str): value for IDD Field `Calculation Method`
                 Accepted values are:
                       - AverageOverDaysInFrequency
                       - TimestepFrequency
@@ -1074,7 +1090,7 @@ class ShadowCalculation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `calculation_method`'.format(value))
             if ',' in value:
@@ -1100,7 +1116,6 @@ class ShadowCalculation(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `calculation_method`'.format(value))
             value = vals[value_lower]
-
         self._data["Calculation Method"] = value
 
     @property
@@ -1114,15 +1129,17 @@ class ShadowCalculation(object):
 
     @calculation_frequency.setter
     def calculation_frequency(self, value=20 ):
-        """  Corresponds to IDD Field `calculation_frequency`
+        """  Corresponds to IDD Field `Calculation Frequency`
         enter number of days
         this field is only used if the previous field is set to AverageOverDaysInFrequency
         0=Use Default Periodic Calculation|<else> calculate every <value> day
         only really applicable to RunPeriods
         warning issued if >31
+        
+        {'pytype': 'int', u'default': '20', u'required-field': True, u'note': [u'enter number of days', u'this field is only used if the previous field is set to AverageOverDaysInFrequency', u'0=Use Default Periodic Calculation|<else> calculate every <value> day', u'only really applicable to RunPeriods', u'warning issued if >31'], u'minimum': '1', u'type': u'integer'}
 
         Args:
-            value (int): value for IDD Field `calculation_frequency`
+            value (int): value for IDD Field `Calculation Frequency`
                 Default value: 20
                 value >= 1
                 if `value` is None it will not be checked against the
@@ -1134,13 +1151,12 @@ class ShadowCalculation(object):
         if value is not None:
             try:
                 value = int(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type int '
                                  'for field `calculation_frequency`'.format(value))
             if value < 1:
                 raise ValueError('value need to be greater or equal 1 '
                                  'for field `calculation_frequency`')
-
         self._data["Calculation Frequency"] = value
 
     @property
@@ -1154,11 +1170,13 @@ class ShadowCalculation(object):
 
     @maximum_figures_in_shadow_overlap_calculations.setter
     def maximum_figures_in_shadow_overlap_calculations(self, value=15000 ):
-        """  Corresponds to IDD Field `maximum_figures_in_shadow_overlap_calculations`
+        """  Corresponds to IDD Field `Maximum Figures in Shadow Overlap Calculations`
         Number of allowable figures in shadow overlap calculations
+        
+        {u'note': [u'Number of allowable figures in shadow overlap calculations'], u'default': '15000', u'minimum': '200', u'type': u'integer', 'pytype': 'int'}
 
         Args:
-            value (int): value for IDD Field `maximum_figures_in_shadow_overlap_calculations`
+            value (int): value for IDD Field `Maximum Figures in Shadow Overlap Calculations`
                 Default value: 15000
                 value >= 200
                 if `value` is None it will not be checked against the
@@ -1170,13 +1188,12 @@ class ShadowCalculation(object):
         if value is not None:
             try:
                 value = int(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type int '
                                  'for field `maximum_figures_in_shadow_overlap_calculations`'.format(value))
             if value < 200:
                 raise ValueError('value need to be greater or equal 200 '
                                  'for field `maximum_figures_in_shadow_overlap_calculations`')
-
         self._data["Maximum Figures in Shadow Overlap Calculations"] = value
 
     @property
@@ -1190,12 +1207,14 @@ class ShadowCalculation(object):
 
     @polygon_clipping_algorithm.setter
     def polygon_clipping_algorithm(self, value=None):
-        """  Corresponds to IDD Field `polygon_clipping_algorithm`
+        """  Corresponds to IDD Field `Polygon Clipping Algorithm`
         Advanced Feature.  Internal default is SutherlandHodgman
         Refer to InputOutput Reference and Engineering Reference for more information
+        
+        {u'note': [u'Advanced Feature.  Internal default is SutherlandHodgman', u'Refer to InputOutput Reference and Engineering Reference for more information'], u'type': u'choice', u'key': [u'ConvexWeilerAtherton', u'SutherlandHodgman'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `polygon_clipping_algorithm`
+            value (str): value for IDD Field `Polygon Clipping Algorithm`
                 Accepted values are:
                       - ConvexWeilerAtherton
                       - SutherlandHodgman
@@ -1208,7 +1227,7 @@ class ShadowCalculation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `polygon_clipping_algorithm`'.format(value))
             if ',' in value:
@@ -1234,7 +1253,6 @@ class ShadowCalculation(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `polygon_clipping_algorithm`'.format(value))
             value = vals[value_lower]
-
         self._data["Polygon Clipping Algorithm"] = value
 
     @property
@@ -1248,14 +1266,16 @@ class ShadowCalculation(object):
 
     @sky_diffuse_modeling_algorithm.setter
     def sky_diffuse_modeling_algorithm(self, value=None):
-        """  Corresponds to IDD Field `sky_diffuse_modeling_algorithm`
+        """  Corresponds to IDD Field `Sky Diffuse Modeling Algorithm`
         Advanced Feature.  Internal default is SimpleSkyDiffuseModeling
         If you have shading elements that change transmittance over the
         year, you may wish to choose the detailed method.
         Refer to InputOutput Reference and Engineering Reference for more information
+        
+        {u'note': [u'Advanced Feature.  Internal default is SimpleSkyDiffuseModeling', u'If you have shading elements that change transmittance over the', u'year, you may wish to choose the detailed method.', u'Refer to InputOutput Reference and Engineering Reference for more information'], u'type': u'choice', u'key': [u'SimpleSkyDiffuseModeling', u'DetailedSkyDiffuseModeling'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `sky_diffuse_modeling_algorithm`
+            value (str): value for IDD Field `Sky Diffuse Modeling Algorithm`
                 Accepted values are:
                       - SimpleSkyDiffuseModeling
                       - DetailedSkyDiffuseModeling
@@ -1268,7 +1288,7 @@ class ShadowCalculation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `sky_diffuse_modeling_algorithm`'.format(value))
             if ',' in value:
@@ -1294,7 +1314,6 @@ class ShadowCalculation(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `sky_diffuse_modeling_algorithm`'.format(value))
             value = vals[value_lower]
-
         self._data["Sky Diffuse Modeling Algorithm"] = value
 
     def check(self):
@@ -1374,15 +1393,17 @@ class SurfaceConvectionAlgorithmInside(object):
 
     @algorithm.setter
     def algorithm(self, value="TARP"):
-        """  Corresponds to IDD Field `algorithm`
+        """  Corresponds to IDD Field `Algorithm`
         Simple = constant value natural convection (ASHRAE)
         TARP = variable natural convection based on temperature difference (ASHRAE, Walton)
         CeilingDiffuser = ACH-based forced and mixed convection correlations
         for ceiling diffuser configuration with simple natural convection limit
         AdaptiveConvectionAlgorithm = dynamic selection of convection models based on conditions
+        
+        {'pytype': 'str', u'default': u'TARP', u'required-field': True, u'note': [u'Simple = constant value natural convection (ASHRAE)', u'TARP = variable natural convection based on temperature difference (ASHRAE, Walton)', u'CeilingDiffuser = ACH-based forced and mixed convection correlations', u'for ceiling diffuser configuration with simple natural convection limit', u'AdaptiveConvectionAlgorithm = dynamic selection of convection models based on conditions'], u'key': [u'Simple', u'TARP', u'CeilingDiffuser', u'AdaptiveConvectionAlgorithm'], u'type': u'choice'}
 
         Args:
-            value (str): value for IDD Field `algorithm`
+            value (str): value for IDD Field `Algorithm`
                 Accepted values are:
                       - Simple
                       - TARP
@@ -1398,7 +1419,7 @@ class SurfaceConvectionAlgorithmInside(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `algorithm`'.format(value))
             if ',' in value:
@@ -1426,7 +1447,6 @@ class SurfaceConvectionAlgorithmInside(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `algorithm`'.format(value))
             value = vals[value_lower]
-
         self._data["Algorithm"] = value
 
     def check(self):
@@ -1506,15 +1526,17 @@ class SurfaceConvectionAlgorithmOutside(object):
 
     @algorithm.setter
     def algorithm(self, value="DOE-2"):
-        """  Corresponds to IDD Field `algorithm`
+        """  Corresponds to IDD Field `Algorithm`
         SimpleCombined = Combined radiation and convection coefficient using simple ASHRAE model
         TARP = correlation from models developed by ASHRAE, Walton, and Sparrow et. al.
         MoWiTT = correlation from measurements by Klems and Yazdanian for smooth surfaces
         DOE-2 = correlation from measurements by Klems and Yazdanian for rough surfaces
         AdaptiveConvectionAlgorithm = dynamic selection of correlations based on conditions
+        
+        {'pytype': 'str', u'default': u'DOE-2', u'required-field': True, u'note': [u'SimpleCombined = Combined radiation and convection coefficient using simple ASHRAE model', u'TARP = correlation from models developed by ASHRAE, Walton, and Sparrow et. al.', u'MoWiTT = correlation from measurements by Klems and Yazdanian for smooth surfaces', u'DOE-2 = correlation from measurements by Klems and Yazdanian for rough surfaces', u'AdaptiveConvectionAlgorithm = dynamic selection of correlations based on conditions'], u'key': [u'SimpleCombined', u'TARP', u'MoWiTT', u'DOE-2', u'AdaptiveConvectionAlgorithm'], u'type': u'choice'}
 
         Args:
-            value (str): value for IDD Field `algorithm`
+            value (str): value for IDD Field `Algorithm`
                 Accepted values are:
                       - SimpleCombined
                       - TARP
@@ -1531,7 +1553,7 @@ class SurfaceConvectionAlgorithmOutside(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `algorithm`'.format(value))
             if ',' in value:
@@ -1560,7 +1582,6 @@ class SurfaceConvectionAlgorithmOutside(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `algorithm`'.format(value))
             value = vals[value_lower]
-
         self._data["Algorithm"] = value
 
     def check(self):
@@ -1669,10 +1690,12 @@ class HeatBalanceAlgorithm(object):
 
     @algorithm.setter
     def algorithm(self, value="ConductionTransferFunction"):
-        """  Corresponds to IDD Field `algorithm`
+        """  Corresponds to IDD Field `Algorithm`
+        
+        {u'default': u'ConductionTransferFunction', u'type': u'choice', u'key': [u'ConductionTransferFunction', u'MoisturePenetrationDepthConductionTransferFunction', u'ConductionFiniteDifference', u'CombinedHeatAndMoistureFiniteElement'], u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `algorithm`
+            value (str): value for IDD Field `Algorithm`
                 Accepted values are:
                       - ConductionTransferFunction
                       - MoisturePenetrationDepthConductionTransferFunction
@@ -1688,7 +1711,7 @@ class HeatBalanceAlgorithm(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `algorithm`'.format(value))
             if ',' in value:
@@ -1716,7 +1739,6 @@ class HeatBalanceAlgorithm(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `algorithm`'.format(value))
             value = vals[value_lower]
-
         self._data["Algorithm"] = value
 
     @property
@@ -1730,10 +1752,12 @@ class HeatBalanceAlgorithm(object):
 
     @surface_temperature_upper_limit.setter
     def surface_temperature_upper_limit(self, value=200.0 ):
-        """  Corresponds to IDD Field `surface_temperature_upper_limit`
+        """  Corresponds to IDD Field `Surface Temperature Upper Limit`
+        
+        {u'default': '200.0', u'units': u'C', u'minimum': '200.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `surface_temperature_upper_limit`
+            value (float): value for IDD Field `Surface Temperature Upper Limit`
                 Units: C
                 Default value: 200.0
                 value >= 200.0
@@ -1746,13 +1770,12 @@ class HeatBalanceAlgorithm(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `surface_temperature_upper_limit`'.format(value))
             if value < 200.0:
                 raise ValueError('value need to be greater or equal 200.0 '
                                  'for field `surface_temperature_upper_limit`')
-
         self._data["Surface Temperature Upper Limit"] = value
 
     @property
@@ -1766,10 +1789,12 @@ class HeatBalanceAlgorithm(object):
 
     @minimum_surface_convection_heat_transfer_coefficient_value.setter
     def minimum_surface_convection_heat_transfer_coefficient_value(self, value=0.1 ):
-        """  Corresponds to IDD Field `minimum_surface_convection_heat_transfer_coefficient_value`
+        """  Corresponds to IDD Field `Minimum Surface Convection Heat Transfer Coefficient Value`
+        
+        {u'units': u'W/m2-K', u'default': '0.1', u'minimum>': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `minimum_surface_convection_heat_transfer_coefficient_value`
+            value (float): value for IDD Field `Minimum Surface Convection Heat Transfer Coefficient Value`
                 Units: W/m2-K
                 Default value: 0.1
                 value > 0.0
@@ -1782,13 +1807,12 @@ class HeatBalanceAlgorithm(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `minimum_surface_convection_heat_transfer_coefficient_value`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `minimum_surface_convection_heat_transfer_coefficient_value`')
-
         self._data["Minimum Surface Convection Heat Transfer Coefficient Value"] = value
 
     @property
@@ -1802,10 +1826,12 @@ class HeatBalanceAlgorithm(object):
 
     @maximum_surface_convection_heat_transfer_coefficient_value.setter
     def maximum_surface_convection_heat_transfer_coefficient_value(self, value=1000.0 ):
-        """  Corresponds to IDD Field `maximum_surface_convection_heat_transfer_coefficient_value`
+        """  Corresponds to IDD Field `Maximum Surface Convection Heat Transfer Coefficient Value`
+        
+        {u'units': u'W/m2-K', u'default': '1000.0', u'minimum': '1.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `maximum_surface_convection_heat_transfer_coefficient_value`
+            value (float): value for IDD Field `Maximum Surface Convection Heat Transfer Coefficient Value`
                 Units: W/m2-K
                 Default value: 1000.0
                 value >= 1.0
@@ -1818,13 +1844,12 @@ class HeatBalanceAlgorithm(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `maximum_surface_convection_heat_transfer_coefficient_value`'.format(value))
             if value < 1.0:
                 raise ValueError('value need to be greater or equal 1.0 '
                                  'for field `maximum_surface_convection_heat_transfer_coefficient_value`')
-
         self._data["Maximum Surface Convection Heat Transfer Coefficient Value"] = value
 
     def check(self):
@@ -1929,10 +1954,12 @@ class HeatBalanceSettingsConductionFiniteDifference(object):
 
     @difference_scheme.setter
     def difference_scheme(self, value="FullyImplicitFirstOrder"):
-        """  Corresponds to IDD Field `difference_scheme`
+        """  Corresponds to IDD Field `Difference Scheme`
+        
+        {u'default': u'FullyImplicitFirstOrder', u'type': u'choice', u'key': [u'CrankNicholsonSecondOrder', u'FullyImplicitFirstOrder'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `difference_scheme`
+            value (str): value for IDD Field `Difference Scheme`
                 Accepted values are:
                       - CrankNicholsonSecondOrder
                       - FullyImplicitFirstOrder
@@ -1946,7 +1973,7 @@ class HeatBalanceSettingsConductionFiniteDifference(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `difference_scheme`'.format(value))
             if ',' in value:
@@ -1972,7 +1999,6 @@ class HeatBalanceSettingsConductionFiniteDifference(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `difference_scheme`'.format(value))
             value = vals[value_lower]
-
         self._data["Difference Scheme"] = value
 
     @property
@@ -1986,11 +2012,13 @@ class HeatBalanceSettingsConductionFiniteDifference(object):
 
     @space_discretization_constant.setter
     def space_discretization_constant(self, value=3.0 ):
-        """  Corresponds to IDD Field `space_discretization_constant`
+        """  Corresponds to IDD Field `Space Discretization Constant`
         increase or decrease number of nodes
+        
+        {u'note': [u'increase or decrease number of nodes'], u'default': '3.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `space_discretization_constant`
+            value (float): value for IDD Field `Space Discretization Constant`
                 Default value: 3.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -2001,10 +2029,9 @@ class HeatBalanceSettingsConductionFiniteDifference(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `space_discretization_constant`'.format(value))
-
         self._data["Space Discretization Constant"] = value
 
     @property
@@ -2018,10 +2045,12 @@ class HeatBalanceSettingsConductionFiniteDifference(object):
 
     @relaxation_factor.setter
     def relaxation_factor(self, value=1.0 ):
-        """  Corresponds to IDD Field `relaxation_factor`
+        """  Corresponds to IDD Field `Relaxation Factor`
+        
+        {u'default': '1.0', u'minimum': '0.01', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `relaxation_factor`
+            value (float): value for IDD Field `Relaxation Factor`
                 Default value: 1.0
                 value >= 0.01
                 value <= 1.0
@@ -2034,7 +2063,7 @@ class HeatBalanceSettingsConductionFiniteDifference(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `relaxation_factor`'.format(value))
             if value < 0.01:
@@ -2043,7 +2072,6 @@ class HeatBalanceSettingsConductionFiniteDifference(object):
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `relaxation_factor`')
-
         self._data["Relaxation Factor"] = value
 
     @property
@@ -2057,10 +2085,12 @@ class HeatBalanceSettingsConductionFiniteDifference(object):
 
     @inside_face_surface_temperature_convergence_criteria.setter
     def inside_face_surface_temperature_convergence_criteria(self, value=0.002 ):
-        """  Corresponds to IDD Field `inside_face_surface_temperature_convergence_criteria`
+        """  Corresponds to IDD Field `Inside Face Surface Temperature Convergence Criteria`
+        
+        {u'default': '0.002', u'minimum': '1e-07', u'type': u'real', u'maximum': '0.01', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `inside_face_surface_temperature_convergence_criteria`
+            value (float): value for IDD Field `Inside Face Surface Temperature Convergence Criteria`
                 Default value: 0.002
                 value >= 1e-07
                 value <= 0.01
@@ -2073,7 +2103,7 @@ class HeatBalanceSettingsConductionFiniteDifference(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `inside_face_surface_temperature_convergence_criteria`'.format(value))
             if value < 1e-07:
@@ -2082,7 +2112,6 @@ class HeatBalanceSettingsConductionFiniteDifference(object):
             if value > 0.01:
                 raise ValueError('value need to be smaller 0.01 '
                                  'for field `inside_face_surface_temperature_convergence_criteria`')
-
         self._data["Inside Face Surface Temperature Convergence Criteria"] = value
 
     def check(self):
@@ -2162,10 +2191,12 @@ class ZoneAirHeatBalanceAlgorithm(object):
 
     @algorithm.setter
     def algorithm(self, value="ThirdOrderBackwardDifference"):
-        """  Corresponds to IDD Field `algorithm`
+        """  Corresponds to IDD Field `Algorithm`
+        
+        {u'default': u'ThirdOrderBackwardDifference', u'type': u'choice', u'key': [u'ThirdOrderBackwardDifference', u'AnalyticalSolution', u'EulerMethod'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `algorithm`
+            value (str): value for IDD Field `Algorithm`
                 Accepted values are:
                       - ThirdOrderBackwardDifference
                       - AnalyticalSolution
@@ -2180,7 +2211,7 @@ class ZoneAirHeatBalanceAlgorithm(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `algorithm`'.format(value))
             if ',' in value:
@@ -2207,7 +2238,6 @@ class ZoneAirHeatBalanceAlgorithm(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `algorithm`'.format(value))
             value = vals[value_lower]
-
         self._data["Algorithm"] = value
 
     def check(self):
@@ -2311,11 +2341,13 @@ class ZoneAirContaminantBalance(object):
 
     @carbon_dioxide_concentration.setter
     def carbon_dioxide_concentration(self, value="No"):
-        """  Corresponds to IDD Field `carbon_dioxide_concentration`
+        """  Corresponds to IDD Field `Carbon Dioxide Concentration`
         If Yes, CO2 simulation will be performed.
+        
+        {u'note': [u'If Yes, CO2 simulation will be performed.'], u'default': u'No', u'type': u'choice', u'key': [u'Yes', u'No'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `carbon_dioxide_concentration`
+            value (str): value for IDD Field `Carbon Dioxide Concentration`
                 Accepted values are:
                       - Yes
                       - No
@@ -2329,7 +2361,7 @@ class ZoneAirContaminantBalance(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `carbon_dioxide_concentration`'.format(value))
             if ',' in value:
@@ -2355,7 +2387,6 @@ class ZoneAirContaminantBalance(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `carbon_dioxide_concentration`'.format(value))
             value = vals[value_lower]
-
         self._data["Carbon Dioxide Concentration"] = value
 
     @property
@@ -2369,11 +2400,13 @@ class ZoneAirContaminantBalance(object):
 
     @outdoor_carbon_dioxide_schedule_name.setter
     def outdoor_carbon_dioxide_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `outdoor_carbon_dioxide_schedule_name`
+        """  Corresponds to IDD Field `Outdoor Carbon Dioxide Schedule Name`
         Schedule values should be in parts per million (ppm)
+        
+        {u'note': [u'Schedule values should be in parts per million (ppm)'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `outdoor_carbon_dioxide_schedule_name`
+            value (str): value for IDD Field `Outdoor Carbon Dioxide Schedule Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2383,7 +2416,7 @@ class ZoneAirContaminantBalance(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `outdoor_carbon_dioxide_schedule_name`'.format(value))
             if ',' in value:
@@ -2392,7 +2425,6 @@ class ZoneAirContaminantBalance(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `outdoor_carbon_dioxide_schedule_name`')
-
         self._data["Outdoor Carbon Dioxide Schedule Name"] = value
 
     @property
@@ -2406,11 +2438,13 @@ class ZoneAirContaminantBalance(object):
 
     @generic_contaminant_concentration.setter
     def generic_contaminant_concentration(self, value="No"):
-        """  Corresponds to IDD Field `generic_contaminant_concentration`
+        """  Corresponds to IDD Field `Generic Contaminant Concentration`
         If Yes, generic contaminant simulation will be performed.
+        
+        {u'note': [u'If Yes, generic contaminant simulation will be performed.'], u'default': u'No', u'type': u'choice', u'key': [u'Yes', u'No'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `generic_contaminant_concentration`
+            value (str): value for IDD Field `Generic Contaminant Concentration`
                 Accepted values are:
                       - Yes
                       - No
@@ -2424,7 +2458,7 @@ class ZoneAirContaminantBalance(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `generic_contaminant_concentration`'.format(value))
             if ',' in value:
@@ -2450,7 +2484,6 @@ class ZoneAirContaminantBalance(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `generic_contaminant_concentration`'.format(value))
             value = vals[value_lower]
-
         self._data["Generic Contaminant Concentration"] = value
 
     @property
@@ -2464,12 +2497,14 @@ class ZoneAirContaminantBalance(object):
 
     @outdoor_generic_contaminant_schedule_name.setter
     def outdoor_generic_contaminant_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `outdoor_generic_contaminant_schedule_name`
+        """  Corresponds to IDD Field `Outdoor Generic Contaminant Schedule Name`
         Schedule values should be generic contaminant concentration in parts per
         million (ppm)
+        
+        {u'note': [u'Schedule values should be generic contaminant concentration in parts per', u'million (ppm)'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `outdoor_generic_contaminant_schedule_name`
+            value (str): value for IDD Field `Outdoor Generic Contaminant Schedule Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2479,7 +2514,7 @@ class ZoneAirContaminantBalance(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `outdoor_generic_contaminant_schedule_name`'.format(value))
             if ',' in value:
@@ -2488,7 +2523,6 @@ class ZoneAirContaminantBalance(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `outdoor_generic_contaminant_schedule_name`')
-
         self._data["Outdoor Generic Contaminant Schedule Name"] = value
 
     def check(self):
@@ -2578,7 +2612,7 @@ class ZoneAirMassFlowConservation(object):
 
     @adjust_zone_mixing_for_zone_air_mass_flow_balance.setter
     def adjust_zone_mixing_for_zone_air_mass_flow_balance(self, value="No"):
-        """  Corresponds to IDD Field `adjust_zone_mixing_for_zone_air_mass_flow_balance`
+        """  Corresponds to IDD Field `Adjust Zone Mixing For Zone Air Mass Flow Balance`
         If Yes, Zone mixing object flow rates are adjusted to balance the zone air mass flow
         and additional infiltration air flow may be added if required in order to balance the
         zone air mass flow.
@@ -2593,9 +2627,11 @@ class ZoneAirMassFlowConservation(object):
         and source zones if there is at least one mixing object defined. The default input
         is No. (Note that No input may also results in balanced flow depending on the
         system specified).
+        
+        {u'note': [u'If Yes, Zone mixing object flow rates are adjusted to balance the zone air mass flow', u'and additional infiltration air flow may be added if required in order to balance the', u'zone air mass flow.', u'This optional choice input field allows users triggering the zone air mass flow', u'balance calculation when desired. This global object has two choice KEYs: Yes and', u'No. If this input field is specified as Yes, then EnergyPlus attempts to enforce', u'the zone air mass flow conservation, or else if it is specified as No, then EnergyPlus', u'calculation defaults to zone air mass flow balance that does not include zone mixing', u'objects and that assumes self-balanced simple flow objects per the default procedure,', u'which may not necessarily enforce zone mass conservation unless the user specified', u'a balanced flow to begin with. Mass conservation is enforced both for the receiving', u'and source zones if there is at least one mixing object defined. The default input', u'is No. (Note that No input may also results in balanced flow depending on the', u'system specified).'], u'default': u'No', u'type': u'choice', u'key': [u'Yes', u'No'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `adjust_zone_mixing_for_zone_air_mass_flow_balance`
+            value (str): value for IDD Field `Adjust Zone Mixing For Zone Air Mass Flow Balance`
                 Accepted values are:
                       - Yes
                       - No
@@ -2609,7 +2645,7 @@ class ZoneAirMassFlowConservation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `adjust_zone_mixing_for_zone_air_mass_flow_balance`'.format(value))
             if ',' in value:
@@ -2635,7 +2671,6 @@ class ZoneAirMassFlowConservation(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `adjust_zone_mixing_for_zone_air_mass_flow_balance`'.format(value))
             value = vals[value_lower]
-
         self._data["Adjust Zone Mixing For Zone Air Mass Flow Balance"] = value
 
     @property
@@ -2649,7 +2684,7 @@ class ZoneAirMassFlowConservation(object):
 
     @source_zone_infiltration_treatment.setter
     def source_zone_infiltration_treatment(self, value="AddInfiltrationFlow"):
-        """  Corresponds to IDD Field `source_zone_infiltration_treatment`
+        """  Corresponds to IDD Field `Source Zone Infiltration Treatment`
         This input field allows user to choose how zone infiltration flow is treated during
         the zone air mass flow balance calculation.
         It has two choice KEYs: AddInfiltrationFlow and AdjustInfiltrationFlow.  If this
@@ -2663,9 +2698,11 @@ class ZoneAirMassFlowConservation(object):
         specified infiltration object inputs, then the base infiltration air mass flow
         is assumed self-balanced. If the above input field specified as "No", then this input
         field has no impact on the simulation.
+        
+        {u'note': [u'This input field allows user to choose how zone infiltration flow is treated during', u'the zone air mass flow balance calculation.', u'It has two choice KEYs: AddInfiltrationFlow and AdjustInfiltrationFlow.  If this', u'input is specified as AddInfiltrationFlow, then energy plus adds infiltration air', u'mass flow on top of the base flow, which is calculated using the infiltration object', u'user inputs, in order to balance the zone air mass flow.  The additional infiltration', u'air mass flow is not self-balanced.  If this input is specified as', u'AdjustInfiltrationFlow, then energy plus may adjust the base flow calculated using', u'the infiltration object user inputs in order to balance the zone air mass flow. If it', u'is not required to adjust the base infiltration air flow calculated from the user', u'specified infiltration object inputs, then the base infiltration air mass flow', u'is assumed self-balanced. If the above input field specified as "No", then this input', u'field has no impact on the simulation.'], u'default': u'AddInfiltrationFlow', u'type': u'choice', u'key': [u'AddInfiltrationFlow', u'AdjustInfiltrationFlow'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `source_zone_infiltration_treatment`
+            value (str): value for IDD Field `Source Zone Infiltration Treatment`
                 Accepted values are:
                       - AddInfiltrationFlow
                       - AdjustInfiltrationFlow
@@ -2679,7 +2716,7 @@ class ZoneAirMassFlowConservation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `source_zone_infiltration_treatment`'.format(value))
             if ',' in value:
@@ -2705,7 +2742,6 @@ class ZoneAirMassFlowConservation(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `source_zone_infiltration_treatment`'.format(value))
             value = vals[value_lower]
-
         self._data["Source Zone Infiltration Treatment"] = value
 
     def check(self):
@@ -2809,11 +2845,13 @@ class ZoneCapacitanceMultiplierResearchSpecial(object):
 
     @temperature_capacity_multiplier.setter
     def temperature_capacity_multiplier(self, value=1.0 ):
-        """  Corresponds to IDD Field `temperature_capacity_multiplier`
+        """  Corresponds to IDD Field `Temperature Capacity Multiplier`
         Used to alter the capacitance of zone air with respect to heat or temperature
+        
+        {u'default': '1.0', u'note': [u'Used to alter the capacitance of zone air with respect to heat or temperature'], u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `temperature_capacity_multiplier`
+            value (float): value for IDD Field `Temperature Capacity Multiplier`
                 Default value: 1.0
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -2825,13 +2863,12 @@ class ZoneCapacitanceMultiplierResearchSpecial(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `temperature_capacity_multiplier`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `temperature_capacity_multiplier`')
-
         self._data["Temperature Capacity Multiplier"] = value
 
     @property
@@ -2845,11 +2882,13 @@ class ZoneCapacitanceMultiplierResearchSpecial(object):
 
     @humidity_capacity_multiplier.setter
     def humidity_capacity_multiplier(self, value=1.0 ):
-        """  Corresponds to IDD Field `humidity_capacity_multiplier`
+        """  Corresponds to IDD Field `Humidity Capacity Multiplier`
         Used to alter the capacitance of zone air with respect to moisture or humidity ratio
+        
+        {u'default': '1.0', u'note': [u'Used to alter the capacitance of zone air with respect to moisture or humidity ratio'], u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `humidity_capacity_multiplier`
+            value (float): value for IDD Field `Humidity Capacity Multiplier`
                 Default value: 1.0
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -2861,13 +2900,12 @@ class ZoneCapacitanceMultiplierResearchSpecial(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `humidity_capacity_multiplier`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `humidity_capacity_multiplier`')
-
         self._data["Humidity Capacity Multiplier"] = value
 
     @property
@@ -2881,11 +2919,13 @@ class ZoneCapacitanceMultiplierResearchSpecial(object):
 
     @carbon_dioxide_capacity_multiplier.setter
     def carbon_dioxide_capacity_multiplier(self, value=1.0 ):
-        """  Corresponds to IDD Field `carbon_dioxide_capacity_multiplier`
+        """  Corresponds to IDD Field `Carbon Dioxide Capacity Multiplier`
         Used to alter the capacitance of zone air with respect to zone air carbob dioxide concentration
+        
+        {u'default': '1.0', u'note': [u'Used to alter the capacitance of zone air with respect to zone air carbob dioxide concentration'], u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `carbon_dioxide_capacity_multiplier`
+            value (float): value for IDD Field `Carbon Dioxide Capacity Multiplier`
                 Default value: 1.0
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -2897,13 +2937,12 @@ class ZoneCapacitanceMultiplierResearchSpecial(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `carbon_dioxide_capacity_multiplier`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `carbon_dioxide_capacity_multiplier`')
-
         self._data["Carbon Dioxide Capacity Multiplier"] = value
 
     @property
@@ -2917,11 +2956,13 @@ class ZoneCapacitanceMultiplierResearchSpecial(object):
 
     @generic_contaminant_capacity_multiplier.setter
     def generic_contaminant_capacity_multiplier(self, value=1.0 ):
-        """  Corresponds to IDD Field `generic_contaminant_capacity_multiplier`
+        """  Corresponds to IDD Field `Generic Contaminant Capacity Multiplier`
         Used to alter the capacitance of zone air with respect to zone air generic contaminant concentration
+        
+        {u'default': '1.0', u'note': [u'Used to alter the capacitance of zone air with respect to zone air generic contaminant concentration'], u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `generic_contaminant_capacity_multiplier`
+            value (float): value for IDD Field `Generic Contaminant Capacity Multiplier`
                 Default value: 1.0
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -2933,13 +2974,12 @@ class ZoneCapacitanceMultiplierResearchSpecial(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `generic_contaminant_capacity_multiplier`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `generic_contaminant_capacity_multiplier`')
-
         self._data["Generic Contaminant Capacity Multiplier"] = value
 
     def check(self):
@@ -3022,7 +3062,7 @@ class Timestep(object):
 
     @number_of_timesteps_per_hour.setter
     def number_of_timesteps_per_hour(self, value=6 ):
-        """  Corresponds to IDD Field `number_of_timesteps_per_hour`
+        """  Corresponds to IDD Field `Number of Timesteps per Hour`
         Number in hour: normal validity 4 to 60: 6 suggested
         Must be evenly divisible into 60
         Allowable values include 1, 2, 3, 4, 5, 6, 10, 12, 15, 20, 30, and 60
@@ -3030,9 +3070,11 @@ class Timestep(object):
         A minimum value of 20 is suggested for both ConductionFiniteDifference
         and CombinedHeatAndMoistureFiniteElement surface heat balance alogorithms
         A minimum of 12 is suggested for simulations involving a Vegetated Roof (Material:RoofVegetation).
+        
+        {'pytype': 'int', u'default': '6', u'maximum': '60', u'required-field': True, u'note': [u'Number in hour: normal validity 4 to 60: 6 suggested', u'Must be evenly divisible into 60', u'Allowable values include 1, 2, 3, 4, 5, 6, 10, 12, 15, 20, 30, and 60', u'Normal 6 is mimimum as lower values may cause inaccuracies', u'A minimum value of 20 is suggested for both ConductionFiniteDifference', u'and CombinedHeatAndMoistureFiniteElement surface heat balance alogorithms', u'A minimum of 12 is suggested for simulations involving a Vegetated Roof (Material:RoofVegetation).'], u'minimum': '1', u'type': u'integer'}
 
         Args:
-            value (int): value for IDD Field `number_of_timesteps_per_hour`
+            value (int): value for IDD Field `Number of Timesteps per Hour`
                 Default value: 6
                 value >= 1
                 value <= 60
@@ -3045,7 +3087,7 @@ class Timestep(object):
         if value is not None:
             try:
                 value = int(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type int '
                                  'for field `number_of_timesteps_per_hour`'.format(value))
             if value < 1:
@@ -3054,7 +3096,6 @@ class Timestep(object):
             if value > 60:
                 raise ValueError('value need to be smaller 60 '
                                  'for field `number_of_timesteps_per_hour`')
-
         self._data["Number of Timesteps per Hour"] = value
 
     def check(self):
@@ -3159,13 +3200,15 @@ class ConvergenceLimits(object):
 
     @minimum_system_timestep.setter
     def minimum_system_timestep(self, value=None):
-        """  Corresponds to IDD Field `minimum_system_timestep`
+        """  Corresponds to IDD Field `Minimum System Timestep`
         0 sets the minimum to the zone timestep (ref: Timestep)
         1 is normal (ratchet down to 1 minute)
         setting greater than zone timestep (in minutes) will effectively set to zone timestep
+        
+        {'pytype': 'int', u'maximum': '60', u'note': [u'0 sets the minimum to the zone timestep (ref: Timestep)', u'1 is normal (ratchet down to 1 minute)', u'setting greater than zone timestep (in minutes) will effectively set to zone timestep'], u'minimum': '0', u'units': u'minutes', u'type': u'integer'}
 
         Args:
-            value (int): value for IDD Field `minimum_system_timestep`
+            value (int): value for IDD Field `Minimum System Timestep`
                 Units: minutes
                 value >= 0
                 value <= 60
@@ -3178,7 +3221,7 @@ class ConvergenceLimits(object):
         if value is not None:
             try:
                 value = int(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type int '
                                  'for field `minimum_system_timestep`'.format(value))
             if value < 0:
@@ -3187,7 +3230,6 @@ class ConvergenceLimits(object):
             if value > 60:
                 raise ValueError('value need to be smaller 60 '
                                  'for field `minimum_system_timestep`')
-
         self._data["Minimum System Timestep"] = value
 
     @property
@@ -3201,10 +3243,12 @@ class ConvergenceLimits(object):
 
     @maximum_hvac_iterations.setter
     def maximum_hvac_iterations(self, value=20 ):
-        """  Corresponds to IDD Field `maximum_hvac_iterations`
+        """  Corresponds to IDD Field `Maximum HVAC Iterations`
+        
+        {u'default': '20', u'minimum': '1', u'type': u'integer', 'pytype': 'int'}
 
         Args:
-            value (int): value for IDD Field `maximum_hvac_iterations`
+            value (int): value for IDD Field `Maximum HVAC Iterations`
                 Default value: 20
                 value >= 1
                 if `value` is None it will not be checked against the
@@ -3216,13 +3260,12 @@ class ConvergenceLimits(object):
         if value is not None:
             try:
                 value = int(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type int '
                                  'for field `maximum_hvac_iterations`'.format(value))
             if value < 1:
                 raise ValueError('value need to be greater or equal 1 '
                                  'for field `maximum_hvac_iterations`')
-
         self._data["Maximum HVAC Iterations"] = value
 
     @property
@@ -3236,13 +3279,15 @@ class ConvergenceLimits(object):
 
     @minimum_plant_iterations.setter
     def minimum_plant_iterations(self, value=2 ):
-        """  Corresponds to IDD Field `minimum_plant_iterations`
+        """  Corresponds to IDD Field `Minimum Plant Iterations`
         Controls the minimum number of plant system solver iterations within a single HVAC iteration
         Larger values will increase runtime but might improve solution accuracy for complicated plant systems
         Complex plants include: several interconnected loops, heat recovery, thermal load following generators, etc.
+        
+        {u'note': [u'Controls the minimum number of plant system solver iterations within a single HVAC iteration', u'Larger values will increase runtime but might improve solution accuracy for complicated plant systems', u'Complex plants include: several interconnected loops, heat recovery, thermal load following generators, etc.'], u'default': '2', u'minimum': '1', u'type': u'integer', 'pytype': 'int'}
 
         Args:
-            value (int): value for IDD Field `minimum_plant_iterations`
+            value (int): value for IDD Field `Minimum Plant Iterations`
                 Default value: 2
                 value >= 1
                 if `value` is None it will not be checked against the
@@ -3254,13 +3299,12 @@ class ConvergenceLimits(object):
         if value is not None:
             try:
                 value = int(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type int '
                                  'for field `minimum_plant_iterations`'.format(value))
             if value < 1:
                 raise ValueError('value need to be greater or equal 1 '
                                  'for field `minimum_plant_iterations`')
-
         self._data["Minimum Plant Iterations"] = value
 
     @property
@@ -3274,12 +3318,14 @@ class ConvergenceLimits(object):
 
     @maximum_plant_iterations.setter
     def maximum_plant_iterations(self, value=8 ):
-        """  Corresponds to IDD Field `maximum_plant_iterations`
+        """  Corresponds to IDD Field `Maximum Plant Iterations`
         Controls the maximum number of plant system solver iterations within a single HVAC iteration
         Smaller values might decrease runtime but could decrease solution accuracy for complicated plant systems
+        
+        {u'note': [u'Controls the maximum number of plant system solver iterations within a single HVAC iteration', u'Smaller values might decrease runtime but could decrease solution accuracy for complicated plant systems'], u'default': '8', u'minimum': '2', u'type': u'integer', 'pytype': 'int'}
 
         Args:
-            value (int): value for IDD Field `maximum_plant_iterations`
+            value (int): value for IDD Field `Maximum Plant Iterations`
                 Default value: 8
                 value >= 2
                 if `value` is None it will not be checked against the
@@ -3291,13 +3337,12 @@ class ConvergenceLimits(object):
         if value is not None:
             try:
                 value = int(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type int '
                                  'for field `maximum_plant_iterations`'.format(value))
             if value < 2:
                 raise ValueError('value need to be greater or equal 2 '
                                  'for field `maximum_plant_iterations`')
-
         self._data["Maximum Plant Iterations"] = value
 
     def check(self):
@@ -3377,12 +3422,14 @@ class ProgramControl(object):
 
     @number_of_threads_allowed.setter
     def number_of_threads_allowed(self, value=None):
-        """  Corresponds to IDD Field `number_of_threads_allowed`
+        """  Corresponds to IDD Field `Number of Threads Allowed`
         This is currently used only in the Interior Radiant Exchange module -- view factors on # surfaces
         if value is 0, then maximum number allowed will be used.
+        
+        {u'note': [u'This is currently used only in the Interior Radiant Exchange module -- view factors on # surfaces', u'if value is 0, then maximum number allowed will be used.'], u'minimum': '0', u'type': u'integer', 'pytype': 'int'}
 
         Args:
-            value (int): value for IDD Field `number_of_threads_allowed`
+            value (int): value for IDD Field `Number of Threads Allowed`
                 value >= 0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -3393,13 +3440,12 @@ class ProgramControl(object):
         if value is not None:
             try:
                 value = int(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type int '
                                  'for field `number_of_threads_allowed`'.format(value))
             if value < 0:
                 raise ValueError('value need to be greater or equal 0 '
                                  'for field `number_of_threads_allowed`')
-
         self._data["Number of Threads Allowed"] = value
 
     def check(self):

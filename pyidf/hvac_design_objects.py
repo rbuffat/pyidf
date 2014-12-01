@@ -92,10 +92,12 @@ class DesignSpecificationOutdoorAir(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {u'type': u'alpha', u'reference': u'DesignSpecificationOutdoorAirNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -105,7 +107,7 @@ class DesignSpecificationOutdoorAir(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -114,7 +116,6 @@ class DesignSpecificationOutdoorAir(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -128,14 +129,16 @@ class DesignSpecificationOutdoorAir(object):
 
     @outdoor_air_method.setter
     def outdoor_air_method(self, value="Flow/Person"):
-        """  Corresponds to IDD Field `outdoor_air_method`
+        """  Corresponds to IDD Field `Outdoor Air Method`
         Flow/Person => Outdoor Air Flow per Person * Occupancy = Design Flow Rate,
         Flow/Area => Outdoor Air Flow per Zone Floor Area * Zone Floor Area = Design Flow Rate,
         Flow/Zone => Outdoor Air Flow per Zone = Design Flow Rate,
         AirChanges/Hour => Outdoor Air Flow Air Changes per Hour * Zone Volume adjusted for m3/s = Design Flow Rate
+        
+        {u'default': u'Flow/Person', u'note': [u'Flow/Person => Outdoor Air Flow per Person * Occupancy = Design Flow Rate,', u'Flow/Area => Outdoor Air Flow per Zone Floor Area * Zone Floor Area = Design Flow Rate,', u'Flow/Zone => Outdoor Air Flow per Zone = Design Flow Rate,', u'AirChanges/Hour => Outdoor Air Flow Air Changes per Hour * Zone Volume adjusted for m3/s = Design Flow Rate'], u'type': u'choice', u'key': [u'Flow/Person', u'Flow/Area', u'Flow/Zone', u'AirChanges/Hour', u'Sum', u'Maximum'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `outdoor_air_method`
+            value (str): value for IDD Field `Outdoor Air Method`
                 Accepted values are:
                       - Flow/Person
                       - Flow/Area
@@ -153,7 +156,7 @@ class DesignSpecificationOutdoorAir(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `outdoor_air_method`'.format(value))
             if ',' in value:
@@ -183,7 +186,6 @@ class DesignSpecificationOutdoorAir(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `outdoor_air_method`'.format(value))
             value = vals[value_lower]
-
         self._data["Outdoor Air Method"] = value
 
     @property
@@ -197,13 +199,15 @@ class DesignSpecificationOutdoorAir(object):
 
     @outdoor_air_flow_per_person.setter
     def outdoor_air_flow_per_person(self, value=0.00944 ):
-        """  Corresponds to IDD Field `outdoor_air_flow_per_person`
+        """  Corresponds to IDD Field `Outdoor Air Flow per Person`
         0.00944 m3/s is equivalent to 20 cfm per person
         This input should be used if the field Outdoor Air Method is Flow/Person.
         This input is used if the field Outdoor Air Method is Flow/Person, Sum, or Maximum
+        
+        {'pytype': 'float', u'default': '0.00944', u'note': [u'0.00944 m3/s is equivalent to 20 cfm per person', u'This input should be used if the field Outdoor Air Method is Flow/Person.', u'This input is used if the field Outdoor Air Method is Flow/Person, Sum, or Maximum'], u'minimum': '0.0', u'units': u'm3/s-person', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `outdoor_air_flow_per_person`
+            value (float): value for IDD Field `Outdoor Air Flow per Person`
                 Units: m3/s-person
                 Default value: 0.00944
                 value >= 0.0
@@ -216,13 +220,12 @@ class DesignSpecificationOutdoorAir(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `outdoor_air_flow_per_person`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `outdoor_air_flow_per_person`')
-
         self._data["Outdoor Air Flow per Person"] = value
 
     @property
@@ -236,12 +239,14 @@ class DesignSpecificationOutdoorAir(object):
 
     @outdoor_air_flow_per_zone_floor_area.setter
     def outdoor_air_flow_per_zone_floor_area(self, value=0.0 ):
-        """  Corresponds to IDD Field `outdoor_air_flow_per_zone_floor_area`
+        """  Corresponds to IDD Field `Outdoor Air Flow per Zone Floor Area`
         This input should be used if the field Outdoor Air Method is Flow/Area.
         This input is used if the field Outdoor Air Method is Flow/Area, Sum, or Maximum
+        
+        {'pytype': 'float', u'default': '0.0', u'note': [u'This input should be used if the field Outdoor Air Method is Flow/Area.', u'This input is used if the field Outdoor Air Method is Flow/Area, Sum, or Maximum'], u'minimum': '0.0', u'units': u'm3/s-m2', 'type': 'real'}
 
         Args:
-            value (float): value for IDD Field `outdoor_air_flow_per_zone_floor_area`
+            value (float): value for IDD Field `Outdoor Air Flow per Zone Floor Area`
                 Units: m3/s-m2
                 Default value: 0.0
                 value >= 0.0
@@ -254,13 +259,12 @@ class DesignSpecificationOutdoorAir(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `outdoor_air_flow_per_zone_floor_area`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `outdoor_air_flow_per_zone_floor_area`')
-
         self._data["Outdoor Air Flow per Zone Floor Area"] = value
 
     @property
@@ -274,12 +278,14 @@ class DesignSpecificationOutdoorAir(object):
 
     @outdoor_air_flow_per_zone.setter
     def outdoor_air_flow_per_zone(self, value=0.0 ):
-        """  Corresponds to IDD Field `outdoor_air_flow_per_zone`
+        """  Corresponds to IDD Field `Outdoor Air Flow per Zone`
         This input should be used if the field Outdoor Air Method is Flow/Zone.
         This input is used if the field Outdoor Air Method is Flow/Zone, Sum, or Maximum
+        
+        {'pytype': 'float', u'default': '0.0', u'note': [u'This input should be used if the field Outdoor Air Method is Flow/Zone.', u'This input is used if the field Outdoor Air Method is Flow/Zone, Sum, or Maximum'], u'minimum': '0.0', u'units': u'm3/s', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `outdoor_air_flow_per_zone`
+            value (float): value for IDD Field `Outdoor Air Flow per Zone`
                 Units: m3/s
                 Default value: 0.0
                 value >= 0.0
@@ -292,13 +298,12 @@ class DesignSpecificationOutdoorAir(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `outdoor_air_flow_per_zone`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `outdoor_air_flow_per_zone`')
-
         self._data["Outdoor Air Flow per Zone"] = value
 
     @property
@@ -312,12 +317,14 @@ class DesignSpecificationOutdoorAir(object):
 
     @outdoor_air_flow_air_changes_per_hour.setter
     def outdoor_air_flow_air_changes_per_hour(self, value=0.0 ):
-        """  Corresponds to IDD Field `outdoor_air_flow_air_changes_per_hour`
+        """  Corresponds to IDD Field `Outdoor Air Flow Air Changes per Hour`
         This input should be used if the field Outdoor Air Method is AirChanges/Hour.
         This input is used if the field Outdoor Air Method is AirChanges/Hour, Sum, or Maximum
+        
+        {'pytype': 'float', u'default': '0.0', u'note': [u'This input should be used if the field Outdoor Air Method is AirChanges/Hour.', u'This input is used if the field Outdoor Air Method is AirChanges/Hour, Sum, or Maximum'], u'minimum': '0.0', u'units': u'1/hr', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `outdoor_air_flow_air_changes_per_hour`
+            value (float): value for IDD Field `Outdoor Air Flow Air Changes per Hour`
                 Units: 1/hr
                 Default value: 0.0
                 value >= 0.0
@@ -330,13 +337,12 @@ class DesignSpecificationOutdoorAir(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `outdoor_air_flow_air_changes_per_hour`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `outdoor_air_flow_air_changes_per_hour`')
-
         self._data["Outdoor Air Flow Air Changes per Hour"] = value
 
     @property
@@ -350,12 +356,14 @@ class DesignSpecificationOutdoorAir(object):
 
     @outdoor_air_flow_rate_fraction_schedule_name.setter
     def outdoor_air_flow_rate_fraction_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `outdoor_air_flow_rate_fraction_schedule_name`
+        """  Corresponds to IDD Field `Outdoor Air Flow Rate Fraction Schedule Name`
         Schedule values are multiplied by the Outdoor Air Flow rate calculated using
         the previous four inputs. Schedule values are limited to 0 to 1.
+        
+        {u'note': [u'Schedule values are multiplied by the Outdoor Air Flow rate calculated using', u'the previous four inputs. Schedule values are limited to 0 to 1.'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `outdoor_air_flow_rate_fraction_schedule_name`
+            value (str): value for IDD Field `Outdoor Air Flow Rate Fraction Schedule Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -365,7 +373,7 @@ class DesignSpecificationOutdoorAir(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `outdoor_air_flow_rate_fraction_schedule_name`'.format(value))
             if ',' in value:
@@ -374,7 +382,6 @@ class DesignSpecificationOutdoorAir(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `outdoor_air_flow_rate_fraction_schedule_name`')
-
         self._data["Outdoor Air Flow Rate Fraction Schedule Name"] = value
 
     def check(self):
@@ -488,10 +495,12 @@ class DesignSpecificationZoneAirDistribution(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {u'type': u'alpha', u'reference': u'DesignSpecificationZoneAirDistributionNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -501,7 +510,7 @@ class DesignSpecificationZoneAirDistribution(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -510,7 +519,6 @@ class DesignSpecificationZoneAirDistribution(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -524,10 +532,12 @@ class DesignSpecificationZoneAirDistribution(object):
 
     @zone_air_distribution_effectiveness_in_cooling_mode.setter
     def zone_air_distribution_effectiveness_in_cooling_mode(self, value=1.0 ):
-        """  Corresponds to IDD Field `zone_air_distribution_effectiveness_in_cooling_mode`
+        """  Corresponds to IDD Field `Zone Air Distribution Effectiveness in Cooling Mode`
+        
+        {u'default': '1.0', u'units': u'dimensionless', u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `zone_air_distribution_effectiveness_in_cooling_mode`
+            value (float): value for IDD Field `Zone Air Distribution Effectiveness in Cooling Mode`
                 Units: dimensionless
                 Default value: 1.0
                 value > 0.0
@@ -540,13 +550,12 @@ class DesignSpecificationZoneAirDistribution(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `zone_air_distribution_effectiveness_in_cooling_mode`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `zone_air_distribution_effectiveness_in_cooling_mode`')
-
         self._data["Zone Air Distribution Effectiveness in Cooling Mode"] = value
 
     @property
@@ -560,10 +569,12 @@ class DesignSpecificationZoneAirDistribution(object):
 
     @zone_air_distribution_effectiveness_in_heating_mode.setter
     def zone_air_distribution_effectiveness_in_heating_mode(self, value=1.0 ):
-        """  Corresponds to IDD Field `zone_air_distribution_effectiveness_in_heating_mode`
+        """  Corresponds to IDD Field `Zone Air Distribution Effectiveness in Heating Mode`
+        
+        {u'default': '1.0', u'units': u'dimensionless', u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `zone_air_distribution_effectiveness_in_heating_mode`
+            value (float): value for IDD Field `Zone Air Distribution Effectiveness in Heating Mode`
                 Units: dimensionless
                 Default value: 1.0
                 value > 0.0
@@ -576,13 +587,12 @@ class DesignSpecificationZoneAirDistribution(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `zone_air_distribution_effectiveness_in_heating_mode`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `zone_air_distribution_effectiveness_in_heating_mode`')
-
         self._data["Zone Air Distribution Effectiveness in Heating Mode"] = value
 
     @property
@@ -596,12 +606,14 @@ class DesignSpecificationZoneAirDistribution(object):
 
     @zone_air_distribution_effectiveness_schedule_name.setter
     def zone_air_distribution_effectiveness_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `zone_air_distribution_effectiveness_schedule_name`
+        """  Corresponds to IDD Field `Zone Air Distribution Effectiveness Schedule Name`
         optionally used to replace Zone Air Distribution Effectiveness in Cooling and
         Heating Mode
+        
+        {u'note': [u'optionally used to replace Zone Air Distribution Effectiveness in Cooling and', u'Heating Mode'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `zone_air_distribution_effectiveness_schedule_name`
+            value (str): value for IDD Field `Zone Air Distribution Effectiveness Schedule Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -611,7 +623,7 @@ class DesignSpecificationZoneAirDistribution(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `zone_air_distribution_effectiveness_schedule_name`'.format(value))
             if ',' in value:
@@ -620,7 +632,6 @@ class DesignSpecificationZoneAirDistribution(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `zone_air_distribution_effectiveness_schedule_name`')
-
         self._data["Zone Air Distribution Effectiveness Schedule Name"] = value
 
     @property
@@ -634,10 +645,12 @@ class DesignSpecificationZoneAirDistribution(object):
 
     @zone_secondary_recirculation_fraction.setter
     def zone_secondary_recirculation_fraction(self, value=0.0 ):
-        """  Corresponds to IDD Field `zone_secondary_recirculation_fraction`
+        """  Corresponds to IDD Field `Zone Secondary Recirculation Fraction`
+        
+        {u'default': '0.0', u'units': u'dimensionless', u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `zone_secondary_recirculation_fraction`
+            value (float): value for IDD Field `Zone Secondary Recirculation Fraction`
                 Units: dimensionless
                 Default value: 0.0
                 value >= 0.0
@@ -650,13 +663,12 @@ class DesignSpecificationZoneAirDistribution(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `zone_secondary_recirculation_fraction`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `zone_secondary_recirculation_fraction`')
-
         self._data["Zone Secondary Recirculation Fraction"] = value
 
     def check(self):
@@ -757,10 +769,12 @@ class SizingParameters(object):
 
     @heating_sizing_factor.setter
     def heating_sizing_factor(self, value=1.0 ):
-        """  Corresponds to IDD Field `heating_sizing_factor`
+        """  Corresponds to IDD Field `Heating Sizing Factor`
+        
+        {u'default': '1.0', u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `heating_sizing_factor`
+            value (float): value for IDD Field `Heating Sizing Factor`
                 Default value: 1.0
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -772,13 +786,12 @@ class SizingParameters(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `heating_sizing_factor`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `heating_sizing_factor`')
-
         self._data["Heating Sizing Factor"] = value
 
     @property
@@ -792,10 +805,12 @@ class SizingParameters(object):
 
     @cooling_sizing_factor.setter
     def cooling_sizing_factor(self, value=1.0 ):
-        """  Corresponds to IDD Field `cooling_sizing_factor`
+        """  Corresponds to IDD Field `Cooling Sizing Factor`
+        
+        {u'default': '1.0', u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `cooling_sizing_factor`
+            value (float): value for IDD Field `Cooling Sizing Factor`
                 Default value: 1.0
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -807,13 +822,12 @@ class SizingParameters(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `cooling_sizing_factor`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `cooling_sizing_factor`')
-
         self._data["Cooling Sizing Factor"] = value
 
     @property
@@ -827,13 +841,15 @@ class SizingParameters(object):
 
     @timesteps_in_averaging_window.setter
     def timesteps_in_averaging_window(self, value=None):
-        """  Corresponds to IDD Field `timesteps_in_averaging_window`
+        """  Corresponds to IDD Field `Timesteps in Averaging Window`
         blank => set the timesteps in averaging window to
         Number of Timesteps per Hour resulting in a 1 hour averaging window
         default is number of timesteps for 1 hour averaging window
+        
+        {u'note': [u'blank => set the timesteps in averaging window to', u'Number of Timesteps per Hour resulting in a 1 hour averaging window', u'default is number of timesteps for 1 hour averaging window'], u'minimum': '1', u'type': u'integer', 'pytype': 'int'}
 
         Args:
-            value (int): value for IDD Field `timesteps_in_averaging_window`
+            value (int): value for IDD Field `Timesteps in Averaging Window`
                 value >= 1
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -844,13 +860,12 @@ class SizingParameters(object):
         if value is not None:
             try:
                 value = int(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type int '
                                  'for field `timesteps_in_averaging_window`'.format(value))
             if value < 1:
                 raise ValueError('value need to be greater or equal 1 '
                                  'for field `timesteps_in_averaging_window`')
-
         self._data["Timesteps in Averaging Window"] = value
 
     def check(self):
@@ -1109,10 +1124,12 @@ class SizingZone(object):
 
     @zone_or_zonelist_name.setter
     def zone_or_zonelist_name(self, value=None):
-        """  Corresponds to IDD Field `zone_or_zonelist_name`
+        """  Corresponds to IDD Field `Zone or ZoneList Name`
+        
+        {u'type': u'object-list', u'object-list': u'ZoneAndZoneListNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `zone_or_zonelist_name`
+            value (str): value for IDD Field `Zone or ZoneList Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1122,7 +1139,7 @@ class SizingZone(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `zone_or_zonelist_name`'.format(value))
             if ',' in value:
@@ -1131,7 +1148,6 @@ class SizingZone(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `zone_or_zonelist_name`')
-
         self._data["Zone or ZoneList Name"] = value
 
     @property
@@ -1145,10 +1161,12 @@ class SizingZone(object):
 
     @zone_cooling_design_supply_air_temperature_input_method.setter
     def zone_cooling_design_supply_air_temperature_input_method(self, value="SupplyAirTemperature"):
-        """  Corresponds to IDD Field `zone_cooling_design_supply_air_temperature_input_method`
+        """  Corresponds to IDD Field `Zone Cooling Design Supply Air Temperature Input Method`
+        
+        {u'default': u'SupplyAirTemperature', u'type': u'choice', u'key': [u'SupplyAirTemperature', u'TemperatureDifference'], u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `zone_cooling_design_supply_air_temperature_input_method`
+            value (str): value for IDD Field `Zone Cooling Design Supply Air Temperature Input Method`
                 Accepted values are:
                       - SupplyAirTemperature
                       - TemperatureDifference
@@ -1162,7 +1180,7 @@ class SizingZone(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `zone_cooling_design_supply_air_temperature_input_method`'.format(value))
             if ',' in value:
@@ -1188,7 +1206,6 @@ class SizingZone(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `zone_cooling_design_supply_air_temperature_input_method`'.format(value))
             value = vals[value_lower]
-
         self._data["Zone Cooling Design Supply Air Temperature Input Method"] = value
 
     @property
@@ -1202,12 +1219,14 @@ class SizingZone(object):
 
     @zone_cooling_design_supply_air_temperature.setter
     def zone_cooling_design_supply_air_temperature(self, value=None):
-        """  Corresponds to IDD Field `zone_cooling_design_supply_air_temperature`
+        """  Corresponds to IDD Field `Zone Cooling Design Supply Air Temperature`
         Zone Cooling Design Supply Air Temperature is only used when Zone Cooling Design
         Supply Air Temperature Input Method = SupplyAirTemperature
+        
+        {u'units': u'C', u'note': [u'Zone Cooling Design Supply Air Temperature is only used when Zone Cooling Design', u'Supply Air Temperature Input Method = SupplyAirTemperature'], u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `zone_cooling_design_supply_air_temperature`
+            value (float): value for IDD Field `Zone Cooling Design Supply Air Temperature`
                 Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1218,10 +1237,9 @@ class SizingZone(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `zone_cooling_design_supply_air_temperature`'.format(value))
-
         self._data["Zone Cooling Design Supply Air Temperature"] = value
 
     @property
@@ -1235,14 +1253,16 @@ class SizingZone(object):
 
     @zone_cooling_design_supply_air_temperature_difference.setter
     def zone_cooling_design_supply_air_temperature_difference(self, value=None):
-        """  Corresponds to IDD Field `zone_cooling_design_supply_air_temperature_difference`
+        """  Corresponds to IDD Field `Zone Cooling Design Supply Air Temperature Difference`
         Zone Cooling Design Supply Air Temperature is only used when Zone Cooling Design
         Supply Air Temperature Input Method = TemperatureDifference
         The absolute value of this field will be subtracted from the zone temperature
         at peak load to calculate the Zone Cooling Design Supply Air Temperature.
+        
+        {u'units': u'deltaC', u'note': [u'Zone Cooling Design Supply Air Temperature is only used when Zone Cooling Design', u'Supply Air Temperature Input Method = TemperatureDifference', u'The absolute value of this field will be subtracted from the zone temperature', u'at peak load to calculate the Zone Cooling Design Supply Air Temperature.'], u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `zone_cooling_design_supply_air_temperature_difference`
+            value (float): value for IDD Field `Zone Cooling Design Supply Air Temperature Difference`
                 Units: deltaC
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1253,10 +1273,9 @@ class SizingZone(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `zone_cooling_design_supply_air_temperature_difference`'.format(value))
-
         self._data["Zone Cooling Design Supply Air Temperature Difference"] = value
 
     @property
@@ -1270,10 +1289,12 @@ class SizingZone(object):
 
     @zone_heating_design_supply_air_temperature_input_method.setter
     def zone_heating_design_supply_air_temperature_input_method(self, value="SupplyAirTemperature"):
-        """  Corresponds to IDD Field `zone_heating_design_supply_air_temperature_input_method`
+        """  Corresponds to IDD Field `Zone Heating Design Supply Air Temperature Input Method`
+        
+        {u'default': u'SupplyAirTemperature', u'type': u'choice', u'key': [u'SupplyAirTemperature', u'TemperatureDifference'], u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `zone_heating_design_supply_air_temperature_input_method`
+            value (str): value for IDD Field `Zone Heating Design Supply Air Temperature Input Method`
                 Accepted values are:
                       - SupplyAirTemperature
                       - TemperatureDifference
@@ -1287,7 +1308,7 @@ class SizingZone(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `zone_heating_design_supply_air_temperature_input_method`'.format(value))
             if ',' in value:
@@ -1313,7 +1334,6 @@ class SizingZone(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `zone_heating_design_supply_air_temperature_input_method`'.format(value))
             value = vals[value_lower]
-
         self._data["Zone Heating Design Supply Air Temperature Input Method"] = value
 
     @property
@@ -1327,12 +1347,14 @@ class SizingZone(object):
 
     @zone_heating_design_supply_air_temperature.setter
     def zone_heating_design_supply_air_temperature(self, value=None):
-        """  Corresponds to IDD Field `zone_heating_design_supply_air_temperature`
+        """  Corresponds to IDD Field `Zone Heating Design Supply Air Temperature`
         Zone Heating Design Supply Air Temperature is only used when Zone Heating Design
         Supply Air Temperature Input Method = SupplyAirTemperature
+        
+        {u'units': u'C', u'note': [u'Zone Heating Design Supply Air Temperature is only used when Zone Heating Design', u'Supply Air Temperature Input Method = SupplyAirTemperature'], u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `zone_heating_design_supply_air_temperature`
+            value (float): value for IDD Field `Zone Heating Design Supply Air Temperature`
                 Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1343,10 +1365,9 @@ class SizingZone(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `zone_heating_design_supply_air_temperature`'.format(value))
-
         self._data["Zone Heating Design Supply Air Temperature"] = value
 
     @property
@@ -1360,14 +1381,16 @@ class SizingZone(object):
 
     @zone_heating_design_supply_air_temperature_difference.setter
     def zone_heating_design_supply_air_temperature_difference(self, value=None):
-        """  Corresponds to IDD Field `zone_heating_design_supply_air_temperature_difference`
+        """  Corresponds to IDD Field `Zone Heating Design Supply Air Temperature Difference`
         Zone Heating Design Supply Air Temperature is only used when Zone Heating Design
         Supply Air Temperature Input Method = TemperatureDifference
         The absolute value of this field will be added to the zone temperature
         at peak load to calculate the Zone Heating Design Supply Air Temperature.
+        
+        {u'units': u'deltaC', u'note': [u'Zone Heating Design Supply Air Temperature is only used when Zone Heating Design', u'Supply Air Temperature Input Method = TemperatureDifference', u'The absolute value of this field will be added to the zone temperature', u'at peak load to calculate the Zone Heating Design Supply Air Temperature.'], u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `zone_heating_design_supply_air_temperature_difference`
+            value (float): value for IDD Field `Zone Heating Design Supply Air Temperature Difference`
                 Units: deltaC
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1378,10 +1401,9 @@ class SizingZone(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `zone_heating_design_supply_air_temperature_difference`'.format(value))
-
         self._data["Zone Heating Design Supply Air Temperature Difference"] = value
 
     @property
@@ -1395,10 +1417,12 @@ class SizingZone(object):
 
     @zone_cooling_design_supply_air_humidity_ratio.setter
     def zone_cooling_design_supply_air_humidity_ratio(self, value=None):
-        """  Corresponds to IDD Field `zone_cooling_design_supply_air_humidity_ratio`
+        """  Corresponds to IDD Field `Zone Cooling Design Supply Air Humidity Ratio`
+        
+        {u'units': u'kgWater/kgDryAir', u'minimum': '0.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `zone_cooling_design_supply_air_humidity_ratio`
+            value (float): value for IDD Field `Zone Cooling Design Supply Air Humidity Ratio`
                 Units: kgWater/kgDryAir
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -1410,13 +1434,12 @@ class SizingZone(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `zone_cooling_design_supply_air_humidity_ratio`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `zone_cooling_design_supply_air_humidity_ratio`')
-
         self._data["Zone Cooling Design Supply Air Humidity Ratio"] = value
 
     @property
@@ -1430,10 +1453,12 @@ class SizingZone(object):
 
     @zone_heating_design_supply_air_humidity_ratio.setter
     def zone_heating_design_supply_air_humidity_ratio(self, value=None):
-        """  Corresponds to IDD Field `zone_heating_design_supply_air_humidity_ratio`
+        """  Corresponds to IDD Field `Zone Heating Design Supply Air Humidity Ratio`
+        
+        {u'units': u'kgWater/kgDryAir', u'minimum': '0.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `zone_heating_design_supply_air_humidity_ratio`
+            value (float): value for IDD Field `Zone Heating Design Supply Air Humidity Ratio`
                 Units: kgWater/kgDryAir
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -1445,13 +1470,12 @@ class SizingZone(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `zone_heating_design_supply_air_humidity_ratio`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `zone_heating_design_supply_air_humidity_ratio`')
-
         self._data["Zone Heating Design Supply Air Humidity Ratio"] = value
 
     @property
@@ -1465,10 +1489,12 @@ class SizingZone(object):
 
     @design_specification_outdoor_air_object_name.setter
     def design_specification_outdoor_air_object_name(self, value=None):
-        """  Corresponds to IDD Field `design_specification_outdoor_air_object_name`
+        """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name`
+        
+        {u'type': u'object-list', u'object-list': u'DesignSpecificationOutdoorAirNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `design_specification_outdoor_air_object_name`
+            value (str): value for IDD Field `Design Specification Outdoor Air Object Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1478,7 +1504,7 @@ class SizingZone(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `design_specification_outdoor_air_object_name`'.format(value))
             if ',' in value:
@@ -1487,7 +1513,6 @@ class SizingZone(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `design_specification_outdoor_air_object_name`')
-
         self._data["Design Specification Outdoor Air Object Name"] = value
 
     @property
@@ -1501,11 +1526,13 @@ class SizingZone(object):
 
     @zone_heating_sizing_factor.setter
     def zone_heating_sizing_factor(self, value=None):
-        """  Corresponds to IDD Field `zone_heating_sizing_factor`
+        """  Corresponds to IDD Field `Zone Heating Sizing Factor`
         if blank or zero, global heating sizing factor from Sizing:Parameters is used.
+        
+        {u'note': [u'if blank or zero, global heating sizing factor from Sizing:Parameters is used.'], u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `zone_heating_sizing_factor`
+            value (float): value for IDD Field `Zone Heating Sizing Factor`
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1516,13 +1543,12 @@ class SizingZone(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `zone_heating_sizing_factor`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `zone_heating_sizing_factor`')
-
         self._data["Zone Heating Sizing Factor"] = value
 
     @property
@@ -1536,11 +1562,13 @@ class SizingZone(object):
 
     @zone_cooling_sizing_factor.setter
     def zone_cooling_sizing_factor(self, value=None):
-        """  Corresponds to IDD Field `zone_cooling_sizing_factor`
+        """  Corresponds to IDD Field `Zone Cooling Sizing Factor`
         if blank or zero, global cooling sizing factor from Sizing:Parameters is used.
+        
+        {u'note': [u'if blank or zero, global cooling sizing factor from Sizing:Parameters is used.'], u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `zone_cooling_sizing_factor`
+            value (float): value for IDD Field `Zone Cooling Sizing Factor`
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1551,13 +1579,12 @@ class SizingZone(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `zone_cooling_sizing_factor`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `zone_cooling_sizing_factor`')
-
         self._data["Zone Cooling Sizing Factor"] = value
 
     @property
@@ -1571,10 +1598,12 @@ class SizingZone(object):
 
     @cooling_design_air_flow_method.setter
     def cooling_design_air_flow_method(self, value="DesignDay"):
-        """  Corresponds to IDD Field `cooling_design_air_flow_method`
+        """  Corresponds to IDD Field `Cooling Design Air Flow Method`
+        
+        {u'default': u'DesignDay', u'type': u'choice', u'key': [u'Flow/Zone', u'DesignDay', u'DesignDayWithLimit'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `cooling_design_air_flow_method`
+            value (str): value for IDD Field `Cooling Design Air Flow Method`
                 Accepted values are:
                       - Flow/Zone
                       - DesignDay
@@ -1589,7 +1618,7 @@ class SizingZone(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `cooling_design_air_flow_method`'.format(value))
             if ',' in value:
@@ -1616,7 +1645,6 @@ class SizingZone(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `cooling_design_air_flow_method`'.format(value))
             value = vals[value_lower]
-
         self._data["Cooling Design Air Flow Method"] = value
 
     @property
@@ -1630,13 +1658,15 @@ class SizingZone(object):
 
     @cooling_design_air_flow_rate.setter
     def cooling_design_air_flow_rate(self, value=0.0 ):
-        """  Corresponds to IDD Field `cooling_design_air_flow_rate`
+        """  Corresponds to IDD Field `Cooling Design Air Flow Rate`
         This input is used if Cooling Design Air Flow Method is Flow/Zone
         This value will be multiplied by the global or zone sizing factor and
         by zone multipliers.
+        
+        {'pytype': 'float', u'default': '0.0', u'note': [u'This input is used if Cooling Design Air Flow Method is Flow/Zone', u'This value will be multiplied by the global or zone sizing factor and', u'by zone multipliers.'], u'minimum': '0.0', u'units': u'm3/s', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `cooling_design_air_flow_rate`
+            value (float): value for IDD Field `Cooling Design Air Flow Rate`
                 Units: m3/s
                 Default value: 0.0
                 value >= 0.0
@@ -1649,13 +1679,12 @@ class SizingZone(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `cooling_design_air_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `cooling_design_air_flow_rate`')
-
         self._data["Cooling Design Air Flow Rate"] = value
 
     @property
@@ -1669,12 +1698,14 @@ class SizingZone(object):
 
     @cooling_minimum_air_flow_per_zone_floor_area.setter
     def cooling_minimum_air_flow_per_zone_floor_area(self, value=0.000762 ):
-        """  Corresponds to IDD Field `cooling_minimum_air_flow_per_zone_floor_area`
+        """  Corresponds to IDD Field `Cooling Minimum Air Flow per Zone Floor Area`
         default is .15 cfm/ft2
         This input is used if Cooling Design Air Flow Method is DesignDayWithLimit
+        
+        {'pytype': 'float', u'default': '0.000762', u'note': [u'default is .15 cfm/ft2', u'This input is used if Cooling Design Air Flow Method is DesignDayWithLimit'], u'minimum': '0.0', u'units': u'm3/s-m2', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `cooling_minimum_air_flow_per_zone_floor_area`
+            value (float): value for IDD Field `Cooling Minimum Air Flow per Zone Floor Area`
                 Units: m3/s-m2
                 Default value: 0.000762
                 value >= 0.0
@@ -1687,13 +1718,12 @@ class SizingZone(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `cooling_minimum_air_flow_per_zone_floor_area`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `cooling_minimum_air_flow_per_zone_floor_area`')
-
         self._data["Cooling Minimum Air Flow per Zone Floor Area"] = value
 
     @property
@@ -1707,11 +1737,13 @@ class SizingZone(object):
 
     @cooling_minimum_air_flow.setter
     def cooling_minimum_air_flow(self, value=0.0 ):
-        """  Corresponds to IDD Field `cooling_minimum_air_flow`
+        """  Corresponds to IDD Field `Cooling Minimum Air Flow`
         This input is used if Cooling Design Air Flow Method is DesignDayWithLimit
+        
+        {'pytype': 'float', u'default': '0.0', u'note': [u'This input is used if Cooling Design Air Flow Method is DesignDayWithLimit'], u'minimum': '0.0', u'units': u'm3/s', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `cooling_minimum_air_flow`
+            value (float): value for IDD Field `Cooling Minimum Air Flow`
                 Units: m3/s
                 Default value: 0.0
                 value >= 0.0
@@ -1724,13 +1756,12 @@ class SizingZone(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `cooling_minimum_air_flow`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `cooling_minimum_air_flow`')
-
         self._data["Cooling Minimum Air Flow"] = value
 
     @property
@@ -1744,13 +1775,15 @@ class SizingZone(object):
 
     @cooling_minimum_air_flow_fraction.setter
     def cooling_minimum_air_flow_fraction(self, value=0.0 ):
-        """  Corresponds to IDD Field `cooling_minimum_air_flow_fraction`
+        """  Corresponds to IDD Field `Cooling Minimum Air Flow Fraction`
         fraction of the Cooling design Air Flow Rate
         This input is currently used in sizing the Fan minimum Flow Rate.
         It does not currently affect other component autosizing.
+        
+        {u'note': [u'fraction of the Cooling design Air Flow Rate', u'This input is currently used in sizing the Fan minimum Flow Rate.', u'It does not currently affect other component autosizing.'], u'default': '0.0', u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `cooling_minimum_air_flow_fraction`
+            value (float): value for IDD Field `Cooling Minimum Air Flow Fraction`
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -1762,13 +1795,12 @@ class SizingZone(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `cooling_minimum_air_flow_fraction`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `cooling_minimum_air_flow_fraction`')
-
         self._data["Cooling Minimum Air Flow Fraction"] = value
 
     @property
@@ -1782,10 +1814,12 @@ class SizingZone(object):
 
     @heating_design_air_flow_method.setter
     def heating_design_air_flow_method(self, value="DesignDay"):
-        """  Corresponds to IDD Field `heating_design_air_flow_method`
+        """  Corresponds to IDD Field `Heating Design Air Flow Method`
+        
+        {u'default': u'DesignDay', u'type': u'choice', u'key': [u'Flow/Zone', u'DesignDay', u'DesignDayWithLimit'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `heating_design_air_flow_method`
+            value (str): value for IDD Field `Heating Design Air Flow Method`
                 Accepted values are:
                       - Flow/Zone
                       - DesignDay
@@ -1800,7 +1834,7 @@ class SizingZone(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `heating_design_air_flow_method`'.format(value))
             if ',' in value:
@@ -1827,7 +1861,6 @@ class SizingZone(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `heating_design_air_flow_method`'.format(value))
             value = vals[value_lower]
-
         self._data["Heating Design Air Flow Method"] = value
 
     @property
@@ -1841,13 +1874,15 @@ class SizingZone(object):
 
     @heating_design_air_flow_rate.setter
     def heating_design_air_flow_rate(self, value=0.0 ):
-        """  Corresponds to IDD Field `heating_design_air_flow_rate`
+        """  Corresponds to IDD Field `Heating Design Air Flow Rate`
         This input is used if Heating Design Air Flow Method is Flow/Zone.
         This value will be multiplied by the global or zone sizing factor and
         by zone multipliers.
+        
+        {'pytype': 'float', u'default': '0.0', u'note': [u'This input is used if Heating Design Air Flow Method is Flow/Zone.', u'This value will be multiplied by the global or zone sizing factor and', u'by zone multipliers.'], u'minimum': '0.0', u'units': u'm3/s', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `heating_design_air_flow_rate`
+            value (float): value for IDD Field `Heating Design Air Flow Rate`
                 Units: m3/s
                 Default value: 0.0
                 value >= 0.0
@@ -1860,13 +1895,12 @@ class SizingZone(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `heating_design_air_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `heating_design_air_flow_rate`')
-
         self._data["Heating Design Air Flow Rate"] = value
 
     @property
@@ -1880,13 +1914,15 @@ class SizingZone(object):
 
     @heating_maximum_air_flow_per_zone_floor_area.setter
     def heating_maximum_air_flow_per_zone_floor_area(self, value=0.002032 ):
-        """  Corresponds to IDD Field `heating_maximum_air_flow_per_zone_floor_area`
+        """  Corresponds to IDD Field `Heating Maximum Air Flow per Zone Floor Area`
         default is .40 cfm/ft2
         This field is used to size the heating design flow rate when Heating Design Air Flow Method = Flow/Zone.
         This input is used for autosizing components when Heating Design Air Flow Method = DesignDayWithLimit.
+        
+        {'pytype': 'float', u'default': '0.002032', u'note': [u'default is .40 cfm/ft2', u'This field is used to size the heating design flow rate when Heating Design Air Flow Method = Flow/Zone.', u'This input is used for autosizing components when Heating Design Air Flow Method = DesignDayWithLimit.'], u'minimum': '0.0', u'units': u'm3/s-m2', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `heating_maximum_air_flow_per_zone_floor_area`
+            value (float): value for IDD Field `Heating Maximum Air Flow per Zone Floor Area`
                 Units: m3/s-m2
                 Default value: 0.002032
                 value >= 0.0
@@ -1899,13 +1935,12 @@ class SizingZone(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `heating_maximum_air_flow_per_zone_floor_area`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `heating_maximum_air_flow_per_zone_floor_area`')
-
         self._data["Heating Maximum Air Flow per Zone Floor Area"] = value
 
     @property
@@ -1919,12 +1954,14 @@ class SizingZone(object):
 
     @heating_maximum_air_flow.setter
     def heating_maximum_air_flow(self, value=0.1415762 ):
-        """  Corresponds to IDD Field `heating_maximum_air_flow`
+        """  Corresponds to IDD Field `Heating Maximum Air Flow`
         default is 300 cfm
         This input is used for autosizing components when Heating Design Air Flow Method = DesignDayWithLimit.
+        
+        {'pytype': 'float', u'default': '0.1415762', u'note': [u'default is 300 cfm', u'This input is used for autosizing components when Heating Design Air Flow Method = DesignDayWithLimit.'], u'minimum': '0.0', u'units': u'm3/s', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `heating_maximum_air_flow`
+            value (float): value for IDD Field `Heating Maximum Air Flow`
                 Units: m3/s
                 Default value: 0.1415762
                 value >= 0.0
@@ -1937,13 +1974,12 @@ class SizingZone(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `heating_maximum_air_flow`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `heating_maximum_air_flow`')
-
         self._data["Heating Maximum Air Flow"] = value
 
     @property
@@ -1957,12 +1993,14 @@ class SizingZone(object):
 
     @heating_maximum_air_flow_fraction.setter
     def heating_maximum_air_flow_fraction(self, value=0.3 ):
-        """  Corresponds to IDD Field `heating_maximum_air_flow_fraction`
+        """  Corresponds to IDD Field `Heating Maximum Air Flow Fraction`
         fraction of the Heating Design Air Flow Rate
         This input is used for autosizing components when Heating Design Air Flow Method = DesignDayWithLimit.
+        
+        {u'note': [u'fraction of the Heating Design Air Flow Rate', u'This input is used for autosizing components when Heating Design Air Flow Method = DesignDayWithLimit.'], u'default': '0.3', u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `heating_maximum_air_flow_fraction`
+            value (float): value for IDD Field `Heating Maximum Air Flow Fraction`
                 Default value: 0.3
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -1974,13 +2012,12 @@ class SizingZone(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `heating_maximum_air_flow_fraction`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `heating_maximum_air_flow_fraction`')
-
         self._data["Heating Maximum Air Flow Fraction"] = value
 
     @property
@@ -1994,10 +2031,12 @@ class SizingZone(object):
 
     @design_specification_zone_air_distribution_object_name.setter
     def design_specification_zone_air_distribution_object_name(self, value=None):
-        """  Corresponds to IDD Field `design_specification_zone_air_distribution_object_name`
+        """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name`
+        
+        {u'type': u'object-list', u'object-list': u'DesignSpecificationZoneAirDistributionNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `design_specification_zone_air_distribution_object_name`
+            value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2007,7 +2046,7 @@ class SizingZone(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `design_specification_zone_air_distribution_object_name`'.format(value))
             if ',' in value:
@@ -2016,7 +2055,6 @@ class SizingZone(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `design_specification_zone_air_distribution_object_name`')
-
         self._data["Design Specification Zone Air Distribution Object Name"] = value
 
     def check(self):
@@ -2281,10 +2319,12 @@ class DesignSpecificationZoneHvacSizing(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {u'type': u'alpha', u'reference': u'DesignSpecificationZoneHVACSizingName', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2294,7 +2334,7 @@ class DesignSpecificationZoneHvacSizing(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -2303,7 +2343,6 @@ class DesignSpecificationZoneHvacSizing(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -2317,7 +2356,7 @@ class DesignSpecificationZoneHvacSizing(object):
 
     @cooling_design_air_flow_method.setter
     def cooling_design_air_flow_method(self, value="SupplyAirFlowRate"):
-        """  Corresponds to IDD Field `cooling_design_air_flow_method`
+        """  Corresponds to IDD Field `Cooling Design Air Flow Method`
         Enter the method used to determine the cooling supply air volume flow rate.
         None is used when a cooling coil is not included in the Zone HVAC Equip or this field
         may be blank. SupplyAirFlowRate => selected when the magnitude of the supply air volume
@@ -2328,9 +2367,11 @@ class DesignSpecificationZoneHvacSizing(object):
         value determined by the simulation. FlowPerCoolingCapacity => is selected when the supply
         air volume is determined from user specified flow per Cooling Capacity and Cooling Capacity
         determined by the simulation.
+        
+        {u'default': u'SupplyAirFlowRate', u'note': [u'Enter the method used to determine the cooling supply air volume flow rate.', u'None is used when a cooling coil is not included in the Zone HVAC Equip or this field', u'may be blank. SupplyAirFlowRate => selected when the magnitude of the supply air volume', u'flow rate is specified. FlowPerFloorArea => selected when the supply air volume flow rate', u'is determined from total floor area served by the Zone HVAC unit and Flow Per Floor Area', u'value specified. FractionOfAutosizedCoolingAirflow => is selected when the supply air volume', u'is determined from a user specified fraction and the autosized cooling supply air flow rate', u'value determined by the simulation. FlowPerCoolingCapacity => is selected when the supply', u'air volume is determined from user specified flow per Cooling Capacity and Cooling Capacity', u'determined by the simulation.'], u'type': u'choice', u'key': [u'None', u'SupplyAirFlowRate', u'FlowPerFloorArea', u'FractionOfAutosizedCoolingAirflow', u'FlowPerCoolingCapacity'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `cooling_design_air_flow_method`
+            value (str): value for IDD Field `Cooling Design Air Flow Method`
                 Accepted values are:
                       - None
                       - SupplyAirFlowRate
@@ -2347,7 +2388,7 @@ class DesignSpecificationZoneHvacSizing(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `cooling_design_air_flow_method`'.format(value))
             if ',' in value:
@@ -2376,7 +2417,6 @@ class DesignSpecificationZoneHvacSizing(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `cooling_design_air_flow_method`'.format(value))
             value = vals[value_lower]
-
         self._data["Cooling Design Air Flow Method"] = value
 
     @property
@@ -2390,13 +2430,15 @@ class DesignSpecificationZoneHvacSizing(object):
 
     @cooling_design_supply_air_flow_rate.setter
     def cooling_design_supply_air_flow_rate(self, value=None):
-        """  Corresponds to IDD Field `cooling_design_supply_air_flow_rate`
+        """  Corresponds to IDD Field `Cooling Design Supply Air Flow Rate`
         Enter the magnitude of supply air volume flow rate during cooling operation.
         Required field when Supply air Flow Rate Method During Cooling Operation is SupplyAirFlowRate.
         This field may be blank if a cooling coil is not included in the Zone HVAC equipment.
+        
+        {'pytype': 'float', u'note': [u'Enter the magnitude of supply air volume flow rate during cooling operation.', u'Required field when Supply air Flow Rate Method During Cooling Operation is SupplyAirFlowRate.', u'This field may be blank if a cooling coil is not included in the Zone HVAC equipment.'], u'autosizable': u'', u'minimum': '0.0', u'units': u'm3/s', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `cooling_design_supply_air_flow_rate`
+            value (float): value for IDD Field `Cooling Design Supply Air Flow Rate`
                 Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -2408,13 +2450,12 @@ class DesignSpecificationZoneHvacSizing(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `cooling_design_supply_air_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `cooling_design_supply_air_flow_rate`')
-
         self._data["Cooling Design Supply Air Flow Rate"] = value
 
     @property
@@ -2428,13 +2469,15 @@ class DesignSpecificationZoneHvacSizing(object):
 
     @cooling_design_supply_air_flow_rate_per_floor_area.setter
     def cooling_design_supply_air_flow_rate_per_floor_area(self, value=None):
-        """  Corresponds to IDD Field `cooling_design_supply_air_flow_rate_per_floor_area`
+        """  Corresponds to IDD Field `Cooling Design Supply Air Flow Rate Per Floor Area`
         Enter the cooling supply air volume flow rate per total conditioned floor area.
         Required field when Supply air Flow Rate Method During Cooling Operation is FlowPerFloorArea.
         This field may be blank if a cooling coil is not included in the Zone HVAC equipment.
+        
+        {u'units': u'm3/s-m2', u'note': [u'Enter the cooling supply air volume flow rate per total conditioned floor area.', u'Required field when Supply air Flow Rate Method During Cooling Operation is FlowPerFloorArea.', u'This field may be blank if a cooling coil is not included in the Zone HVAC equipment.'], u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `cooling_design_supply_air_flow_rate_per_floor_area`
+            value (float): value for IDD Field `Cooling Design Supply Air Flow Rate Per Floor Area`
                 Units: m3/s-m2
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -2446,13 +2489,12 @@ class DesignSpecificationZoneHvacSizing(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `cooling_design_supply_air_flow_rate_per_floor_area`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `cooling_design_supply_air_flow_rate_per_floor_area`')
-
         self._data["Cooling Design Supply Air Flow Rate Per Floor Area"] = value
 
     @property
@@ -2466,14 +2508,16 @@ class DesignSpecificationZoneHvacSizing(object):
 
     @fraction_of_autosized_cooling_design_supply_air_flow_rate.setter
     def fraction_of_autosized_cooling_design_supply_air_flow_rate(self, value=None):
-        """  Corresponds to IDD Field `fraction_of_autosized_cooling_design_supply_air_flow_rate`
+        """  Corresponds to IDD Field `Fraction of Autosized Cooling Design Supply Air Flow Rate`
         Enter the supply air volume flow rate as a fraction of the cooling supply air flow rate.
         Required field when Supply air Flow Rate Method During Cooling Operation is
         FractionOfAutosizedCoolingAirflow.
         This field may be blank if a cooling coil is not included in the Zone HVAC equipment.
+        
+        {u'note': [u'Enter the supply air volume flow rate as a fraction of the cooling supply air flow rate.', u'Required field when Supply air Flow Rate Method During Cooling Operation is', u'FractionOfAutosizedCoolingAirflow.', u'This field may be blank if a cooling coil is not included in the Zone HVAC equipment.'], u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `fraction_of_autosized_cooling_design_supply_air_flow_rate`
+            value (float): value for IDD Field `Fraction of Autosized Cooling Design Supply Air Flow Rate`
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -2484,13 +2528,12 @@ class DesignSpecificationZoneHvacSizing(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `fraction_of_autosized_cooling_design_supply_air_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `fraction_of_autosized_cooling_design_supply_air_flow_rate`')
-
         self._data["Fraction of Autosized Cooling Design Supply Air Flow Rate"] = value
 
     @property
@@ -2504,14 +2547,16 @@ class DesignSpecificationZoneHvacSizing(object):
 
     @cooling_design_supply_air_flow_rate_per_unit_cooling_capacity.setter
     def cooling_design_supply_air_flow_rate_per_unit_cooling_capacity(self, value=None):
-        """  Corresponds to IDD Field `cooling_design_supply_air_flow_rate_per_unit_cooling_capacity`
+        """  Corresponds to IDD Field `Cooling Design Supply Air Flow Rate Per Unit Cooling Capacity`
         Enter the cooling supply air volume flow rate unit cooling capacity.
         Required field when Supply air Flow Rate Method During Cooling Operation is
         FlowPerCoolingCapacity. This field may be blank if a cooling coil is not
         included in the Zone HVAC equipment.
+        
+        {u'units': u'm3/s-W', u'note': [u'Enter the cooling supply air volume flow rate unit cooling capacity.', u'Required field when Supply air Flow Rate Method During Cooling Operation is', u'FlowPerCoolingCapacity. This field may be blank if a cooling coil is not', u'included in the Zone HVAC equipment.'], u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `cooling_design_supply_air_flow_rate_per_unit_cooling_capacity`
+            value (float): value for IDD Field `Cooling Design Supply Air Flow Rate Per Unit Cooling Capacity`
                 Units: m3/s-W
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -2523,13 +2568,12 @@ class DesignSpecificationZoneHvacSizing(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `cooling_design_supply_air_flow_rate_per_unit_cooling_capacity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `cooling_design_supply_air_flow_rate_per_unit_cooling_capacity`')
-
         self._data["Cooling Design Supply Air Flow Rate Per Unit Cooling Capacity"] = value
 
     @property
@@ -2543,7 +2587,7 @@ class DesignSpecificationZoneHvacSizing(object):
 
     @supply_air_flow_rate_method_when_no_cooling_or_heating_is_required.setter
     def supply_air_flow_rate_method_when_no_cooling_or_heating_is_required(self, value="SupplyAirFlowRate"):
-        """  Corresponds to IDD Field `supply_air_flow_rate_method_when_no_cooling_or_heating_is_required`
+        """  Corresponds to IDD Field `Supply Air Flow Rate Method When No Cooling or Heating is Required`
         Enter the method used to determine the supply air volume flow rate When No Cooling or Heating
         is Required. None is used when a cooling or heating coils is not included in the Zone HVAC
         Equipment or this field may be blank. SupplyAirFlowRate => selected when the magnitude of the
@@ -2554,9 +2598,11 @@ class DesignSpecificationZoneHvacSizing(object):
         air flow rate value determined by the simulation. FractionOfAutosizedHeatingAirflow => is
         selected when the supply air volume is determined from a user specified fraction and the
         Autosized heating supply air flow rate value determined by the simulation.
+        
+        {u'default': u'SupplyAirFlowRate', u'note': [u'Enter the method used to determine the supply air volume flow rate When No Cooling or Heating', u'is Required. None is used when a cooling or heating coils is not included in the Zone HVAC', u'Equipment or this field may be blank. SupplyAirFlowRate => selected when the magnitude of the', u'supply air volume flow rate is specified. FlowPerFloorArea => selected when the supply air', u'volume flow rate is determined from total floor area served by the Zone HVAC unit and Flow Per', u'Floor Area is specified. FractionOfAutosizedCoolingAirflow => is selected when the supply', u'air volume is determined from a user specified fraction and the Autosized cooling supply', u'air flow rate value determined by the simulation. FractionOfAutosizedHeatingAirflow => is', u'selected when the supply air volume is determined from a user specified fraction and the', u'Autosized heating supply air flow rate value determined by the simulation.'], u'type': u'choice', u'key': [u'None', u'SupplyAirFlowRate', u'FlowPerFloorArea', u'FractionOfAutosizedCoolingAirflow', u'FractionOfAutosizedHeatingAirflow'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `supply_air_flow_rate_method_when_no_cooling_or_heating_is_required`
+            value (str): value for IDD Field `Supply Air Flow Rate Method When No Cooling or Heating is Required`
                 Accepted values are:
                       - None
                       - SupplyAirFlowRate
@@ -2573,7 +2619,7 @@ class DesignSpecificationZoneHvacSizing(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `supply_air_flow_rate_method_when_no_cooling_or_heating_is_required`'.format(value))
             if ',' in value:
@@ -2602,7 +2648,6 @@ class DesignSpecificationZoneHvacSizing(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `supply_air_flow_rate_method_when_no_cooling_or_heating_is_required`'.format(value))
             value = vals[value_lower]
-
         self._data["Supply Air Flow Rate Method When No Cooling or Heating is Required"] = value
 
     @property
@@ -2616,13 +2661,15 @@ class DesignSpecificationZoneHvacSizing(object):
 
     @supply_air_flow_rate_when_no_cooling_or_heating_is_required.setter
     def supply_air_flow_rate_when_no_cooling_or_heating_is_required(self, value=None):
-        """  Corresponds to IDD Field `supply_air_flow_rate_when_no_cooling_or_heating_is_required`
+        """  Corresponds to IDD Field `Supply Air Flow Rate When No Cooling or Heating is Required`
         Enter the magnitude of the supply air volume flow rate during when no cooling or heating
         is required. Required field when Supply air Flow Rate Method When No Cooling or Heating
         is Required is SupplyAirFlowRate.
+        
+        {'pytype': 'float', u'note': [u'Enter the magnitude of the supply air volume flow rate during when no cooling or heating', u'is required. Required field when Supply air Flow Rate Method When No Cooling or Heating', u'is Required is SupplyAirFlowRate.'], u'autosizable': u'', u'minimum': '0.0', u'units': u'm3/s', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `supply_air_flow_rate_when_no_cooling_or_heating_is_required`
+            value (float): value for IDD Field `Supply Air Flow Rate When No Cooling or Heating is Required`
                 Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -2634,13 +2681,12 @@ class DesignSpecificationZoneHvacSizing(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `supply_air_flow_rate_when_no_cooling_or_heating_is_required`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `supply_air_flow_rate_when_no_cooling_or_heating_is_required`')
-
         self._data["Supply Air Flow Rate When No Cooling or Heating is Required"] = value
 
     @property
@@ -2654,13 +2700,15 @@ class DesignSpecificationZoneHvacSizing(object):
 
     @supply_air_flow_rate_per_floor_area_when_no_clg_or_htg_is_required.setter
     def supply_air_flow_rate_per_floor_area_when_no_clg_or_htg_is_required(self, value=None):
-        """  Corresponds to IDD Field `supply_air_flow_rate_per_floor_area_when_no_clg_or_htg_is_required`
+        """  Corresponds to IDD Field `Supply Air Flow Rate Per Floor Area When No Clg or Htg is Required`
         Enter the supply air volume flow rate per total floor area.
         Required field when Supply air Flow Rate Method When No Cooling or Heating is Required
         is FlowPerFloorArea.
+        
+        {u'units': u'm3/s-m2', u'note': [u'Enter the supply air volume flow rate per total floor area.', u'Required field when Supply air Flow Rate Method When No Cooling or Heating is Required', u'is FlowPerFloorArea.'], u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `supply_air_flow_rate_per_floor_area_when_no_clg_or_htg_is_required`
+            value (float): value for IDD Field `Supply Air Flow Rate Per Floor Area When No Clg or Htg is Required`
                 Units: m3/s-m2
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -2672,13 +2720,12 @@ class DesignSpecificationZoneHvacSizing(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `supply_air_flow_rate_per_floor_area_when_no_clg_or_htg_is_required`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `supply_air_flow_rate_per_floor_area_when_no_clg_or_htg_is_required`')
-
         self._data["Supply Air Flow Rate Per Floor Area When No Clg or Htg is Required"] = value
 
     @property
@@ -2692,13 +2739,15 @@ class DesignSpecificationZoneHvacSizing(object):
 
     @fraction_of_design_cooling_supply_air_flow_rate_when_no_clg_or_htg_required.setter
     def fraction_of_design_cooling_supply_air_flow_rate_when_no_clg_or_htg_required(self, value=None):
-        """  Corresponds to IDD Field `fraction_of_design_cooling_supply_air_flow_rate_when_no_clg_or_htg_required`
+        """  Corresponds to IDD Field `Fraction of Design Cooling Supply Air Flow Rate When No Clg or Htg Required`
         Enter the supply air volume flow rate as a fraction of the cooling supply air flow rate.
         Required field when Supply air Flow Rate Method When No Cooling or Heating is Required
         is FractionOfAutosizedCoolingAirflow.
+        
+        {u'note': [u'Enter the supply air volume flow rate as a fraction of the cooling supply air flow rate.', u'Required field when Supply air Flow Rate Method When No Cooling or Heating is Required', u'is FractionOfAutosizedCoolingAirflow.'], u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `fraction_of_design_cooling_supply_air_flow_rate_when_no_clg_or_htg_required`
+            value (float): value for IDD Field `Fraction of Design Cooling Supply Air Flow Rate When No Clg or Htg Required`
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -2709,13 +2758,12 @@ class DesignSpecificationZoneHvacSizing(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `fraction_of_design_cooling_supply_air_flow_rate_when_no_clg_or_htg_required`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `fraction_of_design_cooling_supply_air_flow_rate_when_no_clg_or_htg_required`')
-
         self._data["Fraction of Design Cooling Supply Air Flow Rate When No Clg or Htg Required"] = value
 
     @property
@@ -2729,13 +2777,15 @@ class DesignSpecificationZoneHvacSizing(object):
 
     @fraction_of_design_heating_supply_air_flow_rate_when_no_clg_or_htg_required.setter
     def fraction_of_design_heating_supply_air_flow_rate_when_no_clg_or_htg_required(self, value=None):
-        """  Corresponds to IDD Field `fraction_of_design_heating_supply_air_flow_rate_when_no_clg_or_htg_required`
+        """  Corresponds to IDD Field `Fraction of Design Heating Supply Air Flow Rate When No Clg or Htg Required`
         Enter the supply air volume flow rate as a fraction of the heating supply air flow rate.
         Required field when Supply air Flow Rate Method When No Cooling or Heating is Required
         is FractionOfAutosizedHeatingAirflow.
+        
+        {u'note': [u'Enter the supply air volume flow rate as a fraction of the heating supply air flow rate.', u'Required field when Supply air Flow Rate Method When No Cooling or Heating is Required', u'is FractionOfAutosizedHeatingAirflow.'], u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `fraction_of_design_heating_supply_air_flow_rate_when_no_clg_or_htg_required`
+            value (float): value for IDD Field `Fraction of Design Heating Supply Air Flow Rate When No Clg or Htg Required`
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -2746,13 +2796,12 @@ class DesignSpecificationZoneHvacSizing(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `fraction_of_design_heating_supply_air_flow_rate_when_no_clg_or_htg_required`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `fraction_of_design_heating_supply_air_flow_rate_when_no_clg_or_htg_required`')
-
         self._data["Fraction of Design Heating Supply Air Flow Rate When No Clg or Htg Required"] = value
 
     @property
@@ -2766,7 +2815,7 @@ class DesignSpecificationZoneHvacSizing(object):
 
     @heating_design_air_flow_method.setter
     def heating_design_air_flow_method(self, value="SupplyAirFlowRate"):
-        """  Corresponds to IDD Field `heating_design_air_flow_method`
+        """  Corresponds to IDD Field `Heating Design Air Flow Method`
         Enter the method used to determine the heating supply air volume flow rate.
         None is used when a heating coil is not included in the Zone HVAC Equipment or this field may
         be blank. SupplyAirFlowRate => selected when the magnitude of the heating supply air volume
@@ -2777,9 +2826,11 @@ class DesignSpecificationZoneHvacSizing(object):
         value determined by the simulation. FlowPerHeatingCapacity => is selected when the supply
         air volume is determined from user specified flow per Heating Capacity and Heating Capacity
         determined by the simulation.
+        
+        {u'default': u'SupplyAirFlowRate', u'note': [u'Enter the method used to determine the heating supply air volume flow rate.', u'None is used when a heating coil is not included in the Zone HVAC Equipment or this field may', u'be blank. SupplyAirFlowRate => selected when the magnitude of the heating supply air volume', u'flow rate is specified.  FlowPerFloorArea => selected when the supply air volume flow rate is', u'determined from total floor area served by a Zone HVAC unit and user specified value of Flow', u'Per Floor Area. FractionOfAutosizedHeatingAirflow => is selected when the supply air volume', u'is determined from a user specified fraction and the Autosized heating supply air flow rate', u'value determined by the simulation. FlowPerHeatingCapacity => is selected when the supply', u'air volume is determined from user specified flow per Heating Capacity and Heating Capacity', u'determined by the simulation.'], u'type': u'choice', u'key': [u'None', u'SupplyAirFlowRate', u'FlowPerFloorArea', u'FractionOfAutosizedHeatingAirflow', u'FlowPerHeatingCapacity'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `heating_design_air_flow_method`
+            value (str): value for IDD Field `Heating Design Air Flow Method`
                 Accepted values are:
                       - None
                       - SupplyAirFlowRate
@@ -2796,7 +2847,7 @@ class DesignSpecificationZoneHvacSizing(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `heating_design_air_flow_method`'.format(value))
             if ',' in value:
@@ -2825,7 +2876,6 @@ class DesignSpecificationZoneHvacSizing(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `heating_design_air_flow_method`'.format(value))
             value = vals[value_lower]
-
         self._data["Heating Design Air Flow Method"] = value
 
     @property
@@ -2839,13 +2889,15 @@ class DesignSpecificationZoneHvacSizing(object):
 
     @heating_design_supply_air_flow_rate.setter
     def heating_design_supply_air_flow_rate(self, value=None):
-        """  Corresponds to IDD Field `heating_design_supply_air_flow_rate`
+        """  Corresponds to IDD Field `Heating Design Supply Air Flow Rate`
         Enter the magnitude of the supply air volume flow rate during heating operation.
         Required field when Supply air Flow Rate Method During Heating Operation is SupplyAirFlowRate.
         This field may be blank if a heating coil is not included in the Zone HVAC equipment.
+        
+        {'pytype': 'float', u'note': [u'Enter the magnitude of the supply air volume flow rate during heating operation.', u'Required field when Supply air Flow Rate Method During Heating Operation is SupplyAirFlowRate.', u'This field may be blank if a heating coil is not included in the Zone HVAC equipment.'], u'autosizable': u'', u'minimum': '0.0', u'units': u'm3/s', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `heating_design_supply_air_flow_rate`
+            value (float): value for IDD Field `Heating Design Supply Air Flow Rate`
                 Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -2857,13 +2909,12 @@ class DesignSpecificationZoneHvacSizing(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `heating_design_supply_air_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `heating_design_supply_air_flow_rate`')
-
         self._data["Heating Design Supply Air Flow Rate"] = value
 
     @property
@@ -2877,13 +2928,15 @@ class DesignSpecificationZoneHvacSizing(object):
 
     @heating_design_supply_air_flow_rate_per_floor_area.setter
     def heating_design_supply_air_flow_rate_per_floor_area(self, value=None):
-        """  Corresponds to IDD Field `heating_design_supply_air_flow_rate_per_floor_area`
+        """  Corresponds to IDD Field `Heating Design Supply Air Flow Rate Per Floor Area`
         Enter the heating supply air volume flow rate per total conditioned floor area.
         Required field when Supply air Flow Rate Method During Heating Operation is FlowPerFloorArea.
         This field may be blank if a heating coil is not included in the Zone HVAC equipment.
+        
+        {u'units': u'm3/s-m2', u'note': [u'Enter the heating supply air volume flow rate per total conditioned floor area.', u'Required field when Supply air Flow Rate Method During Heating Operation is FlowPerFloorArea.', u'This field may be blank if a heating coil is not included in the Zone HVAC equipment.'], u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `heating_design_supply_air_flow_rate_per_floor_area`
+            value (float): value for IDD Field `Heating Design Supply Air Flow Rate Per Floor Area`
                 Units: m3/s-m2
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -2895,13 +2948,12 @@ class DesignSpecificationZoneHvacSizing(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `heating_design_supply_air_flow_rate_per_floor_area`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `heating_design_supply_air_flow_rate_per_floor_area`')
-
         self._data["Heating Design Supply Air Flow Rate Per Floor Area"] = value
 
     @property
@@ -2915,14 +2967,16 @@ class DesignSpecificationZoneHvacSizing(object):
 
     @fraction_of_heating_design_supply_air_flow_rate.setter
     def fraction_of_heating_design_supply_air_flow_rate(self, value=None):
-        """  Corresponds to IDD Field `fraction_of_heating_design_supply_air_flow_rate`
+        """  Corresponds to IDD Field `Fraction of Heating Design Supply Air Flow Rate`
         Enter the supply air volume flow rate as a fraction of the heating supply air flow rate.
         Required field when Supply air Flow Rate Method During Heating Operation is
         FractionOfAutosizedHeatingAirflow.
         This field may be blank if a heating coil is not included in the Zone HVAC equipment.
+        
+        {u'note': [u'Enter the supply air volume flow rate as a fraction of the heating supply air flow rate.', u'Required field when Supply air Flow Rate Method During Heating Operation is', u'FractionOfAutosizedHeatingAirflow.', u'This field may be blank if a heating coil is not included in the Zone HVAC equipment.'], u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `fraction_of_heating_design_supply_air_flow_rate`
+            value (float): value for IDD Field `Fraction of Heating Design Supply Air Flow Rate`
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -2933,13 +2987,12 @@ class DesignSpecificationZoneHvacSizing(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `fraction_of_heating_design_supply_air_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `fraction_of_heating_design_supply_air_flow_rate`')
-
         self._data["Fraction of Heating Design Supply Air Flow Rate"] = value
 
     @property
@@ -2953,14 +3006,16 @@ class DesignSpecificationZoneHvacSizing(object):
 
     @heating_design_supply_air_flow_rate_per_unit_heating_capacity.setter
     def heating_design_supply_air_flow_rate_per_unit_heating_capacity(self, value=None):
-        """  Corresponds to IDD Field `heating_design_supply_air_flow_rate_per_unit_heating_capacity`
+        """  Corresponds to IDD Field `Heating Design Supply Air Flow Rate Per Unit Heating Capacity`
         Enter the supply air volume flow rate per unit heating capacity.
         Required field when Supply air Flow Rate Method During Heating Operation is
         FlowPerHeatingCapacity.
         This field may be blank if a heating coil is not included in the Zone HVAC equipment.
+        
+        {u'units': u'm3/s-W', u'note': [u'Enter the supply air volume flow rate per unit heating capacity.', u'Required field when Supply air Flow Rate Method During Heating Operation is', u'FlowPerHeatingCapacity.', u'This field may be blank if a heating coil is not included in the Zone HVAC equipment.'], u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `heating_design_supply_air_flow_rate_per_unit_heating_capacity`
+            value (float): value for IDD Field `Heating Design Supply Air Flow Rate Per Unit Heating Capacity`
                 Units: m3/s-W
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -2972,13 +3027,12 @@ class DesignSpecificationZoneHvacSizing(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `heating_design_supply_air_flow_rate_per_unit_heating_capacity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `heating_design_supply_air_flow_rate_per_unit_heating_capacity`')
-
         self._data["Heating Design Supply Air Flow Rate Per Unit Heating Capacity"] = value
 
     @property
@@ -2992,7 +3046,7 @@ class DesignSpecificationZoneHvacSizing(object):
 
     @cooling_design_capacity_method.setter
     def cooling_design_capacity_method(self, value="None"):
-        """  Corresponds to IDD Field `cooling_design_capacity_method`
+        """  Corresponds to IDD Field `Cooling Design Capacity Method`
         Enter the method used to determine the cooling design capacity for scalable sizing.
         None is used when a cooling coils is not included in the Zone HVAC Equipment or
         this field may be blank. If this input field is left blank, then the design cooling
@@ -3001,9 +3055,11 @@ class DesignSpecificationZoneHvacSizing(object):
         capacity is determine from user specified cooling capacity per floor area and zone floor area.
         FractionOfAutosizedCoolingCapacity => is selected when the design cooling capacity is
         determined from a user specified fraction and the auto-sized design cooling capacity.
+        
+        {u'default': u'None', u'note': [u'Enter the method used to determine the cooling design capacity for scalable sizing.', u'None is used when a cooling coils is not included in the Zone HVAC Equipment or', u'this field may be blank. If this input field is left blank, then the design cooling', u'capacity is set to zero. CoolingDesignCapacity => selected when the design cooling capacity', u'value is specified or auto-sized. CapacityPerFloorArea => selected when the design cooling', u'capacity is determine from user specified cooling capacity per floor area and zone floor area.', u'FractionOfAutosizedCoolingCapacity => is selected when the design cooling capacity is', u'determined from a user specified fraction and the auto-sized design cooling capacity.'], u'type': u'choice', u'key': [u'None', u'CoolingDesignCapacity', u'CapacityPerFloorArea', u'FractionOfAutosizedCoolingCapacity'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `cooling_design_capacity_method`
+            value (str): value for IDD Field `Cooling Design Capacity Method`
                 Accepted values are:
                       - None
                       - CoolingDesignCapacity
@@ -3019,7 +3075,7 @@ class DesignSpecificationZoneHvacSizing(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `cooling_design_capacity_method`'.format(value))
             if ',' in value:
@@ -3047,7 +3103,6 @@ class DesignSpecificationZoneHvacSizing(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `cooling_design_capacity_method`'.format(value))
             value = vals[value_lower]
-
         self._data["Cooling Design Capacity Method"] = value
 
     @property
@@ -3061,12 +3116,14 @@ class DesignSpecificationZoneHvacSizing(object):
 
     @cooling_design_capacity.setter
     def cooling_design_capacity(self, value=None):
-        """  Corresponds to IDD Field `cooling_design_capacity`
+        """  Corresponds to IDD Field `Cooling Design Capacity`
         Enter the design cooling capacity. Required field when the cooling design capacity method
         CoolingDesignCapacity.
+        
+        {'pytype': 'float', u'note': [u'Enter the design cooling capacity. Required field when the cooling design capacity method', u'CoolingDesignCapacity.'], u'autosizable': u'', u'minimum': '0.0', u'units': u'W', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `cooling_design_capacity`
+            value (float): value for IDD Field `Cooling Design Capacity`
                 Units: W
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -3078,13 +3135,12 @@ class DesignSpecificationZoneHvacSizing(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `cooling_design_capacity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `cooling_design_capacity`')
-
         self._data["Cooling Design Capacity"] = value
 
     @property
@@ -3098,12 +3154,14 @@ class DesignSpecificationZoneHvacSizing(object):
 
     @cooling_design_capacity_per_floor_area.setter
     def cooling_design_capacity_per_floor_area(self, value=None):
-        """  Corresponds to IDD Field `cooling_design_capacity_per_floor_area`
+        """  Corresponds to IDD Field `Cooling Design Capacity Per Floor Area`
         Enter the cooling design capacity per zone floor area. Required field when the cooling design
         capacity method field is CapacityPerFloorArea.
+        
+        {u'units': u'W/m2', u'note': [u'Enter the cooling design capacity per zone floor area. Required field when the cooling design', u'capacity method field is CapacityPerFloorArea.'], u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `cooling_design_capacity_per_floor_area`
+            value (float): value for IDD Field `Cooling Design Capacity Per Floor Area`
                 Units: W/m2
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -3115,13 +3173,12 @@ class DesignSpecificationZoneHvacSizing(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `cooling_design_capacity_per_floor_area`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `cooling_design_capacity_per_floor_area`')
-
         self._data["Cooling Design Capacity Per Floor Area"] = value
 
     @property
@@ -3135,12 +3192,14 @@ class DesignSpecificationZoneHvacSizing(object):
 
     @fraction_of_autosized_cooling_design_capacity.setter
     def fraction_of_autosized_cooling_design_capacity(self, value=None):
-        """  Corresponds to IDD Field `fraction_of_autosized_cooling_design_capacity`
+        """  Corresponds to IDD Field `Fraction of Autosized Cooling Design Capacity`
         Enter the fraction of auto-sized cooling design capacity. Required field when the cooling
         design capacity method field is FractionOfAutosizedCoolingCapacity.
+        
+        {u'note': [u'Enter the fraction of auto-sized cooling design capacity. Required field when the cooling', u'design capacity method field is FractionOfAutosizedCoolingCapacity.'], u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `fraction_of_autosized_cooling_design_capacity`
+            value (float): value for IDD Field `Fraction of Autosized Cooling Design Capacity`
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -3151,13 +3210,12 @@ class DesignSpecificationZoneHvacSizing(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `fraction_of_autosized_cooling_design_capacity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `fraction_of_autosized_cooling_design_capacity`')
-
         self._data["Fraction of Autosized Cooling Design Capacity"] = value
 
     @property
@@ -3171,7 +3229,7 @@ class DesignSpecificationZoneHvacSizing(object):
 
     @heating_design_capacity_method.setter
     def heating_design_capacity_method(self, value="None"):
-        """  Corresponds to IDD Field `heating_design_capacity_method`
+        """  Corresponds to IDD Field `Heating Design Capacity Method`
         Enter the method used to determine the heating design capacity for scalable sizing.
         None is used when a heating coil is not included in the Zone HVAC Equipment or
         this field may be blank. If this input field is left blank, then the design heating
@@ -3180,9 +3238,11 @@ class DesignSpecificationZoneHvacSizing(object):
         capacity is determine from user specified heating capacity per flow area and zone floor area.
         FractionOfAutosizedHeatingCapacity => is selected when the design heating capacity is
         determined from a user specified fraction and the auto-sized design heating capacity
+        
+        {u'default': u'None', u'note': [u'Enter the method used to determine the heating design capacity for scalable sizing.', u'None is used when a heating coil is not included in the Zone HVAC Equipment or', u'this field may be blank. If this input field is left blank, then the design heating', u'capacity is set to zero. HeatingDesignCapacity => selected when the design heating capacity', u'value is specified or auto-sized. CapacityPerFloorArea => selected when the design cooling', u'capacity is determine from user specified heating capacity per flow area and zone floor area.', u'FractionOfAutosizedHeatingCapacity => is selected when the design heating capacity is', u'determined from a user specified fraction and the auto-sized design heating capacity'], u'type': u'choice', u'key': [u'None', u'HeatingDesignCapacity', u'CapacityPerFloorArea', u'FractionOfAutosizedHeatingCapacity'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `heating_design_capacity_method`
+            value (str): value for IDD Field `Heating Design Capacity Method`
                 Accepted values are:
                       - None
                       - HeatingDesignCapacity
@@ -3198,7 +3258,7 @@ class DesignSpecificationZoneHvacSizing(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `heating_design_capacity_method`'.format(value))
             if ',' in value:
@@ -3226,7 +3286,6 @@ class DesignSpecificationZoneHvacSizing(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `heating_design_capacity_method`'.format(value))
             value = vals[value_lower]
-
         self._data["Heating Design Capacity Method"] = value
 
     @property
@@ -3240,12 +3299,14 @@ class DesignSpecificationZoneHvacSizing(object):
 
     @heating_design_capacity.setter
     def heating_design_capacity(self, value=None):
-        """  Corresponds to IDD Field `heating_design_capacity`
+        """  Corresponds to IDD Field `Heating Design Capacity`
         Enter the design heating capacity. Required field when the heating design capacity method
         HeatingDesignCapacity.
+        
+        {'pytype': 'float', u'note': [u'Enter the design heating capacity. Required field when the heating design capacity method', u'HeatingDesignCapacity.'], u'autosizable': u'', u'minimum': '0.0', u'units': u'W', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `heating_design_capacity`
+            value (float): value for IDD Field `Heating Design Capacity`
                 Units: W
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -3257,13 +3318,12 @@ class DesignSpecificationZoneHvacSizing(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `heating_design_capacity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `heating_design_capacity`')
-
         self._data["Heating Design Capacity"] = value
 
     @property
@@ -3277,12 +3337,14 @@ class DesignSpecificationZoneHvacSizing(object):
 
     @heating_design_capacity_per_floor_area.setter
     def heating_design_capacity_per_floor_area(self, value=None):
-        """  Corresponds to IDD Field `heating_design_capacity_per_floor_area`
+        """  Corresponds to IDD Field `Heating Design Capacity Per Floor Area`
         Enter the heating design capacity per zone floor area. Required field when the heating design
         capacity method field is CapacityPerFloorArea.
+        
+        {u'units': u'W/m2', u'note': [u'Enter the heating design capacity per zone floor area. Required field when the heating design', u'capacity method field is CapacityPerFloorArea.'], u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `heating_design_capacity_per_floor_area`
+            value (float): value for IDD Field `Heating Design Capacity Per Floor Area`
                 Units: W/m2
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -3294,13 +3356,12 @@ class DesignSpecificationZoneHvacSizing(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `heating_design_capacity_per_floor_area`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `heating_design_capacity_per_floor_area`')
-
         self._data["Heating Design Capacity Per Floor Area"] = value
 
     @property
@@ -3314,12 +3375,14 @@ class DesignSpecificationZoneHvacSizing(object):
 
     @fraction_of_autosized_heating_design_capacity.setter
     def fraction_of_autosized_heating_design_capacity(self, value=None):
-        """  Corresponds to IDD Field `fraction_of_autosized_heating_design_capacity`
+        """  Corresponds to IDD Field `Fraction of Autosized Heating Design Capacity`
         Enter the fraction of auto-sized heating design capacity. Required field when capacity the
         heating design capacity method field is FractionOfAutosizedHeatingCapacity.
+        
+        {u'note': [u'Enter the fraction of auto-sized heating design capacity. Required field when capacity the', u'heating design capacity method field is FractionOfAutosizedHeatingCapacity.'], u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `fraction_of_autosized_heating_design_capacity`
+            value (float): value for IDD Field `Fraction of Autosized Heating Design Capacity`
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -3330,13 +3393,12 @@ class DesignSpecificationZoneHvacSizing(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `fraction_of_autosized_heating_design_capacity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `fraction_of_autosized_heating_design_capacity`')
-
         self._data["Fraction of Autosized Heating Design Capacity"] = value
 
     def check(self):
@@ -3697,10 +3759,12 @@ class SizingSystem(object):
 
     @airloop_name.setter
     def airloop_name(self, value=None):
-        """  Corresponds to IDD Field `airloop_name`
+        """  Corresponds to IDD Field `AirLoop Name`
+        
+        {u'type': u'object-list', u'object-list': u'AirPrimaryLoops', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `airloop_name`
+            value (str): value for IDD Field `AirLoop Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3710,7 +3774,7 @@ class SizingSystem(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `airloop_name`'.format(value))
             if ',' in value:
@@ -3719,7 +3783,6 @@ class SizingSystem(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `airloop_name`')
-
         self._data["AirLoop Name"] = value
 
     @property
@@ -3733,14 +3796,16 @@ class SizingSystem(object):
 
     @type_of_load_to_size_on.setter
     def type_of_load_to_size_on(self, value="Sensible"):
-        """  Corresponds to IDD Field `type_of_load_to_size_on`
+        """  Corresponds to IDD Field `Type of Load to Size On`
         Specifies the basis for sizing the system supply air flow rate
         Sensible and VentilationRequirement are the only available options
         Sensible uses the zone design air flow rates
         VentilationRequirement uses the system ventilation requirement
+        
+        {'pytype': 'str', u'default': u'Sensible', u'required-field': True, u'note': [u'Specifies the basis for sizing the system supply air flow rate', u'Sensible and VentilationRequirement are the only available options', u'Sensible uses the zone design air flow rates', u'VentilationRequirement uses the system ventilation requirement'], u'key': [u'Sensible', u'VentilationRequirement'], u'type': u'choice'}
 
         Args:
-            value (str): value for IDD Field `type_of_load_to_size_on`
+            value (str): value for IDD Field `Type of Load to Size On`
                 Accepted values are:
                       - Sensible
                       - VentilationRequirement
@@ -3754,7 +3819,7 @@ class SizingSystem(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `type_of_load_to_size_on`'.format(value))
             if ',' in value:
@@ -3780,7 +3845,6 @@ class SizingSystem(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `type_of_load_to_size_on`'.format(value))
             value = vals[value_lower]
-
         self._data["Type of Load to Size On"] = value
 
     @property
@@ -3793,12 +3857,15 @@ class SizingSystem(object):
         return self._data["Design Outdoor Air Flow Rate"]
 
     @design_outdoor_air_flow_rate.setter
-    def design_outdoor_air_flow_rate(self, value=None):
-        """  Corresponds to IDD Field `design_outdoor_air_flow_rate`
+    def design_outdoor_air_flow_rate(self, value="autosize" ):
+        """  Corresponds to IDD Field `Design Outdoor Air Flow Rate`
+        
+        {'pytype': 'float', u'default': '"autosize"', u'autosizable': u'', u'minimum': '0.0', u'units': u'm3/s', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `design_outdoor_air_flow_rate`
+            value (float): value for IDD Field `Design Outdoor Air Flow Rate`
                 Units: m3/s
+                Default value: "autosize"
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -3809,13 +3876,12 @@ class SizingSystem(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `design_outdoor_air_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `design_outdoor_air_flow_rate`')
-
         self._data["Design Outdoor Air Flow Rate"] = value
 
     @property
@@ -3829,10 +3895,12 @@ class SizingSystem(object):
 
     @minimum_system_air_flow_ratio.setter
     def minimum_system_air_flow_ratio(self, value=None):
-        """  Corresponds to IDD Field `minimum_system_air_flow_ratio`
+        """  Corresponds to IDD Field `Minimum System Air Flow Ratio`
+        
+        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `minimum_system_air_flow_ratio`
+            value (float): value for IDD Field `Minimum System Air Flow Ratio`
                 value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
@@ -3844,7 +3912,7 @@ class SizingSystem(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `minimum_system_air_flow_ratio`'.format(value))
             if value < 0.0:
@@ -3853,7 +3921,6 @@ class SizingSystem(object):
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `minimum_system_air_flow_ratio`')
-
         self._data["Minimum System Air Flow Ratio"] = value
 
     @property
@@ -3867,10 +3934,12 @@ class SizingSystem(object):
 
     @preheat_design_temperature.setter
     def preheat_design_temperature(self, value=None):
-        """  Corresponds to IDD Field `preheat_design_temperature`
+        """  Corresponds to IDD Field `Preheat Design Temperature`
+        
+        {u'units': u'C', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `preheat_design_temperature`
+            value (float): value for IDD Field `Preheat Design Temperature`
                 Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -3881,10 +3950,9 @@ class SizingSystem(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `preheat_design_temperature`'.format(value))
-
         self._data["Preheat Design Temperature"] = value
 
     @property
@@ -3898,10 +3966,12 @@ class SizingSystem(object):
 
     @preheat_design_humidity_ratio.setter
     def preheat_design_humidity_ratio(self, value=None):
-        """  Corresponds to IDD Field `preheat_design_humidity_ratio`
+        """  Corresponds to IDD Field `Preheat Design Humidity Ratio`
+        
+        {u'units': u'kgWater/kgDryAir', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `preheat_design_humidity_ratio`
+            value (float): value for IDD Field `Preheat Design Humidity Ratio`
                 Units: kgWater/kgDryAir
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -3912,10 +3982,9 @@ class SizingSystem(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `preheat_design_humidity_ratio`'.format(value))
-
         self._data["Preheat Design Humidity Ratio"] = value
 
     @property
@@ -3929,10 +3998,12 @@ class SizingSystem(object):
 
     @precool_design_temperature.setter
     def precool_design_temperature(self, value=None):
-        """  Corresponds to IDD Field `precool_design_temperature`
+        """  Corresponds to IDD Field `Precool Design Temperature`
+        
+        {u'units': u'C', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `precool_design_temperature`
+            value (float): value for IDD Field `Precool Design Temperature`
                 Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -3943,10 +4014,9 @@ class SizingSystem(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `precool_design_temperature`'.format(value))
-
         self._data["Precool Design Temperature"] = value
 
     @property
@@ -3960,10 +4030,12 @@ class SizingSystem(object):
 
     @precool_design_humidity_ratio.setter
     def precool_design_humidity_ratio(self, value=None):
-        """  Corresponds to IDD Field `precool_design_humidity_ratio`
+        """  Corresponds to IDD Field `Precool Design Humidity Ratio`
+        
+        {u'units': u'kgWater/kgDryAir', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `precool_design_humidity_ratio`
+            value (float): value for IDD Field `Precool Design Humidity Ratio`
                 Units: kgWater/kgDryAir
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -3974,10 +4046,9 @@ class SizingSystem(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `precool_design_humidity_ratio`'.format(value))
-
         self._data["Precool Design Humidity Ratio"] = value
 
     @property
@@ -3991,10 +4062,12 @@ class SizingSystem(object):
 
     @central_cooling_design_supply_air_temperature.setter
     def central_cooling_design_supply_air_temperature(self, value=None):
-        """  Corresponds to IDD Field `central_cooling_design_supply_air_temperature`
+        """  Corresponds to IDD Field `Central Cooling Design Supply Air Temperature`
+        
+        {u'units': u'C', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `central_cooling_design_supply_air_temperature`
+            value (float): value for IDD Field `Central Cooling Design Supply Air Temperature`
                 Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -4005,10 +4078,9 @@ class SizingSystem(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `central_cooling_design_supply_air_temperature`'.format(value))
-
         self._data["Central Cooling Design Supply Air Temperature"] = value
 
     @property
@@ -4022,10 +4094,12 @@ class SizingSystem(object):
 
     @central_heating_design_supply_air_temperature.setter
     def central_heating_design_supply_air_temperature(self, value=None):
-        """  Corresponds to IDD Field `central_heating_design_supply_air_temperature`
+        """  Corresponds to IDD Field `Central Heating Design Supply Air Temperature`
+        
+        {u'units': u'C', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `central_heating_design_supply_air_temperature`
+            value (float): value for IDD Field `Central Heating Design Supply Air Temperature`
                 Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -4036,10 +4110,9 @@ class SizingSystem(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `central_heating_design_supply_air_temperature`'.format(value))
-
         self._data["Central Heating Design Supply Air Temperature"] = value
 
     @property
@@ -4053,10 +4126,12 @@ class SizingSystem(object):
 
     @sizing_option.setter
     def sizing_option(self, value="NonCoincident"):
-        """  Corresponds to IDD Field `sizing_option`
+        """  Corresponds to IDD Field `Sizing Option`
+        
+        {u'default': u'NonCoincident', u'type': u'choice', u'key': [u'Coincident', u'NonCoincident'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `sizing_option`
+            value (str): value for IDD Field `Sizing Option`
                 Accepted values are:
                       - Coincident
                       - NonCoincident
@@ -4070,7 +4145,7 @@ class SizingSystem(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `sizing_option`'.format(value))
             if ',' in value:
@@ -4096,7 +4171,6 @@ class SizingSystem(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `sizing_option`'.format(value))
             value = vals[value_lower]
-
         self._data["Sizing Option"] = value
 
     @property
@@ -4110,10 +4184,12 @@ class SizingSystem(object):
 
     @a_100_outdoor_air_in_cooling.setter
     def a_100_outdoor_air_in_cooling(self, value="No"):
-        """  Corresponds to IDD Field `a_100_outdoor_air_in_cooling`
+        """  Corresponds to IDD Field `100% Outdoor Air in Cooling`
+        
+        {u'default': u'No', u'type': u'choice', u'key': [u'Yes', u'No'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `a_100_outdoor_air_in_cooling`
+            value (str): value for IDD Field `100% Outdoor Air in Cooling`
                 Accepted values are:
                       - Yes
                       - No
@@ -4127,7 +4203,7 @@ class SizingSystem(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `a_100_outdoor_air_in_cooling`'.format(value))
             if ',' in value:
@@ -4153,7 +4229,6 @@ class SizingSystem(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `a_100_outdoor_air_in_cooling`'.format(value))
             value = vals[value_lower]
-
         self._data["100% Outdoor Air in Cooling"] = value
 
     @property
@@ -4167,10 +4242,12 @@ class SizingSystem(object):
 
     @a_100_outdoor_air_in_heating.setter
     def a_100_outdoor_air_in_heating(self, value="No"):
-        """  Corresponds to IDD Field `a_100_outdoor_air_in_heating`
+        """  Corresponds to IDD Field `100% Outdoor Air in Heating`
+        
+        {u'default': u'No', u'type': u'choice', u'key': [u'Yes', u'No'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `a_100_outdoor_air_in_heating`
+            value (str): value for IDD Field `100% Outdoor Air in Heating`
                 Accepted values are:
                       - Yes
                       - No
@@ -4184,7 +4261,7 @@ class SizingSystem(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `a_100_outdoor_air_in_heating`'.format(value))
             if ',' in value:
@@ -4210,7 +4287,6 @@ class SizingSystem(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `a_100_outdoor_air_in_heating`'.format(value))
             value = vals[value_lower]
-
         self._data["100% Outdoor Air in Heating"] = value
 
     @property
@@ -4224,10 +4300,12 @@ class SizingSystem(object):
 
     @central_cooling_design_supply_air_humidity_ratio.setter
     def central_cooling_design_supply_air_humidity_ratio(self, value=0.008 ):
-        """  Corresponds to IDD Field `central_cooling_design_supply_air_humidity_ratio`
+        """  Corresponds to IDD Field `Central Cooling Design Supply Air Humidity Ratio`
+        
+        {u'default': '0.008', u'units': u'kgWater/kgDryAir', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `central_cooling_design_supply_air_humidity_ratio`
+            value (float): value for IDD Field `Central Cooling Design Supply Air Humidity Ratio`
                 Units: kgWater/kgDryAir
                 Default value: 0.008
                 if `value` is None it will not be checked against the
@@ -4239,10 +4317,9 @@ class SizingSystem(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `central_cooling_design_supply_air_humidity_ratio`'.format(value))
-
         self._data["Central Cooling Design Supply Air Humidity Ratio"] = value
 
     @property
@@ -4256,10 +4333,12 @@ class SizingSystem(object):
 
     @central_heating_design_supply_air_humidity_ratio.setter
     def central_heating_design_supply_air_humidity_ratio(self, value=0.008 ):
-        """  Corresponds to IDD Field `central_heating_design_supply_air_humidity_ratio`
+        """  Corresponds to IDD Field `Central Heating Design Supply Air Humidity Ratio`
+        
+        {u'default': '0.008', u'units': u'kgWater/kgDryAir', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `central_heating_design_supply_air_humidity_ratio`
+            value (float): value for IDD Field `Central Heating Design Supply Air Humidity Ratio`
                 Units: kgWater/kgDryAir
                 Default value: 0.008
                 if `value` is None it will not be checked against the
@@ -4271,10 +4350,9 @@ class SizingSystem(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `central_heating_design_supply_air_humidity_ratio`'.format(value))
-
         self._data["Central Heating Design Supply Air Humidity Ratio"] = value
 
     @property
@@ -4288,10 +4366,12 @@ class SizingSystem(object):
 
     @cooling_design_air_flow_method.setter
     def cooling_design_air_flow_method(self, value="DesignDay"):
-        """  Corresponds to IDD Field `cooling_design_air_flow_method`
+        """  Corresponds to IDD Field `Cooling Design Air Flow Method`
+        
+        {u'default': u'DesignDay', u'type': u'choice', u'key': [u'Flow/System', u'DesignDay', u'FlowPerFloorArea', u'FractionOfAutosizedCoolingAirflow', u'FlowPerCoolingCapacity'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `cooling_design_air_flow_method`
+            value (str): value for IDD Field `Cooling Design Air Flow Method`
                 Accepted values are:
                       - Flow/System
                       - DesignDay
@@ -4308,7 +4388,7 @@ class SizingSystem(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `cooling_design_air_flow_method`'.format(value))
             if ',' in value:
@@ -4337,7 +4417,6 @@ class SizingSystem(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `cooling_design_air_flow_method`'.format(value))
             value = vals[value_lower]
-
         self._data["Cooling Design Air Flow Method"] = value
 
     @property
@@ -4351,13 +4430,15 @@ class SizingSystem(object):
 
     @cooling_design_air_flow_rate.setter
     def cooling_design_air_flow_rate(self, value=0.0 ):
-        """  Corresponds to IDD Field `cooling_design_air_flow_rate`
+        """  Corresponds to IDD Field `Cooling Design Air Flow Rate`
         This input is used if Cooling Design Air Flow Method is Flow/System
         This value will *not* be multiplied by any sizing factor or by zone multipliers.
         If using zone multipliers, this value must be large enough to serve the multiplied zones.
+        
+        {'pytype': 'float', u'default': '0.0', u'note': [u'This input is used if Cooling Design Air Flow Method is Flow/System', u'This value will *not* be multiplied by any sizing factor or by zone multipliers.', u'If using zone multipliers, this value must be large enough to serve the multiplied zones.'], u'minimum': '0.0', u'units': u'm3/s', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `cooling_design_air_flow_rate`
+            value (float): value for IDD Field `Cooling Design Air Flow Rate`
                 Units: m3/s
                 Default value: 0.0
                 value >= 0.0
@@ -4370,13 +4451,12 @@ class SizingSystem(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `cooling_design_air_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `cooling_design_air_flow_rate`')
-
         self._data["Cooling Design Air Flow Rate"] = value
 
     @property
@@ -4390,12 +4470,14 @@ class SizingSystem(object):
 
     @supply_air_flow_rate_per_floor_area_during_cooling_operation.setter
     def supply_air_flow_rate_per_floor_area_during_cooling_operation(self, value=None):
-        """  Corresponds to IDD Field `supply_air_flow_rate_per_floor_area_during_cooling_operation`
+        """  Corresponds to IDD Field `Supply Air Flow Rate Per Floor Area During Cooling Operation`
         Enter the cooling supply air volume flow rate per total conditioned floor area.
         Required field when Supply air Flow Rate Method during cooling operation is FlowPerFloorArea.
+        
+        {u'units': u'm3/s-m2', u'note': [u'Enter the cooling supply air volume flow rate per total conditioned floor area.', u'Required field when Supply air Flow Rate Method during cooling operation is FlowPerFloorArea.'], u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `supply_air_flow_rate_per_floor_area_during_cooling_operation`
+            value (float): value for IDD Field `Supply Air Flow Rate Per Floor Area During Cooling Operation`
                 Units: m3/s-m2
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -4407,13 +4489,12 @@ class SizingSystem(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `supply_air_flow_rate_per_floor_area_during_cooling_operation`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `supply_air_flow_rate_per_floor_area_during_cooling_operation`')
-
         self._data["Supply Air Flow Rate Per Floor Area During Cooling Operation"] = value
 
     @property
@@ -4427,13 +4508,15 @@ class SizingSystem(object):
 
     @fraction_of_autosized_design_cooling_supply_air_flow_rate.setter
     def fraction_of_autosized_design_cooling_supply_air_flow_rate(self, value=None):
-        """  Corresponds to IDD Field `fraction_of_autosized_design_cooling_supply_air_flow_rate`
+        """  Corresponds to IDD Field `Fraction of Autosized Design Cooling Supply Air Flow Rate`
         Enter the supply air volume flow rate as a fraction of the cooling supply air flow rate.
         Required field when Supply air Flow Rate Method during cooling operation is
         FractionOfAutosizedCoolingAirflow.
+        
+        {u'note': [u'Enter the supply air volume flow rate as a fraction of the cooling supply air flow rate.', u'Required field when Supply air Flow Rate Method during cooling operation is', u'FractionOfAutosizedCoolingAirflow.'], u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `fraction_of_autosized_design_cooling_supply_air_flow_rate`
+            value (float): value for IDD Field `Fraction of Autosized Design Cooling Supply Air Flow Rate`
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -4444,13 +4527,12 @@ class SizingSystem(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `fraction_of_autosized_design_cooling_supply_air_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `fraction_of_autosized_design_cooling_supply_air_flow_rate`')
-
         self._data["Fraction of Autosized Design Cooling Supply Air Flow Rate"] = value
 
     @property
@@ -4464,13 +4546,15 @@ class SizingSystem(object):
 
     @design_supply_air_flow_rate_per_unit_cooling_capacity.setter
     def design_supply_air_flow_rate_per_unit_cooling_capacity(self, value=None):
-        """  Corresponds to IDD Field `design_supply_air_flow_rate_per_unit_cooling_capacity`
+        """  Corresponds to IDD Field `Design Supply Air Flow Rate Per Unit Cooling Capacity`
         Enter the supply air volume flow rate per unit cooling capacity.
         Required field when Supply air Flow Rate Method During Cooling Operation is
         FlowPerCoolingCapacity.
+        
+        {u'units': u'm3/s-W', u'note': [u'Enter the supply air volume flow rate per unit cooling capacity.', u'Required field when Supply air Flow Rate Method During Cooling Operation is', u'FlowPerCoolingCapacity.'], u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `design_supply_air_flow_rate_per_unit_cooling_capacity`
+            value (float): value for IDD Field `Design Supply Air Flow Rate Per Unit Cooling Capacity`
                 Units: m3/s-W
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -4482,13 +4566,12 @@ class SizingSystem(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `design_supply_air_flow_rate_per_unit_cooling_capacity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `design_supply_air_flow_rate_per_unit_cooling_capacity`')
-
         self._data["Design Supply Air Flow Rate Per Unit Cooling Capacity"] = value
 
     @property
@@ -4502,10 +4585,12 @@ class SizingSystem(object):
 
     @heating_design_air_flow_method.setter
     def heating_design_air_flow_method(self, value="DesignDay"):
-        """  Corresponds to IDD Field `heating_design_air_flow_method`
+        """  Corresponds to IDD Field `Heating Design Air Flow Method`
+        
+        {u'default': u'DesignDay', u'type': u'choice', u'key': [u'Flow/System', u'DesignDay', u'FlowPerFloorArea', u'FractionOfAutosizedHeatingAirflow', u'FractionOfAutosizedCoolingAirflow', u'FlowPerCoolingCapacity'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `heating_design_air_flow_method`
+            value (str): value for IDD Field `Heating Design Air Flow Method`
                 Accepted values are:
                       - Flow/System
                       - DesignDay
@@ -4523,7 +4608,7 @@ class SizingSystem(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `heating_design_air_flow_method`'.format(value))
             if ',' in value:
@@ -4553,7 +4638,6 @@ class SizingSystem(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `heating_design_air_flow_method`'.format(value))
             value = vals[value_lower]
-
         self._data["Heating Design Air Flow Method"] = value
 
     @property
@@ -4567,13 +4651,15 @@ class SizingSystem(object):
 
     @heating_design_air_flow_rate.setter
     def heating_design_air_flow_rate(self, value=0.0 ):
-        """  Corresponds to IDD Field `heating_design_air_flow_rate`
+        """  Corresponds to IDD Field `Heating Design Air Flow Rate`
         This input is used if Heating Design Air Flow Method is Flow/System
         This value will *not* be multiplied by any sizing factor or by zone multipliers.
         If using zone multipliers, this value must be large enough to serve the multiplied zones.
+        
+        {'pytype': 'float', u'default': '0.0', u'note': [u'This input is used if Heating Design Air Flow Method is Flow/System', u'This value will *not* be multiplied by any sizing factor or by zone multipliers.', u'If using zone multipliers, this value must be large enough to serve the multiplied zones.'], u'minimum': '0.0', u'units': u'm3/s', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `heating_design_air_flow_rate`
+            value (float): value for IDD Field `Heating Design Air Flow Rate`
                 Units: m3/s
                 Default value: 0.0
                 value >= 0.0
@@ -4586,13 +4672,12 @@ class SizingSystem(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `heating_design_air_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `heating_design_air_flow_rate`')
-
         self._data["Heating Design Air Flow Rate"] = value
 
     @property
@@ -4606,12 +4691,14 @@ class SizingSystem(object):
 
     @supply_air_flow_rate_per_floor_area_during_heating_operation.setter
     def supply_air_flow_rate_per_floor_area_during_heating_operation(self, value=None):
-        """  Corresponds to IDD Field `supply_air_flow_rate_per_floor_area_during_heating_operation`
+        """  Corresponds to IDD Field `Supply Air Flow Rate Per Floor Area During Heating Operation`
         Enter the heating supply air volume flow rate per total conditioned floor area.
         Required field when Supply air Flow Rate Method during heating operation is FlowPerFloorArea.
+        
+        {u'units': u'm3/s-m2', u'note': [u'Enter the heating supply air volume flow rate per total conditioned floor area.', u'Required field when Supply air Flow Rate Method during heating operation is FlowPerFloorArea.'], u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `supply_air_flow_rate_per_floor_area_during_heating_operation`
+            value (float): value for IDD Field `Supply Air Flow Rate Per Floor Area During Heating Operation`
                 Units: m3/s-m2
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -4623,13 +4710,12 @@ class SizingSystem(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `supply_air_flow_rate_per_floor_area_during_heating_operation`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `supply_air_flow_rate_per_floor_area_during_heating_operation`')
-
         self._data["Supply Air Flow Rate Per Floor Area During Heating Operation"] = value
 
     @property
@@ -4643,13 +4729,15 @@ class SizingSystem(object):
 
     @fraction_of_autosized_design_heating_supply_air_flow_rate.setter
     def fraction_of_autosized_design_heating_supply_air_flow_rate(self, value=None):
-        """  Corresponds to IDD Field `fraction_of_autosized_design_heating_supply_air_flow_rate`
+        """  Corresponds to IDD Field `Fraction of Autosized Design Heating Supply Air Flow Rate`
         Enter the supply air volume flow rate as a fraction of the heating supply air flow rate.
         Required field when Supply air Flow Rate Method during heating operation is
         FractionOfAutosizedHeatingAirflow.
+        
+        {u'note': [u'Enter the supply air volume flow rate as a fraction of the heating supply air flow rate.', u'Required field when Supply air Flow Rate Method during heating operation is', u'FractionOfAutosizedHeatingAirflow.'], u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `fraction_of_autosized_design_heating_supply_air_flow_rate`
+            value (float): value for IDD Field `Fraction of Autosized Design Heating Supply Air Flow Rate`
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -4660,13 +4748,12 @@ class SizingSystem(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `fraction_of_autosized_design_heating_supply_air_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `fraction_of_autosized_design_heating_supply_air_flow_rate`')
-
         self._data["Fraction of Autosized Design Heating Supply Air Flow Rate"] = value
 
     @property
@@ -4680,13 +4767,15 @@ class SizingSystem(object):
 
     @fraction_of_autosized_design_cooling_supply_air_flow_rate_v3.setter
     def fraction_of_autosized_design_cooling_supply_air_flow_rate_v3(self, value=None):
-        """  Corresponds to IDD Field `fraction_of_autosized_design_cooling_supply_air_flow_rate_v3`
+        """  Corresponds to IDD Field `Fraction of Autosized Design Cooling Supply Air Flow Rate v3`
         Enter the supply air volume flow rate as a fraction of the cooling supply air flow rate.
         Required field when Supply air Flow Rate Method during heating operation is
         FractionOfAutosizedCoolingAirflow.
+        
+        {u'note': [u'Enter the supply air volume flow rate as a fraction of the cooling supply air flow rate.', u'Required field when Supply air Flow Rate Method during heating operation is', u'FractionOfAutosizedCoolingAirflow.'], u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `fraction_of_autosized_design_cooling_supply_air_flow_rate_v3`
+            value (float): value for IDD Field `Fraction of Autosized Design Cooling Supply Air Flow Rate v3`
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -4697,13 +4786,12 @@ class SizingSystem(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `fraction_of_autosized_design_cooling_supply_air_flow_rate_v3`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `fraction_of_autosized_design_cooling_supply_air_flow_rate_v3`')
-
         self._data["Fraction of Autosized Design Cooling Supply Air Flow Rate v3"] = value
 
     @property
@@ -4717,13 +4805,15 @@ class SizingSystem(object):
 
     @design_supply_air_flow_rate_per_unit_heating_capacity.setter
     def design_supply_air_flow_rate_per_unit_heating_capacity(self, value=None):
-        """  Corresponds to IDD Field `design_supply_air_flow_rate_per_unit_heating_capacity`
+        """  Corresponds to IDD Field `Design Supply Air Flow Rate Per Unit Heating Capacity`
         Enter the heating supply air volume flow rate per unit heating capacity.
         Required field when Supply air Flow Rate Method during heating operation is
         FlowPerHeatingCapacity.
+        
+        {u'units': u'm3/s-W', u'note': [u'Enter the heating supply air volume flow rate per unit heating capacity.', u'Required field when Supply air Flow Rate Method during heating operation is', u'FlowPerHeatingCapacity.'], u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `design_supply_air_flow_rate_per_unit_heating_capacity`
+            value (float): value for IDD Field `Design Supply Air Flow Rate Per Unit Heating Capacity`
                 Units: m3/s-W
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -4735,13 +4825,12 @@ class SizingSystem(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `design_supply_air_flow_rate_per_unit_heating_capacity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `design_supply_air_flow_rate_per_unit_heating_capacity`')
-
         self._data["Design Supply Air Flow Rate Per Unit Heating Capacity"] = value
 
     @property
@@ -4755,10 +4844,12 @@ class SizingSystem(object):
 
     @system_outdoor_air_method.setter
     def system_outdoor_air_method(self, value="ZoneSum"):
-        """  Corresponds to IDD Field `system_outdoor_air_method`
+        """  Corresponds to IDD Field `System Outdoor Air Method`
+        
+        {u'default': u'ZoneSum', u'type': u'choice', u'key': [u'ZoneSum', u'VentilationRateProcedure'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `system_outdoor_air_method`
+            value (str): value for IDD Field `System Outdoor Air Method`
                 Accepted values are:
                       - ZoneSum
                       - VentilationRateProcedure
@@ -4772,7 +4863,7 @@ class SizingSystem(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `system_outdoor_air_method`'.format(value))
             if ',' in value:
@@ -4798,7 +4889,6 @@ class SizingSystem(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `system_outdoor_air_method`'.format(value))
             value = vals[value_lower]
-
         self._data["System Outdoor Air Method"] = value
 
     @property
@@ -4812,10 +4902,12 @@ class SizingSystem(object):
 
     @zone_maximum_outdoor_air_fraction.setter
     def zone_maximum_outdoor_air_fraction(self, value=1.0 ):
-        """  Corresponds to IDD Field `zone_maximum_outdoor_air_fraction`
+        """  Corresponds to IDD Field `Zone Maximum Outdoor Air Fraction`
+        
+        {u'default': '1.0', u'units': u'dimensionless', u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `zone_maximum_outdoor_air_fraction`
+            value (float): value for IDD Field `Zone Maximum Outdoor Air Fraction`
                 Units: dimensionless
                 Default value: 1.0
                 value > 0.0
@@ -4828,13 +4920,12 @@ class SizingSystem(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `zone_maximum_outdoor_air_fraction`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `zone_maximum_outdoor_air_fraction`')
-
         self._data["Zone Maximum Outdoor Air Fraction"] = value
 
     @property
@@ -4848,7 +4939,7 @@ class SizingSystem(object):
 
     @cooling_design_capacity_method.setter
     def cooling_design_capacity_method(self, value="CoolingDesignCapacity"):
-        """  Corresponds to IDD Field `cooling_design_capacity_method`
+        """  Corresponds to IDD Field `Cooling Design Capacity Method`
         Enter the method used to determine the system cooling design capacity for scalable sizing.
         None is used when a cooling coils is not included in an airloop or this field may be blank.
         If this input field is left blank, then the design cooling capacity is set to zero.
@@ -4858,9 +4949,11 @@ class SizingSystem(object):
         served by an airloop. FractionOfAutosizedCoolingCapacity => is selected when the design
         cooling capacity is determined from a user specified fraction and the auto-sized design
         cooling capacity of the system.
+        
+        {u'default': u'CoolingDesignCapacity', u'note': [u'Enter the method used to determine the system cooling design capacity for scalable sizing.', u'None is used when a cooling coils is not included in an airloop or this field may be blank.', u'If this input field is left blank, then the design cooling capacity is set to zero.', u'CoolingDesignCapacity => selected when the design cooling capacity value is specified or', u'auto-sized. CapacityPerFloorArea => selected when the design cooling capacity is determined', u'from user specified cooling capacity per floor area and total floor area of cooled zones', u'served by an airloop. FractionOfAutosizedCoolingCapacity => is selected when the design', u'cooling capacity is determined from a user specified fraction and the auto-sized design', u'cooling capacity of the system.'], u'type': u'choice', u'key': [u'None', u'CoolingDesignCapacity', u'CapacityPerFloorArea', u'FractionOfAutosizedCoolingCapacity'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `cooling_design_capacity_method`
+            value (str): value for IDD Field `Cooling Design Capacity Method`
                 Accepted values are:
                       - None
                       - CoolingDesignCapacity
@@ -4876,7 +4969,7 @@ class SizingSystem(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `cooling_design_capacity_method`'.format(value))
             if ',' in value:
@@ -4904,7 +4997,6 @@ class SizingSystem(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `cooling_design_capacity_method`'.format(value))
             value = vals[value_lower]
-
         self._data["Cooling Design Capacity Method"] = value
 
     @property
@@ -4917,14 +5009,17 @@ class SizingSystem(object):
         return self._data["Cooling Design Capacity"]
 
     @cooling_design_capacity.setter
-    def cooling_design_capacity(self, value=None):
-        """  Corresponds to IDD Field `cooling_design_capacity`
+    def cooling_design_capacity(self, value="autosize" ):
+        """  Corresponds to IDD Field `Cooling Design Capacity`
         Enter the design cooling capacity. Required field when the cooling design capacity method
         CoolingDesignCapacity.
+        
+        {'pytype': 'float', u'default': '"autosize"', u'note': [u'Enter the design cooling capacity. Required field when the cooling design capacity method', u'CoolingDesignCapacity.'], u'autosizable': u'', u'minimum': '0.0', u'units': u'W', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `cooling_design_capacity`
+            value (float): value for IDD Field `Cooling Design Capacity`
                 Units: W
+                Default value: "autosize"
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -4935,13 +5030,12 @@ class SizingSystem(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `cooling_design_capacity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `cooling_design_capacity`')
-
         self._data["Cooling Design Capacity"] = value
 
     @property
@@ -4955,12 +5049,14 @@ class SizingSystem(object):
 
     @cooling_design_capacity_per_floor_area.setter
     def cooling_design_capacity_per_floor_area(self, value=None):
-        """  Corresponds to IDD Field `cooling_design_capacity_per_floor_area`
+        """  Corresponds to IDD Field `Cooling Design Capacity Per Floor Area`
         Enter the cooling design capacity per total floor area of cooled zones served by an airloop.
         Required field when the cooling design capacity method field is CapacityPerFloorArea.
+        
+        {u'units': u'W/m2', u'note': [u'Enter the cooling design capacity per total floor area of cooled zones served by an airloop.', u'Required field when the cooling design capacity method field is CapacityPerFloorArea.'], u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `cooling_design_capacity_per_floor_area`
+            value (float): value for IDD Field `Cooling Design Capacity Per Floor Area`
                 Units: W/m2
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -4972,13 +5068,12 @@ class SizingSystem(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `cooling_design_capacity_per_floor_area`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `cooling_design_capacity_per_floor_area`')
-
         self._data["Cooling Design Capacity Per Floor Area"] = value
 
     @property
@@ -4992,12 +5087,14 @@ class SizingSystem(object):
 
     @fraction_of_autosized_cooling_design_capacity.setter
     def fraction_of_autosized_cooling_design_capacity(self, value=None):
-        """  Corresponds to IDD Field `fraction_of_autosized_cooling_design_capacity`
+        """  Corresponds to IDD Field `Fraction of Autosized Cooling Design Capacity`
         Enter the fraction of auto-sized cooling design capacity. Required field when the cooling
         design capacity method field is FractionOfAutosizedCoolingCapacity.
+        
+        {u'note': [u'Enter the fraction of auto-sized cooling design capacity. Required field when the cooling', u'design capacity method field is FractionOfAutosizedCoolingCapacity.'], u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `fraction_of_autosized_cooling_design_capacity`
+            value (float): value for IDD Field `Fraction of Autosized Cooling Design Capacity`
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -5008,13 +5105,12 @@ class SizingSystem(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `fraction_of_autosized_cooling_design_capacity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `fraction_of_autosized_cooling_design_capacity`')
-
         self._data["Fraction of Autosized Cooling Design Capacity"] = value
 
     @property
@@ -5028,7 +5124,7 @@ class SizingSystem(object):
 
     @heating_design_capacity_method.setter
     def heating_design_capacity_method(self, value="HeatingDesignCapacity"):
-        """  Corresponds to IDD Field `heating_design_capacity_method`
+        """  Corresponds to IDD Field `Heating Design Capacity Method`
         Enter the method used to determine the heating design capacity for scalable sizing.
         None is used when a heating coil not included in an airloop or this field may be blank.
         If this input field is left blank, then the design heating capacity is set to zero.
@@ -5038,9 +5134,11 @@ class SizingSystem(object):
         served by an airloop. FractionOfAutosizedHeatingCapacity => is selected when the design
         heating capacity is determined from a user specified fraction and the auto-sized design
         heating capacity of the system.
+        
+        {u'default': u'HeatingDesignCapacity', u'note': [u'Enter the method used to determine the heating design capacity for scalable sizing.', u'None is used when a heating coil not included in an airloop or this field may be blank.', u'If this input field is left blank, then the design heating capacity is set to zero.', u'HeatingDesignCapacity => selected when the design heating capacity value is specified or', u'auto-sized. CapacityPerFloorArea => selected when the design heating capacity is determined', u'from user specified heating capacity per flow area and total floor area of heated zones', u'served by an airloop. FractionOfAutosizedHeatingCapacity => is selected when the design', u'heating capacity is determined from a user specified fraction and the auto-sized design', u'heating capacity of the system.'], u'type': u'choice', u'key': [u'None', u'HeatingDesignCapacity', u'CapacityPerFloorArea', u'FractionOfAutosizedHeatingCapacity'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `heating_design_capacity_method`
+            value (str): value for IDD Field `Heating Design Capacity Method`
                 Accepted values are:
                       - None
                       - HeatingDesignCapacity
@@ -5056,7 +5154,7 @@ class SizingSystem(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `heating_design_capacity_method`'.format(value))
             if ',' in value:
@@ -5084,7 +5182,6 @@ class SizingSystem(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `heating_design_capacity_method`'.format(value))
             value = vals[value_lower]
-
         self._data["Heating Design Capacity Method"] = value
 
     @property
@@ -5097,14 +5194,17 @@ class SizingSystem(object):
         return self._data["Heating Design Capacity"]
 
     @heating_design_capacity.setter
-    def heating_design_capacity(self, value=None):
-        """  Corresponds to IDD Field `heating_design_capacity`
+    def heating_design_capacity(self, value="autosize" ):
+        """  Corresponds to IDD Field `Heating Design Capacity`
         Enter the design heating capacity. Required field when the heating design capacity method
         HeatingDesignCapacity.
+        
+        {'pytype': 'float', u'default': '"autosize"', u'note': [u'Enter the design heating capacity. Required field when the heating design capacity method', u'HeatingDesignCapacity.'], u'autosizable': u'', u'minimum': '0.0', u'units': u'W', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `heating_design_capacity`
+            value (float): value for IDD Field `Heating Design Capacity`
                 Units: W
+                Default value: "autosize"
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -5115,13 +5215,12 @@ class SizingSystem(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `heating_design_capacity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `heating_design_capacity`')
-
         self._data["Heating Design Capacity"] = value
 
     @property
@@ -5135,12 +5234,14 @@ class SizingSystem(object):
 
     @heating_design_capacity_per_floor_area.setter
     def heating_design_capacity_per_floor_area(self, value=None):
-        """  Corresponds to IDD Field `heating_design_capacity_per_floor_area`
+        """  Corresponds to IDD Field `Heating Design Capacity Per Floor Area`
         Enter the heating design capacity per zone floor area. Required field when the heating design
         capacity method field is CapacityPerFloorArea.
+        
+        {u'units': u'W/m2', u'note': [u'Enter the heating design capacity per zone floor area. Required field when the heating design', u'capacity method field is CapacityPerFloorArea.'], u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `heating_design_capacity_per_floor_area`
+            value (float): value for IDD Field `Heating Design Capacity Per Floor Area`
                 Units: W/m2
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -5152,13 +5253,12 @@ class SizingSystem(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `heating_design_capacity_per_floor_area`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `heating_design_capacity_per_floor_area`')
-
         self._data["Heating Design Capacity Per Floor Area"] = value
 
     @property
@@ -5172,12 +5272,14 @@ class SizingSystem(object):
 
     @fraction_of_autosized_heating_design_capacity.setter
     def fraction_of_autosized_heating_design_capacity(self, value=None):
-        """  Corresponds to IDD Field `fraction_of_autosized_heating_design_capacity`
+        """  Corresponds to IDD Field `Fraction of Autosized Heating Design Capacity`
         Enter the fraction of auto-sized heating design capacity. Required field when capacity the
         heating design capacity method field is FractionOfAutosizedHeatingCapacity.
+        
+        {u'note': [u'Enter the fraction of auto-sized heating design capacity. Required field when capacity the', u'heating design capacity method field is FractionOfAutosizedHeatingCapacity.'], u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `fraction_of_autosized_heating_design_capacity`
+            value (float): value for IDD Field `Fraction of Autosized Heating Design Capacity`
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -5188,13 +5290,12 @@ class SizingSystem(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `fraction_of_autosized_heating_design_capacity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `fraction_of_autosized_heating_design_capacity`')
-
         self._data["Fraction of Autosized Heating Design Capacity"] = value
 
     def check(self):
@@ -5301,11 +5402,13 @@ class SizingPlant(object):
 
     @plant_or_condenser_loop_name.setter
     def plant_or_condenser_loop_name(self, value=None):
-        """  Corresponds to IDD Field `plant_or_condenser_loop_name`
+        """  Corresponds to IDD Field `Plant or Condenser Loop Name`
         Enter the name of a PlantLoop or a CondenserLoop object
+        
+        {u'note': [u'Enter the name of a PlantLoop or a CondenserLoop object'], u'type': u'object-list', u'object-list': u'PlantLoops', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `plant_or_condenser_loop_name`
+            value (str): value for IDD Field `Plant or Condenser Loop Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5315,7 +5418,7 @@ class SizingPlant(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `plant_or_condenser_loop_name`'.format(value))
             if ',' in value:
@@ -5324,7 +5427,6 @@ class SizingPlant(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `plant_or_condenser_loop_name`')
-
         self._data["Plant or Condenser Loop Name"] = value
 
     @property
@@ -5338,10 +5440,12 @@ class SizingPlant(object):
 
     @loop_type.setter
     def loop_type(self, value=None):
-        """  Corresponds to IDD Field `loop_type`
+        """  Corresponds to IDD Field `Loop Type`
+        
+        {u'type': u'choice', u'key': [u'Heating', u'Cooling', u'Condenser', u'Steam'], u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `loop_type`
+            value (str): value for IDD Field `Loop Type`
                 Accepted values are:
                       - Heating
                       - Cooling
@@ -5356,7 +5460,7 @@ class SizingPlant(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `loop_type`'.format(value))
             if ',' in value:
@@ -5384,7 +5488,6 @@ class SizingPlant(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `loop_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Loop Type"] = value
 
     @property
@@ -5398,10 +5501,12 @@ class SizingPlant(object):
 
     @design_loop_exit_temperature.setter
     def design_loop_exit_temperature(self, value=None):
-        """  Corresponds to IDD Field `design_loop_exit_temperature`
+        """  Corresponds to IDD Field `Design Loop Exit Temperature`
+        
+        {u'units': u'C', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `design_loop_exit_temperature`
+            value (float): value for IDD Field `Design Loop Exit Temperature`
                 Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -5412,10 +5517,9 @@ class SizingPlant(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `design_loop_exit_temperature`'.format(value))
-
         self._data["Design Loop Exit Temperature"] = value
 
     @property
@@ -5429,10 +5533,12 @@ class SizingPlant(object):
 
     @loop_design_temperature_difference.setter
     def loop_design_temperature_difference(self, value=None):
-        """  Corresponds to IDD Field `loop_design_temperature_difference`
+        """  Corresponds to IDD Field `Loop Design Temperature Difference`
+        
+        {u'units': u'deltaC', u'minimum>': '0.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `loop_design_temperature_difference`
+            value (float): value for IDD Field `Loop Design Temperature Difference`
                 Units: deltaC
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -5444,13 +5550,12 @@ class SizingPlant(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `loop_design_temperature_difference`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `loop_design_temperature_difference`')
-
         self._data["Loop Design Temperature Difference"] = value
 
     def check(self):
@@ -5533,10 +5638,12 @@ class OutputControlSizingStyle(object):
 
     @column_separator.setter
     def column_separator(self, value=None):
-        """  Corresponds to IDD Field `column_separator`
+        """  Corresponds to IDD Field `Column Separator`
+        
+        {u'Group': u'Zone HVAC Controls and Thermostats', u'type': u'choice', u'key': [u'Comma', u'Tab', u'Fixed'], u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `column_separator`
+            value (str): value for IDD Field `Column Separator`
                 Accepted values are:
                       - Comma
                       - Tab
@@ -5550,7 +5657,7 @@ class OutputControlSizingStyle(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `column_separator`'.format(value))
             if ',' in value:
@@ -5577,7 +5684,6 @@ class OutputControlSizingStyle(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `column_separator`'.format(value))
             value = vals[value_lower]
-
         self._data["Column Separator"] = value
 
     def check(self):
@@ -5681,10 +5787,12 @@ class ZoneControlHumidistat(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {'type': 'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5694,7 +5802,7 @@ class ZoneControlHumidistat(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -5703,7 +5811,6 @@ class ZoneControlHumidistat(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -5717,10 +5824,12 @@ class ZoneControlHumidistat(object):
 
     @zone_name.setter
     def zone_name(self, value=None):
-        """  Corresponds to IDD Field `zone_name`
+        """  Corresponds to IDD Field `Zone Name`
+        
+        {u'type': u'object-list', u'object-list': u'ZoneNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `zone_name`
+            value (str): value for IDD Field `Zone Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5730,7 +5839,7 @@ class ZoneControlHumidistat(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `zone_name`'.format(value))
             if ',' in value:
@@ -5739,7 +5848,6 @@ class ZoneControlHumidistat(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `zone_name`')
-
         self._data["Zone Name"] = value
 
     @property
@@ -5753,11 +5861,13 @@ class ZoneControlHumidistat(object):
 
     @humidifying_relative_humidity_setpoint_schedule_name.setter
     def humidifying_relative_humidity_setpoint_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `humidifying_relative_humidity_setpoint_schedule_name`
+        """  Corresponds to IDD Field `Humidifying Relative Humidity Setpoint Schedule Name`
         hourly schedule values should be in Relative Humidity (percent)
+        
+        {u'note': [u'hourly schedule values should be in Relative Humidity (percent)'], u'type': u'object-list', u'object-list': u'ScheduleNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `humidifying_relative_humidity_setpoint_schedule_name`
+            value (str): value for IDD Field `Humidifying Relative Humidity Setpoint Schedule Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5767,7 +5877,7 @@ class ZoneControlHumidistat(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `humidifying_relative_humidity_setpoint_schedule_name`'.format(value))
             if ',' in value:
@@ -5776,7 +5886,6 @@ class ZoneControlHumidistat(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `humidifying_relative_humidity_setpoint_schedule_name`')
-
         self._data["Humidifying Relative Humidity Setpoint Schedule Name"] = value
 
     @property
@@ -5790,11 +5899,13 @@ class ZoneControlHumidistat(object):
 
     @dehumidifying_relative_humidity_setpoint_schedule_name.setter
     def dehumidifying_relative_humidity_setpoint_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `dehumidifying_relative_humidity_setpoint_schedule_name`
+        """  Corresponds to IDD Field `Dehumidifying Relative Humidity Setpoint Schedule Name`
         hourly schedule values should be in Relative Humidity (percent)
+        
+        {u'note': [u'hourly schedule values should be in Relative Humidity (percent)'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `dehumidifying_relative_humidity_setpoint_schedule_name`
+            value (str): value for IDD Field `Dehumidifying Relative Humidity Setpoint Schedule Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5804,7 +5915,7 @@ class ZoneControlHumidistat(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `dehumidifying_relative_humidity_setpoint_schedule_name`'.format(value))
             if ',' in value:
@@ -5813,7 +5924,6 @@ class ZoneControlHumidistat(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `dehumidifying_relative_humidity_setpoint_schedule_name`')
-
         self._data["Dehumidifying Relative Humidity Setpoint Schedule Name"] = value
 
     def check(self):
@@ -5975,10 +6085,12 @@ class ZoneControlThermostat(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {'type': 'alpha', u'reference': u'ZoneControlThermostaticNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5988,7 +6100,7 @@ class ZoneControlThermostat(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -5997,7 +6109,6 @@ class ZoneControlThermostat(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -6011,10 +6122,12 @@ class ZoneControlThermostat(object):
 
     @zone_or_zonelist_name.setter
     def zone_or_zonelist_name(self, value=None):
-        """  Corresponds to IDD Field `zone_or_zonelist_name`
+        """  Corresponds to IDD Field `Zone or ZoneList Name`
+        
+        {u'type': u'object-list', u'object-list': u'ZoneAndZoneListNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `zone_or_zonelist_name`
+            value (str): value for IDD Field `Zone or ZoneList Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6024,7 +6137,7 @@ class ZoneControlThermostat(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `zone_or_zonelist_name`'.format(value))
             if ',' in value:
@@ -6033,7 +6146,6 @@ class ZoneControlThermostat(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `zone_or_zonelist_name`')
-
         self._data["Zone or ZoneList Name"] = value
 
     @property
@@ -6047,13 +6159,15 @@ class ZoneControlThermostat(object):
 
     @control_type_schedule_name.setter
     def control_type_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `control_type_schedule_name`
+        """  Corresponds to IDD Field `Control Type Schedule Name`
         This schedule contains appropriate control types for thermostat.
         Control types are integers: 0 - Uncontrolled (floating, no thermostat), 1 = ThermostatSetpoint:SingleHeating,
         2 = ThermostatSetpoint:SingleCooling, 3 = ThermostatSetpoint:SingleHeatingOrCooling, 4 = ThermostatSetpoint:DualSetpoint
+        
+        {u'note': [u'This schedule contains appropriate control types for thermostat.', u'Control types are integers: 0 - Uncontrolled (floating, no thermostat), 1 = ThermostatSetpoint:SingleHeating,', u'2 = ThermostatSetpoint:SingleCooling, 3 = ThermostatSetpoint:SingleHeatingOrCooling, 4 = ThermostatSetpoint:DualSetpoint'], u'type': u'object-list', u'object-list': u'ScheduleNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `control_type_schedule_name`
+            value (str): value for IDD Field `Control Type Schedule Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6063,7 +6177,7 @@ class ZoneControlThermostat(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `control_type_schedule_name`'.format(value))
             if ',' in value:
@@ -6072,7 +6186,6 @@ class ZoneControlThermostat(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `control_type_schedule_name`')
-
         self._data["Control Type Schedule Name"] = value
 
     @property
@@ -6086,10 +6199,12 @@ class ZoneControlThermostat(object):
 
     @control_1_object_type.setter
     def control_1_object_type(self, value=None):
-        """  Corresponds to IDD Field `control_1_object_type`
+        """  Corresponds to IDD Field `Control 1 Object Type`
+        
+        {u'type': u'choice', u'key': [u'ThermostatSetpoint:SingleHeating', u'ThermostatSetpoint:SingleCooling', u'ThermostatSetpoint:SingleHeatingOrCooling', u'ThermostatSetpoint:DualSetpoint'], u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `control_1_object_type`
+            value (str): value for IDD Field `Control 1 Object Type`
                 Accepted values are:
                       - ThermostatSetpoint:SingleHeating
                       - ThermostatSetpoint:SingleCooling
@@ -6104,7 +6219,7 @@ class ZoneControlThermostat(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `control_1_object_type`'.format(value))
             if ',' in value:
@@ -6132,7 +6247,6 @@ class ZoneControlThermostat(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `control_1_object_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Control 1 Object Type"] = value
 
     @property
@@ -6146,12 +6260,14 @@ class ZoneControlThermostat(object):
 
     @control_1_name.setter
     def control_1_name(self, value=None):
-        """  Corresponds to IDD Field `control_1_name`
+        """  Corresponds to IDD Field `Control 1 Name`
         Control names are names of individual control objects (e.g. ThermostatSetpoint:SingleHeating)
         Schedule values in these objects list actual setpoint temperatures for the control types
+        
+        {u'note': [u'Control names are names of individual control objects (e.g. ThermostatSetpoint:SingleHeating)', u'Schedule values in these objects list actual setpoint temperatures for the control types'], u'type': u'object-list', u'object-list': u'ControlTypeNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `control_1_name`
+            value (str): value for IDD Field `Control 1 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6161,7 +6277,7 @@ class ZoneControlThermostat(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `control_1_name`'.format(value))
             if ',' in value:
@@ -6170,7 +6286,6 @@ class ZoneControlThermostat(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `control_1_name`')
-
         self._data["Control 1 Name"] = value
 
     @property
@@ -6184,10 +6299,12 @@ class ZoneControlThermostat(object):
 
     @control_2_object_type.setter
     def control_2_object_type(self, value=None):
-        """  Corresponds to IDD Field `control_2_object_type`
+        """  Corresponds to IDD Field `Control 2 Object Type`
+        
+        {u'type': u'choice', u'key': [u'ThermostatSetpoint:SingleHeating', u'ThermostatSetpoint:SingleCooling', u'ThermostatSetpoint:SingleHeatingOrCooling', u'ThermostatSetpoint:DualSetpoint'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `control_2_object_type`
+            value (str): value for IDD Field `Control 2 Object Type`
                 Accepted values are:
                       - ThermostatSetpoint:SingleHeating
                       - ThermostatSetpoint:SingleCooling
@@ -6202,7 +6319,7 @@ class ZoneControlThermostat(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `control_2_object_type`'.format(value))
             if ',' in value:
@@ -6230,7 +6347,6 @@ class ZoneControlThermostat(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `control_2_object_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Control 2 Object Type"] = value
 
     @property
@@ -6244,12 +6360,14 @@ class ZoneControlThermostat(object):
 
     @control_2_name.setter
     def control_2_name(self, value=None):
-        """  Corresponds to IDD Field `control_2_name`
+        """  Corresponds to IDD Field `Control 2 Name`
         Control names are names of individual control objects (e.g. ThermostatSetpoint:SingleHeating)
         Schedule values in these objects list actual setpoint temperatures for the control types
+        
+        {u'note': [u'Control names are names of individual control objects (e.g. ThermostatSetpoint:SingleHeating)', u'Schedule values in these objects list actual setpoint temperatures for the control types'], u'type': u'object-list', u'object-list': u'ControlTypeNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `control_2_name`
+            value (str): value for IDD Field `Control 2 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6259,7 +6377,7 @@ class ZoneControlThermostat(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `control_2_name`'.format(value))
             if ',' in value:
@@ -6268,7 +6386,6 @@ class ZoneControlThermostat(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `control_2_name`')
-
         self._data["Control 2 Name"] = value
 
     @property
@@ -6282,10 +6399,12 @@ class ZoneControlThermostat(object):
 
     @control_3_object_type.setter
     def control_3_object_type(self, value=None):
-        """  Corresponds to IDD Field `control_3_object_type`
+        """  Corresponds to IDD Field `Control 3 Object Type`
+        
+        {u'type': u'choice', u'key': [u'ThermostatSetpoint:SingleHeating', u'ThermostatSetpoint:SingleCooling', u'ThermostatSetpoint:SingleHeatingOrCooling', u'ThermostatSetpoint:DualSetpoint'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `control_3_object_type`
+            value (str): value for IDD Field `Control 3 Object Type`
                 Accepted values are:
                       - ThermostatSetpoint:SingleHeating
                       - ThermostatSetpoint:SingleCooling
@@ -6300,7 +6419,7 @@ class ZoneControlThermostat(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `control_3_object_type`'.format(value))
             if ',' in value:
@@ -6328,7 +6447,6 @@ class ZoneControlThermostat(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `control_3_object_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Control 3 Object Type"] = value
 
     @property
@@ -6342,12 +6460,14 @@ class ZoneControlThermostat(object):
 
     @control_3_name.setter
     def control_3_name(self, value=None):
-        """  Corresponds to IDD Field `control_3_name`
+        """  Corresponds to IDD Field `Control 3 Name`
         Control names are names of individual control objects (e.g. ThermostatSetpoint:SingleHeating)
         Schedule values in these objects list actual setpoint temperatures for the control types
+        
+        {u'note': [u'Control names are names of individual control objects (e.g. ThermostatSetpoint:SingleHeating)', u'Schedule values in these objects list actual setpoint temperatures for the control types'], u'type': u'object-list', u'object-list': u'ControlTypeNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `control_3_name`
+            value (str): value for IDD Field `Control 3 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6357,7 +6477,7 @@ class ZoneControlThermostat(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `control_3_name`'.format(value))
             if ',' in value:
@@ -6366,7 +6486,6 @@ class ZoneControlThermostat(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `control_3_name`')
-
         self._data["Control 3 Name"] = value
 
     @property
@@ -6380,10 +6499,12 @@ class ZoneControlThermostat(object):
 
     @control_4_object_type.setter
     def control_4_object_type(self, value=None):
-        """  Corresponds to IDD Field `control_4_object_type`
+        """  Corresponds to IDD Field `Control 4 Object Type`
+        
+        {u'type': u'choice', u'key': [u'ThermostatSetpoint:SingleHeating', u'ThermostatSetpoint:SingleCooling', u'ThermostatSetpoint:SingleHeatingOrCooling', u'ThermostatSetpoint:DualSetpoint'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `control_4_object_type`
+            value (str): value for IDD Field `Control 4 Object Type`
                 Accepted values are:
                       - ThermostatSetpoint:SingleHeating
                       - ThermostatSetpoint:SingleCooling
@@ -6398,7 +6519,7 @@ class ZoneControlThermostat(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `control_4_object_type`'.format(value))
             if ',' in value:
@@ -6426,7 +6547,6 @@ class ZoneControlThermostat(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `control_4_object_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Control 4 Object Type"] = value
 
     @property
@@ -6440,12 +6560,14 @@ class ZoneControlThermostat(object):
 
     @control_4_name.setter
     def control_4_name(self, value=None):
-        """  Corresponds to IDD Field `control_4_name`
+        """  Corresponds to IDD Field `Control 4 Name`
         Control names are names of individual control objects (e.g. ThermostatSetpoint:SingleHeating)
         Schedule values in these objects list actual setpoint temperatures for the control types
+        
+        {u'note': [u'Control names are names of individual control objects (e.g. ThermostatSetpoint:SingleHeating)', u'Schedule values in these objects list actual setpoint temperatures for the control types'], u'type': u'object-list', u'object-list': u'ControlTypeNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `control_4_name`
+            value (str): value for IDD Field `Control 4 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6455,7 +6577,7 @@ class ZoneControlThermostat(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `control_4_name`'.format(value))
             if ',' in value:
@@ -6464,7 +6586,6 @@ class ZoneControlThermostat(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `control_4_name`')
-
         self._data["Control 4 Name"] = value
 
     def check(self):
@@ -6570,13 +6691,15 @@ class ZoneControlThermostatOperativeTemperature(object):
 
     @thermostat_name.setter
     def thermostat_name(self, value=None):
-        """  Corresponds to IDD Field `thermostat_name`
+        """  Corresponds to IDD Field `Thermostat Name`
         Enter the name of a ZoneControl:Thermostat object.
         This object modifies a ZoneControl:Thermostat object to add a
         radiative fraction.
+        
+        {u'note': [u'Enter the name of a ZoneControl:Thermostat object.', u'This object modifies a ZoneControl:Thermostat object to add a', u'radiative fraction.'], u'type': u'object-list', u'object-list': u'ZoneControlThermostaticNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `thermostat_name`
+            value (str): value for IDD Field `Thermostat Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6586,7 +6709,7 @@ class ZoneControlThermostatOperativeTemperature(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `thermostat_name`'.format(value))
             if ',' in value:
@@ -6595,7 +6718,6 @@ class ZoneControlThermostatOperativeTemperature(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `thermostat_name`')
-
         self._data["Thermostat Name"] = value
 
     @property
@@ -6609,10 +6731,12 @@ class ZoneControlThermostatOperativeTemperature(object):
 
     @radiative_fraction_input_mode.setter
     def radiative_fraction_input_mode(self, value=None):
-        """  Corresponds to IDD Field `radiative_fraction_input_mode`
+        """  Corresponds to IDD Field `Radiative Fraction Input Mode`
+        
+        {u'type': u'choice', u'key': [u'Constant', u'Scheduled'], u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `radiative_fraction_input_mode`
+            value (str): value for IDD Field `Radiative Fraction Input Mode`
                 Accepted values are:
                       - Constant
                       - Scheduled
@@ -6625,7 +6749,7 @@ class ZoneControlThermostatOperativeTemperature(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `radiative_fraction_input_mode`'.format(value))
             if ',' in value:
@@ -6651,7 +6775,6 @@ class ZoneControlThermostatOperativeTemperature(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `radiative_fraction_input_mode`'.format(value))
             value = vals[value_lower]
-
         self._data["Radiative Fraction Input Mode"] = value
 
     @property
@@ -6665,10 +6788,12 @@ class ZoneControlThermostatOperativeTemperature(object):
 
     @fixed_radiative_fraction.setter
     def fixed_radiative_fraction(self, value=None):
-        """  Corresponds to IDD Field `fixed_radiative_fraction`
+        """  Corresponds to IDD Field `Fixed Radiative Fraction`
+        
+        {u'maximum<': '0.9', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `fixed_radiative_fraction`
+            value (float): value for IDD Field `Fixed Radiative Fraction`
                 value >= 0.0
                 value < 0.9
                 if `value` is None it will not be checked against the
@@ -6680,7 +6805,7 @@ class ZoneControlThermostatOperativeTemperature(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `fixed_radiative_fraction`'.format(value))
             if value < 0.0:
@@ -6689,7 +6814,6 @@ class ZoneControlThermostatOperativeTemperature(object):
             if value >= 0.9:
                 raise ValueError('value need to be smaller 0.9 '
                                  'for field `fixed_radiative_fraction`')
-
         self._data["Fixed Radiative Fraction"] = value
 
     @property
@@ -6703,11 +6827,13 @@ class ZoneControlThermostatOperativeTemperature(object):
 
     @radiative_fraction_schedule_name.setter
     def radiative_fraction_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `radiative_fraction_schedule_name`
+        """  Corresponds to IDD Field `Radiative Fraction Schedule Name`
         Schedule values of 0.0 indicate no operative temperature control
+        
+        {u'note': [u'Schedule values of 0.0 indicate no operative temperature control'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `radiative_fraction_schedule_name`
+            value (str): value for IDD Field `Radiative Fraction Schedule Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6717,7 +6843,7 @@ class ZoneControlThermostatOperativeTemperature(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `radiative_fraction_schedule_name`'.format(value))
             if ',' in value:
@@ -6726,7 +6852,6 @@ class ZoneControlThermostatOperativeTemperature(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `radiative_fraction_schedule_name`')
-
         self._data["Radiative Fraction Schedule Name"] = value
 
     def check(self):
@@ -6919,10 +7044,12 @@ class ZoneControlThermostatThermalComfort(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {'type': 'alpha', u'reference': u'ZoneControlThermalComfortNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6932,7 +7059,7 @@ class ZoneControlThermostatThermalComfort(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -6941,7 +7068,6 @@ class ZoneControlThermostatThermalComfort(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -6955,10 +7081,12 @@ class ZoneControlThermostatThermalComfort(object):
 
     @zone_or_zonelist_name.setter
     def zone_or_zonelist_name(self, value=None):
-        """  Corresponds to IDD Field `zone_or_zonelist_name`
+        """  Corresponds to IDD Field `Zone or ZoneList Name`
+        
+        {u'type': u'object-list', u'object-list': u'ZoneAndZoneListNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `zone_or_zonelist_name`
+            value (str): value for IDD Field `Zone or ZoneList Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6968,7 +7096,7 @@ class ZoneControlThermostatThermalComfort(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `zone_or_zonelist_name`'.format(value))
             if ',' in value:
@@ -6977,7 +7105,6 @@ class ZoneControlThermostatThermalComfort(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `zone_or_zonelist_name`')
-
         self._data["Zone or ZoneList Name"] = value
 
     @property
@@ -6991,12 +7118,14 @@ class ZoneControlThermostatThermalComfort(object):
 
     @averaging_method.setter
     def averaging_method(self, value="PeopleAverage"):
-        """  Corresponds to IDD Field `averaging_method`
+        """  Corresponds to IDD Field `Averaging Method`
         The method used to calculate thermal comfort dry-bulb temperature setpoint
         for multiple people objects in a zone
+        
+        {u'note': [u'The method used to calculate thermal comfort dry-bulb temperature setpoint', u'for multiple people objects in a zone'], u'default': u'PeopleAverage', u'type': u'choice', u'key': [u'SpecificObject', u'ObjectAverage', u'PeopleAverage'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `averaging_method`
+            value (str): value for IDD Field `Averaging Method`
                 Accepted values are:
                       - SpecificObject
                       - ObjectAverage
@@ -7011,7 +7140,7 @@ class ZoneControlThermostatThermalComfort(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `averaging_method`'.format(value))
             if ',' in value:
@@ -7038,7 +7167,6 @@ class ZoneControlThermostatThermalComfort(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `averaging_method`'.format(value))
             value = vals[value_lower]
-
         self._data["Averaging Method"] = value
 
     @property
@@ -7052,11 +7180,13 @@ class ZoneControlThermostatThermalComfort(object):
 
     @specific_people_name.setter
     def specific_people_name(self, value=None):
-        """  Corresponds to IDD Field `specific_people_name`
+        """  Corresponds to IDD Field `Specific People Name`
         Used only when Averaging Method = SpecificObject in the previous field.
+        
+        {u'note': [u'Used only when Averaging Method = SpecificObject in the previous field.'], u'type': u'object-list', u'object-list': u'PeopleNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `specific_people_name`
+            value (str): value for IDD Field `Specific People Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7066,7 +7196,7 @@ class ZoneControlThermostatThermalComfort(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `specific_people_name`'.format(value))
             if ',' in value:
@@ -7075,7 +7205,6 @@ class ZoneControlThermostatThermalComfort(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `specific_people_name`')
-
         self._data["Specific People Name"] = value
 
     @property
@@ -7089,10 +7218,12 @@ class ZoneControlThermostatThermalComfort(object):
 
     @minimum_drybulb_temperature_setpoint.setter
     def minimum_drybulb_temperature_setpoint(self, value=0.0 ):
-        """  Corresponds to IDD Field `minimum_drybulb_temperature_setpoint`
+        """  Corresponds to IDD Field `Minimum Dry-Bulb Temperature Setpoint`
+        
+        {'pytype': 'float', u'default': '0.0', u'maximum': '50.0', u'required-field': True, u'minimum': '0.0', u'units': u'C', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `minimum_drybulb_temperature_setpoint`
+            value (float): value for IDD Field `Minimum Dry-Bulb Temperature Setpoint`
                 Units: C
                 Default value: 0.0
                 value >= 0.0
@@ -7106,7 +7237,7 @@ class ZoneControlThermostatThermalComfort(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `minimum_drybulb_temperature_setpoint`'.format(value))
             if value < 0.0:
@@ -7115,7 +7246,6 @@ class ZoneControlThermostatThermalComfort(object):
             if value > 50.0:
                 raise ValueError('value need to be smaller 50.0 '
                                  'for field `minimum_drybulb_temperature_setpoint`')
-
         self._data["Minimum Dry-Bulb Temperature Setpoint"] = value
 
     @property
@@ -7129,10 +7259,12 @@ class ZoneControlThermostatThermalComfort(object):
 
     @maximum_drybulb_temperature_setpoint.setter
     def maximum_drybulb_temperature_setpoint(self, value=50.0 ):
-        """  Corresponds to IDD Field `maximum_drybulb_temperature_setpoint`
+        """  Corresponds to IDD Field `Maximum Dry-Bulb Temperature Setpoint`
+        
+        {'pytype': 'float', u'default': '50.0', u'maximum': '50.0', u'required-field': True, u'minimum': '0.0', u'units': u'C', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `maximum_drybulb_temperature_setpoint`
+            value (float): value for IDD Field `Maximum Dry-Bulb Temperature Setpoint`
                 Units: C
                 Default value: 50.0
                 value >= 0.0
@@ -7146,7 +7278,7 @@ class ZoneControlThermostatThermalComfort(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `maximum_drybulb_temperature_setpoint`'.format(value))
             if value < 0.0:
@@ -7155,7 +7287,6 @@ class ZoneControlThermostatThermalComfort(object):
             if value > 50.0:
                 raise ValueError('value need to be smaller 50.0 '
                                  'for field `maximum_drybulb_temperature_setpoint`')
-
         self._data["Maximum Dry-Bulb Temperature Setpoint"] = value
 
     @property
@@ -7169,16 +7300,18 @@ class ZoneControlThermostatThermalComfort(object):
 
     @thermal_comfort_control_type_schedule_name.setter
     def thermal_comfort_control_type_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `thermal_comfort_control_type_schedule_name`
+        """  Corresponds to IDD Field `Thermal Comfort Control Type Schedule Name`
         The Thermal Comfort Control Type Schedule contains values that are appropriate control types.
         Thermal Comfort Control types are integers: 0 - Uncontrolled (floating),
         1 = ThermostatSetpoint:ThermalComfort:Fanger:SingleHeating
         2 = ThermostatSetpoint:ThermalComfort:Fanger:SingleCooling
         3 = ThermostatSetpoint:ThermalComfort:Fanger:SingleHeatingOrCooling
         4 = ThermostatSetpoint:ThermalComfort:Fanger:DualSetpoint
+        
+        {u'note': [u'The Thermal Comfort Control Type Schedule contains values that are appropriate control types.', u'Thermal Comfort Control types are integers: 0 - Uncontrolled (floating),', u'1 = ThermostatSetpoint:ThermalComfort:Fanger:SingleHeating', u'2 = ThermostatSetpoint:ThermalComfort:Fanger:SingleCooling', u'3 = ThermostatSetpoint:ThermalComfort:Fanger:SingleHeatingOrCooling', u'4 = ThermostatSetpoint:ThermalComfort:Fanger:DualSetpoint'], u'type': u'object-list', u'object-list': u'ScheduleNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `thermal_comfort_control_type_schedule_name`
+            value (str): value for IDD Field `Thermal Comfort Control Type Schedule Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7188,7 +7321,7 @@ class ZoneControlThermostatThermalComfort(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `thermal_comfort_control_type_schedule_name`'.format(value))
             if ',' in value:
@@ -7197,7 +7330,6 @@ class ZoneControlThermostatThermalComfort(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `thermal_comfort_control_type_schedule_name`')
-
         self._data["Thermal Comfort Control Type Schedule Name"] = value
 
     @property
@@ -7211,10 +7343,12 @@ class ZoneControlThermostatThermalComfort(object):
 
     @thermal_comfort_control_1_object_type.setter
     def thermal_comfort_control_1_object_type(self, value=None):
-        """  Corresponds to IDD Field `thermal_comfort_control_1_object_type`
+        """  Corresponds to IDD Field `Thermal Comfort Control 1 Object Type`
+        
+        {u'type': u'choice', u'key': [u'ThermostatSetpoint:ThermalComfort:Fanger:SingleHeating', u'ThermostatSetpoint:ThermalComfort:Fanger:SingleCooling', u'ThermostatSetpoint:ThermalComfort:Fanger:SingleHeatingOrCooling', u'ThermostatSetpoint:ThermalComfort:Fanger:DualSetpoint'], u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `thermal_comfort_control_1_object_type`
+            value (str): value for IDD Field `Thermal Comfort Control 1 Object Type`
                 Accepted values are:
                       - ThermostatSetpoint:ThermalComfort:Fanger:SingleHeating
                       - ThermostatSetpoint:ThermalComfort:Fanger:SingleCooling
@@ -7229,7 +7363,7 @@ class ZoneControlThermostatThermalComfort(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `thermal_comfort_control_1_object_type`'.format(value))
             if ',' in value:
@@ -7257,7 +7391,6 @@ class ZoneControlThermostatThermalComfort(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `thermal_comfort_control_1_object_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Thermal Comfort Control 1 Object Type"] = value
 
     @property
@@ -7271,12 +7404,14 @@ class ZoneControlThermostatThermalComfort(object):
 
     @thermal_comfort_control_1_name.setter
     def thermal_comfort_control_1_name(self, value=None):
-        """  Corresponds to IDD Field `thermal_comfort_control_1_name`
+        """  Corresponds to IDD Field `Thermal Comfort Control 1 Name`
         Control type names are names for individual control type objects.
         Schedule values in these objects list actual setpoint temperatures for the control types
+        
+        {u'note': [u'Control type names are names for individual control type objects.', u'Schedule values in these objects list actual setpoint temperatures for the control types'], u'type': u'object-list', u'object-list': u'ThermalComfortControlTypeNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `thermal_comfort_control_1_name`
+            value (str): value for IDD Field `Thermal Comfort Control 1 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7286,7 +7421,7 @@ class ZoneControlThermostatThermalComfort(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `thermal_comfort_control_1_name`'.format(value))
             if ',' in value:
@@ -7295,7 +7430,6 @@ class ZoneControlThermostatThermalComfort(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `thermal_comfort_control_1_name`')
-
         self._data["Thermal Comfort Control 1 Name"] = value
 
     @property
@@ -7309,10 +7443,12 @@ class ZoneControlThermostatThermalComfort(object):
 
     @thermal_comfort_control_2_object_type.setter
     def thermal_comfort_control_2_object_type(self, value=None):
-        """  Corresponds to IDD Field `thermal_comfort_control_2_object_type`
+        """  Corresponds to IDD Field `Thermal Comfort Control 2 Object Type`
+        
+        {u'type': u'choice', u'key': [u'ThermostatSetpoint:ThermalComfort:Fanger:SingleHeating', u'ThermostatSetpoint:ThermalComfort:Fanger:SingleCooling', u'ThermostatSetpoint:ThermalComfort:Fanger:SingleHeatingOrCooling', u'ThermostatSetpoint:ThermalComfort:Fanger:DualSetpoint'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `thermal_comfort_control_2_object_type`
+            value (str): value for IDD Field `Thermal Comfort Control 2 Object Type`
                 Accepted values are:
                       - ThermostatSetpoint:ThermalComfort:Fanger:SingleHeating
                       - ThermostatSetpoint:ThermalComfort:Fanger:SingleCooling
@@ -7327,7 +7463,7 @@ class ZoneControlThermostatThermalComfort(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `thermal_comfort_control_2_object_type`'.format(value))
             if ',' in value:
@@ -7355,7 +7491,6 @@ class ZoneControlThermostatThermalComfort(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `thermal_comfort_control_2_object_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Thermal Comfort Control 2 Object Type"] = value
 
     @property
@@ -7369,12 +7504,14 @@ class ZoneControlThermostatThermalComfort(object):
 
     @thermal_comfort_control_2_name.setter
     def thermal_comfort_control_2_name(self, value=None):
-        """  Corresponds to IDD Field `thermal_comfort_control_2_name`
+        """  Corresponds to IDD Field `Thermal Comfort Control 2 Name`
         Control Type names are names for individual control type objects.
         Schedule values in these objects list actual setpoint temperatures for the control types
+        
+        {u'note': [u'Control Type names are names for individual control type objects.', u'Schedule values in these objects list actual setpoint temperatures for the control types'], u'type': u'object-list', u'object-list': u'ThermalComfortControlTypeNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `thermal_comfort_control_2_name`
+            value (str): value for IDD Field `Thermal Comfort Control 2 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7384,7 +7521,7 @@ class ZoneControlThermostatThermalComfort(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `thermal_comfort_control_2_name`'.format(value))
             if ',' in value:
@@ -7393,7 +7530,6 @@ class ZoneControlThermostatThermalComfort(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `thermal_comfort_control_2_name`')
-
         self._data["Thermal Comfort Control 2 Name"] = value
 
     @property
@@ -7407,10 +7543,12 @@ class ZoneControlThermostatThermalComfort(object):
 
     @thermal_comfort_control_3_object_type.setter
     def thermal_comfort_control_3_object_type(self, value=None):
-        """  Corresponds to IDD Field `thermal_comfort_control_3_object_type`
+        """  Corresponds to IDD Field `Thermal Comfort Control 3 Object Type`
+        
+        {u'type': u'choice', u'key': [u'ThermostatSetpoint:ThermalComfort:Fanger:SingleHeating', u'ThermostatSetpoint:ThermalComfort:Fanger:SingleCooling', u'ThermostatSetpoint:ThermalComfort:Fanger:SingleHeatingOrCooling', u'ThermostatSetpoint:ThermalComfort:Fanger:DualSetpoint'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `thermal_comfort_control_3_object_type`
+            value (str): value for IDD Field `Thermal Comfort Control 3 Object Type`
                 Accepted values are:
                       - ThermostatSetpoint:ThermalComfort:Fanger:SingleHeating
                       - ThermostatSetpoint:ThermalComfort:Fanger:SingleCooling
@@ -7425,7 +7563,7 @@ class ZoneControlThermostatThermalComfort(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `thermal_comfort_control_3_object_type`'.format(value))
             if ',' in value:
@@ -7453,7 +7591,6 @@ class ZoneControlThermostatThermalComfort(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `thermal_comfort_control_3_object_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Thermal Comfort Control 3 Object Type"] = value
 
     @property
@@ -7467,12 +7604,14 @@ class ZoneControlThermostatThermalComfort(object):
 
     @thermal_comfort_control_3_name.setter
     def thermal_comfort_control_3_name(self, value=None):
-        """  Corresponds to IDD Field `thermal_comfort_control_3_name`
+        """  Corresponds to IDD Field `Thermal Comfort Control 3 Name`
         Control type names are names for individual control type objects.
         Schedule values in these objects list actual setpoint temperatures for the control types
+        
+        {u'note': [u'Control type names are names for individual control type objects.', u'Schedule values in these objects list actual setpoint temperatures for the control types'], u'type': u'object-list', u'object-list': u'ThermalComfortControlTypeNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `thermal_comfort_control_3_name`
+            value (str): value for IDD Field `Thermal Comfort Control 3 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7482,7 +7621,7 @@ class ZoneControlThermostatThermalComfort(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `thermal_comfort_control_3_name`'.format(value))
             if ',' in value:
@@ -7491,7 +7630,6 @@ class ZoneControlThermostatThermalComfort(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `thermal_comfort_control_3_name`')
-
         self._data["Thermal Comfort Control 3 Name"] = value
 
     @property
@@ -7505,10 +7643,12 @@ class ZoneControlThermostatThermalComfort(object):
 
     @thermal_comfort_control_4_object_type.setter
     def thermal_comfort_control_4_object_type(self, value=None):
-        """  Corresponds to IDD Field `thermal_comfort_control_4_object_type`
+        """  Corresponds to IDD Field `Thermal Comfort Control 4 Object Type`
+        
+        {u'type': u'choice', u'key': [u'ThermostatSetpoint:ThermalComfort:Fanger:SingleHeating', u'ThermostatSetpoint:ThermalComfort:Fanger:SingleCooling', u'ThermostatSetpoint:ThermalComfort:Fanger:SingleHeatingOrCooling', u'ThermostatSetpoint:ThermalComfort:Fanger:DualSetpoint'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `thermal_comfort_control_4_object_type`
+            value (str): value for IDD Field `Thermal Comfort Control 4 Object Type`
                 Accepted values are:
                       - ThermostatSetpoint:ThermalComfort:Fanger:SingleHeating
                       - ThermostatSetpoint:ThermalComfort:Fanger:SingleCooling
@@ -7523,7 +7663,7 @@ class ZoneControlThermostatThermalComfort(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `thermal_comfort_control_4_object_type`'.format(value))
             if ',' in value:
@@ -7551,7 +7691,6 @@ class ZoneControlThermostatThermalComfort(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `thermal_comfort_control_4_object_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Thermal Comfort Control 4 Object Type"] = value
 
     @property
@@ -7565,12 +7704,14 @@ class ZoneControlThermostatThermalComfort(object):
 
     @thermal_comfort_control_4_name.setter
     def thermal_comfort_control_4_name(self, value=None):
-        """  Corresponds to IDD Field `thermal_comfort_control_4_name`
+        """  Corresponds to IDD Field `Thermal Comfort Control 4 Name`
         Control type names are names for individual control type objects.
         Schedule values in these objects list actual setpoint temperatures for the control types
+        
+        {u'note': [u'Control type names are names for individual control type objects.', u'Schedule values in these objects list actual setpoint temperatures for the control types'], u'type': u'object-list', u'object-list': u'ThermalComfortControlTypeNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `thermal_comfort_control_4_name`
+            value (str): value for IDD Field `Thermal Comfort Control 4 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7580,7 +7721,7 @@ class ZoneControlThermostatThermalComfort(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `thermal_comfort_control_4_name`'.format(value))
             if ',' in value:
@@ -7589,7 +7730,6 @@ class ZoneControlThermostatThermalComfort(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `thermal_comfort_control_4_name`')
-
         self._data["Thermal Comfort Control 4 Name"] = value
 
     def check(self):
@@ -7718,7 +7858,7 @@ class ZoneControlThermostatTemperatureAndHumidity(object):
 
     @thermostat_name.setter
     def thermostat_name(self, value=None):
-        """  Corresponds to IDD Field `thermostat_name`
+        """  Corresponds to IDD Field `Thermostat Name`
         Enter the name of a ZoneControl:Thermostat object whose operation is to be modified to
         effect temperature control based on zone air humidity conditions. If the ZoneControl:
         Thermostat object references a ZoneList, simply enter the name of the ZoneControl:Thermostat
@@ -7727,9 +7867,11 @@ class ZoneControlThermostatTemperatureAndHumidity(object):
         desired that only a single zone within the ZoneList be controlled based on temperature and
         humidity control, then the name to be put here is <Zone Name> <Thermostat Name> where the
         Thermostat Name is the the name of the ZoneControl:Thermostat object.
+        
+        {u'note': [u'Enter the name of a ZoneControl:Thermostat object whose operation is to be modified to', u'effect temperature control based on zone air humidity conditions. If the ZoneControl:', u'Thermostat object references a ZoneList, simply enter the name of the ZoneControl:Thermostat', u'object and this temperature and humidity thermostat control will be applied to all zones', u'in the ZoneList. If the ZoneControl:Thermostat object references a ZoneList but it is', u'desired that only a single zone within the ZoneList be controlled based on temperature and', u'humidity control, then the name to be put here is <Zone Name> <Thermostat Name> where the', u'Thermostat Name is the the name of the ZoneControl:Thermostat object.'], u'type': u'object-list', u'object-list': u'ZoneControlThermostaticNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `thermostat_name`
+            value (str): value for IDD Field `Thermostat Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7739,7 +7881,7 @@ class ZoneControlThermostatTemperatureAndHumidity(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `thermostat_name`'.format(value))
             if ',' in value:
@@ -7748,7 +7890,6 @@ class ZoneControlThermostatTemperatureAndHumidity(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `thermostat_name`')
-
         self._data["Thermostat Name"] = value
 
     @property
@@ -7762,11 +7903,13 @@ class ZoneControlThermostatTemperatureAndHumidity(object):
 
     @dehumidifying_relative_humidity_setpoint_schedule_name.setter
     def dehumidifying_relative_humidity_setpoint_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `dehumidifying_relative_humidity_setpoint_schedule_name`
+        """  Corresponds to IDD Field `Dehumidifying Relative Humidity Setpoint Schedule Name`
         Schedule values should be in Relative Humidity (percent)
+        
+        {u'note': [u'Schedule values should be in Relative Humidity (percent)'], u'type': u'object-list', u'object-list': u'ScheduleNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `dehumidifying_relative_humidity_setpoint_schedule_name`
+            value (str): value for IDD Field `Dehumidifying Relative Humidity Setpoint Schedule Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7776,7 +7919,7 @@ class ZoneControlThermostatTemperatureAndHumidity(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `dehumidifying_relative_humidity_setpoint_schedule_name`'.format(value))
             if ',' in value:
@@ -7785,7 +7928,6 @@ class ZoneControlThermostatTemperatureAndHumidity(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `dehumidifying_relative_humidity_setpoint_schedule_name`')
-
         self._data["Dehumidifying Relative Humidity Setpoint Schedule Name"] = value
 
     @property
@@ -7799,10 +7941,12 @@ class ZoneControlThermostatTemperatureAndHumidity(object):
 
     @dehumidification_control_type.setter
     def dehumidification_control_type(self, value="Overcool"):
-        """  Corresponds to IDD Field `dehumidification_control_type`
+        """  Corresponds to IDD Field `Dehumidification Control Type`
+        
+        {u'default': u'Overcool', u'type': u'choice', u'key': [u'Overcool', u'None'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `dehumidification_control_type`
+            value (str): value for IDD Field `Dehumidification Control Type`
                 Accepted values are:
                       - Overcool
                       - None
@@ -7816,7 +7960,7 @@ class ZoneControlThermostatTemperatureAndHumidity(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `dehumidification_control_type`'.format(value))
             if ',' in value:
@@ -7842,7 +7986,6 @@ class ZoneControlThermostatTemperatureAndHumidity(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `dehumidification_control_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Dehumidification Control Type"] = value
 
     @property
@@ -7856,10 +7999,12 @@ class ZoneControlThermostatTemperatureAndHumidity(object):
 
     @overcool_range_input_method.setter
     def overcool_range_input_method(self, value="Constant"):
-        """  Corresponds to IDD Field `overcool_range_input_method`
+        """  Corresponds to IDD Field `Overcool Range Input Method`
+        
+        {u'default': u'Constant', u'type': u'choice', u'key': [u'Constant', u'Scheduled'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `overcool_range_input_method`
+            value (str): value for IDD Field `Overcool Range Input Method`
                 Accepted values are:
                       - Constant
                       - Scheduled
@@ -7873,7 +8018,7 @@ class ZoneControlThermostatTemperatureAndHumidity(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `overcool_range_input_method`'.format(value))
             if ',' in value:
@@ -7899,7 +8044,6 @@ class ZoneControlThermostatTemperatureAndHumidity(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `overcool_range_input_method`'.format(value))
             value = vals[value_lower]
-
         self._data["Overcool Range Input Method"] = value
 
     @property
@@ -7913,14 +8057,16 @@ class ZoneControlThermostatTemperatureAndHumidity(object):
 
     @overcool_constant_range.setter
     def overcool_constant_range(self, value=1.7 ):
-        """  Corresponds to IDD Field `overcool_constant_range`
+        """  Corresponds to IDD Field `Overcool Constant Range`
         Maximum Overcool temperature range for cooling setpoint reduction.
         Used with Dehumidification Control Type = Overcool.
         A value of 0.0 indicates no zone temperature overcooling will be provided to
         gain additional dehumidification.
+        
+        {'pytype': 'float', u'default': '1.7', u'maximum': '3.0', u'note': [u'Maximum Overcool temperature range for cooling setpoint reduction.', u'Used with Dehumidification Control Type = Overcool.', u'A value of 0.0 indicates no zone temperature overcooling will be provided to', u'gain additional dehumidification.'], u'minimum': '0.0', u'units': u'deltaC', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `overcool_constant_range`
+            value (float): value for IDD Field `Overcool Constant Range`
                 Units: deltaC
                 Default value: 1.7
                 value >= 0.0
@@ -7934,7 +8080,7 @@ class ZoneControlThermostatTemperatureAndHumidity(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `overcool_constant_range`'.format(value))
             if value < 0.0:
@@ -7943,7 +8089,6 @@ class ZoneControlThermostatTemperatureAndHumidity(object):
             if value > 3.0:
                 raise ValueError('value need to be smaller 3.0 '
                                  'for field `overcool_constant_range`')
-
         self._data["Overcool Constant Range"] = value
 
     @property
@@ -7957,13 +8102,15 @@ class ZoneControlThermostatTemperatureAndHumidity(object):
 
     @overcool_range_schedule_name.setter
     def overcool_range_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `overcool_range_schedule_name`
+        """  Corresponds to IDD Field `Overcool Range Schedule Name`
         Schedule values of 0.0 indicates no zone temperature overcooling will be
         provided to gain additional dehumidification.
         Schedule values should be >= 0 and <= 3 (deltaC).
+        
+        {u'note': [u'Schedule values of 0.0 indicates no zone temperature overcooling will be', u'provided to gain additional dehumidification.', u'Schedule values should be >= 0 and <= 3 (deltaC).'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `overcool_range_schedule_name`
+            value (str): value for IDD Field `Overcool Range Schedule Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7973,7 +8120,7 @@ class ZoneControlThermostatTemperatureAndHumidity(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `overcool_range_schedule_name`'.format(value))
             if ',' in value:
@@ -7982,7 +8129,6 @@ class ZoneControlThermostatTemperatureAndHumidity(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `overcool_range_schedule_name`')
-
         self._data["Overcool Range Schedule Name"] = value
 
     @property
@@ -7996,14 +8142,16 @@ class ZoneControlThermostatTemperatureAndHumidity(object):
 
     @overcool_control_ratio.setter
     def overcool_control_ratio(self, value=3.6 ):
-        """  Corresponds to IDD Field `overcool_control_ratio`
+        """  Corresponds to IDD Field `Overcool Control Ratio`
         The value of this input field is used to adjust the cooling setpoint temperature
         (established by the associated ZoneControl:Thermostat object) downward based on the
         difference between the zone air relative humidity level and the dehumidifying
         relative humidity setpoint.
+        
+        {'pytype': 'float', u'default': '3.6', u'note': [u'The value of this input field is used to adjust the cooling setpoint temperature', u'(established by the associated ZoneControl:Thermostat object) downward based on the', u'difference between the zone air relative humidity level and the dehumidifying', u'relative humidity setpoint.'], u'minimum': '0.0', u'units': u'percent/K', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `overcool_control_ratio`
+            value (float): value for IDD Field `Overcool Control Ratio`
                 Units: percent/K
                 Default value: 3.6
                 value >= 0.0
@@ -8016,13 +8164,12 @@ class ZoneControlThermostatTemperatureAndHumidity(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `overcool_control_ratio`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `overcool_control_ratio`')
-
         self._data["Overcool Control Ratio"] = value
 
     def check(self):
@@ -8111,10 +8258,12 @@ class ThermostatSetpointSingleHeating(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {u'type': u'alpha', u'reference': u'ControlTypeNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8124,7 +8273,7 @@ class ThermostatSetpointSingleHeating(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -8133,7 +8282,6 @@ class ThermostatSetpointSingleHeating(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -8147,10 +8295,12 @@ class ThermostatSetpointSingleHeating(object):
 
     @setpoint_temperature_schedule_name.setter
     def setpoint_temperature_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `setpoint_temperature_schedule_name`
+        """  Corresponds to IDD Field `Setpoint Temperature Schedule Name`
+        
+        {u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `setpoint_temperature_schedule_name`
+            value (str): value for IDD Field `Setpoint Temperature Schedule Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8160,7 +8310,7 @@ class ThermostatSetpointSingleHeating(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `setpoint_temperature_schedule_name`'.format(value))
             if ',' in value:
@@ -8169,7 +8319,6 @@ class ThermostatSetpointSingleHeating(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `setpoint_temperature_schedule_name`')
-
         self._data["Setpoint Temperature Schedule Name"] = value
 
     def check(self):
@@ -8258,10 +8407,12 @@ class ThermostatSetpointSingleCooling(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {u'type': u'alpha', u'reference': u'ControlTypeNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8271,7 +8422,7 @@ class ThermostatSetpointSingleCooling(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -8280,7 +8431,6 @@ class ThermostatSetpointSingleCooling(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -8294,10 +8444,12 @@ class ThermostatSetpointSingleCooling(object):
 
     @setpoint_temperature_schedule_name.setter
     def setpoint_temperature_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `setpoint_temperature_schedule_name`
+        """  Corresponds to IDD Field `Setpoint Temperature Schedule Name`
+        
+        {u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `setpoint_temperature_schedule_name`
+            value (str): value for IDD Field `Setpoint Temperature Schedule Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8307,7 +8459,7 @@ class ThermostatSetpointSingleCooling(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `setpoint_temperature_schedule_name`'.format(value))
             if ',' in value:
@@ -8316,7 +8468,6 @@ class ThermostatSetpointSingleCooling(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `setpoint_temperature_schedule_name`')
-
         self._data["Setpoint Temperature Schedule Name"] = value
 
     def check(self):
@@ -8405,10 +8556,12 @@ class ThermostatSetpointSingleHeatingOrCooling(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {u'type': u'alpha', u'reference': u'ControlTypeNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8418,7 +8571,7 @@ class ThermostatSetpointSingleHeatingOrCooling(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -8427,7 +8580,6 @@ class ThermostatSetpointSingleHeatingOrCooling(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -8441,10 +8593,12 @@ class ThermostatSetpointSingleHeatingOrCooling(object):
 
     @setpoint_temperature_schedule_name.setter
     def setpoint_temperature_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `setpoint_temperature_schedule_name`
+        """  Corresponds to IDD Field `Setpoint Temperature Schedule Name`
+        
+        {u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `setpoint_temperature_schedule_name`
+            value (str): value for IDD Field `Setpoint Temperature Schedule Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8454,7 +8608,7 @@ class ThermostatSetpointSingleHeatingOrCooling(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `setpoint_temperature_schedule_name`'.format(value))
             if ',' in value:
@@ -8463,7 +8617,6 @@ class ThermostatSetpointSingleHeatingOrCooling(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `setpoint_temperature_schedule_name`')
-
         self._data["Setpoint Temperature Schedule Name"] = value
 
     def check(self):
@@ -8560,10 +8713,12 @@ class ThermostatSetpointDualSetpoint(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {u'type': u'alpha', u'reference': u'ControlTypeNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8573,7 +8728,7 @@ class ThermostatSetpointDualSetpoint(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -8582,7 +8737,6 @@ class ThermostatSetpointDualSetpoint(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -8596,10 +8750,12 @@ class ThermostatSetpointDualSetpoint(object):
 
     @heating_setpoint_temperature_schedule_name.setter
     def heating_setpoint_temperature_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `heating_setpoint_temperature_schedule_name`
+        """  Corresponds to IDD Field `Heating Setpoint Temperature Schedule Name`
+        
+        {u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `heating_setpoint_temperature_schedule_name`
+            value (str): value for IDD Field `Heating Setpoint Temperature Schedule Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8609,7 +8765,7 @@ class ThermostatSetpointDualSetpoint(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `heating_setpoint_temperature_schedule_name`'.format(value))
             if ',' in value:
@@ -8618,7 +8774,6 @@ class ThermostatSetpointDualSetpoint(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `heating_setpoint_temperature_schedule_name`')
-
         self._data["Heating Setpoint Temperature Schedule Name"] = value
 
     @property
@@ -8632,10 +8787,12 @@ class ThermostatSetpointDualSetpoint(object):
 
     @cooling_setpoint_temperature_schedule_name.setter
     def cooling_setpoint_temperature_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `cooling_setpoint_temperature_schedule_name`
+        """  Corresponds to IDD Field `Cooling Setpoint Temperature Schedule Name`
+        
+        {u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `cooling_setpoint_temperature_schedule_name`
+            value (str): value for IDD Field `Cooling Setpoint Temperature Schedule Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8645,7 +8802,7 @@ class ThermostatSetpointDualSetpoint(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `cooling_setpoint_temperature_schedule_name`'.format(value))
             if ',' in value:
@@ -8654,7 +8811,6 @@ class ThermostatSetpointDualSetpoint(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `cooling_setpoint_temperature_schedule_name`')
-
         self._data["Cooling Setpoint Temperature Schedule Name"] = value
 
     def check(self):
@@ -8743,10 +8899,12 @@ class ThermostatSetpointThermalComfortFangerSingleHeating(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {u'type': u'alpha', u'reference': u'ThermalComfortControlTypeNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8756,7 +8914,7 @@ class ThermostatSetpointThermalComfortFangerSingleHeating(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -8765,7 +8923,6 @@ class ThermostatSetpointThermalComfortFangerSingleHeating(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -8779,11 +8936,13 @@ class ThermostatSetpointThermalComfortFangerSingleHeating(object):
 
     @fanger_thermal_comfort_schedule_name.setter
     def fanger_thermal_comfort_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `fanger_thermal_comfort_schedule_name`
+        """  Corresponds to IDD Field `Fanger Thermal Comfort Schedule Name`
         Schedule values should be Predicted Mean Vote (PMV)
+        
+        {u'note': [u'Schedule values should be Predicted Mean Vote (PMV)'], u'type': u'object-list', u'object-list': u'ScheduleNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `fanger_thermal_comfort_schedule_name`
+            value (str): value for IDD Field `Fanger Thermal Comfort Schedule Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8793,7 +8952,7 @@ class ThermostatSetpointThermalComfortFangerSingleHeating(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `fanger_thermal_comfort_schedule_name`'.format(value))
             if ',' in value:
@@ -8802,7 +8961,6 @@ class ThermostatSetpointThermalComfortFangerSingleHeating(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `fanger_thermal_comfort_schedule_name`')
-
         self._data["Fanger Thermal Comfort Schedule Name"] = value
 
     def check(self):
@@ -8891,10 +9049,12 @@ class ThermostatSetpointThermalComfortFangerSingleCooling(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {u'type': u'alpha', u'reference': u'ThermalComfortControlTypeNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8904,7 +9064,7 @@ class ThermostatSetpointThermalComfortFangerSingleCooling(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -8913,7 +9073,6 @@ class ThermostatSetpointThermalComfortFangerSingleCooling(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -8927,11 +9086,13 @@ class ThermostatSetpointThermalComfortFangerSingleCooling(object):
 
     @fanger_thermal_comfort_schedule_name.setter
     def fanger_thermal_comfort_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `fanger_thermal_comfort_schedule_name`
+        """  Corresponds to IDD Field `Fanger Thermal Comfort Schedule Name`
         Schedule values should be Predicted Mean Vote (PMV)
+        
+        {u'note': [u'Schedule values should be Predicted Mean Vote (PMV)'], u'type': u'object-list', u'object-list': u'ScheduleNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `fanger_thermal_comfort_schedule_name`
+            value (str): value for IDD Field `Fanger Thermal Comfort Schedule Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8941,7 +9102,7 @@ class ThermostatSetpointThermalComfortFangerSingleCooling(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `fanger_thermal_comfort_schedule_name`'.format(value))
             if ',' in value:
@@ -8950,7 +9111,6 @@ class ThermostatSetpointThermalComfortFangerSingleCooling(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `fanger_thermal_comfort_schedule_name`')
-
         self._data["Fanger Thermal Comfort Schedule Name"] = value
 
     def check(self):
@@ -9040,10 +9200,12 @@ class ThermostatSetpointThermalComfortFangerSingleHeatingOrCooling(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {u'type': u'alpha', u'reference': u'ThermalComfortControlTypeNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9053,7 +9215,7 @@ class ThermostatSetpointThermalComfortFangerSingleHeatingOrCooling(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -9062,7 +9224,6 @@ class ThermostatSetpointThermalComfortFangerSingleHeatingOrCooling(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -9076,11 +9237,13 @@ class ThermostatSetpointThermalComfortFangerSingleHeatingOrCooling(object):
 
     @fanger_thermal_comfort_schedule_name.setter
     def fanger_thermal_comfort_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `fanger_thermal_comfort_schedule_name`
+        """  Corresponds to IDD Field `Fanger Thermal Comfort Schedule Name`
         Schedule values should be Predicted Mean Vote (PMV)
+        
+        {u'note': [u'Schedule values should be Predicted Mean Vote (PMV)'], u'type': u'object-list', u'object-list': u'ScheduleNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `fanger_thermal_comfort_schedule_name`
+            value (str): value for IDD Field `Fanger Thermal Comfort Schedule Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9090,7 +9253,7 @@ class ThermostatSetpointThermalComfortFangerSingleHeatingOrCooling(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `fanger_thermal_comfort_schedule_name`'.format(value))
             if ',' in value:
@@ -9099,7 +9262,6 @@ class ThermostatSetpointThermalComfortFangerSingleHeatingOrCooling(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `fanger_thermal_comfort_schedule_name`')
-
         self._data["Fanger Thermal Comfort Schedule Name"] = value
 
     def check(self):
@@ -9197,10 +9359,12 @@ class ThermostatSetpointThermalComfortFangerDualSetpoint(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {u'type': u'alpha', u'reference': u'ThermalComfortControlTypeNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9210,7 +9374,7 @@ class ThermostatSetpointThermalComfortFangerDualSetpoint(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -9219,7 +9383,6 @@ class ThermostatSetpointThermalComfortFangerDualSetpoint(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -9233,11 +9396,13 @@ class ThermostatSetpointThermalComfortFangerDualSetpoint(object):
 
     @fanger_thermal_comfort_heating_schedule_name.setter
     def fanger_thermal_comfort_heating_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `fanger_thermal_comfort_heating_schedule_name`
+        """  Corresponds to IDD Field `Fanger Thermal Comfort Heating Schedule Name`
         Schedule values should be Predicted Mean Vote (PMV)
+        
+        {u'note': [u'Schedule values should be Predicted Mean Vote (PMV)'], u'type': u'object-list', u'object-list': u'ScheduleNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `fanger_thermal_comfort_heating_schedule_name`
+            value (str): value for IDD Field `Fanger Thermal Comfort Heating Schedule Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9247,7 +9412,7 @@ class ThermostatSetpointThermalComfortFangerDualSetpoint(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `fanger_thermal_comfort_heating_schedule_name`'.format(value))
             if ',' in value:
@@ -9256,7 +9421,6 @@ class ThermostatSetpointThermalComfortFangerDualSetpoint(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `fanger_thermal_comfort_heating_schedule_name`')
-
         self._data["Fanger Thermal Comfort Heating Schedule Name"] = value
 
     @property
@@ -9270,11 +9434,13 @@ class ThermostatSetpointThermalComfortFangerDualSetpoint(object):
 
     @fanger_thermal_comfort_cooling_schedule_name.setter
     def fanger_thermal_comfort_cooling_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `fanger_thermal_comfort_cooling_schedule_name`
+        """  Corresponds to IDD Field `Fanger Thermal Comfort Cooling Schedule Name`
         Schedule values should be Predicted Mean Vote (PMV)
+        
+        {u'note': [u'Schedule values should be Predicted Mean Vote (PMV)'], u'type': u'object-list', u'object-list': u'ScheduleNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `fanger_thermal_comfort_cooling_schedule_name`
+            value (str): value for IDD Field `Fanger Thermal Comfort Cooling Schedule Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9284,7 +9450,7 @@ class ThermostatSetpointThermalComfortFangerDualSetpoint(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `fanger_thermal_comfort_cooling_schedule_name`'.format(value))
             if ',' in value:
@@ -9293,7 +9459,6 @@ class ThermostatSetpointThermalComfortFangerDualSetpoint(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `fanger_thermal_comfort_cooling_schedule_name`')
-
         self._data["Fanger Thermal Comfort Cooling Schedule Name"] = value
 
     def check(self):
@@ -9495,10 +9660,12 @@ class ZoneControlThermostatStagedDualSetpoint(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {'type': 'alpha', u'reference': u'ZoneControlThermostaticNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9508,7 +9675,7 @@ class ZoneControlThermostatStagedDualSetpoint(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -9517,7 +9684,6 @@ class ZoneControlThermostatStagedDualSetpoint(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -9531,10 +9697,12 @@ class ZoneControlThermostatStagedDualSetpoint(object):
 
     @zone_or_zonelist_name.setter
     def zone_or_zonelist_name(self, value=None):
-        """  Corresponds to IDD Field `zone_or_zonelist_name`
+        """  Corresponds to IDD Field `Zone or ZoneList Name`
+        
+        {u'type': u'object-list', u'object-list': u'ZoneAndZoneListNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `zone_or_zonelist_name`
+            value (str): value for IDD Field `Zone or ZoneList Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9544,7 +9712,7 @@ class ZoneControlThermostatStagedDualSetpoint(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `zone_or_zonelist_name`'.format(value))
             if ',' in value:
@@ -9553,7 +9721,6 @@ class ZoneControlThermostatStagedDualSetpoint(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `zone_or_zonelist_name`')
-
         self._data["Zone or ZoneList Name"] = value
 
     @property
@@ -9567,11 +9734,13 @@ class ZoneControlThermostatStagedDualSetpoint(object):
 
     @number_of_heating_stages.setter
     def number_of_heating_stages(self, value=None):
-        """  Corresponds to IDD Field `number_of_heating_stages`
+        """  Corresponds to IDD Field `Number of Heating Stages`
         Enter the number of the following sets of data for heating temperature offset
+        
+        {'pytype': 'int', u'maximum': '4', u'required-field': True, u'note': [u'Enter the number of the following sets of data for heating temperature offset'], u'minimum': '1', u'type': u'integer'}
 
         Args:
-            value (int): value for IDD Field `number_of_heating_stages`
+            value (int): value for IDD Field `Number of Heating Stages`
                 value >= 1
                 value <= 4
                 if `value` is None it will not be checked against the
@@ -9583,7 +9752,7 @@ class ZoneControlThermostatStagedDualSetpoint(object):
         if value is not None:
             try:
                 value = int(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type int '
                                  'for field `number_of_heating_stages`'.format(value))
             if value < 1:
@@ -9592,7 +9761,6 @@ class ZoneControlThermostatStagedDualSetpoint(object):
             if value > 4:
                 raise ValueError('value need to be smaller 4 '
                                  'for field `number_of_heating_stages`')
-
         self._data["Number of Heating Stages"] = value
 
     @property
@@ -9606,10 +9774,12 @@ class ZoneControlThermostatStagedDualSetpoint(object):
 
     @heating_temperature_setpoint_schedule_name.setter
     def heating_temperature_setpoint_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `heating_temperature_setpoint_schedule_name`
+        """  Corresponds to IDD Field `Heating Temperature Setpoint Schedule Name`
+        
+        {u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `heating_temperature_setpoint_schedule_name`
+            value (str): value for IDD Field `Heating Temperature Setpoint Schedule Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9619,7 +9789,7 @@ class ZoneControlThermostatStagedDualSetpoint(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `heating_temperature_setpoint_schedule_name`'.format(value))
             if ',' in value:
@@ -9628,7 +9798,6 @@ class ZoneControlThermostatStagedDualSetpoint(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `heating_temperature_setpoint_schedule_name`')
-
         self._data["Heating Temperature Setpoint Schedule Name"] = value
 
     @property
@@ -9642,10 +9811,12 @@ class ZoneControlThermostatStagedDualSetpoint(object):
 
     @heating_throttling_temperature_range.setter
     def heating_throttling_temperature_range(self, value=1.1 ):
-        """  Corresponds to IDD Field `heating_throttling_temperature_range`
+        """  Corresponds to IDD Field `Heating Throttling Temperature Range`
+        
+        {u'units': u'deltaC', u'default': '1.1', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `heating_throttling_temperature_range`
+            value (float): value for IDD Field `Heating Throttling Temperature Range`
                 Units: deltaC
                 Default value: 1.1
                 value >= 0.0
@@ -9658,13 +9829,12 @@ class ZoneControlThermostatStagedDualSetpoint(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `heating_throttling_temperature_range`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `heating_throttling_temperature_range`')
-
         self._data["Heating Throttling Temperature Range"] = value
 
     @property
@@ -9678,15 +9848,17 @@ class ZoneControlThermostatStagedDualSetpoint(object):
 
     @stage_1_heating_temperature_offset.setter
     def stage_1_heating_temperature_offset(self, value=None):
-        """  Corresponds to IDD Field `stage_1_heating_temperature_offset`
+        """  Corresponds to IDD Field `Stage 1 Heating Temperature Offset`
         The heating temperature offset is used to determine heating stage number for
         multi stage equipment.
         When the temperature difference of the heating setpoint and the controlled zone
         temperature at previous time step is less than Stage 1 value and greater than
         Stage 2 value, the stage number is 1.
+        
+        {'pytype': 'float', u'maximum': '0.0', u'required-field': True, u'note': [u'The heating temperature offset is used to determine heating stage number for', u'multi stage equipment.', u'When the temperature difference of the heating setpoint and the controlled zone', u'temperature at previous time step is less than Stage 1 value and greater than', u'Stage 2 value, the stage number is 1.'], u'units': u'deltaC', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `stage_1_heating_temperature_offset`
+            value (float): value for IDD Field `Stage 1 Heating Temperature Offset`
                 Units: deltaC
                 value <= 0.0
                 if `value` is None it will not be checked against the
@@ -9698,13 +9870,12 @@ class ZoneControlThermostatStagedDualSetpoint(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `stage_1_heating_temperature_offset`'.format(value))
             if value > 0.0:
                 raise ValueError('value need to be smaller 0.0 '
                                  'for field `stage_1_heating_temperature_offset`')
-
         self._data["Stage 1 Heating Temperature Offset"] = value
 
     @property
@@ -9718,16 +9889,18 @@ class ZoneControlThermostatStagedDualSetpoint(object):
 
     @stage_2_heating_temperature_offset.setter
     def stage_2_heating_temperature_offset(self, value=None):
-        """  Corresponds to IDD Field `stage_2_heating_temperature_offset`
+        """  Corresponds to IDD Field `Stage 2 Heating Temperature Offset`
         The heating temperature offset is used to determine heating stage number for
         multi stage equipment.
         When the temperature difference of the heating setpoint and the controlled zone
         temperature at previous time step is less than Stage 2 value and greater than
         Stage 3 value, the stage number is 2.
         The value of this field has to be less the value at the previous field.
+        
+        {u'units': u'deltaC', u'note': [u'The heating temperature offset is used to determine heating stage number for', u'multi stage equipment.', u'When the temperature difference of the heating setpoint and the controlled zone', u'temperature at previous time step is less than Stage 2 value and greater than', u'Stage 3 value, the stage number is 2.', u'The value of this field has to be less the value at the previous field.'], u'type': u'real', u'maximum': '0.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `stage_2_heating_temperature_offset`
+            value (float): value for IDD Field `Stage 2 Heating Temperature Offset`
                 Units: deltaC
                 value <= 0.0
                 if `value` is None it will not be checked against the
@@ -9739,13 +9912,12 @@ class ZoneControlThermostatStagedDualSetpoint(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `stage_2_heating_temperature_offset`'.format(value))
             if value > 0.0:
                 raise ValueError('value need to be smaller 0.0 '
                                  'for field `stage_2_heating_temperature_offset`')
-
         self._data["Stage 2 Heating Temperature Offset"] = value
 
     @property
@@ -9759,16 +9931,18 @@ class ZoneControlThermostatStagedDualSetpoint(object):
 
     @stage_3_heating_temperature_offset.setter
     def stage_3_heating_temperature_offset(self, value=None):
-        """  Corresponds to IDD Field `stage_3_heating_temperature_offset`
+        """  Corresponds to IDD Field `Stage 3 Heating Temperature Offset`
         The heating temperature offset is used to determine heating stage number for
         multi stage equipment.
         When the temperature difference of the heating setpoint and the controlled zone
         temperature at previous time step is less than Stage 3 value and greater than
         Stage 4 value, the stage number is 3.
         The value of this field has to be less the value at the previous field.
+        
+        {u'units': u'deltaC', u'note': [u'The heating temperature offset is used to determine heating stage number for', u'multi stage equipment.', u'When the temperature difference of the heating setpoint and the controlled zone', u'temperature at previous time step is less than Stage 3 value and greater than', u'Stage 4 value, the stage number is 3.', u'The value of this field has to be less the value at the previous field.'], u'type': u'real', u'maximum': '0.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `stage_3_heating_temperature_offset`
+            value (float): value for IDD Field `Stage 3 Heating Temperature Offset`
                 Units: deltaC
                 value <= 0.0
                 if `value` is None it will not be checked against the
@@ -9780,13 +9954,12 @@ class ZoneControlThermostatStagedDualSetpoint(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `stage_3_heating_temperature_offset`'.format(value))
             if value > 0.0:
                 raise ValueError('value need to be smaller 0.0 '
                                  'for field `stage_3_heating_temperature_offset`')
-
         self._data["Stage 3 Heating Temperature Offset"] = value
 
     @property
@@ -9800,15 +9973,17 @@ class ZoneControlThermostatStagedDualSetpoint(object):
 
     @stage_4_heating_temperature_offset.setter
     def stage_4_heating_temperature_offset(self, value=None):
-        """  Corresponds to IDD Field `stage_4_heating_temperature_offset`
+        """  Corresponds to IDD Field `Stage 4 Heating Temperature Offset`
         The heating temperature offset is used to determine heating stage number for
         multi stage equipment.
         When the temperature difference of the heating setpoint and the controlled zone
         temperature at previous time step is less than Stage 4 value, the stage number is 4.
         The value of this field has to be less the value at the previous field.
+        
+        {u'units': u'deltaC', u'note': [u'The heating temperature offset is used to determine heating stage number for', u'multi stage equipment.', u'When the temperature difference of the heating setpoint and the controlled zone', u'temperature at previous time step is less than Stage 4 value, the stage number is 4.', u'The value of this field has to be less the value at the previous field.'], u'type': u'real', u'maximum': '0.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `stage_4_heating_temperature_offset`
+            value (float): value for IDD Field `Stage 4 Heating Temperature Offset`
                 Units: deltaC
                 value <= 0.0
                 if `value` is None it will not be checked against the
@@ -9820,13 +9995,12 @@ class ZoneControlThermostatStagedDualSetpoint(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `stage_4_heating_temperature_offset`'.format(value))
             if value > 0.0:
                 raise ValueError('value need to be smaller 0.0 '
                                  'for field `stage_4_heating_temperature_offset`')
-
         self._data["Stage 4 Heating Temperature Offset"] = value
 
     @property
@@ -9840,11 +10014,13 @@ class ZoneControlThermostatStagedDualSetpoint(object):
 
     @number_of_cooling_stages.setter
     def number_of_cooling_stages(self, value=None):
-        """  Corresponds to IDD Field `number_of_cooling_stages`
+        """  Corresponds to IDD Field `Number of Cooling Stages`
         Enter the number of the following sets of data for cooling temperature offset
+        
+        {'pytype': 'int', u'maximum': '4', u'required-field': True, u'note': [u'Enter the number of the following sets of data for cooling temperature offset'], u'minimum': '1', u'type': u'integer'}
 
         Args:
-            value (int): value for IDD Field `number_of_cooling_stages`
+            value (int): value for IDD Field `Number of Cooling Stages`
                 value >= 1
                 value <= 4
                 if `value` is None it will not be checked against the
@@ -9856,7 +10032,7 @@ class ZoneControlThermostatStagedDualSetpoint(object):
         if value is not None:
             try:
                 value = int(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type int '
                                  'for field `number_of_cooling_stages`'.format(value))
             if value < 1:
@@ -9865,7 +10041,6 @@ class ZoneControlThermostatStagedDualSetpoint(object):
             if value > 4:
                 raise ValueError('value need to be smaller 4 '
                                  'for field `number_of_cooling_stages`')
-
         self._data["Number of Cooling Stages"] = value
 
     @property
@@ -9879,10 +10054,12 @@ class ZoneControlThermostatStagedDualSetpoint(object):
 
     @cooling_temperature_setpoint_base_schedule_name.setter
     def cooling_temperature_setpoint_base_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `cooling_temperature_setpoint_base_schedule_name`
+        """  Corresponds to IDD Field `Cooling Temperature Setpoint Base Schedule Name`
+        
+        {u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `cooling_temperature_setpoint_base_schedule_name`
+            value (str): value for IDD Field `Cooling Temperature Setpoint Base Schedule Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9892,7 +10069,7 @@ class ZoneControlThermostatStagedDualSetpoint(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `cooling_temperature_setpoint_base_schedule_name`'.format(value))
             if ',' in value:
@@ -9901,7 +10078,6 @@ class ZoneControlThermostatStagedDualSetpoint(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `cooling_temperature_setpoint_base_schedule_name`')
-
         self._data["Cooling Temperature Setpoint Base Schedule Name"] = value
 
     @property
@@ -9915,10 +10091,12 @@ class ZoneControlThermostatStagedDualSetpoint(object):
 
     @cooling_throttling_temperature_range.setter
     def cooling_throttling_temperature_range(self, value=1.1 ):
-        """  Corresponds to IDD Field `cooling_throttling_temperature_range`
+        """  Corresponds to IDD Field `Cooling Throttling Temperature Range`
+        
+        {u'units': u'deltaC', u'default': '1.1', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `cooling_throttling_temperature_range`
+            value (float): value for IDD Field `Cooling Throttling Temperature Range`
                 Units: deltaC
                 Default value: 1.1
                 value >= 0.0
@@ -9931,13 +10109,12 @@ class ZoneControlThermostatStagedDualSetpoint(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `cooling_throttling_temperature_range`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `cooling_throttling_temperature_range`')
-
         self._data["Cooling Throttling Temperature Range"] = value
 
     @property
@@ -9951,15 +10128,17 @@ class ZoneControlThermostatStagedDualSetpoint(object):
 
     @stage_1_cooling_temperature_offset.setter
     def stage_1_cooling_temperature_offset(self, value=None):
-        """  Corresponds to IDD Field `stage_1_cooling_temperature_offset`
+        """  Corresponds to IDD Field `Stage 1 Cooling Temperature Offset`
         The cooling temperature offset is used to determine cooling stage number for
         multi stage equipment.
         When the temperature difference of the cooling setpoint and the controlled zone
         temperature at previous time step is greater than Stage 1 value and less than
         Stage 2 value, the stage number is 1.
+        
+        {'pytype': 'float', u'required-field': True, u'note': [u'The cooling temperature offset is used to determine cooling stage number for', u'multi stage equipment.', u'When the temperature difference of the cooling setpoint and the controlled zone', u'temperature at previous time step is greater than Stage 1 value and less than', u'Stage 2 value, the stage number is 1.'], u'minimum': '0.0', u'units': u'deltaC', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `stage_1_cooling_temperature_offset`
+            value (float): value for IDD Field `Stage 1 Cooling Temperature Offset`
                 Units: deltaC
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -9971,13 +10150,12 @@ class ZoneControlThermostatStagedDualSetpoint(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `stage_1_cooling_temperature_offset`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `stage_1_cooling_temperature_offset`')
-
         self._data["Stage 1 Cooling Temperature Offset"] = value
 
     @property
@@ -9991,16 +10169,18 @@ class ZoneControlThermostatStagedDualSetpoint(object):
 
     @stage_2_cooling_temperature_offset.setter
     def stage_2_cooling_temperature_offset(self, value=None):
-        """  Corresponds to IDD Field `stage_2_cooling_temperature_offset`
+        """  Corresponds to IDD Field `Stage 2 Cooling Temperature Offset`
         The cooling temperature offset is used to determine cooling stage number for
         multi stage equipment.
         When the temperature difference of the cooling setpoint and the controlled zone
         temperature at previous time step is greater than Stage 2 value and less than
         Stage 3 value, the stage number is 2.
         The value of this field has to be greater than the value at the previous field.
+        
+        {u'units': u'deltaC', u'note': [u'The cooling temperature offset is used to determine cooling stage number for', u'multi stage equipment.', u'When the temperature difference of the cooling setpoint and the controlled zone', u'temperature at previous time step is greater than Stage 2 value and less than', u'Stage 3 value, the stage number is 2.', u'The value of this field has to be greater than the value at the previous field.'], u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `stage_2_cooling_temperature_offset`
+            value (float): value for IDD Field `Stage 2 Cooling Temperature Offset`
                 Units: deltaC
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -10012,13 +10192,12 @@ class ZoneControlThermostatStagedDualSetpoint(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `stage_2_cooling_temperature_offset`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `stage_2_cooling_temperature_offset`')
-
         self._data["Stage 2 Cooling Temperature Offset"] = value
 
     @property
@@ -10032,16 +10211,18 @@ class ZoneControlThermostatStagedDualSetpoint(object):
 
     @stage_3_cooling_temperature_offset.setter
     def stage_3_cooling_temperature_offset(self, value=None):
-        """  Corresponds to IDD Field `stage_3_cooling_temperature_offset`
+        """  Corresponds to IDD Field `Stage 3 Cooling Temperature Offset`
         The cooling temperature offset is used to determine cooling stage number for
         multi stage equipment.
         When the temperature difference of the cooling setpoint and the controlled zone
         temperature at previous time step is greater than Stage 3 value and less than
         Stage 4 value, the stage number is 3.
         The value of this field has to be greater than the value at the previous field.
+        
+        {u'units': u'deltaC', u'note': [u'The cooling temperature offset is used to determine cooling stage number for', u'multi stage equipment.', u'When the temperature difference of the cooling setpoint and the controlled zone', u'temperature at previous time step is greater than Stage 3 value and less than', u'Stage 4 value, the stage number is 3.', u'The value of this field has to be greater than the value at the previous field.'], u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `stage_3_cooling_temperature_offset`
+            value (float): value for IDD Field `Stage 3 Cooling Temperature Offset`
                 Units: deltaC
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -10053,13 +10234,12 @@ class ZoneControlThermostatStagedDualSetpoint(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `stage_3_cooling_temperature_offset`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `stage_3_cooling_temperature_offset`')
-
         self._data["Stage 3 Cooling Temperature Offset"] = value
 
     @property
@@ -10073,15 +10253,17 @@ class ZoneControlThermostatStagedDualSetpoint(object):
 
     @stage_4_cooling_temperature_offset.setter
     def stage_4_cooling_temperature_offset(self, value=None):
-        """  Corresponds to IDD Field `stage_4_cooling_temperature_offset`
+        """  Corresponds to IDD Field `Stage 4 Cooling Temperature Offset`
         The cooling temperature offset is used to determine cooling stage number for
         multi stage equipment.
         When the temperature difference of the cooling setpoint and the controlled zone
         temperature at previous time step is greater than Stage 4 value, the stage number is 4.
         The value of this field has to be greater than the value at the previous field.
+        
+        {u'units': u'deltaC', u'note': [u'The cooling temperature offset is used to determine cooling stage number for', u'multi stage equipment.', u'When the temperature difference of the cooling setpoint and the controlled zone', u'temperature at previous time step is greater than Stage 4 value, the stage number is 4.', u'The value of this field has to be greater than the value at the previous field.'], u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `stage_4_cooling_temperature_offset`
+            value (float): value for IDD Field `Stage 4 Cooling Temperature Offset`
                 Units: deltaC
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -10093,13 +10275,12 @@ class ZoneControlThermostatStagedDualSetpoint(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `stage_4_cooling_temperature_offset`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `stage_4_cooling_temperature_offset`')
-
         self._data["Stage 4 Cooling Temperature Offset"] = value
 
     def check(self):
@@ -10228,10 +10409,12 @@ class ZoneControlContaminantController(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {'type': 'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -10241,7 +10424,7 @@ class ZoneControlContaminantController(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -10250,7 +10433,6 @@ class ZoneControlContaminantController(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -10264,10 +10446,12 @@ class ZoneControlContaminantController(object):
 
     @controlled_zone_name.setter
     def controlled_zone_name(self, value=None):
-        """  Corresponds to IDD Field `controlled_zone_name`
+        """  Corresponds to IDD Field `Controlled Zone Name`
+        
+        {u'type': u'object-list', u'object-list': u'ZoneNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `controlled_zone_name`
+            value (str): value for IDD Field `Controlled Zone Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -10277,7 +10461,7 @@ class ZoneControlContaminantController(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `controlled_zone_name`'.format(value))
             if ',' in value:
@@ -10286,7 +10470,6 @@ class ZoneControlContaminantController(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `controlled_zone_name`')
-
         self._data["Controlled Zone Name"] = value
 
     @property
@@ -10300,12 +10483,14 @@ class ZoneControlContaminantController(object):
 
     @carbon_dioxide_control_availability_schedule_name.setter
     def carbon_dioxide_control_availability_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `carbon_dioxide_control_availability_schedule_name`
+        """  Corresponds to IDD Field `Carbon Dioxide Control Availability Schedule Name`
         Availability schedule name for CO2 controller. Schedule value > 0 means the CO2
         controller is enabled. If this field is blank, then CO2  controller is always enabled.
+        
+        {u'note': [u'Availability schedule name for CO2 controller. Schedule value > 0 means the CO2', u'controller is enabled. If this field is blank, then CO2  controller is always enabled.'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `carbon_dioxide_control_availability_schedule_name`
+            value (str): value for IDD Field `Carbon Dioxide Control Availability Schedule Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -10315,7 +10500,7 @@ class ZoneControlContaminantController(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `carbon_dioxide_control_availability_schedule_name`'.format(value))
             if ',' in value:
@@ -10324,7 +10509,6 @@ class ZoneControlContaminantController(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `carbon_dioxide_control_availability_schedule_name`')
-
         self._data["Carbon Dioxide Control Availability Schedule Name"] = value
 
     @property
@@ -10338,11 +10522,13 @@ class ZoneControlContaminantController(object):
 
     @carbon_dioxide_setpoint_schedule_name.setter
     def carbon_dioxide_setpoint_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `carbon_dioxide_setpoint_schedule_name`
+        """  Corresponds to IDD Field `Carbon Dioxide Setpoint Schedule Name`
         Schedule values should be carbon dioxide concentration in parts per million (ppm)
+        
+        {u'note': [u'Schedule values should be carbon dioxide concentration in parts per million (ppm)'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `carbon_dioxide_setpoint_schedule_name`
+            value (str): value for IDD Field `Carbon Dioxide Setpoint Schedule Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -10352,7 +10538,7 @@ class ZoneControlContaminantController(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `carbon_dioxide_setpoint_schedule_name`'.format(value))
             if ',' in value:
@@ -10361,7 +10547,6 @@ class ZoneControlContaminantController(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `carbon_dioxide_setpoint_schedule_name`')
-
         self._data["Carbon Dioxide Setpoint Schedule Name"] = value
 
     @property
@@ -10375,14 +10560,16 @@ class ZoneControlContaminantController(object):
 
     @minimum_carbon_dioxide_concentration_schedule_name.setter
     def minimum_carbon_dioxide_concentration_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `minimum_carbon_dioxide_concentration_schedule_name`
+        """  Corresponds to IDD Field `Minimum Carbon Dioxide Concentration Schedule Name`
         Schedule values should be carbon dioxide concentration in parts per
         million (ppm)
         This field is used when the field System Outdoor Air Method =
         ProportionalControl in Controller:MechanicalVentilation
+        
+        {u'note': [u'Schedule values should be carbon dioxide concentration in parts per', u'million (ppm)', u'This field is used when the field System Outdoor Air Method =', u'ProportionalControl in Controller:MechanicalVentilation'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `minimum_carbon_dioxide_concentration_schedule_name`
+            value (str): value for IDD Field `Minimum Carbon Dioxide Concentration Schedule Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -10392,7 +10579,7 @@ class ZoneControlContaminantController(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `minimum_carbon_dioxide_concentration_schedule_name`'.format(value))
             if ',' in value:
@@ -10401,7 +10588,6 @@ class ZoneControlContaminantController(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `minimum_carbon_dioxide_concentration_schedule_name`')
-
         self._data["Minimum Carbon Dioxide Concentration Schedule Name"] = value
 
     @property
@@ -10415,13 +10601,15 @@ class ZoneControlContaminantController(object):
 
     @generic_contaminant_control_availability_schedule_name.setter
     def generic_contaminant_control_availability_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `generic_contaminant_control_availability_schedule_name`
+        """  Corresponds to IDD Field `Generic Contaminant Control Availability Schedule Name`
         Availability schedule name for generic contaminant controller. Schedule value > 0 means
         the generic contaminant controller is enabled. If this field is blank, then generic
         contaminant controller is always enabled.
+        
+        {u'note': [u'Availability schedule name for generic contaminant controller. Schedule value > 0 means', u'the generic contaminant controller is enabled. If this field is blank, then generic', u'contaminant controller is always enabled.'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `generic_contaminant_control_availability_schedule_name`
+            value (str): value for IDD Field `Generic Contaminant Control Availability Schedule Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -10431,7 +10619,7 @@ class ZoneControlContaminantController(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `generic_contaminant_control_availability_schedule_name`'.format(value))
             if ',' in value:
@@ -10440,7 +10628,6 @@ class ZoneControlContaminantController(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `generic_contaminant_control_availability_schedule_name`')
-
         self._data["Generic Contaminant Control Availability Schedule Name"] = value
 
     @property
@@ -10454,14 +10641,16 @@ class ZoneControlContaminantController(object):
 
     @generic_contaminant_setpoint_schedule_name.setter
     def generic_contaminant_setpoint_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `generic_contaminant_setpoint_schedule_name`
+        """  Corresponds to IDD Field `Generic Contaminant Setpoint Schedule Name`
         Schedule values should be generic contaminant concentration in parts per
         million (ppm)
         This field is used when the field System Outdoor Air Method =
         IndoorAirQualityProcedureGenericContaminant in Controller:MechanicalVentilation
+        
+        {u'note': [u'Schedule values should be generic contaminant concentration in parts per', u'million (ppm)', u'This field is used when the field System Outdoor Air Method =', u'IndoorAirQualityProcedureGenericContaminant in Controller:MechanicalVentilation'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `generic_contaminant_setpoint_schedule_name`
+            value (str): value for IDD Field `Generic Contaminant Setpoint Schedule Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -10471,7 +10660,7 @@ class ZoneControlContaminantController(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `generic_contaminant_setpoint_schedule_name`'.format(value))
             if ',' in value:
@@ -10480,7 +10669,6 @@ class ZoneControlContaminantController(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `generic_contaminant_setpoint_schedule_name`')
-
         self._data["Generic Contaminant Setpoint Schedule Name"] = value
 
     def check(self):

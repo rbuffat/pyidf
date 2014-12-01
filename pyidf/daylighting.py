@@ -199,10 +199,12 @@ class DaylightingControls(object):
 
     @zone_name.setter
     def zone_name(self, value=None):
-        """  Corresponds to IDD Field `zone_name`
+        """  Corresponds to IDD Field `Zone Name`
+        
+        {u'type': u'object-list', u'object-list': u'ZoneNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `zone_name`
+            value (str): value for IDD Field `Zone Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -212,7 +214,7 @@ class DaylightingControls(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `zone_name`'.format(value))
             if ',' in value:
@@ -221,7 +223,6 @@ class DaylightingControls(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `zone_name`')
-
         self._data["Zone Name"] = value
 
     @property
@@ -235,10 +236,12 @@ class DaylightingControls(object):
 
     @total_daylighting_reference_points.setter
     def total_daylighting_reference_points(self, value=1 ):
-        """  Corresponds to IDD Field `total_daylighting_reference_points`
+        """  Corresponds to IDD Field `Total Daylighting Reference Points`
+        
+        {u'default': '1', u'minimum': '1', u'type': u'integer', u'maximum': '2', 'pytype': 'int'}
 
         Args:
-            value (int): value for IDD Field `total_daylighting_reference_points`
+            value (int): value for IDD Field `Total Daylighting Reference Points`
                 Default value: 1
                 value >= 1
                 value <= 2
@@ -251,7 +254,7 @@ class DaylightingControls(object):
         if value is not None:
             try:
                 value = int(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type int '
                                  'for field `total_daylighting_reference_points`'.format(value))
             if value < 1:
@@ -260,7 +263,6 @@ class DaylightingControls(object):
             if value > 2:
                 raise ValueError('value need to be smaller 2 '
                                  'for field `total_daylighting_reference_points`')
-
         self._data["Total Daylighting Reference Points"] = value
 
     @property
@@ -274,10 +276,12 @@ class DaylightingControls(object):
 
     @xcoordinate_of_first_reference_point.setter
     def xcoordinate_of_first_reference_point(self, value=None):
-        """  Corresponds to IDD Field `xcoordinate_of_first_reference_point`
+        """  Corresponds to IDD Field `X-Coordinate of First Reference Point`
+        
+        {u'units': u'm', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `xcoordinate_of_first_reference_point`
+            value (float): value for IDD Field `X-Coordinate of First Reference Point`
                 Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -288,10 +292,9 @@ class DaylightingControls(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `xcoordinate_of_first_reference_point`'.format(value))
-
         self._data["X-Coordinate of First Reference Point"] = value
 
     @property
@@ -305,10 +308,12 @@ class DaylightingControls(object):
 
     @ycoordinate_of_first_reference_point.setter
     def ycoordinate_of_first_reference_point(self, value=None):
-        """  Corresponds to IDD Field `ycoordinate_of_first_reference_point`
+        """  Corresponds to IDD Field `Y-Coordinate of First Reference Point`
+        
+        {u'units': u'm', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `ycoordinate_of_first_reference_point`
+            value (float): value for IDD Field `Y-Coordinate of First Reference Point`
                 Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -319,10 +324,9 @@ class DaylightingControls(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `ycoordinate_of_first_reference_point`'.format(value))
-
         self._data["Y-Coordinate of First Reference Point"] = value
 
     @property
@@ -336,10 +340,12 @@ class DaylightingControls(object):
 
     @zcoordinate_of_first_reference_point.setter
     def zcoordinate_of_first_reference_point(self, value=0.8 ):
-        """  Corresponds to IDD Field `zcoordinate_of_first_reference_point`
+        """  Corresponds to IDD Field `Z-Coordinate of First Reference Point`
+        
+        {u'units': u'm', u'default': '0.8', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `zcoordinate_of_first_reference_point`
+            value (float): value for IDD Field `Z-Coordinate of First Reference Point`
                 Units: m
                 Default value: 0.8
                 if `value` is None it will not be checked against the
@@ -351,10 +357,9 @@ class DaylightingControls(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `zcoordinate_of_first_reference_point`'.format(value))
-
         self._data["Z-Coordinate of First Reference Point"] = value
 
     @property
@@ -368,11 +373,13 @@ class DaylightingControls(object):
 
     @xcoordinate_of_second_reference_point.setter
     def xcoordinate_of_second_reference_point(self, value=None):
-        """  Corresponds to IDD Field `xcoordinate_of_second_reference_point`
+        """  Corresponds to IDD Field `X-Coordinate of Second Reference Point`
         Required if Total Daylighting Reference Points = 2
+        
+        {u'units': u'm', u'note': [u'Required if Total Daylighting Reference Points = 2'], u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `xcoordinate_of_second_reference_point`
+            value (float): value for IDD Field `X-Coordinate of Second Reference Point`
                 Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -383,10 +390,9 @@ class DaylightingControls(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `xcoordinate_of_second_reference_point`'.format(value))
-
         self._data["X-Coordinate of Second Reference Point"] = value
 
     @property
@@ -400,11 +406,13 @@ class DaylightingControls(object):
 
     @ycoordinate_of_second_reference_point.setter
     def ycoordinate_of_second_reference_point(self, value=None):
-        """  Corresponds to IDD Field `ycoordinate_of_second_reference_point`
+        """  Corresponds to IDD Field `Y-Coordinate of Second Reference Point`
         Required if Total Daylighting Reference Points = 2
+        
+        {u'units': u'm', u'note': [u'Required if Total Daylighting Reference Points = 2'], u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `ycoordinate_of_second_reference_point`
+            value (float): value for IDD Field `Y-Coordinate of Second Reference Point`
                 Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -415,10 +423,9 @@ class DaylightingControls(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `ycoordinate_of_second_reference_point`'.format(value))
-
         self._data["Y-Coordinate of Second Reference Point"] = value
 
     @property
@@ -432,10 +439,12 @@ class DaylightingControls(object):
 
     @zcoordinate_of_second_reference_point.setter
     def zcoordinate_of_second_reference_point(self, value=0.8 ):
-        """  Corresponds to IDD Field `zcoordinate_of_second_reference_point`
+        """  Corresponds to IDD Field `Z-Coordinate of Second Reference Point`
+        
+        {u'units': u'm', u'default': '0.8', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `zcoordinate_of_second_reference_point`
+            value (float): value for IDD Field `Z-Coordinate of Second Reference Point`
                 Units: m
                 Default value: 0.8
                 if `value` is None it will not be checked against the
@@ -447,10 +456,9 @@ class DaylightingControls(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `zcoordinate_of_second_reference_point`'.format(value))
-
         self._data["Z-Coordinate of Second Reference Point"] = value
 
     @property
@@ -464,10 +472,12 @@ class DaylightingControls(object):
 
     @fraction_of_zone_controlled_by_first_reference_point.setter
     def fraction_of_zone_controlled_by_first_reference_point(self, value=1.0 ):
-        """  Corresponds to IDD Field `fraction_of_zone_controlled_by_first_reference_point`
+        """  Corresponds to IDD Field `Fraction of Zone Controlled by First Reference Point`
+        
+        {u'default': '1.0', u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `fraction_of_zone_controlled_by_first_reference_point`
+            value (float): value for IDD Field `Fraction of Zone Controlled by First Reference Point`
                 Default value: 1.0
                 value >= 0.0
                 value <= 1.0
@@ -480,7 +490,7 @@ class DaylightingControls(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `fraction_of_zone_controlled_by_first_reference_point`'.format(value))
             if value < 0.0:
@@ -489,7 +499,6 @@ class DaylightingControls(object):
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `fraction_of_zone_controlled_by_first_reference_point`')
-
         self._data["Fraction of Zone Controlled by First Reference Point"] = value
 
     @property
@@ -503,10 +512,12 @@ class DaylightingControls(object):
 
     @fraction_of_zone_controlled_by_second_reference_point.setter
     def fraction_of_zone_controlled_by_second_reference_point(self, value=0.0 ):
-        """  Corresponds to IDD Field `fraction_of_zone_controlled_by_second_reference_point`
+        """  Corresponds to IDD Field `Fraction of Zone Controlled by Second Reference Point`
+        
+        {u'default': '0.0', u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `fraction_of_zone_controlled_by_second_reference_point`
+            value (float): value for IDD Field `Fraction of Zone Controlled by Second Reference Point`
                 Default value: 0.0
                 value >= 0.0
                 value <= 1.0
@@ -519,7 +530,7 @@ class DaylightingControls(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `fraction_of_zone_controlled_by_second_reference_point`'.format(value))
             if value < 0.0:
@@ -528,7 +539,6 @@ class DaylightingControls(object):
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `fraction_of_zone_controlled_by_second_reference_point`')
-
         self._data["Fraction of Zone Controlled by Second Reference Point"] = value
 
     @property
@@ -542,10 +552,12 @@ class DaylightingControls(object):
 
     @illuminance_setpoint_at_first_reference_point.setter
     def illuminance_setpoint_at_first_reference_point(self, value=500.0 ):
-        """  Corresponds to IDD Field `illuminance_setpoint_at_first_reference_point`
+        """  Corresponds to IDD Field `Illuminance Setpoint at First Reference Point`
+        
+        {u'units': u'lux', u'default': '500.0', u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `illuminance_setpoint_at_first_reference_point`
+            value (float): value for IDD Field `Illuminance Setpoint at First Reference Point`
                 Units: lux
                 Default value: 500.0
                 value >= 0.0
@@ -558,13 +570,12 @@ class DaylightingControls(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `illuminance_setpoint_at_first_reference_point`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `illuminance_setpoint_at_first_reference_point`')
-
         self._data["Illuminance Setpoint at First Reference Point"] = value
 
     @property
@@ -578,10 +589,12 @@ class DaylightingControls(object):
 
     @illuminance_setpoint_at_second_reference_point.setter
     def illuminance_setpoint_at_second_reference_point(self, value=500.0 ):
-        """  Corresponds to IDD Field `illuminance_setpoint_at_second_reference_point`
+        """  Corresponds to IDD Field `Illuminance Setpoint at Second Reference Point`
+        
+        {u'units': u'lux', u'default': '500.0', u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `illuminance_setpoint_at_second_reference_point`
+            value (float): value for IDD Field `Illuminance Setpoint at Second Reference Point`
                 Units: lux
                 Default value: 500.0
                 value >= 0.0
@@ -594,13 +607,12 @@ class DaylightingControls(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `illuminance_setpoint_at_second_reference_point`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `illuminance_setpoint_at_second_reference_point`')
-
         self._data["Illuminance Setpoint at Second Reference Point"] = value
 
     @property
@@ -614,11 +626,13 @@ class DaylightingControls(object):
 
     @lighting_control_type.setter
     def lighting_control_type(self, value=1 ):
-        """  Corresponds to IDD Field `lighting_control_type`
+        """  Corresponds to IDD Field `Lighting Control Type`
         1=continuous,2=stepped,3=continuous/off
+        
+        {'pytype': 'int', u'default': '1', u'maximum': '3', u'note': [u'1=continuous,2=stepped,3=continuous/off'], u'minimum': '1', u'type': u'integer'}
 
         Args:
-            value (int): value for IDD Field `lighting_control_type`
+            value (int): value for IDD Field `Lighting Control Type`
                 Default value: 1
                 value >= 1
                 value <= 3
@@ -631,7 +645,7 @@ class DaylightingControls(object):
         if value is not None:
             try:
                 value = int(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type int '
                                  'for field `lighting_control_type`'.format(value))
             if value < 1:
@@ -640,7 +654,6 @@ class DaylightingControls(object):
             if value > 3:
                 raise ValueError('value need to be smaller 3 '
                                  'for field `lighting_control_type`')
-
         self._data["Lighting Control Type"] = value
 
     @property
@@ -654,10 +667,12 @@ class DaylightingControls(object):
 
     @glare_calculation_azimuth_angle_of_view_direction_clockwise_from_zone_yaxis.setter
     def glare_calculation_azimuth_angle_of_view_direction_clockwise_from_zone_yaxis(self, value=None):
-        """  Corresponds to IDD Field `glare_calculation_azimuth_angle_of_view_direction_clockwise_from_zone_yaxis`
+        """  Corresponds to IDD Field `Glare Calculation Azimuth Angle of View Direction Clockwise from Zone y-Axis`
+        
+        {'pytype': 'float', u'maximum': '360.0', u'required-field': True, u'minimum': '0.0', u'units': u'deg', 'type': 'real'}
 
         Args:
-            value (float): value for IDD Field `glare_calculation_azimuth_angle_of_view_direction_clockwise_from_zone_yaxis`
+            value (float): value for IDD Field `Glare Calculation Azimuth Angle of View Direction Clockwise from Zone y-Axis`
                 Units: deg
                 value >= 0.0
                 value <= 360.0
@@ -670,7 +685,7 @@ class DaylightingControls(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `glare_calculation_azimuth_angle_of_view_direction_clockwise_from_zone_yaxis`'.format(value))
             if value < 0.0:
@@ -679,7 +694,6 @@ class DaylightingControls(object):
             if value > 360.0:
                 raise ValueError('value need to be smaller 360.0 '
                                  'for field `glare_calculation_azimuth_angle_of_view_direction_clockwise_from_zone_yaxis`')
-
         self._data["Glare Calculation Azimuth Angle of View Direction Clockwise from Zone y-Axis"] = value
 
     @property
@@ -693,11 +707,13 @@ class DaylightingControls(object):
 
     @maximum_allowable_discomfort_glare_index.setter
     def maximum_allowable_discomfort_glare_index(self, value=22.0 ):
-        """  Corresponds to IDD Field `maximum_allowable_discomfort_glare_index`
+        """  Corresponds to IDD Field `Maximum Allowable Discomfort Glare Index`
         The default is for general office work
+        
+        {u'note': [u'The default is for general office work'], u'default': '22.0', u'minimum': '1.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `maximum_allowable_discomfort_glare_index`
+            value (float): value for IDD Field `Maximum Allowable Discomfort Glare Index`
                 Default value: 22.0
                 value >= 1.0
                 if `value` is None it will not be checked against the
@@ -709,13 +725,12 @@ class DaylightingControls(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `maximum_allowable_discomfort_glare_index`'.format(value))
             if value < 1.0:
                 raise ValueError('value need to be greater or equal 1.0 '
                                  'for field `maximum_allowable_discomfort_glare_index`')
-
         self._data["Maximum Allowable Discomfort Glare Index"] = value
 
     @property
@@ -729,10 +744,12 @@ class DaylightingControls(object):
 
     @minimum_input_power_fraction_for_continuous_dimming_control.setter
     def minimum_input_power_fraction_for_continuous_dimming_control(self, value=0.3 ):
-        """  Corresponds to IDD Field `minimum_input_power_fraction_for_continuous_dimming_control`
+        """  Corresponds to IDD Field `Minimum Input Power Fraction for Continuous Dimming Control`
+        
+        {u'default': '0.3', u'minimum': '0.0', u'type': u'real', u'maximum': '0.6', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `minimum_input_power_fraction_for_continuous_dimming_control`
+            value (float): value for IDD Field `Minimum Input Power Fraction for Continuous Dimming Control`
                 Default value: 0.3
                 value >= 0.0
                 value <= 0.6
@@ -745,7 +762,7 @@ class DaylightingControls(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `minimum_input_power_fraction_for_continuous_dimming_control`'.format(value))
             if value < 0.0:
@@ -754,7 +771,6 @@ class DaylightingControls(object):
             if value > 0.6:
                 raise ValueError('value need to be smaller 0.6 '
                                  'for field `minimum_input_power_fraction_for_continuous_dimming_control`')
-
         self._data["Minimum Input Power Fraction for Continuous Dimming Control"] = value
 
     @property
@@ -768,10 +784,12 @@ class DaylightingControls(object):
 
     @minimum_light_output_fraction_for_continuous_dimming_control.setter
     def minimum_light_output_fraction_for_continuous_dimming_control(self, value=0.2 ):
-        """  Corresponds to IDD Field `minimum_light_output_fraction_for_continuous_dimming_control`
+        """  Corresponds to IDD Field `Minimum Light Output Fraction for Continuous Dimming Control`
+        
+        {u'default': '0.2', u'minimum': '0.0', u'type': u'real', u'maximum': '0.6', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `minimum_light_output_fraction_for_continuous_dimming_control`
+            value (float): value for IDD Field `Minimum Light Output Fraction for Continuous Dimming Control`
                 Default value: 0.2
                 value >= 0.0
                 value <= 0.6
@@ -784,7 +802,7 @@ class DaylightingControls(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `minimum_light_output_fraction_for_continuous_dimming_control`'.format(value))
             if value < 0.0:
@@ -793,7 +811,6 @@ class DaylightingControls(object):
             if value > 0.6:
                 raise ValueError('value need to be smaller 0.6 '
                                  'for field `minimum_light_output_fraction_for_continuous_dimming_control`')
-
         self._data["Minimum Light Output Fraction for Continuous Dimming Control"] = value
 
     @property
@@ -807,11 +824,13 @@ class DaylightingControls(object):
 
     @number_of_stepped_control_steps.setter
     def number_of_stepped_control_steps(self, value=1 ):
-        """  Corresponds to IDD Field `number_of_stepped_control_steps`
+        """  Corresponds to IDD Field `Number of Stepped Control Steps`
         for Lighting Control Type=2, this field cannot be zero.
+        
+        {u'note': [u'for Lighting Control Type=2, this field cannot be zero.'], u'default': '1', u'type': u'integer', 'pytype': 'int'}
 
         Args:
-            value (int): value for IDD Field `number_of_stepped_control_steps`
+            value (int): value for IDD Field `Number of Stepped Control Steps`
                 Default value: 1
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -822,10 +841,9 @@ class DaylightingControls(object):
         if value is not None:
             try:
                 value = int(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type int '
                                  'for field `number_of_stepped_control_steps`'.format(value))
-
         self._data["Number of Stepped Control Steps"] = value
 
     @property
@@ -839,10 +857,12 @@ class DaylightingControls(object):
 
     @probability_lighting_will_be_reset_when_needed_in_manual_stepped_control.setter
     def probability_lighting_will_be_reset_when_needed_in_manual_stepped_control(self, value=1.0 ):
-        """  Corresponds to IDD Field `probability_lighting_will_be_reset_when_needed_in_manual_stepped_control`
+        """  Corresponds to IDD Field `Probability Lighting will be Reset When Needed in Manual Stepped Control`
+        
+        {u'default': '1.0', u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `probability_lighting_will_be_reset_when_needed_in_manual_stepped_control`
+            value (float): value for IDD Field `Probability Lighting will be Reset When Needed in Manual Stepped Control`
                 Default value: 1.0
                 value >= 0.0
                 value <= 1.0
@@ -855,7 +875,7 @@ class DaylightingControls(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `probability_lighting_will_be_reset_when_needed_in_manual_stepped_control`'.format(value))
             if value < 0.0:
@@ -864,7 +884,6 @@ class DaylightingControls(object):
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `probability_lighting_will_be_reset_when_needed_in_manual_stepped_control`')
-
         self._data["Probability Lighting will be Reset When Needed in Manual Stepped Control"] = value
 
     @property
@@ -878,10 +897,12 @@ class DaylightingControls(object):
 
     @availability_schedule_name.setter
     def availability_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `availability_schedule_name`
+        """  Corresponds to IDD Field `Availability Schedule Name`
+        
+        {u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `availability_schedule_name`
+            value (str): value for IDD Field `Availability Schedule Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -891,7 +912,7 @@ class DaylightingControls(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `availability_schedule_name`'.format(value))
             if ',' in value:
@@ -900,7 +921,6 @@ class DaylightingControls(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `availability_schedule_name`')
-
         self._data["Availability Schedule Name"] = value
 
     def check(self):
@@ -1037,10 +1057,12 @@ class DaylightingDelightControls(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {u'type': u'alpha', u'reference': u'DElightZoneNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1050,7 +1072,7 @@ class DaylightingDelightControls(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -1059,7 +1081,6 @@ class DaylightingDelightControls(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -1073,11 +1094,13 @@ class DaylightingDelightControls(object):
 
     @zone_name.setter
     def zone_name(self, value=None):
-        """  Corresponds to IDD Field `zone_name`
+        """  Corresponds to IDD Field `Zone Name`
         Name of Thermal Zone hosting the given DElight Zone
+        
+        {u'note': [u'Name of Thermal Zone hosting the given DElight Zone'], u'type': u'object-list', u'object-list': u'ZoneNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `zone_name`
+            value (str): value for IDD Field `Zone Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1087,7 +1110,7 @@ class DaylightingDelightControls(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `zone_name`'.format(value))
             if ',' in value:
@@ -1096,7 +1119,6 @@ class DaylightingDelightControls(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `zone_name`')
-
         self._data["Zone Name"] = value
 
     @property
@@ -1110,11 +1132,13 @@ class DaylightingDelightControls(object):
 
     @lighting_control_type.setter
     def lighting_control_type(self, value=1 ):
-        """  Corresponds to IDD Field `lighting_control_type`
+        """  Corresponds to IDD Field `Lighting Control Type`
         1=continuous,2=stepped,3=continuous/off
+        
+        {'pytype': 'int', u'default': '1', u'maximum': '3', u'note': [u'1=continuous,2=stepped,3=continuous/off'], u'minimum': '1', u'type': u'integer'}
 
         Args:
-            value (int): value for IDD Field `lighting_control_type`
+            value (int): value for IDD Field `Lighting Control Type`
                 Default value: 1
                 value >= 1
                 value <= 3
@@ -1127,7 +1151,7 @@ class DaylightingDelightControls(object):
         if value is not None:
             try:
                 value = int(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type int '
                                  'for field `lighting_control_type`'.format(value))
             if value < 1:
@@ -1136,7 +1160,6 @@ class DaylightingDelightControls(object):
             if value > 3:
                 raise ValueError('value need to be smaller 3 '
                                  'for field `lighting_control_type`')
-
         self._data["Lighting Control Type"] = value
 
     @property
@@ -1150,10 +1173,12 @@ class DaylightingDelightControls(object):
 
     @minimum_input_power_fraction_for_continuous_dimming_control.setter
     def minimum_input_power_fraction_for_continuous_dimming_control(self, value=0.3 ):
-        """  Corresponds to IDD Field `minimum_input_power_fraction_for_continuous_dimming_control`
+        """  Corresponds to IDD Field `Minimum Input Power Fraction for Continuous Dimming Control`
+        
+        {u'default': '0.3', u'minimum': '0.0', u'type': u'real', u'maximum': '0.6', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `minimum_input_power_fraction_for_continuous_dimming_control`
+            value (float): value for IDD Field `Minimum Input Power Fraction for Continuous Dimming Control`
                 Default value: 0.3
                 value >= 0.0
                 value <= 0.6
@@ -1166,7 +1191,7 @@ class DaylightingDelightControls(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `minimum_input_power_fraction_for_continuous_dimming_control`'.format(value))
             if value < 0.0:
@@ -1175,7 +1200,6 @@ class DaylightingDelightControls(object):
             if value > 0.6:
                 raise ValueError('value need to be smaller 0.6 '
                                  'for field `minimum_input_power_fraction_for_continuous_dimming_control`')
-
         self._data["Minimum Input Power Fraction for Continuous Dimming Control"] = value
 
     @property
@@ -1189,10 +1213,12 @@ class DaylightingDelightControls(object):
 
     @minimum_light_output_fraction_for_continuous_dimming_control.setter
     def minimum_light_output_fraction_for_continuous_dimming_control(self, value=0.2 ):
-        """  Corresponds to IDD Field `minimum_light_output_fraction_for_continuous_dimming_control`
+        """  Corresponds to IDD Field `Minimum Light Output Fraction for Continuous Dimming Control`
+        
+        {u'default': '0.2', u'minimum': '0.0', u'type': u'real', u'maximum': '0.6', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `minimum_light_output_fraction_for_continuous_dimming_control`
+            value (float): value for IDD Field `Minimum Light Output Fraction for Continuous Dimming Control`
                 Default value: 0.2
                 value >= 0.0
                 value <= 0.6
@@ -1205,7 +1231,7 @@ class DaylightingDelightControls(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `minimum_light_output_fraction_for_continuous_dimming_control`'.format(value))
             if value < 0.0:
@@ -1214,7 +1240,6 @@ class DaylightingDelightControls(object):
             if value > 0.6:
                 raise ValueError('value need to be smaller 0.6 '
                                  'for field `minimum_light_output_fraction_for_continuous_dimming_control`')
-
         self._data["Minimum Light Output Fraction for Continuous Dimming Control"] = value
 
     @property
@@ -1228,11 +1253,13 @@ class DaylightingDelightControls(object):
 
     @number_of_stepped_control_steps.setter
     def number_of_stepped_control_steps(self, value=1 ):
-        """  Corresponds to IDD Field `number_of_stepped_control_steps`
+        """  Corresponds to IDD Field `Number of Stepped Control Steps`
         for Lighting Control Type=2, this field cannot be zero.
+        
+        {u'note': [u'for Lighting Control Type=2, this field cannot be zero.'], u'default': '1', u'type': u'integer', 'pytype': 'int'}
 
         Args:
-            value (int): value for IDD Field `number_of_stepped_control_steps`
+            value (int): value for IDD Field `Number of Stepped Control Steps`
                 Default value: 1
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1243,10 +1270,9 @@ class DaylightingDelightControls(object):
         if value is not None:
             try:
                 value = int(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type int '
                                  'for field `number_of_stepped_control_steps`'.format(value))
-
         self._data["Number of Stepped Control Steps"] = value
 
     @property
@@ -1260,10 +1286,12 @@ class DaylightingDelightControls(object):
 
     @probability_lighting_will_be_reset_when_needed_in_manual_stepped_control.setter
     def probability_lighting_will_be_reset_when_needed_in_manual_stepped_control(self, value=0.0 ):
-        """  Corresponds to IDD Field `probability_lighting_will_be_reset_when_needed_in_manual_stepped_control`
+        """  Corresponds to IDD Field `Probability Lighting will be Reset When Needed in Manual Stepped Control`
+        
+        {u'default': '0.0', u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `probability_lighting_will_be_reset_when_needed_in_manual_stepped_control`
+            value (float): value for IDD Field `Probability Lighting will be Reset When Needed in Manual Stepped Control`
                 Default value: 0.0
                 value >= 0.0
                 value <= 1.0
@@ -1276,7 +1304,7 @@ class DaylightingDelightControls(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `probability_lighting_will_be_reset_when_needed_in_manual_stepped_control`'.format(value))
             if value < 0.0:
@@ -1285,7 +1313,6 @@ class DaylightingDelightControls(object):
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `probability_lighting_will_be_reset_when_needed_in_manual_stepped_control`')
-
         self._data["Probability Lighting will be Reset When Needed in Manual Stepped Control"] = value
 
     @property
@@ -1299,15 +1326,17 @@ class DaylightingDelightControls(object):
 
     @gridding_resolution.setter
     def gridding_resolution(self, value=None):
-        """  Corresponds to IDD Field `gridding_resolution`
+        """  Corresponds to IDD Field `Gridding Resolution`
         Maximum surface area for nodes in gridding all surfaces in the DElight zone.
         All reflective and transmitting surfaces will be subdivided
         into approximately square nodes that do not exceed this maximum.
         Higher resolution subdivisions require greater calculation times,
         but generally produce more accurate results.
+        
+        {u'units': u'm2', u'note': [u'Maximum surface area for nodes in gridding all surfaces in the DElight zone.', u'All reflective and transmitting surfaces will be subdivided', u'into approximately square nodes that do not exceed this maximum.', u'Higher resolution subdivisions require greater calculation times,', u'but generally produce more accurate results.'], u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `gridding_resolution`
+            value (float): value for IDD Field `Gridding Resolution`
                 Units: m2
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -1319,13 +1348,12 @@ class DaylightingDelightControls(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `gridding_resolution`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `gridding_resolution`')
-
         self._data["Gridding Resolution"] = value
 
     def check(self):
@@ -1456,10 +1484,12 @@ class DaylightingDelightReferencePoint(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {u'type': u'alpha', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1469,7 +1499,7 @@ class DaylightingDelightReferencePoint(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -1478,7 +1508,6 @@ class DaylightingDelightReferencePoint(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -1492,10 +1521,12 @@ class DaylightingDelightReferencePoint(object):
 
     @delight_name.setter
     def delight_name(self, value=None):
-        """  Corresponds to IDD Field `delight_name`
+        """  Corresponds to IDD Field `DElight Name`
+        
+        {u'type': u'object-list', u'object-list': u'DElightZoneNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `delight_name`
+            value (str): value for IDD Field `DElight Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1505,7 +1536,7 @@ class DaylightingDelightReferencePoint(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `delight_name`'.format(value))
             if ',' in value:
@@ -1514,7 +1545,6 @@ class DaylightingDelightReferencePoint(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `delight_name`')
-
         self._data["DElight Name"] = value
 
     @property
@@ -1528,10 +1558,12 @@ class DaylightingDelightReferencePoint(object):
 
     @xcoordinate_of_reference_point.setter
     def xcoordinate_of_reference_point(self, value=None):
-        """  Corresponds to IDD Field `xcoordinate_of_reference_point`
+        """  Corresponds to IDD Field `X-coordinate of Reference Point`
+        
+        {u'units': u'm', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `xcoordinate_of_reference_point`
+            value (float): value for IDD Field `X-coordinate of Reference Point`
                 Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1542,10 +1574,9 @@ class DaylightingDelightReferencePoint(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `xcoordinate_of_reference_point`'.format(value))
-
         self._data["X-coordinate of Reference Point"] = value
 
     @property
@@ -1559,10 +1590,12 @@ class DaylightingDelightReferencePoint(object):
 
     @ycoordinate_of_reference_point.setter
     def ycoordinate_of_reference_point(self, value=None):
-        """  Corresponds to IDD Field `ycoordinate_of_reference_point`
+        """  Corresponds to IDD Field `Y-coordinate of Reference Point`
+        
+        {u'units': u'm', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `ycoordinate_of_reference_point`
+            value (float): value for IDD Field `Y-coordinate of Reference Point`
                 Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1573,10 +1606,9 @@ class DaylightingDelightReferencePoint(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `ycoordinate_of_reference_point`'.format(value))
-
         self._data["Y-coordinate of Reference Point"] = value
 
     @property
@@ -1590,10 +1622,12 @@ class DaylightingDelightReferencePoint(object):
 
     @zcoordinate_of_reference_point.setter
     def zcoordinate_of_reference_point(self, value=None):
-        """  Corresponds to IDD Field `zcoordinate_of_reference_point`
+        """  Corresponds to IDD Field `Z-coordinate of Reference Point`
+        
+        {u'units': u'm', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `zcoordinate_of_reference_point`
+            value (float): value for IDD Field `Z-coordinate of Reference Point`
                 Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1604,10 +1638,9 @@ class DaylightingDelightReferencePoint(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `zcoordinate_of_reference_point`'.format(value))
-
         self._data["Z-coordinate of Reference Point"] = value
 
     @property
@@ -1621,10 +1654,12 @@ class DaylightingDelightReferencePoint(object):
 
     @fraction_of_zone_controlled_by_reference_point.setter
     def fraction_of_zone_controlled_by_reference_point(self, value=1.0 ):
-        """  Corresponds to IDD Field `fraction_of_zone_controlled_by_reference_point`
+        """  Corresponds to IDD Field `Fraction of Zone Controlled by Reference Point`
+        
+        {'pytype': 'float', u'default': '1.0', u'maximum': '1.0', u'required-field': True, u'minimum': '0.0', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `fraction_of_zone_controlled_by_reference_point`
+            value (float): value for IDD Field `Fraction of Zone Controlled by Reference Point`
                 Default value: 1.0
                 value >= 0.0
                 value <= 1.0
@@ -1637,7 +1672,7 @@ class DaylightingDelightReferencePoint(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `fraction_of_zone_controlled_by_reference_point`'.format(value))
             if value < 0.0:
@@ -1646,7 +1681,6 @@ class DaylightingDelightReferencePoint(object):
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `fraction_of_zone_controlled_by_reference_point`')
-
         self._data["Fraction of Zone Controlled by Reference Point"] = value
 
     @property
@@ -1660,10 +1694,12 @@ class DaylightingDelightReferencePoint(object):
 
     @illuminance_setpoint_at_reference_point.setter
     def illuminance_setpoint_at_reference_point(self, value=500.0 ):
-        """  Corresponds to IDD Field `illuminance_setpoint_at_reference_point`
+        """  Corresponds to IDD Field `Illuminance Setpoint at Reference Point`
+        
+        {'pytype': 'float', u'default': '500.0', u'required-field': True, u'minimum': '0.0', u'units': u'lux', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `illuminance_setpoint_at_reference_point`
+            value (float): value for IDD Field `Illuminance Setpoint at Reference Point`
                 Units: lux
                 Default value: 500.0
                 value >= 0.0
@@ -1676,13 +1712,12 @@ class DaylightingDelightReferencePoint(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `illuminance_setpoint_at_reference_point`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `illuminance_setpoint_at_reference_point`')
-
         self._data["Illuminance Setpoint at Reference Point"] = value
 
     def check(self):
@@ -1794,11 +1829,13 @@ class DaylightingDelightComplexFenestration(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
         Only used for user reference
+        
+        {u'note': [u'Only used for user reference'], u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1808,7 +1845,7 @@ class DaylightingDelightComplexFenestration(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -1817,7 +1854,6 @@ class DaylightingDelightComplexFenestration(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -1831,11 +1867,13 @@ class DaylightingDelightComplexFenestration(object):
 
     @complex_fenestration_type.setter
     def complex_fenestration_type(self, value=None):
-        """  Corresponds to IDD Field `complex_fenestration_type`
+        """  Corresponds to IDD Field `Complex Fenestration Type`
         Used to select the appropriate Complex Fenestration BTDF data
+        
+        {u'note': [u'Used to select the appropriate Complex Fenestration BTDF data'], u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `complex_fenestration_type`
+            value (str): value for IDD Field `Complex Fenestration Type`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1845,7 +1883,7 @@ class DaylightingDelightComplexFenestration(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `complex_fenestration_type`'.format(value))
             if ',' in value:
@@ -1854,7 +1892,6 @@ class DaylightingDelightComplexFenestration(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `complex_fenestration_type`')
-
         self._data["Complex Fenestration Type"] = value
 
     @property
@@ -1868,13 +1905,15 @@ class DaylightingDelightComplexFenestration(object):
 
     @building_surface_name.setter
     def building_surface_name(self, value=None):
-        """  Corresponds to IDD Field `building_surface_name`
+        """  Corresponds to IDD Field `Building Surface Name`
         This is a reference to a valid surface object (such as BuildingSurface:Detailed) hosting
         this complex fenestration, analogous to the base surface Name
         field for subsurfaces such as Windows.
+        
+        {u'note': [u'This is a reference to a valid surface object (such as BuildingSurface:Detailed) hosting', u'this complex fenestration, analogous to the base surface Name', u'field for subsurfaces such as Windows.'], u'type': u'object-list', u'object-list': u'SurfaceNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `building_surface_name`
+            value (str): value for IDD Field `Building Surface Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1884,7 +1923,7 @@ class DaylightingDelightComplexFenestration(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `building_surface_name`'.format(value))
             if ',' in value:
@@ -1893,7 +1932,6 @@ class DaylightingDelightComplexFenestration(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `building_surface_name`')
-
         self._data["Building Surface Name"] = value
 
     @property
@@ -1907,13 +1945,15 @@ class DaylightingDelightComplexFenestration(object):
 
     @window_name.setter
     def window_name(self, value=None):
-        """  Corresponds to IDD Field `window_name`
+        """  Corresponds to IDD Field `Window Name`
         This is a reference to a valid FenestrationSurface:Detailed window object
         used to account for the geometry, and the solar and thermal gains/losses,
         of the Complex Fenestration
+        
+        {u'note': [u'This is a reference to a valid FenestrationSurface:Detailed window object', u'used to account for the geometry, and the solar and thermal gains/losses,', u'of the Complex Fenestration'], u'type': u'object-list', u'object-list': u'SubSurfNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `window_name`
+            value (str): value for IDD Field `Window Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1923,7 +1963,7 @@ class DaylightingDelightComplexFenestration(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `window_name`'.format(value))
             if ',' in value:
@@ -1932,7 +1972,6 @@ class DaylightingDelightComplexFenestration(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `window_name`')
-
         self._data["Window Name"] = value
 
     @property
@@ -1946,14 +1985,16 @@ class DaylightingDelightComplexFenestration(object):
 
     @fenestration_rotation.setter
     def fenestration_rotation(self, value=0.0 ):
-        """  Corresponds to IDD Field `fenestration_rotation`
+        """  Corresponds to IDD Field `Fenestration Rotation`
         In-plane counter-clockwise rotation angle of the Complex Fenestration
         optical reference direction and the base edge of the Complex Fenestration.
         The Rotation will typically be zero when the host and CFS surfaces
         are rectangular and height and width edges are aligned.
+        
+        {u'units': u'deg', u'note': [u'In-plane counter-clockwise rotation angle of the Complex Fenestration', u'optical reference direction and the base edge of the Complex Fenestration.', u'The Rotation will typically be zero when the host and CFS surfaces', u'are rectangular and height and width edges are aligned.'], u'default': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `fenestration_rotation`
+            value (float): value for IDD Field `Fenestration Rotation`
                 Units: deg
                 Default value: 0.0
                 if `value` is None it will not be checked against the
@@ -1965,10 +2006,9 @@ class DaylightingDelightComplexFenestration(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `fenestration_rotation`'.format(value))
-
         self._data["Fenestration Rotation"] = value
 
     def check(self):
@@ -2162,10 +2202,12 @@ class DaylightingDeviceTubular(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2175,7 +2217,7 @@ class DaylightingDeviceTubular(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -2184,7 +2226,6 @@ class DaylightingDeviceTubular(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -2198,11 +2239,13 @@ class DaylightingDeviceTubular(object):
 
     @dome_name.setter
     def dome_name(self, value=None):
-        """  Corresponds to IDD Field `dome_name`
+        """  Corresponds to IDD Field `Dome Name`
         This must refer to a subsurface object of type TubularDaylightDome
+        
+        {u'note': [u'This must refer to a subsurface object of type TubularDaylightDome'], u'type': u'object-list', u'object-list': u'SubSurfNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `dome_name`
+            value (str): value for IDD Field `Dome Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2212,7 +2255,7 @@ class DaylightingDeviceTubular(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `dome_name`'.format(value))
             if ',' in value:
@@ -2221,7 +2264,6 @@ class DaylightingDeviceTubular(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `dome_name`')
-
         self._data["Dome Name"] = value
 
     @property
@@ -2235,12 +2277,14 @@ class DaylightingDeviceTubular(object):
 
     @diffuser_name.setter
     def diffuser_name(self, value=None):
-        """  Corresponds to IDD Field `diffuser_name`
+        """  Corresponds to IDD Field `Diffuser Name`
         This must refer to a subsurface object of type TubularDaylightDiffuser
         Delivery zone is specified in the diffuser object
+        
+        {u'note': [u'This must refer to a subsurface object of type TubularDaylightDiffuser', u'Delivery zone is specified in the diffuser object'], u'type': u'object-list', u'object-list': u'SubSurfNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `diffuser_name`
+            value (str): value for IDD Field `Diffuser Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2250,7 +2294,7 @@ class DaylightingDeviceTubular(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `diffuser_name`'.format(value))
             if ',' in value:
@@ -2259,7 +2303,6 @@ class DaylightingDeviceTubular(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `diffuser_name`')
-
         self._data["Diffuser Name"] = value
 
     @property
@@ -2273,10 +2316,12 @@ class DaylightingDeviceTubular(object):
 
     @construction_name.setter
     def construction_name(self, value=None):
-        """  Corresponds to IDD Field `construction_name`
+        """  Corresponds to IDD Field `Construction Name`
+        
+        {u'type': u'object-list', u'object-list': u'ConstructionNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `construction_name`
+            value (str): value for IDD Field `Construction Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2286,7 +2331,7 @@ class DaylightingDeviceTubular(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `construction_name`'.format(value))
             if ',' in value:
@@ -2295,7 +2340,6 @@ class DaylightingDeviceTubular(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `construction_name`')
-
         self._data["Construction Name"] = value
 
     @property
@@ -2309,10 +2353,12 @@ class DaylightingDeviceTubular(object):
 
     @diameter.setter
     def diameter(self, value=None):
-        """  Corresponds to IDD Field `diameter`
+        """  Corresponds to IDD Field `Diameter`
+        
+        {u'units': u'm', u'minimum>': '0.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `diameter`
+            value (float): value for IDD Field `Diameter`
                 Units: m
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -2324,13 +2370,12 @@ class DaylightingDeviceTubular(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `diameter`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `diameter`')
-
         self._data["Diameter"] = value
 
     @property
@@ -2344,11 +2389,13 @@ class DaylightingDeviceTubular(object):
 
     @total_length.setter
     def total_length(self, value=None):
-        """  Corresponds to IDD Field `total_length`
+        """  Corresponds to IDD Field `Total Length`
         The exterior exposed length is the difference between total and sum of zone lengths
+        
+        {'pytype': 'float', u'minimum>': '0.0', u'required-field': True, u'note': [u'The exterior exposed length is the difference between total and sum of zone lengths'], u'units': u'm', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `total_length`
+            value (float): value for IDD Field `Total Length`
                 Units: m
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -2360,13 +2407,12 @@ class DaylightingDeviceTubular(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `total_length`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `total_length`')
-
         self._data["Total Length"] = value
 
     @property
@@ -2380,11 +2426,13 @@ class DaylightingDeviceTubular(object):
 
     @effective_thermal_resistance.setter
     def effective_thermal_resistance(self, value=0.28 ):
-        """  Corresponds to IDD Field `effective_thermal_resistance`
+        """  Corresponds to IDD Field `Effective Thermal Resistance`
         R value between TubularDaylightDome and TubularDaylightDiffuser
+        
+        {'pytype': 'float', u'default': '0.28', u'minimum>': '0.0', u'required-field': True, u'note': [u'R value between TubularDaylightDome and TubularDaylightDiffuser'], u'units': u'm2-K/W', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `effective_thermal_resistance`
+            value (float): value for IDD Field `Effective Thermal Resistance`
                 Units: m2-K/W
                 Default value: 0.28
                 value > 0.0
@@ -2397,13 +2445,12 @@ class DaylightingDeviceTubular(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `effective_thermal_resistance`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `effective_thermal_resistance`')
-
         self._data["Effective Thermal Resistance"] = value
 
     @property
@@ -2417,10 +2464,12 @@ class DaylightingDeviceTubular(object):
 
     @transition_zone_1_name.setter
     def transition_zone_1_name(self, value=None):
-        """  Corresponds to IDD Field `transition_zone_1_name`
+        """  Corresponds to IDD Field `Transition Zone 1 Name`
+        
+        {'pytype': 'str', u'type': u'object-list', u'object-list': u'ZoneNames', u'begin-extensible': u''}
 
         Args:
-            value (str): value for IDD Field `transition_zone_1_name`
+            value (str): value for IDD Field `Transition Zone 1 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2430,7 +2479,7 @@ class DaylightingDeviceTubular(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `transition_zone_1_name`'.format(value))
             if ',' in value:
@@ -2439,7 +2488,6 @@ class DaylightingDeviceTubular(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `transition_zone_1_name`')
-
         self._data["Transition Zone 1 Name"] = value
 
     @property
@@ -2453,10 +2501,12 @@ class DaylightingDeviceTubular(object):
 
     @transition_zone_1_length.setter
     def transition_zone_1_length(self, value=None):
-        """  Corresponds to IDD Field `transition_zone_1_length`
+        """  Corresponds to IDD Field `Transition Zone 1 Length`
+        
+        {u'units': u'm', u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `transition_zone_1_length`
+            value (float): value for IDD Field `Transition Zone 1 Length`
                 Units: m
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -2468,13 +2518,12 @@ class DaylightingDeviceTubular(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `transition_zone_1_length`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `transition_zone_1_length`')
-
         self._data["Transition Zone 1 Length"] = value
 
     @property
@@ -2488,10 +2537,12 @@ class DaylightingDeviceTubular(object):
 
     @transition_zone_2_name.setter
     def transition_zone_2_name(self, value=None):
-        """  Corresponds to IDD Field `transition_zone_2_name`
+        """  Corresponds to IDD Field `Transition Zone 2 Name`
+        
+        {u'type': u'object-list', u'object-list': u'ZoneNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `transition_zone_2_name`
+            value (str): value for IDD Field `Transition Zone 2 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2501,7 +2552,7 @@ class DaylightingDeviceTubular(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `transition_zone_2_name`'.format(value))
             if ',' in value:
@@ -2510,7 +2561,6 @@ class DaylightingDeviceTubular(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `transition_zone_2_name`')
-
         self._data["Transition Zone 2 Name"] = value
 
     @property
@@ -2524,10 +2574,12 @@ class DaylightingDeviceTubular(object):
 
     @transition_zone_2_length.setter
     def transition_zone_2_length(self, value=None):
-        """  Corresponds to IDD Field `transition_zone_2_length`
+        """  Corresponds to IDD Field `Transition Zone 2 Length`
+        
+        {u'units': u'm', u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `transition_zone_2_length`
+            value (float): value for IDD Field `Transition Zone 2 Length`
                 Units: m
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -2539,13 +2591,12 @@ class DaylightingDeviceTubular(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `transition_zone_2_length`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `transition_zone_2_length`')
-
         self._data["Transition Zone 2 Length"] = value
 
     @property
@@ -2559,10 +2610,12 @@ class DaylightingDeviceTubular(object):
 
     @transition_zone_3_name.setter
     def transition_zone_3_name(self, value=None):
-        """  Corresponds to IDD Field `transition_zone_3_name`
+        """  Corresponds to IDD Field `Transition Zone 3 Name`
+        
+        {u'type': u'object-list', u'object-list': u'ZoneNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `transition_zone_3_name`
+            value (str): value for IDD Field `Transition Zone 3 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2572,7 +2625,7 @@ class DaylightingDeviceTubular(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `transition_zone_3_name`'.format(value))
             if ',' in value:
@@ -2581,7 +2634,6 @@ class DaylightingDeviceTubular(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `transition_zone_3_name`')
-
         self._data["Transition Zone 3 Name"] = value
 
     @property
@@ -2595,10 +2647,12 @@ class DaylightingDeviceTubular(object):
 
     @transition_zone_3_length.setter
     def transition_zone_3_length(self, value=None):
-        """  Corresponds to IDD Field `transition_zone_3_length`
+        """  Corresponds to IDD Field `Transition Zone 3 Length`
+        
+        {u'units': u'm', u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `transition_zone_3_length`
+            value (float): value for IDD Field `Transition Zone 3 Length`
                 Units: m
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -2610,13 +2664,12 @@ class DaylightingDeviceTubular(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `transition_zone_3_length`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `transition_zone_3_length`')
-
         self._data["Transition Zone 3 Length"] = value
 
     @property
@@ -2630,10 +2683,12 @@ class DaylightingDeviceTubular(object):
 
     @transition_zone_4_name.setter
     def transition_zone_4_name(self, value=None):
-        """  Corresponds to IDD Field `transition_zone_4_name`
+        """  Corresponds to IDD Field `Transition Zone 4 Name`
+        
+        {u'type': u'object-list', u'object-list': u'ZoneNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `transition_zone_4_name`
+            value (str): value for IDD Field `Transition Zone 4 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2643,7 +2698,7 @@ class DaylightingDeviceTubular(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `transition_zone_4_name`'.format(value))
             if ',' in value:
@@ -2652,7 +2707,6 @@ class DaylightingDeviceTubular(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `transition_zone_4_name`')
-
         self._data["Transition Zone 4 Name"] = value
 
     @property
@@ -2666,10 +2720,12 @@ class DaylightingDeviceTubular(object):
 
     @transition_zone_4_length.setter
     def transition_zone_4_length(self, value=None):
-        """  Corresponds to IDD Field `transition_zone_4_length`
+        """  Corresponds to IDD Field `Transition Zone 4 Length`
+        
+        {u'units': u'm', u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `transition_zone_4_length`
+            value (float): value for IDD Field `Transition Zone 4 Length`
                 Units: m
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -2681,13 +2737,12 @@ class DaylightingDeviceTubular(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `transition_zone_4_length`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `transition_zone_4_length`')
-
         self._data["Transition Zone 4 Length"] = value
 
     def check(self):
@@ -2809,10 +2864,12 @@ class DaylightingDeviceShelf(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2822,7 +2879,7 @@ class DaylightingDeviceShelf(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -2831,7 +2888,6 @@ class DaylightingDeviceShelf(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -2845,10 +2901,12 @@ class DaylightingDeviceShelf(object):
 
     @window_name.setter
     def window_name(self, value=None):
-        """  Corresponds to IDD Field `window_name`
+        """  Corresponds to IDD Field `Window Name`
+        
+        {u'type': u'object-list', u'object-list': u'SubSurfNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `window_name`
+            value (str): value for IDD Field `Window Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2858,7 +2916,7 @@ class DaylightingDeviceShelf(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `window_name`'.format(value))
             if ',' in value:
@@ -2867,7 +2925,6 @@ class DaylightingDeviceShelf(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `window_name`')
-
         self._data["Window Name"] = value
 
     @property
@@ -2881,12 +2938,14 @@ class DaylightingDeviceShelf(object):
 
     @inside_shelf_name.setter
     def inside_shelf_name(self, value=None):
-        """  Corresponds to IDD Field `inside_shelf_name`
+        """  Corresponds to IDD Field `Inside Shelf Name`
         This must refer to a BuildingSurface:Detailed or equivalent object
         This surface must be its own Surface for other side boundary conditions.
+        
+        {u'note': [u'This must refer to a BuildingSurface:Detailed or equivalent object', u'This surface must be its own Surface for other side boundary conditions.'], u'type': u'object-list', u'object-list': u'SurfaceNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `inside_shelf_name`
+            value (str): value for IDD Field `Inside Shelf Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2896,7 +2955,7 @@ class DaylightingDeviceShelf(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `inside_shelf_name`'.format(value))
             if ',' in value:
@@ -2905,7 +2964,6 @@ class DaylightingDeviceShelf(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `inside_shelf_name`')
-
         self._data["Inside Shelf Name"] = value
 
     @property
@@ -2919,11 +2977,13 @@ class DaylightingDeviceShelf(object):
 
     @outside_shelf_name.setter
     def outside_shelf_name(self, value=None):
-        """  Corresponds to IDD Field `outside_shelf_name`
+        """  Corresponds to IDD Field `Outside Shelf Name`
         This must refer to a Shading:Zone:Detailed object
+        
+        {u'note': [u'This must refer to a Shading:Zone:Detailed object'], u'type': u'object-list', u'object-list': u'AttachedShadingSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `outside_shelf_name`
+            value (str): value for IDD Field `Outside Shelf Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2933,7 +2993,7 @@ class DaylightingDeviceShelf(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `outside_shelf_name`'.format(value))
             if ',' in value:
@@ -2942,7 +3002,6 @@ class DaylightingDeviceShelf(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `outside_shelf_name`')
-
         self._data["Outside Shelf Name"] = value
 
     @property
@@ -2956,11 +3015,13 @@ class DaylightingDeviceShelf(object):
 
     @outside_shelf_construction_name.setter
     def outside_shelf_construction_name(self, value=None):
-        """  Corresponds to IDD Field `outside_shelf_construction_name`
+        """  Corresponds to IDD Field `Outside Shelf Construction Name`
         Required if outside shelf is specified
+        
+        {u'note': [u'Required if outside shelf is specified'], u'type': u'object-list', u'object-list': u'ConstructionNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `outside_shelf_construction_name`
+            value (str): value for IDD Field `Outside Shelf Construction Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2970,7 +3031,7 @@ class DaylightingDeviceShelf(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `outside_shelf_construction_name`'.format(value))
             if ',' in value:
@@ -2979,7 +3040,6 @@ class DaylightingDeviceShelf(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `outside_shelf_construction_name`')
-
         self._data["Outside Shelf Construction Name"] = value
 
     @property
@@ -2993,10 +3053,12 @@ class DaylightingDeviceShelf(object):
 
     @view_factor_to_outside_shelf.setter
     def view_factor_to_outside_shelf(self, value=None):
-        """  Corresponds to IDD Field `view_factor_to_outside_shelf`
+        """  Corresponds to IDD Field `View Factor to Outside Shelf`
+        
+        {u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `view_factor_to_outside_shelf`
+            value (float): value for IDD Field `View Factor to Outside Shelf`
                 value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
@@ -3008,7 +3070,7 @@ class DaylightingDeviceShelf(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `view_factor_to_outside_shelf`'.format(value))
             if value < 0.0:
@@ -3017,7 +3079,6 @@ class DaylightingDeviceShelf(object):
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `view_factor_to_outside_shelf`')
-
         self._data["View Factor to Outside Shelf"] = value
 
     def check(self):
@@ -3131,10 +3192,12 @@ class DaylightingDeviceLightWell(object):
 
     @exterior_window_name.setter
     def exterior_window_name(self, value=None):
-        """  Corresponds to IDD Field `exterior_window_name`
+        """  Corresponds to IDD Field `Exterior Window Name`
+        
+        {u'type': u'alpha', u'object-list': u'SubSurfNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `exterior_window_name`
+            value (str): value for IDD Field `Exterior Window Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3144,7 +3207,7 @@ class DaylightingDeviceLightWell(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `exterior_window_name`'.format(value))
             if ',' in value:
@@ -3153,7 +3216,6 @@ class DaylightingDeviceLightWell(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `exterior_window_name`')
-
         self._data["Exterior Window Name"] = value
 
     @property
@@ -3167,11 +3229,13 @@ class DaylightingDeviceLightWell(object):
 
     @height_of_well.setter
     def height_of_well(self, value=None):
-        """  Corresponds to IDD Field `height_of_well`
+        """  Corresponds to IDD Field `Height of Well`
         Distance from Bottom of Window to Bottom of Well
+        
+        {'pytype': 'float', u'required-field': True, u'note': [u'Distance from Bottom of Window to Bottom of Well'], u'minimum': '0.0', u'units': u'm', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `height_of_well`
+            value (float): value for IDD Field `Height of Well`
                 Units: m
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -3183,13 +3247,12 @@ class DaylightingDeviceLightWell(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `height_of_well`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `height_of_well`')
-
         self._data["Height of Well"] = value
 
     @property
@@ -3203,10 +3266,12 @@ class DaylightingDeviceLightWell(object):
 
     @perimeter_of_bottom_of_well.setter
     def perimeter_of_bottom_of_well(self, value=None):
-        """  Corresponds to IDD Field `perimeter_of_bottom_of_well`
+        """  Corresponds to IDD Field `Perimeter of Bottom of Well`
+        
+        {u'units': u'm', u'minimum>': '0.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `perimeter_of_bottom_of_well`
+            value (float): value for IDD Field `Perimeter of Bottom of Well`
                 Units: m
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -3218,13 +3283,12 @@ class DaylightingDeviceLightWell(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `perimeter_of_bottom_of_well`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `perimeter_of_bottom_of_well`')
-
         self._data["Perimeter of Bottom of Well"] = value
 
     @property
@@ -3238,10 +3302,12 @@ class DaylightingDeviceLightWell(object):
 
     @area_of_bottom_of_well.setter
     def area_of_bottom_of_well(self, value=None):
-        """  Corresponds to IDD Field `area_of_bottom_of_well`
+        """  Corresponds to IDD Field `Area of Bottom of Well`
+        
+        {u'units': u'm2', u'minimum>': '0.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `area_of_bottom_of_well`
+            value (float): value for IDD Field `Area of Bottom of Well`
                 Units: m2
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -3253,13 +3319,12 @@ class DaylightingDeviceLightWell(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `area_of_bottom_of_well`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `area_of_bottom_of_well`')
-
         self._data["Area of Bottom of Well"] = value
 
     @property
@@ -3273,10 +3338,12 @@ class DaylightingDeviceLightWell(object):
 
     @visible_reflectance_of_well_walls.setter
     def visible_reflectance_of_well_walls(self, value=None):
-        """  Corresponds to IDD Field `visible_reflectance_of_well_walls`
+        """  Corresponds to IDD Field `Visible Reflectance of Well Walls`
+        
+        {'pytype': 'float', u'maximum': '1.0', u'required-field': True, u'minimum': '0.0', u'units': u'dimensionless', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `visible_reflectance_of_well_walls`
+            value (float): value for IDD Field `Visible Reflectance of Well Walls`
                 Units: dimensionless
                 value >= 0.0
                 value <= 1.0
@@ -3289,7 +3356,7 @@ class DaylightingDeviceLightWell(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `visible_reflectance_of_well_walls`'.format(value))
             if value < 0.0:
@@ -3298,7 +3365,6 @@ class DaylightingDeviceLightWell(object):
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `visible_reflectance_of_well_walls`')
-
         self._data["Visible Reflectance of Well Walls"] = value
 
     def check(self):
@@ -3379,10 +3445,12 @@ class OutputDaylightFactors(object):
 
     @reporting_days.setter
     def reporting_days(self, value=None):
-        """  Corresponds to IDD Field `reporting_days`
+        """  Corresponds to IDD Field `Reporting Days`
+        
+        {u'type': u'choice', u'key': [u'SizingDays', u'AllShadowCalculationDays'], u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `reporting_days`
+            value (str): value for IDD Field `Reporting Days`
                 Accepted values are:
                       - SizingDays
                       - AllShadowCalculationDays
@@ -3395,7 +3463,7 @@ class OutputDaylightFactors(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `reporting_days`'.format(value))
             if ',' in value:
@@ -3421,7 +3489,6 @@ class OutputDaylightFactors(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `reporting_days`'.format(value))
             value = vals[value_lower]
-
         self._data["Reporting Days"] = value
 
     def check(self):
@@ -3566,10 +3633,12 @@ class OutputIlluminanceMap(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {'type': 'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3579,7 +3648,7 @@ class OutputIlluminanceMap(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -3588,7 +3657,6 @@ class OutputIlluminanceMap(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -3602,10 +3670,12 @@ class OutputIlluminanceMap(object):
 
     @zone_name.setter
     def zone_name(self, value=None):
-        """  Corresponds to IDD Field `zone_name`
+        """  Corresponds to IDD Field `Zone Name`
+        
+        {u'type': u'object-list', u'object-list': u'ZoneNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `zone_name`
+            value (str): value for IDD Field `Zone Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3615,7 +3685,7 @@ class OutputIlluminanceMap(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `zone_name`'.format(value))
             if ',' in value:
@@ -3624,7 +3694,6 @@ class OutputIlluminanceMap(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `zone_name`')
-
         self._data["Zone Name"] = value
 
     @property
@@ -3638,10 +3707,12 @@ class OutputIlluminanceMap(object):
 
     @z_height.setter
     def z_height(self, value=0.0 ):
-        """  Corresponds to IDD Field `z_height`
+        """  Corresponds to IDD Field `Z height`
+        
+        {u'units': u'm', u'default': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `z_height`
+            value (float): value for IDD Field `Z height`
                 Units: m
                 Default value: 0.0
                 if `value` is None it will not be checked against the
@@ -3653,10 +3724,9 @@ class OutputIlluminanceMap(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `z_height`'.format(value))
-
         self._data["Z height"] = value
 
     @property
@@ -3670,10 +3740,12 @@ class OutputIlluminanceMap(object):
 
     @x_minimum_coordinate.setter
     def x_minimum_coordinate(self, value=0.0 ):
-        """  Corresponds to IDD Field `x_minimum_coordinate`
+        """  Corresponds to IDD Field `X Minimum Coordinate`
+        
+        {u'units': u'm', u'default': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `x_minimum_coordinate`
+            value (float): value for IDD Field `X Minimum Coordinate`
                 Units: m
                 Default value: 0.0
                 if `value` is None it will not be checked against the
@@ -3685,10 +3757,9 @@ class OutputIlluminanceMap(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `x_minimum_coordinate`'.format(value))
-
         self._data["X Minimum Coordinate"] = value
 
     @property
@@ -3702,10 +3773,12 @@ class OutputIlluminanceMap(object):
 
     @x_maximum_coordinate.setter
     def x_maximum_coordinate(self, value=1.0 ):
-        """  Corresponds to IDD Field `x_maximum_coordinate`
+        """  Corresponds to IDD Field `X Maximum Coordinate`
+        
+        {u'units': u'm', u'default': '1.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `x_maximum_coordinate`
+            value (float): value for IDD Field `X Maximum Coordinate`
                 Units: m
                 Default value: 1.0
                 if `value` is None it will not be checked against the
@@ -3717,10 +3790,9 @@ class OutputIlluminanceMap(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `x_maximum_coordinate`'.format(value))
-
         self._data["X Maximum Coordinate"] = value
 
     @property
@@ -3734,11 +3806,13 @@ class OutputIlluminanceMap(object):
 
     @number_of_x_grid_points.setter
     def number_of_x_grid_points(self, value=2 ):
-        """  Corresponds to IDD Field `number_of_x_grid_points`
+        """  Corresponds to IDD Field `Number of X Grid Points`
         Maximum number of total grid points must be <= 2500 (X*Y)
+        
+        {u'note': [u'Maximum number of total grid points must be <= 2500 (X*Y)'], u'default': '2', u'minimum>': '0', u'type': u'integer', 'pytype': 'int'}
 
         Args:
-            value (int): value for IDD Field `number_of_x_grid_points`
+            value (int): value for IDD Field `Number of X Grid Points`
                 Default value: 2
                 value > 0
                 if `value` is None it will not be checked against the
@@ -3750,13 +3824,12 @@ class OutputIlluminanceMap(object):
         if value is not None:
             try:
                 value = int(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type int '
                                  'for field `number_of_x_grid_points`'.format(value))
             if value <= 0:
                 raise ValueError('value need to be greater 0 '
                                  'for field `number_of_x_grid_points`')
-
         self._data["Number of X Grid Points"] = value
 
     @property
@@ -3770,10 +3843,12 @@ class OutputIlluminanceMap(object):
 
     @y_minimum_coordinate.setter
     def y_minimum_coordinate(self, value=0.0 ):
-        """  Corresponds to IDD Field `y_minimum_coordinate`
+        """  Corresponds to IDD Field `Y Minimum Coordinate`
+        
+        {u'units': u'm', u'default': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `y_minimum_coordinate`
+            value (float): value for IDD Field `Y Minimum Coordinate`
                 Units: m
                 Default value: 0.0
                 if `value` is None it will not be checked against the
@@ -3785,10 +3860,9 @@ class OutputIlluminanceMap(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `y_minimum_coordinate`'.format(value))
-
         self._data["Y Minimum Coordinate"] = value
 
     @property
@@ -3802,10 +3876,12 @@ class OutputIlluminanceMap(object):
 
     @y_maximum_coordinate.setter
     def y_maximum_coordinate(self, value=1.0 ):
-        """  Corresponds to IDD Field `y_maximum_coordinate`
+        """  Corresponds to IDD Field `Y Maximum Coordinate`
+        
+        {u'units': u'm', u'default': '1.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `y_maximum_coordinate`
+            value (float): value for IDD Field `Y Maximum Coordinate`
                 Units: m
                 Default value: 1.0
                 if `value` is None it will not be checked against the
@@ -3817,10 +3893,9 @@ class OutputIlluminanceMap(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `y_maximum_coordinate`'.format(value))
-
         self._data["Y Maximum Coordinate"] = value
 
     @property
@@ -3834,11 +3909,13 @@ class OutputIlluminanceMap(object):
 
     @number_of_y_grid_points.setter
     def number_of_y_grid_points(self, value=2 ):
-        """  Corresponds to IDD Field `number_of_y_grid_points`
+        """  Corresponds to IDD Field `Number of Y Grid Points`
         Maximum number of total grid points must be <= 2500 (X*Y)
+        
+        {u'note': [u'Maximum number of total grid points must be <= 2500 (X*Y)'], u'default': '2', u'minimum>': '0', u'type': u'integer', 'pytype': 'int'}
 
         Args:
-            value (int): value for IDD Field `number_of_y_grid_points`
+            value (int): value for IDD Field `Number of Y Grid Points`
                 Default value: 2
                 value > 0
                 if `value` is None it will not be checked against the
@@ -3850,13 +3927,12 @@ class OutputIlluminanceMap(object):
         if value is not None:
             try:
                 value = int(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type int '
                                  'for field `number_of_y_grid_points`'.format(value))
             if value <= 0:
                 raise ValueError('value need to be greater 0 '
                                  'for field `number_of_y_grid_points`')
-
         self._data["Number of Y Grid Points"] = value
 
     def check(self):
@@ -3939,10 +4015,12 @@ class OutputControlIlluminanceMapStyle(object):
 
     @column_separator.setter
     def column_separator(self, value="Comma"):
-        """  Corresponds to IDD Field `column_separator`
+        """  Corresponds to IDD Field `Column Separator`
+        
+        {u'default': u'Comma', u'type': u'choice', u'key': [u'Comma', u'Tab', u'Fixed'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `column_separator`
+            value (str): value for IDD Field `Column Separator`
                 Accepted values are:
                       - Comma
                       - Tab
@@ -3957,7 +4035,7 @@ class OutputControlIlluminanceMapStyle(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `column_separator`'.format(value))
             if ',' in value:
@@ -3984,7 +4062,6 @@ class OutputControlIlluminanceMapStyle(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `column_separator`'.format(value))
             value = vals[value_lower]
-
         self._data["Column Separator"] = value
 
     def check(self):

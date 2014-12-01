@@ -462,11 +462,13 @@ class AirLoopHvacUnitarySystem(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
         Unique name for the Unitary System.
+        
+        {u'note': [u'Unique name for the Unitary System.'], u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -476,7 +478,7 @@ class AirLoopHvacUnitarySystem(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -485,7 +487,6 @@ class AirLoopHvacUnitarySystem(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -499,12 +500,14 @@ class AirLoopHvacUnitarySystem(object):
 
     @control_type.setter
     def control_type(self, value="Load"):
-        """  Corresponds to IDD Field `control_type`
+        """  Corresponds to IDD Field `Control Type`
         Load control requires a Controlling Zone name.
         SetPoint control requires set points at coil outlet node.
+        
+        {u'default': u'Load', u'note': [u'Load control requires a Controlling Zone name.', u'SetPoint control requires set points at coil outlet node.'], u'type': u'choice', u'key': [u'Load', u'SetPoint'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `control_type`
+            value (str): value for IDD Field `Control Type`
                 Accepted values are:
                       - Load
                       - SetPoint
@@ -518,7 +521,7 @@ class AirLoopHvacUnitarySystem(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `control_type`'.format(value))
             if ',' in value:
@@ -544,7 +547,6 @@ class AirLoopHvacUnitarySystem(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `control_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Control Type"] = value
 
     @property
@@ -558,12 +560,14 @@ class AirLoopHvacUnitarySystem(object):
 
     @controlling_zone_or_thermostat_location.setter
     def controlling_zone_or_thermostat_location(self, value=None):
-        """  Corresponds to IDD Field `controlling_zone_or_thermostat_location`
+        """  Corresponds to IDD Field `Controlling Zone or Thermostat Location`
         Used only for Load based control
         Zone name where thermostat is located. Required when Control Type = Load.
+        
+        {u'note': [u'Used only for Load based control', u'Zone name where thermostat is located. Required when Control Type = Load.'], u'type': u'object-list', u'object-list': u'ZoneNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `controlling_zone_or_thermostat_location`
+            value (str): value for IDD Field `Controlling Zone or Thermostat Location`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -573,7 +577,7 @@ class AirLoopHvacUnitarySystem(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `controlling_zone_or_thermostat_location`'.format(value))
             if ',' in value:
@@ -582,7 +586,6 @@ class AirLoopHvacUnitarySystem(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `controlling_zone_or_thermostat_location`')
-
         self._data["Controlling Zone or Thermostat Location"] = value
 
     @property
@@ -596,7 +599,7 @@ class AirLoopHvacUnitarySystem(object):
 
     @dehumidification_control_type.setter
     def dehumidification_control_type(self, value="None"):
-        """  Corresponds to IDD Field `dehumidification_control_type`
+        """  Corresponds to IDD Field `Dehumidification Control Type`
         None = meet sensible load only
         Multimode = activate enhanced dehumidification mode
         as needed and meet sensible load.  Valid only with
@@ -609,9 +612,11 @@ class AirLoopHvacUnitarySystem(object):
         cooling coil types. When a heat exchanger assisted cooling
         coil is used, the heat exchanger is locked on at all times.
         A ZoneControl:Humidistat object is also required.
+        
+        {u'default': u'None', u'note': [u'None = meet sensible load only', u'Multimode = activate enhanced dehumidification mode', u'as needed and meet sensible load.  Valid only with', u'cooling coil type CoilSystem:Cooling:DX:HeatExchangerAssisted.', u'This control mode allows the heat exchanger to be turned', u'on and off based on the zone dehumidification requirements.', u'A ZoneControl:Humidistat object is also required.', u'CoolReheat = cool beyond the dry bulb setpoint.', u'as required to meet the humidity setpoint.  Valid with all', u'cooling coil types. When a heat exchanger assisted cooling', u'coil is used, the heat exchanger is locked on at all times.', u'A ZoneControl:Humidistat object is also required.'], u'type': u'choice', u'key': [u'None', u'Multimode', u'CoolReheat'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `dehumidification_control_type`
+            value (str): value for IDD Field `Dehumidification Control Type`
                 Accepted values are:
                       - None
                       - Multimode
@@ -626,7 +631,7 @@ class AirLoopHvacUnitarySystem(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `dehumidification_control_type`'.format(value))
             if ',' in value:
@@ -653,7 +658,6 @@ class AirLoopHvacUnitarySystem(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `dehumidification_control_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Dehumidification Control Type"] = value
 
     @property
@@ -667,15 +671,17 @@ class AirLoopHvacUnitarySystem(object):
 
     @availability_schedule_name.setter
     def availability_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `availability_schedule_name`
+        """  Corresponds to IDD Field `Availability Schedule Name`
         Availability schedule name for this system. Schedule value > 0 means the system is available.
         If this field is blank, the system is always available.
         A schedule value greater than zero (usually 1 is used) indicates that the unit is
         available to operate as needed. A value less than or equal to zero (usually zero
         is used) denotes that the unit must be off.
+        
+        {u'note': [u'Availability schedule name for this system. Schedule value > 0 means the system is available.', u'If this field is blank, the system is always available.', u'A schedule value greater than zero (usually 1 is used) indicates that the unit is', u'available to operate as needed. A value less than or equal to zero (usually zero', u'is used) denotes that the unit must be off.'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `availability_schedule_name`
+            value (str): value for IDD Field `Availability Schedule Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -685,7 +691,7 @@ class AirLoopHvacUnitarySystem(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `availability_schedule_name`'.format(value))
             if ',' in value:
@@ -694,7 +700,6 @@ class AirLoopHvacUnitarySystem(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `availability_schedule_name`')
-
         self._data["Availability Schedule Name"] = value
 
     @property
@@ -708,11 +713,13 @@ class AirLoopHvacUnitarySystem(object):
 
     @air_inlet_node_name.setter
     def air_inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `air_inlet_node_name`
+        """  Corresponds to IDD Field `Air Inlet Node Name`
         Enter the node name used as the inlet air node for the unitary system.
+        
+        {u'note': [u'Enter the node name used as the inlet air node for the unitary system.'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `air_inlet_node_name`
+            value (str): value for IDD Field `Air Inlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -722,7 +729,7 @@ class AirLoopHvacUnitarySystem(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `air_inlet_node_name`'.format(value))
             if ',' in value:
@@ -731,7 +738,6 @@ class AirLoopHvacUnitarySystem(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `air_inlet_node_name`')
-
         self._data["Air Inlet Node Name"] = value
 
     @property
@@ -745,11 +751,13 @@ class AirLoopHvacUnitarySystem(object):
 
     @air_outlet_node_name.setter
     def air_outlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `air_outlet_node_name`
+        """  Corresponds to IDD Field `Air Outlet Node Name`
         Enter the node name used as the outlet air node for the unitary system.
+        
+        {u'note': [u'Enter the node name used as the outlet air node for the unitary system.'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `air_outlet_node_name`
+            value (str): value for IDD Field `Air Outlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -759,7 +767,7 @@ class AirLoopHvacUnitarySystem(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `air_outlet_node_name`'.format(value))
             if ',' in value:
@@ -768,7 +776,6 @@ class AirLoopHvacUnitarySystem(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `air_outlet_node_name`')
-
         self._data["Air Outlet Node Name"] = value
 
     @property
@@ -782,7 +789,7 @@ class AirLoopHvacUnitarySystem(object):
 
     @supply_fan_object_type.setter
     def supply_fan_object_type(self, value=None):
-        """  Corresponds to IDD Field `supply_fan_object_type`
+        """  Corresponds to IDD Field `Supply Fan Object Type`
         Enter the type of supply air fan if included in the unitary system.
         Fan:ConstantVolume only works with continuous fan operating mode (i.e. supply
         air fan operating mode schedule values greater than 0).
@@ -792,9 +799,11 @@ class AirLoopHvacUnitarySystem(object):
         if the fan is included in the unitary system object.
         The variable or constant volume fan may be specified on the branch instead of contained
         within the unitary system object (i.e., this field may be blank for certain configurations).
+        
+        {u'note': [u'Enter the type of supply air fan if included in the unitary system.', u'Fan:ConstantVolume only works with continuous fan operating mode (i.e. supply', u'air fan operating mode schedule values greater than 0).', u'Specify a Fan:OnOff object when the Supply Air Fan Operating Mode Schedule Name', u'input field above is left blank.', u'Specifiy a Fan:VariableVolume when modeling VAV systems which used setpoint based control', u'if the fan is included in the unitary system object.', u'The variable or constant volume fan may be specified on the branch instead of contained', u'within the unitary system object (i.e., this field may be blank for certain configurations).'], u'type': u'choice', u'key': [u'Fan:OnOff', u'Fan:ConstantVolume', u'Fan:VariableVolume'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `supply_fan_object_type`
+            value (str): value for IDD Field `Supply Fan Object Type`
                 Accepted values are:
                       - Fan:OnOff
                       - Fan:ConstantVolume
@@ -808,7 +817,7 @@ class AirLoopHvacUnitarySystem(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `supply_fan_object_type`'.format(value))
             if ',' in value:
@@ -835,7 +844,6 @@ class AirLoopHvacUnitarySystem(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `supply_fan_object_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Supply Fan Object Type"] = value
 
     @property
@@ -849,11 +857,13 @@ class AirLoopHvacUnitarySystem(object):
 
     @supply_fan_name.setter
     def supply_fan_name(self, value=None):
-        """  Corresponds to IDD Field `supply_fan_name`
+        """  Corresponds to IDD Field `Supply Fan Name`
         Enter the name of the supply air fan if included in the unitary system.
+        
+        {u'note': [u'Enter the name of the supply air fan if included in the unitary system.'], u'type': u'object-list', u'object-list': u'FansCVandOnOffandVAV', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `supply_fan_name`
+            value (str): value for IDD Field `Supply Fan Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -863,7 +873,7 @@ class AirLoopHvacUnitarySystem(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `supply_fan_name`'.format(value))
             if ',' in value:
@@ -872,7 +882,6 @@ class AirLoopHvacUnitarySystem(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `supply_fan_name`')
-
         self._data["Supply Fan Name"] = value
 
     @property
@@ -886,11 +895,13 @@ class AirLoopHvacUnitarySystem(object):
 
     @fan_placement.setter
     def fan_placement(self, value=None):
-        """  Corresponds to IDD Field `fan_placement`
+        """  Corresponds to IDD Field `Fan Placement`
         Enter the type of supply air fan if included in the unitary system.
+        
+        {u'note': [u'Enter the type of supply air fan if included in the unitary system.'], u'type': u'choice', u'key': [u'BlowThrough', u'DrawThrough'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `fan_placement`
+            value (str): value for IDD Field `Fan Placement`
                 Accepted values are:
                       - BlowThrough
                       - DrawThrough
@@ -903,7 +914,7 @@ class AirLoopHvacUnitarySystem(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `fan_placement`'.format(value))
             if ',' in value:
@@ -929,7 +940,6 @@ class AirLoopHvacUnitarySystem(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `fan_placement`'.format(value))
             value = vals[value_lower]
-
         self._data["Fan Placement"] = value
 
     @property
@@ -943,7 +953,7 @@ class AirLoopHvacUnitarySystem(object):
 
     @supply_air_fan_operating_mode_schedule_name.setter
     def supply_air_fan_operating_mode_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `supply_air_fan_operating_mode_schedule_name`
+        """  Corresponds to IDD Field `Supply Air Fan Operating Mode Schedule Name`
         A fan operating mode schedule value of 0 indicates cycling fan mode (supply air
         fan cycles on and off in tandem with the cooling or heating coil).
         Any other schedule value indicates continuous fan mode (supply air fan operates
@@ -953,9 +963,11 @@ class AirLoopHvacUnitarySystem(object):
         entire simulation period.
         This field is not used when set point based control is used where a set point
         controls the coil (i.e., model assumes constant fan mode operation).
+        
+        {u'note': [u'A fan operating mode schedule value of 0 indicates cycling fan mode (supply air', u'fan cycles on and off in tandem with the cooling or heating coil).', u'Any other schedule value indicates continuous fan mode (supply air fan operates', u'continuously regardless of cooling or heating coil operation). Provide a schedule', u'with non-zero values when high humidity control is specified.', u'Leaving this schedule name blank will default to constant fan mode for the', u'entire simulation period.', u'This field is not used when set point based control is used where a set point', u'controls the coil (i.e., model assumes constant fan mode operation).'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `supply_air_fan_operating_mode_schedule_name`
+            value (str): value for IDD Field `Supply Air Fan Operating Mode Schedule Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -965,7 +977,7 @@ class AirLoopHvacUnitarySystem(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `supply_air_fan_operating_mode_schedule_name`'.format(value))
             if ',' in value:
@@ -974,7 +986,6 @@ class AirLoopHvacUnitarySystem(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `supply_air_fan_operating_mode_schedule_name`')
-
         self._data["Supply Air Fan Operating Mode Schedule Name"] = value
 
     @property
@@ -988,11 +999,13 @@ class AirLoopHvacUnitarySystem(object):
 
     @heating_coil_object_type.setter
     def heating_coil_object_type(self, value=None):
-        """  Corresponds to IDD Field `heating_coil_object_type`
+        """  Corresponds to IDD Field `Heating Coil Object Type`
         Enter the type of heating coil if included in the unitary system.
+        
+        {u'note': [u'Enter the type of heating coil if included in the unitary system.'], u'type': u'choice', u'key': [u'Coil:Heating:DX:SingleSpeed', u'Coil:Heating:DX:MultiSpeed', u'Coil:Heating:DX:VariableSpeed', u'Coil:Heating:WaterToAirHeatPump:ParameterEstimation', u'Coil:Heating:WaterToAirHeatPump:EquationFit', u'Coil:Heating:WaterToAirHeatPump:VariableSpeedEquationFit', u'Coil:Heating:Gas', u'Coil:Heating:Gas:MultiStage', u'Coil:Heating:Electric', u'Coil:Heating:Electric:MultiStage', u'Coil:Heating:Water', u'Coil:Heating:Steam', u'Coil:Heating:Desuperheater'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `heating_coil_object_type`
+            value (str): value for IDD Field `Heating Coil Object Type`
                 Accepted values are:
                       - Coil:Heating:DX:SingleSpeed
                       - Coil:Heating:DX:MultiSpeed
@@ -1016,7 +1029,7 @@ class AirLoopHvacUnitarySystem(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `heating_coil_object_type`'.format(value))
             if ',' in value:
@@ -1053,7 +1066,6 @@ class AirLoopHvacUnitarySystem(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `heating_coil_object_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Heating Coil Object Type"] = value
 
     @property
@@ -1067,11 +1079,13 @@ class AirLoopHvacUnitarySystem(object):
 
     @heating_coil_name.setter
     def heating_coil_name(self, value=None):
-        """  Corresponds to IDD Field `heating_coil_name`
+        """  Corresponds to IDD Field `Heating Coil Name`
         Enter the name of the heating coil if included in the unitary system.
+        
+        {u'note': [u'Enter the name of the heating coil if included in the unitary system.'], u'type': u'object-list', u'object-list': u'HeatingCoilsDesuperheater', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `heating_coil_name`
+            value (str): value for IDD Field `Heating Coil Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1081,7 +1095,7 @@ class AirLoopHvacUnitarySystem(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `heating_coil_name`'.format(value))
             if ',' in value:
@@ -1090,7 +1104,6 @@ class AirLoopHvacUnitarySystem(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `heating_coil_name`')
-
         self._data["Heating Coil Name"] = value
 
     @property
@@ -1104,12 +1117,14 @@ class AirLoopHvacUnitarySystem(object):
 
     @dx_heating_coil_sizing_ratio.setter
     def dx_heating_coil_sizing_ratio(self, value=1.0 ):
-        """  Corresponds to IDD Field `dx_heating_coil_sizing_ratio`
+        """  Corresponds to IDD Field `DX Heating Coil Sizing Ratio`
         Used to adjust heat pump heating capacity with respect to DX cooling capacity
         used only for heat pump configurations (i.e., a cooling and DX heating coil is used).
+        
+        {u'default': '1.0', u'note': [u'Used to adjust heat pump heating capacity with respect to DX cooling capacity', u'used only for heat pump configurations (i.e., a cooling and DX heating coil is used).'], u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `dx_heating_coil_sizing_ratio`
+            value (float): value for IDD Field `DX Heating Coil Sizing Ratio`
                 Default value: 1.0
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -1121,13 +1136,12 @@ class AirLoopHvacUnitarySystem(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `dx_heating_coil_sizing_ratio`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `dx_heating_coil_sizing_ratio`')
-
         self._data["DX Heating Coil Sizing Ratio"] = value
 
     @property
@@ -1141,11 +1155,13 @@ class AirLoopHvacUnitarySystem(object):
 
     @cooling_coil_object_type.setter
     def cooling_coil_object_type(self, value=None):
-        """  Corresponds to IDD Field `cooling_coil_object_type`
+        """  Corresponds to IDD Field `Cooling Coil Object Type`
         Enter the type of cooling coil if included in the unitary system.
+        
+        {u'note': [u'Enter the type of cooling coil if included in the unitary system.'], u'type': u'choice', u'key': [u'Coil:Cooling:DX:SingleSpeed', u'Coil:Cooling:DX:TwoSpeed', u'Coil:Cooling:DX:MultiSpeed', u'Coil:Cooling:DX:VariableSpeed', u'Coil:Cooling:DX:TwoStageWithHumidityControlMode', u'CoilSystem:Cooling:DX:HeatExchangerAssisted', u'Coil:Cooling:WaterToAirHeatPump:ParameterEstimation', u'Coil:Cooling:WaterToAirHeatPump:EquationFit', u'Coil:Cooling:WaterToAirHeatPump:VariableSpeedEquationFit', u'Coil:Cooling:Water', u'Coil:Cooling:Water:DetailedGeometry', u'CoilSystem:Cooling:Water:HeatExchangerAssisted'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `cooling_coil_object_type`
+            value (str): value for IDD Field `Cooling Coil Object Type`
                 Accepted values are:
                       - Coil:Cooling:DX:SingleSpeed
                       - Coil:Cooling:DX:TwoSpeed
@@ -1168,7 +1184,7 @@ class AirLoopHvacUnitarySystem(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `cooling_coil_object_type`'.format(value))
             if ',' in value:
@@ -1204,7 +1220,6 @@ class AirLoopHvacUnitarySystem(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `cooling_coil_object_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Cooling Coil Object Type"] = value
 
     @property
@@ -1218,11 +1233,13 @@ class AirLoopHvacUnitarySystem(object):
 
     @cooling_coil_name.setter
     def cooling_coil_name(self, value=None):
-        """  Corresponds to IDD Field `cooling_coil_name`
+        """  Corresponds to IDD Field `Cooling Coil Name`
         Enter the name of the cooling coil if included in the unitary system.
+        
+        {u'note': [u'Enter the name of the cooling coil if included in the unitary system.'], u'type': u'object-list', u'object-list': u'CoolingCoilsWater', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `cooling_coil_name`
+            value (str): value for IDD Field `Cooling Coil Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1232,7 +1249,7 @@ class AirLoopHvacUnitarySystem(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `cooling_coil_name`'.format(value))
             if ',' in value:
@@ -1241,7 +1258,6 @@ class AirLoopHvacUnitarySystem(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `cooling_coil_name`')
-
         self._data["Cooling Coil Name"] = value
 
     @property
@@ -1255,13 +1271,15 @@ class AirLoopHvacUnitarySystem(object):
 
     @use_doas_dx_cooling_coil.setter
     def use_doas_dx_cooling_coil(self, value="No"):
-        """  Corresponds to IDD Field `use_doas_dx_cooling_coil`
+        """  Corresponds to IDD Field `Use DOAS DX Cooling Coil`
         If Yes, the DX cooling coil runs as 100% DOAS DX coil.
         If No, the DX cooling coil runs as a regular DX coil.
         If left blank the default is regular dx coil.
+        
+        {u'default': u'No', u'note': [u'If Yes, the DX cooling coil runs as 100% DOAS DX coil.', u'If No, the DX cooling coil runs as a regular DX coil.', u'If left blank the default is regular dx coil.'], u'type': u'choice', u'key': [u'Yes', u'No'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `use_doas_dx_cooling_coil`
+            value (str): value for IDD Field `Use DOAS DX Cooling Coil`
                 Accepted values are:
                       - Yes
                       - No
@@ -1275,7 +1293,7 @@ class AirLoopHvacUnitarySystem(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `use_doas_dx_cooling_coil`'.format(value))
             if ',' in value:
@@ -1301,7 +1319,6 @@ class AirLoopHvacUnitarySystem(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `use_doas_dx_cooling_coil`'.format(value))
             value = vals[value_lower]
-
         self._data["Use DOAS DX Cooling Coil"] = value
 
     @property
@@ -1315,13 +1332,15 @@ class AirLoopHvacUnitarySystem(object):
 
     @doas_dx_cooling_coil_leaving_minimum_air_temperature.setter
     def doas_dx_cooling_coil_leaving_minimum_air_temperature(self, value=2.0 ):
-        """  Corresponds to IDD Field `doas_dx_cooling_coil_leaving_minimum_air_temperature`
+        """  Corresponds to IDD Field `DOAS DX Cooling Coil Leaving Minimum Air Temperature`
         DX cooling coil leaving minimum air temperature defines the minimum DOAS DX cooling coil
         leaving air temperature that should be maintained to avoid frost formation. This input
         field is optional and only used along with the input field above.
+        
+        {'pytype': 'float', u'default': '2.0', u'maximum': '7.2', u'note': [u'DX cooling coil leaving minimum air temperature defines the minimum DOAS DX cooling coil', u'leaving air temperature that should be maintained to avoid frost formation. This input', u'field is optional and only used along with the input field above.'], u'minimum': '0.0', u'units': u'C', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `doas_dx_cooling_coil_leaving_minimum_air_temperature`
+            value (float): value for IDD Field `DOAS DX Cooling Coil Leaving Minimum Air Temperature`
                 Units: C
                 Default value: 2.0
                 value >= 0.0
@@ -1335,7 +1354,7 @@ class AirLoopHvacUnitarySystem(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `doas_dx_cooling_coil_leaving_minimum_air_temperature`'.format(value))
             if value < 0.0:
@@ -1344,7 +1363,6 @@ class AirLoopHvacUnitarySystem(object):
             if value > 7.2:
                 raise ValueError('value need to be smaller 7.2 '
                                  'for field `doas_dx_cooling_coil_leaving_minimum_air_temperature`')
-
         self._data["DOAS DX Cooling Coil Leaving Minimum Air Temperature"] = value
 
     @property
@@ -1358,16 +1376,18 @@ class AirLoopHvacUnitarySystem(object):
 
     @latent_load_control.setter
     def latent_load_control(self, value=None):
-        """  Corresponds to IDD Field `latent_load_control`
+        """  Corresponds to IDD Field `Latent Load Control`
         SensibleOnlyLoadControl is selected when thermostat control is used.
         LatentOnlyLoadControl is selected when humidistat control is used.
         LatentWithSensibleLoadControl is selected when thermostat control is used and
         dehumidification is required only when a sensible load exists.
         LatentOrSensibleLoadControl is selected when thermostat control is used and
         dehumidification is required any time the humidistat set point is exceeded.
+        
+        {u'Default': u'SensibleOnlyLoadControl', u'note': [u'SensibleOnlyLoadControl is selected when thermostat control is used.', u'LatentOnlyLoadControl is selected when humidistat control is used.', u'LatentWithSensibleLoadControl is selected when thermostat control is used and', u'dehumidification is required only when a sensible load exists.', u'LatentOrSensibleLoadControl is selected when thermostat control is used and', u'dehumidification is required any time the humidistat set point is exceeded.'], u'type': u'choice', u'key': [u'SensibleOnlyLoadControl', u'LatentOnlyLoadControl', u'LatentWithSensibleLoadControl', u'LatentOrSensibleLoadControl'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `latent_load_control`
+            value (str): value for IDD Field `Latent Load Control`
                 Accepted values are:
                       - SensibleOnlyLoadControl
                       - LatentOnlyLoadControl
@@ -1382,7 +1402,7 @@ class AirLoopHvacUnitarySystem(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `latent_load_control`'.format(value))
             if ',' in value:
@@ -1410,7 +1430,6 @@ class AirLoopHvacUnitarySystem(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `latent_load_control`'.format(value))
             value = vals[value_lower]
-
         self._data["Latent Load Control"] = value
 
     @property
@@ -1424,12 +1443,14 @@ class AirLoopHvacUnitarySystem(object):
 
     @supplemental_heating_coil_object_type.setter
     def supplemental_heating_coil_object_type(self, value=None):
-        """  Corresponds to IDD Field `supplemental_heating_coil_object_type`
+        """  Corresponds to IDD Field `Supplemental Heating Coil Object Type`
         Enter the type of supplemental heating coil if included in the unitary system.
         Only required if dehumidification control type is "CoolReheat".
+        
+        {u'note': [u'Enter the type of supplemental heating coil if included in the unitary system.', u'Only required if dehumidification control type is "CoolReheat".'], u'type': u'choice', u'key': [u'Coil:Heating:Gas', u'Coil:Heating:Electric', u'Coil:Heating:Desuperheater', u'Coil:Heating:Water', u'Coil:Heating:Steam'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `supplemental_heating_coil_object_type`
+            value (str): value for IDD Field `Supplemental Heating Coil Object Type`
                 Accepted values are:
                       - Coil:Heating:Gas
                       - Coil:Heating:Electric
@@ -1445,7 +1466,7 @@ class AirLoopHvacUnitarySystem(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `supplemental_heating_coil_object_type`'.format(value))
             if ',' in value:
@@ -1474,7 +1495,6 @@ class AirLoopHvacUnitarySystem(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `supplemental_heating_coil_object_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Supplemental Heating Coil Object Type"] = value
 
     @property
@@ -1488,12 +1508,14 @@ class AirLoopHvacUnitarySystem(object):
 
     @supplemental_heating_coil_name.setter
     def supplemental_heating_coil_name(self, value=None):
-        """  Corresponds to IDD Field `supplemental_heating_coil_name`
+        """  Corresponds to IDD Field `Supplemental Heating Coil Name`
         Enter the name of the supplemental heating coil if included in the unitary system.
         Only required if dehumidification control type is "CoolReheat".
+        
+        {u'note': [u'Enter the name of the supplemental heating coil if included in the unitary system.', u'Only required if dehumidification control type is "CoolReheat".'], u'type': u'object-list', u'object-list': u'HeatingCoilsDesuperheater', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `supplemental_heating_coil_name`
+            value (str): value for IDD Field `Supplemental Heating Coil Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1503,7 +1525,7 @@ class AirLoopHvacUnitarySystem(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `supplemental_heating_coil_name`'.format(value))
             if ',' in value:
@@ -1512,7 +1534,6 @@ class AirLoopHvacUnitarySystem(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `supplemental_heating_coil_name`')
-
         self._data["Supplemental Heating Coil Name"] = value
 
     @property
@@ -1526,7 +1547,7 @@ class AirLoopHvacUnitarySystem(object):
 
     @supply_air_flow_rate_method_during_cooling_operation.setter
     def supply_air_flow_rate_method_during_cooling_operation(self, value=None):
-        """  Corresponds to IDD Field `supply_air_flow_rate_method_during_cooling_operation`
+        """  Corresponds to IDD Field `Supply Air Flow Rate Method During Cooling Operation`
         Enter the method used to determine the cooling supply air volume flow rate.
         None is used when a cooling coil is not included in the unitary system or this field may be blank.
         SupplyAirFlowRate is selected when the magnitude of the supply air volume is used.
@@ -1536,9 +1557,11 @@ class AirLoopHvacUnitarySystem(object):
         value determined by the simulation.
         FlowPerCoolingCapacity is selected when the supply air volume is a fraction of the cooling
         capacity as determined by the simulation.
+        
+        {u'note': [u'Enter the method used to determine the cooling supply air volume flow rate.', u'None is used when a cooling coil is not included in the unitary system or this field may be blank.', u'SupplyAirFlowRate is selected when the magnitude of the supply air volume is used.', u'FlowPerFloorArea is selected when the supply air volume flow rate is based on total floor area', u'served by the unitary system.', u'FractionOfAutosizedCoolingValue is selected when the supply air volume is a fraction of the', u'value determined by the simulation.', u'FlowPerCoolingCapacity is selected when the supply air volume is a fraction of the cooling', u'capacity as determined by the simulation.'], u'type': u'choice', u'key': [u'None', u'SupplyAirFlowRate', u'FlowPerFloorArea', u'FractionOfAutosizedCoolingValue', u'FlowPerCoolingCapacity'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `supply_air_flow_rate_method_during_cooling_operation`
+            value (str): value for IDD Field `Supply Air Flow Rate Method During Cooling Operation`
                 Accepted values are:
                       - None
                       - SupplyAirFlowRate
@@ -1554,7 +1577,7 @@ class AirLoopHvacUnitarySystem(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `supply_air_flow_rate_method_during_cooling_operation`'.format(value))
             if ',' in value:
@@ -1583,7 +1606,6 @@ class AirLoopHvacUnitarySystem(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `supply_air_flow_rate_method_during_cooling_operation`'.format(value))
             value = vals[value_lower]
-
         self._data["Supply Air Flow Rate Method During Cooling Operation"] = value
 
     @property
@@ -1597,13 +1619,15 @@ class AirLoopHvacUnitarySystem(object):
 
     @supply_air_flow_rate_during_cooling_operation.setter
     def supply_air_flow_rate_during_cooling_operation(self, value=None):
-        """  Corresponds to IDD Field `supply_air_flow_rate_during_cooling_operation`
+        """  Corresponds to IDD Field `Supply Air Flow Rate During Cooling Operation`
         Enter the magnitude of the supply air volume flow rate during cooling operation.
         Required field when Supply air Flow Rate Method During Cooling Operation is SupplyAirFlowRate.
         This field may be blank if a cooling coil is not included in the unitary system.
+        
+        {'pytype': 'float', u'note': [u'Enter the magnitude of the supply air volume flow rate during cooling operation.', u'Required field when Supply air Flow Rate Method During Cooling Operation is SupplyAirFlowRate.', u'This field may be blank if a cooling coil is not included in the unitary system.'], u'autosizable': u'', u'minimum': '0.0', u'units': u'm3/s', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `supply_air_flow_rate_during_cooling_operation`
+            value (float): value for IDD Field `Supply Air Flow Rate During Cooling Operation`
                 Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -1615,13 +1639,12 @@ class AirLoopHvacUnitarySystem(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `supply_air_flow_rate_during_cooling_operation`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `supply_air_flow_rate_during_cooling_operation`')
-
         self._data["Supply Air Flow Rate During Cooling Operation"] = value
 
     @property
@@ -1635,13 +1658,15 @@ class AirLoopHvacUnitarySystem(object):
 
     @supply_air_flow_rate_per_floor_area_during_cooling_operation.setter
     def supply_air_flow_rate_per_floor_area_during_cooling_operation(self, value=None):
-        """  Corresponds to IDD Field `supply_air_flow_rate_per_floor_area_during_cooling_operation`
+        """  Corresponds to IDD Field `Supply Air Flow Rate Per Floor Area During Cooling Operation`
         Enter the supply air volume flow rate per total floor area fraction.
         Required field when Supply air Flow Rate Method During Cooling Operation is FlowPerFloorArea.
         This field may be blank if a cooling coil is not included in the unitary system.
+        
+        {u'units': u'm3/s-m2', u'note': [u'Enter the supply air volume flow rate per total floor area fraction.', u'Required field when Supply air Flow Rate Method During Cooling Operation is FlowPerFloorArea.', u'This field may be blank if a cooling coil is not included in the unitary system.'], u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `supply_air_flow_rate_per_floor_area_during_cooling_operation`
+            value (float): value for IDD Field `Supply Air Flow Rate Per Floor Area During Cooling Operation`
                 Units: m3/s-m2
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -1653,13 +1678,12 @@ class AirLoopHvacUnitarySystem(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `supply_air_flow_rate_per_floor_area_during_cooling_operation`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `supply_air_flow_rate_per_floor_area_during_cooling_operation`')
-
         self._data["Supply Air Flow Rate Per Floor Area During Cooling Operation"] = value
 
     @property
@@ -1673,13 +1697,15 @@ class AirLoopHvacUnitarySystem(object):
 
     @fraction_of_autosized_design_cooling_supply_air_flow_rate.setter
     def fraction_of_autosized_design_cooling_supply_air_flow_rate(self, value=None):
-        """  Corresponds to IDD Field `fraction_of_autosized_design_cooling_supply_air_flow_rate`
+        """  Corresponds to IDD Field `Fraction of Autosized Design Cooling Supply Air Flow Rate`
         Enter the supply air volume flow rate as a fraction of the cooling supply air flow rate.
         Required field when Supply air Flow Rate Method During Cooling Operation is FractionOfAutosizedCoolingValue.
         This field may be blank if a cooling coil is not included in the unitary system.
+        
+        {u'note': [u'Enter the supply air volume flow rate as a fraction of the cooling supply air flow rate.', u'Required field when Supply air Flow Rate Method During Cooling Operation is FractionOfAutosizedCoolingValue.', u'This field may be blank if a cooling coil is not included in the unitary system.'], u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `fraction_of_autosized_design_cooling_supply_air_flow_rate`
+            value (float): value for IDD Field `Fraction of Autosized Design Cooling Supply Air Flow Rate`
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1690,13 +1716,12 @@ class AirLoopHvacUnitarySystem(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `fraction_of_autosized_design_cooling_supply_air_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `fraction_of_autosized_design_cooling_supply_air_flow_rate`')
-
         self._data["Fraction of Autosized Design Cooling Supply Air Flow Rate"] = value
 
     @property
@@ -1710,13 +1735,15 @@ class AirLoopHvacUnitarySystem(object):
 
     @design_supply_air_flow_rate_per_unit_of_capacity_during_cooling_operation.setter
     def design_supply_air_flow_rate_per_unit_of_capacity_during_cooling_operation(self, value=None):
-        """  Corresponds to IDD Field `design_supply_air_flow_rate_per_unit_of_capacity_during_cooling_operation`
+        """  Corresponds to IDD Field `Design Supply Air Flow Rate Per Unit of Capacity During Cooling Operation`
         Enter the supply air volume flow rate as a fraction of the cooling capacity.
         Required field when Supply air Flow Rate Method During Cooling Operation is FlowPerCoolingCapacity.
         This field may be blank if a cooling coil is not included in the unitary system.
+        
+        {u'units': u'm3/s-W', u'note': [u'Enter the supply air volume flow rate as a fraction of the cooling capacity.', u'Required field when Supply air Flow Rate Method During Cooling Operation is FlowPerCoolingCapacity.', u'This field may be blank if a cooling coil is not included in the unitary system.'], u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `design_supply_air_flow_rate_per_unit_of_capacity_during_cooling_operation`
+            value (float): value for IDD Field `Design Supply Air Flow Rate Per Unit of Capacity During Cooling Operation`
                 Units: m3/s-W
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -1728,13 +1755,12 @@ class AirLoopHvacUnitarySystem(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `design_supply_air_flow_rate_per_unit_of_capacity_during_cooling_operation`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `design_supply_air_flow_rate_per_unit_of_capacity_during_cooling_operation`')
-
         self._data["Design Supply Air Flow Rate Per Unit of Capacity During Cooling Operation"] = value
 
     @property
@@ -1748,7 +1774,7 @@ class AirLoopHvacUnitarySystem(object):
 
     @supply_air_flow_rate_method_during_heating_operation.setter
     def supply_air_flow_rate_method_during_heating_operation(self, value=None):
-        """  Corresponds to IDD Field `supply_air_flow_rate_method_during_heating_operation`
+        """  Corresponds to IDD Field `Supply air Flow Rate Method During Heating Operation`
         Enter the method used to determine the heating supply air volume flow rate.
         None is used when a heating coil is not included in the unitary system or this field may be blank.
         SupplyAirFlowRate is selected when the magnitude of the supply air volume is used.
@@ -1758,9 +1784,11 @@ class AirLoopHvacUnitarySystem(object):
         value determined by the simulation.
         FlowPerHeatingCapacity is selected when the supply air volume is a fraction of the heating
         capacity as determined by the simulation.
+        
+        {u'note': [u'Enter the method used to determine the heating supply air volume flow rate.', u'None is used when a heating coil is not included in the unitary system or this field may be blank.', u'SupplyAirFlowRate is selected when the magnitude of the supply air volume is used.', u'FlowPerFloorArea is selected when the supply air volume flow rate is based on total floor area', u'served by the unitary system.', u'FractionOfAutosizedHeatingValue is selected when the supply air volume is a fraction of the', u'value determined by the simulation.', u'FlowPerHeatingCapacity is selected when the supply air volume is a fraction of the heating', u'capacity as determined by the simulation.'], u'type': u'choice', u'key': [u'None', u'SupplyAirFlowRate', u'FlowPerFloorArea', u'FractionOfAutosizedHeatingValue', u'FlowPerHeatingCapacity'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `supply_air_flow_rate_method_during_heating_operation`
+            value (str): value for IDD Field `Supply air Flow Rate Method During Heating Operation`
                 Accepted values are:
                       - None
                       - SupplyAirFlowRate
@@ -1776,7 +1804,7 @@ class AirLoopHvacUnitarySystem(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `supply_air_flow_rate_method_during_heating_operation`'.format(value))
             if ',' in value:
@@ -1805,7 +1833,6 @@ class AirLoopHvacUnitarySystem(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `supply_air_flow_rate_method_during_heating_operation`'.format(value))
             value = vals[value_lower]
-
         self._data["Supply air Flow Rate Method During Heating Operation"] = value
 
     @property
@@ -1819,13 +1846,15 @@ class AirLoopHvacUnitarySystem(object):
 
     @supply_air_flow_rate_during_heating_operation.setter
     def supply_air_flow_rate_during_heating_operation(self, value=None):
-        """  Corresponds to IDD Field `supply_air_flow_rate_during_heating_operation`
+        """  Corresponds to IDD Field `Supply Air Flow Rate During Heating Operation`
         Enter the magnitude of the supply air volume flow rate during heating operation.
         Required field when Supply air Flow Rate Method During Heating Operation is SupplyAirFlowRate.
         This field may be blank if a heating coil is not included in the unitary system.
+        
+        {'pytype': 'float', u'note': [u'Enter the magnitude of the supply air volume flow rate during heating operation.', u'Required field when Supply air Flow Rate Method During Heating Operation is SupplyAirFlowRate.', u'This field may be blank if a heating coil is not included in the unitary system.'], u'autosizable': u'', u'minimum': '0.0', u'units': u'm3/s', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `supply_air_flow_rate_during_heating_operation`
+            value (float): value for IDD Field `Supply Air Flow Rate During Heating Operation`
                 Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -1837,13 +1866,12 @@ class AirLoopHvacUnitarySystem(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `supply_air_flow_rate_during_heating_operation`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `supply_air_flow_rate_during_heating_operation`')
-
         self._data["Supply Air Flow Rate During Heating Operation"] = value
 
     @property
@@ -1857,13 +1885,15 @@ class AirLoopHvacUnitarySystem(object):
 
     @supply_air_flow_rate_per_floor_area_during_heating_operation.setter
     def supply_air_flow_rate_per_floor_area_during_heating_operation(self, value=None):
-        """  Corresponds to IDD Field `supply_air_flow_rate_per_floor_area_during_heating_operation`
+        """  Corresponds to IDD Field `Supply Air Flow Rate Per Floor Area during Heating Operation`
         Enter the supply air volume flow rate per total floor area fraction.
         Required field when Supply air Flow Rate Method During Heating Operation is FlowPerFloorArea.
         This field may be blank if a heating coil is not included in the unitary system.
+        
+        {u'units': u'm3/s-m2', u'note': [u'Enter the supply air volume flow rate per total floor area fraction.', u'Required field when Supply air Flow Rate Method During Heating Operation is FlowPerFloorArea.', u'This field may be blank if a heating coil is not included in the unitary system.'], u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `supply_air_flow_rate_per_floor_area_during_heating_operation`
+            value (float): value for IDD Field `Supply Air Flow Rate Per Floor Area during Heating Operation`
                 Units: m3/s-m2
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -1875,13 +1905,12 @@ class AirLoopHvacUnitarySystem(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `supply_air_flow_rate_per_floor_area_during_heating_operation`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `supply_air_flow_rate_per_floor_area_during_heating_operation`')
-
         self._data["Supply Air Flow Rate Per Floor Area during Heating Operation"] = value
 
     @property
@@ -1895,13 +1924,15 @@ class AirLoopHvacUnitarySystem(object):
 
     @fraction_of_autosized_design_heating_supply_air_flow_rate.setter
     def fraction_of_autosized_design_heating_supply_air_flow_rate(self, value=None):
-        """  Corresponds to IDD Field `fraction_of_autosized_design_heating_supply_air_flow_rate`
+        """  Corresponds to IDD Field `Fraction of Autosized Design Heating Supply Air Flow Rate`
         Enter the supply air volume flow rate as a fraction of the heating supply air flow rate.
         Required field when Supply air Flow Rate Method During Heating Operation is FractionOfAutosizedHeatingValue.
         This field may be blank if a heating coil is not included in the unitary system.
+        
+        {u'note': [u'Enter the supply air volume flow rate as a fraction of the heating supply air flow rate.', u'Required field when Supply air Flow Rate Method During Heating Operation is FractionOfAutosizedHeatingValue.', u'This field may be blank if a heating coil is not included in the unitary system.'], u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `fraction_of_autosized_design_heating_supply_air_flow_rate`
+            value (float): value for IDD Field `Fraction of Autosized Design Heating Supply Air Flow Rate`
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1912,13 +1943,12 @@ class AirLoopHvacUnitarySystem(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `fraction_of_autosized_design_heating_supply_air_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `fraction_of_autosized_design_heating_supply_air_flow_rate`')
-
         self._data["Fraction of Autosized Design Heating Supply Air Flow Rate"] = value
 
     @property
@@ -1932,13 +1962,15 @@ class AirLoopHvacUnitarySystem(object):
 
     @design_supply_air_flow_rate_per_unit_of_capacity_during_heating_operation.setter
     def design_supply_air_flow_rate_per_unit_of_capacity_during_heating_operation(self, value=None):
-        """  Corresponds to IDD Field `design_supply_air_flow_rate_per_unit_of_capacity_during_heating_operation`
+        """  Corresponds to IDD Field `Design Supply Air Flow Rate Per Unit of Capacity During Heating Operation`
         Enter the supply air volume flow rate as a fraction of the heating capacity.
         Required field when Supply air Flow Rate Method During Heating Operation is FlowPerHeatingCapacity.
         This field may be blank if a heating coil is not included in the unitary system.
+        
+        {u'units': u'm3/s-W', u'note': [u'Enter the supply air volume flow rate as a fraction of the heating capacity.', u'Required field when Supply air Flow Rate Method During Heating Operation is FlowPerHeatingCapacity.', u'This field may be blank if a heating coil is not included in the unitary system.'], u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `design_supply_air_flow_rate_per_unit_of_capacity_during_heating_operation`
+            value (float): value for IDD Field `Design Supply Air Flow Rate Per Unit of Capacity During Heating Operation`
                 Units: m3/s-W
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -1950,13 +1982,12 @@ class AirLoopHvacUnitarySystem(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `design_supply_air_flow_rate_per_unit_of_capacity_during_heating_operation`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `design_supply_air_flow_rate_per_unit_of_capacity_during_heating_operation`')
-
         self._data["Design Supply Air Flow Rate Per Unit of Capacity During Heating Operation"] = value
 
     @property
@@ -1970,7 +2001,7 @@ class AirLoopHvacUnitarySystem(object):
 
     @supply_air_flow_rate_method_when_no_cooling_or_heating_is_required.setter
     def supply_air_flow_rate_method_when_no_cooling_or_heating_is_required(self, value=None):
-        """  Corresponds to IDD Field `supply_air_flow_rate_method_when_no_cooling_or_heating_is_required`
+        """  Corresponds to IDD Field `Supply Air Flow Rate Method When No Cooling or Heating is Required`
         Enter the method used to determine the supply air volume flow rate when no cooling or heating is required.
         None is used when a heating coil is not included in the unitary system or this field may be blank.
         SupplyAirFlowRate is selected when the magnitude of the supply air volume is used.
@@ -1984,9 +2015,11 @@ class AirLoopHvacUnitarySystem(object):
         capacity as determined by the simulation.
         FlowPerHeatingCapacity is selected when the supply air volume is a fraction of the heating
         capacity as determined by the simulation.
+        
+        {u'note': [u'Enter the method used to determine the supply air volume flow rate when no cooling or heating is required.', u'None is used when a heating coil is not included in the unitary system or this field may be blank.', u'SupplyAirFlowRate is selected when the magnitude of the supply air volume is used.', u'FlowPerFloorArea is selected when the supply air volume flow rate is based on total floor area', u'served by the unitary system.', u'FractionOfAutosizedCoolingValue is selected when the supply air volume is a fraction of the', u'cooling value determined by the simulation.', u'FractionOfAutosizedHeatingValue is selected when the supply air volume is a fraction of the', u'heating value determined by the simulation.', u'FlowPerCoolingCapacity is selected when the supply air volume is a fraction of the cooling', u'capacity as determined by the simulation.', u'FlowPerHeatingCapacity is selected when the supply air volume is a fraction of the heating', u'capacity as determined by the simulation.'], u'type': u'choice', u'key': [u'None', u'SupplyAirFlowRate', u'FlowPerFloorArea', u'FractionOfAutosizedCoolingValue', u'FractionOfAutosizedHeatingValue', u'FlowPerCoolingCapacity', u'FlowPerHeatingCapacity'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `supply_air_flow_rate_method_when_no_cooling_or_heating_is_required`
+            value (str): value for IDD Field `Supply Air Flow Rate Method When No Cooling or Heating is Required`
                 Accepted values are:
                       - None
                       - SupplyAirFlowRate
@@ -2004,7 +2037,7 @@ class AirLoopHvacUnitarySystem(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `supply_air_flow_rate_method_when_no_cooling_or_heating_is_required`'.format(value))
             if ',' in value:
@@ -2035,7 +2068,6 @@ class AirLoopHvacUnitarySystem(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `supply_air_flow_rate_method_when_no_cooling_or_heating_is_required`'.format(value))
             value = vals[value_lower]
-
         self._data["Supply Air Flow Rate Method When No Cooling or Heating is Required"] = value
 
     @property
@@ -2049,12 +2081,14 @@ class AirLoopHvacUnitarySystem(object):
 
     @supply_air_flow_rate_when_no_cooling_or_heating_is_required.setter
     def supply_air_flow_rate_when_no_cooling_or_heating_is_required(self, value=None):
-        """  Corresponds to IDD Field `supply_air_flow_rate_when_no_cooling_or_heating_is_required`
+        """  Corresponds to IDD Field `Supply Air Flow Rate When No Cooling or Heating is Required`
         Enter the magnitude of the supply air volume flow rate during when no cooling or heating is required.
         Required field when Supply air Flow Rate Method When No Cooling or Heating is Required is SupplyAirFlowRate.
+        
+        {'pytype': 'float', u'note': [u'Enter the magnitude of the supply air volume flow rate during when no cooling or heating is required.', u'Required field when Supply air Flow Rate Method When No Cooling or Heating is Required is SupplyAirFlowRate.'], u'autosizable': u'', u'minimum': '0.0', u'units': u'm3/s', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `supply_air_flow_rate_when_no_cooling_or_heating_is_required`
+            value (float): value for IDD Field `Supply Air Flow Rate When No Cooling or Heating is Required`
                 Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -2066,13 +2100,12 @@ class AirLoopHvacUnitarySystem(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `supply_air_flow_rate_when_no_cooling_or_heating_is_required`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `supply_air_flow_rate_when_no_cooling_or_heating_is_required`')
-
         self._data["Supply Air Flow Rate When No Cooling or Heating is Required"] = value
 
     @property
@@ -2086,12 +2119,14 @@ class AirLoopHvacUnitarySystem(object):
 
     @supply_air_flow_rate_per_floor_area_when_no_cooling_or_heating_is_required.setter
     def supply_air_flow_rate_per_floor_area_when_no_cooling_or_heating_is_required(self, value=None):
-        """  Corresponds to IDD Field `supply_air_flow_rate_per_floor_area_when_no_cooling_or_heating_is_required`
+        """  Corresponds to IDD Field `Supply Air Flow Rate Per Floor Area When No Cooling or Heating is Required`
         Enter the supply air volume flow rate per total floor area fraction.
         Required field when Supply air Flow Rate Method When No Cooling or Heating is Required is FlowPerFloorArea.
+        
+        {u'units': u'm3/s-m2', u'note': [u'Enter the supply air volume flow rate per total floor area fraction.', u'Required field when Supply air Flow Rate Method When No Cooling or Heating is Required is FlowPerFloorArea.'], u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `supply_air_flow_rate_per_floor_area_when_no_cooling_or_heating_is_required`
+            value (float): value for IDD Field `Supply Air Flow Rate Per Floor Area When No Cooling or Heating is Required`
                 Units: m3/s-m2
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -2103,13 +2138,12 @@ class AirLoopHvacUnitarySystem(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `supply_air_flow_rate_per_floor_area_when_no_cooling_or_heating_is_required`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `supply_air_flow_rate_per_floor_area_when_no_cooling_or_heating_is_required`')
-
         self._data["Supply Air Flow Rate Per Floor Area When No Cooling or Heating is Required"] = value
 
     @property
@@ -2123,12 +2157,14 @@ class AirLoopHvacUnitarySystem(object):
 
     @fraction_of_autosized_design_cooling_supply_air_flow_rate_v3.setter
     def fraction_of_autosized_design_cooling_supply_air_flow_rate_v3(self, value=None):
-        """  Corresponds to IDD Field `fraction_of_autosized_design_cooling_supply_air_flow_rate_v3`
+        """  Corresponds to IDD Field `Fraction of Autosized Design Cooling Supply Air Flow Rate v3`
         Enter the supply air volume flow rate as a fraction of the cooling supply air flow rate.
         Required field when Supply air Flow Rate Method When No Cooling or Heating is Required is FractionOfAutosizedCoolingValue.
+        
+        {u'note': [u'Enter the supply air volume flow rate as a fraction of the cooling supply air flow rate.', u'Required field when Supply air Flow Rate Method When No Cooling or Heating is Required is FractionOfAutosizedCoolingValue.'], u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `fraction_of_autosized_design_cooling_supply_air_flow_rate_v3`
+            value (float): value for IDD Field `Fraction of Autosized Design Cooling Supply Air Flow Rate v3`
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -2139,13 +2175,12 @@ class AirLoopHvacUnitarySystem(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `fraction_of_autosized_design_cooling_supply_air_flow_rate_v3`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `fraction_of_autosized_design_cooling_supply_air_flow_rate_v3`')
-
         self._data["Fraction of Autosized Design Cooling Supply Air Flow Rate v3"] = value
 
     @property
@@ -2159,12 +2194,14 @@ class AirLoopHvacUnitarySystem(object):
 
     @fraction_of_autosized_design_heating_supply_air_flow_rate_v3.setter
     def fraction_of_autosized_design_heating_supply_air_flow_rate_v3(self, value=None):
-        """  Corresponds to IDD Field `fraction_of_autosized_design_heating_supply_air_flow_rate_v3`
+        """  Corresponds to IDD Field `Fraction of Autosized Design Heating Supply Air Flow Rate v3`
         Enter the supply air volume flow rate as a fraction of the heating supply air flow rate.
         Required field when Supply air Flow Rate Method When No Cooling or Heating is Required is FractionOfAutosizedHeatingValue.
+        
+        {u'note': [u'Enter the supply air volume flow rate as a fraction of the heating supply air flow rate.', u'Required field when Supply air Flow Rate Method When No Cooling or Heating is Required is FractionOfAutosizedHeatingValue.'], u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `fraction_of_autosized_design_heating_supply_air_flow_rate_v3`
+            value (float): value for IDD Field `Fraction of Autosized Design Heating Supply Air Flow Rate v3`
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -2175,13 +2212,12 @@ class AirLoopHvacUnitarySystem(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `fraction_of_autosized_design_heating_supply_air_flow_rate_v3`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `fraction_of_autosized_design_heating_supply_air_flow_rate_v3`')
-
         self._data["Fraction of Autosized Design Heating Supply Air Flow Rate v3"] = value
 
     @property
@@ -2195,12 +2231,14 @@ class AirLoopHvacUnitarySystem(object):
 
     @design_supply_air_flow_rate_per_unit_of_capacity_during_cooling_operation_v3.setter
     def design_supply_air_flow_rate_per_unit_of_capacity_during_cooling_operation_v3(self, value=None):
-        """  Corresponds to IDD Field `design_supply_air_flow_rate_per_unit_of_capacity_during_cooling_operation_v3`
+        """  Corresponds to IDD Field `Design Supply Air Flow Rate Per Unit of Capacity During Cooling Operation v3`
         Enter the supply air volume flow rate as a fraction of the cooling capacity.
         Required field when Supply air Flow Rate Method During Heating Operation is FlowPerCoolingCapacity.
+        
+        {u'units': u'm3/s-W', u'note': [u'Enter the supply air volume flow rate as a fraction of the cooling capacity.', u'Required field when Supply air Flow Rate Method During Heating Operation is FlowPerCoolingCapacity.'], u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `design_supply_air_flow_rate_per_unit_of_capacity_during_cooling_operation_v3`
+            value (float): value for IDD Field `Design Supply Air Flow Rate Per Unit of Capacity During Cooling Operation v3`
                 Units: m3/s-W
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -2212,13 +2250,12 @@ class AirLoopHvacUnitarySystem(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `design_supply_air_flow_rate_per_unit_of_capacity_during_cooling_operation_v3`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `design_supply_air_flow_rate_per_unit_of_capacity_during_cooling_operation_v3`')
-
         self._data["Design Supply Air Flow Rate Per Unit of Capacity During Cooling Operation v3"] = value
 
     @property
@@ -2232,12 +2269,14 @@ class AirLoopHvacUnitarySystem(object):
 
     @design_supply_air_flow_rate_per_unit_of_capacity_during_heating_operation_v3.setter
     def design_supply_air_flow_rate_per_unit_of_capacity_during_heating_operation_v3(self, value=None):
-        """  Corresponds to IDD Field `design_supply_air_flow_rate_per_unit_of_capacity_during_heating_operation_v3`
+        """  Corresponds to IDD Field `Design Supply Air Flow Rate Per Unit of Capacity During Heating Operation v3`
         Enter the supply air volume flow rate as a fraction of the heating capacity.
         Required field when Supply air Flow Rate Method During Heating Operation is FlowPerHeatingCapacity.
+        
+        {u'units': u'm3/s-W', u'note': [u'Enter the supply air volume flow rate as a fraction of the heating capacity.', u'Required field when Supply air Flow Rate Method During Heating Operation is FlowPerHeatingCapacity.'], u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `design_supply_air_flow_rate_per_unit_of_capacity_during_heating_operation_v3`
+            value (float): value for IDD Field `Design Supply Air Flow Rate Per Unit of Capacity During Heating Operation v3`
                 Units: m3/s-W
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -2249,13 +2288,12 @@ class AirLoopHvacUnitarySystem(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `design_supply_air_flow_rate_per_unit_of_capacity_during_heating_operation_v3`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `design_supply_air_flow_rate_per_unit_of_capacity_during_heating_operation_v3`')
-
         self._data["Design Supply Air Flow Rate Per Unit of Capacity During Heating Operation v3"] = value
 
     @property
@@ -2269,11 +2307,13 @@ class AirLoopHvacUnitarySystem(object):
 
     @maximum_supply_air_temperature.setter
     def maximum_supply_air_temperature(self, value=80.0 ):
-        """  Corresponds to IDD Field `maximum_supply_air_temperature`
+        """  Corresponds to IDD Field `Maximum Supply Air Temperature`
         Enter the maximum supply air temperature leaving the heating coil.
+        
+        {'pytype': 'float', u'default': '80.0', u'note': [u'Enter the maximum supply air temperature leaving the heating coil.'], u'autosizable': u'', u'units': u'C', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `maximum_supply_air_temperature`
+            value (float): value for IDD Field `Maximum Supply Air Temperature`
                 Units: C
                 Default value: 80.0
                 if `value` is None it will not be checked against the
@@ -2285,10 +2325,9 @@ class AirLoopHvacUnitarySystem(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `maximum_supply_air_temperature`'.format(value))
-
         self._data["Maximum Supply Air Temperature"] = value
 
     @property
@@ -2302,11 +2341,13 @@ class AirLoopHvacUnitarySystem(object):
 
     @maximum_outdoor_drybulb_temperature_for_supplemental_heater_operation.setter
     def maximum_outdoor_drybulb_temperature_for_supplemental_heater_operation(self, value=21.0 ):
-        """  Corresponds to IDD Field `maximum_outdoor_drybulb_temperature_for_supplemental_heater_operation`
+        """  Corresponds to IDD Field `Maximum Outdoor Dry-Bulb Temperature for Supplemental Heater Operation`
         Enter the maximum outdoor dry-bulb temperature for supplemental heater operation.
+        
+        {u'units': u'C', u'default': '21.0', u'note': [u'Enter the maximum outdoor dry-bulb temperature for supplemental heater operation.'], u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `maximum_outdoor_drybulb_temperature_for_supplemental_heater_operation`
+            value (float): value for IDD Field `Maximum Outdoor Dry-Bulb Temperature for Supplemental Heater Operation`
                 Units: C
                 Default value: 21.0
                 if `value` is None it will not be checked against the
@@ -2318,10 +2359,9 @@ class AirLoopHvacUnitarySystem(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `maximum_outdoor_drybulb_temperature_for_supplemental_heater_operation`'.format(value))
-
         self._data["Maximum Outdoor Dry-Bulb Temperature for Supplemental Heater Operation"] = value
 
     @property
@@ -2335,13 +2375,15 @@ class AirLoopHvacUnitarySystem(object):
 
     @outdoor_drybulb_temperature_sensor_node_name.setter
     def outdoor_drybulb_temperature_sensor_node_name(self, value=None):
-        """  Corresponds to IDD Field `outdoor_drybulb_temperature_sensor_node_name`
+        """  Corresponds to IDD Field `Outdoor Dry-Bulb Temperature Sensor Node Name`
         If this field is blank, outdoor temperature from the weather file is used.
         If this field is not blank, the node name specified determines the outdoor temperature used
         for controlling supplemental heater operation.
+        
+        {u'note': [u'If this field is blank, outdoor temperature from the weather file is used.', u'If this field is not blank, the node name specified determines the outdoor temperature used', u'for controlling supplemental heater operation.'], u'type': u'node', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `outdoor_drybulb_temperature_sensor_node_name`
+            value (str): value for IDD Field `Outdoor Dry-Bulb Temperature Sensor Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2351,7 +2393,7 @@ class AirLoopHvacUnitarySystem(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `outdoor_drybulb_temperature_sensor_node_name`'.format(value))
             if ',' in value:
@@ -2360,7 +2402,6 @@ class AirLoopHvacUnitarySystem(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `outdoor_drybulb_temperature_sensor_node_name`')
-
         self._data["Outdoor Dry-Bulb Temperature Sensor Node Name"] = value
 
     @property
@@ -2374,13 +2415,15 @@ class AirLoopHvacUnitarySystem(object):
 
     @maximum_cycling_rate.setter
     def maximum_cycling_rate(self, value=2.5 ):
-        """  Corresponds to IDD Field `maximum_cycling_rate`
+        """  Corresponds to IDD Field `Maximum Cycling Rate`
         Used only for water source heat pump.
         The maximum on-off cycling rate for the compressor.
         Suggested value is 2.5 for a typical heat pump.
+        
+        {'pytype': 'float', u'default': '2.5', u'maximum': '5.0', u'note': [u'Used only for water source heat pump.', u'The maximum on-off cycling rate for the compressor.', u'Suggested value is 2.5 for a typical heat pump.'], u'minimum': '0.0', u'units': u'cycles/hr', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `maximum_cycling_rate`
+            value (float): value for IDD Field `Maximum Cycling Rate`
                 Units: cycles/hr
                 Default value: 2.5
                 value >= 0.0
@@ -2394,7 +2437,7 @@ class AirLoopHvacUnitarySystem(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `maximum_cycling_rate`'.format(value))
             if value < 0.0:
@@ -2403,7 +2446,6 @@ class AirLoopHvacUnitarySystem(object):
             if value > 5.0:
                 raise ValueError('value need to be smaller 5.0 '
                                  'for field `maximum_cycling_rate`')
-
         self._data["Maximum Cycling Rate"] = value
 
     @property
@@ -2417,13 +2459,15 @@ class AirLoopHvacUnitarySystem(object):
 
     @heat_pump_time_constant.setter
     def heat_pump_time_constant(self, value=60.0 ):
-        """  Corresponds to IDD Field `heat_pump_time_constant`
+        """  Corresponds to IDD Field `Heat Pump Time Constant`
         Used only for water source heat pump.
         Time constant for the cooling coil's capacity to reach steady state after startup.
         Suggested value is 60 for a typical heat pump.
+        
+        {'pytype': 'float', u'default': '60.0', u'maximum': '500.0', u'note': [u'Used only for water source heat pump.', u"Time constant for the cooling coil's capacity to reach steady state after startup.", u'Suggested value is 60 for a typical heat pump.'], u'minimum': '0.0', u'units': u's', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `heat_pump_time_constant`
+            value (float): value for IDD Field `Heat Pump Time Constant`
                 Units: s
                 Default value: 60.0
                 value >= 0.0
@@ -2437,7 +2481,7 @@ class AirLoopHvacUnitarySystem(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `heat_pump_time_constant`'.format(value))
             if value < 0.0:
@@ -2446,7 +2490,6 @@ class AirLoopHvacUnitarySystem(object):
             if value > 500.0:
                 raise ValueError('value need to be smaller 500.0 '
                                  'for field `heat_pump_time_constant`')
-
         self._data["Heat Pump Time Constant"] = value
 
     @property
@@ -2460,14 +2503,16 @@ class AirLoopHvacUnitarySystem(object):
 
     @fraction_of_oncycle_power_use.setter
     def fraction_of_oncycle_power_use(self, value=0.01 ):
-        """  Corresponds to IDD Field `fraction_of_oncycle_power_use`
+        """  Corresponds to IDD Field `Fraction of On-Cycle Power Use`
         Used only for water source heat pump.
         The fraction of on-cycle power use to adjust the part load fraction based on
         the off-cycle power consumption due to crankcase heaters, controls, fans, and etc.
         Suggested value is 0.01 for a typical heat pump.
+        
+        {'pytype': 'float', u'default': '0.01', u'maximum': '0.05', u'note': [u'Used only for water source heat pump.', u'The fraction of on-cycle power use to adjust the part load fraction based on', u'the off-cycle power consumption due to crankcase heaters, controls, fans, and etc.', u'Suggested value is 0.01 for a typical heat pump.'], u'minimum': '0.0', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `fraction_of_oncycle_power_use`
+            value (float): value for IDD Field `Fraction of On-Cycle Power Use`
                 Default value: 0.01
                 value >= 0.0
                 value <= 0.05
@@ -2480,7 +2525,7 @@ class AirLoopHvacUnitarySystem(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `fraction_of_oncycle_power_use`'.format(value))
             if value < 0.0:
@@ -2489,7 +2534,6 @@ class AirLoopHvacUnitarySystem(object):
             if value > 0.05:
                 raise ValueError('value need to be smaller 0.05 '
                                  'for field `fraction_of_oncycle_power_use`')
-
         self._data["Fraction of On-Cycle Power Use"] = value
 
     @property
@@ -2503,14 +2547,16 @@ class AirLoopHvacUnitarySystem(object):
 
     @heat_pump_fan_delay_time.setter
     def heat_pump_fan_delay_time(self, value=60.0 ):
-        """  Corresponds to IDD Field `heat_pump_fan_delay_time`
+        """  Corresponds to IDD Field `Heat Pump Fan Delay Time`
         Used only for water source heat pump.
         Programmed time delay for heat pump fan to shut off after compressor cycle off.
         Only required when fan operating mode is cycling.
         Enter 0 when fan operating mode is continuous.
+        
+        {'pytype': 'float', u'default': '60.0', u'note': [u'Used only for water source heat pump.', u'Programmed time delay for heat pump fan to shut off after compressor cycle off.', u'Only required when fan operating mode is cycling.', u'Enter 0 when fan operating mode is continuous.'], u'minimum': '0.0', u'units': u's', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `heat_pump_fan_delay_time`
+            value (float): value for IDD Field `Heat Pump Fan Delay Time`
                 Units: s
                 Default value: 60.0
                 value >= 0.0
@@ -2523,13 +2569,12 @@ class AirLoopHvacUnitarySystem(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `heat_pump_fan_delay_time`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `heat_pump_fan_delay_time`')
-
         self._data["Heat Pump Fan Delay Time"] = value
 
     @property
@@ -2543,11 +2588,13 @@ class AirLoopHvacUnitarySystem(object):
 
     @ancilliary_oncycle_electric_power.setter
     def ancilliary_oncycle_electric_power(self, value=0.0 ):
-        """  Corresponds to IDD Field `ancilliary_oncycle_electric_power`
+        """  Corresponds to IDD Field `Ancilliary On-Cycle Electric Power`
         Enter the value of ancilliary electric power for controls or other devices consumed during the on cycle.
+        
+        {'pytype': 'float', u'default': '0.0', u'note': [u'Enter the value of ancilliary electric power for controls or other devices consumed during the on cycle.'], u'minimum': '0.0', u'units': u'W', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `ancilliary_oncycle_electric_power`
+            value (float): value for IDD Field `Ancilliary On-Cycle Electric Power`
                 Units: W
                 Default value: 0.0
                 value >= 0.0
@@ -2560,13 +2607,12 @@ class AirLoopHvacUnitarySystem(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `ancilliary_oncycle_electric_power`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `ancilliary_oncycle_electric_power`')
-
         self._data["Ancilliary On-Cycle Electric Power"] = value
 
     @property
@@ -2580,11 +2626,13 @@ class AirLoopHvacUnitarySystem(object):
 
     @ancilliary_offcycle_electric_power.setter
     def ancilliary_offcycle_electric_power(self, value=0.0 ):
-        """  Corresponds to IDD Field `ancilliary_offcycle_electric_power`
+        """  Corresponds to IDD Field `Ancilliary Off-Cycle Electric Power`
         Enter the value of ancilliary electric power for controls or other devices consumed during the off cycle.
+        
+        {'pytype': 'float', u'default': '0.0', u'note': [u'Enter the value of ancilliary electric power for controls or other devices consumed during the off cycle.'], u'minimum': '0.0', u'units': u'W', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `ancilliary_offcycle_electric_power`
+            value (float): value for IDD Field `Ancilliary Off-Cycle Electric Power`
                 Units: W
                 Default value: 0.0
                 value >= 0.0
@@ -2597,13 +2645,12 @@ class AirLoopHvacUnitarySystem(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `ancilliary_offcycle_electric_power`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `ancilliary_offcycle_electric_power`')
-
         self._data["Ancilliary Off-Cycle Electric Power"] = value
 
     @property
@@ -2617,12 +2664,14 @@ class AirLoopHvacUnitarySystem(object):
 
     @design_heat_recovery_water_flow_rate.setter
     def design_heat_recovery_water_flow_rate(self, value=0.0 ):
-        """  Corresponds to IDD Field `design_heat_recovery_water_flow_rate`
+        """  Corresponds to IDD Field `Design Heat Recovery Water Flow Rate`
         If non-zero, then the heat recovery inlet and outlet node names must be entered.
         Used for heat recovery to an EnergyPlus plant loop.
+        
+        {'pytype': 'float', u'default': '0.0', u'note': [u'If non-zero, then the heat recovery inlet and outlet node names must be entered.', u'Used for heat recovery to an EnergyPlus plant loop.'], u'minimum': '0.0', u'units': u'm3/s', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `design_heat_recovery_water_flow_rate`
+            value (float): value for IDD Field `Design Heat Recovery Water Flow Rate`
                 Units: m3/s
                 Default value: 0.0
                 value >= 0.0
@@ -2635,13 +2684,12 @@ class AirLoopHvacUnitarySystem(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `design_heat_recovery_water_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `design_heat_recovery_water_flow_rate`')
-
         self._data["Design Heat Recovery Water Flow Rate"] = value
 
     @property
@@ -2655,11 +2703,13 @@ class AirLoopHvacUnitarySystem(object):
 
     @maximum_temperature_for_heat_recovery.setter
     def maximum_temperature_for_heat_recovery(self, value=80.0 ):
-        """  Corresponds to IDD Field `maximum_temperature_for_heat_recovery`
+        """  Corresponds to IDD Field `Maximum Temperature for Heat Recovery`
         Enter the maximum heat recovery inlet temperature allowed for heat recovery.
+        
+        {'pytype': 'float', u'default': '80.0', u'maximum': '100.0', u'note': [u'Enter the maximum heat recovery inlet temperature allowed for heat recovery.'], u'minimum': '0.0', u'units': u'C', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `maximum_temperature_for_heat_recovery`
+            value (float): value for IDD Field `Maximum Temperature for Heat Recovery`
                 Units: C
                 Default value: 80.0
                 value >= 0.0
@@ -2673,7 +2723,7 @@ class AirLoopHvacUnitarySystem(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `maximum_temperature_for_heat_recovery`'.format(value))
             if value < 0.0:
@@ -2682,7 +2732,6 @@ class AirLoopHvacUnitarySystem(object):
             if value > 100.0:
                 raise ValueError('value need to be smaller 100.0 '
                                  'for field `maximum_temperature_for_heat_recovery`')
-
         self._data["Maximum Temperature for Heat Recovery"] = value
 
     @property
@@ -2696,11 +2745,13 @@ class AirLoopHvacUnitarySystem(object):
 
     @heat_recovery_water_inlet_node_name.setter
     def heat_recovery_water_inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `heat_recovery_water_inlet_node_name`
+        """  Corresponds to IDD Field `Heat Recovery Water Inlet Node Name`
         Enter the name of the heat recovery water inlet node if plant water loop connections are present.
+        
+        {u'note': [u'Enter the name of the heat recovery water inlet node if plant water loop connections are present.'], u'type': u'node', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `heat_recovery_water_inlet_node_name`
+            value (str): value for IDD Field `Heat Recovery Water Inlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2710,7 +2761,7 @@ class AirLoopHvacUnitarySystem(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `heat_recovery_water_inlet_node_name`'.format(value))
             if ',' in value:
@@ -2719,7 +2770,6 @@ class AirLoopHvacUnitarySystem(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `heat_recovery_water_inlet_node_name`')
-
         self._data["Heat Recovery Water Inlet Node Name"] = value
 
     @property
@@ -2733,11 +2783,13 @@ class AirLoopHvacUnitarySystem(object):
 
     @heat_recovery_water_outlet_node_name.setter
     def heat_recovery_water_outlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `heat_recovery_water_outlet_node_name`
+        """  Corresponds to IDD Field `Heat Recovery Water Outlet Node Name`
         Enter the name of the heat recovery water outlet node if plant water loop connections are present.
+        
+        {u'note': [u'Enter the name of the heat recovery water outlet node if plant water loop connections are present.'], u'type': u'node', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `heat_recovery_water_outlet_node_name`
+            value (str): value for IDD Field `Heat Recovery Water Outlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2747,7 +2799,7 @@ class AirLoopHvacUnitarySystem(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `heat_recovery_water_outlet_node_name`'.format(value))
             if ',' in value:
@@ -2756,7 +2808,6 @@ class AirLoopHvacUnitarySystem(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `heat_recovery_water_outlet_node_name`')
-
         self._data["Heat Recovery Water Outlet Node Name"] = value
 
     @property
@@ -2770,11 +2821,13 @@ class AirLoopHvacUnitarySystem(object):
 
     @design_specification_multispeed_heat_pump_object_type.setter
     def design_specification_multispeed_heat_pump_object_type(self, value=None):
-        """  Corresponds to IDD Field `design_specification_multispeed_heat_pump_object_type`
+        """  Corresponds to IDD Field `Design Specification Multispeed Heat Pump Object Type`
         Enter the type of performance specification object used to describe the multispeed coil.
+        
+        {u'note': [u'Enter the type of performance specification object used to describe the multispeed coil.'], u'type': u'choice', u'key': [u'UnitarySystemPerformance:HeatPump:Multispeed'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `design_specification_multispeed_heat_pump_object_type`
+            value (str): value for IDD Field `Design Specification Multispeed Heat Pump Object Type`
                 Accepted values are:
                       - UnitarySystemPerformance:HeatPump:Multispeed
                 if `value` is None it will not be checked against the
@@ -2786,7 +2839,7 @@ class AirLoopHvacUnitarySystem(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `design_specification_multispeed_heat_pump_object_type`'.format(value))
             if ',' in value:
@@ -2811,7 +2864,6 @@ class AirLoopHvacUnitarySystem(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `design_specification_multispeed_heat_pump_object_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Design Specification Multispeed Heat Pump Object Type"] = value
 
     @property
@@ -2825,11 +2877,13 @@ class AirLoopHvacUnitarySystem(object):
 
     @design_specification_multispeed_heat_pump_object_name.setter
     def design_specification_multispeed_heat_pump_object_name(self, value=None):
-        """  Corresponds to IDD Field `design_specification_multispeed_heat_pump_object_name`
+        """  Corresponds to IDD Field `Design Specification Multispeed Heat Pump Object Name`
         Enter the name of the performance specification object used to describe the multispeed coil.
+        
+        {u'note': [u'Enter the name of the performance specification object used to describe the multispeed coil.'], u'type': u'object-list', u'object-list': u'UnitarySystemPerformaceNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `design_specification_multispeed_heat_pump_object_name`
+            value (str): value for IDD Field `Design Specification Multispeed Heat Pump Object Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2839,7 +2893,7 @@ class AirLoopHvacUnitarySystem(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `design_specification_multispeed_heat_pump_object_name`'.format(value))
             if ',' in value:
@@ -2848,7 +2902,6 @@ class AirLoopHvacUnitarySystem(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `design_specification_multispeed_heat_pump_object_name`')
-
         self._data["Design Specification Multispeed Heat Pump Object Name"] = value
 
     def check(self):
@@ -3010,10 +3063,12 @@ class UnitarySystemPerformanceHeatPumpMultispeed(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {'type': 'alpha', u'reference': u'UnitarySystemPerformaceNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3023,7 +3078,7 @@ class UnitarySystemPerformanceHeatPumpMultispeed(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -3032,7 +3087,6 @@ class UnitarySystemPerformanceHeatPumpMultispeed(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -3046,12 +3100,14 @@ class UnitarySystemPerformanceHeatPumpMultispeed(object):
 
     @number_of_speeds_for_heating.setter
     def number_of_speeds_for_heating(self, value=None):
-        """  Corresponds to IDD Field `number_of_speeds_for_heating`
+        """  Corresponds to IDD Field `Number of Speeds for Heating`
         Used only for Multi speed coils
         Enter the number of the following sets of data for air flow rates.
+        
+        {'pytype': 'int', u'maximum': '10', u'required-field': True, u'note': [u'Used only for Multi speed coils', u'Enter the number of the following sets of data for air flow rates.'], u'minimum': '0', u'type': u'integer'}
 
         Args:
-            value (int): value for IDD Field `number_of_speeds_for_heating`
+            value (int): value for IDD Field `Number of Speeds for Heating`
                 value >= 0
                 value <= 10
                 if `value` is None it will not be checked against the
@@ -3063,7 +3119,7 @@ class UnitarySystemPerformanceHeatPumpMultispeed(object):
         if value is not None:
             try:
                 value = int(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type int '
                                  'for field `number_of_speeds_for_heating`'.format(value))
             if value < 0:
@@ -3072,7 +3128,6 @@ class UnitarySystemPerformanceHeatPumpMultispeed(object):
             if value > 10:
                 raise ValueError('value need to be smaller 10 '
                                  'for field `number_of_speeds_for_heating`')
-
         self._data["Number of Speeds for Heating"] = value
 
     @property
@@ -3086,12 +3141,14 @@ class UnitarySystemPerformanceHeatPumpMultispeed(object):
 
     @number_of_speeds_for_cooling.setter
     def number_of_speeds_for_cooling(self, value=None):
-        """  Corresponds to IDD Field `number_of_speeds_for_cooling`
+        """  Corresponds to IDD Field `Number of Speeds for Cooling`
         Used only for Multi speed coils
         Enter the number of the following sets of data for air flow rates.
+        
+        {'pytype': 'int', u'maximum': '10', u'required-field': True, u'note': [u'Used only for Multi speed coils', u'Enter the number of the following sets of data for air flow rates.'], u'minimum': '0', u'type': u'integer'}
 
         Args:
-            value (int): value for IDD Field `number_of_speeds_for_cooling`
+            value (int): value for IDD Field `Number of Speeds for Cooling`
                 value >= 0
                 value <= 10
                 if `value` is None it will not be checked against the
@@ -3103,7 +3160,7 @@ class UnitarySystemPerformanceHeatPumpMultispeed(object):
         if value is not None:
             try:
                 value = int(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type int '
                                  'for field `number_of_speeds_for_cooling`'.format(value))
             if value < 0:
@@ -3112,7 +3169,6 @@ class UnitarySystemPerformanceHeatPumpMultispeed(object):
             if value > 10:
                 raise ValueError('value need to be smaller 10 '
                                  'for field `number_of_speeds_for_cooling`')
-
         self._data["Number of Speeds for Cooling"] = value
 
     @property
@@ -3126,14 +3182,16 @@ class UnitarySystemPerformanceHeatPumpMultispeed(object):
 
     @speed_1_supply_air_flow_ratio_during_heating_operation.setter
     def speed_1_supply_air_flow_ratio_during_heating_operation(self, value=None):
-        """  Corresponds to IDD Field `speed_1_supply_air_flow_ratio_during_heating_operation`
+        """  Corresponds to IDD Field `Speed 1 Supply Air Flow Ratio During Heating Operation`
         Used only for Multi speed coils
         Enter the lowest operating supply air flow ratio during heating
         operation or specify autosize. This value is the ratio of air flow
         at this speed to the maximum air flow rate.
+        
+        {u'begin-extensible': u'', u'minimum>': '0.0', 'pytype': 'float', u'required-field': True, u'note': [u'Used only for Multi speed coils', u'Enter the lowest operating supply air flow ratio during heating', u'operation or specify autosize. This value is the ratio of air flow', u'at this speed to the maximum air flow rate.'], u'autosizable': u'', u'units': u'm3/s', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `speed_1_supply_air_flow_ratio_during_heating_operation`
+            value (float): value for IDD Field `Speed 1 Supply Air Flow Ratio During Heating Operation`
                 Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -3145,13 +3203,12 @@ class UnitarySystemPerformanceHeatPumpMultispeed(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `speed_1_supply_air_flow_ratio_during_heating_operation`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `speed_1_supply_air_flow_ratio_during_heating_operation`')
-
         self._data["Speed 1 Supply Air Flow Ratio During Heating Operation"] = value
 
     @property
@@ -3165,14 +3222,16 @@ class UnitarySystemPerformanceHeatPumpMultispeed(object):
 
     @speed_1_supply_air_flow_ratio_during_cooling_operation.setter
     def speed_1_supply_air_flow_ratio_during_cooling_operation(self, value=None):
-        """  Corresponds to IDD Field `speed_1_supply_air_flow_ratio_during_cooling_operation`
+        """  Corresponds to IDD Field `Speed 1 Supply Air Flow Ratio During Cooling Operation`
         Used only for Multi speed coils
         Enter the lowest operating supply air flow ratio during cooling
         operation or specify autosize. This value is the ratio of air flow
         at this speed to the maximum air flow rate.
+        
+        {'pytype': 'float', u'minimum>': '0.0', u'required-field': True, u'note': [u'Used only for Multi speed coils', u'Enter the lowest operating supply air flow ratio during cooling', u'operation or specify autosize. This value is the ratio of air flow', u'at this speed to the maximum air flow rate.'], u'autosizable': u'', u'units': u'm3/s', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `speed_1_supply_air_flow_ratio_during_cooling_operation`
+            value (float): value for IDD Field `Speed 1 Supply Air Flow Ratio During Cooling Operation`
                 Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -3184,13 +3243,12 @@ class UnitarySystemPerformanceHeatPumpMultispeed(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `speed_1_supply_air_flow_ratio_during_cooling_operation`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `speed_1_supply_air_flow_ratio_during_cooling_operation`')
-
         self._data["Speed 1 Supply Air Flow Ratio During Cooling Operation"] = value
 
     @property
@@ -3204,14 +3262,16 @@ class UnitarySystemPerformanceHeatPumpMultispeed(object):
 
     @speed_2_supply_air_flow_ratio_during_heating_operation.setter
     def speed_2_supply_air_flow_ratio_during_heating_operation(self, value=None):
-        """  Corresponds to IDD Field `speed_2_supply_air_flow_ratio_during_heating_operation`
+        """  Corresponds to IDD Field `Speed 2 Supply Air Flow Ratio During Heating Operation`
         Used only for Multi speed coils
         Enter the next highest operating supply air flow ratio during heating
         operation or specify autosize. This value is the ratio of air flow
         at this speed to the maximum air flow rate.
+        
+        {'pytype': 'float', u'minimum>': '0.0', u'note': [u'Used only for Multi speed coils', u'Enter the next highest operating supply air flow ratio during heating', u'operation or specify autosize. This value is the ratio of air flow', u'at this speed to the maximum air flow rate.'], u'autosizable': u'', u'units': u'm3/s', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `speed_2_supply_air_flow_ratio_during_heating_operation`
+            value (float): value for IDD Field `Speed 2 Supply Air Flow Ratio During Heating Operation`
                 Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -3223,13 +3283,12 @@ class UnitarySystemPerformanceHeatPumpMultispeed(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `speed_2_supply_air_flow_ratio_during_heating_operation`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `speed_2_supply_air_flow_ratio_during_heating_operation`')
-
         self._data["Speed 2 Supply Air Flow Ratio During Heating Operation"] = value
 
     @property
@@ -3243,14 +3302,16 @@ class UnitarySystemPerformanceHeatPumpMultispeed(object):
 
     @speed_2_supply_air_flow_ratio_during_cooling_operation.setter
     def speed_2_supply_air_flow_ratio_during_cooling_operation(self, value=None):
-        """  Corresponds to IDD Field `speed_2_supply_air_flow_ratio_during_cooling_operation`
+        """  Corresponds to IDD Field `Speed 2 Supply Air Flow Ratio During Cooling Operation`
         Used only for Multi speed coils
         Enter the lowest operating supply air flow ratio during cooling
         operation or specify autosize. This value is the ratio of air flow
         at this speed to the maximum air flow rate.
+        
+        {'pytype': 'float', u'minimum>': '0.0', u'note': [u'Used only for Multi speed coils', u'Enter the lowest operating supply air flow ratio during cooling', u'operation or specify autosize. This value is the ratio of air flow', u'at this speed to the maximum air flow rate.'], u'autosizable': u'', u'units': u'm3/s', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `speed_2_supply_air_flow_ratio_during_cooling_operation`
+            value (float): value for IDD Field `Speed 2 Supply Air Flow Ratio During Cooling Operation`
                 Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -3262,13 +3323,12 @@ class UnitarySystemPerformanceHeatPumpMultispeed(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `speed_2_supply_air_flow_ratio_during_cooling_operation`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `speed_2_supply_air_flow_ratio_during_cooling_operation`')
-
         self._data["Speed 2 Supply Air Flow Ratio During Cooling Operation"] = value
 
     @property
@@ -3282,14 +3342,16 @@ class UnitarySystemPerformanceHeatPumpMultispeed(object):
 
     @speed_3_supply_air_flow_ratio_during_heating_operation.setter
     def speed_3_supply_air_flow_ratio_during_heating_operation(self, value=None):
-        """  Corresponds to IDD Field `speed_3_supply_air_flow_ratio_during_heating_operation`
+        """  Corresponds to IDD Field `Speed 3 Supply Air Flow Ratio During Heating Operation`
         Used only for Multi speed coils
         Enter the next highest operating supply air flow ratio during heating
         operation or specify autosize. This value is the ratio of air flow
         at this speed to the maximum air flow rate.
+        
+        {'pytype': 'float', u'minimum>': '0.0', u'note': [u'Used only for Multi speed coils', u'Enter the next highest operating supply air flow ratio during heating', u'operation or specify autosize. This value is the ratio of air flow', u'at this speed to the maximum air flow rate.'], u'autosizable': u'', u'units': u'm3/s', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `speed_3_supply_air_flow_ratio_during_heating_operation`
+            value (float): value for IDD Field `Speed 3 Supply Air Flow Ratio During Heating Operation`
                 Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -3301,13 +3363,12 @@ class UnitarySystemPerformanceHeatPumpMultispeed(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `speed_3_supply_air_flow_ratio_during_heating_operation`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `speed_3_supply_air_flow_ratio_during_heating_operation`')
-
         self._data["Speed 3 Supply Air Flow Ratio During Heating Operation"] = value
 
     @property
@@ -3321,14 +3382,16 @@ class UnitarySystemPerformanceHeatPumpMultispeed(object):
 
     @speed_3_supply_air_flow_ratio_during_cooling_operation.setter
     def speed_3_supply_air_flow_ratio_during_cooling_operation(self, value=None):
-        """  Corresponds to IDD Field `speed_3_supply_air_flow_ratio_during_cooling_operation`
+        """  Corresponds to IDD Field `Speed 3 Supply Air Flow Ratio During Cooling Operation`
         Used only for Multi speed coils
         Enter the lowest operating supply air flow ratio during cooling
         operation or specify autosize. This value is the ratio of air flow
         at this speed to the maximum air flow rate.
+        
+        {'pytype': 'float', u'minimum>': '0.0', u'note': [u'Used only for Multi speed coils', u'Enter the lowest operating supply air flow ratio during cooling', u'operation or specify autosize. This value is the ratio of air flow', u'at this speed to the maximum air flow rate.'], u'autosizable': u'', u'units': u'm3/s', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `speed_3_supply_air_flow_ratio_during_cooling_operation`
+            value (float): value for IDD Field `Speed 3 Supply Air Flow Ratio During Cooling Operation`
                 Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -3340,13 +3403,12 @@ class UnitarySystemPerformanceHeatPumpMultispeed(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `speed_3_supply_air_flow_ratio_during_cooling_operation`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `speed_3_supply_air_flow_ratio_during_cooling_operation`')
-
         self._data["Speed 3 Supply Air Flow Ratio During Cooling Operation"] = value
 
     @property
@@ -3360,14 +3422,16 @@ class UnitarySystemPerformanceHeatPumpMultispeed(object):
 
     @speed_4_supply_air_flow_ratio_during_heating_operation.setter
     def speed_4_supply_air_flow_ratio_during_heating_operation(self, value=None):
-        """  Corresponds to IDD Field `speed_4_supply_air_flow_ratio_during_heating_operation`
+        """  Corresponds to IDD Field `Speed 4 Supply Air Flow Ratio During Heating Operation`
         Used only for Multi speed coils
         Enter the next highest operating supply air flow ratio during heating
         operation or specify autosize. This value is the ratio of air flow
         at this speed to the maximum air flow rate.
+        
+        {'pytype': 'float', u'minimum>': '0.0', u'note': [u'Used only for Multi speed coils', u'Enter the next highest operating supply air flow ratio during heating', u'operation or specify autosize. This value is the ratio of air flow', u'at this speed to the maximum air flow rate.'], u'autosizable': u'', u'units': u'm3/s', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `speed_4_supply_air_flow_ratio_during_heating_operation`
+            value (float): value for IDD Field `Speed 4 Supply Air Flow Ratio During Heating Operation`
                 Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -3379,13 +3443,12 @@ class UnitarySystemPerformanceHeatPumpMultispeed(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `speed_4_supply_air_flow_ratio_during_heating_operation`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `speed_4_supply_air_flow_ratio_during_heating_operation`')
-
         self._data["Speed 4 Supply Air Flow Ratio During Heating Operation"] = value
 
     @property
@@ -3399,14 +3462,16 @@ class UnitarySystemPerformanceHeatPumpMultispeed(object):
 
     @speed_4_supply_air_flow_ratio_during_cooling_operation.setter
     def speed_4_supply_air_flow_ratio_during_cooling_operation(self, value=None):
-        """  Corresponds to IDD Field `speed_4_supply_air_flow_ratio_during_cooling_operation`
+        """  Corresponds to IDD Field `Speed 4 Supply Air Flow Ratio During Cooling Operation`
         Used only for Multi speed coils
         Enter the lowest operating supply air flow ratio during cooling
         operation or specify autosize. This value is the ratio of air flow
         at this speed to the maximum air flow rate.
+        
+        {'pytype': 'float', u'minimum>': '0.0', u'note': [u'Used only for Multi speed coils', u'Enter the lowest operating supply air flow ratio during cooling', u'operation or specify autosize. This value is the ratio of air flow', u'at this speed to the maximum air flow rate.'], u'autosizable': u'', u'units': u'm3/s', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `speed_4_supply_air_flow_ratio_during_cooling_operation`
+            value (float): value for IDD Field `Speed 4 Supply Air Flow Ratio During Cooling Operation`
                 Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -3418,13 +3483,12 @@ class UnitarySystemPerformanceHeatPumpMultispeed(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `speed_4_supply_air_flow_ratio_during_cooling_operation`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `speed_4_supply_air_flow_ratio_during_cooling_operation`')
-
         self._data["Speed 4 Supply Air Flow Ratio During Cooling Operation"] = value
 
     def check(self):
@@ -3602,10 +3666,12 @@ class AirLoopHvacUnitaryFurnaceHeatOnly(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3615,7 +3681,7 @@ class AirLoopHvacUnitaryFurnaceHeatOnly(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -3624,7 +3690,6 @@ class AirLoopHvacUnitaryFurnaceHeatOnly(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -3638,12 +3703,14 @@ class AirLoopHvacUnitaryFurnaceHeatOnly(object):
 
     @availability_schedule_name.setter
     def availability_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `availability_schedule_name`
+        """  Corresponds to IDD Field `Availability Schedule Name`
         Availability schedule name for this system. Schedule value > 0 means the system is available.
         If this field is blank, the system is always available.
+        
+        {u'note': [u'Availability schedule name for this system. Schedule value > 0 means the system is available.', u'If this field is blank, the system is always available.'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `availability_schedule_name`
+            value (str): value for IDD Field `Availability Schedule Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3653,7 +3720,7 @@ class AirLoopHvacUnitaryFurnaceHeatOnly(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `availability_schedule_name`'.format(value))
             if ',' in value:
@@ -3662,7 +3729,6 @@ class AirLoopHvacUnitaryFurnaceHeatOnly(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `availability_schedule_name`')
-
         self._data["Availability Schedule Name"] = value
 
     @property
@@ -3676,10 +3742,12 @@ class AirLoopHvacUnitaryFurnaceHeatOnly(object):
 
     @furnace_air_inlet_node_name.setter
     def furnace_air_inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `furnace_air_inlet_node_name`
+        """  Corresponds to IDD Field `Furnace Air Inlet Node Name`
+        
+        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `furnace_air_inlet_node_name`
+            value (str): value for IDD Field `Furnace Air Inlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3689,7 +3757,7 @@ class AirLoopHvacUnitaryFurnaceHeatOnly(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `furnace_air_inlet_node_name`'.format(value))
             if ',' in value:
@@ -3698,7 +3766,6 @@ class AirLoopHvacUnitaryFurnaceHeatOnly(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `furnace_air_inlet_node_name`')
-
         self._data["Furnace Air Inlet Node Name"] = value
 
     @property
@@ -3712,10 +3779,12 @@ class AirLoopHvacUnitaryFurnaceHeatOnly(object):
 
     @furnace_air_outlet_node_name.setter
     def furnace_air_outlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `furnace_air_outlet_node_name`
+        """  Corresponds to IDD Field `Furnace Air Outlet Node Name`
+        
+        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `furnace_air_outlet_node_name`
+            value (str): value for IDD Field `Furnace Air Outlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3725,7 +3794,7 @@ class AirLoopHvacUnitaryFurnaceHeatOnly(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `furnace_air_outlet_node_name`'.format(value))
             if ',' in value:
@@ -3734,7 +3803,6 @@ class AirLoopHvacUnitaryFurnaceHeatOnly(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `furnace_air_outlet_node_name`')
-
         self._data["Furnace Air Outlet Node Name"] = value
 
     @property
@@ -3748,16 +3816,18 @@ class AirLoopHvacUnitaryFurnaceHeatOnly(object):
 
     @supply_air_fan_operating_mode_schedule_name.setter
     def supply_air_fan_operating_mode_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `supply_air_fan_operating_mode_schedule_name`
+        """  Corresponds to IDD Field `Supply Air Fan Operating Mode Schedule Name`
         A fan operating mode schedule value of 0 indicates cycling fan mode (supply air
         fan cycles on and off in tandem with the heating coil).
         Any other schedule value indicates continuous fan mode (supply air fan operates
         continuously regardless of heating coil operation).
         Leaving this schedule name blank will default to cycling fan mode for the
         entire simulation period.
+        
+        {u'note': [u'A fan operating mode schedule value of 0 indicates cycling fan mode (supply air', u'fan cycles on and off in tandem with the heating coil).', u'Any other schedule value indicates continuous fan mode (supply air fan operates', u'continuously regardless of heating coil operation).', u'Leaving this schedule name blank will default to cycling fan mode for the', u'entire simulation period.'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `supply_air_fan_operating_mode_schedule_name`
+            value (str): value for IDD Field `Supply Air Fan Operating Mode Schedule Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3767,7 +3837,7 @@ class AirLoopHvacUnitaryFurnaceHeatOnly(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `supply_air_fan_operating_mode_schedule_name`'.format(value))
             if ',' in value:
@@ -3776,7 +3846,6 @@ class AirLoopHvacUnitaryFurnaceHeatOnly(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `supply_air_fan_operating_mode_schedule_name`')
-
         self._data["Supply Air Fan Operating Mode Schedule Name"] = value
 
     @property
@@ -3790,10 +3859,12 @@ class AirLoopHvacUnitaryFurnaceHeatOnly(object):
 
     @maximum_supply_air_temperature.setter
     def maximum_supply_air_temperature(self, value=80.0 ):
-        """  Corresponds to IDD Field `maximum_supply_air_temperature`
+        """  Corresponds to IDD Field `Maximum Supply Air Temperature`
+        
+        {u'units': u'C', u'default': '80.0', u'autosizable': u'', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `maximum_supply_air_temperature`
+            value (float): value for IDD Field `Maximum Supply Air Temperature`
                 Units: C
                 Default value: 80.0
                 if `value` is None it will not be checked against the
@@ -3805,10 +3876,9 @@ class AirLoopHvacUnitaryFurnaceHeatOnly(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `maximum_supply_air_temperature`'.format(value))
-
         self._data["Maximum Supply Air Temperature"] = value
 
     @property
@@ -3822,11 +3892,13 @@ class AirLoopHvacUnitaryFurnaceHeatOnly(object):
 
     @supply_air_flow_rate.setter
     def supply_air_flow_rate(self, value=None):
-        """  Corresponds to IDD Field `supply_air_flow_rate`
+        """  Corresponds to IDD Field `Supply Air Flow Rate`
         This value should be > 0 and <= than the fan air flow rate.
+        
+        {'pytype': 'float', u'minimum>': '0.0', u'required-field': True, u'note': [u'This value should be > 0 and <= than the fan air flow rate.'], u'autosizable': u'', u'units': u'm3/s', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `supply_air_flow_rate`
+            value (float): value for IDD Field `Supply Air Flow Rate`
                 Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -3838,13 +3910,12 @@ class AirLoopHvacUnitaryFurnaceHeatOnly(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `supply_air_flow_rate`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `supply_air_flow_rate`')
-
         self._data["Supply Air Flow Rate"] = value
 
     @property
@@ -3858,10 +3929,12 @@ class AirLoopHvacUnitaryFurnaceHeatOnly(object):
 
     @controlling_zone_or_thermostat_location.setter
     def controlling_zone_or_thermostat_location(self, value=None):
-        """  Corresponds to IDD Field `controlling_zone_or_thermostat_location`
+        """  Corresponds to IDD Field `Controlling Zone or Thermostat Location`
+        
+        {u'type': u'object-list', u'object-list': u'ZoneNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `controlling_zone_or_thermostat_location`
+            value (str): value for IDD Field `Controlling Zone or Thermostat Location`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3871,7 +3944,7 @@ class AirLoopHvacUnitaryFurnaceHeatOnly(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `controlling_zone_or_thermostat_location`'.format(value))
             if ',' in value:
@@ -3880,7 +3953,6 @@ class AirLoopHvacUnitaryFurnaceHeatOnly(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `controlling_zone_or_thermostat_location`')
-
         self._data["Controlling Zone or Thermostat Location"] = value
 
     @property
@@ -3894,12 +3966,14 @@ class AirLoopHvacUnitaryFurnaceHeatOnly(object):
 
     @supply_fan_object_type.setter
     def supply_fan_object_type(self, value=None):
-        """  Corresponds to IDD Field `supply_fan_object_type`
+        """  Corresponds to IDD Field `Supply Fan Object Type`
         Fan:ConstantVolume only works with continuous fan operating mode (i.e. fan
         operating mode schedule values are greater than 0).
+        
+        {u'note': [u'Fan:ConstantVolume only works with continuous fan operating mode (i.e. fan', u'operating mode schedule values are greater than 0).'], u'type': u'choice', u'key': [u'Fan:OnOff', u'Fan:ConstantVolume'], u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `supply_fan_object_type`
+            value (str): value for IDD Field `Supply Fan Object Type`
                 Accepted values are:
                       - Fan:OnOff
                       - Fan:ConstantVolume
@@ -3912,7 +3986,7 @@ class AirLoopHvacUnitaryFurnaceHeatOnly(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `supply_fan_object_type`'.format(value))
             if ',' in value:
@@ -3938,7 +4012,6 @@ class AirLoopHvacUnitaryFurnaceHeatOnly(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `supply_fan_object_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Supply Fan Object Type"] = value
 
     @property
@@ -3952,10 +4025,12 @@ class AirLoopHvacUnitaryFurnaceHeatOnly(object):
 
     @supply_fan_name.setter
     def supply_fan_name(self, value=None):
-        """  Corresponds to IDD Field `supply_fan_name`
+        """  Corresponds to IDD Field `Supply Fan Name`
+        
+        {u'type': u'object-list', u'object-list': u'FansCVandOnOff', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `supply_fan_name`
+            value (str): value for IDD Field `Supply Fan Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3965,7 +4040,7 @@ class AirLoopHvacUnitaryFurnaceHeatOnly(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `supply_fan_name`'.format(value))
             if ',' in value:
@@ -3974,7 +4049,6 @@ class AirLoopHvacUnitaryFurnaceHeatOnly(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `supply_fan_name`')
-
         self._data["Supply Fan Name"] = value
 
     @property
@@ -3988,10 +4062,12 @@ class AirLoopHvacUnitaryFurnaceHeatOnly(object):
 
     @fan_placement.setter
     def fan_placement(self, value="BlowThrough"):
-        """  Corresponds to IDD Field `fan_placement`
+        """  Corresponds to IDD Field `Fan Placement`
+        
+        {u'default': u'BlowThrough', u'type': u'choice', u'key': [u'BlowThrough', u'DrawThrough'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `fan_placement`
+            value (str): value for IDD Field `Fan Placement`
                 Accepted values are:
                       - BlowThrough
                       - DrawThrough
@@ -4005,7 +4081,7 @@ class AirLoopHvacUnitaryFurnaceHeatOnly(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `fan_placement`'.format(value))
             if ',' in value:
@@ -4031,7 +4107,6 @@ class AirLoopHvacUnitaryFurnaceHeatOnly(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `fan_placement`'.format(value))
             value = vals[value_lower]
-
         self._data["Fan Placement"] = value
 
     @property
@@ -4045,11 +4120,13 @@ class AirLoopHvacUnitaryFurnaceHeatOnly(object):
 
     @heating_coil_object_type.setter
     def heating_coil_object_type(self, value=None):
-        """  Corresponds to IDD Field `heating_coil_object_type`
+        """  Corresponds to IDD Field `Heating Coil Object Type`
         works with gas, electric, hot water and steam heating coils
+        
+        {u'note': [u'works with gas, electric, hot water and steam heating coils'], u'type': u'choice', u'key': [u'Coil:Heating:Gas', u'Coil:Heating:Electric', u'Coil:Heating:Water', u'Coil:Heating:Steam'], u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `heating_coil_object_type`
+            value (str): value for IDD Field `Heating Coil Object Type`
                 Accepted values are:
                       - Coil:Heating:Gas
                       - Coil:Heating:Electric
@@ -4064,7 +4141,7 @@ class AirLoopHvacUnitaryFurnaceHeatOnly(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `heating_coil_object_type`'.format(value))
             if ',' in value:
@@ -4092,7 +4169,6 @@ class AirLoopHvacUnitaryFurnaceHeatOnly(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `heating_coil_object_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Heating Coil Object Type"] = value
 
     @property
@@ -4106,10 +4182,12 @@ class AirLoopHvacUnitaryFurnaceHeatOnly(object):
 
     @heating_coil_name.setter
     def heating_coil_name(self, value=None):
-        """  Corresponds to IDD Field `heating_coil_name`
+        """  Corresponds to IDD Field `Heating Coil Name`
+        
+        {u'type': u'object-list', u'object-list': u'HeatingCoilName', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `heating_coil_name`
+            value (str): value for IDD Field `Heating Coil Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4119,7 +4197,7 @@ class AirLoopHvacUnitaryFurnaceHeatOnly(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `heating_coil_name`'.format(value))
             if ',' in value:
@@ -4128,7 +4206,6 @@ class AirLoopHvacUnitaryFurnaceHeatOnly(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `heating_coil_name`')
-
         self._data["Heating Coil Name"] = value
 
     def check(self):
@@ -4363,10 +4440,12 @@ class AirLoopHvacUnitaryFurnaceHeatCool(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4376,7 +4455,7 @@ class AirLoopHvacUnitaryFurnaceHeatCool(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -4385,7 +4464,6 @@ class AirLoopHvacUnitaryFurnaceHeatCool(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -4399,15 +4477,17 @@ class AirLoopHvacUnitaryFurnaceHeatCool(object):
 
     @availability_schedule_name.setter
     def availability_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `availability_schedule_name`
+        """  Corresponds to IDD Field `Availability Schedule Name`
         Availability schedule name for this system. Schedule value > 0 means the system is available.
         If this field is blank, the system is always available.
         A schedule value greater than zero (usually 1 is used) indicates that the unit is
         available to operate as needed. A value less than or equal to zero (usually zero
         is used) denotes that the unit must be off.
+        
+        {u'note': [u'Availability schedule name for this system. Schedule value > 0 means the system is available.', u'If this field is blank, the system is always available.', u'A schedule value greater than zero (usually 1 is used) indicates that the unit is', u'available to operate as needed. A value less than or equal to zero (usually zero', u'is used) denotes that the unit must be off.'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `availability_schedule_name`
+            value (str): value for IDD Field `Availability Schedule Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4417,7 +4497,7 @@ class AirLoopHvacUnitaryFurnaceHeatCool(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `availability_schedule_name`'.format(value))
             if ',' in value:
@@ -4426,7 +4506,6 @@ class AirLoopHvacUnitaryFurnaceHeatCool(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `availability_schedule_name`')
-
         self._data["Availability Schedule Name"] = value
 
     @property
@@ -4440,10 +4519,12 @@ class AirLoopHvacUnitaryFurnaceHeatCool(object):
 
     @furnace_air_inlet_node_name.setter
     def furnace_air_inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `furnace_air_inlet_node_name`
+        """  Corresponds to IDD Field `Furnace Air Inlet Node Name`
+        
+        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `furnace_air_inlet_node_name`
+            value (str): value for IDD Field `Furnace Air Inlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4453,7 +4534,7 @@ class AirLoopHvacUnitaryFurnaceHeatCool(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `furnace_air_inlet_node_name`'.format(value))
             if ',' in value:
@@ -4462,7 +4543,6 @@ class AirLoopHvacUnitaryFurnaceHeatCool(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `furnace_air_inlet_node_name`')
-
         self._data["Furnace Air Inlet Node Name"] = value
 
     @property
@@ -4476,10 +4556,12 @@ class AirLoopHvacUnitaryFurnaceHeatCool(object):
 
     @furnace_air_outlet_node_name.setter
     def furnace_air_outlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `furnace_air_outlet_node_name`
+        """  Corresponds to IDD Field `Furnace Air Outlet Node Name`
+        
+        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `furnace_air_outlet_node_name`
+            value (str): value for IDD Field `Furnace Air Outlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4489,7 +4571,7 @@ class AirLoopHvacUnitaryFurnaceHeatCool(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `furnace_air_outlet_node_name`'.format(value))
             if ',' in value:
@@ -4498,7 +4580,6 @@ class AirLoopHvacUnitaryFurnaceHeatCool(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `furnace_air_outlet_node_name`')
-
         self._data["Furnace Air Outlet Node Name"] = value
 
     @property
@@ -4512,7 +4593,7 @@ class AirLoopHvacUnitaryFurnaceHeatCool(object):
 
     @supply_air_fan_operating_mode_schedule_name.setter
     def supply_air_fan_operating_mode_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `supply_air_fan_operating_mode_schedule_name`
+        """  Corresponds to IDD Field `Supply Air Fan Operating Mode Schedule Name`
         A fan operating mode schedule value of 0 indicates cycling fan mode (supply air
         fan cycles on and off in tandem with the cooling or heating coil).
         Any other schedule value indicates continuous fan mode (supply air fan operates
@@ -4520,9 +4601,11 @@ class AirLoopHvacUnitaryFurnaceHeatCool(object):
         with non-zero values when high humidity control is specified.
         Leaving this schedule name blank will default to cycling fan mode for the
         entire simulation period.
+        
+        {u'note': [u'A fan operating mode schedule value of 0 indicates cycling fan mode (supply air', u'fan cycles on and off in tandem with the cooling or heating coil).', u'Any other schedule value indicates continuous fan mode (supply air fan operates', u'continuously regardless of cooling or heating coil operation). Provide a schedule', u'with non-zero values when high humidity control is specified.', u'Leaving this schedule name blank will default to cycling fan mode for the', u'entire simulation period.'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `supply_air_fan_operating_mode_schedule_name`
+            value (str): value for IDD Field `Supply Air Fan Operating Mode Schedule Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4532,7 +4615,7 @@ class AirLoopHvacUnitaryFurnaceHeatCool(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `supply_air_fan_operating_mode_schedule_name`'.format(value))
             if ',' in value:
@@ -4541,7 +4624,6 @@ class AirLoopHvacUnitaryFurnaceHeatCool(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `supply_air_fan_operating_mode_schedule_name`')
-
         self._data["Supply Air Fan Operating Mode Schedule Name"] = value
 
     @property
@@ -4555,10 +4637,12 @@ class AirLoopHvacUnitaryFurnaceHeatCool(object):
 
     @maximum_supply_air_temperature.setter
     def maximum_supply_air_temperature(self, value=80.0 ):
-        """  Corresponds to IDD Field `maximum_supply_air_temperature`
+        """  Corresponds to IDD Field `Maximum Supply Air Temperature`
+        
+        {u'units': u'C', u'default': '80.0', u'autosizable': u'', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `maximum_supply_air_temperature`
+            value (float): value for IDD Field `Maximum Supply Air Temperature`
                 Units: C
                 Default value: 80.0
                 if `value` is None it will not be checked against the
@@ -4570,10 +4654,9 @@ class AirLoopHvacUnitaryFurnaceHeatCool(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `maximum_supply_air_temperature`'.format(value))
-
         self._data["Maximum Supply Air Temperature"] = value
 
     @property
@@ -4587,11 +4670,13 @@ class AirLoopHvacUnitaryFurnaceHeatCool(object):
 
     @supply_air_flow_rate_during_cooling_operation.setter
     def supply_air_flow_rate_during_cooling_operation(self, value=None):
-        """  Corresponds to IDD Field `supply_air_flow_rate_during_cooling_operation`
+        """  Corresponds to IDD Field `Supply Air Flow Rate During Cooling Operation`
         Must be less than or equal to the fan's maximum flow rate.
+        
+        {'pytype': 'float', u'minimum>': '0.0', u'required-field': True, u'note': [u"Must be less than or equal to the fan's maximum flow rate."], u'autosizable': u'', u'units': u'm3/s', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `supply_air_flow_rate_during_cooling_operation`
+            value (float): value for IDD Field `Supply Air Flow Rate During Cooling Operation`
                 Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -4603,13 +4688,12 @@ class AirLoopHvacUnitaryFurnaceHeatCool(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `supply_air_flow_rate_during_cooling_operation`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `supply_air_flow_rate_during_cooling_operation`')
-
         self._data["Supply Air Flow Rate During Cooling Operation"] = value
 
     @property
@@ -4623,11 +4707,13 @@ class AirLoopHvacUnitaryFurnaceHeatCool(object):
 
     @supply_air_flow_rate_during_heating_operation.setter
     def supply_air_flow_rate_during_heating_operation(self, value=None):
-        """  Corresponds to IDD Field `supply_air_flow_rate_during_heating_operation`
+        """  Corresponds to IDD Field `Supply Air Flow Rate During Heating Operation`
         Must be less than or equal to the fan's maximum flow fate.
+        
+        {'pytype': 'float', u'minimum>': '0.0', u'required-field': True, u'note': [u"Must be less than or equal to the fan's maximum flow fate."], u'autosizable': u'', u'units': u'm3/s', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `supply_air_flow_rate_during_heating_operation`
+            value (float): value for IDD Field `Supply Air Flow Rate During Heating Operation`
                 Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -4639,13 +4725,12 @@ class AirLoopHvacUnitaryFurnaceHeatCool(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `supply_air_flow_rate_during_heating_operation`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `supply_air_flow_rate_during_heating_operation`')
-
         self._data["Supply Air Flow Rate During Heating Operation"] = value
 
     @property
@@ -4659,15 +4744,17 @@ class AirLoopHvacUnitaryFurnaceHeatCool(object):
 
     @supply_air_flow_rate_when_no_cooling_or_heating_is_needed.setter
     def supply_air_flow_rate_when_no_cooling_or_heating_is_needed(self, value=None):
-        """  Corresponds to IDD Field `supply_air_flow_rate_when_no_cooling_or_heating_is_needed`
+        """  Corresponds to IDD Field `Supply Air Flow Rate When No Cooling or Heating is Needed`
         Must be less than or equal to the fan's maximum flow rate.
         Only used when fan operating mode is continuous (disregarded for cycling fan mode).
         This air flow rate is used when no heating or cooling is required (i.e., the DX coil
         compressor and heating coil are off). If this field is left blank or zero, the supply
         air flow rate from the previous on cycle (either cooling or heating) is used.
+        
+        {'pytype': 'float', u'note': [u"Must be less than or equal to the fan's maximum flow rate.", u'Only used when fan operating mode is continuous (disregarded for cycling fan mode).', u'This air flow rate is used when no heating or cooling is required (i.e., the DX coil', u'compressor and heating coil are off). If this field is left blank or zero, the supply', u'air flow rate from the previous on cycle (either cooling or heating) is used.'], u'autosizable': u'', u'minimum': '0.0', u'units': u'm3/s', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `supply_air_flow_rate_when_no_cooling_or_heating_is_needed`
+            value (float): value for IDD Field `Supply Air Flow Rate When No Cooling or Heating is Needed`
                 Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -4679,13 +4766,12 @@ class AirLoopHvacUnitaryFurnaceHeatCool(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `supply_air_flow_rate_when_no_cooling_or_heating_is_needed`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `supply_air_flow_rate_when_no_cooling_or_heating_is_needed`')
-
         self._data["Supply Air Flow Rate When No Cooling or Heating is Needed"] = value
 
     @property
@@ -4699,10 +4785,12 @@ class AirLoopHvacUnitaryFurnaceHeatCool(object):
 
     @controlling_zone_or_thermostat_location.setter
     def controlling_zone_or_thermostat_location(self, value=None):
-        """  Corresponds to IDD Field `controlling_zone_or_thermostat_location`
+        """  Corresponds to IDD Field `Controlling Zone or Thermostat Location`
+        
+        {u'type': u'object-list', u'object-list': u'ZoneNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `controlling_zone_or_thermostat_location`
+            value (str): value for IDD Field `Controlling Zone or Thermostat Location`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4712,7 +4800,7 @@ class AirLoopHvacUnitaryFurnaceHeatCool(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `controlling_zone_or_thermostat_location`'.format(value))
             if ',' in value:
@@ -4721,7 +4809,6 @@ class AirLoopHvacUnitaryFurnaceHeatCool(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `controlling_zone_or_thermostat_location`')
-
         self._data["Controlling Zone or Thermostat Location"] = value
 
     @property
@@ -4735,12 +4822,14 @@ class AirLoopHvacUnitaryFurnaceHeatCool(object):
 
     @supply_fan_object_type.setter
     def supply_fan_object_type(self, value=None):
-        """  Corresponds to IDD Field `supply_fan_object_type`
+        """  Corresponds to IDD Field `Supply Fan Object Type`
         Fan:ConstantVolume only works with continuous fan operating mode (i.e. supply
         air fan operating mode schedule values not equal to 0).
+        
+        {u'note': [u'Fan:ConstantVolume only works with continuous fan operating mode (i.e. supply', u'air fan operating mode schedule values not equal to 0).'], u'type': u'choice', u'key': [u'Fan:OnOff', u'Fan:ConstantVolume'], u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `supply_fan_object_type`
+            value (str): value for IDD Field `Supply Fan Object Type`
                 Accepted values are:
                       - Fan:OnOff
                       - Fan:ConstantVolume
@@ -4753,7 +4842,7 @@ class AirLoopHvacUnitaryFurnaceHeatCool(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `supply_fan_object_type`'.format(value))
             if ',' in value:
@@ -4779,7 +4868,6 @@ class AirLoopHvacUnitaryFurnaceHeatCool(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `supply_fan_object_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Supply Fan Object Type"] = value
 
     @property
@@ -4793,10 +4881,12 @@ class AirLoopHvacUnitaryFurnaceHeatCool(object):
 
     @supply_fan_name.setter
     def supply_fan_name(self, value=None):
-        """  Corresponds to IDD Field `supply_fan_name`
+        """  Corresponds to IDD Field `Supply Fan Name`
+        
+        {u'type': u'object-list', u'object-list': u'FansCVandOnOff', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `supply_fan_name`
+            value (str): value for IDD Field `Supply Fan Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4806,7 +4896,7 @@ class AirLoopHvacUnitaryFurnaceHeatCool(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `supply_fan_name`'.format(value))
             if ',' in value:
@@ -4815,7 +4905,6 @@ class AirLoopHvacUnitaryFurnaceHeatCool(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `supply_fan_name`')
-
         self._data["Supply Fan Name"] = value
 
     @property
@@ -4829,10 +4918,12 @@ class AirLoopHvacUnitaryFurnaceHeatCool(object):
 
     @fan_placement.setter
     def fan_placement(self, value="BlowThrough"):
-        """  Corresponds to IDD Field `fan_placement`
+        """  Corresponds to IDD Field `Fan Placement`
+        
+        {u'default': u'BlowThrough', u'type': u'choice', u'key': [u'BlowThrough', u'DrawThrough'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `fan_placement`
+            value (str): value for IDD Field `Fan Placement`
                 Accepted values are:
                       - BlowThrough
                       - DrawThrough
@@ -4846,7 +4937,7 @@ class AirLoopHvacUnitaryFurnaceHeatCool(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `fan_placement`'.format(value))
             if ',' in value:
@@ -4872,7 +4963,6 @@ class AirLoopHvacUnitaryFurnaceHeatCool(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `fan_placement`'.format(value))
             value = vals[value_lower]
-
         self._data["Fan Placement"] = value
 
     @property
@@ -4886,11 +4976,13 @@ class AirLoopHvacUnitaryFurnaceHeatCool(object):
 
     @heating_coil_object_type.setter
     def heating_coil_object_type(self, value=None):
-        """  Corresponds to IDD Field `heating_coil_object_type`
+        """  Corresponds to IDD Field `Heating Coil Object Type`
         works with gas, electric, hot water and steam heating coils
+        
+        {u'note': [u'works with gas, electric, hot water and steam heating coils'], u'type': u'choice', u'key': [u'Coil:Heating:Gas', u'Coil:Heating:Electric', u'Coil:Heating:Water', u'Coil:Heating:Steam'], u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `heating_coil_object_type`
+            value (str): value for IDD Field `Heating Coil Object Type`
                 Accepted values are:
                       - Coil:Heating:Gas
                       - Coil:Heating:Electric
@@ -4905,7 +4997,7 @@ class AirLoopHvacUnitaryFurnaceHeatCool(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `heating_coil_object_type`'.format(value))
             if ',' in value:
@@ -4933,7 +5025,6 @@ class AirLoopHvacUnitaryFurnaceHeatCool(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `heating_coil_object_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Heating Coil Object Type"] = value
 
     @property
@@ -4947,10 +5038,12 @@ class AirLoopHvacUnitaryFurnaceHeatCool(object):
 
     @heating_coil_name.setter
     def heating_coil_name(self, value=None):
-        """  Corresponds to IDD Field `heating_coil_name`
+        """  Corresponds to IDD Field `Heating Coil Name`
+        
+        {u'type': u'object-list', u'object-list': u'HeatingCoilName', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `heating_coil_name`
+            value (str): value for IDD Field `Heating Coil Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4960,7 +5053,7 @@ class AirLoopHvacUnitaryFurnaceHeatCool(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `heating_coil_name`'.format(value))
             if ',' in value:
@@ -4969,7 +5062,6 @@ class AirLoopHvacUnitaryFurnaceHeatCool(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `heating_coil_name`')
-
         self._data["Heating Coil Name"] = value
 
     @property
@@ -4983,11 +5075,13 @@ class AirLoopHvacUnitaryFurnaceHeatCool(object):
 
     @cooling_coil_object_type.setter
     def cooling_coil_object_type(self, value=None):
-        """  Corresponds to IDD Field `cooling_coil_object_type`
+        """  Corresponds to IDD Field `Cooling Coil Object Type`
         Only works with DX cooling coil types
+        
+        {u'note': [u'Only works with DX cooling coil types'], u'type': u'choice', u'key': [u'Coil:Cooling:DX:SingleSpeed', u'CoilSystem:Cooling:DX:HeatExchangerAssisted'], u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `cooling_coil_object_type`
+            value (str): value for IDD Field `Cooling Coil Object Type`
                 Accepted values are:
                       - Coil:Cooling:DX:SingleSpeed
                       - CoilSystem:Cooling:DX:HeatExchangerAssisted
@@ -5000,7 +5094,7 @@ class AirLoopHvacUnitaryFurnaceHeatCool(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `cooling_coil_object_type`'.format(value))
             if ',' in value:
@@ -5026,7 +5120,6 @@ class AirLoopHvacUnitaryFurnaceHeatCool(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `cooling_coil_object_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Cooling Coil Object Type"] = value
 
     @property
@@ -5040,10 +5133,12 @@ class AirLoopHvacUnitaryFurnaceHeatCool(object):
 
     @cooling_coil_name.setter
     def cooling_coil_name(self, value=None):
-        """  Corresponds to IDD Field `cooling_coil_name`
+        """  Corresponds to IDD Field `Cooling Coil Name`
+        
+        {u'type': u'object-list', u'object-list': u'CoolingCoilsDXSingleSpeed', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `cooling_coil_name`
+            value (str): value for IDD Field `Cooling Coil Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5053,7 +5148,7 @@ class AirLoopHvacUnitaryFurnaceHeatCool(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `cooling_coil_name`'.format(value))
             if ',' in value:
@@ -5062,7 +5157,6 @@ class AirLoopHvacUnitaryFurnaceHeatCool(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `cooling_coil_name`')
-
         self._data["Cooling Coil Name"] = value
 
     @property
@@ -5076,7 +5170,7 @@ class AirLoopHvacUnitaryFurnaceHeatCool(object):
 
     @dehumidification_control_type.setter
     def dehumidification_control_type(self, value="None"):
-        """  Corresponds to IDD Field `dehumidification_control_type`
+        """  Corresponds to IDD Field `Dehumidification Control Type`
         None = meet sensible load only
         Multimode = activate enhanced dehumidification mode
         as needed and meet sensible load.  Valid only with
@@ -5089,9 +5183,11 @@ class AirLoopHvacUnitaryFurnaceHeatCool(object):
         cooling coil types. When a heat exchanger assisted cooling
         coil is used, the heat exchanger is locked on at all times.
         A ZoneControl:Humidistat object is also required.
+        
+        {u'default': u'None', u'note': [u'None = meet sensible load only', u'Multimode = activate enhanced dehumidification mode', u'as needed and meet sensible load.  Valid only with', u'cooling coil type CoilSystem:Cooling:DX:HeatExchangerAssisted.', u'This control mode allows the heat exchanger to be turned', u'on and off based on the zone dehumidification requirements.', u'A ZoneControl:Humidistat object is also required.', u'CoolReheat = cool beyond the dry bulb setpoint.', u'as required to meet the humidity setpoint.  Valid with all', u'cooling coil types. When a heat exchanger assisted cooling', u'coil is used, the heat exchanger is locked on at all times.', u'A ZoneControl:Humidistat object is also required.'], u'type': u'choice', u'key': [u'None', u'Multimode', u'CoolReheat'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `dehumidification_control_type`
+            value (str): value for IDD Field `Dehumidification Control Type`
                 Accepted values are:
                       - None
                       - Multimode
@@ -5106,7 +5202,7 @@ class AirLoopHvacUnitaryFurnaceHeatCool(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `dehumidification_control_type`'.format(value))
             if ',' in value:
@@ -5133,7 +5229,6 @@ class AirLoopHvacUnitaryFurnaceHeatCool(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `dehumidification_control_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Dehumidification Control Type"] = value
 
     @property
@@ -5147,12 +5242,14 @@ class AirLoopHvacUnitaryFurnaceHeatCool(object):
 
     @reheat_coil_object_type.setter
     def reheat_coil_object_type(self, value=None):
-        """  Corresponds to IDD Field `reheat_coil_object_type`
+        """  Corresponds to IDD Field `Reheat Coil Object Type`
         Only required if dehumidification control type is "CoolReheat"
         works with gas, electric, hot water and steam heating coils
+        
+        {u'note': [u'Only required if dehumidification control type is "CoolReheat"', u'works with gas, electric, hot water and steam heating coils'], u'type': u'choice', u'key': [u'Coil:Heating:Gas', u'Coil:Heating:Electric', u'Coil:Heating:Desuperheater', u'Coil:Heating:Water', u'Coil:Heating:Steam'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `reheat_coil_object_type`
+            value (str): value for IDD Field `Reheat Coil Object Type`
                 Accepted values are:
                       - Coil:Heating:Gas
                       - Coil:Heating:Electric
@@ -5168,7 +5265,7 @@ class AirLoopHvacUnitaryFurnaceHeatCool(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `reheat_coil_object_type`'.format(value))
             if ',' in value:
@@ -5197,7 +5294,6 @@ class AirLoopHvacUnitaryFurnaceHeatCool(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `reheat_coil_object_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Reheat Coil Object Type"] = value
 
     @property
@@ -5211,11 +5307,13 @@ class AirLoopHvacUnitaryFurnaceHeatCool(object):
 
     @reheat_coil_name.setter
     def reheat_coil_name(self, value=None):
-        """  Corresponds to IDD Field `reheat_coil_name`
+        """  Corresponds to IDD Field `Reheat Coil Name`
         Only required if dehumidification control type is "CoolReheat"
+        
+        {u'note': [u'Only required if dehumidification control type is "CoolReheat"'], u'type': u'object-list', u'object-list': u'HeatingCoilName', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `reheat_coil_name`
+            value (str): value for IDD Field `Reheat Coil Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5225,7 +5323,7 @@ class AirLoopHvacUnitaryFurnaceHeatCool(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `reheat_coil_name`'.format(value))
             if ',' in value:
@@ -5234,7 +5332,6 @@ class AirLoopHvacUnitaryFurnaceHeatCool(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `reheat_coil_name`')
-
         self._data["Reheat Coil Name"] = value
 
     def check(self):
@@ -5412,10 +5509,12 @@ class AirLoopHvacUnitaryHeatOnly(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5425,7 +5524,7 @@ class AirLoopHvacUnitaryHeatOnly(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -5434,7 +5533,6 @@ class AirLoopHvacUnitaryHeatOnly(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -5448,12 +5546,14 @@ class AirLoopHvacUnitaryHeatOnly(object):
 
     @availability_schedule_name.setter
     def availability_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `availability_schedule_name`
+        """  Corresponds to IDD Field `Availability Schedule Name`
         Availability schedule name for this system. Schedule value > 0 means the system is available.
         If this field is blank, the system is always available.
+        
+        {u'note': [u'Availability schedule name for this system. Schedule value > 0 means the system is available.', u'If this field is blank, the system is always available.'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `availability_schedule_name`
+            value (str): value for IDD Field `Availability Schedule Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5463,7 +5563,7 @@ class AirLoopHvacUnitaryHeatOnly(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `availability_schedule_name`'.format(value))
             if ',' in value:
@@ -5472,7 +5572,6 @@ class AirLoopHvacUnitaryHeatOnly(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `availability_schedule_name`')
-
         self._data["Availability Schedule Name"] = value
 
     @property
@@ -5486,10 +5585,12 @@ class AirLoopHvacUnitaryHeatOnly(object):
 
     @unitary_system_air_inlet_node_name.setter
     def unitary_system_air_inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `unitary_system_air_inlet_node_name`
+        """  Corresponds to IDD Field `Unitary System Air Inlet Node Name`
+        
+        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `unitary_system_air_inlet_node_name`
+            value (str): value for IDD Field `Unitary System Air Inlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5499,7 +5600,7 @@ class AirLoopHvacUnitaryHeatOnly(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `unitary_system_air_inlet_node_name`'.format(value))
             if ',' in value:
@@ -5508,7 +5609,6 @@ class AirLoopHvacUnitaryHeatOnly(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `unitary_system_air_inlet_node_name`')
-
         self._data["Unitary System Air Inlet Node Name"] = value
 
     @property
@@ -5522,10 +5622,12 @@ class AirLoopHvacUnitaryHeatOnly(object):
 
     @unitary_system_air_outlet_node_name.setter
     def unitary_system_air_outlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `unitary_system_air_outlet_node_name`
+        """  Corresponds to IDD Field `Unitary System Air Outlet Node Name`
+        
+        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `unitary_system_air_outlet_node_name`
+            value (str): value for IDD Field `Unitary System Air Outlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5535,7 +5637,7 @@ class AirLoopHvacUnitaryHeatOnly(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `unitary_system_air_outlet_node_name`'.format(value))
             if ',' in value:
@@ -5544,7 +5646,6 @@ class AirLoopHvacUnitaryHeatOnly(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `unitary_system_air_outlet_node_name`')
-
         self._data["Unitary System Air Outlet Node Name"] = value
 
     @property
@@ -5558,16 +5659,18 @@ class AirLoopHvacUnitaryHeatOnly(object):
 
     @supply_air_fan_operating_mode_schedule_name.setter
     def supply_air_fan_operating_mode_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `supply_air_fan_operating_mode_schedule_name`
+        """  Corresponds to IDD Field `Supply Air Fan Operating Mode Schedule Name`
         A fan operating mode schedule value of 0 indicates cycling fan mode (supply air
         fan cycles on and off in tandem with the heating coil).
         Any other schedule value indicates continuous fan mode (supply air fan operates
         continuously regardless of heating coil operation).
         Leaving this schedule name blank will default to cycling fan mode for the
         entire simulation period.
+        
+        {u'note': [u'A fan operating mode schedule value of 0 indicates cycling fan mode (supply air', u'fan cycles on and off in tandem with the heating coil).', u'Any other schedule value indicates continuous fan mode (supply air fan operates', u'continuously regardless of heating coil operation).', u'Leaving this schedule name blank will default to cycling fan mode for the', u'entire simulation period.'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `supply_air_fan_operating_mode_schedule_name`
+            value (str): value for IDD Field `Supply Air Fan Operating Mode Schedule Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5577,7 +5680,7 @@ class AirLoopHvacUnitaryHeatOnly(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `supply_air_fan_operating_mode_schedule_name`'.format(value))
             if ',' in value:
@@ -5586,7 +5689,6 @@ class AirLoopHvacUnitaryHeatOnly(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `supply_air_fan_operating_mode_schedule_name`')
-
         self._data["Supply Air Fan Operating Mode Schedule Name"] = value
 
     @property
@@ -5600,10 +5702,12 @@ class AirLoopHvacUnitaryHeatOnly(object):
 
     @maximum_supply_air_temperature.setter
     def maximum_supply_air_temperature(self, value=80.0 ):
-        """  Corresponds to IDD Field `maximum_supply_air_temperature`
+        """  Corresponds to IDD Field `Maximum Supply Air Temperature`
+        
+        {u'units': u'C', u'default': '80.0', u'autosizable': u'', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `maximum_supply_air_temperature`
+            value (float): value for IDD Field `Maximum Supply Air Temperature`
                 Units: C
                 Default value: 80.0
                 if `value` is None it will not be checked against the
@@ -5615,10 +5719,9 @@ class AirLoopHvacUnitaryHeatOnly(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `maximum_supply_air_temperature`'.format(value))
-
         self._data["Maximum Supply Air Temperature"] = value
 
     @property
@@ -5632,11 +5735,13 @@ class AirLoopHvacUnitaryHeatOnly(object):
 
     @supply_air_flow_rate.setter
     def supply_air_flow_rate(self, value=None):
-        """  Corresponds to IDD Field `supply_air_flow_rate`
+        """  Corresponds to IDD Field `Supply Air Flow Rate`
         This value should be > 0 and <= than the fan air flow rate.
+        
+        {'pytype': 'float', u'minimum>': '0.0', u'required-field': True, u'note': [u'This value should be > 0 and <= than the fan air flow rate.'], u'autosizable': u'', u'units': u'm3/s', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `supply_air_flow_rate`
+            value (float): value for IDD Field `Supply Air Flow Rate`
                 Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -5648,13 +5753,12 @@ class AirLoopHvacUnitaryHeatOnly(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `supply_air_flow_rate`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `supply_air_flow_rate`')
-
         self._data["Supply Air Flow Rate"] = value
 
     @property
@@ -5668,10 +5772,12 @@ class AirLoopHvacUnitaryHeatOnly(object):
 
     @controlling_zone_or_thermostat_location.setter
     def controlling_zone_or_thermostat_location(self, value=None):
-        """  Corresponds to IDD Field `controlling_zone_or_thermostat_location`
+        """  Corresponds to IDD Field `Controlling Zone or Thermostat Location`
+        
+        {u'type': u'object-list', u'object-list': u'ZoneNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `controlling_zone_or_thermostat_location`
+            value (str): value for IDD Field `Controlling Zone or Thermostat Location`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5681,7 +5787,7 @@ class AirLoopHvacUnitaryHeatOnly(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `controlling_zone_or_thermostat_location`'.format(value))
             if ',' in value:
@@ -5690,7 +5796,6 @@ class AirLoopHvacUnitaryHeatOnly(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `controlling_zone_or_thermostat_location`')
-
         self._data["Controlling Zone or Thermostat Location"] = value
 
     @property
@@ -5704,12 +5809,14 @@ class AirLoopHvacUnitaryHeatOnly(object):
 
     @supply_fan_object_type.setter
     def supply_fan_object_type(self, value=None):
-        """  Corresponds to IDD Field `supply_fan_object_type`
+        """  Corresponds to IDD Field `Supply Fan Object Type`
         Fan:ConstantVolume only works with continuous fan operating mode (i.e. fan
         operating mode schedule values are greater than 0).
+        
+        {u'note': [u'Fan:ConstantVolume only works with continuous fan operating mode (i.e. fan', u'operating mode schedule values are greater than 0).'], u'type': u'choice', u'key': [u'Fan:OnOff', u'Fan:ConstantVolume'], u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `supply_fan_object_type`
+            value (str): value for IDD Field `Supply Fan Object Type`
                 Accepted values are:
                       - Fan:OnOff
                       - Fan:ConstantVolume
@@ -5722,7 +5829,7 @@ class AirLoopHvacUnitaryHeatOnly(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `supply_fan_object_type`'.format(value))
             if ',' in value:
@@ -5748,7 +5855,6 @@ class AirLoopHvacUnitaryHeatOnly(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `supply_fan_object_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Supply Fan Object Type"] = value
 
     @property
@@ -5762,10 +5868,12 @@ class AirLoopHvacUnitaryHeatOnly(object):
 
     @supply_fan_name.setter
     def supply_fan_name(self, value=None):
-        """  Corresponds to IDD Field `supply_fan_name`
+        """  Corresponds to IDD Field `Supply Fan Name`
+        
+        {u'type': u'object-list', u'object-list': u'FansCVandOnOff', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `supply_fan_name`
+            value (str): value for IDD Field `Supply Fan Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5775,7 +5883,7 @@ class AirLoopHvacUnitaryHeatOnly(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `supply_fan_name`'.format(value))
             if ',' in value:
@@ -5784,7 +5892,6 @@ class AirLoopHvacUnitaryHeatOnly(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `supply_fan_name`')
-
         self._data["Supply Fan Name"] = value
 
     @property
@@ -5798,10 +5905,12 @@ class AirLoopHvacUnitaryHeatOnly(object):
 
     @fan_placement.setter
     def fan_placement(self, value="BlowThrough"):
-        """  Corresponds to IDD Field `fan_placement`
+        """  Corresponds to IDD Field `Fan Placement`
+        
+        {u'default': u'BlowThrough', u'type': u'choice', u'key': [u'BlowThrough', u'DrawThrough'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `fan_placement`
+            value (str): value for IDD Field `Fan Placement`
                 Accepted values are:
                       - BlowThrough
                       - DrawThrough
@@ -5815,7 +5924,7 @@ class AirLoopHvacUnitaryHeatOnly(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `fan_placement`'.format(value))
             if ',' in value:
@@ -5841,7 +5950,6 @@ class AirLoopHvacUnitaryHeatOnly(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `fan_placement`'.format(value))
             value = vals[value_lower]
-
         self._data["Fan Placement"] = value
 
     @property
@@ -5855,11 +5963,13 @@ class AirLoopHvacUnitaryHeatOnly(object):
 
     @heating_coil_object_type.setter
     def heating_coil_object_type(self, value=None):
-        """  Corresponds to IDD Field `heating_coil_object_type`
+        """  Corresponds to IDD Field `Heating Coil Object Type`
         works with gas, electric, hot water and steam heating coils
+        
+        {u'note': [u'works with gas, electric, hot water and steam heating coils'], u'type': u'choice', u'key': [u'Coil:Heating:Gas', u'Coil:Heating:Electric', u'Coil:Heating:Water', u'Coil:Heating:Steam'], u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `heating_coil_object_type`
+            value (str): value for IDD Field `Heating Coil Object Type`
                 Accepted values are:
                       - Coil:Heating:Gas
                       - Coil:Heating:Electric
@@ -5874,7 +5984,7 @@ class AirLoopHvacUnitaryHeatOnly(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `heating_coil_object_type`'.format(value))
             if ',' in value:
@@ -5902,7 +6012,6 @@ class AirLoopHvacUnitaryHeatOnly(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `heating_coil_object_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Heating Coil Object Type"] = value
 
     @property
@@ -5916,10 +6025,12 @@ class AirLoopHvacUnitaryHeatOnly(object):
 
     @heating_coil_name.setter
     def heating_coil_name(self, value=None):
-        """  Corresponds to IDD Field `heating_coil_name`
+        """  Corresponds to IDD Field `Heating Coil Name`
+        
+        {u'type': u'object-list', u'object-list': u'HeatingCoilName', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `heating_coil_name`
+            value (str): value for IDD Field `Heating Coil Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5929,7 +6040,7 @@ class AirLoopHvacUnitaryHeatOnly(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `heating_coil_name`'.format(value))
             if ',' in value:
@@ -5938,7 +6049,6 @@ class AirLoopHvacUnitaryHeatOnly(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `heating_coil_name`')
-
         self._data["Heating Coil Name"] = value
 
     def check(self):
@@ -6173,10 +6283,12 @@ class AirLoopHvacUnitaryHeatCool(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6186,7 +6298,7 @@ class AirLoopHvacUnitaryHeatCool(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -6195,7 +6307,6 @@ class AirLoopHvacUnitaryHeatCool(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -6209,12 +6320,14 @@ class AirLoopHvacUnitaryHeatCool(object):
 
     @availability_schedule_name.setter
     def availability_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `availability_schedule_name`
+        """  Corresponds to IDD Field `Availability Schedule Name`
         Availability schedule name for this system. Schedule value > 0 means the system is available.
         If this field is blank, the system is always available.
+        
+        {u'note': [u'Availability schedule name for this system. Schedule value > 0 means the system is available.', u'If this field is blank, the system is always available.'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `availability_schedule_name`
+            value (str): value for IDD Field `Availability Schedule Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6224,7 +6337,7 @@ class AirLoopHvacUnitaryHeatCool(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `availability_schedule_name`'.format(value))
             if ',' in value:
@@ -6233,7 +6346,6 @@ class AirLoopHvacUnitaryHeatCool(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `availability_schedule_name`')
-
         self._data["Availability Schedule Name"] = value
 
     @property
@@ -6247,10 +6359,12 @@ class AirLoopHvacUnitaryHeatCool(object):
 
     @unitary_system_air_inlet_node_name.setter
     def unitary_system_air_inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `unitary_system_air_inlet_node_name`
+        """  Corresponds to IDD Field `Unitary System Air Inlet Node Name`
+        
+        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `unitary_system_air_inlet_node_name`
+            value (str): value for IDD Field `Unitary System Air Inlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6260,7 +6374,7 @@ class AirLoopHvacUnitaryHeatCool(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `unitary_system_air_inlet_node_name`'.format(value))
             if ',' in value:
@@ -6269,7 +6383,6 @@ class AirLoopHvacUnitaryHeatCool(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `unitary_system_air_inlet_node_name`')
-
         self._data["Unitary System Air Inlet Node Name"] = value
 
     @property
@@ -6283,10 +6396,12 @@ class AirLoopHvacUnitaryHeatCool(object):
 
     @unitary_system_air_outlet_node_name.setter
     def unitary_system_air_outlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `unitary_system_air_outlet_node_name`
+        """  Corresponds to IDD Field `Unitary System Air Outlet Node Name`
+        
+        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `unitary_system_air_outlet_node_name`
+            value (str): value for IDD Field `Unitary System Air Outlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6296,7 +6411,7 @@ class AirLoopHvacUnitaryHeatCool(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `unitary_system_air_outlet_node_name`'.format(value))
             if ',' in value:
@@ -6305,7 +6420,6 @@ class AirLoopHvacUnitaryHeatCool(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `unitary_system_air_outlet_node_name`')
-
         self._data["Unitary System Air Outlet Node Name"] = value
 
     @property
@@ -6319,7 +6433,7 @@ class AirLoopHvacUnitaryHeatCool(object):
 
     @supply_air_fan_operating_mode_schedule_name.setter
     def supply_air_fan_operating_mode_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `supply_air_fan_operating_mode_schedule_name`
+        """  Corresponds to IDD Field `Supply Air Fan Operating Mode Schedule Name`
         A fan operating mode schedule value of 0 indicates cycling fan mode (supply air
         fan cycles on and off in tandem with the cooling or heating coil).
         Any other schedule value indicates continuous fan mode (supply air fan operates
@@ -6327,9 +6441,11 @@ class AirLoopHvacUnitaryHeatCool(object):
         with non-zero values when high humidity control is specified.
         Leaving this schedule name blank will default to cycling fan mode for the
         entire simulation period.
+        
+        {u'note': [u'A fan operating mode schedule value of 0 indicates cycling fan mode (supply air', u'fan cycles on and off in tandem with the cooling or heating coil).', u'Any other schedule value indicates continuous fan mode (supply air fan operates', u'continuously regardless of cooling or heating coil operation). Provide a schedule', u'with non-zero values when high humidity control is specified.', u'Leaving this schedule name blank will default to cycling fan mode for the', u'entire simulation period.'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `supply_air_fan_operating_mode_schedule_name`
+            value (str): value for IDD Field `Supply Air Fan Operating Mode Schedule Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6339,7 +6455,7 @@ class AirLoopHvacUnitaryHeatCool(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `supply_air_fan_operating_mode_schedule_name`'.format(value))
             if ',' in value:
@@ -6348,7 +6464,6 @@ class AirLoopHvacUnitaryHeatCool(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `supply_air_fan_operating_mode_schedule_name`')
-
         self._data["Supply Air Fan Operating Mode Schedule Name"] = value
 
     @property
@@ -6362,10 +6477,12 @@ class AirLoopHvacUnitaryHeatCool(object):
 
     @maximum_supply_air_temperature.setter
     def maximum_supply_air_temperature(self, value=80.0 ):
-        """  Corresponds to IDD Field `maximum_supply_air_temperature`
+        """  Corresponds to IDD Field `Maximum Supply Air Temperature`
+        
+        {u'units': u'C', u'default': '80.0', u'autosizable': u'', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `maximum_supply_air_temperature`
+            value (float): value for IDD Field `Maximum Supply Air Temperature`
                 Units: C
                 Default value: 80.0
                 if `value` is None it will not be checked against the
@@ -6377,10 +6494,9 @@ class AirLoopHvacUnitaryHeatCool(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `maximum_supply_air_temperature`'.format(value))
-
         self._data["Maximum Supply Air Temperature"] = value
 
     @property
@@ -6394,11 +6510,13 @@ class AirLoopHvacUnitaryHeatCool(object):
 
     @supply_air_flow_rate_during_cooling_operation.setter
     def supply_air_flow_rate_during_cooling_operation(self, value=None):
-        """  Corresponds to IDD Field `supply_air_flow_rate_during_cooling_operation`
+        """  Corresponds to IDD Field `Supply Air Flow Rate During Cooling Operation`
         Must be less than or equal to the fan's maximum flow rate.
+        
+        {'pytype': 'float', u'minimum>': '0.0', u'required-field': True, u'note': [u"Must be less than or equal to the fan's maximum flow rate."], u'autosizable': u'', u'units': u'm3/s', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `supply_air_flow_rate_during_cooling_operation`
+            value (float): value for IDD Field `Supply Air Flow Rate During Cooling Operation`
                 Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -6410,13 +6528,12 @@ class AirLoopHvacUnitaryHeatCool(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `supply_air_flow_rate_during_cooling_operation`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `supply_air_flow_rate_during_cooling_operation`')
-
         self._data["Supply Air Flow Rate During Cooling Operation"] = value
 
     @property
@@ -6430,11 +6547,13 @@ class AirLoopHvacUnitaryHeatCool(object):
 
     @supply_air_flow_rate_during_heating_operation.setter
     def supply_air_flow_rate_during_heating_operation(self, value=None):
-        """  Corresponds to IDD Field `supply_air_flow_rate_during_heating_operation`
+        """  Corresponds to IDD Field `Supply Air Flow Rate During Heating Operation`
         Must be less than or equal to the fan's maximum flow rate.
+        
+        {'pytype': 'float', u'minimum>': '0.0', u'required-field': True, u'note': [u"Must be less than or equal to the fan's maximum flow rate."], u'autosizable': u'', u'units': u'm3/s', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `supply_air_flow_rate_during_heating_operation`
+            value (float): value for IDD Field `Supply Air Flow Rate During Heating Operation`
                 Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -6446,13 +6565,12 @@ class AirLoopHvacUnitaryHeatCool(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `supply_air_flow_rate_during_heating_operation`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `supply_air_flow_rate_during_heating_operation`')
-
         self._data["Supply Air Flow Rate During Heating Operation"] = value
 
     @property
@@ -6466,15 +6584,17 @@ class AirLoopHvacUnitaryHeatCool(object):
 
     @supply_air_flow_rate_when_no_cooling_or_heating_is_needed.setter
     def supply_air_flow_rate_when_no_cooling_or_heating_is_needed(self, value=None):
-        """  Corresponds to IDD Field `supply_air_flow_rate_when_no_cooling_or_heating_is_needed`
+        """  Corresponds to IDD Field `Supply Air Flow Rate When No Cooling or Heating is Needed`
         Must be less than or equal to the fan's maximum flow rate.
         Only used when fan operating mode is continuous (disregarded for cycling fan mode).
         This air flow rate is used when no heating or cooling is required (i.e., the DX coil
         compressor and heating coil are off). If this field is left blank or zero, the supply
         air flow rate from the previous on cycle (either cooling or heating) is used.
+        
+        {'pytype': 'float', u'note': [u"Must be less than or equal to the fan's maximum flow rate.", u'Only used when fan operating mode is continuous (disregarded for cycling fan mode).', u'This air flow rate is used when no heating or cooling is required (i.e., the DX coil', u'compressor and heating coil are off). If this field is left blank or zero, the supply', u'air flow rate from the previous on cycle (either cooling or heating) is used.'], u'autosizable': u'', u'minimum': '0.0', u'units': u'm3/s', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `supply_air_flow_rate_when_no_cooling_or_heating_is_needed`
+            value (float): value for IDD Field `Supply Air Flow Rate When No Cooling or Heating is Needed`
                 Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -6486,13 +6606,12 @@ class AirLoopHvacUnitaryHeatCool(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `supply_air_flow_rate_when_no_cooling_or_heating_is_needed`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `supply_air_flow_rate_when_no_cooling_or_heating_is_needed`')
-
         self._data["Supply Air Flow Rate When No Cooling or Heating is Needed"] = value
 
     @property
@@ -6506,10 +6625,12 @@ class AirLoopHvacUnitaryHeatCool(object):
 
     @controlling_zone_or_thermostat_location.setter
     def controlling_zone_or_thermostat_location(self, value=None):
-        """  Corresponds to IDD Field `controlling_zone_or_thermostat_location`
+        """  Corresponds to IDD Field `Controlling Zone or Thermostat Location`
+        
+        {u'type': u'object-list', u'object-list': u'ZoneNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `controlling_zone_or_thermostat_location`
+            value (str): value for IDD Field `Controlling Zone or Thermostat Location`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6519,7 +6640,7 @@ class AirLoopHvacUnitaryHeatCool(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `controlling_zone_or_thermostat_location`'.format(value))
             if ',' in value:
@@ -6528,7 +6649,6 @@ class AirLoopHvacUnitaryHeatCool(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `controlling_zone_or_thermostat_location`')
-
         self._data["Controlling Zone or Thermostat Location"] = value
 
     @property
@@ -6542,12 +6662,14 @@ class AirLoopHvacUnitaryHeatCool(object):
 
     @supply_fan_object_type.setter
     def supply_fan_object_type(self, value=None):
-        """  Corresponds to IDD Field `supply_fan_object_type`
+        """  Corresponds to IDD Field `Supply Fan Object Type`
         Fan:ConstantVolume only works with continuous fan operating mode (i.e. supply
         air fan operating mode schedule values not equal to 0).
+        
+        {u'note': [u'Fan:ConstantVolume only works with continuous fan operating mode (i.e. supply', u'air fan operating mode schedule values not equal to 0).'], u'type': u'choice', u'key': [u'Fan:OnOff', u'Fan:ConstantVolume'], u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `supply_fan_object_type`
+            value (str): value for IDD Field `Supply Fan Object Type`
                 Accepted values are:
                       - Fan:OnOff
                       - Fan:ConstantVolume
@@ -6560,7 +6682,7 @@ class AirLoopHvacUnitaryHeatCool(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `supply_fan_object_type`'.format(value))
             if ',' in value:
@@ -6586,7 +6708,6 @@ class AirLoopHvacUnitaryHeatCool(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `supply_fan_object_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Supply Fan Object Type"] = value
 
     @property
@@ -6600,10 +6721,12 @@ class AirLoopHvacUnitaryHeatCool(object):
 
     @supply_fan_name.setter
     def supply_fan_name(self, value=None):
-        """  Corresponds to IDD Field `supply_fan_name`
+        """  Corresponds to IDD Field `Supply Fan Name`
+        
+        {u'type': u'object-list', u'object-list': u'FansCVandOnOff', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `supply_fan_name`
+            value (str): value for IDD Field `Supply Fan Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6613,7 +6736,7 @@ class AirLoopHvacUnitaryHeatCool(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `supply_fan_name`'.format(value))
             if ',' in value:
@@ -6622,7 +6745,6 @@ class AirLoopHvacUnitaryHeatCool(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `supply_fan_name`')
-
         self._data["Supply Fan Name"] = value
 
     @property
@@ -6636,10 +6758,12 @@ class AirLoopHvacUnitaryHeatCool(object):
 
     @fan_placement.setter
     def fan_placement(self, value="BlowThrough"):
-        """  Corresponds to IDD Field `fan_placement`
+        """  Corresponds to IDD Field `Fan Placement`
+        
+        {u'default': u'BlowThrough', u'type': u'choice', u'key': [u'BlowThrough', u'DrawThrough'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `fan_placement`
+            value (str): value for IDD Field `Fan Placement`
                 Accepted values are:
                       - BlowThrough
                       - DrawThrough
@@ -6653,7 +6777,7 @@ class AirLoopHvacUnitaryHeatCool(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `fan_placement`'.format(value))
             if ',' in value:
@@ -6679,7 +6803,6 @@ class AirLoopHvacUnitaryHeatCool(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `fan_placement`'.format(value))
             value = vals[value_lower]
-
         self._data["Fan Placement"] = value
 
     @property
@@ -6693,11 +6816,13 @@ class AirLoopHvacUnitaryHeatCool(object):
 
     @heating_coil_object_type.setter
     def heating_coil_object_type(self, value=None):
-        """  Corresponds to IDD Field `heating_coil_object_type`
+        """  Corresponds to IDD Field `Heating Coil Object Type`
         works with gas, electric, hot water and steam heating coils
+        
+        {u'note': [u'works with gas, electric, hot water and steam heating coils'], u'type': u'choice', u'key': [u'Coil:Heating:Gas', u'Coil:Heating:Electric', u'Coil:Heating:Water', u'Coil:Heating:Steam'], u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `heating_coil_object_type`
+            value (str): value for IDD Field `Heating Coil Object Type`
                 Accepted values are:
                       - Coil:Heating:Gas
                       - Coil:Heating:Electric
@@ -6712,7 +6837,7 @@ class AirLoopHvacUnitaryHeatCool(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `heating_coil_object_type`'.format(value))
             if ',' in value:
@@ -6740,7 +6865,6 @@ class AirLoopHvacUnitaryHeatCool(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `heating_coil_object_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Heating Coil Object Type"] = value
 
     @property
@@ -6754,10 +6878,12 @@ class AirLoopHvacUnitaryHeatCool(object):
 
     @heating_coil_name.setter
     def heating_coil_name(self, value=None):
-        """  Corresponds to IDD Field `heating_coil_name`
+        """  Corresponds to IDD Field `Heating Coil Name`
+        
+        {u'type': u'object-list', u'object-list': u'HeatingCoilName', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `heating_coil_name`
+            value (str): value for IDD Field `Heating Coil Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6767,7 +6893,7 @@ class AirLoopHvacUnitaryHeatCool(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `heating_coil_name`'.format(value))
             if ',' in value:
@@ -6776,7 +6902,6 @@ class AirLoopHvacUnitaryHeatCool(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `heating_coil_name`')
-
         self._data["Heating Coil Name"] = value
 
     @property
@@ -6790,12 +6915,14 @@ class AirLoopHvacUnitaryHeatCool(object):
 
     @cooling_coil_object_type.setter
     def cooling_coil_object_type(self, value=None):
-        """  Corresponds to IDD Field `cooling_coil_object_type`
+        """  Corresponds to IDD Field `Cooling Coil Object Type`
         Only works with DX cooling coil types or
         Coil:Cooling:DX:VariableSpeed.
+        
+        {u'note': [u'Only works with DX cooling coil types or', u'Coil:Cooling:DX:VariableSpeed.'], u'type': u'choice', u'key': [u'Coil:Cooling:DX:SingleSpeed', u'Coil:Cooling:DX:VariableSpeed', u'CoilSystem:Cooling:DX:HeatExchangerAssisted'], u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `cooling_coil_object_type`
+            value (str): value for IDD Field `Cooling Coil Object Type`
                 Accepted values are:
                       - Coil:Cooling:DX:SingleSpeed
                       - Coil:Cooling:DX:VariableSpeed
@@ -6809,7 +6936,7 @@ class AirLoopHvacUnitaryHeatCool(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `cooling_coil_object_type`'.format(value))
             if ',' in value:
@@ -6836,7 +6963,6 @@ class AirLoopHvacUnitaryHeatCool(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `cooling_coil_object_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Cooling Coil Object Type"] = value
 
     @property
@@ -6850,10 +6976,12 @@ class AirLoopHvacUnitaryHeatCool(object):
 
     @cooling_coil_name.setter
     def cooling_coil_name(self, value=None):
-        """  Corresponds to IDD Field `cooling_coil_name`
+        """  Corresponds to IDD Field `Cooling Coil Name`
+        
+        {u'type': u'object-list', u'object-list': u'CoolingCoilsDXVariableSpeed', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `cooling_coil_name`
+            value (str): value for IDD Field `Cooling Coil Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6863,7 +6991,7 @@ class AirLoopHvacUnitaryHeatCool(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `cooling_coil_name`'.format(value))
             if ',' in value:
@@ -6872,7 +7000,6 @@ class AirLoopHvacUnitaryHeatCool(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `cooling_coil_name`')
-
         self._data["Cooling Coil Name"] = value
 
     @property
@@ -6886,7 +7013,7 @@ class AirLoopHvacUnitaryHeatCool(object):
 
     @dehumidification_control_type.setter
     def dehumidification_control_type(self, value="None"):
-        """  Corresponds to IDD Field `dehumidification_control_type`
+        """  Corresponds to IDD Field `Dehumidification Control Type`
         None = meet sensible load only
         Multimode = activate enhanced dehumidification mode
         as needed and meet sensible load.  Valid only with
@@ -6899,9 +7026,11 @@ class AirLoopHvacUnitaryHeatCool(object):
         cooling coil types. When a heat exchanger assisted Cooling
         coil is used, the heat exchanger is locked on at all times.
         A ZoneControl:Humidistat object is also required.
+        
+        {u'default': u'None', u'note': [u'None = meet sensible load only', u'Multimode = activate enhanced dehumidification mode', u'as needed and meet sensible load.  Valid only with', u'cooling coil type CoilSystem:Cooling:DX:HeatExchangerAssisted.', u'This control mode allows the heat exchanger to be turned', u'on and off based on the zone dehumidification requirements.', u'A ZoneControl:Humidistat object is also required.', u'CoolReheat = cool beyond the dry bulb setpoint.', u'as required to meet the humidity setpoint.  Valid with all', u'cooling coil types. When a heat exchanger assisted Cooling', u'coil is used, the heat exchanger is locked on at all times.', u'A ZoneControl:Humidistat object is also required.'], u'type': u'choice', u'key': [u'None', u'Multimode', u'CoolReheat'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `dehumidification_control_type`
+            value (str): value for IDD Field `Dehumidification Control Type`
                 Accepted values are:
                       - None
                       - Multimode
@@ -6916,7 +7045,7 @@ class AirLoopHvacUnitaryHeatCool(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `dehumidification_control_type`'.format(value))
             if ',' in value:
@@ -6943,7 +7072,6 @@ class AirLoopHvacUnitaryHeatCool(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `dehumidification_control_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Dehumidification Control Type"] = value
 
     @property
@@ -6957,12 +7085,14 @@ class AirLoopHvacUnitaryHeatCool(object):
 
     @reheat_coil_object_type.setter
     def reheat_coil_object_type(self, value=None):
-        """  Corresponds to IDD Field `reheat_coil_object_type`
+        """  Corresponds to IDD Field `Reheat Coil Object Type`
         Only required if dehumidification control type is "CoolReheat"
         works with gas, electric, desuperheating, hot water and steam heating coils
+        
+        {u'note': [u'Only required if dehumidification control type is "CoolReheat"', u'works with gas, electric, desuperheating, hot water and steam heating coils'], u'type': u'choice', u'key': [u'Coil:Heating:Gas', u'Coil:Heating:Electric', u'Coil:Heating:Desuperheater', u'Coil:Heating:Water', u'Coil:Heating:Steam'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `reheat_coil_object_type`
+            value (str): value for IDD Field `Reheat Coil Object Type`
                 Accepted values are:
                       - Coil:Heating:Gas
                       - Coil:Heating:Electric
@@ -6978,7 +7108,7 @@ class AirLoopHvacUnitaryHeatCool(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `reheat_coil_object_type`'.format(value))
             if ',' in value:
@@ -7007,7 +7137,6 @@ class AirLoopHvacUnitaryHeatCool(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `reheat_coil_object_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Reheat Coil Object Type"] = value
 
     @property
@@ -7021,11 +7150,13 @@ class AirLoopHvacUnitaryHeatCool(object):
 
     @reheat_coil_name.setter
     def reheat_coil_name(self, value=None):
-        """  Corresponds to IDD Field `reheat_coil_name`
+        """  Corresponds to IDD Field `Reheat Coil Name`
         Only required if dehumidification control type is "CoolReheat"
+        
+        {u'note': [u'Only required if dehumidification control type is "CoolReheat"'], u'type': u'object-list', u'object-list': u'HeatingCoilName', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `reheat_coil_name`
+            value (str): value for IDD Field `Reheat Coil Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7035,7 +7166,7 @@ class AirLoopHvacUnitaryHeatCool(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `reheat_coil_name`'.format(value))
             if ',' in value:
@@ -7044,7 +7175,6 @@ class AirLoopHvacUnitaryHeatCool(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `reheat_coil_name`')
-
         self._data["Reheat Coil Name"] = value
 
     def check(self):
@@ -7286,10 +7416,12 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7299,7 +7431,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -7308,7 +7440,6 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -7322,15 +7453,17 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(object):
 
     @availability_schedule_name.setter
     def availability_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `availability_schedule_name`
+        """  Corresponds to IDD Field `Availability Schedule Name`
         Availability schedule name for this system. Schedule value > 0 means the system is available.
         If this field is blank, the system is always available.
         A schedule value greater than zero (usually 1 is used) indicates that the unit is
         available to operate as needed. A value less than or equal to zero (usually zero
         is used) denotes that the unit must be off.
+        
+        {u'note': [u'Availability schedule name for this system. Schedule value > 0 means the system is available.', u'If this field is blank, the system is always available.', u'A schedule value greater than zero (usually 1 is used) indicates that the unit is', u'available to operate as needed. A value less than or equal to zero (usually zero', u'is used) denotes that the unit must be off.'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `availability_schedule_name`
+            value (str): value for IDD Field `Availability Schedule Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7340,7 +7473,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `availability_schedule_name`'.format(value))
             if ',' in value:
@@ -7349,7 +7482,6 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `availability_schedule_name`')
-
         self._data["Availability Schedule Name"] = value
 
     @property
@@ -7363,10 +7495,12 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(object):
 
     @air_inlet_node_name.setter
     def air_inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `air_inlet_node_name`
+        """  Corresponds to IDD Field `Air Inlet Node Name`
+        
+        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `air_inlet_node_name`
+            value (str): value for IDD Field `Air Inlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7376,7 +7510,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `air_inlet_node_name`'.format(value))
             if ',' in value:
@@ -7385,7 +7519,6 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `air_inlet_node_name`')
-
         self._data["Air Inlet Node Name"] = value
 
     @property
@@ -7399,10 +7532,12 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(object):
 
     @air_outlet_node_name.setter
     def air_outlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `air_outlet_node_name`
+        """  Corresponds to IDD Field `Air Outlet Node Name`
+        
+        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `air_outlet_node_name`
+            value (str): value for IDD Field `Air Outlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7412,7 +7547,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `air_outlet_node_name`'.format(value))
             if ',' in value:
@@ -7421,7 +7556,6 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `air_outlet_node_name`')
-
         self._data["Air Outlet Node Name"] = value
 
     @property
@@ -7435,11 +7569,13 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(object):
 
     @supply_air_flow_rate_during_cooling_operation.setter
     def supply_air_flow_rate_during_cooling_operation(self, value=None):
-        """  Corresponds to IDD Field `supply_air_flow_rate_during_cooling_operation`
+        """  Corresponds to IDD Field `Supply Air Flow Rate During Cooling Operation`
         Must be less than or equal to the fan's maximum flow rate.
+        
+        {'pytype': 'float', u'minimum>': '0.0', u'required-field': True, u'note': [u"Must be less than or equal to the fan's maximum flow rate."], u'autosizable': u'', u'units': u'm3/s', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `supply_air_flow_rate_during_cooling_operation`
+            value (float): value for IDD Field `Supply Air Flow Rate During Cooling Operation`
                 Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -7451,13 +7587,12 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `supply_air_flow_rate_during_cooling_operation`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `supply_air_flow_rate_during_cooling_operation`')
-
         self._data["Supply Air Flow Rate During Cooling Operation"] = value
 
     @property
@@ -7471,11 +7606,13 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(object):
 
     @supply_air_flow_rate_during_heating_operation.setter
     def supply_air_flow_rate_during_heating_operation(self, value=None):
-        """  Corresponds to IDD Field `supply_air_flow_rate_during_heating_operation`
+        """  Corresponds to IDD Field `Supply Air Flow Rate During Heating Operation`
         Must be less than or equal to the fan's maximum flow rate.
+        
+        {'pytype': 'float', u'minimum>': '0.0', u'required-field': True, u'note': [u"Must be less than or equal to the fan's maximum flow rate."], u'autosizable': u'', u'units': u'm3/s', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `supply_air_flow_rate_during_heating_operation`
+            value (float): value for IDD Field `Supply Air Flow Rate During Heating Operation`
                 Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -7487,13 +7624,12 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `supply_air_flow_rate_during_heating_operation`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `supply_air_flow_rate_during_heating_operation`')
-
         self._data["Supply Air Flow Rate During Heating Operation"] = value
 
     @property
@@ -7507,15 +7643,17 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(object):
 
     @supply_air_flow_rate_when_no_cooling_or_heating_is_needed.setter
     def supply_air_flow_rate_when_no_cooling_or_heating_is_needed(self, value=None):
-        """  Corresponds to IDD Field `supply_air_flow_rate_when_no_cooling_or_heating_is_needed`
+        """  Corresponds to IDD Field `Supply Air Flow Rate When No Cooling or Heating is Needed`
         Must be less than or equal to the fans maximum flow rate.
         Only used when fan operating mode is continuous (disregarded for cycling fan mode).
         This air flow rate is used when no heating or cooling is required (i.e., the DX coil
         compressor and supplemental heating coil are off). If this field is left blank or zero,
         the supply air flow rate from the previous on cycle (either cooling or heating) is used.
+        
+        {'pytype': 'float', u'note': [u'Must be less than or equal to the fans maximum flow rate.', u'Only used when fan operating mode is continuous (disregarded for cycling fan mode).', u'This air flow rate is used when no heating or cooling is required (i.e., the DX coil', u'compressor and supplemental heating coil are off). If this field is left blank or zero,', u'the supply air flow rate from the previous on cycle (either cooling or heating) is used.'], u'autosizable': u'', u'minimum': '0.0', u'units': u'm3/s', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `supply_air_flow_rate_when_no_cooling_or_heating_is_needed`
+            value (float): value for IDD Field `Supply Air Flow Rate When No Cooling or Heating is Needed`
                 Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -7527,13 +7665,12 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `supply_air_flow_rate_when_no_cooling_or_heating_is_needed`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `supply_air_flow_rate_when_no_cooling_or_heating_is_needed`')
-
         self._data["Supply Air Flow Rate When No Cooling or Heating is Needed"] = value
 
     @property
@@ -7547,10 +7684,12 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(object):
 
     @controlling_zone_or_thermostat_location.setter
     def controlling_zone_or_thermostat_location(self, value=None):
-        """  Corresponds to IDD Field `controlling_zone_or_thermostat_location`
+        """  Corresponds to IDD Field `Controlling Zone or Thermostat Location`
+        
+        {u'type': u'object-list', u'object-list': u'ZoneNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `controlling_zone_or_thermostat_location`
+            value (str): value for IDD Field `Controlling Zone or Thermostat Location`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7560,7 +7699,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `controlling_zone_or_thermostat_location`'.format(value))
             if ',' in value:
@@ -7569,7 +7708,6 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `controlling_zone_or_thermostat_location`')
-
         self._data["Controlling Zone or Thermostat Location"] = value
 
     @property
@@ -7583,13 +7721,15 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(object):
 
     @supply_air_fan_object_type.setter
     def supply_air_fan_object_type(self, value=None):
-        """  Corresponds to IDD Field `supply_air_fan_object_type`
+        """  Corresponds to IDD Field `Supply Air Fan Object Type`
         Fan:ConstantVolume only works with continuous fan operating mode (i.e. fan
         operating mode schedule values are greater than 0 or the fan operating mode
         schedule name field is left blank).
+        
+        {u'note': [u'Fan:ConstantVolume only works with continuous fan operating mode (i.e. fan', u'operating mode schedule values are greater than 0 or the fan operating mode', u'schedule name field is left blank).'], u'type': u'choice', u'key': [u'Fan:OnOff', u'Fan:ConstantVolume'], u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `supply_air_fan_object_type`
+            value (str): value for IDD Field `Supply Air Fan Object Type`
                 Accepted values are:
                       - Fan:OnOff
                       - Fan:ConstantVolume
@@ -7602,7 +7742,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `supply_air_fan_object_type`'.format(value))
             if ',' in value:
@@ -7628,7 +7768,6 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `supply_air_fan_object_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Supply Air Fan Object Type"] = value
 
     @property
@@ -7642,11 +7781,13 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(object):
 
     @supply_air_fan_name.setter
     def supply_air_fan_name(self, value=None):
-        """  Corresponds to IDD Field `supply_air_fan_name`
+        """  Corresponds to IDD Field `Supply Air Fan Name`
         Needs to match in the fan object
+        
+        {u'note': [u'Needs to match in the fan object'], u'type': u'object-list', u'object-list': u'FansCVandOnOff', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `supply_air_fan_name`
+            value (str): value for IDD Field `Supply Air Fan Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7656,7 +7797,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `supply_air_fan_name`'.format(value))
             if ',' in value:
@@ -7665,7 +7806,6 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `supply_air_fan_name`')
-
         self._data["Supply Air Fan Name"] = value
 
     @property
@@ -7679,12 +7819,14 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(object):
 
     @heating_coil_object_type.setter
     def heating_coil_object_type(self, value=None):
-        """  Corresponds to IDD Field `heating_coil_object_type`
+        """  Corresponds to IDD Field `Heating Coil Object Type`
         Only works with Coil:Heating:DX:SingleSpeed or
         Coil:Heating:DX:VariableSpeed
+        
+        {u'note': [u'Only works with Coil:Heating:DX:SingleSpeed or', u'Coil:Heating:DX:VariableSpeed'], u'type': u'choice', u'key': [u'Coil:Heating:DX:SingleSpeed', u'Coil:Heating:DX:VariableSpeed'], u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `heating_coil_object_type`
+            value (str): value for IDD Field `Heating Coil Object Type`
                 Accepted values are:
                       - Coil:Heating:DX:SingleSpeed
                       - Coil:Heating:DX:VariableSpeed
@@ -7697,7 +7839,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `heating_coil_object_type`'.format(value))
             if ',' in value:
@@ -7723,7 +7865,6 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `heating_coil_object_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Heating Coil Object Type"] = value
 
     @property
@@ -7737,11 +7878,13 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(object):
 
     @heating_coil_name.setter
     def heating_coil_name(self, value=None):
-        """  Corresponds to IDD Field `heating_coil_name`
+        """  Corresponds to IDD Field `Heating Coil Name`
         Needs to match in the DX heating coil object
+        
+        {u'note': [u'Needs to match in the DX heating coil object'], u'type': u'object-list', u'object-list': u'HeatingCoilsDXVariableSpeed', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `heating_coil_name`
+            value (str): value for IDD Field `Heating Coil Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7751,7 +7894,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `heating_coil_name`'.format(value))
             if ',' in value:
@@ -7760,7 +7903,6 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `heating_coil_name`')
-
         self._data["Heating Coil Name"] = value
 
     @property
@@ -7774,13 +7916,15 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(object):
 
     @cooling_coil_object_type.setter
     def cooling_coil_object_type(self, value=None):
-        """  Corresponds to IDD Field `cooling_coil_object_type`
+        """  Corresponds to IDD Field `Cooling Coil Object Type`
         Only works with Coil:Cooling:DX:SingleSpeed or
         CoilSystem:Cooling:DX:HeatExchangerAssisted or
         Coil:Cooling:DX:VariableSpeed
+        
+        {u'note': [u'Only works with Coil:Cooling:DX:SingleSpeed or', u'CoilSystem:Cooling:DX:HeatExchangerAssisted or', u'Coil:Cooling:DX:VariableSpeed'], u'type': u'choice', u'key': [u'Coil:Cooling:DX:SingleSpeed', u'Coil:Cooling:DX:VariableSpeed', u'CoilSystem:Cooling:DX:HeatExchangerAssisted'], u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `cooling_coil_object_type`
+            value (str): value for IDD Field `Cooling Coil Object Type`
                 Accepted values are:
                       - Coil:Cooling:DX:SingleSpeed
                       - Coil:Cooling:DX:VariableSpeed
@@ -7794,7 +7938,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `cooling_coil_object_type`'.format(value))
             if ',' in value:
@@ -7821,7 +7965,6 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `cooling_coil_object_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Cooling Coil Object Type"] = value
 
     @property
@@ -7835,11 +7978,13 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(object):
 
     @cooling_coil_name.setter
     def cooling_coil_name(self, value=None):
-        """  Corresponds to IDD Field `cooling_coil_name`
+        """  Corresponds to IDD Field `Cooling Coil Name`
         Needs to match in the DX cooling coil object
+        
+        {u'note': [u'Needs to match in the DX cooling coil object'], u'type': u'object-list', u'object-list': u'CoolingCoilsDXVariableSpeed', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `cooling_coil_name`
+            value (str): value for IDD Field `Cooling Coil Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7849,7 +7994,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `cooling_coil_name`'.format(value))
             if ',' in value:
@@ -7858,7 +8003,6 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `cooling_coil_name`')
-
         self._data["Cooling Coil Name"] = value
 
     @property
@@ -7872,11 +8016,13 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(object):
 
     @supplemental_heating_coil_object_type.setter
     def supplemental_heating_coil_object_type(self, value=None):
-        """  Corresponds to IDD Field `supplemental_heating_coil_object_type`
+        """  Corresponds to IDD Field `Supplemental Heating Coil Object Type`
         works with gas, electric, hot water and steam heating coils
+        
+        {u'note': [u'works with gas, electric, hot water and steam heating coils'], u'type': u'choice', u'key': [u'Coil:Heating:Gas', u'Coil:Heating:Electric', u'Coil:Heating:Water', u'Coil:Heating:Steam'], u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `supplemental_heating_coil_object_type`
+            value (str): value for IDD Field `Supplemental Heating Coil Object Type`
                 Accepted values are:
                       - Coil:Heating:Gas
                       - Coil:Heating:Electric
@@ -7891,7 +8037,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `supplemental_heating_coil_object_type`'.format(value))
             if ',' in value:
@@ -7919,7 +8065,6 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `supplemental_heating_coil_object_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Supplemental Heating Coil Object Type"] = value
 
     @property
@@ -7933,11 +8078,13 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(object):
 
     @supplemental_heating_coil_name.setter
     def supplemental_heating_coil_name(self, value=None):
-        """  Corresponds to IDD Field `supplemental_heating_coil_name`
+        """  Corresponds to IDD Field `Supplemental Heating Coil Name`
         Needs to match in the supplemental heating coil object
+        
+        {u'note': [u'Needs to match in the supplemental heating coil object'], u'type': u'object-list', u'object-list': u'HeatingCoilName', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `supplemental_heating_coil_name`
+            value (str): value for IDD Field `Supplemental Heating Coil Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7947,7 +8094,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `supplemental_heating_coil_name`'.format(value))
             if ',' in value:
@@ -7956,7 +8103,6 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `supplemental_heating_coil_name`')
-
         self._data["Supplemental Heating Coil Name"] = value
 
     @property
@@ -7970,10 +8116,12 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(object):
 
     @maximum_supply_air_temperature_from_supplemental_heater.setter
     def maximum_supply_air_temperature_from_supplemental_heater(self, value=None):
-        """  Corresponds to IDD Field `maximum_supply_air_temperature_from_supplemental_heater`
+        """  Corresponds to IDD Field `Maximum Supply Air Temperature from Supplemental Heater`
+        
+        {u'units': u'C', u'autosizable': u'', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `maximum_supply_air_temperature_from_supplemental_heater`
+            value (float): value for IDD Field `Maximum Supply Air Temperature from Supplemental Heater`
                 Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -7984,10 +8132,9 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `maximum_supply_air_temperature_from_supplemental_heater`'.format(value))
-
         self._data["Maximum Supply Air Temperature from Supplemental Heater"] = value
 
     @property
@@ -8001,10 +8148,12 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(object):
 
     @maximum_outdoor_drybulb_temperature_for_supplemental_heater_operation.setter
     def maximum_outdoor_drybulb_temperature_for_supplemental_heater_operation(self, value=21.0 ):
-        """  Corresponds to IDD Field `maximum_outdoor_drybulb_temperature_for_supplemental_heater_operation`
+        """  Corresponds to IDD Field `Maximum Outdoor Dry-Bulb Temperature for Supplemental Heater Operation`
+        
+        {u'default': '21.0', u'units': u'C', u'type': u'real', u'maximum': '21.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `maximum_outdoor_drybulb_temperature_for_supplemental_heater_operation`
+            value (float): value for IDD Field `Maximum Outdoor Dry-Bulb Temperature for Supplemental Heater Operation`
                 Units: C
                 Default value: 21.0
                 value <= 21.0
@@ -8017,13 +8166,12 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `maximum_outdoor_drybulb_temperature_for_supplemental_heater_operation`'.format(value))
             if value > 21.0:
                 raise ValueError('value need to be smaller 21.0 '
                                  'for field `maximum_outdoor_drybulb_temperature_for_supplemental_heater_operation`')
-
         self._data["Maximum Outdoor Dry-Bulb Temperature for Supplemental Heater Operation"] = value
 
     @property
@@ -8037,10 +8185,12 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(object):
 
     @fan_placement.setter
     def fan_placement(self, value="BlowThrough"):
-        """  Corresponds to IDD Field `fan_placement`
+        """  Corresponds to IDD Field `Fan Placement`
+        
+        {u'default': u'BlowThrough', u'type': u'choice', u'key': [u'BlowThrough', u'DrawThrough'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `fan_placement`
+            value (str): value for IDD Field `Fan Placement`
                 Accepted values are:
                       - BlowThrough
                       - DrawThrough
@@ -8054,7 +8204,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `fan_placement`'.format(value))
             if ',' in value:
@@ -8080,7 +8230,6 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `fan_placement`'.format(value))
             value = vals[value_lower]
-
         self._data["Fan Placement"] = value
 
     @property
@@ -8094,16 +8243,18 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(object):
 
     @supply_air_fan_operating_mode_schedule_name.setter
     def supply_air_fan_operating_mode_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `supply_air_fan_operating_mode_schedule_name`
+        """  Corresponds to IDD Field `Supply Air Fan Operating Mode Schedule Name`
         A fan operating mode schedule value of 0 indicates cycling fan mode (supply air
         fan cycles on and off in tandem with the cooling or heating coil).
         Any other schedule value indicates continuous fan mode (supply air fan operates
         continuously regardless of cooling or heating coil operation).
         Leaving this schedule name blank will default to cycling fan mode for the
         entire simulation period.
+        
+        {u'note': [u'A fan operating mode schedule value of 0 indicates cycling fan mode (supply air', u'fan cycles on and off in tandem with the cooling or heating coil).', u'Any other schedule value indicates continuous fan mode (supply air fan operates', u'continuously regardless of cooling or heating coil operation).', u'Leaving this schedule name blank will default to cycling fan mode for the', u'entire simulation period.'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `supply_air_fan_operating_mode_schedule_name`
+            value (str): value for IDD Field `Supply Air Fan Operating Mode Schedule Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8113,7 +8264,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `supply_air_fan_operating_mode_schedule_name`'.format(value))
             if ',' in value:
@@ -8122,7 +8273,6 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `supply_air_fan_operating_mode_schedule_name`')
-
         self._data["Supply Air Fan Operating Mode Schedule Name"] = value
 
     @property
@@ -8136,7 +8286,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(object):
 
     @dehumidification_control_type.setter
     def dehumidification_control_type(self, value="None"):
-        """  Corresponds to IDD Field `dehumidification_control_type`
+        """  Corresponds to IDD Field `Dehumidification Control Type`
         None = meet sensible load only
         Multimode = activate enhanced dehumidification mode
         as needed and meet sensible load.  Valid only with
@@ -8149,9 +8299,11 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(object):
         cooling coil types. When a heat exchanger assisted Cooling
         coil is used, the heat exchanger is locked on at all times.
         A ZoneControl:Humidistat object is also required.
+        
+        {u'default': u'None', u'note': [u'None = meet sensible load only', u'Multimode = activate enhanced dehumidification mode', u'as needed and meet sensible load.  Valid only with', u'cooling coil type CoilSystem:Cooling:DX:HeatExchangerAssisted.', u'This control mode allows the heat exchanger to be turned', u'on and off based on the zone dehumidification requirements.', u'A ZoneControl:Humidistat object is also required.', u'CoolReheat = cool beyond the dry bulb setpoint.', u'as required to meet the humidity setpoint.  Valid with all', u'cooling coil types. When a heat exchanger assisted Cooling', u'coil is used, the heat exchanger is locked on at all times.', u'A ZoneControl:Humidistat object is also required.'], u'type': u'choice', u'key': [u'None', u'Multimode', u'CoolReheat'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `dehumidification_control_type`
+            value (str): value for IDD Field `Dehumidification Control Type`
                 Accepted values are:
                       - None
                       - Multimode
@@ -8166,7 +8318,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `dehumidification_control_type`'.format(value))
             if ',' in value:
@@ -8193,7 +8345,6 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `dehumidification_control_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Dehumidification Control Type"] = value
 
     def check(self):
@@ -8484,10 +8635,12 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8497,7 +8650,7 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -8506,7 +8659,6 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -8520,12 +8672,14 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(object):
 
     @availability_schedule_name.setter
     def availability_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `availability_schedule_name`
+        """  Corresponds to IDD Field `Availability Schedule Name`
         Availability schedule name for this system. Schedule value > 0 means the system is available.
         If this field is blank, the system is always available.
+        
+        {u'note': [u'Availability schedule name for this system. Schedule value > 0 means the system is available.', u'If this field is blank, the system is always available.'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `availability_schedule_name`
+            value (str): value for IDD Field `Availability Schedule Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8535,7 +8689,7 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `availability_schedule_name`'.format(value))
             if ',' in value:
@@ -8544,7 +8698,6 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `availability_schedule_name`')
-
         self._data["Availability Schedule Name"] = value
 
     @property
@@ -8558,10 +8711,12 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(object):
 
     @air_inlet_node_name.setter
     def air_inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `air_inlet_node_name`
+        """  Corresponds to IDD Field `Air Inlet Node Name`
+        
+        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `air_inlet_node_name`
+            value (str): value for IDD Field `Air Inlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8571,7 +8726,7 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `air_inlet_node_name`'.format(value))
             if ',' in value:
@@ -8580,7 +8735,6 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `air_inlet_node_name`')
-
         self._data["Air Inlet Node Name"] = value
 
     @property
@@ -8594,10 +8748,12 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(object):
 
     @air_outlet_node_name.setter
     def air_outlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `air_outlet_node_name`
+        """  Corresponds to IDD Field `Air Outlet Node Name`
+        
+        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `air_outlet_node_name`
+            value (str): value for IDD Field `Air Outlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8607,7 +8763,7 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `air_outlet_node_name`'.format(value))
             if ',' in value:
@@ -8616,7 +8772,6 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `air_outlet_node_name`')
-
         self._data["Air Outlet Node Name"] = value
 
     @property
@@ -8630,11 +8785,13 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(object):
 
     @supply_air_flow_rate.setter
     def supply_air_flow_rate(self, value=None):
-        """  Corresponds to IDD Field `supply_air_flow_rate`
+        """  Corresponds to IDD Field `Supply Air Flow Rate`
         This value should be > 0 and <= than the fan air flow rate.
+        
+        {'pytype': 'float', u'minimum>': '0.0', u'required-field': True, u'note': [u'This value should be > 0 and <= than the fan air flow rate.'], u'autosizable': u'', u'units': u'm3/s', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `supply_air_flow_rate`
+            value (float): value for IDD Field `Supply Air Flow Rate`
                 Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -8646,13 +8803,12 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `supply_air_flow_rate`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `supply_air_flow_rate`')
-
         self._data["Supply Air Flow Rate"] = value
 
     @property
@@ -8666,10 +8822,12 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(object):
 
     @controlling_zone_or_thermostat_location.setter
     def controlling_zone_or_thermostat_location(self, value=None):
-        """  Corresponds to IDD Field `controlling_zone_or_thermostat_location`
+        """  Corresponds to IDD Field `Controlling Zone or Thermostat Location`
+        
+        {u'type': u'object-list', u'object-list': u'ZoneNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `controlling_zone_or_thermostat_location`
+            value (str): value for IDD Field `Controlling Zone or Thermostat Location`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8679,7 +8837,7 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `controlling_zone_or_thermostat_location`'.format(value))
             if ',' in value:
@@ -8688,7 +8846,6 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `controlling_zone_or_thermostat_location`')
-
         self._data["Controlling Zone or Thermostat Location"] = value
 
     @property
@@ -8702,11 +8859,13 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(object):
 
     @supply_air_fan_object_type.setter
     def supply_air_fan_object_type(self, value=None):
-        """  Corresponds to IDD Field `supply_air_fan_object_type`
+        """  Corresponds to IDD Field `Supply Air Fan Object Type`
         Only works with On/Off Fan
+        
+        {u'note': [u'Only works with On/Off Fan'], u'type': u'choice', u'key': [u'Fan:OnOff'], u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `supply_air_fan_object_type`
+            value (str): value for IDD Field `Supply Air Fan Object Type`
                 Accepted values are:
                       - Fan:OnOff
                 if `value` is None it will not be checked against the
@@ -8718,7 +8877,7 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `supply_air_fan_object_type`'.format(value))
             if ',' in value:
@@ -8743,7 +8902,6 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `supply_air_fan_object_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Supply Air Fan Object Type"] = value
 
     @property
@@ -8757,11 +8915,13 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(object):
 
     @supply_air_fan_name.setter
     def supply_air_fan_name(self, value=None):
-        """  Corresponds to IDD Field `supply_air_fan_name`
+        """  Corresponds to IDD Field `Supply Air Fan Name`
         Needs to match Fan:OnOff object
+        
+        {u'note': [u'Needs to match Fan:OnOff object'], u'type': u'object-list', u'object-list': u'FansOnOff', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `supply_air_fan_name`
+            value (str): value for IDD Field `Supply Air Fan Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8771,7 +8931,7 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `supply_air_fan_name`'.format(value))
             if ',' in value:
@@ -8780,7 +8940,6 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `supply_air_fan_name`')
-
         self._data["Supply Air Fan Name"] = value
 
     @property
@@ -8794,10 +8953,12 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(object):
 
     @heating_coil_object_type.setter
     def heating_coil_object_type(self, value=None):
-        """  Corresponds to IDD Field `heating_coil_object_type`
+        """  Corresponds to IDD Field `Heating Coil Object Type`
+        
+        {u'type': u'choice', u'key': [u'Coil:Heating:WaterToAirHeatPump:ParameterEstimation', u'Coil:Heating:WaterToAirHeatPump:EquationFit', u'Coil:Heating:WaterToAirHeatPump:VariableSpeedEquationFit'], u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `heating_coil_object_type`
+            value (str): value for IDD Field `Heating Coil Object Type`
                 Accepted values are:
                       - Coil:Heating:WaterToAirHeatPump:ParameterEstimation
                       - Coil:Heating:WaterToAirHeatPump:EquationFit
@@ -8811,7 +8972,7 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `heating_coil_object_type`'.format(value))
             if ',' in value:
@@ -8838,7 +8999,6 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `heating_coil_object_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Heating Coil Object Type"] = value
 
     @property
@@ -8852,11 +9012,13 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(object):
 
     @heating_coil_name.setter
     def heating_coil_name(self, value=None):
-        """  Corresponds to IDD Field `heating_coil_name`
+        """  Corresponds to IDD Field `Heating Coil Name`
         Needs to match in the water-to-air heatpump heating coil object
+        
+        {u'note': [u'Needs to match in the water-to-air heatpump heating coil object'], u'type': u'object-list', u'object-list': u'HeatingCoilsWaterToAirVSHP', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `heating_coil_name`
+            value (str): value for IDD Field `Heating Coil Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8866,7 +9028,7 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `heating_coil_name`'.format(value))
             if ',' in value:
@@ -8875,7 +9037,6 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `heating_coil_name`')
-
         self._data["Heating Coil Name"] = value
 
     @property
@@ -8889,10 +9050,12 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(object):
 
     @heating_convergence.setter
     def heating_convergence(self, value=0.001 ):
-        """  Corresponds to IDD Field `heating_convergence`
+        """  Corresponds to IDD Field `Heating Convergence`
+        
+        {u'default': '0.001', u'minimum>': '0.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `heating_convergence`
+            value (float): value for IDD Field `Heating Convergence`
                 Default value: 0.001
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -8904,13 +9067,12 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `heating_convergence`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `heating_convergence`')
-
         self._data["Heating Convergence"] = value
 
     @property
@@ -8924,10 +9086,12 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(object):
 
     @cooling_coil_object_type.setter
     def cooling_coil_object_type(self, value=None):
-        """  Corresponds to IDD Field `cooling_coil_object_type`
+        """  Corresponds to IDD Field `Cooling Coil Object Type`
+        
+        {u'type': u'choice', u'key': [u'Coil:Cooling:WaterToAirHeatPump:ParameterEstimation', u'Coil:Cooling:WaterToAirHeatPump:EquationFit', u'Coil:Cooling:WaterToAirHeatPump:VariableSpeedEquationFit'], u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `cooling_coil_object_type`
+            value (str): value for IDD Field `Cooling Coil Object Type`
                 Accepted values are:
                       - Coil:Cooling:WaterToAirHeatPump:ParameterEstimation
                       - Coil:Cooling:WaterToAirHeatPump:EquationFit
@@ -8941,7 +9105,7 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `cooling_coil_object_type`'.format(value))
             if ',' in value:
@@ -8968,7 +9132,6 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `cooling_coil_object_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Cooling Coil Object Type"] = value
 
     @property
@@ -8982,11 +9145,13 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(object):
 
     @cooling_coil_name.setter
     def cooling_coil_name(self, value=None):
-        """  Corresponds to IDD Field `cooling_coil_name`
+        """  Corresponds to IDD Field `Cooling Coil Name`
         Needs to match in the water-to-air heatpump cooling coil object
+        
+        {u'note': [u'Needs to match in the water-to-air heatpump cooling coil object'], u'type': u'object-list', u'object-list': u'CoolingCoilsWaterToAirVSHP', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `cooling_coil_name`
+            value (str): value for IDD Field `Cooling Coil Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8996,7 +9161,7 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `cooling_coil_name`'.format(value))
             if ',' in value:
@@ -9005,7 +9170,6 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `cooling_coil_name`')
-
         self._data["Cooling Coil Name"] = value
 
     @property
@@ -9019,10 +9183,12 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(object):
 
     @cooling_convergence.setter
     def cooling_convergence(self, value=0.001 ):
-        """  Corresponds to IDD Field `cooling_convergence`
+        """  Corresponds to IDD Field `Cooling Convergence`
+        
+        {u'default': '0.001', u'minimum>': '0.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `cooling_convergence`
+            value (float): value for IDD Field `Cooling Convergence`
                 Default value: 0.001
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -9034,13 +9200,12 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `cooling_convergence`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `cooling_convergence`')
-
         self._data["Cooling Convergence"] = value
 
     @property
@@ -9054,12 +9219,14 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(object):
 
     @maximum_cycling_rate.setter
     def maximum_cycling_rate(self, value=2.5 ):
-        """  Corresponds to IDD Field `maximum_cycling_rate`
+        """  Corresponds to IDD Field `Maximum Cycling Rate`
         The maximum on-off cycling rate for the compressor
         Suggested value is 2.5 for a typical heat pump
+        
+        {'pytype': 'float', u'default': '2.5', u'maximum': '5.0', u'note': [u'The maximum on-off cycling rate for the compressor', u'Suggested value is 2.5 for a typical heat pump'], u'minimum': '0.0', u'units': u'cycles/hr', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `maximum_cycling_rate`
+            value (float): value for IDD Field `Maximum Cycling Rate`
                 Units: cycles/hr
                 Default value: 2.5
                 value >= 0.0
@@ -9073,7 +9240,7 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `maximum_cycling_rate`'.format(value))
             if value < 0.0:
@@ -9082,7 +9249,6 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(object):
             if value > 5.0:
                 raise ValueError('value need to be smaller 5.0 '
                                  'for field `maximum_cycling_rate`')
-
         self._data["Maximum Cycling Rate"] = value
 
     @property
@@ -9096,12 +9262,14 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(object):
 
     @heat_pump_time_constant.setter
     def heat_pump_time_constant(self, value=60.0 ):
-        """  Corresponds to IDD Field `heat_pump_time_constant`
+        """  Corresponds to IDD Field `Heat Pump Time Constant`
         Time constant for the cooling coil's capacity to reach steady state after startup
         Suggested value is 60 for a typical heat pump
+        
+        {'pytype': 'float', u'default': '60.0', u'maximum': '500.0', u'note': [u"Time constant for the cooling coil's capacity to reach steady state after startup", u'Suggested value is 60 for a typical heat pump'], u'minimum': '0.0', u'units': u's', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `heat_pump_time_constant`
+            value (float): value for IDD Field `Heat Pump Time Constant`
                 Units: s
                 Default value: 60.0
                 value >= 0.0
@@ -9115,7 +9283,7 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `heat_pump_time_constant`'.format(value))
             if value < 0.0:
@@ -9124,7 +9292,6 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(object):
             if value > 500.0:
                 raise ValueError('value need to be smaller 500.0 '
                                  'for field `heat_pump_time_constant`')
-
         self._data["Heat Pump Time Constant"] = value
 
     @property
@@ -9138,13 +9305,15 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(object):
 
     @fraction_of_oncycle_power_use.setter
     def fraction_of_oncycle_power_use(self, value=0.01 ):
-        """  Corresponds to IDD Field `fraction_of_oncycle_power_use`
+        """  Corresponds to IDD Field `Fraction of On-Cycle Power Use`
         The fraction of on-cycle power use to adjust the part load fraction based on
         the off-cycle power consumption due to crankcase heaters, controls, fans, and etc.
         Suggested value is 0.01 for a typical heat pump
+        
+        {'pytype': 'float', u'default': '0.01', u'maximum': '0.05', u'note': [u'The fraction of on-cycle power use to adjust the part load fraction based on', u'the off-cycle power consumption due to crankcase heaters, controls, fans, and etc.', u'Suggested value is 0.01 for a typical heat pump'], u'minimum': '0.0', 'type': 'real'}
 
         Args:
-            value (float): value for IDD Field `fraction_of_oncycle_power_use`
+            value (float): value for IDD Field `Fraction of On-Cycle Power Use`
                 Default value: 0.01
                 value >= 0.0
                 value <= 0.05
@@ -9157,7 +9326,7 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `fraction_of_oncycle_power_use`'.format(value))
             if value < 0.0:
@@ -9166,7 +9335,6 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(object):
             if value > 0.05:
                 raise ValueError('value need to be smaller 0.05 '
                                  'for field `fraction_of_oncycle_power_use`')
-
         self._data["Fraction of On-Cycle Power Use"] = value
 
     @property
@@ -9180,13 +9348,15 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(object):
 
     @heat_pump_fan_delay_time.setter
     def heat_pump_fan_delay_time(self, value=60.0 ):
-        """  Corresponds to IDD Field `heat_pump_fan_delay_time`
+        """  Corresponds to IDD Field `Heat Pump Fan Delay Time`
         Programmed time delay for heat pump fan to shut off after compressor cycle off.
         Only required when fan operating mode is cycling
         Enter 0 when fan operating mode is continuous
+        
+        {'pytype': 'float', u'default': '60.0', u'note': [u'Programmed time delay for heat pump fan to shut off after compressor cycle off.', u'Only required when fan operating mode is cycling', u'Enter 0 when fan operating mode is continuous'], u'minimum': '0.0', u'units': u's', 'type': 'real'}
 
         Args:
-            value (float): value for IDD Field `heat_pump_fan_delay_time`
+            value (float): value for IDD Field `Heat Pump Fan Delay Time`
                 Units: s
                 Default value: 60.0
                 value >= 0.0
@@ -9199,13 +9369,12 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `heat_pump_fan_delay_time`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `heat_pump_fan_delay_time`')
-
         self._data["Heat Pump Fan Delay Time"] = value
 
     @property
@@ -9219,11 +9388,13 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(object):
 
     @supplemental_heating_coil_object_type.setter
     def supplemental_heating_coil_object_type(self, value=None):
-        """  Corresponds to IDD Field `supplemental_heating_coil_object_type`
+        """  Corresponds to IDD Field `Supplemental Heating Coil Object Type`
         works with gas, electric, hot water and steam heating coils
+        
+        {u'note': [u'works with gas, electric, hot water and steam heating coils'], u'type': u'choice', u'key': [u'Coil:Heating:Gas', u'Coil:Heating:Electric', u'Coil:Heating:Water', u'Coil:Heating:Steam'], u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `supplemental_heating_coil_object_type`
+            value (str): value for IDD Field `Supplemental Heating Coil Object Type`
                 Accepted values are:
                       - Coil:Heating:Gas
                       - Coil:Heating:Electric
@@ -9238,7 +9409,7 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `supplemental_heating_coil_object_type`'.format(value))
             if ',' in value:
@@ -9266,7 +9437,6 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `supplemental_heating_coil_object_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Supplemental Heating Coil Object Type"] = value
 
     @property
@@ -9280,11 +9450,13 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(object):
 
     @supplemental_heating_coil_name.setter
     def supplemental_heating_coil_name(self, value=None):
-        """  Corresponds to IDD Field `supplemental_heating_coil_name`
+        """  Corresponds to IDD Field `Supplemental Heating Coil Name`
         Needs to match in the supplemental heating coil object
+        
+        {u'note': [u'Needs to match in the supplemental heating coil object'], u'type': u'object-list', u'object-list': u'HeatingCoilName', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `supplemental_heating_coil_name`
+            value (str): value for IDD Field `Supplemental Heating Coil Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9294,7 +9466,7 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `supplemental_heating_coil_name`'.format(value))
             if ',' in value:
@@ -9303,7 +9475,6 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `supplemental_heating_coil_name`')
-
         self._data["Supplemental Heating Coil Name"] = value
 
     @property
@@ -9317,10 +9488,12 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(object):
 
     @maximum_supply_air_temperature_from_supplemental_heater.setter
     def maximum_supply_air_temperature_from_supplemental_heater(self, value=None):
-        """  Corresponds to IDD Field `maximum_supply_air_temperature_from_supplemental_heater`
+        """  Corresponds to IDD Field `Maximum Supply Air Temperature from Supplemental Heater`
+        
+        {u'units': u'C', u'autosizable': u'', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `maximum_supply_air_temperature_from_supplemental_heater`
+            value (float): value for IDD Field `Maximum Supply Air Temperature from Supplemental Heater`
                 Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -9331,10 +9504,9 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `maximum_supply_air_temperature_from_supplemental_heater`'.format(value))
-
         self._data["Maximum Supply Air Temperature from Supplemental Heater"] = value
 
     @property
@@ -9348,10 +9520,12 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(object):
 
     @maximum_outdoor_drybulb_temperature_for_supplemental_heater_operation.setter
     def maximum_outdoor_drybulb_temperature_for_supplemental_heater_operation(self, value=21.0 ):
-        """  Corresponds to IDD Field `maximum_outdoor_drybulb_temperature_for_supplemental_heater_operation`
+        """  Corresponds to IDD Field `Maximum Outdoor Dry-Bulb Temperature for Supplemental Heater Operation`
+        
+        {u'default': '21.0', u'units': u'C', u'type': u'real', u'maximum': '21.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `maximum_outdoor_drybulb_temperature_for_supplemental_heater_operation`
+            value (float): value for IDD Field `Maximum Outdoor Dry-Bulb Temperature for Supplemental Heater Operation`
                 Units: C
                 Default value: 21.0
                 value <= 21.0
@@ -9364,13 +9538,12 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `maximum_outdoor_drybulb_temperature_for_supplemental_heater_operation`'.format(value))
             if value > 21.0:
                 raise ValueError('value need to be smaller 21.0 '
                                  'for field `maximum_outdoor_drybulb_temperature_for_supplemental_heater_operation`')
-
         self._data["Maximum Outdoor Dry-Bulb Temperature for Supplemental Heater Operation"] = value
 
     @property
@@ -9384,10 +9557,12 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(object):
 
     @outdoor_drybulb_temperature_sensor_node_name.setter
     def outdoor_drybulb_temperature_sensor_node_name(self, value=None):
-        """  Corresponds to IDD Field `outdoor_drybulb_temperature_sensor_node_name`
+        """  Corresponds to IDD Field `Outdoor Dry-Bulb Temperature Sensor Node Name`
+        
+        {u'type': u'node', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `outdoor_drybulb_temperature_sensor_node_name`
+            value (str): value for IDD Field `Outdoor Dry-Bulb Temperature Sensor Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9397,7 +9572,7 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `outdoor_drybulb_temperature_sensor_node_name`'.format(value))
             if ',' in value:
@@ -9406,7 +9581,6 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `outdoor_drybulb_temperature_sensor_node_name`')
-
         self._data["Outdoor Dry-Bulb Temperature Sensor Node Name"] = value
 
     @property
@@ -9420,10 +9594,12 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(object):
 
     @fan_placement.setter
     def fan_placement(self, value="BlowThrough"):
-        """  Corresponds to IDD Field `fan_placement`
+        """  Corresponds to IDD Field `Fan Placement`
+        
+        {u'default': u'BlowThrough', u'type': u'choice', u'key': [u'BlowThrough', u'DrawThrough'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `fan_placement`
+            value (str): value for IDD Field `Fan Placement`
                 Accepted values are:
                       - BlowThrough
                       - DrawThrough
@@ -9437,7 +9613,7 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `fan_placement`'.format(value))
             if ',' in value:
@@ -9463,7 +9639,6 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `fan_placement`'.format(value))
             value = vals[value_lower]
-
         self._data["Fan Placement"] = value
 
     @property
@@ -9477,14 +9652,16 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(object):
 
     @supply_air_fan_operating_mode_schedule_name.setter
     def supply_air_fan_operating_mode_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `supply_air_fan_operating_mode_schedule_name`
+        """  Corresponds to IDD Field `Supply Air Fan Operating Mode Schedule Name`
         Enter the name of a schedule that controls fan operation. Schedule values of 0 denote
         cycling fan operation (fan cycles with cooling or heating coil). Schedule values greater
         than 0 denote constant fan operation (fan runs continually regardless of coil operation).
         The fan operating mode defaults to cycling fan operation if this field is left blank.
+        
+        {u'note': [u'Enter the name of a schedule that controls fan operation. Schedule values of 0 denote', u'cycling fan operation (fan cycles with cooling or heating coil). Schedule values greater', u'than 0 denote constant fan operation (fan runs continually regardless of coil operation).', u'The fan operating mode defaults to cycling fan operation if this field is left blank.'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `supply_air_fan_operating_mode_schedule_name`
+            value (str): value for IDD Field `Supply Air Fan Operating Mode Schedule Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9494,7 +9671,7 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `supply_air_fan_operating_mode_schedule_name`'.format(value))
             if ',' in value:
@@ -9503,7 +9680,6 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `supply_air_fan_operating_mode_schedule_name`')
-
         self._data["Supply Air Fan Operating Mode Schedule Name"] = value
 
     @property
@@ -9517,15 +9693,17 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(object):
 
     @dehumidification_control_type.setter
     def dehumidification_control_type(self, value="None"):
-        """  Corresponds to IDD Field `dehumidification_control_type`
+        """  Corresponds to IDD Field `Dehumidification Control Type`
         None = meet sensible load only
         CoolReheat = cool beyond the dry bulb setpoint.
         as required to meet the humidity setpoint.  Valid only with
         Coil:Cooling:WaterToAirHeatPump:EquationFit or
         Coil:Cooling:WaterToAirHeatPump:VariableSpeedEquationFit
+        
+        {u'default': u'None', u'note': [u'None = meet sensible load only', u'CoolReheat = cool beyond the dry bulb setpoint.', u'as required to meet the humidity setpoint.  Valid only with', u'Coil:Cooling:WaterToAirHeatPump:EquationFit or', u'Coil:Cooling:WaterToAirHeatPump:VariableSpeedEquationFit'], u'type': u'choice', u'key': [u'None', u'CoolReheat'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `dehumidification_control_type`
+            value (str): value for IDD Field `Dehumidification Control Type`
                 Accepted values are:
                       - None
                       - CoolReheat
@@ -9539,7 +9717,7 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `dehumidification_control_type`'.format(value))
             if ',' in value:
@@ -9565,7 +9743,6 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `dehumidification_control_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Dehumidification Control Type"] = value
 
     @property
@@ -9579,14 +9756,16 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(object):
 
     @heat_pump_coil_water_flow_mode.setter
     def heat_pump_coil_water_flow_mode(self, value="Cycling"):
-        """  Corresponds to IDD Field `heat_pump_coil_water_flow_mode`
+        """  Corresponds to IDD Field `Heat Pump Coil Water Flow Mode`
         used only when the heat pump coils are of the type WaterToAirHeatPump:EquationFit
         Constant results in 100% water flow regardless of compressor PLR
         Cycling results in water flow that matches compressor PLR
         ConstantOnDemand results in 100% water flow whenever the coil is on, but is 0% whenever the coil has no load
+        
+        {u'default': u'Cycling', u'note': [u'used only when the heat pump coils are of the type WaterToAirHeatPump:EquationFit', u'Constant results in 100% water flow regardless of compressor PLR', u'Cycling results in water flow that matches compressor PLR', u'ConstantOnDemand results in 100% water flow whenever the coil is on, but is 0% whenever the coil has no load'], u'type': u'choice', u'key': [u'Constant', u'Cycling', u'ConstantOnDemand'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `heat_pump_coil_water_flow_mode`
+            value (str): value for IDD Field `Heat Pump Coil Water Flow Mode`
                 Accepted values are:
                       - Constant
                       - Cycling
@@ -9601,7 +9780,7 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `heat_pump_coil_water_flow_mode`'.format(value))
             if ',' in value:
@@ -9628,7 +9807,6 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `heat_pump_coil_water_flow_mode`'.format(value))
             value = vals[value_lower]
-
         self._data["Heat Pump Coil Water Flow Mode"] = value
 
     def check(self):
@@ -9920,11 +10098,13 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
         Enter a unique name for this unitary system.
+        
+        {u'note': [u'Enter a unique name for this unitary system.'], u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9934,7 +10114,7 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -9943,7 +10123,6 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -9957,14 +10136,16 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(object):
 
     @availability_schedule_name.setter
     def availability_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `availability_schedule_name`
+        """  Corresponds to IDD Field `Availability Schedule Name`
         Availability schedule name for this system. Schedule value > 0 means the system is available.
         If this field is blank, the system is always available.
         Enter the availability schedule name. Schedule values of zero denote system
         is Off. Non-zero schedule values denote system is available to operate.
+        
+        {u'note': [u'Availability schedule name for this system. Schedule value > 0 means the system is available.', u'If this field is blank, the system is always available.', u'Enter the availability schedule name. Schedule values of zero denote system', u'is Off. Non-zero schedule values denote system is available to operate.'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `availability_schedule_name`
+            value (str): value for IDD Field `Availability Schedule Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9974,7 +10155,7 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `availability_schedule_name`'.format(value))
             if ',' in value:
@@ -9983,7 +10164,6 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `availability_schedule_name`')
-
         self._data["Availability Schedule Name"] = value
 
     @property
@@ -9997,12 +10177,14 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(object):
 
     @system_air_flow_rate_during_cooling_operation.setter
     def system_air_flow_rate_during_cooling_operation(self, value=None):
-        """  Corresponds to IDD Field `system_air_flow_rate_during_cooling_operation`
+        """  Corresponds to IDD Field `System Air Flow Rate During Cooling Operation`
         Enter the system air flow rate during cooling
         operation or specify autosize.
+        
+        {'pytype': 'float', u'minimum>': '0.0', u'required-field': True, u'note': [u'Enter the system air flow rate during cooling', u'operation or specify autosize.'], u'autosizable': u'', u'units': u'm3/s', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `system_air_flow_rate_during_cooling_operation`
+            value (float): value for IDD Field `System Air Flow Rate During Cooling Operation`
                 Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -10014,13 +10196,12 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `system_air_flow_rate_during_cooling_operation`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `system_air_flow_rate_during_cooling_operation`')
-
         self._data["System Air Flow Rate During Cooling Operation"] = value
 
     @property
@@ -10034,12 +10215,14 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(object):
 
     @system_air_flow_rate_during_heating_operation.setter
     def system_air_flow_rate_during_heating_operation(self, value=None):
-        """  Corresponds to IDD Field `system_air_flow_rate_during_heating_operation`
+        """  Corresponds to IDD Field `System Air Flow Rate During Heating Operation`
         Enter the system air flow rate during heating
         operation or specify autosize.
+        
+        {'pytype': 'float', u'minimum>': '0.0', u'required-field': True, u'note': [u'Enter the system air flow rate during heating', u'operation or specify autosize.'], u'autosizable': u'', u'units': u'm3/s', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `system_air_flow_rate_during_heating_operation`
+            value (float): value for IDD Field `System Air Flow Rate During Heating Operation`
                 Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -10051,13 +10234,12 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `system_air_flow_rate_during_heating_operation`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `system_air_flow_rate_during_heating_operation`')
-
         self._data["System Air Flow Rate During Heating Operation"] = value
 
     @property
@@ -10071,15 +10253,17 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(object):
 
     @system_air_flow_rate_when_no_cooling_or_heating_is_needed.setter
     def system_air_flow_rate_when_no_cooling_or_heating_is_needed(self, value=None):
-        """  Corresponds to IDD Field `system_air_flow_rate_when_no_cooling_or_heating_is_needed`
+        """  Corresponds to IDD Field `System Air Flow Rate When No Cooling or Heating is Needed`
         Only used when the supply air fan operating mode is continuous (see field
         Supply air fan operating mode schedule name). This system air flow rate
         is used when no heating or cooling is required and the coils are off.
         If this field is left blank or zero, the system air flow rate from the
         previous on cycle (either cooling or heating) is used.
+        
+        {'pytype': 'float', u'note': [u'Only used when the supply air fan operating mode is continuous (see field', u'Supply air fan operating mode schedule name). This system air flow rate', u'is used when no heating or cooling is required and the coils are off.', u'If this field is left blank or zero, the system air flow rate from the', u'previous on cycle (either cooling or heating) is used.'], u'autosizable': u'', u'minimum': '0.0', u'units': u'm3/s', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `system_air_flow_rate_when_no_cooling_or_heating_is_needed`
+            value (float): value for IDD Field `System Air Flow Rate When No Cooling or Heating is Needed`
                 Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -10091,13 +10275,12 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `system_air_flow_rate_when_no_cooling_or_heating_is_needed`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `system_air_flow_rate_when_no_cooling_or_heating_is_needed`')
-
         self._data["System Air Flow Rate When No Cooling or Heating is Needed"] = value
 
     @property
@@ -10111,12 +10294,14 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(object):
 
     @outdoor_air_flow_rate_during_cooling_operation.setter
     def outdoor_air_flow_rate_during_cooling_operation(self, value=None):
-        """  Corresponds to IDD Field `outdoor_air_flow_rate_during_cooling_operation`
+        """  Corresponds to IDD Field `Outdoor Air Flow Rate During Cooling Operation`
         Enter the outdoor air flow rate during
         cooling operation or specify autosize.
+        
+        {'pytype': 'float', u'required-field': True, u'note': [u'Enter the outdoor air flow rate during', u'cooling operation or specify autosize.'], u'autosizable': u'', u'minimum': '0.0', u'units': u'm3/s', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `outdoor_air_flow_rate_during_cooling_operation`
+            value (float): value for IDD Field `Outdoor Air Flow Rate During Cooling Operation`
                 Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -10128,13 +10313,12 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `outdoor_air_flow_rate_during_cooling_operation`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `outdoor_air_flow_rate_during_cooling_operation`')
-
         self._data["Outdoor Air Flow Rate During Cooling Operation"] = value
 
     @property
@@ -10148,12 +10332,14 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(object):
 
     @outdoor_air_flow_rate_during_heating_operation.setter
     def outdoor_air_flow_rate_during_heating_operation(self, value=None):
-        """  Corresponds to IDD Field `outdoor_air_flow_rate_during_heating_operation`
+        """  Corresponds to IDD Field `Outdoor Air Flow Rate During Heating Operation`
         Enter the outdoor air flow rate during
         heating operation or specify autosize.
+        
+        {'pytype': 'float', u'required-field': True, u'note': [u'Enter the outdoor air flow rate during', u'heating operation or specify autosize.'], u'autosizable': u'', u'minimum': '0.0', u'units': u'm3/s', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `outdoor_air_flow_rate_during_heating_operation`
+            value (float): value for IDD Field `Outdoor Air Flow Rate During Heating Operation`
                 Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -10165,13 +10351,12 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `outdoor_air_flow_rate_during_heating_operation`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `outdoor_air_flow_rate_during_heating_operation`')
-
         self._data["Outdoor Air Flow Rate During Heating Operation"] = value
 
     @property
@@ -10185,15 +10370,17 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(object):
 
     @outdoor_air_flow_rate_when_no_cooling_or_heating_is_needed.setter
     def outdoor_air_flow_rate_when_no_cooling_or_heating_is_needed(self, value=None):
-        """  Corresponds to IDD Field `outdoor_air_flow_rate_when_no_cooling_or_heating_is_needed`
+        """  Corresponds to IDD Field `Outdoor Air Flow Rate When No Cooling or Heating is Needed`
         Only used when the supply air fan operating mode is continuous (see field
         Supply air fan operating mode schedule name). This outdoor air flow rate
         is used when no heating or cooling is required and the coils are off.
         If this field is left blank or zero, the outdoor air flow rate from the previous on cycle
         (either cooling or heating) is used.
+        
+        {'pytype': 'float', u'note': [u'Only used when the supply air fan operating mode is continuous (see field', u'Supply air fan operating mode schedule name). This outdoor air flow rate', u'is used when no heating or cooling is required and the coils are off.', u'If this field is left blank or zero, the outdoor air flow rate from the previous on cycle', u'(either cooling or heating) is used.'], u'autosizable': u'', u'minimum': '0.0', u'units': u'm3/s', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `outdoor_air_flow_rate_when_no_cooling_or_heating_is_needed`
+            value (float): value for IDD Field `Outdoor Air Flow Rate When No Cooling or Heating is Needed`
                 Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -10205,13 +10392,12 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `outdoor_air_flow_rate_when_no_cooling_or_heating_is_needed`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `outdoor_air_flow_rate_when_no_cooling_or_heating_is_needed`')
-
         self._data["Outdoor Air Flow Rate When No Cooling or Heating is Needed"] = value
 
     @property
@@ -10225,13 +10411,15 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(object):
 
     @outdoor_air_flow_rate_multiplier_schedule_name.setter
     def outdoor_air_flow_rate_multiplier_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `outdoor_air_flow_rate_multiplier_schedule_name`
+        """  Corresponds to IDD Field `Outdoor Air Flow Rate Multiplier Schedule Name`
         Enter the name of a schedule that contains multipliers for the outdoor air
         flow rates. Schedule values must be from 0 to 1.
         If field is left blank, model assumes multiplier is 1 for the entire simulation period.
+        
+        {u'note': [u'Enter the name of a schedule that contains multipliers for the outdoor air', u'flow rates. Schedule values must be from 0 to 1.', u'If field is left blank, model assumes multiplier is 1 for the entire simulation period.'], u'type': u'alpha', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `outdoor_air_flow_rate_multiplier_schedule_name`
+            value (str): value for IDD Field `Outdoor Air Flow Rate Multiplier Schedule Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -10241,7 +10429,7 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `outdoor_air_flow_rate_multiplier_schedule_name`'.format(value))
             if ',' in value:
@@ -10250,7 +10438,6 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `outdoor_air_flow_rate_multiplier_schedule_name`')
-
         self._data["Outdoor Air Flow Rate Multiplier Schedule Name"] = value
 
     @property
@@ -10264,11 +10451,13 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(object):
 
     @air_inlet_node_name.setter
     def air_inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `air_inlet_node_name`
+        """  Corresponds to IDD Field `Air Inlet Node Name`
         Enter the name of the unitary system's air inlet node.
+        
+        {u'note': [u"Enter the name of the unitary system's air inlet node."], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `air_inlet_node_name`
+            value (str): value for IDD Field `Air Inlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -10278,7 +10467,7 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `air_inlet_node_name`'.format(value))
             if ',' in value:
@@ -10287,7 +10476,6 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `air_inlet_node_name`')
-
         self._data["Air Inlet Node Name"] = value
 
     @property
@@ -10301,13 +10489,15 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(object):
 
     @bypass_duct_mixer_node_name.setter
     def bypass_duct_mixer_node_name(self, value=None):
-        """  Corresponds to IDD Field `bypass_duct_mixer_node_name`
+        """  Corresponds to IDD Field `Bypass Duct Mixer Node Name`
         Enter the name of the bypass duct mixer node. This name should be the name
         of the return air node for the outdoor air mixer associated with this system.
         This node name must be different from the air inlet node name.
+        
+        {u'note': [u'Enter the name of the bypass duct mixer node. This name should be the name', u'of the return air node for the outdoor air mixer associated with this system.', u'This node name must be different from the air inlet node name.'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `bypass_duct_mixer_node_name`
+            value (str): value for IDD Field `Bypass Duct Mixer Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -10317,7 +10507,7 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `bypass_duct_mixer_node_name`'.format(value))
             if ',' in value:
@@ -10326,7 +10516,6 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `bypass_duct_mixer_node_name`')
-
         self._data["Bypass Duct Mixer Node Name"] = value
 
     @property
@@ -10340,15 +10529,17 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(object):
 
     @bypass_duct_splitter_node_name.setter
     def bypass_duct_splitter_node_name(self, value=None):
-        """  Corresponds to IDD Field `bypass_duct_splitter_node_name`
+        """  Corresponds to IDD Field `Bypass Duct Splitter Node Name`
         Enter the name of the bypass duct splitter node.
         This splitter air node is the outlet node of the last component in this unitary
         system. For blow through fan placement, the splitter air node is the outlet
         node of the heating coil. For draw through fan placement, the splitter node
         is the outlet node of the supply air fan.
+        
+        {u'note': [u'Enter the name of the bypass duct splitter node.', u'This splitter air node is the outlet node of the last component in this unitary', u'system. For blow through fan placement, the splitter air node is the outlet', u'node of the heating coil. For draw through fan placement, the splitter node', u'is the outlet node of the supply air fan.'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `bypass_duct_splitter_node_name`
+            value (str): value for IDD Field `Bypass Duct Splitter Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -10358,7 +10549,7 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `bypass_duct_splitter_node_name`'.format(value))
             if ',' in value:
@@ -10367,7 +10558,6 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `bypass_duct_splitter_node_name`')
-
         self._data["Bypass Duct Splitter Node Name"] = value
 
     @property
@@ -10381,11 +10571,13 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(object):
 
     @air_outlet_node_name.setter
     def air_outlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `air_outlet_node_name`
+        """  Corresponds to IDD Field `Air Outlet Node Name`
         Enter the name of the unitary system's air outlet node.
+        
+        {u'note': [u"Enter the name of the unitary system's air outlet node."], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `air_outlet_node_name`
+            value (str): value for IDD Field `Air Outlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -10395,7 +10587,7 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `air_outlet_node_name`'.format(value))
             if ',' in value:
@@ -10404,7 +10596,6 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `air_outlet_node_name`')
-
         self._data["Air Outlet Node Name"] = value
 
     @property
@@ -10418,11 +10609,13 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(object):
 
     @outdoor_air_mixer_object_type.setter
     def outdoor_air_mixer_object_type(self, value=None):
-        """  Corresponds to IDD Field `outdoor_air_mixer_object_type`
+        """  Corresponds to IDD Field `Outdoor Air Mixer Object Type`
         currently only one type OutdoorAir:Mixer object is available.
+        
+        {u'note': [u'currently only one type OutdoorAir:Mixer object is available.'], u'type': u'choice', u'key': [u'OutdoorAir:Mixer'], u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `outdoor_air_mixer_object_type`
+            value (str): value for IDD Field `Outdoor Air Mixer Object Type`
                 Accepted values are:
                       - OutdoorAir:Mixer
                 if `value` is None it will not be checked against the
@@ -10434,7 +10627,7 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `outdoor_air_mixer_object_type`'.format(value))
             if ',' in value:
@@ -10459,7 +10652,6 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `outdoor_air_mixer_object_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Outdoor Air Mixer Object Type"] = value
 
     @property
@@ -10473,11 +10665,13 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(object):
 
     @outdoor_air_mixer_name.setter
     def outdoor_air_mixer_name(self, value=None):
-        """  Corresponds to IDD Field `outdoor_air_mixer_name`
+        """  Corresponds to IDD Field `Outdoor Air Mixer Name`
         Enter the name of the outdoor air mixer used with this unitary system.
+        
+        {u'note': [u'Enter the name of the outdoor air mixer used with this unitary system.'], u'type': u'object-list', u'object-list': u'OutdoorAirMixers', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `outdoor_air_mixer_name`
+            value (str): value for IDD Field `Outdoor Air Mixer Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -10487,7 +10681,7 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `outdoor_air_mixer_name`'.format(value))
             if ',' in value:
@@ -10496,7 +10690,6 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `outdoor_air_mixer_name`')
-
         self._data["Outdoor Air Mixer Name"] = value
 
     @property
@@ -10510,11 +10703,13 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(object):
 
     @supply_air_fan_object_type.setter
     def supply_air_fan_object_type(self, value=None):
-        """  Corresponds to IDD Field `supply_air_fan_object_type`
+        """  Corresponds to IDD Field `Supply Air Fan Object Type`
         Specify the type of supply air fan used in this unitary system.
+        
+        {u'note': [u'Specify the type of supply air fan used in this unitary system.'], u'type': u'choice', u'key': [u'Fan:OnOff', u'Fan:ConstantVolume'], u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `supply_air_fan_object_type`
+            value (str): value for IDD Field `Supply Air Fan Object Type`
                 Accepted values are:
                       - Fan:OnOff
                       - Fan:ConstantVolume
@@ -10527,7 +10722,7 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `supply_air_fan_object_type`'.format(value))
             if ',' in value:
@@ -10553,7 +10748,6 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `supply_air_fan_object_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Supply Air Fan Object Type"] = value
 
     @property
@@ -10567,11 +10761,13 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(object):
 
     @supply_air_fan_name.setter
     def supply_air_fan_name(self, value=None):
-        """  Corresponds to IDD Field `supply_air_fan_name`
+        """  Corresponds to IDD Field `Supply Air Fan Name`
         Enter the name of the supply air fan used in this unitary system.
+        
+        {u'note': [u'Enter the name of the supply air fan used in this unitary system.'], u'type': u'object-list', u'object-list': u'FansCVandOnOff', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `supply_air_fan_name`
+            value (str): value for IDD Field `Supply Air Fan Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -10581,7 +10777,7 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `supply_air_fan_name`'.format(value))
             if ',' in value:
@@ -10590,7 +10786,6 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `supply_air_fan_name`')
-
         self._data["Supply Air Fan Name"] = value
 
     @property
@@ -10604,13 +10799,15 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(object):
 
     @supply_air_fan_placement.setter
     def supply_air_fan_placement(self, value=None):
-        """  Corresponds to IDD Field `supply_air_fan_placement`
+        """  Corresponds to IDD Field `Supply Air Fan Placement`
         Specify supply air fan placement as either blow through or draw through.
         BlowThrough means the supply air fan is located before the cooling
         coil. DrawThrough means the supply air fan is located after the heating coil.
+        
+        {u'note': [u'Specify supply air fan placement as either blow through or draw through.', u'BlowThrough means the supply air fan is located before the cooling', u'coil. DrawThrough means the supply air fan is located after the heating coil.'], u'type': u'choice', u'key': [u'BlowThrough', u'DrawThrough'], u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `supply_air_fan_placement`
+            value (str): value for IDD Field `Supply Air Fan Placement`
                 Accepted values are:
                       - BlowThrough
                       - DrawThrough
@@ -10623,7 +10820,7 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `supply_air_fan_placement`'.format(value))
             if ',' in value:
@@ -10649,7 +10846,6 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `supply_air_fan_placement`'.format(value))
             value = vals[value_lower]
-
         self._data["Supply Air Fan Placement"] = value
 
     @property
@@ -10663,16 +10859,18 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(object):
 
     @supply_air_fan_operating_mode_schedule_name.setter
     def supply_air_fan_operating_mode_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `supply_air_fan_operating_mode_schedule_name`
+        """  Corresponds to IDD Field `Supply Air Fan Operating Mode Schedule Name`
         Enter the name of a schedule to control the supply air fan. Schedule Name values of zero
         mean that the supply air fan will cycle off if there is no cooling or heating load
         in any of the zones being served by this system. Non-zero schedule values mean
         that the supply air fan will operate continuously even if there is no cooling or
         heating load in any of the zones being served. If this field is left blank,
         the supply air fan will operate continuously for the entire simulation period.
+        
+        {u'note': [u'Enter the name of a schedule to control the supply air fan. Schedule Name values of zero', u'mean that the supply air fan will cycle off if there is no cooling or heating load', u'in any of the zones being served by this system. Non-zero schedule values mean', u'that the supply air fan will operate continuously even if there is no cooling or', u'heating load in any of the zones being served. If this field is left blank,', u'the supply air fan will operate continuously for the entire simulation period.'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `supply_air_fan_operating_mode_schedule_name`
+            value (str): value for IDD Field `Supply Air Fan Operating Mode Schedule Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -10682,7 +10880,7 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `supply_air_fan_operating_mode_schedule_name`'.format(value))
             if ',' in value:
@@ -10691,7 +10889,6 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `supply_air_fan_operating_mode_schedule_name`')
-
         self._data["Supply Air Fan Operating Mode Schedule Name"] = value
 
     @property
@@ -10705,11 +10902,13 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(object):
 
     @cooling_coil_object_type.setter
     def cooling_coil_object_type(self, value=None):
-        """  Corresponds to IDD Field `cooling_coil_object_type`
+        """  Corresponds to IDD Field `Cooling Coil Object Type`
         Specify the type of cooling coil used in this unitary system.
+        
+        {u'note': [u'Specify the type of cooling coil used in this unitary system.'], u'type': u'choice', u'key': [u'Coil:Cooling:DX:SingleSpeed', u'CoilSystem:Cooling:DX:HeatExchangerAssisted', u'Coil:Cooling:DX:TwoStageWithHumidityControlMode'], u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `cooling_coil_object_type`
+            value (str): value for IDD Field `Cooling Coil Object Type`
                 Accepted values are:
                       - Coil:Cooling:DX:SingleSpeed
                       - CoilSystem:Cooling:DX:HeatExchangerAssisted
@@ -10723,7 +10922,7 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `cooling_coil_object_type`'.format(value))
             if ',' in value:
@@ -10750,7 +10949,6 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `cooling_coil_object_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Cooling Coil Object Type"] = value
 
     @property
@@ -10764,11 +10962,13 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(object):
 
     @cooling_coil_name.setter
     def cooling_coil_name(self, value=None):
-        """  Corresponds to IDD Field `cooling_coil_name`
+        """  Corresponds to IDD Field `Cooling Coil Name`
         Enter the name of the cooling coil used in this unitary system.
+        
+        {u'note': [u'Enter the name of the cooling coil used in this unitary system.'], u'type': u'object-list', u'object-list': u'CoolingCoilsDXMultiModeOrSingleSpeed', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `cooling_coil_name`
+            value (str): value for IDD Field `Cooling Coil Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -10778,7 +10978,7 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `cooling_coil_name`'.format(value))
             if ',' in value:
@@ -10787,7 +10987,6 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `cooling_coil_name`')
-
         self._data["Cooling Coil Name"] = value
 
     @property
@@ -10801,12 +11000,14 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(object):
 
     @heating_coil_object_type.setter
     def heating_coil_object_type(self, value=None):
-        """  Corresponds to IDD Field `heating_coil_object_type`
+        """  Corresponds to IDD Field `Heating Coil Object Type`
         works with DX, gas, electric, hot water and steam heating coils
         Specify the type of heating coil used in this unitary system.
+        
+        {u'note': [u'works with DX, gas, electric, hot water and steam heating coils', u'Specify the type of heating coil used in this unitary system.'], u'type': u'choice', u'key': [u'Coil:Heating:DX:SingleSpeed', u'Coil:Heating:Gas', u'Coil:Heating:Electric', u'Coil:Heating:Water', u'Coil:Heating:Steam'], u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `heating_coil_object_type`
+            value (str): value for IDD Field `Heating Coil Object Type`
                 Accepted values are:
                       - Coil:Heating:DX:SingleSpeed
                       - Coil:Heating:Gas
@@ -10822,7 +11023,7 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `heating_coil_object_type`'.format(value))
             if ',' in value:
@@ -10851,7 +11052,6 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `heating_coil_object_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Heating Coil Object Type"] = value
 
     @property
@@ -10865,11 +11065,13 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(object):
 
     @heating_coil_name.setter
     def heating_coil_name(self, value=None):
-        """  Corresponds to IDD Field `heating_coil_name`
+        """  Corresponds to IDD Field `Heating Coil Name`
         Enter the name of the heating coil used in this unitary system.
+        
+        {u'note': [u'Enter the name of the heating coil used in this unitary system.'], u'type': u'object-list', u'object-list': u'HeatingCoilName', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `heating_coil_name`
+            value (str): value for IDD Field `Heating Coil Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -10879,7 +11081,7 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `heating_coil_name`'.format(value))
             if ',' in value:
@@ -10888,7 +11090,6 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `heating_coil_name`')
-
         self._data["Heating Coil Name"] = value
 
     @property
@@ -10902,15 +11103,17 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(object):
 
     @priority_control_mode.setter
     def priority_control_mode(self, value="ZonePriority"):
-        """  Corresponds to IDD Field `priority_control_mode`
+        """  Corresponds to IDD Field `Priority Control Mode`
         CoolingPriority = system provides cooling if any zone requires cooling.
         HeatingPriority = system provides heating if any zone requires heating.
         ZonePriority = system controlled based on the total number of zones
         requiring cooling or heating (highest number of zones
         in cooling or heating determines the system's operating mode).
+        
+        {u'default': u'ZonePriority', u'note': [u'CoolingPriority = system provides cooling if any zone requires cooling.', u'HeatingPriority = system provides heating if any zone requires heating.', u'ZonePriority = system controlled based on the total number of zones', u'requiring cooling or heating (highest number of zones', u"in cooling or heating determines the system's operating mode)."], u'type': u'choice', u'key': [u'CoolingPriority', u'HeatingPriority', u'ZonePriority'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `priority_control_mode`
+            value (str): value for IDD Field `Priority Control Mode`
                 Accepted values are:
                       - CoolingPriority
                       - HeatingPriority
@@ -10925,7 +11128,7 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `priority_control_mode`'.format(value))
             if ',' in value:
@@ -10952,7 +11155,6 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `priority_control_mode`'.format(value))
             value = vals[value_lower]
-
         self._data["Priority Control Mode"] = value
 
     @property
@@ -10966,13 +11168,15 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(object):
 
     @minimum_outlet_air_temperature_during_cooling_operation.setter
     def minimum_outlet_air_temperature_during_cooling_operation(self, value=8.0 ):
-        """  Corresponds to IDD Field `minimum_outlet_air_temperature_during_cooling_operation`
+        """  Corresponds to IDD Field `Minimum Outlet Air Temperature During Cooling Operation`
         Specify the minimum outlet air temperature allowed for this unitary system
         during cooling operation. This value should be less than the maximum outlet
         air temperature during heating operation.
+        
+        {'pytype': 'float', u'default': '8.0', u'minimum>': '0.0', u'note': [u'Specify the minimum outlet air temperature allowed for this unitary system', u'during cooling operation. This value should be less than the maximum outlet', u'air temperature during heating operation.'], u'units': u'C', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `minimum_outlet_air_temperature_during_cooling_operation`
+            value (float): value for IDD Field `Minimum Outlet Air Temperature During Cooling Operation`
                 Units: C
                 Default value: 8.0
                 value > 0.0
@@ -10985,13 +11189,12 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `minimum_outlet_air_temperature_during_cooling_operation`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `minimum_outlet_air_temperature_during_cooling_operation`')
-
         self._data["Minimum Outlet Air Temperature During Cooling Operation"] = value
 
     @property
@@ -11005,13 +11208,15 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(object):
 
     @maximum_outlet_air_temperature_during_heating_operation.setter
     def maximum_outlet_air_temperature_during_heating_operation(self, value=50.0 ):
-        """  Corresponds to IDD Field `maximum_outlet_air_temperature_during_heating_operation`
+        """  Corresponds to IDD Field `Maximum Outlet Air Temperature During Heating Operation`
         Specify the maximum outlet air temperature allowed for this unitary system
         during heating operation. This value should be greater than the minimum outlet
         air temperature during cooling operation.
+        
+        {'pytype': 'float', u'default': '50.0', u'minimum>': '0.0', u'note': [u'Specify the maximum outlet air temperature allowed for this unitary system', u'during heating operation. This value should be greater than the minimum outlet', u'air temperature during cooling operation.'], u'units': u'C', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `maximum_outlet_air_temperature_during_heating_operation`
+            value (float): value for IDD Field `Maximum Outlet Air Temperature During Heating Operation`
                 Units: C
                 Default value: 50.0
                 value > 0.0
@@ -11024,13 +11229,12 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `maximum_outlet_air_temperature_during_heating_operation`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `maximum_outlet_air_temperature_during_heating_operation`')
-
         self._data["Maximum Outlet Air Temperature During Heating Operation"] = value
 
     @property
@@ -11044,7 +11248,7 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(object):
 
     @dehumidification_control_type.setter
     def dehumidification_control_type(self, value="None"):
-        """  Corresponds to IDD Field `dehumidification_control_type`
+        """  Corresponds to IDD Field `Dehumidification Control Type`
         None = meet sensible load only.
         Multimode = activate enhanced dehumidification mode
         as needed and meet sensible load.  Valid only with
@@ -11058,9 +11262,11 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(object):
         SetpointManager:SingleZone:Humidity:Maximum,
         SetpointManager:MultiZone:Humidity:Maximum or
         SetpointManager:MultiZone:MaximumHumidity:Average objects.
+        
+        {u'default': u'None', u'note': [u'None = meet sensible load only.', u'Multimode = activate enhanced dehumidification mode', u'as needed and meet sensible load.  Valid only with', u'Coil:Cooling:DX:TwoStageWithHumidityControlMode.', u'CoolReheat = cool beyond the Dry-Bulb temperature setpoint', u'as required to meet the humidity setpoint.  Valid only with', u'Coil:Cooling:DX:TwoStageWithHumidityControlMode.', u'For all dehumidification controls, the max humidity setpoint', u"on this unitary system's air outlet node is used.", u'This must be set using ZoneControl:Humidistat and', u'SetpointManager:SingleZone:Humidity:Maximum,', u'SetpointManager:MultiZone:Humidity:Maximum or', u'SetpointManager:MultiZone:MaximumHumidity:Average objects.'], u'type': u'choice', u'key': [u'None', u'Multimode', u'CoolReheat'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `dehumidification_control_type`
+            value (str): value for IDD Field `Dehumidification Control Type`
                 Accepted values are:
                       - None
                       - Multimode
@@ -11075,7 +11281,7 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `dehumidification_control_type`'.format(value))
             if ',' in value:
@@ -11102,7 +11308,6 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `dehumidification_control_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Dehumidification Control Type"] = value
 
     def check(self):
@@ -11457,10 +11662,12 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -11470,7 +11677,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -11479,7 +11686,6 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -11493,12 +11699,14 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
 
     @availability_schedule_name.setter
     def availability_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `availability_schedule_name`
+        """  Corresponds to IDD Field `Availability Schedule Name`
         Availability schedule name for this system. Schedule value > 0 means the system is available.
         If this field is blank, the system is always available.
+        
+        {u'note': [u'Availability schedule name for this system. Schedule value > 0 means the system is available.', u'If this field is blank, the system is always available.'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `availability_schedule_name`
+            value (str): value for IDD Field `Availability Schedule Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -11508,7 +11716,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `availability_schedule_name`'.format(value))
             if ',' in value:
@@ -11517,7 +11725,6 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `availability_schedule_name`')
-
         self._data["Availability Schedule Name"] = value
 
     @property
@@ -11531,10 +11738,12 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
 
     @air_inlet_node_name.setter
     def air_inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `air_inlet_node_name`
+        """  Corresponds to IDD Field `Air Inlet Node Name`
+        
+        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `air_inlet_node_name`
+            value (str): value for IDD Field `Air Inlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -11544,7 +11753,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `air_inlet_node_name`'.format(value))
             if ',' in value:
@@ -11553,7 +11762,6 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `air_inlet_node_name`')
-
         self._data["Air Inlet Node Name"] = value
 
     @property
@@ -11567,10 +11775,12 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
 
     @air_outlet_node_name.setter
     def air_outlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `air_outlet_node_name`
+        """  Corresponds to IDD Field `Air Outlet Node Name`
+        
+        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `air_outlet_node_name`
+            value (str): value for IDD Field `Air Outlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -11580,7 +11790,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `air_outlet_node_name`'.format(value))
             if ',' in value:
@@ -11589,7 +11799,6 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `air_outlet_node_name`')
-
         self._data["Air Outlet Node Name"] = value
 
     @property
@@ -11603,10 +11812,12 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
 
     @controlling_zone_or_thermostat_location.setter
     def controlling_zone_or_thermostat_location(self, value=None):
-        """  Corresponds to IDD Field `controlling_zone_or_thermostat_location`
+        """  Corresponds to IDD Field `Controlling Zone or Thermostat Location`
+        
+        {u'type': u'object-list', u'object-list': u'ZoneNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `controlling_zone_or_thermostat_location`
+            value (str): value for IDD Field `Controlling Zone or Thermostat Location`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -11616,7 +11827,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `controlling_zone_or_thermostat_location`'.format(value))
             if ',' in value:
@@ -11625,7 +11836,6 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `controlling_zone_or_thermostat_location`')
-
         self._data["Controlling Zone or Thermostat Location"] = value
 
     @property
@@ -11639,11 +11849,13 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
 
     @supply_air_fan_object_type.setter
     def supply_air_fan_object_type(self, value=None):
-        """  Corresponds to IDD Field `supply_air_fan_object_type`
+        """  Corresponds to IDD Field `Supply Air Fan Object Type`
         Select the type of supply air fan used in this unitary system.
+        
+        {u'note': [u'Select the type of supply air fan used in this unitary system.'], u'type': u'choice', u'key': [u'Fan:OnOff', u'Fan:ConstantVolume'], u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `supply_air_fan_object_type`
+            value (str): value for IDD Field `Supply Air Fan Object Type`
                 Accepted values are:
                       - Fan:OnOff
                       - Fan:ConstantVolume
@@ -11656,7 +11868,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `supply_air_fan_object_type`'.format(value))
             if ',' in value:
@@ -11682,7 +11894,6 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `supply_air_fan_object_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Supply Air Fan Object Type"] = value
 
     @property
@@ -11696,11 +11907,13 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
 
     @supply_air_fan_name.setter
     def supply_air_fan_name(self, value=None):
-        """  Corresponds to IDD Field `supply_air_fan_name`
+        """  Corresponds to IDD Field `Supply Air Fan Name`
         Enter the name of the supply air fan used in this unitary system.
+        
+        {u'note': [u'Enter the name of the supply air fan used in this unitary system.'], u'type': u'object-list', u'object-list': u'FansCVandOnOff', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `supply_air_fan_name`
+            value (str): value for IDD Field `Supply Air Fan Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -11710,7 +11923,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `supply_air_fan_name`'.format(value))
             if ',' in value:
@@ -11719,7 +11932,6 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `supply_air_fan_name`')
-
         self._data["Supply Air Fan Name"] = value
 
     @property
@@ -11733,14 +11945,16 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
 
     @supply_air_fan_placement.setter
     def supply_air_fan_placement(self, value=None):
-        """  Corresponds to IDD Field `supply_air_fan_placement`
+        """  Corresponds to IDD Field `Supply Air Fan Placement`
         Select supply air fan placement as either BlowThrough or DrawThrough.
         BlowThrough means the supply air fan is located before the cooling
         coil. DrawThrough means the supply air fan is located after the heating coil
         but before the optional supplemental heating coil.
+        
+        {u'note': [u'Select supply air fan placement as either BlowThrough or DrawThrough.', u'BlowThrough means the supply air fan is located before the cooling', u'coil. DrawThrough means the supply air fan is located after the heating coil', u'but before the optional supplemental heating coil.'], u'type': u'choice', u'key': [u'BlowThrough', u'DrawThrough'], u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `supply_air_fan_placement`
+            value (str): value for IDD Field `Supply Air Fan Placement`
                 Accepted values are:
                       - BlowThrough
                       - DrawThrough
@@ -11753,7 +11967,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `supply_air_fan_placement`'.format(value))
             if ',' in value:
@@ -11779,7 +11993,6 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `supply_air_fan_placement`'.format(value))
             value = vals[value_lower]
-
         self._data["Supply Air Fan Placement"] = value
 
     @property
@@ -11793,16 +12006,18 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
 
     @supply_air_fan_operating_mode_schedule_name.setter
     def supply_air_fan_operating_mode_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `supply_air_fan_operating_mode_schedule_name`
+        """  Corresponds to IDD Field `Supply Air Fan Operating Mode Schedule Name`
         Enter the name of a schedule to control the supply air fan. Schedule values of zero
         mean that the supply air fan will cycle off if there is no cooling or heating load
         in the control zone. Non-zero schedule values mean that the supply air fan
         will operate continuously even if there is no cooling or heating load
         in the control zone. If this field is left blank, the supply air fan will
         operate continuously for the entire simulation period.
+        
+        {u'note': [u'Enter the name of a schedule to control the supply air fan. Schedule values of zero', u'mean that the supply air fan will cycle off if there is no cooling or heating load', u'in the control zone. Non-zero schedule values mean that the supply air fan', u'will operate continuously even if there is no cooling or heating load', u'in the control zone. If this field is left blank, the supply air fan will', u'operate continuously for the entire simulation period.'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `supply_air_fan_operating_mode_schedule_name`
+            value (str): value for IDD Field `Supply Air Fan Operating Mode Schedule Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -11812,7 +12027,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `supply_air_fan_operating_mode_schedule_name`'.format(value))
             if ',' in value:
@@ -11821,7 +12036,6 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `supply_air_fan_operating_mode_schedule_name`')
-
         self._data["Supply Air Fan Operating Mode Schedule Name"] = value
 
     @property
@@ -11835,11 +12049,13 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
 
     @heating_coil_object_type.setter
     def heating_coil_object_type(self, value=None):
-        """  Corresponds to IDD Field `heating_coil_object_type`
+        """  Corresponds to IDD Field `Heating Coil Object Type`
         Multi Speed DX, Electric, Gas, and Single speed Water and Steam coils
+        
+        {u'note': [u'Multi Speed DX, Electric, Gas, and Single speed Water and Steam coils'], u'type': u'choice', u'key': [u'Coil:Heating:DX:MultiSpeed', u'Coil:Heating:Electric:MultiStage', u'Coil:Heating:Gas:MultiStage', u'Coil:Heating:Water', u'Coil:Heating:Steam'], u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `heating_coil_object_type`
+            value (str): value for IDD Field `Heating Coil Object Type`
                 Accepted values are:
                       - Coil:Heating:DX:MultiSpeed
                       - Coil:Heating:Electric:MultiStage
@@ -11855,7 +12071,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `heating_coil_object_type`'.format(value))
             if ',' in value:
@@ -11884,7 +12100,6 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `heating_coil_object_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Heating Coil Object Type"] = value
 
     @property
@@ -11898,10 +12113,12 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
 
     @heating_coil_name.setter
     def heating_coil_name(self, value=None):
-        """  Corresponds to IDD Field `heating_coil_name`
+        """  Corresponds to IDD Field `Heating Coil Name`
+        
+        {u'type': u'object-list', u'object-list': u'HeatingCoilsGasMultiStage', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `heating_coil_name`
+            value (str): value for IDD Field `Heating Coil Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -11911,7 +12128,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `heating_coil_name`'.format(value))
             if ',' in value:
@@ -11920,7 +12137,6 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `heating_coil_name`')
-
         self._data["Heating Coil Name"] = value
 
     @property
@@ -11934,12 +12150,14 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
 
     @minimum_outdoor_drybulb_temperature_for_compressor_operation.setter
     def minimum_outdoor_drybulb_temperature_for_compressor_operation(self, value=-8.0 ):
-        """  Corresponds to IDD Field `minimum_outdoor_drybulb_temperature_for_compressor_operation`
+        """  Corresponds to IDD Field `Minimum Outdoor Dry-Bulb Temperature for Compressor Operation`
         Needs to match the corresponding minimum outdoor temperature defined
         in the DX heating coil object.
+        
+        {u'default': '-8.0', u'units': u'C', u'note': [u'Needs to match the corresponding minimum outdoor temperature defined', u'in the DX heating coil object.'], u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `minimum_outdoor_drybulb_temperature_for_compressor_operation`
+            value (float): value for IDD Field `Minimum Outdoor Dry-Bulb Temperature for Compressor Operation`
                 Units: C
                 Default value: -8.0
                 if `value` is None it will not be checked against the
@@ -11951,10 +12169,9 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `minimum_outdoor_drybulb_temperature_for_compressor_operation`'.format(value))
-
         self._data["Minimum Outdoor Dry-Bulb Temperature for Compressor Operation"] = value
 
     @property
@@ -11968,11 +12185,13 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
 
     @cooling_coil_object_type.setter
     def cooling_coil_object_type(self, value=None):
-        """  Corresponds to IDD Field `cooling_coil_object_type`
+        """  Corresponds to IDD Field `Cooling Coil Object Type`
         Only works with Coil:Cooling:DX:MultiSpeed
+        
+        {u'note': [u'Only works with Coil:Cooling:DX:MultiSpeed'], u'type': u'choice', u'key': [u'Coil:Cooling:DX:MultiSpeed'], u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `cooling_coil_object_type`
+            value (str): value for IDD Field `Cooling Coil Object Type`
                 Accepted values are:
                       - Coil:Cooling:DX:MultiSpeed
                 if `value` is None it will not be checked against the
@@ -11984,7 +12203,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `cooling_coil_object_type`'.format(value))
             if ',' in value:
@@ -12009,7 +12228,6 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `cooling_coil_object_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Cooling Coil Object Type"] = value
 
     @property
@@ -12023,11 +12241,13 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
 
     @cooling_coil_name.setter
     def cooling_coil_name(self, value=None):
-        """  Corresponds to IDD Field `cooling_coil_name`
+        """  Corresponds to IDD Field `Cooling Coil Name`
         Needs to match in the DX Cooling Coil object
+        
+        {u'note': [u'Needs to match in the DX Cooling Coil object'], u'type': u'object-list', u'object-list': u'CoolingCoilsDXMultiSpeed', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `cooling_coil_name`
+            value (str): value for IDD Field `Cooling Coil Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -12037,7 +12257,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `cooling_coil_name`'.format(value))
             if ',' in value:
@@ -12046,7 +12266,6 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `cooling_coil_name`')
-
         self._data["Cooling Coil Name"] = value
 
     @property
@@ -12060,11 +12279,13 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
 
     @supplemental_heating_coil_object_type.setter
     def supplemental_heating_coil_object_type(self, value=None):
-        """  Corresponds to IDD Field `supplemental_heating_coil_object_type`
+        """  Corresponds to IDD Field `Supplemental Heating Coil Object Type`
         works with gas, electric, hot water and steam heating coils
+        
+        {u'note': [u'works with gas, electric, hot water and steam heating coils'], u'type': u'choice', u'key': [u'Coil:Heating:Gas', u'Coil:Heating:Electric', u'Coil:Heating:Water', u'Coil:Heating:Steam'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `supplemental_heating_coil_object_type`
+            value (str): value for IDD Field `Supplemental Heating Coil Object Type`
                 Accepted values are:
                       - Coil:Heating:Gas
                       - Coil:Heating:Electric
@@ -12079,7 +12300,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `supplemental_heating_coil_object_type`'.format(value))
             if ',' in value:
@@ -12107,7 +12328,6 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `supplemental_heating_coil_object_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Supplemental Heating Coil Object Type"] = value
 
     @property
@@ -12121,11 +12341,13 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
 
     @supplemental_heating_coil_name.setter
     def supplemental_heating_coil_name(self, value=None):
-        """  Corresponds to IDD Field `supplemental_heating_coil_name`
+        """  Corresponds to IDD Field `Supplemental Heating Coil Name`
         Needs to match in the supplemental heating coil object
+        
+        {u'note': [u'Needs to match in the supplemental heating coil object'], u'type': u'object-list', u'object-list': u'HeatingCoilName', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `supplemental_heating_coil_name`
+            value (str): value for IDD Field `Supplemental Heating Coil Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -12135,7 +12357,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `supplemental_heating_coil_name`'.format(value))
             if ',' in value:
@@ -12144,7 +12366,6 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `supplemental_heating_coil_name`')
-
         self._data["Supplemental Heating Coil Name"] = value
 
     @property
@@ -12158,10 +12379,12 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
 
     @maximum_supply_air_temperature_from_supplemental_heater.setter
     def maximum_supply_air_temperature_from_supplemental_heater(self, value=None):
-        """  Corresponds to IDD Field `maximum_supply_air_temperature_from_supplemental_heater`
+        """  Corresponds to IDD Field `Maximum Supply Air Temperature from Supplemental Heater`
+        
+        {u'units': u'C', u'autosizable': u'', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `maximum_supply_air_temperature_from_supplemental_heater`
+            value (float): value for IDD Field `Maximum Supply Air Temperature from Supplemental Heater`
                 Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -12172,10 +12395,9 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `maximum_supply_air_temperature_from_supplemental_heater`'.format(value))
-
         self._data["Maximum Supply Air Temperature from Supplemental Heater"] = value
 
     @property
@@ -12189,10 +12411,12 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
 
     @maximum_outdoor_drybulb_temperature_for_supplemental_heater_operation.setter
     def maximum_outdoor_drybulb_temperature_for_supplemental_heater_operation(self, value=21.0 ):
-        """  Corresponds to IDD Field `maximum_outdoor_drybulb_temperature_for_supplemental_heater_operation`
+        """  Corresponds to IDD Field `Maximum Outdoor Dry-Bulb Temperature for Supplemental Heater Operation`
+        
+        {u'default': '21.0', u'units': u'C', u'type': u'real', u'maximum': '21.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `maximum_outdoor_drybulb_temperature_for_supplemental_heater_operation`
+            value (float): value for IDD Field `Maximum Outdoor Dry-Bulb Temperature for Supplemental Heater Operation`
                 Units: C
                 Default value: 21.0
                 value <= 21.0
@@ -12205,13 +12429,12 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `maximum_outdoor_drybulb_temperature_for_supplemental_heater_operation`'.format(value))
             if value > 21.0:
                 raise ValueError('value need to be smaller 21.0 '
                                  'for field `maximum_outdoor_drybulb_temperature_for_supplemental_heater_operation`')
-
         self._data["Maximum Outdoor Dry-Bulb Temperature for Supplemental Heater Operation"] = value
 
     @property
@@ -12225,10 +12448,12 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
 
     @auxiliary_oncycle_electric_power.setter
     def auxiliary_oncycle_electric_power(self, value=0.0 ):
-        """  Corresponds to IDD Field `auxiliary_oncycle_electric_power`
+        """  Corresponds to IDD Field `Auxiliary On-Cycle Electric Power`
+        
+        {u'units': u'W', u'default': '0.0', u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `auxiliary_oncycle_electric_power`
+            value (float): value for IDD Field `Auxiliary On-Cycle Electric Power`
                 Units: W
                 Default value: 0.0
                 value >= 0.0
@@ -12241,13 +12466,12 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `auxiliary_oncycle_electric_power`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `auxiliary_oncycle_electric_power`')
-
         self._data["Auxiliary On-Cycle Electric Power"] = value
 
     @property
@@ -12261,10 +12485,12 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
 
     @auxiliary_offcycle_electric_power.setter
     def auxiliary_offcycle_electric_power(self, value=0.0 ):
-        """  Corresponds to IDD Field `auxiliary_offcycle_electric_power`
+        """  Corresponds to IDD Field `Auxiliary Off-Cycle Electric Power`
+        
+        {u'units': u'W', u'default': '0.0', u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `auxiliary_offcycle_electric_power`
+            value (float): value for IDD Field `Auxiliary Off-Cycle Electric Power`
                 Units: W
                 Default value: 0.0
                 value >= 0.0
@@ -12277,13 +12503,12 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `auxiliary_offcycle_electric_power`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `auxiliary_offcycle_electric_power`')
-
         self._data["Auxiliary Off-Cycle Electric Power"] = value
 
     @property
@@ -12297,12 +12522,14 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
 
     @design_heat_recovery_water_flow_rate.setter
     def design_heat_recovery_water_flow_rate(self, value=0.0 ):
-        """  Corresponds to IDD Field `design_heat_recovery_water_flow_rate`
+        """  Corresponds to IDD Field `Design Heat Recovery Water Flow Rate`
         If non-zero, then the heat recovery inlet and outlet node names must be entered.
         Used for heat recovery to an EnergyPlus plant loop.
+        
+        {'pytype': 'float', u'default': '0.0', u'note': [u'If non-zero, then the heat recovery inlet and outlet node names must be entered.', u'Used for heat recovery to an EnergyPlus plant loop.'], u'minimum': '0.0', u'units': u'm3/s', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `design_heat_recovery_water_flow_rate`
+            value (float): value for IDD Field `Design Heat Recovery Water Flow Rate`
                 Units: m3/s
                 Default value: 0.0
                 value >= 0.0
@@ -12315,13 +12542,12 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `design_heat_recovery_water_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `design_heat_recovery_water_flow_rate`')
-
         self._data["Design Heat Recovery Water Flow Rate"] = value
 
     @property
@@ -12335,10 +12561,12 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
 
     @maximum_temperature_for_heat_recovery.setter
     def maximum_temperature_for_heat_recovery(self, value=80.0 ):
-        """  Corresponds to IDD Field `maximum_temperature_for_heat_recovery`
+        """  Corresponds to IDD Field `Maximum Temperature for Heat Recovery`
+        
+        {'pytype': 'float', u'default': '80.0', u'maximum': '100.0', u'minimum': '0.0', u'units': u'C', 'type': 'real'}
 
         Args:
-            value (float): value for IDD Field `maximum_temperature_for_heat_recovery`
+            value (float): value for IDD Field `Maximum Temperature for Heat Recovery`
                 Units: C
                 Default value: 80.0
                 value >= 0.0
@@ -12352,7 +12580,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `maximum_temperature_for_heat_recovery`'.format(value))
             if value < 0.0:
@@ -12361,7 +12589,6 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
             if value > 100.0:
                 raise ValueError('value need to be smaller 100.0 '
                                  'for field `maximum_temperature_for_heat_recovery`')
-
         self._data["Maximum Temperature for Heat Recovery"] = value
 
     @property
@@ -12375,10 +12602,12 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
 
     @heat_recovery_water_inlet_node_name.setter
     def heat_recovery_water_inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `heat_recovery_water_inlet_node_name`
+        """  Corresponds to IDD Field `Heat Recovery Water Inlet Node Name`
+        
+        {u'type': u'node', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `heat_recovery_water_inlet_node_name`
+            value (str): value for IDD Field `Heat Recovery Water Inlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -12388,7 +12617,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `heat_recovery_water_inlet_node_name`'.format(value))
             if ',' in value:
@@ -12397,7 +12626,6 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `heat_recovery_water_inlet_node_name`')
-
         self._data["Heat Recovery Water Inlet Node Name"] = value
 
     @property
@@ -12411,10 +12639,12 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
 
     @heat_recovery_water_outlet_node_name.setter
     def heat_recovery_water_outlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `heat_recovery_water_outlet_node_name`
+        """  Corresponds to IDD Field `Heat Recovery Water Outlet Node Name`
+        
+        {u'type': u'node', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `heat_recovery_water_outlet_node_name`
+            value (str): value for IDD Field `Heat Recovery Water Outlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -12424,7 +12654,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `heat_recovery_water_outlet_node_name`'.format(value))
             if ',' in value:
@@ -12433,7 +12663,6 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `heat_recovery_water_outlet_node_name`')
-
         self._data["Heat Recovery Water Outlet Node Name"] = value
 
     @property
@@ -12447,15 +12676,17 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
 
     @supply_air_flow_rate_when_no_cooling_or_heating_is_needed.setter
     def supply_air_flow_rate_when_no_cooling_or_heating_is_needed(self, value=None):
-        """  Corresponds to IDD Field `supply_air_flow_rate_when_no_cooling_or_heating_is_needed`
+        """  Corresponds to IDD Field `Supply Air Flow Rate When No Cooling or Heating is Needed`
         Only used when the supply air fan operating mode is continuous (see field
         Supply Air Fan Operating Mode Schedule Name). This air flow rate
         is used when no heating or cooling is required and the coils are off.
         If this field is left blank or zero, the supply air flow rate from the
         previous on cycle (either cooling or heating) is used.
+        
+        {'pytype': 'float', u'note': [u'Only used when the supply air fan operating mode is continuous (see field', u'Supply Air Fan Operating Mode Schedule Name). This air flow rate', u'is used when no heating or cooling is required and the coils are off.', u'If this field is left blank or zero, the supply air flow rate from the', u'previous on cycle (either cooling or heating) is used.'], u'autosizable': u'', u'minimum': '0.0', u'units': u'm3/s', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `supply_air_flow_rate_when_no_cooling_or_heating_is_needed`
+            value (float): value for IDD Field `Supply Air Flow Rate When No Cooling or Heating is Needed`
                 Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -12467,13 +12698,12 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `supply_air_flow_rate_when_no_cooling_or_heating_is_needed`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `supply_air_flow_rate_when_no_cooling_or_heating_is_needed`')
-
         self._data["Supply Air Flow Rate When No Cooling or Heating is Needed"] = value
 
     @property
@@ -12487,13 +12717,15 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
 
     @number_of_speeds_for_heating.setter
     def number_of_speeds_for_heating(self, value=None):
-        """  Corresponds to IDD Field `number_of_speeds_for_heating`
+        """  Corresponds to IDD Field `Number of Speeds for Heating`
         Enter the number of the following sets of data for air flow rates.
         If Heating Coil Object Type is Coil:Heating:Water or Coil:Heating:Steam,
         this field should be 1.
+        
+        {'pytype': 'int', u'maximum': '4', u'required-field': True, u'note': [u'Enter the number of the following sets of data for air flow rates.', u'If Heating Coil Object Type is Coil:Heating:Water or Coil:Heating:Steam,', u'this field should be 1.'], u'minimum': '1', u'type': u'integer'}
 
         Args:
-            value (int): value for IDD Field `number_of_speeds_for_heating`
+            value (int): value for IDD Field `Number of Speeds for Heating`
                 value >= 1
                 value <= 4
                 if `value` is None it will not be checked against the
@@ -12505,7 +12737,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
         if value is not None:
             try:
                 value = int(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type int '
                                  'for field `number_of_speeds_for_heating`'.format(value))
             if value < 1:
@@ -12514,7 +12746,6 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
             if value > 4:
                 raise ValueError('value need to be smaller 4 '
                                  'for field `number_of_speeds_for_heating`')
-
         self._data["Number of Speeds for Heating"] = value
 
     @property
@@ -12528,11 +12759,13 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
 
     @number_of_speeds_for_cooling.setter
     def number_of_speeds_for_cooling(self, value=None):
-        """  Corresponds to IDD Field `number_of_speeds_for_cooling`
+        """  Corresponds to IDD Field `Number of Speeds for Cooling`
         Enter the number of the following sets of data for air flow rates.
+        
+        {'pytype': 'int', u'maximum': '4', u'required-field': True, u'note': [u'Enter the number of the following sets of data for air flow rates.'], u'minimum': '2', u'type': u'integer'}
 
         Args:
-            value (int): value for IDD Field `number_of_speeds_for_cooling`
+            value (int): value for IDD Field `Number of Speeds for Cooling`
                 value >= 2
                 value <= 4
                 if `value` is None it will not be checked against the
@@ -12544,7 +12777,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
         if value is not None:
             try:
                 value = int(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type int '
                                  'for field `number_of_speeds_for_cooling`'.format(value))
             if value < 2:
@@ -12553,7 +12786,6 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
             if value > 4:
                 raise ValueError('value need to be smaller 4 '
                                  'for field `number_of_speeds_for_cooling`')
-
         self._data["Number of Speeds for Cooling"] = value
 
     @property
@@ -12567,12 +12799,14 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
 
     @speed_1_supply_air_flow_rate_during_heating_operation.setter
     def speed_1_supply_air_flow_rate_during_heating_operation(self, value=None):
-        """  Corresponds to IDD Field `speed_1_supply_air_flow_rate_during_heating_operation`
+        """  Corresponds to IDD Field `Speed 1 Supply Air Flow Rate During Heating Operation`
         Enter the operating supply air flow rate during heating
         operation or specify autosize.
+        
+        {'pytype': 'float', u'minimum>': '0.0', u'required-field': True, u'note': [u'Enter the operating supply air flow rate during heating', u'operation or specify autosize.'], u'autosizable': u'', u'units': u'm3/s', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `speed_1_supply_air_flow_rate_during_heating_operation`
+            value (float): value for IDD Field `Speed 1 Supply Air Flow Rate During Heating Operation`
                 Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -12584,13 +12818,12 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `speed_1_supply_air_flow_rate_during_heating_operation`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `speed_1_supply_air_flow_rate_during_heating_operation`')
-
         self._data["Speed 1 Supply Air Flow Rate During Heating Operation"] = value
 
     @property
@@ -12604,12 +12837,14 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
 
     @speed_2_supply_air_flow_rate_during_heating_operation.setter
     def speed_2_supply_air_flow_rate_during_heating_operation(self, value=None):
-        """  Corresponds to IDD Field `speed_2_supply_air_flow_rate_during_heating_operation`
+        """  Corresponds to IDD Field `Speed 2 Supply Air Flow Rate During Heating Operation`
         Enter the operating supply air flow rate during heating
         operation or specify autosize.
+        
+        {'pytype': 'float', u'minimum>': '0.0', u'note': [u'Enter the operating supply air flow rate during heating', u'operation or specify autosize.'], u'autosizable': u'', u'units': u'm3/s', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `speed_2_supply_air_flow_rate_during_heating_operation`
+            value (float): value for IDD Field `Speed 2 Supply Air Flow Rate During Heating Operation`
                 Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -12621,13 +12856,12 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `speed_2_supply_air_flow_rate_during_heating_operation`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `speed_2_supply_air_flow_rate_during_heating_operation`')
-
         self._data["Speed 2 Supply Air Flow Rate During Heating Operation"] = value
 
     @property
@@ -12641,12 +12875,14 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
 
     @speed_3_supply_air_flow_rate_during_heating_operation.setter
     def speed_3_supply_air_flow_rate_during_heating_operation(self, value=None):
-        """  Corresponds to IDD Field `speed_3_supply_air_flow_rate_during_heating_operation`
+        """  Corresponds to IDD Field `Speed 3 Supply Air Flow Rate During Heating Operation`
         Enter the operating supply air flow rate during heating
         operation or specify autosize.
+        
+        {'pytype': 'float', u'minimum>': '0.0', u'note': [u'Enter the operating supply air flow rate during heating', u'operation or specify autosize.'], u'autosizable': u'', u'units': u'm3/s', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `speed_3_supply_air_flow_rate_during_heating_operation`
+            value (float): value for IDD Field `Speed 3 Supply Air Flow Rate During Heating Operation`
                 Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -12658,13 +12894,12 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `speed_3_supply_air_flow_rate_during_heating_operation`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `speed_3_supply_air_flow_rate_during_heating_operation`')
-
         self._data["Speed 3 Supply Air Flow Rate During Heating Operation"] = value
 
     @property
@@ -12678,12 +12913,14 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
 
     @speed_4_supply_air_flow_rate_during_heating_operation.setter
     def speed_4_supply_air_flow_rate_during_heating_operation(self, value=None):
-        """  Corresponds to IDD Field `speed_4_supply_air_flow_rate_during_heating_operation`
+        """  Corresponds to IDD Field `Speed 4 Supply Air Flow Rate During Heating Operation`
         Enter the operating supply air flow rate during heating
         operation or specify autosize.
+        
+        {'pytype': 'float', u'minimum>': '0.0', u'note': [u'Enter the operating supply air flow rate during heating', u'operation or specify autosize.'], u'autosizable': u'', u'units': u'm3/s', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `speed_4_supply_air_flow_rate_during_heating_operation`
+            value (float): value for IDD Field `Speed 4 Supply Air Flow Rate During Heating Operation`
                 Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -12695,13 +12932,12 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `speed_4_supply_air_flow_rate_during_heating_operation`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `speed_4_supply_air_flow_rate_during_heating_operation`')
-
         self._data["Speed 4 Supply Air Flow Rate During Heating Operation"] = value
 
     @property
@@ -12715,12 +12951,14 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
 
     @speed_1_supply_air_flow_rate_during_cooling_operation.setter
     def speed_1_supply_air_flow_rate_during_cooling_operation(self, value=None):
-        """  Corresponds to IDD Field `speed_1_supply_air_flow_rate_during_cooling_operation`
+        """  Corresponds to IDD Field `Speed 1 Supply Air Flow Rate During Cooling Operation`
         Enter the operating supply air flow rate during cooling
         operation or specify autosize.
+        
+        {'pytype': 'float', u'minimum>': '0.0', u'required-field': True, u'note': [u'Enter the operating supply air flow rate during cooling', u'operation or specify autosize.'], u'autosizable': u'', u'units': u'm3/s', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `speed_1_supply_air_flow_rate_during_cooling_operation`
+            value (float): value for IDD Field `Speed 1 Supply Air Flow Rate During Cooling Operation`
                 Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -12732,13 +12970,12 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `speed_1_supply_air_flow_rate_during_cooling_operation`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `speed_1_supply_air_flow_rate_during_cooling_operation`')
-
         self._data["Speed 1 Supply Air Flow Rate During Cooling Operation"] = value
 
     @property
@@ -12752,12 +12989,14 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
 
     @speed_2_supply_air_flow_rate_during_cooling_operation.setter
     def speed_2_supply_air_flow_rate_during_cooling_operation(self, value=None):
-        """  Corresponds to IDD Field `speed_2_supply_air_flow_rate_during_cooling_operation`
+        """  Corresponds to IDD Field `Speed 2 Supply Air Flow Rate During Cooling Operation`
         Enter the operating supply air flow rate during cooling
         operation or specify autosize.
+        
+        {'pytype': 'float', u'minimum>': '0.0', u'required-field': True, u'note': [u'Enter the operating supply air flow rate during cooling', u'operation or specify autosize.'], u'autosizable': u'', u'units': u'm3/s', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `speed_2_supply_air_flow_rate_during_cooling_operation`
+            value (float): value for IDD Field `Speed 2 Supply Air Flow Rate During Cooling Operation`
                 Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -12769,13 +13008,12 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `speed_2_supply_air_flow_rate_during_cooling_operation`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `speed_2_supply_air_flow_rate_during_cooling_operation`')
-
         self._data["Speed 2 Supply Air Flow Rate During Cooling Operation"] = value
 
     @property
@@ -12789,12 +13027,14 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
 
     @speed_3_supply_air_flow_rate_during_cooling_operation.setter
     def speed_3_supply_air_flow_rate_during_cooling_operation(self, value=None):
-        """  Corresponds to IDD Field `speed_3_supply_air_flow_rate_during_cooling_operation`
+        """  Corresponds to IDD Field `Speed 3 Supply Air Flow Rate During Cooling Operation`
         Enter the operating supply air flow rate during cooling
         operation or specify autosize.
+        
+        {'pytype': 'float', u'minimum>': '0.0', u'note': [u'Enter the operating supply air flow rate during cooling', u'operation or specify autosize.'], u'autosizable': u'', u'units': u'm3/s', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `speed_3_supply_air_flow_rate_during_cooling_operation`
+            value (float): value for IDD Field `Speed 3 Supply Air Flow Rate During Cooling Operation`
                 Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -12806,13 +13046,12 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `speed_3_supply_air_flow_rate_during_cooling_operation`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `speed_3_supply_air_flow_rate_during_cooling_operation`')
-
         self._data["Speed 3 Supply Air Flow Rate During Cooling Operation"] = value
 
     @property
@@ -12826,12 +13065,14 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
 
     @speed_4_supply_air_flow_rate_during_cooling_operation.setter
     def speed_4_supply_air_flow_rate_during_cooling_operation(self, value=None):
-        """  Corresponds to IDD Field `speed_4_supply_air_flow_rate_during_cooling_operation`
+        """  Corresponds to IDD Field `Speed 4 Supply Air Flow Rate During Cooling Operation`
         Enter the operating supply air flow rate during cooling
         operation or specify autosize.
+        
+        {'pytype': 'float', u'minimum>': '0.0', u'note': [u'Enter the operating supply air flow rate during cooling', u'operation or specify autosize.'], u'autosizable': u'', u'units': u'm3/s', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `speed_4_supply_air_flow_rate_during_cooling_operation`
+            value (float): value for IDD Field `Speed 4 Supply Air Flow Rate During Cooling Operation`
                 Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -12843,13 +13084,12 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `speed_4_supply_air_flow_rate_during_cooling_operation`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `speed_4_supply_air_flow_rate_during_cooling_operation`')
-
         self._data["Speed 4 Supply Air Flow Rate During Cooling Operation"] = value
 
     def check(self):

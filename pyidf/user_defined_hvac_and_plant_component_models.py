@@ -172,11 +172,13 @@ class ZoneHvacForcedAirUserDefined(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
         This is the name of the zone unit
+        
+        {u'note': [u'This is the name of the zone unit'], u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -186,7 +188,7 @@ class ZoneHvacForcedAirUserDefined(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -195,7 +197,6 @@ class ZoneHvacForcedAirUserDefined(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -209,10 +210,12 @@ class ZoneHvacForcedAirUserDefined(object):
 
     @overall_model_simulation_program_calling_manager_name.setter
     def overall_model_simulation_program_calling_manager_name(self, value=None):
-        """  Corresponds to IDD Field `overall_model_simulation_program_calling_manager_name`
+        """  Corresponds to IDD Field `Overall Model Simulation Program Calling Manager Name`
+        
+        {u'type': u'object-list', u'object-list': u'ProgramNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `overall_model_simulation_program_calling_manager_name`
+            value (str): value for IDD Field `Overall Model Simulation Program Calling Manager Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -222,7 +225,7 @@ class ZoneHvacForcedAirUserDefined(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `overall_model_simulation_program_calling_manager_name`'.format(value))
             if ',' in value:
@@ -231,7 +234,6 @@ class ZoneHvacForcedAirUserDefined(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `overall_model_simulation_program_calling_manager_name`')
-
         self._data["Overall Model Simulation Program Calling Manager Name"] = value
 
     @property
@@ -245,10 +247,12 @@ class ZoneHvacForcedAirUserDefined(object):
 
     @model_setup_and_sizing_program_calling_manager_name.setter
     def model_setup_and_sizing_program_calling_manager_name(self, value=None):
-        """  Corresponds to IDD Field `model_setup_and_sizing_program_calling_manager_name`
+        """  Corresponds to IDD Field `Model Setup and Sizing Program Calling Manager Name`
+        
+        {u'type': u'object-list', u'object-list': u'ProgramNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `model_setup_and_sizing_program_calling_manager_name`
+            value (str): value for IDD Field `Model Setup and Sizing Program Calling Manager Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -258,7 +262,7 @@ class ZoneHvacForcedAirUserDefined(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `model_setup_and_sizing_program_calling_manager_name`'.format(value))
             if ',' in value:
@@ -267,7 +271,6 @@ class ZoneHvacForcedAirUserDefined(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `model_setup_and_sizing_program_calling_manager_name`')
-
         self._data["Model Setup and Sizing Program Calling Manager Name"] = value
 
     @property
@@ -281,11 +284,13 @@ class ZoneHvacForcedAirUserDefined(object):
 
     @primary_air_inlet_node_name.setter
     def primary_air_inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `primary_air_inlet_node_name`
+        """  Corresponds to IDD Field `Primary Air Inlet Node Name`
         Air inlet node for the unit must be a zone air exhaust Node.
+        
+        {u'note': [u'Air inlet node for the unit must be a zone air exhaust Node.'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `primary_air_inlet_node_name`
+            value (str): value for IDD Field `Primary Air Inlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -295,7 +300,7 @@ class ZoneHvacForcedAirUserDefined(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `primary_air_inlet_node_name`'.format(value))
             if ',' in value:
@@ -304,7 +309,6 @@ class ZoneHvacForcedAirUserDefined(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `primary_air_inlet_node_name`')
-
         self._data["Primary Air Inlet Node Name"] = value
 
     @property
@@ -318,11 +322,13 @@ class ZoneHvacForcedAirUserDefined(object):
 
     @primary_air_outlet_node_name.setter
     def primary_air_outlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `primary_air_outlet_node_name`
+        """  Corresponds to IDD Field `Primary Air Outlet Node Name`
         Air outlet node for the unit must be a zone air inlet node.
+        
+        {u'note': [u'Air outlet node for the unit must be a zone air inlet node.'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `primary_air_outlet_node_name`
+            value (str): value for IDD Field `Primary Air Outlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -332,7 +338,7 @@ class ZoneHvacForcedAirUserDefined(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `primary_air_outlet_node_name`'.format(value))
             if ',' in value:
@@ -341,7 +347,6 @@ class ZoneHvacForcedAirUserDefined(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `primary_air_outlet_node_name`')
-
         self._data["Primary Air Outlet Node Name"] = value
 
     @property
@@ -355,11 +360,13 @@ class ZoneHvacForcedAirUserDefined(object):
 
     @secondary_air_inlet_node_name.setter
     def secondary_air_inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `secondary_air_inlet_node_name`
+        """  Corresponds to IDD Field `Secondary Air Inlet Node Name`
         Inlet air used for heat rejection or air source
+        
+        {u'note': [u'Inlet air used for heat rejection or air source'], u'type': u'node', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `secondary_air_inlet_node_name`
+            value (str): value for IDD Field `Secondary Air Inlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -369,7 +376,7 @@ class ZoneHvacForcedAirUserDefined(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `secondary_air_inlet_node_name`'.format(value))
             if ',' in value:
@@ -378,7 +385,6 @@ class ZoneHvacForcedAirUserDefined(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `secondary_air_inlet_node_name`')
-
         self._data["Secondary Air Inlet Node Name"] = value
 
     @property
@@ -392,11 +398,13 @@ class ZoneHvacForcedAirUserDefined(object):
 
     @secondary_air_outlet_node_name.setter
     def secondary_air_outlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `secondary_air_outlet_node_name`
+        """  Corresponds to IDD Field `Secondary Air Outlet Node Name`
         Outlet air used for heat rejection or air source
+        
+        {u'note': [u'Outlet air used for heat rejection or air source'], u'type': u'node', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `secondary_air_outlet_node_name`
+            value (str): value for IDD Field `Secondary Air Outlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -406,7 +414,7 @@ class ZoneHvacForcedAirUserDefined(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `secondary_air_outlet_node_name`'.format(value))
             if ',' in value:
@@ -415,7 +423,6 @@ class ZoneHvacForcedAirUserDefined(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `secondary_air_outlet_node_name`')
-
         self._data["Secondary Air Outlet Node Name"] = value
 
     @property
@@ -429,10 +436,12 @@ class ZoneHvacForcedAirUserDefined(object):
 
     @number_of_plant_loop_connections.setter
     def number_of_plant_loop_connections(self, value=None):
-        """  Corresponds to IDD Field `number_of_plant_loop_connections`
+        """  Corresponds to IDD Field `Number of Plant Loop Connections`
+        
+        {u'minimum': '0', u'type': u'integer', u'maximum': '3', u'required-field': True, 'pytype': 'int'}
 
         Args:
-            value (int): value for IDD Field `number_of_plant_loop_connections`
+            value (int): value for IDD Field `Number of Plant Loop Connections`
                 value >= 0
                 value <= 3
                 if `value` is None it will not be checked against the
@@ -444,7 +453,7 @@ class ZoneHvacForcedAirUserDefined(object):
         if value is not None:
             try:
                 value = int(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type int '
                                  'for field `number_of_plant_loop_connections`'.format(value))
             if value < 0:
@@ -453,7 +462,6 @@ class ZoneHvacForcedAirUserDefined(object):
             if value > 3:
                 raise ValueError('value need to be smaller 3 '
                                  'for field `number_of_plant_loop_connections`')
-
         self._data["Number of Plant Loop Connections"] = value
 
     @property
@@ -467,10 +475,12 @@ class ZoneHvacForcedAirUserDefined(object):
 
     @plant_connection_1_inlet_node_name.setter
     def plant_connection_1_inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `plant_connection_1_inlet_node_name`
+        """  Corresponds to IDD Field `Plant Connection 1 Inlet Node Name`
+        
+        {u'type': u'node', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `plant_connection_1_inlet_node_name`
+            value (str): value for IDD Field `Plant Connection 1 Inlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -480,7 +490,7 @@ class ZoneHvacForcedAirUserDefined(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `plant_connection_1_inlet_node_name`'.format(value))
             if ',' in value:
@@ -489,7 +499,6 @@ class ZoneHvacForcedAirUserDefined(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `plant_connection_1_inlet_node_name`')
-
         self._data["Plant Connection 1 Inlet Node Name"] = value
 
     @property
@@ -503,10 +512,12 @@ class ZoneHvacForcedAirUserDefined(object):
 
     @plant_connection_1_outlet_node_name.setter
     def plant_connection_1_outlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `plant_connection_1_outlet_node_name`
+        """  Corresponds to IDD Field `Plant Connection 1 Outlet Node Name`
+        
+        {u'type': u'node', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `plant_connection_1_outlet_node_name`
+            value (str): value for IDD Field `Plant Connection 1 Outlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -516,7 +527,7 @@ class ZoneHvacForcedAirUserDefined(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `plant_connection_1_outlet_node_name`'.format(value))
             if ',' in value:
@@ -525,7 +536,6 @@ class ZoneHvacForcedAirUserDefined(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `plant_connection_1_outlet_node_name`')
-
         self._data["Plant Connection 1 Outlet Node Name"] = value
 
     @property
@@ -539,10 +549,12 @@ class ZoneHvacForcedAirUserDefined(object):
 
     @plant_connection_2_inlet_node_name.setter
     def plant_connection_2_inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `plant_connection_2_inlet_node_name`
+        """  Corresponds to IDD Field `Plant Connection 2 Inlet Node Name`
+        
+        {u'type': u'node', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `plant_connection_2_inlet_node_name`
+            value (str): value for IDD Field `Plant Connection 2 Inlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -552,7 +564,7 @@ class ZoneHvacForcedAirUserDefined(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `plant_connection_2_inlet_node_name`'.format(value))
             if ',' in value:
@@ -561,7 +573,6 @@ class ZoneHvacForcedAirUserDefined(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `plant_connection_2_inlet_node_name`')
-
         self._data["Plant Connection 2 Inlet Node Name"] = value
 
     @property
@@ -575,10 +586,12 @@ class ZoneHvacForcedAirUserDefined(object):
 
     @plant_connection_2_outlet_node_name.setter
     def plant_connection_2_outlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `plant_connection_2_outlet_node_name`
+        """  Corresponds to IDD Field `Plant Connection 2 Outlet Node Name`
+        
+        {u'type': u'node', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `plant_connection_2_outlet_node_name`
+            value (str): value for IDD Field `Plant Connection 2 Outlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -588,7 +601,7 @@ class ZoneHvacForcedAirUserDefined(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `plant_connection_2_outlet_node_name`'.format(value))
             if ',' in value:
@@ -597,7 +610,6 @@ class ZoneHvacForcedAirUserDefined(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `plant_connection_2_outlet_node_name`')
-
         self._data["Plant Connection 2 Outlet Node Name"] = value
 
     @property
@@ -611,10 +623,12 @@ class ZoneHvacForcedAirUserDefined(object):
 
     @plant_connection_3_inlet_node_name.setter
     def plant_connection_3_inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `plant_connection_3_inlet_node_name`
+        """  Corresponds to IDD Field `Plant Connection 3 Inlet Node Name`
+        
+        {u'type': u'node', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `plant_connection_3_inlet_node_name`
+            value (str): value for IDD Field `Plant Connection 3 Inlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -624,7 +638,7 @@ class ZoneHvacForcedAirUserDefined(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `plant_connection_3_inlet_node_name`'.format(value))
             if ',' in value:
@@ -633,7 +647,6 @@ class ZoneHvacForcedAirUserDefined(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `plant_connection_3_inlet_node_name`')
-
         self._data["Plant Connection 3 Inlet Node Name"] = value
 
     @property
@@ -647,10 +660,12 @@ class ZoneHvacForcedAirUserDefined(object):
 
     @plant_connection_3_outlet_node_name.setter
     def plant_connection_3_outlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `plant_connection_3_outlet_node_name`
+        """  Corresponds to IDD Field `Plant Connection 3 Outlet Node Name`
+        
+        {u'type': u'node', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `plant_connection_3_outlet_node_name`
+            value (str): value for IDD Field `Plant Connection 3 Outlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -660,7 +675,7 @@ class ZoneHvacForcedAirUserDefined(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `plant_connection_3_outlet_node_name`'.format(value))
             if ',' in value:
@@ -669,7 +684,6 @@ class ZoneHvacForcedAirUserDefined(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `plant_connection_3_outlet_node_name`')
-
         self._data["Plant Connection 3 Outlet Node Name"] = value
 
     @property
@@ -683,11 +697,13 @@ class ZoneHvacForcedAirUserDefined(object):
 
     @supply_inlet_water_storage_tank_name.setter
     def supply_inlet_water_storage_tank_name(self, value=None):
-        """  Corresponds to IDD Field `supply_inlet_water_storage_tank_name`
+        """  Corresponds to IDD Field `Supply Inlet Water Storage Tank Name`
         Water use storage tank for alternate source of water consumed by device
+        
+        {u'note': [u'Water use storage tank for alternate source of water consumed by device'], u'type': u'object-list', u'object-list': u'WaterStorageTankNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `supply_inlet_water_storage_tank_name`
+            value (str): value for IDD Field `Supply Inlet Water Storage Tank Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -697,7 +713,7 @@ class ZoneHvacForcedAirUserDefined(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `supply_inlet_water_storage_tank_name`'.format(value))
             if ',' in value:
@@ -706,7 +722,6 @@ class ZoneHvacForcedAirUserDefined(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `supply_inlet_water_storage_tank_name`')
-
         self._data["Supply Inlet Water Storage Tank Name"] = value
 
     @property
@@ -720,11 +735,13 @@ class ZoneHvacForcedAirUserDefined(object):
 
     @collection_outlet_water_storage_tank_name.setter
     def collection_outlet_water_storage_tank_name(self, value=None):
-        """  Corresponds to IDD Field `collection_outlet_water_storage_tank_name`
+        """  Corresponds to IDD Field `Collection Outlet Water Storage Tank Name`
         Water use storage tank for collection of condensate by device
+        
+        {u'note': [u'Water use storage tank for collection of condensate by device'], u'type': u'object-list', u'object-list': u'WaterStorageTankNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `collection_outlet_water_storage_tank_name`
+            value (str): value for IDD Field `Collection Outlet Water Storage Tank Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -734,7 +751,7 @@ class ZoneHvacForcedAirUserDefined(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `collection_outlet_water_storage_tank_name`'.format(value))
             if ',' in value:
@@ -743,7 +760,6 @@ class ZoneHvacForcedAirUserDefined(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `collection_outlet_water_storage_tank_name`')
-
         self._data["Collection Outlet Water Storage Tank Name"] = value
 
     @property
@@ -757,11 +773,13 @@ class ZoneHvacForcedAirUserDefined(object):
 
     @ambient_zone_name.setter
     def ambient_zone_name(self, value=None):
-        """  Corresponds to IDD Field `ambient_zone_name`
+        """  Corresponds to IDD Field `Ambient Zone Name`
         Used for modeling device losses to surrounding zone
+        
+        {u'note': [u'Used for modeling device losses to surrounding zone'], u'type': u'object-list', u'object-list': u'ZoneNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `ambient_zone_name`
+            value (str): value for IDD Field `Ambient Zone Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -771,7 +789,7 @@ class ZoneHvacForcedAirUserDefined(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `ambient_zone_name`'.format(value))
             if ',' in value:
@@ -780,7 +798,6 @@ class ZoneHvacForcedAirUserDefined(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `ambient_zone_name`')
-
         self._data["Ambient Zone Name"] = value
 
     def check(self):
@@ -973,11 +990,13 @@ class AirTerminalSingleDuctUserDefined(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
         This is the name of the air terminal
+        
+        {u'note': [u'This is the name of the air terminal'], u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -987,7 +1006,7 @@ class AirTerminalSingleDuctUserDefined(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -996,7 +1015,6 @@ class AirTerminalSingleDuctUserDefined(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -1010,10 +1028,12 @@ class AirTerminalSingleDuctUserDefined(object):
 
     @overall_model_simulation_program_calling_manager_name.setter
     def overall_model_simulation_program_calling_manager_name(self, value=None):
-        """  Corresponds to IDD Field `overall_model_simulation_program_calling_manager_name`
+        """  Corresponds to IDD Field `Overall Model Simulation Program Calling Manager Name`
+        
+        {u'type': u'object-list', u'object-list': u'ProgramNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `overall_model_simulation_program_calling_manager_name`
+            value (str): value for IDD Field `Overall Model Simulation Program Calling Manager Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1023,7 +1043,7 @@ class AirTerminalSingleDuctUserDefined(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `overall_model_simulation_program_calling_manager_name`'.format(value))
             if ',' in value:
@@ -1032,7 +1052,6 @@ class AirTerminalSingleDuctUserDefined(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `overall_model_simulation_program_calling_manager_name`')
-
         self._data["Overall Model Simulation Program Calling Manager Name"] = value
 
     @property
@@ -1046,10 +1065,12 @@ class AirTerminalSingleDuctUserDefined(object):
 
     @model_setup_and_sizing_program_calling_manager_name.setter
     def model_setup_and_sizing_program_calling_manager_name(self, value=None):
-        """  Corresponds to IDD Field `model_setup_and_sizing_program_calling_manager_name`
+        """  Corresponds to IDD Field `Model Setup and Sizing Program Calling Manager Name`
+        
+        {u'type': u'object-list', u'object-list': u'ProgramNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `model_setup_and_sizing_program_calling_manager_name`
+            value (str): value for IDD Field `Model Setup and Sizing Program Calling Manager Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1059,7 +1080,7 @@ class AirTerminalSingleDuctUserDefined(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `model_setup_and_sizing_program_calling_manager_name`'.format(value))
             if ',' in value:
@@ -1068,7 +1089,6 @@ class AirTerminalSingleDuctUserDefined(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `model_setup_and_sizing_program_calling_manager_name`')
-
         self._data["Model Setup and Sizing Program Calling Manager Name"] = value
 
     @property
@@ -1082,11 +1102,13 @@ class AirTerminalSingleDuctUserDefined(object):
 
     @primary_air_inlet_node_name.setter
     def primary_air_inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `primary_air_inlet_node_name`
+        """  Corresponds to IDD Field `Primary Air Inlet Node Name`
         Air inlet node for the unit must be a zone splitter outlet.
+        
+        {u'note': [u'Air inlet node for the unit must be a zone splitter outlet.'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `primary_air_inlet_node_name`
+            value (str): value for IDD Field `Primary Air Inlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1096,7 +1118,7 @@ class AirTerminalSingleDuctUserDefined(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `primary_air_inlet_node_name`'.format(value))
             if ',' in value:
@@ -1105,7 +1127,6 @@ class AirTerminalSingleDuctUserDefined(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `primary_air_inlet_node_name`')
-
         self._data["Primary Air Inlet Node Name"] = value
 
     @property
@@ -1119,11 +1140,13 @@ class AirTerminalSingleDuctUserDefined(object):
 
     @primary_air_outlet_node_name.setter
     def primary_air_outlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `primary_air_outlet_node_name`
+        """  Corresponds to IDD Field `Primary Air Outlet Node Name`
         Air outlet node for the unit must be a zone air inlet node.
+        
+        {u'note': [u'Air outlet node for the unit must be a zone air inlet node.'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `primary_air_outlet_node_name`
+            value (str): value for IDD Field `Primary Air Outlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1133,7 +1156,7 @@ class AirTerminalSingleDuctUserDefined(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `primary_air_outlet_node_name`'.format(value))
             if ',' in value:
@@ -1142,7 +1165,6 @@ class AirTerminalSingleDuctUserDefined(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `primary_air_outlet_node_name`')
-
         self._data["Primary Air Outlet Node Name"] = value
 
     @property
@@ -1156,11 +1178,13 @@ class AirTerminalSingleDuctUserDefined(object):
 
     @secondary_air_inlet_node_name.setter
     def secondary_air_inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `secondary_air_inlet_node_name`
+        """  Corresponds to IDD Field `Secondary Air Inlet Node Name`
         Inlet air used for heat rejection or air source
+        
+        {u'note': [u'Inlet air used for heat rejection or air source'], u'type': u'node', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `secondary_air_inlet_node_name`
+            value (str): value for IDD Field `Secondary Air Inlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1170,7 +1194,7 @@ class AirTerminalSingleDuctUserDefined(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `secondary_air_inlet_node_name`'.format(value))
             if ',' in value:
@@ -1179,7 +1203,6 @@ class AirTerminalSingleDuctUserDefined(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `secondary_air_inlet_node_name`')
-
         self._data["Secondary Air Inlet Node Name"] = value
 
     @property
@@ -1193,11 +1216,13 @@ class AirTerminalSingleDuctUserDefined(object):
 
     @secondary_air_outlet_node_name.setter
     def secondary_air_outlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `secondary_air_outlet_node_name`
+        """  Corresponds to IDD Field `Secondary Air Outlet Node Name`
         Outlet air used for heat rejection or air source
+        
+        {u'note': [u'Outlet air used for heat rejection or air source'], u'type': u'node', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `secondary_air_outlet_node_name`
+            value (str): value for IDD Field `Secondary Air Outlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1207,7 +1232,7 @@ class AirTerminalSingleDuctUserDefined(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `secondary_air_outlet_node_name`'.format(value))
             if ',' in value:
@@ -1216,7 +1241,6 @@ class AirTerminalSingleDuctUserDefined(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `secondary_air_outlet_node_name`')
-
         self._data["Secondary Air Outlet Node Name"] = value
 
     @property
@@ -1230,10 +1254,12 @@ class AirTerminalSingleDuctUserDefined(object):
 
     @number_of_plant_loop_connections.setter
     def number_of_plant_loop_connections(self, value=None):
-        """  Corresponds to IDD Field `number_of_plant_loop_connections`
+        """  Corresponds to IDD Field `Number of Plant Loop Connections`
+        
+        {u'minimum': '0', u'type': u'integer', u'maximum': '2', u'required-field': True, 'pytype': 'int'}
 
         Args:
-            value (int): value for IDD Field `number_of_plant_loop_connections`
+            value (int): value for IDD Field `Number of Plant Loop Connections`
                 value >= 0
                 value <= 2
                 if `value` is None it will not be checked against the
@@ -1245,7 +1271,7 @@ class AirTerminalSingleDuctUserDefined(object):
         if value is not None:
             try:
                 value = int(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type int '
                                  'for field `number_of_plant_loop_connections`'.format(value))
             if value < 0:
@@ -1254,7 +1280,6 @@ class AirTerminalSingleDuctUserDefined(object):
             if value > 2:
                 raise ValueError('value need to be smaller 2 '
                                  'for field `number_of_plant_loop_connections`')
-
         self._data["Number of Plant Loop Connections"] = value
 
     @property
@@ -1268,10 +1293,12 @@ class AirTerminalSingleDuctUserDefined(object):
 
     @plant_connection_1_inlet_node_name.setter
     def plant_connection_1_inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `plant_connection_1_inlet_node_name`
+        """  Corresponds to IDD Field `Plant Connection 1 Inlet Node Name`
+        
+        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `plant_connection_1_inlet_node_name`
+            value (str): value for IDD Field `Plant Connection 1 Inlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1281,7 +1308,7 @@ class AirTerminalSingleDuctUserDefined(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `plant_connection_1_inlet_node_name`'.format(value))
             if ',' in value:
@@ -1290,7 +1317,6 @@ class AirTerminalSingleDuctUserDefined(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `plant_connection_1_inlet_node_name`')
-
         self._data["Plant Connection 1 Inlet Node Name"] = value
 
     @property
@@ -1304,10 +1330,12 @@ class AirTerminalSingleDuctUserDefined(object):
 
     @plant_connection_1_outlet_node_name.setter
     def plant_connection_1_outlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `plant_connection_1_outlet_node_name`
+        """  Corresponds to IDD Field `Plant Connection 1 Outlet Node Name`
+        
+        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `plant_connection_1_outlet_node_name`
+            value (str): value for IDD Field `Plant Connection 1 Outlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1317,7 +1345,7 @@ class AirTerminalSingleDuctUserDefined(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `plant_connection_1_outlet_node_name`'.format(value))
             if ',' in value:
@@ -1326,7 +1354,6 @@ class AirTerminalSingleDuctUserDefined(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `plant_connection_1_outlet_node_name`')
-
         self._data["Plant Connection 1 Outlet Node Name"] = value
 
     @property
@@ -1340,10 +1367,12 @@ class AirTerminalSingleDuctUserDefined(object):
 
     @plant_connection_2_inlet_node_name.setter
     def plant_connection_2_inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `plant_connection_2_inlet_node_name`
+        """  Corresponds to IDD Field `Plant Connection 2 Inlet Node Name`
+        
+        {u'type': u'node', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `plant_connection_2_inlet_node_name`
+            value (str): value for IDD Field `Plant Connection 2 Inlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1353,7 +1382,7 @@ class AirTerminalSingleDuctUserDefined(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `plant_connection_2_inlet_node_name`'.format(value))
             if ',' in value:
@@ -1362,7 +1391,6 @@ class AirTerminalSingleDuctUserDefined(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `plant_connection_2_inlet_node_name`')
-
         self._data["Plant Connection 2 Inlet Node Name"] = value
 
     @property
@@ -1376,10 +1404,12 @@ class AirTerminalSingleDuctUserDefined(object):
 
     @plant_connection_2_outlet_node_name.setter
     def plant_connection_2_outlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `plant_connection_2_outlet_node_name`
+        """  Corresponds to IDD Field `Plant Connection 2 Outlet Node Name`
+        
+        {u'type': u'node', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `plant_connection_2_outlet_node_name`
+            value (str): value for IDD Field `Plant Connection 2 Outlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1389,7 +1419,7 @@ class AirTerminalSingleDuctUserDefined(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `plant_connection_2_outlet_node_name`'.format(value))
             if ',' in value:
@@ -1398,7 +1428,6 @@ class AirTerminalSingleDuctUserDefined(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `plant_connection_2_outlet_node_name`')
-
         self._data["Plant Connection 2 Outlet Node Name"] = value
 
     @property
@@ -1412,11 +1441,13 @@ class AirTerminalSingleDuctUserDefined(object):
 
     @supply_inlet_water_storage_tank_name.setter
     def supply_inlet_water_storage_tank_name(self, value=None):
-        """  Corresponds to IDD Field `supply_inlet_water_storage_tank_name`
+        """  Corresponds to IDD Field `Supply Inlet Water Storage Tank Name`
         Water use storage tank for alternate source of water consumed by device
+        
+        {u'note': [u'Water use storage tank for alternate source of water consumed by device'], u'type': u'object-list', u'object-list': u'WaterStorageTankNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `supply_inlet_water_storage_tank_name`
+            value (str): value for IDD Field `Supply Inlet Water Storage Tank Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1426,7 +1457,7 @@ class AirTerminalSingleDuctUserDefined(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `supply_inlet_water_storage_tank_name`'.format(value))
             if ',' in value:
@@ -1435,7 +1466,6 @@ class AirTerminalSingleDuctUserDefined(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `supply_inlet_water_storage_tank_name`')
-
         self._data["Supply Inlet Water Storage Tank Name"] = value
 
     @property
@@ -1449,11 +1479,13 @@ class AirTerminalSingleDuctUserDefined(object):
 
     @collection_outlet_water_storage_tank_name.setter
     def collection_outlet_water_storage_tank_name(self, value=None):
-        """  Corresponds to IDD Field `collection_outlet_water_storage_tank_name`
+        """  Corresponds to IDD Field `Collection Outlet Water Storage Tank Name`
         Water use storage tank for collection of condensate by device
+        
+        {u'note': [u'Water use storage tank for collection of condensate by device'], u'type': u'object-list', u'object-list': u'WaterStorageTankNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `collection_outlet_water_storage_tank_name`
+            value (str): value for IDD Field `Collection Outlet Water Storage Tank Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1463,7 +1495,7 @@ class AirTerminalSingleDuctUserDefined(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `collection_outlet_water_storage_tank_name`'.format(value))
             if ',' in value:
@@ -1472,7 +1504,6 @@ class AirTerminalSingleDuctUserDefined(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `collection_outlet_water_storage_tank_name`')
-
         self._data["Collection Outlet Water Storage Tank Name"] = value
 
     @property
@@ -1486,11 +1517,13 @@ class AirTerminalSingleDuctUserDefined(object):
 
     @ambient_zone_name.setter
     def ambient_zone_name(self, value=None):
-        """  Corresponds to IDD Field `ambient_zone_name`
+        """  Corresponds to IDD Field `Ambient Zone Name`
         Used for modeling device losses to surrounding zone
+        
+        {u'note': [u'Used for modeling device losses to surrounding zone'], u'type': u'object-list', u'object-list': u'ZoneNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `ambient_zone_name`
+            value (str): value for IDD Field `Ambient Zone Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1500,7 +1533,7 @@ class AirTerminalSingleDuctUserDefined(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `ambient_zone_name`'.format(value))
             if ',' in value:
@@ -1509,7 +1542,6 @@ class AirTerminalSingleDuctUserDefined(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `ambient_zone_name`')
-
         self._data["Ambient Zone Name"] = value
 
     def check(self):
@@ -1694,11 +1726,13 @@ class CoilUserDefined(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
         This is the name of the coil
+        
+        {u'note': [u'This is the name of the coil'], u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1708,7 +1742,7 @@ class CoilUserDefined(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -1717,7 +1751,6 @@ class CoilUserDefined(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -1731,10 +1764,12 @@ class CoilUserDefined(object):
 
     @overall_model_simulation_program_calling_manager_name.setter
     def overall_model_simulation_program_calling_manager_name(self, value=None):
-        """  Corresponds to IDD Field `overall_model_simulation_program_calling_manager_name`
+        """  Corresponds to IDD Field `Overall Model Simulation Program Calling Manager Name`
+        
+        {u'type': u'object-list', u'object-list': u'ProgramNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `overall_model_simulation_program_calling_manager_name`
+            value (str): value for IDD Field `Overall Model Simulation Program Calling Manager Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1744,7 +1779,7 @@ class CoilUserDefined(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `overall_model_simulation_program_calling_manager_name`'.format(value))
             if ',' in value:
@@ -1753,7 +1788,6 @@ class CoilUserDefined(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `overall_model_simulation_program_calling_manager_name`')
-
         self._data["Overall Model Simulation Program Calling Manager Name"] = value
 
     @property
@@ -1767,10 +1801,12 @@ class CoilUserDefined(object):
 
     @model_setup_and_sizing_program_calling_manager_name.setter
     def model_setup_and_sizing_program_calling_manager_name(self, value=None):
-        """  Corresponds to IDD Field `model_setup_and_sizing_program_calling_manager_name`
+        """  Corresponds to IDD Field `Model Setup and Sizing Program Calling Manager Name`
+        
+        {u'type': u'object-list', u'object-list': u'ProgramNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `model_setup_and_sizing_program_calling_manager_name`
+            value (str): value for IDD Field `Model Setup and Sizing Program Calling Manager Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1780,7 +1816,7 @@ class CoilUserDefined(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `model_setup_and_sizing_program_calling_manager_name`'.format(value))
             if ',' in value:
@@ -1789,7 +1825,6 @@ class CoilUserDefined(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `model_setup_and_sizing_program_calling_manager_name`')
-
         self._data["Model Setup and Sizing Program Calling Manager Name"] = value
 
     @property
@@ -1803,10 +1838,12 @@ class CoilUserDefined(object):
 
     @number_of_air_connections.setter
     def number_of_air_connections(self, value=None):
-        """  Corresponds to IDD Field `number_of_air_connections`
+        """  Corresponds to IDD Field `Number of Air Connections`
+        
+        {u'minimum': '1', u'type': u'integer', u'maximum': '2', u'required-field': True, 'pytype': 'int'}
 
         Args:
-            value (int): value for IDD Field `number_of_air_connections`
+            value (int): value for IDD Field `Number of Air Connections`
                 value >= 1
                 value <= 2
                 if `value` is None it will not be checked against the
@@ -1818,7 +1855,7 @@ class CoilUserDefined(object):
         if value is not None:
             try:
                 value = int(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type int '
                                  'for field `number_of_air_connections`'.format(value))
             if value < 1:
@@ -1827,7 +1864,6 @@ class CoilUserDefined(object):
             if value > 2:
                 raise ValueError('value need to be smaller 2 '
                                  'for field `number_of_air_connections`')
-
         self._data["Number of Air Connections"] = value
 
     @property
@@ -1841,11 +1877,13 @@ class CoilUserDefined(object):
 
     @air_connection_1_inlet_node_name.setter
     def air_connection_1_inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `air_connection_1_inlet_node_name`
+        """  Corresponds to IDD Field `Air Connection 1 Inlet Node Name`
         Inlet air for primary air stream
+        
+        {u'note': [u'Inlet air for primary air stream'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `air_connection_1_inlet_node_name`
+            value (str): value for IDD Field `Air Connection 1 Inlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1855,7 +1893,7 @@ class CoilUserDefined(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `air_connection_1_inlet_node_name`'.format(value))
             if ',' in value:
@@ -1864,7 +1902,6 @@ class CoilUserDefined(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `air_connection_1_inlet_node_name`')
-
         self._data["Air Connection 1 Inlet Node Name"] = value
 
     @property
@@ -1878,11 +1915,13 @@ class CoilUserDefined(object):
 
     @air_connection_1_outlet_node_name.setter
     def air_connection_1_outlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `air_connection_1_outlet_node_name`
+        """  Corresponds to IDD Field `Air Connection 1 Outlet Node Name`
         Outlet air for primary air stream
+        
+        {u'note': [u'Outlet air for primary air stream'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `air_connection_1_outlet_node_name`
+            value (str): value for IDD Field `Air Connection 1 Outlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1892,7 +1931,7 @@ class CoilUserDefined(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `air_connection_1_outlet_node_name`'.format(value))
             if ',' in value:
@@ -1901,7 +1940,6 @@ class CoilUserDefined(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `air_connection_1_outlet_node_name`')
-
         self._data["Air Connection 1 Outlet Node Name"] = value
 
     @property
@@ -1915,11 +1953,13 @@ class CoilUserDefined(object):
 
     @air_connection_2_inlet_node_name.setter
     def air_connection_2_inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `air_connection_2_inlet_node_name`
+        """  Corresponds to IDD Field `Air Connection 2 Inlet Node Name`
         Inlet air for secondary air stream
+        
+        {u'note': [u'Inlet air for secondary air stream'], u'type': u'node', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `air_connection_2_inlet_node_name`
+            value (str): value for IDD Field `Air Connection 2 Inlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1929,7 +1969,7 @@ class CoilUserDefined(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `air_connection_2_inlet_node_name`'.format(value))
             if ',' in value:
@@ -1938,7 +1978,6 @@ class CoilUserDefined(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `air_connection_2_inlet_node_name`')
-
         self._data["Air Connection 2 Inlet Node Name"] = value
 
     @property
@@ -1952,11 +1991,13 @@ class CoilUserDefined(object):
 
     @air_connection_2_outlet_node_name.setter
     def air_connection_2_outlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `air_connection_2_outlet_node_name`
+        """  Corresponds to IDD Field `Air Connection 2 Outlet Node Name`
         Outlet air for secondary air stream
+        
+        {u'note': [u'Outlet air for secondary air stream'], u'type': u'node', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `air_connection_2_outlet_node_name`
+            value (str): value for IDD Field `Air Connection 2 Outlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1966,7 +2007,7 @@ class CoilUserDefined(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `air_connection_2_outlet_node_name`'.format(value))
             if ',' in value:
@@ -1975,7 +2016,6 @@ class CoilUserDefined(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `air_connection_2_outlet_node_name`')
-
         self._data["Air Connection 2 Outlet Node Name"] = value
 
     @property
@@ -1989,10 +2029,12 @@ class CoilUserDefined(object):
 
     @plant_connection_is_used.setter
     def plant_connection_is_used(self, value=None):
-        """  Corresponds to IDD Field `plant_connection_is_used`
+        """  Corresponds to IDD Field `Plant Connection is Used`
+        
+        {u'type': u'choice', u'key': [u'Yes', u'No'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `plant_connection_is_used`
+            value (str): value for IDD Field `Plant Connection is Used`
                 Accepted values are:
                       - Yes
                       - No
@@ -2005,7 +2047,7 @@ class CoilUserDefined(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `plant_connection_is_used`'.format(value))
             if ',' in value:
@@ -2031,7 +2073,6 @@ class CoilUserDefined(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `plant_connection_is_used`'.format(value))
             value = vals[value_lower]
-
         self._data["Plant Connection is Used"] = value
 
     @property
@@ -2045,10 +2086,12 @@ class CoilUserDefined(object):
 
     @plant_connection_inlet_node_name.setter
     def plant_connection_inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `plant_connection_inlet_node_name`
+        """  Corresponds to IDD Field `Plant Connection Inlet Node Name`
+        
+        {u'type': u'node', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `plant_connection_inlet_node_name`
+            value (str): value for IDD Field `Plant Connection Inlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2058,7 +2101,7 @@ class CoilUserDefined(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `plant_connection_inlet_node_name`'.format(value))
             if ',' in value:
@@ -2067,7 +2110,6 @@ class CoilUserDefined(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `plant_connection_inlet_node_name`')
-
         self._data["Plant Connection Inlet Node Name"] = value
 
     @property
@@ -2081,10 +2123,12 @@ class CoilUserDefined(object):
 
     @plant_connection_outlet_node_name.setter
     def plant_connection_outlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `plant_connection_outlet_node_name`
+        """  Corresponds to IDD Field `Plant Connection Outlet Node Name`
+        
+        {u'type': u'node', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `plant_connection_outlet_node_name`
+            value (str): value for IDD Field `Plant Connection Outlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2094,7 +2138,7 @@ class CoilUserDefined(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `plant_connection_outlet_node_name`'.format(value))
             if ',' in value:
@@ -2103,7 +2147,6 @@ class CoilUserDefined(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `plant_connection_outlet_node_name`')
-
         self._data["Plant Connection Outlet Node Name"] = value
 
     @property
@@ -2117,11 +2160,13 @@ class CoilUserDefined(object):
 
     @supply_inlet_water_storage_tank_name.setter
     def supply_inlet_water_storage_tank_name(self, value=None):
-        """  Corresponds to IDD Field `supply_inlet_water_storage_tank_name`
+        """  Corresponds to IDD Field `Supply Inlet Water Storage Tank Name`
         Water use storage tank for alternate source of water consumed by device
+        
+        {u'note': [u'Water use storage tank for alternate source of water consumed by device'], u'type': u'object-list', u'object-list': u'WaterStorageTankNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `supply_inlet_water_storage_tank_name`
+            value (str): value for IDD Field `Supply Inlet Water Storage Tank Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2131,7 +2176,7 @@ class CoilUserDefined(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `supply_inlet_water_storage_tank_name`'.format(value))
             if ',' in value:
@@ -2140,7 +2185,6 @@ class CoilUserDefined(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `supply_inlet_water_storage_tank_name`')
-
         self._data["Supply Inlet Water Storage Tank Name"] = value
 
     @property
@@ -2154,11 +2198,13 @@ class CoilUserDefined(object):
 
     @collection_outlet_water_storage_tank_name.setter
     def collection_outlet_water_storage_tank_name(self, value=None):
-        """  Corresponds to IDD Field `collection_outlet_water_storage_tank_name`
+        """  Corresponds to IDD Field `Collection Outlet Water Storage Tank Name`
         Water use storage tank for collection of condensate by device
+        
+        {u'note': [u'Water use storage tank for collection of condensate by device'], u'type': u'object-list', u'object-list': u'WaterStorageTankNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `collection_outlet_water_storage_tank_name`
+            value (str): value for IDD Field `Collection Outlet Water Storage Tank Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2168,7 +2214,7 @@ class CoilUserDefined(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `collection_outlet_water_storage_tank_name`'.format(value))
             if ',' in value:
@@ -2177,7 +2223,6 @@ class CoilUserDefined(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `collection_outlet_water_storage_tank_name`')
-
         self._data["Collection Outlet Water Storage Tank Name"] = value
 
     @property
@@ -2191,11 +2236,13 @@ class CoilUserDefined(object):
 
     @ambient_zone_name.setter
     def ambient_zone_name(self, value=None):
-        """  Corresponds to IDD Field `ambient_zone_name`
+        """  Corresponds to IDD Field `Ambient Zone Name`
         Used for modeling device losses to surrounding zone
+        
+        {u'note': [u'Used for modeling device losses to surrounding zone'], u'type': u'object-list', u'object-list': u'ZoneNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `ambient_zone_name`
+            value (str): value for IDD Field `Ambient Zone Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2205,7 +2252,7 @@ class CoilUserDefined(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `ambient_zone_name`'.format(value))
             if ',' in value:
@@ -2214,7 +2261,6 @@ class CoilUserDefined(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `ambient_zone_name`')
-
         self._data["Ambient Zone Name"] = value
 
     def check(self):
@@ -2543,11 +2589,13 @@ class PlantComponentUserDefined(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
         This is the name of the plant component
+        
+        {u'note': [u'This is the name of the plant component'], u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2557,7 +2605,7 @@ class PlantComponentUserDefined(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -2566,7 +2614,6 @@ class PlantComponentUserDefined(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -2580,10 +2627,12 @@ class PlantComponentUserDefined(object):
 
     @main_model_program_calling_manager_name.setter
     def main_model_program_calling_manager_name(self, value=None):
-        """  Corresponds to IDD Field `main_model_program_calling_manager_name`
+        """  Corresponds to IDD Field `Main Model Program Calling Manager Name`
+        
+        {u'type': u'object-list', u'object-list': u'ProgramNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `main_model_program_calling_manager_name`
+            value (str): value for IDD Field `Main Model Program Calling Manager Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2593,7 +2642,7 @@ class PlantComponentUserDefined(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `main_model_program_calling_manager_name`'.format(value))
             if ',' in value:
@@ -2602,7 +2651,6 @@ class PlantComponentUserDefined(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `main_model_program_calling_manager_name`')
-
         self._data["Main Model Program Calling Manager Name"] = value
 
     @property
@@ -2616,10 +2664,12 @@ class PlantComponentUserDefined(object):
 
     @number_of_plant_loop_connections.setter
     def number_of_plant_loop_connections(self, value=None):
-        """  Corresponds to IDD Field `number_of_plant_loop_connections`
+        """  Corresponds to IDD Field `Number of Plant Loop Connections`
+        
+        {u'minimum': '1', u'type': u'integer', u'maximum': '4', u'required-field': True, 'pytype': 'int'}
 
         Args:
-            value (int): value for IDD Field `number_of_plant_loop_connections`
+            value (int): value for IDD Field `Number of Plant Loop Connections`
                 value >= 1
                 value <= 4
                 if `value` is None it will not be checked against the
@@ -2631,7 +2681,7 @@ class PlantComponentUserDefined(object):
         if value is not None:
             try:
                 value = int(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type int '
                                  'for field `number_of_plant_loop_connections`'.format(value))
             if value < 1:
@@ -2640,7 +2690,6 @@ class PlantComponentUserDefined(object):
             if value > 4:
                 raise ValueError('value need to be smaller 4 '
                                  'for field `number_of_plant_loop_connections`')
-
         self._data["Number of Plant Loop Connections"] = value
 
     @property
@@ -2654,10 +2703,12 @@ class PlantComponentUserDefined(object):
 
     @plant_connection_1_inlet_node_name.setter
     def plant_connection_1_inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `plant_connection_1_inlet_node_name`
+        """  Corresponds to IDD Field `Plant Connection 1 Inlet Node Name`
+        
+        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `plant_connection_1_inlet_node_name`
+            value (str): value for IDD Field `Plant Connection 1 Inlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2667,7 +2718,7 @@ class PlantComponentUserDefined(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `plant_connection_1_inlet_node_name`'.format(value))
             if ',' in value:
@@ -2676,7 +2727,6 @@ class PlantComponentUserDefined(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `plant_connection_1_inlet_node_name`')
-
         self._data["Plant Connection 1 Inlet Node Name"] = value
 
     @property
@@ -2690,10 +2740,12 @@ class PlantComponentUserDefined(object):
 
     @plant_connection_1_outlet_node_name.setter
     def plant_connection_1_outlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `plant_connection_1_outlet_node_name`
+        """  Corresponds to IDD Field `Plant Connection 1 Outlet Node Name`
+        
+        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `plant_connection_1_outlet_node_name`
+            value (str): value for IDD Field `Plant Connection 1 Outlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2703,7 +2755,7 @@ class PlantComponentUserDefined(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `plant_connection_1_outlet_node_name`'.format(value))
             if ',' in value:
@@ -2712,7 +2764,6 @@ class PlantComponentUserDefined(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `plant_connection_1_outlet_node_name`')
-
         self._data["Plant Connection 1 Outlet Node Name"] = value
 
     @property
@@ -2726,10 +2777,12 @@ class PlantComponentUserDefined(object):
 
     @plant_connection_1_loading_mode.setter
     def plant_connection_1_loading_mode(self, value=None):
-        """  Corresponds to IDD Field `plant_connection_1_loading_mode`
+        """  Corresponds to IDD Field `Plant Connection 1 Loading Mode`
+        
+        {u'type': u'choice', u'required-field': True, u'key': [u'DemandsLoad', u'MeetsLoadWithPassiveCapacity', u'MeetsLoadWithNominalCapacity', u'MeetsLoadWithNominalCapacityLowOutLimit', u'MeetsLoadWithNominalCapacityHiOutLimit'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `plant_connection_1_loading_mode`
+            value (str): value for IDD Field `Plant Connection 1 Loading Mode`
                 Accepted values are:
                       - DemandsLoad
                       - MeetsLoadWithPassiveCapacity
@@ -2745,7 +2798,7 @@ class PlantComponentUserDefined(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `plant_connection_1_loading_mode`'.format(value))
             if ',' in value:
@@ -2774,7 +2827,6 @@ class PlantComponentUserDefined(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `plant_connection_1_loading_mode`'.format(value))
             value = vals[value_lower]
-
         self._data["Plant Connection 1 Loading Mode"] = value
 
     @property
@@ -2788,10 +2840,12 @@ class PlantComponentUserDefined(object):
 
     @plant_connection_1_loop_flow_request_mode.setter
     def plant_connection_1_loop_flow_request_mode(self, value=None):
-        """  Corresponds to IDD Field `plant_connection_1_loop_flow_request_mode`
+        """  Corresponds to IDD Field `Plant Connection 1 Loop Flow Request Mode`
+        
+        {u'type': u'Choice', u'required-field': True, u'key': [u'NeedsFlowIfLoopOn', u'NeedsFlowAndTurnsLoopOn', u'ReceivesWhateverFlowAvailable'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `plant_connection_1_loop_flow_request_mode`
+            value (str): value for IDD Field `Plant Connection 1 Loop Flow Request Mode`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2801,7 +2855,7 @@ class PlantComponentUserDefined(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `plant_connection_1_loop_flow_request_mode`'.format(value))
             if ',' in value:
@@ -2810,7 +2864,6 @@ class PlantComponentUserDefined(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `plant_connection_1_loop_flow_request_mode`')
-
         self._data["Plant Connection 1 Loop Flow Request Mode"] = value
 
     @property
@@ -2824,10 +2877,12 @@ class PlantComponentUserDefined(object):
 
     @plant_connection_1_initialization_program_calling_manager_name.setter
     def plant_connection_1_initialization_program_calling_manager_name(self, value=None):
-        """  Corresponds to IDD Field `plant_connection_1_initialization_program_calling_manager_name`
+        """  Corresponds to IDD Field `Plant Connection 1 Initialization Program Calling Manager Name`
+        
+        {'type': 'alpha', u'object-list': u'ProgramNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `plant_connection_1_initialization_program_calling_manager_name`
+            value (str): value for IDD Field `Plant Connection 1 Initialization Program Calling Manager Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2837,7 +2892,7 @@ class PlantComponentUserDefined(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `plant_connection_1_initialization_program_calling_manager_name`'.format(value))
             if ',' in value:
@@ -2846,7 +2901,6 @@ class PlantComponentUserDefined(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `plant_connection_1_initialization_program_calling_manager_name`')
-
         self._data["Plant Connection 1 Initialization Program Calling Manager Name"] = value
 
     @property
@@ -2860,10 +2914,12 @@ class PlantComponentUserDefined(object):
 
     @plant_connection_1_simulation_program_calling_manager_name.setter
     def plant_connection_1_simulation_program_calling_manager_name(self, value=None):
-        """  Corresponds to IDD Field `plant_connection_1_simulation_program_calling_manager_name`
+        """  Corresponds to IDD Field `Plant Connection 1 Simulation Program Calling Manager Name`
+        
+        {u'type': u'object-list', u'object-list': u'ProgramNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `plant_connection_1_simulation_program_calling_manager_name`
+            value (str): value for IDD Field `Plant Connection 1 Simulation Program Calling Manager Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2873,7 +2929,7 @@ class PlantComponentUserDefined(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `plant_connection_1_simulation_program_calling_manager_name`'.format(value))
             if ',' in value:
@@ -2882,7 +2938,6 @@ class PlantComponentUserDefined(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `plant_connection_1_simulation_program_calling_manager_name`')
-
         self._data["Plant Connection 1 Simulation Program Calling Manager Name"] = value
 
     @property
@@ -2896,10 +2951,12 @@ class PlantComponentUserDefined(object):
 
     @plant_connection_2_inlet_node_name.setter
     def plant_connection_2_inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `plant_connection_2_inlet_node_name`
+        """  Corresponds to IDD Field `Plant Connection 2 Inlet Node Name`
+        
+        {u'type': u'node', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `plant_connection_2_inlet_node_name`
+            value (str): value for IDD Field `Plant Connection 2 Inlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2909,7 +2966,7 @@ class PlantComponentUserDefined(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `plant_connection_2_inlet_node_name`'.format(value))
             if ',' in value:
@@ -2918,7 +2975,6 @@ class PlantComponentUserDefined(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `plant_connection_2_inlet_node_name`')
-
         self._data["Plant Connection 2 Inlet Node Name"] = value
 
     @property
@@ -2932,10 +2988,12 @@ class PlantComponentUserDefined(object):
 
     @plant_connection_2_outlet_node_name.setter
     def plant_connection_2_outlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `plant_connection_2_outlet_node_name`
+        """  Corresponds to IDD Field `Plant Connection 2 Outlet Node Name`
+        
+        {u'type': u'node', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `plant_connection_2_outlet_node_name`
+            value (str): value for IDD Field `Plant Connection 2 Outlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2945,7 +3003,7 @@ class PlantComponentUserDefined(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `plant_connection_2_outlet_node_name`'.format(value))
             if ',' in value:
@@ -2954,7 +3012,6 @@ class PlantComponentUserDefined(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `plant_connection_2_outlet_node_name`')
-
         self._data["Plant Connection 2 Outlet Node Name"] = value
 
     @property
@@ -2968,10 +3025,12 @@ class PlantComponentUserDefined(object):
 
     @plant_connection_2_loading_mode.setter
     def plant_connection_2_loading_mode(self, value=None):
-        """  Corresponds to IDD Field `plant_connection_2_loading_mode`
+        """  Corresponds to IDD Field `Plant Connection 2 Loading Mode`
+        
+        {u'type': u'choice', u'key': [u'DemandsLoad', u'MeetLoadWithPassiveCapacity', u'MeetLoadWithNominalCapacity', u'MeetLoadWithNominalCapacityLowOutLimit', u'MeetLoadWithNominalCapacityHiOutLimit'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `plant_connection_2_loading_mode`
+            value (str): value for IDD Field `Plant Connection 2 Loading Mode`
                 Accepted values are:
                       - DemandsLoad
                       - MeetLoadWithPassiveCapacity
@@ -2987,7 +3046,7 @@ class PlantComponentUserDefined(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `plant_connection_2_loading_mode`'.format(value))
             if ',' in value:
@@ -3016,7 +3075,6 @@ class PlantComponentUserDefined(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `plant_connection_2_loading_mode`'.format(value))
             value = vals[value_lower]
-
         self._data["Plant Connection 2 Loading Mode"] = value
 
     @property
@@ -3030,10 +3088,12 @@ class PlantComponentUserDefined(object):
 
     @plant_connection_2_loop_flow_request_mode.setter
     def plant_connection_2_loop_flow_request_mode(self, value=None):
-        """  Corresponds to IDD Field `plant_connection_2_loop_flow_request_mode`
+        """  Corresponds to IDD Field `Plant Connection 2 Loop Flow Request Mode`
+        
+        {u'type': u'Choice', u'key': [u'NeedsFlowIfLoopOn', u'NeedsFlowAndTurnsLoopOn', u'ReceivesWhateverFlowAvailable'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `plant_connection_2_loop_flow_request_mode`
+            value (str): value for IDD Field `Plant Connection 2 Loop Flow Request Mode`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3043,7 +3103,7 @@ class PlantComponentUserDefined(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `plant_connection_2_loop_flow_request_mode`'.format(value))
             if ',' in value:
@@ -3052,7 +3112,6 @@ class PlantComponentUserDefined(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `plant_connection_2_loop_flow_request_mode`')
-
         self._data["Plant Connection 2 Loop Flow Request Mode"] = value
 
     @property
@@ -3066,10 +3125,12 @@ class PlantComponentUserDefined(object):
 
     @plant_connection_2_initialization_program_calling_manager_name.setter
     def plant_connection_2_initialization_program_calling_manager_name(self, value=None):
-        """  Corresponds to IDD Field `plant_connection_2_initialization_program_calling_manager_name`
+        """  Corresponds to IDD Field `Plant Connection 2 Initialization Program Calling Manager Name`
+        
+        {u'type': u'object-list', u'object-list': u'ProgramNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `plant_connection_2_initialization_program_calling_manager_name`
+            value (str): value for IDD Field `Plant Connection 2 Initialization Program Calling Manager Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3079,7 +3140,7 @@ class PlantComponentUserDefined(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `plant_connection_2_initialization_program_calling_manager_name`'.format(value))
             if ',' in value:
@@ -3088,7 +3149,6 @@ class PlantComponentUserDefined(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `plant_connection_2_initialization_program_calling_manager_name`')
-
         self._data["Plant Connection 2 Initialization Program Calling Manager Name"] = value
 
     @property
@@ -3102,10 +3162,12 @@ class PlantComponentUserDefined(object):
 
     @plant_connection_2_simulation_program_calling_manager_name.setter
     def plant_connection_2_simulation_program_calling_manager_name(self, value=None):
-        """  Corresponds to IDD Field `plant_connection_2_simulation_program_calling_manager_name`
+        """  Corresponds to IDD Field `Plant Connection 2 Simulation Program Calling Manager Name`
+        
+        {u'type': u'object-list', u'object-list': u'ProgramNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `plant_connection_2_simulation_program_calling_manager_name`
+            value (str): value for IDD Field `Plant Connection 2 Simulation Program Calling Manager Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3115,7 +3177,7 @@ class PlantComponentUserDefined(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `plant_connection_2_simulation_program_calling_manager_name`'.format(value))
             if ',' in value:
@@ -3124,7 +3186,6 @@ class PlantComponentUserDefined(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `plant_connection_2_simulation_program_calling_manager_name`')
-
         self._data["Plant Connection 2 Simulation Program Calling Manager Name"] = value
 
     @property
@@ -3138,10 +3199,12 @@ class PlantComponentUserDefined(object):
 
     @plant_connection_3_inlet_node_name.setter
     def plant_connection_3_inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `plant_connection_3_inlet_node_name`
+        """  Corresponds to IDD Field `Plant Connection 3 Inlet Node Name`
+        
+        {u'type': u'node', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `plant_connection_3_inlet_node_name`
+            value (str): value for IDD Field `Plant Connection 3 Inlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3151,7 +3214,7 @@ class PlantComponentUserDefined(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `plant_connection_3_inlet_node_name`'.format(value))
             if ',' in value:
@@ -3160,7 +3223,6 @@ class PlantComponentUserDefined(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `plant_connection_3_inlet_node_name`')
-
         self._data["Plant Connection 3 Inlet Node Name"] = value
 
     @property
@@ -3174,10 +3236,12 @@ class PlantComponentUserDefined(object):
 
     @plant_connection_3_outlet_node_name.setter
     def plant_connection_3_outlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `plant_connection_3_outlet_node_name`
+        """  Corresponds to IDD Field `Plant Connection 3 Outlet Node Name`
+        
+        {u'type': u'node', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `plant_connection_3_outlet_node_name`
+            value (str): value for IDD Field `Plant Connection 3 Outlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3187,7 +3251,7 @@ class PlantComponentUserDefined(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `plant_connection_3_outlet_node_name`'.format(value))
             if ',' in value:
@@ -3196,7 +3260,6 @@ class PlantComponentUserDefined(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `plant_connection_3_outlet_node_name`')
-
         self._data["Plant Connection 3 Outlet Node Name"] = value
 
     @property
@@ -3210,10 +3273,12 @@ class PlantComponentUserDefined(object):
 
     @plant_connection_3_loading_mode.setter
     def plant_connection_3_loading_mode(self, value=None):
-        """  Corresponds to IDD Field `plant_connection_3_loading_mode`
+        """  Corresponds to IDD Field `Plant Connection 3 Loading Mode`
+        
+        {u'type': u'choice', u'key': [u'DemandsLoad', u'MeetLoadWithPassiveCapacity', u'MeetLoadWithNominalCapacity', u'MeetLoadWithNominalCapacityLowOutLimit', u'MeetLoadWithNominalCapacityHiOutLimit'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `plant_connection_3_loading_mode`
+            value (str): value for IDD Field `Plant Connection 3 Loading Mode`
                 Accepted values are:
                       - DemandsLoad
                       - MeetLoadWithPassiveCapacity
@@ -3229,7 +3294,7 @@ class PlantComponentUserDefined(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `plant_connection_3_loading_mode`'.format(value))
             if ',' in value:
@@ -3258,7 +3323,6 @@ class PlantComponentUserDefined(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `plant_connection_3_loading_mode`'.format(value))
             value = vals[value_lower]
-
         self._data["Plant Connection 3 Loading Mode"] = value
 
     @property
@@ -3272,10 +3336,12 @@ class PlantComponentUserDefined(object):
 
     @plant_connection_3_loop_flow_request_mode.setter
     def plant_connection_3_loop_flow_request_mode(self, value=None):
-        """  Corresponds to IDD Field `plant_connection_3_loop_flow_request_mode`
+        """  Corresponds to IDD Field `Plant Connection 3 Loop Flow Request Mode`
+        
+        {u'type': u'Choice', u'key': [u'NeedsFlowIfLoopOn', u'NeedsFlowAndTurnsLoopOn', u'ReceivesWhateverFlowAvailable'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `plant_connection_3_loop_flow_request_mode`
+            value (str): value for IDD Field `Plant Connection 3 Loop Flow Request Mode`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3285,7 +3351,7 @@ class PlantComponentUserDefined(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `plant_connection_3_loop_flow_request_mode`'.format(value))
             if ',' in value:
@@ -3294,7 +3360,6 @@ class PlantComponentUserDefined(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `plant_connection_3_loop_flow_request_mode`')
-
         self._data["Plant Connection 3 Loop Flow Request Mode"] = value
 
     @property
@@ -3308,10 +3373,12 @@ class PlantComponentUserDefined(object):
 
     @plant_connection_3_initialization_program_calling_manager_name.setter
     def plant_connection_3_initialization_program_calling_manager_name(self, value=None):
-        """  Corresponds to IDD Field `plant_connection_3_initialization_program_calling_manager_name`
+        """  Corresponds to IDD Field `Plant Connection 3 Initialization Program Calling Manager Name`
+        
+        {u'type': u'object-list', u'object-list': u'ProgramNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `plant_connection_3_initialization_program_calling_manager_name`
+            value (str): value for IDD Field `Plant Connection 3 Initialization Program Calling Manager Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3321,7 +3388,7 @@ class PlantComponentUserDefined(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `plant_connection_3_initialization_program_calling_manager_name`'.format(value))
             if ',' in value:
@@ -3330,7 +3397,6 @@ class PlantComponentUserDefined(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `plant_connection_3_initialization_program_calling_manager_name`')
-
         self._data["Plant Connection 3 Initialization Program Calling Manager Name"] = value
 
     @property
@@ -3344,10 +3410,12 @@ class PlantComponentUserDefined(object):
 
     @plant_connection_3_simulation_program_calling_manager_name.setter
     def plant_connection_3_simulation_program_calling_manager_name(self, value=None):
-        """  Corresponds to IDD Field `plant_connection_3_simulation_program_calling_manager_name`
+        """  Corresponds to IDD Field `Plant Connection 3 Simulation Program Calling Manager Name`
+        
+        {u'type': u'object-list', u'object-list': u'ProgramNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `plant_connection_3_simulation_program_calling_manager_name`
+            value (str): value for IDD Field `Plant Connection 3 Simulation Program Calling Manager Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3357,7 +3425,7 @@ class PlantComponentUserDefined(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `plant_connection_3_simulation_program_calling_manager_name`'.format(value))
             if ',' in value:
@@ -3366,7 +3434,6 @@ class PlantComponentUserDefined(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `plant_connection_3_simulation_program_calling_manager_name`')
-
         self._data["Plant Connection 3 Simulation Program Calling Manager Name"] = value
 
     @property
@@ -3380,10 +3447,12 @@ class PlantComponentUserDefined(object):
 
     @plant_connection_4_inlet_node_name.setter
     def plant_connection_4_inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `plant_connection_4_inlet_node_name`
+        """  Corresponds to IDD Field `Plant Connection 4 Inlet Node Name`
+        
+        {u'type': u'node', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `plant_connection_4_inlet_node_name`
+            value (str): value for IDD Field `Plant Connection 4 Inlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3393,7 +3462,7 @@ class PlantComponentUserDefined(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `plant_connection_4_inlet_node_name`'.format(value))
             if ',' in value:
@@ -3402,7 +3471,6 @@ class PlantComponentUserDefined(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `plant_connection_4_inlet_node_name`')
-
         self._data["Plant Connection 4 Inlet Node Name"] = value
 
     @property
@@ -3416,10 +3484,12 @@ class PlantComponentUserDefined(object):
 
     @plant_connection_4_outlet_node_name.setter
     def plant_connection_4_outlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `plant_connection_4_outlet_node_name`
+        """  Corresponds to IDD Field `Plant Connection 4 Outlet Node Name`
+        
+        {u'type': u'node', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `plant_connection_4_outlet_node_name`
+            value (str): value for IDD Field `Plant Connection 4 Outlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3429,7 +3499,7 @@ class PlantComponentUserDefined(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `plant_connection_4_outlet_node_name`'.format(value))
             if ',' in value:
@@ -3438,7 +3508,6 @@ class PlantComponentUserDefined(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `plant_connection_4_outlet_node_name`')
-
         self._data["Plant Connection 4 Outlet Node Name"] = value
 
     @property
@@ -3452,10 +3521,12 @@ class PlantComponentUserDefined(object):
 
     @plant_connection_4_loading_mode.setter
     def plant_connection_4_loading_mode(self, value=None):
-        """  Corresponds to IDD Field `plant_connection_4_loading_mode`
+        """  Corresponds to IDD Field `Plant Connection 4 Loading Mode`
+        
+        {u'type': u'choice', u'key': [u'DemandsLoad', u'MeetLoadWithPassiveCapacity', u'MeetLoadWithNominalCapacity', u'MeetLoadWithNominalCapacityLowOutLimit', u'MeetLoadWithNominalCapacityHiOutLimit'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `plant_connection_4_loading_mode`
+            value (str): value for IDD Field `Plant Connection 4 Loading Mode`
                 Accepted values are:
                       - DemandsLoad
                       - MeetLoadWithPassiveCapacity
@@ -3471,7 +3542,7 @@ class PlantComponentUserDefined(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `plant_connection_4_loading_mode`'.format(value))
             if ',' in value:
@@ -3500,7 +3571,6 @@ class PlantComponentUserDefined(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `plant_connection_4_loading_mode`'.format(value))
             value = vals[value_lower]
-
         self._data["Plant Connection 4 Loading Mode"] = value
 
     @property
@@ -3514,10 +3584,12 @@ class PlantComponentUserDefined(object):
 
     @plant_connection_4_loop_flow_request_mode.setter
     def plant_connection_4_loop_flow_request_mode(self, value=None):
-        """  Corresponds to IDD Field `plant_connection_4_loop_flow_request_mode`
+        """  Corresponds to IDD Field `Plant Connection 4 Loop Flow Request Mode`
+        
+        {u'type': u'Choice', u'key': [u'NeedsFlowIfLoopOn', u'NeedsFlowAndTurnsLoopOn', u'ReceivesWhateverFlowAvailable'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `plant_connection_4_loop_flow_request_mode`
+            value (str): value for IDD Field `Plant Connection 4 Loop Flow Request Mode`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3527,7 +3599,7 @@ class PlantComponentUserDefined(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `plant_connection_4_loop_flow_request_mode`'.format(value))
             if ',' in value:
@@ -3536,7 +3608,6 @@ class PlantComponentUserDefined(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `plant_connection_4_loop_flow_request_mode`')
-
         self._data["Plant Connection 4 Loop Flow Request Mode"] = value
 
     @property
@@ -3550,10 +3621,12 @@ class PlantComponentUserDefined(object):
 
     @plant_connection_4_initialization_program_calling_manager_name.setter
     def plant_connection_4_initialization_program_calling_manager_name(self, value=None):
-        """  Corresponds to IDD Field `plant_connection_4_initialization_program_calling_manager_name`
+        """  Corresponds to IDD Field `Plant Connection 4 Initialization Program Calling Manager Name`
+        
+        {u'type': u'object-list', u'object-list': u'ProgramNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `plant_connection_4_initialization_program_calling_manager_name`
+            value (str): value for IDD Field `Plant Connection 4 Initialization Program Calling Manager Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3563,7 +3636,7 @@ class PlantComponentUserDefined(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `plant_connection_4_initialization_program_calling_manager_name`'.format(value))
             if ',' in value:
@@ -3572,7 +3645,6 @@ class PlantComponentUserDefined(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `plant_connection_4_initialization_program_calling_manager_name`')
-
         self._data["Plant Connection 4 Initialization Program Calling Manager Name"] = value
 
     @property
@@ -3586,10 +3658,12 @@ class PlantComponentUserDefined(object):
 
     @plant_connection_4_simulation_program_calling_manager_name.setter
     def plant_connection_4_simulation_program_calling_manager_name(self, value=None):
-        """  Corresponds to IDD Field `plant_connection_4_simulation_program_calling_manager_name`
+        """  Corresponds to IDD Field `Plant Connection 4 Simulation Program Calling Manager Name`
+        
+        {u'type': u'object-list', u'object-list': u'ProgramNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `plant_connection_4_simulation_program_calling_manager_name`
+            value (str): value for IDD Field `Plant Connection 4 Simulation Program Calling Manager Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3599,7 +3673,7 @@ class PlantComponentUserDefined(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `plant_connection_4_simulation_program_calling_manager_name`'.format(value))
             if ',' in value:
@@ -3608,7 +3682,6 @@ class PlantComponentUserDefined(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `plant_connection_4_simulation_program_calling_manager_name`')
-
         self._data["Plant Connection 4 Simulation Program Calling Manager Name"] = value
 
     @property
@@ -3622,11 +3695,13 @@ class PlantComponentUserDefined(object):
 
     @air_connection_inlet_node_name.setter
     def air_connection_inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `air_connection_inlet_node_name`
+        """  Corresponds to IDD Field `Air Connection Inlet Node Name`
         Inlet air used for heat rejection or air source
+        
+        {u'note': [u'Inlet air used for heat rejection or air source'], u'type': u'node', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `air_connection_inlet_node_name`
+            value (str): value for IDD Field `Air Connection Inlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3636,7 +3711,7 @@ class PlantComponentUserDefined(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `air_connection_inlet_node_name`'.format(value))
             if ',' in value:
@@ -3645,7 +3720,6 @@ class PlantComponentUserDefined(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `air_connection_inlet_node_name`')
-
         self._data["Air Connection Inlet Node Name"] = value
 
     @property
@@ -3659,11 +3733,13 @@ class PlantComponentUserDefined(object):
 
     @air_connection_outlet_node_name.setter
     def air_connection_outlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `air_connection_outlet_node_name`
+        """  Corresponds to IDD Field `Air Connection Outlet Node Name`
         Outlet air used for heat rejection or air source
+        
+        {u'note': [u'Outlet air used for heat rejection or air source'], u'type': u'node', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `air_connection_outlet_node_name`
+            value (str): value for IDD Field `Air Connection Outlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3673,7 +3749,7 @@ class PlantComponentUserDefined(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `air_connection_outlet_node_name`'.format(value))
             if ',' in value:
@@ -3682,7 +3758,6 @@ class PlantComponentUserDefined(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `air_connection_outlet_node_name`')
-
         self._data["Air Connection Outlet Node Name"] = value
 
     @property
@@ -3696,11 +3771,13 @@ class PlantComponentUserDefined(object):
 
     @supply_inlet_water_storage_tank_name.setter
     def supply_inlet_water_storage_tank_name(self, value=None):
-        """  Corresponds to IDD Field `supply_inlet_water_storage_tank_name`
+        """  Corresponds to IDD Field `Supply Inlet Water Storage Tank Name`
         Water use storage tank for alternate source of water consumed by device
+        
+        {u'note': [u'Water use storage tank for alternate source of water consumed by device'], u'type': u'object-list', u'object-list': u'WaterStorageTankNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `supply_inlet_water_storage_tank_name`
+            value (str): value for IDD Field `Supply Inlet Water Storage Tank Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3710,7 +3787,7 @@ class PlantComponentUserDefined(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `supply_inlet_water_storage_tank_name`'.format(value))
             if ',' in value:
@@ -3719,7 +3796,6 @@ class PlantComponentUserDefined(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `supply_inlet_water_storage_tank_name`')
-
         self._data["Supply Inlet Water Storage Tank Name"] = value
 
     @property
@@ -3733,11 +3809,13 @@ class PlantComponentUserDefined(object):
 
     @collection_outlet_water_storage_tank_name.setter
     def collection_outlet_water_storage_tank_name(self, value=None):
-        """  Corresponds to IDD Field `collection_outlet_water_storage_tank_name`
+        """  Corresponds to IDD Field `Collection Outlet Water Storage Tank Name`
         Water use storage tank for collection of condensate by device
+        
+        {u'note': [u'Water use storage tank for collection of condensate by device'], u'type': u'object-list', u'object-list': u'WaterStorageTankNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `collection_outlet_water_storage_tank_name`
+            value (str): value for IDD Field `Collection Outlet Water Storage Tank Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3747,7 +3825,7 @@ class PlantComponentUserDefined(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `collection_outlet_water_storage_tank_name`'.format(value))
             if ',' in value:
@@ -3756,7 +3834,6 @@ class PlantComponentUserDefined(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `collection_outlet_water_storage_tank_name`')
-
         self._data["Collection Outlet Water Storage Tank Name"] = value
 
     @property
@@ -3770,11 +3847,13 @@ class PlantComponentUserDefined(object):
 
     @ambient_zone_name.setter
     def ambient_zone_name(self, value=None):
-        """  Corresponds to IDD Field `ambient_zone_name`
+        """  Corresponds to IDD Field `Ambient Zone Name`
         Used for modeling device losses to surrounding zone
+        
+        {u'note': [u'Used for modeling device losses to surrounding zone'], u'type': u'object-list', u'object-list': u'ZoneNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `ambient_zone_name`
+            value (str): value for IDD Field `Ambient Zone Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3784,7 +3863,7 @@ class PlantComponentUserDefined(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `ambient_zone_name`'.format(value))
             if ',' in value:
@@ -3793,7 +3872,6 @@ class PlantComponentUserDefined(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `ambient_zone_name`')
-
         self._data["Ambient Zone Name"] = value
 
     def check(self):
@@ -4050,11 +4128,13 @@ class PlantEquipmentOperationUserDefined(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
         This is the name of the plant operation scheme
+        
+        {u'note': [u'This is the name of the plant operation scheme'], u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4064,7 +4144,7 @@ class PlantEquipmentOperationUserDefined(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -4073,7 +4153,6 @@ class PlantEquipmentOperationUserDefined(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -4087,10 +4166,12 @@ class PlantEquipmentOperationUserDefined(object):
 
     @main_model_program_calling_manager_name.setter
     def main_model_program_calling_manager_name(self, value=None):
-        """  Corresponds to IDD Field `main_model_program_calling_manager_name`
+        """  Corresponds to IDD Field `Main Model Program Calling Manager Name`
+        
+        {u'type': u'object-list', u'object-list': u'ProgramNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `main_model_program_calling_manager_name`
+            value (str): value for IDD Field `Main Model Program Calling Manager Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4100,7 +4181,7 @@ class PlantEquipmentOperationUserDefined(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `main_model_program_calling_manager_name`'.format(value))
             if ',' in value:
@@ -4109,7 +4190,6 @@ class PlantEquipmentOperationUserDefined(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `main_model_program_calling_manager_name`')
-
         self._data["Main Model Program Calling Manager Name"] = value
 
     @property
@@ -4123,10 +4203,12 @@ class PlantEquipmentOperationUserDefined(object):
 
     @initialization_program_calling_manager_name.setter
     def initialization_program_calling_manager_name(self, value=None):
-        """  Corresponds to IDD Field `initialization_program_calling_manager_name`
+        """  Corresponds to IDD Field `Initialization Program Calling Manager Name`
+        
+        {u'type': u'object-list', u'object-list': u'ProgramNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `initialization_program_calling_manager_name`
+            value (str): value for IDD Field `Initialization Program Calling Manager Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4136,7 +4218,7 @@ class PlantEquipmentOperationUserDefined(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `initialization_program_calling_manager_name`'.format(value))
             if ',' in value:
@@ -4145,7 +4227,6 @@ class PlantEquipmentOperationUserDefined(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `initialization_program_calling_manager_name`')
-
         self._data["Initialization Program Calling Manager Name"] = value
 
     @property
@@ -4159,10 +4240,12 @@ class PlantEquipmentOperationUserDefined(object):
 
     @equipment_1_object_type.setter
     def equipment_1_object_type(self, value=None):
-        """  Corresponds to IDD Field `equipment_1_object_type`
+        """  Corresponds to IDD Field `Equipment 1 Object Type`
+        
+        {u'type': u'alpha', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `equipment_1_object_type`
+            value (str): value for IDD Field `Equipment 1 Object Type`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4172,7 +4255,7 @@ class PlantEquipmentOperationUserDefined(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `equipment_1_object_type`'.format(value))
             if ',' in value:
@@ -4181,7 +4264,6 @@ class PlantEquipmentOperationUserDefined(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `equipment_1_object_type`')
-
         self._data["Equipment 1 Object Type"] = value
 
     @property
@@ -4195,10 +4277,12 @@ class PlantEquipmentOperationUserDefined(object):
 
     @equipment_1_name.setter
     def equipment_1_name(self, value=None):
-        """  Corresponds to IDD Field `equipment_1_name`
+        """  Corresponds to IDD Field `Equipment 1 Name`
+        
+        {u'type': u'alpha', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `equipment_1_name`
+            value (str): value for IDD Field `Equipment 1 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4208,7 +4292,7 @@ class PlantEquipmentOperationUserDefined(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `equipment_1_name`'.format(value))
             if ',' in value:
@@ -4217,7 +4301,6 @@ class PlantEquipmentOperationUserDefined(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `equipment_1_name`')
-
         self._data["Equipment 1 Name"] = value
 
     @property
@@ -4231,10 +4314,12 @@ class PlantEquipmentOperationUserDefined(object):
 
     @equipment_2_object_type.setter
     def equipment_2_object_type(self, value=None):
-        """  Corresponds to IDD Field `equipment_2_object_type`
+        """  Corresponds to IDD Field `Equipment 2 Object Type`
+        
+        {u'type': u'alpha', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `equipment_2_object_type`
+            value (str): value for IDD Field `Equipment 2 Object Type`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4244,7 +4329,7 @@ class PlantEquipmentOperationUserDefined(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `equipment_2_object_type`'.format(value))
             if ',' in value:
@@ -4253,7 +4338,6 @@ class PlantEquipmentOperationUserDefined(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `equipment_2_object_type`')
-
         self._data["Equipment 2 Object Type"] = value
 
     @property
@@ -4267,10 +4351,12 @@ class PlantEquipmentOperationUserDefined(object):
 
     @equipment_2_name.setter
     def equipment_2_name(self, value=None):
-        """  Corresponds to IDD Field `equipment_2_name`
+        """  Corresponds to IDD Field `Equipment 2 Name`
+        
+        {u'type': u'alpha', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `equipment_2_name`
+            value (str): value for IDD Field `Equipment 2 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4280,7 +4366,7 @@ class PlantEquipmentOperationUserDefined(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `equipment_2_name`'.format(value))
             if ',' in value:
@@ -4289,7 +4375,6 @@ class PlantEquipmentOperationUserDefined(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `equipment_2_name`')
-
         self._data["Equipment 2 Name"] = value
 
     @property
@@ -4303,10 +4388,12 @@ class PlantEquipmentOperationUserDefined(object):
 
     @equipment_3_object_type.setter
     def equipment_3_object_type(self, value=None):
-        """  Corresponds to IDD Field `equipment_3_object_type`
+        """  Corresponds to IDD Field `Equipment 3 Object Type`
+        
+        {u'type': u'alpha', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `equipment_3_object_type`
+            value (str): value for IDD Field `Equipment 3 Object Type`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4316,7 +4403,7 @@ class PlantEquipmentOperationUserDefined(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `equipment_3_object_type`'.format(value))
             if ',' in value:
@@ -4325,7 +4412,6 @@ class PlantEquipmentOperationUserDefined(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `equipment_3_object_type`')
-
         self._data["Equipment 3 Object Type"] = value
 
     @property
@@ -4339,10 +4425,12 @@ class PlantEquipmentOperationUserDefined(object):
 
     @equipment_3_name.setter
     def equipment_3_name(self, value=None):
-        """  Corresponds to IDD Field `equipment_3_name`
+        """  Corresponds to IDD Field `Equipment 3 Name`
+        
+        {u'type': u'alpha', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `equipment_3_name`
+            value (str): value for IDD Field `Equipment 3 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4352,7 +4440,7 @@ class PlantEquipmentOperationUserDefined(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `equipment_3_name`'.format(value))
             if ',' in value:
@@ -4361,7 +4449,6 @@ class PlantEquipmentOperationUserDefined(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `equipment_3_name`')
-
         self._data["Equipment 3 Name"] = value
 
     @property
@@ -4375,10 +4462,12 @@ class PlantEquipmentOperationUserDefined(object):
 
     @equipment_4_object_type.setter
     def equipment_4_object_type(self, value=None):
-        """  Corresponds to IDD Field `equipment_4_object_type`
+        """  Corresponds to IDD Field `Equipment 4 Object Type`
+        
+        {u'type': u'alpha', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `equipment_4_object_type`
+            value (str): value for IDD Field `Equipment 4 Object Type`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4388,7 +4477,7 @@ class PlantEquipmentOperationUserDefined(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `equipment_4_object_type`'.format(value))
             if ',' in value:
@@ -4397,7 +4486,6 @@ class PlantEquipmentOperationUserDefined(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `equipment_4_object_type`')
-
         self._data["Equipment 4 Object Type"] = value
 
     @property
@@ -4411,10 +4499,12 @@ class PlantEquipmentOperationUserDefined(object):
 
     @equipment_4_name.setter
     def equipment_4_name(self, value=None):
-        """  Corresponds to IDD Field `equipment_4_name`
+        """  Corresponds to IDD Field `Equipment 4 Name`
+        
+        {u'type': u'alpha', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `equipment_4_name`
+            value (str): value for IDD Field `Equipment 4 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4424,7 +4514,7 @@ class PlantEquipmentOperationUserDefined(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `equipment_4_name`'.format(value))
             if ',' in value:
@@ -4433,7 +4523,6 @@ class PlantEquipmentOperationUserDefined(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `equipment_4_name`')
-
         self._data["Equipment 4 Name"] = value
 
     @property
@@ -4447,10 +4536,12 @@ class PlantEquipmentOperationUserDefined(object):
 
     @equipment_5_object_type.setter
     def equipment_5_object_type(self, value=None):
-        """  Corresponds to IDD Field `equipment_5_object_type`
+        """  Corresponds to IDD Field `Equipment 5 Object Type`
+        
+        {u'type': u'alpha', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `equipment_5_object_type`
+            value (str): value for IDD Field `Equipment 5 Object Type`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4460,7 +4551,7 @@ class PlantEquipmentOperationUserDefined(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `equipment_5_object_type`'.format(value))
             if ',' in value:
@@ -4469,7 +4560,6 @@ class PlantEquipmentOperationUserDefined(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `equipment_5_object_type`')
-
         self._data["Equipment 5 Object Type"] = value
 
     @property
@@ -4483,10 +4573,12 @@ class PlantEquipmentOperationUserDefined(object):
 
     @equipment_5_name.setter
     def equipment_5_name(self, value=None):
-        """  Corresponds to IDD Field `equipment_5_name`
+        """  Corresponds to IDD Field `Equipment 5 Name`
+        
+        {u'type': u'alpha', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `equipment_5_name`
+            value (str): value for IDD Field `Equipment 5 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4496,7 +4588,7 @@ class PlantEquipmentOperationUserDefined(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `equipment_5_name`'.format(value))
             if ',' in value:
@@ -4505,7 +4597,6 @@ class PlantEquipmentOperationUserDefined(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `equipment_5_name`')
-
         self._data["Equipment 5 Name"] = value
 
     @property
@@ -4519,10 +4610,12 @@ class PlantEquipmentOperationUserDefined(object):
 
     @equipment_6_object_type.setter
     def equipment_6_object_type(self, value=None):
-        """  Corresponds to IDD Field `equipment_6_object_type`
+        """  Corresponds to IDD Field `Equipment 6 Object Type`
+        
+        {u'type': u'alpha', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `equipment_6_object_type`
+            value (str): value for IDD Field `Equipment 6 Object Type`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4532,7 +4625,7 @@ class PlantEquipmentOperationUserDefined(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `equipment_6_object_type`'.format(value))
             if ',' in value:
@@ -4541,7 +4634,6 @@ class PlantEquipmentOperationUserDefined(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `equipment_6_object_type`')
-
         self._data["Equipment 6 Object Type"] = value
 
     @property
@@ -4555,10 +4647,12 @@ class PlantEquipmentOperationUserDefined(object):
 
     @equipment_6_name.setter
     def equipment_6_name(self, value=None):
-        """  Corresponds to IDD Field `equipment_6_name`
+        """  Corresponds to IDD Field `Equipment 6 Name`
+        
+        {u'type': u'alpha', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `equipment_6_name`
+            value (str): value for IDD Field `Equipment 6 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4568,7 +4662,7 @@ class PlantEquipmentOperationUserDefined(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `equipment_6_name`'.format(value))
             if ',' in value:
@@ -4577,7 +4671,6 @@ class PlantEquipmentOperationUserDefined(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `equipment_6_name`')
-
         self._data["Equipment 6 Name"] = value
 
     @property
@@ -4591,10 +4684,12 @@ class PlantEquipmentOperationUserDefined(object):
 
     @equipment_7_object_type.setter
     def equipment_7_object_type(self, value=None):
-        """  Corresponds to IDD Field `equipment_7_object_type`
+        """  Corresponds to IDD Field `Equipment 7 Object Type`
+        
+        {u'type': u'alpha', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `equipment_7_object_type`
+            value (str): value for IDD Field `Equipment 7 Object Type`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4604,7 +4699,7 @@ class PlantEquipmentOperationUserDefined(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `equipment_7_object_type`'.format(value))
             if ',' in value:
@@ -4613,7 +4708,6 @@ class PlantEquipmentOperationUserDefined(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `equipment_7_object_type`')
-
         self._data["Equipment 7 Object Type"] = value
 
     @property
@@ -4627,10 +4721,12 @@ class PlantEquipmentOperationUserDefined(object):
 
     @equipment_7_name.setter
     def equipment_7_name(self, value=None):
-        """  Corresponds to IDD Field `equipment_7_name`
+        """  Corresponds to IDD Field `Equipment 7 Name`
+        
+        {u'type': u'alpha', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `equipment_7_name`
+            value (str): value for IDD Field `Equipment 7 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4640,7 +4736,7 @@ class PlantEquipmentOperationUserDefined(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `equipment_7_name`'.format(value))
             if ',' in value:
@@ -4649,7 +4745,6 @@ class PlantEquipmentOperationUserDefined(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `equipment_7_name`')
-
         self._data["Equipment 7 Name"] = value
 
     @property
@@ -4663,10 +4758,12 @@ class PlantEquipmentOperationUserDefined(object):
 
     @equipment_8_object_type.setter
     def equipment_8_object_type(self, value=None):
-        """  Corresponds to IDD Field `equipment_8_object_type`
+        """  Corresponds to IDD Field `Equipment 8 Object Type`
+        
+        {u'type': u'alpha', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `equipment_8_object_type`
+            value (str): value for IDD Field `Equipment 8 Object Type`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4676,7 +4773,7 @@ class PlantEquipmentOperationUserDefined(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `equipment_8_object_type`'.format(value))
             if ',' in value:
@@ -4685,7 +4782,6 @@ class PlantEquipmentOperationUserDefined(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `equipment_8_object_type`')
-
         self._data["Equipment 8 Object Type"] = value
 
     @property
@@ -4699,10 +4795,12 @@ class PlantEquipmentOperationUserDefined(object):
 
     @equipment_8_name.setter
     def equipment_8_name(self, value=None):
-        """  Corresponds to IDD Field `equipment_8_name`
+        """  Corresponds to IDD Field `Equipment 8 Name`
+        
+        {u'type': u'alpha', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `equipment_8_name`
+            value (str): value for IDD Field `Equipment 8 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4712,7 +4810,7 @@ class PlantEquipmentOperationUserDefined(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `equipment_8_name`'.format(value))
             if ',' in value:
@@ -4721,7 +4819,6 @@ class PlantEquipmentOperationUserDefined(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `equipment_8_name`')
-
         self._data["Equipment 8 Name"] = value
 
     @property
@@ -4735,10 +4832,12 @@ class PlantEquipmentOperationUserDefined(object):
 
     @equipment_9_object_type.setter
     def equipment_9_object_type(self, value=None):
-        """  Corresponds to IDD Field `equipment_9_object_type`
+        """  Corresponds to IDD Field `Equipment 9 Object Type`
+        
+        {u'type': u'alpha', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `equipment_9_object_type`
+            value (str): value for IDD Field `Equipment 9 Object Type`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4748,7 +4847,7 @@ class PlantEquipmentOperationUserDefined(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `equipment_9_object_type`'.format(value))
             if ',' in value:
@@ -4757,7 +4856,6 @@ class PlantEquipmentOperationUserDefined(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `equipment_9_object_type`')
-
         self._data["Equipment 9 Object Type"] = value
 
     @property
@@ -4771,10 +4869,12 @@ class PlantEquipmentOperationUserDefined(object):
 
     @equipment_9_name.setter
     def equipment_9_name(self, value=None):
-        """  Corresponds to IDD Field `equipment_9_name`
+        """  Corresponds to IDD Field `Equipment 9 Name`
+        
+        {u'type': u'alpha', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `equipment_9_name`
+            value (str): value for IDD Field `Equipment 9 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4784,7 +4884,7 @@ class PlantEquipmentOperationUserDefined(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `equipment_9_name`'.format(value))
             if ',' in value:
@@ -4793,7 +4893,6 @@ class PlantEquipmentOperationUserDefined(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `equipment_9_name`')
-
         self._data["Equipment 9 Name"] = value
 
     @property
@@ -4807,10 +4906,12 @@ class PlantEquipmentOperationUserDefined(object):
 
     @equipment_10_object_type.setter
     def equipment_10_object_type(self, value=None):
-        """  Corresponds to IDD Field `equipment_10_object_type`
+        """  Corresponds to IDD Field `Equipment 10 Object Type`
+        
+        {u'type': u'alpha', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `equipment_10_object_type`
+            value (str): value for IDD Field `Equipment 10 Object Type`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4820,7 +4921,7 @@ class PlantEquipmentOperationUserDefined(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `equipment_10_object_type`'.format(value))
             if ',' in value:
@@ -4829,7 +4930,6 @@ class PlantEquipmentOperationUserDefined(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `equipment_10_object_type`')
-
         self._data["Equipment 10 Object Type"] = value
 
     @property
@@ -4843,10 +4943,12 @@ class PlantEquipmentOperationUserDefined(object):
 
     @equipment_10_name.setter
     def equipment_10_name(self, value=None):
-        """  Corresponds to IDD Field `equipment_10_name`
+        """  Corresponds to IDD Field `Equipment 10 Name`
+        
+        {u'type': u'alpha', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `equipment_10_name`
+            value (str): value for IDD Field `Equipment 10 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4856,7 +4958,7 @@ class PlantEquipmentOperationUserDefined(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `equipment_10_name`'.format(value))
             if ',' in value:
@@ -4865,7 +4967,6 @@ class PlantEquipmentOperationUserDefined(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `equipment_10_name`')
-
         self._data["Equipment 10 Name"] = value
 
     def check(self):

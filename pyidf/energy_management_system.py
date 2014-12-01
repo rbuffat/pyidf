@@ -62,12 +62,14 @@ class EnergyManagementSystemSensor(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
         This name becomes a variable for use in Erl programs
         no spaces allowed in name
+        
+        {u'note': [u'This name becomes a variable for use in Erl programs', u'no spaces allowed in name'], u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -77,7 +79,7 @@ class EnergyManagementSystemSensor(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -86,7 +88,6 @@ class EnergyManagementSystemSensor(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -100,10 +101,12 @@ class EnergyManagementSystemSensor(object):
 
     @outputvariable_or_outputmeter_index_key_name.setter
     def outputvariable_or_outputmeter_index_key_name(self, value=None):
-        """  Corresponds to IDD Field `outputvariable_or_outputmeter_index_key_name`
+        """  Corresponds to IDD Field `Output:Variable or Output:Meter Index Key Name`
+        
+        {u'type': u'alpha', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `outputvariable_or_outputmeter_index_key_name`
+            value (str): value for IDD Field `Output:Variable or Output:Meter Index Key Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -113,7 +116,7 @@ class EnergyManagementSystemSensor(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `outputvariable_or_outputmeter_index_key_name`'.format(value))
             if ',' in value:
@@ -122,7 +125,6 @@ class EnergyManagementSystemSensor(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `outputvariable_or_outputmeter_index_key_name`')
-
         self._data["Output:Variable or Output:Meter Index Key Name"] = value
 
     @property
@@ -136,10 +138,12 @@ class EnergyManagementSystemSensor(object):
 
     @outputvariable_or_outputmeter_name.setter
     def outputvariable_or_outputmeter_name(self, value=None):
-        """  Corresponds to IDD Field `outputvariable_or_outputmeter_name`
+        """  Corresponds to IDD Field `Output:Variable or Output:Meter Name`
+        
+        {u'external-list': u'autoRDDmeter', u'type': u'external-list', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `outputvariable_or_outputmeter_name`
+            value (str): value for IDD Field `Output:Variable or Output:Meter Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -149,7 +153,7 @@ class EnergyManagementSystemSensor(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `outputvariable_or_outputmeter_name`'.format(value))
             if ',' in value:
@@ -158,7 +162,6 @@ class EnergyManagementSystemSensor(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `outputvariable_or_outputmeter_name`')
-
         self._data["Output:Variable or Output:Meter Name"] = value
 
     def check(self):
@@ -262,12 +265,14 @@ class EnergyManagementSystemActuator(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
         This name becomes a variable for use in Erl programs
         no spaces allowed in name
+        
+        {u'note': [u'This name becomes a variable for use in Erl programs', u'no spaces allowed in name'], u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -277,7 +282,7 @@ class EnergyManagementSystemActuator(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -286,7 +291,6 @@ class EnergyManagementSystemActuator(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -300,10 +304,12 @@ class EnergyManagementSystemActuator(object):
 
     @actuated_component_unique_name.setter
     def actuated_component_unique_name(self, value=None):
-        """  Corresponds to IDD Field `actuated_component_unique_name`
+        """  Corresponds to IDD Field `Actuated Component Unique Name`
+        
+        {u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `actuated_component_unique_name`
+            value (str): value for IDD Field `Actuated Component Unique Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -313,7 +319,7 @@ class EnergyManagementSystemActuator(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `actuated_component_unique_name`'.format(value))
             if ',' in value:
@@ -322,7 +328,6 @@ class EnergyManagementSystemActuator(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `actuated_component_unique_name`')
-
         self._data["Actuated Component Unique Name"] = value
 
     @property
@@ -336,10 +341,12 @@ class EnergyManagementSystemActuator(object):
 
     @actuated_component_type.setter
     def actuated_component_type(self, value=None):
-        """  Corresponds to IDD Field `actuated_component_type`
+        """  Corresponds to IDD Field `Actuated Component Type`
+        
+        {u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `actuated_component_type`
+            value (str): value for IDD Field `Actuated Component Type`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -349,7 +356,7 @@ class EnergyManagementSystemActuator(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `actuated_component_type`'.format(value))
             if ',' in value:
@@ -358,7 +365,6 @@ class EnergyManagementSystemActuator(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `actuated_component_type`')
-
         self._data["Actuated Component Type"] = value
 
     @property
@@ -372,10 +378,12 @@ class EnergyManagementSystemActuator(object):
 
     @actuated_component_control_type.setter
     def actuated_component_control_type(self, value=None):
-        """  Corresponds to IDD Field `actuated_component_control_type`
+        """  Corresponds to IDD Field `Actuated Component Control Type`
+        
+        {u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `actuated_component_control_type`
+            value (str): value for IDD Field `Actuated Component Control Type`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -385,7 +393,7 @@ class EnergyManagementSystemActuator(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `actuated_component_control_type`'.format(value))
             if ',' in value:
@@ -394,7 +402,6 @@ class EnergyManagementSystemActuator(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `actuated_component_control_type`')
-
         self._data["Actuated Component Control Type"] = value
 
     def check(self):
@@ -684,11 +691,13 @@ class EnergyManagementSystemProgramCallingManager(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
         no spaces allowed in name
+        
+        {u'note': [u'no spaces allowed in name'], u'type': u'alpha', u'reference': u'ProgramNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -698,7 +707,7 @@ class EnergyManagementSystemProgramCallingManager(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -707,7 +716,6 @@ class EnergyManagementSystemProgramCallingManager(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -721,10 +729,12 @@ class EnergyManagementSystemProgramCallingManager(object):
 
     @energyplus_model_calling_point.setter
     def energyplus_model_calling_point(self, value=None):
-        """  Corresponds to IDD Field `energyplus_model_calling_point`
+        """  Corresponds to IDD Field `EnergyPlus Model Calling Point`
+        
+        {u'type': u'choice', u'key': [u'BeginNewEnvironment', u'AfterNewEnvironmentWarmUpIsComplete', u'BeginTimestepBeforePredictor', u'AfterPredictorBeforeHVACManagers', u'AfterPredictorAfterHVACManagers', u'InsideHVACSystemIterationLoop', u'EndOfZoneTimestepBeforeZoneReporting', u'EndOfZoneTimestepAfterZoneReporting', u'EndOfSystemTimestepBeforeHVACReporting', u'EndOfSystemTimestepAfterHVACReporting', u'EndOfZoneSizing', u'EndOfSystemSizing', u'AfterComponentInputReadIn', u'UserDefinedComponentModel', u'UnitarySystemSizing'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `energyplus_model_calling_point`
+            value (str): value for IDD Field `EnergyPlus Model Calling Point`
                 Accepted values are:
                       - BeginNewEnvironment
                       - AfterNewEnvironmentWarmUpIsComplete
@@ -750,7 +760,7 @@ class EnergyManagementSystemProgramCallingManager(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `energyplus_model_calling_point`'.format(value))
             if ',' in value:
@@ -789,7 +799,6 @@ class EnergyManagementSystemProgramCallingManager(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `energyplus_model_calling_point`'.format(value))
             value = vals[value_lower]
-
         self._data["EnergyPlus Model Calling Point"] = value
 
     @property
@@ -803,11 +812,13 @@ class EnergyManagementSystemProgramCallingManager(object):
 
     @program_name_1.setter
     def program_name_1(self, value=None):
-        """  Corresponds to IDD Field `program_name_1`
+        """  Corresponds to IDD Field `Program Name 1`
         no spaces allowed in name
+        
+        {'pytype': 'str', u'begin-extensible': u'', u'required-field': True, u'note': [u'no spaces allowed in name'], u'object-list': u'ErlProgramNames', u'type': u'object-list'}
 
         Args:
-            value (str): value for IDD Field `program_name_1`
+            value (str): value for IDD Field `Program Name 1`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -817,7 +828,7 @@ class EnergyManagementSystemProgramCallingManager(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `program_name_1`'.format(value))
             if ',' in value:
@@ -826,7 +837,6 @@ class EnergyManagementSystemProgramCallingManager(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `program_name_1`')
-
         self._data["Program Name 1"] = value
 
     @property
@@ -840,11 +850,13 @@ class EnergyManagementSystemProgramCallingManager(object):
 
     @program_name_2.setter
     def program_name_2(self, value=None):
-        """  Corresponds to IDD Field `program_name_2`
+        """  Corresponds to IDD Field `Program Name 2`
         no spaces allowed in name
+        
+        {u'note': [u'no spaces allowed in name'], u'type': u'object-list', u'object-list': u'ErlProgramNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `program_name_2`
+            value (str): value for IDD Field `Program Name 2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -854,7 +866,7 @@ class EnergyManagementSystemProgramCallingManager(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `program_name_2`'.format(value))
             if ',' in value:
@@ -863,7 +875,6 @@ class EnergyManagementSystemProgramCallingManager(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `program_name_2`')
-
         self._data["Program Name 2"] = value
 
     @property
@@ -877,11 +888,13 @@ class EnergyManagementSystemProgramCallingManager(object):
 
     @program_name_3.setter
     def program_name_3(self, value=None):
-        """  Corresponds to IDD Field `program_name_3`
+        """  Corresponds to IDD Field `Program Name 3`
         no spaces allowed in name
+        
+        {u'note': [u'no spaces allowed in name'], u'type': u'object-list', u'object-list': u'ErlProgramNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `program_name_3`
+            value (str): value for IDD Field `Program Name 3`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -891,7 +904,7 @@ class EnergyManagementSystemProgramCallingManager(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `program_name_3`'.format(value))
             if ',' in value:
@@ -900,7 +913,6 @@ class EnergyManagementSystemProgramCallingManager(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `program_name_3`')
-
         self._data["Program Name 3"] = value
 
     @property
@@ -914,11 +926,13 @@ class EnergyManagementSystemProgramCallingManager(object):
 
     @program_name_4.setter
     def program_name_4(self, value=None):
-        """  Corresponds to IDD Field `program_name_4`
+        """  Corresponds to IDD Field `Program Name 4`
         no spaces allowed in name
+        
+        {u'note': [u'no spaces allowed in name'], u'type': u'object-list', u'object-list': u'ErlProgramNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `program_name_4`
+            value (str): value for IDD Field `Program Name 4`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -928,7 +942,7 @@ class EnergyManagementSystemProgramCallingManager(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `program_name_4`'.format(value))
             if ',' in value:
@@ -937,7 +951,6 @@ class EnergyManagementSystemProgramCallingManager(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `program_name_4`')
-
         self._data["Program Name 4"] = value
 
     @property
@@ -951,11 +964,13 @@ class EnergyManagementSystemProgramCallingManager(object):
 
     @program_name_5.setter
     def program_name_5(self, value=None):
-        """  Corresponds to IDD Field `program_name_5`
+        """  Corresponds to IDD Field `Program Name 5`
         no spaces allowed in name
+        
+        {u'note': [u'no spaces allowed in name'], u'type': u'object-list', u'object-list': u'ErlProgramNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `program_name_5`
+            value (str): value for IDD Field `Program Name 5`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -965,7 +980,7 @@ class EnergyManagementSystemProgramCallingManager(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `program_name_5`'.format(value))
             if ',' in value:
@@ -974,7 +989,6 @@ class EnergyManagementSystemProgramCallingManager(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `program_name_5`')
-
         self._data["Program Name 5"] = value
 
     @property
@@ -988,11 +1002,13 @@ class EnergyManagementSystemProgramCallingManager(object):
 
     @program_name_6.setter
     def program_name_6(self, value=None):
-        """  Corresponds to IDD Field `program_name_6`
+        """  Corresponds to IDD Field `Program Name 6`
         no spaces allowed in name
+        
+        {u'note': [u'no spaces allowed in name'], u'type': u'object-list', u'object-list': u'ErlProgramNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `program_name_6`
+            value (str): value for IDD Field `Program Name 6`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1002,7 +1018,7 @@ class EnergyManagementSystemProgramCallingManager(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `program_name_6`'.format(value))
             if ',' in value:
@@ -1011,7 +1027,6 @@ class EnergyManagementSystemProgramCallingManager(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `program_name_6`')
-
         self._data["Program Name 6"] = value
 
     @property
@@ -1025,11 +1040,13 @@ class EnergyManagementSystemProgramCallingManager(object):
 
     @program_name_7.setter
     def program_name_7(self, value=None):
-        """  Corresponds to IDD Field `program_name_7`
+        """  Corresponds to IDD Field `Program Name 7`
         no spaces allowed in name
+        
+        {u'note': [u'no spaces allowed in name'], u'type': u'object-list', u'object-list': u'ErlProgramNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `program_name_7`
+            value (str): value for IDD Field `Program Name 7`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1039,7 +1056,7 @@ class EnergyManagementSystemProgramCallingManager(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `program_name_7`'.format(value))
             if ',' in value:
@@ -1048,7 +1065,6 @@ class EnergyManagementSystemProgramCallingManager(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `program_name_7`')
-
         self._data["Program Name 7"] = value
 
     @property
@@ -1062,11 +1078,13 @@ class EnergyManagementSystemProgramCallingManager(object):
 
     @program_name_8.setter
     def program_name_8(self, value=None):
-        """  Corresponds to IDD Field `program_name_8`
+        """  Corresponds to IDD Field `Program Name 8`
         no spaces allowed in name
+        
+        {u'note': [u'no spaces allowed in name'], u'type': u'object-list', u'object-list': u'ErlProgramNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `program_name_8`
+            value (str): value for IDD Field `Program Name 8`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1076,7 +1094,7 @@ class EnergyManagementSystemProgramCallingManager(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `program_name_8`'.format(value))
             if ',' in value:
@@ -1085,7 +1103,6 @@ class EnergyManagementSystemProgramCallingManager(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `program_name_8`')
-
         self._data["Program Name 8"] = value
 
     @property
@@ -1099,11 +1116,13 @@ class EnergyManagementSystemProgramCallingManager(object):
 
     @program_name_9.setter
     def program_name_9(self, value=None):
-        """  Corresponds to IDD Field `program_name_9`
+        """  Corresponds to IDD Field `Program Name 9`
         no spaces allowed in name
+        
+        {u'note': [u'no spaces allowed in name'], u'type': u'object-list', u'object-list': u'ErlProgramNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `program_name_9`
+            value (str): value for IDD Field `Program Name 9`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1113,7 +1132,7 @@ class EnergyManagementSystemProgramCallingManager(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `program_name_9`'.format(value))
             if ',' in value:
@@ -1122,7 +1141,6 @@ class EnergyManagementSystemProgramCallingManager(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `program_name_9`')
-
         self._data["Program Name 9"] = value
 
     @property
@@ -1136,11 +1154,13 @@ class EnergyManagementSystemProgramCallingManager(object):
 
     @program_name_10.setter
     def program_name_10(self, value=None):
-        """  Corresponds to IDD Field `program_name_10`
+        """  Corresponds to IDD Field `Program Name 10`
         no spaces allowed in name
+        
+        {u'note': [u'no spaces allowed in name'], u'type': u'object-list', u'object-list': u'ErlProgramNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `program_name_10`
+            value (str): value for IDD Field `Program Name 10`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1150,7 +1170,7 @@ class EnergyManagementSystemProgramCallingManager(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `program_name_10`'.format(value))
             if ',' in value:
@@ -1159,7 +1179,6 @@ class EnergyManagementSystemProgramCallingManager(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `program_name_10`')
-
         self._data["Program Name 10"] = value
 
     @property
@@ -1173,11 +1192,13 @@ class EnergyManagementSystemProgramCallingManager(object):
 
     @program_name_11.setter
     def program_name_11(self, value=None):
-        """  Corresponds to IDD Field `program_name_11`
+        """  Corresponds to IDD Field `Program Name 11`
         no spaces allowed in name
+        
+        {u'note': [u'no spaces allowed in name'], u'type': u'object-list', u'object-list': u'ErlProgramNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `program_name_11`
+            value (str): value for IDD Field `Program Name 11`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1187,7 +1208,7 @@ class EnergyManagementSystemProgramCallingManager(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `program_name_11`'.format(value))
             if ',' in value:
@@ -1196,7 +1217,6 @@ class EnergyManagementSystemProgramCallingManager(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `program_name_11`')
-
         self._data["Program Name 11"] = value
 
     @property
@@ -1210,11 +1230,13 @@ class EnergyManagementSystemProgramCallingManager(object):
 
     @program_name_12.setter
     def program_name_12(self, value=None):
-        """  Corresponds to IDD Field `program_name_12`
+        """  Corresponds to IDD Field `Program Name 12`
         no spaces allowed in name
+        
+        {u'note': [u'no spaces allowed in name'], u'type': u'object-list', u'object-list': u'ErlProgramNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `program_name_12`
+            value (str): value for IDD Field `Program Name 12`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1224,7 +1246,7 @@ class EnergyManagementSystemProgramCallingManager(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `program_name_12`'.format(value))
             if ',' in value:
@@ -1233,7 +1255,6 @@ class EnergyManagementSystemProgramCallingManager(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `program_name_12`')
-
         self._data["Program Name 12"] = value
 
     @property
@@ -1247,11 +1268,13 @@ class EnergyManagementSystemProgramCallingManager(object):
 
     @program_name_13.setter
     def program_name_13(self, value=None):
-        """  Corresponds to IDD Field `program_name_13`
+        """  Corresponds to IDD Field `Program Name 13`
         no spaces allowed in name
+        
+        {u'note': [u'no spaces allowed in name'], u'type': u'object-list', u'object-list': u'ErlProgramNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `program_name_13`
+            value (str): value for IDD Field `Program Name 13`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1261,7 +1284,7 @@ class EnergyManagementSystemProgramCallingManager(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `program_name_13`'.format(value))
             if ',' in value:
@@ -1270,7 +1293,6 @@ class EnergyManagementSystemProgramCallingManager(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `program_name_13`')
-
         self._data["Program Name 13"] = value
 
     @property
@@ -1284,11 +1306,13 @@ class EnergyManagementSystemProgramCallingManager(object):
 
     @program_name_14.setter
     def program_name_14(self, value=None):
-        """  Corresponds to IDD Field `program_name_14`
+        """  Corresponds to IDD Field `Program Name 14`
         no spaces allowed in name
+        
+        {u'note': [u'no spaces allowed in name'], u'type': u'object-list', u'object-list': u'ErlProgramNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `program_name_14`
+            value (str): value for IDD Field `Program Name 14`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1298,7 +1322,7 @@ class EnergyManagementSystemProgramCallingManager(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `program_name_14`'.format(value))
             if ',' in value:
@@ -1307,7 +1331,6 @@ class EnergyManagementSystemProgramCallingManager(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `program_name_14`')
-
         self._data["Program Name 14"] = value
 
     @property
@@ -1321,11 +1344,13 @@ class EnergyManagementSystemProgramCallingManager(object):
 
     @program_name_15.setter
     def program_name_15(self, value=None):
-        """  Corresponds to IDD Field `program_name_15`
+        """  Corresponds to IDD Field `Program Name 15`
         no spaces allowed in name
+        
+        {u'note': [u'no spaces allowed in name'], u'type': u'object-list', u'object-list': u'ErlProgramNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `program_name_15`
+            value (str): value for IDD Field `Program Name 15`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1335,7 +1360,7 @@ class EnergyManagementSystemProgramCallingManager(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `program_name_15`'.format(value))
             if ',' in value:
@@ -1344,7 +1369,6 @@ class EnergyManagementSystemProgramCallingManager(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `program_name_15`')
-
         self._data["Program Name 15"] = value
 
     @property
@@ -1358,11 +1382,13 @@ class EnergyManagementSystemProgramCallingManager(object):
 
     @program_name_16.setter
     def program_name_16(self, value=None):
-        """  Corresponds to IDD Field `program_name_16`
+        """  Corresponds to IDD Field `Program Name 16`
         no spaces allowed in name
+        
+        {u'note': [u'no spaces allowed in name'], u'type': u'object-list', u'object-list': u'ErlProgramNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `program_name_16`
+            value (str): value for IDD Field `Program Name 16`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1372,7 +1398,7 @@ class EnergyManagementSystemProgramCallingManager(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `program_name_16`'.format(value))
             if ',' in value:
@@ -1381,7 +1407,6 @@ class EnergyManagementSystemProgramCallingManager(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `program_name_16`')
-
         self._data["Program Name 16"] = value
 
     @property
@@ -1395,11 +1420,13 @@ class EnergyManagementSystemProgramCallingManager(object):
 
     @program_name_17.setter
     def program_name_17(self, value=None):
-        """  Corresponds to IDD Field `program_name_17`
+        """  Corresponds to IDD Field `Program Name 17`
         no spaces allowed in name
+        
+        {u'note': [u'no spaces allowed in name'], u'type': u'object-list', u'object-list': u'ErlProgramNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `program_name_17`
+            value (str): value for IDD Field `Program Name 17`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1409,7 +1436,7 @@ class EnergyManagementSystemProgramCallingManager(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `program_name_17`'.format(value))
             if ',' in value:
@@ -1418,7 +1445,6 @@ class EnergyManagementSystemProgramCallingManager(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `program_name_17`')
-
         self._data["Program Name 17"] = value
 
     @property
@@ -1432,11 +1458,13 @@ class EnergyManagementSystemProgramCallingManager(object):
 
     @program_name_18.setter
     def program_name_18(self, value=None):
-        """  Corresponds to IDD Field `program_name_18`
+        """  Corresponds to IDD Field `Program Name 18`
         no spaces allowed in name
+        
+        {u'note': [u'no spaces allowed in name'], u'type': u'object-list', u'object-list': u'ErlProgramNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `program_name_18`
+            value (str): value for IDD Field `Program Name 18`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1446,7 +1474,7 @@ class EnergyManagementSystemProgramCallingManager(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `program_name_18`'.format(value))
             if ',' in value:
@@ -1455,7 +1483,6 @@ class EnergyManagementSystemProgramCallingManager(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `program_name_18`')
-
         self._data["Program Name 18"] = value
 
     @property
@@ -1469,11 +1496,13 @@ class EnergyManagementSystemProgramCallingManager(object):
 
     @program_name_19.setter
     def program_name_19(self, value=None):
-        """  Corresponds to IDD Field `program_name_19`
+        """  Corresponds to IDD Field `Program Name 19`
         no spaces allowed in name
+        
+        {u'note': [u'no spaces allowed in name'], u'type': u'object-list', u'object-list': u'ErlProgramNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `program_name_19`
+            value (str): value for IDD Field `Program Name 19`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1483,7 +1512,7 @@ class EnergyManagementSystemProgramCallingManager(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `program_name_19`'.format(value))
             if ',' in value:
@@ -1492,7 +1521,6 @@ class EnergyManagementSystemProgramCallingManager(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `program_name_19`')
-
         self._data["Program Name 19"] = value
 
     @property
@@ -1506,11 +1534,13 @@ class EnergyManagementSystemProgramCallingManager(object):
 
     @program_name_20.setter
     def program_name_20(self, value=None):
-        """  Corresponds to IDD Field `program_name_20`
+        """  Corresponds to IDD Field `Program Name 20`
         no spaces allowed in name
+        
+        {u'note': [u'no spaces allowed in name'], u'type': u'object-list', u'object-list': u'ErlProgramNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `program_name_20`
+            value (str): value for IDD Field `Program Name 20`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1520,7 +1550,7 @@ class EnergyManagementSystemProgramCallingManager(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `program_name_20`'.format(value))
             if ',' in value:
@@ -1529,7 +1559,6 @@ class EnergyManagementSystemProgramCallingManager(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `program_name_20`')
-
         self._data["Program Name 20"] = value
 
     @property
@@ -1543,11 +1572,13 @@ class EnergyManagementSystemProgramCallingManager(object):
 
     @program_name_21.setter
     def program_name_21(self, value=None):
-        """  Corresponds to IDD Field `program_name_21`
+        """  Corresponds to IDD Field `Program Name 21`
         no spaces allowed in name
+        
+        {u'note': [u'no spaces allowed in name'], u'type': u'object-list', u'object-list': u'ErlProgramNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `program_name_21`
+            value (str): value for IDD Field `Program Name 21`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1557,7 +1588,7 @@ class EnergyManagementSystemProgramCallingManager(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `program_name_21`'.format(value))
             if ',' in value:
@@ -1566,7 +1597,6 @@ class EnergyManagementSystemProgramCallingManager(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `program_name_21`')
-
         self._data["Program Name 21"] = value
 
     @property
@@ -1580,11 +1610,13 @@ class EnergyManagementSystemProgramCallingManager(object):
 
     @program_name_22.setter
     def program_name_22(self, value=None):
-        """  Corresponds to IDD Field `program_name_22`
+        """  Corresponds to IDD Field `Program Name 22`
         no spaces allowed in name
+        
+        {u'note': [u'no spaces allowed in name'], u'type': u'object-list', u'object-list': u'ErlProgramNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `program_name_22`
+            value (str): value for IDD Field `Program Name 22`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1594,7 +1626,7 @@ class EnergyManagementSystemProgramCallingManager(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `program_name_22`'.format(value))
             if ',' in value:
@@ -1603,7 +1635,6 @@ class EnergyManagementSystemProgramCallingManager(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `program_name_22`')
-
         self._data["Program Name 22"] = value
 
     @property
@@ -1617,11 +1648,13 @@ class EnergyManagementSystemProgramCallingManager(object):
 
     @program_name_23.setter
     def program_name_23(self, value=None):
-        """  Corresponds to IDD Field `program_name_23`
+        """  Corresponds to IDD Field `Program Name 23`
         no spaces allowed in name
+        
+        {u'note': [u'no spaces allowed in name'], u'type': u'object-list', u'object-list': u'ErlProgramNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `program_name_23`
+            value (str): value for IDD Field `Program Name 23`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1631,7 +1664,7 @@ class EnergyManagementSystemProgramCallingManager(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `program_name_23`'.format(value))
             if ',' in value:
@@ -1640,7 +1673,6 @@ class EnergyManagementSystemProgramCallingManager(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `program_name_23`')
-
         self._data["Program Name 23"] = value
 
     @property
@@ -1654,11 +1686,13 @@ class EnergyManagementSystemProgramCallingManager(object):
 
     @program_name_24.setter
     def program_name_24(self, value=None):
-        """  Corresponds to IDD Field `program_name_24`
+        """  Corresponds to IDD Field `Program Name 24`
         no spaces allowed in name
+        
+        {u'note': [u'no spaces allowed in name'], u'type': u'object-list', u'object-list': u'ErlProgramNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `program_name_24`
+            value (str): value for IDD Field `Program Name 24`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1668,7 +1702,7 @@ class EnergyManagementSystemProgramCallingManager(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `program_name_24`'.format(value))
             if ',' in value:
@@ -1677,7 +1711,6 @@ class EnergyManagementSystemProgramCallingManager(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `program_name_24`')
-
         self._data["Program Name 24"] = value
 
     @property
@@ -1691,11 +1724,13 @@ class EnergyManagementSystemProgramCallingManager(object):
 
     @program_name_25.setter
     def program_name_25(self, value=None):
-        """  Corresponds to IDD Field `program_name_25`
+        """  Corresponds to IDD Field `Program Name 25`
         no spaces allowed in name
+        
+        {u'note': [u'no spaces allowed in name'], u'type': u'object-list', u'object-list': u'ErlProgramNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `program_name_25`
+            value (str): value for IDD Field `Program Name 25`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1705,7 +1740,7 @@ class EnergyManagementSystemProgramCallingManager(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `program_name_25`'.format(value))
             if ',' in value:
@@ -1714,7 +1749,6 @@ class EnergyManagementSystemProgramCallingManager(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `program_name_25`')
-
         self._data["Program Name 25"] = value
 
     def check(self):
@@ -1834,10 +1868,12 @@ class EnergyManagementSystemOutputVariable(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {u'retaincase': u'', u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1847,7 +1883,7 @@ class EnergyManagementSystemOutputVariable(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -1856,7 +1892,6 @@ class EnergyManagementSystemOutputVariable(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -1870,11 +1905,13 @@ class EnergyManagementSystemOutputVariable(object):
 
     @ems_variable_name.setter
     def ems_variable_name(self, value=None):
-        """  Corresponds to IDD Field `ems_variable_name`
+        """  Corresponds to IDD Field `EMS Variable Name`
         must be an acceptable EMS variable
+        
+        {u'note': [u'must be an acceptable EMS variable'], u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `ems_variable_name`
+            value (str): value for IDD Field `EMS Variable Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1884,7 +1921,7 @@ class EnergyManagementSystemOutputVariable(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `ems_variable_name`'.format(value))
             if ',' in value:
@@ -1893,7 +1930,6 @@ class EnergyManagementSystemOutputVariable(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `ems_variable_name`')
-
         self._data["EMS Variable Name"] = value
 
     @property
@@ -1907,10 +1943,12 @@ class EnergyManagementSystemOutputVariable(object):
 
     @type_of_data_in_variable.setter
     def type_of_data_in_variable(self, value=None):
-        """  Corresponds to IDD Field `type_of_data_in_variable`
+        """  Corresponds to IDD Field `Type of Data in Variable`
+        
+        {u'type': u'choice', u'key': [u'Averaged', u'Summed'], u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `type_of_data_in_variable`
+            value (str): value for IDD Field `Type of Data in Variable`
                 Accepted values are:
                       - Averaged
                       - Summed
@@ -1923,7 +1961,7 @@ class EnergyManagementSystemOutputVariable(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `type_of_data_in_variable`'.format(value))
             if ',' in value:
@@ -1949,7 +1987,6 @@ class EnergyManagementSystemOutputVariable(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `type_of_data_in_variable`'.format(value))
             value = vals[value_lower]
-
         self._data["Type of Data in Variable"] = value
 
     @property
@@ -1963,10 +2000,12 @@ class EnergyManagementSystemOutputVariable(object):
 
     @update_frequency.setter
     def update_frequency(self, value=None):
-        """  Corresponds to IDD Field `update_frequency`
+        """  Corresponds to IDD Field `Update Frequency`
+        
+        {u'type': u'choice', u'key': [u'ZoneTimestep', u'SystemTimestep'], u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `update_frequency`
+            value (str): value for IDD Field `Update Frequency`
                 Accepted values are:
                       - ZoneTimestep
                       - SystemTimestep
@@ -1979,7 +2018,7 @@ class EnergyManagementSystemOutputVariable(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `update_frequency`'.format(value))
             if ',' in value:
@@ -2005,7 +2044,6 @@ class EnergyManagementSystemOutputVariable(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `update_frequency`'.format(value))
             value = vals[value_lower]
-
         self._data["Update Frequency"] = value
 
     @property
@@ -2019,11 +2057,13 @@ class EnergyManagementSystemOutputVariable(object):
 
     @ems_program_or_subroutine_name.setter
     def ems_program_or_subroutine_name(self, value=None):
-        """  Corresponds to IDD Field `ems_program_or_subroutine_name`
+        """  Corresponds to IDD Field `EMS Program or Subroutine Name`
         optional for global scope variables, required for local scope variables
+        
+        {u'note': [u'optional for global scope variables, required for local scope variables'], u'type': u'alpha', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `ems_program_or_subroutine_name`
+            value (str): value for IDD Field `EMS Program or Subroutine Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2033,7 +2073,7 @@ class EnergyManagementSystemOutputVariable(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `ems_program_or_subroutine_name`'.format(value))
             if ',' in value:
@@ -2042,7 +2082,6 @@ class EnergyManagementSystemOutputVariable(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `ems_program_or_subroutine_name`')
-
         self._data["EMS Program or Subroutine Name"] = value
 
     @property
@@ -2056,12 +2095,14 @@ class EnergyManagementSystemOutputVariable(object):
 
     @units.setter
     def units(self, value=None):
-        """  Corresponds to IDD Field `units`
+        """  Corresponds to IDD Field `Units`
         optional but will result in dimensionless units for blank
         EnergyPlus units are standard SI units
+        
+        {u'note': [u'optional but will result in dimensionless units for blank', u'EnergyPlus units are standard SI units'], u'type': u'alpha', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `units`
+            value (str): value for IDD Field `Units`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2071,7 +2112,7 @@ class EnergyManagementSystemOutputVariable(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `units`'.format(value))
             if ',' in value:
@@ -2080,7 +2121,6 @@ class EnergyManagementSystemOutputVariable(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `units`')
-
         self._data["Units"] = value
 
     def check(self):
@@ -2224,10 +2264,12 @@ class EnergyManagementSystemMeteredOutputVariable(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {u'retaincase': u'', u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2237,7 +2279,7 @@ class EnergyManagementSystemMeteredOutputVariable(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -2246,7 +2288,6 @@ class EnergyManagementSystemMeteredOutputVariable(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -2260,11 +2301,13 @@ class EnergyManagementSystemMeteredOutputVariable(object):
 
     @ems_variable_name.setter
     def ems_variable_name(self, value=None):
-        """  Corresponds to IDD Field `ems_variable_name`
+        """  Corresponds to IDD Field `EMS Variable Name`
         must be an acceptable EMS variable, no spaces
+        
+        {u'note': [u'must be an acceptable EMS variable, no spaces'], u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `ems_variable_name`
+            value (str): value for IDD Field `EMS Variable Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2274,7 +2317,7 @@ class EnergyManagementSystemMeteredOutputVariable(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `ems_variable_name`'.format(value))
             if ',' in value:
@@ -2283,7 +2326,6 @@ class EnergyManagementSystemMeteredOutputVariable(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `ems_variable_name`')
-
         self._data["EMS Variable Name"] = value
 
     @property
@@ -2297,10 +2339,12 @@ class EnergyManagementSystemMeteredOutputVariable(object):
 
     @update_frequency.setter
     def update_frequency(self, value=None):
-        """  Corresponds to IDD Field `update_frequency`
+        """  Corresponds to IDD Field `Update Frequency`
+        
+        {u'type': u'choice', u'key': [u'ZoneTimestep', u'SystemTimestep'], u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `update_frequency`
+            value (str): value for IDD Field `Update Frequency`
                 Accepted values are:
                       - ZoneTimestep
                       - SystemTimestep
@@ -2313,7 +2357,7 @@ class EnergyManagementSystemMeteredOutputVariable(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `update_frequency`'.format(value))
             if ',' in value:
@@ -2339,7 +2383,6 @@ class EnergyManagementSystemMeteredOutputVariable(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `update_frequency`'.format(value))
             value = vals[value_lower]
-
         self._data["Update Frequency"] = value
 
     @property
@@ -2353,11 +2396,13 @@ class EnergyManagementSystemMeteredOutputVariable(object):
 
     @ems_program_or_subroutine_name.setter
     def ems_program_or_subroutine_name(self, value=None):
-        """  Corresponds to IDD Field `ems_program_or_subroutine_name`
+        """  Corresponds to IDD Field `EMS Program or Subroutine Name`
         optional for global scope variables, required for local scope variables
+        
+        {u'note': [u'optional for global scope variables, required for local scope variables'], u'type': u'alpha', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `ems_program_or_subroutine_name`
+            value (str): value for IDD Field `EMS Program or Subroutine Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2367,7 +2412,7 @@ class EnergyManagementSystemMeteredOutputVariable(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `ems_program_or_subroutine_name`'.format(value))
             if ',' in value:
@@ -2376,7 +2421,6 @@ class EnergyManagementSystemMeteredOutputVariable(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `ems_program_or_subroutine_name`')
-
         self._data["EMS Program or Subroutine Name"] = value
 
     @property
@@ -2390,11 +2434,13 @@ class EnergyManagementSystemMeteredOutputVariable(object):
 
     @resource_type.setter
     def resource_type(self, value=None):
-        """  Corresponds to IDD Field `resource_type`
+        """  Corresponds to IDD Field `Resource Type`
         choose the type of fuel, water, electricity, pollution or heat rate that should be metered.
+        
+        {u'note': [u'choose the type of fuel, water, electricity, pollution or heat rate that should be metered.'], u'type': u'choice', u'key': [u'Electricity', u'NaturalGas', u'Gasoline', u'Diesel', u'Coal', u'FuelOil#1', u'FuelOil#2', u'Propane', u'OtherFuel1', u'OtherFuel2', u'WaterUse', u'OnSiteWaterProduced', u'MainsWaterSupply', u'RainWaterCollected', u'WellWaterDrawn', u'CondensateWaterCollected', u'EnergyTransfer', u'Steam', u'DistrictCooling', u'DistrictHeating', u'ElectricityProducedOnSite', u'SolarWaterHeating', u'SolarAirHeating'], u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `resource_type`
+            value (str): value for IDD Field `Resource Type`
                 Accepted values are:
                       - Electricity
                       - NaturalGas
@@ -2428,7 +2474,7 @@ class EnergyManagementSystemMeteredOutputVariable(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `resource_type`'.format(value))
             if ',' in value:
@@ -2475,7 +2521,6 @@ class EnergyManagementSystemMeteredOutputVariable(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `resource_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Resource Type"] = value
 
     @property
@@ -2489,11 +2534,13 @@ class EnergyManagementSystemMeteredOutputVariable(object):
 
     @group_type.setter
     def group_type(self, value=None):
-        """  Corresponds to IDD Field `group_type`
+        """  Corresponds to IDD Field `Group Type`
         choose a general classification, building (internal services), HVAC (air sytems), or plant (hydronic systems)
+        
+        {u'note': [u'choose a general classification, building (internal services), HVAC (air sytems), or plant (hydronic systems)'], u'type': u'choice', u'key': [u'Building', u'HVAC', u'Plant'], u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `group_type`
+            value (str): value for IDD Field `Group Type`
                 Accepted values are:
                       - Building
                       - HVAC
@@ -2507,7 +2554,7 @@ class EnergyManagementSystemMeteredOutputVariable(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `group_type`'.format(value))
             if ',' in value:
@@ -2534,7 +2581,6 @@ class EnergyManagementSystemMeteredOutputVariable(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `group_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Group Type"] = value
 
     @property
@@ -2548,11 +2594,13 @@ class EnergyManagementSystemMeteredOutputVariable(object):
 
     @enduse_category.setter
     def enduse_category(self, value=None):
-        """  Corresponds to IDD Field `enduse_category`
+        """  Corresponds to IDD Field `End-Use Category`
         choose how the metered output should be classified for end-use category
+        
+        {u'note': [u'choose how the metered output should be classified for end-use category'], u'type': u'choice', u'key': [u'Heating', u'Cooling', u'InteriorLights', u'ExteriorLights', u'InteriorEquipment', u'ExteriorEquipment', u'Fans', u'Pumps', u'HeatRejection', u'Humidifier', u'HeatRecovery', u'WaterSystems', u'Refrigeration', u'OnSiteGeneration'], u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `enduse_category`
+            value (str): value for IDD Field `End-Use Category`
                 Accepted values are:
                       - Heating
                       - Cooling
@@ -2577,7 +2625,7 @@ class EnergyManagementSystemMeteredOutputVariable(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `enduse_category`'.format(value))
             if ',' in value:
@@ -2615,7 +2663,6 @@ class EnergyManagementSystemMeteredOutputVariable(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `enduse_category`'.format(value))
             value = vals[value_lower]
-
         self._data["End-Use Category"] = value
 
     @property
@@ -2629,11 +2676,13 @@ class EnergyManagementSystemMeteredOutputVariable(object):
 
     @enduse_subcategory.setter
     def enduse_subcategory(self, value=None):
-        """  Corresponds to IDD Field `enduse_subcategory`
+        """  Corresponds to IDD Field `End-Use Subcategory`
         enter a user-defined subcategory for this metered output
+        
+        {u'note': [u'enter a user-defined subcategory for this metered output'], u'type': u'alpha', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `enduse_subcategory`
+            value (str): value for IDD Field `End-Use Subcategory`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2643,7 +2692,7 @@ class EnergyManagementSystemMeteredOutputVariable(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `enduse_subcategory`'.format(value))
             if ',' in value:
@@ -2652,7 +2701,6 @@ class EnergyManagementSystemMeteredOutputVariable(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `enduse_subcategory`')
-
         self._data["End-Use Subcategory"] = value
 
     @property
@@ -2666,12 +2714,14 @@ class EnergyManagementSystemMeteredOutputVariable(object):
 
     @units.setter
     def units(self, value=None):
-        """  Corresponds to IDD Field `units`
+        """  Corresponds to IDD Field `Units`
         optional but will result in dimensionless units for blank
         EnergyPlus units are standard SI units
+        
+        {u'note': [u'optional but will result in dimensionless units for blank', u'EnergyPlus units are standard SI units'], u'type': u'alpha', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `units`
+            value (str): value for IDD Field `Units`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2681,7 +2731,7 @@ class EnergyManagementSystemMeteredOutputVariable(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `units`'.format(value))
             if ',' in value:
@@ -2690,7 +2740,6 @@ class EnergyManagementSystemMeteredOutputVariable(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `units`')
-
         self._data["Units"] = value
 
     def check(self):
@@ -2787,11 +2836,13 @@ class EnergyManagementSystemTrendVariable(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
         no spaces allowed in name
+        
+        {u'note': [u'no spaces allowed in name'], u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2801,7 +2852,7 @@ class EnergyManagementSystemTrendVariable(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -2810,7 +2861,6 @@ class EnergyManagementSystemTrendVariable(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -2824,11 +2874,13 @@ class EnergyManagementSystemTrendVariable(object):
 
     @ems_variable_name.setter
     def ems_variable_name(self, value=None):
-        """  Corresponds to IDD Field `ems_variable_name`
+        """  Corresponds to IDD Field `EMS Variable Name`
         must be a global scope EMS variable
+        
+        {u'note': [u'must be a global scope EMS variable'], u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `ems_variable_name`
+            value (str): value for IDD Field `EMS Variable Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2838,7 +2890,7 @@ class EnergyManagementSystemTrendVariable(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `ems_variable_name`'.format(value))
             if ',' in value:
@@ -2847,7 +2899,6 @@ class EnergyManagementSystemTrendVariable(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `ems_variable_name`')
-
         self._data["EMS Variable Name"] = value
 
     @property
@@ -2861,10 +2912,12 @@ class EnergyManagementSystemTrendVariable(object):
 
     @number_of_timesteps_to_be_logged.setter
     def number_of_timesteps_to_be_logged(self, value=None):
-        """  Corresponds to IDD Field `number_of_timesteps_to_be_logged`
+        """  Corresponds to IDD Field `Number of Timesteps to be Logged`
+        
+        {u'minimum': '1', u'type': u'integer', u'required-field': True, 'pytype': 'int'}
 
         Args:
-            value (int): value for IDD Field `number_of_timesteps_to_be_logged`
+            value (int): value for IDD Field `Number of Timesteps to be Logged`
                 value >= 1
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -2875,13 +2928,12 @@ class EnergyManagementSystemTrendVariable(object):
         if value is not None:
             try:
                 value = int(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type int '
                                  'for field `number_of_timesteps_to_be_logged`'.format(value))
             if value < 1:
                 raise ValueError('value need to be greater or equal 1 '
                                  'for field `number_of_timesteps_to_be_logged`')
-
         self._data["Number of Timesteps to be Logged"] = value
 
     def check(self):
@@ -2977,12 +3029,14 @@ class EnergyManagementSystemInternalVariable(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
         This name becomes a variable for use in Erl programs
         no spaces allowed in name
+        
+        {u'note': [u'This name becomes a variable for use in Erl programs', u'no spaces allowed in name'], u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2992,7 +3046,7 @@ class EnergyManagementSystemInternalVariable(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -3001,7 +3055,6 @@ class EnergyManagementSystemInternalVariable(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -3015,10 +3068,12 @@ class EnergyManagementSystemInternalVariable(object):
 
     @internal_data_index_key_name.setter
     def internal_data_index_key_name(self, value=None):
-        """  Corresponds to IDD Field `internal_data_index_key_name`
+        """  Corresponds to IDD Field `Internal Data Index Key Name`
+        
+        {u'type': u'alpha', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `internal_data_index_key_name`
+            value (str): value for IDD Field `Internal Data Index Key Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3028,7 +3083,7 @@ class EnergyManagementSystemInternalVariable(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `internal_data_index_key_name`'.format(value))
             if ',' in value:
@@ -3037,7 +3092,6 @@ class EnergyManagementSystemInternalVariable(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `internal_data_index_key_name`')
-
         self._data["Internal Data Index Key Name"] = value
 
     @property
@@ -3051,10 +3105,12 @@ class EnergyManagementSystemInternalVariable(object):
 
     @internal_data_type.setter
     def internal_data_type(self, value=None):
-        """  Corresponds to IDD Field `internal_data_type`
+        """  Corresponds to IDD Field `Internal Data Type`
+        
+        {u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `internal_data_type`
+            value (str): value for IDD Field `Internal Data Type`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3064,7 +3120,7 @@ class EnergyManagementSystemInternalVariable(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `internal_data_type`'.format(value))
             if ',' in value:
@@ -3073,7 +3129,6 @@ class EnergyManagementSystemInternalVariable(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `internal_data_type`')
-
         self._data["Internal Data Type"] = value
 
     def check(self):
@@ -3161,12 +3216,14 @@ class EnergyManagementSystemCurveOrTableIndexVariable(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
         This name becomes a variable for use in Erl programs
         no spaces allowed in name
+        
+        {u'note': [u'This name becomes a variable for use in Erl programs', u'no spaces allowed in name'], u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3176,7 +3233,7 @@ class EnergyManagementSystemCurveOrTableIndexVariable(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -3185,7 +3242,6 @@ class EnergyManagementSystemCurveOrTableIndexVariable(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -3199,10 +3255,12 @@ class EnergyManagementSystemCurveOrTableIndexVariable(object):
 
     @curve_or_table_object_name.setter
     def curve_or_table_object_name(self, value=None):
-        """  Corresponds to IDD Field `curve_or_table_object_name`
+        """  Corresponds to IDD Field `Curve or Table Object Name`
+        
+        {u'type': u'object-list', u'object-list': u'AllCurves', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `curve_or_table_object_name`
+            value (str): value for IDD Field `Curve or Table Object Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3212,7 +3270,7 @@ class EnergyManagementSystemCurveOrTableIndexVariable(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `curve_or_table_object_name`'.format(value))
             if ',' in value:
@@ -3221,7 +3279,6 @@ class EnergyManagementSystemCurveOrTableIndexVariable(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `curve_or_table_object_name`')
-
         self._data["Curve or Table Object Name"] = value
 
     def check(self):
@@ -3309,12 +3366,14 @@ class EnergyManagementSystemConstructionIndexVariable(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
         This name becomes a variable for use in Erl programs
         no spaces allowed in name
+        
+        {u'note': [u'This name becomes a variable for use in Erl programs', u'no spaces allowed in name'], u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3324,7 +3383,7 @@ class EnergyManagementSystemConstructionIndexVariable(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -3333,7 +3392,6 @@ class EnergyManagementSystemConstructionIndexVariable(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -3347,10 +3405,12 @@ class EnergyManagementSystemConstructionIndexVariable(object):
 
     @construction_object_name.setter
     def construction_object_name(self, value=None):
-        """  Corresponds to IDD Field `construction_object_name`
+        """  Corresponds to IDD Field `Construction Object Name`
+        
+        {u'type': u'object-list', u'object-list': u'ConstructionNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `construction_object_name`
+            value (str): value for IDD Field `Construction Object Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3360,7 +3420,7 @@ class EnergyManagementSystemConstructionIndexVariable(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `construction_object_name`'.format(value))
             if ',' in value:
@@ -3369,7 +3429,6 @@ class EnergyManagementSystemConstructionIndexVariable(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `construction_object_name`')
-
         self._data["Construction Object Name"] = value
 
     def check(self):

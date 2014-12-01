@@ -115,10 +115,12 @@ class AirLoopHvac(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {u'type': u'alpha', u'reference': u'AirPrimaryLoops', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -128,7 +130,7 @@ class AirLoopHvac(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -137,7 +139,6 @@ class AirLoopHvac(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -151,11 +152,13 @@ class AirLoopHvac(object):
 
     @controller_list_name.setter
     def controller_list_name(self, value=None):
-        """  Corresponds to IDD Field `controller_list_name`
+        """  Corresponds to IDD Field `Controller List Name`
         Enter the name of an AirLoopHVAC:ControllerList object.
+        
+        {u'note': [u'Enter the name of an AirLoopHVAC:ControllerList object.'], u'type': u'object-list', u'object-list': u'ControllerLists', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `controller_list_name`
+            value (str): value for IDD Field `Controller List Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -165,7 +168,7 @@ class AirLoopHvac(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `controller_list_name`'.format(value))
             if ',' in value:
@@ -174,7 +177,6 @@ class AirLoopHvac(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `controller_list_name`')
-
         self._data["Controller List Name"] = value
 
     @property
@@ -188,11 +190,13 @@ class AirLoopHvac(object):
 
     @availability_manager_list_name.setter
     def availability_manager_list_name(self, value=None):
-        """  Corresponds to IDD Field `availability_manager_list_name`
+        """  Corresponds to IDD Field `Availability Manager List Name`
         Enter the name of an AvailabilityManagerAssignmentList object.
+        
+        {u'note': [u'Enter the name of an AvailabilityManagerAssignmentList object.'], u'type': u'object-list', u'object-list': u'SystemAvailabilityManagerLists', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `availability_manager_list_name`
+            value (str): value for IDD Field `Availability Manager List Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -202,7 +206,7 @@ class AirLoopHvac(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `availability_manager_list_name`'.format(value))
             if ',' in value:
@@ -211,7 +215,6 @@ class AirLoopHvac(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `availability_manager_list_name`')
-
         self._data["Availability Manager List Name"] = value
 
     @property
@@ -225,10 +228,12 @@ class AirLoopHvac(object):
 
     @design_supply_air_flow_rate.setter
     def design_supply_air_flow_rate(self, value=0.0 ):
-        """  Corresponds to IDD Field `design_supply_air_flow_rate`
+        """  Corresponds to IDD Field `Design Supply Air Flow Rate`
+        
+        {u'default': '0.0', u'units': u'm3/s', u'autosizable': u'', 'type': 'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `design_supply_air_flow_rate`
+            value (float): value for IDD Field `Design Supply Air Flow Rate`
                 Units: m3/s
                 Default value: 0.0
                 if `value` is None it will not be checked against the
@@ -240,10 +245,9 @@ class AirLoopHvac(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `design_supply_air_flow_rate`'.format(value))
-
         self._data["Design Supply Air Flow Rate"] = value
 
     @property
@@ -257,11 +261,13 @@ class AirLoopHvac(object):
 
     @branch_list_name.setter
     def branch_list_name(self, value=None):
-        """  Corresponds to IDD Field `branch_list_name`
+        """  Corresponds to IDD Field `Branch List Name`
         Name of a BranchList containing all the branches in this air loop
+        
+        {u'note': [u'Name of a BranchList containing all the branches in this air loop'], u'type': u'object-list', u'object-list': u'BranchLists', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `branch_list_name`
+            value (str): value for IDD Field `Branch List Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -271,7 +277,7 @@ class AirLoopHvac(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `branch_list_name`'.format(value))
             if ',' in value:
@@ -280,7 +286,6 @@ class AirLoopHvac(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `branch_list_name`')
-
         self._data["Branch List Name"] = value
 
     @property
@@ -294,11 +299,13 @@ class AirLoopHvac(object):
 
     @connector_list_name.setter
     def connector_list_name(self, value=None):
-        """  Corresponds to IDD Field `connector_list_name`
+        """  Corresponds to IDD Field `Connector List Name`
         Name of a ConnectorList containing all the splitters and mixers in the loop
+        
+        {u'note': [u'Name of a ConnectorList containing all the splitters and mixers in the loop'], u'type': u'object-list', u'object-list': u'ConnectorLists', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `connector_list_name`
+            value (str): value for IDD Field `Connector List Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -308,7 +315,7 @@ class AirLoopHvac(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `connector_list_name`'.format(value))
             if ',' in value:
@@ -317,7 +324,6 @@ class AirLoopHvac(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `connector_list_name`')
-
         self._data["Connector List Name"] = value
 
     @property
@@ -331,11 +337,13 @@ class AirLoopHvac(object):
 
     @supply_side_inlet_node_name.setter
     def supply_side_inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `supply_side_inlet_node_name`
+        """  Corresponds to IDD Field `Supply Side Inlet Node Name`
         Name of inlet node where return air enters the supply side of the air loop
+        
+        {u'note': [u'Name of inlet node where return air enters the supply side of the air loop'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `supply_side_inlet_node_name`
+            value (str): value for IDD Field `Supply Side Inlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -345,7 +353,7 @@ class AirLoopHvac(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `supply_side_inlet_node_name`'.format(value))
             if ',' in value:
@@ -354,7 +362,6 @@ class AirLoopHvac(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `supply_side_inlet_node_name`')
-
         self._data["Supply Side Inlet Node Name"] = value
 
     @property
@@ -368,11 +375,13 @@ class AirLoopHvac(object):
 
     @demand_side_outlet_node_name.setter
     def demand_side_outlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `demand_side_outlet_node_name`
+        """  Corresponds to IDD Field `Demand Side Outlet Node Name`
         Name of outlet node where return air leaves the demand side and enters the supply side.
+        
+        {u'note': [u'Name of outlet node where return air leaves the demand side and enters the supply side.'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `demand_side_outlet_node_name`
+            value (str): value for IDD Field `Demand Side Outlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -382,7 +391,7 @@ class AirLoopHvac(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `demand_side_outlet_node_name`'.format(value))
             if ',' in value:
@@ -391,7 +400,6 @@ class AirLoopHvac(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `demand_side_outlet_node_name`')
-
         self._data["Demand Side Outlet Node Name"] = value
 
     @property
@@ -405,11 +413,13 @@ class AirLoopHvac(object):
 
     @demand_side_inlet_node_names.setter
     def demand_side_inlet_node_names(self, value=None):
-        """  Corresponds to IDD Field `demand_side_inlet_node_names`
+        """  Corresponds to IDD Field `Demand Side Inlet Node Names`
         Name of a Node or NodeList containing the inlet node(s) supplying air to zone equipment.
+        
+        {u'note': [u'Name of a Node or NodeList containing the inlet node(s) supplying air to zone equipment.'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `demand_side_inlet_node_names`
+            value (str): value for IDD Field `Demand Side Inlet Node Names`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -419,7 +429,7 @@ class AirLoopHvac(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `demand_side_inlet_node_names`'.format(value))
             if ',' in value:
@@ -428,7 +438,6 @@ class AirLoopHvac(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `demand_side_inlet_node_names`')
-
         self._data["Demand Side Inlet Node Names"] = value
 
     @property
@@ -442,11 +451,13 @@ class AirLoopHvac(object):
 
     @supply_side_outlet_node_names.setter
     def supply_side_outlet_node_names(self, value=None):
-        """  Corresponds to IDD Field `supply_side_outlet_node_names`
+        """  Corresponds to IDD Field `Supply Side Outlet Node Names`
         Name of a Node or NodeList containing the outlet node(s) supplying air to the demand side.
+        
+        {u'note': [u'Name of a Node or NodeList containing the outlet node(s) supplying air to the demand side.'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `supply_side_outlet_node_names`
+            value (str): value for IDD Field `Supply Side Outlet Node Names`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -456,7 +467,7 @@ class AirLoopHvac(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `supply_side_outlet_node_names`'.format(value))
             if ',' in value:
@@ -465,7 +476,6 @@ class AirLoopHvac(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `supply_side_outlet_node_names`')
-
         self._data["Supply Side Outlet Node Names"] = value
 
     def check(self):
@@ -689,10 +699,12 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {u'type': u'alpha', u'reference': u'AirLoopOAEquipmentLists', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -702,7 +714,7 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -711,7 +723,6 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -725,10 +736,12 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(object):
 
     @component_1_object_type.setter
     def component_1_object_type(self, value=None):
-        """  Corresponds to IDD Field `component_1_object_type`
+        """  Corresponds to IDD Field `Component 1 Object Type`
+        
+        {'type': 'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_1_object_type`
+            value (str): value for IDD Field `Component 1 Object Type`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -738,7 +751,7 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_1_object_type`'.format(value))
             if ',' in value:
@@ -747,7 +760,6 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `component_1_object_type`')
-
         self._data["Component 1 Object Type"] = value
 
     @property
@@ -761,10 +773,12 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(object):
 
     @component_1_name.setter
     def component_1_name(self, value=None):
-        """  Corresponds to IDD Field `component_1_name`
+        """  Corresponds to IDD Field `Component 1 Name`
+        
+        {'type': 'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_1_name`
+            value (str): value for IDD Field `Component 1 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -774,7 +788,7 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_1_name`'.format(value))
             if ',' in value:
@@ -783,7 +797,6 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `component_1_name`')
-
         self._data["Component 1 Name"] = value
 
     @property
@@ -797,10 +810,12 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(object):
 
     @component_2_object_type.setter
     def component_2_object_type(self, value=None):
-        """  Corresponds to IDD Field `component_2_object_type`
+        """  Corresponds to IDD Field `Component 2 Object Type`
+        
+        {'type': 'alpha', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_2_object_type`
+            value (str): value for IDD Field `Component 2 Object Type`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -810,7 +825,7 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_2_object_type`'.format(value))
             if ',' in value:
@@ -819,7 +834,6 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `component_2_object_type`')
-
         self._data["Component 2 Object Type"] = value
 
     @property
@@ -833,10 +847,12 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(object):
 
     @component_2_name.setter
     def component_2_name(self, value=None):
-        """  Corresponds to IDD Field `component_2_name`
+        """  Corresponds to IDD Field `Component 2 Name`
+        
+        {'type': 'alpha', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_2_name`
+            value (str): value for IDD Field `Component 2 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -846,7 +862,7 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_2_name`'.format(value))
             if ',' in value:
@@ -855,7 +871,6 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `component_2_name`')
-
         self._data["Component 2 Name"] = value
 
     @property
@@ -869,10 +884,12 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(object):
 
     @component_3_object_type.setter
     def component_3_object_type(self, value=None):
-        """  Corresponds to IDD Field `component_3_object_type`
+        """  Corresponds to IDD Field `Component 3 Object Type`
+        
+        {'type': 'alpha', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_3_object_type`
+            value (str): value for IDD Field `Component 3 Object Type`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -882,7 +899,7 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_3_object_type`'.format(value))
             if ',' in value:
@@ -891,7 +908,6 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `component_3_object_type`')
-
         self._data["Component 3 Object Type"] = value
 
     @property
@@ -905,10 +921,12 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(object):
 
     @component_3_name.setter
     def component_3_name(self, value=None):
-        """  Corresponds to IDD Field `component_3_name`
+        """  Corresponds to IDD Field `Component 3 Name`
+        
+        {'type': 'alpha', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_3_name`
+            value (str): value for IDD Field `Component 3 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -918,7 +936,7 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_3_name`'.format(value))
             if ',' in value:
@@ -927,7 +945,6 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `component_3_name`')
-
         self._data["Component 3 Name"] = value
 
     @property
@@ -941,10 +958,12 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(object):
 
     @component_4_object_type.setter
     def component_4_object_type(self, value=None):
-        """  Corresponds to IDD Field `component_4_object_type`
+        """  Corresponds to IDD Field `Component 4 Object Type`
+        
+        {'type': 'alpha', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_4_object_type`
+            value (str): value for IDD Field `Component 4 Object Type`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -954,7 +973,7 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_4_object_type`'.format(value))
             if ',' in value:
@@ -963,7 +982,6 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `component_4_object_type`')
-
         self._data["Component 4 Object Type"] = value
 
     @property
@@ -977,10 +995,12 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(object):
 
     @component_4_name.setter
     def component_4_name(self, value=None):
-        """  Corresponds to IDD Field `component_4_name`
+        """  Corresponds to IDD Field `Component 4 Name`
+        
+        {'type': 'alpha', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_4_name`
+            value (str): value for IDD Field `Component 4 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -990,7 +1010,7 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_4_name`'.format(value))
             if ',' in value:
@@ -999,7 +1019,6 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `component_4_name`')
-
         self._data["Component 4 Name"] = value
 
     @property
@@ -1013,10 +1032,12 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(object):
 
     @component_5_object_type.setter
     def component_5_object_type(self, value=None):
-        """  Corresponds to IDD Field `component_5_object_type`
+        """  Corresponds to IDD Field `Component 5 Object Type`
+        
+        {'type': 'alpha', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_5_object_type`
+            value (str): value for IDD Field `Component 5 Object Type`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1026,7 +1047,7 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_5_object_type`'.format(value))
             if ',' in value:
@@ -1035,7 +1056,6 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `component_5_object_type`')
-
         self._data["Component 5 Object Type"] = value
 
     @property
@@ -1049,10 +1069,12 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(object):
 
     @component_5_name.setter
     def component_5_name(self, value=None):
-        """  Corresponds to IDD Field `component_5_name`
+        """  Corresponds to IDD Field `Component 5 Name`
+        
+        {'type': 'alpha', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_5_name`
+            value (str): value for IDD Field `Component 5 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1062,7 +1084,7 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_5_name`'.format(value))
             if ',' in value:
@@ -1071,7 +1093,6 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `component_5_name`')
-
         self._data["Component 5 Name"] = value
 
     @property
@@ -1085,10 +1106,12 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(object):
 
     @component_6_object_type.setter
     def component_6_object_type(self, value=None):
-        """  Corresponds to IDD Field `component_6_object_type`
+        """  Corresponds to IDD Field `Component 6 Object Type`
+        
+        {'type': 'alpha', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_6_object_type`
+            value (str): value for IDD Field `Component 6 Object Type`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1098,7 +1121,7 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_6_object_type`'.format(value))
             if ',' in value:
@@ -1107,7 +1130,6 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `component_6_object_type`')
-
         self._data["Component 6 Object Type"] = value
 
     @property
@@ -1121,10 +1143,12 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(object):
 
     @component_6_name.setter
     def component_6_name(self, value=None):
-        """  Corresponds to IDD Field `component_6_name`
+        """  Corresponds to IDD Field `Component 6 Name`
+        
+        {'type': 'alpha', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_6_name`
+            value (str): value for IDD Field `Component 6 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1134,7 +1158,7 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_6_name`'.format(value))
             if ',' in value:
@@ -1143,7 +1167,6 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `component_6_name`')
-
         self._data["Component 6 Name"] = value
 
     @property
@@ -1157,10 +1180,12 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(object):
 
     @component_7_object_type.setter
     def component_7_object_type(self, value=None):
-        """  Corresponds to IDD Field `component_7_object_type`
+        """  Corresponds to IDD Field `Component 7 Object Type`
+        
+        {'type': 'alpha', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_7_object_type`
+            value (str): value for IDD Field `Component 7 Object Type`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1170,7 +1195,7 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_7_object_type`'.format(value))
             if ',' in value:
@@ -1179,7 +1204,6 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `component_7_object_type`')
-
         self._data["Component 7 Object Type"] = value
 
     @property
@@ -1193,10 +1217,12 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(object):
 
     @component_7_name.setter
     def component_7_name(self, value=None):
-        """  Corresponds to IDD Field `component_7_name`
+        """  Corresponds to IDD Field `Component 7 Name`
+        
+        {'type': 'alpha', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_7_name`
+            value (str): value for IDD Field `Component 7 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1206,7 +1232,7 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_7_name`'.format(value))
             if ',' in value:
@@ -1215,7 +1241,6 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `component_7_name`')
-
         self._data["Component 7 Name"] = value
 
     @property
@@ -1229,10 +1254,12 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(object):
 
     @component_8_object_type.setter
     def component_8_object_type(self, value=None):
-        """  Corresponds to IDD Field `component_8_object_type`
+        """  Corresponds to IDD Field `Component 8 Object Type`
+        
+        {'type': 'alpha', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_8_object_type`
+            value (str): value for IDD Field `Component 8 Object Type`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1242,7 +1269,7 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_8_object_type`'.format(value))
             if ',' in value:
@@ -1251,7 +1278,6 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `component_8_object_type`')
-
         self._data["Component 8 Object Type"] = value
 
     @property
@@ -1265,10 +1291,12 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(object):
 
     @component_8_name.setter
     def component_8_name(self, value=None):
-        """  Corresponds to IDD Field `component_8_name`
+        """  Corresponds to IDD Field `Component 8 Name`
+        
+        {'type': 'alpha', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_8_name`
+            value (str): value for IDD Field `Component 8 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1278,7 +1306,7 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_8_name`'.format(value))
             if ',' in value:
@@ -1287,7 +1315,6 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `component_8_name`')
-
         self._data["Component 8 Name"] = value
 
     @property
@@ -1301,10 +1328,12 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(object):
 
     @component_9_object_type.setter
     def component_9_object_type(self, value=None):
-        """  Corresponds to IDD Field `component_9_object_type`
+        """  Corresponds to IDD Field `Component 9 Object Type`
+        
+        {'type': 'alpha', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_9_object_type`
+            value (str): value for IDD Field `Component 9 Object Type`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1314,7 +1343,7 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_9_object_type`'.format(value))
             if ',' in value:
@@ -1323,7 +1352,6 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `component_9_object_type`')
-
         self._data["Component 9 Object Type"] = value
 
     @property
@@ -1337,10 +1365,12 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(object):
 
     @component_9_name.setter
     def component_9_name(self, value=None):
-        """  Corresponds to IDD Field `component_9_name`
+        """  Corresponds to IDD Field `Component 9 Name`
+        
+        {'type': 'alpha', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_9_name`
+            value (str): value for IDD Field `Component 9 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1350,7 +1380,7 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_9_name`'.format(value))
             if ',' in value:
@@ -1359,7 +1389,6 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `component_9_name`')
-
         self._data["Component 9 Name"] = value
 
     def check(self):
@@ -1466,10 +1495,12 @@ class AirLoopHvacOutdoorAirSystem(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1479,7 +1510,7 @@ class AirLoopHvacOutdoorAirSystem(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -1488,7 +1519,6 @@ class AirLoopHvacOutdoorAirSystem(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -1502,11 +1532,13 @@ class AirLoopHvacOutdoorAirSystem(object):
 
     @controller_list_name.setter
     def controller_list_name(self, value=None):
-        """  Corresponds to IDD Field `controller_list_name`
+        """  Corresponds to IDD Field `Controller List Name`
         Enter the name of an AirLoopHVAC:ControllerList object.
+        
+        {u'note': [u'Enter the name of an AirLoopHVAC:ControllerList object.'], u'type': u'object-list', u'object-list': u'ControllerLists', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `controller_list_name`
+            value (str): value for IDD Field `Controller List Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1516,7 +1548,7 @@ class AirLoopHvacOutdoorAirSystem(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `controller_list_name`'.format(value))
             if ',' in value:
@@ -1525,7 +1557,6 @@ class AirLoopHvacOutdoorAirSystem(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `controller_list_name`')
-
         self._data["Controller List Name"] = value
 
     @property
@@ -1539,11 +1570,13 @@ class AirLoopHvacOutdoorAirSystem(object):
 
     @outdoor_air_equipment_list_name.setter
     def outdoor_air_equipment_list_name(self, value=None):
-        """  Corresponds to IDD Field `outdoor_air_equipment_list_name`
+        """  Corresponds to IDD Field `Outdoor Air Equipment List Name`
         Enter the name of an AirLoopHVAC:OutdoorAirSystem:EquipmentList object.
+        
+        {u'note': [u'Enter the name of an AirLoopHVAC:OutdoorAirSystem:EquipmentList object.'], u'type': u'object-list', u'object-list': u'AirLoopOAEquipmentLists', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `outdoor_air_equipment_list_name`
+            value (str): value for IDD Field `Outdoor Air Equipment List Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1553,7 +1586,7 @@ class AirLoopHvacOutdoorAirSystem(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `outdoor_air_equipment_list_name`'.format(value))
             if ',' in value:
@@ -1562,7 +1595,6 @@ class AirLoopHvacOutdoorAirSystem(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `outdoor_air_equipment_list_name`')
-
         self._data["Outdoor Air Equipment List Name"] = value
 
     @property
@@ -1576,11 +1608,13 @@ class AirLoopHvacOutdoorAirSystem(object):
 
     @availability_manager_list_name.setter
     def availability_manager_list_name(self, value=None):
-        """  Corresponds to IDD Field `availability_manager_list_name`
+        """  Corresponds to IDD Field `Availability Manager List Name`
         Enter the name of an AvailabilityManagerAssignmentList object.
+        
+        {u'note': [u'Enter the name of an AvailabilityManagerAssignmentList object.'], u'type': u'object-list', u'object-list': u'SystemAvailabilityManagerLists', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `availability_manager_list_name`
+            value (str): value for IDD Field `Availability Manager List Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1590,7 +1624,7 @@ class AirLoopHvacOutdoorAirSystem(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `availability_manager_list_name`'.format(value))
             if ',' in value:
@@ -1599,7 +1633,6 @@ class AirLoopHvacOutdoorAirSystem(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `availability_manager_list_name`')
-
         self._data["Availability Manager List Name"] = value
 
     def check(self):
@@ -1712,10 +1745,12 @@ class OutdoorAirMixer(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {u'type': u'alpha', u'reference': u'OutdoorAirMixers', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1725,7 +1760,7 @@ class OutdoorAirMixer(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -1734,7 +1769,6 @@ class OutdoorAirMixer(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -1748,11 +1782,13 @@ class OutdoorAirMixer(object):
 
     @mixed_air_node_name.setter
     def mixed_air_node_name(self, value=None):
-        """  Corresponds to IDD Field `mixed_air_node_name`
+        """  Corresponds to IDD Field `Mixed Air Node Name`
         Name of Mixed Air Node
+        
+        {u'note': [u'Name of Mixed Air Node'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `mixed_air_node_name`
+            value (str): value for IDD Field `Mixed Air Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1762,7 +1798,7 @@ class OutdoorAirMixer(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `mixed_air_node_name`'.format(value))
             if ',' in value:
@@ -1771,7 +1807,6 @@ class OutdoorAirMixer(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `mixed_air_node_name`')
-
         self._data["Mixed Air Node Name"] = value
 
     @property
@@ -1785,11 +1820,13 @@ class OutdoorAirMixer(object):
 
     @outdoor_air_stream_node_name.setter
     def outdoor_air_stream_node_name(self, value=None):
-        """  Corresponds to IDD Field `outdoor_air_stream_node_name`
+        """  Corresponds to IDD Field `Outdoor Air Stream Node Name`
         Name of Outdoor Air Stream Node
+        
+        {u'note': [u'Name of Outdoor Air Stream Node'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `outdoor_air_stream_node_name`
+            value (str): value for IDD Field `Outdoor Air Stream Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1799,7 +1836,7 @@ class OutdoorAirMixer(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `outdoor_air_stream_node_name`'.format(value))
             if ',' in value:
@@ -1808,7 +1845,6 @@ class OutdoorAirMixer(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `outdoor_air_stream_node_name`')
-
         self._data["Outdoor Air Stream Node Name"] = value
 
     @property
@@ -1822,11 +1858,13 @@ class OutdoorAirMixer(object):
 
     @relief_air_stream_node_name.setter
     def relief_air_stream_node_name(self, value=None):
-        """  Corresponds to IDD Field `relief_air_stream_node_name`
+        """  Corresponds to IDD Field `Relief Air Stream Node Name`
         Name of Relief Air Stream Node
+        
+        {u'note': [u'Name of Relief Air Stream Node'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `relief_air_stream_node_name`
+            value (str): value for IDD Field `Relief Air Stream Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1836,7 +1874,7 @@ class OutdoorAirMixer(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `relief_air_stream_node_name`'.format(value))
             if ',' in value:
@@ -1845,7 +1883,6 @@ class OutdoorAirMixer(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `relief_air_stream_node_name`')
-
         self._data["Relief Air Stream Node Name"] = value
 
     @property
@@ -1859,11 +1896,13 @@ class OutdoorAirMixer(object):
 
     @return_air_stream_node_name.setter
     def return_air_stream_node_name(self, value=None):
-        """  Corresponds to IDD Field `return_air_stream_node_name`
+        """  Corresponds to IDD Field `Return Air Stream Node Name`
         Name of Return Air Stream Node
+        
+        {u'note': [u'Name of Return Air Stream Node'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `return_air_stream_node_name`
+            value (str): value for IDD Field `Return Air Stream Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1873,7 +1912,7 @@ class OutdoorAirMixer(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `return_air_stream_node_name`'.format(value))
             if ',' in value:
@@ -1882,7 +1921,6 @@ class OutdoorAirMixer(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `return_air_stream_node_name`')
-
         self._data["Return Air Stream Node Name"] = value
 
     def check(self):
@@ -2371,10 +2409,12 @@ class AirLoopHvacSupplyPath(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {'type': 'alpha', u'reference': u'ZoneSupplyAirPaths', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2384,7 +2424,7 @@ class AirLoopHvacSupplyPath(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -2393,7 +2433,6 @@ class AirLoopHvacSupplyPath(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -2407,10 +2446,12 @@ class AirLoopHvacSupplyPath(object):
 
     @supply_air_path_inlet_node_name.setter
     def supply_air_path_inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `supply_air_path_inlet_node_name`
+        """  Corresponds to IDD Field `Supply Air Path Inlet Node Name`
+        
+        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `supply_air_path_inlet_node_name`
+            value (str): value for IDD Field `Supply Air Path Inlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2420,7 +2461,7 @@ class AirLoopHvacSupplyPath(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `supply_air_path_inlet_node_name`'.format(value))
             if ',' in value:
@@ -2429,7 +2470,6 @@ class AirLoopHvacSupplyPath(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `supply_air_path_inlet_node_name`')
-
         self._data["Supply Air Path Inlet Node Name"] = value
 
     @property
@@ -2443,11 +2483,13 @@ class AirLoopHvacSupplyPath(object):
 
     @component_1_object_type.setter
     def component_1_object_type(self, value=None):
-        """  Corresponds to IDD Field `component_1_object_type`
+        """  Corresponds to IDD Field `Component 1 Object Type`
         Supply path components must be listed in flow order.
+        
+        {'pytype': 'str', u'begin-extensible': u'', u'required-field': True, u'note': [u'Supply path components must be listed in flow order.'], u'key': [u'AirLoopHVAC:ZoneSplitter', u'AirLoopHVAC:SupplyPlenum'], u'type': u'choice'}
 
         Args:
-            value (str): value for IDD Field `component_1_object_type`
+            value (str): value for IDD Field `Component 1 Object Type`
                 Accepted values are:
                       - AirLoopHVAC:ZoneSplitter
                       - AirLoopHVAC:SupplyPlenum
@@ -2460,7 +2502,7 @@ class AirLoopHvacSupplyPath(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_1_object_type`'.format(value))
             if ',' in value:
@@ -2486,7 +2528,6 @@ class AirLoopHvacSupplyPath(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `component_1_object_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Component 1 Object Type"] = value
 
     @property
@@ -2500,10 +2541,12 @@ class AirLoopHvacSupplyPath(object):
 
     @component_1_name.setter
     def component_1_name(self, value=None):
-        """  Corresponds to IDD Field `component_1_name`
+        """  Corresponds to IDD Field `Component 1 Name`
+        
+        {u'type': u'object-list', u'object-list': u'SupplyPathComponentNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_1_name`
+            value (str): value for IDD Field `Component 1 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2513,7 +2556,7 @@ class AirLoopHvacSupplyPath(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_1_name`'.format(value))
             if ',' in value:
@@ -2522,7 +2565,6 @@ class AirLoopHvacSupplyPath(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `component_1_name`')
-
         self._data["Component 1 Name"] = value
 
     @property
@@ -2536,10 +2578,12 @@ class AirLoopHvacSupplyPath(object):
 
     @component_2_object_type.setter
     def component_2_object_type(self, value=None):
-        """  Corresponds to IDD Field `component_2_object_type`
+        """  Corresponds to IDD Field `Component 2 Object Type`
+        
+        {u'type': u'choice', u'key': [u'AirLoopHVAC:ZoneSplitter', u'AirLoopHVAC:SupplyPlenum'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_2_object_type`
+            value (str): value for IDD Field `Component 2 Object Type`
                 Accepted values are:
                       - AirLoopHVAC:ZoneSplitter
                       - AirLoopHVAC:SupplyPlenum
@@ -2552,7 +2596,7 @@ class AirLoopHvacSupplyPath(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_2_object_type`'.format(value))
             if ',' in value:
@@ -2578,7 +2622,6 @@ class AirLoopHvacSupplyPath(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `component_2_object_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Component 2 Object Type"] = value
 
     @property
@@ -2592,10 +2635,12 @@ class AirLoopHvacSupplyPath(object):
 
     @component_2_name.setter
     def component_2_name(self, value=None):
-        """  Corresponds to IDD Field `component_2_name`
+        """  Corresponds to IDD Field `Component 2 Name`
+        
+        {u'type': u'object-list', u'object-list': u'SupplyPathComponentNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_2_name`
+            value (str): value for IDD Field `Component 2 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2605,7 +2650,7 @@ class AirLoopHvacSupplyPath(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_2_name`'.format(value))
             if ',' in value:
@@ -2614,7 +2659,6 @@ class AirLoopHvacSupplyPath(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `component_2_name`')
-
         self._data["Component 2 Name"] = value
 
     @property
@@ -2628,10 +2672,12 @@ class AirLoopHvacSupplyPath(object):
 
     @component_3_object_type.setter
     def component_3_object_type(self, value=None):
-        """  Corresponds to IDD Field `component_3_object_type`
+        """  Corresponds to IDD Field `Component 3 Object Type`
+        
+        {u'type': u'choice', u'key': [u'AirLoopHVAC:ZoneSplitter', u'AirLoopHVAC:SupplyPlenum'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_3_object_type`
+            value (str): value for IDD Field `Component 3 Object Type`
                 Accepted values are:
                       - AirLoopHVAC:ZoneSplitter
                       - AirLoopHVAC:SupplyPlenum
@@ -2644,7 +2690,7 @@ class AirLoopHvacSupplyPath(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_3_object_type`'.format(value))
             if ',' in value:
@@ -2670,7 +2716,6 @@ class AirLoopHvacSupplyPath(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `component_3_object_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Component 3 Object Type"] = value
 
     @property
@@ -2684,10 +2729,12 @@ class AirLoopHvacSupplyPath(object):
 
     @component_3_name.setter
     def component_3_name(self, value=None):
-        """  Corresponds to IDD Field `component_3_name`
+        """  Corresponds to IDD Field `Component 3 Name`
+        
+        {u'type': u'object-list', u'object-list': u'SupplyPathComponentNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_3_name`
+            value (str): value for IDD Field `Component 3 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2697,7 +2744,7 @@ class AirLoopHvacSupplyPath(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_3_name`'.format(value))
             if ',' in value:
@@ -2706,7 +2753,6 @@ class AirLoopHvacSupplyPath(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `component_3_name`')
-
         self._data["Component 3 Name"] = value
 
     @property
@@ -2720,10 +2766,12 @@ class AirLoopHvacSupplyPath(object):
 
     @component_4_object_type.setter
     def component_4_object_type(self, value=None):
-        """  Corresponds to IDD Field `component_4_object_type`
+        """  Corresponds to IDD Field `Component 4 Object Type`
+        
+        {u'type': u'choice', u'key': [u'AirLoopHVAC:ZoneSplitter', u'AirLoopHVAC:SupplyPlenum'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_4_object_type`
+            value (str): value for IDD Field `Component 4 Object Type`
                 Accepted values are:
                       - AirLoopHVAC:ZoneSplitter
                       - AirLoopHVAC:SupplyPlenum
@@ -2736,7 +2784,7 @@ class AirLoopHvacSupplyPath(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_4_object_type`'.format(value))
             if ',' in value:
@@ -2762,7 +2810,6 @@ class AirLoopHvacSupplyPath(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `component_4_object_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Component 4 Object Type"] = value
 
     @property
@@ -2776,10 +2823,12 @@ class AirLoopHvacSupplyPath(object):
 
     @component_4_name.setter
     def component_4_name(self, value=None):
-        """  Corresponds to IDD Field `component_4_name`
+        """  Corresponds to IDD Field `Component 4 Name`
+        
+        {u'type': u'object-list', u'object-list': u'SupplyPathComponentNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_4_name`
+            value (str): value for IDD Field `Component 4 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2789,7 +2838,7 @@ class AirLoopHvacSupplyPath(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_4_name`'.format(value))
             if ',' in value:
@@ -2798,7 +2847,6 @@ class AirLoopHvacSupplyPath(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `component_4_name`')
-
         self._data["Component 4 Name"] = value
 
     @property
@@ -2812,10 +2860,12 @@ class AirLoopHvacSupplyPath(object):
 
     @component_5_object_type.setter
     def component_5_object_type(self, value=None):
-        """  Corresponds to IDD Field `component_5_object_type`
+        """  Corresponds to IDD Field `Component 5 Object Type`
+        
+        {u'type': u'choice', u'key': [u'AirLoopHVAC:ZoneSplitter', u'AirLoopHVAC:SupplyPlenum'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_5_object_type`
+            value (str): value for IDD Field `Component 5 Object Type`
                 Accepted values are:
                       - AirLoopHVAC:ZoneSplitter
                       - AirLoopHVAC:SupplyPlenum
@@ -2828,7 +2878,7 @@ class AirLoopHvacSupplyPath(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_5_object_type`'.format(value))
             if ',' in value:
@@ -2854,7 +2904,6 @@ class AirLoopHvacSupplyPath(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `component_5_object_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Component 5 Object Type"] = value
 
     @property
@@ -2868,10 +2917,12 @@ class AirLoopHvacSupplyPath(object):
 
     @component_5_name.setter
     def component_5_name(self, value=None):
-        """  Corresponds to IDD Field `component_5_name`
+        """  Corresponds to IDD Field `Component 5 Name`
+        
+        {u'type': u'object-list', u'object-list': u'SupplyPathComponentNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_5_name`
+            value (str): value for IDD Field `Component 5 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2881,7 +2932,7 @@ class AirLoopHvacSupplyPath(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_5_name`'.format(value))
             if ',' in value:
@@ -2890,7 +2941,6 @@ class AirLoopHvacSupplyPath(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `component_5_name`')
-
         self._data["Component 5 Name"] = value
 
     @property
@@ -2904,10 +2954,12 @@ class AirLoopHvacSupplyPath(object):
 
     @component_6_object_type.setter
     def component_6_object_type(self, value=None):
-        """  Corresponds to IDD Field `component_6_object_type`
+        """  Corresponds to IDD Field `Component 6 Object Type`
+        
+        {u'type': u'choice', u'key': [u'AirLoopHVAC:ZoneSplitter', u'AirLoopHVAC:SupplyPlenum'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_6_object_type`
+            value (str): value for IDD Field `Component 6 Object Type`
                 Accepted values are:
                       - AirLoopHVAC:ZoneSplitter
                       - AirLoopHVAC:SupplyPlenum
@@ -2920,7 +2972,7 @@ class AirLoopHvacSupplyPath(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_6_object_type`'.format(value))
             if ',' in value:
@@ -2946,7 +2998,6 @@ class AirLoopHvacSupplyPath(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `component_6_object_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Component 6 Object Type"] = value
 
     @property
@@ -2960,10 +3011,12 @@ class AirLoopHvacSupplyPath(object):
 
     @component_6_name.setter
     def component_6_name(self, value=None):
-        """  Corresponds to IDD Field `component_6_name`
+        """  Corresponds to IDD Field `Component 6 Name`
+        
+        {u'type': u'object-list', u'object-list': u'SupplyPathComponentNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_6_name`
+            value (str): value for IDD Field `Component 6 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2973,7 +3026,7 @@ class AirLoopHvacSupplyPath(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_6_name`'.format(value))
             if ',' in value:
@@ -2982,7 +3035,6 @@ class AirLoopHvacSupplyPath(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `component_6_name`')
-
         self._data["Component 6 Name"] = value
 
     @property
@@ -2996,10 +3048,12 @@ class AirLoopHvacSupplyPath(object):
 
     @component_7_object_type.setter
     def component_7_object_type(self, value=None):
-        """  Corresponds to IDD Field `component_7_object_type`
+        """  Corresponds to IDD Field `Component 7 Object Type`
+        
+        {u'type': u'choice', u'key': [u'AirLoopHVAC:ZoneSplitter', u'AirLoopHVAC:SupplyPlenum'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_7_object_type`
+            value (str): value for IDD Field `Component 7 Object Type`
                 Accepted values are:
                       - AirLoopHVAC:ZoneSplitter
                       - AirLoopHVAC:SupplyPlenum
@@ -3012,7 +3066,7 @@ class AirLoopHvacSupplyPath(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_7_object_type`'.format(value))
             if ',' in value:
@@ -3038,7 +3092,6 @@ class AirLoopHvacSupplyPath(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `component_7_object_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Component 7 Object Type"] = value
 
     @property
@@ -3052,10 +3105,12 @@ class AirLoopHvacSupplyPath(object):
 
     @component_7_name.setter
     def component_7_name(self, value=None):
-        """  Corresponds to IDD Field `component_7_name`
+        """  Corresponds to IDD Field `Component 7 Name`
+        
+        {u'type': u'object-list', u'object-list': u'SupplyPathComponentNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_7_name`
+            value (str): value for IDD Field `Component 7 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3065,7 +3120,7 @@ class AirLoopHvacSupplyPath(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_7_name`'.format(value))
             if ',' in value:
@@ -3074,7 +3129,6 @@ class AirLoopHvacSupplyPath(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `component_7_name`')
-
         self._data["Component 7 Name"] = value
 
     @property
@@ -3088,10 +3142,12 @@ class AirLoopHvacSupplyPath(object):
 
     @component_8_object_type.setter
     def component_8_object_type(self, value=None):
-        """  Corresponds to IDD Field `component_8_object_type`
+        """  Corresponds to IDD Field `Component 8 Object Type`
+        
+        {u'type': u'choice', u'key': [u'AirLoopHVAC:ZoneSplitter', u'AirLoopHVAC:SupplyPlenum'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_8_object_type`
+            value (str): value for IDD Field `Component 8 Object Type`
                 Accepted values are:
                       - AirLoopHVAC:ZoneSplitter
                       - AirLoopHVAC:SupplyPlenum
@@ -3104,7 +3160,7 @@ class AirLoopHvacSupplyPath(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_8_object_type`'.format(value))
             if ',' in value:
@@ -3130,7 +3186,6 @@ class AirLoopHvacSupplyPath(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `component_8_object_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Component 8 Object Type"] = value
 
     @property
@@ -3144,10 +3199,12 @@ class AirLoopHvacSupplyPath(object):
 
     @component_8_name.setter
     def component_8_name(self, value=None):
-        """  Corresponds to IDD Field `component_8_name`
+        """  Corresponds to IDD Field `Component 8 Name`
+        
+        {u'type': u'object-list', u'object-list': u'SupplyPathComponentNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_8_name`
+            value (str): value for IDD Field `Component 8 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3157,7 +3214,7 @@ class AirLoopHvacSupplyPath(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_8_name`'.format(value))
             if ',' in value:
@@ -3166,7 +3223,6 @@ class AirLoopHvacSupplyPath(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `component_8_name`')
-
         self._data["Component 8 Name"] = value
 
     @property
@@ -3180,10 +3236,12 @@ class AirLoopHvacSupplyPath(object):
 
     @component_9_object_type.setter
     def component_9_object_type(self, value=None):
-        """  Corresponds to IDD Field `component_9_object_type`
+        """  Corresponds to IDD Field `Component 9 Object Type`
+        
+        {u'type': u'choice', u'key': [u'AirLoopHVAC:ZoneSplitter', u'AirLoopHVAC:SupplyPlenum'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_9_object_type`
+            value (str): value for IDD Field `Component 9 Object Type`
                 Accepted values are:
                       - AirLoopHVAC:ZoneSplitter
                       - AirLoopHVAC:SupplyPlenum
@@ -3196,7 +3254,7 @@ class AirLoopHvacSupplyPath(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_9_object_type`'.format(value))
             if ',' in value:
@@ -3222,7 +3280,6 @@ class AirLoopHvacSupplyPath(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `component_9_object_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Component 9 Object Type"] = value
 
     @property
@@ -3236,10 +3293,12 @@ class AirLoopHvacSupplyPath(object):
 
     @component_9_name.setter
     def component_9_name(self, value=None):
-        """  Corresponds to IDD Field `component_9_name`
+        """  Corresponds to IDD Field `Component 9 Name`
+        
+        {u'type': u'object-list', u'object-list': u'SupplyPathComponentNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_9_name`
+            value (str): value for IDD Field `Component 9 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3249,7 +3308,7 @@ class AirLoopHvacSupplyPath(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_9_name`'.format(value))
             if ',' in value:
@@ -3258,7 +3317,6 @@ class AirLoopHvacSupplyPath(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `component_9_name`')
-
         self._data["Component 9 Name"] = value
 
     @property
@@ -3272,10 +3330,12 @@ class AirLoopHvacSupplyPath(object):
 
     @component_10_object_type.setter
     def component_10_object_type(self, value=None):
-        """  Corresponds to IDD Field `component_10_object_type`
+        """  Corresponds to IDD Field `Component 10 Object Type`
+        
+        {u'type': u'choice', u'key': [u'AirLoopHVAC:ZoneSplitter', u'AirLoopHVAC:SupplyPlenum'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_10_object_type`
+            value (str): value for IDD Field `Component 10 Object Type`
                 Accepted values are:
                       - AirLoopHVAC:ZoneSplitter
                       - AirLoopHVAC:SupplyPlenum
@@ -3288,7 +3348,7 @@ class AirLoopHvacSupplyPath(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_10_object_type`'.format(value))
             if ',' in value:
@@ -3314,7 +3374,6 @@ class AirLoopHvacSupplyPath(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `component_10_object_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Component 10 Object Type"] = value
 
     @property
@@ -3328,10 +3387,12 @@ class AirLoopHvacSupplyPath(object):
 
     @component_10_name.setter
     def component_10_name(self, value=None):
-        """  Corresponds to IDD Field `component_10_name`
+        """  Corresponds to IDD Field `Component 10 Name`
+        
+        {u'type': u'object-list', u'object-list': u'SupplyPathComponentNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_10_name`
+            value (str): value for IDD Field `Component 10 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3341,7 +3402,7 @@ class AirLoopHvacSupplyPath(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_10_name`'.format(value))
             if ',' in value:
@@ -3350,7 +3411,6 @@ class AirLoopHvacSupplyPath(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `component_10_name`')
-
         self._data["Component 10 Name"] = value
 
     @property
@@ -3364,10 +3424,12 @@ class AirLoopHvacSupplyPath(object):
 
     @component_11_object_type.setter
     def component_11_object_type(self, value=None):
-        """  Corresponds to IDD Field `component_11_object_type`
+        """  Corresponds to IDD Field `Component 11 Object Type`
+        
+        {u'type': u'choice', u'key': [u'AirLoopHVAC:ZoneSplitter', u'AirLoopHVAC:SupplyPlenum'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_11_object_type`
+            value (str): value for IDD Field `Component 11 Object Type`
                 Accepted values are:
                       - AirLoopHVAC:ZoneSplitter
                       - AirLoopHVAC:SupplyPlenum
@@ -3380,7 +3442,7 @@ class AirLoopHvacSupplyPath(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_11_object_type`'.format(value))
             if ',' in value:
@@ -3406,7 +3468,6 @@ class AirLoopHvacSupplyPath(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `component_11_object_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Component 11 Object Type"] = value
 
     @property
@@ -3420,10 +3481,12 @@ class AirLoopHvacSupplyPath(object):
 
     @component_11_name.setter
     def component_11_name(self, value=None):
-        """  Corresponds to IDD Field `component_11_name`
+        """  Corresponds to IDD Field `Component 11 Name`
+        
+        {u'type': u'object-list', u'object-list': u'SupplyPathComponentNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_11_name`
+            value (str): value for IDD Field `Component 11 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3433,7 +3496,7 @@ class AirLoopHvacSupplyPath(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_11_name`'.format(value))
             if ',' in value:
@@ -3442,7 +3505,6 @@ class AirLoopHvacSupplyPath(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `component_11_name`')
-
         self._data["Component 11 Name"] = value
 
     @property
@@ -3456,10 +3518,12 @@ class AirLoopHvacSupplyPath(object):
 
     @component_12_object_type.setter
     def component_12_object_type(self, value=None):
-        """  Corresponds to IDD Field `component_12_object_type`
+        """  Corresponds to IDD Field `Component 12 Object Type`
+        
+        {u'type': u'choice', u'key': [u'AirLoopHVAC:ZoneSplitter', u'AirLoopHVAC:SupplyPlenum'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_12_object_type`
+            value (str): value for IDD Field `Component 12 Object Type`
                 Accepted values are:
                       - AirLoopHVAC:ZoneSplitter
                       - AirLoopHVAC:SupplyPlenum
@@ -3472,7 +3536,7 @@ class AirLoopHvacSupplyPath(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_12_object_type`'.format(value))
             if ',' in value:
@@ -3498,7 +3562,6 @@ class AirLoopHvacSupplyPath(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `component_12_object_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Component 12 Object Type"] = value
 
     @property
@@ -3512,10 +3575,12 @@ class AirLoopHvacSupplyPath(object):
 
     @component_12_name.setter
     def component_12_name(self, value=None):
-        """  Corresponds to IDD Field `component_12_name`
+        """  Corresponds to IDD Field `Component 12 Name`
+        
+        {u'type': u'object-list', u'object-list': u'SupplyPathComponentNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_12_name`
+            value (str): value for IDD Field `Component 12 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3525,7 +3590,7 @@ class AirLoopHvacSupplyPath(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_12_name`'.format(value))
             if ',' in value:
@@ -3534,7 +3599,6 @@ class AirLoopHvacSupplyPath(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `component_12_name`')
-
         self._data["Component 12 Name"] = value
 
     @property
@@ -3548,10 +3612,12 @@ class AirLoopHvacSupplyPath(object):
 
     @component_13_object_type.setter
     def component_13_object_type(self, value=None):
-        """  Corresponds to IDD Field `component_13_object_type`
+        """  Corresponds to IDD Field `Component 13 Object Type`
+        
+        {u'type': u'choice', u'key': [u'AirLoopHVAC:ZoneSplitter', u'AirLoopHVAC:SupplyPlenum'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_13_object_type`
+            value (str): value for IDD Field `Component 13 Object Type`
                 Accepted values are:
                       - AirLoopHVAC:ZoneSplitter
                       - AirLoopHVAC:SupplyPlenum
@@ -3564,7 +3630,7 @@ class AirLoopHvacSupplyPath(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_13_object_type`'.format(value))
             if ',' in value:
@@ -3590,7 +3656,6 @@ class AirLoopHvacSupplyPath(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `component_13_object_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Component 13 Object Type"] = value
 
     @property
@@ -3604,10 +3669,12 @@ class AirLoopHvacSupplyPath(object):
 
     @component_13_name.setter
     def component_13_name(self, value=None):
-        """  Corresponds to IDD Field `component_13_name`
+        """  Corresponds to IDD Field `Component 13 Name`
+        
+        {u'type': u'object-list', u'object-list': u'SupplyPathComponentNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_13_name`
+            value (str): value for IDD Field `Component 13 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3617,7 +3684,7 @@ class AirLoopHvacSupplyPath(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_13_name`'.format(value))
             if ',' in value:
@@ -3626,7 +3693,6 @@ class AirLoopHvacSupplyPath(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `component_13_name`')
-
         self._data["Component 13 Name"] = value
 
     @property
@@ -3640,10 +3706,12 @@ class AirLoopHvacSupplyPath(object):
 
     @component_14_object_type.setter
     def component_14_object_type(self, value=None):
-        """  Corresponds to IDD Field `component_14_object_type`
+        """  Corresponds to IDD Field `Component 14 Object Type`
+        
+        {u'type': u'choice', u'key': [u'AirLoopHVAC:ZoneSplitter', u'AirLoopHVAC:SupplyPlenum'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_14_object_type`
+            value (str): value for IDD Field `Component 14 Object Type`
                 Accepted values are:
                       - AirLoopHVAC:ZoneSplitter
                       - AirLoopHVAC:SupplyPlenum
@@ -3656,7 +3724,7 @@ class AirLoopHvacSupplyPath(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_14_object_type`'.format(value))
             if ',' in value:
@@ -3682,7 +3750,6 @@ class AirLoopHvacSupplyPath(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `component_14_object_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Component 14 Object Type"] = value
 
     @property
@@ -3696,10 +3763,12 @@ class AirLoopHvacSupplyPath(object):
 
     @component_14_name.setter
     def component_14_name(self, value=None):
-        """  Corresponds to IDD Field `component_14_name`
+        """  Corresponds to IDD Field `Component 14 Name`
+        
+        {u'type': u'object-list', u'object-list': u'SupplyPathComponentNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_14_name`
+            value (str): value for IDD Field `Component 14 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3709,7 +3778,7 @@ class AirLoopHvacSupplyPath(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_14_name`'.format(value))
             if ',' in value:
@@ -3718,7 +3787,6 @@ class AirLoopHvacSupplyPath(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `component_14_name`')
-
         self._data["Component 14 Name"] = value
 
     @property
@@ -3732,10 +3800,12 @@ class AirLoopHvacSupplyPath(object):
 
     @component_15_object_type.setter
     def component_15_object_type(self, value=None):
-        """  Corresponds to IDD Field `component_15_object_type`
+        """  Corresponds to IDD Field `Component 15 Object Type`
+        
+        {u'type': u'choice', u'key': [u'AirLoopHVAC:ZoneSplitter', u'AirLoopHVAC:SupplyPlenum'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_15_object_type`
+            value (str): value for IDD Field `Component 15 Object Type`
                 Accepted values are:
                       - AirLoopHVAC:ZoneSplitter
                       - AirLoopHVAC:SupplyPlenum
@@ -3748,7 +3818,7 @@ class AirLoopHvacSupplyPath(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_15_object_type`'.format(value))
             if ',' in value:
@@ -3774,7 +3844,6 @@ class AirLoopHvacSupplyPath(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `component_15_object_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Component 15 Object Type"] = value
 
     @property
@@ -3788,10 +3857,12 @@ class AirLoopHvacSupplyPath(object):
 
     @component_15_name.setter
     def component_15_name(self, value=None):
-        """  Corresponds to IDD Field `component_15_name`
+        """  Corresponds to IDD Field `Component 15 Name`
+        
+        {u'type': u'object-list', u'object-list': u'SupplyPathComponentNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_15_name`
+            value (str): value for IDD Field `Component 15 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3801,7 +3872,7 @@ class AirLoopHvacSupplyPath(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_15_name`'.format(value))
             if ',' in value:
@@ -3810,7 +3881,6 @@ class AirLoopHvacSupplyPath(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `component_15_name`')
-
         self._data["Component 15 Name"] = value
 
     @property
@@ -3824,10 +3894,12 @@ class AirLoopHvacSupplyPath(object):
 
     @component_16_object_type.setter
     def component_16_object_type(self, value=None):
-        """  Corresponds to IDD Field `component_16_object_type`
+        """  Corresponds to IDD Field `Component 16 Object Type`
+        
+        {u'type': u'choice', u'key': [u'AirLoopHVAC:ZoneSplitter', u'AirLoopHVAC:SupplyPlenum'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_16_object_type`
+            value (str): value for IDD Field `Component 16 Object Type`
                 Accepted values are:
                       - AirLoopHVAC:ZoneSplitter
                       - AirLoopHVAC:SupplyPlenum
@@ -3840,7 +3912,7 @@ class AirLoopHvacSupplyPath(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_16_object_type`'.format(value))
             if ',' in value:
@@ -3866,7 +3938,6 @@ class AirLoopHvacSupplyPath(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `component_16_object_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Component 16 Object Type"] = value
 
     @property
@@ -3880,10 +3951,12 @@ class AirLoopHvacSupplyPath(object):
 
     @component_16_name.setter
     def component_16_name(self, value=None):
-        """  Corresponds to IDD Field `component_16_name`
+        """  Corresponds to IDD Field `Component 16 Name`
+        
+        {u'type': u'object-list', u'object-list': u'SupplyPathComponentNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_16_name`
+            value (str): value for IDD Field `Component 16 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3893,7 +3966,7 @@ class AirLoopHvacSupplyPath(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_16_name`'.format(value))
             if ',' in value:
@@ -3902,7 +3975,6 @@ class AirLoopHvacSupplyPath(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `component_16_name`')
-
         self._data["Component 16 Name"] = value
 
     @property
@@ -3916,10 +3988,12 @@ class AirLoopHvacSupplyPath(object):
 
     @component_17_object_type.setter
     def component_17_object_type(self, value=None):
-        """  Corresponds to IDD Field `component_17_object_type`
+        """  Corresponds to IDD Field `Component 17 Object Type`
+        
+        {u'type': u'choice', u'key': [u'AirLoopHVAC:ZoneSplitter', u'AirLoopHVAC:SupplyPlenum'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_17_object_type`
+            value (str): value for IDD Field `Component 17 Object Type`
                 Accepted values are:
                       - AirLoopHVAC:ZoneSplitter
                       - AirLoopHVAC:SupplyPlenum
@@ -3932,7 +4006,7 @@ class AirLoopHvacSupplyPath(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_17_object_type`'.format(value))
             if ',' in value:
@@ -3958,7 +4032,6 @@ class AirLoopHvacSupplyPath(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `component_17_object_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Component 17 Object Type"] = value
 
     @property
@@ -3972,10 +4045,12 @@ class AirLoopHvacSupplyPath(object):
 
     @component_17_name.setter
     def component_17_name(self, value=None):
-        """  Corresponds to IDD Field `component_17_name`
+        """  Corresponds to IDD Field `Component 17 Name`
+        
+        {u'type': u'object-list', u'object-list': u'SupplyPathComponentNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_17_name`
+            value (str): value for IDD Field `Component 17 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3985,7 +4060,7 @@ class AirLoopHvacSupplyPath(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_17_name`'.format(value))
             if ',' in value:
@@ -3994,7 +4069,6 @@ class AirLoopHvacSupplyPath(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `component_17_name`')
-
         self._data["Component 17 Name"] = value
 
     @property
@@ -4008,10 +4082,12 @@ class AirLoopHvacSupplyPath(object):
 
     @component_18_object_type.setter
     def component_18_object_type(self, value=None):
-        """  Corresponds to IDD Field `component_18_object_type`
+        """  Corresponds to IDD Field `Component 18 Object Type`
+        
+        {u'type': u'choice', u'key': [u'AirLoopHVAC:ZoneSplitter', u'AirLoopHVAC:SupplyPlenum'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_18_object_type`
+            value (str): value for IDD Field `Component 18 Object Type`
                 Accepted values are:
                       - AirLoopHVAC:ZoneSplitter
                       - AirLoopHVAC:SupplyPlenum
@@ -4024,7 +4100,7 @@ class AirLoopHvacSupplyPath(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_18_object_type`'.format(value))
             if ',' in value:
@@ -4050,7 +4126,6 @@ class AirLoopHvacSupplyPath(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `component_18_object_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Component 18 Object Type"] = value
 
     @property
@@ -4064,10 +4139,12 @@ class AirLoopHvacSupplyPath(object):
 
     @component_18_name.setter
     def component_18_name(self, value=None):
-        """  Corresponds to IDD Field `component_18_name`
+        """  Corresponds to IDD Field `Component 18 Name`
+        
+        {u'type': u'object-list', u'object-list': u'SupplyPathComponentNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_18_name`
+            value (str): value for IDD Field `Component 18 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4077,7 +4154,7 @@ class AirLoopHvacSupplyPath(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_18_name`'.format(value))
             if ',' in value:
@@ -4086,7 +4163,6 @@ class AirLoopHvacSupplyPath(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `component_18_name`')
-
         self._data["Component 18 Name"] = value
 
     @property
@@ -4100,10 +4176,12 @@ class AirLoopHvacSupplyPath(object):
 
     @component_19_object_type.setter
     def component_19_object_type(self, value=None):
-        """  Corresponds to IDD Field `component_19_object_type`
+        """  Corresponds to IDD Field `Component 19 Object Type`
+        
+        {u'type': u'choice', u'key': [u'AirLoopHVAC:ZoneSplitter', u'AirLoopHVAC:SupplyPlenum'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_19_object_type`
+            value (str): value for IDD Field `Component 19 Object Type`
                 Accepted values are:
                       - AirLoopHVAC:ZoneSplitter
                       - AirLoopHVAC:SupplyPlenum
@@ -4116,7 +4194,7 @@ class AirLoopHvacSupplyPath(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_19_object_type`'.format(value))
             if ',' in value:
@@ -4142,7 +4220,6 @@ class AirLoopHvacSupplyPath(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `component_19_object_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Component 19 Object Type"] = value
 
     @property
@@ -4156,10 +4233,12 @@ class AirLoopHvacSupplyPath(object):
 
     @component_19_name.setter
     def component_19_name(self, value=None):
-        """  Corresponds to IDD Field `component_19_name`
+        """  Corresponds to IDD Field `Component 19 Name`
+        
+        {u'type': u'object-list', u'object-list': u'SupplyPathComponentNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_19_name`
+            value (str): value for IDD Field `Component 19 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4169,7 +4248,7 @@ class AirLoopHvacSupplyPath(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_19_name`'.format(value))
             if ',' in value:
@@ -4178,7 +4257,6 @@ class AirLoopHvacSupplyPath(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `component_19_name`')
-
         self._data["Component 19 Name"] = value
 
     @property
@@ -4192,10 +4270,12 @@ class AirLoopHvacSupplyPath(object):
 
     @component_20_object_type.setter
     def component_20_object_type(self, value=None):
-        """  Corresponds to IDD Field `component_20_object_type`
+        """  Corresponds to IDD Field `Component 20 Object Type`
+        
+        {u'type': u'choice', u'key': [u'AirLoopHVAC:ZoneSplitter', u'AirLoopHVAC:SupplyPlenum'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_20_object_type`
+            value (str): value for IDD Field `Component 20 Object Type`
                 Accepted values are:
                       - AirLoopHVAC:ZoneSplitter
                       - AirLoopHVAC:SupplyPlenum
@@ -4208,7 +4288,7 @@ class AirLoopHvacSupplyPath(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_20_object_type`'.format(value))
             if ',' in value:
@@ -4234,7 +4314,6 @@ class AirLoopHvacSupplyPath(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `component_20_object_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Component 20 Object Type"] = value
 
     @property
@@ -4248,10 +4327,12 @@ class AirLoopHvacSupplyPath(object):
 
     @component_20_name.setter
     def component_20_name(self, value=None):
-        """  Corresponds to IDD Field `component_20_name`
+        """  Corresponds to IDD Field `Component 20 Name`
+        
+        {u'type': u'object-list', u'object-list': u'SupplyPathComponentNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_20_name`
+            value (str): value for IDD Field `Component 20 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4261,7 +4342,7 @@ class AirLoopHvacSupplyPath(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_20_name`'.format(value))
             if ',' in value:
@@ -4270,7 +4351,6 @@ class AirLoopHvacSupplyPath(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `component_20_name`')
-
         self._data["Component 20 Name"] = value
 
     @property
@@ -4284,10 +4364,12 @@ class AirLoopHvacSupplyPath(object):
 
     @component_21_object_type.setter
     def component_21_object_type(self, value=None):
-        """  Corresponds to IDD Field `component_21_object_type`
+        """  Corresponds to IDD Field `Component 21 Object Type`
+        
+        {u'type': u'choice', u'key': [u'AirLoopHVAC:ZoneSplitter', u'AirLoopHVAC:SupplyPlenum'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_21_object_type`
+            value (str): value for IDD Field `Component 21 Object Type`
                 Accepted values are:
                       - AirLoopHVAC:ZoneSplitter
                       - AirLoopHVAC:SupplyPlenum
@@ -4300,7 +4382,7 @@ class AirLoopHvacSupplyPath(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_21_object_type`'.format(value))
             if ',' in value:
@@ -4326,7 +4408,6 @@ class AirLoopHvacSupplyPath(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `component_21_object_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Component 21 Object Type"] = value
 
     @property
@@ -4340,10 +4421,12 @@ class AirLoopHvacSupplyPath(object):
 
     @component_21_name.setter
     def component_21_name(self, value=None):
-        """  Corresponds to IDD Field `component_21_name`
+        """  Corresponds to IDD Field `Component 21 Name`
+        
+        {u'type': u'object-list', u'object-list': u'SupplyPathComponentNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_21_name`
+            value (str): value for IDD Field `Component 21 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4353,7 +4436,7 @@ class AirLoopHvacSupplyPath(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_21_name`'.format(value))
             if ',' in value:
@@ -4362,7 +4445,6 @@ class AirLoopHvacSupplyPath(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `component_21_name`')
-
         self._data["Component 21 Name"] = value
 
     @property
@@ -4376,10 +4458,12 @@ class AirLoopHvacSupplyPath(object):
 
     @component_22_object_type.setter
     def component_22_object_type(self, value=None):
-        """  Corresponds to IDD Field `component_22_object_type`
+        """  Corresponds to IDD Field `Component 22 Object Type`
+        
+        {u'type': u'choice', u'key': [u'AirLoopHVAC:ZoneSplitter', u'AirLoopHVAC:SupplyPlenum'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_22_object_type`
+            value (str): value for IDD Field `Component 22 Object Type`
                 Accepted values are:
                       - AirLoopHVAC:ZoneSplitter
                       - AirLoopHVAC:SupplyPlenum
@@ -4392,7 +4476,7 @@ class AirLoopHvacSupplyPath(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_22_object_type`'.format(value))
             if ',' in value:
@@ -4418,7 +4502,6 @@ class AirLoopHvacSupplyPath(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `component_22_object_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Component 22 Object Type"] = value
 
     @property
@@ -4432,10 +4515,12 @@ class AirLoopHvacSupplyPath(object):
 
     @component_22_name.setter
     def component_22_name(self, value=None):
-        """  Corresponds to IDD Field `component_22_name`
+        """  Corresponds to IDD Field `Component 22 Name`
+        
+        {u'type': u'object-list', u'object-list': u'SupplyPathComponentNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_22_name`
+            value (str): value for IDD Field `Component 22 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4445,7 +4530,7 @@ class AirLoopHvacSupplyPath(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_22_name`'.format(value))
             if ',' in value:
@@ -4454,7 +4539,6 @@ class AirLoopHvacSupplyPath(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `component_22_name`')
-
         self._data["Component 22 Name"] = value
 
     @property
@@ -4468,10 +4552,12 @@ class AirLoopHvacSupplyPath(object):
 
     @component_23_object_type.setter
     def component_23_object_type(self, value=None):
-        """  Corresponds to IDD Field `component_23_object_type`
+        """  Corresponds to IDD Field `Component 23 Object Type`
+        
+        {u'type': u'choice', u'key': [u'AirLoopHVAC:ZoneSplitter', u'AirLoopHVAC:SupplyPlenum'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_23_object_type`
+            value (str): value for IDD Field `Component 23 Object Type`
                 Accepted values are:
                       - AirLoopHVAC:ZoneSplitter
                       - AirLoopHVAC:SupplyPlenum
@@ -4484,7 +4570,7 @@ class AirLoopHvacSupplyPath(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_23_object_type`'.format(value))
             if ',' in value:
@@ -4510,7 +4596,6 @@ class AirLoopHvacSupplyPath(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `component_23_object_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Component 23 Object Type"] = value
 
     @property
@@ -4524,10 +4609,12 @@ class AirLoopHvacSupplyPath(object):
 
     @component_23_name.setter
     def component_23_name(self, value=None):
-        """  Corresponds to IDD Field `component_23_name`
+        """  Corresponds to IDD Field `Component 23 Name`
+        
+        {u'type': u'object-list', u'object-list': u'SupplyPathComponentNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_23_name`
+            value (str): value for IDD Field `Component 23 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4537,7 +4624,7 @@ class AirLoopHvacSupplyPath(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_23_name`'.format(value))
             if ',' in value:
@@ -4546,7 +4633,6 @@ class AirLoopHvacSupplyPath(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `component_23_name`')
-
         self._data["Component 23 Name"] = value
 
     @property
@@ -4560,10 +4646,12 @@ class AirLoopHvacSupplyPath(object):
 
     @component_24_object_type.setter
     def component_24_object_type(self, value=None):
-        """  Corresponds to IDD Field `component_24_object_type`
+        """  Corresponds to IDD Field `Component 24 Object Type`
+        
+        {u'type': u'choice', u'key': [u'AirLoopHVAC:ZoneSplitter', u'AirLoopHVAC:SupplyPlenum'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_24_object_type`
+            value (str): value for IDD Field `Component 24 Object Type`
                 Accepted values are:
                       - AirLoopHVAC:ZoneSplitter
                       - AirLoopHVAC:SupplyPlenum
@@ -4576,7 +4664,7 @@ class AirLoopHvacSupplyPath(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_24_object_type`'.format(value))
             if ',' in value:
@@ -4602,7 +4690,6 @@ class AirLoopHvacSupplyPath(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `component_24_object_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Component 24 Object Type"] = value
 
     @property
@@ -4616,10 +4703,12 @@ class AirLoopHvacSupplyPath(object):
 
     @component_24_name.setter
     def component_24_name(self, value=None):
-        """  Corresponds to IDD Field `component_24_name`
+        """  Corresponds to IDD Field `Component 24 Name`
+        
+        {u'type': u'object-list', u'object-list': u'SupplyPathComponentNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_24_name`
+            value (str): value for IDD Field `Component 24 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4629,7 +4718,7 @@ class AirLoopHvacSupplyPath(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_24_name`'.format(value))
             if ',' in value:
@@ -4638,7 +4727,6 @@ class AirLoopHvacSupplyPath(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `component_24_name`')
-
         self._data["Component 24 Name"] = value
 
     @property
@@ -4652,10 +4740,12 @@ class AirLoopHvacSupplyPath(object):
 
     @component_25_object_type.setter
     def component_25_object_type(self, value=None):
-        """  Corresponds to IDD Field `component_25_object_type`
+        """  Corresponds to IDD Field `Component 25 Object Type`
+        
+        {u'type': u'choice', u'key': [u'AirLoopHVAC:ZoneSplitter', u'AirLoopHVAC:SupplyPlenum'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_25_object_type`
+            value (str): value for IDD Field `Component 25 Object Type`
                 Accepted values are:
                       - AirLoopHVAC:ZoneSplitter
                       - AirLoopHVAC:SupplyPlenum
@@ -4668,7 +4758,7 @@ class AirLoopHvacSupplyPath(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_25_object_type`'.format(value))
             if ',' in value:
@@ -4694,7 +4784,6 @@ class AirLoopHvacSupplyPath(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `component_25_object_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Component 25 Object Type"] = value
 
     @property
@@ -4708,10 +4797,12 @@ class AirLoopHvacSupplyPath(object):
 
     @component_25_name.setter
     def component_25_name(self, value=None):
-        """  Corresponds to IDD Field `component_25_name`
+        """  Corresponds to IDD Field `Component 25 Name`
+        
+        {u'type': u'object-list', u'object-list': u'SupplyPathComponentNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_25_name`
+            value (str): value for IDD Field `Component 25 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4721,7 +4812,7 @@ class AirLoopHvacSupplyPath(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_25_name`'.format(value))
             if ',' in value:
@@ -4730,7 +4821,6 @@ class AirLoopHvacSupplyPath(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `component_25_name`')
-
         self._data["Component 25 Name"] = value
 
     def check(self):
@@ -5219,10 +5309,12 @@ class AirLoopHvacReturnPath(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {'type': 'alpha', u'reference': u'ZoneReturnAirPaths', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5232,7 +5324,7 @@ class AirLoopHvacReturnPath(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -5241,7 +5333,6 @@ class AirLoopHvacReturnPath(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -5255,10 +5346,12 @@ class AirLoopHvacReturnPath(object):
 
     @return_air_path_outlet_node_name.setter
     def return_air_path_outlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `return_air_path_outlet_node_name`
+        """  Corresponds to IDD Field `Return Air Path Outlet Node Name`
+        
+        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `return_air_path_outlet_node_name`
+            value (str): value for IDD Field `Return Air Path Outlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5268,7 +5361,7 @@ class AirLoopHvacReturnPath(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `return_air_path_outlet_node_name`'.format(value))
             if ',' in value:
@@ -5277,7 +5370,6 @@ class AirLoopHvacReturnPath(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `return_air_path_outlet_node_name`')
-
         self._data["Return Air Path Outlet Node Name"] = value
 
     @property
@@ -5291,10 +5383,12 @@ class AirLoopHvacReturnPath(object):
 
     @component_1_object_type.setter
     def component_1_object_type(self, value=None):
-        """  Corresponds to IDD Field `component_1_object_type`
+        """  Corresponds to IDD Field `Component 1 Object Type`
+        
+        {'pytype': 'str', u'type': u'choice', u'key': [u'AirLoopHVAC:ZoneMixer', u'AirLoopHVAC:ReturnPlenum'], u'required-field': True, u'begin-extensible': u''}
 
         Args:
-            value (str): value for IDD Field `component_1_object_type`
+            value (str): value for IDD Field `Component 1 Object Type`
                 Accepted values are:
                       - AirLoopHVAC:ZoneMixer
                       - AirLoopHVAC:ReturnPlenum
@@ -5307,7 +5401,7 @@ class AirLoopHvacReturnPath(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_1_object_type`'.format(value))
             if ',' in value:
@@ -5333,7 +5427,6 @@ class AirLoopHvacReturnPath(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `component_1_object_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Component 1 Object Type"] = value
 
     @property
@@ -5347,10 +5440,12 @@ class AirLoopHvacReturnPath(object):
 
     @component_1_name.setter
     def component_1_name(self, value=None):
-        """  Corresponds to IDD Field `component_1_name`
+        """  Corresponds to IDD Field `Component 1 Name`
+        
+        {u'type': u'object-list', u'object-list': u'ReturnPathComponentNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_1_name`
+            value (str): value for IDD Field `Component 1 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5360,7 +5455,7 @@ class AirLoopHvacReturnPath(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_1_name`'.format(value))
             if ',' in value:
@@ -5369,7 +5464,6 @@ class AirLoopHvacReturnPath(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `component_1_name`')
-
         self._data["Component 1 Name"] = value
 
     @property
@@ -5383,10 +5477,12 @@ class AirLoopHvacReturnPath(object):
 
     @component_2_object_type.setter
     def component_2_object_type(self, value=None):
-        """  Corresponds to IDD Field `component_2_object_type`
+        """  Corresponds to IDD Field `Component 2 Object Type`
+        
+        {u'type': u'choice', u'key': [u'AirLoopHVAC:ZoneMixer', u'AirLoopHVAC:ReturnPlenum'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_2_object_type`
+            value (str): value for IDD Field `Component 2 Object Type`
                 Accepted values are:
                       - AirLoopHVAC:ZoneMixer
                       - AirLoopHVAC:ReturnPlenum
@@ -5399,7 +5495,7 @@ class AirLoopHvacReturnPath(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_2_object_type`'.format(value))
             if ',' in value:
@@ -5425,7 +5521,6 @@ class AirLoopHvacReturnPath(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `component_2_object_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Component 2 Object Type"] = value
 
     @property
@@ -5439,10 +5534,12 @@ class AirLoopHvacReturnPath(object):
 
     @component_2_name.setter
     def component_2_name(self, value=None):
-        """  Corresponds to IDD Field `component_2_name`
+        """  Corresponds to IDD Field `Component 2 Name`
+        
+        {u'type': u'object-list', u'object-list': u'ReturnPathComponentNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_2_name`
+            value (str): value for IDD Field `Component 2 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5452,7 +5549,7 @@ class AirLoopHvacReturnPath(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_2_name`'.format(value))
             if ',' in value:
@@ -5461,7 +5558,6 @@ class AirLoopHvacReturnPath(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `component_2_name`')
-
         self._data["Component 2 Name"] = value
 
     @property
@@ -5475,10 +5571,12 @@ class AirLoopHvacReturnPath(object):
 
     @component_3_object_type.setter
     def component_3_object_type(self, value=None):
-        """  Corresponds to IDD Field `component_3_object_type`
+        """  Corresponds to IDD Field `Component 3 Object Type`
+        
+        {u'type': u'choice', u'key': [u'AirLoopHVAC:ZoneMixer', u'AirLoopHVAC:ReturnPlenum'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_3_object_type`
+            value (str): value for IDD Field `Component 3 Object Type`
                 Accepted values are:
                       - AirLoopHVAC:ZoneMixer
                       - AirLoopHVAC:ReturnPlenum
@@ -5491,7 +5589,7 @@ class AirLoopHvacReturnPath(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_3_object_type`'.format(value))
             if ',' in value:
@@ -5517,7 +5615,6 @@ class AirLoopHvacReturnPath(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `component_3_object_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Component 3 Object Type"] = value
 
     @property
@@ -5531,10 +5628,12 @@ class AirLoopHvacReturnPath(object):
 
     @component_3_name.setter
     def component_3_name(self, value=None):
-        """  Corresponds to IDD Field `component_3_name`
+        """  Corresponds to IDD Field `Component 3 Name`
+        
+        {u'type': u'object-list', u'object-list': u'ReturnPathComponentNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_3_name`
+            value (str): value for IDD Field `Component 3 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5544,7 +5643,7 @@ class AirLoopHvacReturnPath(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_3_name`'.format(value))
             if ',' in value:
@@ -5553,7 +5652,6 @@ class AirLoopHvacReturnPath(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `component_3_name`')
-
         self._data["Component 3 Name"] = value
 
     @property
@@ -5567,10 +5665,12 @@ class AirLoopHvacReturnPath(object):
 
     @component_4_object_type.setter
     def component_4_object_type(self, value=None):
-        """  Corresponds to IDD Field `component_4_object_type`
+        """  Corresponds to IDD Field `Component 4 Object Type`
+        
+        {u'type': u'choice', u'key': [u'AirLoopHVAC:ZoneMixer', u'AirLoopHVAC:ReturnPlenum'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_4_object_type`
+            value (str): value for IDD Field `Component 4 Object Type`
                 Accepted values are:
                       - AirLoopHVAC:ZoneMixer
                       - AirLoopHVAC:ReturnPlenum
@@ -5583,7 +5683,7 @@ class AirLoopHvacReturnPath(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_4_object_type`'.format(value))
             if ',' in value:
@@ -5609,7 +5709,6 @@ class AirLoopHvacReturnPath(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `component_4_object_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Component 4 Object Type"] = value
 
     @property
@@ -5623,10 +5722,12 @@ class AirLoopHvacReturnPath(object):
 
     @component_4_name.setter
     def component_4_name(self, value=None):
-        """  Corresponds to IDD Field `component_4_name`
+        """  Corresponds to IDD Field `Component 4 Name`
+        
+        {u'type': u'object-list', u'object-list': u'ReturnPathComponentNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_4_name`
+            value (str): value for IDD Field `Component 4 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5636,7 +5737,7 @@ class AirLoopHvacReturnPath(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_4_name`'.format(value))
             if ',' in value:
@@ -5645,7 +5746,6 @@ class AirLoopHvacReturnPath(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `component_4_name`')
-
         self._data["Component 4 Name"] = value
 
     @property
@@ -5659,10 +5759,12 @@ class AirLoopHvacReturnPath(object):
 
     @component_5_object_type.setter
     def component_5_object_type(self, value=None):
-        """  Corresponds to IDD Field `component_5_object_type`
+        """  Corresponds to IDD Field `Component 5 Object Type`
+        
+        {u'type': u'choice', u'key': [u'AirLoopHVAC:ZoneMixer', u'AirLoopHVAC:ReturnPlenum'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_5_object_type`
+            value (str): value for IDD Field `Component 5 Object Type`
                 Accepted values are:
                       - AirLoopHVAC:ZoneMixer
                       - AirLoopHVAC:ReturnPlenum
@@ -5675,7 +5777,7 @@ class AirLoopHvacReturnPath(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_5_object_type`'.format(value))
             if ',' in value:
@@ -5701,7 +5803,6 @@ class AirLoopHvacReturnPath(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `component_5_object_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Component 5 Object Type"] = value
 
     @property
@@ -5715,10 +5816,12 @@ class AirLoopHvacReturnPath(object):
 
     @component_5_name.setter
     def component_5_name(self, value=None):
-        """  Corresponds to IDD Field `component_5_name`
+        """  Corresponds to IDD Field `Component 5 Name`
+        
+        {u'type': u'object-list', u'object-list': u'ReturnPathComponentNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_5_name`
+            value (str): value for IDD Field `Component 5 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5728,7 +5831,7 @@ class AirLoopHvacReturnPath(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_5_name`'.format(value))
             if ',' in value:
@@ -5737,7 +5840,6 @@ class AirLoopHvacReturnPath(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `component_5_name`')
-
         self._data["Component 5 Name"] = value
 
     @property
@@ -5751,10 +5853,12 @@ class AirLoopHvacReturnPath(object):
 
     @component_6_object_type.setter
     def component_6_object_type(self, value=None):
-        """  Corresponds to IDD Field `component_6_object_type`
+        """  Corresponds to IDD Field `Component 6 Object Type`
+        
+        {u'type': u'choice', u'key': [u'AirLoopHVAC:ZoneMixer', u'AirLoopHVAC:ReturnPlenum'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_6_object_type`
+            value (str): value for IDD Field `Component 6 Object Type`
                 Accepted values are:
                       - AirLoopHVAC:ZoneMixer
                       - AirLoopHVAC:ReturnPlenum
@@ -5767,7 +5871,7 @@ class AirLoopHvacReturnPath(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_6_object_type`'.format(value))
             if ',' in value:
@@ -5793,7 +5897,6 @@ class AirLoopHvacReturnPath(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `component_6_object_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Component 6 Object Type"] = value
 
     @property
@@ -5807,10 +5910,12 @@ class AirLoopHvacReturnPath(object):
 
     @component_6_name.setter
     def component_6_name(self, value=None):
-        """  Corresponds to IDD Field `component_6_name`
+        """  Corresponds to IDD Field `Component 6 Name`
+        
+        {u'type': u'object-list', u'object-list': u'ReturnPathComponentNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_6_name`
+            value (str): value for IDD Field `Component 6 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5820,7 +5925,7 @@ class AirLoopHvacReturnPath(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_6_name`'.format(value))
             if ',' in value:
@@ -5829,7 +5934,6 @@ class AirLoopHvacReturnPath(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `component_6_name`')
-
         self._data["Component 6 Name"] = value
 
     @property
@@ -5843,10 +5947,12 @@ class AirLoopHvacReturnPath(object):
 
     @component_7_object_type.setter
     def component_7_object_type(self, value=None):
-        """  Corresponds to IDD Field `component_7_object_type`
+        """  Corresponds to IDD Field `Component 7 Object Type`
+        
+        {u'type': u'choice', u'key': [u'AirLoopHVAC:ZoneMixer', u'AirLoopHVAC:ReturnPlenum'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_7_object_type`
+            value (str): value for IDD Field `Component 7 Object Type`
                 Accepted values are:
                       - AirLoopHVAC:ZoneMixer
                       - AirLoopHVAC:ReturnPlenum
@@ -5859,7 +5965,7 @@ class AirLoopHvacReturnPath(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_7_object_type`'.format(value))
             if ',' in value:
@@ -5885,7 +5991,6 @@ class AirLoopHvacReturnPath(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `component_7_object_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Component 7 Object Type"] = value
 
     @property
@@ -5899,10 +6004,12 @@ class AirLoopHvacReturnPath(object):
 
     @component_7_name.setter
     def component_7_name(self, value=None):
-        """  Corresponds to IDD Field `component_7_name`
+        """  Corresponds to IDD Field `Component 7 Name`
+        
+        {u'type': u'object-list', u'object-list': u'ReturnPathComponentNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_7_name`
+            value (str): value for IDD Field `Component 7 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5912,7 +6019,7 @@ class AirLoopHvacReturnPath(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_7_name`'.format(value))
             if ',' in value:
@@ -5921,7 +6028,6 @@ class AirLoopHvacReturnPath(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `component_7_name`')
-
         self._data["Component 7 Name"] = value
 
     @property
@@ -5935,10 +6041,12 @@ class AirLoopHvacReturnPath(object):
 
     @component_8_object_type.setter
     def component_8_object_type(self, value=None):
-        """  Corresponds to IDD Field `component_8_object_type`
+        """  Corresponds to IDD Field `Component 8 Object Type`
+        
+        {u'type': u'choice', u'key': [u'AirLoopHVAC:ZoneMixer', u'AirLoopHVAC:ReturnPlenum'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_8_object_type`
+            value (str): value for IDD Field `Component 8 Object Type`
                 Accepted values are:
                       - AirLoopHVAC:ZoneMixer
                       - AirLoopHVAC:ReturnPlenum
@@ -5951,7 +6059,7 @@ class AirLoopHvacReturnPath(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_8_object_type`'.format(value))
             if ',' in value:
@@ -5977,7 +6085,6 @@ class AirLoopHvacReturnPath(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `component_8_object_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Component 8 Object Type"] = value
 
     @property
@@ -5991,10 +6098,12 @@ class AirLoopHvacReturnPath(object):
 
     @component_8_name.setter
     def component_8_name(self, value=None):
-        """  Corresponds to IDD Field `component_8_name`
+        """  Corresponds to IDD Field `Component 8 Name`
+        
+        {u'type': u'object-list', u'object-list': u'ReturnPathComponentNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_8_name`
+            value (str): value for IDD Field `Component 8 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6004,7 +6113,7 @@ class AirLoopHvacReturnPath(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_8_name`'.format(value))
             if ',' in value:
@@ -6013,7 +6122,6 @@ class AirLoopHvacReturnPath(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `component_8_name`')
-
         self._data["Component 8 Name"] = value
 
     @property
@@ -6027,10 +6135,12 @@ class AirLoopHvacReturnPath(object):
 
     @component_9_object_type.setter
     def component_9_object_type(self, value=None):
-        """  Corresponds to IDD Field `component_9_object_type`
+        """  Corresponds to IDD Field `Component 9 Object Type`
+        
+        {u'type': u'choice', u'key': [u'AirLoopHVAC:ZoneMixer', u'AirLoopHVAC:ReturnPlenum'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_9_object_type`
+            value (str): value for IDD Field `Component 9 Object Type`
                 Accepted values are:
                       - AirLoopHVAC:ZoneMixer
                       - AirLoopHVAC:ReturnPlenum
@@ -6043,7 +6153,7 @@ class AirLoopHvacReturnPath(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_9_object_type`'.format(value))
             if ',' in value:
@@ -6069,7 +6179,6 @@ class AirLoopHvacReturnPath(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `component_9_object_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Component 9 Object Type"] = value
 
     @property
@@ -6083,10 +6192,12 @@ class AirLoopHvacReturnPath(object):
 
     @component_9_name.setter
     def component_9_name(self, value=None):
-        """  Corresponds to IDD Field `component_9_name`
+        """  Corresponds to IDD Field `Component 9 Name`
+        
+        {u'type': u'object-list', u'object-list': u'ReturnPathComponentNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_9_name`
+            value (str): value for IDD Field `Component 9 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6096,7 +6207,7 @@ class AirLoopHvacReturnPath(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_9_name`'.format(value))
             if ',' in value:
@@ -6105,7 +6216,6 @@ class AirLoopHvacReturnPath(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `component_9_name`')
-
         self._data["Component 9 Name"] = value
 
     @property
@@ -6119,10 +6229,12 @@ class AirLoopHvacReturnPath(object):
 
     @component_10_object_type.setter
     def component_10_object_type(self, value=None):
-        """  Corresponds to IDD Field `component_10_object_type`
+        """  Corresponds to IDD Field `Component 10 Object Type`
+        
+        {u'type': u'choice', u'key': [u'AirLoopHVAC:ZoneMixer', u'AirLoopHVAC:ReturnPlenum'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_10_object_type`
+            value (str): value for IDD Field `Component 10 Object Type`
                 Accepted values are:
                       - AirLoopHVAC:ZoneMixer
                       - AirLoopHVAC:ReturnPlenum
@@ -6135,7 +6247,7 @@ class AirLoopHvacReturnPath(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_10_object_type`'.format(value))
             if ',' in value:
@@ -6161,7 +6273,6 @@ class AirLoopHvacReturnPath(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `component_10_object_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Component 10 Object Type"] = value
 
     @property
@@ -6175,10 +6286,12 @@ class AirLoopHvacReturnPath(object):
 
     @component_10_name.setter
     def component_10_name(self, value=None):
-        """  Corresponds to IDD Field `component_10_name`
+        """  Corresponds to IDD Field `Component 10 Name`
+        
+        {u'type': u'object-list', u'object-list': u'ReturnPathComponentNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_10_name`
+            value (str): value for IDD Field `Component 10 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6188,7 +6301,7 @@ class AirLoopHvacReturnPath(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_10_name`'.format(value))
             if ',' in value:
@@ -6197,7 +6310,6 @@ class AirLoopHvacReturnPath(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `component_10_name`')
-
         self._data["Component 10 Name"] = value
 
     @property
@@ -6211,10 +6323,12 @@ class AirLoopHvacReturnPath(object):
 
     @component_11_object_type.setter
     def component_11_object_type(self, value=None):
-        """  Corresponds to IDD Field `component_11_object_type`
+        """  Corresponds to IDD Field `Component 11 Object Type`
+        
+        {u'type': u'choice', u'key': [u'AirLoopHVAC:ZoneMixer', u'AirLoopHVAC:ReturnPlenum'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_11_object_type`
+            value (str): value for IDD Field `Component 11 Object Type`
                 Accepted values are:
                       - AirLoopHVAC:ZoneMixer
                       - AirLoopHVAC:ReturnPlenum
@@ -6227,7 +6341,7 @@ class AirLoopHvacReturnPath(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_11_object_type`'.format(value))
             if ',' in value:
@@ -6253,7 +6367,6 @@ class AirLoopHvacReturnPath(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `component_11_object_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Component 11 Object Type"] = value
 
     @property
@@ -6267,10 +6380,12 @@ class AirLoopHvacReturnPath(object):
 
     @component_11_name.setter
     def component_11_name(self, value=None):
-        """  Corresponds to IDD Field `component_11_name`
+        """  Corresponds to IDD Field `Component 11 Name`
+        
+        {u'type': u'object-list', u'object-list': u'ReturnPathComponentNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_11_name`
+            value (str): value for IDD Field `Component 11 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6280,7 +6395,7 @@ class AirLoopHvacReturnPath(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_11_name`'.format(value))
             if ',' in value:
@@ -6289,7 +6404,6 @@ class AirLoopHvacReturnPath(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `component_11_name`')
-
         self._data["Component 11 Name"] = value
 
     @property
@@ -6303,10 +6417,12 @@ class AirLoopHvacReturnPath(object):
 
     @component_12_object_type.setter
     def component_12_object_type(self, value=None):
-        """  Corresponds to IDD Field `component_12_object_type`
+        """  Corresponds to IDD Field `Component 12 Object Type`
+        
+        {u'type': u'choice', u'key': [u'AirLoopHVAC:ZoneMixer', u'AirLoopHVAC:ReturnPlenum'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_12_object_type`
+            value (str): value for IDD Field `Component 12 Object Type`
                 Accepted values are:
                       - AirLoopHVAC:ZoneMixer
                       - AirLoopHVAC:ReturnPlenum
@@ -6319,7 +6435,7 @@ class AirLoopHvacReturnPath(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_12_object_type`'.format(value))
             if ',' in value:
@@ -6345,7 +6461,6 @@ class AirLoopHvacReturnPath(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `component_12_object_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Component 12 Object Type"] = value
 
     @property
@@ -6359,10 +6474,12 @@ class AirLoopHvacReturnPath(object):
 
     @component_12_name.setter
     def component_12_name(self, value=None):
-        """  Corresponds to IDD Field `component_12_name`
+        """  Corresponds to IDD Field `Component 12 Name`
+        
+        {u'type': u'object-list', u'object-list': u'ReturnPathComponentNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_12_name`
+            value (str): value for IDD Field `Component 12 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6372,7 +6489,7 @@ class AirLoopHvacReturnPath(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_12_name`'.format(value))
             if ',' in value:
@@ -6381,7 +6498,6 @@ class AirLoopHvacReturnPath(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `component_12_name`')
-
         self._data["Component 12 Name"] = value
 
     @property
@@ -6395,10 +6511,12 @@ class AirLoopHvacReturnPath(object):
 
     @component_13_object_type.setter
     def component_13_object_type(self, value=None):
-        """  Corresponds to IDD Field `component_13_object_type`
+        """  Corresponds to IDD Field `Component 13 Object Type`
+        
+        {u'type': u'choice', u'key': [u'AirLoopHVAC:ZoneMixer', u'AirLoopHVAC:ReturnPlenum'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_13_object_type`
+            value (str): value for IDD Field `Component 13 Object Type`
                 Accepted values are:
                       - AirLoopHVAC:ZoneMixer
                       - AirLoopHVAC:ReturnPlenum
@@ -6411,7 +6529,7 @@ class AirLoopHvacReturnPath(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_13_object_type`'.format(value))
             if ',' in value:
@@ -6437,7 +6555,6 @@ class AirLoopHvacReturnPath(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `component_13_object_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Component 13 Object Type"] = value
 
     @property
@@ -6451,10 +6568,12 @@ class AirLoopHvacReturnPath(object):
 
     @component_13_name.setter
     def component_13_name(self, value=None):
-        """  Corresponds to IDD Field `component_13_name`
+        """  Corresponds to IDD Field `Component 13 Name`
+        
+        {u'type': u'object-list', u'object-list': u'ReturnPathComponentNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_13_name`
+            value (str): value for IDD Field `Component 13 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6464,7 +6583,7 @@ class AirLoopHvacReturnPath(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_13_name`'.format(value))
             if ',' in value:
@@ -6473,7 +6592,6 @@ class AirLoopHvacReturnPath(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `component_13_name`')
-
         self._data["Component 13 Name"] = value
 
     @property
@@ -6487,10 +6605,12 @@ class AirLoopHvacReturnPath(object):
 
     @component_14_object_type.setter
     def component_14_object_type(self, value=None):
-        """  Corresponds to IDD Field `component_14_object_type`
+        """  Corresponds to IDD Field `Component 14 Object Type`
+        
+        {u'type': u'choice', u'key': [u'AirLoopHVAC:ZoneMixer', u'AirLoopHVAC:ReturnPlenum'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_14_object_type`
+            value (str): value for IDD Field `Component 14 Object Type`
                 Accepted values are:
                       - AirLoopHVAC:ZoneMixer
                       - AirLoopHVAC:ReturnPlenum
@@ -6503,7 +6623,7 @@ class AirLoopHvacReturnPath(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_14_object_type`'.format(value))
             if ',' in value:
@@ -6529,7 +6649,6 @@ class AirLoopHvacReturnPath(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `component_14_object_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Component 14 Object Type"] = value
 
     @property
@@ -6543,10 +6662,12 @@ class AirLoopHvacReturnPath(object):
 
     @component_14_name.setter
     def component_14_name(self, value=None):
-        """  Corresponds to IDD Field `component_14_name`
+        """  Corresponds to IDD Field `Component 14 Name`
+        
+        {u'type': u'object-list', u'object-list': u'ReturnPathComponentNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_14_name`
+            value (str): value for IDD Field `Component 14 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6556,7 +6677,7 @@ class AirLoopHvacReturnPath(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_14_name`'.format(value))
             if ',' in value:
@@ -6565,7 +6686,6 @@ class AirLoopHvacReturnPath(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `component_14_name`')
-
         self._data["Component 14 Name"] = value
 
     @property
@@ -6579,10 +6699,12 @@ class AirLoopHvacReturnPath(object):
 
     @component_15_object_type.setter
     def component_15_object_type(self, value=None):
-        """  Corresponds to IDD Field `component_15_object_type`
+        """  Corresponds to IDD Field `Component 15 Object Type`
+        
+        {u'type': u'choice', u'key': [u'AirLoopHVAC:ZoneMixer', u'AirLoopHVAC:ReturnPlenum'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_15_object_type`
+            value (str): value for IDD Field `Component 15 Object Type`
                 Accepted values are:
                       - AirLoopHVAC:ZoneMixer
                       - AirLoopHVAC:ReturnPlenum
@@ -6595,7 +6717,7 @@ class AirLoopHvacReturnPath(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_15_object_type`'.format(value))
             if ',' in value:
@@ -6621,7 +6743,6 @@ class AirLoopHvacReturnPath(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `component_15_object_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Component 15 Object Type"] = value
 
     @property
@@ -6635,10 +6756,12 @@ class AirLoopHvacReturnPath(object):
 
     @component_15_name.setter
     def component_15_name(self, value=None):
-        """  Corresponds to IDD Field `component_15_name`
+        """  Corresponds to IDD Field `Component 15 Name`
+        
+        {u'type': u'object-list', u'object-list': u'ReturnPathComponentNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_15_name`
+            value (str): value for IDD Field `Component 15 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6648,7 +6771,7 @@ class AirLoopHvacReturnPath(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_15_name`'.format(value))
             if ',' in value:
@@ -6657,7 +6780,6 @@ class AirLoopHvacReturnPath(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `component_15_name`')
-
         self._data["Component 15 Name"] = value
 
     @property
@@ -6671,10 +6793,12 @@ class AirLoopHvacReturnPath(object):
 
     @component_16_object_type.setter
     def component_16_object_type(self, value=None):
-        """  Corresponds to IDD Field `component_16_object_type`
+        """  Corresponds to IDD Field `Component 16 Object Type`
+        
+        {u'type': u'choice', u'key': [u'AirLoopHVAC:ZoneMixer', u'AirLoopHVAC:ReturnPlenum'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_16_object_type`
+            value (str): value for IDD Field `Component 16 Object Type`
                 Accepted values are:
                       - AirLoopHVAC:ZoneMixer
                       - AirLoopHVAC:ReturnPlenum
@@ -6687,7 +6811,7 @@ class AirLoopHvacReturnPath(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_16_object_type`'.format(value))
             if ',' in value:
@@ -6713,7 +6837,6 @@ class AirLoopHvacReturnPath(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `component_16_object_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Component 16 Object Type"] = value
 
     @property
@@ -6727,10 +6850,12 @@ class AirLoopHvacReturnPath(object):
 
     @component_16_name.setter
     def component_16_name(self, value=None):
-        """  Corresponds to IDD Field `component_16_name`
+        """  Corresponds to IDD Field `Component 16 Name`
+        
+        {u'type': u'object-list', u'object-list': u'ReturnPathComponentNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_16_name`
+            value (str): value for IDD Field `Component 16 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6740,7 +6865,7 @@ class AirLoopHvacReturnPath(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_16_name`'.format(value))
             if ',' in value:
@@ -6749,7 +6874,6 @@ class AirLoopHvacReturnPath(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `component_16_name`')
-
         self._data["Component 16 Name"] = value
 
     @property
@@ -6763,10 +6887,12 @@ class AirLoopHvacReturnPath(object):
 
     @component_17_object_type.setter
     def component_17_object_type(self, value=None):
-        """  Corresponds to IDD Field `component_17_object_type`
+        """  Corresponds to IDD Field `Component 17 Object Type`
+        
+        {u'type': u'choice', u'key': [u'AirLoopHVAC:ZoneMixer', u'AirLoopHVAC:ReturnPlenum'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_17_object_type`
+            value (str): value for IDD Field `Component 17 Object Type`
                 Accepted values are:
                       - AirLoopHVAC:ZoneMixer
                       - AirLoopHVAC:ReturnPlenum
@@ -6779,7 +6905,7 @@ class AirLoopHvacReturnPath(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_17_object_type`'.format(value))
             if ',' in value:
@@ -6805,7 +6931,6 @@ class AirLoopHvacReturnPath(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `component_17_object_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Component 17 Object Type"] = value
 
     @property
@@ -6819,10 +6944,12 @@ class AirLoopHvacReturnPath(object):
 
     @component_17_name.setter
     def component_17_name(self, value=None):
-        """  Corresponds to IDD Field `component_17_name`
+        """  Corresponds to IDD Field `Component 17 Name`
+        
+        {u'type': u'object-list', u'object-list': u'ReturnPathComponentNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_17_name`
+            value (str): value for IDD Field `Component 17 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6832,7 +6959,7 @@ class AirLoopHvacReturnPath(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_17_name`'.format(value))
             if ',' in value:
@@ -6841,7 +6968,6 @@ class AirLoopHvacReturnPath(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `component_17_name`')
-
         self._data["Component 17 Name"] = value
 
     @property
@@ -6855,10 +6981,12 @@ class AirLoopHvacReturnPath(object):
 
     @component_18_object_type.setter
     def component_18_object_type(self, value=None):
-        """  Corresponds to IDD Field `component_18_object_type`
+        """  Corresponds to IDD Field `Component 18 Object Type`
+        
+        {u'type': u'choice', u'key': [u'AirLoopHVAC:ZoneMixer', u'AirLoopHVAC:ReturnPlenum'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_18_object_type`
+            value (str): value for IDD Field `Component 18 Object Type`
                 Accepted values are:
                       - AirLoopHVAC:ZoneMixer
                       - AirLoopHVAC:ReturnPlenum
@@ -6871,7 +6999,7 @@ class AirLoopHvacReturnPath(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_18_object_type`'.format(value))
             if ',' in value:
@@ -6897,7 +7025,6 @@ class AirLoopHvacReturnPath(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `component_18_object_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Component 18 Object Type"] = value
 
     @property
@@ -6911,10 +7038,12 @@ class AirLoopHvacReturnPath(object):
 
     @component_18_name.setter
     def component_18_name(self, value=None):
-        """  Corresponds to IDD Field `component_18_name`
+        """  Corresponds to IDD Field `Component 18 Name`
+        
+        {u'type': u'object-list', u'object-list': u'ReturnPathComponentNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_18_name`
+            value (str): value for IDD Field `Component 18 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6924,7 +7053,7 @@ class AirLoopHvacReturnPath(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_18_name`'.format(value))
             if ',' in value:
@@ -6933,7 +7062,6 @@ class AirLoopHvacReturnPath(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `component_18_name`')
-
         self._data["Component 18 Name"] = value
 
     @property
@@ -6947,10 +7075,12 @@ class AirLoopHvacReturnPath(object):
 
     @component_19_object_type.setter
     def component_19_object_type(self, value=None):
-        """  Corresponds to IDD Field `component_19_object_type`
+        """  Corresponds to IDD Field `Component 19 Object Type`
+        
+        {u'type': u'choice', u'key': [u'AirLoopHVAC:ZoneMixer', u'AirLoopHVAC:ReturnPlenum'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_19_object_type`
+            value (str): value for IDD Field `Component 19 Object Type`
                 Accepted values are:
                       - AirLoopHVAC:ZoneMixer
                       - AirLoopHVAC:ReturnPlenum
@@ -6963,7 +7093,7 @@ class AirLoopHvacReturnPath(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_19_object_type`'.format(value))
             if ',' in value:
@@ -6989,7 +7119,6 @@ class AirLoopHvacReturnPath(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `component_19_object_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Component 19 Object Type"] = value
 
     @property
@@ -7003,10 +7132,12 @@ class AirLoopHvacReturnPath(object):
 
     @component_19_name.setter
     def component_19_name(self, value=None):
-        """  Corresponds to IDD Field `component_19_name`
+        """  Corresponds to IDD Field `Component 19 Name`
+        
+        {u'type': u'object-list', u'object-list': u'ReturnPathComponentNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_19_name`
+            value (str): value for IDD Field `Component 19 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7016,7 +7147,7 @@ class AirLoopHvacReturnPath(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_19_name`'.format(value))
             if ',' in value:
@@ -7025,7 +7156,6 @@ class AirLoopHvacReturnPath(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `component_19_name`')
-
         self._data["Component 19 Name"] = value
 
     @property
@@ -7039,10 +7169,12 @@ class AirLoopHvacReturnPath(object):
 
     @component_20_object_type.setter
     def component_20_object_type(self, value=None):
-        """  Corresponds to IDD Field `component_20_object_type`
+        """  Corresponds to IDD Field `Component 20 Object Type`
+        
+        {u'type': u'choice', u'key': [u'AirLoopHVAC:ZoneMixer', u'AirLoopHVAC:ReturnPlenum'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_20_object_type`
+            value (str): value for IDD Field `Component 20 Object Type`
                 Accepted values are:
                       - AirLoopHVAC:ZoneMixer
                       - AirLoopHVAC:ReturnPlenum
@@ -7055,7 +7187,7 @@ class AirLoopHvacReturnPath(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_20_object_type`'.format(value))
             if ',' in value:
@@ -7081,7 +7213,6 @@ class AirLoopHvacReturnPath(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `component_20_object_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Component 20 Object Type"] = value
 
     @property
@@ -7095,10 +7226,12 @@ class AirLoopHvacReturnPath(object):
 
     @component_20_name.setter
     def component_20_name(self, value=None):
-        """  Corresponds to IDD Field `component_20_name`
+        """  Corresponds to IDD Field `Component 20 Name`
+        
+        {u'type': u'object-list', u'object-list': u'ReturnPathComponentNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_20_name`
+            value (str): value for IDD Field `Component 20 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7108,7 +7241,7 @@ class AirLoopHvacReturnPath(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_20_name`'.format(value))
             if ',' in value:
@@ -7117,7 +7250,6 @@ class AirLoopHvacReturnPath(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `component_20_name`')
-
         self._data["Component 20 Name"] = value
 
     @property
@@ -7131,10 +7263,12 @@ class AirLoopHvacReturnPath(object):
 
     @component_21_object_type.setter
     def component_21_object_type(self, value=None):
-        """  Corresponds to IDD Field `component_21_object_type`
+        """  Corresponds to IDD Field `Component 21 Object Type`
+        
+        {u'type': u'choice', u'key': [u'AirLoopHVAC:ZoneMixer', u'AirLoopHVAC:ReturnPlenum'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_21_object_type`
+            value (str): value for IDD Field `Component 21 Object Type`
                 Accepted values are:
                       - AirLoopHVAC:ZoneMixer
                       - AirLoopHVAC:ReturnPlenum
@@ -7147,7 +7281,7 @@ class AirLoopHvacReturnPath(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_21_object_type`'.format(value))
             if ',' in value:
@@ -7173,7 +7307,6 @@ class AirLoopHvacReturnPath(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `component_21_object_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Component 21 Object Type"] = value
 
     @property
@@ -7187,10 +7320,12 @@ class AirLoopHvacReturnPath(object):
 
     @component_21_name.setter
     def component_21_name(self, value=None):
-        """  Corresponds to IDD Field `component_21_name`
+        """  Corresponds to IDD Field `Component 21 Name`
+        
+        {u'type': u'object-list', u'object-list': u'ReturnPathComponentNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_21_name`
+            value (str): value for IDD Field `Component 21 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7200,7 +7335,7 @@ class AirLoopHvacReturnPath(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_21_name`'.format(value))
             if ',' in value:
@@ -7209,7 +7344,6 @@ class AirLoopHvacReturnPath(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `component_21_name`')
-
         self._data["Component 21 Name"] = value
 
     @property
@@ -7223,10 +7357,12 @@ class AirLoopHvacReturnPath(object):
 
     @component_22_object_type.setter
     def component_22_object_type(self, value=None):
-        """  Corresponds to IDD Field `component_22_object_type`
+        """  Corresponds to IDD Field `Component 22 Object Type`
+        
+        {u'type': u'choice', u'key': [u'AirLoopHVAC:ZoneMixer', u'AirLoopHVAC:ReturnPlenum'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_22_object_type`
+            value (str): value for IDD Field `Component 22 Object Type`
                 Accepted values are:
                       - AirLoopHVAC:ZoneMixer
                       - AirLoopHVAC:ReturnPlenum
@@ -7239,7 +7375,7 @@ class AirLoopHvacReturnPath(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_22_object_type`'.format(value))
             if ',' in value:
@@ -7265,7 +7401,6 @@ class AirLoopHvacReturnPath(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `component_22_object_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Component 22 Object Type"] = value
 
     @property
@@ -7279,10 +7414,12 @@ class AirLoopHvacReturnPath(object):
 
     @component_22_name.setter
     def component_22_name(self, value=None):
-        """  Corresponds to IDD Field `component_22_name`
+        """  Corresponds to IDD Field `Component 22 Name`
+        
+        {u'type': u'object-list', u'object-list': u'ReturnPathComponentNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_22_name`
+            value (str): value for IDD Field `Component 22 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7292,7 +7429,7 @@ class AirLoopHvacReturnPath(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_22_name`'.format(value))
             if ',' in value:
@@ -7301,7 +7438,6 @@ class AirLoopHvacReturnPath(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `component_22_name`')
-
         self._data["Component 22 Name"] = value
 
     @property
@@ -7315,10 +7451,12 @@ class AirLoopHvacReturnPath(object):
 
     @component_23_object_type.setter
     def component_23_object_type(self, value=None):
-        """  Corresponds to IDD Field `component_23_object_type`
+        """  Corresponds to IDD Field `Component 23 Object Type`
+        
+        {u'type': u'choice', u'key': [u'AirLoopHVAC:ZoneMixer', u'AirLoopHVAC:ReturnPlenum'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_23_object_type`
+            value (str): value for IDD Field `Component 23 Object Type`
                 Accepted values are:
                       - AirLoopHVAC:ZoneMixer
                       - AirLoopHVAC:ReturnPlenum
@@ -7331,7 +7469,7 @@ class AirLoopHvacReturnPath(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_23_object_type`'.format(value))
             if ',' in value:
@@ -7357,7 +7495,6 @@ class AirLoopHvacReturnPath(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `component_23_object_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Component 23 Object Type"] = value
 
     @property
@@ -7371,10 +7508,12 @@ class AirLoopHvacReturnPath(object):
 
     @component_23_name.setter
     def component_23_name(self, value=None):
-        """  Corresponds to IDD Field `component_23_name`
+        """  Corresponds to IDD Field `Component 23 Name`
+        
+        {u'type': u'object-list', u'object-list': u'ReturnPathComponentNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_23_name`
+            value (str): value for IDD Field `Component 23 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7384,7 +7523,7 @@ class AirLoopHvacReturnPath(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_23_name`'.format(value))
             if ',' in value:
@@ -7393,7 +7532,6 @@ class AirLoopHvacReturnPath(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `component_23_name`')
-
         self._data["Component 23 Name"] = value
 
     @property
@@ -7407,10 +7545,12 @@ class AirLoopHvacReturnPath(object):
 
     @component_24_object_type.setter
     def component_24_object_type(self, value=None):
-        """  Corresponds to IDD Field `component_24_object_type`
+        """  Corresponds to IDD Field `Component 24 Object Type`
+        
+        {u'type': u'choice', u'key': [u'AirLoopHVAC:ZoneMixer', u'AirLoopHVAC:ReturnPlenum'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_24_object_type`
+            value (str): value for IDD Field `Component 24 Object Type`
                 Accepted values are:
                       - AirLoopHVAC:ZoneMixer
                       - AirLoopHVAC:ReturnPlenum
@@ -7423,7 +7563,7 @@ class AirLoopHvacReturnPath(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_24_object_type`'.format(value))
             if ',' in value:
@@ -7449,7 +7589,6 @@ class AirLoopHvacReturnPath(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `component_24_object_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Component 24 Object Type"] = value
 
     @property
@@ -7463,10 +7602,12 @@ class AirLoopHvacReturnPath(object):
 
     @component_24_name.setter
     def component_24_name(self, value=None):
-        """  Corresponds to IDD Field `component_24_name`
+        """  Corresponds to IDD Field `Component 24 Name`
+        
+        {u'type': u'object-list', u'object-list': u'ReturnPathComponentNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_24_name`
+            value (str): value for IDD Field `Component 24 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7476,7 +7617,7 @@ class AirLoopHvacReturnPath(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_24_name`'.format(value))
             if ',' in value:
@@ -7485,7 +7626,6 @@ class AirLoopHvacReturnPath(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `component_24_name`')
-
         self._data["Component 24 Name"] = value
 
     @property
@@ -7499,10 +7639,12 @@ class AirLoopHvacReturnPath(object):
 
     @component_25_object_type.setter
     def component_25_object_type(self, value=None):
-        """  Corresponds to IDD Field `component_25_object_type`
+        """  Corresponds to IDD Field `Component 25 Object Type`
+        
+        {u'type': u'choice', u'key': [u'AirLoopHVAC:ZoneMixer', u'AirLoopHVAC:ReturnPlenum'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_25_object_type`
+            value (str): value for IDD Field `Component 25 Object Type`
                 Accepted values are:
                       - AirLoopHVAC:ZoneMixer
                       - AirLoopHVAC:ReturnPlenum
@@ -7515,7 +7657,7 @@ class AirLoopHvacReturnPath(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_25_object_type`'.format(value))
             if ',' in value:
@@ -7541,7 +7683,6 @@ class AirLoopHvacReturnPath(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `component_25_object_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Component 25 Object Type"] = value
 
     @property
@@ -7555,10 +7696,12 @@ class AirLoopHvacReturnPath(object):
 
     @component_25_name.setter
     def component_25_name(self, value=None):
-        """  Corresponds to IDD Field `component_25_name`
+        """  Corresponds to IDD Field `Component 25 Name`
+        
+        {u'type': u'object-list', u'object-list': u'ReturnPathComponentNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_25_name`
+            value (str): value for IDD Field `Component 25 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7568,7 +7711,7 @@ class AirLoopHvacReturnPath(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_25_name`'.format(value))
             if ',' in value:
@@ -7577,7 +7720,6 @@ class AirLoopHvacReturnPath(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `component_25_name`')
-
         self._data["Component 25 Name"] = value
 
     def check(self):

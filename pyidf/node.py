@@ -501,10 +501,12 @@ class Branch(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {'type': 'alpha', u'reference': u'Branches', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -514,7 +516,7 @@ class Branch(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -523,7 +525,6 @@ class Branch(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -537,10 +538,12 @@ class Branch(object):
 
     @maximum_flow_rate.setter
     def maximum_flow_rate(self, value=0.0 ):
-        """  Corresponds to IDD Field `maximum_flow_rate`
+        """  Corresponds to IDD Field `Maximum Flow Rate`
+        
+        {'pytype': 'float', u'default': '0.0', u'autosizable': u'', u'minimum': '0.0', u'units': u'm3/s', 'type': 'real'}
 
         Args:
-            value (float): value for IDD Field `maximum_flow_rate`
+            value (float): value for IDD Field `Maximum Flow Rate`
                 Units: m3/s
                 Default value: 0.0
                 value >= 0.0
@@ -553,13 +556,12 @@ class Branch(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `maximum_flow_rate`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `maximum_flow_rate`')
-
         self._data["Maximum Flow Rate"] = value
 
     @property
@@ -573,16 +575,18 @@ class Branch(object):
 
     @pressure_drop_curve_name.setter
     def pressure_drop_curve_name(self, value=None):
-        """  Corresponds to IDD Field `pressure_drop_curve_name`
+        """  Corresponds to IDD Field `Pressure Drop Curve Name`
         Optional field to include this branch in plant pressure drop calculations
         This field is only relevant for branches in PlantLoops and CondenserLoops
         Air loops do not account for pressure drop using this field
         Valid curve types are: Curve:Functional:PressureDrop or
         one of Curve:{Linear,Quadratic,Cubic,Exponent}')
         Table:OneIndependentVariable object can also be used
+        
+        {u'note': [u'Optional field to include this branch in plant pressure drop calculations', u'This field is only relevant for branches in PlantLoops and CondenserLoops', u'Air loops do not account for pressure drop using this field', u'Valid curve types are: Curve:Functional:PressureDrop or', u"one of Curve:{Linear,Quadratic,Cubic,Exponent}')", u'Table:OneIndependentVariable object can also be used'], u'type': u'object-list', u'object-list': u'CubicCurves', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `pressure_drop_curve_name`
+            value (str): value for IDD Field `Pressure Drop Curve Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -592,7 +596,7 @@ class Branch(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `pressure_drop_curve_name`'.format(value))
             if ',' in value:
@@ -601,7 +605,6 @@ class Branch(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `pressure_drop_curve_name`')
-
         self._data["Pressure Drop Curve Name"] = value
 
     @property
@@ -615,10 +618,12 @@ class Branch(object):
 
     @component_1_object_type.setter
     def component_1_object_type(self, value=None):
-        """  Corresponds to IDD Field `component_1_object_type`
+        """  Corresponds to IDD Field `Component 1 Object Type`
+        
+        {'pytype': 'str', 'type': 'alpha', u'required-field': True, u'begin-extensible': u''}
 
         Args:
-            value (str): value for IDD Field `component_1_object_type`
+            value (str): value for IDD Field `Component 1 Object Type`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -628,7 +633,7 @@ class Branch(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_1_object_type`'.format(value))
             if ',' in value:
@@ -637,7 +642,6 @@ class Branch(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `component_1_object_type`')
-
         self._data["Component 1 Object Type"] = value
 
     @property
@@ -651,10 +655,12 @@ class Branch(object):
 
     @component_1_name.setter
     def component_1_name(self, value=None):
-        """  Corresponds to IDD Field `component_1_name`
+        """  Corresponds to IDD Field `Component 1 Name`
+        
+        {'type': 'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_1_name`
+            value (str): value for IDD Field `Component 1 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -664,7 +670,7 @@ class Branch(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_1_name`'.format(value))
             if ',' in value:
@@ -673,7 +679,6 @@ class Branch(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `component_1_name`')
-
         self._data["Component 1 Name"] = value
 
     @property
@@ -687,10 +692,12 @@ class Branch(object):
 
     @component_1_inlet_node_name.setter
     def component_1_inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `component_1_inlet_node_name`
+        """  Corresponds to IDD Field `Component 1 Inlet Node Name`
+        
+        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_1_inlet_node_name`
+            value (str): value for IDD Field `Component 1 Inlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -700,7 +707,7 @@ class Branch(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_1_inlet_node_name`'.format(value))
             if ',' in value:
@@ -709,7 +716,6 @@ class Branch(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `component_1_inlet_node_name`')
-
         self._data["Component 1 Inlet Node Name"] = value
 
     @property
@@ -723,10 +729,12 @@ class Branch(object):
 
     @component_1_outlet_node_name.setter
     def component_1_outlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `component_1_outlet_node_name`
+        """  Corresponds to IDD Field `Component 1 Outlet Node Name`
+        
+        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_1_outlet_node_name`
+            value (str): value for IDD Field `Component 1 Outlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -736,7 +744,7 @@ class Branch(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_1_outlet_node_name`'.format(value))
             if ',' in value:
@@ -745,7 +753,6 @@ class Branch(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `component_1_outlet_node_name`')
-
         self._data["Component 1 Outlet Node Name"] = value
 
     @property
@@ -759,11 +766,13 @@ class Branch(object):
 
     @component_1_branch_control_type.setter
     def component_1_branch_control_type(self, value=None):
-        """  Corresponds to IDD Field `component_1_branch_control_type`
+        """  Corresponds to IDD Field `Component 1 Branch Control Type`
         field is no longer used
+        
+        {u'note': [u'field is no longer used'], 'type': 'alpha', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_1_branch_control_type`
+            value (str): value for IDD Field `Component 1 Branch Control Type`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -773,7 +782,7 @@ class Branch(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_1_branch_control_type`'.format(value))
             if ',' in value:
@@ -782,7 +791,6 @@ class Branch(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `component_1_branch_control_type`')
-
         self._data["Component 1 Branch Control Type"] = value
 
     @property
@@ -796,10 +804,12 @@ class Branch(object):
 
     @component_2_object_type.setter
     def component_2_object_type(self, value=None):
-        """  Corresponds to IDD Field `component_2_object_type`
+        """  Corresponds to IDD Field `Component 2 Object Type`
+        
+        {'type': 'alpha', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_2_object_type`
+            value (str): value for IDD Field `Component 2 Object Type`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -809,7 +819,7 @@ class Branch(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_2_object_type`'.format(value))
             if ',' in value:
@@ -818,7 +828,6 @@ class Branch(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `component_2_object_type`')
-
         self._data["Component 2 Object Type"] = value
 
     @property
@@ -832,10 +841,12 @@ class Branch(object):
 
     @component_2_name.setter
     def component_2_name(self, value=None):
-        """  Corresponds to IDD Field `component_2_name`
+        """  Corresponds to IDD Field `Component 2 Name`
+        
+        {'type': 'alpha', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_2_name`
+            value (str): value for IDD Field `Component 2 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -845,7 +856,7 @@ class Branch(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_2_name`'.format(value))
             if ',' in value:
@@ -854,7 +865,6 @@ class Branch(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `component_2_name`')
-
         self._data["Component 2 Name"] = value
 
     @property
@@ -868,10 +878,12 @@ class Branch(object):
 
     @component_2_inlet_node_name.setter
     def component_2_inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `component_2_inlet_node_name`
+        """  Corresponds to IDD Field `Component 2 Inlet Node Name`
+        
+        {u'type': u'node', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_2_inlet_node_name`
+            value (str): value for IDD Field `Component 2 Inlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -881,7 +893,7 @@ class Branch(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_2_inlet_node_name`'.format(value))
             if ',' in value:
@@ -890,7 +902,6 @@ class Branch(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `component_2_inlet_node_name`')
-
         self._data["Component 2 Inlet Node Name"] = value
 
     @property
@@ -904,10 +915,12 @@ class Branch(object):
 
     @component_2_outlet_node_name.setter
     def component_2_outlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `component_2_outlet_node_name`
+        """  Corresponds to IDD Field `Component 2 Outlet Node Name`
+        
+        {u'type': u'node', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_2_outlet_node_name`
+            value (str): value for IDD Field `Component 2 Outlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -917,7 +930,7 @@ class Branch(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_2_outlet_node_name`'.format(value))
             if ',' in value:
@@ -926,7 +939,6 @@ class Branch(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `component_2_outlet_node_name`')
-
         self._data["Component 2 Outlet Node Name"] = value
 
     @property
@@ -940,11 +952,13 @@ class Branch(object):
 
     @component_2_branch_control_type.setter
     def component_2_branch_control_type(self, value=None):
-        """  Corresponds to IDD Field `component_2_branch_control_type`
+        """  Corresponds to IDD Field `Component 2 Branch Control Type`
         field is no longer used
+        
+        {u'note': [u'field is no longer used'], 'type': 'alpha', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_2_branch_control_type`
+            value (str): value for IDD Field `Component 2 Branch Control Type`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -954,7 +968,7 @@ class Branch(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_2_branch_control_type`'.format(value))
             if ',' in value:
@@ -963,7 +977,6 @@ class Branch(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `component_2_branch_control_type`')
-
         self._data["Component 2 Branch Control Type"] = value
 
     @property
@@ -977,10 +990,12 @@ class Branch(object):
 
     @component_3_object_type.setter
     def component_3_object_type(self, value=None):
-        """  Corresponds to IDD Field `component_3_object_type`
+        """  Corresponds to IDD Field `Component 3 Object Type`
+        
+        {'type': 'alpha', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_3_object_type`
+            value (str): value for IDD Field `Component 3 Object Type`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -990,7 +1005,7 @@ class Branch(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_3_object_type`'.format(value))
             if ',' in value:
@@ -999,7 +1014,6 @@ class Branch(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `component_3_object_type`')
-
         self._data["Component 3 Object Type"] = value
 
     @property
@@ -1013,10 +1027,12 @@ class Branch(object):
 
     @component_3_name.setter
     def component_3_name(self, value=None):
-        """  Corresponds to IDD Field `component_3_name`
+        """  Corresponds to IDD Field `Component 3 Name`
+        
+        {'type': 'alpha', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_3_name`
+            value (str): value for IDD Field `Component 3 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1026,7 +1042,7 @@ class Branch(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_3_name`'.format(value))
             if ',' in value:
@@ -1035,7 +1051,6 @@ class Branch(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `component_3_name`')
-
         self._data["Component 3 Name"] = value
 
     @property
@@ -1049,10 +1064,12 @@ class Branch(object):
 
     @component_3_inlet_node_name.setter
     def component_3_inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `component_3_inlet_node_name`
+        """  Corresponds to IDD Field `Component 3 Inlet Node Name`
+        
+        {u'type': u'node', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_3_inlet_node_name`
+            value (str): value for IDD Field `Component 3 Inlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1062,7 +1079,7 @@ class Branch(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_3_inlet_node_name`'.format(value))
             if ',' in value:
@@ -1071,7 +1088,6 @@ class Branch(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `component_3_inlet_node_name`')
-
         self._data["Component 3 Inlet Node Name"] = value
 
     @property
@@ -1085,10 +1101,12 @@ class Branch(object):
 
     @component_3_outlet_node_name.setter
     def component_3_outlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `component_3_outlet_node_name`
+        """  Corresponds to IDD Field `Component 3 Outlet Node Name`
+        
+        {u'type': u'node', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_3_outlet_node_name`
+            value (str): value for IDD Field `Component 3 Outlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1098,7 +1116,7 @@ class Branch(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_3_outlet_node_name`'.format(value))
             if ',' in value:
@@ -1107,7 +1125,6 @@ class Branch(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `component_3_outlet_node_name`')
-
         self._data["Component 3 Outlet Node Name"] = value
 
     @property
@@ -1121,11 +1138,13 @@ class Branch(object):
 
     @component_3_branch_control_type.setter
     def component_3_branch_control_type(self, value=None):
-        """  Corresponds to IDD Field `component_3_branch_control_type`
+        """  Corresponds to IDD Field `Component 3 Branch Control Type`
         field is no longer useds
+        
+        {u'note': [u'field is no longer useds'], 'type': 'alpha', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_3_branch_control_type`
+            value (str): value for IDD Field `Component 3 Branch Control Type`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1135,7 +1154,7 @@ class Branch(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_3_branch_control_type`'.format(value))
             if ',' in value:
@@ -1144,7 +1163,6 @@ class Branch(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `component_3_branch_control_type`')
-
         self._data["Component 3 Branch Control Type"] = value
 
     @property
@@ -1158,10 +1176,12 @@ class Branch(object):
 
     @component_4_object_type.setter
     def component_4_object_type(self, value=None):
-        """  Corresponds to IDD Field `component_4_object_type`
+        """  Corresponds to IDD Field `Component 4 Object Type`
+        
+        {'type': 'alpha', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_4_object_type`
+            value (str): value for IDD Field `Component 4 Object Type`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1171,7 +1191,7 @@ class Branch(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_4_object_type`'.format(value))
             if ',' in value:
@@ -1180,7 +1200,6 @@ class Branch(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `component_4_object_type`')
-
         self._data["Component 4 Object Type"] = value
 
     @property
@@ -1194,10 +1213,12 @@ class Branch(object):
 
     @component_4_name.setter
     def component_4_name(self, value=None):
-        """  Corresponds to IDD Field `component_4_name`
+        """  Corresponds to IDD Field `Component 4 Name`
+        
+        {'type': 'alpha', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_4_name`
+            value (str): value for IDD Field `Component 4 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1207,7 +1228,7 @@ class Branch(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_4_name`'.format(value))
             if ',' in value:
@@ -1216,7 +1237,6 @@ class Branch(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `component_4_name`')
-
         self._data["Component 4 Name"] = value
 
     @property
@@ -1230,10 +1250,12 @@ class Branch(object):
 
     @component_4_inlet_node_name.setter
     def component_4_inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `component_4_inlet_node_name`
+        """  Corresponds to IDD Field `Component 4 Inlet Node Name`
+        
+        {u'type': u'node', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_4_inlet_node_name`
+            value (str): value for IDD Field `Component 4 Inlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1243,7 +1265,7 @@ class Branch(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_4_inlet_node_name`'.format(value))
             if ',' in value:
@@ -1252,7 +1274,6 @@ class Branch(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `component_4_inlet_node_name`')
-
         self._data["Component 4 Inlet Node Name"] = value
 
     @property
@@ -1266,10 +1287,12 @@ class Branch(object):
 
     @component_4_outlet_node_name.setter
     def component_4_outlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `component_4_outlet_node_name`
+        """  Corresponds to IDD Field `Component 4 Outlet Node Name`
+        
+        {u'type': u'node', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_4_outlet_node_name`
+            value (str): value for IDD Field `Component 4 Outlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1279,7 +1302,7 @@ class Branch(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_4_outlet_node_name`'.format(value))
             if ',' in value:
@@ -1288,7 +1311,6 @@ class Branch(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `component_4_outlet_node_name`')
-
         self._data["Component 4 Outlet Node Name"] = value
 
     @property
@@ -1302,11 +1324,13 @@ class Branch(object):
 
     @component_4_branch_control_type.setter
     def component_4_branch_control_type(self, value=None):
-        """  Corresponds to IDD Field `component_4_branch_control_type`
+        """  Corresponds to IDD Field `Component 4 Branch Control Type`
         field is no longer used
+        
+        {u'note': [u'field is no longer used'], 'type': 'alpha', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_4_branch_control_type`
+            value (str): value for IDD Field `Component 4 Branch Control Type`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1316,7 +1340,7 @@ class Branch(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_4_branch_control_type`'.format(value))
             if ',' in value:
@@ -1325,7 +1349,6 @@ class Branch(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `component_4_branch_control_type`')
-
         self._data["Component 4 Branch Control Type"] = value
 
     @property
@@ -1339,10 +1362,12 @@ class Branch(object):
 
     @component_5_object_type.setter
     def component_5_object_type(self, value=None):
-        """  Corresponds to IDD Field `component_5_object_type`
+        """  Corresponds to IDD Field `Component 5 Object Type`
+        
+        {'type': 'alpha', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_5_object_type`
+            value (str): value for IDD Field `Component 5 Object Type`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1352,7 +1377,7 @@ class Branch(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_5_object_type`'.format(value))
             if ',' in value:
@@ -1361,7 +1386,6 @@ class Branch(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `component_5_object_type`')
-
         self._data["Component 5 Object Type"] = value
 
     @property
@@ -1375,10 +1399,12 @@ class Branch(object):
 
     @component_5_name.setter
     def component_5_name(self, value=None):
-        """  Corresponds to IDD Field `component_5_name`
+        """  Corresponds to IDD Field `Component 5 Name`
+        
+        {'type': 'alpha', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_5_name`
+            value (str): value for IDD Field `Component 5 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1388,7 +1414,7 @@ class Branch(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_5_name`'.format(value))
             if ',' in value:
@@ -1397,7 +1423,6 @@ class Branch(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `component_5_name`')
-
         self._data["Component 5 Name"] = value
 
     @property
@@ -1411,10 +1436,12 @@ class Branch(object):
 
     @component_5_inlet_node_name.setter
     def component_5_inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `component_5_inlet_node_name`
+        """  Corresponds to IDD Field `Component 5 Inlet Node Name`
+        
+        {u'type': u'node', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_5_inlet_node_name`
+            value (str): value for IDD Field `Component 5 Inlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1424,7 +1451,7 @@ class Branch(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_5_inlet_node_name`'.format(value))
             if ',' in value:
@@ -1433,7 +1460,6 @@ class Branch(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `component_5_inlet_node_name`')
-
         self._data["Component 5 Inlet Node Name"] = value
 
     @property
@@ -1447,10 +1473,12 @@ class Branch(object):
 
     @component_5_outlet_node_name.setter
     def component_5_outlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `component_5_outlet_node_name`
+        """  Corresponds to IDD Field `Component 5 Outlet Node Name`
+        
+        {u'type': u'node', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_5_outlet_node_name`
+            value (str): value for IDD Field `Component 5 Outlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1460,7 +1488,7 @@ class Branch(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_5_outlet_node_name`'.format(value))
             if ',' in value:
@@ -1469,7 +1497,6 @@ class Branch(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `component_5_outlet_node_name`')
-
         self._data["Component 5 Outlet Node Name"] = value
 
     @property
@@ -1483,11 +1510,13 @@ class Branch(object):
 
     @component_5_branch_control_type.setter
     def component_5_branch_control_type(self, value=None):
-        """  Corresponds to IDD Field `component_5_branch_control_type`
+        """  Corresponds to IDD Field `Component 5 Branch Control Type`
         field is no longer used
+        
+        {u'note': [u'field is no longer used'], 'type': 'alpha', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_5_branch_control_type`
+            value (str): value for IDD Field `Component 5 Branch Control Type`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1497,7 +1526,7 @@ class Branch(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_5_branch_control_type`'.format(value))
             if ',' in value:
@@ -1506,7 +1535,6 @@ class Branch(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `component_5_branch_control_type`')
-
         self._data["Component 5 Branch Control Type"] = value
 
     @property
@@ -1520,10 +1548,12 @@ class Branch(object):
 
     @component_6_object_type.setter
     def component_6_object_type(self, value=None):
-        """  Corresponds to IDD Field `component_6_object_type`
+        """  Corresponds to IDD Field `Component 6 Object Type`
+        
+        {'type': 'alpha', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_6_object_type`
+            value (str): value for IDD Field `Component 6 Object Type`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1533,7 +1563,7 @@ class Branch(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_6_object_type`'.format(value))
             if ',' in value:
@@ -1542,7 +1572,6 @@ class Branch(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `component_6_object_type`')
-
         self._data["Component 6 Object Type"] = value
 
     @property
@@ -1556,10 +1585,12 @@ class Branch(object):
 
     @component_6_name.setter
     def component_6_name(self, value=None):
-        """  Corresponds to IDD Field `component_6_name`
+        """  Corresponds to IDD Field `Component 6 Name`
+        
+        {'type': 'alpha', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_6_name`
+            value (str): value for IDD Field `Component 6 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1569,7 +1600,7 @@ class Branch(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_6_name`'.format(value))
             if ',' in value:
@@ -1578,7 +1609,6 @@ class Branch(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `component_6_name`')
-
         self._data["Component 6 Name"] = value
 
     @property
@@ -1592,10 +1622,12 @@ class Branch(object):
 
     @component_6_inlet_node_name.setter
     def component_6_inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `component_6_inlet_node_name`
+        """  Corresponds to IDD Field `Component 6 Inlet Node Name`
+        
+        {u'type': u'node', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_6_inlet_node_name`
+            value (str): value for IDD Field `Component 6 Inlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1605,7 +1637,7 @@ class Branch(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_6_inlet_node_name`'.format(value))
             if ',' in value:
@@ -1614,7 +1646,6 @@ class Branch(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `component_6_inlet_node_name`')
-
         self._data["Component 6 Inlet Node Name"] = value
 
     @property
@@ -1628,10 +1659,12 @@ class Branch(object):
 
     @component_6_outlet_node_name.setter
     def component_6_outlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `component_6_outlet_node_name`
+        """  Corresponds to IDD Field `Component 6 Outlet Node Name`
+        
+        {u'type': u'node', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_6_outlet_node_name`
+            value (str): value for IDD Field `Component 6 Outlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1641,7 +1674,7 @@ class Branch(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_6_outlet_node_name`'.format(value))
             if ',' in value:
@@ -1650,7 +1683,6 @@ class Branch(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `component_6_outlet_node_name`')
-
         self._data["Component 6 Outlet Node Name"] = value
 
     @property
@@ -1664,11 +1696,13 @@ class Branch(object):
 
     @component_6_branch_control_type.setter
     def component_6_branch_control_type(self, value=None):
-        """  Corresponds to IDD Field `component_6_branch_control_type`
+        """  Corresponds to IDD Field `Component 6 Branch Control Type`
         field is no longer used
+        
+        {u'note': [u'field is no longer used'], 'type': 'alpha', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_6_branch_control_type`
+            value (str): value for IDD Field `Component 6 Branch Control Type`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1678,7 +1712,7 @@ class Branch(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_6_branch_control_type`'.format(value))
             if ',' in value:
@@ -1687,7 +1721,6 @@ class Branch(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `component_6_branch_control_type`')
-
         self._data["Component 6 Branch Control Type"] = value
 
     @property
@@ -1701,10 +1734,12 @@ class Branch(object):
 
     @component_7_object_type.setter
     def component_7_object_type(self, value=None):
-        """  Corresponds to IDD Field `component_7_object_type`
+        """  Corresponds to IDD Field `Component 7 Object Type`
+        
+        {'type': 'alpha', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_7_object_type`
+            value (str): value for IDD Field `Component 7 Object Type`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1714,7 +1749,7 @@ class Branch(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_7_object_type`'.format(value))
             if ',' in value:
@@ -1723,7 +1758,6 @@ class Branch(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `component_7_object_type`')
-
         self._data["Component 7 Object Type"] = value
 
     @property
@@ -1737,10 +1771,12 @@ class Branch(object):
 
     @component_7_name.setter
     def component_7_name(self, value=None):
-        """  Corresponds to IDD Field `component_7_name`
+        """  Corresponds to IDD Field `Component 7 Name`
+        
+        {'type': 'alpha', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_7_name`
+            value (str): value for IDD Field `Component 7 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1750,7 +1786,7 @@ class Branch(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_7_name`'.format(value))
             if ',' in value:
@@ -1759,7 +1795,6 @@ class Branch(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `component_7_name`')
-
         self._data["Component 7 Name"] = value
 
     @property
@@ -1773,10 +1808,12 @@ class Branch(object):
 
     @component_7_inlet_node_name.setter
     def component_7_inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `component_7_inlet_node_name`
+        """  Corresponds to IDD Field `Component 7 Inlet Node Name`
+        
+        {u'type': u'node', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_7_inlet_node_name`
+            value (str): value for IDD Field `Component 7 Inlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1786,7 +1823,7 @@ class Branch(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_7_inlet_node_name`'.format(value))
             if ',' in value:
@@ -1795,7 +1832,6 @@ class Branch(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `component_7_inlet_node_name`')
-
         self._data["Component 7 Inlet Node Name"] = value
 
     @property
@@ -1809,10 +1845,12 @@ class Branch(object):
 
     @component_7_outlet_node_name.setter
     def component_7_outlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `component_7_outlet_node_name`
+        """  Corresponds to IDD Field `Component 7 Outlet Node Name`
+        
+        {u'type': u'node', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_7_outlet_node_name`
+            value (str): value for IDD Field `Component 7 Outlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1822,7 +1860,7 @@ class Branch(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_7_outlet_node_name`'.format(value))
             if ',' in value:
@@ -1831,7 +1869,6 @@ class Branch(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `component_7_outlet_node_name`')
-
         self._data["Component 7 Outlet Node Name"] = value
 
     @property
@@ -1845,11 +1882,13 @@ class Branch(object):
 
     @component_7_branch_control_type.setter
     def component_7_branch_control_type(self, value=None):
-        """  Corresponds to IDD Field `component_7_branch_control_type`
+        """  Corresponds to IDD Field `Component 7 Branch Control Type`
         field is no longer used
+        
+        {u'note': [u'field is no longer used'], 'type': 'alpha', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_7_branch_control_type`
+            value (str): value for IDD Field `Component 7 Branch Control Type`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1859,7 +1898,7 @@ class Branch(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_7_branch_control_type`'.format(value))
             if ',' in value:
@@ -1868,7 +1907,6 @@ class Branch(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `component_7_branch_control_type`')
-
         self._data["Component 7 Branch Control Type"] = value
 
     @property
@@ -1882,10 +1920,12 @@ class Branch(object):
 
     @component_8_object_type.setter
     def component_8_object_type(self, value=None):
-        """  Corresponds to IDD Field `component_8_object_type`
+        """  Corresponds to IDD Field `Component 8 Object Type`
+        
+        {'type': 'alpha', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_8_object_type`
+            value (str): value for IDD Field `Component 8 Object Type`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1895,7 +1935,7 @@ class Branch(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_8_object_type`'.format(value))
             if ',' in value:
@@ -1904,7 +1944,6 @@ class Branch(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `component_8_object_type`')
-
         self._data["Component 8 Object Type"] = value
 
     @property
@@ -1918,10 +1957,12 @@ class Branch(object):
 
     @component_8_name.setter
     def component_8_name(self, value=None):
-        """  Corresponds to IDD Field `component_8_name`
+        """  Corresponds to IDD Field `Component 8 Name`
+        
+        {'type': 'alpha', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_8_name`
+            value (str): value for IDD Field `Component 8 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1931,7 +1972,7 @@ class Branch(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_8_name`'.format(value))
             if ',' in value:
@@ -1940,7 +1981,6 @@ class Branch(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `component_8_name`')
-
         self._data["Component 8 Name"] = value
 
     @property
@@ -1954,10 +1994,12 @@ class Branch(object):
 
     @component_8_inlet_node_name.setter
     def component_8_inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `component_8_inlet_node_name`
+        """  Corresponds to IDD Field `Component 8 Inlet Node Name`
+        
+        {u'type': u'node', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_8_inlet_node_name`
+            value (str): value for IDD Field `Component 8 Inlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1967,7 +2009,7 @@ class Branch(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_8_inlet_node_name`'.format(value))
             if ',' in value:
@@ -1976,7 +2018,6 @@ class Branch(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `component_8_inlet_node_name`')
-
         self._data["Component 8 Inlet Node Name"] = value
 
     @property
@@ -1990,10 +2031,12 @@ class Branch(object):
 
     @component_8_outlet_node_name.setter
     def component_8_outlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `component_8_outlet_node_name`
+        """  Corresponds to IDD Field `Component 8 Outlet Node Name`
+        
+        {u'type': u'node', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_8_outlet_node_name`
+            value (str): value for IDD Field `Component 8 Outlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2003,7 +2046,7 @@ class Branch(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_8_outlet_node_name`'.format(value))
             if ',' in value:
@@ -2012,7 +2055,6 @@ class Branch(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `component_8_outlet_node_name`')
-
         self._data["Component 8 Outlet Node Name"] = value
 
     @property
@@ -2026,11 +2068,13 @@ class Branch(object):
 
     @component_8_branch_control_type.setter
     def component_8_branch_control_type(self, value=None):
-        """  Corresponds to IDD Field `component_8_branch_control_type`
+        """  Corresponds to IDD Field `Component 8 Branch Control Type`
         field is no longer used
+        
+        {u'note': [u'field is no longer used'], 'type': 'alpha', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_8_branch_control_type`
+            value (str): value for IDD Field `Component 8 Branch Control Type`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2040,7 +2084,7 @@ class Branch(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_8_branch_control_type`'.format(value))
             if ',' in value:
@@ -2049,7 +2093,6 @@ class Branch(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `component_8_branch_control_type`')
-
         self._data["Component 8 Branch Control Type"] = value
 
     @property
@@ -2063,10 +2106,12 @@ class Branch(object):
 
     @component_9_object_type.setter
     def component_9_object_type(self, value=None):
-        """  Corresponds to IDD Field `component_9_object_type`
+        """  Corresponds to IDD Field `Component 9 Object Type`
+        
+        {'type': 'alpha', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_9_object_type`
+            value (str): value for IDD Field `Component 9 Object Type`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2076,7 +2121,7 @@ class Branch(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_9_object_type`'.format(value))
             if ',' in value:
@@ -2085,7 +2130,6 @@ class Branch(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `component_9_object_type`')
-
         self._data["Component 9 Object Type"] = value
 
     @property
@@ -2099,10 +2143,12 @@ class Branch(object):
 
     @component_9_name.setter
     def component_9_name(self, value=None):
-        """  Corresponds to IDD Field `component_9_name`
+        """  Corresponds to IDD Field `Component 9 Name`
+        
+        {'type': 'alpha', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_9_name`
+            value (str): value for IDD Field `Component 9 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2112,7 +2158,7 @@ class Branch(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_9_name`'.format(value))
             if ',' in value:
@@ -2121,7 +2167,6 @@ class Branch(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `component_9_name`')
-
         self._data["Component 9 Name"] = value
 
     @property
@@ -2135,10 +2180,12 @@ class Branch(object):
 
     @component_9_inlet_node_name.setter
     def component_9_inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `component_9_inlet_node_name`
+        """  Corresponds to IDD Field `Component 9 Inlet Node Name`
+        
+        {u'type': u'node', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_9_inlet_node_name`
+            value (str): value for IDD Field `Component 9 Inlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2148,7 +2195,7 @@ class Branch(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_9_inlet_node_name`'.format(value))
             if ',' in value:
@@ -2157,7 +2204,6 @@ class Branch(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `component_9_inlet_node_name`')
-
         self._data["Component 9 Inlet Node Name"] = value
 
     @property
@@ -2171,10 +2217,12 @@ class Branch(object):
 
     @component_9_outlet_node_name.setter
     def component_9_outlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `component_9_outlet_node_name`
+        """  Corresponds to IDD Field `Component 9 Outlet Node Name`
+        
+        {u'type': u'node', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_9_outlet_node_name`
+            value (str): value for IDD Field `Component 9 Outlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2184,7 +2232,7 @@ class Branch(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_9_outlet_node_name`'.format(value))
             if ',' in value:
@@ -2193,7 +2241,6 @@ class Branch(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `component_9_outlet_node_name`')
-
         self._data["Component 9 Outlet Node Name"] = value
 
     @property
@@ -2207,11 +2254,13 @@ class Branch(object):
 
     @component_9_branch_control_type.setter
     def component_9_branch_control_type(self, value=None):
-        """  Corresponds to IDD Field `component_9_branch_control_type`
+        """  Corresponds to IDD Field `Component 9 Branch Control Type`
         field is no longer used
+        
+        {u'note': [u'field is no longer used'], 'type': 'alpha', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_9_branch_control_type`
+            value (str): value for IDD Field `Component 9 Branch Control Type`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2221,7 +2270,7 @@ class Branch(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_9_branch_control_type`'.format(value))
             if ',' in value:
@@ -2230,7 +2279,6 @@ class Branch(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `component_9_branch_control_type`')
-
         self._data["Component 9 Branch Control Type"] = value
 
     @property
@@ -2244,10 +2292,12 @@ class Branch(object):
 
     @component_10_object_type.setter
     def component_10_object_type(self, value=None):
-        """  Corresponds to IDD Field `component_10_object_type`
+        """  Corresponds to IDD Field `Component 10 Object Type`
+        
+        {'type': 'alpha', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_10_object_type`
+            value (str): value for IDD Field `Component 10 Object Type`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2257,7 +2307,7 @@ class Branch(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_10_object_type`'.format(value))
             if ',' in value:
@@ -2266,7 +2316,6 @@ class Branch(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `component_10_object_type`')
-
         self._data["Component 10 Object Type"] = value
 
     @property
@@ -2280,10 +2329,12 @@ class Branch(object):
 
     @component_10_name.setter
     def component_10_name(self, value=None):
-        """  Corresponds to IDD Field `component_10_name`
+        """  Corresponds to IDD Field `Component 10 Name`
+        
+        {'type': 'alpha', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_10_name`
+            value (str): value for IDD Field `Component 10 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2293,7 +2344,7 @@ class Branch(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_10_name`'.format(value))
             if ',' in value:
@@ -2302,7 +2353,6 @@ class Branch(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `component_10_name`')
-
         self._data["Component 10 Name"] = value
 
     @property
@@ -2316,10 +2366,12 @@ class Branch(object):
 
     @component_10_inlet_node_name.setter
     def component_10_inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `component_10_inlet_node_name`
+        """  Corresponds to IDD Field `Component 10 Inlet Node Name`
+        
+        {u'type': u'node', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_10_inlet_node_name`
+            value (str): value for IDD Field `Component 10 Inlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2329,7 +2381,7 @@ class Branch(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_10_inlet_node_name`'.format(value))
             if ',' in value:
@@ -2338,7 +2390,6 @@ class Branch(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `component_10_inlet_node_name`')
-
         self._data["Component 10 Inlet Node Name"] = value
 
     @property
@@ -2352,10 +2403,12 @@ class Branch(object):
 
     @component_10_outlet_node_name.setter
     def component_10_outlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `component_10_outlet_node_name`
+        """  Corresponds to IDD Field `Component 10 Outlet Node Name`
+        
+        {u'type': u'node', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_10_outlet_node_name`
+            value (str): value for IDD Field `Component 10 Outlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2365,7 +2418,7 @@ class Branch(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_10_outlet_node_name`'.format(value))
             if ',' in value:
@@ -2374,7 +2427,6 @@ class Branch(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `component_10_outlet_node_name`')
-
         self._data["Component 10 Outlet Node Name"] = value
 
     @property
@@ -2388,11 +2440,13 @@ class Branch(object):
 
     @component_10_branch_control_type.setter
     def component_10_branch_control_type(self, value=None):
-        """  Corresponds to IDD Field `component_10_branch_control_type`
+        """  Corresponds to IDD Field `Component 10 Branch Control Type`
         field is no longer used
+        
+        {u'note': [u'field is no longer used'], 'type': 'alpha', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_10_branch_control_type`
+            value (str): value for IDD Field `Component 10 Branch Control Type`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2402,7 +2456,7 @@ class Branch(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_10_branch_control_type`'.format(value))
             if ',' in value:
@@ -2411,7 +2465,6 @@ class Branch(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `component_10_branch_control_type`')
-
         self._data["Component 10 Branch Control Type"] = value
 
     @property
@@ -2425,10 +2478,12 @@ class Branch(object):
 
     @component_11_object_type.setter
     def component_11_object_type(self, value=None):
-        """  Corresponds to IDD Field `component_11_object_type`
+        """  Corresponds to IDD Field `Component 11 Object Type`
+        
+        {'type': 'alpha', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_11_object_type`
+            value (str): value for IDD Field `Component 11 Object Type`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2438,7 +2493,7 @@ class Branch(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_11_object_type`'.format(value))
             if ',' in value:
@@ -2447,7 +2502,6 @@ class Branch(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `component_11_object_type`')
-
         self._data["Component 11 Object Type"] = value
 
     @property
@@ -2461,10 +2515,12 @@ class Branch(object):
 
     @component_11_name.setter
     def component_11_name(self, value=None):
-        """  Corresponds to IDD Field `component_11_name`
+        """  Corresponds to IDD Field `Component 11 Name`
+        
+        {'type': 'alpha', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_11_name`
+            value (str): value for IDD Field `Component 11 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2474,7 +2530,7 @@ class Branch(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_11_name`'.format(value))
             if ',' in value:
@@ -2483,7 +2539,6 @@ class Branch(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `component_11_name`')
-
         self._data["Component 11 Name"] = value
 
     @property
@@ -2497,10 +2552,12 @@ class Branch(object):
 
     @component_11_inlet_node_name.setter
     def component_11_inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `component_11_inlet_node_name`
+        """  Corresponds to IDD Field `Component 11 Inlet Node Name`
+        
+        {u'type': u'node', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_11_inlet_node_name`
+            value (str): value for IDD Field `Component 11 Inlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2510,7 +2567,7 @@ class Branch(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_11_inlet_node_name`'.format(value))
             if ',' in value:
@@ -2519,7 +2576,6 @@ class Branch(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `component_11_inlet_node_name`')
-
         self._data["Component 11 Inlet Node Name"] = value
 
     @property
@@ -2533,10 +2589,12 @@ class Branch(object):
 
     @component_11_outlet_node_name.setter
     def component_11_outlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `component_11_outlet_node_name`
+        """  Corresponds to IDD Field `Component 11 Outlet Node Name`
+        
+        {u'type': u'node', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_11_outlet_node_name`
+            value (str): value for IDD Field `Component 11 Outlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2546,7 +2604,7 @@ class Branch(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_11_outlet_node_name`'.format(value))
             if ',' in value:
@@ -2555,7 +2613,6 @@ class Branch(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `component_11_outlet_node_name`')
-
         self._data["Component 11 Outlet Node Name"] = value
 
     @property
@@ -2569,11 +2626,13 @@ class Branch(object):
 
     @component_11_branch_control_type.setter
     def component_11_branch_control_type(self, value=None):
-        """  Corresponds to IDD Field `component_11_branch_control_type`
+        """  Corresponds to IDD Field `Component 11 Branch Control Type`
         field is no longer used
+        
+        {u'note': [u'field is no longer used'], 'type': 'alpha', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `component_11_branch_control_type`
+            value (str): value for IDD Field `Component 11 Branch Control Type`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2583,7 +2642,7 @@ class Branch(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `component_11_branch_control_type`'.format(value))
             if ',' in value:
@@ -2592,7 +2651,6 @@ class Branch(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `component_11_branch_control_type`')
-
         self._data["Component 11 Branch Control Type"] = value
 
     def check(self):
@@ -2705,10 +2763,12 @@ class ConnectorList(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {'type': 'alpha', u'reference': u'ConnectorLists', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2718,7 +2778,7 @@ class ConnectorList(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -2727,7 +2787,6 @@ class ConnectorList(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -2741,10 +2800,12 @@ class ConnectorList(object):
 
     @connector_1_object_type.setter
     def connector_1_object_type(self, value=None):
-        """  Corresponds to IDD Field `connector_1_object_type`
+        """  Corresponds to IDD Field `Connector 1 Object Type`
+        
+        {u'type': u'choice', u'key': [u'Connector:Splitter', u'Connector:Mixer'], u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `connector_1_object_type`
+            value (str): value for IDD Field `Connector 1 Object Type`
                 Accepted values are:
                       - Connector:Splitter
                       - Connector:Mixer
@@ -2757,7 +2818,7 @@ class ConnectorList(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `connector_1_object_type`'.format(value))
             if ',' in value:
@@ -2783,7 +2844,6 @@ class ConnectorList(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `connector_1_object_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Connector 1 Object Type"] = value
 
     @property
@@ -2797,10 +2857,12 @@ class ConnectorList(object):
 
     @connector_1_name.setter
     def connector_1_name(self, value=None):
-        """  Corresponds to IDD Field `connector_1_name`
+        """  Corresponds to IDD Field `Connector 1 Name`
+        
+        {'type': 'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `connector_1_name`
+            value (str): value for IDD Field `Connector 1 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2810,7 +2872,7 @@ class ConnectorList(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `connector_1_name`'.format(value))
             if ',' in value:
@@ -2819,7 +2881,6 @@ class ConnectorList(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `connector_1_name`')
-
         self._data["Connector 1 Name"] = value
 
     @property
@@ -2833,10 +2894,12 @@ class ConnectorList(object):
 
     @connector_2_object_type.setter
     def connector_2_object_type(self, value=None):
-        """  Corresponds to IDD Field `connector_2_object_type`
+        """  Corresponds to IDD Field `Connector 2 Object Type`
+        
+        {u'type': u'choice', u'key': [u'Connector:Splitter', u'Connector:Mixer'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `connector_2_object_type`
+            value (str): value for IDD Field `Connector 2 Object Type`
                 Accepted values are:
                       - Connector:Splitter
                       - Connector:Mixer
@@ -2849,7 +2912,7 @@ class ConnectorList(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `connector_2_object_type`'.format(value))
             if ',' in value:
@@ -2875,7 +2938,6 @@ class ConnectorList(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `connector_2_object_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Connector 2 Object Type"] = value
 
     @property
@@ -2889,10 +2951,12 @@ class ConnectorList(object):
 
     @connector_2_name.setter
     def connector_2_name(self, value=None):
-        """  Corresponds to IDD Field `connector_2_name`
+        """  Corresponds to IDD Field `Connector 2 Name`
+        
+        {'type': 'alpha', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `connector_2_name`
+            value (str): value for IDD Field `Connector 2 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2902,7 +2966,7 @@ class ConnectorList(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `connector_2_name`'.format(value))
             if ',' in value:
@@ -2911,7 +2975,6 @@ class ConnectorList(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `connector_2_name`')
-
         self._data["Connector 2 Name"] = value
 
     def check(self):
@@ -3003,10 +3066,12 @@ class OutdoorAirNode(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3016,7 +3081,7 @@ class OutdoorAirNode(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -3025,7 +3090,6 @@ class OutdoorAirNode(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -3039,11 +3103,13 @@ class OutdoorAirNode(object):
 
     @height_above_ground.setter
     def height_above_ground(self, value=-1.0 ):
-        """  Corresponds to IDD Field `height_above_ground`
+        """  Corresponds to IDD Field `Height Above Ground`
         A value less than zero indicates that the height will be ignored and the weather file conditions will be used.
+        
+        {u'note': [u'A value less than zero indicates that the height will be ignored and the weather file conditions will be used.'], u'units': u'm', u'default': '-1.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `height_above_ground`
+            value (float): value for IDD Field `Height Above Ground`
                 Units: m
                 Default value: -1.0
                 if `value` is None it will not be checked against the
@@ -3055,10 +3121,9 @@ class OutdoorAirNode(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `height_above_ground`'.format(value))
-
         self._data["Height Above Ground"] = value
 
     def check(self):
@@ -3154,10 +3219,12 @@ class PipeAdiabatic(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {'type': 'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3167,7 +3234,7 @@ class PipeAdiabatic(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -3176,7 +3243,6 @@ class PipeAdiabatic(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -3190,10 +3256,12 @@ class PipeAdiabatic(object):
 
     @inlet_node_name.setter
     def inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `inlet_node_name`
+        """  Corresponds to IDD Field `Inlet Node Name`
+        
+        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `inlet_node_name`
+            value (str): value for IDD Field `Inlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3203,7 +3271,7 @@ class PipeAdiabatic(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `inlet_node_name`'.format(value))
             if ',' in value:
@@ -3212,7 +3280,6 @@ class PipeAdiabatic(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `inlet_node_name`')
-
         self._data["Inlet Node Name"] = value
 
     @property
@@ -3226,10 +3293,12 @@ class PipeAdiabatic(object):
 
     @outlet_node_name.setter
     def outlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `outlet_node_name`
+        """  Corresponds to IDD Field `Outlet Node Name`
+        
+        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `outlet_node_name`
+            value (str): value for IDD Field `Outlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3239,7 +3308,7 @@ class PipeAdiabatic(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `outlet_node_name`'.format(value))
             if ',' in value:
@@ -3248,7 +3317,6 @@ class PipeAdiabatic(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `outlet_node_name`')
-
         self._data["Outlet Node Name"] = value
 
     def check(self):
@@ -3344,10 +3412,12 @@ class PipeAdiabaticSteam(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {'type': 'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3357,7 +3427,7 @@ class PipeAdiabaticSteam(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -3366,7 +3436,6 @@ class PipeAdiabaticSteam(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -3380,10 +3449,12 @@ class PipeAdiabaticSteam(object):
 
     @inlet_node_name.setter
     def inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `inlet_node_name`
+        """  Corresponds to IDD Field `Inlet Node Name`
+        
+        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `inlet_node_name`
+            value (str): value for IDD Field `Inlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3393,7 +3464,7 @@ class PipeAdiabaticSteam(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `inlet_node_name`'.format(value))
             if ',' in value:
@@ -3402,7 +3473,6 @@ class PipeAdiabaticSteam(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `inlet_node_name`')
-
         self._data["Inlet Node Name"] = value
 
     @property
@@ -3416,10 +3486,12 @@ class PipeAdiabaticSteam(object):
 
     @outlet_node_name.setter
     def outlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `outlet_node_name`
+        """  Corresponds to IDD Field `Outlet Node Name`
+        
+        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `outlet_node_name`
+            value (str): value for IDD Field `Outlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3429,7 +3501,7 @@ class PipeAdiabaticSteam(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `outlet_node_name`'.format(value))
             if ',' in value:
@@ -3438,7 +3510,6 @@ class PipeAdiabaticSteam(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `outlet_node_name`')
-
         self._data["Outlet Node Name"] = value
 
     def check(self):
@@ -3590,10 +3661,12 @@ class PipeIndoor(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {'type': 'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3603,7 +3676,7 @@ class PipeIndoor(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -3612,7 +3685,6 @@ class PipeIndoor(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -3626,10 +3698,12 @@ class PipeIndoor(object):
 
     @construction_name.setter
     def construction_name(self, value=None):
-        """  Corresponds to IDD Field `construction_name`
+        """  Corresponds to IDD Field `Construction Name`
+        
+        {u'type': u'object-list', u'object-list': u'ConstructionNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `construction_name`
+            value (str): value for IDD Field `Construction Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3639,7 +3713,7 @@ class PipeIndoor(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `construction_name`'.format(value))
             if ',' in value:
@@ -3648,7 +3722,6 @@ class PipeIndoor(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `construction_name`')
-
         self._data["Construction Name"] = value
 
     @property
@@ -3662,10 +3735,12 @@ class PipeIndoor(object):
 
     @fluid_inlet_node_name.setter
     def fluid_inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `fluid_inlet_node_name`
+        """  Corresponds to IDD Field `Fluid Inlet Node Name`
+        
+        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `fluid_inlet_node_name`
+            value (str): value for IDD Field `Fluid Inlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3675,7 +3750,7 @@ class PipeIndoor(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `fluid_inlet_node_name`'.format(value))
             if ',' in value:
@@ -3684,7 +3759,6 @@ class PipeIndoor(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `fluid_inlet_node_name`')
-
         self._data["Fluid Inlet Node Name"] = value
 
     @property
@@ -3698,10 +3772,12 @@ class PipeIndoor(object):
 
     @fluid_outlet_node_name.setter
     def fluid_outlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `fluid_outlet_node_name`
+        """  Corresponds to IDD Field `Fluid Outlet Node Name`
+        
+        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `fluid_outlet_node_name`
+            value (str): value for IDD Field `Fluid Outlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3711,7 +3787,7 @@ class PipeIndoor(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `fluid_outlet_node_name`'.format(value))
             if ',' in value:
@@ -3720,7 +3796,6 @@ class PipeIndoor(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `fluid_outlet_node_name`')
-
         self._data["Fluid Outlet Node Name"] = value
 
     @property
@@ -3734,10 +3809,12 @@ class PipeIndoor(object):
 
     @environment_type.setter
     def environment_type(self, value="Zone"):
-        """  Corresponds to IDD Field `environment_type`
+        """  Corresponds to IDD Field `Environment Type`
+        
+        {u'default': u'Zone', u'type': u'choice', u'key': [u'Zone', u'Schedule'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `environment_type`
+            value (str): value for IDD Field `Environment Type`
                 Accepted values are:
                       - Zone
                       - Schedule
@@ -3751,7 +3828,7 @@ class PipeIndoor(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `environment_type`'.format(value))
             if ',' in value:
@@ -3777,7 +3854,6 @@ class PipeIndoor(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `environment_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Environment Type"] = value
 
     @property
@@ -3791,10 +3867,12 @@ class PipeIndoor(object):
 
     @ambient_temperature_zone_name.setter
     def ambient_temperature_zone_name(self, value=None):
-        """  Corresponds to IDD Field `ambient_temperature_zone_name`
+        """  Corresponds to IDD Field `Ambient Temperature Zone Name`
+        
+        {u'type': u'object-list', u'object-list': u'ZoneNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `ambient_temperature_zone_name`
+            value (str): value for IDD Field `Ambient Temperature Zone Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3804,7 +3882,7 @@ class PipeIndoor(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `ambient_temperature_zone_name`'.format(value))
             if ',' in value:
@@ -3813,7 +3891,6 @@ class PipeIndoor(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `ambient_temperature_zone_name`')
-
         self._data["Ambient Temperature Zone Name"] = value
 
     @property
@@ -3827,10 +3904,12 @@ class PipeIndoor(object):
 
     @ambient_temperature_schedule_name.setter
     def ambient_temperature_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `ambient_temperature_schedule_name`
+        """  Corresponds to IDD Field `Ambient Temperature Schedule Name`
+        
+        {u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `ambient_temperature_schedule_name`
+            value (str): value for IDD Field `Ambient Temperature Schedule Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3840,7 +3919,7 @@ class PipeIndoor(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `ambient_temperature_schedule_name`'.format(value))
             if ',' in value:
@@ -3849,7 +3928,6 @@ class PipeIndoor(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `ambient_temperature_schedule_name`')
-
         self._data["Ambient Temperature Schedule Name"] = value
 
     @property
@@ -3863,10 +3941,12 @@ class PipeIndoor(object):
 
     @ambient_air_velocity_schedule_name.setter
     def ambient_air_velocity_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `ambient_air_velocity_schedule_name`
+        """  Corresponds to IDD Field `Ambient Air Velocity Schedule Name`
+        
+        {u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `ambient_air_velocity_schedule_name`
+            value (str): value for IDD Field `Ambient Air Velocity Schedule Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3876,7 +3956,7 @@ class PipeIndoor(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `ambient_air_velocity_schedule_name`'.format(value))
             if ',' in value:
@@ -3885,7 +3965,6 @@ class PipeIndoor(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `ambient_air_velocity_schedule_name`')
-
         self._data["Ambient Air Velocity Schedule Name"] = value
 
     @property
@@ -3899,10 +3978,12 @@ class PipeIndoor(object):
 
     @pipe_inside_diameter.setter
     def pipe_inside_diameter(self, value=None):
-        """  Corresponds to IDD Field `pipe_inside_diameter`
+        """  Corresponds to IDD Field `Pipe Inside Diameter`
+        
+        {u'units': u'm', u'ip-units': u'in', u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `pipe_inside_diameter`
+            value (float): value for IDD Field `Pipe Inside Diameter`
                 Units: m
                 IP-Units: in
                 value > 0.0
@@ -3915,13 +3996,12 @@ class PipeIndoor(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `pipe_inside_diameter`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `pipe_inside_diameter`')
-
         self._data["Pipe Inside Diameter"] = value
 
     @property
@@ -3935,10 +4015,12 @@ class PipeIndoor(object):
 
     @pipe_length.setter
     def pipe_length(self, value=None):
-        """  Corresponds to IDD Field `pipe_length`
+        """  Corresponds to IDD Field `Pipe Length`
+        
+        {u'units': u'm', u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `pipe_length`
+            value (float): value for IDD Field `Pipe Length`
                 Units: m
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -3950,13 +4032,12 @@ class PipeIndoor(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `pipe_length`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `pipe_length`')
-
         self._data["Pipe Length"] = value
 
     def check(self):
@@ -4084,10 +4165,12 @@ class PipeOutdoor(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {'type': 'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4097,7 +4180,7 @@ class PipeOutdoor(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -4106,7 +4189,6 @@ class PipeOutdoor(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -4120,10 +4202,12 @@ class PipeOutdoor(object):
 
     @construction_name.setter
     def construction_name(self, value=None):
-        """  Corresponds to IDD Field `construction_name`
+        """  Corresponds to IDD Field `Construction Name`
+        
+        {u'type': u'object-list', u'object-list': u'ConstructionNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `construction_name`
+            value (str): value for IDD Field `Construction Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4133,7 +4217,7 @@ class PipeOutdoor(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `construction_name`'.format(value))
             if ',' in value:
@@ -4142,7 +4226,6 @@ class PipeOutdoor(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `construction_name`')
-
         self._data["Construction Name"] = value
 
     @property
@@ -4156,10 +4239,12 @@ class PipeOutdoor(object):
 
     @fluid_inlet_node_name.setter
     def fluid_inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `fluid_inlet_node_name`
+        """  Corresponds to IDD Field `Fluid Inlet Node Name`
+        
+        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `fluid_inlet_node_name`
+            value (str): value for IDD Field `Fluid Inlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4169,7 +4254,7 @@ class PipeOutdoor(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `fluid_inlet_node_name`'.format(value))
             if ',' in value:
@@ -4178,7 +4263,6 @@ class PipeOutdoor(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `fluid_inlet_node_name`')
-
         self._data["Fluid Inlet Node Name"] = value
 
     @property
@@ -4192,10 +4276,12 @@ class PipeOutdoor(object):
 
     @fluid_outlet_node_name.setter
     def fluid_outlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `fluid_outlet_node_name`
+        """  Corresponds to IDD Field `Fluid Outlet Node Name`
+        
+        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `fluid_outlet_node_name`
+            value (str): value for IDD Field `Fluid Outlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4205,7 +4291,7 @@ class PipeOutdoor(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `fluid_outlet_node_name`'.format(value))
             if ',' in value:
@@ -4214,7 +4300,6 @@ class PipeOutdoor(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `fluid_outlet_node_name`')
-
         self._data["Fluid Outlet Node Name"] = value
 
     @property
@@ -4228,10 +4313,12 @@ class PipeOutdoor(object):
 
     @ambient_temperature_outdoor_air_node_name.setter
     def ambient_temperature_outdoor_air_node_name(self, value=None):
-        """  Corresponds to IDD Field `ambient_temperature_outdoor_air_node_name`
+        """  Corresponds to IDD Field `Ambient Temperature Outdoor Air Node Name`
+        
+        {u'type': u'node', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `ambient_temperature_outdoor_air_node_name`
+            value (str): value for IDD Field `Ambient Temperature Outdoor Air Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4241,7 +4328,7 @@ class PipeOutdoor(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `ambient_temperature_outdoor_air_node_name`'.format(value))
             if ',' in value:
@@ -4250,7 +4337,6 @@ class PipeOutdoor(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `ambient_temperature_outdoor_air_node_name`')
-
         self._data["Ambient Temperature Outdoor Air Node Name"] = value
 
     @property
@@ -4264,10 +4350,12 @@ class PipeOutdoor(object):
 
     @pipe_inside_diameter.setter
     def pipe_inside_diameter(self, value=None):
-        """  Corresponds to IDD Field `pipe_inside_diameter`
+        """  Corresponds to IDD Field `Pipe Inside Diameter`
+        
+        {u'units': u'm', u'ip-units': u'in', u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `pipe_inside_diameter`
+            value (float): value for IDD Field `Pipe Inside Diameter`
                 Units: m
                 IP-Units: in
                 value > 0.0
@@ -4280,13 +4368,12 @@ class PipeOutdoor(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `pipe_inside_diameter`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `pipe_inside_diameter`')
-
         self._data["Pipe Inside Diameter"] = value
 
     @property
@@ -4300,10 +4387,12 @@ class PipeOutdoor(object):
 
     @pipe_length.setter
     def pipe_length(self, value=None):
-        """  Corresponds to IDD Field `pipe_length`
+        """  Corresponds to IDD Field `Pipe Length`
+        
+        {u'units': u'm', u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `pipe_length`
+            value (float): value for IDD Field `Pipe Length`
                 Units: m
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -4315,13 +4404,12 @@ class PipeOutdoor(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `pipe_length`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `pipe_length`')
-
         self._data["Pipe Length"] = value
 
     def check(self):
@@ -4483,10 +4571,12 @@ class PipeUnderground(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {'type': 'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4496,7 +4586,7 @@ class PipeUnderground(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -4505,7 +4595,6 @@ class PipeUnderground(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -4519,10 +4608,12 @@ class PipeUnderground(object):
 
     @construction_name.setter
     def construction_name(self, value=None):
-        """  Corresponds to IDD Field `construction_name`
+        """  Corresponds to IDD Field `Construction Name`
+        
+        {u'type': u'object-list', u'object-list': u'ConstructionNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `construction_name`
+            value (str): value for IDD Field `Construction Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4532,7 +4623,7 @@ class PipeUnderground(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `construction_name`'.format(value))
             if ',' in value:
@@ -4541,7 +4632,6 @@ class PipeUnderground(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `construction_name`')
-
         self._data["Construction Name"] = value
 
     @property
@@ -4555,10 +4645,12 @@ class PipeUnderground(object):
 
     @fluid_inlet_node_name.setter
     def fluid_inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `fluid_inlet_node_name`
+        """  Corresponds to IDD Field `Fluid Inlet Node Name`
+        
+        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `fluid_inlet_node_name`
+            value (str): value for IDD Field `Fluid Inlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4568,7 +4660,7 @@ class PipeUnderground(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `fluid_inlet_node_name`'.format(value))
             if ',' in value:
@@ -4577,7 +4669,6 @@ class PipeUnderground(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `fluid_inlet_node_name`')
-
         self._data["Fluid Inlet Node Name"] = value
 
     @property
@@ -4591,10 +4682,12 @@ class PipeUnderground(object):
 
     @fluid_outlet_node_name.setter
     def fluid_outlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `fluid_outlet_node_name`
+        """  Corresponds to IDD Field `Fluid Outlet Node Name`
+        
+        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `fluid_outlet_node_name`
+            value (str): value for IDD Field `Fluid Outlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4604,7 +4697,7 @@ class PipeUnderground(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `fluid_outlet_node_name`'.format(value))
             if ',' in value:
@@ -4613,7 +4706,6 @@ class PipeUnderground(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `fluid_outlet_node_name`')
-
         self._data["Fluid Outlet Node Name"] = value
 
     @property
@@ -4627,10 +4719,12 @@ class PipeUnderground(object):
 
     @sun_exposure.setter
     def sun_exposure(self, value=None):
-        """  Corresponds to IDD Field `sun_exposure`
+        """  Corresponds to IDD Field `Sun Exposure`
+        
+        {u'type': u'choice', u'key': [u'SunExposed', u'NoSun'], u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `sun_exposure`
+            value (str): value for IDD Field `Sun Exposure`
                 Accepted values are:
                       - SunExposed
                       - NoSun
@@ -4643,7 +4737,7 @@ class PipeUnderground(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `sun_exposure`'.format(value))
             if ',' in value:
@@ -4669,7 +4763,6 @@ class PipeUnderground(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `sun_exposure`'.format(value))
             value = vals[value_lower]
-
         self._data["Sun Exposure"] = value
 
     @property
@@ -4683,11 +4776,13 @@ class PipeUnderground(object):
 
     @pipe_inside_diameter.setter
     def pipe_inside_diameter(self, value=None):
-        """  Corresponds to IDD Field `pipe_inside_diameter`
+        """  Corresponds to IDD Field `Pipe Inside Diameter`
         pipe thickness is defined in the Construction object
+        
+        {'pytype': 'float', u'minimum>': '0.0', u'note': [u'pipe thickness is defined in the Construction object'], u'ip-units': u'in', u'units': u'm', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `pipe_inside_diameter`
+            value (float): value for IDD Field `Pipe Inside Diameter`
                 Units: m
                 IP-Units: in
                 value > 0.0
@@ -4700,13 +4795,12 @@ class PipeUnderground(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `pipe_inside_diameter`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `pipe_inside_diameter`')
-
         self._data["Pipe Inside Diameter"] = value
 
     @property
@@ -4720,10 +4814,12 @@ class PipeUnderground(object):
 
     @pipe_length.setter
     def pipe_length(self, value=None):
-        """  Corresponds to IDD Field `pipe_length`
+        """  Corresponds to IDD Field `Pipe Length`
+        
+        {u'units': u'm', u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `pipe_length`
+            value (float): value for IDD Field `Pipe Length`
                 Units: m
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -4735,13 +4831,12 @@ class PipeUnderground(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `pipe_length`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `pipe_length`')
-
         self._data["Pipe Length"] = value
 
     @property
@@ -4755,10 +4850,12 @@ class PipeUnderground(object):
 
     @soil_material_name.setter
     def soil_material_name(self, value=None):
-        """  Corresponds to IDD Field `soil_material_name`
+        """  Corresponds to IDD Field `Soil Material Name`
+        
+        {u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `soil_material_name`
+            value (str): value for IDD Field `Soil Material Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4768,7 +4865,7 @@ class PipeUnderground(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `soil_material_name`'.format(value))
             if ',' in value:
@@ -4777,7 +4874,6 @@ class PipeUnderground(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `soil_material_name`')
-
         self._data["Soil Material Name"] = value
 
     @property
@@ -4791,11 +4887,13 @@ class PipeUnderground(object):
 
     @average_soil_surface_temperature.setter
     def average_soil_surface_temperature(self, value=0.0 ):
-        """  Corresponds to IDD Field `average_soil_surface_temperature`
+        """  Corresponds to IDD Field `Average Soil Surface Temperature`
         optional
+        
+        {u'note': [u'optional'], u'units': u'C', u'default': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `average_soil_surface_temperature`
+            value (float): value for IDD Field `Average Soil Surface Temperature`
                 Units: C
                 Default value: 0.0
                 if `value` is None it will not be checked against the
@@ -4807,10 +4905,9 @@ class PipeUnderground(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `average_soil_surface_temperature`'.format(value))
-
         self._data["Average Soil Surface Temperature"] = value
 
     @property
@@ -4824,11 +4921,13 @@ class PipeUnderground(object):
 
     @amplitude_of_soil_surface_temperature.setter
     def amplitude_of_soil_surface_temperature(self, value=0.0 ):
-        """  Corresponds to IDD Field `amplitude_of_soil_surface_temperature`
+        """  Corresponds to IDD Field `Amplitude of Soil Surface Temperature`
         optional
+        
+        {'pytype': 'float', u'default': '0.0', u'note': [u'optional'], u'minimum': '0.0', u'units': u'C', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `amplitude_of_soil_surface_temperature`
+            value (float): value for IDD Field `Amplitude of Soil Surface Temperature`
                 Units: C
                 Default value: 0.0
                 value >= 0.0
@@ -4841,13 +4940,12 @@ class PipeUnderground(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `amplitude_of_soil_surface_temperature`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `amplitude_of_soil_surface_temperature`')
-
         self._data["Amplitude of Soil Surface Temperature"] = value
 
     @property
@@ -4861,11 +4959,13 @@ class PipeUnderground(object):
 
     @phase_constant_of_soil_surface_temperature.setter
     def phase_constant_of_soil_surface_temperature(self, value=0.0 ):
-        """  Corresponds to IDD Field `phase_constant_of_soil_surface_temperature`
+        """  Corresponds to IDD Field `Phase Constant of Soil Surface Temperature`
         optional
+        
+        {'pytype': 'float', u'default': '0.0', u'note': [u'optional'], u'minimum': '0.0', u'units': u'days', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `phase_constant_of_soil_surface_temperature`
+            value (float): value for IDD Field `Phase Constant of Soil Surface Temperature`
                 Units: days
                 Default value: 0.0
                 value >= 0.0
@@ -4878,13 +4978,12 @@ class PipeUnderground(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `phase_constant_of_soil_surface_temperature`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `phase_constant_of_soil_surface_temperature`')
-
         self._data["Phase Constant of Soil Surface Temperature"] = value
 
     def check(self):
@@ -5252,10 +5351,12 @@ class PipingSystemUndergroundDomain(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {u'type': u'alpha', u'reference': u'PipingSystemUndergroundDomainNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5265,7 +5366,7 @@ class PipingSystemUndergroundDomain(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -5274,7 +5375,6 @@ class PipingSystemUndergroundDomain(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -5288,11 +5388,13 @@ class PipingSystemUndergroundDomain(object):
 
     @xmax.setter
     def xmax(self, value=None):
-        """  Corresponds to IDD Field `xmax`
+        """  Corresponds to IDD Field `Xmax`
         Domain extent in the local 'X' direction
+        
+        {'pytype': 'float', u'minimum>': '0.0', u'required-field': True, u'note': [u"Domain extent in the local 'X' direction"], u'units': u'm', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `xmax`
+            value (float): value for IDD Field `Xmax`
                 Units: m
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -5304,13 +5406,12 @@ class PipingSystemUndergroundDomain(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `xmax`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `xmax`')
-
         self._data["Xmax"] = value
 
     @property
@@ -5324,11 +5425,13 @@ class PipingSystemUndergroundDomain(object):
 
     @ymax.setter
     def ymax(self, value=None):
-        """  Corresponds to IDD Field `ymax`
+        """  Corresponds to IDD Field `Ymax`
         Domain extent in the local 'Y' direction
+        
+        {'pytype': 'float', u'minimum>': '0.0', u'required-field': True, u'note': [u"Domain extent in the local 'Y' direction"], u'units': u'm', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `ymax`
+            value (float): value for IDD Field `Ymax`
                 Units: m
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -5340,13 +5443,12 @@ class PipingSystemUndergroundDomain(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `ymax`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `ymax`')
-
         self._data["Ymax"] = value
 
     @property
@@ -5360,11 +5462,13 @@ class PipingSystemUndergroundDomain(object):
 
     @zmax.setter
     def zmax(self, value=None):
-        """  Corresponds to IDD Field `zmax`
+        """  Corresponds to IDD Field `Zmax`
         Domain extent in the local 'Y' direction
+        
+        {'pytype': 'float', u'minimum>': '0.0', u'required-field': True, u'note': [u"Domain extent in the local 'Y' direction"], u'units': u'm', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `zmax`
+            value (float): value for IDD Field `Zmax`
                 Units: m
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -5376,13 +5480,12 @@ class PipingSystemUndergroundDomain(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `zmax`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `zmax`')
-
         self._data["Zmax"] = value
 
     @property
@@ -5396,11 +5499,13 @@ class PipingSystemUndergroundDomain(object):
 
     @xdirection_mesh_density_parameter.setter
     def xdirection_mesh_density_parameter(self, value=4 ):
-        """  Corresponds to IDD Field `xdirection_mesh_density_parameter`
+        """  Corresponds to IDD Field `X-Direction Mesh Density Parameter`
         If mesh type is symmetric geometric, this should be an even number.
+        
+        {u'default': '4', u'note': [u'If mesh type is symmetric geometric, this should be an even number.'], u'minimum>': '0', u'type': u'integer', 'pytype': 'int'}
 
         Args:
-            value (int): value for IDD Field `xdirection_mesh_density_parameter`
+            value (int): value for IDD Field `X-Direction Mesh Density Parameter`
                 Default value: 4
                 value > 0
                 if `value` is None it will not be checked against the
@@ -5412,13 +5517,12 @@ class PipingSystemUndergroundDomain(object):
         if value is not None:
             try:
                 value = int(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type int '
                                  'for field `xdirection_mesh_density_parameter`'.format(value))
             if value <= 0:
                 raise ValueError('value need to be greater 0 '
                                  'for field `xdirection_mesh_density_parameter`')
-
         self._data["X-Direction Mesh Density Parameter"] = value
 
     @property
@@ -5432,10 +5536,12 @@ class PipingSystemUndergroundDomain(object):
 
     @xdirection_mesh_type.setter
     def xdirection_mesh_type(self, value=None):
-        """  Corresponds to IDD Field `xdirection_mesh_type`
+        """  Corresponds to IDD Field `X-Direction Mesh Type`
+        
+        {u'type': u'choice', u'key': [u'Uniform', u'SymmetricGeometric'], u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `xdirection_mesh_type`
+            value (str): value for IDD Field `X-Direction Mesh Type`
                 Accepted values are:
                       - Uniform
                       - SymmetricGeometric
@@ -5448,7 +5554,7 @@ class PipingSystemUndergroundDomain(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `xdirection_mesh_type`'.format(value))
             if ',' in value:
@@ -5474,7 +5580,6 @@ class PipingSystemUndergroundDomain(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `xdirection_mesh_type`'.format(value))
             value = vals[value_lower]
-
         self._data["X-Direction Mesh Type"] = value
 
     @property
@@ -5488,12 +5593,14 @@ class PipingSystemUndergroundDomain(object):
 
     @xdirection_geometric_coefficient.setter
     def xdirection_geometric_coefficient(self, value=1.3 ):
-        """  Corresponds to IDD Field `xdirection_geometric_coefficient`
+        """  Corresponds to IDD Field `X-Direction Geometric Coefficient`
         optional
         Only used if mesh type is symmetric geometric
+        
+        {'pytype': 'float', u'default': '1.3', u'maximum': '2.0', u'note': [u'optional', u'Only used if mesh type is symmetric geometric'], u'minimum': '1.0', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `xdirection_geometric_coefficient`
+            value (float): value for IDD Field `X-Direction Geometric Coefficient`
                 Default value: 1.3
                 value >= 1.0
                 value <= 2.0
@@ -5506,7 +5613,7 @@ class PipingSystemUndergroundDomain(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `xdirection_geometric_coefficient`'.format(value))
             if value < 1.0:
@@ -5515,7 +5622,6 @@ class PipingSystemUndergroundDomain(object):
             if value > 2.0:
                 raise ValueError('value need to be smaller 2.0 '
                                  'for field `xdirection_geometric_coefficient`')
-
         self._data["X-Direction Geometric Coefficient"] = value
 
     @property
@@ -5529,11 +5635,13 @@ class PipingSystemUndergroundDomain(object):
 
     @ydirection_mesh_density_parameter.setter
     def ydirection_mesh_density_parameter(self, value=4 ):
-        """  Corresponds to IDD Field `ydirection_mesh_density_parameter`
+        """  Corresponds to IDD Field `Y-Direction Mesh Density Parameter`
         If mesh type is symmetric geometric, this should be an even number.
+        
+        {u'default': '4', u'note': [u'If mesh type is symmetric geometric, this should be an even number.'], u'minimum>': '0', u'type': u'integer', 'pytype': 'int'}
 
         Args:
-            value (int): value for IDD Field `ydirection_mesh_density_parameter`
+            value (int): value for IDD Field `Y-Direction Mesh Density Parameter`
                 Default value: 4
                 value > 0
                 if `value` is None it will not be checked against the
@@ -5545,13 +5653,12 @@ class PipingSystemUndergroundDomain(object):
         if value is not None:
             try:
                 value = int(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type int '
                                  'for field `ydirection_mesh_density_parameter`'.format(value))
             if value <= 0:
                 raise ValueError('value need to be greater 0 '
                                  'for field `ydirection_mesh_density_parameter`')
-
         self._data["Y-Direction Mesh Density Parameter"] = value
 
     @property
@@ -5565,10 +5672,12 @@ class PipingSystemUndergroundDomain(object):
 
     @ydirection_mesh_type.setter
     def ydirection_mesh_type(self, value=None):
-        """  Corresponds to IDD Field `ydirection_mesh_type`
+        """  Corresponds to IDD Field `Y-Direction Mesh Type`
+        
+        {u'type': u'choice', u'key': [u'Uniform', u'SymmetricGeometric'], u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `ydirection_mesh_type`
+            value (str): value for IDD Field `Y-Direction Mesh Type`
                 Accepted values are:
                       - Uniform
                       - SymmetricGeometric
@@ -5581,7 +5690,7 @@ class PipingSystemUndergroundDomain(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `ydirection_mesh_type`'.format(value))
             if ',' in value:
@@ -5607,7 +5716,6 @@ class PipingSystemUndergroundDomain(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `ydirection_mesh_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Y-Direction Mesh Type"] = value
 
     @property
@@ -5621,12 +5729,14 @@ class PipingSystemUndergroundDomain(object):
 
     @ydirection_geometric_coefficient.setter
     def ydirection_geometric_coefficient(self, value=1.3 ):
-        """  Corresponds to IDD Field `ydirection_geometric_coefficient`
+        """  Corresponds to IDD Field `Y-Direction Geometric Coefficient`
         optional
         Only used if mesh type is symmetric geometric
+        
+        {'pytype': 'float', u'default': '1.3', u'maximum': '2.0', u'note': [u'optional', u'Only used if mesh type is symmetric geometric'], u'minimum': '1.0', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `ydirection_geometric_coefficient`
+            value (float): value for IDD Field `Y-Direction Geometric Coefficient`
                 Default value: 1.3
                 value >= 1.0
                 value <= 2.0
@@ -5639,7 +5749,7 @@ class PipingSystemUndergroundDomain(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `ydirection_geometric_coefficient`'.format(value))
             if value < 1.0:
@@ -5648,7 +5758,6 @@ class PipingSystemUndergroundDomain(object):
             if value > 2.0:
                 raise ValueError('value need to be smaller 2.0 '
                                  'for field `ydirection_geometric_coefficient`')
-
         self._data["Y-Direction Geometric Coefficient"] = value
 
     @property
@@ -5662,11 +5771,13 @@ class PipingSystemUndergroundDomain(object):
 
     @zdirection_mesh_density_parameter.setter
     def zdirection_mesh_density_parameter(self, value=4 ):
-        """  Corresponds to IDD Field `zdirection_mesh_density_parameter`
+        """  Corresponds to IDD Field `Z-Direction Mesh Density Parameter`
         If mesh type is symmetric geometric, this should be an even number.
+        
+        {u'default': '4', u'note': [u'If mesh type is symmetric geometric, this should be an even number.'], u'minimum>': '0', u'type': u'integer', 'pytype': 'int'}
 
         Args:
-            value (int): value for IDD Field `zdirection_mesh_density_parameter`
+            value (int): value for IDD Field `Z-Direction Mesh Density Parameter`
                 Default value: 4
                 value > 0
                 if `value` is None it will not be checked against the
@@ -5678,13 +5789,12 @@ class PipingSystemUndergroundDomain(object):
         if value is not None:
             try:
                 value = int(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type int '
                                  'for field `zdirection_mesh_density_parameter`'.format(value))
             if value <= 0:
                 raise ValueError('value need to be greater 0 '
                                  'for field `zdirection_mesh_density_parameter`')
-
         self._data["Z-Direction Mesh Density Parameter"] = value
 
     @property
@@ -5698,10 +5808,12 @@ class PipingSystemUndergroundDomain(object):
 
     @zdirection_mesh_type.setter
     def zdirection_mesh_type(self, value=None):
-        """  Corresponds to IDD Field `zdirection_mesh_type`
+        """  Corresponds to IDD Field `Z-Direction Mesh Type`
+        
+        {u'type': u'choice', u'key': [u'Uniform', u'SymmetricGeometric'], u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `zdirection_mesh_type`
+            value (str): value for IDD Field `Z-Direction Mesh Type`
                 Accepted values are:
                       - Uniform
                       - SymmetricGeometric
@@ -5714,7 +5826,7 @@ class PipingSystemUndergroundDomain(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `zdirection_mesh_type`'.format(value))
             if ',' in value:
@@ -5740,7 +5852,6 @@ class PipingSystemUndergroundDomain(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `zdirection_mesh_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Z-Direction Mesh Type"] = value
 
     @property
@@ -5754,12 +5865,14 @@ class PipingSystemUndergroundDomain(object):
 
     @zdirection_geometric_coefficient.setter
     def zdirection_geometric_coefficient(self, value=1.3 ):
-        """  Corresponds to IDD Field `zdirection_geometric_coefficient`
+        """  Corresponds to IDD Field `Z-Direction Geometric Coefficient`
         optional
         Only used if mesh type is symmetric geometric
+        
+        {'pytype': 'float', u'default': '1.3', u'maximum': '2.0', u'note': [u'optional', u'Only used if mesh type is symmetric geometric'], u'minimum': '1.0', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `zdirection_geometric_coefficient`
+            value (float): value for IDD Field `Z-Direction Geometric Coefficient`
                 Default value: 1.3
                 value >= 1.0
                 value <= 2.0
@@ -5772,7 +5885,7 @@ class PipingSystemUndergroundDomain(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `zdirection_geometric_coefficient`'.format(value))
             if value < 1.0:
@@ -5781,7 +5894,6 @@ class PipingSystemUndergroundDomain(object):
             if value > 2.0:
                 raise ValueError('value need to be smaller 2.0 '
                                  'for field `zdirection_geometric_coefficient`')
-
         self._data["Z-Direction Geometric Coefficient"] = value
 
     @property
@@ -5795,10 +5907,12 @@ class PipingSystemUndergroundDomain(object):
 
     @soil_thermal_conductivity.setter
     def soil_thermal_conductivity(self, value=None):
-        """  Corresponds to IDD Field `soil_thermal_conductivity`
+        """  Corresponds to IDD Field `Soil Thermal Conductivity`
+        
+        {u'units': u'W/m-K', u'minimum>': '0.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `soil_thermal_conductivity`
+            value (float): value for IDD Field `Soil Thermal Conductivity`
                 Units: W/m-K
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -5810,13 +5924,12 @@ class PipingSystemUndergroundDomain(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `soil_thermal_conductivity`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `soil_thermal_conductivity`')
-
         self._data["Soil Thermal Conductivity"] = value
 
     @property
@@ -5830,10 +5943,12 @@ class PipingSystemUndergroundDomain(object):
 
     @soil_density.setter
     def soil_density(self, value=None):
-        """  Corresponds to IDD Field `soil_density`
+        """  Corresponds to IDD Field `Soil Density`
+        
+        {u'units': u'kg/m3', u'minimum>': '0.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `soil_density`
+            value (float): value for IDD Field `Soil Density`
                 Units: kg/m3
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -5845,13 +5960,12 @@ class PipingSystemUndergroundDomain(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `soil_density`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `soil_density`')
-
         self._data["Soil Density"] = value
 
     @property
@@ -5865,12 +5979,14 @@ class PipingSystemUndergroundDomain(object):
 
     @soil_specific_heat.setter
     def soil_specific_heat(self, value=None):
-        """  Corresponds to IDD Field `soil_specific_heat`
+        """  Corresponds to IDD Field `Soil Specific Heat`
         This is a dry soil property, which is adjusted for freezing effects
         by the simulation algorithm.
+        
+        {'pytype': 'float', u'minimum>': '0.0', u'required-field': True, u'note': [u'This is a dry soil property, which is adjusted for freezing effects', u'by the simulation algorithm.'], u'units': u'J/kg-K', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `soil_specific_heat`
+            value (float): value for IDD Field `Soil Specific Heat`
                 Units: J/kg-K
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -5882,13 +5998,12 @@ class PipingSystemUndergroundDomain(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `soil_specific_heat`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `soil_specific_heat`')
-
         self._data["Soil Specific Heat"] = value
 
     @property
@@ -5902,10 +6017,12 @@ class PipingSystemUndergroundDomain(object):
 
     @soil_moisture_content_volume_fraction.setter
     def soil_moisture_content_volume_fraction(self, value=30.0 ):
-        """  Corresponds to IDD Field `soil_moisture_content_volume_fraction`
+        """  Corresponds to IDD Field `Soil Moisture Content Volume Fraction`
+        
+        {'pytype': 'float', u'default': '30.0', u'maximum': '100.0', u'minimum': '0.0', u'units': u'percent', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `soil_moisture_content_volume_fraction`
+            value (float): value for IDD Field `Soil Moisture Content Volume Fraction`
                 Units: percent
                 Default value: 30.0
                 value >= 0.0
@@ -5919,7 +6036,7 @@ class PipingSystemUndergroundDomain(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `soil_moisture_content_volume_fraction`'.format(value))
             if value < 0.0:
@@ -5928,7 +6045,6 @@ class PipingSystemUndergroundDomain(object):
             if value > 100.0:
                 raise ValueError('value need to be smaller 100.0 '
                                  'for field `soil_moisture_content_volume_fraction`')
-
         self._data["Soil Moisture Content Volume Fraction"] = value
 
     @property
@@ -5942,10 +6058,12 @@ class PipingSystemUndergroundDomain(object):
 
     @soil_moisture_content_volume_fraction_at_saturation.setter
     def soil_moisture_content_volume_fraction_at_saturation(self, value=50.0 ):
-        """  Corresponds to IDD Field `soil_moisture_content_volume_fraction_at_saturation`
+        """  Corresponds to IDD Field `Soil Moisture Content Volume Fraction at Saturation`
+        
+        {'pytype': 'float', u'default': '50.0', u'maximum': '100.0', u'minimum': '0.0', u'units': u'percent', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `soil_moisture_content_volume_fraction_at_saturation`
+            value (float): value for IDD Field `Soil Moisture Content Volume Fraction at Saturation`
                 Units: percent
                 Default value: 50.0
                 value >= 0.0
@@ -5959,7 +6077,7 @@ class PipingSystemUndergroundDomain(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `soil_moisture_content_volume_fraction_at_saturation`'.format(value))
             if value < 0.0:
@@ -5968,7 +6086,6 @@ class PipingSystemUndergroundDomain(object):
             if value > 100.0:
                 raise ValueError('value need to be smaller 100.0 '
                                  'for field `soil_moisture_content_volume_fraction_at_saturation`')
-
         self._data["Soil Moisture Content Volume Fraction at Saturation"] = value
 
     @property
@@ -5982,10 +6099,12 @@ class PipingSystemUndergroundDomain(object):
 
     @kusudaachenbach_average_surface_temperature.setter
     def kusudaachenbach_average_surface_temperature(self, value=None):
-        """  Corresponds to IDD Field `kusudaachenbach_average_surface_temperature`
+        """  Corresponds to IDD Field `Kusuda-Achenbach Average Surface Temperature`
+        
+        {u'units': u'C', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `kusudaachenbach_average_surface_temperature`
+            value (float): value for IDD Field `Kusuda-Achenbach Average Surface Temperature`
                 Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -5996,10 +6115,9 @@ class PipingSystemUndergroundDomain(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `kusudaachenbach_average_surface_temperature`'.format(value))
-
         self._data["Kusuda-Achenbach Average Surface Temperature"] = value
 
     @property
@@ -6013,10 +6131,12 @@ class PipingSystemUndergroundDomain(object):
 
     @kusudaachenbach_average_amplitude_of_surface_temperature.setter
     def kusudaachenbach_average_amplitude_of_surface_temperature(self, value=None):
-        """  Corresponds to IDD Field `kusudaachenbach_average_amplitude_of_surface_temperature`
+        """  Corresponds to IDD Field `Kusuda-Achenbach Average Amplitude of Surface Temperature`
+        
+        {u'units': u'C', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `kusudaachenbach_average_amplitude_of_surface_temperature`
+            value (float): value for IDD Field `Kusuda-Achenbach Average Amplitude of Surface Temperature`
                 Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -6027,10 +6147,9 @@ class PipingSystemUndergroundDomain(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `kusudaachenbach_average_amplitude_of_surface_temperature`'.format(value))
-
         self._data["Kusuda-Achenbach Average Amplitude of Surface Temperature"] = value
 
     @property
@@ -6044,10 +6163,12 @@ class PipingSystemUndergroundDomain(object):
 
     @kusudaachenbach_phase_shift_of_minimum_surface_temperature.setter
     def kusudaachenbach_phase_shift_of_minimum_surface_temperature(self, value=None):
-        """  Corresponds to IDD Field `kusudaachenbach_phase_shift_of_minimum_surface_temperature`
+        """  Corresponds to IDD Field `Kusuda-Achenbach Phase Shift of Minimum Surface Temperature`
+        
+        {u'units': u'days', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `kusudaachenbach_phase_shift_of_minimum_surface_temperature`
+            value (float): value for IDD Field `Kusuda-Achenbach Phase Shift of Minimum Surface Temperature`
                 Units: days
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -6058,10 +6179,9 @@ class PipingSystemUndergroundDomain(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `kusudaachenbach_phase_shift_of_minimum_surface_temperature`'.format(value))
-
         self._data["Kusuda-Achenbach Phase Shift of Minimum Surface Temperature"] = value
 
     @property
@@ -6075,12 +6195,14 @@ class PipingSystemUndergroundDomain(object):
 
     @this_domain_includes_basement_surface_interaction.setter
     def this_domain_includes_basement_surface_interaction(self, value="No"):
-        """  Corresponds to IDD Field `this_domain_includes_basement_surface_interaction`
+        """  Corresponds to IDD Field `This Domain Includes Basement Surface Interaction`
         if Yes, then the following basement inputs are used
         if No, then the following basement inputs are *ignored*
+        
+        {u'default': u'No', u'note': [u'if Yes, then the following basement inputs are used', u'if No, then the following basement inputs are *ignored*'], u'type': u'choice', u'key': [u'Yes', u'No'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `this_domain_includes_basement_surface_interaction`
+            value (str): value for IDD Field `This Domain Includes Basement Surface Interaction`
                 Accepted values are:
                       - Yes
                       - No
@@ -6094,7 +6216,7 @@ class PipingSystemUndergroundDomain(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `this_domain_includes_basement_surface_interaction`'.format(value))
             if ',' in value:
@@ -6120,7 +6242,6 @@ class PipingSystemUndergroundDomain(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `this_domain_includes_basement_surface_interaction`'.format(value))
             value = vals[value_lower]
-
         self._data["This Domain Includes Basement Surface Interaction"] = value
 
     @property
@@ -6134,11 +6255,13 @@ class PipingSystemUndergroundDomain(object):
 
     @width_of_basement_floor_in_ground_domain.setter
     def width_of_basement_floor_in_ground_domain(self, value=None):
-        """  Corresponds to IDD Field `width_of_basement_floor_in_ground_domain`
+        """  Corresponds to IDD Field `Width of Basement Floor in Ground Domain`
         Required only if Domain Has Basement Interaction
+        
+        {u'units': u'm', u'note': [u'Required only if Domain Has Basement Interaction'], u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `width_of_basement_floor_in_ground_domain`
+            value (float): value for IDD Field `Width of Basement Floor in Ground Domain`
                 Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -6149,10 +6272,9 @@ class PipingSystemUndergroundDomain(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `width_of_basement_floor_in_ground_domain`'.format(value))
-
         self._data["Width of Basement Floor in Ground Domain"] = value
 
     @property
@@ -6166,11 +6288,13 @@ class PipingSystemUndergroundDomain(object):
 
     @depth_of_basement_wall_in_ground_domain.setter
     def depth_of_basement_wall_in_ground_domain(self, value=None):
-        """  Corresponds to IDD Field `depth_of_basement_wall_in_ground_domain`
+        """  Corresponds to IDD Field `Depth of Basement Wall In Ground Domain`
         Required only if Domain Has Basement Interaction
+        
+        {u'units': u'm', u'note': [u'Required only if Domain Has Basement Interaction'], u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `depth_of_basement_wall_in_ground_domain`
+            value (float): value for IDD Field `Depth of Basement Wall In Ground Domain`
                 Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -6181,10 +6305,9 @@ class PipingSystemUndergroundDomain(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `depth_of_basement_wall_in_ground_domain`'.format(value))
-
         self._data["Depth of Basement Wall In Ground Domain"] = value
 
     @property
@@ -6198,11 +6321,13 @@ class PipingSystemUndergroundDomain(object):
 
     @shift_pipe_x_coordinates_by_basement_width.setter
     def shift_pipe_x_coordinates_by_basement_width(self, value=None):
-        """  Corresponds to IDD Field `shift_pipe_x_coordinates_by_basement_width`
+        """  Corresponds to IDD Field `Shift Pipe X Coordinates By Basement Width`
         Required only if Domain Has Basement Interaction
+        
+        {u'note': [u'Required only if Domain Has Basement Interaction'], u'type': u'choice', u'key': [u'Yes', u'No'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `shift_pipe_x_coordinates_by_basement_width`
+            value (str): value for IDD Field `Shift Pipe X Coordinates By Basement Width`
                 Accepted values are:
                       - Yes
                       - No
@@ -6215,7 +6340,7 @@ class PipingSystemUndergroundDomain(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `shift_pipe_x_coordinates_by_basement_width`'.format(value))
             if ',' in value:
@@ -6241,7 +6366,6 @@ class PipingSystemUndergroundDomain(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `shift_pipe_x_coordinates_by_basement_width`'.format(value))
             value = vals[value_lower]
-
         self._data["Shift Pipe X Coordinates By Basement Width"] = value
 
     @property
@@ -6255,11 +6379,13 @@ class PipingSystemUndergroundDomain(object):
 
     @name_of_basement_wall_boundary_condition_model.setter
     def name_of_basement_wall_boundary_condition_model(self, value=None):
-        """  Corresponds to IDD Field `name_of_basement_wall_boundary_condition_model`
+        """  Corresponds to IDD Field `Name of Basement Wall Boundary Condition Model`
         Required only if Domain Has Basement Interaction
+        
+        {u'note': [u'Required only if Domain Has Basement Interaction'], u'type': u'object-list', u'object-list': u'OSCMNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name_of_basement_wall_boundary_condition_model`
+            value (str): value for IDD Field `Name of Basement Wall Boundary Condition Model`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6269,7 +6395,7 @@ class PipingSystemUndergroundDomain(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name_of_basement_wall_boundary_condition_model`'.format(value))
             if ',' in value:
@@ -6278,7 +6404,6 @@ class PipingSystemUndergroundDomain(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name_of_basement_wall_boundary_condition_model`')
-
         self._data["Name of Basement Wall Boundary Condition Model"] = value
 
     @property
@@ -6292,11 +6417,13 @@ class PipingSystemUndergroundDomain(object):
 
     @name_of_basement_floor_boundary_condition_model.setter
     def name_of_basement_floor_boundary_condition_model(self, value=None):
-        """  Corresponds to IDD Field `name_of_basement_floor_boundary_condition_model`
+        """  Corresponds to IDD Field `Name of Basement Floor Boundary Condition Model`
         Required only if Domain Has Basement Interaction
+        
+        {u'note': [u'Required only if Domain Has Basement Interaction'], u'type': u'object-list', u'object-list': u'OSCMNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name_of_basement_floor_boundary_condition_model`
+            value (str): value for IDD Field `Name of Basement Floor Boundary Condition Model`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6306,7 +6433,7 @@ class PipingSystemUndergroundDomain(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name_of_basement_floor_boundary_condition_model`'.format(value))
             if ',' in value:
@@ -6315,7 +6442,6 @@ class PipingSystemUndergroundDomain(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name_of_basement_floor_boundary_condition_model`')
-
         self._data["Name of Basement Floor Boundary Condition Model"] = value
 
     @property
@@ -6329,10 +6455,12 @@ class PipingSystemUndergroundDomain(object):
 
     @convergence_criterion_for_the_outer_cartesian_domain_iteration_loop.setter
     def convergence_criterion_for_the_outer_cartesian_domain_iteration_loop(self, value=0.001 ):
-        """  Corresponds to IDD Field `convergence_criterion_for_the_outer_cartesian_domain_iteration_loop`
+        """  Corresponds to IDD Field `Convergence Criterion for the Outer Cartesian Domain Iteration Loop`
+        
+        {'pytype': 'float', u'default': '0.001', u'maximum': '0.5', u'minimum': '1e-06', u'units': u'deltaC', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `convergence_criterion_for_the_outer_cartesian_domain_iteration_loop`
+            value (float): value for IDD Field `Convergence Criterion for the Outer Cartesian Domain Iteration Loop`
                 Units: deltaC
                 Default value: 0.001
                 value >= 1e-06
@@ -6346,7 +6474,7 @@ class PipingSystemUndergroundDomain(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `convergence_criterion_for_the_outer_cartesian_domain_iteration_loop`'.format(value))
             if value < 1e-06:
@@ -6355,7 +6483,6 @@ class PipingSystemUndergroundDomain(object):
             if value > 0.5:
                 raise ValueError('value need to be smaller 0.5 '
                                  'for field `convergence_criterion_for_the_outer_cartesian_domain_iteration_loop`')
-
         self._data["Convergence Criterion for the Outer Cartesian Domain Iteration Loop"] = value
 
     @property
@@ -6369,10 +6496,12 @@ class PipingSystemUndergroundDomain(object):
 
     @maximum_iterations_in_the_outer_cartesian_domain_iteration_loop.setter
     def maximum_iterations_in_the_outer_cartesian_domain_iteration_loop(self, value=500 ):
-        """  Corresponds to IDD Field `maximum_iterations_in_the_outer_cartesian_domain_iteration_loop`
+        """  Corresponds to IDD Field `Maximum Iterations in the Outer Cartesian Domain Iteration Loop`
+        
+        {u'default': '500', u'minimum': '3', u'type': u'integer', u'maximum': '10000', 'pytype': 'int'}
 
         Args:
-            value (int): value for IDD Field `maximum_iterations_in_the_outer_cartesian_domain_iteration_loop`
+            value (int): value for IDD Field `Maximum Iterations in the Outer Cartesian Domain Iteration Loop`
                 Default value: 500
                 value >= 3
                 value <= 10000
@@ -6385,7 +6514,7 @@ class PipingSystemUndergroundDomain(object):
         if value is not None:
             try:
                 value = int(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type int '
                                  'for field `maximum_iterations_in_the_outer_cartesian_domain_iteration_loop`'.format(value))
             if value < 3:
@@ -6394,7 +6523,6 @@ class PipingSystemUndergroundDomain(object):
             if value > 10000:
                 raise ValueError('value need to be smaller 10000 '
                                  'for field `maximum_iterations_in_the_outer_cartesian_domain_iteration_loop`')
-
         self._data["Maximum Iterations in the Outer Cartesian Domain Iteration Loop"] = value
 
     @property
@@ -6408,16 +6536,18 @@ class PipingSystemUndergroundDomain(object):
 
     @evapotranspiration_ground_cover_parameter.setter
     def evapotranspiration_ground_cover_parameter(self, value=0.4 ):
-        """  Corresponds to IDD Field `evapotranspiration_ground_cover_parameter`
+        """  Corresponds to IDD Field `Evapotranspiration Ground Cover Parameter`
         This specifies the ground cover effects during evapotranspiration
         calculations.  The value roughly represents the following cases:
         = 0   : concrete or other solid, non-permeable ground surface material
         = 0.5 : short grass, much like a manicured lawn
         = 1   : standard reference state (12 cm grass)
         = 1.5 : wild growth
+        
+        {'pytype': 'float', u'default': '0.4', u'maximum': '1.5', u'note': [u'This specifies the ground cover effects during evapotranspiration', u'calculations.  The value roughly represents the following cases:', u'= 0   : concrete or other solid, non-permeable ground surface material', u'= 0.5 : short grass, much like a manicured lawn', u'= 1   : standard reference state (12 cm grass)', u'= 1.5 : wild growth'], u'minimum': '0.0', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `evapotranspiration_ground_cover_parameter`
+            value (float): value for IDD Field `Evapotranspiration Ground Cover Parameter`
                 Default value: 0.4
                 value >= 0.0
                 value <= 1.5
@@ -6430,7 +6560,7 @@ class PipingSystemUndergroundDomain(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `evapotranspiration_ground_cover_parameter`'.format(value))
             if value < 0.0:
@@ -6439,7 +6569,6 @@ class PipingSystemUndergroundDomain(object):
             if value > 1.5:
                 raise ValueError('value need to be smaller 1.5 '
                                  'for field `evapotranspiration_ground_cover_parameter`')
-
         self._data["Evapotranspiration Ground Cover Parameter"] = value
 
     @property
@@ -6453,10 +6582,12 @@ class PipingSystemUndergroundDomain(object):
 
     @number_of_pipe_circuits_entered_for_this_domain.setter
     def number_of_pipe_circuits_entered_for_this_domain(self, value=None):
-        """  Corresponds to IDD Field `number_of_pipe_circuits_entered_for_this_domain`
+        """  Corresponds to IDD Field `Number of Pipe Circuits Entered for this Domain`
+        
+        {u'minimum': '1', u'type': u'integer', u'required-field': True, 'pytype': 'int'}
 
         Args:
-            value (int): value for IDD Field `number_of_pipe_circuits_entered_for_this_domain`
+            value (int): value for IDD Field `Number of Pipe Circuits Entered for this Domain`
                 value >= 1
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -6467,13 +6598,12 @@ class PipingSystemUndergroundDomain(object):
         if value is not None:
             try:
                 value = int(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type int '
                                  'for field `number_of_pipe_circuits_entered_for_this_domain`'.format(value))
             if value < 1:
                 raise ValueError('value need to be greater or equal 1 '
                                  'for field `number_of_pipe_circuits_entered_for_this_domain`')
-
         self._data["Number of Pipe Circuits Entered for this Domain"] = value
 
     @property
@@ -6487,11 +6617,13 @@ class PipingSystemUndergroundDomain(object):
 
     @pipe_circuit_1.setter
     def pipe_circuit_1(self, value=None):
-        """  Corresponds to IDD Field `pipe_circuit_1`
+        """  Corresponds to IDD Field `Pipe Circuit 1`
         Name of a pipe circuit to be simulated in this domain
+        
+        {'pytype': 'str', u'begin-extensible': u'', u'required-field': True, u'note': [u'Name of a pipe circuit to be simulated in this domain'], u'object-list': u'PipingSystemUndergroundCircuitNames', u'type': u'object-list'}
 
         Args:
-            value (str): value for IDD Field `pipe_circuit_1`
+            value (str): value for IDD Field `Pipe Circuit 1`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6501,7 +6633,7 @@ class PipingSystemUndergroundDomain(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `pipe_circuit_1`'.format(value))
             if ',' in value:
@@ -6510,7 +6642,6 @@ class PipingSystemUndergroundDomain(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `pipe_circuit_1`')
-
         self._data["Pipe Circuit 1"] = value
 
     @property
@@ -6524,12 +6655,14 @@ class PipingSystemUndergroundDomain(object):
 
     @pipe_circuit_2.setter
     def pipe_circuit_2(self, value=None):
-        """  Corresponds to IDD Field `pipe_circuit_2`
+        """  Corresponds to IDD Field `Pipe Circuit 2`
         optional
         Name of a pipe circuit to be simulated in this domain
+        
+        {u'note': [u'optional', u'Name of a pipe circuit to be simulated in this domain'], u'type': u'object-list', u'object-list': u'PipingSystemUndergroundCircuitNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `pipe_circuit_2`
+            value (str): value for IDD Field `Pipe Circuit 2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6539,7 +6672,7 @@ class PipingSystemUndergroundDomain(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `pipe_circuit_2`'.format(value))
             if ',' in value:
@@ -6548,7 +6681,6 @@ class PipingSystemUndergroundDomain(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `pipe_circuit_2`')
-
         self._data["Pipe Circuit 2"] = value
 
     @property
@@ -6562,12 +6694,14 @@ class PipingSystemUndergroundDomain(object):
 
     @pipe_circuit_3.setter
     def pipe_circuit_3(self, value=None):
-        """  Corresponds to IDD Field `pipe_circuit_3`
+        """  Corresponds to IDD Field `Pipe Circuit 3`
         optional
         Name of a pipe circuit to be simulated in this domain
+        
+        {u'note': [u'optional', u'Name of a pipe circuit to be simulated in this domain'], u'type': u'object-list', u'object-list': u'PipingSystemUndergroundCircuitNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `pipe_circuit_3`
+            value (str): value for IDD Field `Pipe Circuit 3`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6577,7 +6711,7 @@ class PipingSystemUndergroundDomain(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `pipe_circuit_3`'.format(value))
             if ',' in value:
@@ -6586,7 +6720,6 @@ class PipingSystemUndergroundDomain(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `pipe_circuit_3`')
-
         self._data["Pipe Circuit 3"] = value
 
     @property
@@ -6600,12 +6733,14 @@ class PipingSystemUndergroundDomain(object):
 
     @pipe_circuit_4.setter
     def pipe_circuit_4(self, value=None):
-        """  Corresponds to IDD Field `pipe_circuit_4`
+        """  Corresponds to IDD Field `Pipe Circuit 4`
         optional
         Name of a pipe circuit to be simulated in this domain
+        
+        {u'note': [u'optional', u'Name of a pipe circuit to be simulated in this domain'], u'type': u'object-list', u'object-list': u'PipingSystemUndergroundCircuitNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `pipe_circuit_4`
+            value (str): value for IDD Field `Pipe Circuit 4`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6615,7 +6750,7 @@ class PipingSystemUndergroundDomain(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `pipe_circuit_4`'.format(value))
             if ',' in value:
@@ -6624,7 +6759,6 @@ class PipingSystemUndergroundDomain(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `pipe_circuit_4`')
-
         self._data["Pipe Circuit 4"] = value
 
     @property
@@ -6638,12 +6772,14 @@ class PipingSystemUndergroundDomain(object):
 
     @pipe_circuit_5.setter
     def pipe_circuit_5(self, value=None):
-        """  Corresponds to IDD Field `pipe_circuit_5`
+        """  Corresponds to IDD Field `Pipe Circuit 5`
         optional
         Name of a pipe circuit to be simulated in this domain
+        
+        {u'note': [u'optional', u'Name of a pipe circuit to be simulated in this domain'], u'type': u'object-list', u'object-list': u'PipingSystemUndergroundCircuitNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `pipe_circuit_5`
+            value (str): value for IDD Field `Pipe Circuit 5`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6653,7 +6789,7 @@ class PipingSystemUndergroundDomain(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `pipe_circuit_5`'.format(value))
             if ',' in value:
@@ -6662,7 +6798,6 @@ class PipingSystemUndergroundDomain(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `pipe_circuit_5`')
-
         self._data["Pipe Circuit 5"] = value
 
     @property
@@ -6676,12 +6811,14 @@ class PipingSystemUndergroundDomain(object):
 
     @pipe_circuit_6.setter
     def pipe_circuit_6(self, value=None):
-        """  Corresponds to IDD Field `pipe_circuit_6`
+        """  Corresponds to IDD Field `Pipe Circuit 6`
         optional
         Name of a pipe circuit to be simulated in this domain
+        
+        {u'note': [u'optional', u'Name of a pipe circuit to be simulated in this domain'], u'type': u'object-list', u'object-list': u'PipingSystemUndergroundCircuitNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `pipe_circuit_6`
+            value (str): value for IDD Field `Pipe Circuit 6`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6691,7 +6828,7 @@ class PipingSystemUndergroundDomain(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `pipe_circuit_6`'.format(value))
             if ',' in value:
@@ -6700,7 +6837,6 @@ class PipingSystemUndergroundDomain(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `pipe_circuit_6`')
-
         self._data["Pipe Circuit 6"] = value
 
     def check(self):
@@ -6934,10 +7070,12 @@ class PipingSystemUndergroundPipeCircuit(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {u'type': u'alpha', u'reference': u'PipingSystemUndergroundCircuitNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6947,7 +7085,7 @@ class PipingSystemUndergroundPipeCircuit(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -6956,7 +7094,6 @@ class PipingSystemUndergroundPipeCircuit(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -6970,10 +7107,12 @@ class PipingSystemUndergroundPipeCircuit(object):
 
     @pipe_thermal_conductivity.setter
     def pipe_thermal_conductivity(self, value=None):
-        """  Corresponds to IDD Field `pipe_thermal_conductivity`
+        """  Corresponds to IDD Field `Pipe Thermal Conductivity`
+        
+        {u'units': u'W/m-K', u'minimum>': '0.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `pipe_thermal_conductivity`
+            value (float): value for IDD Field `Pipe Thermal Conductivity`
                 Units: W/m-K
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -6985,13 +7124,12 @@ class PipingSystemUndergroundPipeCircuit(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `pipe_thermal_conductivity`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `pipe_thermal_conductivity`')
-
         self._data["Pipe Thermal Conductivity"] = value
 
     @property
@@ -7005,10 +7143,12 @@ class PipingSystemUndergroundPipeCircuit(object):
 
     @pipe_density.setter
     def pipe_density(self, value=None):
-        """  Corresponds to IDD Field `pipe_density`
+        """  Corresponds to IDD Field `Pipe Density`
+        
+        {u'units': u'kg/m3', u'minimum>': '0.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `pipe_density`
+            value (float): value for IDD Field `Pipe Density`
                 Units: kg/m3
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -7020,13 +7160,12 @@ class PipingSystemUndergroundPipeCircuit(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `pipe_density`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `pipe_density`')
-
         self._data["Pipe Density"] = value
 
     @property
@@ -7040,10 +7179,12 @@ class PipingSystemUndergroundPipeCircuit(object):
 
     @pipe_specific_heat.setter
     def pipe_specific_heat(self, value=None):
-        """  Corresponds to IDD Field `pipe_specific_heat`
+        """  Corresponds to IDD Field `Pipe Specific Heat`
+        
+        {u'units': u'J/kg-K', u'minimum>': '0.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `pipe_specific_heat`
+            value (float): value for IDD Field `Pipe Specific Heat`
                 Units: J/kg-K
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -7055,13 +7196,12 @@ class PipingSystemUndergroundPipeCircuit(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `pipe_specific_heat`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `pipe_specific_heat`')
-
         self._data["Pipe Specific Heat"] = value
 
     @property
@@ -7075,10 +7215,12 @@ class PipingSystemUndergroundPipeCircuit(object):
 
     @pipe_inner_diameter.setter
     def pipe_inner_diameter(self, value=None):
-        """  Corresponds to IDD Field `pipe_inner_diameter`
+        """  Corresponds to IDD Field `Pipe Inner Diameter`
+        
+        {u'units': u'm', u'minimum>': '0.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `pipe_inner_diameter`
+            value (float): value for IDD Field `Pipe Inner Diameter`
                 Units: m
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -7090,13 +7232,12 @@ class PipingSystemUndergroundPipeCircuit(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `pipe_inner_diameter`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `pipe_inner_diameter`')
-
         self._data["Pipe Inner Diameter"] = value
 
     @property
@@ -7110,10 +7251,12 @@ class PipingSystemUndergroundPipeCircuit(object):
 
     @pipe_outer_diameter.setter
     def pipe_outer_diameter(self, value=None):
-        """  Corresponds to IDD Field `pipe_outer_diameter`
+        """  Corresponds to IDD Field `Pipe Outer Diameter`
+        
+        {u'units': u'm', u'minimum>': '0.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `pipe_outer_diameter`
+            value (float): value for IDD Field `Pipe Outer Diameter`
                 Units: m
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -7125,13 +7268,12 @@ class PipingSystemUndergroundPipeCircuit(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `pipe_outer_diameter`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `pipe_outer_diameter`')
-
         self._data["Pipe Outer Diameter"] = value
 
     @property
@@ -7145,10 +7287,12 @@ class PipingSystemUndergroundPipeCircuit(object):
 
     @design_flow_rate.setter
     def design_flow_rate(self, value=None):
-        """  Corresponds to IDD Field `design_flow_rate`
+        """  Corresponds to IDD Field `Design Flow Rate`
+        
+        {u'units': u'm3/s', u'minimum>': '0.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `design_flow_rate`
+            value (float): value for IDD Field `Design Flow Rate`
                 Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -7160,13 +7304,12 @@ class PipingSystemUndergroundPipeCircuit(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `design_flow_rate`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `design_flow_rate`')
-
         self._data["Design Flow Rate"] = value
 
     @property
@@ -7180,10 +7323,12 @@ class PipingSystemUndergroundPipeCircuit(object):
 
     @circuit_inlet_node.setter
     def circuit_inlet_node(self, value=None):
-        """  Corresponds to IDD Field `circuit_inlet_node`
+        """  Corresponds to IDD Field `Circuit Inlet Node`
+        
+        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `circuit_inlet_node`
+            value (str): value for IDD Field `Circuit Inlet Node`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7193,7 +7338,7 @@ class PipingSystemUndergroundPipeCircuit(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `circuit_inlet_node`'.format(value))
             if ',' in value:
@@ -7202,7 +7347,6 @@ class PipingSystemUndergroundPipeCircuit(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `circuit_inlet_node`')
-
         self._data["Circuit Inlet Node"] = value
 
     @property
@@ -7216,10 +7360,12 @@ class PipingSystemUndergroundPipeCircuit(object):
 
     @circuit_outlet_node.setter
     def circuit_outlet_node(self, value=None):
-        """  Corresponds to IDD Field `circuit_outlet_node`
+        """  Corresponds to IDD Field `Circuit Outlet Node`
+        
+        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `circuit_outlet_node`
+            value (str): value for IDD Field `Circuit Outlet Node`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7229,7 +7375,7 @@ class PipingSystemUndergroundPipeCircuit(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `circuit_outlet_node`'.format(value))
             if ',' in value:
@@ -7238,7 +7384,6 @@ class PipingSystemUndergroundPipeCircuit(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `circuit_outlet_node`')
-
         self._data["Circuit Outlet Node"] = value
 
     @property
@@ -7252,10 +7397,12 @@ class PipingSystemUndergroundPipeCircuit(object):
 
     @convergence_criterion_for_the_inner_radial_iteration_loop.setter
     def convergence_criterion_for_the_inner_radial_iteration_loop(self, value=0.001 ):
-        """  Corresponds to IDD Field `convergence_criterion_for_the_inner_radial_iteration_loop`
+        """  Corresponds to IDD Field `Convergence Criterion for the Inner Radial Iteration Loop`
+        
+        {'pytype': 'float', u'default': '0.001', u'maximum': '0.5', u'minimum': '1e-06', u'units': u'deltaC', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `convergence_criterion_for_the_inner_radial_iteration_loop`
+            value (float): value for IDD Field `Convergence Criterion for the Inner Radial Iteration Loop`
                 Units: deltaC
                 Default value: 0.001
                 value >= 1e-06
@@ -7269,7 +7416,7 @@ class PipingSystemUndergroundPipeCircuit(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `convergence_criterion_for_the_inner_radial_iteration_loop`'.format(value))
             if value < 1e-06:
@@ -7278,7 +7425,6 @@ class PipingSystemUndergroundPipeCircuit(object):
             if value > 0.5:
                 raise ValueError('value need to be smaller 0.5 '
                                  'for field `convergence_criterion_for_the_inner_radial_iteration_loop`')
-
         self._data["Convergence Criterion for the Inner Radial Iteration Loop"] = value
 
     @property
@@ -7292,10 +7438,12 @@ class PipingSystemUndergroundPipeCircuit(object):
 
     @maximum_iterations_in_the_inner_radial_iteration_loop.setter
     def maximum_iterations_in_the_inner_radial_iteration_loop(self, value=500 ):
-        """  Corresponds to IDD Field `maximum_iterations_in_the_inner_radial_iteration_loop`
+        """  Corresponds to IDD Field `Maximum Iterations in the Inner Radial Iteration Loop`
+        
+        {u'default': '500', u'minimum': '3', u'type': u'integer', u'maximum': '10000', 'pytype': 'int'}
 
         Args:
-            value (int): value for IDD Field `maximum_iterations_in_the_inner_radial_iteration_loop`
+            value (int): value for IDD Field `Maximum Iterations in the Inner Radial Iteration Loop`
                 Default value: 500
                 value >= 3
                 value <= 10000
@@ -7308,7 +7456,7 @@ class PipingSystemUndergroundPipeCircuit(object):
         if value is not None:
             try:
                 value = int(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type int '
                                  'for field `maximum_iterations_in_the_inner_radial_iteration_loop`'.format(value))
             if value < 3:
@@ -7317,7 +7465,6 @@ class PipingSystemUndergroundPipeCircuit(object):
             if value > 10000:
                 raise ValueError('value need to be smaller 10000 '
                                  'for field `maximum_iterations_in_the_inner_radial_iteration_loop`')
-
         self._data["Maximum Iterations in the Inner Radial Iteration Loop"] = value
 
     @property
@@ -7331,10 +7478,12 @@ class PipingSystemUndergroundPipeCircuit(object):
 
     @number_of_soil_nodes_in_the_inner_radial_near_pipe_mesh_region.setter
     def number_of_soil_nodes_in_the_inner_radial_near_pipe_mesh_region(self, value=3 ):
-        """  Corresponds to IDD Field `number_of_soil_nodes_in_the_inner_radial_near_pipe_mesh_region`
+        """  Corresponds to IDD Field `Number of Soil Nodes in the Inner Radial Near Pipe Mesh Region`
+        
+        {u'default': '3', u'minimum': '1', u'type': u'integer', u'maximum': '15', 'pytype': 'int'}
 
         Args:
-            value (int): value for IDD Field `number_of_soil_nodes_in_the_inner_radial_near_pipe_mesh_region`
+            value (int): value for IDD Field `Number of Soil Nodes in the Inner Radial Near Pipe Mesh Region`
                 Default value: 3
                 value >= 1
                 value <= 15
@@ -7347,7 +7496,7 @@ class PipingSystemUndergroundPipeCircuit(object):
         if value is not None:
             try:
                 value = int(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type int '
                                  'for field `number_of_soil_nodes_in_the_inner_radial_near_pipe_mesh_region`'.format(value))
             if value < 1:
@@ -7356,7 +7505,6 @@ class PipingSystemUndergroundPipeCircuit(object):
             if value > 15:
                 raise ValueError('value need to be smaller 15 '
                                  'for field `number_of_soil_nodes_in_the_inner_radial_near_pipe_mesh_region`')
-
         self._data["Number of Soil Nodes in the Inner Radial Near Pipe Mesh Region"] = value
 
     @property
@@ -7370,12 +7518,14 @@ class PipingSystemUndergroundPipeCircuit(object):
 
     @radial_thickness_of_inner_radial_near_pipe_mesh_region.setter
     def radial_thickness_of_inner_radial_near_pipe_mesh_region(self, value=None):
-        """  Corresponds to IDD Field `radial_thickness_of_inner_radial_near_pipe_mesh_region`
+        """  Corresponds to IDD Field `Radial Thickness of Inner Radial Near Pipe Mesh Region`
         Required because it must be selected by user instead of being
         inferred from circuit/domain object inputs.
+        
+        {u'note': [u'Required because it must be selected by user instead of being', u'inferred from circuit/domain object inputs.'], u'minimum>': '0.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `radial_thickness_of_inner_radial_near_pipe_mesh_region`
+            value (float): value for IDD Field `Radial Thickness of Inner Radial Near Pipe Mesh Region`
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -7386,13 +7536,12 @@ class PipingSystemUndergroundPipeCircuit(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `radial_thickness_of_inner_radial_near_pipe_mesh_region`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `radial_thickness_of_inner_radial_near_pipe_mesh_region`')
-
         self._data["Radial Thickness of Inner Radial Near Pipe Mesh Region"] = value
 
     @property
@@ -7406,10 +7555,12 @@ class PipingSystemUndergroundPipeCircuit(object):
 
     @number_of_pipe_segments_entered_for_this_pipe_circuit.setter
     def number_of_pipe_segments_entered_for_this_pipe_circuit(self, value=None):
-        """  Corresponds to IDD Field `number_of_pipe_segments_entered_for_this_pipe_circuit`
+        """  Corresponds to IDD Field `Number of Pipe Segments Entered for this Pipe Circuit`
+        
+        {u'minimum': '1', u'type': u'integer', u'required-field': True, 'pytype': 'int'}
 
         Args:
-            value (int): value for IDD Field `number_of_pipe_segments_entered_for_this_pipe_circuit`
+            value (int): value for IDD Field `Number of Pipe Segments Entered for this Pipe Circuit`
                 value >= 1
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -7420,13 +7571,12 @@ class PipingSystemUndergroundPipeCircuit(object):
         if value is not None:
             try:
                 value = int(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type int '
                                  'for field `number_of_pipe_segments_entered_for_this_pipe_circuit`'.format(value))
             if value < 1:
                 raise ValueError('value need to be greater or equal 1 '
                                  'for field `number_of_pipe_segments_entered_for_this_pipe_circuit`')
-
         self._data["Number of Pipe Segments Entered for this Pipe Circuit"] = value
 
     @property
@@ -7440,11 +7590,13 @@ class PipingSystemUndergroundPipeCircuit(object):
 
     @pipe_segment_1.setter
     def pipe_segment_1(self, value=None):
-        """  Corresponds to IDD Field `pipe_segment_1`
+        """  Corresponds to IDD Field `Pipe Segment 1`
         Name of a pipe segment to be included in this pipe circuit
+        
+        {'pytype': 'str', u'begin-extensible': u'', u'required-field': True, u'note': [u'Name of a pipe segment to be included in this pipe circuit'], u'object-list': u'PipingSystemUndergroundSegmentNames', u'type': u'object-list'}
 
         Args:
-            value (str): value for IDD Field `pipe_segment_1`
+            value (str): value for IDD Field `Pipe Segment 1`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7454,7 +7606,7 @@ class PipingSystemUndergroundPipeCircuit(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `pipe_segment_1`'.format(value))
             if ',' in value:
@@ -7463,7 +7615,6 @@ class PipingSystemUndergroundPipeCircuit(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `pipe_segment_1`')
-
         self._data["Pipe Segment 1"] = value
 
     @property
@@ -7477,12 +7628,14 @@ class PipingSystemUndergroundPipeCircuit(object):
 
     @pipe_segment_2.setter
     def pipe_segment_2(self, value=None):
-        """  Corresponds to IDD Field `pipe_segment_2`
+        """  Corresponds to IDD Field `Pipe Segment 2`
         optional
         Name of a pipe segment to be included in this pipe circuit
+        
+        {u'note': [u'optional', u'Name of a pipe segment to be included in this pipe circuit'], u'type': u'object-list', u'object-list': u'PipingSystemUndergroundSegmentNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `pipe_segment_2`
+            value (str): value for IDD Field `Pipe Segment 2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7492,7 +7645,7 @@ class PipingSystemUndergroundPipeCircuit(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `pipe_segment_2`'.format(value))
             if ',' in value:
@@ -7501,7 +7654,6 @@ class PipingSystemUndergroundPipeCircuit(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `pipe_segment_2`')
-
         self._data["Pipe Segment 2"] = value
 
     @property
@@ -7515,12 +7667,14 @@ class PipingSystemUndergroundPipeCircuit(object):
 
     @pipe_segment_3.setter
     def pipe_segment_3(self, value=None):
-        """  Corresponds to IDD Field `pipe_segment_3`
+        """  Corresponds to IDD Field `Pipe Segment 3`
         optional
         Name of a pipe segment to be included in this pipe circuit
+        
+        {u'note': [u'optional', u'Name of a pipe segment to be included in this pipe circuit'], u'type': u'object-list', u'object-list': u'PipingSystemUndergroundSegmentNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `pipe_segment_3`
+            value (str): value for IDD Field `Pipe Segment 3`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7530,7 +7684,7 @@ class PipingSystemUndergroundPipeCircuit(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `pipe_segment_3`'.format(value))
             if ',' in value:
@@ -7539,7 +7693,6 @@ class PipingSystemUndergroundPipeCircuit(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `pipe_segment_3`')
-
         self._data["Pipe Segment 3"] = value
 
     @property
@@ -7553,12 +7706,14 @@ class PipingSystemUndergroundPipeCircuit(object):
 
     @pipe_segment_4.setter
     def pipe_segment_4(self, value=None):
-        """  Corresponds to IDD Field `pipe_segment_4`
+        """  Corresponds to IDD Field `Pipe Segment 4`
         optional
         Name of a pipe segment to be included in this pipe circuit
+        
+        {u'note': [u'optional', u'Name of a pipe segment to be included in this pipe circuit'], u'type': u'object-list', u'object-list': u'PipingSystemUndergroundSegmentNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `pipe_segment_4`
+            value (str): value for IDD Field `Pipe Segment 4`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7568,7 +7723,7 @@ class PipingSystemUndergroundPipeCircuit(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `pipe_segment_4`'.format(value))
             if ',' in value:
@@ -7577,7 +7732,6 @@ class PipingSystemUndergroundPipeCircuit(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `pipe_segment_4`')
-
         self._data["Pipe Segment 4"] = value
 
     @property
@@ -7591,12 +7745,14 @@ class PipingSystemUndergroundPipeCircuit(object):
 
     @pipe_segment_5.setter
     def pipe_segment_5(self, value=None):
-        """  Corresponds to IDD Field `pipe_segment_5`
+        """  Corresponds to IDD Field `Pipe Segment 5`
         optional
         Name of a pipe segment to be included in this pipe circuit
+        
+        {u'note': [u'optional', u'Name of a pipe segment to be included in this pipe circuit'], u'type': u'object-list', u'object-list': u'PipingSystemUndergroundSegmentNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `pipe_segment_5`
+            value (str): value for IDD Field `Pipe Segment 5`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7606,7 +7762,7 @@ class PipingSystemUndergroundPipeCircuit(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `pipe_segment_5`'.format(value))
             if ',' in value:
@@ -7615,7 +7771,6 @@ class PipingSystemUndergroundPipeCircuit(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `pipe_segment_5`')
-
         self._data["Pipe Segment 5"] = value
 
     @property
@@ -7629,12 +7784,14 @@ class PipingSystemUndergroundPipeCircuit(object):
 
     @pipe_segment_6.setter
     def pipe_segment_6(self, value=None):
-        """  Corresponds to IDD Field `pipe_segment_6`
+        """  Corresponds to IDD Field `Pipe Segment 6`
         optional
         Name of a pipe segment to be included in this pipe circuit
+        
+        {u'note': [u'optional', u'Name of a pipe segment to be included in this pipe circuit'], u'type': u'object-list', u'object-list': u'PipingSystemUndergroundSegmentNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `pipe_segment_6`
+            value (str): value for IDD Field `Pipe Segment 6`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7644,7 +7801,7 @@ class PipingSystemUndergroundPipeCircuit(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `pipe_segment_6`'.format(value))
             if ',' in value:
@@ -7653,7 +7810,6 @@ class PipingSystemUndergroundPipeCircuit(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `pipe_segment_6`')
-
         self._data["Pipe Segment 6"] = value
 
     def check(self):
@@ -7759,10 +7915,12 @@ class PipingSystemUndergroundPipeSegment(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {u'type': u'alpha', u'reference': u'PipingSystemUndergroundSegmentNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7772,7 +7930,7 @@ class PipingSystemUndergroundPipeSegment(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -7781,7 +7939,6 @@ class PipingSystemUndergroundPipeSegment(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -7795,14 +7952,16 @@ class PipingSystemUndergroundPipeSegment(object):
 
     @x_position.setter
     def x_position(self, value=None):
-        """  Corresponds to IDD Field `x_position`
+        """  Corresponds to IDD Field `X Position`
         This segment will be centered at this distance from the x=0
         domain surface or the basement wall surface, based on whether
         a basement exists in this domain and the selection of the
         shift input field found in the domain object.
+        
+        {'pytype': 'float', u'minimum>': '0.0', u'required-field': True, u'note': [u'This segment will be centered at this distance from the x=0', u'domain surface or the basement wall surface, based on whether', u'a basement exists in this domain and the selection of the', u'shift input field found in the domain object.'], u'units': u'm', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `x_position`
+            value (float): value for IDD Field `X Position`
                 Units: m
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -7814,13 +7973,12 @@ class PipingSystemUndergroundPipeSegment(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `x_position`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `x_position`')
-
         self._data["X Position"] = value
 
     @property
@@ -7834,13 +7992,15 @@ class PipingSystemUndergroundPipeSegment(object):
 
     @y_position.setter
     def y_position(self, value=None):
-        """  Corresponds to IDD Field `y_position`
+        """  Corresponds to IDD Field `Y Position`
         This segment will be centered at this distance away from the
         ground surface; thus this value represents the burial depth
         of this pipe segment.
+        
+        {'pytype': 'float', u'minimum>': '0.0', u'required-field': True, u'note': [u'This segment will be centered at this distance away from the', u'ground surface; thus this value represents the burial depth', u'of this pipe segment.'], u'units': u'm', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `y_position`
+            value (float): value for IDD Field `Y Position`
                 Units: m
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -7852,13 +8012,12 @@ class PipingSystemUndergroundPipeSegment(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `y_position`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `y_position`')
-
         self._data["Y Position"] = value
 
     @property
@@ -7872,13 +8031,15 @@ class PipingSystemUndergroundPipeSegment(object):
 
     @flow_direction.setter
     def flow_direction(self, value=None):
-        """  Corresponds to IDD Field `flow_direction`
+        """  Corresponds to IDD Field `Flow Direction`
         This segment will be simulated such that the flow is in the
         selected direction.  This can allow for detailed analysis
         of circuiting effects in a single domain.
+        
+        {u'note': [u'This segment will be simulated such that the flow is in the', u'selected direction.  This can allow for detailed analysis', u'of circuiting effects in a single domain.'], u'type': u'choice', u'key': [u'IncreasingZ', u'DecreasingZ'], u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `flow_direction`
+            value (str): value for IDD Field `Flow Direction`
                 Accepted values are:
                       - IncreasingZ
                       - DecreasingZ
@@ -7891,7 +8052,7 @@ class PipingSystemUndergroundPipeSegment(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `flow_direction`'.format(value))
             if ',' in value:
@@ -7917,7 +8078,6 @@ class PipingSystemUndergroundPipeSegment(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `flow_direction`'.format(value))
             value = vals[value_lower]
-
         self._data["Flow Direction"] = value
 
     def check(self):
@@ -8013,10 +8173,12 @@ class Duct(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {'type': 'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8026,7 +8188,7 @@ class Duct(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -8035,7 +8197,6 @@ class Duct(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -8049,10 +8210,12 @@ class Duct(object):
 
     @inlet_node_name.setter
     def inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `inlet_node_name`
+        """  Corresponds to IDD Field `Inlet Node Name`
+        
+        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `inlet_node_name`
+            value (str): value for IDD Field `Inlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8062,7 +8225,7 @@ class Duct(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `inlet_node_name`'.format(value))
             if ',' in value:
@@ -8071,7 +8234,6 @@ class Duct(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `inlet_node_name`')
-
         self._data["Inlet Node Name"] = value
 
     @property
@@ -8085,10 +8247,12 @@ class Duct(object):
 
     @outlet_node_name.setter
     def outlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `outlet_node_name`
+        """  Corresponds to IDD Field `Outlet Node Name`
+        
+        {u'Group': u'Pumps', u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `outlet_node_name`
+            value (str): value for IDD Field `Outlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8098,7 +8262,7 @@ class Duct(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `outlet_node_name`'.format(value))
             if ',' in value:
@@ -8107,7 +8271,6 @@ class Duct(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `outlet_node_name`')
-
         self._data["Outlet Node Name"] = value
 
     def check(self):
@@ -8379,10 +8542,12 @@ class PumpVariableSpeed(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {'type': 'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8392,7 +8557,7 @@ class PumpVariableSpeed(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -8401,7 +8566,6 @@ class PumpVariableSpeed(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -8415,10 +8579,12 @@ class PumpVariableSpeed(object):
 
     @inlet_node_name.setter
     def inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `inlet_node_name`
+        """  Corresponds to IDD Field `Inlet Node Name`
+        
+        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `inlet_node_name`
+            value (str): value for IDD Field `Inlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8428,7 +8594,7 @@ class PumpVariableSpeed(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `inlet_node_name`'.format(value))
             if ',' in value:
@@ -8437,7 +8603,6 @@ class PumpVariableSpeed(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `inlet_node_name`')
-
         self._data["Inlet Node Name"] = value
 
     @property
@@ -8451,10 +8616,12 @@ class PumpVariableSpeed(object):
 
     @outlet_node_name.setter
     def outlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `outlet_node_name`
+        """  Corresponds to IDD Field `Outlet Node Name`
+        
+        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `outlet_node_name`
+            value (str): value for IDD Field `Outlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8464,7 +8631,7 @@ class PumpVariableSpeed(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `outlet_node_name`'.format(value))
             if ',' in value:
@@ -8473,7 +8640,6 @@ class PumpVariableSpeed(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `outlet_node_name`')
-
         self._data["Outlet Node Name"] = value
 
     @property
@@ -8487,10 +8653,12 @@ class PumpVariableSpeed(object):
 
     @rated_flow_rate.setter
     def rated_flow_rate(self, value=None):
-        """  Corresponds to IDD Field `rated_flow_rate`
+        """  Corresponds to IDD Field `Rated Flow Rate`
+        
+        {'pytype': 'float', u'minimum>': '0.0', u'ip-units': u'gal/min', u'autosizable': u'', u'units': u'm3/s', 'type': 'real'}
 
         Args:
-            value (float): value for IDD Field `rated_flow_rate`
+            value (float): value for IDD Field `Rated Flow Rate`
                 Units: m3/s
                 IP-Units: gal/min
                 value > 0.0
@@ -8503,13 +8671,12 @@ class PumpVariableSpeed(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `rated_flow_rate`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `rated_flow_rate`')
-
         self._data["Rated Flow Rate"] = value
 
     @property
@@ -8523,11 +8690,13 @@ class PumpVariableSpeed(object):
 
     @rated_pump_head.setter
     def rated_pump_head(self, value=179352.0 ):
-        """  Corresponds to IDD Field `rated_pump_head`
+        """  Corresponds to IDD Field `Rated Pump Head`
         default head is 60 feet
+        
+        {'pytype': 'float', u'default': '179352.0', u'note': [u'default head is 60 feet'], u'ip-units': u'ftH2O', u'units': u'Pa', 'type': 'real'}
 
         Args:
-            value (float): value for IDD Field `rated_pump_head`
+            value (float): value for IDD Field `Rated Pump Head`
                 Units: Pa
                 IP-Units: ftH2O
                 Default value: 179352.0
@@ -8540,10 +8709,9 @@ class PumpVariableSpeed(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `rated_pump_head`'.format(value))
-
         self._data["Rated Pump Head"] = value
 
     @property
@@ -8557,12 +8725,14 @@ class PumpVariableSpeed(object):
 
     @rated_power_consumption.setter
     def rated_power_consumption(self, value=None):
-        """  Corresponds to IDD Field `rated_power_consumption`
+        """  Corresponds to IDD Field `Rated Power Consumption`
         If this field is autosized, an impeller efficiency of 0.78 is assumed.
         autosized Rated Power Consumption = Rated Flow Rate * Rated Pump Head / (0.78 * Motor Efficiency)
+        
+        {'pytype': 'float', u'note': [u'If this field is autosized, an impeller efficiency of 0.78 is assumed.', u'autosized Rated Power Consumption = Rated Flow Rate * Rated Pump Head / (0.78 * Motor Efficiency)'], u'ip-units': u'W', u'autosizable': u'', u'units': u'W', 'type': 'real'}
 
         Args:
-            value (float): value for IDD Field `rated_power_consumption`
+            value (float): value for IDD Field `Rated Power Consumption`
                 Units: W
                 IP-Units: W
                 if `value` is None it will not be checked against the
@@ -8574,10 +8744,9 @@ class PumpVariableSpeed(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `rated_power_consumption`'.format(value))
-
         self._data["Rated Power Consumption"] = value
 
     @property
@@ -8591,12 +8760,14 @@ class PumpVariableSpeed(object):
 
     @motor_efficiency.setter
     def motor_efficiency(self, value=0.9 ):
-        """  Corresponds to IDD Field `motor_efficiency`
+        """  Corresponds to IDD Field `Motor Efficiency`
         This is the motor efficiency only. When the Rated Power Consumption if autosized,
         an impeller efficiency of 0.78 is assumed in addition to the motor efficiency.
+        
+        {'pytype': 'float', u'default': '0.9', u'minimum>': '0.0', u'maximum': '1.0', u'note': [u'This is the motor efficiency only. When the Rated Power Consumption if autosized,', u'an impeller efficiency of 0.78 is assumed in addition to the motor efficiency.'], u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `motor_efficiency`
+            value (float): value for IDD Field `Motor Efficiency`
                 Default value: 0.9
                 value > 0.0
                 value <= 1.0
@@ -8609,7 +8780,7 @@ class PumpVariableSpeed(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `motor_efficiency`'.format(value))
             if value <= 0.0:
@@ -8618,7 +8789,6 @@ class PumpVariableSpeed(object):
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `motor_efficiency`')
-
         self._data["Motor Efficiency"] = value
 
     @property
@@ -8632,10 +8802,12 @@ class PumpVariableSpeed(object):
 
     @fraction_of_motor_inefficiencies_to_fluid_stream.setter
     def fraction_of_motor_inefficiencies_to_fluid_stream(self, value=0.0 ):
-        """  Corresponds to IDD Field `fraction_of_motor_inefficiencies_to_fluid_stream`
+        """  Corresponds to IDD Field `Fraction of Motor Inefficiencies to Fluid Stream`
+        
+        {u'default': '0.0', u'minimum': '0.0', 'type': 'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `fraction_of_motor_inefficiencies_to_fluid_stream`
+            value (float): value for IDD Field `Fraction of Motor Inefficiencies to Fluid Stream`
                 Default value: 0.0
                 value >= 0.0
                 value <= 1.0
@@ -8648,7 +8820,7 @@ class PumpVariableSpeed(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `fraction_of_motor_inefficiencies_to_fluid_stream`'.format(value))
             if value < 0.0:
@@ -8657,7 +8829,6 @@ class PumpVariableSpeed(object):
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `fraction_of_motor_inefficiencies_to_fluid_stream`')
-
         self._data["Fraction of Motor Inefficiencies to Fluid Stream"] = value
 
     @property
@@ -8671,10 +8842,12 @@ class PumpVariableSpeed(object):
 
     @coefficient_1_of_the_part_load_performance_curve.setter
     def coefficient_1_of_the_part_load_performance_curve(self, value=0.0 ):
-        """  Corresponds to IDD Field `coefficient_1_of_the_part_load_performance_curve`
+        """  Corresponds to IDD Field `Coefficient 1 of the Part Load Performance Curve`
+        
+        {u'default': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `coefficient_1_of_the_part_load_performance_curve`
+            value (float): value for IDD Field `Coefficient 1 of the Part Load Performance Curve`
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -8685,10 +8858,9 @@ class PumpVariableSpeed(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `coefficient_1_of_the_part_load_performance_curve`'.format(value))
-
         self._data["Coefficient 1 of the Part Load Performance Curve"] = value
 
     @property
@@ -8702,10 +8874,12 @@ class PumpVariableSpeed(object):
 
     @coefficient_2_of_the_part_load_performance_curve.setter
     def coefficient_2_of_the_part_load_performance_curve(self, value=1.0 ):
-        """  Corresponds to IDD Field `coefficient_2_of_the_part_load_performance_curve`
+        """  Corresponds to IDD Field `Coefficient 2 of the Part Load Performance Curve`
+        
+        {u'default': '1.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `coefficient_2_of_the_part_load_performance_curve`
+            value (float): value for IDD Field `Coefficient 2 of the Part Load Performance Curve`
                 Default value: 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -8716,10 +8890,9 @@ class PumpVariableSpeed(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `coefficient_2_of_the_part_load_performance_curve`'.format(value))
-
         self._data["Coefficient 2 of the Part Load Performance Curve"] = value
 
     @property
@@ -8733,10 +8906,12 @@ class PumpVariableSpeed(object):
 
     @coefficient_3_of_the_part_load_performance_curve.setter
     def coefficient_3_of_the_part_load_performance_curve(self, value=0.0 ):
-        """  Corresponds to IDD Field `coefficient_3_of_the_part_load_performance_curve`
+        """  Corresponds to IDD Field `Coefficient 3 of the Part Load Performance Curve`
+        
+        {u'default': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `coefficient_3_of_the_part_load_performance_curve`
+            value (float): value for IDD Field `Coefficient 3 of the Part Load Performance Curve`
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -8747,10 +8922,9 @@ class PumpVariableSpeed(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `coefficient_3_of_the_part_load_performance_curve`'.format(value))
-
         self._data["Coefficient 3 of the Part Load Performance Curve"] = value
 
     @property
@@ -8764,10 +8938,12 @@ class PumpVariableSpeed(object):
 
     @coefficient_4_of_the_part_load_performance_curve.setter
     def coefficient_4_of_the_part_load_performance_curve(self, value=0.0 ):
-        """  Corresponds to IDD Field `coefficient_4_of_the_part_load_performance_curve`
+        """  Corresponds to IDD Field `Coefficient 4 of the Part Load Performance Curve`
+        
+        {u'default': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `coefficient_4_of_the_part_load_performance_curve`
+            value (float): value for IDD Field `Coefficient 4 of the Part Load Performance Curve`
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -8778,10 +8954,9 @@ class PumpVariableSpeed(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `coefficient_4_of_the_part_load_performance_curve`'.format(value))
-
         self._data["Coefficient 4 of the Part Load Performance Curve"] = value
 
     @property
@@ -8795,11 +8970,13 @@ class PumpVariableSpeed(object):
 
     @minimum_flow_rate.setter
     def minimum_flow_rate(self, value=0.0 ):
-        """  Corresponds to IDD Field `minimum_flow_rate`
+        """  Corresponds to IDD Field `Minimum Flow Rate`
         This value can be zero and will be defaulted to that if not specified.
+        
+        {'pytype': 'float', u'default': '0.0', u'note': [u'This value can be zero and will be defaulted to that if not specified.'], u'ip-units': u'gal/min', u'units': u'm3/s', 'type': 'real'}
 
         Args:
-            value (float): value for IDD Field `minimum_flow_rate`
+            value (float): value for IDD Field `Minimum Flow Rate`
                 Units: m3/s
                 IP-Units: gal/min
                 Default value: 0.0
@@ -8812,10 +8989,9 @@ class PumpVariableSpeed(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `minimum_flow_rate`'.format(value))
-
         self._data["Minimum Flow Rate"] = value
 
     @property
@@ -8829,10 +9005,12 @@ class PumpVariableSpeed(object):
 
     @pump_control_type.setter
     def pump_control_type(self, value="Continuous"):
-        """  Corresponds to IDD Field `pump_control_type`
+        """  Corresponds to IDD Field `Pump Control Type`
+        
+        {u'default': u'Continuous', u'type': u'choice', u'key': [u'Continuous', u'Intermittent'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `pump_control_type`
+            value (str): value for IDD Field `Pump Control Type`
                 Accepted values are:
                       - Continuous
                       - Intermittent
@@ -8846,7 +9024,7 @@ class PumpVariableSpeed(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `pump_control_type`'.format(value))
             if ',' in value:
@@ -8872,7 +9050,6 @@ class PumpVariableSpeed(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `pump_control_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Pump Control Type"] = value
 
     @property
@@ -8886,13 +9063,15 @@ class PumpVariableSpeed(object):
 
     @pump_flow_rate_schedule_name.setter
     def pump_flow_rate_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `pump_flow_rate_schedule_name`
+        """  Corresponds to IDD Field `Pump Flow Rate Schedule Name`
         Modifies the rated flow rate of the pump on a time basis. Default is
         that the pump is on and runs according to its other operational requirements
         specified above.  The schedule is for special pump operations.
+        
+        {u'note': [u'Modifies the rated flow rate of the pump on a time basis. Default is', u'that the pump is on and runs according to its other operational requirements', u'specified above.  The schedule is for special pump operations.'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `pump_flow_rate_schedule_name`
+            value (str): value for IDD Field `Pump Flow Rate Schedule Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8902,7 +9081,7 @@ class PumpVariableSpeed(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `pump_flow_rate_schedule_name`'.format(value))
             if ',' in value:
@@ -8911,7 +9090,6 @@ class PumpVariableSpeed(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `pump_flow_rate_schedule_name`')
-
         self._data["Pump Flow Rate Schedule Name"] = value
 
     @property
@@ -8925,7 +9103,7 @@ class PumpVariableSpeed(object):
 
     @pump_curve_name.setter
     def pump_curve_name(self, value=None):
-        """  Corresponds to IDD Field `pump_curve_name`
+        """  Corresponds to IDD Field `Pump Curve Name`
         This references any single independent variable polynomial curve in order to
         do pressure vs. flow calculations for this pump.  The available types are then:
         Linear, Quadratic, Cubic, and Quartic
@@ -8935,9 +9113,11 @@ class PumpVariableSpeed(object):
         delP = rho * ((N/60)^2) * (D^2) * psi
         mdot = rho * (N/60) * (D^3) * phi
         Table:OneIndependentVariable object can also be used
+        
+        {u'note': [u'This references any single independent variable polynomial curve in order to', u'do pressure vs. flow calculations for this pump.  The available types are then:', u'Linear, Quadratic, Cubic, and Quartic', u'The non-dimensional pump pressure relationship is of the following form:', u'(psi = C4*phi^4 + C3*phi^3 + C2*phi^2 + C1*phi + C0)', u'Where the nondimensional variables are defined as:', u'delP = rho * ((N/60)^2) * (D^2) * psi', u'mdot = rho * (N/60) * (D^3) * phi', u'Table:OneIndependentVariable object can also be used'], u'type': u'object-list', u'object-list': u'AllCurves', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `pump_curve_name`
+            value (str): value for IDD Field `Pump Curve Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8947,7 +9127,7 @@ class PumpVariableSpeed(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `pump_curve_name`'.format(value))
             if ',' in value:
@@ -8956,7 +9136,6 @@ class PumpVariableSpeed(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `pump_curve_name`')
-
         self._data["Pump Curve Name"] = value
 
     @property
@@ -8970,11 +9149,13 @@ class PumpVariableSpeed(object):
 
     @impeller_diameter.setter
     def impeller_diameter(self, value=None):
-        """  Corresponds to IDD Field `impeller_diameter`
+        """  Corresponds to IDD Field `Impeller Diameter`
         "D" in above expression in field A6
+        
+        {u'units': u'm', u'note': [u'"D" in above expression in field A6'], u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `impeller_diameter`
+            value (float): value for IDD Field `Impeller Diameter`
                 Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -8985,10 +9166,9 @@ class PumpVariableSpeed(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `impeller_diameter`'.format(value))
-
         self._data["Impeller Diameter"] = value
 
     @property
@@ -9002,10 +9182,12 @@ class PumpVariableSpeed(object):
 
     @vfd_control_type.setter
     def vfd_control_type(self, value=None):
-        """  Corresponds to IDD Field `vfd_control_type`
+        """  Corresponds to IDD Field `VFD Control Type`
+        
+        {u'type': u'choice', u'key': [u'ManualControl', u'PressureSetpointControl'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `vfd_control_type`
+            value (str): value for IDD Field `VFD Control Type`
                 Accepted values are:
                       - ManualControl
                       - PressureSetpointControl
@@ -9018,7 +9200,7 @@ class PumpVariableSpeed(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `vfd_control_type`'.format(value))
             if ',' in value:
@@ -9044,7 +9226,6 @@ class PumpVariableSpeed(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `vfd_control_type`'.format(value))
             value = vals[value_lower]
-
         self._data["VFD Control Type"] = value
 
     @property
@@ -9058,13 +9239,15 @@ class PumpVariableSpeed(object):
 
     @pump_rpm_schedule_name.setter
     def pump_rpm_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `pump_rpm_schedule_name`
+        """  Corresponds to IDD Field `Pump rpm Schedule Name`
         Modifies the rpm of the pump on a time basis. Default is
         that the pump is on and runs according to its other operational requirements
         specified above.  The schedule is for special pump operations.
+        
+        {u'note': [u'Modifies the rpm of the pump on a time basis. Default is', u'that the pump is on and runs according to its other operational requirements', u'specified above.  The schedule is for special pump operations.'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `pump_rpm_schedule_name`
+            value (str): value for IDD Field `Pump rpm Schedule Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9074,7 +9257,7 @@ class PumpVariableSpeed(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `pump_rpm_schedule_name`'.format(value))
             if ',' in value:
@@ -9083,7 +9266,6 @@ class PumpVariableSpeed(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `pump_rpm_schedule_name`')
-
         self._data["Pump rpm Schedule Name"] = value
 
     @property
@@ -9097,10 +9279,12 @@ class PumpVariableSpeed(object):
 
     @minimum_pressure_schedule.setter
     def minimum_pressure_schedule(self, value=None):
-        """  Corresponds to IDD Field `minimum_pressure_schedule`
+        """  Corresponds to IDD Field `Minimum Pressure Schedule`
+        
+        {u'units': u'Pa', u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `minimum_pressure_schedule`
+            value (str): value for IDD Field `Minimum Pressure Schedule`
                 Units: Pa
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -9111,7 +9295,7 @@ class PumpVariableSpeed(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `minimum_pressure_schedule`'.format(value))
             if ',' in value:
@@ -9120,7 +9304,6 @@ class PumpVariableSpeed(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `minimum_pressure_schedule`')
-
         self._data["Minimum Pressure Schedule"] = value
 
     @property
@@ -9134,10 +9317,12 @@ class PumpVariableSpeed(object):
 
     @maximum_pressure_schedule.setter
     def maximum_pressure_schedule(self, value=None):
-        """  Corresponds to IDD Field `maximum_pressure_schedule`
+        """  Corresponds to IDD Field `Maximum Pressure Schedule`
+        
+        {u'units': u'Pa', u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `maximum_pressure_schedule`
+            value (str): value for IDD Field `Maximum Pressure Schedule`
                 Units: Pa
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -9148,7 +9333,7 @@ class PumpVariableSpeed(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `maximum_pressure_schedule`'.format(value))
             if ',' in value:
@@ -9157,7 +9342,6 @@ class PumpVariableSpeed(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `maximum_pressure_schedule`')
-
         self._data["Maximum Pressure Schedule"] = value
 
     @property
@@ -9171,10 +9355,12 @@ class PumpVariableSpeed(object):
 
     @minimum_rpm_schedule.setter
     def minimum_rpm_schedule(self, value=None):
-        """  Corresponds to IDD Field `minimum_rpm_schedule`
+        """  Corresponds to IDD Field `Minimum RPM Schedule`
+        
+        {u'units': u'Rotations Per Minute', u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `minimum_rpm_schedule`
+            value (str): value for IDD Field `Minimum RPM Schedule`
                 Units: Rotations Per Minute
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -9185,7 +9371,7 @@ class PumpVariableSpeed(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `minimum_rpm_schedule`'.format(value))
             if ',' in value:
@@ -9194,7 +9380,6 @@ class PumpVariableSpeed(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `minimum_rpm_schedule`')
-
         self._data["Minimum RPM Schedule"] = value
 
     @property
@@ -9208,10 +9393,12 @@ class PumpVariableSpeed(object):
 
     @maximum_rpm_schedule.setter
     def maximum_rpm_schedule(self, value=None):
-        """  Corresponds to IDD Field `maximum_rpm_schedule`
+        """  Corresponds to IDD Field `Maximum RPM Schedule`
+        
+        {u'units': u'Rotations Per Minute', u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `maximum_rpm_schedule`
+            value (str): value for IDD Field `Maximum RPM Schedule`
                 Units: Rotations Per Minute
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -9222,7 +9409,7 @@ class PumpVariableSpeed(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `maximum_rpm_schedule`'.format(value))
             if ',' in value:
@@ -9231,7 +9418,6 @@ class PumpVariableSpeed(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `maximum_rpm_schedule`')
-
         self._data["Maximum RPM Schedule"] = value
 
     @property
@@ -9245,11 +9431,13 @@ class PumpVariableSpeed(object):
 
     @zone_name.setter
     def zone_name(self, value=None):
-        """  Corresponds to IDD Field `zone_name`
+        """  Corresponds to IDD Field `Zone Name`
         optional, if used pump losses transfered to zone as internal gains
+        
+        {u'note': [u'optional, if used pump losses transfered to zone as internal gains'], u'type': u'Object-list', u'object-list': u'ZoneNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `zone_name`
+            value (str): value for IDD Field `Zone Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9259,7 +9447,7 @@ class PumpVariableSpeed(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `zone_name`'.format(value))
             if ',' in value:
@@ -9268,7 +9456,6 @@ class PumpVariableSpeed(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `zone_name`')
-
         self._data["Zone Name"] = value
 
     @property
@@ -9282,12 +9469,14 @@ class PumpVariableSpeed(object):
 
     @skin_loss_radiative_fraction.setter
     def skin_loss_radiative_fraction(self, value=None):
-        """  Corresponds to IDD Field `skin_loss_radiative_fraction`
+        """  Corresponds to IDD Field `Skin Loss Radiative Fraction`
         optional. If zone identified in previous field then this determines
         the split between convection and radiation for the skin losses
+        
+        {u'note': [u'optional. If zone identified in previous field then this determines', u'the split between convection and radiation for the skin losses'], u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `skin_loss_radiative_fraction`
+            value (float): value for IDD Field `Skin Loss Radiative Fraction`
                 value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
@@ -9299,7 +9488,7 @@ class PumpVariableSpeed(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `skin_loss_radiative_fraction`'.format(value))
             if value < 0.0:
@@ -9308,7 +9497,6 @@ class PumpVariableSpeed(object):
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `skin_loss_radiative_fraction`')
-
         self._data["Skin Loss Radiative Fraction"] = value
 
     def check(self):
@@ -9500,10 +9688,12 @@ class PumpConstantSpeed(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {'type': 'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9513,7 +9703,7 @@ class PumpConstantSpeed(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -9522,7 +9712,6 @@ class PumpConstantSpeed(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -9536,10 +9725,12 @@ class PumpConstantSpeed(object):
 
     @inlet_node_name.setter
     def inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `inlet_node_name`
+        """  Corresponds to IDD Field `Inlet Node Name`
+        
+        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `inlet_node_name`
+            value (str): value for IDD Field `Inlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9549,7 +9740,7 @@ class PumpConstantSpeed(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `inlet_node_name`'.format(value))
             if ',' in value:
@@ -9558,7 +9749,6 @@ class PumpConstantSpeed(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `inlet_node_name`')
-
         self._data["Inlet Node Name"] = value
 
     @property
@@ -9572,10 +9762,12 @@ class PumpConstantSpeed(object):
 
     @outlet_node_name.setter
     def outlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `outlet_node_name`
+        """  Corresponds to IDD Field `Outlet Node Name`
+        
+        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `outlet_node_name`
+            value (str): value for IDD Field `Outlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9585,7 +9777,7 @@ class PumpConstantSpeed(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `outlet_node_name`'.format(value))
             if ',' in value:
@@ -9594,7 +9786,6 @@ class PumpConstantSpeed(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `outlet_node_name`')
-
         self._data["Outlet Node Name"] = value
 
     @property
@@ -9608,10 +9799,12 @@ class PumpConstantSpeed(object):
 
     @rated_flow_rate.setter
     def rated_flow_rate(self, value=None):
-        """  Corresponds to IDD Field `rated_flow_rate`
+        """  Corresponds to IDD Field `Rated Flow Rate`
+        
+        {'pytype': 'float', u'minimum>': '0.0', u'ip-units': u'gal/min', u'autosizable': u'', u'units': u'm3/s', 'type': 'real'}
 
         Args:
-            value (float): value for IDD Field `rated_flow_rate`
+            value (float): value for IDD Field `Rated Flow Rate`
                 Units: m3/s
                 IP-Units: gal/min
                 value > 0.0
@@ -9624,13 +9817,12 @@ class PumpConstantSpeed(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `rated_flow_rate`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `rated_flow_rate`')
-
         self._data["Rated Flow Rate"] = value
 
     @property
@@ -9644,11 +9836,13 @@ class PumpConstantSpeed(object):
 
     @rated_pump_head.setter
     def rated_pump_head(self, value=179352.0 ):
-        """  Corresponds to IDD Field `rated_pump_head`
+        """  Corresponds to IDD Field `Rated Pump Head`
         default head is 60 feet
+        
+        {'pytype': 'float', u'default': '179352.0', u'note': [u'default head is 60 feet'], u'ip-units': u'ftH2O', u'units': u'Pa', 'type': 'real'}
 
         Args:
-            value (float): value for IDD Field `rated_pump_head`
+            value (float): value for IDD Field `Rated Pump Head`
                 Units: Pa
                 IP-Units: ftH2O
                 Default value: 179352.0
@@ -9661,10 +9855,9 @@ class PumpConstantSpeed(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `rated_pump_head`'.format(value))
-
         self._data["Rated Pump Head"] = value
 
     @property
@@ -9678,12 +9871,14 @@ class PumpConstantSpeed(object):
 
     @rated_power_consumption.setter
     def rated_power_consumption(self, value=None):
-        """  Corresponds to IDD Field `rated_power_consumption`
+        """  Corresponds to IDD Field `Rated Power Consumption`
         If this field is autosized, an impeller efficiency of 0.78 is assumed.
         autosized Rated Power Consumption = Rated Flow Rate * Rated Pump Head / (0.78 * Motor Efficiency)
+        
+        {'pytype': 'float', u'note': [u'If this field is autosized, an impeller efficiency of 0.78 is assumed.', u'autosized Rated Power Consumption = Rated Flow Rate * Rated Pump Head / (0.78 * Motor Efficiency)'], u'ip-units': u'W', u'autosizable': u'', u'units': u'W', 'type': 'real'}
 
         Args:
-            value (float): value for IDD Field `rated_power_consumption`
+            value (float): value for IDD Field `Rated Power Consumption`
                 Units: W
                 IP-Units: W
                 if `value` is None it will not be checked against the
@@ -9695,10 +9890,9 @@ class PumpConstantSpeed(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `rated_power_consumption`'.format(value))
-
         self._data["Rated Power Consumption"] = value
 
     @property
@@ -9712,12 +9906,14 @@ class PumpConstantSpeed(object):
 
     @motor_efficiency.setter
     def motor_efficiency(self, value=0.9 ):
-        """  Corresponds to IDD Field `motor_efficiency`
+        """  Corresponds to IDD Field `Motor Efficiency`
         This is the motor efficiency only. When the Rated Power Consumption if autosized,
         an impeller efficiency of 0.78 is assumed in addition to the motor efficiency.
+        
+        {'pytype': 'float', u'default': '0.9', u'minimum>': '0.0', u'maximum': '1.0', u'note': [u'This is the motor efficiency only. When the Rated Power Consumption if autosized,', u'an impeller efficiency of 0.78 is assumed in addition to the motor efficiency.'], u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `motor_efficiency`
+            value (float): value for IDD Field `Motor Efficiency`
                 Default value: 0.9
                 value > 0.0
                 value <= 1.0
@@ -9730,7 +9926,7 @@ class PumpConstantSpeed(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `motor_efficiency`'.format(value))
             if value <= 0.0:
@@ -9739,7 +9935,6 @@ class PumpConstantSpeed(object):
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `motor_efficiency`')
-
         self._data["Motor Efficiency"] = value
 
     @property
@@ -9753,10 +9948,12 @@ class PumpConstantSpeed(object):
 
     @fraction_of_motor_inefficiencies_to_fluid_stream.setter
     def fraction_of_motor_inefficiencies_to_fluid_stream(self, value=0.0 ):
-        """  Corresponds to IDD Field `fraction_of_motor_inefficiencies_to_fluid_stream`
+        """  Corresponds to IDD Field `Fraction of Motor Inefficiencies to Fluid Stream`
+        
+        {u'default': '0.0', u'minimum': '0.0', 'type': 'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `fraction_of_motor_inefficiencies_to_fluid_stream`
+            value (float): value for IDD Field `Fraction of Motor Inefficiencies to Fluid Stream`
                 Default value: 0.0
                 value >= 0.0
                 value <= 1.0
@@ -9769,7 +9966,7 @@ class PumpConstantSpeed(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `fraction_of_motor_inefficiencies_to_fluid_stream`'.format(value))
             if value < 0.0:
@@ -9778,7 +9975,6 @@ class PumpConstantSpeed(object):
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `fraction_of_motor_inefficiencies_to_fluid_stream`')
-
         self._data["Fraction of Motor Inefficiencies to Fluid Stream"] = value
 
     @property
@@ -9792,10 +9988,12 @@ class PumpConstantSpeed(object):
 
     @pump_control_type.setter
     def pump_control_type(self, value="Continuous"):
-        """  Corresponds to IDD Field `pump_control_type`
+        """  Corresponds to IDD Field `Pump Control Type`
+        
+        {u'default': u'Continuous', u'type': u'choice', u'key': [u'Continuous', u'Intermittent'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `pump_control_type`
+            value (str): value for IDD Field `Pump Control Type`
                 Accepted values are:
                       - Continuous
                       - Intermittent
@@ -9809,7 +10007,7 @@ class PumpConstantSpeed(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `pump_control_type`'.format(value))
             if ',' in value:
@@ -9835,7 +10033,6 @@ class PumpConstantSpeed(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `pump_control_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Pump Control Type"] = value
 
     @property
@@ -9849,13 +10046,15 @@ class PumpConstantSpeed(object):
 
     @pump_flow_rate_schedule_name.setter
     def pump_flow_rate_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `pump_flow_rate_schedule_name`
+        """  Corresponds to IDD Field `Pump Flow Rate Schedule Name`
         Modifies the rated flow rate of the pump on a time basis. Default is
         that the pump is on and runs according to its other operational requirements
         specified above.  The schedule is for special pump operations.
+        
+        {u'note': [u'Modifies the rated flow rate of the pump on a time basis. Default is', u'that the pump is on and runs according to its other operational requirements', u'specified above.  The schedule is for special pump operations.'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `pump_flow_rate_schedule_name`
+            value (str): value for IDD Field `Pump Flow Rate Schedule Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9865,7 +10064,7 @@ class PumpConstantSpeed(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `pump_flow_rate_schedule_name`'.format(value))
             if ',' in value:
@@ -9874,7 +10073,6 @@ class PumpConstantSpeed(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `pump_flow_rate_schedule_name`')
-
         self._data["Pump Flow Rate Schedule Name"] = value
 
     @property
@@ -9888,7 +10086,7 @@ class PumpConstantSpeed(object):
 
     @pump_curve_name.setter
     def pump_curve_name(self, value=None):
-        """  Corresponds to IDD Field `pump_curve_name`
+        """  Corresponds to IDD Field `Pump Curve Name`
         This references any single independent variable polynomial curve in order to
         do pressure vs. flow calculations for this pump.  The available types are then:
         Linear, Quadratic, Cubic, and Quartic
@@ -9898,9 +10096,11 @@ class PumpConstantSpeed(object):
         delP = rho * ((N/60)^2) * (D^2) * psi
         mdot = rho * (N/60) * (D^3) * phi
         Table:OneIndependentVariable object can also be used
+        
+        {u'note': [u'This references any single independent variable polynomial curve in order to', u'do pressure vs. flow calculations for this pump.  The available types are then:', u'Linear, Quadratic, Cubic, and Quartic', u'The non-dimensional pump pressure relationship is of the following form:', u'(psi = C4*phi^4 + C3*phi^3 + C2*phi^2 + C1*phi + C0)', u'Where the nondimensional variables are defined as:', u'delP = rho * ((N/60)^2) * (D^2) * psi', u'mdot = rho * (N/60) * (D^3) * phi', u'Table:OneIndependentVariable object can also be used'], u'type': u'object-list', u'object-list': u'AllCurves', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `pump_curve_name`
+            value (str): value for IDD Field `Pump Curve Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9910,7 +10110,7 @@ class PumpConstantSpeed(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `pump_curve_name`'.format(value))
             if ',' in value:
@@ -9919,7 +10119,6 @@ class PumpConstantSpeed(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `pump_curve_name`')
-
         self._data["Pump Curve Name"] = value
 
     @property
@@ -9933,11 +10132,13 @@ class PumpConstantSpeed(object):
 
     @impeller_diameter.setter
     def impeller_diameter(self, value=None):
-        """  Corresponds to IDD Field `impeller_diameter`
+        """  Corresponds to IDD Field `Impeller Diameter`
         "D" in above expression in field A6
+        
+        {u'units': u'm', u'note': [u'"D" in above expression in field A6'], u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `impeller_diameter`
+            value (float): value for IDD Field `Impeller Diameter`
                 Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -9948,10 +10149,9 @@ class PumpConstantSpeed(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `impeller_diameter`'.format(value))
-
         self._data["Impeller Diameter"] = value
 
     @property
@@ -9965,11 +10165,13 @@ class PumpConstantSpeed(object):
 
     @rotational_speed.setter
     def rotational_speed(self, value=None):
-        """  Corresponds to IDD Field `rotational_speed`
+        """  Corresponds to IDD Field `Rotational Speed`
         "N" in above expression in field A6
+        
+        {u'units': u'rev/min', u'note': [u'"N" in above expression in field A6'], u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `rotational_speed`
+            value (float): value for IDD Field `Rotational Speed`
                 Units: rev/min
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -9980,10 +10182,9 @@ class PumpConstantSpeed(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `rotational_speed`'.format(value))
-
         self._data["Rotational Speed"] = value
 
     @property
@@ -9997,11 +10198,13 @@ class PumpConstantSpeed(object):
 
     @zone_name.setter
     def zone_name(self, value=None):
-        """  Corresponds to IDD Field `zone_name`
+        """  Corresponds to IDD Field `Zone Name`
         optional, if used pump losses transfered to zone as internal gains
+        
+        {u'note': [u'optional, if used pump losses transfered to zone as internal gains'], u'type': u'Object-list', u'object-list': u'ZoneNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `zone_name`
+            value (str): value for IDD Field `Zone Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -10011,7 +10214,7 @@ class PumpConstantSpeed(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `zone_name`'.format(value))
             if ',' in value:
@@ -10020,7 +10223,6 @@ class PumpConstantSpeed(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `zone_name`')
-
         self._data["Zone Name"] = value
 
     @property
@@ -10034,12 +10236,14 @@ class PumpConstantSpeed(object):
 
     @skin_loss_radiative_fraction.setter
     def skin_loss_radiative_fraction(self, value=None):
-        """  Corresponds to IDD Field `skin_loss_radiative_fraction`
+        """  Corresponds to IDD Field `Skin Loss Radiative Fraction`
         optional. If zone identified in previous field then this determines
         the split between convection and radiation for the skin losses
+        
+        {u'note': [u'optional. If zone identified in previous field then this determines', u'the split between convection and radiation for the skin losses'], u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `skin_loss_radiative_fraction`
+            value (float): value for IDD Field `Skin Loss Radiative Fraction`
                 value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
@@ -10051,7 +10255,7 @@ class PumpConstantSpeed(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `skin_loss_radiative_fraction`'.format(value))
             if value < 0.0:
@@ -10060,7 +10264,6 @@ class PumpConstantSpeed(object):
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `skin_loss_radiative_fraction`')
-
         self._data["Skin Loss Radiative Fraction"] = value
 
     def check(self):
@@ -10253,10 +10456,12 @@ class PumpVariableSpeedCondensate(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {'type': 'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -10266,7 +10471,7 @@ class PumpVariableSpeedCondensate(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -10275,7 +10480,6 @@ class PumpVariableSpeedCondensate(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -10289,10 +10493,12 @@ class PumpVariableSpeedCondensate(object):
 
     @inlet_node_name.setter
     def inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `inlet_node_name`
+        """  Corresponds to IDD Field `Inlet Node Name`
+        
+        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `inlet_node_name`
+            value (str): value for IDD Field `Inlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -10302,7 +10508,7 @@ class PumpVariableSpeedCondensate(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `inlet_node_name`'.format(value))
             if ',' in value:
@@ -10311,7 +10517,6 @@ class PumpVariableSpeedCondensate(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `inlet_node_name`')
-
         self._data["Inlet Node Name"] = value
 
     @property
@@ -10325,10 +10530,12 @@ class PumpVariableSpeedCondensate(object):
 
     @outlet_node_name.setter
     def outlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `outlet_node_name`
+        """  Corresponds to IDD Field `Outlet Node Name`
+        
+        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `outlet_node_name`
+            value (str): value for IDD Field `Outlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -10338,7 +10545,7 @@ class PumpVariableSpeedCondensate(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `outlet_node_name`'.format(value))
             if ',' in value:
@@ -10347,7 +10554,6 @@ class PumpVariableSpeedCondensate(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `outlet_node_name`')
-
         self._data["Outlet Node Name"] = value
 
     @property
@@ -10361,10 +10567,12 @@ class PumpVariableSpeedCondensate(object):
 
     @rated_flow_rate.setter
     def rated_flow_rate(self, value=None):
-        """  Corresponds to IDD Field `rated_flow_rate`
+        """  Corresponds to IDD Field `Rated Flow Rate`
+        
+        {'pytype': 'float', u'minimum>': '0.0', u'ip-units': u'gal/min', u'autosizable': u'', u'units': u'm3/s', 'type': 'real'}
 
         Args:
-            value (float): value for IDD Field `rated_flow_rate`
+            value (float): value for IDD Field `Rated Flow Rate`
                 Units: m3/s
                 IP-Units: gal/min
                 value > 0.0
@@ -10377,13 +10585,12 @@ class PumpVariableSpeedCondensate(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `rated_flow_rate`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `rated_flow_rate`')
-
         self._data["Rated Flow Rate"] = value
 
     @property
@@ -10397,11 +10604,13 @@ class PumpVariableSpeedCondensate(object):
 
     @rated_pump_head.setter
     def rated_pump_head(self, value=179352.0 ):
-        """  Corresponds to IDD Field `rated_pump_head`
+        """  Corresponds to IDD Field `Rated Pump Head`
         default head is 60 feet
+        
+        {'pytype': 'float', u'default': '179352.0', u'note': [u'default head is 60 feet'], u'ip-units': u'ftH2O', u'units': u'Pa', 'type': 'real'}
 
         Args:
-            value (float): value for IDD Field `rated_pump_head`
+            value (float): value for IDD Field `Rated Pump Head`
                 Units: Pa
                 IP-Units: ftH2O
                 Default value: 179352.0
@@ -10414,10 +10623,9 @@ class PumpVariableSpeedCondensate(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `rated_pump_head`'.format(value))
-
         self._data["Rated Pump Head"] = value
 
     @property
@@ -10431,12 +10639,14 @@ class PumpVariableSpeedCondensate(object):
 
     @rated_power_consumption.setter
     def rated_power_consumption(self, value=None):
-        """  Corresponds to IDD Field `rated_power_consumption`
+        """  Corresponds to IDD Field `Rated Power Consumption`
         If this field is autosized, an impeller efficiency of 0.78 is assumed.
         autosized Rated Power Consumption = Rated Flow Rate * Rated Pump Head / (0.78 * Motor Efficiency)
+        
+        {'pytype': 'float', u'note': [u'If this field is autosized, an impeller efficiency of 0.78 is assumed.', u'autosized Rated Power Consumption = Rated Flow Rate * Rated Pump Head / (0.78 * Motor Efficiency)'], u'ip-units': u'W', u'autosizable': u'', u'units': u'W', 'type': 'real'}
 
         Args:
-            value (float): value for IDD Field `rated_power_consumption`
+            value (float): value for IDD Field `Rated Power Consumption`
                 Units: W
                 IP-Units: W
                 if `value` is None it will not be checked against the
@@ -10448,10 +10658,9 @@ class PumpVariableSpeedCondensate(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `rated_power_consumption`'.format(value))
-
         self._data["Rated Power Consumption"] = value
 
     @property
@@ -10465,12 +10674,14 @@ class PumpVariableSpeedCondensate(object):
 
     @motor_efficiency.setter
     def motor_efficiency(self, value=0.9 ):
-        """  Corresponds to IDD Field `motor_efficiency`
+        """  Corresponds to IDD Field `Motor Efficiency`
         This is the motor efficiency only. When the Rated Power Consumption if autosized,
         an impeller efficiency of 0.78 is assumed in addition to the motor efficiency.
+        
+        {'pytype': 'float', u'default': '0.9', u'minimum>': '0.0', u'maximum': '1.0', u'note': [u'This is the motor efficiency only. When the Rated Power Consumption if autosized,', u'an impeller efficiency of 0.78 is assumed in addition to the motor efficiency.'], u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `motor_efficiency`
+            value (float): value for IDD Field `Motor Efficiency`
                 Default value: 0.9
                 value > 0.0
                 value <= 1.0
@@ -10483,7 +10694,7 @@ class PumpVariableSpeedCondensate(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `motor_efficiency`'.format(value))
             if value <= 0.0:
@@ -10492,7 +10703,6 @@ class PumpVariableSpeedCondensate(object):
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `motor_efficiency`')
-
         self._data["Motor Efficiency"] = value
 
     @property
@@ -10506,10 +10716,12 @@ class PumpVariableSpeedCondensate(object):
 
     @fraction_of_motor_inefficiencies_to_fluid_stream.setter
     def fraction_of_motor_inefficiencies_to_fluid_stream(self, value=0.0 ):
-        """  Corresponds to IDD Field `fraction_of_motor_inefficiencies_to_fluid_stream`
+        """  Corresponds to IDD Field `Fraction of Motor Inefficiencies to Fluid Stream`
+        
+        {u'default': '0.0', u'minimum': '0.0', 'type': 'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `fraction_of_motor_inefficiencies_to_fluid_stream`
+            value (float): value for IDD Field `Fraction of Motor Inefficiencies to Fluid Stream`
                 Default value: 0.0
                 value >= 0.0
                 value <= 1.0
@@ -10522,7 +10734,7 @@ class PumpVariableSpeedCondensate(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `fraction_of_motor_inefficiencies_to_fluid_stream`'.format(value))
             if value < 0.0:
@@ -10531,7 +10743,6 @@ class PumpVariableSpeedCondensate(object):
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `fraction_of_motor_inefficiencies_to_fluid_stream`')
-
         self._data["Fraction of Motor Inefficiencies to Fluid Stream"] = value
 
     @property
@@ -10545,10 +10756,12 @@ class PumpVariableSpeedCondensate(object):
 
     @coefficient_1_of_the_part_load_performance_curve.setter
     def coefficient_1_of_the_part_load_performance_curve(self, value=0.0 ):
-        """  Corresponds to IDD Field `coefficient_1_of_the_part_load_performance_curve`
+        """  Corresponds to IDD Field `Coefficient 1 of the Part Load Performance Curve`
+        
+        {u'default': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `coefficient_1_of_the_part_load_performance_curve`
+            value (float): value for IDD Field `Coefficient 1 of the Part Load Performance Curve`
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -10559,10 +10772,9 @@ class PumpVariableSpeedCondensate(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `coefficient_1_of_the_part_load_performance_curve`'.format(value))
-
         self._data["Coefficient 1 of the Part Load Performance Curve"] = value
 
     @property
@@ -10576,10 +10788,12 @@ class PumpVariableSpeedCondensate(object):
 
     @coefficient_2_of_the_part_load_performance_curve.setter
     def coefficient_2_of_the_part_load_performance_curve(self, value=1.0 ):
-        """  Corresponds to IDD Field `coefficient_2_of_the_part_load_performance_curve`
+        """  Corresponds to IDD Field `Coefficient 2 of the Part Load Performance Curve`
+        
+        {u'default': '1.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `coefficient_2_of_the_part_load_performance_curve`
+            value (float): value for IDD Field `Coefficient 2 of the Part Load Performance Curve`
                 Default value: 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -10590,10 +10804,9 @@ class PumpVariableSpeedCondensate(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `coefficient_2_of_the_part_load_performance_curve`'.format(value))
-
         self._data["Coefficient 2 of the Part Load Performance Curve"] = value
 
     @property
@@ -10607,10 +10820,12 @@ class PumpVariableSpeedCondensate(object):
 
     @coefficient_3_of_the_part_load_performance_curve.setter
     def coefficient_3_of_the_part_load_performance_curve(self, value=0.0 ):
-        """  Corresponds to IDD Field `coefficient_3_of_the_part_load_performance_curve`
+        """  Corresponds to IDD Field `Coefficient 3 of the Part Load Performance Curve`
+        
+        {u'default': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `coefficient_3_of_the_part_load_performance_curve`
+            value (float): value for IDD Field `Coefficient 3 of the Part Load Performance Curve`
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -10621,10 +10836,9 @@ class PumpVariableSpeedCondensate(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `coefficient_3_of_the_part_load_performance_curve`'.format(value))
-
         self._data["Coefficient 3 of the Part Load Performance Curve"] = value
 
     @property
@@ -10638,10 +10852,12 @@ class PumpVariableSpeedCondensate(object):
 
     @coefficient_4_of_the_part_load_performance_curve.setter
     def coefficient_4_of_the_part_load_performance_curve(self, value=0.0 ):
-        """  Corresponds to IDD Field `coefficient_4_of_the_part_load_performance_curve`
+        """  Corresponds to IDD Field `Coefficient 4 of the Part Load Performance Curve`
+        
+        {u'default': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `coefficient_4_of_the_part_load_performance_curve`
+            value (float): value for IDD Field `Coefficient 4 of the Part Load Performance Curve`
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -10652,10 +10868,9 @@ class PumpVariableSpeedCondensate(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `coefficient_4_of_the_part_load_performance_curve`'.format(value))
-
         self._data["Coefficient 4 of the Part Load Performance Curve"] = value
 
     @property
@@ -10669,13 +10884,15 @@ class PumpVariableSpeedCondensate(object):
 
     @pump_flow_rate_schedule_name.setter
     def pump_flow_rate_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `pump_flow_rate_schedule_name`
+        """  Corresponds to IDD Field `Pump Flow Rate Schedule Name`
         Modifies the rated flow rate of the pump on a time basis. Default is
         that the pump is on and runs according to its other operational requirements
         specified above.  The schedule is for special pump operations.
+        
+        {u'note': [u'Modifies the rated flow rate of the pump on a time basis. Default is', u'that the pump is on and runs according to its other operational requirements', u'specified above.  The schedule is for special pump operations.'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `pump_flow_rate_schedule_name`
+            value (str): value for IDD Field `Pump Flow Rate Schedule Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -10685,7 +10902,7 @@ class PumpVariableSpeedCondensate(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `pump_flow_rate_schedule_name`'.format(value))
             if ',' in value:
@@ -10694,7 +10911,6 @@ class PumpVariableSpeedCondensate(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `pump_flow_rate_schedule_name`')
-
         self._data["Pump Flow Rate Schedule Name"] = value
 
     @property
@@ -10708,11 +10924,13 @@ class PumpVariableSpeedCondensate(object):
 
     @zone_name.setter
     def zone_name(self, value=None):
-        """  Corresponds to IDD Field `zone_name`
+        """  Corresponds to IDD Field `Zone Name`
         optional, if used pump losses transfered to zone as internal gains
+        
+        {u'note': [u'optional, if used pump losses transfered to zone as internal gains'], u'type': u'Object-list', u'object-list': u'ZoneNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `zone_name`
+            value (str): value for IDD Field `Zone Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -10722,7 +10940,7 @@ class PumpVariableSpeedCondensate(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `zone_name`'.format(value))
             if ',' in value:
@@ -10731,7 +10949,6 @@ class PumpVariableSpeedCondensate(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `zone_name`')
-
         self._data["Zone Name"] = value
 
     @property
@@ -10745,12 +10962,14 @@ class PumpVariableSpeedCondensate(object):
 
     @skin_loss_radiative_fraction.setter
     def skin_loss_radiative_fraction(self, value=None):
-        """  Corresponds to IDD Field `skin_loss_radiative_fraction`
+        """  Corresponds to IDD Field `Skin Loss Radiative Fraction`
         optional. If zone identified in previous field then this determines
         the split between convection and radiation for the skin losses
+        
+        {u'note': [u'optional. If zone identified in previous field then this determines', u'the split between convection and radiation for the skin losses'], u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `skin_loss_radiative_fraction`
+            value (float): value for IDD Field `Skin Loss Radiative Fraction`
                 value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
@@ -10762,7 +10981,7 @@ class PumpVariableSpeedCondensate(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `skin_loss_radiative_fraction`'.format(value))
             if value < 0.0:
@@ -10771,7 +10990,6 @@ class PumpVariableSpeedCondensate(object):
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `skin_loss_radiative_fraction`')
-
         self._data["Skin Loss Radiative Fraction"] = value
 
     def check(self):
@@ -10955,10 +11173,12 @@ class HeaderedPumpsConstantSpeed(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {'type': 'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -10968,7 +11188,7 @@ class HeaderedPumpsConstantSpeed(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -10977,7 +11197,6 @@ class HeaderedPumpsConstantSpeed(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -10991,10 +11210,12 @@ class HeaderedPumpsConstantSpeed(object):
 
     @inlet_node_name.setter
     def inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `inlet_node_name`
+        """  Corresponds to IDD Field `Inlet Node Name`
+        
+        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `inlet_node_name`
+            value (str): value for IDD Field `Inlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -11004,7 +11225,7 @@ class HeaderedPumpsConstantSpeed(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `inlet_node_name`'.format(value))
             if ',' in value:
@@ -11013,7 +11234,6 @@ class HeaderedPumpsConstantSpeed(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `inlet_node_name`')
-
         self._data["Inlet Node Name"] = value
 
     @property
@@ -11027,10 +11247,12 @@ class HeaderedPumpsConstantSpeed(object):
 
     @outlet_node_name.setter
     def outlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `outlet_node_name`
+        """  Corresponds to IDD Field `Outlet Node Name`
+        
+        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `outlet_node_name`
+            value (str): value for IDD Field `Outlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -11040,7 +11262,7 @@ class HeaderedPumpsConstantSpeed(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `outlet_node_name`'.format(value))
             if ',' in value:
@@ -11049,7 +11271,6 @@ class HeaderedPumpsConstantSpeed(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `outlet_node_name`')
-
         self._data["Outlet Node Name"] = value
 
     @property
@@ -11063,12 +11284,14 @@ class HeaderedPumpsConstantSpeed(object):
 
     @total_rated_flow_rate.setter
     def total_rated_flow_rate(self, value=None):
-        """  Corresponds to IDD Field `total_rated_flow_rate`
+        """  Corresponds to IDD Field `Total Rated Flow Rate`
         If the field is not autosized set to the flow rate to
         the total flow when all pumps are running at full load
+        
+        {'pytype': 'float', u'minimum>': '0.0', u'note': [u'If the field is not autosized set to the flow rate to', u'the total flow when all pumps are running at full load'], u'ip-units': u'gal/min', u'autosizable': u'', u'units': u'm3/s', 'type': 'real'}
 
         Args:
-            value (float): value for IDD Field `total_rated_flow_rate`
+            value (float): value for IDD Field `Total Rated Flow Rate`
                 Units: m3/s
                 IP-Units: gal/min
                 value > 0.0
@@ -11081,13 +11304,12 @@ class HeaderedPumpsConstantSpeed(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `total_rated_flow_rate`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `total_rated_flow_rate`')
-
         self._data["Total Rated Flow Rate"] = value
 
     @property
@@ -11101,10 +11323,12 @@ class HeaderedPumpsConstantSpeed(object):
 
     @number_of_pumps_in_bank.setter
     def number_of_pumps_in_bank(self, value=None):
-        """  Corresponds to IDD Field `number_of_pumps_in_bank`
+        """  Corresponds to IDD Field `Number of Pumps in Bank`
+        
+        {u'type': u'integer', 'pytype': 'int'}
 
         Args:
-            value (int): value for IDD Field `number_of_pumps_in_bank`
+            value (int): value for IDD Field `Number of Pumps in Bank`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -11114,10 +11338,9 @@ class HeaderedPumpsConstantSpeed(object):
         if value is not None:
             try:
                 value = int(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type int '
                                  'for field `number_of_pumps_in_bank`'.format(value))
-
         self._data["Number of Pumps in Bank"] = value
 
     @property
@@ -11131,10 +11354,12 @@ class HeaderedPumpsConstantSpeed(object):
 
     @flow_sequencing_control_scheme.setter
     def flow_sequencing_control_scheme(self, value="Sequential"):
-        """  Corresponds to IDD Field `flow_sequencing_control_scheme`
+        """  Corresponds to IDD Field `Flow Sequencing Control Scheme`
+        
+        {u'default': u'Sequential', u'type': u'choice', u'key': [u'Sequential'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `flow_sequencing_control_scheme`
+            value (str): value for IDD Field `Flow Sequencing Control Scheme`
                 Accepted values are:
                       - Sequential
                 Default value: Sequential
@@ -11147,7 +11372,7 @@ class HeaderedPumpsConstantSpeed(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `flow_sequencing_control_scheme`'.format(value))
             if ',' in value:
@@ -11172,7 +11397,6 @@ class HeaderedPumpsConstantSpeed(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `flow_sequencing_control_scheme`'.format(value))
             value = vals[value_lower]
-
         self._data["Flow Sequencing Control Scheme"] = value
 
     @property
@@ -11186,11 +11410,13 @@ class HeaderedPumpsConstantSpeed(object):
 
     @rated_pump_head.setter
     def rated_pump_head(self, value=179352.0 ):
-        """  Corresponds to IDD Field `rated_pump_head`
+        """  Corresponds to IDD Field `Rated Pump Head`
         default head is 60 feet
+        
+        {'pytype': 'float', u'default': '179352.0', u'note': [u'default head is 60 feet'], u'ip-units': u'ftH2O', u'units': u'Pa', 'type': 'real'}
 
         Args:
-            value (float): value for IDD Field `rated_pump_head`
+            value (float): value for IDD Field `Rated Pump Head`
                 Units: Pa
                 IP-Units: ftH2O
                 Default value: 179352.0
@@ -11203,10 +11429,9 @@ class HeaderedPumpsConstantSpeed(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `rated_pump_head`'.format(value))
-
         self._data["Rated Pump Head"] = value
 
     @property
@@ -11220,14 +11445,16 @@ class HeaderedPumpsConstantSpeed(object):
 
     @rated_power_consumption.setter
     def rated_power_consumption(self, value=None):
-        """  Corresponds to IDD Field `rated_power_consumption`
+        """  Corresponds to IDD Field `Rated Power Consumption`
         If the field is not autosized set to the power consumed by the pump bank
         when all the pumps are running at nominal flow
         If this field is autosized, an impeller efficiency of 0.78 is assumed.
         autosized Rated Power Consumption = Total Rated Flow Rate * Rated Pump Head / (0.78 * Motor Efficiency)
+        
+        {'pytype': 'float', u'note': [u'If the field is not autosized set to the power consumed by the pump bank', u'when all the pumps are running at nominal flow', u'If this field is autosized, an impeller efficiency of 0.78 is assumed.', u'autosized Rated Power Consumption = Total Rated Flow Rate * Rated Pump Head / (0.78 * Motor Efficiency)'], u'ip-units': u'W', u'autosizable': u'', u'units': u'W', 'type': 'real'}
 
         Args:
-            value (float): value for IDD Field `rated_power_consumption`
+            value (float): value for IDD Field `Rated Power Consumption`
                 Units: W
                 IP-Units: W
                 if `value` is None it will not be checked against the
@@ -11239,10 +11466,9 @@ class HeaderedPumpsConstantSpeed(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `rated_power_consumption`'.format(value))
-
         self._data["Rated Power Consumption"] = value
 
     @property
@@ -11256,12 +11482,14 @@ class HeaderedPumpsConstantSpeed(object):
 
     @motor_efficiency.setter
     def motor_efficiency(self, value=0.9 ):
-        """  Corresponds to IDD Field `motor_efficiency`
+        """  Corresponds to IDD Field `Motor Efficiency`
         This is the motor efficiency only. When the Rated Power Consumption if autosized,
         an impeller efficiency of 0.78 is assumed in addition to the motor efficiency.
+        
+        {'pytype': 'float', u'default': '0.9', u'minimum>': '0.0', u'maximum': '1.0', u'note': [u'This is the motor efficiency only. When the Rated Power Consumption if autosized,', u'an impeller efficiency of 0.78 is assumed in addition to the motor efficiency.'], u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `motor_efficiency`
+            value (float): value for IDD Field `Motor Efficiency`
                 Default value: 0.9
                 value > 0.0
                 value <= 1.0
@@ -11274,7 +11502,7 @@ class HeaderedPumpsConstantSpeed(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `motor_efficiency`'.format(value))
             if value <= 0.0:
@@ -11283,7 +11511,6 @@ class HeaderedPumpsConstantSpeed(object):
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `motor_efficiency`')
-
         self._data["Motor Efficiency"] = value
 
     @property
@@ -11297,10 +11524,12 @@ class HeaderedPumpsConstantSpeed(object):
 
     @fraction_of_motor_inefficiencies_to_fluid_stream.setter
     def fraction_of_motor_inefficiencies_to_fluid_stream(self, value=0.0 ):
-        """  Corresponds to IDD Field `fraction_of_motor_inefficiencies_to_fluid_stream`
+        """  Corresponds to IDD Field `Fraction of Motor Inefficiencies to Fluid Stream`
+        
+        {u'default': '0.0', u'minimum': '0.0', 'type': 'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `fraction_of_motor_inefficiencies_to_fluid_stream`
+            value (float): value for IDD Field `Fraction of Motor Inefficiencies to Fluid Stream`
                 Default value: 0.0
                 value >= 0.0
                 value <= 1.0
@@ -11313,7 +11542,7 @@ class HeaderedPumpsConstantSpeed(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `fraction_of_motor_inefficiencies_to_fluid_stream`'.format(value))
             if value < 0.0:
@@ -11322,7 +11551,6 @@ class HeaderedPumpsConstantSpeed(object):
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `fraction_of_motor_inefficiencies_to_fluid_stream`')
-
         self._data["Fraction of Motor Inefficiencies to Fluid Stream"] = value
 
     @property
@@ -11336,10 +11564,12 @@ class HeaderedPumpsConstantSpeed(object):
 
     @pump_control_type.setter
     def pump_control_type(self, value="Continuous"):
-        """  Corresponds to IDD Field `pump_control_type`
+        """  Corresponds to IDD Field `Pump Control Type`
+        
+        {u'default': u'Continuous', u'type': u'choice', u'key': [u'Continuous', u'Intermittent'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `pump_control_type`
+            value (str): value for IDD Field `Pump Control Type`
                 Accepted values are:
                       - Continuous
                       - Intermittent
@@ -11353,7 +11583,7 @@ class HeaderedPumpsConstantSpeed(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `pump_control_type`'.format(value))
             if ',' in value:
@@ -11379,7 +11609,6 @@ class HeaderedPumpsConstantSpeed(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `pump_control_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Pump Control Type"] = value
 
     @property
@@ -11393,13 +11622,15 @@ class HeaderedPumpsConstantSpeed(object):
 
     @pump_flow_rate_schedule_name.setter
     def pump_flow_rate_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `pump_flow_rate_schedule_name`
+        """  Corresponds to IDD Field `Pump Flow Rate Schedule Name`
         Modifies the rated flow rate of the pump on a time basis. Default is
         that the pump is on and runs according to its other operational requirements
         specified above.  The schedule is for special pump operations.
+        
+        {u'note': [u'Modifies the rated flow rate of the pump on a time basis. Default is', u'that the pump is on and runs according to its other operational requirements', u'specified above.  The schedule is for special pump operations.'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `pump_flow_rate_schedule_name`
+            value (str): value for IDD Field `Pump Flow Rate Schedule Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -11409,7 +11640,7 @@ class HeaderedPumpsConstantSpeed(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `pump_flow_rate_schedule_name`'.format(value))
             if ',' in value:
@@ -11418,7 +11649,6 @@ class HeaderedPumpsConstantSpeed(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `pump_flow_rate_schedule_name`')
-
         self._data["Pump Flow Rate Schedule Name"] = value
 
     @property
@@ -11432,11 +11662,13 @@ class HeaderedPumpsConstantSpeed(object):
 
     @zone_name.setter
     def zone_name(self, value=None):
-        """  Corresponds to IDD Field `zone_name`
+        """  Corresponds to IDD Field `Zone Name`
         optional, if used pump losses transfered to zone as internal gains
+        
+        {u'note': [u'optional, if used pump losses transfered to zone as internal gains'], u'type': u'Object-list', u'object-list': u'ZoneNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `zone_name`
+            value (str): value for IDD Field `Zone Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -11446,7 +11678,7 @@ class HeaderedPumpsConstantSpeed(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `zone_name`'.format(value))
             if ',' in value:
@@ -11455,7 +11687,6 @@ class HeaderedPumpsConstantSpeed(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `zone_name`')
-
         self._data["Zone Name"] = value
 
     @property
@@ -11469,12 +11700,14 @@ class HeaderedPumpsConstantSpeed(object):
 
     @skin_loss_radiative_fraction.setter
     def skin_loss_radiative_fraction(self, value=None):
-        """  Corresponds to IDD Field `skin_loss_radiative_fraction`
+        """  Corresponds to IDD Field `Skin Loss Radiative Fraction`
         optional. If zone identified in previous field then this determines
         the split between convection and radiation for the skin losses
+        
+        {u'note': [u'optional. If zone identified in previous field then this determines', u'the split between convection and radiation for the skin losses'], u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `skin_loss_radiative_fraction`
+            value (float): value for IDD Field `Skin Loss Radiative Fraction`
                 value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
@@ -11486,7 +11719,7 @@ class HeaderedPumpsConstantSpeed(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `skin_loss_radiative_fraction`'.format(value))
             if value < 0.0:
@@ -11495,7 +11728,6 @@ class HeaderedPumpsConstantSpeed(object):
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `skin_loss_radiative_fraction`')
-
         self._data["Skin Loss Radiative Fraction"] = value
 
     def check(self):

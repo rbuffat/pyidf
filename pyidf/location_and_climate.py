@@ -76,10 +76,12 @@ class SiteLocation(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -89,7 +91,7 @@ class SiteLocation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -98,7 +100,6 @@ class SiteLocation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -112,11 +113,13 @@ class SiteLocation(object):
 
     @latitude.setter
     def latitude(self, value=0.0 ):
-        """  Corresponds to IDD Field `latitude`
+        """  Corresponds to IDD Field `Latitude`
         + is North, - is South, degree minutes represented in decimal (i.e. 30 minutes is .5)
+        
+        {'pytype': 'float', u'default': '0.0', u'maximum': '90.0', u'note': [u'+ is North, - is South, degree minutes represented in decimal (i.e. 30 minutes is .5)'], u'minimum': '-90.0', u'units': u'deg', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `latitude`
+            value (float): value for IDD Field `Latitude`
                 Units: deg
                 Default value: 0.0
                 value >= -90.0
@@ -130,7 +133,7 @@ class SiteLocation(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `latitude`'.format(value))
             if value < -90.0:
@@ -139,7 +142,6 @@ class SiteLocation(object):
             if value > 90.0:
                 raise ValueError('value need to be smaller 90.0 '
                                  'for field `latitude`')
-
         self._data["Latitude"] = value
 
     @property
@@ -153,11 +155,13 @@ class SiteLocation(object):
 
     @longitude.setter
     def longitude(self, value=0.0 ):
-        """  Corresponds to IDD Field `longitude`
+        """  Corresponds to IDD Field `Longitude`
         - is West, + is East, degree minutes represented in decimal (i.e. 30 minutes is .5)
+        
+        {'pytype': 'float', u'default': '0.0', u'maximum': '180.0', u'note': [u'- is West, + is East, degree minutes represented in decimal (i.e. 30 minutes is .5)'], u'minimum': '-180.0', u'units': u'deg', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `longitude`
+            value (float): value for IDD Field `Longitude`
                 Units: deg
                 Default value: 0.0
                 value >= -180.0
@@ -171,7 +175,7 @@ class SiteLocation(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `longitude`'.format(value))
             if value < -180.0:
@@ -180,7 +184,6 @@ class SiteLocation(object):
             if value > 180.0:
                 raise ValueError('value need to be smaller 180.0 '
                                  'for field `longitude`')
-
         self._data["Longitude"] = value
 
     @property
@@ -194,12 +197,14 @@ class SiteLocation(object):
 
     @time_zone.setter
     def time_zone(self, value=0.0 ):
-        """  Corresponds to IDD Field `time_zone`
+        """  Corresponds to IDD Field `Time Zone`
         basic these limits on the WorldTimeZone Map (2003)
         Time relative to GMT. Decimal hours.
+        
+        {'pytype': 'float', u'default': '0.0', u'maximum': '14.0', u'note': [u'basic these limits on the WorldTimeZone Map (2003)', u'Time relative to GMT. Decimal hours.'], u'minimum': '-12.0', u'units': u'hr', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `time_zone`
+            value (float): value for IDD Field `Time Zone`
                 Units: hr
                 Default value: 0.0
                 value >= -12.0
@@ -213,7 +218,7 @@ class SiteLocation(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `time_zone`'.format(value))
             if value < -12.0:
@@ -222,7 +227,6 @@ class SiteLocation(object):
             if value > 14.0:
                 raise ValueError('value need to be smaller 14.0 '
                                  'for field `time_zone`')
-
         self._data["Time Zone"] = value
 
     @property
@@ -236,10 +240,12 @@ class SiteLocation(object):
 
     @elevation.setter
     def elevation(self, value=0.0 ):
-        """  Corresponds to IDD Field `elevation`
+        """  Corresponds to IDD Field `Elevation`
+        
+        {'pytype': 'float', u'default': '0.0', u'maximum<': '8900.0', u'minimum': '-300.0', u'units': u'm', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `elevation`
+            value (float): value for IDD Field `Elevation`
                 Units: m
                 Default value: 0.0
                 value >= -300.0
@@ -253,7 +259,7 @@ class SiteLocation(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `elevation`'.format(value))
             if value < -300.0:
@@ -262,7 +268,6 @@ class SiteLocation(object):
             if value >= 8900.0:
                 raise ValueError('value need to be smaller 8900.0 '
                                  'for field `elevation`')
-
         self._data["Elevation"] = value
 
     def check(self):
@@ -547,10 +552,12 @@ class SizingPeriodDesignDay(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {u'type': u'alpha', u'reference': u'RunPeriodsAndDesignDays', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -560,7 +567,7 @@ class SizingPeriodDesignDay(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -569,7 +576,6 @@ class SizingPeriodDesignDay(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -583,10 +589,12 @@ class SizingPeriodDesignDay(object):
 
     @month.setter
     def month(self, value=None):
-        """  Corresponds to IDD Field `month`
+        """  Corresponds to IDD Field `Month`
+        
+        {u'minimum': '1', u'type': u'integer', u'maximum': '12', u'required-field': True, 'pytype': 'int'}
 
         Args:
-            value (int): value for IDD Field `month`
+            value (int): value for IDD Field `Month`
                 value >= 1
                 value <= 12
                 if `value` is None it will not be checked against the
@@ -598,7 +606,7 @@ class SizingPeriodDesignDay(object):
         if value is not None:
             try:
                 value = int(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type int '
                                  'for field `month`'.format(value))
             if value < 1:
@@ -607,7 +615,6 @@ class SizingPeriodDesignDay(object):
             if value > 12:
                 raise ValueError('value need to be smaller 12 '
                                  'for field `month`')
-
         self._data["Month"] = value
 
     @property
@@ -621,11 +628,13 @@ class SizingPeriodDesignDay(object):
 
     @day_of_month.setter
     def day_of_month(self, value=None):
-        """  Corresponds to IDD Field `day_of_month`
+        """  Corresponds to IDD Field `Day of Month`
         must be valid for Month field
+        
+        {'pytype': 'int', u'maximum': '31', u'required-field': True, u'note': [u'must be valid for Month field'], u'minimum': '1', u'type': u'integer'}
 
         Args:
-            value (int): value for IDD Field `day_of_month`
+            value (int): value for IDD Field `Day of Month`
                 value >= 1
                 value <= 31
                 if `value` is None it will not be checked against the
@@ -637,7 +646,7 @@ class SizingPeriodDesignDay(object):
         if value is not None:
             try:
                 value = int(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type int '
                                  'for field `day_of_month`'.format(value))
             if value < 1:
@@ -646,7 +655,6 @@ class SizingPeriodDesignDay(object):
             if value > 31:
                 raise ValueError('value need to be smaller 31 '
                                  'for field `day_of_month`')
-
         self._data["Day of Month"] = value
 
     @property
@@ -660,11 +668,13 @@ class SizingPeriodDesignDay(object):
 
     @day_type.setter
     def day_type(self, value=None):
-        """  Corresponds to IDD Field `day_type`
+        """  Corresponds to IDD Field `Day Type`
         Day Type selects the schedules appropriate for this design day
+        
+        {u'note': [u'Day Type selects the schedules appropriate for this design day'], u'type': u'choice', u'key': [u'Sunday', u'Monday', u'Tuesday', u'Wednesday', u'Thursday', u'Friday', u'Saturday', u'Holiday', u'SummerDesignDay', u'WinterDesignDay', u'CustomDay1', u'CustomDay2'], u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `day_type`
+            value (str): value for IDD Field `Day Type`
                 Accepted values are:
                       - Sunday
                       - Monday
@@ -687,7 +697,7 @@ class SizingPeriodDesignDay(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `day_type`'.format(value))
             if ',' in value:
@@ -723,7 +733,6 @@ class SizingPeriodDesignDay(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `day_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Day Type"] = value
 
     @property
@@ -737,12 +746,14 @@ class SizingPeriodDesignDay(object):
 
     @maximum_drybulb_temperature.setter
     def maximum_drybulb_temperature(self, value=None):
-        """  Corresponds to IDD Field `maximum_drybulb_temperature`
+        """  Corresponds to IDD Field `Maximum Dry-Bulb Temperature`
         This field is required when field "Dry-Bulb Temperature Range Modifier Type"
         is not "TemperatureProfileSchedule".
+        
+        {'pytype': 'float', u'maximum': '70.0', u'note': [u'This field is required when field "Dry-Bulb Temperature Range Modifier Type"', u'is not "TemperatureProfileSchedule".'], u'minimum': '-90.0', u'units': u'C', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `maximum_drybulb_temperature`
+            value (float): value for IDD Field `Maximum Dry-Bulb Temperature`
                 Units: C
                 value >= -90.0
                 value <= 70.0
@@ -755,7 +766,7 @@ class SizingPeriodDesignDay(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `maximum_drybulb_temperature`'.format(value))
             if value < -90.0:
@@ -764,7 +775,6 @@ class SizingPeriodDesignDay(object):
             if value > 70.0:
                 raise ValueError('value need to be smaller 70.0 '
                                  'for field `maximum_drybulb_temperature`')
-
         self._data["Maximum Dry-Bulb Temperature"] = value
 
     @property
@@ -778,13 +788,15 @@ class SizingPeriodDesignDay(object):
 
     @daily_drybulb_temperature_range.setter
     def daily_drybulb_temperature_range(self, value=0.0 ):
-        """  Corresponds to IDD Field `daily_drybulb_temperature_range`
+        """  Corresponds to IDD Field `Daily Dry-Bulb Temperature Range`
         Must still produce appropriate maximum dry bulb (within range)
         This field is not needed if Dry-Bulb Temperature Range Modifier Type
         is "delta".
+        
+        {'pytype': 'float', u'default': '0.0', u'note': [u'Must still produce appropriate maximum dry bulb (within range)', u'This field is not needed if Dry-Bulb Temperature Range Modifier Type', u'is "delta".'], u'minimum': '0.0', u'units': u'deltaC', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `daily_drybulb_temperature_range`
+            value (float): value for IDD Field `Daily Dry-Bulb Temperature Range`
                 Units: deltaC
                 Default value: 0.0
                 value >= 0.0
@@ -797,13 +809,12 @@ class SizingPeriodDesignDay(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `daily_drybulb_temperature_range`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `daily_drybulb_temperature_range`')
-
         self._data["Daily Dry-Bulb Temperature Range"] = value
 
     @property
@@ -817,11 +828,13 @@ class SizingPeriodDesignDay(object):
 
     @drybulb_temperature_range_modifier_type.setter
     def drybulb_temperature_range_modifier_type(self, value="DefaultMultipliers"):
-        """  Corresponds to IDD Field `drybulb_temperature_range_modifier_type`
+        """  Corresponds to IDD Field `Dry-Bulb Temperature Range Modifier Type`
         Type of modifier to the dry-bulb temperature calculated for the timestep
+        
+        {u'note': [u'Type of modifier to the dry-bulb temperature calculated for the timestep'], u'default': u'DefaultMultipliers', u'type': u'choice', u'key': [u'MultiplierSchedule', u'DifferenceSchedule', u'TemperatureProfileSchedule', u'DefaultMultipliers'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `drybulb_temperature_range_modifier_type`
+            value (str): value for IDD Field `Dry-Bulb Temperature Range Modifier Type`
                 Accepted values are:
                       - MultiplierSchedule
                       - DifferenceSchedule
@@ -837,7 +850,7 @@ class SizingPeriodDesignDay(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `drybulb_temperature_range_modifier_type`'.format(value))
             if ',' in value:
@@ -865,7 +878,6 @@ class SizingPeriodDesignDay(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `drybulb_temperature_range_modifier_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Dry-Bulb Temperature Range Modifier Type"] = value
 
     @property
@@ -879,7 +891,7 @@ class SizingPeriodDesignDay(object):
 
     @drybulb_temperature_range_modifier_day_schedule_name.setter
     def drybulb_temperature_range_modifier_day_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `drybulb_temperature_range_modifier_day_schedule_name`
+        """  Corresponds to IDD Field `Dry-Bulb Temperature Range Modifier Day Schedule Name`
         Only used when previous field is "MultiplierSchedule", "DifferenceSchedule" or
         "TemperatureProfileSchedule".
         For type "MultiplierSchedule"  the hour/time interval values should specify
@@ -891,9 +903,11 @@ class SizingPeriodDesignDay(object):
         would result in a higher maximum than the maximum previously specified.
         For type "TemperatureProfileSchedule" the values should specify the actual drybulb
         temperature for each timestep in the day.
+        
+        {u'note': [u'Only used when previous field is "MultiplierSchedule", "DifferenceSchedule" or', u'"TemperatureProfileSchedule".', u'For type "MultiplierSchedule"  the hour/time interval values should specify', u'the fraction (0-1) of the dry-bulb temperature range to be subtracted', u'from the maximum dry-bulb temperature for each timestep in the day', u'For type "DifferenceSchedule" the values should specify a number to be subtracted', u'from the maximum dry-bulb temperature for each timestep in the day.', u'Note that numbers in the difference schedule cannot be negative as that', u'would result in a higher maximum than the maximum previously specified.', u'For type "TemperatureProfileSchedule" the values should specify the actual drybulb', u'temperature for each timestep in the day.'], u'type': u'object-list', u'object-list': u'DayScheduleNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `drybulb_temperature_range_modifier_day_schedule_name`
+            value (str): value for IDD Field `Dry-Bulb Temperature Range Modifier Day Schedule Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -903,7 +917,7 @@ class SizingPeriodDesignDay(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `drybulb_temperature_range_modifier_day_schedule_name`'.format(value))
             if ',' in value:
@@ -912,7 +926,6 @@ class SizingPeriodDesignDay(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `drybulb_temperature_range_modifier_day_schedule_name`')
-
         self._data["Dry-Bulb Temperature Range Modifier Day Schedule Name"] = value
 
     @property
@@ -926,12 +939,14 @@ class SizingPeriodDesignDay(object):
 
     @humidity_condition_type.setter
     def humidity_condition_type(self, value="WetBulb"):
-        """  Corresponds to IDD Field `humidity_condition_type`
+        """  Corresponds to IDD Field `Humidity Condition Type`
         values/schedules indicated here and in subsequent fields create the humidity
         values in the 24 hour design day conditions profile.
+        
+        {u'note': [u'values/schedules indicated here and in subsequent fields create the humidity', u'values in the 24 hour design day conditions profile.'], u'default': u'WetBulb', u'type': u'choice', u'key': [u'WetBulb', u'DewPoint', u'HumidityRatio', u'Enthalpy', u'RelativeHumiditySchedule', u'WetBulbProfileMultiplierSchedule', u'WetBulbProfileDifferenceSchedule', u'WetBulbProfileDefaultMultipliers'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `humidity_condition_type`
+            value (str): value for IDD Field `Humidity Condition Type`
                 Accepted values are:
                       - WetBulb
                       - DewPoint
@@ -951,7 +966,7 @@ class SizingPeriodDesignDay(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `humidity_condition_type`'.format(value))
             if ',' in value:
@@ -983,7 +998,6 @@ class SizingPeriodDesignDay(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `humidity_condition_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Humidity Condition Type"] = value
 
     @property
@@ -997,14 +1011,16 @@ class SizingPeriodDesignDay(object):
 
     @wetbulb_or_dewpoint_at_maximum_drybulb.setter
     def wetbulb_or_dewpoint_at_maximum_drybulb(self, value=None):
-        """  Corresponds to IDD Field `wetbulb_or_dewpoint_at_maximum_drybulb`
+        """  Corresponds to IDD Field `Wetbulb or DewPoint at Maximum Dry-Bulb`
         Wetbulb or dewpoint temperature coincident with the maximum temperature.
         Required only if field Humidity Condition Type is "Wetbulb", "Dewpoint",
         "WetBulbProfileMultiplierSchedule", "WetBulbProfileDifferenceSchedule",
         or "WetBulbProfileDefaultMultipliers"
+        
+        {u'note': [u'Wetbulb or dewpoint temperature coincident with the maximum temperature.', u'Required only if field Humidity Condition Type is "Wetbulb", "Dewpoint",', u'"WetBulbProfileMultiplierSchedule", "WetBulbProfileDifferenceSchedule",', u'or "WetBulbProfileDefaultMultipliers"'], u'units': u'C', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `wetbulb_or_dewpoint_at_maximum_drybulb`
+            value (float): value for IDD Field `Wetbulb or DewPoint at Maximum Dry-Bulb`
                 Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1015,10 +1031,9 @@ class SizingPeriodDesignDay(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `wetbulb_or_dewpoint_at_maximum_drybulb`'.format(value))
-
         self._data["Wetbulb or DewPoint at Maximum Dry-Bulb"] = value
 
     @property
@@ -1032,7 +1047,7 @@ class SizingPeriodDesignDay(object):
 
     @humidity_condition_day_schedule_name.setter
     def humidity_condition_day_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `humidity_condition_day_schedule_name`
+        """  Corresponds to IDD Field `Humidity Condition Day Schedule Name`
         Only used when Humidity Condition Type is "RelativeHumiditySchedule",
         "WetBulbProfileMultiplierSchedule", or "WetBulbProfileDifferenceSchedule"
         For type "RelativeHumiditySchedule", the hour/time interval values should specify
@@ -1042,9 +1057,11 @@ class SizingPeriodDesignDay(object):
         maximum wet-bulb temperature for each timestep in the day (units = Fraction)
         For type "WetBulbProfileDifferenceSchedule" the values should specify a number to be subtracted
         from the maximum wet-bulb temperature for each timestep in the day. (units = deltaC)
+        
+        {u'note': [u'Only used when Humidity Condition Type is "RelativeHumiditySchedule",', u'"WetBulbProfileMultiplierSchedule", or "WetBulbProfileDifferenceSchedule"', u'For type "RelativeHumiditySchedule", the hour/time interval values should specify', u'relative humidity (percent) from 0.0 to 100.0.', u'For type "WetBulbProfileMultiplierSchedule" the hour/time interval values should specify', u'the fraction (0-1) of the wet-bulb temperature range to be subtracted from the', u'maximum wet-bulb temperature for each timestep in the day (units = Fraction)', u'For type "WetBulbProfileDifferenceSchedule" the values should specify a number to be subtracted', u'from the maximum wet-bulb temperature for each timestep in the day. (units = deltaC)'], u'type': u'object-list', u'object-list': u'DayScheduleNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `humidity_condition_day_schedule_name`
+            value (str): value for IDD Field `Humidity Condition Day Schedule Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1054,7 +1071,7 @@ class SizingPeriodDesignDay(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `humidity_condition_day_schedule_name`'.format(value))
             if ',' in value:
@@ -1063,7 +1080,6 @@ class SizingPeriodDesignDay(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `humidity_condition_day_schedule_name`')
-
         self._data["Humidity Condition Day Schedule Name"] = value
 
     @property
@@ -1077,12 +1093,14 @@ class SizingPeriodDesignDay(object):
 
     @humidity_ratio_at_maximum_drybulb.setter
     def humidity_ratio_at_maximum_drybulb(self, value=None):
-        """  Corresponds to IDD Field `humidity_ratio_at_maximum_drybulb`
+        """  Corresponds to IDD Field `Humidity Ratio at Maximum Dry-Bulb`
         Humidity ratio coincident with the maximum temperature (constant humidity ratio throughout day).
         Required only if field Humidity Condition Type is "HumidityRatio".
+        
+        {u'note': [u'Humidity ratio coincident with the maximum temperature (constant humidity ratio throughout day).', u'Required only if field Humidity Condition Type is "HumidityRatio".'], u'units': u'kgWater/kgDryAir', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `humidity_ratio_at_maximum_drybulb`
+            value (float): value for IDD Field `Humidity Ratio at Maximum Dry-Bulb`
                 Units: kgWater/kgDryAir
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1093,10 +1111,9 @@ class SizingPeriodDesignDay(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `humidity_ratio_at_maximum_drybulb`'.format(value))
-
         self._data["Humidity Ratio at Maximum Dry-Bulb"] = value
 
     @property
@@ -1110,12 +1127,14 @@ class SizingPeriodDesignDay(object):
 
     @enthalpy_at_maximum_drybulb_will_require_units_transition_.setter
     def enthalpy_at_maximum_drybulb_will_require_units_transition_(self, value=None):
-        """  Corresponds to IDD Field `enthalpy_at_maximum_drybulb_will_require_units_transition_`
+        """  Corresponds to IDD Field `Enthalpy at Maximum Dry-Bulb  !will require units transition.`
         Enthalpy coincident with the maximum temperature.
         Required only if field Humidity Condition Type is "Enthalpy".
+        
+        {u'note': [u'Enthalpy coincident with the maximum temperature.', u'Required only if field Humidity Condition Type is "Enthalpy".'], u'units': u'J/kg', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `enthalpy_at_maximum_drybulb_will_require_units_transition_`
+            value (float): value for IDD Field `Enthalpy at Maximum Dry-Bulb  !will require units transition.`
                 Units: J/kg
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1126,10 +1145,9 @@ class SizingPeriodDesignDay(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `enthalpy_at_maximum_drybulb_will_require_units_transition_`'.format(value))
-
         self._data["Enthalpy at Maximum Dry-Bulb  !will require units transition."] = value
 
     @property
@@ -1143,12 +1161,14 @@ class SizingPeriodDesignDay(object):
 
     @daily_wetbulb_temperature_range.setter
     def daily_wetbulb_temperature_range(self, value=None):
-        """  Corresponds to IDD Field `daily_wetbulb_temperature_range`
+        """  Corresponds to IDD Field `Daily Wet-Bulb Temperature Range`
         Required only if Humidity Condition Type = "WetbulbProfileMultiplierSchedule" or
         "WetBulbProfileDefaultMultipliers"
+        
+        {u'units': u'deltaC', u'note': [u'Required only if Humidity Condition Type = "WetbulbProfileMultiplierSchedule" or', u'"WetBulbProfileDefaultMultipliers"'], 'type': 'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `daily_wetbulb_temperature_range`
+            value (float): value for IDD Field `Daily Wet-Bulb Temperature Range`
                 Units: deltaC
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1159,10 +1179,9 @@ class SizingPeriodDesignDay(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `daily_wetbulb_temperature_range`'.format(value))
-
         self._data["Daily Wet-Bulb Temperature Range"] = value
 
     @property
@@ -1176,12 +1195,14 @@ class SizingPeriodDesignDay(object):
 
     @barometric_pressure.setter
     def barometric_pressure(self, value=None):
-        """  Corresponds to IDD Field `barometric_pressure`
+        """  Corresponds to IDD Field `Barometric Pressure`
         This field's value is also checked against the calculated "standard barometric pressure"
         for the location.  If out of range (>10%) or blank, then is replaced by standard value.
+        
+        {'pytype': 'float', u'maximum': '120000.0', u'note': [u'This field\'s value is also checked against the calculated "standard barometric pressure"', u'for the location.  If out of range (>10%) or blank, then is replaced by standard value.'], u'ip-units': u'inHg', u'minimum': '31000.0', u'units': u'Pa', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `barometric_pressure`
+            value (float): value for IDD Field `Barometric Pressure`
                 Units: Pa
                 IP-Units: inHg
                 value >= 31000.0
@@ -1195,7 +1216,7 @@ class SizingPeriodDesignDay(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `barometric_pressure`'.format(value))
             if value < 31000.0:
@@ -1204,7 +1225,6 @@ class SizingPeriodDesignDay(object):
             if value > 120000.0:
                 raise ValueError('value need to be smaller 120000.0 '
                                  'for field `barometric_pressure`')
-
         self._data["Barometric Pressure"] = value
 
     @property
@@ -1218,10 +1238,12 @@ class SizingPeriodDesignDay(object):
 
     @wind_speed.setter
     def wind_speed(self, value=None):
-        """  Corresponds to IDD Field `wind_speed`
+        """  Corresponds to IDD Field `Wind Speed`
+        
+        {'pytype': 'float', u'maximum': '40.0', u'required-field': True, u'ip-units': u'miles/hr', u'minimum': '0.0', u'units': u'm/s', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `wind_speed`
+            value (float): value for IDD Field `Wind Speed`
                 Units: m/s
                 IP-Units: miles/hr
                 value >= 0.0
@@ -1235,7 +1257,7 @@ class SizingPeriodDesignDay(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `wind_speed`'.format(value))
             if value < 0.0:
@@ -1244,7 +1266,6 @@ class SizingPeriodDesignDay(object):
             if value > 40.0:
                 raise ValueError('value need to be smaller 40.0 '
                                  'for field `wind_speed`')
-
         self._data["Wind Speed"] = value
 
     @property
@@ -1258,12 +1279,14 @@ class SizingPeriodDesignDay(object):
 
     @wind_direction.setter
     def wind_direction(self, value=None):
-        """  Corresponds to IDD Field `wind_direction`
+        """  Corresponds to IDD Field `Wind Direction`
         North=0.0 East=90.0
         0 and 360 are the same direction.
+        
+        {'pytype': 'float', u'maximum': '360.0', u'required-field': True, u'note': [u'North=0.0 East=90.0', u'0 and 360 are the same direction.'], u'minimum': '0.0', u'units': u'deg', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `wind_direction`
+            value (float): value for IDD Field `Wind Direction`
                 Units: deg
                 value >= 0.0
                 value <= 360.0
@@ -1276,7 +1299,7 @@ class SizingPeriodDesignDay(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `wind_direction`'.format(value))
             if value < 0.0:
@@ -1285,7 +1308,6 @@ class SizingPeriodDesignDay(object):
             if value > 360.0:
                 raise ValueError('value need to be smaller 360.0 '
                                  'for field `wind_direction`')
-
         self._data["Wind Direction"] = value
 
     @property
@@ -1299,11 +1321,13 @@ class SizingPeriodDesignDay(object):
 
     @rain_indicator.setter
     def rain_indicator(self, value="No"):
-        """  Corresponds to IDD Field `rain_indicator`
+        """  Corresponds to IDD Field `Rain Indicator`
         Yes is raining (all day), No is not raining
+        
+        {u'note': [u'Yes is raining (all day), No is not raining'], u'default': u'No', u'type': u'choice', u'key': [u'Yes', u'No'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `rain_indicator`
+            value (str): value for IDD Field `Rain Indicator`
                 Accepted values are:
                       - Yes
                       - No
@@ -1317,7 +1341,7 @@ class SizingPeriodDesignDay(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `rain_indicator`'.format(value))
             if ',' in value:
@@ -1343,7 +1367,6 @@ class SizingPeriodDesignDay(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `rain_indicator`'.format(value))
             value = vals[value_lower]
-
         self._data["Rain Indicator"] = value
 
     @property
@@ -1357,11 +1380,13 @@ class SizingPeriodDesignDay(object):
 
     @snow_indicator.setter
     def snow_indicator(self, value="No"):
-        """  Corresponds to IDD Field `snow_indicator`
+        """  Corresponds to IDD Field `Snow Indicator`
         Yes is Snow on Ground, No is no Snow on Ground
+        
+        {u'default': u'No', u'note': [u'Yes is Snow on Ground, No is no Snow on Ground'], u'type': u'choice', u'key': [u'Yes', u'No'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `snow_indicator`
+            value (str): value for IDD Field `Snow Indicator`
                 Accepted values are:
                       - Yes
                       - No
@@ -1375,7 +1400,7 @@ class SizingPeriodDesignDay(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `snow_indicator`'.format(value))
             if ',' in value:
@@ -1401,7 +1426,6 @@ class SizingPeriodDesignDay(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `snow_indicator`'.format(value))
             value = vals[value_lower]
-
         self._data["Snow Indicator"] = value
 
     @property
@@ -1415,12 +1439,14 @@ class SizingPeriodDesignDay(object):
 
     @daylight_saving_time_indicator.setter
     def daylight_saving_time_indicator(self, value="No"):
-        """  Corresponds to IDD Field `daylight_saving_time_indicator`
+        """  Corresponds to IDD Field `Daylight Saving Time Indicator`
         Yes -- use schedules modified for Daylight Saving Time Schedules.
         No - do not use schedules modified for Daylight Saving Time Schedules
+        
+        {u'note': [u'Yes -- use schedules modified for Daylight Saving Time Schedules.', u'No - do not use schedules modified for Daylight Saving Time Schedules'], u'default': u'No', u'type': u'choice', u'key': [u'Yes', u'No'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `daylight_saving_time_indicator`
+            value (str): value for IDD Field `Daylight Saving Time Indicator`
                 Accepted values are:
                       - Yes
                       - No
@@ -1434,7 +1460,7 @@ class SizingPeriodDesignDay(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `daylight_saving_time_indicator`'.format(value))
             if ',' in value:
@@ -1460,7 +1486,6 @@ class SizingPeriodDesignDay(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `daylight_saving_time_indicator`'.format(value))
             value = vals[value_lower]
-
         self._data["Daylight Saving Time Indicator"] = value
 
     @property
@@ -1474,10 +1499,12 @@ class SizingPeriodDesignDay(object):
 
     @solar_model_indicator.setter
     def solar_model_indicator(self, value="ASHRAEClearSky"):
-        """  Corresponds to IDD Field `solar_model_indicator`
+        """  Corresponds to IDD Field `Solar Model Indicator`
+        
+        {u'default': u'ASHRAEClearSky', u'type': u'choice', u'key': [u'ASHRAEClearSky', u'ZhangHuang', u'Schedule', u'ASHRAETau'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `solar_model_indicator`
+            value (str): value for IDD Field `Solar Model Indicator`
                 Accepted values are:
                       - ASHRAEClearSky
                       - ZhangHuang
@@ -1493,7 +1520,7 @@ class SizingPeriodDesignDay(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `solar_model_indicator`'.format(value))
             if ',' in value:
@@ -1521,7 +1548,6 @@ class SizingPeriodDesignDay(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `solar_model_indicator`'.format(value))
             value = vals[value_lower]
-
         self._data["Solar Model Indicator"] = value
 
     @property
@@ -1535,11 +1561,13 @@ class SizingPeriodDesignDay(object):
 
     @beam_solar_day_schedule_name.setter
     def beam_solar_day_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `beam_solar_day_schedule_name`
+        """  Corresponds to IDD Field `Beam Solar Day Schedule Name`
         if Solar Model Indicator = Schedule, then beam schedule name (for day)
+        
+        {u'note': [u'if Solar Model Indicator = Schedule, then beam schedule name (for day)'], u'type': u'object-list', u'object-list': u'DayScheduleNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `beam_solar_day_schedule_name`
+            value (str): value for IDD Field `Beam Solar Day Schedule Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1549,7 +1577,7 @@ class SizingPeriodDesignDay(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `beam_solar_day_schedule_name`'.format(value))
             if ',' in value:
@@ -1558,7 +1586,6 @@ class SizingPeriodDesignDay(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `beam_solar_day_schedule_name`')
-
         self._data["Beam Solar Day Schedule Name"] = value
 
     @property
@@ -1572,11 +1599,13 @@ class SizingPeriodDesignDay(object):
 
     @diffuse_solar_day_schedule_name.setter
     def diffuse_solar_day_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `diffuse_solar_day_schedule_name`
+        """  Corresponds to IDD Field `Diffuse Solar Day Schedule Name`
         if Solar Model Indicator = Schedule, then diffuse schedule name (for day)
+        
+        {u'note': [u'if Solar Model Indicator = Schedule, then diffuse schedule name (for day)'], u'type': u'object-list', u'object-list': u'DayScheduleNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `diffuse_solar_day_schedule_name`
+            value (str): value for IDD Field `Diffuse Solar Day Schedule Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1586,7 +1615,7 @@ class SizingPeriodDesignDay(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `diffuse_solar_day_schedule_name`'.format(value))
             if ',' in value:
@@ -1595,7 +1624,6 @@ class SizingPeriodDesignDay(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `diffuse_solar_day_schedule_name`')
-
         self._data["Diffuse Solar Day Schedule Name"] = value
 
     @property
@@ -1609,11 +1637,13 @@ class SizingPeriodDesignDay(object):
 
     @ashrae_clear_sky_optical_depth_for_beam_irradiance_taub.setter
     def ashrae_clear_sky_optical_depth_for_beam_irradiance_taub(self, value=0.0 ):
-        """  Corresponds to IDD Field `ashrae_clear_sky_optical_depth_for_beam_irradiance_taub`
+        """  Corresponds to IDD Field `ASHRAE Clear Sky Optical Depth for Beam Irradiance (taub)`
         Required if Solar Model Indicator = ASHRAETau
+        
+        {'pytype': 'float', u'default': '0.0', u'maximum': '1.2', u'note': [u'Required if Solar Model Indicator = ASHRAETau'], u'minimum': '0.0', u'units': u'dimensionless', 'type': 'real'}
 
         Args:
-            value (float): value for IDD Field `ashrae_clear_sky_optical_depth_for_beam_irradiance_taub`
+            value (float): value for IDD Field `ASHRAE Clear Sky Optical Depth for Beam Irradiance (taub)`
                 Units: dimensionless
                 Default value: 0.0
                 value >= 0.0
@@ -1627,7 +1657,7 @@ class SizingPeriodDesignDay(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `ashrae_clear_sky_optical_depth_for_beam_irradiance_taub`'.format(value))
             if value < 0.0:
@@ -1636,7 +1666,6 @@ class SizingPeriodDesignDay(object):
             if value > 1.2:
                 raise ValueError('value need to be smaller 1.2 '
                                  'for field `ashrae_clear_sky_optical_depth_for_beam_irradiance_taub`')
-
         self._data["ASHRAE Clear Sky Optical Depth for Beam Irradiance (taub)"] = value
 
     @property
@@ -1650,11 +1679,13 @@ class SizingPeriodDesignDay(object):
 
     @ashrae_clear_sky_optical_depth_for_diffuse_irradiance_taud.setter
     def ashrae_clear_sky_optical_depth_for_diffuse_irradiance_taud(self, value=0.0 ):
-        """  Corresponds to IDD Field `ashrae_clear_sky_optical_depth_for_diffuse_irradiance_taud`
+        """  Corresponds to IDD Field `ASHRAE Clear Sky Optical Depth for Diffuse Irradiance (taud)`
         Required if Solar Model Indicator = ASHRAETau
+        
+        {'pytype': 'float', u'default': '0.0', u'maximum': '3.0', u'note': [u'Required if Solar Model Indicator = ASHRAETau'], u'minimum': '0.0', u'units': u'dimensionless', 'type': 'real'}
 
         Args:
-            value (float): value for IDD Field `ashrae_clear_sky_optical_depth_for_diffuse_irradiance_taud`
+            value (float): value for IDD Field `ASHRAE Clear Sky Optical Depth for Diffuse Irradiance (taud)`
                 Units: dimensionless
                 Default value: 0.0
                 value >= 0.0
@@ -1668,7 +1699,7 @@ class SizingPeriodDesignDay(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `ashrae_clear_sky_optical_depth_for_diffuse_irradiance_taud`'.format(value))
             if value < 0.0:
@@ -1677,7 +1708,6 @@ class SizingPeriodDesignDay(object):
             if value > 3.0:
                 raise ValueError('value need to be smaller 3.0 '
                                  'for field `ashrae_clear_sky_optical_depth_for_diffuse_irradiance_taud`')
-
         self._data["ASHRAE Clear Sky Optical Depth for Diffuse Irradiance (taud)"] = value
 
     @property
@@ -1691,12 +1721,14 @@ class SizingPeriodDesignDay(object):
 
     @sky_clearness.setter
     def sky_clearness(self, value=0.0 ):
-        """  Corresponds to IDD Field `sky_clearness`
+        """  Corresponds to IDD Field `Sky Clearness`
         Used if Sky Model Indicator = ASHRAEClearSky or ZhangHuang
         0.0 is totally unclear, 1.0 is totally clear
+        
+        {'pytype': 'float', u'default': '0.0', u'maximum': '1.2', u'note': [u'Used if Sky Model Indicator = ASHRAEClearSky or ZhangHuang', u'0.0 is totally unclear, 1.0 is totally clear'], u'minimum': '0.0', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `sky_clearness`
+            value (float): value for IDD Field `Sky Clearness`
                 Default value: 0.0
                 value >= 0.0
                 value <= 1.2
@@ -1709,7 +1741,7 @@ class SizingPeriodDesignDay(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `sky_clearness`'.format(value))
             if value < 0.0:
@@ -1718,7 +1750,6 @@ class SizingPeriodDesignDay(object):
             if value > 1.2:
                 raise ValueError('value need to be smaller 1.2 '
                                  'for field `sky_clearness`')
-
         self._data["Sky Clearness"] = value
 
     def check(self):
@@ -1854,11 +1885,13 @@ class SizingPeriodWeatherFileDays(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
         user supplied name for reporting
+        
+        {u'note': [u'user supplied name for reporting'], 'type': 'alpha', u'required-field': True, u'reference': u'RunPeriodsAndDesignDays', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1868,7 +1901,7 @@ class SizingPeriodWeatherFileDays(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -1877,7 +1910,6 @@ class SizingPeriodWeatherFileDays(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -1891,10 +1923,12 @@ class SizingPeriodWeatherFileDays(object):
 
     @begin_month.setter
     def begin_month(self, value=None):
-        """  Corresponds to IDD Field `begin_month`
+        """  Corresponds to IDD Field `Begin Month`
+        
+        {u'minimum': '1', u'type': u'integer', u'maximum': '12', u'required-field': True, 'pytype': 'int'}
 
         Args:
-            value (int): value for IDD Field `begin_month`
+            value (int): value for IDD Field `Begin Month`
                 value >= 1
                 value <= 12
                 if `value` is None it will not be checked against the
@@ -1906,7 +1940,7 @@ class SizingPeriodWeatherFileDays(object):
         if value is not None:
             try:
                 value = int(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type int '
                                  'for field `begin_month`'.format(value))
             if value < 1:
@@ -1915,7 +1949,6 @@ class SizingPeriodWeatherFileDays(object):
             if value > 12:
                 raise ValueError('value need to be smaller 12 '
                                  'for field `begin_month`')
-
         self._data["Begin Month"] = value
 
     @property
@@ -1929,10 +1962,12 @@ class SizingPeriodWeatherFileDays(object):
 
     @begin_day_of_month.setter
     def begin_day_of_month(self, value=None):
-        """  Corresponds to IDD Field `begin_day_of_month`
+        """  Corresponds to IDD Field `Begin Day of Month`
+        
+        {u'minimum': '1', u'type': u'integer', u'maximum': '31', u'required-field': True, 'pytype': 'int'}
 
         Args:
-            value (int): value for IDD Field `begin_day_of_month`
+            value (int): value for IDD Field `Begin Day of Month`
                 value >= 1
                 value <= 31
                 if `value` is None it will not be checked against the
@@ -1944,7 +1979,7 @@ class SizingPeriodWeatherFileDays(object):
         if value is not None:
             try:
                 value = int(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type int '
                                  'for field `begin_day_of_month`'.format(value))
             if value < 1:
@@ -1953,7 +1988,6 @@ class SizingPeriodWeatherFileDays(object):
             if value > 31:
                 raise ValueError('value need to be smaller 31 '
                                  'for field `begin_day_of_month`')
-
         self._data["Begin Day of Month"] = value
 
     @property
@@ -1967,10 +2001,12 @@ class SizingPeriodWeatherFileDays(object):
 
     @end_month.setter
     def end_month(self, value=None):
-        """  Corresponds to IDD Field `end_month`
+        """  Corresponds to IDD Field `End Month`
+        
+        {u'minimum': '1', u'type': u'integer', u'maximum': '12', u'required-field': True, 'pytype': 'int'}
 
         Args:
-            value (int): value for IDD Field `end_month`
+            value (int): value for IDD Field `End Month`
                 value >= 1
                 value <= 12
                 if `value` is None it will not be checked against the
@@ -1982,7 +2018,7 @@ class SizingPeriodWeatherFileDays(object):
         if value is not None:
             try:
                 value = int(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type int '
                                  'for field `end_month`'.format(value))
             if value < 1:
@@ -1991,7 +2027,6 @@ class SizingPeriodWeatherFileDays(object):
             if value > 12:
                 raise ValueError('value need to be smaller 12 '
                                  'for field `end_month`')
-
         self._data["End Month"] = value
 
     @property
@@ -2005,10 +2040,12 @@ class SizingPeriodWeatherFileDays(object):
 
     @end_day_of_month.setter
     def end_day_of_month(self, value=None):
-        """  Corresponds to IDD Field `end_day_of_month`
+        """  Corresponds to IDD Field `End Day of Month`
+        
+        {u'minimum': '1', u'type': u'integer', u'maximum': '31', u'required-field': True, 'pytype': 'int'}
 
         Args:
-            value (int): value for IDD Field `end_day_of_month`
+            value (int): value for IDD Field `End Day of Month`
                 value >= 1
                 value <= 31
                 if `value` is None it will not be checked against the
@@ -2020,7 +2057,7 @@ class SizingPeriodWeatherFileDays(object):
         if value is not None:
             try:
                 value = int(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type int '
                                  'for field `end_day_of_month`'.format(value))
             if value < 1:
@@ -2029,7 +2066,6 @@ class SizingPeriodWeatherFileDays(object):
             if value > 31:
                 raise ValueError('value need to be smaller 31 '
                                  'for field `end_day_of_month`')
-
         self._data["End Day of Month"] = value
 
     @property
@@ -2043,15 +2079,17 @@ class SizingPeriodWeatherFileDays(object):
 
     @day_of_week_for_start_day.setter
     def day_of_week_for_start_day(self, value="Monday"):
-        """  Corresponds to IDD Field `day_of_week_for_start_day`
+        """  Corresponds to IDD Field `Day of Week for Start Day`
         =[|Sunday|Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|SummerDesignDay|WinterDesignDay|
         |CustomDay1|CustomDay2];
         if you use SummerDesignDay or WinterDesignDay or the CustomDays then this will apply
         to the whole period; other days (i.e., Monday) will signify a start day and
         normal sequence ofsubsequent days
+        
+        {u'note': [u'=[|Sunday|Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|SummerDesignDay|WinterDesignDay|', u'|CustomDay1|CustomDay2];', u'if you use SummerDesignDay or WinterDesignDay or the CustomDays then this will apply', u'to the whole period; other days (i.e., Monday) will signify a start day and', u'normal sequence ofsubsequent days'], u'default': u'Monday', u'type': u'choice', u'key': [u'Sunday', u'Monday', u'Tuesday', u'Wednesday', u'Thursday', u'Friday', u'Saturday', u'SummerDesignDay', u'WinterDesignDay', u'CustomDay1', u'CustomDay2'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `day_of_week_for_start_day`
+            value (str): value for IDD Field `Day of Week for Start Day`
                 Accepted values are:
                       - Sunday
                       - Monday
@@ -2074,7 +2112,7 @@ class SizingPeriodWeatherFileDays(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `day_of_week_for_start_day`'.format(value))
             if ',' in value:
@@ -2109,7 +2147,6 @@ class SizingPeriodWeatherFileDays(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `day_of_week_for_start_day`'.format(value))
             value = vals[value_lower]
-
         self._data["Day of Week for Start Day"] = value
 
     @property
@@ -2123,12 +2160,14 @@ class SizingPeriodWeatherFileDays(object):
 
     @use_weather_file_daylight_saving_period.setter
     def use_weather_file_daylight_saving_period(self, value="Yes"):
-        """  Corresponds to IDD Field `use_weather_file_daylight_saving_period`
+        """  Corresponds to IDD Field `Use Weather File Daylight Saving Period`
         If yes or blank, use daylight saving period as specified on Weatherfile.
         If no, do not use the daylight saving period as specified on the Weatherfile.
+        
+        {u'note': [u'If yes or blank, use daylight saving period as specified on Weatherfile.', u'If no, do not use the daylight saving period as specified on the Weatherfile.'], u'default': u'Yes', u'type': u'choice', u'key': [u'Yes', u'No'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `use_weather_file_daylight_saving_period`
+            value (str): value for IDD Field `Use Weather File Daylight Saving Period`
                 Accepted values are:
                       - Yes
                       - No
@@ -2142,7 +2181,7 @@ class SizingPeriodWeatherFileDays(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `use_weather_file_daylight_saving_period`'.format(value))
             if ',' in value:
@@ -2168,7 +2207,6 @@ class SizingPeriodWeatherFileDays(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `use_weather_file_daylight_saving_period`'.format(value))
             value = vals[value_lower]
-
         self._data["Use Weather File Daylight Saving Period"] = value
 
     @property
@@ -2182,10 +2220,12 @@ class SizingPeriodWeatherFileDays(object):
 
     @use_weather_file_rain_and_snow_indicators.setter
     def use_weather_file_rain_and_snow_indicators(self, value="Yes"):
-        """  Corresponds to IDD Field `use_weather_file_rain_and_snow_indicators`
+        """  Corresponds to IDD Field `Use Weather File Rain and Snow Indicators`
+        
+        {u'default': u'Yes', u'type': u'choice', u'key': [u'Yes', u'No'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `use_weather_file_rain_and_snow_indicators`
+            value (str): value for IDD Field `Use Weather File Rain and Snow Indicators`
                 Accepted values are:
                       - Yes
                       - No
@@ -2199,7 +2239,7 @@ class SizingPeriodWeatherFileDays(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `use_weather_file_rain_and_snow_indicators`'.format(value))
             if ',' in value:
@@ -2225,7 +2265,6 @@ class SizingPeriodWeatherFileDays(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `use_weather_file_rain_and_snow_indicators`'.format(value))
             value = vals[value_lower]
-
         self._data["Use Weather File Rain and Snow Indicators"] = value
 
     def check(self):
@@ -2340,11 +2379,13 @@ class SizingPeriodWeatherFileConditionType(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
         user supplied name for reporting
+        
+        {u'note': [u'user supplied name for reporting'], 'type': 'alpha', u'reference': u'RunPeriodsAndDesignDays', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2354,7 +2395,7 @@ class SizingPeriodWeatherFileConditionType(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -2363,7 +2404,6 @@ class SizingPeriodWeatherFileConditionType(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -2377,13 +2417,15 @@ class SizingPeriodWeatherFileConditionType(object):
 
     @period_selection.setter
     def period_selection(self, value=None):
-        """  Corresponds to IDD Field `period_selection`
+        """  Corresponds to IDD Field `Period Selection`
         Following is a list of all possible types of Extreme and Typical periods that
         might be identified in the Weather File. Not all possible types are available
         for all weather files.
+        
+        {'pytype': 'str', u'retaincase': u'', u'required-field': True, u'note': [u'Following is a list of all possible types of Extreme and Typical periods that', u'might be identified in the Weather File. Not all possible types are available', u'for all weather files.'], u'key': [u'SummerExtreme', u'SummerTypical', u'WinterExtreme', u'WinterTypical', u'AutumnTypical', u'SpringTypical', u'WetSeason', u'DrySeason', u'NoDrySeason', u'NoWetSeason', u'TropicalHot', u'TropicalCold', u'NoDrySeasonMax', u'NoDrySeasonMin', u'NoWetSeasonMax', u'NoWetSeasonMin'], u'type': u'choice'}
 
         Args:
-            value (str): value for IDD Field `period_selection`
+            value (str): value for IDD Field `Period Selection`
                 Accepted values are:
                       - SummerExtreme
                       - SummerTypical
@@ -2410,7 +2452,7 @@ class SizingPeriodWeatherFileConditionType(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `period_selection`'.format(value))
             if ',' in value:
@@ -2450,7 +2492,6 @@ class SizingPeriodWeatherFileConditionType(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `period_selection`'.format(value))
             value = vals[value_lower]
-
         self._data["Period Selection"] = value
 
     @property
@@ -2464,15 +2505,17 @@ class SizingPeriodWeatherFileConditionType(object):
 
     @day_of_week_for_start_day.setter
     def day_of_week_for_start_day(self, value="Monday"):
-        """  Corresponds to IDD Field `day_of_week_for_start_day`
+        """  Corresponds to IDD Field `Day of Week for Start Day`
         =[|Sunday|Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|SummerDesignDay|WinterDesignDay|
         |CustomDay1|CustomDay2];
         if you use SummerDesignDay or WinterDesignDay or the CustomDays then this will apply
         to the whole period; other days (i.e., Monday) will signify a start day and
         normal sequence ofsubsequent days
+        
+        {u'note': [u'=[|Sunday|Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|SummerDesignDay|WinterDesignDay|', u'|CustomDay1|CustomDay2];', u'if you use SummerDesignDay or WinterDesignDay or the CustomDays then this will apply', u'to the whole period; other days (i.e., Monday) will signify a start day and', u'normal sequence ofsubsequent days'], u'default': u'Monday', u'type': u'choice', u'key': [u'Sunday', u'Monday', u'Tuesday', u'Wednesday', u'Thursday', u'Friday', u'Saturday', u'SummerDesignDay', u'WinterDesignDay', u'CustomDay1', u'CustomDay2'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `day_of_week_for_start_day`
+            value (str): value for IDD Field `Day of Week for Start Day`
                 Accepted values are:
                       - Sunday
                       - Monday
@@ -2495,7 +2538,7 @@ class SizingPeriodWeatherFileConditionType(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `day_of_week_for_start_day`'.format(value))
             if ',' in value:
@@ -2530,7 +2573,6 @@ class SizingPeriodWeatherFileConditionType(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `day_of_week_for_start_day`'.format(value))
             value = vals[value_lower]
-
         self._data["Day of Week for Start Day"] = value
 
     @property
@@ -2544,12 +2586,14 @@ class SizingPeriodWeatherFileConditionType(object):
 
     @use_weather_file_daylight_saving_period.setter
     def use_weather_file_daylight_saving_period(self, value="Yes"):
-        """  Corresponds to IDD Field `use_weather_file_daylight_saving_period`
+        """  Corresponds to IDD Field `Use Weather File Daylight Saving Period`
         If yes or blank, use daylight saving period as specified on Weatherfile.
         If no, do not use the daylight saving period as specified on the Weatherfile.
+        
+        {u'note': [u'If yes or blank, use daylight saving period as specified on Weatherfile.', u'If no, do not use the daylight saving period as specified on the Weatherfile.'], u'default': u'Yes', u'type': u'choice', u'key': [u'Yes', u'No'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `use_weather_file_daylight_saving_period`
+            value (str): value for IDD Field `Use Weather File Daylight Saving Period`
                 Accepted values are:
                       - Yes
                       - No
@@ -2563,7 +2607,7 @@ class SizingPeriodWeatherFileConditionType(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `use_weather_file_daylight_saving_period`'.format(value))
             if ',' in value:
@@ -2589,7 +2633,6 @@ class SizingPeriodWeatherFileConditionType(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `use_weather_file_daylight_saving_period`'.format(value))
             value = vals[value_lower]
-
         self._data["Use Weather File Daylight Saving Period"] = value
 
     @property
@@ -2603,10 +2646,12 @@ class SizingPeriodWeatherFileConditionType(object):
 
     @use_weather_file_rain_and_snow_indicators.setter
     def use_weather_file_rain_and_snow_indicators(self, value="Yes"):
-        """  Corresponds to IDD Field `use_weather_file_rain_and_snow_indicators`
+        """  Corresponds to IDD Field `Use Weather File Rain and Snow Indicators`
+        
+        {u'default': u'Yes', u'type': u'choice', u'key': [u'Yes', u'No'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `use_weather_file_rain_and_snow_indicators`
+            value (str): value for IDD Field `Use Weather File Rain and Snow Indicators`
                 Accepted values are:
                       - Yes
                       - No
@@ -2620,7 +2665,7 @@ class SizingPeriodWeatherFileConditionType(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `use_weather_file_rain_and_snow_indicators`'.format(value))
             if ',' in value:
@@ -2646,7 +2691,6 @@ class SizingPeriodWeatherFileConditionType(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `use_weather_file_rain_and_snow_indicators`'.format(value))
             value = vals[value_lower]
-
         self._data["Use Weather File Rain and Snow Indicators"] = value
 
     def check(self):
@@ -2831,12 +2875,14 @@ class RunPeriod(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
         descriptive name (used in reporting mainly)
         if blank, weather file title is used.  if not blank, must be unique
+        
+        {u'note': [u'descriptive name (used in reporting mainly)', u'if blank, weather file title is used.  if not blank, must be unique'], 'type': 'alpha', u'reference': u'RunPeriodsAndDesignDays', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2846,7 +2892,7 @@ class RunPeriod(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -2855,7 +2901,6 @@ class RunPeriod(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -2869,10 +2914,12 @@ class RunPeriod(object):
 
     @begin_month.setter
     def begin_month(self, value=None):
-        """  Corresponds to IDD Field `begin_month`
+        """  Corresponds to IDD Field `Begin Month`
+        
+        {u'minimum': '1', u'type': u'integer', u'maximum': '12', u'required-field': True, 'pytype': 'int'}
 
         Args:
-            value (int): value for IDD Field `begin_month`
+            value (int): value for IDD Field `Begin Month`
                 value >= 1
                 value <= 12
                 if `value` is None it will not be checked against the
@@ -2884,7 +2931,7 @@ class RunPeriod(object):
         if value is not None:
             try:
                 value = int(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type int '
                                  'for field `begin_month`'.format(value))
             if value < 1:
@@ -2893,7 +2940,6 @@ class RunPeriod(object):
             if value > 12:
                 raise ValueError('value need to be smaller 12 '
                                  'for field `begin_month`')
-
         self._data["Begin Month"] = value
 
     @property
@@ -2907,10 +2953,12 @@ class RunPeriod(object):
 
     @begin_day_of_month.setter
     def begin_day_of_month(self, value=None):
-        """  Corresponds to IDD Field `begin_day_of_month`
+        """  Corresponds to IDD Field `Begin Day of Month`
+        
+        {u'minimum': '1', u'type': u'integer', u'maximum': '31', u'required-field': True, 'pytype': 'int'}
 
         Args:
-            value (int): value for IDD Field `begin_day_of_month`
+            value (int): value for IDD Field `Begin Day of Month`
                 value >= 1
                 value <= 31
                 if `value` is None it will not be checked against the
@@ -2922,7 +2970,7 @@ class RunPeriod(object):
         if value is not None:
             try:
                 value = int(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type int '
                                  'for field `begin_day_of_month`'.format(value))
             if value < 1:
@@ -2931,7 +2979,6 @@ class RunPeriod(object):
             if value > 31:
                 raise ValueError('value need to be smaller 31 '
                                  'for field `begin_day_of_month`')
-
         self._data["Begin Day of Month"] = value
 
     @property
@@ -2945,10 +2992,12 @@ class RunPeriod(object):
 
     @end_month.setter
     def end_month(self, value=None):
-        """  Corresponds to IDD Field `end_month`
+        """  Corresponds to IDD Field `End Month`
+        
+        {u'minimum': '1', u'type': u'integer', u'maximum': '12', u'required-field': True, 'pytype': 'int'}
 
         Args:
-            value (int): value for IDD Field `end_month`
+            value (int): value for IDD Field `End Month`
                 value >= 1
                 value <= 12
                 if `value` is None it will not be checked against the
@@ -2960,7 +3009,7 @@ class RunPeriod(object):
         if value is not None:
             try:
                 value = int(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type int '
                                  'for field `end_month`'.format(value))
             if value < 1:
@@ -2969,7 +3018,6 @@ class RunPeriod(object):
             if value > 12:
                 raise ValueError('value need to be smaller 12 '
                                  'for field `end_month`')
-
         self._data["End Month"] = value
 
     @property
@@ -2983,10 +3031,12 @@ class RunPeriod(object):
 
     @end_day_of_month.setter
     def end_day_of_month(self, value=None):
-        """  Corresponds to IDD Field `end_day_of_month`
+        """  Corresponds to IDD Field `End Day of Month`
+        
+        {u'minimum': '1', u'type': u'integer', u'maximum': '31', u'required-field': True, 'pytype': 'int'}
 
         Args:
-            value (int): value for IDD Field `end_day_of_month`
+            value (int): value for IDD Field `End Day of Month`
                 value >= 1
                 value <= 31
                 if `value` is None it will not be checked against the
@@ -2998,7 +3048,7 @@ class RunPeriod(object):
         if value is not None:
             try:
                 value = int(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type int '
                                  'for field `end_day_of_month`'.format(value))
             if value < 1:
@@ -3007,7 +3057,6 @@ class RunPeriod(object):
             if value > 31:
                 raise ValueError('value need to be smaller 31 '
                                  'for field `end_day_of_month`')
-
         self._data["End Day of Month"] = value
 
     @property
@@ -3021,11 +3070,13 @@ class RunPeriod(object):
 
     @day_of_week_for_start_day.setter
     def day_of_week_for_start_day(self, value="UseWeatherFile"):
-        """  Corresponds to IDD Field `day_of_week_for_start_day`
+        """  Corresponds to IDD Field `Day of Week for Start Day`
         =<blank - use WeatherFile>|Sunday|Monday|Tuesday|Wednesday|Thursday|Friday|Saturday];
+        
+        {u'note': [u'=<blank - use WeatherFile>|Sunday|Monday|Tuesday|Wednesday|Thursday|Friday|Saturday];'], u'default': u'UseWeatherFile', u'type': u'choice', u'key': [u'Sunday', u'Monday', u'Tuesday', u'Wednesday', u'Thursday', u'Friday', u'Saturday', u'UseWeatherFile'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `day_of_week_for_start_day`
+            value (str): value for IDD Field `Day of Week for Start Day`
                 Accepted values are:
                       - Sunday
                       - Monday
@@ -3045,7 +3096,7 @@ class RunPeriod(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `day_of_week_for_start_day`'.format(value))
             if ',' in value:
@@ -3077,7 +3128,6 @@ class RunPeriod(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `day_of_week_for_start_day`'.format(value))
             value = vals[value_lower]
-
         self._data["Day of Week for Start Day"] = value
 
     @property
@@ -3091,13 +3141,15 @@ class RunPeriod(object):
 
     @use_weather_file_holidays_and_special_days.setter
     def use_weather_file_holidays_and_special_days(self, value="Yes"):
-        """  Corresponds to IDD Field `use_weather_file_holidays_and_special_days`
+        """  Corresponds to IDD Field `Use Weather File Holidays and Special Days`
         If yes or blank, use holidays as specified on Weatherfile.
         If no, do not use the holidays specified on the Weatherfile.
         Note: You can still specify holidays/special days using the RunPeriodControl:SpecialDays object(s).
+        
+        {u'note': [u'If yes or blank, use holidays as specified on Weatherfile.', u'If no, do not use the holidays specified on the Weatherfile.', u'Note: You can still specify holidays/special days using the RunPeriodControl:SpecialDays object(s).'], u'default': u'Yes', u'type': u'choice', u'key': [u'Yes', u'No'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `use_weather_file_holidays_and_special_days`
+            value (str): value for IDD Field `Use Weather File Holidays and Special Days`
                 Accepted values are:
                       - Yes
                       - No
@@ -3111,7 +3163,7 @@ class RunPeriod(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `use_weather_file_holidays_and_special_days`'.format(value))
             if ',' in value:
@@ -3137,7 +3189,6 @@ class RunPeriod(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `use_weather_file_holidays_and_special_days`'.format(value))
             value = vals[value_lower]
-
         self._data["Use Weather File Holidays and Special Days"] = value
 
     @property
@@ -3151,12 +3202,14 @@ class RunPeriod(object):
 
     @use_weather_file_daylight_saving_period.setter
     def use_weather_file_daylight_saving_period(self, value="Yes"):
-        """  Corresponds to IDD Field `use_weather_file_daylight_saving_period`
+        """  Corresponds to IDD Field `Use Weather File Daylight Saving Period`
         If yes or blank, use daylight saving period as specified on Weatherfile.
         If no, do not use the daylight saving period as specified on the Weatherfile.
+        
+        {u'note': [u'If yes or blank, use daylight saving period as specified on Weatherfile.', u'If no, do not use the daylight saving period as specified on the Weatherfile.'], u'default': u'Yes', u'type': u'choice', u'key': [u'Yes', u'No'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `use_weather_file_daylight_saving_period`
+            value (str): value for IDD Field `Use Weather File Daylight Saving Period`
                 Accepted values are:
                       - Yes
                       - No
@@ -3170,7 +3223,7 @@ class RunPeriod(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `use_weather_file_daylight_saving_period`'.format(value))
             if ',' in value:
@@ -3196,7 +3249,6 @@ class RunPeriod(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `use_weather_file_daylight_saving_period`'.format(value))
             value = vals[value_lower]
-
         self._data["Use Weather File Daylight Saving Period"] = value
 
     @property
@@ -3210,11 +3262,13 @@ class RunPeriod(object):
 
     @apply_weekend_holiday_rule.setter
     def apply_weekend_holiday_rule(self, value="No"):
-        """  Corresponds to IDD Field `apply_weekend_holiday_rule`
+        """  Corresponds to IDD Field `Apply Weekend Holiday Rule`
         if yes and single day holiday falls on weekend, "holiday" occurs on following Monday
+        
+        {u'note': [u'if yes and single day holiday falls on weekend, "holiday" occurs on following Monday'], u'default': u'No', u'type': u'choice', u'key': [u'Yes', u'No'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `apply_weekend_holiday_rule`
+            value (str): value for IDD Field `Apply Weekend Holiday Rule`
                 Accepted values are:
                       - Yes
                       - No
@@ -3228,7 +3282,7 @@ class RunPeriod(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `apply_weekend_holiday_rule`'.format(value))
             if ',' in value:
@@ -3254,7 +3308,6 @@ class RunPeriod(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `apply_weekend_holiday_rule`'.format(value))
             value = vals[value_lower]
-
         self._data["Apply Weekend Holiday Rule"] = value
 
     @property
@@ -3268,10 +3321,12 @@ class RunPeriod(object):
 
     @use_weather_file_rain_indicators.setter
     def use_weather_file_rain_indicators(self, value="Yes"):
-        """  Corresponds to IDD Field `use_weather_file_rain_indicators`
+        """  Corresponds to IDD Field `Use Weather File Rain Indicators`
+        
+        {u'default': u'Yes', u'type': u'choice', u'key': [u'Yes', u'No'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `use_weather_file_rain_indicators`
+            value (str): value for IDD Field `Use Weather File Rain Indicators`
                 Accepted values are:
                       - Yes
                       - No
@@ -3285,7 +3340,7 @@ class RunPeriod(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `use_weather_file_rain_indicators`'.format(value))
             if ',' in value:
@@ -3311,7 +3366,6 @@ class RunPeriod(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `use_weather_file_rain_indicators`'.format(value))
             value = vals[value_lower]
-
         self._data["Use Weather File Rain Indicators"] = value
 
     @property
@@ -3325,10 +3379,12 @@ class RunPeriod(object):
 
     @use_weather_file_snow_indicators.setter
     def use_weather_file_snow_indicators(self, value="Yes"):
-        """  Corresponds to IDD Field `use_weather_file_snow_indicators`
+        """  Corresponds to IDD Field `Use Weather File Snow Indicators`
+        
+        {u'default': u'Yes', u'type': u'choice', u'key': [u'Yes', u'No'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `use_weather_file_snow_indicators`
+            value (str): value for IDD Field `Use Weather File Snow Indicators`
                 Accepted values are:
                       - Yes
                       - No
@@ -3342,7 +3398,7 @@ class RunPeriod(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `use_weather_file_snow_indicators`'.format(value))
             if ',' in value:
@@ -3368,7 +3424,6 @@ class RunPeriod(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `use_weather_file_snow_indicators`'.format(value))
             value = vals[value_lower]
-
         self._data["Use Weather File Snow Indicators"] = value
 
     @property
@@ -3382,10 +3437,12 @@ class RunPeriod(object):
 
     @number_of_times_runperiod_to_be_repeated.setter
     def number_of_times_runperiod_to_be_repeated(self, value=1 ):
-        """  Corresponds to IDD Field `number_of_times_runperiod_to_be_repeated`
+        """  Corresponds to IDD Field `Number of Times Runperiod to be Repeated`
+        
+        {u'default': '1', u'minimum': '1', u'type': u'integer', 'pytype': 'int'}
 
         Args:
-            value (int): value for IDD Field `number_of_times_runperiod_to_be_repeated`
+            value (int): value for IDD Field `Number of Times Runperiod to be Repeated`
                 Default value: 1
                 value >= 1
                 if `value` is None it will not be checked against the
@@ -3397,13 +3454,12 @@ class RunPeriod(object):
         if value is not None:
             try:
                 value = int(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type int '
                                  'for field `number_of_times_runperiod_to_be_repeated`'.format(value))
             if value < 1:
                 raise ValueError('value need to be greater or equal 1 '
                                  'for field `number_of_times_runperiod_to_be_repeated`')
-
         self._data["Number of Times Runperiod to be Repeated"] = value
 
     @property
@@ -3417,10 +3473,12 @@ class RunPeriod(object):
 
     @increment_day_of_week_on_repeat.setter
     def increment_day_of_week_on_repeat(self, value="Yes"):
-        """  Corresponds to IDD Field `increment_day_of_week_on_repeat`
+        """  Corresponds to IDD Field `Increment Day of Week on repeat`
+        
+        {u'default': u'Yes', u'type': u'choice', u'key': [u'Yes', u'No'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `increment_day_of_week_on_repeat`
+            value (str): value for IDD Field `Increment Day of Week on repeat`
                 Accepted values are:
                       - Yes
                       - No
@@ -3434,7 +3492,7 @@ class RunPeriod(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `increment_day_of_week_on_repeat`'.format(value))
             if ',' in value:
@@ -3460,7 +3518,6 @@ class RunPeriod(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `increment_day_of_week_on_repeat`'.format(value))
             value = vals[value_lower]
-
         self._data["Increment Day of Week on repeat"] = value
 
     @property
@@ -3474,13 +3531,15 @@ class RunPeriod(object):
 
     @start_year.setter
     def start_year(self, value=None):
-        """  Corresponds to IDD Field `start_year`
+        """  Corresponds to IDD Field `Start Year`
         this is the start year for the start date.  If the leap year is "Yes" in the weather file header
         (that is HOLIDAYS/SPECIAL DAYS header first field), then any year which is a leap year will assume
         there will be a Feb 29. A repeat of this runperiod will automatically increment the year.
+        
+        {u'note': [u'this is the start year for the start date.  If the leap year is "Yes" in the weather file header', u'(that is HOLIDAYS/SPECIAL DAYS header first field), then any year which is a leap year will assume', u'there will be a Feb 29. A repeat of this runperiod will automatically increment the year.'], 'type': 'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `start_year`
+            value (float): value for IDD Field `Start Year`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3490,10 +3549,9 @@ class RunPeriod(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `start_year`'.format(value))
-
         self._data["Start Year"] = value
 
     def check(self):
@@ -3669,12 +3727,14 @@ class RunPeriodCustomRange(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
         descriptive name (used in reporting mainly)
         if blank, weather file title is used.  if not blank, must be unique
+        
+        {u'note': [u'descriptive name (used in reporting mainly)', u'if blank, weather file title is used.  if not blank, must be unique'], 'type': 'alpha', u'reference': u'RunPeriodsAndDesignDays', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3684,7 +3744,7 @@ class RunPeriodCustomRange(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -3693,7 +3753,6 @@ class RunPeriodCustomRange(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -3707,10 +3766,12 @@ class RunPeriodCustomRange(object):
 
     @begin_month.setter
     def begin_month(self, value=None):
-        """  Corresponds to IDD Field `begin_month`
+        """  Corresponds to IDD Field `Begin Month`
+        
+        {u'minimum': '1', u'type': u'integer', u'maximum': '12', u'required-field': True, 'pytype': 'int'}
 
         Args:
-            value (int): value for IDD Field `begin_month`
+            value (int): value for IDD Field `Begin Month`
                 value >= 1
                 value <= 12
                 if `value` is None it will not be checked against the
@@ -3722,7 +3783,7 @@ class RunPeriodCustomRange(object):
         if value is not None:
             try:
                 value = int(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type int '
                                  'for field `begin_month`'.format(value))
             if value < 1:
@@ -3731,7 +3792,6 @@ class RunPeriodCustomRange(object):
             if value > 12:
                 raise ValueError('value need to be smaller 12 '
                                  'for field `begin_month`')
-
         self._data["Begin Month"] = value
 
     @property
@@ -3745,10 +3805,12 @@ class RunPeriodCustomRange(object):
 
     @begin_day_of_month.setter
     def begin_day_of_month(self, value=None):
-        """  Corresponds to IDD Field `begin_day_of_month`
+        """  Corresponds to IDD Field `Begin Day of Month`
+        
+        {u'minimum': '1', u'type': u'integer', u'maximum': '31', u'required-field': True, 'pytype': 'int'}
 
         Args:
-            value (int): value for IDD Field `begin_day_of_month`
+            value (int): value for IDD Field `Begin Day of Month`
                 value >= 1
                 value <= 31
                 if `value` is None it will not be checked against the
@@ -3760,7 +3822,7 @@ class RunPeriodCustomRange(object):
         if value is not None:
             try:
                 value = int(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type int '
                                  'for field `begin_day_of_month`'.format(value))
             if value < 1:
@@ -3769,7 +3831,6 @@ class RunPeriodCustomRange(object):
             if value > 31:
                 raise ValueError('value need to be smaller 31 '
                                  'for field `begin_day_of_month`')
-
         self._data["Begin Day of Month"] = value
 
     @property
@@ -3783,11 +3844,13 @@ class RunPeriodCustomRange(object):
 
     @begin_year.setter
     def begin_year(self, value=None):
-        """  Corresponds to IDD Field `begin_year`
+        """  Corresponds to IDD Field `Begin Year`
         must be start year of this date on weather file
+        
+        {u'note': [u'must be start year of this date on weather file'], 'type': 'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `begin_year`
+            value (float): value for IDD Field `Begin Year`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3797,10 +3860,9 @@ class RunPeriodCustomRange(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `begin_year`'.format(value))
-
         self._data["Begin Year"] = value
 
     @property
@@ -3814,10 +3876,12 @@ class RunPeriodCustomRange(object):
 
     @end_month.setter
     def end_month(self, value=None):
-        """  Corresponds to IDD Field `end_month`
+        """  Corresponds to IDD Field `End Month`
+        
+        {u'minimum': '1', u'type': u'integer', u'maximum': '12', u'required-field': True, 'pytype': 'int'}
 
         Args:
-            value (int): value for IDD Field `end_month`
+            value (int): value for IDD Field `End Month`
                 value >= 1
                 value <= 12
                 if `value` is None it will not be checked against the
@@ -3829,7 +3893,7 @@ class RunPeriodCustomRange(object):
         if value is not None:
             try:
                 value = int(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type int '
                                  'for field `end_month`'.format(value))
             if value < 1:
@@ -3838,7 +3902,6 @@ class RunPeriodCustomRange(object):
             if value > 12:
                 raise ValueError('value need to be smaller 12 '
                                  'for field `end_month`')
-
         self._data["End Month"] = value
 
     @property
@@ -3852,10 +3915,12 @@ class RunPeriodCustomRange(object):
 
     @end_day_of_month.setter
     def end_day_of_month(self, value=None):
-        """  Corresponds to IDD Field `end_day_of_month`
+        """  Corresponds to IDD Field `End Day of Month`
+        
+        {u'minimum': '1', u'type': u'integer', u'maximum': '31', u'required-field': True, 'pytype': 'int'}
 
         Args:
-            value (int): value for IDD Field `end_day_of_month`
+            value (int): value for IDD Field `End Day of Month`
                 value >= 1
                 value <= 31
                 if `value` is None it will not be checked against the
@@ -3867,7 +3932,7 @@ class RunPeriodCustomRange(object):
         if value is not None:
             try:
                 value = int(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type int '
                                  'for field `end_day_of_month`'.format(value))
             if value < 1:
@@ -3876,7 +3941,6 @@ class RunPeriodCustomRange(object):
             if value > 31:
                 raise ValueError('value need to be smaller 31 '
                                  'for field `end_day_of_month`')
-
         self._data["End Day of Month"] = value
 
     @property
@@ -3890,11 +3954,13 @@ class RunPeriodCustomRange(object):
 
     @end_year.setter
     def end_year(self, value=None):
-        """  Corresponds to IDD Field `end_year`
+        """  Corresponds to IDD Field `End Year`
         must be end year of this date on weather file
+        
+        {u'note': [u'must be end year of this date on weather file'], 'type': 'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `end_year`
+            value (float): value for IDD Field `End Year`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3904,10 +3970,9 @@ class RunPeriodCustomRange(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `end_year`'.format(value))
-
         self._data["End Year"] = value
 
     @property
@@ -3921,11 +3986,13 @@ class RunPeriodCustomRange(object):
 
     @day_of_week_for_start_day.setter
     def day_of_week_for_start_day(self, value="UseWeatherFile"):
-        """  Corresponds to IDD Field `day_of_week_for_start_day`
+        """  Corresponds to IDD Field `Day of Week for Start Day`
         =<blank - use WeatherFile>|Sunday|Monday|Tuesday|Wednesday|Thursday|Friday|Saturday];
+        
+        {u'note': [u'=<blank - use WeatherFile>|Sunday|Monday|Tuesday|Wednesday|Thursday|Friday|Saturday];'], u'default': u'UseWeatherFile', u'type': u'choice', u'key': [u'Sunday', u'Monday', u'Tuesday', u'Wednesday', u'Thursday', u'Friday', u'Saturday', u'UseWeatherFile'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `day_of_week_for_start_day`
+            value (str): value for IDD Field `Day of Week for Start Day`
                 Accepted values are:
                       - Sunday
                       - Monday
@@ -3945,7 +4012,7 @@ class RunPeriodCustomRange(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `day_of_week_for_start_day`'.format(value))
             if ',' in value:
@@ -3977,7 +4044,6 @@ class RunPeriodCustomRange(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `day_of_week_for_start_day`'.format(value))
             value = vals[value_lower]
-
         self._data["Day of Week for Start Day"] = value
 
     @property
@@ -3991,13 +4057,15 @@ class RunPeriodCustomRange(object):
 
     @use_weather_file_holidays_and_special_days.setter
     def use_weather_file_holidays_and_special_days(self, value="Yes"):
-        """  Corresponds to IDD Field `use_weather_file_holidays_and_special_days`
+        """  Corresponds to IDD Field `Use Weather File Holidays and Special Days`
         If yes or blank, use holidays as specified on Weatherfile.
         If no, do not use the holidays specified on the Weatherfile.
         Note: You can still specify holidays/special days using the RunPeriodControl:SpecialDays object(s).
+        
+        {u'note': [u'If yes or blank, use holidays as specified on Weatherfile.', u'If no, do not use the holidays specified on the Weatherfile.', u'Note: You can still specify holidays/special days using the RunPeriodControl:SpecialDays object(s).'], u'default': u'Yes', u'type': u'choice', u'key': [u'Yes', u'No'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `use_weather_file_holidays_and_special_days`
+            value (str): value for IDD Field `Use Weather File Holidays and Special Days`
                 Accepted values are:
                       - Yes
                       - No
@@ -4011,7 +4079,7 @@ class RunPeriodCustomRange(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `use_weather_file_holidays_and_special_days`'.format(value))
             if ',' in value:
@@ -4037,7 +4105,6 @@ class RunPeriodCustomRange(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `use_weather_file_holidays_and_special_days`'.format(value))
             value = vals[value_lower]
-
         self._data["Use Weather File Holidays and Special Days"] = value
 
     @property
@@ -4051,12 +4118,14 @@ class RunPeriodCustomRange(object):
 
     @use_weather_file_daylight_saving_period.setter
     def use_weather_file_daylight_saving_period(self, value="Yes"):
-        """  Corresponds to IDD Field `use_weather_file_daylight_saving_period`
+        """  Corresponds to IDD Field `Use Weather File Daylight Saving Period`
         If yes or blank, use daylight saving period as specified on Weatherfile.
         If no, do not use the daylight saving period as specified on the Weatherfile.
+        
+        {u'note': [u'If yes or blank, use daylight saving period as specified on Weatherfile.', u'If no, do not use the daylight saving period as specified on the Weatherfile.'], u'default': u'Yes', u'type': u'choice', u'key': [u'Yes', u'No'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `use_weather_file_daylight_saving_period`
+            value (str): value for IDD Field `Use Weather File Daylight Saving Period`
                 Accepted values are:
                       - Yes
                       - No
@@ -4070,7 +4139,7 @@ class RunPeriodCustomRange(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `use_weather_file_daylight_saving_period`'.format(value))
             if ',' in value:
@@ -4096,7 +4165,6 @@ class RunPeriodCustomRange(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `use_weather_file_daylight_saving_period`'.format(value))
             value = vals[value_lower]
-
         self._data["Use Weather File Daylight Saving Period"] = value
 
     @property
@@ -4110,11 +4178,13 @@ class RunPeriodCustomRange(object):
 
     @apply_weekend_holiday_rule.setter
     def apply_weekend_holiday_rule(self, value="No"):
-        """  Corresponds to IDD Field `apply_weekend_holiday_rule`
+        """  Corresponds to IDD Field `Apply Weekend Holiday Rule`
         if yes and single day holiday falls on weekend, "holiday" occurs on following Monday
+        
+        {u'note': [u'if yes and single day holiday falls on weekend, "holiday" occurs on following Monday'], u'default': u'No', u'type': u'choice', u'key': [u'Yes', u'No'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `apply_weekend_holiday_rule`
+            value (str): value for IDD Field `Apply Weekend Holiday Rule`
                 Accepted values are:
                       - Yes
                       - No
@@ -4128,7 +4198,7 @@ class RunPeriodCustomRange(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `apply_weekend_holiday_rule`'.format(value))
             if ',' in value:
@@ -4154,7 +4224,6 @@ class RunPeriodCustomRange(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `apply_weekend_holiday_rule`'.format(value))
             value = vals[value_lower]
-
         self._data["Apply Weekend Holiday Rule"] = value
 
     @property
@@ -4168,10 +4237,12 @@ class RunPeriodCustomRange(object):
 
     @use_weather_file_rain_indicators.setter
     def use_weather_file_rain_indicators(self, value="Yes"):
-        """  Corresponds to IDD Field `use_weather_file_rain_indicators`
+        """  Corresponds to IDD Field `Use Weather File Rain Indicators`
+        
+        {u'default': u'Yes', u'type': u'choice', u'key': [u'Yes', u'No'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `use_weather_file_rain_indicators`
+            value (str): value for IDD Field `Use Weather File Rain Indicators`
                 Accepted values are:
                       - Yes
                       - No
@@ -4185,7 +4256,7 @@ class RunPeriodCustomRange(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `use_weather_file_rain_indicators`'.format(value))
             if ',' in value:
@@ -4211,7 +4282,6 @@ class RunPeriodCustomRange(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `use_weather_file_rain_indicators`'.format(value))
             value = vals[value_lower]
-
         self._data["Use Weather File Rain Indicators"] = value
 
     @property
@@ -4225,10 +4295,12 @@ class RunPeriodCustomRange(object):
 
     @use_weather_file_snow_indicators.setter
     def use_weather_file_snow_indicators(self, value="Yes"):
-        """  Corresponds to IDD Field `use_weather_file_snow_indicators`
+        """  Corresponds to IDD Field `Use Weather File Snow Indicators`
+        
+        {u'default': u'Yes', u'type': u'choice', u'key': [u'Yes', u'No'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `use_weather_file_snow_indicators`
+            value (str): value for IDD Field `Use Weather File Snow Indicators`
                 Accepted values are:
                       - Yes
                       - No
@@ -4242,7 +4314,7 @@ class RunPeriodCustomRange(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `use_weather_file_snow_indicators`'.format(value))
             if ',' in value:
@@ -4268,7 +4340,6 @@ class RunPeriodCustomRange(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `use_weather_file_snow_indicators`'.format(value))
             value = vals[value_lower]
-
         self._data["Use Weather File Snow Indicators"] = value
 
     def check(self):
@@ -4377,10 +4448,12 @@ class RunPeriodControlSpecialDays(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {'type': 'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4390,7 +4463,7 @@ class RunPeriodControlSpecialDays(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -4399,7 +4472,6 @@ class RunPeriodControlSpecialDays(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -4413,7 +4485,7 @@ class RunPeriodControlSpecialDays(object):
 
     @start_date.setter
     def start_date(self, value=None):
-        """  Corresponds to IDD Field `start_date`
+        """  Corresponds to IDD Field `Start Date`
         Dates can be several formats:
         <number>/<number>  (month/day)
         <number> <Month>
@@ -4424,9 +4496,11 @@ class RunPeriodControlSpecialDays(object):
         Months can be the first 3 letters of the month
         <Weekday> can be Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday
         <Nth> can be 1 or 1st, 2 or 2nd, etc. up to 5(?)
+        
+        {u'note': [u'Dates can be several formats:', u'<number>/<number>  (month/day)', u'<number> <Month>', u'<Month> <number>', u'<Nth> <Weekday> in <Month)', u'Last <WeekDay> in <Month>', u'<Month> can be January, February, March, April, May, June, July, August, September, October, November, December', u'Months can be the first 3 letters of the month', u'<Weekday> can be Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday', u'<Nth> can be 1 or 1st, 2 or 2nd, etc. up to 5(?)'], 'type': 'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `start_date`
+            value (str): value for IDD Field `Start Date`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4436,7 +4510,7 @@ class RunPeriodControlSpecialDays(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `start_date`'.format(value))
             if ',' in value:
@@ -4445,7 +4519,6 @@ class RunPeriodControlSpecialDays(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `start_date`')
-
         self._data["Start Date"] = value
 
     @property
@@ -4459,10 +4532,12 @@ class RunPeriodControlSpecialDays(object):
 
     @duration.setter
     def duration(self, value=1.0 ):
-        """  Corresponds to IDD Field `duration`
+        """  Corresponds to IDD Field `Duration`
+        
+        {'pytype': 'float', u'default': '1.0', u'maximum': '366.0', u'minimum': '1.0', u'units': u'days', 'type': 'real'}
 
         Args:
-            value (float): value for IDD Field `duration`
+            value (float): value for IDD Field `Duration`
                 Units: days
                 Default value: 1.0
                 value >= 1.0
@@ -4476,7 +4551,7 @@ class RunPeriodControlSpecialDays(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `duration`'.format(value))
             if value < 1.0:
@@ -4485,7 +4560,6 @@ class RunPeriodControlSpecialDays(object):
             if value > 366.0:
                 raise ValueError('value need to be smaller 366.0 '
                                  'for field `duration`')
-
         self._data["Duration"] = value
 
     @property
@@ -4499,11 +4573,13 @@ class RunPeriodControlSpecialDays(object):
 
     @special_day_type.setter
     def special_day_type(self, value="Holiday"):
-        """  Corresponds to IDD Field `special_day_type`
+        """  Corresponds to IDD Field `Special Day Type`
         Special Day Type selects the schedules appropriate for each day so labeled
+        
+        {'pytype': 'str', u'default': u'Holiday', u'required-field': True, u'note': [u'Special Day Type selects the schedules appropriate for each day so labeled'], u'key': [u'Holiday', u'SummerDesignDay', u'WinterDesignDay', u'CustomDay1', u'CustomDay2'], u'type': u'choice'}
 
         Args:
-            value (str): value for IDD Field `special_day_type`
+            value (str): value for IDD Field `Special Day Type`
                 Accepted values are:
                       - Holiday
                       - SummerDesignDay
@@ -4520,7 +4596,7 @@ class RunPeriodControlSpecialDays(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `special_day_type`'.format(value))
             if ',' in value:
@@ -4549,7 +4625,6 @@ class RunPeriodControlSpecialDays(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `special_day_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Special Day Type"] = value
 
     def check(self):
@@ -4640,10 +4715,12 @@ class RunPeriodControlDaylightSavingTime(object):
 
     @start_date.setter
     def start_date(self, value=None):
-        """  Corresponds to IDD Field `start_date`
+        """  Corresponds to IDD Field `Start Date`
+        
+        {'type': 'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `start_date`
+            value (str): value for IDD Field `Start Date`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4653,7 +4730,7 @@ class RunPeriodControlDaylightSavingTime(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `start_date`'.format(value))
             if ',' in value:
@@ -4662,7 +4739,6 @@ class RunPeriodControlDaylightSavingTime(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `start_date`')
-
         self._data["Start Date"] = value
 
     @property
@@ -4676,7 +4752,7 @@ class RunPeriodControlDaylightSavingTime(object):
 
     @end_date.setter
     def end_date(self, value=None):
-        """  Corresponds to IDD Field `end_date`
+        """  Corresponds to IDD Field `End Date`
         Dates can be several formats:
         <number>/<number>  (month/day)
         <number> <Month>
@@ -4687,9 +4763,11 @@ class RunPeriodControlDaylightSavingTime(object):
         Months can be the first 3 letters of the month
         <Weekday> can be Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday
         <Nth> can be 1 or 1st, 2 or 2nd, etc. up to 5(?)
+        
+        {u'note': [u'Dates can be several formats:', u'<number>/<number>  (month/day)', u'<number> <Month>', u'<Month> <number>', u'<Nth> <Weekday> in <Month)', u'Last <WeekDay> in <Month>', u'<Month> can be January, February, March, April, May, June, July, August, September, October, November, December', u'Months can be the first 3 letters of the month', u'<Weekday> can be Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday', u'<Nth> can be 1 or 1st, 2 or 2nd, etc. up to 5(?)'], 'type': 'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `end_date`
+            value (str): value for IDD Field `End Date`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4699,7 +4777,7 @@ class RunPeriodControlDaylightSavingTime(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `end_date`'.format(value))
             if ',' in value:
@@ -4708,7 +4786,6 @@ class RunPeriodControlDaylightSavingTime(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `end_date`')
-
         self._data["End Date"] = value
 
     def check(self):
@@ -4804,13 +4881,15 @@ class WeatherPropertySkyTemperature(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
         blank in this field will apply to all run periods (that is, all objects=
         SizingPeriod:WeatherFileDays, SizingPeriod:WeatherFileConditionType or RunPeriod
         otherwise, this name must match one of the environment object names.
+        
+        {u'note': [u'blank in this field will apply to all run periods (that is, all objects=', u'SizingPeriod:WeatherFileDays, SizingPeriod:WeatherFileConditionType or RunPeriod', u'otherwise, this name must match one of the environment object names.'], u'type': u'object-list', u'object-list': u'RunPeriodsAndDesignDays', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4820,7 +4899,7 @@ class WeatherPropertySkyTemperature(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -4829,7 +4908,6 @@ class WeatherPropertySkyTemperature(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -4843,10 +4921,12 @@ class WeatherPropertySkyTemperature(object):
 
     @calculation_type.setter
     def calculation_type(self, value=None):
-        """  Corresponds to IDD Field `calculation_type`
+        """  Corresponds to IDD Field `Calculation Type`
+        
+        {u'type': u'choice', u'key': [u'ScheduleValue', u'DifferenceScheduleDryBulbValue', u'DifferenceScheduleDewPointValue'], u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `calculation_type`
+            value (str): value for IDD Field `Calculation Type`
                 Accepted values are:
                       - ScheduleValue
                       - DifferenceScheduleDryBulbValue
@@ -4860,7 +4940,7 @@ class WeatherPropertySkyTemperature(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `calculation_type`'.format(value))
             if ',' in value:
@@ -4887,7 +4967,6 @@ class WeatherPropertySkyTemperature(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `calculation_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Calculation Type"] = value
 
     @property
@@ -4901,13 +4980,15 @@ class WeatherPropertySkyTemperature(object):
 
     @schedule_name.setter
     def schedule_name(self, value=None):
-        """  Corresponds to IDD Field `schedule_name`
+        """  Corresponds to IDD Field `Schedule Name`
         if name matches a SizingPeriod:DesignDay, put in a day schedule of this name
         if name is for a SizingPeriod:WeatherFileDays, SizingPeriod:WeatherFileConditionType or
         RunPeriod, put in a full year schedule that covers the appropriate days.
+        
+        {u'note': [u'if name matches a SizingPeriod:DesignDay, put in a day schedule of this name', u'if name is for a SizingPeriod:WeatherFileDays, SizingPeriod:WeatherFileConditionType or', u'RunPeriod, put in a full year schedule that covers the appropriate days.'], u'type': u'object-list', u'object-list': u'ScheduleAndDayScheduleNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `schedule_name`
+            value (str): value for IDD Field `Schedule Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4917,7 +4998,7 @@ class WeatherPropertySkyTemperature(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `schedule_name`'.format(value))
             if ',' in value:
@@ -4926,7 +5007,6 @@ class WeatherPropertySkyTemperature(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `schedule_name`')
-
         self._data["Schedule Name"] = value
 
     def check(self):
@@ -5032,10 +5112,12 @@ class SiteWeatherStation(object):
 
     @wind_sensor_height_above_ground.setter
     def wind_sensor_height_above_ground(self, value=10.0 ):
-        """  Corresponds to IDD Field `wind_sensor_height_above_ground`
+        """  Corresponds to IDD Field `Wind Sensor Height Above Ground`
+        
+        {u'units': u'm', u'default': '10.0', u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `wind_sensor_height_above_ground`
+            value (float): value for IDD Field `Wind Sensor Height Above Ground`
                 Units: m
                 Default value: 10.0
                 value > 0.0
@@ -5048,13 +5130,12 @@ class SiteWeatherStation(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `wind_sensor_height_above_ground`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `wind_sensor_height_above_ground`')
-
         self._data["Wind Sensor Height Above Ground"] = value
 
     @property
@@ -5068,10 +5149,12 @@ class SiteWeatherStation(object):
 
     @wind_speed_profile_exponent.setter
     def wind_speed_profile_exponent(self, value=0.14 ):
-        """  Corresponds to IDD Field `wind_speed_profile_exponent`
+        """  Corresponds to IDD Field `Wind Speed Profile Exponent`
+        
+        {u'default': '0.14', u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `wind_speed_profile_exponent`
+            value (float): value for IDD Field `Wind Speed Profile Exponent`
                 Default value: 0.14
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -5083,13 +5166,12 @@ class SiteWeatherStation(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `wind_speed_profile_exponent`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `wind_speed_profile_exponent`')
-
         self._data["Wind Speed Profile Exponent"] = value
 
     @property
@@ -5103,10 +5185,12 @@ class SiteWeatherStation(object):
 
     @wind_speed_profile_boundary_layer_thickness.setter
     def wind_speed_profile_boundary_layer_thickness(self, value=270.0 ):
-        """  Corresponds to IDD Field `wind_speed_profile_boundary_layer_thickness`
+        """  Corresponds to IDD Field `Wind Speed Profile Boundary Layer Thickness`
+        
+        {u'units': u'm', u'default': '270.0', u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `wind_speed_profile_boundary_layer_thickness`
+            value (float): value for IDD Field `Wind Speed Profile Boundary Layer Thickness`
                 Units: m
                 Default value: 270.0
                 value >= 0.0
@@ -5119,13 +5203,12 @@ class SiteWeatherStation(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `wind_speed_profile_boundary_layer_thickness`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `wind_speed_profile_boundary_layer_thickness`')
-
         self._data["Wind Speed Profile Boundary Layer Thickness"] = value
 
     @property
@@ -5139,10 +5222,12 @@ class SiteWeatherStation(object):
 
     @air_temperature_sensor_height_above_ground.setter
     def air_temperature_sensor_height_above_ground(self, value=1.5 ):
-        """  Corresponds to IDD Field `air_temperature_sensor_height_above_ground`
+        """  Corresponds to IDD Field `Air Temperature Sensor Height Above Ground`
+        
+        {u'units': u'm', u'default': '1.5', u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `air_temperature_sensor_height_above_ground`
+            value (float): value for IDD Field `Air Temperature Sensor Height Above Ground`
                 Units: m
                 Default value: 1.5
                 value >= 0.0
@@ -5155,13 +5240,12 @@ class SiteWeatherStation(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `air_temperature_sensor_height_above_ground`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `air_temperature_sensor_height_above_ground`')
-
         self._data["Air Temperature Sensor Height Above Ground"] = value
 
     def check(self):
@@ -5260,11 +5344,13 @@ class SiteHeightVariation(object):
 
     @wind_speed_profile_exponent.setter
     def wind_speed_profile_exponent(self, value=0.22 ):
-        """  Corresponds to IDD Field `wind_speed_profile_exponent`
+        """  Corresponds to IDD Field `Wind Speed Profile Exponent`
         Set to zero for no wind speed dependence on height.
+        
+        {u'note': [u'Set to zero for no wind speed dependence on height.'], u'default': '0.22', u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `wind_speed_profile_exponent`
+            value (float): value for IDD Field `Wind Speed Profile Exponent`
                 Default value: 0.22
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -5276,13 +5362,12 @@ class SiteHeightVariation(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `wind_speed_profile_exponent`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `wind_speed_profile_exponent`')
-
         self._data["Wind Speed Profile Exponent"] = value
 
     @property
@@ -5296,10 +5381,12 @@ class SiteHeightVariation(object):
 
     @wind_speed_profile_boundary_layer_thickness.setter
     def wind_speed_profile_boundary_layer_thickness(self, value=370.0 ):
-        """  Corresponds to IDD Field `wind_speed_profile_boundary_layer_thickness`
+        """  Corresponds to IDD Field `Wind Speed Profile Boundary Layer Thickness`
+        
+        {u'units': u'm', u'default': '370.0', u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `wind_speed_profile_boundary_layer_thickness`
+            value (float): value for IDD Field `Wind Speed Profile Boundary Layer Thickness`
                 Units: m
                 Default value: 370.0
                 value > 0.0
@@ -5312,13 +5399,12 @@ class SiteHeightVariation(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `wind_speed_profile_boundary_layer_thickness`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `wind_speed_profile_boundary_layer_thickness`')
-
         self._data["Wind Speed Profile Boundary Layer Thickness"] = value
 
     @property
@@ -5332,11 +5418,13 @@ class SiteHeightVariation(object):
 
     @air_temperature_gradient_coefficient.setter
     def air_temperature_gradient_coefficient(self, value=0.0065 ):
-        """  Corresponds to IDD Field `air_temperature_gradient_coefficient`
+        """  Corresponds to IDD Field `Air Temperature Gradient Coefficient`
         Set to zero for no air temperature dependence on height.
+        
+        {'pytype': 'float', u'default': '0.0065', u'note': [u'Set to zero for no air temperature dependence on height.'], u'minimum': '0.0', u'units': u'K/m', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `air_temperature_gradient_coefficient`
+            value (float): value for IDD Field `Air Temperature Gradient Coefficient`
                 Units: K/m
                 Default value: 0.0065
                 value >= 0.0
@@ -5349,13 +5437,12 @@ class SiteHeightVariation(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `air_temperature_gradient_coefficient`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `air_temperature_gradient_coefficient`')
-
         self._data["Air Temperature Gradient Coefficient"] = value
 
     def check(self):
@@ -5530,10 +5617,12 @@ class SiteGroundTemperatureBuildingSurface(object):
 
     @january_ground_temperature.setter
     def january_ground_temperature(self, value=18.0 ):
-        """  Corresponds to IDD Field `january_ground_temperature`
+        """  Corresponds to IDD Field `January Ground Temperature`
+        
+        {u'units': u'C', u'default': '18.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `january_ground_temperature`
+            value (float): value for IDD Field `January Ground Temperature`
                 Units: C
                 Default value: 18.0
                 if `value` is None it will not be checked against the
@@ -5545,10 +5634,9 @@ class SiteGroundTemperatureBuildingSurface(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `january_ground_temperature`'.format(value))
-
         self._data["January Ground Temperature"] = value
 
     @property
@@ -5562,10 +5650,12 @@ class SiteGroundTemperatureBuildingSurface(object):
 
     @february_ground_temperature.setter
     def february_ground_temperature(self, value=18.0 ):
-        """  Corresponds to IDD Field `february_ground_temperature`
+        """  Corresponds to IDD Field `February Ground Temperature`
+        
+        {u'units': u'C', u'default': '18.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `february_ground_temperature`
+            value (float): value for IDD Field `February Ground Temperature`
                 Units: C
                 Default value: 18.0
                 if `value` is None it will not be checked against the
@@ -5577,10 +5667,9 @@ class SiteGroundTemperatureBuildingSurface(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `february_ground_temperature`'.format(value))
-
         self._data["February Ground Temperature"] = value
 
     @property
@@ -5594,10 +5683,12 @@ class SiteGroundTemperatureBuildingSurface(object):
 
     @march_ground_temperature.setter
     def march_ground_temperature(self, value=18.0 ):
-        """  Corresponds to IDD Field `march_ground_temperature`
+        """  Corresponds to IDD Field `March Ground Temperature`
+        
+        {u'units': u'C', u'default': '18.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `march_ground_temperature`
+            value (float): value for IDD Field `March Ground Temperature`
                 Units: C
                 Default value: 18.0
                 if `value` is None it will not be checked against the
@@ -5609,10 +5700,9 @@ class SiteGroundTemperatureBuildingSurface(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `march_ground_temperature`'.format(value))
-
         self._data["March Ground Temperature"] = value
 
     @property
@@ -5626,10 +5716,12 @@ class SiteGroundTemperatureBuildingSurface(object):
 
     @april_ground_temperature.setter
     def april_ground_temperature(self, value=18.0 ):
-        """  Corresponds to IDD Field `april_ground_temperature`
+        """  Corresponds to IDD Field `April Ground Temperature`
+        
+        {u'units': u'C', u'default': '18.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `april_ground_temperature`
+            value (float): value for IDD Field `April Ground Temperature`
                 Units: C
                 Default value: 18.0
                 if `value` is None it will not be checked against the
@@ -5641,10 +5733,9 @@ class SiteGroundTemperatureBuildingSurface(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `april_ground_temperature`'.format(value))
-
         self._data["April Ground Temperature"] = value
 
     @property
@@ -5658,10 +5749,12 @@ class SiteGroundTemperatureBuildingSurface(object):
 
     @may_ground_temperature.setter
     def may_ground_temperature(self, value=18.0 ):
-        """  Corresponds to IDD Field `may_ground_temperature`
+        """  Corresponds to IDD Field `May Ground Temperature`
+        
+        {u'units': u'C', u'default': '18.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `may_ground_temperature`
+            value (float): value for IDD Field `May Ground Temperature`
                 Units: C
                 Default value: 18.0
                 if `value` is None it will not be checked against the
@@ -5673,10 +5766,9 @@ class SiteGroundTemperatureBuildingSurface(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `may_ground_temperature`'.format(value))
-
         self._data["May Ground Temperature"] = value
 
     @property
@@ -5690,10 +5782,12 @@ class SiteGroundTemperatureBuildingSurface(object):
 
     @june_ground_temperature.setter
     def june_ground_temperature(self, value=18.0 ):
-        """  Corresponds to IDD Field `june_ground_temperature`
+        """  Corresponds to IDD Field `June Ground Temperature`
+        
+        {u'units': u'C', u'default': '18.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `june_ground_temperature`
+            value (float): value for IDD Field `June Ground Temperature`
                 Units: C
                 Default value: 18.0
                 if `value` is None it will not be checked against the
@@ -5705,10 +5799,9 @@ class SiteGroundTemperatureBuildingSurface(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `june_ground_temperature`'.format(value))
-
         self._data["June Ground Temperature"] = value
 
     @property
@@ -5722,10 +5815,12 @@ class SiteGroundTemperatureBuildingSurface(object):
 
     @july_ground_temperature.setter
     def july_ground_temperature(self, value=18.0 ):
-        """  Corresponds to IDD Field `july_ground_temperature`
+        """  Corresponds to IDD Field `July Ground Temperature`
+        
+        {u'units': u'C', u'default': '18.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `july_ground_temperature`
+            value (float): value for IDD Field `July Ground Temperature`
                 Units: C
                 Default value: 18.0
                 if `value` is None it will not be checked against the
@@ -5737,10 +5832,9 @@ class SiteGroundTemperatureBuildingSurface(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `july_ground_temperature`'.format(value))
-
         self._data["July Ground Temperature"] = value
 
     @property
@@ -5754,10 +5848,12 @@ class SiteGroundTemperatureBuildingSurface(object):
 
     @august_ground_temperature.setter
     def august_ground_temperature(self, value=18.0 ):
-        """  Corresponds to IDD Field `august_ground_temperature`
+        """  Corresponds to IDD Field `August Ground Temperature`
+        
+        {u'units': u'C', u'default': '18.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `august_ground_temperature`
+            value (float): value for IDD Field `August Ground Temperature`
                 Units: C
                 Default value: 18.0
                 if `value` is None it will not be checked against the
@@ -5769,10 +5865,9 @@ class SiteGroundTemperatureBuildingSurface(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `august_ground_temperature`'.format(value))
-
         self._data["August Ground Temperature"] = value
 
     @property
@@ -5786,10 +5881,12 @@ class SiteGroundTemperatureBuildingSurface(object):
 
     @september_ground_temperature.setter
     def september_ground_temperature(self, value=18.0 ):
-        """  Corresponds to IDD Field `september_ground_temperature`
+        """  Corresponds to IDD Field `September Ground Temperature`
+        
+        {u'units': u'C', u'default': '18.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `september_ground_temperature`
+            value (float): value for IDD Field `September Ground Temperature`
                 Units: C
                 Default value: 18.0
                 if `value` is None it will not be checked against the
@@ -5801,10 +5898,9 @@ class SiteGroundTemperatureBuildingSurface(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `september_ground_temperature`'.format(value))
-
         self._data["September Ground Temperature"] = value
 
     @property
@@ -5818,10 +5914,12 @@ class SiteGroundTemperatureBuildingSurface(object):
 
     @october_ground_temperature.setter
     def october_ground_temperature(self, value=18.0 ):
-        """  Corresponds to IDD Field `october_ground_temperature`
+        """  Corresponds to IDD Field `October Ground Temperature`
+        
+        {u'units': u'C', u'default': '18.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `october_ground_temperature`
+            value (float): value for IDD Field `October Ground Temperature`
                 Units: C
                 Default value: 18.0
                 if `value` is None it will not be checked against the
@@ -5833,10 +5931,9 @@ class SiteGroundTemperatureBuildingSurface(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `october_ground_temperature`'.format(value))
-
         self._data["October Ground Temperature"] = value
 
     @property
@@ -5850,10 +5947,12 @@ class SiteGroundTemperatureBuildingSurface(object):
 
     @november_ground_temperature.setter
     def november_ground_temperature(self, value=18.0 ):
-        """  Corresponds to IDD Field `november_ground_temperature`
+        """  Corresponds to IDD Field `November Ground Temperature`
+        
+        {u'units': u'C', u'default': '18.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `november_ground_temperature`
+            value (float): value for IDD Field `November Ground Temperature`
                 Units: C
                 Default value: 18.0
                 if `value` is None it will not be checked against the
@@ -5865,10 +5964,9 @@ class SiteGroundTemperatureBuildingSurface(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `november_ground_temperature`'.format(value))
-
         self._data["November Ground Temperature"] = value
 
     @property
@@ -5882,10 +5980,12 @@ class SiteGroundTemperatureBuildingSurface(object):
 
     @december_ground_temperature.setter
     def december_ground_temperature(self, value=18.0 ):
-        """  Corresponds to IDD Field `december_ground_temperature`
+        """  Corresponds to IDD Field `December Ground Temperature`
+        
+        {u'units': u'C', u'default': '18.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `december_ground_temperature`
+            value (float): value for IDD Field `December Ground Temperature`
                 Units: C
                 Default value: 18.0
                 if `value` is None it will not be checked against the
@@ -5897,10 +5997,9 @@ class SiteGroundTemperatureBuildingSurface(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `december_ground_temperature`'.format(value))
-
         self._data["December Ground Temperature"] = value
 
     def check(self):
@@ -6070,10 +6169,12 @@ class SiteGroundTemperatureFcfactorMethod(object):
 
     @january_ground_temperature.setter
     def january_ground_temperature(self, value=13.0 ):
-        """  Corresponds to IDD Field `january_ground_temperature`
+        """  Corresponds to IDD Field `January Ground Temperature`
+        
+        {u'units': u'C', u'default': '13.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `january_ground_temperature`
+            value (float): value for IDD Field `January Ground Temperature`
                 Units: C
                 Default value: 13.0
                 if `value` is None it will not be checked against the
@@ -6085,10 +6186,9 @@ class SiteGroundTemperatureFcfactorMethod(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `january_ground_temperature`'.format(value))
-
         self._data["January Ground Temperature"] = value
 
     @property
@@ -6102,10 +6202,12 @@ class SiteGroundTemperatureFcfactorMethod(object):
 
     @february_ground_temperature.setter
     def february_ground_temperature(self, value=13.0 ):
-        """  Corresponds to IDD Field `february_ground_temperature`
+        """  Corresponds to IDD Field `February Ground Temperature`
+        
+        {u'units': u'C', u'default': '13.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `february_ground_temperature`
+            value (float): value for IDD Field `February Ground Temperature`
                 Units: C
                 Default value: 13.0
                 if `value` is None it will not be checked against the
@@ -6117,10 +6219,9 @@ class SiteGroundTemperatureFcfactorMethod(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `february_ground_temperature`'.format(value))
-
         self._data["February Ground Temperature"] = value
 
     @property
@@ -6134,10 +6235,12 @@ class SiteGroundTemperatureFcfactorMethod(object):
 
     @march_ground_temperature.setter
     def march_ground_temperature(self, value=13.0 ):
-        """  Corresponds to IDD Field `march_ground_temperature`
+        """  Corresponds to IDD Field `March Ground Temperature`
+        
+        {u'units': u'C', u'default': '13.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `march_ground_temperature`
+            value (float): value for IDD Field `March Ground Temperature`
                 Units: C
                 Default value: 13.0
                 if `value` is None it will not be checked against the
@@ -6149,10 +6252,9 @@ class SiteGroundTemperatureFcfactorMethod(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `march_ground_temperature`'.format(value))
-
         self._data["March Ground Temperature"] = value
 
     @property
@@ -6166,10 +6268,12 @@ class SiteGroundTemperatureFcfactorMethod(object):
 
     @april_ground_temperature.setter
     def april_ground_temperature(self, value=13.0 ):
-        """  Corresponds to IDD Field `april_ground_temperature`
+        """  Corresponds to IDD Field `April Ground Temperature`
+        
+        {u'units': u'C', u'default': '13.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `april_ground_temperature`
+            value (float): value for IDD Field `April Ground Temperature`
                 Units: C
                 Default value: 13.0
                 if `value` is None it will not be checked against the
@@ -6181,10 +6285,9 @@ class SiteGroundTemperatureFcfactorMethod(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `april_ground_temperature`'.format(value))
-
         self._data["April Ground Temperature"] = value
 
     @property
@@ -6198,10 +6301,12 @@ class SiteGroundTemperatureFcfactorMethod(object):
 
     @may_ground_temperature.setter
     def may_ground_temperature(self, value=13.0 ):
-        """  Corresponds to IDD Field `may_ground_temperature`
+        """  Corresponds to IDD Field `May Ground Temperature`
+        
+        {u'units': u'C', u'default': '13.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `may_ground_temperature`
+            value (float): value for IDD Field `May Ground Temperature`
                 Units: C
                 Default value: 13.0
                 if `value` is None it will not be checked against the
@@ -6213,10 +6318,9 @@ class SiteGroundTemperatureFcfactorMethod(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `may_ground_temperature`'.format(value))
-
         self._data["May Ground Temperature"] = value
 
     @property
@@ -6230,10 +6334,12 @@ class SiteGroundTemperatureFcfactorMethod(object):
 
     @june_ground_temperature.setter
     def june_ground_temperature(self, value=13.0 ):
-        """  Corresponds to IDD Field `june_ground_temperature`
+        """  Corresponds to IDD Field `June Ground Temperature`
+        
+        {u'units': u'C', u'default': '13.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `june_ground_temperature`
+            value (float): value for IDD Field `June Ground Temperature`
                 Units: C
                 Default value: 13.0
                 if `value` is None it will not be checked against the
@@ -6245,10 +6351,9 @@ class SiteGroundTemperatureFcfactorMethod(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `june_ground_temperature`'.format(value))
-
         self._data["June Ground Temperature"] = value
 
     @property
@@ -6262,10 +6367,12 @@ class SiteGroundTemperatureFcfactorMethod(object):
 
     @july_ground_temperature.setter
     def july_ground_temperature(self, value=13.0 ):
-        """  Corresponds to IDD Field `july_ground_temperature`
+        """  Corresponds to IDD Field `July Ground Temperature`
+        
+        {u'units': u'C', u'default': '13.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `july_ground_temperature`
+            value (float): value for IDD Field `July Ground Temperature`
                 Units: C
                 Default value: 13.0
                 if `value` is None it will not be checked against the
@@ -6277,10 +6384,9 @@ class SiteGroundTemperatureFcfactorMethod(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `july_ground_temperature`'.format(value))
-
         self._data["July Ground Temperature"] = value
 
     @property
@@ -6294,10 +6400,12 @@ class SiteGroundTemperatureFcfactorMethod(object):
 
     @august_ground_temperature.setter
     def august_ground_temperature(self, value=13.0 ):
-        """  Corresponds to IDD Field `august_ground_temperature`
+        """  Corresponds to IDD Field `August Ground Temperature`
+        
+        {u'units': u'C', u'default': '13.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `august_ground_temperature`
+            value (float): value for IDD Field `August Ground Temperature`
                 Units: C
                 Default value: 13.0
                 if `value` is None it will not be checked against the
@@ -6309,10 +6417,9 @@ class SiteGroundTemperatureFcfactorMethod(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `august_ground_temperature`'.format(value))
-
         self._data["August Ground Temperature"] = value
 
     @property
@@ -6326,10 +6433,12 @@ class SiteGroundTemperatureFcfactorMethod(object):
 
     @september_ground_temperature.setter
     def september_ground_temperature(self, value=13.0 ):
-        """  Corresponds to IDD Field `september_ground_temperature`
+        """  Corresponds to IDD Field `September Ground Temperature`
+        
+        {u'units': u'C', u'default': '13.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `september_ground_temperature`
+            value (float): value for IDD Field `September Ground Temperature`
                 Units: C
                 Default value: 13.0
                 if `value` is None it will not be checked against the
@@ -6341,10 +6450,9 @@ class SiteGroundTemperatureFcfactorMethod(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `september_ground_temperature`'.format(value))
-
         self._data["September Ground Temperature"] = value
 
     @property
@@ -6358,10 +6466,12 @@ class SiteGroundTemperatureFcfactorMethod(object):
 
     @october_ground_temperature.setter
     def october_ground_temperature(self, value=13.0 ):
-        """  Corresponds to IDD Field `october_ground_temperature`
+        """  Corresponds to IDD Field `October Ground Temperature`
+        
+        {u'units': u'C', u'default': '13.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `october_ground_temperature`
+            value (float): value for IDD Field `October Ground Temperature`
                 Units: C
                 Default value: 13.0
                 if `value` is None it will not be checked against the
@@ -6373,10 +6483,9 @@ class SiteGroundTemperatureFcfactorMethod(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `october_ground_temperature`'.format(value))
-
         self._data["October Ground Temperature"] = value
 
     @property
@@ -6390,10 +6499,12 @@ class SiteGroundTemperatureFcfactorMethod(object):
 
     @november_ground_temperature.setter
     def november_ground_temperature(self, value=13.0 ):
-        """  Corresponds to IDD Field `november_ground_temperature`
+        """  Corresponds to IDD Field `November Ground Temperature`
+        
+        {u'units': u'C', u'default': '13.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `november_ground_temperature`
+            value (float): value for IDD Field `November Ground Temperature`
                 Units: C
                 Default value: 13.0
                 if `value` is None it will not be checked against the
@@ -6405,10 +6516,9 @@ class SiteGroundTemperatureFcfactorMethod(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `november_ground_temperature`'.format(value))
-
         self._data["November Ground Temperature"] = value
 
     @property
@@ -6422,10 +6532,12 @@ class SiteGroundTemperatureFcfactorMethod(object):
 
     @december_ground_temperature.setter
     def december_ground_temperature(self, value=13.0 ):
-        """  Corresponds to IDD Field `december_ground_temperature`
+        """  Corresponds to IDD Field `December Ground Temperature`
+        
+        {u'units': u'C', u'default': '13.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `december_ground_temperature`
+            value (float): value for IDD Field `December Ground Temperature`
                 Units: C
                 Default value: 13.0
                 if `value` is None it will not be checked against the
@@ -6437,10 +6549,9 @@ class SiteGroundTemperatureFcfactorMethod(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `december_ground_temperature`'.format(value))
-
         self._data["December Ground Temperature"] = value
 
     def check(self):
@@ -6610,10 +6721,12 @@ class SiteGroundTemperatureShallow(object):
 
     @january_surface_ground_temperature.setter
     def january_surface_ground_temperature(self, value=13.0 ):
-        """  Corresponds to IDD Field `january_surface_ground_temperature`
+        """  Corresponds to IDD Field `January Surface Ground Temperature`
+        
+        {u'units': u'C', u'default': '13.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `january_surface_ground_temperature`
+            value (float): value for IDD Field `January Surface Ground Temperature`
                 Units: C
                 Default value: 13.0
                 if `value` is None it will not be checked against the
@@ -6625,10 +6738,9 @@ class SiteGroundTemperatureShallow(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `january_surface_ground_temperature`'.format(value))
-
         self._data["January Surface Ground Temperature"] = value
 
     @property
@@ -6642,10 +6754,12 @@ class SiteGroundTemperatureShallow(object):
 
     @february_surface_ground_temperature.setter
     def february_surface_ground_temperature(self, value=13.0 ):
-        """  Corresponds to IDD Field `february_surface_ground_temperature`
+        """  Corresponds to IDD Field `February Surface Ground Temperature`
+        
+        {u'units': u'C', u'default': '13.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `february_surface_ground_temperature`
+            value (float): value for IDD Field `February Surface Ground Temperature`
                 Units: C
                 Default value: 13.0
                 if `value` is None it will not be checked against the
@@ -6657,10 +6771,9 @@ class SiteGroundTemperatureShallow(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `february_surface_ground_temperature`'.format(value))
-
         self._data["February Surface Ground Temperature"] = value
 
     @property
@@ -6674,10 +6787,12 @@ class SiteGroundTemperatureShallow(object):
 
     @march_surface_ground_temperature.setter
     def march_surface_ground_temperature(self, value=13.0 ):
-        """  Corresponds to IDD Field `march_surface_ground_temperature`
+        """  Corresponds to IDD Field `March Surface Ground Temperature`
+        
+        {u'units': u'C', u'default': '13.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `march_surface_ground_temperature`
+            value (float): value for IDD Field `March Surface Ground Temperature`
                 Units: C
                 Default value: 13.0
                 if `value` is None it will not be checked against the
@@ -6689,10 +6804,9 @@ class SiteGroundTemperatureShallow(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `march_surface_ground_temperature`'.format(value))
-
         self._data["March Surface Ground Temperature"] = value
 
     @property
@@ -6706,10 +6820,12 @@ class SiteGroundTemperatureShallow(object):
 
     @april_surface_ground_temperature.setter
     def april_surface_ground_temperature(self, value=13.0 ):
-        """  Corresponds to IDD Field `april_surface_ground_temperature`
+        """  Corresponds to IDD Field `April Surface Ground Temperature`
+        
+        {u'units': u'C', u'default': '13.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `april_surface_ground_temperature`
+            value (float): value for IDD Field `April Surface Ground Temperature`
                 Units: C
                 Default value: 13.0
                 if `value` is None it will not be checked against the
@@ -6721,10 +6837,9 @@ class SiteGroundTemperatureShallow(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `april_surface_ground_temperature`'.format(value))
-
         self._data["April Surface Ground Temperature"] = value
 
     @property
@@ -6738,10 +6853,12 @@ class SiteGroundTemperatureShallow(object):
 
     @may_surface_ground_temperature.setter
     def may_surface_ground_temperature(self, value=13.0 ):
-        """  Corresponds to IDD Field `may_surface_ground_temperature`
+        """  Corresponds to IDD Field `May Surface Ground Temperature`
+        
+        {u'units': u'C', u'default': '13.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `may_surface_ground_temperature`
+            value (float): value for IDD Field `May Surface Ground Temperature`
                 Units: C
                 Default value: 13.0
                 if `value` is None it will not be checked against the
@@ -6753,10 +6870,9 @@ class SiteGroundTemperatureShallow(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `may_surface_ground_temperature`'.format(value))
-
         self._data["May Surface Ground Temperature"] = value
 
     @property
@@ -6770,10 +6886,12 @@ class SiteGroundTemperatureShallow(object):
 
     @june_surface_ground_temperature.setter
     def june_surface_ground_temperature(self, value=13.0 ):
-        """  Corresponds to IDD Field `june_surface_ground_temperature`
+        """  Corresponds to IDD Field `June Surface Ground Temperature`
+        
+        {u'units': u'C', u'default': '13.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `june_surface_ground_temperature`
+            value (float): value for IDD Field `June Surface Ground Temperature`
                 Units: C
                 Default value: 13.0
                 if `value` is None it will not be checked against the
@@ -6785,10 +6903,9 @@ class SiteGroundTemperatureShallow(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `june_surface_ground_temperature`'.format(value))
-
         self._data["June Surface Ground Temperature"] = value
 
     @property
@@ -6802,10 +6919,12 @@ class SiteGroundTemperatureShallow(object):
 
     @july_surface_ground_temperature.setter
     def july_surface_ground_temperature(self, value=13.0 ):
-        """  Corresponds to IDD Field `july_surface_ground_temperature`
+        """  Corresponds to IDD Field `July Surface Ground Temperature`
+        
+        {u'units': u'C', u'default': '13.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `july_surface_ground_temperature`
+            value (float): value for IDD Field `July Surface Ground Temperature`
                 Units: C
                 Default value: 13.0
                 if `value` is None it will not be checked against the
@@ -6817,10 +6936,9 @@ class SiteGroundTemperatureShallow(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `july_surface_ground_temperature`'.format(value))
-
         self._data["July Surface Ground Temperature"] = value
 
     @property
@@ -6834,10 +6952,12 @@ class SiteGroundTemperatureShallow(object):
 
     @august_surface_ground_temperature.setter
     def august_surface_ground_temperature(self, value=13.0 ):
-        """  Corresponds to IDD Field `august_surface_ground_temperature`
+        """  Corresponds to IDD Field `August Surface Ground Temperature`
+        
+        {u'units': u'C', u'default': '13.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `august_surface_ground_temperature`
+            value (float): value for IDD Field `August Surface Ground Temperature`
                 Units: C
                 Default value: 13.0
                 if `value` is None it will not be checked against the
@@ -6849,10 +6969,9 @@ class SiteGroundTemperatureShallow(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `august_surface_ground_temperature`'.format(value))
-
         self._data["August Surface Ground Temperature"] = value
 
     @property
@@ -6866,10 +6985,12 @@ class SiteGroundTemperatureShallow(object):
 
     @september_surface_ground_temperature.setter
     def september_surface_ground_temperature(self, value=13.0 ):
-        """  Corresponds to IDD Field `september_surface_ground_temperature`
+        """  Corresponds to IDD Field `September Surface Ground Temperature`
+        
+        {u'units': u'C', u'default': '13.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `september_surface_ground_temperature`
+            value (float): value for IDD Field `September Surface Ground Temperature`
                 Units: C
                 Default value: 13.0
                 if `value` is None it will not be checked against the
@@ -6881,10 +7002,9 @@ class SiteGroundTemperatureShallow(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `september_surface_ground_temperature`'.format(value))
-
         self._data["September Surface Ground Temperature"] = value
 
     @property
@@ -6898,10 +7018,12 @@ class SiteGroundTemperatureShallow(object):
 
     @october_surface_ground_temperature.setter
     def october_surface_ground_temperature(self, value=13.0 ):
-        """  Corresponds to IDD Field `october_surface_ground_temperature`
+        """  Corresponds to IDD Field `October Surface Ground Temperature`
+        
+        {u'units': u'C', u'default': '13.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `october_surface_ground_temperature`
+            value (float): value for IDD Field `October Surface Ground Temperature`
                 Units: C
                 Default value: 13.0
                 if `value` is None it will not be checked against the
@@ -6913,10 +7035,9 @@ class SiteGroundTemperatureShallow(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `october_surface_ground_temperature`'.format(value))
-
         self._data["October Surface Ground Temperature"] = value
 
     @property
@@ -6930,10 +7051,12 @@ class SiteGroundTemperatureShallow(object):
 
     @november_surface_ground_temperature.setter
     def november_surface_ground_temperature(self, value=13.0 ):
-        """  Corresponds to IDD Field `november_surface_ground_temperature`
+        """  Corresponds to IDD Field `November Surface Ground Temperature`
+        
+        {u'units': u'C', u'default': '13.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `november_surface_ground_temperature`
+            value (float): value for IDD Field `November Surface Ground Temperature`
                 Units: C
                 Default value: 13.0
                 if `value` is None it will not be checked against the
@@ -6945,10 +7068,9 @@ class SiteGroundTemperatureShallow(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `november_surface_ground_temperature`'.format(value))
-
         self._data["November Surface Ground Temperature"] = value
 
     @property
@@ -6962,10 +7084,12 @@ class SiteGroundTemperatureShallow(object):
 
     @december_surface_ground_temperature.setter
     def december_surface_ground_temperature(self, value=13.0 ):
-        """  Corresponds to IDD Field `december_surface_ground_temperature`
+        """  Corresponds to IDD Field `December Surface Ground Temperature`
+        
+        {u'units': u'C', u'default': '13.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `december_surface_ground_temperature`
+            value (float): value for IDD Field `December Surface Ground Temperature`
                 Units: C
                 Default value: 13.0
                 if `value` is None it will not be checked against the
@@ -6977,10 +7101,9 @@ class SiteGroundTemperatureShallow(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `december_surface_ground_temperature`'.format(value))
-
         self._data["December Surface Ground Temperature"] = value
 
     def check(self):
@@ -7150,10 +7273,12 @@ class SiteGroundTemperatureDeep(object):
 
     @january_deep_ground_temperature.setter
     def january_deep_ground_temperature(self, value=16.0 ):
-        """  Corresponds to IDD Field `january_deep_ground_temperature`
+        """  Corresponds to IDD Field `January Deep Ground Temperature`
+        
+        {u'units': u'C', u'default': '16.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `january_deep_ground_temperature`
+            value (float): value for IDD Field `January Deep Ground Temperature`
                 Units: C
                 Default value: 16.0
                 if `value` is None it will not be checked against the
@@ -7165,10 +7290,9 @@ class SiteGroundTemperatureDeep(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `january_deep_ground_temperature`'.format(value))
-
         self._data["January Deep Ground Temperature"] = value
 
     @property
@@ -7182,10 +7306,12 @@ class SiteGroundTemperatureDeep(object):
 
     @february_deep_ground_temperature.setter
     def february_deep_ground_temperature(self, value=16.0 ):
-        """  Corresponds to IDD Field `february_deep_ground_temperature`
+        """  Corresponds to IDD Field `February Deep Ground Temperature`
+        
+        {u'units': u'C', u'default': '16.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `february_deep_ground_temperature`
+            value (float): value for IDD Field `February Deep Ground Temperature`
                 Units: C
                 Default value: 16.0
                 if `value` is None it will not be checked against the
@@ -7197,10 +7323,9 @@ class SiteGroundTemperatureDeep(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `february_deep_ground_temperature`'.format(value))
-
         self._data["February Deep Ground Temperature"] = value
 
     @property
@@ -7214,10 +7339,12 @@ class SiteGroundTemperatureDeep(object):
 
     @march_deep_ground_temperature.setter
     def march_deep_ground_temperature(self, value=16.0 ):
-        """  Corresponds to IDD Field `march_deep_ground_temperature`
+        """  Corresponds to IDD Field `March Deep Ground Temperature`
+        
+        {u'units': u'C', u'default': '16.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `march_deep_ground_temperature`
+            value (float): value for IDD Field `March Deep Ground Temperature`
                 Units: C
                 Default value: 16.0
                 if `value` is None it will not be checked against the
@@ -7229,10 +7356,9 @@ class SiteGroundTemperatureDeep(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `march_deep_ground_temperature`'.format(value))
-
         self._data["March Deep Ground Temperature"] = value
 
     @property
@@ -7246,10 +7372,12 @@ class SiteGroundTemperatureDeep(object):
 
     @april_deep_ground_temperature.setter
     def april_deep_ground_temperature(self, value=16.0 ):
-        """  Corresponds to IDD Field `april_deep_ground_temperature`
+        """  Corresponds to IDD Field `April Deep Ground Temperature`
+        
+        {u'units': u'C', u'default': '16.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `april_deep_ground_temperature`
+            value (float): value for IDD Field `April Deep Ground Temperature`
                 Units: C
                 Default value: 16.0
                 if `value` is None it will not be checked against the
@@ -7261,10 +7389,9 @@ class SiteGroundTemperatureDeep(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `april_deep_ground_temperature`'.format(value))
-
         self._data["April Deep Ground Temperature"] = value
 
     @property
@@ -7278,10 +7405,12 @@ class SiteGroundTemperatureDeep(object):
 
     @may_deep_ground_temperature.setter
     def may_deep_ground_temperature(self, value=16.0 ):
-        """  Corresponds to IDD Field `may_deep_ground_temperature`
+        """  Corresponds to IDD Field `May Deep Ground Temperature`
+        
+        {u'units': u'C', u'default': '16.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `may_deep_ground_temperature`
+            value (float): value for IDD Field `May Deep Ground Temperature`
                 Units: C
                 Default value: 16.0
                 if `value` is None it will not be checked against the
@@ -7293,10 +7422,9 @@ class SiteGroundTemperatureDeep(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `may_deep_ground_temperature`'.format(value))
-
         self._data["May Deep Ground Temperature"] = value
 
     @property
@@ -7310,10 +7438,12 @@ class SiteGroundTemperatureDeep(object):
 
     @june_deep_ground_temperature.setter
     def june_deep_ground_temperature(self, value=16.0 ):
-        """  Corresponds to IDD Field `june_deep_ground_temperature`
+        """  Corresponds to IDD Field `June Deep Ground Temperature`
+        
+        {u'units': u'C', u'default': '16.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `june_deep_ground_temperature`
+            value (float): value for IDD Field `June Deep Ground Temperature`
                 Units: C
                 Default value: 16.0
                 if `value` is None it will not be checked against the
@@ -7325,10 +7455,9 @@ class SiteGroundTemperatureDeep(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `june_deep_ground_temperature`'.format(value))
-
         self._data["June Deep Ground Temperature"] = value
 
     @property
@@ -7342,10 +7471,12 @@ class SiteGroundTemperatureDeep(object):
 
     @july_deep_ground_temperature.setter
     def july_deep_ground_temperature(self, value=16.0 ):
-        """  Corresponds to IDD Field `july_deep_ground_temperature`
+        """  Corresponds to IDD Field `July Deep Ground Temperature`
+        
+        {u'units': u'C', u'default': '16.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `july_deep_ground_temperature`
+            value (float): value for IDD Field `July Deep Ground Temperature`
                 Units: C
                 Default value: 16.0
                 if `value` is None it will not be checked against the
@@ -7357,10 +7488,9 @@ class SiteGroundTemperatureDeep(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `july_deep_ground_temperature`'.format(value))
-
         self._data["July Deep Ground Temperature"] = value
 
     @property
@@ -7374,10 +7504,12 @@ class SiteGroundTemperatureDeep(object):
 
     @august_deep_ground_temperature.setter
     def august_deep_ground_temperature(self, value=16.0 ):
-        """  Corresponds to IDD Field `august_deep_ground_temperature`
+        """  Corresponds to IDD Field `August Deep Ground Temperature`
+        
+        {u'units': u'C', u'default': '16.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `august_deep_ground_temperature`
+            value (float): value for IDD Field `August Deep Ground Temperature`
                 Units: C
                 Default value: 16.0
                 if `value` is None it will not be checked against the
@@ -7389,10 +7521,9 @@ class SiteGroundTemperatureDeep(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `august_deep_ground_temperature`'.format(value))
-
         self._data["August Deep Ground Temperature"] = value
 
     @property
@@ -7406,10 +7537,12 @@ class SiteGroundTemperatureDeep(object):
 
     @september_deep_ground_temperature.setter
     def september_deep_ground_temperature(self, value=16.0 ):
-        """  Corresponds to IDD Field `september_deep_ground_temperature`
+        """  Corresponds to IDD Field `September Deep Ground Temperature`
+        
+        {u'units': u'C', u'default': '16.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `september_deep_ground_temperature`
+            value (float): value for IDD Field `September Deep Ground Temperature`
                 Units: C
                 Default value: 16.0
                 if `value` is None it will not be checked against the
@@ -7421,10 +7554,9 @@ class SiteGroundTemperatureDeep(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `september_deep_ground_temperature`'.format(value))
-
         self._data["September Deep Ground Temperature"] = value
 
     @property
@@ -7438,10 +7570,12 @@ class SiteGroundTemperatureDeep(object):
 
     @october_deep_ground_temperature.setter
     def october_deep_ground_temperature(self, value=16.0 ):
-        """  Corresponds to IDD Field `october_deep_ground_temperature`
+        """  Corresponds to IDD Field `October Deep Ground Temperature`
+        
+        {u'units': u'C', u'default': '16.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `october_deep_ground_temperature`
+            value (float): value for IDD Field `October Deep Ground Temperature`
                 Units: C
                 Default value: 16.0
                 if `value` is None it will not be checked against the
@@ -7453,10 +7587,9 @@ class SiteGroundTemperatureDeep(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `october_deep_ground_temperature`'.format(value))
-
         self._data["October Deep Ground Temperature"] = value
 
     @property
@@ -7470,10 +7603,12 @@ class SiteGroundTemperatureDeep(object):
 
     @november_deep_ground_temperature.setter
     def november_deep_ground_temperature(self, value=16.0 ):
-        """  Corresponds to IDD Field `november_deep_ground_temperature`
+        """  Corresponds to IDD Field `November Deep Ground Temperature`
+        
+        {u'units': u'C', u'default': '16.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `november_deep_ground_temperature`
+            value (float): value for IDD Field `November Deep Ground Temperature`
                 Units: C
                 Default value: 16.0
                 if `value` is None it will not be checked against the
@@ -7485,10 +7620,9 @@ class SiteGroundTemperatureDeep(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `november_deep_ground_temperature`'.format(value))
-
         self._data["November Deep Ground Temperature"] = value
 
     @property
@@ -7502,10 +7636,12 @@ class SiteGroundTemperatureDeep(object):
 
     @december_deep_ground_temperature.setter
     def december_deep_ground_temperature(self, value=16.0 ):
-        """  Corresponds to IDD Field `december_deep_ground_temperature`
+        """  Corresponds to IDD Field `December Deep Ground Temperature`
+        
+        {u'units': u'C', u'default': '16.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `december_deep_ground_temperature`
+            value (float): value for IDD Field `December Deep Ground Temperature`
                 Units: C
                 Default value: 16.0
                 if `value` is None it will not be checked against the
@@ -7517,10 +7653,9 @@ class SiteGroundTemperatureDeep(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `december_deep_ground_temperature`'.format(value))
-
         self._data["December Deep Ground Temperature"] = value
 
     def check(self):
@@ -7785,10 +7920,12 @@ class SiteGroundDomain(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {'type': 'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7798,7 +7935,7 @@ class SiteGroundDomain(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -7807,7 +7944,6 @@ class SiteGroundDomain(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -7821,10 +7957,12 @@ class SiteGroundDomain(object):
 
     @ground_domain_depth.setter
     def ground_domain_depth(self, value=None):
-        """  Corresponds to IDD Field `ground_domain_depth`
+        """  Corresponds to IDD Field `Ground Domain Depth`
+        
+        {u'units': u'm', u'minimum>': '0.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `ground_domain_depth`
+            value (float): value for IDD Field `Ground Domain Depth`
                 Units: m
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -7836,13 +7974,12 @@ class SiteGroundDomain(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `ground_domain_depth`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `ground_domain_depth`')
-
         self._data["Ground Domain Depth"] = value
 
     @property
@@ -7856,10 +7993,12 @@ class SiteGroundDomain(object):
 
     @aspect_ratio.setter
     def aspect_ratio(self, value=1.0 ):
-        """  Corresponds to IDD Field `aspect_ratio`
+        """  Corresponds to IDD Field `Aspect Ratio`
+        
+        {u'default': '1.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `aspect_ratio`
+            value (float): value for IDD Field `Aspect Ratio`
                 Default value: 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -7870,10 +8009,9 @@ class SiteGroundDomain(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `aspect_ratio`'.format(value))
-
         self._data["Aspect Ratio"] = value
 
     @property
@@ -7887,10 +8025,12 @@ class SiteGroundDomain(object):
 
     @perimeter_offset.setter
     def perimeter_offset(self, value=None):
-        """  Corresponds to IDD Field `perimeter_offset`
+        """  Corresponds to IDD Field `Perimeter Offset`
+        
+        {u'units': u'm', u'minimum>': '0.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `perimeter_offset`
+            value (float): value for IDD Field `Perimeter Offset`
                 Units: m
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -7902,13 +8042,12 @@ class SiteGroundDomain(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `perimeter_offset`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `perimeter_offset`')
-
         self._data["Perimeter Offset"] = value
 
     @property
@@ -7922,10 +8061,12 @@ class SiteGroundDomain(object):
 
     @soil_thermal_conductivity.setter
     def soil_thermal_conductivity(self, value=None):
-        """  Corresponds to IDD Field `soil_thermal_conductivity`
+        """  Corresponds to IDD Field `Soil Thermal Conductivity`
+        
+        {u'units': u'W/m-K', u'minimum>': '0.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `soil_thermal_conductivity`
+            value (float): value for IDD Field `Soil Thermal Conductivity`
                 Units: W/m-K
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -7937,13 +8078,12 @@ class SiteGroundDomain(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `soil_thermal_conductivity`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `soil_thermal_conductivity`')
-
         self._data["Soil Thermal Conductivity"] = value
 
     @property
@@ -7957,10 +8097,12 @@ class SiteGroundDomain(object):
 
     @soil_density.setter
     def soil_density(self, value=None):
-        """  Corresponds to IDD Field `soil_density`
+        """  Corresponds to IDD Field `Soil Density`
+        
+        {u'units': u'kg/m3', u'minimum>': '0.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `soil_density`
+            value (float): value for IDD Field `Soil Density`
                 Units: kg/m3
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -7972,13 +8114,12 @@ class SiteGroundDomain(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `soil_density`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `soil_density`')
-
         self._data["Soil Density"] = value
 
     @property
@@ -7992,10 +8133,12 @@ class SiteGroundDomain(object):
 
     @soil_specific_heat.setter
     def soil_specific_heat(self, value=None):
-        """  Corresponds to IDD Field `soil_specific_heat`
+        """  Corresponds to IDD Field `Soil Specific Heat`
+        
+        {u'units': u'J/kg-K', u'minimum>': '0.0', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `soil_specific_heat`
+            value (float): value for IDD Field `Soil Specific Heat`
                 Units: J/kg-K
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -8007,13 +8150,12 @@ class SiteGroundDomain(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `soil_specific_heat`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `soil_specific_heat`')
-
         self._data["Soil Specific Heat"] = value
 
     @property
@@ -8027,10 +8169,12 @@ class SiteGroundDomain(object):
 
     @soil_moisture_content_volume_fraction.setter
     def soil_moisture_content_volume_fraction(self, value=30.0 ):
-        """  Corresponds to IDD Field `soil_moisture_content_volume_fraction`
+        """  Corresponds to IDD Field `Soil Moisture Content Volume Fraction`
+        
+        {'pytype': 'float', u'default': '30.0', u'maximum': '100.0', u'minimum': '0.0', u'units': u'percent', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `soil_moisture_content_volume_fraction`
+            value (float): value for IDD Field `Soil Moisture Content Volume Fraction`
                 Units: percent
                 Default value: 30.0
                 value >= 0.0
@@ -8044,7 +8188,7 @@ class SiteGroundDomain(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `soil_moisture_content_volume_fraction`'.format(value))
             if value < 0.0:
@@ -8053,7 +8197,6 @@ class SiteGroundDomain(object):
             if value > 100.0:
                 raise ValueError('value need to be smaller 100.0 '
                                  'for field `soil_moisture_content_volume_fraction`')
-
         self._data["Soil Moisture Content Volume Fraction"] = value
 
     @property
@@ -8067,10 +8210,12 @@ class SiteGroundDomain(object):
 
     @soil_moisture_content_volume_fraction_at_saturation.setter
     def soil_moisture_content_volume_fraction_at_saturation(self, value=50.0 ):
-        """  Corresponds to IDD Field `soil_moisture_content_volume_fraction_at_saturation`
+        """  Corresponds to IDD Field `Soil Moisture Content Volume Fraction at Saturation`
+        
+        {'pytype': 'float', u'default': '50.0', u'maximum': '100.0', u'minimum': '0.0', u'units': u'percent', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `soil_moisture_content_volume_fraction_at_saturation`
+            value (float): value for IDD Field `Soil Moisture Content Volume Fraction at Saturation`
                 Units: percent
                 Default value: 50.0
                 value >= 0.0
@@ -8084,7 +8229,7 @@ class SiteGroundDomain(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `soil_moisture_content_volume_fraction_at_saturation`'.format(value))
             if value < 0.0:
@@ -8093,7 +8238,6 @@ class SiteGroundDomain(object):
             if value > 100.0:
                 raise ValueError('value need to be smaller 100.0 '
                                  'for field `soil_moisture_content_volume_fraction_at_saturation`')
-
         self._data["Soil Moisture Content Volume Fraction at Saturation"] = value
 
     @property
@@ -8107,11 +8251,13 @@ class SiteGroundDomain(object):
 
     @kusudaachenbach_average_surface_temperature.setter
     def kusudaachenbach_average_surface_temperature(self, value=None):
-        """  Corresponds to IDD Field `kusudaachenbach_average_surface_temperature`
+        """  Corresponds to IDD Field `Kusuda-Achenbach Average Surface Temperature`
         Annual average surface temperature.
+        
+        {u'units': u'C', u'note': [u'Annual average surface temperature.'], u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `kusudaachenbach_average_surface_temperature`
+            value (float): value for IDD Field `Kusuda-Achenbach Average Surface Temperature`
                 Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -8122,10 +8268,9 @@ class SiteGroundDomain(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `kusudaachenbach_average_surface_temperature`'.format(value))
-
         self._data["Kusuda-Achenbach Average Surface Temperature"] = value
 
     @property
@@ -8139,11 +8284,13 @@ class SiteGroundDomain(object):
 
     @kusudaachenbach_average_amplitude_of_surface_temperature.setter
     def kusudaachenbach_average_amplitude_of_surface_temperature(self, value=None):
-        """  Corresponds to IDD Field `kusudaachenbach_average_amplitude_of_surface_temperature`
+        """  Corresponds to IDD Field `Kusuda-Achenbach Average Amplitude of Surface Temperature`
         Annual average surface temperature variation from average.
+        
+        {u'units': u'deltaC', u'note': [u'Annual average surface temperature variation from average.'], u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `kusudaachenbach_average_amplitude_of_surface_temperature`
+            value (float): value for IDD Field `Kusuda-Achenbach Average Amplitude of Surface Temperature`
                 Units: deltaC
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -8154,10 +8301,9 @@ class SiteGroundDomain(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `kusudaachenbach_average_amplitude_of_surface_temperature`'.format(value))
-
         self._data["Kusuda-Achenbach Average Amplitude of Surface Temperature"] = value
 
     @property
@@ -8171,12 +8317,14 @@ class SiteGroundDomain(object):
 
     @kusudaachenbach_phase_shift_of_minimum_surface_temperature.setter
     def kusudaachenbach_phase_shift_of_minimum_surface_temperature(self, value=None):
-        """  Corresponds to IDD Field `kusudaachenbach_phase_shift_of_minimum_surface_temperature`
+        """  Corresponds to IDD Field `Kusuda-Achenbach Phase Shift of Minimum Surface Temperature`
         The phase shift of minimum surface temperature, or the day
         of the year when the minimum surface temperature occurs.
+        
+        {u'units': u'days', u'note': [u'The phase shift of minimum surface temperature, or the day', u'of the year when the minimum surface temperature occurs.'], u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `kusudaachenbach_phase_shift_of_minimum_surface_temperature`
+            value (float): value for IDD Field `Kusuda-Achenbach Phase Shift of Minimum Surface Temperature`
                 Units: days
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -8187,10 +8335,9 @@ class SiteGroundDomain(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `kusudaachenbach_phase_shift_of_minimum_surface_temperature`'.format(value))
-
         self._data["Kusuda-Achenbach Phase Shift of Minimum Surface Temperature"] = value
 
     @property
@@ -8204,16 +8351,18 @@ class SiteGroundDomain(object):
 
     @evapotranspiration_ground_cover_parameter.setter
     def evapotranspiration_ground_cover_parameter(self, value=0.4 ):
-        """  Corresponds to IDD Field `evapotranspiration_ground_cover_parameter`
+        """  Corresponds to IDD Field `Evapotranspiration Ground Cover Parameter`
         This specifies the ground cover effects during evapotranspiration
         calculations.  The value roughly represents the following cases:
         = 0   : concrete or other solid, non-permeable ground surface material
         = 0.5 : short grass, much like a manicured lawn
         = 1   : standard reference state (12 cm grass)
         = 1.5 : wild growth
+        
+        {'pytype': 'float', u'default': '0.4', u'maximum': '1.5', u'note': [u'This specifies the ground cover effects during evapotranspiration', u'calculations.  The value roughly represents the following cases:', u'= 0   : concrete or other solid, non-permeable ground surface material', u'= 0.5 : short grass, much like a manicured lawn', u'= 1   : standard reference state (12 cm grass)', u'= 1.5 : wild growth'], u'minimum': '0.0', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `evapotranspiration_ground_cover_parameter`
+            value (float): value for IDD Field `Evapotranspiration Ground Cover Parameter`
                 Default value: 0.4
                 value >= 0.0
                 value <= 1.5
@@ -8226,7 +8375,7 @@ class SiteGroundDomain(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `evapotranspiration_ground_cover_parameter`'.format(value))
             if value < 0.0:
@@ -8235,7 +8384,6 @@ class SiteGroundDomain(object):
             if value > 1.5:
                 raise ValueError('value need to be smaller 1.5 '
                                  'for field `evapotranspiration_ground_cover_parameter`')
-
         self._data["Evapotranspiration Ground Cover Parameter"] = value
 
     @property
@@ -8249,10 +8397,12 @@ class SiteGroundDomain(object):
 
     @slab_boundary_condition_model_name.setter
     def slab_boundary_condition_model_name(self, value=None):
-        """  Corresponds to IDD Field `slab_boundary_condition_model_name`
+        """  Corresponds to IDD Field `Slab Boundary Condition Model Name`
+        
+        {u'type': u'object-list', u'object-list': u'OSCMNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `slab_boundary_condition_model_name`
+            value (str): value for IDD Field `Slab Boundary Condition Model Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8262,7 +8412,7 @@ class SiteGroundDomain(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `slab_boundary_condition_model_name`'.format(value))
             if ',' in value:
@@ -8271,7 +8421,6 @@ class SiteGroundDomain(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `slab_boundary_condition_model_name`')
-
         self._data["Slab Boundary Condition Model Name"] = value
 
     @property
@@ -8285,11 +8434,13 @@ class SiteGroundDomain(object):
 
     @slab_location.setter
     def slab_location(self, value=None):
-        """  Corresponds to IDD Field `slab_location`
+        """  Corresponds to IDD Field `Slab Location`
         This field specifies whether the slab is located "in-grade" or "on-grade"
+        
+        {u'note': [u'This field specifies whether the slab is located "in-grade" or "on-grade"'], u'type': u'choice', u'key': [u'InGrade', u'OnGrade'], u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `slab_location`
+            value (str): value for IDD Field `Slab Location`
                 Accepted values are:
                       - InGrade
                       - OnGrade
@@ -8302,7 +8453,7 @@ class SiteGroundDomain(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `slab_location`'.format(value))
             if ',' in value:
@@ -8328,7 +8479,6 @@ class SiteGroundDomain(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `slab_location`'.format(value))
             value = vals[value_lower]
-
         self._data["Slab Location"] = value
 
     @property
@@ -8342,11 +8492,13 @@ class SiteGroundDomain(object):
 
     @slab_material_name.setter
     def slab_material_name(self, value=None):
-        """  Corresponds to IDD Field `slab_material_name`
+        """  Corresponds to IDD Field `Slab Material Name`
         Only applicable for the in-grade case
+        
+        {u'note': [u'Only applicable for the in-grade case'], u'type': u'object-list', u'object-list': u'MaterialName', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `slab_material_name`
+            value (str): value for IDD Field `Slab Material Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8356,7 +8508,7 @@ class SiteGroundDomain(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `slab_material_name`'.format(value))
             if ',' in value:
@@ -8365,7 +8517,6 @@ class SiteGroundDomain(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `slab_material_name`')
-
         self._data["Slab Material Name"] = value
 
     @property
@@ -8379,12 +8530,14 @@ class SiteGroundDomain(object):
 
     @horizontal_insulation.setter
     def horizontal_insulation(self, value="No"):
-        """  Corresponds to IDD Field `horizontal_insulation`
+        """  Corresponds to IDD Field `Horizontal Insulation`
         This field specifies the presence of insulation beneath the slab.
         Only required for in-grade case.
+        
+        {u'default': u'No', u'note': [u'This field specifies the presence of insulation beneath the slab.', u'Only required for in-grade case.'], u'type': u'choice', u'key': [u'Yes', u'No'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `horizontal_insulation`
+            value (str): value for IDD Field `Horizontal Insulation`
                 Accepted values are:
                       - Yes
                       - No
@@ -8398,7 +8551,7 @@ class SiteGroundDomain(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `horizontal_insulation`'.format(value))
             if ',' in value:
@@ -8424,7 +8577,6 @@ class SiteGroundDomain(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `horizontal_insulation`'.format(value))
             value = vals[value_lower]
-
         self._data["Horizontal Insulation"] = value
 
     @property
@@ -8438,11 +8590,13 @@ class SiteGroundDomain(object):
 
     @horizontal_insulation_material_name.setter
     def horizontal_insulation_material_name(self, value=None):
-        """  Corresponds to IDD Field `horizontal_insulation_material_name`
+        """  Corresponds to IDD Field `Horizontal Insulation Material Name`
         This field specifies the horizontal insulation material.
+        
+        {u'note': [u'This field specifies the horizontal insulation material.'], u'type': u'object-list', u'object-list': u'MaterialName', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `horizontal_insulation_material_name`
+            value (str): value for IDD Field `Horizontal Insulation Material Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8452,7 +8606,7 @@ class SiteGroundDomain(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `horizontal_insulation_material_name`'.format(value))
             if ',' in value:
@@ -8461,7 +8615,6 @@ class SiteGroundDomain(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `horizontal_insulation_material_name`')
-
         self._data["Horizontal Insulation Material Name"] = value
 
     @property
@@ -8475,12 +8628,14 @@ class SiteGroundDomain(object):
 
     @horizontal_insulation_extents.setter
     def horizontal_insulation_extents(self, value="Full"):
-        """  Corresponds to IDD Field `horizontal_insulation_extents`
+        """  Corresponds to IDD Field `Horizontal Insulation Extents`
         This field specifies whether the horizontal insulation fully insulates
         the surface or is perimeter only insulation
+        
+        {u'default': u'Full', u'note': [u'This field specifies whether the horizontal insulation fully insulates', u'the surface or is perimeter only insulation'], u'type': u'choice', u'key': [u'Full', u'Perimeter'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `horizontal_insulation_extents`
+            value (str): value for IDD Field `Horizontal Insulation Extents`
                 Accepted values are:
                       - Full
                       - Perimeter
@@ -8494,7 +8649,7 @@ class SiteGroundDomain(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `horizontal_insulation_extents`'.format(value))
             if ',' in value:
@@ -8520,7 +8675,6 @@ class SiteGroundDomain(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `horizontal_insulation_extents`'.format(value))
             value = vals[value_lower]
-
         self._data["Horizontal Insulation Extents"] = value
 
     @property
@@ -8534,11 +8688,13 @@ class SiteGroundDomain(object):
 
     @perimeter_insulation_width.setter
     def perimeter_insulation_width(self, value=None):
-        """  Corresponds to IDD Field `perimeter_insulation_width`
+        """  Corresponds to IDD Field `Perimeter Insulation Width`
         This field specifies the width of the underfloor perimeter insulation
+        
+        {u'units': u'm', u'note': [u'This field specifies the width of the underfloor perimeter insulation'], u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `perimeter_insulation_width`
+            value (float): value for IDD Field `Perimeter Insulation Width`
                 Units: m
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -8550,13 +8706,12 @@ class SiteGroundDomain(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `perimeter_insulation_width`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `perimeter_insulation_width`')
-
         self._data["Perimeter Insulation Width"] = value
 
     @property
@@ -8570,11 +8725,13 @@ class SiteGroundDomain(object):
 
     @vertical_insulation.setter
     def vertical_insulation(self, value="No"):
-        """  Corresponds to IDD Field `vertical_insulation`
+        """  Corresponds to IDD Field `Vertical Insulation`
         This field specifies the presence of vertical insulation at the slab edge.
+        
+        {'pytype': 'str', u'default': u'No', u'required-field': True, u'note': [u'This field specifies the presence of vertical insulation at the slab edge.'], u'key': [u'Yes', u'No'], u'type': u'choice'}
 
         Args:
-            value (str): value for IDD Field `vertical_insulation`
+            value (str): value for IDD Field `Vertical Insulation`
                 Accepted values are:
                       - Yes
                       - No
@@ -8588,7 +8745,7 @@ class SiteGroundDomain(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `vertical_insulation`'.format(value))
             if ',' in value:
@@ -8614,7 +8771,6 @@ class SiteGroundDomain(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `vertical_insulation`'.format(value))
             value = vals[value_lower]
-
         self._data["Vertical Insulation"] = value
 
     @property
@@ -8628,11 +8784,13 @@ class SiteGroundDomain(object):
 
     @vertical_insulation_material_name.setter
     def vertical_insulation_material_name(self, value=None):
-        """  Corresponds to IDD Field `vertical_insulation_material_name`
+        """  Corresponds to IDD Field `Vertical Insulation Material Name`
         This field specifies the vertical insulation material.
+        
+        {u'note': [u'This field specifies the vertical insulation material.'], u'type': u'object-list', u'object-list': u'MaterialName', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `vertical_insulation_material_name`
+            value (str): value for IDD Field `Vertical Insulation Material Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8642,7 +8800,7 @@ class SiteGroundDomain(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `vertical_insulation_material_name`'.format(value))
             if ',' in value:
@@ -8651,7 +8809,6 @@ class SiteGroundDomain(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `vertical_insulation_material_name`')
-
         self._data["Vertical Insulation Material Name"] = value
 
     @property
@@ -8665,12 +8822,14 @@ class SiteGroundDomain(object):
 
     @vertical_insulation_depth.setter
     def vertical_insulation_depth(self, value=None):
-        """  Corresponds to IDD Field `vertical_insulation_depth`
+        """  Corresponds to IDD Field `Vertical Insulation Depth`
         Only used when including vertical insulation
         This field specifies the depth of the vertical insulation
+        
+        {u'units': u'm', u'note': [u'Only used when including vertical insulation', u'This field specifies the depth of the vertical insulation'], u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `vertical_insulation_depth`
+            value (float): value for IDD Field `Vertical Insulation Depth`
                 Units: m
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -8682,13 +8841,12 @@ class SiteGroundDomain(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `vertical_insulation_depth`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `vertical_insulation_depth`')
-
         self._data["Vertical Insulation Depth"] = value
 
     @property
@@ -8702,11 +8860,13 @@ class SiteGroundDomain(object):
 
     @simulation_timestep.setter
     def simulation_timestep(self, value="Hourly"):
-        """  Corresponds to IDD Field `simulation_timestep`
+        """  Corresponds to IDD Field `Simulation Timestep`
         This field specifies the domain simulation timestep.
+        
+        {'pytype': 'str', u'default': u'Hourly', u'required-field': True, u'note': [u'This field specifies the domain simulation timestep.'], u'key': [u'Hourly', u'Timestep'], u'type': u'choice'}
 
         Args:
-            value (str): value for IDD Field `simulation_timestep`
+            value (str): value for IDD Field `Simulation Timestep`
                 Accepted values are:
                       - Hourly
                       - Timestep
@@ -8720,7 +8880,7 @@ class SiteGroundDomain(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `simulation_timestep`'.format(value))
             if ',' in value:
@@ -8746,7 +8906,6 @@ class SiteGroundDomain(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `simulation_timestep`'.format(value))
             value = vals[value_lower]
-
         self._data["Simulation Timestep"] = value
 
     def check(self):
@@ -8916,10 +9075,12 @@ class SiteGroundReflectance(object):
 
     @january_ground_reflectance.setter
     def january_ground_reflectance(self, value=0.2 ):
-        """  Corresponds to IDD Field `january_ground_reflectance`
+        """  Corresponds to IDD Field `January Ground Reflectance`
+        
+        {'pytype': 'float', u'default': '0.2', u'maximum': '1.0', u'minimum': '0.0', u'units': u'dimensionless', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `january_ground_reflectance`
+            value (float): value for IDD Field `January Ground Reflectance`
                 Units: dimensionless
                 Default value: 0.2
                 value >= 0.0
@@ -8933,7 +9094,7 @@ class SiteGroundReflectance(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `january_ground_reflectance`'.format(value))
             if value < 0.0:
@@ -8942,7 +9103,6 @@ class SiteGroundReflectance(object):
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `january_ground_reflectance`')
-
         self._data["January Ground Reflectance"] = value
 
     @property
@@ -8956,10 +9116,12 @@ class SiteGroundReflectance(object):
 
     @february_ground_reflectance.setter
     def february_ground_reflectance(self, value=0.2 ):
-        """  Corresponds to IDD Field `february_ground_reflectance`
+        """  Corresponds to IDD Field `February Ground Reflectance`
+        
+        {'pytype': 'float', u'default': '0.2', u'maximum': '1.0', u'minimum': '0.0', u'units': u'dimensionless', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `february_ground_reflectance`
+            value (float): value for IDD Field `February Ground Reflectance`
                 Units: dimensionless
                 Default value: 0.2
                 value >= 0.0
@@ -8973,7 +9135,7 @@ class SiteGroundReflectance(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `february_ground_reflectance`'.format(value))
             if value < 0.0:
@@ -8982,7 +9144,6 @@ class SiteGroundReflectance(object):
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `february_ground_reflectance`')
-
         self._data["February Ground Reflectance"] = value
 
     @property
@@ -8996,10 +9157,12 @@ class SiteGroundReflectance(object):
 
     @march_ground_reflectance.setter
     def march_ground_reflectance(self, value=0.2 ):
-        """  Corresponds to IDD Field `march_ground_reflectance`
+        """  Corresponds to IDD Field `March Ground Reflectance`
+        
+        {'pytype': 'float', u'default': '0.2', u'maximum': '1.0', u'minimum': '0.0', u'units': u'dimensionless', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `march_ground_reflectance`
+            value (float): value for IDD Field `March Ground Reflectance`
                 Units: dimensionless
                 Default value: 0.2
                 value >= 0.0
@@ -9013,7 +9176,7 @@ class SiteGroundReflectance(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `march_ground_reflectance`'.format(value))
             if value < 0.0:
@@ -9022,7 +9185,6 @@ class SiteGroundReflectance(object):
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `march_ground_reflectance`')
-
         self._data["March Ground Reflectance"] = value
 
     @property
@@ -9036,10 +9198,12 @@ class SiteGroundReflectance(object):
 
     @april_ground_reflectance.setter
     def april_ground_reflectance(self, value=0.2 ):
-        """  Corresponds to IDD Field `april_ground_reflectance`
+        """  Corresponds to IDD Field `April Ground Reflectance`
+        
+        {'pytype': 'float', u'default': '0.2', u'maximum': '1.0', u'minimum': '0.0', u'units': u'dimensionless', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `april_ground_reflectance`
+            value (float): value for IDD Field `April Ground Reflectance`
                 Units: dimensionless
                 Default value: 0.2
                 value >= 0.0
@@ -9053,7 +9217,7 @@ class SiteGroundReflectance(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `april_ground_reflectance`'.format(value))
             if value < 0.0:
@@ -9062,7 +9226,6 @@ class SiteGroundReflectance(object):
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `april_ground_reflectance`')
-
         self._data["April Ground Reflectance"] = value
 
     @property
@@ -9076,10 +9239,12 @@ class SiteGroundReflectance(object):
 
     @may_ground_reflectance.setter
     def may_ground_reflectance(self, value=0.2 ):
-        """  Corresponds to IDD Field `may_ground_reflectance`
+        """  Corresponds to IDD Field `May Ground Reflectance`
+        
+        {'pytype': 'float', u'default': '0.2', u'maximum': '1.0', u'minimum': '0.0', u'units': u'dimensionless', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `may_ground_reflectance`
+            value (float): value for IDD Field `May Ground Reflectance`
                 Units: dimensionless
                 Default value: 0.2
                 value >= 0.0
@@ -9093,7 +9258,7 @@ class SiteGroundReflectance(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `may_ground_reflectance`'.format(value))
             if value < 0.0:
@@ -9102,7 +9267,6 @@ class SiteGroundReflectance(object):
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `may_ground_reflectance`')
-
         self._data["May Ground Reflectance"] = value
 
     @property
@@ -9116,10 +9280,12 @@ class SiteGroundReflectance(object):
 
     @june_ground_reflectance.setter
     def june_ground_reflectance(self, value=0.2 ):
-        """  Corresponds to IDD Field `june_ground_reflectance`
+        """  Corresponds to IDD Field `June Ground Reflectance`
+        
+        {'pytype': 'float', u'default': '0.2', u'maximum': '1.0', u'minimum': '0.0', u'units': u'dimensionless', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `june_ground_reflectance`
+            value (float): value for IDD Field `June Ground Reflectance`
                 Units: dimensionless
                 Default value: 0.2
                 value >= 0.0
@@ -9133,7 +9299,7 @@ class SiteGroundReflectance(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `june_ground_reflectance`'.format(value))
             if value < 0.0:
@@ -9142,7 +9308,6 @@ class SiteGroundReflectance(object):
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `june_ground_reflectance`')
-
         self._data["June Ground Reflectance"] = value
 
     @property
@@ -9156,10 +9321,12 @@ class SiteGroundReflectance(object):
 
     @july_ground_reflectance.setter
     def july_ground_reflectance(self, value=0.2 ):
-        """  Corresponds to IDD Field `july_ground_reflectance`
+        """  Corresponds to IDD Field `July Ground Reflectance`
+        
+        {'pytype': 'float', u'default': '0.2', u'maximum': '1.0', u'minimum': '0.0', u'units': u'dimensionless', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `july_ground_reflectance`
+            value (float): value for IDD Field `July Ground Reflectance`
                 Units: dimensionless
                 Default value: 0.2
                 value >= 0.0
@@ -9173,7 +9340,7 @@ class SiteGroundReflectance(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `july_ground_reflectance`'.format(value))
             if value < 0.0:
@@ -9182,7 +9349,6 @@ class SiteGroundReflectance(object):
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `july_ground_reflectance`')
-
         self._data["July Ground Reflectance"] = value
 
     @property
@@ -9196,10 +9362,12 @@ class SiteGroundReflectance(object):
 
     @august_ground_reflectance.setter
     def august_ground_reflectance(self, value=0.2 ):
-        """  Corresponds to IDD Field `august_ground_reflectance`
+        """  Corresponds to IDD Field `August Ground Reflectance`
+        
+        {'pytype': 'float', u'default': '0.2', u'maximum': '1.0', u'minimum': '0.0', u'units': u'dimensionless', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `august_ground_reflectance`
+            value (float): value for IDD Field `August Ground Reflectance`
                 Units: dimensionless
                 Default value: 0.2
                 value >= 0.0
@@ -9213,7 +9381,7 @@ class SiteGroundReflectance(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `august_ground_reflectance`'.format(value))
             if value < 0.0:
@@ -9222,7 +9390,6 @@ class SiteGroundReflectance(object):
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `august_ground_reflectance`')
-
         self._data["August Ground Reflectance"] = value
 
     @property
@@ -9236,10 +9403,12 @@ class SiteGroundReflectance(object):
 
     @september_ground_reflectance.setter
     def september_ground_reflectance(self, value=0.2 ):
-        """  Corresponds to IDD Field `september_ground_reflectance`
+        """  Corresponds to IDD Field `September Ground Reflectance`
+        
+        {'pytype': 'float', u'default': '0.2', u'maximum': '1.0', u'minimum': '0.0', u'units': u'dimensionless', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `september_ground_reflectance`
+            value (float): value for IDD Field `September Ground Reflectance`
                 Units: dimensionless
                 Default value: 0.2
                 value >= 0.0
@@ -9253,7 +9422,7 @@ class SiteGroundReflectance(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `september_ground_reflectance`'.format(value))
             if value < 0.0:
@@ -9262,7 +9431,6 @@ class SiteGroundReflectance(object):
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `september_ground_reflectance`')
-
         self._data["September Ground Reflectance"] = value
 
     @property
@@ -9276,10 +9444,12 @@ class SiteGroundReflectance(object):
 
     @october_ground_reflectance.setter
     def october_ground_reflectance(self, value=0.2 ):
-        """  Corresponds to IDD Field `october_ground_reflectance`
+        """  Corresponds to IDD Field `October Ground Reflectance`
+        
+        {'pytype': 'float', u'default': '0.2', u'maximum': '1.0', u'minimum': '0.0', u'units': u'dimensionless', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `october_ground_reflectance`
+            value (float): value for IDD Field `October Ground Reflectance`
                 Units: dimensionless
                 Default value: 0.2
                 value >= 0.0
@@ -9293,7 +9463,7 @@ class SiteGroundReflectance(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `october_ground_reflectance`'.format(value))
             if value < 0.0:
@@ -9302,7 +9472,6 @@ class SiteGroundReflectance(object):
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `october_ground_reflectance`')
-
         self._data["October Ground Reflectance"] = value
 
     @property
@@ -9316,10 +9485,12 @@ class SiteGroundReflectance(object):
 
     @november_ground_reflectance.setter
     def november_ground_reflectance(self, value=0.2 ):
-        """  Corresponds to IDD Field `november_ground_reflectance`
+        """  Corresponds to IDD Field `November Ground Reflectance`
+        
+        {'pytype': 'float', u'default': '0.2', u'maximum': '1.0', u'minimum': '0.0', u'units': u'dimensionless', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `november_ground_reflectance`
+            value (float): value for IDD Field `November Ground Reflectance`
                 Units: dimensionless
                 Default value: 0.2
                 value >= 0.0
@@ -9333,7 +9504,7 @@ class SiteGroundReflectance(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `november_ground_reflectance`'.format(value))
             if value < 0.0:
@@ -9342,7 +9513,6 @@ class SiteGroundReflectance(object):
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `november_ground_reflectance`')
-
         self._data["November Ground Reflectance"] = value
 
     @property
@@ -9356,10 +9526,12 @@ class SiteGroundReflectance(object):
 
     @december_ground_reflectance.setter
     def december_ground_reflectance(self, value=0.2 ):
-        """  Corresponds to IDD Field `december_ground_reflectance`
+        """  Corresponds to IDD Field `December Ground Reflectance`
+        
+        {'pytype': 'float', u'default': '0.2', u'maximum': '1.0', u'minimum': '0.0', u'units': u'dimensionless', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `december_ground_reflectance`
+            value (float): value for IDD Field `December Ground Reflectance`
                 Units: dimensionless
                 Default value: 0.2
                 value >= 0.0
@@ -9373,7 +9545,7 @@ class SiteGroundReflectance(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `december_ground_reflectance`'.format(value))
             if value < 0.0:
@@ -9382,7 +9554,6 @@ class SiteGroundReflectance(object):
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `december_ground_reflectance`')
-
         self._data["December Ground Reflectance"] = value
 
     def check(self):
@@ -9472,7 +9643,7 @@ class SiteGroundReflectanceSnowModifier(object):
 
     @ground_reflected_solar_modifier.setter
     def ground_reflected_solar_modifier(self, value=1.0 ):
-        """  Corresponds to IDD Field `ground_reflected_solar_modifier`
+        """  Corresponds to IDD Field `Ground Reflected Solar Modifier`
         Value for modifying the "normal" ground reflectance when Snow is on ground
         when calculating the "Ground Reflected Solar Radiation Value"
         a value of 1.0 here uses the "normal" ground reflectance
@@ -9480,9 +9651,11 @@ class SiteGroundReflectanceSnowModifier(object):
         This would be further modified by the Snow Ground Reflectance Modifier when Snow was on the ground
         When Snow on ground, effective GroundReflectance is normal GroundReflectance*"Ground Reflectance Snow Modifier"
         Ground Reflectance achieved in this manner will be restricted to [0.0,1.0]
+        
+        {u'default': '1.0', u'note': [u'Value for modifying the "normal" ground reflectance when Snow is on ground', u'when calculating the "Ground Reflected Solar Radiation Value"', u'a value of 1.0 here uses the "normal" ground reflectance', u'Ground Reflected Solar = (BeamSolar*CosSunZenith + DiffuseSolar)*GroundReflectance', u'This would be further modified by the Snow Ground Reflectance Modifier when Snow was on the ground', u'When Snow on ground, effective GroundReflectance is normal GroundReflectance*"Ground Reflectance Snow Modifier"', u'Ground Reflectance achieved in this manner will be restricted to [0.0,1.0]'], u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `ground_reflected_solar_modifier`
+            value (float): value for IDD Field `Ground Reflected Solar Modifier`
                 Default value: 1.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -9494,13 +9667,12 @@ class SiteGroundReflectanceSnowModifier(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `ground_reflected_solar_modifier`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `ground_reflected_solar_modifier`')
-
         self._data["Ground Reflected Solar Modifier"] = value
 
     @property
@@ -9514,7 +9686,7 @@ class SiteGroundReflectanceSnowModifier(object):
 
     @daylighting_ground_reflected_solar_modifier.setter
     def daylighting_ground_reflected_solar_modifier(self, value=1.0 ):
-        """  Corresponds to IDD Field `daylighting_ground_reflected_solar_modifier`
+        """  Corresponds to IDD Field `Daylighting Ground Reflected Solar Modifier`
         Value for modifying the "normal" daylighting ground reflectance when Snow is on ground
         when calculating the "Ground Reflected Solar Radiation Value"
         a value of 1.0 here uses the "normal" ground reflectance
@@ -9522,9 +9694,11 @@ class SiteGroundReflectanceSnowModifier(object):
         This would be further modified by the Snow Ground Reflectance Modifier when Snow was on the ground
         When Snow on ground, effective GroundReflectance is normal GroundReflectance*"Daylighting Ground Reflectance Snow Modifier"
         Ground Reflectance achieved in this manner will be restricted to [0.0,1.0]
+        
+        {u'default': '1.0', u'note': [u'Value for modifying the "normal" daylighting ground reflectance when Snow is on ground', u'when calculating the "Ground Reflected Solar Radiation Value"', u'a value of 1.0 here uses the "normal" ground reflectance', u'Ground Reflected Solar = (BeamSolar*CosSunZenith + DiffuseSolar)*GroundReflectance', u'This would be further modified by the Snow Ground Reflectance Modifier when Snow was on the ground', u'When Snow on ground, effective GroundReflectance is normal GroundReflectance*"Daylighting Ground Reflectance Snow Modifier"', u'Ground Reflectance achieved in this manner will be restricted to [0.0,1.0]'], u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `daylighting_ground_reflected_solar_modifier`
+            value (float): value for IDD Field `Daylighting Ground Reflected Solar Modifier`
                 Default value: 1.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -9536,13 +9710,12 @@ class SiteGroundReflectanceSnowModifier(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `daylighting_ground_reflected_solar_modifier`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `daylighting_ground_reflected_solar_modifier`')
-
         self._data["Daylighting Ground Reflected Solar Modifier"] = value
 
     def check(self):
@@ -9648,10 +9821,12 @@ class SiteWaterMainsTemperature(object):
 
     @calculation_method.setter
     def calculation_method(self, value=None):
-        """  Corresponds to IDD Field `calculation_method`
+        """  Corresponds to IDD Field `Calculation Method`
+        
+        {u'type': u'choice', u'key': [u'Schedule', u'Correlation'], u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `calculation_method`
+            value (str): value for IDD Field `Calculation Method`
                 Accepted values are:
                       - Schedule
                       - Correlation
@@ -9664,7 +9839,7 @@ class SiteWaterMainsTemperature(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `calculation_method`'.format(value))
             if ',' in value:
@@ -9690,7 +9865,6 @@ class SiteWaterMainsTemperature(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `calculation_method`'.format(value))
             value = vals[value_lower]
-
         self._data["Calculation Method"] = value
 
     @property
@@ -9704,10 +9878,12 @@ class SiteWaterMainsTemperature(object):
 
     @temperature_schedule_name.setter
     def temperature_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `temperature_schedule_name`
+        """  Corresponds to IDD Field `Temperature Schedule Name`
+        
+        {u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `temperature_schedule_name`
+            value (str): value for IDD Field `Temperature Schedule Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9717,7 +9893,7 @@ class SiteWaterMainsTemperature(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `temperature_schedule_name`'.format(value))
             if ',' in value:
@@ -9726,7 +9902,6 @@ class SiteWaterMainsTemperature(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `temperature_schedule_name`')
-
         self._data["Temperature Schedule Name"] = value
 
     @property
@@ -9740,10 +9915,12 @@ class SiteWaterMainsTemperature(object):
 
     @annual_average_outdoor_air_temperature.setter
     def annual_average_outdoor_air_temperature(self, value=None):
-        """  Corresponds to IDD Field `annual_average_outdoor_air_temperature`
+        """  Corresponds to IDD Field `Annual Average Outdoor Air Temperature`
+        
+        {u'units': u'C', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `annual_average_outdoor_air_temperature`
+            value (float): value for IDD Field `Annual Average Outdoor Air Temperature`
                 Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -9754,10 +9931,9 @@ class SiteWaterMainsTemperature(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `annual_average_outdoor_air_temperature`'.format(value))
-
         self._data["Annual Average Outdoor Air Temperature"] = value
 
     @property
@@ -9771,10 +9947,12 @@ class SiteWaterMainsTemperature(object):
 
     @maximum_difference_in_monthly_average_outdoor_air_temperatures.setter
     def maximum_difference_in_monthly_average_outdoor_air_temperatures(self, value=None):
-        """  Corresponds to IDD Field `maximum_difference_in_monthly_average_outdoor_air_temperatures`
+        """  Corresponds to IDD Field `Maximum Difference In Monthly Average Outdoor Air Temperatures`
+        
+        {u'units': u'deltaC', u'minimum': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `maximum_difference_in_monthly_average_outdoor_air_temperatures`
+            value (float): value for IDD Field `Maximum Difference In Monthly Average Outdoor Air Temperatures`
                 Units: deltaC
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -9786,13 +9964,12 @@ class SiteWaterMainsTemperature(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `maximum_difference_in_monthly_average_outdoor_air_temperatures`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `maximum_difference_in_monthly_average_outdoor_air_temperatures`')
-
         self._data["Maximum Difference In Monthly Average Outdoor Air Temperatures"] = value
 
     def check(self):
@@ -9897,10 +10074,12 @@ class SitePrecipitation(object):
 
     @precipitation_model_type.setter
     def precipitation_model_type(self, value=None):
-        """  Corresponds to IDD Field `precipitation_model_type`
+        """  Corresponds to IDD Field `Precipitation Model Type`
+        
+        {u'type': u'choice', u'key': [u'ScheduleAndDesignLevel'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `precipitation_model_type`
+            value (str): value for IDD Field `Precipitation Model Type`
                 Accepted values are:
                       - ScheduleAndDesignLevel
                 if `value` is None it will not be checked against the
@@ -9912,7 +10091,7 @@ class SitePrecipitation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `precipitation_model_type`'.format(value))
             if ',' in value:
@@ -9937,7 +10116,6 @@ class SitePrecipitation(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `precipitation_model_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Precipitation Model Type"] = value
 
     @property
@@ -9951,11 +10129,13 @@ class SitePrecipitation(object):
 
     @design_level_for_total_annual_precipitation.setter
     def design_level_for_total_annual_precipitation(self, value=None):
-        """  Corresponds to IDD Field `design_level_for_total_annual_precipitation`
+        """  Corresponds to IDD Field `Design Level for Total Annual Precipitation`
         meters of water per year used for design level
+        
+        {u'note': [u'meters of water per year used for design level'], u'units': u'm/yr', 'type': 'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `design_level_for_total_annual_precipitation`
+            value (float): value for IDD Field `Design Level for Total Annual Precipitation`
                 Units: m/yr
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -9966,10 +10146,9 @@ class SitePrecipitation(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `design_level_for_total_annual_precipitation`'.format(value))
-
         self._data["Design Level for Total Annual Precipitation"] = value
 
     @property
@@ -9983,12 +10162,14 @@ class SitePrecipitation(object):
 
     @precipitation_rates_schedule_name.setter
     def precipitation_rates_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `precipitation_rates_schedule_name`
+        """  Corresponds to IDD Field `Precipitation Rates Schedule Name`
         Schedule values in meters of water per hour
         values should be non-negative
+        
+        {u'note': [u'Schedule values in meters of water per hour', u'values should be non-negative'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `precipitation_rates_schedule_name`
+            value (str): value for IDD Field `Precipitation Rates Schedule Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9998,7 +10179,7 @@ class SitePrecipitation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `precipitation_rates_schedule_name`'.format(value))
             if ',' in value:
@@ -10007,7 +10188,6 @@ class SitePrecipitation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `precipitation_rates_schedule_name`')
-
         self._data["Precipitation Rates Schedule Name"] = value
 
     @property
@@ -10021,11 +10201,13 @@ class SitePrecipitation(object):
 
     @average_total_annual_precipitation.setter
     def average_total_annual_precipitation(self, value=None):
-        """  Corresponds to IDD Field `average_total_annual_precipitation`
+        """  Corresponds to IDD Field `Average Total Annual Precipitation`
         meters of water per year from average weather statistics
+        
+        {u'note': [u'meters of water per year from average weather statistics'], u'units': u'm/yr', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `average_total_annual_precipitation`
+            value (float): value for IDD Field `Average Total Annual Precipitation`
                 Units: m/yr
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -10037,13 +10219,12 @@ class SitePrecipitation(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `average_total_annual_precipitation`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `average_total_annual_precipitation`')
-
         self._data["Average Total Annual Precipitation"] = value
 
     def check(self):
@@ -10140,12 +10321,14 @@ class RoofIrrigation(object):
 
     @irrigation_model_type.setter
     def irrigation_model_type(self, value=None):
-        """  Corresponds to IDD Field `irrigation_model_type`
+        """  Corresponds to IDD Field `Irrigation Model Type`
         SmartSchedule will not allow irrigation when soil is already moist.
         Current threshold set at 30% of saturation.
+        
+        {u'note': [u'SmartSchedule will not allow irrigation when soil is already moist.', u'Current threshold set at 30% of saturation.'], u'type': u'choice', u'key': [u'Schedule', u'SmartSchedule'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `irrigation_model_type`
+            value (str): value for IDD Field `Irrigation Model Type`
                 Accepted values are:
                       - Schedule
                       - SmartSchedule
@@ -10158,7 +10341,7 @@ class RoofIrrigation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `irrigation_model_type`'.format(value))
             if ',' in value:
@@ -10184,7 +10367,6 @@ class RoofIrrigation(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `irrigation_model_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Irrigation Model Type"] = value
 
     @property
@@ -10198,12 +10380,14 @@ class RoofIrrigation(object):
 
     @irrigation_rate_schedule_name.setter
     def irrigation_rate_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `irrigation_rate_schedule_name`
+        """  Corresponds to IDD Field `Irrigation Rate Schedule Name`
         Schedule values in meters of water per hour
         values should be non-negative
+        
+        {u'note': [u'Schedule values in meters of water per hour', u'values should be non-negative'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `irrigation_rate_schedule_name`
+            value (str): value for IDD Field `Irrigation Rate Schedule Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -10213,7 +10397,7 @@ class RoofIrrigation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `irrigation_rate_schedule_name`'.format(value))
             if ',' in value:
@@ -10222,7 +10406,6 @@ class RoofIrrigation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `irrigation_rate_schedule_name`')
-
         self._data["Irrigation Rate Schedule Name"] = value
 
     @property
@@ -10236,12 +10419,14 @@ class RoofIrrigation(object):
 
     @irrigation_maximum_saturation_threshold.setter
     def irrigation_maximum_saturation_threshold(self, value=40.0 ):
-        """  Corresponds to IDD Field `irrigation_maximum_saturation_threshold`
+        """  Corresponds to IDD Field `Irrigation Maximum Saturation Threshold`
         Used with SmartSchedule to set the saturation level at which no
         irrigation is allowed.
+        
+        {'pytype': 'float', u'default': '40.0', u'maximum': '100.0', u'note': [u'Used with SmartSchedule to set the saturation level at which no', u'irrigation is allowed.'], u'minimum': '0.0', u'units': u'percent', 'type': 'real'}
 
         Args:
-            value (float): value for IDD Field `irrigation_maximum_saturation_threshold`
+            value (float): value for IDD Field `Irrigation Maximum Saturation Threshold`
                 Units: percent
                 Default value: 40.0
                 value >= 0.0
@@ -10255,7 +10440,7 @@ class RoofIrrigation(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `irrigation_maximum_saturation_threshold`'.format(value))
             if value < 0.0:
@@ -10264,7 +10449,6 @@ class RoofIrrigation(object):
             if value > 100.0:
                 raise ValueError('value need to be smaller 100.0 '
                                  'for field `irrigation_maximum_saturation_threshold`')
-
         self._data["Irrigation Maximum Saturation Threshold"] = value
 
     def check(self):
@@ -10368,10 +10552,12 @@ class SiteSolarAndVisibleSpectrum(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -10381,7 +10567,7 @@ class SiteSolarAndVisibleSpectrum(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -10390,7 +10576,6 @@ class SiteSolarAndVisibleSpectrum(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -10404,13 +10589,15 @@ class SiteSolarAndVisibleSpectrum(object):
 
     @spectrum_data_method.setter
     def spectrum_data_method(self, value="Default"):
-        """  Corresponds to IDD Field `spectrum_data_method`
+        """  Corresponds to IDD Field `Spectrum Data Method`
         The method specifies which of the solar and visible spectrum data to use in the calculations.
         Choices: Default - existing hard-wired spectrum data in EnergyPlus.
         UserDefined - user specified spectrum data referenced by the next two fields
+        
+        {u'note': [u'The method specifies which of the solar and visible spectrum data to use in the calculations.', u'Choices: Default - existing hard-wired spectrum data in EnergyPlus.', u'UserDefined - user specified spectrum data referenced by the next two fields'], u'default': u'Default', u'type': u'choice', u'key': [u'Default', u'UserDefined'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `spectrum_data_method`
+            value (str): value for IDD Field `Spectrum Data Method`
                 Accepted values are:
                       - Default
                       - UserDefined
@@ -10424,7 +10611,7 @@ class SiteSolarAndVisibleSpectrum(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `spectrum_data_method`'.format(value))
             if ',' in value:
@@ -10450,7 +10637,6 @@ class SiteSolarAndVisibleSpectrum(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `spectrum_data_method`'.format(value))
             value = vals[value_lower]
-
         self._data["Spectrum Data Method"] = value
 
     @property
@@ -10464,10 +10650,12 @@ class SiteSolarAndVisibleSpectrum(object):
 
     @solar_spectrum_data_object_name.setter
     def solar_spectrum_data_object_name(self, value=None):
-        """  Corresponds to IDD Field `solar_spectrum_data_object_name`
+        """  Corresponds to IDD Field `Solar Spectrum Data Object Name`
+        
+        {u'type': u'alpha', u'reference': u'SpectrumDataNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `solar_spectrum_data_object_name`
+            value (str): value for IDD Field `Solar Spectrum Data Object Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -10477,7 +10665,7 @@ class SiteSolarAndVisibleSpectrum(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `solar_spectrum_data_object_name`'.format(value))
             if ',' in value:
@@ -10486,7 +10674,6 @@ class SiteSolarAndVisibleSpectrum(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `solar_spectrum_data_object_name`')
-
         self._data["Solar Spectrum Data Object Name"] = value
 
     @property
@@ -10500,10 +10687,12 @@ class SiteSolarAndVisibleSpectrum(object):
 
     @visible_spectrum_data_object_name.setter
     def visible_spectrum_data_object_name(self, value=None):
-        """  Corresponds to IDD Field `visible_spectrum_data_object_name`
+        """  Corresponds to IDD Field `Visible Spectrum Data Object Name`
+        
+        {u'type': u'alpha', u'reference': u'SpectrumDataNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `visible_spectrum_data_object_name`
+            value (str): value for IDD Field `Visible Spectrum Data Object Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -10513,7 +10702,7 @@ class SiteSolarAndVisibleSpectrum(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `visible_spectrum_data_object_name`'.format(value))
             if ',' in value:
@@ -10522,7 +10711,6 @@ class SiteSolarAndVisibleSpectrum(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `visible_spectrum_data_object_name`')
-
         self._data["Visible Spectrum Data Object Name"] = value
 
     def check(self):
@@ -12324,10 +12512,12 @@ class SiteSpectrumData(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -12337,7 +12527,7 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -12346,7 +12536,6 @@ class SiteSpectrumData(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -12360,10 +12549,12 @@ class SiteSpectrumData(object):
 
     @spectrum_data_type.setter
     def spectrum_data_type(self, value=None):
-        """  Corresponds to IDD Field `spectrum_data_type`
+        """  Corresponds to IDD Field `Spectrum Data Type`
+        
+        {u'type': u'choice', u'key': [u'Solar', u'Visible'], u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `spectrum_data_type`
+            value (str): value for IDD Field `Spectrum Data Type`
                 Accepted values are:
                       - Solar
                       - Visible
@@ -12376,7 +12567,7 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `spectrum_data_type`'.format(value))
             if ',' in value:
@@ -12402,7 +12593,6 @@ class SiteSpectrumData(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `spectrum_data_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Spectrum Data Type"] = value
 
     @property
@@ -12416,10 +12606,12 @@ class SiteSpectrumData(object):
 
     @wavelength_1.setter
     def wavelength_1(self, value=None):
-        """  Corresponds to IDD Field `wavelength_1`
+        """  Corresponds to IDD Field `Wavelength 1`
+        
+        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `wavelength_1`
+            value (float): value for IDD Field `Wavelength 1`
                 Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -12430,10 +12622,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `wavelength_1`'.format(value))
-
         self._data["Wavelength 1"] = value
 
     @property
@@ -12447,10 +12638,12 @@ class SiteSpectrumData(object):
 
     @spectrum_1.setter
     def spectrum_1(self, value=None):
-        """  Corresponds to IDD Field `spectrum_1`
+        """  Corresponds to IDD Field `Spectrum 1`
+        
+        {u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `spectrum_1`
+            value (float): value for IDD Field `Spectrum 1`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -12460,10 +12653,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `spectrum_1`'.format(value))
-
         self._data["Spectrum 1"] = value
 
     @property
@@ -12477,10 +12669,12 @@ class SiteSpectrumData(object):
 
     @wavelength_2.setter
     def wavelength_2(self, value=None):
-        """  Corresponds to IDD Field `wavelength_2`
+        """  Corresponds to IDD Field `Wavelength 2`
+        
+        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `wavelength_2`
+            value (float): value for IDD Field `Wavelength 2`
                 Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -12491,10 +12685,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `wavelength_2`'.format(value))
-
         self._data["Wavelength 2"] = value
 
     @property
@@ -12508,10 +12701,12 @@ class SiteSpectrumData(object):
 
     @spectrum_2.setter
     def spectrum_2(self, value=None):
-        """  Corresponds to IDD Field `spectrum_2`
+        """  Corresponds to IDD Field `Spectrum 2`
+        
+        {u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `spectrum_2`
+            value (float): value for IDD Field `Spectrum 2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -12521,10 +12716,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `spectrum_2`'.format(value))
-
         self._data["Spectrum 2"] = value
 
     @property
@@ -12538,10 +12732,12 @@ class SiteSpectrumData(object):
 
     @wavelength_3.setter
     def wavelength_3(self, value=None):
-        """  Corresponds to IDD Field `wavelength_3`
+        """  Corresponds to IDD Field `Wavelength 3`
+        
+        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `wavelength_3`
+            value (float): value for IDD Field `Wavelength 3`
                 Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -12552,10 +12748,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `wavelength_3`'.format(value))
-
         self._data["Wavelength 3"] = value
 
     @property
@@ -12569,10 +12764,12 @@ class SiteSpectrumData(object):
 
     @spectrum_3.setter
     def spectrum_3(self, value=None):
-        """  Corresponds to IDD Field `spectrum_3`
+        """  Corresponds to IDD Field `Spectrum 3`
+        
+        {u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `spectrum_3`
+            value (float): value for IDD Field `Spectrum 3`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -12582,10 +12779,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `spectrum_3`'.format(value))
-
         self._data["Spectrum 3"] = value
 
     @property
@@ -12599,10 +12795,12 @@ class SiteSpectrumData(object):
 
     @wavelength_4.setter
     def wavelength_4(self, value=None):
-        """  Corresponds to IDD Field `wavelength_4`
+        """  Corresponds to IDD Field `Wavelength 4`
+        
+        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `wavelength_4`
+            value (float): value for IDD Field `Wavelength 4`
                 Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -12613,10 +12811,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `wavelength_4`'.format(value))
-
         self._data["Wavelength 4"] = value
 
     @property
@@ -12630,10 +12827,12 @@ class SiteSpectrumData(object):
 
     @spectrum_4.setter
     def spectrum_4(self, value=None):
-        """  Corresponds to IDD Field `spectrum_4`
+        """  Corresponds to IDD Field `Spectrum 4`
+        
+        {u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `spectrum_4`
+            value (float): value for IDD Field `Spectrum 4`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -12643,10 +12842,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `spectrum_4`'.format(value))
-
         self._data["Spectrum 4"] = value
 
     @property
@@ -12660,10 +12858,12 @@ class SiteSpectrumData(object):
 
     @wavelength_5.setter
     def wavelength_5(self, value=None):
-        """  Corresponds to IDD Field `wavelength_5`
+        """  Corresponds to IDD Field `Wavelength 5`
+        
+        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `wavelength_5`
+            value (float): value for IDD Field `Wavelength 5`
                 Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -12674,10 +12874,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `wavelength_5`'.format(value))
-
         self._data["Wavelength 5"] = value
 
     @property
@@ -12691,10 +12890,12 @@ class SiteSpectrumData(object):
 
     @spectrum_5.setter
     def spectrum_5(self, value=None):
-        """  Corresponds to IDD Field `spectrum_5`
+        """  Corresponds to IDD Field `Spectrum 5`
+        
+        {u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `spectrum_5`
+            value (float): value for IDD Field `Spectrum 5`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -12704,10 +12905,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `spectrum_5`'.format(value))
-
         self._data["Spectrum 5"] = value
 
     @property
@@ -12721,10 +12921,12 @@ class SiteSpectrumData(object):
 
     @wavelength_6.setter
     def wavelength_6(self, value=None):
-        """  Corresponds to IDD Field `wavelength_6`
+        """  Corresponds to IDD Field `Wavelength 6`
+        
+        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `wavelength_6`
+            value (float): value for IDD Field `Wavelength 6`
                 Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -12735,10 +12937,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `wavelength_6`'.format(value))
-
         self._data["Wavelength 6"] = value
 
     @property
@@ -12752,10 +12953,12 @@ class SiteSpectrumData(object):
 
     @spectrum_6.setter
     def spectrum_6(self, value=None):
-        """  Corresponds to IDD Field `spectrum_6`
+        """  Corresponds to IDD Field `Spectrum 6`
+        
+        {u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `spectrum_6`
+            value (float): value for IDD Field `Spectrum 6`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -12765,10 +12968,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `spectrum_6`'.format(value))
-
         self._data["Spectrum 6"] = value
 
     @property
@@ -12782,10 +12984,12 @@ class SiteSpectrumData(object):
 
     @wavelength_7.setter
     def wavelength_7(self, value=None):
-        """  Corresponds to IDD Field `wavelength_7`
+        """  Corresponds to IDD Field `Wavelength 7`
+        
+        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `wavelength_7`
+            value (float): value for IDD Field `Wavelength 7`
                 Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -12796,10 +13000,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `wavelength_7`'.format(value))
-
         self._data["Wavelength 7"] = value
 
     @property
@@ -12813,10 +13016,12 @@ class SiteSpectrumData(object):
 
     @spectrum_7.setter
     def spectrum_7(self, value=None):
-        """  Corresponds to IDD Field `spectrum_7`
+        """  Corresponds to IDD Field `Spectrum 7`
+        
+        {u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `spectrum_7`
+            value (float): value for IDD Field `Spectrum 7`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -12826,10 +13031,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `spectrum_7`'.format(value))
-
         self._data["Spectrum 7"] = value
 
     @property
@@ -12843,10 +13047,12 @@ class SiteSpectrumData(object):
 
     @wavelength_8.setter
     def wavelength_8(self, value=None):
-        """  Corresponds to IDD Field `wavelength_8`
+        """  Corresponds to IDD Field `Wavelength 8`
+        
+        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `wavelength_8`
+            value (float): value for IDD Field `Wavelength 8`
                 Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -12857,10 +13063,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `wavelength_8`'.format(value))
-
         self._data["Wavelength 8"] = value
 
     @property
@@ -12874,10 +13079,12 @@ class SiteSpectrumData(object):
 
     @spectrum_8.setter
     def spectrum_8(self, value=None):
-        """  Corresponds to IDD Field `spectrum_8`
+        """  Corresponds to IDD Field `Spectrum 8`
+        
+        {u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `spectrum_8`
+            value (float): value for IDD Field `Spectrum 8`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -12887,10 +13094,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `spectrum_8`'.format(value))
-
         self._data["Spectrum 8"] = value
 
     @property
@@ -12904,10 +13110,12 @@ class SiteSpectrumData(object):
 
     @wavelength_9.setter
     def wavelength_9(self, value=None):
-        """  Corresponds to IDD Field `wavelength_9`
+        """  Corresponds to IDD Field `Wavelength 9`
+        
+        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `wavelength_9`
+            value (float): value for IDD Field `Wavelength 9`
                 Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -12918,10 +13126,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `wavelength_9`'.format(value))
-
         self._data["Wavelength 9"] = value
 
     @property
@@ -12935,10 +13142,12 @@ class SiteSpectrumData(object):
 
     @spectrum_9.setter
     def spectrum_9(self, value=None):
-        """  Corresponds to IDD Field `spectrum_9`
+        """  Corresponds to IDD Field `Spectrum 9`
+        
+        {u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `spectrum_9`
+            value (float): value for IDD Field `Spectrum 9`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -12948,10 +13157,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `spectrum_9`'.format(value))
-
         self._data["Spectrum 9"] = value
 
     @property
@@ -12965,10 +13173,12 @@ class SiteSpectrumData(object):
 
     @wavelength_10.setter
     def wavelength_10(self, value=None):
-        """  Corresponds to IDD Field `wavelength_10`
+        """  Corresponds to IDD Field `Wavelength 10`
+        
+        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `wavelength_10`
+            value (float): value for IDD Field `Wavelength 10`
                 Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -12979,10 +13189,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `wavelength_10`'.format(value))
-
         self._data["Wavelength 10"] = value
 
     @property
@@ -12996,10 +13205,12 @@ class SiteSpectrumData(object):
 
     @spectrum_10.setter
     def spectrum_10(self, value=None):
-        """  Corresponds to IDD Field `spectrum_10`
+        """  Corresponds to IDD Field `Spectrum 10`
+        
+        {u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `spectrum_10`
+            value (float): value for IDD Field `Spectrum 10`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -13009,10 +13220,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `spectrum_10`'.format(value))
-
         self._data["Spectrum 10"] = value
 
     @property
@@ -13026,10 +13236,12 @@ class SiteSpectrumData(object):
 
     @wavelength_11.setter
     def wavelength_11(self, value=None):
-        """  Corresponds to IDD Field `wavelength_11`
+        """  Corresponds to IDD Field `Wavelength 11`
+        
+        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `wavelength_11`
+            value (float): value for IDD Field `Wavelength 11`
                 Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -13040,10 +13252,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `wavelength_11`'.format(value))
-
         self._data["Wavelength 11"] = value
 
     @property
@@ -13057,10 +13268,12 @@ class SiteSpectrumData(object):
 
     @spectrum_11.setter
     def spectrum_11(self, value=None):
-        """  Corresponds to IDD Field `spectrum_11`
+        """  Corresponds to IDD Field `Spectrum 11`
+        
+        {u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `spectrum_11`
+            value (float): value for IDD Field `Spectrum 11`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -13070,10 +13283,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `spectrum_11`'.format(value))
-
         self._data["Spectrum 11"] = value
 
     @property
@@ -13087,10 +13299,12 @@ class SiteSpectrumData(object):
 
     @wavelength_12.setter
     def wavelength_12(self, value=None):
-        """  Corresponds to IDD Field `wavelength_12`
+        """  Corresponds to IDD Field `Wavelength 12`
+        
+        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `wavelength_12`
+            value (float): value for IDD Field `Wavelength 12`
                 Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -13101,10 +13315,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `wavelength_12`'.format(value))
-
         self._data["Wavelength 12"] = value
 
     @property
@@ -13118,10 +13331,12 @@ class SiteSpectrumData(object):
 
     @spectrum_12.setter
     def spectrum_12(self, value=None):
-        """  Corresponds to IDD Field `spectrum_12`
+        """  Corresponds to IDD Field `Spectrum 12`
+        
+        {u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `spectrum_12`
+            value (float): value for IDD Field `Spectrum 12`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -13131,10 +13346,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `spectrum_12`'.format(value))
-
         self._data["Spectrum 12"] = value
 
     @property
@@ -13148,10 +13362,12 @@ class SiteSpectrumData(object):
 
     @wavelength_13.setter
     def wavelength_13(self, value=None):
-        """  Corresponds to IDD Field `wavelength_13`
+        """  Corresponds to IDD Field `Wavelength 13`
+        
+        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `wavelength_13`
+            value (float): value for IDD Field `Wavelength 13`
                 Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -13162,10 +13378,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `wavelength_13`'.format(value))
-
         self._data["Wavelength 13"] = value
 
     @property
@@ -13179,10 +13394,12 @@ class SiteSpectrumData(object):
 
     @spectrum_13.setter
     def spectrum_13(self, value=None):
-        """  Corresponds to IDD Field `spectrum_13`
+        """  Corresponds to IDD Field `Spectrum 13`
+        
+        {u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `spectrum_13`
+            value (float): value for IDD Field `Spectrum 13`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -13192,10 +13409,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `spectrum_13`'.format(value))
-
         self._data["Spectrum 13"] = value
 
     @property
@@ -13209,10 +13425,12 @@ class SiteSpectrumData(object):
 
     @wavelength_14.setter
     def wavelength_14(self, value=None):
-        """  Corresponds to IDD Field `wavelength_14`
+        """  Corresponds to IDD Field `Wavelength 14`
+        
+        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `wavelength_14`
+            value (float): value for IDD Field `Wavelength 14`
                 Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -13223,10 +13441,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `wavelength_14`'.format(value))
-
         self._data["Wavelength 14"] = value
 
     @property
@@ -13240,10 +13457,12 @@ class SiteSpectrumData(object):
 
     @spectrum_14.setter
     def spectrum_14(self, value=None):
-        """  Corresponds to IDD Field `spectrum_14`
+        """  Corresponds to IDD Field `Spectrum 14`
+        
+        {u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `spectrum_14`
+            value (float): value for IDD Field `Spectrum 14`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -13253,10 +13472,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `spectrum_14`'.format(value))
-
         self._data["Spectrum 14"] = value
 
     @property
@@ -13270,10 +13488,12 @@ class SiteSpectrumData(object):
 
     @wavelength_15.setter
     def wavelength_15(self, value=None):
-        """  Corresponds to IDD Field `wavelength_15`
+        """  Corresponds to IDD Field `Wavelength 15`
+        
+        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `wavelength_15`
+            value (float): value for IDD Field `Wavelength 15`
                 Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -13284,10 +13504,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `wavelength_15`'.format(value))
-
         self._data["Wavelength 15"] = value
 
     @property
@@ -13301,10 +13520,12 @@ class SiteSpectrumData(object):
 
     @spectrum_15.setter
     def spectrum_15(self, value=None):
-        """  Corresponds to IDD Field `spectrum_15`
+        """  Corresponds to IDD Field `Spectrum 15`
+        
+        {u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `spectrum_15`
+            value (float): value for IDD Field `Spectrum 15`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -13314,10 +13535,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `spectrum_15`'.format(value))
-
         self._data["Spectrum 15"] = value
 
     @property
@@ -13331,10 +13551,12 @@ class SiteSpectrumData(object):
 
     @wavelength_16.setter
     def wavelength_16(self, value=None):
-        """  Corresponds to IDD Field `wavelength_16`
+        """  Corresponds to IDD Field `Wavelength 16`
+        
+        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `wavelength_16`
+            value (float): value for IDD Field `Wavelength 16`
                 Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -13345,10 +13567,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `wavelength_16`'.format(value))
-
         self._data["Wavelength 16"] = value
 
     @property
@@ -13362,10 +13583,12 @@ class SiteSpectrumData(object):
 
     @spectrum_16.setter
     def spectrum_16(self, value=None):
-        """  Corresponds to IDD Field `spectrum_16`
+        """  Corresponds to IDD Field `Spectrum 16`
+        
+        {u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `spectrum_16`
+            value (float): value for IDD Field `Spectrum 16`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -13375,10 +13598,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `spectrum_16`'.format(value))
-
         self._data["Spectrum 16"] = value
 
     @property
@@ -13392,10 +13614,12 @@ class SiteSpectrumData(object):
 
     @wavelength_17.setter
     def wavelength_17(self, value=None):
-        """  Corresponds to IDD Field `wavelength_17`
+        """  Corresponds to IDD Field `Wavelength 17`
+        
+        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `wavelength_17`
+            value (float): value for IDD Field `Wavelength 17`
                 Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -13406,10 +13630,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `wavelength_17`'.format(value))
-
         self._data["Wavelength 17"] = value
 
     @property
@@ -13423,10 +13646,12 @@ class SiteSpectrumData(object):
 
     @spectrum_17.setter
     def spectrum_17(self, value=None):
-        """  Corresponds to IDD Field `spectrum_17`
+        """  Corresponds to IDD Field `Spectrum 17`
+        
+        {u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `spectrum_17`
+            value (float): value for IDD Field `Spectrum 17`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -13436,10 +13661,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `spectrum_17`'.format(value))
-
         self._data["Spectrum 17"] = value
 
     @property
@@ -13453,10 +13677,12 @@ class SiteSpectrumData(object):
 
     @wavelength_18.setter
     def wavelength_18(self, value=None):
-        """  Corresponds to IDD Field `wavelength_18`
+        """  Corresponds to IDD Field `Wavelength 18`
+        
+        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `wavelength_18`
+            value (float): value for IDD Field `Wavelength 18`
                 Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -13467,10 +13693,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `wavelength_18`'.format(value))
-
         self._data["Wavelength 18"] = value
 
     @property
@@ -13484,10 +13709,12 @@ class SiteSpectrumData(object):
 
     @spectrum_18.setter
     def spectrum_18(self, value=None):
-        """  Corresponds to IDD Field `spectrum_18`
+        """  Corresponds to IDD Field `Spectrum 18`
+        
+        {u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `spectrum_18`
+            value (float): value for IDD Field `Spectrum 18`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -13497,10 +13724,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `spectrum_18`'.format(value))
-
         self._data["Spectrum 18"] = value
 
     @property
@@ -13514,10 +13740,12 @@ class SiteSpectrumData(object):
 
     @wavelength_19.setter
     def wavelength_19(self, value=None):
-        """  Corresponds to IDD Field `wavelength_19`
+        """  Corresponds to IDD Field `Wavelength 19`
+        
+        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `wavelength_19`
+            value (float): value for IDD Field `Wavelength 19`
                 Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -13528,10 +13756,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `wavelength_19`'.format(value))
-
         self._data["Wavelength 19"] = value
 
     @property
@@ -13545,10 +13772,12 @@ class SiteSpectrumData(object):
 
     @spectrum_19.setter
     def spectrum_19(self, value=None):
-        """  Corresponds to IDD Field `spectrum_19`
+        """  Corresponds to IDD Field `Spectrum 19`
+        
+        {u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `spectrum_19`
+            value (float): value for IDD Field `Spectrum 19`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -13558,10 +13787,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `spectrum_19`'.format(value))
-
         self._data["Spectrum 19"] = value
 
     @property
@@ -13575,10 +13803,12 @@ class SiteSpectrumData(object):
 
     @wavelength_20.setter
     def wavelength_20(self, value=None):
-        """  Corresponds to IDD Field `wavelength_20`
+        """  Corresponds to IDD Field `Wavelength 20`
+        
+        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `wavelength_20`
+            value (float): value for IDD Field `Wavelength 20`
                 Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -13589,10 +13819,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `wavelength_20`'.format(value))
-
         self._data["Wavelength 20"] = value
 
     @property
@@ -13606,10 +13835,12 @@ class SiteSpectrumData(object):
 
     @spectrum_20.setter
     def spectrum_20(self, value=None):
-        """  Corresponds to IDD Field `spectrum_20`
+        """  Corresponds to IDD Field `Spectrum 20`
+        
+        {u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `spectrum_20`
+            value (float): value for IDD Field `Spectrum 20`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -13619,10 +13850,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `spectrum_20`'.format(value))
-
         self._data["Spectrum 20"] = value
 
     @property
@@ -13636,10 +13866,12 @@ class SiteSpectrumData(object):
 
     @wavelength_21.setter
     def wavelength_21(self, value=None):
-        """  Corresponds to IDD Field `wavelength_21`
+        """  Corresponds to IDD Field `Wavelength 21`
+        
+        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `wavelength_21`
+            value (float): value for IDD Field `Wavelength 21`
                 Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -13650,10 +13882,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `wavelength_21`'.format(value))
-
         self._data["Wavelength 21"] = value
 
     @property
@@ -13667,10 +13898,12 @@ class SiteSpectrumData(object):
 
     @spectrum_21.setter
     def spectrum_21(self, value=None):
-        """  Corresponds to IDD Field `spectrum_21`
+        """  Corresponds to IDD Field `Spectrum 21`
+        
+        {u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `spectrum_21`
+            value (float): value for IDD Field `Spectrum 21`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -13680,10 +13913,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `spectrum_21`'.format(value))
-
         self._data["Spectrum 21"] = value
 
     @property
@@ -13697,10 +13929,12 @@ class SiteSpectrumData(object):
 
     @wavelength_22.setter
     def wavelength_22(self, value=None):
-        """  Corresponds to IDD Field `wavelength_22`
+        """  Corresponds to IDD Field `Wavelength 22`
+        
+        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `wavelength_22`
+            value (float): value for IDD Field `Wavelength 22`
                 Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -13711,10 +13945,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `wavelength_22`'.format(value))
-
         self._data["Wavelength 22"] = value
 
     @property
@@ -13728,10 +13961,12 @@ class SiteSpectrumData(object):
 
     @spectrum_22.setter
     def spectrum_22(self, value=None):
-        """  Corresponds to IDD Field `spectrum_22`
+        """  Corresponds to IDD Field `Spectrum 22`
+        
+        {u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `spectrum_22`
+            value (float): value for IDD Field `Spectrum 22`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -13741,10 +13976,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `spectrum_22`'.format(value))
-
         self._data["Spectrum 22"] = value
 
     @property
@@ -13758,10 +13992,12 @@ class SiteSpectrumData(object):
 
     @wavelength_23.setter
     def wavelength_23(self, value=None):
-        """  Corresponds to IDD Field `wavelength_23`
+        """  Corresponds to IDD Field `Wavelength 23`
+        
+        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `wavelength_23`
+            value (float): value for IDD Field `Wavelength 23`
                 Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -13772,10 +14008,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `wavelength_23`'.format(value))
-
         self._data["Wavelength 23"] = value
 
     @property
@@ -13789,10 +14024,12 @@ class SiteSpectrumData(object):
 
     @spectrum_23.setter
     def spectrum_23(self, value=None):
-        """  Corresponds to IDD Field `spectrum_23`
+        """  Corresponds to IDD Field `Spectrum 23`
+        
+        {u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `spectrum_23`
+            value (float): value for IDD Field `Spectrum 23`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -13802,10 +14039,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `spectrum_23`'.format(value))
-
         self._data["Spectrum 23"] = value
 
     @property
@@ -13819,10 +14055,12 @@ class SiteSpectrumData(object):
 
     @wavelength_24.setter
     def wavelength_24(self, value=None):
-        """  Corresponds to IDD Field `wavelength_24`
+        """  Corresponds to IDD Field `Wavelength 24`
+        
+        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `wavelength_24`
+            value (float): value for IDD Field `Wavelength 24`
                 Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -13833,10 +14071,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `wavelength_24`'.format(value))
-
         self._data["Wavelength 24"] = value
 
     @property
@@ -13850,10 +14087,12 @@ class SiteSpectrumData(object):
 
     @spectrum_24.setter
     def spectrum_24(self, value=None):
-        """  Corresponds to IDD Field `spectrum_24`
+        """  Corresponds to IDD Field `Spectrum 24`
+        
+        {u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `spectrum_24`
+            value (float): value for IDD Field `Spectrum 24`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -13863,10 +14102,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `spectrum_24`'.format(value))
-
         self._data["Spectrum 24"] = value
 
     @property
@@ -13880,10 +14118,12 @@ class SiteSpectrumData(object):
 
     @wavelength_25.setter
     def wavelength_25(self, value=None):
-        """  Corresponds to IDD Field `wavelength_25`
+        """  Corresponds to IDD Field `Wavelength 25`
+        
+        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `wavelength_25`
+            value (float): value for IDD Field `Wavelength 25`
                 Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -13894,10 +14134,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `wavelength_25`'.format(value))
-
         self._data["Wavelength 25"] = value
 
     @property
@@ -13911,10 +14150,12 @@ class SiteSpectrumData(object):
 
     @spectrum_25.setter
     def spectrum_25(self, value=None):
-        """  Corresponds to IDD Field `spectrum_25`
+        """  Corresponds to IDD Field `Spectrum 25`
+        
+        {u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `spectrum_25`
+            value (float): value for IDD Field `Spectrum 25`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -13924,10 +14165,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `spectrum_25`'.format(value))
-
         self._data["Spectrum 25"] = value
 
     @property
@@ -13941,10 +14181,12 @@ class SiteSpectrumData(object):
 
     @wavelength_26.setter
     def wavelength_26(self, value=None):
-        """  Corresponds to IDD Field `wavelength_26`
+        """  Corresponds to IDD Field `Wavelength 26`
+        
+        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `wavelength_26`
+            value (float): value for IDD Field `Wavelength 26`
                 Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -13955,10 +14197,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `wavelength_26`'.format(value))
-
         self._data["Wavelength 26"] = value
 
     @property
@@ -13972,10 +14213,12 @@ class SiteSpectrumData(object):
 
     @spectrum_26.setter
     def spectrum_26(self, value=None):
-        """  Corresponds to IDD Field `spectrum_26`
+        """  Corresponds to IDD Field `Spectrum 26`
+        
+        {u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `spectrum_26`
+            value (float): value for IDD Field `Spectrum 26`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -13985,10 +14228,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `spectrum_26`'.format(value))
-
         self._data["Spectrum 26"] = value
 
     @property
@@ -14002,10 +14244,12 @@ class SiteSpectrumData(object):
 
     @wavelength_27.setter
     def wavelength_27(self, value=None):
-        """  Corresponds to IDD Field `wavelength_27`
+        """  Corresponds to IDD Field `Wavelength 27`
+        
+        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `wavelength_27`
+            value (float): value for IDD Field `Wavelength 27`
                 Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -14016,10 +14260,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `wavelength_27`'.format(value))
-
         self._data["Wavelength 27"] = value
 
     @property
@@ -14033,10 +14276,12 @@ class SiteSpectrumData(object):
 
     @spectrum_27.setter
     def spectrum_27(self, value=None):
-        """  Corresponds to IDD Field `spectrum_27`
+        """  Corresponds to IDD Field `Spectrum 27`
+        
+        {u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `spectrum_27`
+            value (float): value for IDD Field `Spectrum 27`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -14046,10 +14291,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `spectrum_27`'.format(value))
-
         self._data["Spectrum 27"] = value
 
     @property
@@ -14063,10 +14307,12 @@ class SiteSpectrumData(object):
 
     @wavelength_28.setter
     def wavelength_28(self, value=None):
-        """  Corresponds to IDD Field `wavelength_28`
+        """  Corresponds to IDD Field `Wavelength 28`
+        
+        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `wavelength_28`
+            value (float): value for IDD Field `Wavelength 28`
                 Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -14077,10 +14323,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `wavelength_28`'.format(value))
-
         self._data["Wavelength 28"] = value
 
     @property
@@ -14094,10 +14339,12 @@ class SiteSpectrumData(object):
 
     @spectrum_28.setter
     def spectrum_28(self, value=None):
-        """  Corresponds to IDD Field `spectrum_28`
+        """  Corresponds to IDD Field `Spectrum 28`
+        
+        {u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `spectrum_28`
+            value (float): value for IDD Field `Spectrum 28`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -14107,10 +14354,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `spectrum_28`'.format(value))
-
         self._data["Spectrum 28"] = value
 
     @property
@@ -14124,10 +14370,12 @@ class SiteSpectrumData(object):
 
     @wavelength_29.setter
     def wavelength_29(self, value=None):
-        """  Corresponds to IDD Field `wavelength_29`
+        """  Corresponds to IDD Field `Wavelength 29`
+        
+        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `wavelength_29`
+            value (float): value for IDD Field `Wavelength 29`
                 Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -14138,10 +14386,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `wavelength_29`'.format(value))
-
         self._data["Wavelength 29"] = value
 
     @property
@@ -14155,10 +14402,12 @@ class SiteSpectrumData(object):
 
     @spectrum_29.setter
     def spectrum_29(self, value=None):
-        """  Corresponds to IDD Field `spectrum_29`
+        """  Corresponds to IDD Field `Spectrum 29`
+        
+        {u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `spectrum_29`
+            value (float): value for IDD Field `Spectrum 29`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -14168,10 +14417,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `spectrum_29`'.format(value))
-
         self._data["Spectrum 29"] = value
 
     @property
@@ -14185,10 +14433,12 @@ class SiteSpectrumData(object):
 
     @wavelength_30.setter
     def wavelength_30(self, value=None):
-        """  Corresponds to IDD Field `wavelength_30`
+        """  Corresponds to IDD Field `Wavelength 30`
+        
+        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `wavelength_30`
+            value (float): value for IDD Field `Wavelength 30`
                 Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -14199,10 +14449,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `wavelength_30`'.format(value))
-
         self._data["Wavelength 30"] = value
 
     @property
@@ -14216,10 +14465,12 @@ class SiteSpectrumData(object):
 
     @spectrum_30.setter
     def spectrum_30(self, value=None):
-        """  Corresponds to IDD Field `spectrum_30`
+        """  Corresponds to IDD Field `Spectrum 30`
+        
+        {u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `spectrum_30`
+            value (float): value for IDD Field `Spectrum 30`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -14229,10 +14480,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `spectrum_30`'.format(value))
-
         self._data["Spectrum 30"] = value
 
     @property
@@ -14246,10 +14496,12 @@ class SiteSpectrumData(object):
 
     @wavelength_31.setter
     def wavelength_31(self, value=None):
-        """  Corresponds to IDD Field `wavelength_31`
+        """  Corresponds to IDD Field `Wavelength 31`
+        
+        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `wavelength_31`
+            value (float): value for IDD Field `Wavelength 31`
                 Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -14260,10 +14512,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `wavelength_31`'.format(value))
-
         self._data["Wavelength 31"] = value
 
     @property
@@ -14277,10 +14528,12 @@ class SiteSpectrumData(object):
 
     @spectrum_31.setter
     def spectrum_31(self, value=None):
-        """  Corresponds to IDD Field `spectrum_31`
+        """  Corresponds to IDD Field `Spectrum 31`
+        
+        {u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `spectrum_31`
+            value (float): value for IDD Field `Spectrum 31`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -14290,10 +14543,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `spectrum_31`'.format(value))
-
         self._data["Spectrum 31"] = value
 
     @property
@@ -14307,10 +14559,12 @@ class SiteSpectrumData(object):
 
     @wavelength_32.setter
     def wavelength_32(self, value=None):
-        """  Corresponds to IDD Field `wavelength_32`
+        """  Corresponds to IDD Field `Wavelength 32`
+        
+        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `wavelength_32`
+            value (float): value for IDD Field `Wavelength 32`
                 Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -14321,10 +14575,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `wavelength_32`'.format(value))
-
         self._data["Wavelength 32"] = value
 
     @property
@@ -14338,10 +14591,12 @@ class SiteSpectrumData(object):
 
     @spectrum_32.setter
     def spectrum_32(self, value=None):
-        """  Corresponds to IDD Field `spectrum_32`
+        """  Corresponds to IDD Field `Spectrum 32`
+        
+        {u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `spectrum_32`
+            value (float): value for IDD Field `Spectrum 32`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -14351,10 +14606,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `spectrum_32`'.format(value))
-
         self._data["Spectrum 32"] = value
 
     @property
@@ -14368,10 +14622,12 @@ class SiteSpectrumData(object):
 
     @wavelength_33.setter
     def wavelength_33(self, value=None):
-        """  Corresponds to IDD Field `wavelength_33`
+        """  Corresponds to IDD Field `Wavelength 33`
+        
+        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `wavelength_33`
+            value (float): value for IDD Field `Wavelength 33`
                 Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -14382,10 +14638,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `wavelength_33`'.format(value))
-
         self._data["Wavelength 33"] = value
 
     @property
@@ -14399,10 +14654,12 @@ class SiteSpectrumData(object):
 
     @spectrum_33.setter
     def spectrum_33(self, value=None):
-        """  Corresponds to IDD Field `spectrum_33`
+        """  Corresponds to IDD Field `Spectrum 33`
+        
+        {u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `spectrum_33`
+            value (float): value for IDD Field `Spectrum 33`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -14412,10 +14669,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `spectrum_33`'.format(value))
-
         self._data["Spectrum 33"] = value
 
     @property
@@ -14429,10 +14685,12 @@ class SiteSpectrumData(object):
 
     @wavelength_34.setter
     def wavelength_34(self, value=None):
-        """  Corresponds to IDD Field `wavelength_34`
+        """  Corresponds to IDD Field `Wavelength 34`
+        
+        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `wavelength_34`
+            value (float): value for IDD Field `Wavelength 34`
                 Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -14443,10 +14701,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `wavelength_34`'.format(value))
-
         self._data["Wavelength 34"] = value
 
     @property
@@ -14460,10 +14717,12 @@ class SiteSpectrumData(object):
 
     @spectrum_34.setter
     def spectrum_34(self, value=None):
-        """  Corresponds to IDD Field `spectrum_34`
+        """  Corresponds to IDD Field `Spectrum 34`
+        
+        {u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `spectrum_34`
+            value (float): value for IDD Field `Spectrum 34`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -14473,10 +14732,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `spectrum_34`'.format(value))
-
         self._data["Spectrum 34"] = value
 
     @property
@@ -14490,10 +14748,12 @@ class SiteSpectrumData(object):
 
     @wavelength_35.setter
     def wavelength_35(self, value=None):
-        """  Corresponds to IDD Field `wavelength_35`
+        """  Corresponds to IDD Field `Wavelength 35`
+        
+        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `wavelength_35`
+            value (float): value for IDD Field `Wavelength 35`
                 Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -14504,10 +14764,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `wavelength_35`'.format(value))
-
         self._data["Wavelength 35"] = value
 
     @property
@@ -14521,10 +14780,12 @@ class SiteSpectrumData(object):
 
     @spectrum_35.setter
     def spectrum_35(self, value=None):
-        """  Corresponds to IDD Field `spectrum_35`
+        """  Corresponds to IDD Field `Spectrum 35`
+        
+        {u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `spectrum_35`
+            value (float): value for IDD Field `Spectrum 35`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -14534,10 +14795,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `spectrum_35`'.format(value))
-
         self._data["Spectrum 35"] = value
 
     @property
@@ -14551,10 +14811,12 @@ class SiteSpectrumData(object):
 
     @wavelength_36.setter
     def wavelength_36(self, value=None):
-        """  Corresponds to IDD Field `wavelength_36`
+        """  Corresponds to IDD Field `Wavelength 36`
+        
+        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `wavelength_36`
+            value (float): value for IDD Field `Wavelength 36`
                 Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -14565,10 +14827,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `wavelength_36`'.format(value))
-
         self._data["Wavelength 36"] = value
 
     @property
@@ -14582,10 +14843,12 @@ class SiteSpectrumData(object):
 
     @spectrum_36.setter
     def spectrum_36(self, value=None):
-        """  Corresponds to IDD Field `spectrum_36`
+        """  Corresponds to IDD Field `Spectrum 36`
+        
+        {u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `spectrum_36`
+            value (float): value for IDD Field `Spectrum 36`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -14595,10 +14858,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `spectrum_36`'.format(value))
-
         self._data["Spectrum 36"] = value
 
     @property
@@ -14612,10 +14874,12 @@ class SiteSpectrumData(object):
 
     @wavelength_37.setter
     def wavelength_37(self, value=None):
-        """  Corresponds to IDD Field `wavelength_37`
+        """  Corresponds to IDD Field `Wavelength 37`
+        
+        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `wavelength_37`
+            value (float): value for IDD Field `Wavelength 37`
                 Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -14626,10 +14890,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `wavelength_37`'.format(value))
-
         self._data["Wavelength 37"] = value
 
     @property
@@ -14643,10 +14906,12 @@ class SiteSpectrumData(object):
 
     @spectrum_37.setter
     def spectrum_37(self, value=None):
-        """  Corresponds to IDD Field `spectrum_37`
+        """  Corresponds to IDD Field `Spectrum 37`
+        
+        {u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `spectrum_37`
+            value (float): value for IDD Field `Spectrum 37`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -14656,10 +14921,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `spectrum_37`'.format(value))
-
         self._data["Spectrum 37"] = value
 
     @property
@@ -14673,10 +14937,12 @@ class SiteSpectrumData(object):
 
     @wavelength_38.setter
     def wavelength_38(self, value=None):
-        """  Corresponds to IDD Field `wavelength_38`
+        """  Corresponds to IDD Field `Wavelength 38`
+        
+        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `wavelength_38`
+            value (float): value for IDD Field `Wavelength 38`
                 Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -14687,10 +14953,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `wavelength_38`'.format(value))
-
         self._data["Wavelength 38"] = value
 
     @property
@@ -14704,10 +14969,12 @@ class SiteSpectrumData(object):
 
     @spectrum_38.setter
     def spectrum_38(self, value=None):
-        """  Corresponds to IDD Field `spectrum_38`
+        """  Corresponds to IDD Field `Spectrum 38`
+        
+        {u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `spectrum_38`
+            value (float): value for IDD Field `Spectrum 38`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -14717,10 +14984,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `spectrum_38`'.format(value))
-
         self._data["Spectrum 38"] = value
 
     @property
@@ -14734,10 +15000,12 @@ class SiteSpectrumData(object):
 
     @wavelength_39.setter
     def wavelength_39(self, value=None):
-        """  Corresponds to IDD Field `wavelength_39`
+        """  Corresponds to IDD Field `Wavelength 39`
+        
+        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `wavelength_39`
+            value (float): value for IDD Field `Wavelength 39`
                 Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -14748,10 +15016,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `wavelength_39`'.format(value))
-
         self._data["Wavelength 39"] = value
 
     @property
@@ -14765,10 +15032,12 @@ class SiteSpectrumData(object):
 
     @spectrum_39.setter
     def spectrum_39(self, value=None):
-        """  Corresponds to IDD Field `spectrum_39`
+        """  Corresponds to IDD Field `Spectrum 39`
+        
+        {u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `spectrum_39`
+            value (float): value for IDD Field `Spectrum 39`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -14778,10 +15047,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `spectrum_39`'.format(value))
-
         self._data["Spectrum 39"] = value
 
     @property
@@ -14795,10 +15063,12 @@ class SiteSpectrumData(object):
 
     @wavelength_40.setter
     def wavelength_40(self, value=None):
-        """  Corresponds to IDD Field `wavelength_40`
+        """  Corresponds to IDD Field `Wavelength 40`
+        
+        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `wavelength_40`
+            value (float): value for IDD Field `Wavelength 40`
                 Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -14809,10 +15079,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `wavelength_40`'.format(value))
-
         self._data["Wavelength 40"] = value
 
     @property
@@ -14826,10 +15095,12 @@ class SiteSpectrumData(object):
 
     @spectrum_40.setter
     def spectrum_40(self, value=None):
-        """  Corresponds to IDD Field `spectrum_40`
+        """  Corresponds to IDD Field `Spectrum 40`
+        
+        {u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `spectrum_40`
+            value (float): value for IDD Field `Spectrum 40`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -14839,10 +15110,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `spectrum_40`'.format(value))
-
         self._data["Spectrum 40"] = value
 
     @property
@@ -14856,10 +15126,12 @@ class SiteSpectrumData(object):
 
     @wavelength_41.setter
     def wavelength_41(self, value=None):
-        """  Corresponds to IDD Field `wavelength_41`
+        """  Corresponds to IDD Field `Wavelength 41`
+        
+        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `wavelength_41`
+            value (float): value for IDD Field `Wavelength 41`
                 Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -14870,10 +15142,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `wavelength_41`'.format(value))
-
         self._data["Wavelength 41"] = value
 
     @property
@@ -14887,10 +15158,12 @@ class SiteSpectrumData(object):
 
     @spectrum_41.setter
     def spectrum_41(self, value=None):
-        """  Corresponds to IDD Field `spectrum_41`
+        """  Corresponds to IDD Field `Spectrum 41`
+        
+        {u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `spectrum_41`
+            value (float): value for IDD Field `Spectrum 41`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -14900,10 +15173,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `spectrum_41`'.format(value))
-
         self._data["Spectrum 41"] = value
 
     @property
@@ -14917,10 +15189,12 @@ class SiteSpectrumData(object):
 
     @wavelength_42.setter
     def wavelength_42(self, value=None):
-        """  Corresponds to IDD Field `wavelength_42`
+        """  Corresponds to IDD Field `Wavelength 42`
+        
+        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `wavelength_42`
+            value (float): value for IDD Field `Wavelength 42`
                 Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -14931,10 +15205,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `wavelength_42`'.format(value))
-
         self._data["Wavelength 42"] = value
 
     @property
@@ -14948,10 +15221,12 @@ class SiteSpectrumData(object):
 
     @spectrum_42.setter
     def spectrum_42(self, value=None):
-        """  Corresponds to IDD Field `spectrum_42`
+        """  Corresponds to IDD Field `Spectrum 42`
+        
+        {u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `spectrum_42`
+            value (float): value for IDD Field `Spectrum 42`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -14961,10 +15236,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `spectrum_42`'.format(value))
-
         self._data["Spectrum 42"] = value
 
     @property
@@ -14978,10 +15252,12 @@ class SiteSpectrumData(object):
 
     @wavelength_43.setter
     def wavelength_43(self, value=None):
-        """  Corresponds to IDD Field `wavelength_43`
+        """  Corresponds to IDD Field `Wavelength 43`
+        
+        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `wavelength_43`
+            value (float): value for IDD Field `Wavelength 43`
                 Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -14992,10 +15268,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `wavelength_43`'.format(value))
-
         self._data["Wavelength 43"] = value
 
     @property
@@ -15009,10 +15284,12 @@ class SiteSpectrumData(object):
 
     @spectrum_43.setter
     def spectrum_43(self, value=None):
-        """  Corresponds to IDD Field `spectrum_43`
+        """  Corresponds to IDD Field `Spectrum 43`
+        
+        {u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `spectrum_43`
+            value (float): value for IDD Field `Spectrum 43`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -15022,10 +15299,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `spectrum_43`'.format(value))
-
         self._data["Spectrum 43"] = value
 
     @property
@@ -15039,10 +15315,12 @@ class SiteSpectrumData(object):
 
     @wavelength_44.setter
     def wavelength_44(self, value=None):
-        """  Corresponds to IDD Field `wavelength_44`
+        """  Corresponds to IDD Field `Wavelength 44`
+        
+        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `wavelength_44`
+            value (float): value for IDD Field `Wavelength 44`
                 Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -15053,10 +15331,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `wavelength_44`'.format(value))
-
         self._data["Wavelength 44"] = value
 
     @property
@@ -15070,10 +15347,12 @@ class SiteSpectrumData(object):
 
     @spectrum_44.setter
     def spectrum_44(self, value=None):
-        """  Corresponds to IDD Field `spectrum_44`
+        """  Corresponds to IDD Field `Spectrum 44`
+        
+        {u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `spectrum_44`
+            value (float): value for IDD Field `Spectrum 44`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -15083,10 +15362,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `spectrum_44`'.format(value))
-
         self._data["Spectrum 44"] = value
 
     @property
@@ -15100,10 +15378,12 @@ class SiteSpectrumData(object):
 
     @wavelength_45.setter
     def wavelength_45(self, value=None):
-        """  Corresponds to IDD Field `wavelength_45`
+        """  Corresponds to IDD Field `Wavelength 45`
+        
+        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `wavelength_45`
+            value (float): value for IDD Field `Wavelength 45`
                 Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -15114,10 +15394,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `wavelength_45`'.format(value))
-
         self._data["Wavelength 45"] = value
 
     @property
@@ -15131,10 +15410,12 @@ class SiteSpectrumData(object):
 
     @spectrum_45.setter
     def spectrum_45(self, value=None):
-        """  Corresponds to IDD Field `spectrum_45`
+        """  Corresponds to IDD Field `Spectrum 45`
+        
+        {u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `spectrum_45`
+            value (float): value for IDD Field `Spectrum 45`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -15144,10 +15425,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `spectrum_45`'.format(value))
-
         self._data["Spectrum 45"] = value
 
     @property
@@ -15161,10 +15441,12 @@ class SiteSpectrumData(object):
 
     @wavelength_46.setter
     def wavelength_46(self, value=None):
-        """  Corresponds to IDD Field `wavelength_46`
+        """  Corresponds to IDD Field `Wavelength 46`
+        
+        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `wavelength_46`
+            value (float): value for IDD Field `Wavelength 46`
                 Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -15175,10 +15457,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `wavelength_46`'.format(value))
-
         self._data["Wavelength 46"] = value
 
     @property
@@ -15192,10 +15473,12 @@ class SiteSpectrumData(object):
 
     @spectrum_46.setter
     def spectrum_46(self, value=None):
-        """  Corresponds to IDD Field `spectrum_46`
+        """  Corresponds to IDD Field `Spectrum 46`
+        
+        {u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `spectrum_46`
+            value (float): value for IDD Field `Spectrum 46`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -15205,10 +15488,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `spectrum_46`'.format(value))
-
         self._data["Spectrum 46"] = value
 
     @property
@@ -15222,10 +15504,12 @@ class SiteSpectrumData(object):
 
     @wavelength_47.setter
     def wavelength_47(self, value=None):
-        """  Corresponds to IDD Field `wavelength_47`
+        """  Corresponds to IDD Field `Wavelength 47`
+        
+        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `wavelength_47`
+            value (float): value for IDD Field `Wavelength 47`
                 Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -15236,10 +15520,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `wavelength_47`'.format(value))
-
         self._data["Wavelength 47"] = value
 
     @property
@@ -15253,10 +15536,12 @@ class SiteSpectrumData(object):
 
     @spectrum_47.setter
     def spectrum_47(self, value=None):
-        """  Corresponds to IDD Field `spectrum_47`
+        """  Corresponds to IDD Field `Spectrum 47`
+        
+        {u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `spectrum_47`
+            value (float): value for IDD Field `Spectrum 47`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -15266,10 +15551,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `spectrum_47`'.format(value))
-
         self._data["Spectrum 47"] = value
 
     @property
@@ -15283,10 +15567,12 @@ class SiteSpectrumData(object):
 
     @wavelength_48.setter
     def wavelength_48(self, value=None):
-        """  Corresponds to IDD Field `wavelength_48`
+        """  Corresponds to IDD Field `Wavelength 48`
+        
+        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `wavelength_48`
+            value (float): value for IDD Field `Wavelength 48`
                 Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -15297,10 +15583,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `wavelength_48`'.format(value))
-
         self._data["Wavelength 48"] = value
 
     @property
@@ -15314,10 +15599,12 @@ class SiteSpectrumData(object):
 
     @spectrum_48.setter
     def spectrum_48(self, value=None):
-        """  Corresponds to IDD Field `spectrum_48`
+        """  Corresponds to IDD Field `Spectrum 48`
+        
+        {u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `spectrum_48`
+            value (float): value for IDD Field `Spectrum 48`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -15327,10 +15614,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `spectrum_48`'.format(value))
-
         self._data["Spectrum 48"] = value
 
     @property
@@ -15344,10 +15630,12 @@ class SiteSpectrumData(object):
 
     @wavelength_49.setter
     def wavelength_49(self, value=None):
-        """  Corresponds to IDD Field `wavelength_49`
+        """  Corresponds to IDD Field `Wavelength 49`
+        
+        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `wavelength_49`
+            value (float): value for IDD Field `Wavelength 49`
                 Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -15358,10 +15646,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `wavelength_49`'.format(value))
-
         self._data["Wavelength 49"] = value
 
     @property
@@ -15375,10 +15662,12 @@ class SiteSpectrumData(object):
 
     @spectrum_49.setter
     def spectrum_49(self, value=None):
-        """  Corresponds to IDD Field `spectrum_49`
+        """  Corresponds to IDD Field `Spectrum 49`
+        
+        {u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `spectrum_49`
+            value (float): value for IDD Field `Spectrum 49`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -15388,10 +15677,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `spectrum_49`'.format(value))
-
         self._data["Spectrum 49"] = value
 
     @property
@@ -15405,10 +15693,12 @@ class SiteSpectrumData(object):
 
     @wavelength_50.setter
     def wavelength_50(self, value=None):
-        """  Corresponds to IDD Field `wavelength_50`
+        """  Corresponds to IDD Field `Wavelength 50`
+        
+        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `wavelength_50`
+            value (float): value for IDD Field `Wavelength 50`
                 Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -15419,10 +15709,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `wavelength_50`'.format(value))
-
         self._data["Wavelength 50"] = value
 
     @property
@@ -15436,10 +15725,12 @@ class SiteSpectrumData(object):
 
     @spectrum_50.setter
     def spectrum_50(self, value=None):
-        """  Corresponds to IDD Field `spectrum_50`
+        """  Corresponds to IDD Field `Spectrum 50`
+        
+        {u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `spectrum_50`
+            value (float): value for IDD Field `Spectrum 50`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -15449,10 +15740,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `spectrum_50`'.format(value))
-
         self._data["Spectrum 50"] = value
 
     @property
@@ -15466,10 +15756,12 @@ class SiteSpectrumData(object):
 
     @wavelength_51.setter
     def wavelength_51(self, value=None):
-        """  Corresponds to IDD Field `wavelength_51`
+        """  Corresponds to IDD Field `Wavelength 51`
+        
+        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `wavelength_51`
+            value (float): value for IDD Field `Wavelength 51`
                 Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -15480,10 +15772,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `wavelength_51`'.format(value))
-
         self._data["Wavelength 51"] = value
 
     @property
@@ -15497,10 +15788,12 @@ class SiteSpectrumData(object):
 
     @spectrum_51.setter
     def spectrum_51(self, value=None):
-        """  Corresponds to IDD Field `spectrum_51`
+        """  Corresponds to IDD Field `Spectrum 51`
+        
+        {u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `spectrum_51`
+            value (float): value for IDD Field `Spectrum 51`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -15510,10 +15803,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `spectrum_51`'.format(value))
-
         self._data["Spectrum 51"] = value
 
     @property
@@ -15527,10 +15819,12 @@ class SiteSpectrumData(object):
 
     @wavelength_52.setter
     def wavelength_52(self, value=None):
-        """  Corresponds to IDD Field `wavelength_52`
+        """  Corresponds to IDD Field `Wavelength 52`
+        
+        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `wavelength_52`
+            value (float): value for IDD Field `Wavelength 52`
                 Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -15541,10 +15835,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `wavelength_52`'.format(value))
-
         self._data["Wavelength 52"] = value
 
     @property
@@ -15558,10 +15851,12 @@ class SiteSpectrumData(object):
 
     @spectrum_52.setter
     def spectrum_52(self, value=None):
-        """  Corresponds to IDD Field `spectrum_52`
+        """  Corresponds to IDD Field `Spectrum 52`
+        
+        {u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `spectrum_52`
+            value (float): value for IDD Field `Spectrum 52`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -15571,10 +15866,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `spectrum_52`'.format(value))
-
         self._data["Spectrum 52"] = value
 
     @property
@@ -15588,10 +15882,12 @@ class SiteSpectrumData(object):
 
     @wavelength_53.setter
     def wavelength_53(self, value=None):
-        """  Corresponds to IDD Field `wavelength_53`
+        """  Corresponds to IDD Field `Wavelength 53`
+        
+        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `wavelength_53`
+            value (float): value for IDD Field `Wavelength 53`
                 Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -15602,10 +15898,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `wavelength_53`'.format(value))
-
         self._data["Wavelength 53"] = value
 
     @property
@@ -15619,10 +15914,12 @@ class SiteSpectrumData(object):
 
     @spectrum_53.setter
     def spectrum_53(self, value=None):
-        """  Corresponds to IDD Field `spectrum_53`
+        """  Corresponds to IDD Field `Spectrum 53`
+        
+        {u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `spectrum_53`
+            value (float): value for IDD Field `Spectrum 53`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -15632,10 +15929,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `spectrum_53`'.format(value))
-
         self._data["Spectrum 53"] = value
 
     @property
@@ -15649,10 +15945,12 @@ class SiteSpectrumData(object):
 
     @wavelength_54.setter
     def wavelength_54(self, value=None):
-        """  Corresponds to IDD Field `wavelength_54`
+        """  Corresponds to IDD Field `Wavelength 54`
+        
+        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `wavelength_54`
+            value (float): value for IDD Field `Wavelength 54`
                 Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -15663,10 +15961,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `wavelength_54`'.format(value))
-
         self._data["Wavelength 54"] = value
 
     @property
@@ -15680,10 +15977,12 @@ class SiteSpectrumData(object):
 
     @spectrum_54.setter
     def spectrum_54(self, value=None):
-        """  Corresponds to IDD Field `spectrum_54`
+        """  Corresponds to IDD Field `Spectrum 54`
+        
+        {u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `spectrum_54`
+            value (float): value for IDD Field `Spectrum 54`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -15693,10 +15992,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `spectrum_54`'.format(value))
-
         self._data["Spectrum 54"] = value
 
     @property
@@ -15710,10 +16008,12 @@ class SiteSpectrumData(object):
 
     @wavelength_55.setter
     def wavelength_55(self, value=None):
-        """  Corresponds to IDD Field `wavelength_55`
+        """  Corresponds to IDD Field `Wavelength 55`
+        
+        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `wavelength_55`
+            value (float): value for IDD Field `Wavelength 55`
                 Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -15724,10 +16024,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `wavelength_55`'.format(value))
-
         self._data["Wavelength 55"] = value
 
     @property
@@ -15741,10 +16040,12 @@ class SiteSpectrumData(object):
 
     @spectrum_55.setter
     def spectrum_55(self, value=None):
-        """  Corresponds to IDD Field `spectrum_55`
+        """  Corresponds to IDD Field `Spectrum 55`
+        
+        {u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `spectrum_55`
+            value (float): value for IDD Field `Spectrum 55`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -15754,10 +16055,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `spectrum_55`'.format(value))
-
         self._data["Spectrum 55"] = value
 
     @property
@@ -15771,10 +16071,12 @@ class SiteSpectrumData(object):
 
     @wavelength_56.setter
     def wavelength_56(self, value=None):
-        """  Corresponds to IDD Field `wavelength_56`
+        """  Corresponds to IDD Field `Wavelength 56`
+        
+        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `wavelength_56`
+            value (float): value for IDD Field `Wavelength 56`
                 Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -15785,10 +16087,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `wavelength_56`'.format(value))
-
         self._data["Wavelength 56"] = value
 
     @property
@@ -15802,10 +16103,12 @@ class SiteSpectrumData(object):
 
     @spectrum_56.setter
     def spectrum_56(self, value=None):
-        """  Corresponds to IDD Field `spectrum_56`
+        """  Corresponds to IDD Field `Spectrum 56`
+        
+        {u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `spectrum_56`
+            value (float): value for IDD Field `Spectrum 56`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -15815,10 +16118,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `spectrum_56`'.format(value))
-
         self._data["Spectrum 56"] = value
 
     @property
@@ -15832,10 +16134,12 @@ class SiteSpectrumData(object):
 
     @wavelength_57.setter
     def wavelength_57(self, value=None):
-        """  Corresponds to IDD Field `wavelength_57`
+        """  Corresponds to IDD Field `Wavelength 57`
+        
+        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `wavelength_57`
+            value (float): value for IDD Field `Wavelength 57`
                 Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -15846,10 +16150,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `wavelength_57`'.format(value))
-
         self._data["Wavelength 57"] = value
 
     @property
@@ -15863,10 +16166,12 @@ class SiteSpectrumData(object):
 
     @spectrum_57.setter
     def spectrum_57(self, value=None):
-        """  Corresponds to IDD Field `spectrum_57`
+        """  Corresponds to IDD Field `Spectrum 57`
+        
+        {u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `spectrum_57`
+            value (float): value for IDD Field `Spectrum 57`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -15876,10 +16181,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `spectrum_57`'.format(value))
-
         self._data["Spectrum 57"] = value
 
     @property
@@ -15893,10 +16197,12 @@ class SiteSpectrumData(object):
 
     @wavelength_58.setter
     def wavelength_58(self, value=None):
-        """  Corresponds to IDD Field `wavelength_58`
+        """  Corresponds to IDD Field `Wavelength 58`
+        
+        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `wavelength_58`
+            value (float): value for IDD Field `Wavelength 58`
                 Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -15907,10 +16213,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `wavelength_58`'.format(value))
-
         self._data["Wavelength 58"] = value
 
     @property
@@ -15924,10 +16229,12 @@ class SiteSpectrumData(object):
 
     @spectrum_58.setter
     def spectrum_58(self, value=None):
-        """  Corresponds to IDD Field `spectrum_58`
+        """  Corresponds to IDD Field `Spectrum 58`
+        
+        {u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `spectrum_58`
+            value (float): value for IDD Field `Spectrum 58`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -15937,10 +16244,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `spectrum_58`'.format(value))
-
         self._data["Spectrum 58"] = value
 
     @property
@@ -15954,10 +16260,12 @@ class SiteSpectrumData(object):
 
     @wavelength_59.setter
     def wavelength_59(self, value=None):
-        """  Corresponds to IDD Field `wavelength_59`
+        """  Corresponds to IDD Field `Wavelength 59`
+        
+        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `wavelength_59`
+            value (float): value for IDD Field `Wavelength 59`
                 Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -15968,10 +16276,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `wavelength_59`'.format(value))
-
         self._data["Wavelength 59"] = value
 
     @property
@@ -15985,10 +16292,12 @@ class SiteSpectrumData(object):
 
     @spectrum_59.setter
     def spectrum_59(self, value=None):
-        """  Corresponds to IDD Field `spectrum_59`
+        """  Corresponds to IDD Field `Spectrum 59`
+        
+        {u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `spectrum_59`
+            value (float): value for IDD Field `Spectrum 59`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -15998,10 +16307,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `spectrum_59`'.format(value))
-
         self._data["Spectrum 59"] = value
 
     @property
@@ -16015,10 +16323,12 @@ class SiteSpectrumData(object):
 
     @wavelength_60.setter
     def wavelength_60(self, value=None):
-        """  Corresponds to IDD Field `wavelength_60`
+        """  Corresponds to IDD Field `Wavelength 60`
+        
+        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `wavelength_60`
+            value (float): value for IDD Field `Wavelength 60`
                 Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -16029,10 +16339,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `wavelength_60`'.format(value))
-
         self._data["Wavelength 60"] = value
 
     @property
@@ -16046,10 +16355,12 @@ class SiteSpectrumData(object):
 
     @spectrum_60.setter
     def spectrum_60(self, value=None):
-        """  Corresponds to IDD Field `spectrum_60`
+        """  Corresponds to IDD Field `Spectrum 60`
+        
+        {u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `spectrum_60`
+            value (float): value for IDD Field `Spectrum 60`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -16059,10 +16370,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `spectrum_60`'.format(value))
-
         self._data["Spectrum 60"] = value
 
     @property
@@ -16076,10 +16386,12 @@ class SiteSpectrumData(object):
 
     @wavelength_61.setter
     def wavelength_61(self, value=None):
-        """  Corresponds to IDD Field `wavelength_61`
+        """  Corresponds to IDD Field `Wavelength 61`
+        
+        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `wavelength_61`
+            value (float): value for IDD Field `Wavelength 61`
                 Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -16090,10 +16402,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `wavelength_61`'.format(value))
-
         self._data["Wavelength 61"] = value
 
     @property
@@ -16107,10 +16418,12 @@ class SiteSpectrumData(object):
 
     @spectrum_61.setter
     def spectrum_61(self, value=None):
-        """  Corresponds to IDD Field `spectrum_61`
+        """  Corresponds to IDD Field `Spectrum 61`
+        
+        {u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `spectrum_61`
+            value (float): value for IDD Field `Spectrum 61`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -16120,10 +16433,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `spectrum_61`'.format(value))
-
         self._data["Spectrum 61"] = value
 
     @property
@@ -16137,10 +16449,12 @@ class SiteSpectrumData(object):
 
     @wavelength_62.setter
     def wavelength_62(self, value=None):
-        """  Corresponds to IDD Field `wavelength_62`
+        """  Corresponds to IDD Field `Wavelength 62`
+        
+        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `wavelength_62`
+            value (float): value for IDD Field `Wavelength 62`
                 Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -16151,10 +16465,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `wavelength_62`'.format(value))
-
         self._data["Wavelength 62"] = value
 
     @property
@@ -16168,10 +16481,12 @@ class SiteSpectrumData(object):
 
     @spectrum_62.setter
     def spectrum_62(self, value=None):
-        """  Corresponds to IDD Field `spectrum_62`
+        """  Corresponds to IDD Field `Spectrum 62`
+        
+        {u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `spectrum_62`
+            value (float): value for IDD Field `Spectrum 62`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -16181,10 +16496,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `spectrum_62`'.format(value))
-
         self._data["Spectrum 62"] = value
 
     @property
@@ -16198,10 +16512,12 @@ class SiteSpectrumData(object):
 
     @wavelength_63.setter
     def wavelength_63(self, value=None):
-        """  Corresponds to IDD Field `wavelength_63`
+        """  Corresponds to IDD Field `Wavelength 63`
+        
+        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `wavelength_63`
+            value (float): value for IDD Field `Wavelength 63`
                 Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -16212,10 +16528,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `wavelength_63`'.format(value))
-
         self._data["Wavelength 63"] = value
 
     @property
@@ -16229,10 +16544,12 @@ class SiteSpectrumData(object):
 
     @spectrum_63.setter
     def spectrum_63(self, value=None):
-        """  Corresponds to IDD Field `spectrum_63`
+        """  Corresponds to IDD Field `Spectrum 63`
+        
+        {u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `spectrum_63`
+            value (float): value for IDD Field `Spectrum 63`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -16242,10 +16559,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `spectrum_63`'.format(value))
-
         self._data["Spectrum 63"] = value
 
     @property
@@ -16259,10 +16575,12 @@ class SiteSpectrumData(object):
 
     @wavelength_64.setter
     def wavelength_64(self, value=None):
-        """  Corresponds to IDD Field `wavelength_64`
+        """  Corresponds to IDD Field `Wavelength 64`
+        
+        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `wavelength_64`
+            value (float): value for IDD Field `Wavelength 64`
                 Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -16273,10 +16591,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `wavelength_64`'.format(value))
-
         self._data["Wavelength 64"] = value
 
     @property
@@ -16290,10 +16607,12 @@ class SiteSpectrumData(object):
 
     @spectrum_64.setter
     def spectrum_64(self, value=None):
-        """  Corresponds to IDD Field `spectrum_64`
+        """  Corresponds to IDD Field `Spectrum 64`
+        
+        {u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `spectrum_64`
+            value (float): value for IDD Field `Spectrum 64`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -16303,10 +16622,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `spectrum_64`'.format(value))
-
         self._data["Spectrum 64"] = value
 
     @property
@@ -16320,10 +16638,12 @@ class SiteSpectrumData(object):
 
     @wavelength_65.setter
     def wavelength_65(self, value=None):
-        """  Corresponds to IDD Field `wavelength_65`
+        """  Corresponds to IDD Field `Wavelength 65`
+        
+        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `wavelength_65`
+            value (float): value for IDD Field `Wavelength 65`
                 Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -16334,10 +16654,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `wavelength_65`'.format(value))
-
         self._data["Wavelength 65"] = value
 
     @property
@@ -16351,10 +16670,12 @@ class SiteSpectrumData(object):
 
     @spectrum_65.setter
     def spectrum_65(self, value=None):
-        """  Corresponds to IDD Field `spectrum_65`
+        """  Corresponds to IDD Field `Spectrum 65`
+        
+        {u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `spectrum_65`
+            value (float): value for IDD Field `Spectrum 65`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -16364,10 +16685,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `spectrum_65`'.format(value))
-
         self._data["Spectrum 65"] = value
 
     @property
@@ -16381,10 +16701,12 @@ class SiteSpectrumData(object):
 
     @wavelength_66.setter
     def wavelength_66(self, value=None):
-        """  Corresponds to IDD Field `wavelength_66`
+        """  Corresponds to IDD Field `Wavelength 66`
+        
+        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `wavelength_66`
+            value (float): value for IDD Field `Wavelength 66`
                 Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -16395,10 +16717,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `wavelength_66`'.format(value))
-
         self._data["Wavelength 66"] = value
 
     @property
@@ -16412,10 +16733,12 @@ class SiteSpectrumData(object):
 
     @spectrum_66.setter
     def spectrum_66(self, value=None):
-        """  Corresponds to IDD Field `spectrum_66`
+        """  Corresponds to IDD Field `Spectrum 66`
+        
+        {u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `spectrum_66`
+            value (float): value for IDD Field `Spectrum 66`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -16425,10 +16748,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `spectrum_66`'.format(value))
-
         self._data["Spectrum 66"] = value
 
     @property
@@ -16442,10 +16764,12 @@ class SiteSpectrumData(object):
 
     @wavelength_67.setter
     def wavelength_67(self, value=None):
-        """  Corresponds to IDD Field `wavelength_67`
+        """  Corresponds to IDD Field `Wavelength 67`
+        
+        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `wavelength_67`
+            value (float): value for IDD Field `Wavelength 67`
                 Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -16456,10 +16780,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `wavelength_67`'.format(value))
-
         self._data["Wavelength 67"] = value
 
     @property
@@ -16473,10 +16796,12 @@ class SiteSpectrumData(object):
 
     @spectrum_67.setter
     def spectrum_67(self, value=None):
-        """  Corresponds to IDD Field `spectrum_67`
+        """  Corresponds to IDD Field `Spectrum 67`
+        
+        {u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `spectrum_67`
+            value (float): value for IDD Field `Spectrum 67`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -16486,10 +16811,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `spectrum_67`'.format(value))
-
         self._data["Spectrum 67"] = value
 
     @property
@@ -16503,10 +16827,12 @@ class SiteSpectrumData(object):
 
     @wavelength_68.setter
     def wavelength_68(self, value=None):
-        """  Corresponds to IDD Field `wavelength_68`
+        """  Corresponds to IDD Field `Wavelength 68`
+        
+        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `wavelength_68`
+            value (float): value for IDD Field `Wavelength 68`
                 Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -16517,10 +16843,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `wavelength_68`'.format(value))
-
         self._data["Wavelength 68"] = value
 
     @property
@@ -16534,10 +16859,12 @@ class SiteSpectrumData(object):
 
     @spectrum_68.setter
     def spectrum_68(self, value=None):
-        """  Corresponds to IDD Field `spectrum_68`
+        """  Corresponds to IDD Field `Spectrum 68`
+        
+        {u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `spectrum_68`
+            value (float): value for IDD Field `Spectrum 68`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -16547,10 +16874,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `spectrum_68`'.format(value))
-
         self._data["Spectrum 68"] = value
 
     @property
@@ -16564,10 +16890,12 @@ class SiteSpectrumData(object):
 
     @wavelength_69.setter
     def wavelength_69(self, value=None):
-        """  Corresponds to IDD Field `wavelength_69`
+        """  Corresponds to IDD Field `Wavelength 69`
+        
+        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `wavelength_69`
+            value (float): value for IDD Field `Wavelength 69`
                 Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -16578,10 +16906,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `wavelength_69`'.format(value))
-
         self._data["Wavelength 69"] = value
 
     @property
@@ -16595,10 +16922,12 @@ class SiteSpectrumData(object):
 
     @spectrum_69.setter
     def spectrum_69(self, value=None):
-        """  Corresponds to IDD Field `spectrum_69`
+        """  Corresponds to IDD Field `Spectrum 69`
+        
+        {u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `spectrum_69`
+            value (float): value for IDD Field `Spectrum 69`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -16608,10 +16937,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `spectrum_69`'.format(value))
-
         self._data["Spectrum 69"] = value
 
     @property
@@ -16625,10 +16953,12 @@ class SiteSpectrumData(object):
 
     @wavelength_70.setter
     def wavelength_70(self, value=None):
-        """  Corresponds to IDD Field `wavelength_70`
+        """  Corresponds to IDD Field `Wavelength 70`
+        
+        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `wavelength_70`
+            value (float): value for IDD Field `Wavelength 70`
                 Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -16639,10 +16969,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `wavelength_70`'.format(value))
-
         self._data["Wavelength 70"] = value
 
     @property
@@ -16656,10 +16985,12 @@ class SiteSpectrumData(object):
 
     @spectrum_70.setter
     def spectrum_70(self, value=None):
-        """  Corresponds to IDD Field `spectrum_70`
+        """  Corresponds to IDD Field `Spectrum 70`
+        
+        {u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `spectrum_70`
+            value (float): value for IDD Field `Spectrum 70`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -16669,10 +17000,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `spectrum_70`'.format(value))
-
         self._data["Spectrum 70"] = value
 
     @property
@@ -16686,10 +17016,12 @@ class SiteSpectrumData(object):
 
     @wavelength_71.setter
     def wavelength_71(self, value=None):
-        """  Corresponds to IDD Field `wavelength_71`
+        """  Corresponds to IDD Field `Wavelength 71`
+        
+        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `wavelength_71`
+            value (float): value for IDD Field `Wavelength 71`
                 Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -16700,10 +17032,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `wavelength_71`'.format(value))
-
         self._data["Wavelength 71"] = value
 
     @property
@@ -16717,10 +17048,12 @@ class SiteSpectrumData(object):
 
     @spectrum_71.setter
     def spectrum_71(self, value=None):
-        """  Corresponds to IDD Field `spectrum_71`
+        """  Corresponds to IDD Field `Spectrum 71`
+        
+        {u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `spectrum_71`
+            value (float): value for IDD Field `Spectrum 71`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -16730,10 +17063,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `spectrum_71`'.format(value))
-
         self._data["Spectrum 71"] = value
 
     @property
@@ -16747,10 +17079,12 @@ class SiteSpectrumData(object):
 
     @wavelength_72.setter
     def wavelength_72(self, value=None):
-        """  Corresponds to IDD Field `wavelength_72`
+        """  Corresponds to IDD Field `Wavelength 72`
+        
+        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `wavelength_72`
+            value (float): value for IDD Field `Wavelength 72`
                 Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -16761,10 +17095,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `wavelength_72`'.format(value))
-
         self._data["Wavelength 72"] = value
 
     @property
@@ -16778,10 +17111,12 @@ class SiteSpectrumData(object):
 
     @spectrum_72.setter
     def spectrum_72(self, value=None):
-        """  Corresponds to IDD Field `spectrum_72`
+        """  Corresponds to IDD Field `Spectrum 72`
+        
+        {u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `spectrum_72`
+            value (float): value for IDD Field `Spectrum 72`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -16791,10 +17126,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `spectrum_72`'.format(value))
-
         self._data["Spectrum 72"] = value
 
     @property
@@ -16808,10 +17142,12 @@ class SiteSpectrumData(object):
 
     @wavelength_73.setter
     def wavelength_73(self, value=None):
-        """  Corresponds to IDD Field `wavelength_73`
+        """  Corresponds to IDD Field `Wavelength 73`
+        
+        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `wavelength_73`
+            value (float): value for IDD Field `Wavelength 73`
                 Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -16822,10 +17158,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `wavelength_73`'.format(value))
-
         self._data["Wavelength 73"] = value
 
     @property
@@ -16839,10 +17174,12 @@ class SiteSpectrumData(object):
 
     @spectrum_73.setter
     def spectrum_73(self, value=None):
-        """  Corresponds to IDD Field `spectrum_73`
+        """  Corresponds to IDD Field `Spectrum 73`
+        
+        {u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `spectrum_73`
+            value (float): value for IDD Field `Spectrum 73`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -16852,10 +17189,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `spectrum_73`'.format(value))
-
         self._data["Spectrum 73"] = value
 
     @property
@@ -16869,10 +17205,12 @@ class SiteSpectrumData(object):
 
     @wavelength_74.setter
     def wavelength_74(self, value=None):
-        """  Corresponds to IDD Field `wavelength_74`
+        """  Corresponds to IDD Field `Wavelength 74`
+        
+        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `wavelength_74`
+            value (float): value for IDD Field `Wavelength 74`
                 Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -16883,10 +17221,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `wavelength_74`'.format(value))
-
         self._data["Wavelength 74"] = value
 
     @property
@@ -16900,10 +17237,12 @@ class SiteSpectrumData(object):
 
     @spectrum_74.setter
     def spectrum_74(self, value=None):
-        """  Corresponds to IDD Field `spectrum_74`
+        """  Corresponds to IDD Field `Spectrum 74`
+        
+        {u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `spectrum_74`
+            value (float): value for IDD Field `Spectrum 74`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -16913,10 +17252,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `spectrum_74`'.format(value))
-
         self._data["Spectrum 74"] = value
 
     @property
@@ -16930,10 +17268,12 @@ class SiteSpectrumData(object):
 
     @wavelength_75.setter
     def wavelength_75(self, value=None):
-        """  Corresponds to IDD Field `wavelength_75`
+        """  Corresponds to IDD Field `Wavelength 75`
+        
+        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `wavelength_75`
+            value (float): value for IDD Field `Wavelength 75`
                 Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -16944,10 +17284,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `wavelength_75`'.format(value))
-
         self._data["Wavelength 75"] = value
 
     @property
@@ -16961,10 +17300,12 @@ class SiteSpectrumData(object):
 
     @spectrum_75.setter
     def spectrum_75(self, value=None):
-        """  Corresponds to IDD Field `spectrum_75`
+        """  Corresponds to IDD Field `Spectrum 75`
+        
+        {u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `spectrum_75`
+            value (float): value for IDD Field `Spectrum 75`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -16974,10 +17315,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `spectrum_75`'.format(value))
-
         self._data["Spectrum 75"] = value
 
     @property
@@ -16991,10 +17331,12 @@ class SiteSpectrumData(object):
 
     @wavelength_76.setter
     def wavelength_76(self, value=None):
-        """  Corresponds to IDD Field `wavelength_76`
+        """  Corresponds to IDD Field `Wavelength 76`
+        
+        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `wavelength_76`
+            value (float): value for IDD Field `Wavelength 76`
                 Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -17005,10 +17347,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `wavelength_76`'.format(value))
-
         self._data["Wavelength 76"] = value
 
     @property
@@ -17022,10 +17363,12 @@ class SiteSpectrumData(object):
 
     @spectrum_76.setter
     def spectrum_76(self, value=None):
-        """  Corresponds to IDD Field `spectrum_76`
+        """  Corresponds to IDD Field `Spectrum 76`
+        
+        {u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `spectrum_76`
+            value (float): value for IDD Field `Spectrum 76`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -17035,10 +17378,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `spectrum_76`'.format(value))
-
         self._data["Spectrum 76"] = value
 
     @property
@@ -17052,10 +17394,12 @@ class SiteSpectrumData(object):
 
     @wavelength_77.setter
     def wavelength_77(self, value=None):
-        """  Corresponds to IDD Field `wavelength_77`
+        """  Corresponds to IDD Field `Wavelength 77`
+        
+        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `wavelength_77`
+            value (float): value for IDD Field `Wavelength 77`
                 Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -17066,10 +17410,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `wavelength_77`'.format(value))
-
         self._data["Wavelength 77"] = value
 
     @property
@@ -17083,10 +17426,12 @@ class SiteSpectrumData(object):
 
     @spectrum_77.setter
     def spectrum_77(self, value=None):
-        """  Corresponds to IDD Field `spectrum_77`
+        """  Corresponds to IDD Field `Spectrum 77`
+        
+        {u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `spectrum_77`
+            value (float): value for IDD Field `Spectrum 77`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -17096,10 +17441,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `spectrum_77`'.format(value))
-
         self._data["Spectrum 77"] = value
 
     @property
@@ -17113,10 +17457,12 @@ class SiteSpectrumData(object):
 
     @wavelength_78.setter
     def wavelength_78(self, value=None):
-        """  Corresponds to IDD Field `wavelength_78`
+        """  Corresponds to IDD Field `Wavelength 78`
+        
+        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `wavelength_78`
+            value (float): value for IDD Field `Wavelength 78`
                 Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -17127,10 +17473,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `wavelength_78`'.format(value))
-
         self._data["Wavelength 78"] = value
 
     @property
@@ -17144,10 +17489,12 @@ class SiteSpectrumData(object):
 
     @spectrum_78.setter
     def spectrum_78(self, value=None):
-        """  Corresponds to IDD Field `spectrum_78`
+        """  Corresponds to IDD Field `Spectrum 78`
+        
+        {u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `spectrum_78`
+            value (float): value for IDD Field `Spectrum 78`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -17157,10 +17504,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `spectrum_78`'.format(value))
-
         self._data["Spectrum 78"] = value
 
     @property
@@ -17174,10 +17520,12 @@ class SiteSpectrumData(object):
 
     @wavelength_79.setter
     def wavelength_79(self, value=None):
-        """  Corresponds to IDD Field `wavelength_79`
+        """  Corresponds to IDD Field `Wavelength 79`
+        
+        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `wavelength_79`
+            value (float): value for IDD Field `Wavelength 79`
                 Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -17188,10 +17536,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `wavelength_79`'.format(value))
-
         self._data["Wavelength 79"] = value
 
     @property
@@ -17205,10 +17552,12 @@ class SiteSpectrumData(object):
 
     @spectrum_79.setter
     def spectrum_79(self, value=None):
-        """  Corresponds to IDD Field `spectrum_79`
+        """  Corresponds to IDD Field `Spectrum 79`
+        
+        {u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `spectrum_79`
+            value (float): value for IDD Field `Spectrum 79`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -17218,10 +17567,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `spectrum_79`'.format(value))
-
         self._data["Spectrum 79"] = value
 
     @property
@@ -17235,10 +17583,12 @@ class SiteSpectrumData(object):
 
     @wavelength_80.setter
     def wavelength_80(self, value=None):
-        """  Corresponds to IDD Field `wavelength_80`
+        """  Corresponds to IDD Field `Wavelength 80`
+        
+        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `wavelength_80`
+            value (float): value for IDD Field `Wavelength 80`
                 Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -17249,10 +17599,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `wavelength_80`'.format(value))
-
         self._data["Wavelength 80"] = value
 
     @property
@@ -17266,10 +17615,12 @@ class SiteSpectrumData(object):
 
     @spectrum_80.setter
     def spectrum_80(self, value=None):
-        """  Corresponds to IDD Field `spectrum_80`
+        """  Corresponds to IDD Field `Spectrum 80`
+        
+        {u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `spectrum_80`
+            value (float): value for IDD Field `Spectrum 80`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -17279,10 +17630,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `spectrum_80`'.format(value))
-
         self._data["Spectrum 80"] = value
 
     @property
@@ -17296,10 +17646,12 @@ class SiteSpectrumData(object):
 
     @wavelength_81.setter
     def wavelength_81(self, value=None):
-        """  Corresponds to IDD Field `wavelength_81`
+        """  Corresponds to IDD Field `Wavelength 81`
+        
+        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `wavelength_81`
+            value (float): value for IDD Field `Wavelength 81`
                 Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -17310,10 +17662,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `wavelength_81`'.format(value))
-
         self._data["Wavelength 81"] = value
 
     @property
@@ -17327,10 +17678,12 @@ class SiteSpectrumData(object):
 
     @spectrum_81.setter
     def spectrum_81(self, value=None):
-        """  Corresponds to IDD Field `spectrum_81`
+        """  Corresponds to IDD Field `Spectrum 81`
+        
+        {u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `spectrum_81`
+            value (float): value for IDD Field `Spectrum 81`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -17340,10 +17693,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `spectrum_81`'.format(value))
-
         self._data["Spectrum 81"] = value
 
     @property
@@ -17357,10 +17709,12 @@ class SiteSpectrumData(object):
 
     @wavelength_82.setter
     def wavelength_82(self, value=None):
-        """  Corresponds to IDD Field `wavelength_82`
+        """  Corresponds to IDD Field `Wavelength 82`
+        
+        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `wavelength_82`
+            value (float): value for IDD Field `Wavelength 82`
                 Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -17371,10 +17725,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `wavelength_82`'.format(value))
-
         self._data["Wavelength 82"] = value
 
     @property
@@ -17388,10 +17741,12 @@ class SiteSpectrumData(object):
 
     @spectrum_82.setter
     def spectrum_82(self, value=None):
-        """  Corresponds to IDD Field `spectrum_82`
+        """  Corresponds to IDD Field `Spectrum 82`
+        
+        {u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `spectrum_82`
+            value (float): value for IDD Field `Spectrum 82`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -17401,10 +17756,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `spectrum_82`'.format(value))
-
         self._data["Spectrum 82"] = value
 
     @property
@@ -17418,10 +17772,12 @@ class SiteSpectrumData(object):
 
     @wavelength_83.setter
     def wavelength_83(self, value=None):
-        """  Corresponds to IDD Field `wavelength_83`
+        """  Corresponds to IDD Field `Wavelength 83`
+        
+        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `wavelength_83`
+            value (float): value for IDD Field `Wavelength 83`
                 Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -17432,10 +17788,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `wavelength_83`'.format(value))
-
         self._data["Wavelength 83"] = value
 
     @property
@@ -17449,10 +17804,12 @@ class SiteSpectrumData(object):
 
     @spectrum_83.setter
     def spectrum_83(self, value=None):
-        """  Corresponds to IDD Field `spectrum_83`
+        """  Corresponds to IDD Field `Spectrum 83`
+        
+        {u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `spectrum_83`
+            value (float): value for IDD Field `Spectrum 83`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -17462,10 +17819,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `spectrum_83`'.format(value))
-
         self._data["Spectrum 83"] = value
 
     @property
@@ -17479,10 +17835,12 @@ class SiteSpectrumData(object):
 
     @wavelength_84.setter
     def wavelength_84(self, value=None):
-        """  Corresponds to IDD Field `wavelength_84`
+        """  Corresponds to IDD Field `Wavelength 84`
+        
+        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `wavelength_84`
+            value (float): value for IDD Field `Wavelength 84`
                 Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -17493,10 +17851,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `wavelength_84`'.format(value))
-
         self._data["Wavelength 84"] = value
 
     @property
@@ -17510,10 +17867,12 @@ class SiteSpectrumData(object):
 
     @spectrum_84.setter
     def spectrum_84(self, value=None):
-        """  Corresponds to IDD Field `spectrum_84`
+        """  Corresponds to IDD Field `Spectrum 84`
+        
+        {u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `spectrum_84`
+            value (float): value for IDD Field `Spectrum 84`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -17523,10 +17882,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `spectrum_84`'.format(value))
-
         self._data["Spectrum 84"] = value
 
     @property
@@ -17540,10 +17898,12 @@ class SiteSpectrumData(object):
 
     @wavelength_85.setter
     def wavelength_85(self, value=None):
-        """  Corresponds to IDD Field `wavelength_85`
+        """  Corresponds to IDD Field `Wavelength 85`
+        
+        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `wavelength_85`
+            value (float): value for IDD Field `Wavelength 85`
                 Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -17554,10 +17914,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `wavelength_85`'.format(value))
-
         self._data["Wavelength 85"] = value
 
     @property
@@ -17571,10 +17930,12 @@ class SiteSpectrumData(object):
 
     @spectrum_85.setter
     def spectrum_85(self, value=None):
-        """  Corresponds to IDD Field `spectrum_85`
+        """  Corresponds to IDD Field `Spectrum 85`
+        
+        {u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `spectrum_85`
+            value (float): value for IDD Field `Spectrum 85`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -17584,10 +17945,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `spectrum_85`'.format(value))
-
         self._data["Spectrum 85"] = value
 
     @property
@@ -17601,10 +17961,12 @@ class SiteSpectrumData(object):
 
     @wavelength_86.setter
     def wavelength_86(self, value=None):
-        """  Corresponds to IDD Field `wavelength_86`
+        """  Corresponds to IDD Field `Wavelength 86`
+        
+        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `wavelength_86`
+            value (float): value for IDD Field `Wavelength 86`
                 Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -17615,10 +17977,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `wavelength_86`'.format(value))
-
         self._data["Wavelength 86"] = value
 
     @property
@@ -17632,10 +17993,12 @@ class SiteSpectrumData(object):
 
     @spectrum_86.setter
     def spectrum_86(self, value=None):
-        """  Corresponds to IDD Field `spectrum_86`
+        """  Corresponds to IDD Field `Spectrum 86`
+        
+        {u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `spectrum_86`
+            value (float): value for IDD Field `Spectrum 86`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -17645,10 +18008,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `spectrum_86`'.format(value))
-
         self._data["Spectrum 86"] = value
 
     @property
@@ -17662,10 +18024,12 @@ class SiteSpectrumData(object):
 
     @wavelength_87.setter
     def wavelength_87(self, value=None):
-        """  Corresponds to IDD Field `wavelength_87`
+        """  Corresponds to IDD Field `Wavelength 87`
+        
+        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `wavelength_87`
+            value (float): value for IDD Field `Wavelength 87`
                 Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -17676,10 +18040,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `wavelength_87`'.format(value))
-
         self._data["Wavelength 87"] = value
 
     @property
@@ -17693,10 +18056,12 @@ class SiteSpectrumData(object):
 
     @spectrum_87.setter
     def spectrum_87(self, value=None):
-        """  Corresponds to IDD Field `spectrum_87`
+        """  Corresponds to IDD Field `Spectrum 87`
+        
+        {u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `spectrum_87`
+            value (float): value for IDD Field `Spectrum 87`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -17706,10 +18071,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `spectrum_87`'.format(value))
-
         self._data["Spectrum 87"] = value
 
     @property
@@ -17723,10 +18087,12 @@ class SiteSpectrumData(object):
 
     @wavelength_88.setter
     def wavelength_88(self, value=None):
-        """  Corresponds to IDD Field `wavelength_88`
+        """  Corresponds to IDD Field `Wavelength 88`
+        
+        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `wavelength_88`
+            value (float): value for IDD Field `Wavelength 88`
                 Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -17737,10 +18103,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `wavelength_88`'.format(value))
-
         self._data["Wavelength 88"] = value
 
     @property
@@ -17754,10 +18119,12 @@ class SiteSpectrumData(object):
 
     @spectrum_88.setter
     def spectrum_88(self, value=None):
-        """  Corresponds to IDD Field `spectrum_88`
+        """  Corresponds to IDD Field `Spectrum 88`
+        
+        {u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `spectrum_88`
+            value (float): value for IDD Field `Spectrum 88`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -17767,10 +18134,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `spectrum_88`'.format(value))
-
         self._data["Spectrum 88"] = value
 
     @property
@@ -17784,10 +18150,12 @@ class SiteSpectrumData(object):
 
     @wavelength_89.setter
     def wavelength_89(self, value=None):
-        """  Corresponds to IDD Field `wavelength_89`
+        """  Corresponds to IDD Field `Wavelength 89`
+        
+        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `wavelength_89`
+            value (float): value for IDD Field `Wavelength 89`
                 Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -17798,10 +18166,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `wavelength_89`'.format(value))
-
         self._data["Wavelength 89"] = value
 
     @property
@@ -17815,10 +18182,12 @@ class SiteSpectrumData(object):
 
     @spectrum_89.setter
     def spectrum_89(self, value=None):
-        """  Corresponds to IDD Field `spectrum_89`
+        """  Corresponds to IDD Field `Spectrum 89`
+        
+        {u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `spectrum_89`
+            value (float): value for IDD Field `Spectrum 89`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -17828,10 +18197,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `spectrum_89`'.format(value))
-
         self._data["Spectrum 89"] = value
 
     @property
@@ -17845,10 +18213,12 @@ class SiteSpectrumData(object):
 
     @wavelength_90.setter
     def wavelength_90(self, value=None):
-        """  Corresponds to IDD Field `wavelength_90`
+        """  Corresponds to IDD Field `Wavelength 90`
+        
+        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `wavelength_90`
+            value (float): value for IDD Field `Wavelength 90`
                 Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -17859,10 +18229,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `wavelength_90`'.format(value))
-
         self._data["Wavelength 90"] = value
 
     @property
@@ -17876,10 +18245,12 @@ class SiteSpectrumData(object):
 
     @spectrum_90.setter
     def spectrum_90(self, value=None):
-        """  Corresponds to IDD Field `spectrum_90`
+        """  Corresponds to IDD Field `Spectrum 90`
+        
+        {u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `spectrum_90`
+            value (float): value for IDD Field `Spectrum 90`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -17889,10 +18260,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `spectrum_90`'.format(value))
-
         self._data["Spectrum 90"] = value
 
     @property
@@ -17906,10 +18276,12 @@ class SiteSpectrumData(object):
 
     @wavelength_91.setter
     def wavelength_91(self, value=None):
-        """  Corresponds to IDD Field `wavelength_91`
+        """  Corresponds to IDD Field `Wavelength 91`
+        
+        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `wavelength_91`
+            value (float): value for IDD Field `Wavelength 91`
                 Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -17920,10 +18292,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `wavelength_91`'.format(value))
-
         self._data["Wavelength 91"] = value
 
     @property
@@ -17937,10 +18308,12 @@ class SiteSpectrumData(object):
 
     @spectrum_91.setter
     def spectrum_91(self, value=None):
-        """  Corresponds to IDD Field `spectrum_91`
+        """  Corresponds to IDD Field `Spectrum 91`
+        
+        {u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `spectrum_91`
+            value (float): value for IDD Field `Spectrum 91`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -17950,10 +18323,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `spectrum_91`'.format(value))
-
         self._data["Spectrum 91"] = value
 
     @property
@@ -17967,10 +18339,12 @@ class SiteSpectrumData(object):
 
     @wavelength_92.setter
     def wavelength_92(self, value=None):
-        """  Corresponds to IDD Field `wavelength_92`
+        """  Corresponds to IDD Field `Wavelength 92`
+        
+        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `wavelength_92`
+            value (float): value for IDD Field `Wavelength 92`
                 Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -17981,10 +18355,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `wavelength_92`'.format(value))
-
         self._data["Wavelength 92"] = value
 
     @property
@@ -17998,10 +18371,12 @@ class SiteSpectrumData(object):
 
     @spectrum_92.setter
     def spectrum_92(self, value=None):
-        """  Corresponds to IDD Field `spectrum_92`
+        """  Corresponds to IDD Field `Spectrum 92`
+        
+        {u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `spectrum_92`
+            value (float): value for IDD Field `Spectrum 92`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -18011,10 +18386,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `spectrum_92`'.format(value))
-
         self._data["Spectrum 92"] = value
 
     @property
@@ -18028,10 +18402,12 @@ class SiteSpectrumData(object):
 
     @wavelength_93.setter
     def wavelength_93(self, value=None):
-        """  Corresponds to IDD Field `wavelength_93`
+        """  Corresponds to IDD Field `Wavelength 93`
+        
+        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `wavelength_93`
+            value (float): value for IDD Field `Wavelength 93`
                 Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -18042,10 +18418,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `wavelength_93`'.format(value))
-
         self._data["Wavelength 93"] = value
 
     @property
@@ -18059,10 +18434,12 @@ class SiteSpectrumData(object):
 
     @spectrum_93.setter
     def spectrum_93(self, value=None):
-        """  Corresponds to IDD Field `spectrum_93`
+        """  Corresponds to IDD Field `Spectrum 93`
+        
+        {u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `spectrum_93`
+            value (float): value for IDD Field `Spectrum 93`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -18072,10 +18449,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `spectrum_93`'.format(value))
-
         self._data["Spectrum 93"] = value
 
     @property
@@ -18089,10 +18465,12 @@ class SiteSpectrumData(object):
 
     @wavelength_94.setter
     def wavelength_94(self, value=None):
-        """  Corresponds to IDD Field `wavelength_94`
+        """  Corresponds to IDD Field `Wavelength 94`
+        
+        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `wavelength_94`
+            value (float): value for IDD Field `Wavelength 94`
                 Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -18103,10 +18481,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `wavelength_94`'.format(value))
-
         self._data["Wavelength 94"] = value
 
     @property
@@ -18120,10 +18497,12 @@ class SiteSpectrumData(object):
 
     @spectrum_94.setter
     def spectrum_94(self, value=None):
-        """  Corresponds to IDD Field `spectrum_94`
+        """  Corresponds to IDD Field `Spectrum 94`
+        
+        {u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `spectrum_94`
+            value (float): value for IDD Field `Spectrum 94`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -18133,10 +18512,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `spectrum_94`'.format(value))
-
         self._data["Spectrum 94"] = value
 
     @property
@@ -18150,10 +18528,12 @@ class SiteSpectrumData(object):
 
     @wavelength_95.setter
     def wavelength_95(self, value=None):
-        """  Corresponds to IDD Field `wavelength_95`
+        """  Corresponds to IDD Field `Wavelength 95`
+        
+        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `wavelength_95`
+            value (float): value for IDD Field `Wavelength 95`
                 Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -18164,10 +18544,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `wavelength_95`'.format(value))
-
         self._data["Wavelength 95"] = value
 
     @property
@@ -18181,10 +18560,12 @@ class SiteSpectrumData(object):
 
     @spectrum_95.setter
     def spectrum_95(self, value=None):
-        """  Corresponds to IDD Field `spectrum_95`
+        """  Corresponds to IDD Field `Spectrum 95`
+        
+        {u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `spectrum_95`
+            value (float): value for IDD Field `Spectrum 95`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -18194,10 +18575,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `spectrum_95`'.format(value))
-
         self._data["Spectrum 95"] = value
 
     @property
@@ -18211,10 +18591,12 @@ class SiteSpectrumData(object):
 
     @wavelength_96.setter
     def wavelength_96(self, value=None):
-        """  Corresponds to IDD Field `wavelength_96`
+        """  Corresponds to IDD Field `Wavelength 96`
+        
+        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `wavelength_96`
+            value (float): value for IDD Field `Wavelength 96`
                 Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -18225,10 +18607,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `wavelength_96`'.format(value))
-
         self._data["Wavelength 96"] = value
 
     @property
@@ -18242,10 +18623,12 @@ class SiteSpectrumData(object):
 
     @spectrum_96.setter
     def spectrum_96(self, value=None):
-        """  Corresponds to IDD Field `spectrum_96`
+        """  Corresponds to IDD Field `Spectrum 96`
+        
+        {u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `spectrum_96`
+            value (float): value for IDD Field `Spectrum 96`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -18255,10 +18638,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `spectrum_96`'.format(value))
-
         self._data["Spectrum 96"] = value
 
     @property
@@ -18272,10 +18654,12 @@ class SiteSpectrumData(object):
 
     @wavelength_97.setter
     def wavelength_97(self, value=None):
-        """  Corresponds to IDD Field `wavelength_97`
+        """  Corresponds to IDD Field `Wavelength 97`
+        
+        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `wavelength_97`
+            value (float): value for IDD Field `Wavelength 97`
                 Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -18286,10 +18670,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `wavelength_97`'.format(value))
-
         self._data["Wavelength 97"] = value
 
     @property
@@ -18303,10 +18686,12 @@ class SiteSpectrumData(object):
 
     @spectrum_97.setter
     def spectrum_97(self, value=None):
-        """  Corresponds to IDD Field `spectrum_97`
+        """  Corresponds to IDD Field `Spectrum 97`
+        
+        {u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `spectrum_97`
+            value (float): value for IDD Field `Spectrum 97`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -18316,10 +18701,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `spectrum_97`'.format(value))
-
         self._data["Spectrum 97"] = value
 
     @property
@@ -18333,10 +18717,12 @@ class SiteSpectrumData(object):
 
     @wavelength_98.setter
     def wavelength_98(self, value=None):
-        """  Corresponds to IDD Field `wavelength_98`
+        """  Corresponds to IDD Field `Wavelength 98`
+        
+        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `wavelength_98`
+            value (float): value for IDD Field `Wavelength 98`
                 Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -18347,10 +18733,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `wavelength_98`'.format(value))
-
         self._data["Wavelength 98"] = value
 
     @property
@@ -18364,10 +18749,12 @@ class SiteSpectrumData(object):
 
     @spectrum_98.setter
     def spectrum_98(self, value=None):
-        """  Corresponds to IDD Field `spectrum_98`
+        """  Corresponds to IDD Field `Spectrum 98`
+        
+        {u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `spectrum_98`
+            value (float): value for IDD Field `Spectrum 98`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -18377,10 +18764,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `spectrum_98`'.format(value))
-
         self._data["Spectrum 98"] = value
 
     @property
@@ -18394,10 +18780,12 @@ class SiteSpectrumData(object):
 
     @wavelength_99.setter
     def wavelength_99(self, value=None):
-        """  Corresponds to IDD Field `wavelength_99`
+        """  Corresponds to IDD Field `Wavelength 99`
+        
+        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `wavelength_99`
+            value (float): value for IDD Field `Wavelength 99`
                 Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -18408,10 +18796,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `wavelength_99`'.format(value))
-
         self._data["Wavelength 99"] = value
 
     @property
@@ -18425,10 +18812,12 @@ class SiteSpectrumData(object):
 
     @spectrum_99.setter
     def spectrum_99(self, value=None):
-        """  Corresponds to IDD Field `spectrum_99`
+        """  Corresponds to IDD Field `Spectrum 99`
+        
+        {u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `spectrum_99`
+            value (float): value for IDD Field `Spectrum 99`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -18438,10 +18827,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `spectrum_99`'.format(value))
-
         self._data["Spectrum 99"] = value
 
     @property
@@ -18455,10 +18843,12 @@ class SiteSpectrumData(object):
 
     @wavelength_100.setter
     def wavelength_100(self, value=None):
-        """  Corresponds to IDD Field `wavelength_100`
+        """  Corresponds to IDD Field `Wavelength 100`
+        
+        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `wavelength_100`
+            value (float): value for IDD Field `Wavelength 100`
                 Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -18469,10 +18859,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `wavelength_100`'.format(value))
-
         self._data["Wavelength 100"] = value
 
     @property
@@ -18486,10 +18875,12 @@ class SiteSpectrumData(object):
 
     @spectrum_100.setter
     def spectrum_100(self, value=None):
-        """  Corresponds to IDD Field `spectrum_100`
+        """  Corresponds to IDD Field `Spectrum 100`
+        
+        {u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `spectrum_100`
+            value (float): value for IDD Field `Spectrum 100`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -18499,10 +18890,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `spectrum_100`'.format(value))
-
         self._data["Spectrum 100"] = value
 
     @property
@@ -18516,10 +18906,12 @@ class SiteSpectrumData(object):
 
     @wavelength_101.setter
     def wavelength_101(self, value=None):
-        """  Corresponds to IDD Field `wavelength_101`
+        """  Corresponds to IDD Field `Wavelength 101`
+        
+        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `wavelength_101`
+            value (float): value for IDD Field `Wavelength 101`
                 Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -18530,10 +18922,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `wavelength_101`'.format(value))
-
         self._data["Wavelength 101"] = value
 
     @property
@@ -18547,10 +18938,12 @@ class SiteSpectrumData(object):
 
     @spectrum_101.setter
     def spectrum_101(self, value=None):
-        """  Corresponds to IDD Field `spectrum_101`
+        """  Corresponds to IDD Field `Spectrum 101`
+        
+        {u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `spectrum_101`
+            value (float): value for IDD Field `Spectrum 101`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -18560,10 +18953,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `spectrum_101`'.format(value))
-
         self._data["Spectrum 101"] = value
 
     @property
@@ -18577,10 +18969,12 @@ class SiteSpectrumData(object):
 
     @wavelength_102.setter
     def wavelength_102(self, value=None):
-        """  Corresponds to IDD Field `wavelength_102`
+        """  Corresponds to IDD Field `Wavelength 102`
+        
+        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `wavelength_102`
+            value (float): value for IDD Field `Wavelength 102`
                 Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -18591,10 +18985,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `wavelength_102`'.format(value))
-
         self._data["Wavelength 102"] = value
 
     @property
@@ -18608,10 +19001,12 @@ class SiteSpectrumData(object):
 
     @spectrum_102.setter
     def spectrum_102(self, value=None):
-        """  Corresponds to IDD Field `spectrum_102`
+        """  Corresponds to IDD Field `Spectrum 102`
+        
+        {u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `spectrum_102`
+            value (float): value for IDD Field `Spectrum 102`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -18621,10 +19016,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `spectrum_102`'.format(value))
-
         self._data["Spectrum 102"] = value
 
     @property
@@ -18638,10 +19032,12 @@ class SiteSpectrumData(object):
 
     @wavelength_103.setter
     def wavelength_103(self, value=None):
-        """  Corresponds to IDD Field `wavelength_103`
+        """  Corresponds to IDD Field `Wavelength 103`
+        
+        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `wavelength_103`
+            value (float): value for IDD Field `Wavelength 103`
                 Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -18652,10 +19048,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `wavelength_103`'.format(value))
-
         self._data["Wavelength 103"] = value
 
     @property
@@ -18669,10 +19064,12 @@ class SiteSpectrumData(object):
 
     @spectrum_103.setter
     def spectrum_103(self, value=None):
-        """  Corresponds to IDD Field `spectrum_103`
+        """  Corresponds to IDD Field `Spectrum 103`
+        
+        {u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `spectrum_103`
+            value (float): value for IDD Field `Spectrum 103`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -18682,10 +19079,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `spectrum_103`'.format(value))
-
         self._data["Spectrum 103"] = value
 
     @property
@@ -18699,10 +19095,12 @@ class SiteSpectrumData(object):
 
     @wavelength_104.setter
     def wavelength_104(self, value=None):
-        """  Corresponds to IDD Field `wavelength_104`
+        """  Corresponds to IDD Field `Wavelength 104`
+        
+        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `wavelength_104`
+            value (float): value for IDD Field `Wavelength 104`
                 Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -18713,10 +19111,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `wavelength_104`'.format(value))
-
         self._data["Wavelength 104"] = value
 
     @property
@@ -18730,10 +19127,12 @@ class SiteSpectrumData(object):
 
     @spectrum_104.setter
     def spectrum_104(self, value=None):
-        """  Corresponds to IDD Field `spectrum_104`
+        """  Corresponds to IDD Field `Spectrum 104`
+        
+        {u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `spectrum_104`
+            value (float): value for IDD Field `Spectrum 104`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -18743,10 +19142,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `spectrum_104`'.format(value))
-
         self._data["Spectrum 104"] = value
 
     @property
@@ -18760,10 +19158,12 @@ class SiteSpectrumData(object):
 
     @wavelength_105.setter
     def wavelength_105(self, value=None):
-        """  Corresponds to IDD Field `wavelength_105`
+        """  Corresponds to IDD Field `Wavelength 105`
+        
+        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `wavelength_105`
+            value (float): value for IDD Field `Wavelength 105`
                 Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -18774,10 +19174,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `wavelength_105`'.format(value))
-
         self._data["Wavelength 105"] = value
 
     @property
@@ -18791,10 +19190,12 @@ class SiteSpectrumData(object):
 
     @spectrum_105.setter
     def spectrum_105(self, value=None):
-        """  Corresponds to IDD Field `spectrum_105`
+        """  Corresponds to IDD Field `Spectrum 105`
+        
+        {u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `spectrum_105`
+            value (float): value for IDD Field `Spectrum 105`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -18804,10 +19205,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `spectrum_105`'.format(value))
-
         self._data["Spectrum 105"] = value
 
     @property
@@ -18821,10 +19221,12 @@ class SiteSpectrumData(object):
 
     @wavelength_106.setter
     def wavelength_106(self, value=None):
-        """  Corresponds to IDD Field `wavelength_106`
+        """  Corresponds to IDD Field `Wavelength 106`
+        
+        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `wavelength_106`
+            value (float): value for IDD Field `Wavelength 106`
                 Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -18835,10 +19237,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `wavelength_106`'.format(value))
-
         self._data["Wavelength 106"] = value
 
     @property
@@ -18852,10 +19253,12 @@ class SiteSpectrumData(object):
 
     @spectrum_106.setter
     def spectrum_106(self, value=None):
-        """  Corresponds to IDD Field `spectrum_106`
+        """  Corresponds to IDD Field `Spectrum 106`
+        
+        {u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `spectrum_106`
+            value (float): value for IDD Field `Spectrum 106`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -18865,10 +19268,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `spectrum_106`'.format(value))
-
         self._data["Spectrum 106"] = value
 
     @property
@@ -18882,10 +19284,12 @@ class SiteSpectrumData(object):
 
     @wavelength_107.setter
     def wavelength_107(self, value=None):
-        """  Corresponds to IDD Field `wavelength_107`
+        """  Corresponds to IDD Field `Wavelength 107`
+        
+        {u'units': u'micron', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `wavelength_107`
+            value (float): value for IDD Field `Wavelength 107`
                 Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -18896,10 +19300,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `wavelength_107`'.format(value))
-
         self._data["Wavelength 107"] = value
 
     @property
@@ -18913,10 +19316,12 @@ class SiteSpectrumData(object):
 
     @spectrum_107.setter
     def spectrum_107(self, value=None):
-        """  Corresponds to IDD Field `spectrum_107`
+        """  Corresponds to IDD Field `Spectrum 107`
+        
+        {u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `spectrum_107`
+            value (float): value for IDD Field `Spectrum 107`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -18926,10 +19331,9 @@ class SiteSpectrumData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `spectrum_107`'.format(value))
-
         self._data["Spectrum 107"] = value
 
     def check(self):

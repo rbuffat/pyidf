@@ -68,10 +68,12 @@ class SetpointManagerScheduled(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {'type': 'alpha', u'reference': u'SetpointManagers', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -81,7 +83,7 @@ class SetpointManagerScheduled(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -90,7 +92,6 @@ class SetpointManagerScheduled(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -104,10 +105,12 @@ class SetpointManagerScheduled(object):
 
     @control_variable.setter
     def control_variable(self, value=None):
-        """  Corresponds to IDD Field `control_variable`
+        """  Corresponds to IDD Field `Control Variable`
+        
+        {u'type': u'choice', u'required-field': True, u'key': [u'Temperature', u'MaximumTemperature', u'MinimumTemperature', u'HumidityRatio', u'MaximumHumidityRatio', u'MinimumHumidityRatio', u'MassFlowRate', u'MaximumMassFlowRate', u'MinimumMassFlowRate'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `control_variable`
+            value (str): value for IDD Field `Control Variable`
                 Accepted values are:
                       - Temperature
                       - MaximumTemperature
@@ -127,7 +130,7 @@ class SetpointManagerScheduled(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `control_variable`'.format(value))
             if ',' in value:
@@ -160,7 +163,6 @@ class SetpointManagerScheduled(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `control_variable`'.format(value))
             value = vals[value_lower]
-
         self._data["Control Variable"] = value
 
     @property
@@ -174,10 +176,12 @@ class SetpointManagerScheduled(object):
 
     @schedule_name.setter
     def schedule_name(self, value=None):
-        """  Corresponds to IDD Field `schedule_name`
+        """  Corresponds to IDD Field `Schedule Name`
+        
+        {u'type': u'object-list', u'object-list': u'ScheduleNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `schedule_name`
+            value (str): value for IDD Field `Schedule Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -187,7 +191,7 @@ class SetpointManagerScheduled(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `schedule_name`'.format(value))
             if ',' in value:
@@ -196,7 +200,6 @@ class SetpointManagerScheduled(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `schedule_name`')
-
         self._data["Schedule Name"] = value
 
     @property
@@ -210,11 +213,13 @@ class SetpointManagerScheduled(object):
 
     @setpoint_node_or_nodelist_name.setter
     def setpoint_node_or_nodelist_name(self, value=None):
-        """  Corresponds to IDD Field `setpoint_node_or_nodelist_name`
+        """  Corresponds to IDD Field `Setpoint Node or NodeList Name`
         Node(s) at which control variable will be set
+        
+        {u'note': [u'Node(s) at which control variable will be set'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `setpoint_node_or_nodelist_name`
+            value (str): value for IDD Field `Setpoint Node or NodeList Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -224,7 +229,7 @@ class SetpointManagerScheduled(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `setpoint_node_or_nodelist_name`'.format(value))
             if ',' in value:
@@ -233,7 +238,6 @@ class SetpointManagerScheduled(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `setpoint_node_or_nodelist_name`')
-
         self._data["Setpoint Node or NodeList Name"] = value
 
     def check(self):
@@ -346,10 +350,12 @@ class SetpointManagerScheduledDualSetpoint(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {'type': 'alpha', u'reference': u'SetpointManagers', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -359,7 +365,7 @@ class SetpointManagerScheduledDualSetpoint(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -368,7 +374,6 @@ class SetpointManagerScheduledDualSetpoint(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -382,10 +387,12 @@ class SetpointManagerScheduledDualSetpoint(object):
 
     @control_variable.setter
     def control_variable(self, value="Temperature"):
-        """  Corresponds to IDD Field `control_variable`
+        """  Corresponds to IDD Field `Control Variable`
+        
+        {u'default': u'Temperature', u'type': u'choice', u'key': [u'Temperature'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `control_variable`
+            value (str): value for IDD Field `Control Variable`
                 Accepted values are:
                       - Temperature
                 Default value: Temperature
@@ -398,7 +405,7 @@ class SetpointManagerScheduledDualSetpoint(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `control_variable`'.format(value))
             if ',' in value:
@@ -423,7 +430,6 @@ class SetpointManagerScheduledDualSetpoint(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `control_variable`'.format(value))
             value = vals[value_lower]
-
         self._data["Control Variable"] = value
 
     @property
@@ -437,10 +443,12 @@ class SetpointManagerScheduledDualSetpoint(object):
 
     @high_setpoint_schedule_name.setter
     def high_setpoint_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `high_setpoint_schedule_name`
+        """  Corresponds to IDD Field `High Setpoint Schedule Name`
+        
+        {u'type': u'object-list', u'object-list': u'ScheduleNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `high_setpoint_schedule_name`
+            value (str): value for IDD Field `High Setpoint Schedule Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -450,7 +458,7 @@ class SetpointManagerScheduledDualSetpoint(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `high_setpoint_schedule_name`'.format(value))
             if ',' in value:
@@ -459,7 +467,6 @@ class SetpointManagerScheduledDualSetpoint(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `high_setpoint_schedule_name`')
-
         self._data["High Setpoint Schedule Name"] = value
 
     @property
@@ -473,10 +480,12 @@ class SetpointManagerScheduledDualSetpoint(object):
 
     @low_setpoint_schedule_name.setter
     def low_setpoint_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `low_setpoint_schedule_name`
+        """  Corresponds to IDD Field `Low Setpoint Schedule Name`
+        
+        {u'type': u'object-list', u'object-list': u'ScheduleNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `low_setpoint_schedule_name`
+            value (str): value for IDD Field `Low Setpoint Schedule Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -486,7 +495,7 @@ class SetpointManagerScheduledDualSetpoint(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `low_setpoint_schedule_name`'.format(value))
             if ',' in value:
@@ -495,7 +504,6 @@ class SetpointManagerScheduledDualSetpoint(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `low_setpoint_schedule_name`')
-
         self._data["Low Setpoint Schedule Name"] = value
 
     @property
@@ -509,11 +517,13 @@ class SetpointManagerScheduledDualSetpoint(object):
 
     @setpoint_node_or_nodelist_name.setter
     def setpoint_node_or_nodelist_name(self, value=None):
-        """  Corresponds to IDD Field `setpoint_node_or_nodelist_name`
+        """  Corresponds to IDD Field `Setpoint Node or NodeList Name`
         Node(s) at which temperature will be set
+        
+        {u'note': [u'Node(s) at which temperature will be set'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `setpoint_node_or_nodelist_name`
+            value (str): value for IDD Field `Setpoint Node or NodeList Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -523,7 +533,7 @@ class SetpointManagerScheduledDualSetpoint(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `setpoint_node_or_nodelist_name`'.format(value))
             if ',' in value:
@@ -532,7 +542,6 @@ class SetpointManagerScheduledDualSetpoint(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `setpoint_node_or_nodelist_name`')
-
         self._data["Setpoint Node or NodeList Name"] = value
 
     def check(self):
@@ -701,10 +710,12 @@ class SetpointManagerOutdoorAirReset(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {'type': 'alpha', u'reference': u'SetpointManagers', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -714,7 +725,7 @@ class SetpointManagerOutdoorAirReset(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -723,7 +734,6 @@ class SetpointManagerOutdoorAirReset(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -737,10 +747,12 @@ class SetpointManagerOutdoorAirReset(object):
 
     @control_variable.setter
     def control_variable(self, value="Temperature"):
-        """  Corresponds to IDD Field `control_variable`
+        """  Corresponds to IDD Field `Control Variable`
+        
+        {u'default': u'Temperature', u'type': u'choice', u'key': [u'Temperature'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `control_variable`
+            value (str): value for IDD Field `Control Variable`
                 Accepted values are:
                       - Temperature
                 Default value: Temperature
@@ -753,7 +765,7 @@ class SetpointManagerOutdoorAirReset(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `control_variable`'.format(value))
             if ',' in value:
@@ -778,7 +790,6 @@ class SetpointManagerOutdoorAirReset(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `control_variable`'.format(value))
             value = vals[value_lower]
-
         self._data["Control Variable"] = value
 
     @property
@@ -792,10 +803,12 @@ class SetpointManagerOutdoorAirReset(object):
 
     @setpoint_at_outdoor_low_temperature.setter
     def setpoint_at_outdoor_low_temperature(self, value=None):
-        """  Corresponds to IDD Field `setpoint_at_outdoor_low_temperature`
+        """  Corresponds to IDD Field `Setpoint at Outdoor Low Temperature`
+        
+        {u'units': u'C', 'type': 'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `setpoint_at_outdoor_low_temperature`
+            value (float): value for IDD Field `Setpoint at Outdoor Low Temperature`
                 Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -806,10 +819,9 @@ class SetpointManagerOutdoorAirReset(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `setpoint_at_outdoor_low_temperature`'.format(value))
-
         self._data["Setpoint at Outdoor Low Temperature"] = value
 
     @property
@@ -823,10 +835,12 @@ class SetpointManagerOutdoorAirReset(object):
 
     @outdoor_low_temperature.setter
     def outdoor_low_temperature(self, value=None):
-        """  Corresponds to IDD Field `outdoor_low_temperature`
+        """  Corresponds to IDD Field `Outdoor Low Temperature`
+        
+        {u'units': u'C', 'type': 'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `outdoor_low_temperature`
+            value (float): value for IDD Field `Outdoor Low Temperature`
                 Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -837,10 +851,9 @@ class SetpointManagerOutdoorAirReset(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `outdoor_low_temperature`'.format(value))
-
         self._data["Outdoor Low Temperature"] = value
 
     @property
@@ -854,10 +867,12 @@ class SetpointManagerOutdoorAirReset(object):
 
     @setpoint_at_outdoor_high_temperature.setter
     def setpoint_at_outdoor_high_temperature(self, value=None):
-        """  Corresponds to IDD Field `setpoint_at_outdoor_high_temperature`
+        """  Corresponds to IDD Field `Setpoint at Outdoor High Temperature`
+        
+        {u'units': u'C', 'type': 'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `setpoint_at_outdoor_high_temperature`
+            value (float): value for IDD Field `Setpoint at Outdoor High Temperature`
                 Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -868,10 +883,9 @@ class SetpointManagerOutdoorAirReset(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `setpoint_at_outdoor_high_temperature`'.format(value))
-
         self._data["Setpoint at Outdoor High Temperature"] = value
 
     @property
@@ -885,10 +899,12 @@ class SetpointManagerOutdoorAirReset(object):
 
     @outdoor_high_temperature.setter
     def outdoor_high_temperature(self, value=None):
-        """  Corresponds to IDD Field `outdoor_high_temperature`
+        """  Corresponds to IDD Field `Outdoor High Temperature`
+        
+        {u'units': u'C', 'type': 'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `outdoor_high_temperature`
+            value (float): value for IDD Field `Outdoor High Temperature`
                 Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -899,10 +915,9 @@ class SetpointManagerOutdoorAirReset(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `outdoor_high_temperature`'.format(value))
-
         self._data["Outdoor High Temperature"] = value
 
     @property
@@ -916,11 +931,13 @@ class SetpointManagerOutdoorAirReset(object):
 
     @setpoint_node_or_nodelist_name.setter
     def setpoint_node_or_nodelist_name(self, value=None):
-        """  Corresponds to IDD Field `setpoint_node_or_nodelist_name`
+        """  Corresponds to IDD Field `Setpoint Node or NodeList Name`
         Node(s) at which temperature will be set
+        
+        {u'note': [u'Node(s) at which temperature will be set'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `setpoint_node_or_nodelist_name`
+            value (str): value for IDD Field `Setpoint Node or NodeList Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -930,7 +947,7 @@ class SetpointManagerOutdoorAirReset(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `setpoint_node_or_nodelist_name`'.format(value))
             if ',' in value:
@@ -939,7 +956,6 @@ class SetpointManagerOutdoorAirReset(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `setpoint_node_or_nodelist_name`')
-
         self._data["Setpoint Node or NodeList Name"] = value
 
     @property
@@ -953,13 +969,15 @@ class SetpointManagerOutdoorAirReset(object):
 
     @schedule_name.setter
     def schedule_name(self, value=None):
-        """  Corresponds to IDD Field `schedule_name`
+        """  Corresponds to IDD Field `Schedule Name`
         Optional input.
         Schedule allows scheduling of the outdoor air reset rule - a schedule value
         of 1 means use the first rule; a value of 2 means use the second rule.
+        
+        {u'note': [u'Optional input.', u'Schedule allows scheduling of the outdoor air reset rule - a schedule value', u'of 1 means use the first rule; a value of 2 means use the second rule.'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `schedule_name`
+            value (str): value for IDD Field `Schedule Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -969,7 +987,7 @@ class SetpointManagerOutdoorAirReset(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `schedule_name`'.format(value))
             if ',' in value:
@@ -978,7 +996,6 @@ class SetpointManagerOutdoorAirReset(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `schedule_name`')
-
         self._data["Schedule Name"] = value
 
     @property
@@ -992,11 +1009,13 @@ class SetpointManagerOutdoorAirReset(object):
 
     @setpoint_at_outdoor_low_temperature_2.setter
     def setpoint_at_outdoor_low_temperature_2(self, value=None):
-        """  Corresponds to IDD Field `setpoint_at_outdoor_low_temperature_2`
+        """  Corresponds to IDD Field `Setpoint at Outdoor Low Temperature 2`
         2nd outdoor air temperature reset rule
+        
+        {u'note': [u'2nd outdoor air temperature reset rule'], u'units': u'C', 'type': 'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `setpoint_at_outdoor_low_temperature_2`
+            value (float): value for IDD Field `Setpoint at Outdoor Low Temperature 2`
                 Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1007,10 +1026,9 @@ class SetpointManagerOutdoorAirReset(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `setpoint_at_outdoor_low_temperature_2`'.format(value))
-
         self._data["Setpoint at Outdoor Low Temperature 2"] = value
 
     @property
@@ -1024,11 +1042,13 @@ class SetpointManagerOutdoorAirReset(object):
 
     @outdoor_low_temperature_2.setter
     def outdoor_low_temperature_2(self, value=None):
-        """  Corresponds to IDD Field `outdoor_low_temperature_2`
+        """  Corresponds to IDD Field `Outdoor Low Temperature 2`
         2nd outdoor air temperature reset rule
+        
+        {u'note': [u'2nd outdoor air temperature reset rule'], u'units': u'C', 'type': 'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `outdoor_low_temperature_2`
+            value (float): value for IDD Field `Outdoor Low Temperature 2`
                 Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1039,10 +1059,9 @@ class SetpointManagerOutdoorAirReset(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `outdoor_low_temperature_2`'.format(value))
-
         self._data["Outdoor Low Temperature 2"] = value
 
     @property
@@ -1056,11 +1075,13 @@ class SetpointManagerOutdoorAirReset(object):
 
     @setpoint_at_outdoor_high_temperature_2.setter
     def setpoint_at_outdoor_high_temperature_2(self, value=None):
-        """  Corresponds to IDD Field `setpoint_at_outdoor_high_temperature_2`
+        """  Corresponds to IDD Field `Setpoint at Outdoor High Temperature 2`
         2nd outdoor air temperature reset rule
+        
+        {u'note': [u'2nd outdoor air temperature reset rule'], u'units': u'C', 'type': 'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `setpoint_at_outdoor_high_temperature_2`
+            value (float): value for IDD Field `Setpoint at Outdoor High Temperature 2`
                 Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1071,10 +1092,9 @@ class SetpointManagerOutdoorAirReset(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `setpoint_at_outdoor_high_temperature_2`'.format(value))
-
         self._data["Setpoint at Outdoor High Temperature 2"] = value
 
     @property
@@ -1088,11 +1108,13 @@ class SetpointManagerOutdoorAirReset(object):
 
     @outdoor_high_temperature_2.setter
     def outdoor_high_temperature_2(self, value=None):
-        """  Corresponds to IDD Field `outdoor_high_temperature_2`
+        """  Corresponds to IDD Field `Outdoor High Temperature 2`
         2nd outdoor air temperature reset rule
+        
+        {u'note': [u'2nd outdoor air temperature reset rule'], u'units': u'C', 'type': 'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `outdoor_high_temperature_2`
+            value (float): value for IDD Field `Outdoor High Temperature 2`
                 Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1103,10 +1125,9 @@ class SetpointManagerOutdoorAirReset(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `outdoor_high_temperature_2`'.format(value))
-
         self._data["Outdoor High Temperature 2"] = value
 
     def check(self):
@@ -1245,10 +1266,12 @@ class SetpointManagerSingleZoneReheat(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {'type': 'alpha', u'reference': u'SetpointManagers', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1258,7 +1281,7 @@ class SetpointManagerSingleZoneReheat(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -1267,7 +1290,6 @@ class SetpointManagerSingleZoneReheat(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -1281,10 +1303,12 @@ class SetpointManagerSingleZoneReheat(object):
 
     @control_variable.setter
     def control_variable(self, value="Temperature"):
-        """  Corresponds to IDD Field `control_variable`
+        """  Corresponds to IDD Field `Control Variable`
+        
+        {u'default': u'Temperature', u'type': u'choice', u'key': [u'Temperature'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `control_variable`
+            value (str): value for IDD Field `Control Variable`
                 Accepted values are:
                       - Temperature
                 Default value: Temperature
@@ -1297,7 +1321,7 @@ class SetpointManagerSingleZoneReheat(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `control_variable`'.format(value))
             if ',' in value:
@@ -1322,7 +1346,6 @@ class SetpointManagerSingleZoneReheat(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `control_variable`'.format(value))
             value = vals[value_lower]
-
         self._data["Control Variable"] = value
 
     @property
@@ -1336,10 +1359,12 @@ class SetpointManagerSingleZoneReheat(object):
 
     @minimum_supply_air_temperature.setter
     def minimum_supply_air_temperature(self, value=-99.0 ):
-        """  Corresponds to IDD Field `minimum_supply_air_temperature`
+        """  Corresponds to IDD Field `Minimum Supply Air Temperature`
+        
+        {u'units': u'C', u'default': '-99.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `minimum_supply_air_temperature`
+            value (float): value for IDD Field `Minimum Supply Air Temperature`
                 Units: C
                 Default value: -99.0
                 if `value` is None it will not be checked against the
@@ -1351,10 +1376,9 @@ class SetpointManagerSingleZoneReheat(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `minimum_supply_air_temperature`'.format(value))
-
         self._data["Minimum Supply Air Temperature"] = value
 
     @property
@@ -1368,10 +1392,12 @@ class SetpointManagerSingleZoneReheat(object):
 
     @maximum_supply_air_temperature.setter
     def maximum_supply_air_temperature(self, value=99.0 ):
-        """  Corresponds to IDD Field `maximum_supply_air_temperature`
+        """  Corresponds to IDD Field `Maximum Supply Air Temperature`
+        
+        {u'units': u'C', u'default': '99.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `maximum_supply_air_temperature`
+            value (float): value for IDD Field `Maximum Supply Air Temperature`
                 Units: C
                 Default value: 99.0
                 if `value` is None it will not be checked against the
@@ -1383,10 +1409,9 @@ class SetpointManagerSingleZoneReheat(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `maximum_supply_air_temperature`'.format(value))
-
         self._data["Maximum Supply Air Temperature"] = value
 
     @property
@@ -1400,10 +1425,12 @@ class SetpointManagerSingleZoneReheat(object):
 
     @control_zone_name.setter
     def control_zone_name(self, value=None):
-        """  Corresponds to IDD Field `control_zone_name`
+        """  Corresponds to IDD Field `Control Zone Name`
+        
+        {u'type': u'object-list', u'object-list': u'ZoneNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `control_zone_name`
+            value (str): value for IDD Field `Control Zone Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1413,7 +1440,7 @@ class SetpointManagerSingleZoneReheat(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `control_zone_name`'.format(value))
             if ',' in value:
@@ -1422,7 +1449,6 @@ class SetpointManagerSingleZoneReheat(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `control_zone_name`')
-
         self._data["Control Zone Name"] = value
 
     @property
@@ -1436,10 +1462,12 @@ class SetpointManagerSingleZoneReheat(object):
 
     @zone_node_name.setter
     def zone_node_name(self, value=None):
-        """  Corresponds to IDD Field `zone_node_name`
+        """  Corresponds to IDD Field `Zone Node Name`
+        
+        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `zone_node_name`
+            value (str): value for IDD Field `Zone Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1449,7 +1477,7 @@ class SetpointManagerSingleZoneReheat(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `zone_node_name`'.format(value))
             if ',' in value:
@@ -1458,7 +1486,6 @@ class SetpointManagerSingleZoneReheat(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `zone_node_name`')
-
         self._data["Zone Node Name"] = value
 
     @property
@@ -1472,10 +1499,12 @@ class SetpointManagerSingleZoneReheat(object):
 
     @zone_inlet_node_name.setter
     def zone_inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `zone_inlet_node_name`
+        """  Corresponds to IDD Field `Zone Inlet Node Name`
+        
+        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `zone_inlet_node_name`
+            value (str): value for IDD Field `Zone Inlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1485,7 +1514,7 @@ class SetpointManagerSingleZoneReheat(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `zone_inlet_node_name`'.format(value))
             if ',' in value:
@@ -1494,7 +1523,6 @@ class SetpointManagerSingleZoneReheat(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `zone_inlet_node_name`')
-
         self._data["Zone Inlet Node Name"] = value
 
     @property
@@ -1508,11 +1536,13 @@ class SetpointManagerSingleZoneReheat(object):
 
     @setpoint_node_or_nodelist_name.setter
     def setpoint_node_or_nodelist_name(self, value=None):
-        """  Corresponds to IDD Field `setpoint_node_or_nodelist_name`
+        """  Corresponds to IDD Field `Setpoint Node or NodeList Name`
         Node(s) at which the temperature will be set
+        
+        {u'note': [u'Node(s) at which the temperature will be set'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `setpoint_node_or_nodelist_name`
+            value (str): value for IDD Field `Setpoint Node or NodeList Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1522,7 +1552,7 @@ class SetpointManagerSingleZoneReheat(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `setpoint_node_or_nodelist_name`'.format(value))
             if ',' in value:
@@ -1531,7 +1561,6 @@ class SetpointManagerSingleZoneReheat(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `setpoint_node_or_nodelist_name`')
-
         self._data["Setpoint Node or NodeList Name"] = value
 
     def check(self):
@@ -1670,10 +1699,12 @@ class SetpointManagerSingleZoneHeating(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {'type': 'alpha', u'reference': u'SetpointManagers', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1683,7 +1714,7 @@ class SetpointManagerSingleZoneHeating(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -1692,7 +1723,6 @@ class SetpointManagerSingleZoneHeating(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -1706,10 +1736,12 @@ class SetpointManagerSingleZoneHeating(object):
 
     @control_variable.setter
     def control_variable(self, value="Temperature"):
-        """  Corresponds to IDD Field `control_variable`
+        """  Corresponds to IDD Field `Control Variable`
+        
+        {u'default': u'Temperature', u'type': u'choice', u'key': [u'Temperature'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `control_variable`
+            value (str): value for IDD Field `Control Variable`
                 Accepted values are:
                       - Temperature
                 Default value: Temperature
@@ -1722,7 +1754,7 @@ class SetpointManagerSingleZoneHeating(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `control_variable`'.format(value))
             if ',' in value:
@@ -1747,7 +1779,6 @@ class SetpointManagerSingleZoneHeating(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `control_variable`'.format(value))
             value = vals[value_lower]
-
         self._data["Control Variable"] = value
 
     @property
@@ -1761,10 +1792,12 @@ class SetpointManagerSingleZoneHeating(object):
 
     @minimum_supply_air_temperature.setter
     def minimum_supply_air_temperature(self, value=-99.0 ):
-        """  Corresponds to IDD Field `minimum_supply_air_temperature`
+        """  Corresponds to IDD Field `Minimum Supply Air Temperature`
+        
+        {u'units': u'C', u'default': '-99.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `minimum_supply_air_temperature`
+            value (float): value for IDD Field `Minimum Supply Air Temperature`
                 Units: C
                 Default value: -99.0
                 if `value` is None it will not be checked against the
@@ -1776,10 +1809,9 @@ class SetpointManagerSingleZoneHeating(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `minimum_supply_air_temperature`'.format(value))
-
         self._data["Minimum Supply Air Temperature"] = value
 
     @property
@@ -1793,10 +1825,12 @@ class SetpointManagerSingleZoneHeating(object):
 
     @maximum_supply_air_temperature.setter
     def maximum_supply_air_temperature(self, value=99.0 ):
-        """  Corresponds to IDD Field `maximum_supply_air_temperature`
+        """  Corresponds to IDD Field `Maximum Supply Air Temperature`
+        
+        {u'units': u'C', u'default': '99.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `maximum_supply_air_temperature`
+            value (float): value for IDD Field `Maximum Supply Air Temperature`
                 Units: C
                 Default value: 99.0
                 if `value` is None it will not be checked against the
@@ -1808,10 +1842,9 @@ class SetpointManagerSingleZoneHeating(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `maximum_supply_air_temperature`'.format(value))
-
         self._data["Maximum Supply Air Temperature"] = value
 
     @property
@@ -1825,10 +1858,12 @@ class SetpointManagerSingleZoneHeating(object):
 
     @control_zone_name.setter
     def control_zone_name(self, value=None):
-        """  Corresponds to IDD Field `control_zone_name`
+        """  Corresponds to IDD Field `Control Zone Name`
+        
+        {u'type': u'object-list', u'object-list': u'ZoneNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `control_zone_name`
+            value (str): value for IDD Field `Control Zone Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1838,7 +1873,7 @@ class SetpointManagerSingleZoneHeating(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `control_zone_name`'.format(value))
             if ',' in value:
@@ -1847,7 +1882,6 @@ class SetpointManagerSingleZoneHeating(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `control_zone_name`')
-
         self._data["Control Zone Name"] = value
 
     @property
@@ -1861,10 +1895,12 @@ class SetpointManagerSingleZoneHeating(object):
 
     @zone_node_name.setter
     def zone_node_name(self, value=None):
-        """  Corresponds to IDD Field `zone_node_name`
+        """  Corresponds to IDD Field `Zone Node Name`
+        
+        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `zone_node_name`
+            value (str): value for IDD Field `Zone Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1874,7 +1910,7 @@ class SetpointManagerSingleZoneHeating(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `zone_node_name`'.format(value))
             if ',' in value:
@@ -1883,7 +1919,6 @@ class SetpointManagerSingleZoneHeating(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `zone_node_name`')
-
         self._data["Zone Node Name"] = value
 
     @property
@@ -1897,10 +1932,12 @@ class SetpointManagerSingleZoneHeating(object):
 
     @zone_inlet_node_name.setter
     def zone_inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `zone_inlet_node_name`
+        """  Corresponds to IDD Field `Zone Inlet Node Name`
+        
+        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `zone_inlet_node_name`
+            value (str): value for IDD Field `Zone Inlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1910,7 +1947,7 @@ class SetpointManagerSingleZoneHeating(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `zone_inlet_node_name`'.format(value))
             if ',' in value:
@@ -1919,7 +1956,6 @@ class SetpointManagerSingleZoneHeating(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `zone_inlet_node_name`')
-
         self._data["Zone Inlet Node Name"] = value
 
     @property
@@ -1933,11 +1969,13 @@ class SetpointManagerSingleZoneHeating(object):
 
     @setpoint_node_or_nodelist_name.setter
     def setpoint_node_or_nodelist_name(self, value=None):
-        """  Corresponds to IDD Field `setpoint_node_or_nodelist_name`
+        """  Corresponds to IDD Field `Setpoint Node or NodeList Name`
         Node(s) at which the temperature will be set
+        
+        {u'note': [u'Node(s) at which the temperature will be set'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `setpoint_node_or_nodelist_name`
+            value (str): value for IDD Field `Setpoint Node or NodeList Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1947,7 +1985,7 @@ class SetpointManagerSingleZoneHeating(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `setpoint_node_or_nodelist_name`'.format(value))
             if ',' in value:
@@ -1956,7 +1994,6 @@ class SetpointManagerSingleZoneHeating(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `setpoint_node_or_nodelist_name`')
-
         self._data["Setpoint Node or NodeList Name"] = value
 
     def check(self):
@@ -2095,10 +2132,12 @@ class SetpointManagerSingleZoneCooling(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {'type': 'alpha', u'reference': u'SetpointManagers', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2108,7 +2147,7 @@ class SetpointManagerSingleZoneCooling(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -2117,7 +2156,6 @@ class SetpointManagerSingleZoneCooling(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -2131,10 +2169,12 @@ class SetpointManagerSingleZoneCooling(object):
 
     @control_variable.setter
     def control_variable(self, value="Temperature"):
-        """  Corresponds to IDD Field `control_variable`
+        """  Corresponds to IDD Field `Control Variable`
+        
+        {u'default': u'Temperature', u'type': u'choice', u'key': [u'Temperature'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `control_variable`
+            value (str): value for IDD Field `Control Variable`
                 Accepted values are:
                       - Temperature
                 Default value: Temperature
@@ -2147,7 +2187,7 @@ class SetpointManagerSingleZoneCooling(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `control_variable`'.format(value))
             if ',' in value:
@@ -2172,7 +2212,6 @@ class SetpointManagerSingleZoneCooling(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `control_variable`'.format(value))
             value = vals[value_lower]
-
         self._data["Control Variable"] = value
 
     @property
@@ -2186,10 +2225,12 @@ class SetpointManagerSingleZoneCooling(object):
 
     @minimum_supply_air_temperature.setter
     def minimum_supply_air_temperature(self, value=-99.0 ):
-        """  Corresponds to IDD Field `minimum_supply_air_temperature`
+        """  Corresponds to IDD Field `Minimum Supply Air Temperature`
+        
+        {u'units': u'C', u'default': '-99.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `minimum_supply_air_temperature`
+            value (float): value for IDD Field `Minimum Supply Air Temperature`
                 Units: C
                 Default value: -99.0
                 if `value` is None it will not be checked against the
@@ -2201,10 +2242,9 @@ class SetpointManagerSingleZoneCooling(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `minimum_supply_air_temperature`'.format(value))
-
         self._data["Minimum Supply Air Temperature"] = value
 
     @property
@@ -2218,10 +2258,12 @@ class SetpointManagerSingleZoneCooling(object):
 
     @maximum_supply_air_temperature.setter
     def maximum_supply_air_temperature(self, value=99.0 ):
-        """  Corresponds to IDD Field `maximum_supply_air_temperature`
+        """  Corresponds to IDD Field `Maximum Supply Air Temperature`
+        
+        {u'units': u'C', u'default': '99.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `maximum_supply_air_temperature`
+            value (float): value for IDD Field `Maximum Supply Air Temperature`
                 Units: C
                 Default value: 99.0
                 if `value` is None it will not be checked against the
@@ -2233,10 +2275,9 @@ class SetpointManagerSingleZoneCooling(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `maximum_supply_air_temperature`'.format(value))
-
         self._data["Maximum Supply Air Temperature"] = value
 
     @property
@@ -2250,10 +2291,12 @@ class SetpointManagerSingleZoneCooling(object):
 
     @control_zone_name.setter
     def control_zone_name(self, value=None):
-        """  Corresponds to IDD Field `control_zone_name`
+        """  Corresponds to IDD Field `Control Zone Name`
+        
+        {u'type': u'object-list', u'object-list': u'ZoneNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `control_zone_name`
+            value (str): value for IDD Field `Control Zone Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2263,7 +2306,7 @@ class SetpointManagerSingleZoneCooling(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `control_zone_name`'.format(value))
             if ',' in value:
@@ -2272,7 +2315,6 @@ class SetpointManagerSingleZoneCooling(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `control_zone_name`')
-
         self._data["Control Zone Name"] = value
 
     @property
@@ -2286,10 +2328,12 @@ class SetpointManagerSingleZoneCooling(object):
 
     @zone_node_name.setter
     def zone_node_name(self, value=None):
-        """  Corresponds to IDD Field `zone_node_name`
+        """  Corresponds to IDD Field `Zone Node Name`
+        
+        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `zone_node_name`
+            value (str): value for IDD Field `Zone Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2299,7 +2343,7 @@ class SetpointManagerSingleZoneCooling(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `zone_node_name`'.format(value))
             if ',' in value:
@@ -2308,7 +2352,6 @@ class SetpointManagerSingleZoneCooling(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `zone_node_name`')
-
         self._data["Zone Node Name"] = value
 
     @property
@@ -2322,10 +2365,12 @@ class SetpointManagerSingleZoneCooling(object):
 
     @zone_inlet_node_name.setter
     def zone_inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `zone_inlet_node_name`
+        """  Corresponds to IDD Field `Zone Inlet Node Name`
+        
+        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `zone_inlet_node_name`
+            value (str): value for IDD Field `Zone Inlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2335,7 +2380,7 @@ class SetpointManagerSingleZoneCooling(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `zone_inlet_node_name`'.format(value))
             if ',' in value:
@@ -2344,7 +2389,6 @@ class SetpointManagerSingleZoneCooling(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `zone_inlet_node_name`')
-
         self._data["Zone Inlet Node Name"] = value
 
     @property
@@ -2358,11 +2402,13 @@ class SetpointManagerSingleZoneCooling(object):
 
     @setpoint_node_or_nodelist_name.setter
     def setpoint_node_or_nodelist_name(self, value=None):
-        """  Corresponds to IDD Field `setpoint_node_or_nodelist_name`
+        """  Corresponds to IDD Field `Setpoint Node or NodeList Name`
         Node(s) at which the temperature will be set
+        
+        {u'note': [u'Node(s) at which the temperature will be set'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `setpoint_node_or_nodelist_name`
+            value (str): value for IDD Field `Setpoint Node or NodeList Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2372,7 +2418,7 @@ class SetpointManagerSingleZoneCooling(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `setpoint_node_or_nodelist_name`'.format(value))
             if ',' in value:
@@ -2381,7 +2427,6 @@ class SetpointManagerSingleZoneCooling(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `setpoint_node_or_nodelist_name`')
-
         self._data["Setpoint Node or NodeList Name"] = value
 
     def check(self):
@@ -2496,10 +2541,12 @@ class SetpointManagerSingleZoneHumidityMinimum(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {'type': 'alpha', u'reference': u'SetpointManagers', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2509,7 +2556,7 @@ class SetpointManagerSingleZoneHumidityMinimum(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -2518,7 +2565,6 @@ class SetpointManagerSingleZoneHumidityMinimum(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -2532,10 +2578,12 @@ class SetpointManagerSingleZoneHumidityMinimum(object):
 
     @control_variable.setter
     def control_variable(self, value=None):
-        """  Corresponds to IDD Field `control_variable`
+        """  Corresponds to IDD Field `Control Variable`
+        
+        {u'deprecated': u'', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `control_variable`
+            value (str): value for IDD Field `Control Variable`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2545,7 +2593,7 @@ class SetpointManagerSingleZoneHumidityMinimum(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `control_variable`'.format(value))
             if ',' in value:
@@ -2554,7 +2602,6 @@ class SetpointManagerSingleZoneHumidityMinimum(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `control_variable`')
-
         self._data["Control Variable"] = value
 
     @property
@@ -2568,10 +2615,12 @@ class SetpointManagerSingleZoneHumidityMinimum(object):
 
     @schedule_name.setter
     def schedule_name(self, value=None):
-        """  Corresponds to IDD Field `schedule_name`
+        """  Corresponds to IDD Field `Schedule Name`
+        
+        {u'deprecated': u'', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `schedule_name`
+            value (str): value for IDD Field `Schedule Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2581,7 +2630,7 @@ class SetpointManagerSingleZoneHumidityMinimum(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `schedule_name`'.format(value))
             if ',' in value:
@@ -2590,7 +2639,6 @@ class SetpointManagerSingleZoneHumidityMinimum(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `schedule_name`')
-
         self._data["Schedule Name"] = value
 
     @property
@@ -2604,11 +2652,13 @@ class SetpointManagerSingleZoneHumidityMinimum(object):
 
     @setpoint_node_or_nodelist_name.setter
     def setpoint_node_or_nodelist_name(self, value=None):
-        """  Corresponds to IDD Field `setpoint_node_or_nodelist_name`
+        """  Corresponds to IDD Field `Setpoint Node or NodeList Name`
         Node(s) at which humidity ratio setpoint will be set
+        
+        {u'note': [u'Node(s) at which humidity ratio setpoint will be set'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `setpoint_node_or_nodelist_name`
+            value (str): value for IDD Field `Setpoint Node or NodeList Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2618,7 +2668,7 @@ class SetpointManagerSingleZoneHumidityMinimum(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `setpoint_node_or_nodelist_name`'.format(value))
             if ',' in value:
@@ -2627,7 +2677,6 @@ class SetpointManagerSingleZoneHumidityMinimum(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `setpoint_node_or_nodelist_name`')
-
         self._data["Setpoint Node or NodeList Name"] = value
 
     @property
@@ -2641,11 +2690,13 @@ class SetpointManagerSingleZoneHumidityMinimum(object):
 
     @control_zone_air_node_name.setter
     def control_zone_air_node_name(self, value=None):
-        """  Corresponds to IDD Field `control_zone_air_node_name`
+        """  Corresponds to IDD Field `Control Zone Air Node Name`
         Name of the zone air node for the humidity control zone
+        
+        {u'note': [u'Name of the zone air node for the humidity control zone'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `control_zone_air_node_name`
+            value (str): value for IDD Field `Control Zone Air Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2655,7 +2706,7 @@ class SetpointManagerSingleZoneHumidityMinimum(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `control_zone_air_node_name`'.format(value))
             if ',' in value:
@@ -2664,7 +2715,6 @@ class SetpointManagerSingleZoneHumidityMinimum(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `control_zone_air_node_name`')
-
         self._data["Control Zone Air Node Name"] = value
 
     def check(self):
@@ -2779,10 +2829,12 @@ class SetpointManagerSingleZoneHumidityMaximum(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {'type': 'alpha', u'reference': u'SetpointManagers', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2792,7 +2844,7 @@ class SetpointManagerSingleZoneHumidityMaximum(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -2801,7 +2853,6 @@ class SetpointManagerSingleZoneHumidityMaximum(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -2815,10 +2866,12 @@ class SetpointManagerSingleZoneHumidityMaximum(object):
 
     @control_variable.setter
     def control_variable(self, value=None):
-        """  Corresponds to IDD Field `control_variable`
+        """  Corresponds to IDD Field `Control Variable`
+        
+        {u'deprecated': u'', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `control_variable`
+            value (str): value for IDD Field `Control Variable`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2828,7 +2881,7 @@ class SetpointManagerSingleZoneHumidityMaximum(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `control_variable`'.format(value))
             if ',' in value:
@@ -2837,7 +2890,6 @@ class SetpointManagerSingleZoneHumidityMaximum(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `control_variable`')
-
         self._data["Control Variable"] = value
 
     @property
@@ -2851,10 +2903,12 @@ class SetpointManagerSingleZoneHumidityMaximum(object):
 
     @schedule_name.setter
     def schedule_name(self, value=None):
-        """  Corresponds to IDD Field `schedule_name`
+        """  Corresponds to IDD Field `Schedule Name`
+        
+        {u'deprecated': u'', 'type': 'alpha', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `schedule_name`
+            value (str): value for IDD Field `Schedule Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2864,7 +2918,7 @@ class SetpointManagerSingleZoneHumidityMaximum(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `schedule_name`'.format(value))
             if ',' in value:
@@ -2873,7 +2927,6 @@ class SetpointManagerSingleZoneHumidityMaximum(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `schedule_name`')
-
         self._data["Schedule Name"] = value
 
     @property
@@ -2887,11 +2940,13 @@ class SetpointManagerSingleZoneHumidityMaximum(object):
 
     @setpoint_node_or_nodelist_name.setter
     def setpoint_node_or_nodelist_name(self, value=None):
-        """  Corresponds to IDD Field `setpoint_node_or_nodelist_name`
+        """  Corresponds to IDD Field `Setpoint Node or NodeList Name`
         Node(s) at which humidity ratio setpoint will be set
+        
+        {u'note': [u'Node(s) at which humidity ratio setpoint will be set'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `setpoint_node_or_nodelist_name`
+            value (str): value for IDD Field `Setpoint Node or NodeList Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2901,7 +2956,7 @@ class SetpointManagerSingleZoneHumidityMaximum(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `setpoint_node_or_nodelist_name`'.format(value))
             if ',' in value:
@@ -2910,7 +2965,6 @@ class SetpointManagerSingleZoneHumidityMaximum(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `setpoint_node_or_nodelist_name`')
-
         self._data["Setpoint Node or NodeList Name"] = value
 
     @property
@@ -2924,11 +2978,13 @@ class SetpointManagerSingleZoneHumidityMaximum(object):
 
     @control_zone_air_node_name.setter
     def control_zone_air_node_name(self, value=None):
-        """  Corresponds to IDD Field `control_zone_air_node_name`
+        """  Corresponds to IDD Field `Control Zone Air Node Name`
         Name of the zone air node for the humidity control zone
+        
+        {u'note': [u'Name of the zone air node for the humidity control zone'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `control_zone_air_node_name`
+            value (str): value for IDD Field `Control Zone Air Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2938,7 +2994,7 @@ class SetpointManagerSingleZoneHumidityMaximum(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `control_zone_air_node_name`'.format(value))
             if ',' in value:
@@ -2947,7 +3003,6 @@ class SetpointManagerSingleZoneHumidityMaximum(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `control_zone_air_node_name`')
-
         self._data["Control Zone Air Node Name"] = value
 
     def check(self):
@@ -3069,10 +3124,12 @@ class SetpointManagerMixedAir(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {'type': 'alpha', u'reference': u'SetpointManagers', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3082,7 +3139,7 @@ class SetpointManagerMixedAir(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -3091,7 +3148,6 @@ class SetpointManagerMixedAir(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -3105,10 +3161,12 @@ class SetpointManagerMixedAir(object):
 
     @control_variable.setter
     def control_variable(self, value="Temperature"):
-        """  Corresponds to IDD Field `control_variable`
+        """  Corresponds to IDD Field `Control Variable`
+        
+        {u'default': u'Temperature', u'type': u'choice', u'key': [u'Temperature'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `control_variable`
+            value (str): value for IDD Field `Control Variable`
                 Accepted values are:
                       - Temperature
                 Default value: Temperature
@@ -3121,7 +3179,7 @@ class SetpointManagerMixedAir(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `control_variable`'.format(value))
             if ',' in value:
@@ -3146,7 +3204,6 @@ class SetpointManagerMixedAir(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `control_variable`'.format(value))
             value = vals[value_lower]
-
         self._data["Control Variable"] = value
 
     @property
@@ -3160,10 +3217,12 @@ class SetpointManagerMixedAir(object):
 
     @reference_setpoint_node_name.setter
     def reference_setpoint_node_name(self, value=None):
-        """  Corresponds to IDD Field `reference_setpoint_node_name`
+        """  Corresponds to IDD Field `Reference Setpoint Node Name`
+        
+        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `reference_setpoint_node_name`
+            value (str): value for IDD Field `Reference Setpoint Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3173,7 +3232,7 @@ class SetpointManagerMixedAir(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `reference_setpoint_node_name`'.format(value))
             if ',' in value:
@@ -3182,7 +3241,6 @@ class SetpointManagerMixedAir(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `reference_setpoint_node_name`')
-
         self._data["Reference Setpoint Node Name"] = value
 
     @property
@@ -3196,10 +3254,12 @@ class SetpointManagerMixedAir(object):
 
     @fan_inlet_node_name.setter
     def fan_inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `fan_inlet_node_name`
+        """  Corresponds to IDD Field `Fan Inlet Node Name`
+        
+        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `fan_inlet_node_name`
+            value (str): value for IDD Field `Fan Inlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3209,7 +3269,7 @@ class SetpointManagerMixedAir(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `fan_inlet_node_name`'.format(value))
             if ',' in value:
@@ -3218,7 +3278,6 @@ class SetpointManagerMixedAir(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `fan_inlet_node_name`')
-
         self._data["Fan Inlet Node Name"] = value
 
     @property
@@ -3232,10 +3291,12 @@ class SetpointManagerMixedAir(object):
 
     @fan_outlet_node_name.setter
     def fan_outlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `fan_outlet_node_name`
+        """  Corresponds to IDD Field `Fan Outlet Node Name`
+        
+        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `fan_outlet_node_name`
+            value (str): value for IDD Field `Fan Outlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3245,7 +3306,7 @@ class SetpointManagerMixedAir(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `fan_outlet_node_name`'.format(value))
             if ',' in value:
@@ -3254,7 +3315,6 @@ class SetpointManagerMixedAir(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `fan_outlet_node_name`')
-
         self._data["Fan Outlet Node Name"] = value
 
     @property
@@ -3268,11 +3328,13 @@ class SetpointManagerMixedAir(object):
 
     @setpoint_node_or_nodelist_name.setter
     def setpoint_node_or_nodelist_name(self, value=None):
-        """  Corresponds to IDD Field `setpoint_node_or_nodelist_name`
+        """  Corresponds to IDD Field `Setpoint Node or NodeList Name`
         Node(s) at which the temperature will be set
+        
+        {u'note': [u'Node(s) at which the temperature will be set'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `setpoint_node_or_nodelist_name`
+            value (str): value for IDD Field `Setpoint Node or NodeList Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3282,7 +3344,7 @@ class SetpointManagerMixedAir(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `setpoint_node_or_nodelist_name`'.format(value))
             if ',' in value:
@@ -3291,7 +3353,6 @@ class SetpointManagerMixedAir(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `setpoint_node_or_nodelist_name`')
-
         self._data["Setpoint Node or NodeList Name"] = value
 
     def check(self):
@@ -3454,10 +3515,12 @@ class SetpointManagerOutdoorAirPretreat(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {'type': 'alpha', u'reference': u'SetpointManagers', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3467,7 +3530,7 @@ class SetpointManagerOutdoorAirPretreat(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -3476,7 +3539,6 @@ class SetpointManagerOutdoorAirPretreat(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -3490,10 +3552,12 @@ class SetpointManagerOutdoorAirPretreat(object):
 
     @control_variable.setter
     def control_variable(self, value=None):
-        """  Corresponds to IDD Field `control_variable`
+        """  Corresponds to IDD Field `Control Variable`
+        
+        {u'type': u'choice', u'key': [u'Temperature', u'HumidityRatio', u'MaximumHumidityRatio', u'MinimumHumidityRatio'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `control_variable`
+            value (str): value for IDD Field `Control Variable`
                 Accepted values are:
                       - Temperature
                       - HumidityRatio
@@ -3508,7 +3572,7 @@ class SetpointManagerOutdoorAirPretreat(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `control_variable`'.format(value))
             if ',' in value:
@@ -3536,7 +3600,6 @@ class SetpointManagerOutdoorAirPretreat(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `control_variable`'.format(value))
             value = vals[value_lower]
-
         self._data["Control Variable"] = value
 
     @property
@@ -3550,11 +3613,13 @@ class SetpointManagerOutdoorAirPretreat(object):
 
     @minimum_setpoint_temperature.setter
     def minimum_setpoint_temperature(self, value=-99.0 ):
-        """  Corresponds to IDD Field `minimum_setpoint_temperature`
+        """  Corresponds to IDD Field `Minimum Setpoint Temperature`
         Applicable only if Control variable is Temperature
+        
+        {u'units': u'C', u'default': '-99.0', u'note': [u'Applicable only if Control variable is Temperature'], 'type': 'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `minimum_setpoint_temperature`
+            value (float): value for IDD Field `Minimum Setpoint Temperature`
                 Units: C
                 Default value: -99.0
                 if `value` is None it will not be checked against the
@@ -3566,10 +3631,9 @@ class SetpointManagerOutdoorAirPretreat(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `minimum_setpoint_temperature`'.format(value))
-
         self._data["Minimum Setpoint Temperature"] = value
 
     @property
@@ -3583,11 +3647,13 @@ class SetpointManagerOutdoorAirPretreat(object):
 
     @maximum_setpoint_temperature.setter
     def maximum_setpoint_temperature(self, value=99.0 ):
-        """  Corresponds to IDD Field `maximum_setpoint_temperature`
+        """  Corresponds to IDD Field `Maximum Setpoint Temperature`
         Applicable only if Control variable is Temperature
+        
+        {u'units': u'C', u'default': '99.0', u'note': [u'Applicable only if Control variable is Temperature'], 'type': 'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `maximum_setpoint_temperature`
+            value (float): value for IDD Field `Maximum Setpoint Temperature`
                 Units: C
                 Default value: 99.0
                 if `value` is None it will not be checked against the
@@ -3599,10 +3665,9 @@ class SetpointManagerOutdoorAirPretreat(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `maximum_setpoint_temperature`'.format(value))
-
         self._data["Maximum Setpoint Temperature"] = value
 
     @property
@@ -3616,12 +3681,14 @@ class SetpointManagerOutdoorAirPretreat(object):
 
     @minimum_setpoint_humidity_ratio.setter
     def minimum_setpoint_humidity_ratio(self, value=1e-05 ):
-        """  Corresponds to IDD Field `minimum_setpoint_humidity_ratio`
+        """  Corresponds to IDD Field `Minimum Setpoint Humidity Ratio`
         Applicable only if Control variable is
         MaximumHumidityRatio, MinimumHumidityRatio, or HumidityRatio - then minimum is 0.00001
+        
+        {'pytype': 'float', u'default': '1e-05', u'maximum': '1.0', u'note': [u'Applicable only if Control variable is', u'MaximumHumidityRatio, MinimumHumidityRatio, or HumidityRatio - then minimum is 0.00001'], u'units': u'kgWater/kgDryAir', 'type': 'real'}
 
         Args:
-            value (float): value for IDD Field `minimum_setpoint_humidity_ratio`
+            value (float): value for IDD Field `Minimum Setpoint Humidity Ratio`
                 Units: kgWater/kgDryAir
                 Default value: 1e-05
                 value <= 1.0
@@ -3634,13 +3701,12 @@ class SetpointManagerOutdoorAirPretreat(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `minimum_setpoint_humidity_ratio`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `minimum_setpoint_humidity_ratio`')
-
         self._data["Minimum Setpoint Humidity Ratio"] = value
 
     @property
@@ -3654,12 +3720,14 @@ class SetpointManagerOutdoorAirPretreat(object):
 
     @maximum_setpoint_humidity_ratio.setter
     def maximum_setpoint_humidity_ratio(self, value=1.0 ):
-        """  Corresponds to IDD Field `maximum_setpoint_humidity_ratio`
+        """  Corresponds to IDD Field `Maximum Setpoint Humidity Ratio`
         Applicable only if Control variable is
         MaximumHumidityRatio, MinimumHumidityRatio, or HumidityRatio - then minimum is 0.00001
+        
+        {'pytype': 'float', u'default': '1.0', u'maximum': '1.0', u'note': [u'Applicable only if Control variable is', u'MaximumHumidityRatio, MinimumHumidityRatio, or HumidityRatio - then minimum is 0.00001'], u'units': u'kgWater/kgDryAir', 'type': 'real'}
 
         Args:
-            value (float): value for IDD Field `maximum_setpoint_humidity_ratio`
+            value (float): value for IDD Field `Maximum Setpoint Humidity Ratio`
                 Units: kgWater/kgDryAir
                 Default value: 1.0
                 value <= 1.0
@@ -3672,13 +3740,12 @@ class SetpointManagerOutdoorAirPretreat(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `maximum_setpoint_humidity_ratio`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `maximum_setpoint_humidity_ratio`')
-
         self._data["Maximum Setpoint Humidity Ratio"] = value
 
     @property
@@ -3692,14 +3759,16 @@ class SetpointManagerOutdoorAirPretreat(object):
 
     @reference_setpoint_node_name.setter
     def reference_setpoint_node_name(self, value=None):
-        """  Corresponds to IDD Field `reference_setpoint_node_name`
+        """  Corresponds to IDD Field `Reference Setpoint Node Name`
         The current setpoint at this node is the
         desired condition for the Mixed Air Node
         This node must have a valid setpoint
         which has been set by another setpoint manager
+        
+        {u'note': [u'The current setpoint at this node is the', u'desired condition for the Mixed Air Node', u'This node must have a valid setpoint', u'which has been set by another setpoint manager'], u'type': u'node', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `reference_setpoint_node_name`
+            value (str): value for IDD Field `Reference Setpoint Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3709,7 +3778,7 @@ class SetpointManagerOutdoorAirPretreat(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `reference_setpoint_node_name`'.format(value))
             if ',' in value:
@@ -3718,7 +3787,6 @@ class SetpointManagerOutdoorAirPretreat(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `reference_setpoint_node_name`')
-
         self._data["Reference Setpoint Node Name"] = value
 
     @property
@@ -3732,11 +3800,13 @@ class SetpointManagerOutdoorAirPretreat(object):
 
     @mixed_air_stream_node_name.setter
     def mixed_air_stream_node_name(self, value=None):
-        """  Corresponds to IDD Field `mixed_air_stream_node_name`
+        """  Corresponds to IDD Field `Mixed Air Stream Node Name`
         Name of Mixed Air Node
+        
+        {u'note': [u'Name of Mixed Air Node'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `mixed_air_stream_node_name`
+            value (str): value for IDD Field `Mixed Air Stream Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3746,7 +3816,7 @@ class SetpointManagerOutdoorAirPretreat(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `mixed_air_stream_node_name`'.format(value))
             if ',' in value:
@@ -3755,7 +3825,6 @@ class SetpointManagerOutdoorAirPretreat(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `mixed_air_stream_node_name`')
-
         self._data["Mixed Air Stream Node Name"] = value
 
     @property
@@ -3769,11 +3838,13 @@ class SetpointManagerOutdoorAirPretreat(object):
 
     @outdoor_air_stream_node_name.setter
     def outdoor_air_stream_node_name(self, value=None):
-        """  Corresponds to IDD Field `outdoor_air_stream_node_name`
+        """  Corresponds to IDD Field `Outdoor Air Stream Node Name`
         Name of Outdoor Air Stream Node
+        
+        {u'note': [u'Name of Outdoor Air Stream Node'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `outdoor_air_stream_node_name`
+            value (str): value for IDD Field `Outdoor Air Stream Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3783,7 +3854,7 @@ class SetpointManagerOutdoorAirPretreat(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `outdoor_air_stream_node_name`'.format(value))
             if ',' in value:
@@ -3792,7 +3863,6 @@ class SetpointManagerOutdoorAirPretreat(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `outdoor_air_stream_node_name`')
-
         self._data["Outdoor Air Stream Node Name"] = value
 
     @property
@@ -3806,11 +3876,13 @@ class SetpointManagerOutdoorAirPretreat(object):
 
     @return_air_stream_node_name.setter
     def return_air_stream_node_name(self, value=None):
-        """  Corresponds to IDD Field `return_air_stream_node_name`
+        """  Corresponds to IDD Field `Return Air Stream Node Name`
         Name of Return Air Stream Node
+        
+        {u'note': [u'Name of Return Air Stream Node'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `return_air_stream_node_name`
+            value (str): value for IDD Field `Return Air Stream Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3820,7 +3892,7 @@ class SetpointManagerOutdoorAirPretreat(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `return_air_stream_node_name`'.format(value))
             if ',' in value:
@@ -3829,7 +3901,6 @@ class SetpointManagerOutdoorAirPretreat(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `return_air_stream_node_name`')
-
         self._data["Return Air Stream Node Name"] = value
 
     @property
@@ -3843,12 +3914,14 @@ class SetpointManagerOutdoorAirPretreat(object):
 
     @setpoint_node_or_nodelist_name.setter
     def setpoint_node_or_nodelist_name(self, value=None):
-        """  Corresponds to IDD Field `setpoint_node_or_nodelist_name`
+        """  Corresponds to IDD Field `Setpoint Node or NodeList Name`
         Node(s) at which the temperature or humidity
         ratio will be set
+        
+        {u'note': [u'Node(s) at which the temperature or humidity', u'ratio will be set'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `setpoint_node_or_nodelist_name`
+            value (str): value for IDD Field `Setpoint Node or NodeList Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3858,7 +3931,7 @@ class SetpointManagerOutdoorAirPretreat(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `setpoint_node_or_nodelist_name`'.format(value))
             if ',' in value:
@@ -3867,7 +3940,6 @@ class SetpointManagerOutdoorAirPretreat(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `setpoint_node_or_nodelist_name`')
-
         self._data["Setpoint Node or NodeList Name"] = value
 
     def check(self):
@@ -3997,10 +4069,12 @@ class SetpointManagerWarmest(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {'type': 'alpha', u'reference': u'SetpointManagers', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4010,7 +4084,7 @@ class SetpointManagerWarmest(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -4019,7 +4093,6 @@ class SetpointManagerWarmest(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -4033,10 +4106,12 @@ class SetpointManagerWarmest(object):
 
     @control_variable.setter
     def control_variable(self, value="Temperature"):
-        """  Corresponds to IDD Field `control_variable`
+        """  Corresponds to IDD Field `Control Variable`
+        
+        {u'default': u'Temperature', u'type': u'choice', u'key': [u'Temperature'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `control_variable`
+            value (str): value for IDD Field `Control Variable`
                 Accepted values are:
                       - Temperature
                 Default value: Temperature
@@ -4049,7 +4124,7 @@ class SetpointManagerWarmest(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `control_variable`'.format(value))
             if ',' in value:
@@ -4074,7 +4149,6 @@ class SetpointManagerWarmest(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `control_variable`'.format(value))
             value = vals[value_lower]
-
         self._data["Control Variable"] = value
 
     @property
@@ -4088,11 +4162,13 @@ class SetpointManagerWarmest(object):
 
     @hvac_air_loop_name.setter
     def hvac_air_loop_name(self, value=None):
-        """  Corresponds to IDD Field `hvac_air_loop_name`
+        """  Corresponds to IDD Field `HVAC Air Loop Name`
         Enter the name of an AirLoopHVAC object
+        
+        {u'note': [u'Enter the name of an AirLoopHVAC object'], u'type': u'object-list', u'object-list': u'AirPrimaryLoops', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `hvac_air_loop_name`
+            value (str): value for IDD Field `HVAC Air Loop Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4102,7 +4178,7 @@ class SetpointManagerWarmest(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `hvac_air_loop_name`'.format(value))
             if ',' in value:
@@ -4111,7 +4187,6 @@ class SetpointManagerWarmest(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `hvac_air_loop_name`')
-
         self._data["HVAC Air Loop Name"] = value
 
     @property
@@ -4125,10 +4200,12 @@ class SetpointManagerWarmest(object):
 
     @minimum_setpoint_temperature.setter
     def minimum_setpoint_temperature(self, value=12.0 ):
-        """  Corresponds to IDD Field `minimum_setpoint_temperature`
+        """  Corresponds to IDD Field `Minimum Setpoint Temperature`
+        
+        {u'units': u'C', u'default': '12.0', u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `minimum_setpoint_temperature`
+            value (float): value for IDD Field `Minimum Setpoint Temperature`
                 Units: C
                 Default value: 12.0
                 value > 0.0
@@ -4141,13 +4218,12 @@ class SetpointManagerWarmest(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `minimum_setpoint_temperature`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `minimum_setpoint_temperature`')
-
         self._data["Minimum Setpoint Temperature"] = value
 
     @property
@@ -4161,10 +4237,12 @@ class SetpointManagerWarmest(object):
 
     @maximum_setpoint_temperature.setter
     def maximum_setpoint_temperature(self, value=18.0 ):
-        """  Corresponds to IDD Field `maximum_setpoint_temperature`
+        """  Corresponds to IDD Field `Maximum Setpoint Temperature`
+        
+        {u'units': u'C', u'default': '18.0', u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `maximum_setpoint_temperature`
+            value (float): value for IDD Field `Maximum Setpoint Temperature`
                 Units: C
                 Default value: 18.0
                 value > 0.0
@@ -4177,13 +4255,12 @@ class SetpointManagerWarmest(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `maximum_setpoint_temperature`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `maximum_setpoint_temperature`')
-
         self._data["Maximum Setpoint Temperature"] = value
 
     @property
@@ -4197,10 +4274,12 @@ class SetpointManagerWarmest(object):
 
     @strategy.setter
     def strategy(self, value="MaximumTemperature"):
-        """  Corresponds to IDD Field `strategy`
+        """  Corresponds to IDD Field `Strategy`
+        
+        {u'default': u'MaximumTemperature', u'type': u'choice', u'key': [u'MaximumTemperature'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `strategy`
+            value (str): value for IDD Field `Strategy`
                 Accepted values are:
                       - MaximumTemperature
                 Default value: MaximumTemperature
@@ -4213,7 +4292,7 @@ class SetpointManagerWarmest(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `strategy`'.format(value))
             if ',' in value:
@@ -4238,7 +4317,6 @@ class SetpointManagerWarmest(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `strategy`'.format(value))
             value = vals[value_lower]
-
         self._data["Strategy"] = value
 
     @property
@@ -4252,11 +4330,13 @@ class SetpointManagerWarmest(object):
 
     @setpoint_node_or_nodelist_name.setter
     def setpoint_node_or_nodelist_name(self, value=None):
-        """  Corresponds to IDD Field `setpoint_node_or_nodelist_name`
+        """  Corresponds to IDD Field `Setpoint Node or NodeList Name`
         Node(s) at which the temperature will be set
+        
+        {u'note': [u'Node(s) at which the temperature will be set'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `setpoint_node_or_nodelist_name`
+            value (str): value for IDD Field `Setpoint Node or NodeList Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4266,7 +4346,7 @@ class SetpointManagerWarmest(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `setpoint_node_or_nodelist_name`'.format(value))
             if ',' in value:
@@ -4275,7 +4355,6 @@ class SetpointManagerWarmest(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `setpoint_node_or_nodelist_name`')
-
         self._data["Setpoint Node or NodeList Name"] = value
 
     def check(self):
@@ -4406,10 +4485,12 @@ class SetpointManagerColdest(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {'type': 'alpha', u'reference': u'SetpointManagers', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4419,7 +4500,7 @@ class SetpointManagerColdest(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -4428,7 +4509,6 @@ class SetpointManagerColdest(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -4442,10 +4522,12 @@ class SetpointManagerColdest(object):
 
     @control_variable.setter
     def control_variable(self, value="Temperature"):
-        """  Corresponds to IDD Field `control_variable`
+        """  Corresponds to IDD Field `Control Variable`
+        
+        {u'default': u'Temperature', u'type': u'choice', u'key': [u'Temperature'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `control_variable`
+            value (str): value for IDD Field `Control Variable`
                 Accepted values are:
                       - Temperature
                 Default value: Temperature
@@ -4458,7 +4540,7 @@ class SetpointManagerColdest(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `control_variable`'.format(value))
             if ',' in value:
@@ -4483,7 +4565,6 @@ class SetpointManagerColdest(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `control_variable`'.format(value))
             value = vals[value_lower]
-
         self._data["Control Variable"] = value
 
     @property
@@ -4497,11 +4578,13 @@ class SetpointManagerColdest(object):
 
     @hvac_air_loop_name.setter
     def hvac_air_loop_name(self, value=None):
-        """  Corresponds to IDD Field `hvac_air_loop_name`
+        """  Corresponds to IDD Field `HVAC Air Loop Name`
         Enter the name of an AirLoopHVAC object.
+        
+        {u'note': [u'Enter the name of an AirLoopHVAC object.'], u'type': u'object-list', u'object-list': u'AirPrimaryLoops', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `hvac_air_loop_name`
+            value (str): value for IDD Field `HVAC Air Loop Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4511,7 +4594,7 @@ class SetpointManagerColdest(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `hvac_air_loop_name`'.format(value))
             if ',' in value:
@@ -4520,7 +4603,6 @@ class SetpointManagerColdest(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `hvac_air_loop_name`')
-
         self._data["HVAC Air Loop Name"] = value
 
     @property
@@ -4534,10 +4616,12 @@ class SetpointManagerColdest(object):
 
     @minimum_setpoint_temperature.setter
     def minimum_setpoint_temperature(self, value=20.0 ):
-        """  Corresponds to IDD Field `minimum_setpoint_temperature`
+        """  Corresponds to IDD Field `Minimum Setpoint Temperature`
+        
+        {u'units': u'C', u'default': '20.0', u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `minimum_setpoint_temperature`
+            value (float): value for IDD Field `Minimum Setpoint Temperature`
                 Units: C
                 Default value: 20.0
                 value > 0.0
@@ -4550,13 +4634,12 @@ class SetpointManagerColdest(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `minimum_setpoint_temperature`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `minimum_setpoint_temperature`')
-
         self._data["Minimum Setpoint Temperature"] = value
 
     @property
@@ -4570,10 +4653,12 @@ class SetpointManagerColdest(object):
 
     @maximum_setpoint_temperature.setter
     def maximum_setpoint_temperature(self, value=50.0 ):
-        """  Corresponds to IDD Field `maximum_setpoint_temperature`
+        """  Corresponds to IDD Field `Maximum Setpoint Temperature`
+        
+        {u'units': u'C', u'default': '50.0', u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `maximum_setpoint_temperature`
+            value (float): value for IDD Field `Maximum Setpoint Temperature`
                 Units: C
                 Default value: 50.0
                 value > 0.0
@@ -4586,13 +4671,12 @@ class SetpointManagerColdest(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `maximum_setpoint_temperature`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `maximum_setpoint_temperature`')
-
         self._data["Maximum Setpoint Temperature"] = value
 
     @property
@@ -4606,10 +4690,12 @@ class SetpointManagerColdest(object):
 
     @strategy.setter
     def strategy(self, value="MinimumTemperature"):
-        """  Corresponds to IDD Field `strategy`
+        """  Corresponds to IDD Field `Strategy`
+        
+        {u'default': u'MinimumTemperature', u'type': u'choice', u'key': [u'MinimumTemperature'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `strategy`
+            value (str): value for IDD Field `Strategy`
                 Accepted values are:
                       - MinimumTemperature
                 Default value: MinimumTemperature
@@ -4622,7 +4708,7 @@ class SetpointManagerColdest(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `strategy`'.format(value))
             if ',' in value:
@@ -4647,7 +4733,6 @@ class SetpointManagerColdest(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `strategy`'.format(value))
             value = vals[value_lower]
-
         self._data["Strategy"] = value
 
     @property
@@ -4661,11 +4746,13 @@ class SetpointManagerColdest(object):
 
     @setpoint_node_or_nodelist_name.setter
     def setpoint_node_or_nodelist_name(self, value=None):
-        """  Corresponds to IDD Field `setpoint_node_or_nodelist_name`
+        """  Corresponds to IDD Field `Setpoint Node or NodeList Name`
         Node(s) at which the temperature will be set
+        
+        {u'note': [u'Node(s) at which the temperature will be set'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `setpoint_node_or_nodelist_name`
+            value (str): value for IDD Field `Setpoint Node or NodeList Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4675,7 +4762,7 @@ class SetpointManagerColdest(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `setpoint_node_or_nodelist_name`'.format(value))
             if ',' in value:
@@ -4684,7 +4771,6 @@ class SetpointManagerColdest(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `setpoint_node_or_nodelist_name`')
-
         self._data["Setpoint Node or NodeList Name"] = value
 
     def check(self):
@@ -4790,10 +4876,12 @@ class SetpointManagerReturnAirBypassFlow(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {'type': 'alpha', u'reference': u'SetpointManagers', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4803,7 +4891,7 @@ class SetpointManagerReturnAirBypassFlow(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -4812,7 +4900,6 @@ class SetpointManagerReturnAirBypassFlow(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -4826,10 +4913,12 @@ class SetpointManagerReturnAirBypassFlow(object):
 
     @control_variable.setter
     def control_variable(self, value="Flow"):
-        """  Corresponds to IDD Field `control_variable`
+        """  Corresponds to IDD Field `Control Variable`
+        
+        {u'default': u'Flow', u'type': u'choice', u'key': [u'Flow'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `control_variable`
+            value (str): value for IDD Field `Control Variable`
                 Accepted values are:
                       - Flow
                 Default value: Flow
@@ -4842,7 +4931,7 @@ class SetpointManagerReturnAirBypassFlow(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `control_variable`'.format(value))
             if ',' in value:
@@ -4867,7 +4956,6 @@ class SetpointManagerReturnAirBypassFlow(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `control_variable`'.format(value))
             value = vals[value_lower]
-
         self._data["Control Variable"] = value
 
     @property
@@ -4881,11 +4969,13 @@ class SetpointManagerReturnAirBypassFlow(object):
 
     @hvac_air_loop_name.setter
     def hvac_air_loop_name(self, value=None):
-        """  Corresponds to IDD Field `hvac_air_loop_name`
+        """  Corresponds to IDD Field `HVAC Air Loop Name`
         Enter the name of an AirLoopHVAC object.
+        
+        {u'note': [u'Enter the name of an AirLoopHVAC object.'], u'type': u'object-list', u'object-list': u'AirPrimaryLoops', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `hvac_air_loop_name`
+            value (str): value for IDD Field `HVAC Air Loop Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4895,7 +4985,7 @@ class SetpointManagerReturnAirBypassFlow(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `hvac_air_loop_name`'.format(value))
             if ',' in value:
@@ -4904,7 +4994,6 @@ class SetpointManagerReturnAirBypassFlow(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `hvac_air_loop_name`')
-
         self._data["HVAC Air Loop Name"] = value
 
     @property
@@ -4918,10 +5007,12 @@ class SetpointManagerReturnAirBypassFlow(object):
 
     @temperature_setpoint_schedule_name.setter
     def temperature_setpoint_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `temperature_setpoint_schedule_name`
+        """  Corresponds to IDD Field `Temperature Setpoint Schedule Name`
+        
+        {u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `temperature_setpoint_schedule_name`
+            value (str): value for IDD Field `Temperature Setpoint Schedule Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4931,7 +5022,7 @@ class SetpointManagerReturnAirBypassFlow(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `temperature_setpoint_schedule_name`'.format(value))
             if ',' in value:
@@ -4940,7 +5031,6 @@ class SetpointManagerReturnAirBypassFlow(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `temperature_setpoint_schedule_name`')
-
         self._data["Temperature Setpoint Schedule Name"] = value
 
     def check(self):
@@ -5077,10 +5167,12 @@ class SetpointManagerWarmestTemperatureFlow(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {'type': 'alpha', u'reference': u'SetpointManagers', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5090,7 +5182,7 @@ class SetpointManagerWarmestTemperatureFlow(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -5099,7 +5191,6 @@ class SetpointManagerWarmestTemperatureFlow(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -5113,10 +5204,12 @@ class SetpointManagerWarmestTemperatureFlow(object):
 
     @control_variable.setter
     def control_variable(self, value=None):
-        """  Corresponds to IDD Field `control_variable`
+        """  Corresponds to IDD Field `Control Variable`
+        
+        {u'type': u'choice', u'key': [u'Temperature'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `control_variable`
+            value (str): value for IDD Field `Control Variable`
                 Accepted values are:
                       - Temperature
                 if `value` is None it will not be checked against the
@@ -5128,7 +5221,7 @@ class SetpointManagerWarmestTemperatureFlow(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `control_variable`'.format(value))
             if ',' in value:
@@ -5153,7 +5246,6 @@ class SetpointManagerWarmestTemperatureFlow(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `control_variable`'.format(value))
             value = vals[value_lower]
-
         self._data["Control Variable"] = value
 
     @property
@@ -5167,11 +5259,13 @@ class SetpointManagerWarmestTemperatureFlow(object):
 
     @hvac_air_loop_name.setter
     def hvac_air_loop_name(self, value=None):
-        """  Corresponds to IDD Field `hvac_air_loop_name`
+        """  Corresponds to IDD Field `HVAC Air Loop Name`
         Enter the name of an AirLoopHVAC object.
+        
+        {u'note': [u'Enter the name of an AirLoopHVAC object.'], u'type': u'object-list', u'object-list': u'AirPrimaryLoops', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `hvac_air_loop_name`
+            value (str): value for IDD Field `HVAC Air Loop Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5181,7 +5275,7 @@ class SetpointManagerWarmestTemperatureFlow(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `hvac_air_loop_name`'.format(value))
             if ',' in value:
@@ -5190,7 +5284,6 @@ class SetpointManagerWarmestTemperatureFlow(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `hvac_air_loop_name`')
-
         self._data["HVAC Air Loop Name"] = value
 
     @property
@@ -5204,10 +5297,12 @@ class SetpointManagerWarmestTemperatureFlow(object):
 
     @minimum_setpoint_temperature.setter
     def minimum_setpoint_temperature(self, value=12.0 ):
-        """  Corresponds to IDD Field `minimum_setpoint_temperature`
+        """  Corresponds to IDD Field `Minimum Setpoint Temperature`
+        
+        {u'units': u'C', u'default': '12.0', u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `minimum_setpoint_temperature`
+            value (float): value for IDD Field `Minimum Setpoint Temperature`
                 Units: C
                 Default value: 12.0
                 value > 0.0
@@ -5220,13 +5315,12 @@ class SetpointManagerWarmestTemperatureFlow(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `minimum_setpoint_temperature`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `minimum_setpoint_temperature`')
-
         self._data["Minimum Setpoint Temperature"] = value
 
     @property
@@ -5240,10 +5334,12 @@ class SetpointManagerWarmestTemperatureFlow(object):
 
     @maximum_setpoint_temperature.setter
     def maximum_setpoint_temperature(self, value=18.0 ):
-        """  Corresponds to IDD Field `maximum_setpoint_temperature`
+        """  Corresponds to IDD Field `Maximum Setpoint Temperature`
+        
+        {u'units': u'C', u'default': '18.0', u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `maximum_setpoint_temperature`
+            value (float): value for IDD Field `Maximum Setpoint Temperature`
                 Units: C
                 Default value: 18.0
                 value > 0.0
@@ -5256,13 +5352,12 @@ class SetpointManagerWarmestTemperatureFlow(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `maximum_setpoint_temperature`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `maximum_setpoint_temperature`')
-
         self._data["Maximum Setpoint Temperature"] = value
 
     @property
@@ -5276,7 +5371,7 @@ class SetpointManagerWarmestTemperatureFlow(object):
 
     @strategy.setter
     def strategy(self, value="TemperatureFirst"):
-        """  Corresponds to IDD Field `strategy`
+        """  Corresponds to IDD Field `Strategy`
         For TemperatureFirst the manager tries to find the highest setpoint temperature
         that will satisfy all the zone cooling loads at minimum supply air flow rate.
         If this setpoint temperature is less than the minimum, the setpoint temperature is set
@@ -5285,9 +5380,11 @@ class SetpointManagerWarmestTemperatureFlow(object):
         that will satisfy all the zone cooling loads at the maximum setpoint temperature.
         If this flow is greater than the maximum, the flow is set to the maximum and the
         setpoint temperature is reduced to satisfy the cooling loads.
+        
+        {u'note': [u'For TemperatureFirst the manager tries to find the highest setpoint temperature', u'that will satisfy all the zone cooling loads at minimum supply air flow rate.', u'If this setpoint temperature is less than the minimum, the setpoint temperature is set', u'to the minimum, and the supply air flow rate is increased to meet the loads.', u'For FlowFirst the manager tries to find the lowest supply air flow rate', u'that will satisfy all the zone cooling loads at the maximum setpoint temperature.', u'If this flow is greater than the maximum, the flow is set to the maximum and the', u'setpoint temperature is reduced to satisfy the cooling loads.'], u'default': u'TemperatureFirst', u'type': u'choice', u'key': [u'TemperatureFirst', u'FlowFirst'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `strategy`
+            value (str): value for IDD Field `Strategy`
                 Accepted values are:
                       - TemperatureFirst
                       - FlowFirst
@@ -5301,7 +5398,7 @@ class SetpointManagerWarmestTemperatureFlow(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `strategy`'.format(value))
             if ',' in value:
@@ -5327,7 +5424,6 @@ class SetpointManagerWarmestTemperatureFlow(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `strategy`'.format(value))
             value = vals[value_lower]
-
         self._data["Strategy"] = value
 
     @property
@@ -5341,11 +5437,13 @@ class SetpointManagerWarmestTemperatureFlow(object):
 
     @setpoint_node_or_nodelist_name.setter
     def setpoint_node_or_nodelist_name(self, value=None):
-        """  Corresponds to IDD Field `setpoint_node_or_nodelist_name`
+        """  Corresponds to IDD Field `Setpoint Node or NodeList Name`
         Node(s) at which the temperature will be set
+        
+        {u'note': [u'Node(s) at which the temperature will be set'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `setpoint_node_or_nodelist_name`
+            value (str): value for IDD Field `Setpoint Node or NodeList Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5355,7 +5453,7 @@ class SetpointManagerWarmestTemperatureFlow(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `setpoint_node_or_nodelist_name`'.format(value))
             if ',' in value:
@@ -5364,7 +5462,6 @@ class SetpointManagerWarmestTemperatureFlow(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `setpoint_node_or_nodelist_name`')
-
         self._data["Setpoint Node or NodeList Name"] = value
 
     @property
@@ -5378,12 +5475,14 @@ class SetpointManagerWarmestTemperatureFlow(object):
 
     @minimum_turndown_ratio.setter
     def minimum_turndown_ratio(self, value=0.2 ):
-        """  Corresponds to IDD Field `minimum_turndown_ratio`
+        """  Corresponds to IDD Field `Minimum Turndown Ratio`
         Fraction of the maximum supply air flow rate.
         Used to define the minimum supply flow for the TemperatureFirst strategy.
+        
+        {'pytype': 'float', u'default': '0.2', u'minimum>': '0.0', u'note': [u'Fraction of the maximum supply air flow rate.', u'Used to define the minimum supply flow for the TemperatureFirst strategy.'], u'units': u'dimensionless', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `minimum_turndown_ratio`
+            value (float): value for IDD Field `Minimum Turndown Ratio`
                 Units: dimensionless
                 Default value: 0.2
                 value > 0.0
@@ -5396,13 +5495,12 @@ class SetpointManagerWarmestTemperatureFlow(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `minimum_turndown_ratio`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `minimum_turndown_ratio`')
-
         self._data["Minimum Turndown Ratio"] = value
 
     def check(self):
@@ -5515,10 +5613,12 @@ class SetpointManagerMultiZoneHeatingAverage(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {'type': 'alpha', u'reference': u'SetpointManagers', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5528,7 +5628,7 @@ class SetpointManagerMultiZoneHeatingAverage(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -5537,7 +5637,6 @@ class SetpointManagerMultiZoneHeatingAverage(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -5551,11 +5650,13 @@ class SetpointManagerMultiZoneHeatingAverage(object):
 
     @hvac_air_loop_name.setter
     def hvac_air_loop_name(self, value=None):
-        """  Corresponds to IDD Field `hvac_air_loop_name`
+        """  Corresponds to IDD Field `HVAC Air Loop Name`
         Enter the name of an AirLoopHVAC object
+        
+        {u'note': [u'Enter the name of an AirLoopHVAC object'], u'type': u'object-list', u'object-list': u'AirPrimaryLoops', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `hvac_air_loop_name`
+            value (str): value for IDD Field `HVAC Air Loop Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5565,7 +5666,7 @@ class SetpointManagerMultiZoneHeatingAverage(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `hvac_air_loop_name`'.format(value))
             if ',' in value:
@@ -5574,7 +5675,6 @@ class SetpointManagerMultiZoneHeatingAverage(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `hvac_air_loop_name`')
-
         self._data["HVAC Air Loop Name"] = value
 
     @property
@@ -5588,10 +5688,12 @@ class SetpointManagerMultiZoneHeatingAverage(object):
 
     @minimum_setpoint_temperature.setter
     def minimum_setpoint_temperature(self, value=20.0 ):
-        """  Corresponds to IDD Field `minimum_setpoint_temperature`
+        """  Corresponds to IDD Field `Minimum Setpoint Temperature`
+        
+        {u'units': u'C', u'default': '20.0', u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `minimum_setpoint_temperature`
+            value (float): value for IDD Field `Minimum Setpoint Temperature`
                 Units: C
                 Default value: 20.0
                 value > 0.0
@@ -5604,13 +5706,12 @@ class SetpointManagerMultiZoneHeatingAverage(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `minimum_setpoint_temperature`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `minimum_setpoint_temperature`')
-
         self._data["Minimum Setpoint Temperature"] = value
 
     @property
@@ -5624,10 +5725,12 @@ class SetpointManagerMultiZoneHeatingAverage(object):
 
     @maximum_setpoint_temperature.setter
     def maximum_setpoint_temperature(self, value=50.0 ):
-        """  Corresponds to IDD Field `maximum_setpoint_temperature`
+        """  Corresponds to IDD Field `Maximum Setpoint Temperature`
+        
+        {u'units': u'C', u'default': '50.0', u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `maximum_setpoint_temperature`
+            value (float): value for IDD Field `Maximum Setpoint Temperature`
                 Units: C
                 Default value: 50.0
                 value > 0.0
@@ -5640,13 +5743,12 @@ class SetpointManagerMultiZoneHeatingAverage(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `maximum_setpoint_temperature`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `maximum_setpoint_temperature`')
-
         self._data["Maximum Setpoint Temperature"] = value
 
     @property
@@ -5660,11 +5762,13 @@ class SetpointManagerMultiZoneHeatingAverage(object):
 
     @setpoint_node_or_nodelist_name.setter
     def setpoint_node_or_nodelist_name(self, value=None):
-        """  Corresponds to IDD Field `setpoint_node_or_nodelist_name`
+        """  Corresponds to IDD Field `Setpoint Node or NodeList Name`
         Node(s) at which the temperature will be set
+        
+        {u'note': [u'Node(s) at which the temperature will be set'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `setpoint_node_or_nodelist_name`
+            value (str): value for IDD Field `Setpoint Node or NodeList Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5674,7 +5778,7 @@ class SetpointManagerMultiZoneHeatingAverage(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `setpoint_node_or_nodelist_name`'.format(value))
             if ',' in value:
@@ -5683,7 +5787,6 @@ class SetpointManagerMultiZoneHeatingAverage(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `setpoint_node_or_nodelist_name`')
-
         self._data["Setpoint Node or NodeList Name"] = value
 
     def check(self):
@@ -5796,10 +5899,12 @@ class SetpointManagerMultiZoneCoolingAverage(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {'type': 'alpha', u'reference': u'SetpointManagers', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5809,7 +5914,7 @@ class SetpointManagerMultiZoneCoolingAverage(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -5818,7 +5923,6 @@ class SetpointManagerMultiZoneCoolingAverage(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -5832,11 +5936,13 @@ class SetpointManagerMultiZoneCoolingAverage(object):
 
     @hvac_air_loop_name.setter
     def hvac_air_loop_name(self, value=None):
-        """  Corresponds to IDD Field `hvac_air_loop_name`
+        """  Corresponds to IDD Field `HVAC Air Loop Name`
         Enter the name of an AirLoopHVAC object
+        
+        {u'note': [u'Enter the name of an AirLoopHVAC object'], u'type': u'object-list', u'object-list': u'AirPrimaryLoops', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `hvac_air_loop_name`
+            value (str): value for IDD Field `HVAC Air Loop Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5846,7 +5952,7 @@ class SetpointManagerMultiZoneCoolingAverage(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `hvac_air_loop_name`'.format(value))
             if ',' in value:
@@ -5855,7 +5961,6 @@ class SetpointManagerMultiZoneCoolingAverage(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `hvac_air_loop_name`')
-
         self._data["HVAC Air Loop Name"] = value
 
     @property
@@ -5869,10 +5974,12 @@ class SetpointManagerMultiZoneCoolingAverage(object):
 
     @minimum_setpoint_temperature.setter
     def minimum_setpoint_temperature(self, value=12.0 ):
-        """  Corresponds to IDD Field `minimum_setpoint_temperature`
+        """  Corresponds to IDD Field `Minimum Setpoint Temperature`
+        
+        {u'units': u'C', u'default': '12.0', u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `minimum_setpoint_temperature`
+            value (float): value for IDD Field `Minimum Setpoint Temperature`
                 Units: C
                 Default value: 12.0
                 value > 0.0
@@ -5885,13 +5992,12 @@ class SetpointManagerMultiZoneCoolingAverage(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `minimum_setpoint_temperature`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `minimum_setpoint_temperature`')
-
         self._data["Minimum Setpoint Temperature"] = value
 
     @property
@@ -5905,10 +6011,12 @@ class SetpointManagerMultiZoneCoolingAverage(object):
 
     @maximum_setpoint_temperature.setter
     def maximum_setpoint_temperature(self, value=18.0 ):
-        """  Corresponds to IDD Field `maximum_setpoint_temperature`
+        """  Corresponds to IDD Field `Maximum Setpoint Temperature`
+        
+        {u'units': u'C', u'default': '18.0', u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `maximum_setpoint_temperature`
+            value (float): value for IDD Field `Maximum Setpoint Temperature`
                 Units: C
                 Default value: 18.0
                 value > 0.0
@@ -5921,13 +6029,12 @@ class SetpointManagerMultiZoneCoolingAverage(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `maximum_setpoint_temperature`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `maximum_setpoint_temperature`')
-
         self._data["Maximum Setpoint Temperature"] = value
 
     @property
@@ -5941,11 +6048,13 @@ class SetpointManagerMultiZoneCoolingAverage(object):
 
     @setpoint_node_or_nodelist_name.setter
     def setpoint_node_or_nodelist_name(self, value=None):
-        """  Corresponds to IDD Field `setpoint_node_or_nodelist_name`
+        """  Corresponds to IDD Field `Setpoint Node or NodeList Name`
         Node(s) at which the temperature will be set
+        
+        {u'note': [u'Node(s) at which the temperature will be set'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `setpoint_node_or_nodelist_name`
+            value (str): value for IDD Field `Setpoint Node or NodeList Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5955,7 +6064,7 @@ class SetpointManagerMultiZoneCoolingAverage(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `setpoint_node_or_nodelist_name`'.format(value))
             if ',' in value:
@@ -5964,7 +6073,6 @@ class SetpointManagerMultiZoneCoolingAverage(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `setpoint_node_or_nodelist_name`')
-
         self._data["Setpoint Node or NodeList Name"] = value
 
     def check(self):
@@ -6077,10 +6185,12 @@ class SetpointManagerMultiZoneMinimumHumidityAverage(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {'type': 'alpha', u'reference': u'SetpointManagers', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6090,7 +6200,7 @@ class SetpointManagerMultiZoneMinimumHumidityAverage(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -6099,7 +6209,6 @@ class SetpointManagerMultiZoneMinimumHumidityAverage(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -6113,11 +6222,13 @@ class SetpointManagerMultiZoneMinimumHumidityAverage(object):
 
     @hvac_air_loop_name.setter
     def hvac_air_loop_name(self, value=None):
-        """  Corresponds to IDD Field `hvac_air_loop_name`
+        """  Corresponds to IDD Field `HVAC Air Loop Name`
         Enter the name of an AirLoopHVAC object
+        
+        {u'note': [u'Enter the name of an AirLoopHVAC object'], u'type': u'object-list', u'object-list': u'AirPrimaryLoops', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `hvac_air_loop_name`
+            value (str): value for IDD Field `HVAC Air Loop Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6127,7 +6238,7 @@ class SetpointManagerMultiZoneMinimumHumidityAverage(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `hvac_air_loop_name`'.format(value))
             if ',' in value:
@@ -6136,7 +6247,6 @@ class SetpointManagerMultiZoneMinimumHumidityAverage(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `hvac_air_loop_name`')
-
         self._data["HVAC Air Loop Name"] = value
 
     @property
@@ -6150,10 +6260,12 @@ class SetpointManagerMultiZoneMinimumHumidityAverage(object):
 
     @minimum_setpoint_humidity_ratio.setter
     def minimum_setpoint_humidity_ratio(self, value=0.005 ):
-        """  Corresponds to IDD Field `minimum_setpoint_humidity_ratio`
+        """  Corresponds to IDD Field `Minimum Setpoint Humidity Ratio`
+        
+        {u'units': u'kgWater/kgDryAir', u'default': '0.005', u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `minimum_setpoint_humidity_ratio`
+            value (float): value for IDD Field `Minimum Setpoint Humidity Ratio`
                 Units: kgWater/kgDryAir
                 Default value: 0.005
                 value > 0.0
@@ -6166,13 +6278,12 @@ class SetpointManagerMultiZoneMinimumHumidityAverage(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `minimum_setpoint_humidity_ratio`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `minimum_setpoint_humidity_ratio`')
-
         self._data["Minimum Setpoint Humidity Ratio"] = value
 
     @property
@@ -6186,10 +6297,12 @@ class SetpointManagerMultiZoneMinimumHumidityAverage(object):
 
     @maximum_setpoint_humidity_ratio.setter
     def maximum_setpoint_humidity_ratio(self, value=0.012 ):
-        """  Corresponds to IDD Field `maximum_setpoint_humidity_ratio`
+        """  Corresponds to IDD Field `Maximum Setpoint Humidity Ratio`
+        
+        {u'units': u'kgWater/kgDryAir', u'default': '0.012', u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `maximum_setpoint_humidity_ratio`
+            value (float): value for IDD Field `Maximum Setpoint Humidity Ratio`
                 Units: kgWater/kgDryAir
                 Default value: 0.012
                 value > 0.0
@@ -6202,13 +6315,12 @@ class SetpointManagerMultiZoneMinimumHumidityAverage(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `maximum_setpoint_humidity_ratio`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `maximum_setpoint_humidity_ratio`')
-
         self._data["Maximum Setpoint Humidity Ratio"] = value
 
     @property
@@ -6222,11 +6334,13 @@ class SetpointManagerMultiZoneMinimumHumidityAverage(object):
 
     @setpoint_node_or_nodelist_name.setter
     def setpoint_node_or_nodelist_name(self, value=None):
-        """  Corresponds to IDD Field `setpoint_node_or_nodelist_name`
+        """  Corresponds to IDD Field `Setpoint Node or NodeList Name`
         Node(s) at which the humidity ratio will be set
+        
+        {u'note': [u'Node(s) at which the humidity ratio will be set'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `setpoint_node_or_nodelist_name`
+            value (str): value for IDD Field `Setpoint Node or NodeList Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6236,7 +6350,7 @@ class SetpointManagerMultiZoneMinimumHumidityAverage(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `setpoint_node_or_nodelist_name`'.format(value))
             if ',' in value:
@@ -6245,7 +6359,6 @@ class SetpointManagerMultiZoneMinimumHumidityAverage(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `setpoint_node_or_nodelist_name`')
-
         self._data["Setpoint Node or NodeList Name"] = value
 
     def check(self):
@@ -6358,10 +6471,12 @@ class SetpointManagerMultiZoneMaximumHumidityAverage(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {'type': 'alpha', u'reference': u'SetpointManagers', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6371,7 +6486,7 @@ class SetpointManagerMultiZoneMaximumHumidityAverage(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -6380,7 +6495,6 @@ class SetpointManagerMultiZoneMaximumHumidityAverage(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -6394,11 +6508,13 @@ class SetpointManagerMultiZoneMaximumHumidityAverage(object):
 
     @hvac_air_loop_name.setter
     def hvac_air_loop_name(self, value=None):
-        """  Corresponds to IDD Field `hvac_air_loop_name`
+        """  Corresponds to IDD Field `HVAC Air Loop Name`
         Enter the name of an AirLoopHVAC object
+        
+        {u'note': [u'Enter the name of an AirLoopHVAC object'], u'type': u'object-list', u'object-list': u'AirPrimaryLoops', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `hvac_air_loop_name`
+            value (str): value for IDD Field `HVAC Air Loop Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6408,7 +6524,7 @@ class SetpointManagerMultiZoneMaximumHumidityAverage(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `hvac_air_loop_name`'.format(value))
             if ',' in value:
@@ -6417,7 +6533,6 @@ class SetpointManagerMultiZoneMaximumHumidityAverage(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `hvac_air_loop_name`')
-
         self._data["HVAC Air Loop Name"] = value
 
     @property
@@ -6431,10 +6546,12 @@ class SetpointManagerMultiZoneMaximumHumidityAverage(object):
 
     @minimum_setpoint_humidity_ratio.setter
     def minimum_setpoint_humidity_ratio(self, value=0.008 ):
-        """  Corresponds to IDD Field `minimum_setpoint_humidity_ratio`
+        """  Corresponds to IDD Field `Minimum Setpoint Humidity Ratio`
+        
+        {u'units': u'kgWater/kgDryAir', u'default': '0.008', u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `minimum_setpoint_humidity_ratio`
+            value (float): value for IDD Field `Minimum Setpoint Humidity Ratio`
                 Units: kgWater/kgDryAir
                 Default value: 0.008
                 value > 0.0
@@ -6447,13 +6564,12 @@ class SetpointManagerMultiZoneMaximumHumidityAverage(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `minimum_setpoint_humidity_ratio`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `minimum_setpoint_humidity_ratio`')
-
         self._data["Minimum Setpoint Humidity Ratio"] = value
 
     @property
@@ -6467,10 +6583,12 @@ class SetpointManagerMultiZoneMaximumHumidityAverage(object):
 
     @maximum_setpoint_humidity_ratio.setter
     def maximum_setpoint_humidity_ratio(self, value=0.015 ):
-        """  Corresponds to IDD Field `maximum_setpoint_humidity_ratio`
+        """  Corresponds to IDD Field `Maximum Setpoint Humidity Ratio`
+        
+        {u'units': u'kgWater/kgDryAir', u'default': '0.015', u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `maximum_setpoint_humidity_ratio`
+            value (float): value for IDD Field `Maximum Setpoint Humidity Ratio`
                 Units: kgWater/kgDryAir
                 Default value: 0.015
                 value > 0.0
@@ -6483,13 +6601,12 @@ class SetpointManagerMultiZoneMaximumHumidityAverage(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `maximum_setpoint_humidity_ratio`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `maximum_setpoint_humidity_ratio`')
-
         self._data["Maximum Setpoint Humidity Ratio"] = value
 
     @property
@@ -6503,11 +6620,13 @@ class SetpointManagerMultiZoneMaximumHumidityAverage(object):
 
     @setpoint_node_or_nodelist_name.setter
     def setpoint_node_or_nodelist_name(self, value=None):
-        """  Corresponds to IDD Field `setpoint_node_or_nodelist_name`
+        """  Corresponds to IDD Field `Setpoint Node or NodeList Name`
         Node(s) at which the humidity ratio will be set
+        
+        {u'note': [u'Node(s) at which the humidity ratio will be set'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `setpoint_node_or_nodelist_name`
+            value (str): value for IDD Field `Setpoint Node or NodeList Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6517,7 +6636,7 @@ class SetpointManagerMultiZoneMaximumHumidityAverage(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `setpoint_node_or_nodelist_name`'.format(value))
             if ',' in value:
@@ -6526,7 +6645,6 @@ class SetpointManagerMultiZoneMaximumHumidityAverage(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `setpoint_node_or_nodelist_name`')
-
         self._data["Setpoint Node or NodeList Name"] = value
 
     def check(self):
@@ -6640,10 +6758,12 @@ class SetpointManagerMultiZoneHumidityMinimum(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {'type': 'alpha', u'reference': u'SetpointManagers', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6653,7 +6773,7 @@ class SetpointManagerMultiZoneHumidityMinimum(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -6662,7 +6782,6 @@ class SetpointManagerMultiZoneHumidityMinimum(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -6676,11 +6795,13 @@ class SetpointManagerMultiZoneHumidityMinimum(object):
 
     @hvac_air_loop_name.setter
     def hvac_air_loop_name(self, value=None):
-        """  Corresponds to IDD Field `hvac_air_loop_name`
+        """  Corresponds to IDD Field `HVAC Air Loop Name`
         Enter the name of an AirLoopHVAC object
+        
+        {u'note': [u'Enter the name of an AirLoopHVAC object'], u'type': u'object-list', u'object-list': u'AirPrimaryLoops', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `hvac_air_loop_name`
+            value (str): value for IDD Field `HVAC Air Loop Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6690,7 +6811,7 @@ class SetpointManagerMultiZoneHumidityMinimum(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `hvac_air_loop_name`'.format(value))
             if ',' in value:
@@ -6699,7 +6820,6 @@ class SetpointManagerMultiZoneHumidityMinimum(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `hvac_air_loop_name`')
-
         self._data["HVAC Air Loop Name"] = value
 
     @property
@@ -6713,10 +6833,12 @@ class SetpointManagerMultiZoneHumidityMinimum(object):
 
     @minimum_setpoint_humidity_ratio.setter
     def minimum_setpoint_humidity_ratio(self, value=0.005 ):
-        """  Corresponds to IDD Field `minimum_setpoint_humidity_ratio`
+        """  Corresponds to IDD Field `Minimum Setpoint Humidity Ratio`
+        
+        {u'units': u'kgWater/kgDryAir', u'default': '0.005', u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `minimum_setpoint_humidity_ratio`
+            value (float): value for IDD Field `Minimum Setpoint Humidity Ratio`
                 Units: kgWater/kgDryAir
                 Default value: 0.005
                 value > 0.0
@@ -6729,13 +6851,12 @@ class SetpointManagerMultiZoneHumidityMinimum(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `minimum_setpoint_humidity_ratio`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `minimum_setpoint_humidity_ratio`')
-
         self._data["Minimum Setpoint Humidity Ratio"] = value
 
     @property
@@ -6749,10 +6870,12 @@ class SetpointManagerMultiZoneHumidityMinimum(object):
 
     @maximum_setpoint_humidity_ratio.setter
     def maximum_setpoint_humidity_ratio(self, value=0.012 ):
-        """  Corresponds to IDD Field `maximum_setpoint_humidity_ratio`
+        """  Corresponds to IDD Field `Maximum Setpoint Humidity Ratio`
+        
+        {u'units': u'kgWater/kgDryAir', u'default': '0.012', u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `maximum_setpoint_humidity_ratio`
+            value (float): value for IDD Field `Maximum Setpoint Humidity Ratio`
                 Units: kgWater/kgDryAir
                 Default value: 0.012
                 value > 0.0
@@ -6765,13 +6888,12 @@ class SetpointManagerMultiZoneHumidityMinimum(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `maximum_setpoint_humidity_ratio`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `maximum_setpoint_humidity_ratio`')
-
         self._data["Maximum Setpoint Humidity Ratio"] = value
 
     @property
@@ -6785,11 +6907,13 @@ class SetpointManagerMultiZoneHumidityMinimum(object):
 
     @setpoint_node_or_nodelist_name.setter
     def setpoint_node_or_nodelist_name(self, value=None):
-        """  Corresponds to IDD Field `setpoint_node_or_nodelist_name`
+        """  Corresponds to IDD Field `Setpoint Node or NodeList Name`
         Node(s) at which the humidity ratio will be set
+        
+        {u'note': [u'Node(s) at which the humidity ratio will be set'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `setpoint_node_or_nodelist_name`
+            value (str): value for IDD Field `Setpoint Node or NodeList Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6799,7 +6923,7 @@ class SetpointManagerMultiZoneHumidityMinimum(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `setpoint_node_or_nodelist_name`'.format(value))
             if ',' in value:
@@ -6808,7 +6932,6 @@ class SetpointManagerMultiZoneHumidityMinimum(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `setpoint_node_or_nodelist_name`')
-
         self._data["Setpoint Node or NodeList Name"] = value
 
     def check(self):
@@ -6922,10 +7045,12 @@ class SetpointManagerMultiZoneHumidityMaximum(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {'type': 'alpha', u'reference': u'SetpointManagers', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6935,7 +7060,7 @@ class SetpointManagerMultiZoneHumidityMaximum(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -6944,7 +7069,6 @@ class SetpointManagerMultiZoneHumidityMaximum(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -6958,11 +7082,13 @@ class SetpointManagerMultiZoneHumidityMaximum(object):
 
     @hvac_air_loop_name.setter
     def hvac_air_loop_name(self, value=None):
-        """  Corresponds to IDD Field `hvac_air_loop_name`
+        """  Corresponds to IDD Field `HVAC Air Loop Name`
         Enter the name of an AirLoopHVAC object
+        
+        {u'note': [u'Enter the name of an AirLoopHVAC object'], u'type': u'object-list', u'object-list': u'AirPrimaryLoops', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `hvac_air_loop_name`
+            value (str): value for IDD Field `HVAC Air Loop Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6972,7 +7098,7 @@ class SetpointManagerMultiZoneHumidityMaximum(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `hvac_air_loop_name`'.format(value))
             if ',' in value:
@@ -6981,7 +7107,6 @@ class SetpointManagerMultiZoneHumidityMaximum(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `hvac_air_loop_name`')
-
         self._data["HVAC Air Loop Name"] = value
 
     @property
@@ -6995,10 +7120,12 @@ class SetpointManagerMultiZoneHumidityMaximum(object):
 
     @minimum_setpoint_humidity_ratio.setter
     def minimum_setpoint_humidity_ratio(self, value=0.008 ):
-        """  Corresponds to IDD Field `minimum_setpoint_humidity_ratio`
+        """  Corresponds to IDD Field `Minimum Setpoint Humidity Ratio`
+        
+        {u'units': u'kgWater/kgDryAir', u'default': '0.008', u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `minimum_setpoint_humidity_ratio`
+            value (float): value for IDD Field `Minimum Setpoint Humidity Ratio`
                 Units: kgWater/kgDryAir
                 Default value: 0.008
                 value > 0.0
@@ -7011,13 +7138,12 @@ class SetpointManagerMultiZoneHumidityMaximum(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `minimum_setpoint_humidity_ratio`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `minimum_setpoint_humidity_ratio`')
-
         self._data["Minimum Setpoint Humidity Ratio"] = value
 
     @property
@@ -7031,10 +7157,12 @@ class SetpointManagerMultiZoneHumidityMaximum(object):
 
     @maximum_setpoint_humidity_ratio.setter
     def maximum_setpoint_humidity_ratio(self, value=0.015 ):
-        """  Corresponds to IDD Field `maximum_setpoint_humidity_ratio`
+        """  Corresponds to IDD Field `Maximum Setpoint Humidity Ratio`
+        
+        {u'units': u'kgWater/kgDryAir', u'default': '0.015', u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `maximum_setpoint_humidity_ratio`
+            value (float): value for IDD Field `Maximum Setpoint Humidity Ratio`
                 Units: kgWater/kgDryAir
                 Default value: 0.015
                 value > 0.0
@@ -7047,13 +7175,12 @@ class SetpointManagerMultiZoneHumidityMaximum(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `maximum_setpoint_humidity_ratio`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `maximum_setpoint_humidity_ratio`')
-
         self._data["Maximum Setpoint Humidity Ratio"] = value
 
     @property
@@ -7067,11 +7194,13 @@ class SetpointManagerMultiZoneHumidityMaximum(object):
 
     @setpoint_node_or_nodelist_name.setter
     def setpoint_node_or_nodelist_name(self, value=None):
-        """  Corresponds to IDD Field `setpoint_node_or_nodelist_name`
+        """  Corresponds to IDD Field `Setpoint Node or NodeList Name`
         Node(s) at which the humidity ratio will be set
+        
+        {u'note': [u'Node(s) at which the humidity ratio will be set'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `setpoint_node_or_nodelist_name`
+            value (str): value for IDD Field `Setpoint Node or NodeList Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7081,7 +7210,7 @@ class SetpointManagerMultiZoneHumidityMaximum(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `setpoint_node_or_nodelist_name`'.format(value))
             if ',' in value:
@@ -7090,7 +7219,6 @@ class SetpointManagerMultiZoneHumidityMaximum(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `setpoint_node_or_nodelist_name`')
-
         self._data["Setpoint Node or NodeList Name"] = value
 
     def check(self):
@@ -7220,10 +7348,12 @@ class SetpointManagerFollowOutdoorAirTemperature(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {'type': 'alpha', u'reference': u'SetpointManagers', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7233,7 +7363,7 @@ class SetpointManagerFollowOutdoorAirTemperature(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -7242,7 +7372,6 @@ class SetpointManagerFollowOutdoorAirTemperature(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -7256,10 +7385,12 @@ class SetpointManagerFollowOutdoorAirTemperature(object):
 
     @control_variable.setter
     def control_variable(self, value="Temperature"):
-        """  Corresponds to IDD Field `control_variable`
+        """  Corresponds to IDD Field `Control Variable`
+        
+        {u'default': u'Temperature', u'type': u'choice', u'key': [u'Temperature', u'MinimumTemperature', u'MaximumTemperature'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `control_variable`
+            value (str): value for IDD Field `Control Variable`
                 Accepted values are:
                       - Temperature
                       - MinimumTemperature
@@ -7274,7 +7405,7 @@ class SetpointManagerFollowOutdoorAirTemperature(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `control_variable`'.format(value))
             if ',' in value:
@@ -7301,7 +7432,6 @@ class SetpointManagerFollowOutdoorAirTemperature(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `control_variable`'.format(value))
             value = vals[value_lower]
-
         self._data["Control Variable"] = value
 
     @property
@@ -7315,10 +7445,12 @@ class SetpointManagerFollowOutdoorAirTemperature(object):
 
     @reference_temperature_type.setter
     def reference_temperature_type(self, value="OutdoorAirWetBulb"):
-        """  Corresponds to IDD Field `reference_temperature_type`
+        """  Corresponds to IDD Field `Reference Temperature Type`
+        
+        {u'default': u'OutdoorAirWetBulb', u'type': u'choice', u'key': [u'OutdoorAirWetBulb', u'OutdoorAirDryBulb'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `reference_temperature_type`
+            value (str): value for IDD Field `Reference Temperature Type`
                 Accepted values are:
                       - OutdoorAirWetBulb
                       - OutdoorAirDryBulb
@@ -7332,7 +7464,7 @@ class SetpointManagerFollowOutdoorAirTemperature(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `reference_temperature_type`'.format(value))
             if ',' in value:
@@ -7358,7 +7490,6 @@ class SetpointManagerFollowOutdoorAirTemperature(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `reference_temperature_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Reference Temperature Type"] = value
 
     @property
@@ -7372,10 +7503,12 @@ class SetpointManagerFollowOutdoorAirTemperature(object):
 
     @offset_temperature_difference.setter
     def offset_temperature_difference(self, value=None):
-        """  Corresponds to IDD Field `offset_temperature_difference`
+        """  Corresponds to IDD Field `Offset Temperature Difference`
+        
+        {u'units': u'deltaC', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `offset_temperature_difference`
+            value (float): value for IDD Field `Offset Temperature Difference`
                 Units: deltaC
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -7386,10 +7519,9 @@ class SetpointManagerFollowOutdoorAirTemperature(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `offset_temperature_difference`'.format(value))
-
         self._data["Offset Temperature Difference"] = value
 
     @property
@@ -7403,10 +7535,12 @@ class SetpointManagerFollowOutdoorAirTemperature(object):
 
     @maximum_setpoint_temperature.setter
     def maximum_setpoint_temperature(self, value=None):
-        """  Corresponds to IDD Field `maximum_setpoint_temperature`
+        """  Corresponds to IDD Field `Maximum Setpoint Temperature`
+        
+        {u'units': u'C', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `maximum_setpoint_temperature`
+            value (float): value for IDD Field `Maximum Setpoint Temperature`
                 Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -7417,10 +7551,9 @@ class SetpointManagerFollowOutdoorAirTemperature(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `maximum_setpoint_temperature`'.format(value))
-
         self._data["Maximum Setpoint Temperature"] = value
 
     @property
@@ -7434,10 +7567,12 @@ class SetpointManagerFollowOutdoorAirTemperature(object):
 
     @minimum_setpoint_temperature.setter
     def minimum_setpoint_temperature(self, value=None):
-        """  Corresponds to IDD Field `minimum_setpoint_temperature`
+        """  Corresponds to IDD Field `Minimum Setpoint Temperature`
+        
+        {u'units': u'C', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `minimum_setpoint_temperature`
+            value (float): value for IDD Field `Minimum Setpoint Temperature`
                 Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -7448,10 +7583,9 @@ class SetpointManagerFollowOutdoorAirTemperature(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `minimum_setpoint_temperature`'.format(value))
-
         self._data["Minimum Setpoint Temperature"] = value
 
     @property
@@ -7465,11 +7599,13 @@ class SetpointManagerFollowOutdoorAirTemperature(object):
 
     @setpoint_node_or_nodelist_name.setter
     def setpoint_node_or_nodelist_name(self, value=None):
-        """  Corresponds to IDD Field `setpoint_node_or_nodelist_name`
+        """  Corresponds to IDD Field `Setpoint Node or NodeList Name`
         Node(s) at which control variable will be set
+        
+        {u'note': [u'Node(s) at which control variable will be set'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `setpoint_node_or_nodelist_name`
+            value (str): value for IDD Field `Setpoint Node or NodeList Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7479,7 +7615,7 @@ class SetpointManagerFollowOutdoorAirTemperature(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `setpoint_node_or_nodelist_name`'.format(value))
             if ',' in value:
@@ -7488,7 +7624,6 @@ class SetpointManagerFollowOutdoorAirTemperature(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `setpoint_node_or_nodelist_name`')
-
         self._data["Setpoint Node or NodeList Name"] = value
 
     def check(self):
@@ -7630,10 +7765,12 @@ class SetpointManagerFollowSystemNodeTemperature(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {'type': 'alpha', u'reference': u'SetpointManagers', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7643,7 +7780,7 @@ class SetpointManagerFollowSystemNodeTemperature(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -7652,7 +7789,6 @@ class SetpointManagerFollowSystemNodeTemperature(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -7666,10 +7802,12 @@ class SetpointManagerFollowSystemNodeTemperature(object):
 
     @control_variable.setter
     def control_variable(self, value="Temperature"):
-        """  Corresponds to IDD Field `control_variable`
+        """  Corresponds to IDD Field `Control Variable`
+        
+        {u'default': u'Temperature', u'type': u'choice', u'key': [u'Temperature', u'MinimumTemperature', u'MaximumTemperature'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `control_variable`
+            value (str): value for IDD Field `Control Variable`
                 Accepted values are:
                       - Temperature
                       - MinimumTemperature
@@ -7684,7 +7822,7 @@ class SetpointManagerFollowSystemNodeTemperature(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `control_variable`'.format(value))
             if ',' in value:
@@ -7711,7 +7849,6 @@ class SetpointManagerFollowSystemNodeTemperature(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `control_variable`'.format(value))
             value = vals[value_lower]
-
         self._data["Control Variable"] = value
 
     @property
@@ -7725,10 +7862,12 @@ class SetpointManagerFollowSystemNodeTemperature(object):
 
     @reference_node_name.setter
     def reference_node_name(self, value=None):
-        """  Corresponds to IDD Field `reference_node_name`
+        """  Corresponds to IDD Field `Reference Node Name`
+        
+        {u'type': u'node', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `reference_node_name`
+            value (str): value for IDD Field `Reference Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7738,7 +7877,7 @@ class SetpointManagerFollowSystemNodeTemperature(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `reference_node_name`'.format(value))
             if ',' in value:
@@ -7747,7 +7886,6 @@ class SetpointManagerFollowSystemNodeTemperature(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `reference_node_name`')
-
         self._data["Reference Node Name"] = value
 
     @property
@@ -7761,10 +7899,12 @@ class SetpointManagerFollowSystemNodeTemperature(object):
 
     @reference_temperature_type.setter
     def reference_temperature_type(self, value="NodeDryBulb"):
-        """  Corresponds to IDD Field `reference_temperature_type`
+        """  Corresponds to IDD Field `Reference Temperature Type`
+        
+        {u'default': u'NodeDryBulb', u'type': u'choice', u'key': [u'NodeWetBulb', u'NodeDryBulb'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `reference_temperature_type`
+            value (str): value for IDD Field `Reference Temperature Type`
                 Accepted values are:
                       - NodeWetBulb
                       - NodeDryBulb
@@ -7778,7 +7918,7 @@ class SetpointManagerFollowSystemNodeTemperature(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `reference_temperature_type`'.format(value))
             if ',' in value:
@@ -7804,7 +7944,6 @@ class SetpointManagerFollowSystemNodeTemperature(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `reference_temperature_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Reference Temperature Type"] = value
 
     @property
@@ -7818,10 +7957,12 @@ class SetpointManagerFollowSystemNodeTemperature(object):
 
     @offset_temperature_difference.setter
     def offset_temperature_difference(self, value=None):
-        """  Corresponds to IDD Field `offset_temperature_difference`
+        """  Corresponds to IDD Field `Offset Temperature Difference`
+        
+        {u'units': u'deltaC', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `offset_temperature_difference`
+            value (float): value for IDD Field `Offset Temperature Difference`
                 Units: deltaC
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -7832,10 +7973,9 @@ class SetpointManagerFollowSystemNodeTemperature(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `offset_temperature_difference`'.format(value))
-
         self._data["Offset Temperature Difference"] = value
 
     @property
@@ -7849,10 +7989,12 @@ class SetpointManagerFollowSystemNodeTemperature(object):
 
     @maximum_limit_setpoint_temperature.setter
     def maximum_limit_setpoint_temperature(self, value=None):
-        """  Corresponds to IDD Field `maximum_limit_setpoint_temperature`
+        """  Corresponds to IDD Field `Maximum Limit Setpoint Temperature`
+        
+        {u'units': u'C', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `maximum_limit_setpoint_temperature`
+            value (float): value for IDD Field `Maximum Limit Setpoint Temperature`
                 Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -7863,10 +8005,9 @@ class SetpointManagerFollowSystemNodeTemperature(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `maximum_limit_setpoint_temperature`'.format(value))
-
         self._data["Maximum Limit Setpoint Temperature"] = value
 
     @property
@@ -7880,10 +8021,12 @@ class SetpointManagerFollowSystemNodeTemperature(object):
 
     @minimum_limit_setpoint_temperature.setter
     def minimum_limit_setpoint_temperature(self, value=None):
-        """  Corresponds to IDD Field `minimum_limit_setpoint_temperature`
+        """  Corresponds to IDD Field `Minimum Limit Setpoint Temperature`
+        
+        {u'units': u'C', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `minimum_limit_setpoint_temperature`
+            value (float): value for IDD Field `Minimum Limit Setpoint Temperature`
                 Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -7894,10 +8037,9 @@ class SetpointManagerFollowSystemNodeTemperature(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `minimum_limit_setpoint_temperature`'.format(value))
-
         self._data["Minimum Limit Setpoint Temperature"] = value
 
     @property
@@ -7911,11 +8053,13 @@ class SetpointManagerFollowSystemNodeTemperature(object):
 
     @setpoint_node_or_nodelist_name.setter
     def setpoint_node_or_nodelist_name(self, value=None):
-        """  Corresponds to IDD Field `setpoint_node_or_nodelist_name`
+        """  Corresponds to IDD Field `Setpoint Node or NodeList Name`
         Node(s) at which control variable will be set
+        
+        {u'note': [u'Node(s) at which control variable will be set'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `setpoint_node_or_nodelist_name`
+            value (str): value for IDD Field `Setpoint Node or NodeList Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7925,7 +8069,7 @@ class SetpointManagerFollowSystemNodeTemperature(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `setpoint_node_or_nodelist_name`'.format(value))
             if ',' in value:
@@ -7934,7 +8078,6 @@ class SetpointManagerFollowSystemNodeTemperature(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `setpoint_node_or_nodelist_name`')
-
         self._data["Setpoint Node or NodeList Name"] = value
 
     def check(self):
@@ -8067,10 +8210,12 @@ class SetpointManagerFollowGroundTemperature(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {'type': 'alpha', u'reference': u'SetpointManagers', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8080,7 +8225,7 @@ class SetpointManagerFollowGroundTemperature(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -8089,7 +8234,6 @@ class SetpointManagerFollowGroundTemperature(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -8103,10 +8247,12 @@ class SetpointManagerFollowGroundTemperature(object):
 
     @control_variable.setter
     def control_variable(self, value="Temperature"):
-        """  Corresponds to IDD Field `control_variable`
+        """  Corresponds to IDD Field `Control Variable`
+        
+        {u'default': u'Temperature', u'type': u'choice', u'key': [u'Temperature', u'MinimumTemperature', u'MaximumTemperature'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `control_variable`
+            value (str): value for IDD Field `Control Variable`
                 Accepted values are:
                       - Temperature
                       - MinimumTemperature
@@ -8121,7 +8267,7 @@ class SetpointManagerFollowGroundTemperature(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `control_variable`'.format(value))
             if ',' in value:
@@ -8148,7 +8294,6 @@ class SetpointManagerFollowGroundTemperature(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `control_variable`'.format(value))
             value = vals[value_lower]
-
         self._data["Control Variable"] = value
 
     @property
@@ -8162,10 +8307,12 @@ class SetpointManagerFollowGroundTemperature(object):
 
     @reference_ground_temperature_object_type.setter
     def reference_ground_temperature_object_type(self, value=None):
-        """  Corresponds to IDD Field `reference_ground_temperature_object_type`
+        """  Corresponds to IDD Field `Reference Ground Temperature Object Type`
+        
+        {u'type': u'choice', u'key': [u'Site:GroundTemperature:BuildingSurface', u'Site:GroundTemperature:Shallow', u'Site:GroundTemperature:Deep', u'Site:GroundTemperature:FCfactorMethod'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `reference_ground_temperature_object_type`
+            value (str): value for IDD Field `Reference Ground Temperature Object Type`
                 Accepted values are:
                       - Site:GroundTemperature:BuildingSurface
                       - Site:GroundTemperature:Shallow
@@ -8180,7 +8327,7 @@ class SetpointManagerFollowGroundTemperature(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `reference_ground_temperature_object_type`'.format(value))
             if ',' in value:
@@ -8208,7 +8355,6 @@ class SetpointManagerFollowGroundTemperature(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `reference_ground_temperature_object_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Reference Ground Temperature Object Type"] = value
 
     @property
@@ -8222,10 +8368,12 @@ class SetpointManagerFollowGroundTemperature(object):
 
     @offset_temperature_difference.setter
     def offset_temperature_difference(self, value=None):
-        """  Corresponds to IDD Field `offset_temperature_difference`
+        """  Corresponds to IDD Field `Offset Temperature Difference`
+        
+        {u'units': u'deltaC', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `offset_temperature_difference`
+            value (float): value for IDD Field `Offset Temperature Difference`
                 Units: deltaC
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -8236,10 +8384,9 @@ class SetpointManagerFollowGroundTemperature(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `offset_temperature_difference`'.format(value))
-
         self._data["Offset Temperature Difference"] = value
 
     @property
@@ -8253,10 +8400,12 @@ class SetpointManagerFollowGroundTemperature(object):
 
     @maximum_setpoint_temperature.setter
     def maximum_setpoint_temperature(self, value=None):
-        """  Corresponds to IDD Field `maximum_setpoint_temperature`
+        """  Corresponds to IDD Field `Maximum Setpoint Temperature`
+        
+        {u'units': u'C', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `maximum_setpoint_temperature`
+            value (float): value for IDD Field `Maximum Setpoint Temperature`
                 Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -8267,10 +8416,9 @@ class SetpointManagerFollowGroundTemperature(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `maximum_setpoint_temperature`'.format(value))
-
         self._data["Maximum Setpoint Temperature"] = value
 
     @property
@@ -8284,10 +8432,12 @@ class SetpointManagerFollowGroundTemperature(object):
 
     @minimum_setpoint_temperature.setter
     def minimum_setpoint_temperature(self, value=None):
-        """  Corresponds to IDD Field `minimum_setpoint_temperature`
+        """  Corresponds to IDD Field `Minimum Setpoint Temperature`
+        
+        {u'units': u'C', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `minimum_setpoint_temperature`
+            value (float): value for IDD Field `Minimum Setpoint Temperature`
                 Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -8298,10 +8448,9 @@ class SetpointManagerFollowGroundTemperature(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `minimum_setpoint_temperature`'.format(value))
-
         self._data["Minimum Setpoint Temperature"] = value
 
     @property
@@ -8315,11 +8464,13 @@ class SetpointManagerFollowGroundTemperature(object):
 
     @setpoint_node_or_nodelist_name.setter
     def setpoint_node_or_nodelist_name(self, value=None):
-        """  Corresponds to IDD Field `setpoint_node_or_nodelist_name`
+        """  Corresponds to IDD Field `Setpoint Node or NodeList Name`
         Node(s) at which control variable will be set
+        
+        {u'note': [u'Node(s) at which control variable will be set'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `setpoint_node_or_nodelist_name`
+            value (str): value for IDD Field `Setpoint Node or NodeList Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8329,7 +8480,7 @@ class SetpointManagerFollowGroundTemperature(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `setpoint_node_or_nodelist_name`'.format(value))
             if ',' in value:
@@ -8338,7 +8489,6 @@ class SetpointManagerFollowGroundTemperature(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `setpoint_node_or_nodelist_name`')
-
         self._data["Setpoint Node or NodeList Name"] = value
 
     def check(self):
@@ -8491,10 +8641,12 @@ class SetpointManagerCondenserEnteringReset(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {u'type': u'alpha', u'reference': u'SetpointManagers', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8504,7 +8656,7 @@ class SetpointManagerCondenserEnteringReset(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -8513,7 +8665,6 @@ class SetpointManagerCondenserEnteringReset(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -8527,10 +8678,12 @@ class SetpointManagerCondenserEnteringReset(object):
 
     @control_variable.setter
     def control_variable(self, value="Temperature"):
-        """  Corresponds to IDD Field `control_variable`
+        """  Corresponds to IDD Field `Control Variable`
+        
+        {u'default': u'Temperature', u'type': u'choice', u'key': [u'Temperature'], u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `control_variable`
+            value (str): value for IDD Field `Control Variable`
                 Accepted values are:
                       - Temperature
                 Default value: Temperature
@@ -8543,7 +8696,7 @@ class SetpointManagerCondenserEnteringReset(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `control_variable`'.format(value))
             if ',' in value:
@@ -8568,7 +8721,6 @@ class SetpointManagerCondenserEnteringReset(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `control_variable`'.format(value))
             value = vals[value_lower]
-
         self._data["Control Variable"] = value
 
     @property
@@ -8582,13 +8734,15 @@ class SetpointManagerCondenserEnteringReset(object):
 
     @default_condenser_entering_water_temperature_schedule_name.setter
     def default_condenser_entering_water_temperature_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `default_condenser_entering_water_temperature_schedule_name`
+        """  Corresponds to IDD Field `Default Condenser Entering Water Temperature Schedule Name`
         This scheduled setpoint value is only used in a given timestep if the
         "Optimized" Condenser Entering Temperature does not fall within the prescribed
         boundary conditions.
+        
+        {u'note': [u'This scheduled setpoint value is only used in a given timestep if the', u'"Optimized" Condenser Entering Temperature does not fall within the prescribed', u'boundary conditions.'], u'type': u'object-list', u'object-list': u'ScheduleNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `default_condenser_entering_water_temperature_schedule_name`
+            value (str): value for IDD Field `Default Condenser Entering Water Temperature Schedule Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8598,7 +8752,7 @@ class SetpointManagerCondenserEnteringReset(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `default_condenser_entering_water_temperature_schedule_name`'.format(value))
             if ',' in value:
@@ -8607,7 +8761,6 @@ class SetpointManagerCondenserEnteringReset(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `default_condenser_entering_water_temperature_schedule_name`')
-
         self._data["Default Condenser Entering Water Temperature Schedule Name"] = value
 
     @property
@@ -8621,11 +8774,13 @@ class SetpointManagerCondenserEnteringReset(object):
 
     @minimum_design_wetbulb_temperature_curve_name.setter
     def minimum_design_wetbulb_temperature_curve_name(self, value=None):
-        """  Corresponds to IDD Field `minimum_design_wetbulb_temperature_curve_name`
+        """  Corresponds to IDD Field `Minimum Design Wetbulb Temperature Curve Name`
         Table:OneIndependentVariable object can also be used
+        
+        {u'note': [u'Table:OneIndependentVariable object can also be used'], u'type': u'object-list', u'object-list': u'QuadLinearCurves', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `minimum_design_wetbulb_temperature_curve_name`
+            value (str): value for IDD Field `Minimum Design Wetbulb Temperature Curve Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8635,7 +8790,7 @@ class SetpointManagerCondenserEnteringReset(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `minimum_design_wetbulb_temperature_curve_name`'.format(value))
             if ',' in value:
@@ -8644,7 +8799,6 @@ class SetpointManagerCondenserEnteringReset(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `minimum_design_wetbulb_temperature_curve_name`')
-
         self._data["Minimum Design Wetbulb Temperature Curve Name"] = value
 
     @property
@@ -8658,11 +8812,13 @@ class SetpointManagerCondenserEnteringReset(object):
 
     @minimum_outside_air_wetbulb_temperature_curve_name.setter
     def minimum_outside_air_wetbulb_temperature_curve_name(self, value=None):
-        """  Corresponds to IDD Field `minimum_outside_air_wetbulb_temperature_curve_name`
+        """  Corresponds to IDD Field `Minimum Outside Air Wetbulb Temperature Curve Name`
         Table:OneIndependentVariable object can also be used
+        
+        {u'note': [u'Table:OneIndependentVariable object can also be used'], u'type': u'object-list', u'object-list': u'QuadLinearCurves', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `minimum_outside_air_wetbulb_temperature_curve_name`
+            value (str): value for IDD Field `Minimum Outside Air Wetbulb Temperature Curve Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8672,7 +8828,7 @@ class SetpointManagerCondenserEnteringReset(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `minimum_outside_air_wetbulb_temperature_curve_name`'.format(value))
             if ',' in value:
@@ -8681,7 +8837,6 @@ class SetpointManagerCondenserEnteringReset(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `minimum_outside_air_wetbulb_temperature_curve_name`')
-
         self._data["Minimum Outside Air Wetbulb Temperature Curve Name"] = value
 
     @property
@@ -8695,11 +8850,13 @@ class SetpointManagerCondenserEnteringReset(object):
 
     @optimized_cond_entering_water_temperature_curve_name.setter
     def optimized_cond_entering_water_temperature_curve_name(self, value=None):
-        """  Corresponds to IDD Field `optimized_cond_entering_water_temperature_curve_name`
+        """  Corresponds to IDD Field `Optimized Cond Entering Water Temperature Curve Name`
         Table:OneIndependentVariable
+        
+        {u'note': [u'Table:OneIndependentVariable'], u'type': u'object-list', u'object-list': u'QuadLinearCurves', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `optimized_cond_entering_water_temperature_curve_name`
+            value (str): value for IDD Field `Optimized Cond Entering Water Temperature Curve Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8709,7 +8866,7 @@ class SetpointManagerCondenserEnteringReset(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `optimized_cond_entering_water_temperature_curve_name`'.format(value))
             if ',' in value:
@@ -8718,7 +8875,6 @@ class SetpointManagerCondenserEnteringReset(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `optimized_cond_entering_water_temperature_curve_name`')
-
         self._data["Optimized Cond Entering Water Temperature Curve Name"] = value
 
     @property
@@ -8732,10 +8888,12 @@ class SetpointManagerCondenserEnteringReset(object):
 
     @minimum_lift.setter
     def minimum_lift(self, value=11.1 ):
-        """  Corresponds to IDD Field `minimum_lift`
+        """  Corresponds to IDD Field `Minimum Lift`
+        
+        {u'units': u'deltaC', u'default': '11.1', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `minimum_lift`
+            value (float): value for IDD Field `Minimum Lift`
                 Units: deltaC
                 Default value: 11.1
                 if `value` is None it will not be checked against the
@@ -8747,10 +8905,9 @@ class SetpointManagerCondenserEnteringReset(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `minimum_lift`'.format(value))
-
         self._data["Minimum Lift"] = value
 
     @property
@@ -8764,10 +8921,12 @@ class SetpointManagerCondenserEnteringReset(object):
 
     @maximum_condenser_entering_water_temperature.setter
     def maximum_condenser_entering_water_temperature(self, value=32.0 ):
-        """  Corresponds to IDD Field `maximum_condenser_entering_water_temperature`
+        """  Corresponds to IDD Field `Maximum Condenser Entering Water Temperature`
+        
+        {u'units': u'C', u'default': '32.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `maximum_condenser_entering_water_temperature`
+            value (float): value for IDD Field `Maximum Condenser Entering Water Temperature`
                 Units: C
                 Default value: 32.0
                 if `value` is None it will not be checked against the
@@ -8779,10 +8938,9 @@ class SetpointManagerCondenserEnteringReset(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `maximum_condenser_entering_water_temperature`'.format(value))
-
         self._data["Maximum Condenser Entering Water Temperature"] = value
 
     @property
@@ -8796,10 +8954,12 @@ class SetpointManagerCondenserEnteringReset(object):
 
     @cooling_tower_design_inlet_air_wetbulb_temperature.setter
     def cooling_tower_design_inlet_air_wetbulb_temperature(self, value=25.56 ):
-        """  Corresponds to IDD Field `cooling_tower_design_inlet_air_wetbulb_temperature`
+        """  Corresponds to IDD Field `Cooling Tower Design Inlet Air Wet-Bulb Temperature`
+        
+        {u'units': u'C', u'default': '25.56', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `cooling_tower_design_inlet_air_wetbulb_temperature`
+            value (float): value for IDD Field `Cooling Tower Design Inlet Air Wet-Bulb Temperature`
                 Units: C
                 Default value: 25.56
                 if `value` is None it will not be checked against the
@@ -8811,10 +8971,9 @@ class SetpointManagerCondenserEnteringReset(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `cooling_tower_design_inlet_air_wetbulb_temperature`'.format(value))
-
         self._data["Cooling Tower Design Inlet Air Wet-Bulb Temperature"] = value
 
     @property
@@ -8828,11 +8987,13 @@ class SetpointManagerCondenserEnteringReset(object):
 
     @setpoint_node_or_nodelist_name.setter
     def setpoint_node_or_nodelist_name(self, value=None):
-        """  Corresponds to IDD Field `setpoint_node_or_nodelist_name`
+        """  Corresponds to IDD Field `Setpoint Node or NodeList Name`
         Node(s) at which control variable will be set
+        
+        {u'note': [u'Node(s) at which control variable will be set'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `setpoint_node_or_nodelist_name`
+            value (str): value for IDD Field `Setpoint Node or NodeList Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8842,7 +9003,7 @@ class SetpointManagerCondenserEnteringReset(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `setpoint_node_or_nodelist_name`'.format(value))
             if ',' in value:
@@ -8851,7 +9012,6 @@ class SetpointManagerCondenserEnteringReset(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `setpoint_node_or_nodelist_name`')
-
         self._data["Setpoint Node or NodeList Name"] = value
 
     def check(self):
@@ -8964,10 +9124,12 @@ class SetpointManagerCondenserEnteringResetIdeal(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {u'type': u'alpha', u'reference': u'SetpointManagers', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8977,7 +9139,7 @@ class SetpointManagerCondenserEnteringResetIdeal(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -8986,7 +9148,6 @@ class SetpointManagerCondenserEnteringResetIdeal(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -9000,10 +9161,12 @@ class SetpointManagerCondenserEnteringResetIdeal(object):
 
     @control_variable.setter
     def control_variable(self, value="Temperature"):
-        """  Corresponds to IDD Field `control_variable`
+        """  Corresponds to IDD Field `Control Variable`
+        
+        {u'default': u'Temperature', u'type': u'choice', u'key': [u'Temperature'], u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `control_variable`
+            value (str): value for IDD Field `Control Variable`
                 Accepted values are:
                       - Temperature
                 Default value: Temperature
@@ -9016,7 +9179,7 @@ class SetpointManagerCondenserEnteringResetIdeal(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `control_variable`'.format(value))
             if ',' in value:
@@ -9041,7 +9204,6 @@ class SetpointManagerCondenserEnteringResetIdeal(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `control_variable`'.format(value))
             value = vals[value_lower]
-
         self._data["Control Variable"] = value
 
     @property
@@ -9055,10 +9217,12 @@ class SetpointManagerCondenserEnteringResetIdeal(object):
 
     @minimum_lift.setter
     def minimum_lift(self, value=11.1 ):
-        """  Corresponds to IDD Field `minimum_lift`
+        """  Corresponds to IDD Field `Minimum Lift`
+        
+        {u'units': u'deltaC', u'default': '11.1', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `minimum_lift`
+            value (float): value for IDD Field `Minimum Lift`
                 Units: deltaC
                 Default value: 11.1
                 if `value` is None it will not be checked against the
@@ -9070,10 +9234,9 @@ class SetpointManagerCondenserEnteringResetIdeal(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `minimum_lift`'.format(value))
-
         self._data["Minimum Lift"] = value
 
     @property
@@ -9087,10 +9250,12 @@ class SetpointManagerCondenserEnteringResetIdeal(object):
 
     @maximum_condenser_entering_water_temperature.setter
     def maximum_condenser_entering_water_temperature(self, value=32.0 ):
-        """  Corresponds to IDD Field `maximum_condenser_entering_water_temperature`
+        """  Corresponds to IDD Field `Maximum Condenser Entering Water Temperature`
+        
+        {u'units': u'C', u'default': '32.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `maximum_condenser_entering_water_temperature`
+            value (float): value for IDD Field `Maximum Condenser Entering Water Temperature`
                 Units: C
                 Default value: 32.0
                 if `value` is None it will not be checked against the
@@ -9102,10 +9267,9 @@ class SetpointManagerCondenserEnteringResetIdeal(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `maximum_condenser_entering_water_temperature`'.format(value))
-
         self._data["Maximum Condenser Entering Water Temperature"] = value
 
     @property
@@ -9119,11 +9283,13 @@ class SetpointManagerCondenserEnteringResetIdeal(object):
 
     @setpoint_node_or_nodelist_name.setter
     def setpoint_node_or_nodelist_name(self, value=None):
-        """  Corresponds to IDD Field `setpoint_node_or_nodelist_name`
+        """  Corresponds to IDD Field `Setpoint Node or NodeList Name`
         Node(s) at which control variable will be set
+        
+        {u'note': [u'Node(s) at which control variable will be set'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `setpoint_node_or_nodelist_name`
+            value (str): value for IDD Field `Setpoint Node or NodeList Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9133,7 +9299,7 @@ class SetpointManagerCondenserEnteringResetIdeal(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `setpoint_node_or_nodelist_name`'.format(value))
             if ',' in value:
@@ -9142,7 +9308,6 @@ class SetpointManagerCondenserEnteringResetIdeal(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `setpoint_node_or_nodelist_name`')
-
         self._data["Setpoint Node or NodeList Name"] = value
 
     def check(self):
@@ -9256,10 +9421,12 @@ class SetpointManagerSingleZoneOneStageCooling(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {'type': 'alpha', u'reference': u'SetpointManagers', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9269,7 +9436,7 @@ class SetpointManagerSingleZoneOneStageCooling(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -9278,7 +9445,6 @@ class SetpointManagerSingleZoneOneStageCooling(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -9292,11 +9458,13 @@ class SetpointManagerSingleZoneOneStageCooling(object):
 
     @cooling_stage_on_supply_air_setpoint_temperature.setter
     def cooling_stage_on_supply_air_setpoint_temperature(self, value=-99.0 ):
-        """  Corresponds to IDD Field `cooling_stage_on_supply_air_setpoint_temperature`
+        """  Corresponds to IDD Field `Cooling Stage On Supply Air Setpoint Temperature`
         This is the setpoint value applied when cooling device is to cycle ON
+        
+        {'pytype': 'float', u'default': '-99.0', u'required-field': True, u'note': [u'This is the setpoint value applied when cooling device is to cycle ON'], u'units': u'C', 'type': 'real'}
 
         Args:
-            value (float): value for IDD Field `cooling_stage_on_supply_air_setpoint_temperature`
+            value (float): value for IDD Field `Cooling Stage On Supply Air Setpoint Temperature`
                 Units: C
                 Default value: -99.0
                 if `value` is None it will not be checked against the
@@ -9308,10 +9476,9 @@ class SetpointManagerSingleZoneOneStageCooling(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `cooling_stage_on_supply_air_setpoint_temperature`'.format(value))
-
         self._data["Cooling Stage On Supply Air Setpoint Temperature"] = value
 
     @property
@@ -9325,11 +9492,13 @@ class SetpointManagerSingleZoneOneStageCooling(object):
 
     @cooling_stage_off_supply_air_setpoint_temperature.setter
     def cooling_stage_off_supply_air_setpoint_temperature(self, value=99.0 ):
-        """  Corresponds to IDD Field `cooling_stage_off_supply_air_setpoint_temperature`
+        """  Corresponds to IDD Field `Cooling Stage Off Supply Air Setpoint Temperature`
         This is the setpoint value applied when cooling device is to cycle OFF
+        
+        {'pytype': 'float', u'default': '99.0', u'required-field': True, u'note': [u'This is the setpoint value applied when cooling device is to cycle OFF'], u'units': u'C', 'type': 'real'}
 
         Args:
-            value (float): value for IDD Field `cooling_stage_off_supply_air_setpoint_temperature`
+            value (float): value for IDD Field `Cooling Stage Off Supply Air Setpoint Temperature`
                 Units: C
                 Default value: 99.0
                 if `value` is None it will not be checked against the
@@ -9341,10 +9510,9 @@ class SetpointManagerSingleZoneOneStageCooling(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `cooling_stage_off_supply_air_setpoint_temperature`'.format(value))
-
         self._data["Cooling Stage Off Supply Air Setpoint Temperature"] = value
 
     @property
@@ -9358,10 +9526,12 @@ class SetpointManagerSingleZoneOneStageCooling(object):
 
     @control_zone_name.setter
     def control_zone_name(self, value=None):
-        """  Corresponds to IDD Field `control_zone_name`
+        """  Corresponds to IDD Field `Control Zone Name`
+        
+        {u'type': u'object-list', u'object-list': u'ZoneNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `control_zone_name`
+            value (str): value for IDD Field `Control Zone Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9371,7 +9541,7 @@ class SetpointManagerSingleZoneOneStageCooling(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `control_zone_name`'.format(value))
             if ',' in value:
@@ -9380,7 +9550,6 @@ class SetpointManagerSingleZoneOneStageCooling(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `control_zone_name`')
-
         self._data["Control Zone Name"] = value
 
     @property
@@ -9394,11 +9563,13 @@ class SetpointManagerSingleZoneOneStageCooling(object):
 
     @setpoint_node_or_nodelist_name.setter
     def setpoint_node_or_nodelist_name(self, value=None):
-        """  Corresponds to IDD Field `setpoint_node_or_nodelist_name`
+        """  Corresponds to IDD Field `Setpoint Node or NodeList Name`
         Node(s) at which the temperature will be set
+        
+        {u'note': [u'Node(s) at which the temperature will be set'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `setpoint_node_or_nodelist_name`
+            value (str): value for IDD Field `Setpoint Node or NodeList Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9408,7 +9579,7 @@ class SetpointManagerSingleZoneOneStageCooling(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `setpoint_node_or_nodelist_name`'.format(value))
             if ',' in value:
@@ -9417,7 +9588,6 @@ class SetpointManagerSingleZoneOneStageCooling(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `setpoint_node_or_nodelist_name`')
-
         self._data["Setpoint Node or NodeList Name"] = value
 
     def check(self):
@@ -9532,10 +9702,12 @@ class SetpointManagerSingleZoneOneStageHeating(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {'type': 'alpha', u'reference': u'SetpointManagers', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9545,7 +9717,7 @@ class SetpointManagerSingleZoneOneStageHeating(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -9554,7 +9726,6 @@ class SetpointManagerSingleZoneOneStageHeating(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -9568,11 +9739,13 @@ class SetpointManagerSingleZoneOneStageHeating(object):
 
     @heating_stage_on_supply_air_setpoint_temperature.setter
     def heating_stage_on_supply_air_setpoint_temperature(self, value=99.0 ):
-        """  Corresponds to IDD Field `heating_stage_on_supply_air_setpoint_temperature`
+        """  Corresponds to IDD Field `Heating Stage On Supply Air Setpoint Temperature`
         This is the setpoint value applied when heating device is to cycle ON
+        
+        {'pytype': 'float', u'default': '99.0', u'required-field': True, u'note': [u'This is the setpoint value applied when heating device is to cycle ON'], u'units': u'C', 'type': 'real'}
 
         Args:
-            value (float): value for IDD Field `heating_stage_on_supply_air_setpoint_temperature`
+            value (float): value for IDD Field `Heating Stage On Supply Air Setpoint Temperature`
                 Units: C
                 Default value: 99.0
                 if `value` is None it will not be checked against the
@@ -9584,10 +9757,9 @@ class SetpointManagerSingleZoneOneStageHeating(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `heating_stage_on_supply_air_setpoint_temperature`'.format(value))
-
         self._data["Heating Stage On Supply Air Setpoint Temperature"] = value
 
     @property
@@ -9601,11 +9773,13 @@ class SetpointManagerSingleZoneOneStageHeating(object):
 
     @heating_stage_off_supply_air_setpoint_temperature.setter
     def heating_stage_off_supply_air_setpoint_temperature(self, value=-99.0 ):
-        """  Corresponds to IDD Field `heating_stage_off_supply_air_setpoint_temperature`
+        """  Corresponds to IDD Field `Heating Stage Off Supply Air Setpoint Temperature`
         This is the setpoint value applied when heating device is to cycle OFF
+        
+        {'pytype': 'float', u'default': '-99.0', u'required-field': True, u'note': [u'This is the setpoint value applied when heating device is to cycle OFF'], u'units': u'C', 'type': 'real'}
 
         Args:
-            value (float): value for IDD Field `heating_stage_off_supply_air_setpoint_temperature`
+            value (float): value for IDD Field `Heating Stage Off Supply Air Setpoint Temperature`
                 Units: C
                 Default value: -99.0
                 if `value` is None it will not be checked against the
@@ -9617,10 +9791,9 @@ class SetpointManagerSingleZoneOneStageHeating(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `heating_stage_off_supply_air_setpoint_temperature`'.format(value))
-
         self._data["Heating Stage Off Supply Air Setpoint Temperature"] = value
 
     @property
@@ -9634,10 +9807,12 @@ class SetpointManagerSingleZoneOneStageHeating(object):
 
     @control_zone_name.setter
     def control_zone_name(self, value=None):
-        """  Corresponds to IDD Field `control_zone_name`
+        """  Corresponds to IDD Field `Control Zone Name`
+        
+        {u'type': u'object-list', u'object-list': u'ZoneNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `control_zone_name`
+            value (str): value for IDD Field `Control Zone Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9647,7 +9822,7 @@ class SetpointManagerSingleZoneOneStageHeating(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `control_zone_name`'.format(value))
             if ',' in value:
@@ -9656,7 +9831,6 @@ class SetpointManagerSingleZoneOneStageHeating(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `control_zone_name`')
-
         self._data["Control Zone Name"] = value
 
     @property
@@ -9670,11 +9844,13 @@ class SetpointManagerSingleZoneOneStageHeating(object):
 
     @setpoint_node_or_nodelist_name.setter
     def setpoint_node_or_nodelist_name(self, value=None):
-        """  Corresponds to IDD Field `setpoint_node_or_nodelist_name`
+        """  Corresponds to IDD Field `Setpoint Node or NodeList Name`
         Node(s) at which the temperature will be set
+        
+        {u'note': [u'Node(s) at which the temperature will be set'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `setpoint_node_or_nodelist_name`
+            value (str): value for IDD Field `Setpoint Node or NodeList Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9684,7 +9860,7 @@ class SetpointManagerSingleZoneOneStageHeating(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `setpoint_node_or_nodelist_name`'.format(value))
             if ',' in value:
@@ -9693,7 +9869,6 @@ class SetpointManagerSingleZoneOneStageHeating(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `setpoint_node_or_nodelist_name`')
-
         self._data["Setpoint Node or NodeList Name"] = value
 
     def check(self):

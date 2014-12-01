@@ -52,10 +52,12 @@ class AvailabilityManagerScheduled(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {u'type': u'alpha', u'reference': u'SystemAvailabilityManagers', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -65,7 +67,7 @@ class AvailabilityManagerScheduled(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -74,7 +76,6 @@ class AvailabilityManagerScheduled(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -88,10 +89,12 @@ class AvailabilityManagerScheduled(object):
 
     @schedule_name.setter
     def schedule_name(self, value=None):
-        """  Corresponds to IDD Field `schedule_name`
+        """  Corresponds to IDD Field `Schedule Name`
+        
+        {u'type': u'object-list', u'object-list': u'ScheduleNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `schedule_name`
+            value (str): value for IDD Field `Schedule Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -101,7 +104,7 @@ class AvailabilityManagerScheduled(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `schedule_name`'.format(value))
             if ',' in value:
@@ -110,7 +113,6 @@ class AvailabilityManagerScheduled(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `schedule_name`')
-
         self._data["Schedule Name"] = value
 
     def check(self):
@@ -199,10 +201,12 @@ class AvailabilityManagerScheduledOn(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {u'type': u'alpha', u'reference': u'SystemAvailabilityManagers', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -212,7 +216,7 @@ class AvailabilityManagerScheduledOn(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -221,7 +225,6 @@ class AvailabilityManagerScheduledOn(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -235,10 +238,12 @@ class AvailabilityManagerScheduledOn(object):
 
     @schedule_name.setter
     def schedule_name(self, value=None):
-        """  Corresponds to IDD Field `schedule_name`
+        """  Corresponds to IDD Field `Schedule Name`
+        
+        {u'type': u'object-list', u'object-list': u'ScheduleNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `schedule_name`
+            value (str): value for IDD Field `Schedule Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -248,7 +253,7 @@ class AvailabilityManagerScheduledOn(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `schedule_name`'.format(value))
             if ',' in value:
@@ -257,7 +262,6 @@ class AvailabilityManagerScheduledOn(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `schedule_name`')
-
         self._data["Schedule Name"] = value
 
     def check(self):
@@ -346,10 +350,12 @@ class AvailabilityManagerScheduledOff(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {u'type': u'alpha', u'reference': u'SystemAvailabilityManagers', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -359,7 +365,7 @@ class AvailabilityManagerScheduledOff(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -368,7 +374,6 @@ class AvailabilityManagerScheduledOff(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -382,10 +387,12 @@ class AvailabilityManagerScheduledOff(object):
 
     @schedule_name.setter
     def schedule_name(self, value=None):
-        """  Corresponds to IDD Field `schedule_name`
+        """  Corresponds to IDD Field `Schedule Name`
+        
+        {u'type': u'object-list', u'object-list': u'ScheduleNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `schedule_name`
+            value (str): value for IDD Field `Schedule Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -395,7 +402,7 @@ class AvailabilityManagerScheduledOff(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `schedule_name`'.format(value))
             if ',' in value:
@@ -404,7 +411,6 @@ class AvailabilityManagerScheduledOff(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `schedule_name`')
-
         self._data["Schedule Name"] = value
 
     def check(self):
@@ -588,10 +594,12 @@ class AvailabilityManagerOptimumStart(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {'type': 'alpha', u'reference': u'AvailabilityManager', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -601,7 +609,7 @@ class AvailabilityManagerOptimumStart(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -610,7 +618,6 @@ class AvailabilityManagerOptimumStart(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -624,10 +631,12 @@ class AvailabilityManagerOptimumStart(object):
 
     @applicability_schedule_name.setter
     def applicability_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `applicability_schedule_name`
+        """  Corresponds to IDD Field `Applicability Schedule Name`
+        
+        {'type': 'alpha', u'object-list': u'ScheduleNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `applicability_schedule_name`
+            value (str): value for IDD Field `Applicability Schedule Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -637,7 +646,7 @@ class AvailabilityManagerOptimumStart(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `applicability_schedule_name`'.format(value))
             if ',' in value:
@@ -646,7 +655,6 @@ class AvailabilityManagerOptimumStart(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `applicability_schedule_name`')
-
         self._data["Applicability Schedule Name"] = value
 
     @property
@@ -660,10 +668,12 @@ class AvailabilityManagerOptimumStart(object):
 
     @fan_schedule_name.setter
     def fan_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `fan_schedule_name`
+        """  Corresponds to IDD Field `Fan Schedule Name`
+        
+        {u'type': u'object-list', u'object-list': u'ScheduleNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `fan_schedule_name`
+            value (str): value for IDD Field `Fan Schedule Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -673,7 +683,7 @@ class AvailabilityManagerOptimumStart(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `fan_schedule_name`'.format(value))
             if ',' in value:
@@ -682,7 +692,6 @@ class AvailabilityManagerOptimumStart(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `fan_schedule_name`')
-
         self._data["Fan Schedule Name"] = value
 
     @property
@@ -696,10 +705,12 @@ class AvailabilityManagerOptimumStart(object):
 
     @control_type.setter
     def control_type(self, value="ControlZone"):
-        """  Corresponds to IDD Field `control_type`
+        """  Corresponds to IDD Field `Control Type`
+        
+        {u'default': u'ControlZone', u'type': u'choice', u'key': [u'StayOff', u'ControlZone', u'MaximumofZoneList'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `control_type`
+            value (str): value for IDD Field `Control Type`
                 Accepted values are:
                       - StayOff
                       - ControlZone
@@ -714,7 +725,7 @@ class AvailabilityManagerOptimumStart(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `control_type`'.format(value))
             if ',' in value:
@@ -741,7 +752,6 @@ class AvailabilityManagerOptimumStart(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `control_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Control Type"] = value
 
     @property
@@ -755,10 +765,12 @@ class AvailabilityManagerOptimumStart(object):
 
     @control_zone_name.setter
     def control_zone_name(self, value=None):
-        """  Corresponds to IDD Field `control_zone_name`
+        """  Corresponds to IDD Field `Control Zone Name`
+        
+        {u'type': u'object-list', u'object-list': u'ZoneNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `control_zone_name`
+            value (str): value for IDD Field `Control Zone Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -768,7 +780,7 @@ class AvailabilityManagerOptimumStart(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `control_zone_name`'.format(value))
             if ',' in value:
@@ -777,7 +789,6 @@ class AvailabilityManagerOptimumStart(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `control_zone_name`')
-
         self._data["Control Zone Name"] = value
 
     @property
@@ -791,10 +802,12 @@ class AvailabilityManagerOptimumStart(object):
 
     @zone_list_name.setter
     def zone_list_name(self, value=None):
-        """  Corresponds to IDD Field `zone_list_name`
+        """  Corresponds to IDD Field `Zone List Name`
+        
+        {u'type': u'object-list', u'object-list': u'ZoneListNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `zone_list_name`
+            value (str): value for IDD Field `Zone List Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -804,7 +817,7 @@ class AvailabilityManagerOptimumStart(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `zone_list_name`'.format(value))
             if ',' in value:
@@ -813,7 +826,6 @@ class AvailabilityManagerOptimumStart(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `zone_list_name`')
-
         self._data["Zone List Name"] = value
 
     @property
@@ -827,11 +839,13 @@ class AvailabilityManagerOptimumStart(object):
 
     @maximum_value_for_optimum_start_time.setter
     def maximum_value_for_optimum_start_time(self, value=6.0 ):
-        """  Corresponds to IDD Field `maximum_value_for_optimum_start_time`
+        """  Corresponds to IDD Field `Maximum Value for Optimum Start Time`
         this is the maximum number of hours that a system can start before occupancy
+        
+        {u'default': '6.0', u'units': u'hr', u'note': [u'this is the maximum number of hours that a system can start before occupancy'], 'type': 'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `maximum_value_for_optimum_start_time`
+            value (float): value for IDD Field `Maximum Value for Optimum Start Time`
                 Units: hr
                 Default value: 6.0
                 if `value` is None it will not be checked against the
@@ -843,10 +857,9 @@ class AvailabilityManagerOptimumStart(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `maximum_value_for_optimum_start_time`'.format(value))
-
         self._data["Maximum Value for Optimum Start Time"] = value
 
     @property
@@ -860,10 +873,12 @@ class AvailabilityManagerOptimumStart(object):
 
     @control_algorithm.setter
     def control_algorithm(self, value="AdaptiveASHRAE"):
-        """  Corresponds to IDD Field `control_algorithm`
+        """  Corresponds to IDD Field `Control Algorithm`
+        
+        {u'default': u'AdaptiveASHRAE', u'type': u'choice', u'key': [u'ConstantTemperatureGradient', u'AdaptiveTemperatureGradient', u'AdaptiveASHRAE', u'ConstantStartTime'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `control_algorithm`
+            value (str): value for IDD Field `Control Algorithm`
                 Accepted values are:
                       - ConstantTemperatureGradient
                       - AdaptiveTemperatureGradient
@@ -879,7 +894,7 @@ class AvailabilityManagerOptimumStart(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `control_algorithm`'.format(value))
             if ',' in value:
@@ -907,7 +922,6 @@ class AvailabilityManagerOptimumStart(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `control_algorithm`'.format(value))
             value = vals[value_lower]
-
         self._data["Control Algorithm"] = value
 
     @property
@@ -921,10 +935,12 @@ class AvailabilityManagerOptimumStart(object):
 
     @constant_temperature_gradient_during_cooling.setter
     def constant_temperature_gradient_during_cooling(self, value=None):
-        """  Corresponds to IDD Field `constant_temperature_gradient_during_cooling`
+        """  Corresponds to IDD Field `Constant Temperature Gradient during Cooling`
+        
+        {u'units': u'deltaC/hr', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `constant_temperature_gradient_during_cooling`
+            value (float): value for IDD Field `Constant Temperature Gradient during Cooling`
                 Units: deltaC/hr
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -935,10 +951,9 @@ class AvailabilityManagerOptimumStart(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `constant_temperature_gradient_during_cooling`'.format(value))
-
         self._data["Constant Temperature Gradient during Cooling"] = value
 
     @property
@@ -952,10 +967,12 @@ class AvailabilityManagerOptimumStart(object):
 
     @constant_temperature_gradient_during_heating.setter
     def constant_temperature_gradient_during_heating(self, value=None):
-        """  Corresponds to IDD Field `constant_temperature_gradient_during_heating`
+        """  Corresponds to IDD Field `Constant Temperature Gradient during Heating`
+        
+        {u'units': u'deltaC/hr', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `constant_temperature_gradient_during_heating`
+            value (float): value for IDD Field `Constant Temperature Gradient during Heating`
                 Units: deltaC/hr
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -966,10 +983,9 @@ class AvailabilityManagerOptimumStart(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `constant_temperature_gradient_during_heating`'.format(value))
-
         self._data["Constant Temperature Gradient during Heating"] = value
 
     @property
@@ -983,10 +999,12 @@ class AvailabilityManagerOptimumStart(object):
 
     @initial_temperature_gradient_during_cooling.setter
     def initial_temperature_gradient_during_cooling(self, value=None):
-        """  Corresponds to IDD Field `initial_temperature_gradient_during_cooling`
+        """  Corresponds to IDD Field `Initial Temperature Gradient during Cooling`
+        
+        {u'units': u'deltaC/hr', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `initial_temperature_gradient_during_cooling`
+            value (float): value for IDD Field `Initial Temperature Gradient during Cooling`
                 Units: deltaC/hr
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -997,10 +1015,9 @@ class AvailabilityManagerOptimumStart(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `initial_temperature_gradient_during_cooling`'.format(value))
-
         self._data["Initial Temperature Gradient during Cooling"] = value
 
     @property
@@ -1014,10 +1031,12 @@ class AvailabilityManagerOptimumStart(object):
 
     @initial_temperature_gradient_during_heating.setter
     def initial_temperature_gradient_during_heating(self, value=None):
-        """  Corresponds to IDD Field `initial_temperature_gradient_during_heating`
+        """  Corresponds to IDD Field `Initial Temperature Gradient during Heating`
+        
+        {u'units': u'deltaC/hr', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `initial_temperature_gradient_during_heating`
+            value (float): value for IDD Field `Initial Temperature Gradient during Heating`
                 Units: deltaC/hr
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1028,10 +1047,9 @@ class AvailabilityManagerOptimumStart(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `initial_temperature_gradient_during_heating`'.format(value))
-
         self._data["Initial Temperature Gradient during Heating"] = value
 
     @property
@@ -1045,11 +1063,13 @@ class AvailabilityManagerOptimumStart(object):
 
     @constant_start_time.setter
     def constant_start_time(self, value=None):
-        """  Corresponds to IDD Field `constant_start_time`
+        """  Corresponds to IDD Field `Constant Start Time`
         this is the number of hours before occupancy for a system
+        
+        {u'units': u'hr', u'note': [u'this is the number of hours before occupancy for a system'], u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `constant_start_time`
+            value (float): value for IDD Field `Constant Start Time`
                 Units: hr
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1060,10 +1080,9 @@ class AvailabilityManagerOptimumStart(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `constant_start_time`'.format(value))
-
         self._data["Constant Start Time"] = value
 
     @property
@@ -1077,12 +1096,14 @@ class AvailabilityManagerOptimumStart(object):
 
     @number_of_previous_days.setter
     def number_of_previous_days(self, value=2 ):
-        """  Corresponds to IDD Field `number_of_previous_days`
+        """  Corresponds to IDD Field `Number of Previous Days`
         this is the number of days that their actual temperature
         gradients will be used in the AdaptiveTemperatureGradient method
+        
+        {'pytype': 'int', u'default': '2', u'maximum': '5', u'note': [u'this is the number of days that their actual temperature', u'gradients will be used in the AdaptiveTemperatureGradient method'], u'minimum': '2', u'units': u'days', u'type': u'integer'}
 
         Args:
-            value (int): value for IDD Field `number_of_previous_days`
+            value (int): value for IDD Field `Number of Previous Days`
                 Units: days
                 Default value: 2
                 value >= 2
@@ -1096,7 +1117,7 @@ class AvailabilityManagerOptimumStart(object):
         if value is not None:
             try:
                 value = int(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type int '
                                  'for field `number_of_previous_days`'.format(value))
             if value < 2:
@@ -1105,7 +1126,6 @@ class AvailabilityManagerOptimumStart(object):
             if value > 5:
                 raise ValueError('value need to be smaller 5 '
                                  'for field `number_of_previous_days`')
-
         self._data["Number of Previous Days"] = value
 
     def check(self):
@@ -1234,10 +1254,12 @@ class AvailabilityManagerNightCycle(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {u'type': u'alpha', u'reference': u'SystemAvailabilityManagers', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1247,7 +1269,7 @@ class AvailabilityManagerNightCycle(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -1256,7 +1278,6 @@ class AvailabilityManagerNightCycle(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -1270,10 +1291,12 @@ class AvailabilityManagerNightCycle(object):
 
     @applicability_schedule_name.setter
     def applicability_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `applicability_schedule_name`
+        """  Corresponds to IDD Field `Applicability Schedule Name`
+        
+        {u'type': u'object-list', u'object-list': u'ScheduleNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `applicability_schedule_name`
+            value (str): value for IDD Field `Applicability Schedule Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1283,7 +1306,7 @@ class AvailabilityManagerNightCycle(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `applicability_schedule_name`'.format(value))
             if ',' in value:
@@ -1292,7 +1315,6 @@ class AvailabilityManagerNightCycle(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `applicability_schedule_name`')
-
         self._data["Applicability Schedule Name"] = value
 
     @property
@@ -1306,10 +1328,12 @@ class AvailabilityManagerNightCycle(object):
 
     @fan_schedule_name.setter
     def fan_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `fan_schedule_name`
+        """  Corresponds to IDD Field `Fan Schedule Name`
+        
+        {u'type': u'object-list', u'object-list': u'ScheduleNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `fan_schedule_name`
+            value (str): value for IDD Field `Fan Schedule Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1319,7 +1343,7 @@ class AvailabilityManagerNightCycle(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `fan_schedule_name`'.format(value))
             if ',' in value:
@@ -1328,7 +1352,6 @@ class AvailabilityManagerNightCycle(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `fan_schedule_name`')
-
         self._data["Fan Schedule Name"] = value
 
     @property
@@ -1342,13 +1365,15 @@ class AvailabilityManagerNightCycle(object):
 
     @control_type.setter
     def control_type(self, value="StayOff"):
-        """  Corresponds to IDD Field `control_type`
+        """  Corresponds to IDD Field `Control Type`
         When AvailabilityManager:NightCycle is used in the zone component availability
         manager assignment list, the key choices for Control Type would only be
         StayOff and CycleOnControlZone
+        
+        {u'default': u'StayOff', u'note': [u'When AvailabilityManager:NightCycle is used in the zone component availability', u'manager assignment list, the key choices for Control Type would only be', u'StayOff and CycleOnControlZone'], u'type': u'choice', u'key': [u'StayOff', u'CycleOnAny', u'CycleOnControlZone', u'CycleOnAnyZoneFansOnly'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `control_type`
+            value (str): value for IDD Field `Control Type`
                 Accepted values are:
                       - StayOff
                       - CycleOnAny
@@ -1364,7 +1389,7 @@ class AvailabilityManagerNightCycle(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `control_type`'.format(value))
             if ',' in value:
@@ -1392,7 +1417,6 @@ class AvailabilityManagerNightCycle(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `control_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Control Type"] = value
 
     @property
@@ -1406,10 +1430,12 @@ class AvailabilityManagerNightCycle(object):
 
     @thermostat_tolerance.setter
     def thermostat_tolerance(self, value=1.0 ):
-        """  Corresponds to IDD Field `thermostat_tolerance`
+        """  Corresponds to IDD Field `Thermostat Tolerance`
+        
+        {u'default': '1.0', u'units': u'deltaC', 'type': 'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `thermostat_tolerance`
+            value (float): value for IDD Field `Thermostat Tolerance`
                 Units: deltaC
                 Default value: 1.0
                 if `value` is None it will not be checked against the
@@ -1421,10 +1447,9 @@ class AvailabilityManagerNightCycle(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `thermostat_tolerance`'.format(value))
-
         self._data["Thermostat Tolerance"] = value
 
     @property
@@ -1438,10 +1463,12 @@ class AvailabilityManagerNightCycle(object):
 
     @cycling_run_time.setter
     def cycling_run_time(self, value=3600.0 ):
-        """  Corresponds to IDD Field `cycling_run_time`
+        """  Corresponds to IDD Field `Cycling Run Time`
+        
+        {u'default': '3600.0', u'units': u's', 'type': 'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `cycling_run_time`
+            value (float): value for IDD Field `Cycling Run Time`
                 Units: s
                 Default value: 3600.0
                 if `value` is None it will not be checked against the
@@ -1453,10 +1480,9 @@ class AvailabilityManagerNightCycle(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `cycling_run_time`'.format(value))
-
         self._data["Cycling Run Time"] = value
 
     @property
@@ -1470,13 +1496,15 @@ class AvailabilityManagerNightCycle(object):
 
     @control_zone_name.setter
     def control_zone_name(self, value=None):
-        """  Corresponds to IDD Field `control_zone_name`
+        """  Corresponds to IDD Field `Control Zone Name`
         When AvailabilityManager:NightCycle is used in the zone component availability
         manager assignment list, the Control Zone Name should be the name of the zone in which the
         zone component is.
+        
+        {u'note': [u'When AvailabilityManager:NightCycle is used in the zone component availability', u'manager assignment list, the Control Zone Name should be the name of the zone in which the', u'zone component is.'], u'type': u'object-list', u'object-list': u'ZoneNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `control_zone_name`
+            value (str): value for IDD Field `Control Zone Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1486,7 +1514,7 @@ class AvailabilityManagerNightCycle(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `control_zone_name`'.format(value))
             if ',' in value:
@@ -1495,7 +1523,6 @@ class AvailabilityManagerNightCycle(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `control_zone_name`')
-
         self._data["Control Zone Name"] = value
 
     def check(self):
@@ -1607,10 +1634,12 @@ class AvailabilityManagerDifferentialThermostat(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {u'type': u'alpha', u'reference': u'SystemAvailabilityManagers', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1620,7 +1649,7 @@ class AvailabilityManagerDifferentialThermostat(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -1629,7 +1658,6 @@ class AvailabilityManagerDifferentialThermostat(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -1643,10 +1671,12 @@ class AvailabilityManagerDifferentialThermostat(object):
 
     @hot_node_name.setter
     def hot_node_name(self, value=None):
-        """  Corresponds to IDD Field `hot_node_name`
+        """  Corresponds to IDD Field `Hot Node Name`
+        
+        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `hot_node_name`
+            value (str): value for IDD Field `Hot Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1656,7 +1686,7 @@ class AvailabilityManagerDifferentialThermostat(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `hot_node_name`'.format(value))
             if ',' in value:
@@ -1665,7 +1695,6 @@ class AvailabilityManagerDifferentialThermostat(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `hot_node_name`')
-
         self._data["Hot Node Name"] = value
 
     @property
@@ -1679,10 +1708,12 @@ class AvailabilityManagerDifferentialThermostat(object):
 
     @cold_node_name.setter
     def cold_node_name(self, value=None):
-        """  Corresponds to IDD Field `cold_node_name`
+        """  Corresponds to IDD Field `Cold Node Name`
+        
+        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `cold_node_name`
+            value (str): value for IDD Field `Cold Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1692,7 +1723,7 @@ class AvailabilityManagerDifferentialThermostat(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `cold_node_name`'.format(value))
             if ',' in value:
@@ -1701,7 +1732,6 @@ class AvailabilityManagerDifferentialThermostat(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `cold_node_name`')
-
         self._data["Cold Node Name"] = value
 
     @property
@@ -1715,10 +1745,12 @@ class AvailabilityManagerDifferentialThermostat(object):
 
     @temperature_difference_on_limit.setter
     def temperature_difference_on_limit(self, value=None):
-        """  Corresponds to IDD Field `temperature_difference_on_limit`
+        """  Corresponds to IDD Field `Temperature Difference On Limit`
+        
+        {u'units': u'deltaC', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `temperature_difference_on_limit`
+            value (float): value for IDD Field `Temperature Difference On Limit`
                 Units: deltaC
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1729,10 +1761,9 @@ class AvailabilityManagerDifferentialThermostat(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `temperature_difference_on_limit`'.format(value))
-
         self._data["Temperature Difference On Limit"] = value
 
     @property
@@ -1746,11 +1777,13 @@ class AvailabilityManagerDifferentialThermostat(object):
 
     @temperature_difference_off_limit.setter
     def temperature_difference_off_limit(self, value=None):
-        """  Corresponds to IDD Field `temperature_difference_off_limit`
+        """  Corresponds to IDD Field `Temperature Difference Off Limit`
         Defaults to Temperature Difference On Limit.
+        
+        {u'units': u'deltaC', u'note': [u'Defaults to Temperature Difference On Limit.'], u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `temperature_difference_off_limit`
+            value (float): value for IDD Field `Temperature Difference Off Limit`
                 Units: deltaC
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1761,10 +1794,9 @@ class AvailabilityManagerDifferentialThermostat(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `temperature_difference_off_limit`'.format(value))
-
         self._data["Temperature Difference Off Limit"] = value
 
     def check(self):
@@ -1860,10 +1892,12 @@ class AvailabilityManagerHighTemperatureTurnOff(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {u'type': u'alpha', u'reference': u'SystemAvailabilityManagers', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1873,7 +1907,7 @@ class AvailabilityManagerHighTemperatureTurnOff(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -1882,7 +1916,6 @@ class AvailabilityManagerHighTemperatureTurnOff(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -1896,10 +1929,12 @@ class AvailabilityManagerHighTemperatureTurnOff(object):
 
     @sensor_node_name.setter
     def sensor_node_name(self, value=None):
-        """  Corresponds to IDD Field `sensor_node_name`
+        """  Corresponds to IDD Field `Sensor Node Name`
+        
+        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `sensor_node_name`
+            value (str): value for IDD Field `Sensor Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1909,7 +1944,7 @@ class AvailabilityManagerHighTemperatureTurnOff(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `sensor_node_name`'.format(value))
             if ',' in value:
@@ -1918,7 +1953,6 @@ class AvailabilityManagerHighTemperatureTurnOff(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `sensor_node_name`')
-
         self._data["Sensor Node Name"] = value
 
     @property
@@ -1932,10 +1966,12 @@ class AvailabilityManagerHighTemperatureTurnOff(object):
 
     @temperature.setter
     def temperature(self, value=None):
-        """  Corresponds to IDD Field `temperature`
+        """  Corresponds to IDD Field `Temperature`
+        
+        {u'units': u'C', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `temperature`
+            value (float): value for IDD Field `Temperature`
                 Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1946,10 +1982,9 @@ class AvailabilityManagerHighTemperatureTurnOff(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `temperature`'.format(value))
-
         self._data["Temperature"] = value
 
     def check(self):
@@ -2045,10 +2080,12 @@ class AvailabilityManagerHighTemperatureTurnOn(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {u'type': u'alpha', u'reference': u'SystemAvailabilityManagers', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2058,7 +2095,7 @@ class AvailabilityManagerHighTemperatureTurnOn(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -2067,7 +2104,6 @@ class AvailabilityManagerHighTemperatureTurnOn(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -2081,10 +2117,12 @@ class AvailabilityManagerHighTemperatureTurnOn(object):
 
     @sensor_node_name.setter
     def sensor_node_name(self, value=None):
-        """  Corresponds to IDD Field `sensor_node_name`
+        """  Corresponds to IDD Field `Sensor Node Name`
+        
+        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `sensor_node_name`
+            value (str): value for IDD Field `Sensor Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2094,7 +2132,7 @@ class AvailabilityManagerHighTemperatureTurnOn(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `sensor_node_name`'.format(value))
             if ',' in value:
@@ -2103,7 +2141,6 @@ class AvailabilityManagerHighTemperatureTurnOn(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `sensor_node_name`')
-
         self._data["Sensor Node Name"] = value
 
     @property
@@ -2117,10 +2154,12 @@ class AvailabilityManagerHighTemperatureTurnOn(object):
 
     @temperature.setter
     def temperature(self, value=None):
-        """  Corresponds to IDD Field `temperature`
+        """  Corresponds to IDD Field `Temperature`
+        
+        {u'units': u'C', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `temperature`
+            value (float): value for IDD Field `Temperature`
                 Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -2131,10 +2170,9 @@ class AvailabilityManagerHighTemperatureTurnOn(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `temperature`'.format(value))
-
         self._data["Temperature"] = value
 
     def check(self):
@@ -2238,10 +2276,12 @@ class AvailabilityManagerLowTemperatureTurnOff(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {u'type': u'alpha', u'reference': u'SystemAvailabilityManagers', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2251,7 +2291,7 @@ class AvailabilityManagerLowTemperatureTurnOff(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -2260,7 +2300,6 @@ class AvailabilityManagerLowTemperatureTurnOff(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -2274,10 +2313,12 @@ class AvailabilityManagerLowTemperatureTurnOff(object):
 
     @sensor_node_name.setter
     def sensor_node_name(self, value=None):
-        """  Corresponds to IDD Field `sensor_node_name`
+        """  Corresponds to IDD Field `Sensor Node Name`
+        
+        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `sensor_node_name`
+            value (str): value for IDD Field `Sensor Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2287,7 +2328,7 @@ class AvailabilityManagerLowTemperatureTurnOff(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `sensor_node_name`'.format(value))
             if ',' in value:
@@ -2296,7 +2337,6 @@ class AvailabilityManagerLowTemperatureTurnOff(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `sensor_node_name`')
-
         self._data["Sensor Node Name"] = value
 
     @property
@@ -2310,10 +2350,12 @@ class AvailabilityManagerLowTemperatureTurnOff(object):
 
     @temperature.setter
     def temperature(self, value=None):
-        """  Corresponds to IDD Field `temperature`
+        """  Corresponds to IDD Field `Temperature`
+        
+        {u'units': u'C', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `temperature`
+            value (float): value for IDD Field `Temperature`
                 Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -2324,10 +2366,9 @@ class AvailabilityManagerLowTemperatureTurnOff(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `temperature`'.format(value))
-
         self._data["Temperature"] = value
 
     @property
@@ -2341,11 +2382,13 @@ class AvailabilityManagerLowTemperatureTurnOff(object):
 
     @applicability_schedule_name.setter
     def applicability_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `applicability_schedule_name`
+        """  Corresponds to IDD Field `Applicability Schedule Name`
         If blank, defaults to always active
+        
+        {u'note': [u'If blank, defaults to always active'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `applicability_schedule_name`
+            value (str): value for IDD Field `Applicability Schedule Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2355,7 +2398,7 @@ class AvailabilityManagerLowTemperatureTurnOff(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `applicability_schedule_name`'.format(value))
             if ',' in value:
@@ -2364,7 +2407,6 @@ class AvailabilityManagerLowTemperatureTurnOff(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `applicability_schedule_name`')
-
         self._data["Applicability Schedule Name"] = value
 
     def check(self):
@@ -2460,10 +2502,12 @@ class AvailabilityManagerLowTemperatureTurnOn(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {u'type': u'alpha', u'reference': u'SystemAvailabilityManagers', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2473,7 +2517,7 @@ class AvailabilityManagerLowTemperatureTurnOn(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -2482,7 +2526,6 @@ class AvailabilityManagerLowTemperatureTurnOn(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -2496,10 +2539,12 @@ class AvailabilityManagerLowTemperatureTurnOn(object):
 
     @sensor_node_name.setter
     def sensor_node_name(self, value=None):
-        """  Corresponds to IDD Field `sensor_node_name`
+        """  Corresponds to IDD Field `Sensor Node Name`
+        
+        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `sensor_node_name`
+            value (str): value for IDD Field `Sensor Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2509,7 +2554,7 @@ class AvailabilityManagerLowTemperatureTurnOn(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `sensor_node_name`'.format(value))
             if ',' in value:
@@ -2518,7 +2563,6 @@ class AvailabilityManagerLowTemperatureTurnOn(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `sensor_node_name`')
-
         self._data["Sensor Node Name"] = value
 
     @property
@@ -2532,10 +2576,12 @@ class AvailabilityManagerLowTemperatureTurnOn(object):
 
     @temperature.setter
     def temperature(self, value=None):
-        """  Corresponds to IDD Field `temperature`
+        """  Corresponds to IDD Field `Temperature`
+        
+        {u'units': u'C', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `temperature`
+            value (float): value for IDD Field `Temperature`
                 Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -2546,10 +2592,9 @@ class AvailabilityManagerLowTemperatureTurnOn(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `temperature`'.format(value))
-
         self._data["Temperature"] = value
 
     def check(self):
@@ -2686,10 +2731,12 @@ class AvailabilityManagerNightVentilation(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {u'type': u'alpha', u'reference': u'SystemAvailabilityManagers', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2699,7 +2746,7 @@ class AvailabilityManagerNightVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -2708,7 +2755,6 @@ class AvailabilityManagerNightVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -2722,10 +2768,12 @@ class AvailabilityManagerNightVentilation(object):
 
     @applicability_schedule_name.setter
     def applicability_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `applicability_schedule_name`
+        """  Corresponds to IDD Field `Applicability Schedule Name`
+        
+        {u'type': u'object-list', u'object-list': u'ScheduleNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `applicability_schedule_name`
+            value (str): value for IDD Field `Applicability Schedule Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2735,7 +2783,7 @@ class AvailabilityManagerNightVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `applicability_schedule_name`'.format(value))
             if ',' in value:
@@ -2744,7 +2792,6 @@ class AvailabilityManagerNightVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `applicability_schedule_name`')
-
         self._data["Applicability Schedule Name"] = value
 
     @property
@@ -2758,10 +2805,12 @@ class AvailabilityManagerNightVentilation(object):
 
     @fan_schedule_name.setter
     def fan_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `fan_schedule_name`
+        """  Corresponds to IDD Field `Fan Schedule Name`
+        
+        {u'type': u'object-list', u'object-list': u'ScheduleNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `fan_schedule_name`
+            value (str): value for IDD Field `Fan Schedule Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2771,7 +2820,7 @@ class AvailabilityManagerNightVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `fan_schedule_name`'.format(value))
             if ',' in value:
@@ -2780,7 +2829,6 @@ class AvailabilityManagerNightVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `fan_schedule_name`')
-
         self._data["Fan Schedule Name"] = value
 
     @property
@@ -2794,12 +2842,14 @@ class AvailabilityManagerNightVentilation(object):
 
     @ventilation_temperature_schedule_name.setter
     def ventilation_temperature_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `ventilation_temperature_schedule_name`
+        """  Corresponds to IDD Field `Ventilation Temperature Schedule Name`
         One zone temperature must be above this scheduled temperature
         for night ventilation to be enabled
+        
+        {u'note': [u'One zone temperature must be above this scheduled temperature', u'for night ventilation to be enabled'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `ventilation_temperature_schedule_name`
+            value (str): value for IDD Field `Ventilation Temperature Schedule Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2809,7 +2859,7 @@ class AvailabilityManagerNightVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `ventilation_temperature_schedule_name`'.format(value))
             if ',' in value:
@@ -2818,7 +2868,6 @@ class AvailabilityManagerNightVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `ventilation_temperature_schedule_name`')
-
         self._data["Ventilation Temperature Schedule Name"] = value
 
     @property
@@ -2832,12 +2881,14 @@ class AvailabilityManagerNightVentilation(object):
 
     @ventilation_temperature_difference.setter
     def ventilation_temperature_difference(self, value=2.0 ):
-        """  Corresponds to IDD Field `ventilation_temperature_difference`
+        """  Corresponds to IDD Field `Ventilation Temperature Difference`
         The outdoor air temperature minus the control zone temperature
         must be greater than the ventilation delta T
+        
+        {u'units': u'deltaC', u'default': '2.0', u'note': [u'The outdoor air temperature minus the control zone temperature', u'must be greater than the ventilation delta T'], 'type': 'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `ventilation_temperature_difference`
+            value (float): value for IDD Field `Ventilation Temperature Difference`
                 Units: deltaC
                 Default value: 2.0
                 if `value` is None it will not be checked against the
@@ -2849,10 +2900,9 @@ class AvailabilityManagerNightVentilation(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `ventilation_temperature_difference`'.format(value))
-
         self._data["Ventilation Temperature Difference"] = value
 
     @property
@@ -2866,12 +2916,14 @@ class AvailabilityManagerNightVentilation(object):
 
     @ventilation_temperature_low_limit.setter
     def ventilation_temperature_low_limit(self, value=15.0 ):
-        """  Corresponds to IDD Field `ventilation_temperature_low_limit`
+        """  Corresponds to IDD Field `Ventilation Temperature Low Limit`
         Night ventilation is disabled if any conditioned zone served by
         the system falls below this temperature
+        
+        {u'units': u'C', u'default': '15.0', u'note': [u'Night ventilation is disabled if any conditioned zone served by', u'the system falls below this temperature'], 'type': 'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `ventilation_temperature_low_limit`
+            value (float): value for IDD Field `Ventilation Temperature Low Limit`
                 Units: C
                 Default value: 15.0
                 if `value` is None it will not be checked against the
@@ -2883,10 +2935,9 @@ class AvailabilityManagerNightVentilation(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `ventilation_temperature_low_limit`'.format(value))
-
         self._data["Ventilation Temperature Low Limit"] = value
 
     @property
@@ -2900,12 +2951,14 @@ class AvailabilityManagerNightVentilation(object):
 
     @night_venting_flow_fraction.setter
     def night_venting_flow_fraction(self, value=1.0 ):
-        """  Corresponds to IDD Field `night_venting_flow_fraction`
+        """  Corresponds to IDD Field `Night Venting Flow Fraction`
         the fraction (could be > 1) of the design system Flow Rate at which
         night ventilation will be done
+        
+        {u'default': '1.0', u'note': [u'the fraction (could be > 1) of the design system Flow Rate at which', u'night ventilation will be done'], u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `night_venting_flow_fraction`
+            value (float): value for IDD Field `Night Venting Flow Fraction`
                 Default value: 1.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -2917,13 +2970,12 @@ class AvailabilityManagerNightVentilation(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `night_venting_flow_fraction`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `night_venting_flow_fraction`')
-
         self._data["Night Venting Flow Fraction"] = value
 
     @property
@@ -2937,13 +2989,15 @@ class AvailabilityManagerNightVentilation(object):
 
     @control_zone_name.setter
     def control_zone_name(self, value=None):
-        """  Corresponds to IDD Field `control_zone_name`
+        """  Corresponds to IDD Field `Control Zone Name`
         When AvailabilityManager:NightVentilation is used in the zone component availability
         manager assignment list, the Control Zone Name should be the name of the zone in which the
         zone component is.
+        
+        {u'note': [u'When AvailabilityManager:NightVentilation is used in the zone component availability', u'manager assignment list, the Control Zone Name should be the name of the zone in which the', u'zone component is.'], u'type': u'object-list', u'object-list': u'ZoneNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `control_zone_name`
+            value (str): value for IDD Field `Control Zone Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2953,7 +3007,7 @@ class AvailabilityManagerNightVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `control_zone_name`'.format(value))
             if ',' in value:
@@ -2962,7 +3016,6 @@ class AvailabilityManagerNightVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `control_zone_name`')
-
         self._data["Control Zone Name"] = value
 
     def check(self):
@@ -3181,10 +3234,12 @@ class AvailabilityManagerHybridVentilation(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {u'type': u'alpha', u'reference': u'SystemAvailabilityManagers', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3194,7 +3249,7 @@ class AvailabilityManagerHybridVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -3203,7 +3258,6 @@ class AvailabilityManagerHybridVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -3217,13 +3271,15 @@ class AvailabilityManagerHybridVentilation(object):
 
     @hvac_air_loop_name.setter
     def hvac_air_loop_name(self, value=None):
-        """  Corresponds to IDD Field `hvac_air_loop_name`
+        """  Corresponds to IDD Field `HVAC Air Loop Name`
         Enter the name of an AirLoopHVAC or HVACTemplate:System:* object.
         If this field is left blank, hybrid ventilation managers will be
         simulated for zone equipment control
+        
+        {u'note': [u'Enter the name of an AirLoopHVAC or HVACTemplate:System:* object.', u'If this field is left blank, hybrid ventilation managers will be', u'simulated for zone equipment control'], u'type': u'object-list', u'object-list': u'HVACTemplateSystems', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `hvac_air_loop_name`
+            value (str): value for IDD Field `HVAC Air Loop Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3233,7 +3289,7 @@ class AvailabilityManagerHybridVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `hvac_air_loop_name`'.format(value))
             if ',' in value:
@@ -3242,7 +3298,6 @@ class AvailabilityManagerHybridVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `hvac_air_loop_name`')
-
         self._data["HVAC Air Loop Name"] = value
 
     @property
@@ -3256,12 +3311,14 @@ class AvailabilityManagerHybridVentilation(object):
 
     @controlled_zone_name.setter
     def controlled_zone_name(self, value=None):
-        """  Corresponds to IDD Field `controlled_zone_name`
+        """  Corresponds to IDD Field `Controlled Zone Name`
         the controlled zone name should be a zone where a thermostat or humidistat is located
         served by an air primary loop.
+        
+        {u'note': [u'the controlled zone name should be a zone where a thermostat or humidistat is located', u'served by an air primary loop.'], u'type': u'object-list', u'object-list': u'ZoneNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `controlled_zone_name`
+            value (str): value for IDD Field `Controlled Zone Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3271,7 +3328,7 @@ class AvailabilityManagerHybridVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `controlled_zone_name`'.format(value))
             if ',' in value:
@@ -3280,7 +3337,6 @@ class AvailabilityManagerHybridVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `controlled_zone_name`')
-
         self._data["Controlled Zone Name"] = value
 
     @property
@@ -3294,16 +3350,18 @@ class AvailabilityManagerHybridVentilation(object):
 
     @ventilation_control_mode_schedule_name.setter
     def ventilation_control_mode_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `ventilation_control_mode_schedule_name`
+        """  Corresponds to IDD Field `Ventilation Control Mode Schedule Name`
         The Ventilation control mode contains appropriate integer control types.
         0 - uncontrolled (Natural ventilation and HVAC system are controlled by themselves)
         1 = Temperature control
         2 = Enthalpy control
         3 = Dewpoint control
         4 = Outdoor ventilation air control
+        
+        {u'note': [u'The Ventilation control mode contains appropriate integer control types.', u'0 - uncontrolled (Natural ventilation and HVAC system are controlled by themselves)', u'1 = Temperature control', u'2 = Enthalpy control', u'3 = Dewpoint control', u'4 = Outdoor ventilation air control'], u'type': u'object-list', u'object-list': u'ScheduleNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `ventilation_control_mode_schedule_name`
+            value (str): value for IDD Field `Ventilation Control Mode Schedule Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3313,7 +3371,7 @@ class AvailabilityManagerHybridVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `ventilation_control_mode_schedule_name`'.format(value))
             if ',' in value:
@@ -3322,7 +3380,6 @@ class AvailabilityManagerHybridVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `ventilation_control_mode_schedule_name`')
-
         self._data["Ventilation Control Mode Schedule Name"] = value
 
     @property
@@ -3336,12 +3393,14 @@ class AvailabilityManagerHybridVentilation(object):
 
     @use_weather_file_rain_indicators.setter
     def use_weather_file_rain_indicators(self, value="Yes"):
-        """  Corresponds to IDD Field `use_weather_file_rain_indicators`
+        """  Corresponds to IDD Field `Use Weather File Rain Indicators`
         If Yes, ventilation is shutoff when there is rain
         If No, there is no rain control
+        
+        {u'default': u'Yes', u'note': [u'If Yes, ventilation is shutoff when there is rain', u'If No, there is no rain control'], u'type': u'choice', u'key': [u'Yes', u'No'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `use_weather_file_rain_indicators`
+            value (str): value for IDD Field `Use Weather File Rain Indicators`
                 Accepted values are:
                       - Yes
                       - No
@@ -3355,7 +3414,7 @@ class AvailabilityManagerHybridVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `use_weather_file_rain_indicators`'.format(value))
             if ',' in value:
@@ -3381,7 +3440,6 @@ class AvailabilityManagerHybridVentilation(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `use_weather_file_rain_indicators`'.format(value))
             value = vals[value_lower]
-
         self._data["Use Weather File Rain Indicators"] = value
 
     @property
@@ -3395,11 +3453,13 @@ class AvailabilityManagerHybridVentilation(object):
 
     @maximum_wind_speed.setter
     def maximum_wind_speed(self, value=40.0 ):
-        """  Corresponds to IDD Field `maximum_wind_speed`
+        """  Corresponds to IDD Field `Maximum Wind Speed`
         this is the wind speed above which ventilation is shutoff
+        
+        {'pytype': 'float', u'default': '40.0', u'maximum': '40.0', u'note': [u'this is the wind speed above which ventilation is shutoff'], u'minimum': '0.0', u'units': u'm/s', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `maximum_wind_speed`
+            value (float): value for IDD Field `Maximum Wind Speed`
                 Units: m/s
                 Default value: 40.0
                 value >= 0.0
@@ -3413,7 +3473,7 @@ class AvailabilityManagerHybridVentilation(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `maximum_wind_speed`'.format(value))
             if value < 0.0:
@@ -3422,7 +3482,6 @@ class AvailabilityManagerHybridVentilation(object):
             if value > 40.0:
                 raise ValueError('value need to be smaller 40.0 '
                                  'for field `maximum_wind_speed`')
-
         self._data["Maximum Wind Speed"] = value
 
     @property
@@ -3436,11 +3495,13 @@ class AvailabilityManagerHybridVentilation(object):
 
     @minimum_outdoor_temperature.setter
     def minimum_outdoor_temperature(self, value=-100.0 ):
-        """  Corresponds to IDD Field `minimum_outdoor_temperature`
+        """  Corresponds to IDD Field `Minimum Outdoor Temperature`
         this is the outdoor temperature below which ventilation is shutoff
+        
+        {'pytype': 'float', u'default': '-100.0', u'maximum': '100.0', u'note': [u'this is the outdoor temperature below which ventilation is shutoff'], u'minimum': '-100.0', u'units': u'C', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `minimum_outdoor_temperature`
+            value (float): value for IDD Field `Minimum Outdoor Temperature`
                 Units: C
                 Default value: -100.0
                 value >= -100.0
@@ -3454,7 +3515,7 @@ class AvailabilityManagerHybridVentilation(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `minimum_outdoor_temperature`'.format(value))
             if value < -100.0:
@@ -3463,7 +3524,6 @@ class AvailabilityManagerHybridVentilation(object):
             if value > 100.0:
                 raise ValueError('value need to be smaller 100.0 '
                                  'for field `minimum_outdoor_temperature`')
-
         self._data["Minimum Outdoor Temperature"] = value
 
     @property
@@ -3477,11 +3537,13 @@ class AvailabilityManagerHybridVentilation(object):
 
     @maximum_outdoor_temperature.setter
     def maximum_outdoor_temperature(self, value=100.0 ):
-        """  Corresponds to IDD Field `maximum_outdoor_temperature`
+        """  Corresponds to IDD Field `Maximum Outdoor Temperature`
         this is the outdoor temperature above which ventilation is shutoff
+        
+        {'pytype': 'float', u'default': '100.0', u'maximum': '100.0', u'note': [u'this is the outdoor temperature above which ventilation is shutoff'], u'minimum': '-100.0', u'units': u'C', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `maximum_outdoor_temperature`
+            value (float): value for IDD Field `Maximum Outdoor Temperature`
                 Units: C
                 Default value: 100.0
                 value >= -100.0
@@ -3495,7 +3557,7 @@ class AvailabilityManagerHybridVentilation(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `maximum_outdoor_temperature`'.format(value))
             if value < -100.0:
@@ -3504,7 +3566,6 @@ class AvailabilityManagerHybridVentilation(object):
             if value > 100.0:
                 raise ValueError('value need to be smaller 100.0 '
                                  'for field `maximum_outdoor_temperature`')
-
         self._data["Maximum Outdoor Temperature"] = value
 
     @property
@@ -3518,11 +3579,13 @@ class AvailabilityManagerHybridVentilation(object):
 
     @minimum_outdoor_enthalpy.setter
     def minimum_outdoor_enthalpy(self, value=None):
-        """  Corresponds to IDD Field `minimum_outdoor_enthalpy`
+        """  Corresponds to IDD Field `Minimum Outdoor Enthalpy`
         this is the outdoor Enthalpy below which ventilation is shutoff
+        
+        {'pytype': 'float', u'minimum>': '0.0', u'note': [u'this is the outdoor Enthalpy below which ventilation is shutoff'], u'units': u'J/kg', u'type': u'real', u'maximum<': '300000.0'}
 
         Args:
-            value (float): value for IDD Field `minimum_outdoor_enthalpy`
+            value (float): value for IDD Field `Minimum Outdoor Enthalpy`
                 Units: J/kg
                 value > 0.0
                 value < 300000.0
@@ -3535,7 +3598,7 @@ class AvailabilityManagerHybridVentilation(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `minimum_outdoor_enthalpy`'.format(value))
             if value <= 0.0:
@@ -3544,7 +3607,6 @@ class AvailabilityManagerHybridVentilation(object):
             if value >= 300000.0:
                 raise ValueError('value need to be smaller 300000.0 '
                                  'for field `minimum_outdoor_enthalpy`')
-
         self._data["Minimum Outdoor Enthalpy"] = value
 
     @property
@@ -3558,11 +3620,13 @@ class AvailabilityManagerHybridVentilation(object):
 
     @maximum_outdoor_enthalpy.setter
     def maximum_outdoor_enthalpy(self, value=None):
-        """  Corresponds to IDD Field `maximum_outdoor_enthalpy`
+        """  Corresponds to IDD Field `Maximum Outdoor Enthalpy`
         this is the outdoor Enthalpy above which ventilation is shutoff
+        
+        {'pytype': 'float', u'minimum>': '0.0', u'note': [u'this is the outdoor Enthalpy above which ventilation is shutoff'], u'units': u'J/kg', u'type': u'real', u'maximum<': '300000.0'}
 
         Args:
-            value (float): value for IDD Field `maximum_outdoor_enthalpy`
+            value (float): value for IDD Field `Maximum Outdoor Enthalpy`
                 Units: J/kg
                 value > 0.0
                 value < 300000.0
@@ -3575,7 +3639,7 @@ class AvailabilityManagerHybridVentilation(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `maximum_outdoor_enthalpy`'.format(value))
             if value <= 0.0:
@@ -3584,7 +3648,6 @@ class AvailabilityManagerHybridVentilation(object):
             if value >= 300000.0:
                 raise ValueError('value need to be smaller 300000.0 '
                                  'for field `maximum_outdoor_enthalpy`')
-
         self._data["Maximum Outdoor Enthalpy"] = value
 
     @property
@@ -3598,12 +3661,14 @@ class AvailabilityManagerHybridVentilation(object):
 
     @minimum_outdoor_dewpoint.setter
     def minimum_outdoor_dewpoint(self, value=-100.0 ):
-        """  Corresponds to IDD Field `minimum_outdoor_dewpoint`
+        """  Corresponds to IDD Field `Minimum Outdoor Dewpoint`
         this is the outdoor temperature below which ventilation is shutoff
         Applicable only if Ventilation Control Mode = 3
+        
+        {'pytype': 'float', u'default': '-100.0', u'maximum': '100.0', u'note': [u'this is the outdoor temperature below which ventilation is shutoff', u'Applicable only if Ventilation Control Mode = 3'], u'minimum': '-100.0', u'units': u'C', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `minimum_outdoor_dewpoint`
+            value (float): value for IDD Field `Minimum Outdoor Dewpoint`
                 Units: C
                 Default value: -100.0
                 value >= -100.0
@@ -3617,7 +3682,7 @@ class AvailabilityManagerHybridVentilation(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `minimum_outdoor_dewpoint`'.format(value))
             if value < -100.0:
@@ -3626,7 +3691,6 @@ class AvailabilityManagerHybridVentilation(object):
             if value > 100.0:
                 raise ValueError('value need to be smaller 100.0 '
                                  'for field `minimum_outdoor_dewpoint`')
-
         self._data["Minimum Outdoor Dewpoint"] = value
 
     @property
@@ -3640,12 +3704,14 @@ class AvailabilityManagerHybridVentilation(object):
 
     @maximum_outdoor_dewpoint.setter
     def maximum_outdoor_dewpoint(self, value=100.0 ):
-        """  Corresponds to IDD Field `maximum_outdoor_dewpoint`
+        """  Corresponds to IDD Field `Maximum Outdoor Dewpoint`
         this is the outdoor dewpoint above which ventilation is shutoff
         Applicable only if Ventilation Control Mode = 3
+        
+        {'pytype': 'float', u'default': '100.0', u'maximum': '100.0', u'note': [u'this is the outdoor dewpoint above which ventilation is shutoff', u'Applicable only if Ventilation Control Mode = 3'], u'minimum': '-100.0', u'units': u'C', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `maximum_outdoor_dewpoint`
+            value (float): value for IDD Field `Maximum Outdoor Dewpoint`
                 Units: C
                 Default value: 100.0
                 value >= -100.0
@@ -3659,7 +3725,7 @@ class AvailabilityManagerHybridVentilation(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `maximum_outdoor_dewpoint`'.format(value))
             if value < -100.0:
@@ -3668,7 +3734,6 @@ class AvailabilityManagerHybridVentilation(object):
             if value > 100.0:
                 raise ValueError('value need to be smaller 100.0 '
                                  'for field `maximum_outdoor_dewpoint`')
-
         self._data["Maximum Outdoor Dewpoint"] = value
 
     @property
@@ -3682,11 +3747,13 @@ class AvailabilityManagerHybridVentilation(object):
 
     @minimum_outdoor_ventilation_air_schedule_name.setter
     def minimum_outdoor_ventilation_air_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `minimum_outdoor_ventilation_air_schedule_name`
+        """  Corresponds to IDD Field `Minimum Outdoor Ventilation Air Schedule Name`
         Used only if Ventilation Control Mode = 4
+        
+        {u'note': [u'Used only if Ventilation Control Mode = 4'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `minimum_outdoor_ventilation_air_schedule_name`
+            value (str): value for IDD Field `Minimum Outdoor Ventilation Air Schedule Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3696,7 +3763,7 @@ class AvailabilityManagerHybridVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `minimum_outdoor_ventilation_air_schedule_name`'.format(value))
             if ',' in value:
@@ -3705,7 +3772,6 @@ class AvailabilityManagerHybridVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `minimum_outdoor_ventilation_air_schedule_name`')
-
         self._data["Minimum Outdoor Ventilation Air Schedule Name"] = value
 
     @property
@@ -3719,14 +3785,16 @@ class AvailabilityManagerHybridVentilation(object):
 
     @opening_factor_function_of_wind_speed_curve_name.setter
     def opening_factor_function_of_wind_speed_curve_name(self, value=None):
-        """  Corresponds to IDD Field `opening_factor_function_of_wind_speed_curve_name`
+        """  Corresponds to IDD Field `Opening Factor Function of Wind Speed Curve Name`
         Table:OneIndependentVariable object can also be used
         linear curve = a + b*WS
         quadratic curve = a + b*WS + c*WS**2
         WS = wind speed (m/s)
+        
+        {u'note': [u'Table:OneIndependentVariable object can also be used', u'linear curve = a + b*WS', u'quadratic curve = a + b*WS + c*WS**2', u'WS = wind speed (m/s)'], u'type': u'object-list', u'object-list': u'LinearOrQuadraticCurves', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `opening_factor_function_of_wind_speed_curve_name`
+            value (str): value for IDD Field `Opening Factor Function of Wind Speed Curve Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3736,7 +3804,7 @@ class AvailabilityManagerHybridVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `opening_factor_function_of_wind_speed_curve_name`'.format(value))
             if ',' in value:
@@ -3745,7 +3813,6 @@ class AvailabilityManagerHybridVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `opening_factor_function_of_wind_speed_curve_name`')
-
         self._data["Opening Factor Function of Wind Speed Curve Name"] = value
 
     @property
@@ -3759,12 +3826,14 @@ class AvailabilityManagerHybridVentilation(object):
 
     @airflownetwork_control_type_schedule_name.setter
     def airflownetwork_control_type_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `airflownetwork_control_type_schedule_name`
+        """  Corresponds to IDD Field `AirflowNetwork Control Type Schedule Name`
         The schedule is used to incorporate operation of AirflowNetwork large opening
         objects and HVAC system operation.
+        
+        {u'note': [u'The schedule is used to incorporate operation of AirflowNetwork large opening', u'objects and HVAC system operation.'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `airflownetwork_control_type_schedule_name`
+            value (str): value for IDD Field `AirflowNetwork Control Type Schedule Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3774,7 +3843,7 @@ class AvailabilityManagerHybridVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `airflownetwork_control_type_schedule_name`'.format(value))
             if ',' in value:
@@ -3783,7 +3852,6 @@ class AvailabilityManagerHybridVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `airflownetwork_control_type_schedule_name`')
-
         self._data["AirflowNetwork Control Type Schedule Name"] = value
 
     @property
@@ -3797,13 +3865,15 @@ class AvailabilityManagerHybridVentilation(object):
 
     @simple_airflow_control_type_schedule_name.setter
     def simple_airflow_control_type_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `simple_airflow_control_type_schedule_name`
+        """  Corresponds to IDD Field `Simple Airflow Control Type Schedule Name`
         The schedule is used to incorporate operation of simple airflow objects and HVAC
         system operation.
         The simple airflow objects are Ventilation and Mixing only
+        
+        {u'note': [u'The schedule is used to incorporate operation of simple airflow objects and HVAC', u'system operation.', u'The simple airflow objects are Ventilation and Mixing only'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `simple_airflow_control_type_schedule_name`
+            value (str): value for IDD Field `Simple Airflow Control Type Schedule Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3813,7 +3883,7 @@ class AvailabilityManagerHybridVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `simple_airflow_control_type_schedule_name`'.format(value))
             if ',' in value:
@@ -3822,7 +3892,6 @@ class AvailabilityManagerHybridVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `simple_airflow_control_type_schedule_name`')
-
         self._data["Simple Airflow Control Type Schedule Name"] = value
 
     @property
@@ -3836,7 +3905,7 @@ class AvailabilityManagerHybridVentilation(object):
 
     @zoneventilation_object_name.setter
     def zoneventilation_object_name(self, value=None):
-        """  Corresponds to IDD Field `zoneventilation_object_name`
+        """  Corresponds to IDD Field `ZoneVentilation Object Name`
         This fieldhas not been instrumented to work with
         global Zone or Zone List names option for Ventilation:DesignFlowRate.  In order to
         use, you must enter the single <Ventilation:DesignFlowRate> name in this field.
@@ -3844,9 +3913,11 @@ class AvailabilityManagerHybridVentilation(object):
         <Zone Name> <global Ventilation:DesignFlowRate> name.
         The other ZoneVentilation:* and ZoneMixing objects controlled in the same AirLoopHVAC
         will work in the same way as this ventilation object.
+        
+        {u'note': [u'This fieldhas not been instrumented to work with', u'global Zone or Zone List names option for Ventilation:DesignFlowRate.  In order to', u'use, you must enter the single <Ventilation:DesignFlowRate> name in this field.', u'If it is a part of a global ventilation assignement the name will be', u'<Zone Name> <global Ventilation:DesignFlowRate> name.', u'The other ZoneVentilation:* and ZoneMixing objects controlled in the same AirLoopHVAC', u'will work in the same way as this ventilation object.'], u'type': u'object-list', u'object-list': u'VentilationNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `zoneventilation_object_name`
+            value (str): value for IDD Field `ZoneVentilation Object Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3856,7 +3927,7 @@ class AvailabilityManagerHybridVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `zoneventilation_object_name`'.format(value))
             if ',' in value:
@@ -3865,7 +3936,6 @@ class AvailabilityManagerHybridVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `zoneventilation_object_name`')
-
         self._data["ZoneVentilation Object Name"] = value
 
     def check(self):
@@ -4044,10 +4114,12 @@ class AvailabilityManagerAssignmentList(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {u'type': u'alpha', u'reference': u'SystemAvailabilityManagerLists', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4057,7 +4129,7 @@ class AvailabilityManagerAssignmentList(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -4066,7 +4138,6 @@ class AvailabilityManagerAssignmentList(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -4080,10 +4151,12 @@ class AvailabilityManagerAssignmentList(object):
 
     @availability_manager_1_object_type.setter
     def availability_manager_1_object_type(self, value=None):
-        """  Corresponds to IDD Field `availability_manager_1_object_type`
+        """  Corresponds to IDD Field `Availability Manager 1 Object Type`
+        
+        {'pytype': 'str', u'type': u'choice', u'key': [u'AvailabilityManager:Scheduled', u'AvailabilityManager:ScheduledOn', u'AvailabilityManager:ScheduledOff', u'AvailabilityManager:NightCycle', u'AvailabilityManager:DifferentialThermostat', u'AvailabilityManager:HighTemperatureTurnOff', u'AvailabilityManager:HighTemperatureTurnOn', u'AvailabilityManager:LowTemperatureTurnOff', u'AvailabilityManager:LowTemperatureTurnOn', u'AvailabilityManager:NightVentilation'], u'required-field': True, u'begin-extensible': u''}
 
         Args:
-            value (str): value for IDD Field `availability_manager_1_object_type`
+            value (str): value for IDD Field `Availability Manager 1 Object Type`
                 Accepted values are:
                       - AvailabilityManager:Scheduled
                       - AvailabilityManager:ScheduledOn
@@ -4104,7 +4177,7 @@ class AvailabilityManagerAssignmentList(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `availability_manager_1_object_type`'.format(value))
             if ',' in value:
@@ -4138,7 +4211,6 @@ class AvailabilityManagerAssignmentList(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `availability_manager_1_object_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Availability Manager 1 Object Type"] = value
 
     @property
@@ -4152,10 +4224,12 @@ class AvailabilityManagerAssignmentList(object):
 
     @availability_manager_1_name.setter
     def availability_manager_1_name(self, value=None):
-        """  Corresponds to IDD Field `availability_manager_1_name`
+        """  Corresponds to IDD Field `Availability Manager 1 Name`
+        
+        {u'type': u'object-list', u'object-list': u'SystemAvailabilityManagers', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `availability_manager_1_name`
+            value (str): value for IDD Field `Availability Manager 1 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4165,7 +4239,7 @@ class AvailabilityManagerAssignmentList(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `availability_manager_1_name`'.format(value))
             if ',' in value:
@@ -4174,7 +4248,6 @@ class AvailabilityManagerAssignmentList(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `availability_manager_1_name`')
-
         self._data["Availability Manager 1 Name"] = value
 
     @property
@@ -4188,10 +4261,12 @@ class AvailabilityManagerAssignmentList(object):
 
     @availability_manager_2_object_type.setter
     def availability_manager_2_object_type(self, value=None):
-        """  Corresponds to IDD Field `availability_manager_2_object_type`
+        """  Corresponds to IDD Field `Availability Manager 2 Object Type`
+        
+        {u'type': u'choice', u'key': [u'AvailabilityManager:Scheduled', u'AvailabilityManager:ScheduledOn', u'AvailabilityManager:ScheduledOff', u'AvailabilityManager:NightCycle', u'AvailabilityManager:DifferentialThermostat', u'AvailabilityManager:HighTemperatureTurnOff', u'AvailabilityManager:HighTemperatureTurnOn', u'AvailabilityManager:LowTemperatureTurnOff', u'AvailabilityManager:LowTemperatureTurnOn', u'AvailabilityManager:NightVentilation'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `availability_manager_2_object_type`
+            value (str): value for IDD Field `Availability Manager 2 Object Type`
                 Accepted values are:
                       - AvailabilityManager:Scheduled
                       - AvailabilityManager:ScheduledOn
@@ -4212,7 +4287,7 @@ class AvailabilityManagerAssignmentList(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `availability_manager_2_object_type`'.format(value))
             if ',' in value:
@@ -4246,7 +4321,6 @@ class AvailabilityManagerAssignmentList(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `availability_manager_2_object_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Availability Manager 2 Object Type"] = value
 
     @property
@@ -4260,10 +4334,12 @@ class AvailabilityManagerAssignmentList(object):
 
     @availability_manager_2_name.setter
     def availability_manager_2_name(self, value=None):
-        """  Corresponds to IDD Field `availability_manager_2_name`
+        """  Corresponds to IDD Field `Availability Manager 2 Name`
+        
+        {u'type': u'object-list', u'object-list': u'SystemAvailabilityManagers', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `availability_manager_2_name`
+            value (str): value for IDD Field `Availability Manager 2 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4273,7 +4349,7 @@ class AvailabilityManagerAssignmentList(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `availability_manager_2_name`'.format(value))
             if ',' in value:
@@ -4282,7 +4358,6 @@ class AvailabilityManagerAssignmentList(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `availability_manager_2_name`')
-
         self._data["Availability Manager 2 Name"] = value
 
     @property
@@ -4296,10 +4371,12 @@ class AvailabilityManagerAssignmentList(object):
 
     @availability_manager_3_object_type.setter
     def availability_manager_3_object_type(self, value=None):
-        """  Corresponds to IDD Field `availability_manager_3_object_type`
+        """  Corresponds to IDD Field `Availability Manager 3 Object Type`
+        
+        {u'type': u'choice', u'key': [u'AvailabilityManager:Scheduled', u'AvailabilityManager:ScheduledOn', u'AvailabilityManager:ScheduledOff', u'AvailabilityManager:NightCycle', u'AvailabilityManager:DifferentialThermostat', u'AvailabilityManager:HighTemperatureTurnOff', u'AvailabilityManager:HighTemperatureTurnOn', u'AvailabilityManager:LowTemperatureTurnOff', u'AvailabilityManager:LowTemperatureTurnOn', u'AvailabilityManager:NightVentilation'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `availability_manager_3_object_type`
+            value (str): value for IDD Field `Availability Manager 3 Object Type`
                 Accepted values are:
                       - AvailabilityManager:Scheduled
                       - AvailabilityManager:ScheduledOn
@@ -4320,7 +4397,7 @@ class AvailabilityManagerAssignmentList(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `availability_manager_3_object_type`'.format(value))
             if ',' in value:
@@ -4354,7 +4431,6 @@ class AvailabilityManagerAssignmentList(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `availability_manager_3_object_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Availability Manager 3 Object Type"] = value
 
     @property
@@ -4368,10 +4444,12 @@ class AvailabilityManagerAssignmentList(object):
 
     @availability_manager_3_name.setter
     def availability_manager_3_name(self, value=None):
-        """  Corresponds to IDD Field `availability_manager_3_name`
+        """  Corresponds to IDD Field `Availability Manager 3 Name`
+        
+        {u'type': u'object-list', u'object-list': u'SystemAvailabilityManagers', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `availability_manager_3_name`
+            value (str): value for IDD Field `Availability Manager 3 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4381,7 +4459,7 @@ class AvailabilityManagerAssignmentList(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `availability_manager_3_name`'.format(value))
             if ',' in value:
@@ -4390,7 +4468,6 @@ class AvailabilityManagerAssignmentList(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `availability_manager_3_name`')
-
         self._data["Availability Manager 3 Name"] = value
 
     @property
@@ -4404,10 +4481,12 @@ class AvailabilityManagerAssignmentList(object):
 
     @availability_manager_4_object_type.setter
     def availability_manager_4_object_type(self, value=None):
-        """  Corresponds to IDD Field `availability_manager_4_object_type`
+        """  Corresponds to IDD Field `Availability Manager 4 Object Type`
+        
+        {u'type': u'choice', u'key': [u'AvailabilityManager:Scheduled', u'AvailabilityManager:ScheduledOn', u'AvailabilityManager:ScheduledOff', u'AvailabilityManager:NightCycle', u'AvailabilityManager:DifferentialThermostat', u'AvailabilityManager:HighTemperatureTurnOff', u'AvailabilityManager:HighTemperatureTurnOn', u'AvailabilityManager:LowTemperatureTurnOff', u'AvailabilityManager:LowTemperatureTurnOn', u'AvailabilityManager:NightVentilation'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `availability_manager_4_object_type`
+            value (str): value for IDD Field `Availability Manager 4 Object Type`
                 Accepted values are:
                       - AvailabilityManager:Scheduled
                       - AvailabilityManager:ScheduledOn
@@ -4428,7 +4507,7 @@ class AvailabilityManagerAssignmentList(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `availability_manager_4_object_type`'.format(value))
             if ',' in value:
@@ -4462,7 +4541,6 @@ class AvailabilityManagerAssignmentList(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `availability_manager_4_object_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Availability Manager 4 Object Type"] = value
 
     @property
@@ -4476,10 +4554,12 @@ class AvailabilityManagerAssignmentList(object):
 
     @availability_manager_4_name.setter
     def availability_manager_4_name(self, value=None):
-        """  Corresponds to IDD Field `availability_manager_4_name`
+        """  Corresponds to IDD Field `Availability Manager 4 Name`
+        
+        {u'type': u'object-list', u'object-list': u'SystemAvailabilityManagers', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `availability_manager_4_name`
+            value (str): value for IDD Field `Availability Manager 4 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4489,7 +4569,7 @@ class AvailabilityManagerAssignmentList(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `availability_manager_4_name`'.format(value))
             if ',' in value:
@@ -4498,7 +4578,6 @@ class AvailabilityManagerAssignmentList(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `availability_manager_4_name`')
-
         self._data["Availability Manager 4 Name"] = value
 
     @property
@@ -4512,10 +4591,12 @@ class AvailabilityManagerAssignmentList(object):
 
     @availability_manager_5_object_type.setter
     def availability_manager_5_object_type(self, value=None):
-        """  Corresponds to IDD Field `availability_manager_5_object_type`
+        """  Corresponds to IDD Field `Availability Manager 5 Object Type`
+        
+        {u'type': u'choice', u'key': [u'AvailabilityManager:Scheduled', u'AvailabilityManager:ScheduledOn', u'AvailabilityManager:ScheduledOff', u'AvailabilityManager:NightCycle', u'AvailabilityManager:DifferentialThermostat', u'AvailabilityManager:HighTemperatureTurnOff', u'AvailabilityManager:HighTemperatureTurnOn', u'AvailabilityManager:LowTemperatureTurnOff', u'AvailabilityManager:LowTemperatureTurnOn', u'AvailabilityManager:NightVentilation'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `availability_manager_5_object_type`
+            value (str): value for IDD Field `Availability Manager 5 Object Type`
                 Accepted values are:
                       - AvailabilityManager:Scheduled
                       - AvailabilityManager:ScheduledOn
@@ -4536,7 +4617,7 @@ class AvailabilityManagerAssignmentList(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `availability_manager_5_object_type`'.format(value))
             if ',' in value:
@@ -4570,7 +4651,6 @@ class AvailabilityManagerAssignmentList(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `availability_manager_5_object_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Availability Manager 5 Object Type"] = value
 
     @property
@@ -4584,10 +4664,12 @@ class AvailabilityManagerAssignmentList(object):
 
     @availability_manager_5_name.setter
     def availability_manager_5_name(self, value=None):
-        """  Corresponds to IDD Field `availability_manager_5_name`
+        """  Corresponds to IDD Field `Availability Manager 5 Name`
+        
+        {u'type': u'object-list', u'object-list': u'SystemAvailabilityManagers', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `availability_manager_5_name`
+            value (str): value for IDD Field `Availability Manager 5 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4597,7 +4679,7 @@ class AvailabilityManagerAssignmentList(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `availability_manager_5_name`'.format(value))
             if ',' in value:
@@ -4606,7 +4688,6 @@ class AvailabilityManagerAssignmentList(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `availability_manager_5_name`')
-
         self._data["Availability Manager 5 Name"] = value
 
     @property
@@ -4620,10 +4701,12 @@ class AvailabilityManagerAssignmentList(object):
 
     @availability_manager_6_object_type.setter
     def availability_manager_6_object_type(self, value=None):
-        """  Corresponds to IDD Field `availability_manager_6_object_type`
+        """  Corresponds to IDD Field `Availability Manager 6 Object Type`
+        
+        {u'type': u'choice', u'key': [u'AvailabilityManager:Scheduled', u'AvailabilityManager:ScheduledOn', u'AvailabilityManager:ScheduledOff', u'AvailabilityManager:NightCycle', u'AvailabilityManager:DifferentialThermostat', u'AvailabilityManager:HighTemperatureTurnOff', u'AvailabilityManager:HighTemperatureTurnOn', u'AvailabilityManager:LowTemperatureTurnOff', u'AvailabilityManager:LowTemperatureTurnOn', u'AvailabilityManager:NightVentilation'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `availability_manager_6_object_type`
+            value (str): value for IDD Field `Availability Manager 6 Object Type`
                 Accepted values are:
                       - AvailabilityManager:Scheduled
                       - AvailabilityManager:ScheduledOn
@@ -4644,7 +4727,7 @@ class AvailabilityManagerAssignmentList(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `availability_manager_6_object_type`'.format(value))
             if ',' in value:
@@ -4678,7 +4761,6 @@ class AvailabilityManagerAssignmentList(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `availability_manager_6_object_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Availability Manager 6 Object Type"] = value
 
     @property
@@ -4692,10 +4774,12 @@ class AvailabilityManagerAssignmentList(object):
 
     @availability_manager_6_name.setter
     def availability_manager_6_name(self, value=None):
-        """  Corresponds to IDD Field `availability_manager_6_name`
+        """  Corresponds to IDD Field `Availability Manager 6 Name`
+        
+        {u'type': u'object-list', u'object-list': u'SystemAvailabilityManagers', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `availability_manager_6_name`
+            value (str): value for IDD Field `Availability Manager 6 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4705,7 +4789,7 @@ class AvailabilityManagerAssignmentList(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `availability_manager_6_name`'.format(value))
             if ',' in value:
@@ -4714,7 +4798,6 @@ class AvailabilityManagerAssignmentList(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `availability_manager_6_name`')
-
         self._data["Availability Manager 6 Name"] = value
 
     def check(self):

@@ -56,10 +56,12 @@ class SurfacePropertyHeatTransferAlgorithm(object):
 
     @surface_name.setter
     def surface_name(self, value=None):
-        """  Corresponds to IDD Field `surface_name`
+        """  Corresponds to IDD Field `Surface Name`
+        
+        {u'type': u'object-list', u'object-list': u'SurfaceNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `surface_name`
+            value (str): value for IDD Field `Surface Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -69,7 +71,7 @@ class SurfacePropertyHeatTransferAlgorithm(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `surface_name`'.format(value))
             if ',' in value:
@@ -78,7 +80,6 @@ class SurfacePropertyHeatTransferAlgorithm(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `surface_name`')
-
         self._data["Surface Name"] = value
 
     @property
@@ -92,10 +93,12 @@ class SurfacePropertyHeatTransferAlgorithm(object):
 
     @algorithm.setter
     def algorithm(self, value="ConductionTransferFunction"):
-        """  Corresponds to IDD Field `algorithm`
+        """  Corresponds to IDD Field `Algorithm`
+        
+        {u'default': u'ConductionTransferFunction', u'type': u'choice', u'key': [u'ConductionTransferFunction', u'MoisturePenetrationDepthConductionTransferFunction', u'ConductionFiniteDifference', u'CombinedHeatAndMoistureFiniteElement'], u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `algorithm`
+            value (str): value for IDD Field `Algorithm`
                 Accepted values are:
                       - ConductionTransferFunction
                       - MoisturePenetrationDepthConductionTransferFunction
@@ -111,7 +114,7 @@ class SurfacePropertyHeatTransferAlgorithm(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `algorithm`'.format(value))
             if ',' in value:
@@ -139,7 +142,6 @@ class SurfacePropertyHeatTransferAlgorithm(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `algorithm`'.format(value))
             value = vals[value_lower]
-
         self._data["Algorithm"] = value
 
     def check(self):
@@ -240,10 +242,12 @@ class SurfacePropertyHeatTransferAlgorithmMultipleSurface(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -253,7 +257,7 @@ class SurfacePropertyHeatTransferAlgorithmMultipleSurface(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -262,7 +266,6 @@ class SurfacePropertyHeatTransferAlgorithmMultipleSurface(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -276,10 +279,12 @@ class SurfacePropertyHeatTransferAlgorithmMultipleSurface(object):
 
     @surface_type.setter
     def surface_type(self, value=None):
-        """  Corresponds to IDD Field `surface_type`
+        """  Corresponds to IDD Field `Surface Type`
+        
+        {u'type': u'choice', u'key': [u'AllExteriorSurfaces', u'AllExteriorWalls', u'AllExteriorRoofs', u'AllExteriorFloors', u'AllGroundContactSurfaces', u'AllInteriorSurfaces', u'AllInteriorWalls', u'AllInteriorCeilings', u'AllInteriorFloors'], u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `surface_type`
+            value (str): value for IDD Field `Surface Type`
                 Accepted values are:
                       - AllExteriorSurfaces
                       - AllExteriorWalls
@@ -299,7 +304,7 @@ class SurfacePropertyHeatTransferAlgorithmMultipleSurface(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `surface_type`'.format(value))
             if ',' in value:
@@ -332,7 +337,6 @@ class SurfacePropertyHeatTransferAlgorithmMultipleSurface(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `surface_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Surface Type"] = value
 
     @property
@@ -346,10 +350,12 @@ class SurfacePropertyHeatTransferAlgorithmMultipleSurface(object):
 
     @algorithm.setter
     def algorithm(self, value="ConductionTransferFunction"):
-        """  Corresponds to IDD Field `algorithm`
+        """  Corresponds to IDD Field `Algorithm`
+        
+        {u'default': u'ConductionTransferFunction', u'type': u'choice', u'key': [u'ConductionTransferFunction', u'MoisturePenetrationDepthConductionTransferFunction', u'ConductionFiniteDifference', u'CombinedHeatAndMoistureFiniteElement'], u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `algorithm`
+            value (str): value for IDD Field `Algorithm`
                 Accepted values are:
                       - ConductionTransferFunction
                       - MoisturePenetrationDepthConductionTransferFunction
@@ -365,7 +371,7 @@ class SurfacePropertyHeatTransferAlgorithmMultipleSurface(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `algorithm`'.format(value))
             if ',' in value:
@@ -393,7 +399,6 @@ class SurfacePropertyHeatTransferAlgorithmMultipleSurface(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `algorithm`'.format(value))
             value = vals[value_lower]
-
         self._data["Algorithm"] = value
 
     def check(self):
@@ -534,10 +539,12 @@ class SurfacePropertyHeatTransferAlgorithmSurfaceList(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -547,7 +554,7 @@ class SurfacePropertyHeatTransferAlgorithmSurfaceList(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -556,7 +563,6 @@ class SurfacePropertyHeatTransferAlgorithmSurfaceList(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -570,10 +576,12 @@ class SurfacePropertyHeatTransferAlgorithmSurfaceList(object):
 
     @algorithm.setter
     def algorithm(self, value="ConductionTransferFunction"):
-        """  Corresponds to IDD Field `algorithm`
+        """  Corresponds to IDD Field `Algorithm`
+        
+        {u'default': u'ConductionTransferFunction', u'type': u'choice', u'key': [u'ConductionTransferFunction', u'MoisturePenetrationDepthConductionTransferFunction', u'ConductionFiniteDifference', u'CombinedHeatAndMoistureFiniteElement'], u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `algorithm`
+            value (str): value for IDD Field `Algorithm`
                 Accepted values are:
                       - ConductionTransferFunction
                       - MoisturePenetrationDepthConductionTransferFunction
@@ -589,7 +597,7 @@ class SurfacePropertyHeatTransferAlgorithmSurfaceList(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `algorithm`'.format(value))
             if ',' in value:
@@ -617,7 +625,6 @@ class SurfacePropertyHeatTransferAlgorithmSurfaceList(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `algorithm`'.format(value))
             value = vals[value_lower]
-
         self._data["Algorithm"] = value
 
     @property
@@ -631,10 +638,12 @@ class SurfacePropertyHeatTransferAlgorithmSurfaceList(object):
 
     @surface_name_1.setter
     def surface_name_1(self, value=None):
-        """  Corresponds to IDD Field `surface_name_1`
+        """  Corresponds to IDD Field `Surface Name 1`
+        
+        {'pytype': 'str', u'type': u'object-list', u'object-list': u'SurfaceNames', u'required-field': True, u'begin-extensible': u''}
 
         Args:
-            value (str): value for IDD Field `surface_name_1`
+            value (str): value for IDD Field `Surface Name 1`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -644,7 +653,7 @@ class SurfacePropertyHeatTransferAlgorithmSurfaceList(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `surface_name_1`'.format(value))
             if ',' in value:
@@ -653,7 +662,6 @@ class SurfacePropertyHeatTransferAlgorithmSurfaceList(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `surface_name_1`')
-
         self._data["Surface Name 1"] = value
 
     @property
@@ -667,10 +675,12 @@ class SurfacePropertyHeatTransferAlgorithmSurfaceList(object):
 
     @surface_name_2.setter
     def surface_name_2(self, value=None):
-        """  Corresponds to IDD Field `surface_name_2`
+        """  Corresponds to IDD Field `Surface Name 2`
+        
+        {u'type': u'object-list', u'object-list': u'SurfaceNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `surface_name_2`
+            value (str): value for IDD Field `Surface Name 2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -680,7 +690,7 @@ class SurfacePropertyHeatTransferAlgorithmSurfaceList(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `surface_name_2`'.format(value))
             if ',' in value:
@@ -689,7 +699,6 @@ class SurfacePropertyHeatTransferAlgorithmSurfaceList(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `surface_name_2`')
-
         self._data["Surface Name 2"] = value
 
     @property
@@ -703,10 +712,12 @@ class SurfacePropertyHeatTransferAlgorithmSurfaceList(object):
 
     @surface_name_3.setter
     def surface_name_3(self, value=None):
-        """  Corresponds to IDD Field `surface_name_3`
+        """  Corresponds to IDD Field `Surface Name 3`
+        
+        {u'type': u'object-list', u'object-list': u'SurfaceNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `surface_name_3`
+            value (str): value for IDD Field `Surface Name 3`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -716,7 +727,7 @@ class SurfacePropertyHeatTransferAlgorithmSurfaceList(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `surface_name_3`'.format(value))
             if ',' in value:
@@ -725,7 +736,6 @@ class SurfacePropertyHeatTransferAlgorithmSurfaceList(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `surface_name_3`')
-
         self._data["Surface Name 3"] = value
 
     @property
@@ -739,10 +749,12 @@ class SurfacePropertyHeatTransferAlgorithmSurfaceList(object):
 
     @surface_name_4.setter
     def surface_name_4(self, value=None):
-        """  Corresponds to IDD Field `surface_name_4`
+        """  Corresponds to IDD Field `Surface Name 4`
+        
+        {u'type': u'object-list', u'object-list': u'SurfaceNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `surface_name_4`
+            value (str): value for IDD Field `Surface Name 4`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -752,7 +764,7 @@ class SurfacePropertyHeatTransferAlgorithmSurfaceList(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `surface_name_4`'.format(value))
             if ',' in value:
@@ -761,7 +773,6 @@ class SurfacePropertyHeatTransferAlgorithmSurfaceList(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `surface_name_4`')
-
         self._data["Surface Name 4"] = value
 
     @property
@@ -775,10 +786,12 @@ class SurfacePropertyHeatTransferAlgorithmSurfaceList(object):
 
     @surface_name_5.setter
     def surface_name_5(self, value=None):
-        """  Corresponds to IDD Field `surface_name_5`
+        """  Corresponds to IDD Field `Surface Name 5`
+        
+        {u'type': u'object-list', u'object-list': u'SurfaceNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `surface_name_5`
+            value (str): value for IDD Field `Surface Name 5`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -788,7 +801,7 @@ class SurfacePropertyHeatTransferAlgorithmSurfaceList(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `surface_name_5`'.format(value))
             if ',' in value:
@@ -797,7 +810,6 @@ class SurfacePropertyHeatTransferAlgorithmSurfaceList(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `surface_name_5`')
-
         self._data["Surface Name 5"] = value
 
     @property
@@ -811,10 +823,12 @@ class SurfacePropertyHeatTransferAlgorithmSurfaceList(object):
 
     @surface_name_6.setter
     def surface_name_6(self, value=None):
-        """  Corresponds to IDD Field `surface_name_6`
+        """  Corresponds to IDD Field `Surface Name 6`
+        
+        {u'type': u'object-list', u'object-list': u'SurfaceNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `surface_name_6`
+            value (str): value for IDD Field `Surface Name 6`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -824,7 +838,7 @@ class SurfacePropertyHeatTransferAlgorithmSurfaceList(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `surface_name_6`'.format(value))
             if ',' in value:
@@ -833,7 +847,6 @@ class SurfacePropertyHeatTransferAlgorithmSurfaceList(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `surface_name_6`')
-
         self._data["Surface Name 6"] = value
 
     def check(self):
@@ -934,10 +947,12 @@ class SurfacePropertyHeatTransferAlgorithmConstruction(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {u'type': u'alpha', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -947,7 +962,7 @@ class SurfacePropertyHeatTransferAlgorithmConstruction(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -956,7 +971,6 @@ class SurfacePropertyHeatTransferAlgorithmConstruction(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -970,10 +984,12 @@ class SurfacePropertyHeatTransferAlgorithmConstruction(object):
 
     @algorithm.setter
     def algorithm(self, value="ConductionTransferFunction"):
-        """  Corresponds to IDD Field `algorithm`
+        """  Corresponds to IDD Field `Algorithm`
+        
+        {u'default': u'ConductionTransferFunction', u'type': u'choice', u'key': [u'ConductionTransferFunction', u'MoisturePenetrationDepthConductionTransferFunction', u'ConductionFiniteDifference', u'CombinedHeatAndMoistureFiniteElement'], u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `algorithm`
+            value (str): value for IDD Field `Algorithm`
                 Accepted values are:
                       - ConductionTransferFunction
                       - MoisturePenetrationDepthConductionTransferFunction
@@ -989,7 +1005,7 @@ class SurfacePropertyHeatTransferAlgorithmConstruction(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `algorithm`'.format(value))
             if ',' in value:
@@ -1017,7 +1033,6 @@ class SurfacePropertyHeatTransferAlgorithmConstruction(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `algorithm`'.format(value))
             value = vals[value_lower]
-
         self._data["Algorithm"] = value
 
     @property
@@ -1031,10 +1046,12 @@ class SurfacePropertyHeatTransferAlgorithmConstruction(object):
 
     @construction_name.setter
     def construction_name(self, value=None):
-        """  Corresponds to IDD Field `construction_name`
+        """  Corresponds to IDD Field `Construction Name`
+        
+        {u'type': u'object-list', u'object-list': u'ConstructionNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `construction_name`
+            value (str): value for IDD Field `Construction Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1044,7 +1061,7 @@ class SurfacePropertyHeatTransferAlgorithmConstruction(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `construction_name`'.format(value))
             if ',' in value:
@@ -1053,7 +1070,6 @@ class SurfacePropertyHeatTransferAlgorithmConstruction(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `construction_name`')
-
         self._data["Construction Name"] = value
 
     def check(self):
@@ -1157,10 +1173,12 @@ class SurfaceControlMovableInsulation(object):
 
     @insulation_type.setter
     def insulation_type(self, value=None):
-        """  Corresponds to IDD Field `insulation_type`
+        """  Corresponds to IDD Field `Insulation Type`
+        
+        {u'type': u'choice', u'key': [u'Outside', u'Inside'], u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `insulation_type`
+            value (str): value for IDD Field `Insulation Type`
                 Accepted values are:
                       - Outside
                       - Inside
@@ -1173,7 +1191,7 @@ class SurfaceControlMovableInsulation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `insulation_type`'.format(value))
             if ',' in value:
@@ -1199,7 +1217,6 @@ class SurfaceControlMovableInsulation(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `insulation_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Insulation Type"] = value
 
     @property
@@ -1213,10 +1230,12 @@ class SurfaceControlMovableInsulation(object):
 
     @surface_name.setter
     def surface_name(self, value=None):
-        """  Corresponds to IDD Field `surface_name`
+        """  Corresponds to IDD Field `Surface Name`
+        
+        {u'type': u'object-list', u'object-list': u'SurfaceNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `surface_name`
+            value (str): value for IDD Field `Surface Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1226,7 +1245,7 @@ class SurfaceControlMovableInsulation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `surface_name`'.format(value))
             if ',' in value:
@@ -1235,7 +1254,6 @@ class SurfaceControlMovableInsulation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `surface_name`')
-
         self._data["Surface Name"] = value
 
     @property
@@ -1249,10 +1267,12 @@ class SurfaceControlMovableInsulation(object):
 
     @material_name.setter
     def material_name(self, value=None):
-        """  Corresponds to IDD Field `material_name`
+        """  Corresponds to IDD Field `Material Name`
+        
+        {'type': 'alpha', u'object-list': u'MaterialName', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `material_name`
+            value (str): value for IDD Field `Material Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1262,7 +1282,7 @@ class SurfaceControlMovableInsulation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `material_name`'.format(value))
             if ',' in value:
@@ -1271,7 +1291,6 @@ class SurfaceControlMovableInsulation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `material_name`')
-
         self._data["Material Name"] = value
 
     @property
@@ -1285,10 +1304,12 @@ class SurfaceControlMovableInsulation(object):
 
     @schedule_name.setter
     def schedule_name(self, value=None):
-        """  Corresponds to IDD Field `schedule_name`
+        """  Corresponds to IDD Field `Schedule Name`
+        
+        {u'type': u'object-list', u'object-list': u'ScheduleNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `schedule_name`
+            value (str): value for IDD Field `Schedule Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1298,7 +1319,7 @@ class SurfaceControlMovableInsulation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `schedule_name`'.format(value))
             if ',' in value:
@@ -1307,7 +1328,6 @@ class SurfaceControlMovableInsulation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `schedule_name`')
-
         self._data["Schedule Name"] = value
 
     def check(self):
@@ -1491,10 +1511,12 @@ class SurfacePropertyOtherSideCoefficients(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {'type': 'alpha', u'reference': u'OutFaceEnvNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1504,7 +1526,7 @@ class SurfacePropertyOtherSideCoefficients(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -1513,7 +1535,6 @@ class SurfacePropertyOtherSideCoefficients(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -1527,16 +1548,18 @@ class SurfacePropertyOtherSideCoefficients(object):
 
     @combined_convective_or_radiative_film_coefficient.setter
     def combined_convective_or_radiative_film_coefficient(self, value=None):
-        """  Corresponds to IDD Field `combined_convective_or_radiative_film_coefficient`
+        """  Corresponds to IDD Field `Combined Convective/Radiative Film Coefficient`
         if>0, this field becomes the exterior convective/radiative film coefficient
         and the other fields are used to calculate the outdoor air temperature
         then exterior surface temperature based on outdoor air and specified coefficient
         if<=0, then remaining fields calculate the outside surface temperature
         The following fields are used in the equation:
         OtherSideTemp=N2*N3 + N4*OutdoorDry-bulb + N5*GroundTemp + N6*WindSpeed*OutdoorDry-bulb + N7*TempZone + N9*TempPrev
+        
+        {u'units': u'W/m2-K', u'note': [u'if>0, this field becomes the exterior convective/radiative film coefficient', u'and the other fields are used to calculate the outdoor air temperature', u'then exterior surface temperature based on outdoor air and specified coefficient', u'if<=0, then remaining fields calculate the outside surface temperature', u'The following fields are used in the equation:', u'OtherSideTemp=N2*N3 + N4*OutdoorDry-bulb + N5*GroundTemp + N6*WindSpeed*OutdoorDry-bulb + N7*TempZone + N9*TempPrev'], u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `combined_convective_or_radiative_film_coefficient`
+            value (float): value for IDD Field `Combined Convective/Radiative Film Coefficient`
                 Units: W/m2-K
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1547,10 +1570,9 @@ class SurfacePropertyOtherSideCoefficients(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `combined_convective_or_radiative_film_coefficient`'.format(value))
-
         self._data["Combined Convective/Radiative Film Coefficient"] = value
 
     @property
@@ -1564,11 +1586,13 @@ class SurfacePropertyOtherSideCoefficients(object):
 
     @constant_temperature.setter
     def constant_temperature(self, value=0.0 ):
-        """  Corresponds to IDD Field `constant_temperature`
+        """  Corresponds to IDD Field `Constant Temperature`
         This parameter will be overwritten by the values from the Constant Temperature Schedule Name (below) if one is present
+        
+        {u'units': u'C', u'default': '0.0', u'note': [u'This parameter will be overwritten by the values from the Constant Temperature Schedule Name (below) if one is present'], u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `constant_temperature`
+            value (float): value for IDD Field `Constant Temperature`
                 Units: C
                 Default value: 0.0
                 if `value` is None it will not be checked against the
@@ -1580,10 +1604,9 @@ class SurfacePropertyOtherSideCoefficients(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `constant_temperature`'.format(value))
-
         self._data["Constant Temperature"] = value
 
     @property
@@ -1597,12 +1620,14 @@ class SurfacePropertyOtherSideCoefficients(object):
 
     @constant_temperature_coefficient.setter
     def constant_temperature_coefficient(self, value=1.0 ):
-        """  Corresponds to IDD Field `constant_temperature_coefficient`
+        """  Corresponds to IDD Field `Constant Temperature Coefficient`
         This coefficient is used even with a Schedule.  It should normally be 1.0 in that case.
         This field is ignored if Sinusoidal Variation of Constant Temperature Coefficient = Yes.
+        
+        {u'note': [u'This coefficient is used even with a Schedule.  It should normally be 1.0 in that case.', u'This field is ignored if Sinusoidal Variation of Constant Temperature Coefficient = Yes.'], u'default': '1.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `constant_temperature_coefficient`
+            value (float): value for IDD Field `Constant Temperature Coefficient`
                 Default value: 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1613,10 +1638,9 @@ class SurfacePropertyOtherSideCoefficients(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `constant_temperature_coefficient`'.format(value))
-
         self._data["Constant Temperature Coefficient"] = value
 
     @property
@@ -1630,10 +1654,12 @@ class SurfacePropertyOtherSideCoefficients(object):
 
     @external_drybulb_temperature_coefficient.setter
     def external_drybulb_temperature_coefficient(self, value=0.0 ):
-        """  Corresponds to IDD Field `external_drybulb_temperature_coefficient`
+        """  Corresponds to IDD Field `External Dry-Bulb Temperature Coefficient`
+        
+        {u'default': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `external_drybulb_temperature_coefficient`
+            value (float): value for IDD Field `External Dry-Bulb Temperature Coefficient`
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1644,10 +1670,9 @@ class SurfacePropertyOtherSideCoefficients(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `external_drybulb_temperature_coefficient`'.format(value))
-
         self._data["External Dry-Bulb Temperature Coefficient"] = value
 
     @property
@@ -1661,10 +1686,12 @@ class SurfacePropertyOtherSideCoefficients(object):
 
     @ground_temperature_coefficient.setter
     def ground_temperature_coefficient(self, value=0.0 ):
-        """  Corresponds to IDD Field `ground_temperature_coefficient`
+        """  Corresponds to IDD Field `Ground Temperature Coefficient`
+        
+        {u'default': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `ground_temperature_coefficient`
+            value (float): value for IDD Field `Ground Temperature Coefficient`
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1675,10 +1702,9 @@ class SurfacePropertyOtherSideCoefficients(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `ground_temperature_coefficient`'.format(value))
-
         self._data["Ground Temperature Coefficient"] = value
 
     @property
@@ -1692,10 +1718,12 @@ class SurfacePropertyOtherSideCoefficients(object):
 
     @wind_speed_coefficient.setter
     def wind_speed_coefficient(self, value=0.0 ):
-        """  Corresponds to IDD Field `wind_speed_coefficient`
+        """  Corresponds to IDD Field `Wind Speed Coefficient`
+        
+        {u'default': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `wind_speed_coefficient`
+            value (float): value for IDD Field `Wind Speed Coefficient`
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1706,10 +1734,9 @@ class SurfacePropertyOtherSideCoefficients(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `wind_speed_coefficient`'.format(value))
-
         self._data["Wind Speed Coefficient"] = value
 
     @property
@@ -1723,10 +1750,12 @@ class SurfacePropertyOtherSideCoefficients(object):
 
     @zone_air_temperature_coefficient.setter
     def zone_air_temperature_coefficient(self, value=0.0 ):
-        """  Corresponds to IDD Field `zone_air_temperature_coefficient`
+        """  Corresponds to IDD Field `Zone Air Temperature Coefficient`
+        
+        {u'default': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `zone_air_temperature_coefficient`
+            value (float): value for IDD Field `Zone Air Temperature Coefficient`
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1737,10 +1766,9 @@ class SurfacePropertyOtherSideCoefficients(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `zone_air_temperature_coefficient`'.format(value))
-
         self._data["Zone Air Temperature Coefficient"] = value
 
     @property
@@ -1754,12 +1782,14 @@ class SurfacePropertyOtherSideCoefficients(object):
 
     @constant_temperature_schedule_name.setter
     def constant_temperature_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `constant_temperature_schedule_name`
+        """  Corresponds to IDD Field `Constant Temperature Schedule Name`
         Name of schedule for values of constant temperature.
         Schedule values replace any value specified in the field Constant Temperature.
+        
+        {u'note': [u'Name of schedule for values of constant temperature.', u'Schedule values replace any value specified in the field Constant Temperature.'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `constant_temperature_schedule_name`
+            value (str): value for IDD Field `Constant Temperature Schedule Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1769,7 +1799,7 @@ class SurfacePropertyOtherSideCoefficients(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `constant_temperature_schedule_name`'.format(value))
             if ',' in value:
@@ -1778,7 +1808,6 @@ class SurfacePropertyOtherSideCoefficients(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `constant_temperature_schedule_name`')
-
         self._data["Constant Temperature Schedule Name"] = value
 
     @property
@@ -1792,11 +1821,13 @@ class SurfacePropertyOtherSideCoefficients(object):
 
     @sinusoidal_variation_of_constant_temperature_coefficient.setter
     def sinusoidal_variation_of_constant_temperature_coefficient(self, value="No"):
-        """  Corresponds to IDD Field `sinusoidal_variation_of_constant_temperature_coefficient`
+        """  Corresponds to IDD Field `Sinusoidal Variation of Constant Temperature Coefficient`
         Optionally used to vary Constant Temperature Coefficient with unitary sine wave
+        
+        {u'note': [u'Optionally used to vary Constant Temperature Coefficient with unitary sine wave'], u'default': u'No', u'type': u'choice', u'key': [u'Yes', u'No'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `sinusoidal_variation_of_constant_temperature_coefficient`
+            value (str): value for IDD Field `Sinusoidal Variation of Constant Temperature Coefficient`
                 Accepted values are:
                       - Yes
                       - No
@@ -1810,7 +1841,7 @@ class SurfacePropertyOtherSideCoefficients(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `sinusoidal_variation_of_constant_temperature_coefficient`'.format(value))
             if ',' in value:
@@ -1836,7 +1867,6 @@ class SurfacePropertyOtherSideCoefficients(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `sinusoidal_variation_of_constant_temperature_coefficient`'.format(value))
             value = vals[value_lower]
-
         self._data["Sinusoidal Variation of Constant Temperature Coefficient"] = value
 
     @property
@@ -1850,11 +1880,13 @@ class SurfacePropertyOtherSideCoefficients(object):
 
     @period_of_sinusoidal_variation.setter
     def period_of_sinusoidal_variation(self, value=24.0 ):
-        """  Corresponds to IDD Field `period_of_sinusoidal_variation`
+        """  Corresponds to IDD Field `Period of Sinusoidal Variation`
         Use with sinusoidal variation to define the time period
+        
+        {'pytype': 'float', u'default': '24.0', u'minimum>': '0.0', u'note': [u'Use with sinusoidal variation to define the time period'], u'units': u'hr', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `period_of_sinusoidal_variation`
+            value (float): value for IDD Field `Period of Sinusoidal Variation`
                 Units: hr
                 Default value: 24.0
                 value > 0.0
@@ -1867,13 +1899,12 @@ class SurfacePropertyOtherSideCoefficients(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `period_of_sinusoidal_variation`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `period_of_sinusoidal_variation`')
-
         self._data["Period of Sinusoidal Variation"] = value
 
     @property
@@ -1887,12 +1918,14 @@ class SurfacePropertyOtherSideCoefficients(object):
 
     @previous_other_side_temperature_coefficient.setter
     def previous_other_side_temperature_coefficient(self, value=0.0 ):
-        """  Corresponds to IDD Field `previous_other_side_temperature_coefficient`
+        """  Corresponds to IDD Field `Previous Other Side Temperature Coefficient`
         This coefficient multiplies the other side temperature result from the
         previous zone timestep
+        
+        {u'note': [u'This coefficient multiplies the other side temperature result from the', u'previous zone timestep'], u'default': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `previous_other_side_temperature_coefficient`
+            value (float): value for IDD Field `Previous Other Side Temperature Coefficient`
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1903,10 +1936,9 @@ class SurfacePropertyOtherSideCoefficients(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `previous_other_side_temperature_coefficient`'.format(value))
-
         self._data["Previous Other Side Temperature Coefficient"] = value
 
     @property
@@ -1920,12 +1952,14 @@ class SurfacePropertyOtherSideCoefficients(object):
 
     @minimum_other_side_temperature_limit.setter
     def minimum_other_side_temperature_limit(self, value=None):
-        """  Corresponds to IDD Field `minimum_other_side_temperature_limit`
+        """  Corresponds to IDD Field `Minimum Other Side Temperature Limit`
         This field specifies a lower limit for the other side temperature result.
         Blank indicates no limit
+        
+        {u'note': [u'This field specifies a lower limit for the other side temperature result.', u'Blank indicates no limit'], u'units': u'C', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `minimum_other_side_temperature_limit`
+            value (float): value for IDD Field `Minimum Other Side Temperature Limit`
                 Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1936,10 +1970,9 @@ class SurfacePropertyOtherSideCoefficients(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `minimum_other_side_temperature_limit`'.format(value))
-
         self._data["Minimum Other Side Temperature Limit"] = value
 
     @property
@@ -1953,12 +1986,14 @@ class SurfacePropertyOtherSideCoefficients(object):
 
     @maximum_other_side_temperature_limit.setter
     def maximum_other_side_temperature_limit(self, value=None):
-        """  Corresponds to IDD Field `maximum_other_side_temperature_limit`
+        """  Corresponds to IDD Field `Maximum Other Side Temperature Limit`
         This field specifies an upper limit for the other side temperature result.
         Blank indicates no limit
+        
+        {u'note': [u'This field specifies an upper limit for the other side temperature result.', u'Blank indicates no limit'], u'units': u'C', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `maximum_other_side_temperature_limit`
+            value (float): value for IDD Field `Maximum Other Side Temperature Limit`
                 Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1969,10 +2004,9 @@ class SurfacePropertyOtherSideCoefficients(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `maximum_other_side_temperature_limit`'.format(value))
-
         self._data["Maximum Other Side Temperature Limit"] = value
 
     def check(self):
@@ -2060,10 +2094,12 @@ class SurfacePropertyOtherSideConditionsModel(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {'type': 'alpha', u'reference': u'OutFaceEnvNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2073,7 +2109,7 @@ class SurfacePropertyOtherSideConditionsModel(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -2082,7 +2118,6 @@ class SurfacePropertyOtherSideConditionsModel(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -2096,7 +2131,7 @@ class SurfacePropertyOtherSideConditionsModel(object):
 
     @type_of_modeling.setter
     def type_of_modeling(self, value="GapConvectionRadiation"):
-        """  Corresponds to IDD Field `type_of_modeling`
+        """  Corresponds to IDD Field `Type of Modeling`
         GapConvectionRadiation provides boundary conditions for convection
         and linearized thermal radiation across a gap or cavity
         on the other side of the surface that are modeled sperately.
@@ -2104,9 +2139,11 @@ class SurfacePropertyOtherSideConditionsModel(object):
         surfaces in contact with PipingSystem:Underground domains
         GroundCoupledSurface provides boundary conditions for surfaces
         in contact with GroundDomain objects
+        
+        {u'note': [u'GapConvectionRadiation provides boundary conditions for convection', u'and linearized thermal radiation across a gap or cavity', u'on the other side of the surface that are modeled sperately.', u'UndergroundPipingSystemSurface provides boundary conditions for', u'surfaces in contact with PipingSystem:Underground domains', u'GroundCoupledSurface provides boundary conditions for surfaces', u'in contact with GroundDomain objects'], u'default': u'GapConvectionRadiation', u'type': u'choice', u'key': [u'GapConvectionRadiation', u'UndergroundPipingSystemSurface', u'GroundCoupledSurface'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `type_of_modeling`
+            value (str): value for IDD Field `Type of Modeling`
                 Accepted values are:
                       - GapConvectionRadiation
                       - UndergroundPipingSystemSurface
@@ -2121,7 +2158,7 @@ class SurfacePropertyOtherSideConditionsModel(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `type_of_modeling`'.format(value))
             if ',' in value:
@@ -2148,7 +2185,6 @@ class SurfacePropertyOtherSideConditionsModel(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `type_of_modeling`'.format(value))
             value = vals[value_lower]
-
         self._data["Type of Modeling"] = value
 
     def check(self):
@@ -2950,10 +2986,12 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {u'type': u'alpha', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2963,7 +3001,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -2972,7 +3010,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -2986,12 +3023,14 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
 
     @simple_bouyancy_vertical_wall_equation_source.setter
     def simple_bouyancy_vertical_wall_equation_source(self, value="FohannoPolidoriVerticalWall"):
-        """  Corresponds to IDD Field `simple_bouyancy_vertical_wall_equation_source`
+        """  Corresponds to IDD Field `Simple Bouyancy Vertical Wall Equation Source`
         Applies to zone with no HVAC or when HVAC is off
         This is for vertical walls
+        
+        {u'note': [u'Applies to zone with no HVAC or when HVAC is off', u'This is for vertical walls'], u'default': u'FohannoPolidoriVerticalWall', u'type': u'choice', u'key': [u'ASHRAEVerticalWall', u'AlamdariHammondVerticalWall', u'KhalifaEq3WallAwayFromHeat', u'KhalifaEq6NonHeatedWalls', u'FohannoPolidoriVerticalWall', u'ISO15099Windows', u'UserCurve'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `simple_bouyancy_vertical_wall_equation_source`
+            value (str): value for IDD Field `Simple Bouyancy Vertical Wall Equation Source`
                 Accepted values are:
                       - ASHRAEVerticalWall
                       - AlamdariHammondVerticalWall
@@ -3010,7 +3049,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `simple_bouyancy_vertical_wall_equation_source`'.format(value))
             if ',' in value:
@@ -3041,7 +3080,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `simple_bouyancy_vertical_wall_equation_source`'.format(value))
             value = vals[value_lower]
-
         self._data["Simple Bouyancy Vertical Wall Equation Source"] = value
 
     @property
@@ -3055,11 +3093,13 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
 
     @simple_bouyancy_vertical_wall_user_curve_name.setter
     def simple_bouyancy_vertical_wall_user_curve_name(self, value=None):
-        """  Corresponds to IDD Field `simple_bouyancy_vertical_wall_user_curve_name`
+        """  Corresponds to IDD Field `Simple Bouyancy Vertical Wall User Curve Name`
         The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
+        
+        {u'note': [u'The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve'], u'type': u'object-list', u'object-list': u'UserConvectionInsideModels', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `simple_bouyancy_vertical_wall_user_curve_name`
+            value (str): value for IDD Field `Simple Bouyancy Vertical Wall User Curve Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3069,7 +3109,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `simple_bouyancy_vertical_wall_user_curve_name`'.format(value))
             if ',' in value:
@@ -3078,7 +3118,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `simple_bouyancy_vertical_wall_user_curve_name`')
-
         self._data["Simple Bouyancy Vertical Wall User Curve Name"] = value
 
     @property
@@ -3092,12 +3131,14 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
 
     @simple_bouyancy_stable_horizontal_equation_source.setter
     def simple_bouyancy_stable_horizontal_equation_source(self, value="AlamdariHammondStableHorizontal"):
-        """  Corresponds to IDD Field `simple_bouyancy_stable_horizontal_equation_source`
+        """  Corresponds to IDD Field `Simple Bouyancy Stable Horizontal Equation Source`
         Applies to zone with no HVAC or when HVAC is off
         This is for horizontal surfaces with heat flow directed for stable thermal stratification
+        
+        {u'note': [u'Applies to zone with no HVAC or when HVAC is off', u'This is for horizontal surfaces with heat flow directed for stable thermal stratification'], u'default': u'AlamdariHammondStableHorizontal', u'type': u'choice', u'key': [u'WaltonStableHorizontalOrTilt', u'AlamdariHammondStableHorizontal', u'UserCurve'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `simple_bouyancy_stable_horizontal_equation_source`
+            value (str): value for IDD Field `Simple Bouyancy Stable Horizontal Equation Source`
                 Accepted values are:
                       - WaltonStableHorizontalOrTilt
                       - AlamdariHammondStableHorizontal
@@ -3112,7 +3153,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `simple_bouyancy_stable_horizontal_equation_source`'.format(value))
             if ',' in value:
@@ -3139,7 +3180,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `simple_bouyancy_stable_horizontal_equation_source`'.format(value))
             value = vals[value_lower]
-
         self._data["Simple Bouyancy Stable Horizontal Equation Source"] = value
 
     @property
@@ -3153,11 +3193,13 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
 
     @simple_bouyancy_stable_horizontal_equation_user_curve_name.setter
     def simple_bouyancy_stable_horizontal_equation_user_curve_name(self, value=None):
-        """  Corresponds to IDD Field `simple_bouyancy_stable_horizontal_equation_user_curve_name`
+        """  Corresponds to IDD Field `Simple Bouyancy Stable Horizontal Equation User Curve Name`
         The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
+        
+        {u'note': [u'The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve'], u'type': u'object-list', u'object-list': u'UserConvectionInsideModels', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `simple_bouyancy_stable_horizontal_equation_user_curve_name`
+            value (str): value for IDD Field `Simple Bouyancy Stable Horizontal Equation User Curve Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3167,7 +3209,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `simple_bouyancy_stable_horizontal_equation_user_curve_name`'.format(value))
             if ',' in value:
@@ -3176,7 +3218,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `simple_bouyancy_stable_horizontal_equation_user_curve_name`')
-
         self._data["Simple Bouyancy Stable Horizontal Equation User Curve Name"] = value
 
     @property
@@ -3190,12 +3231,14 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
 
     @simple_bouyancy_unstable_horizontal_equation_source.setter
     def simple_bouyancy_unstable_horizontal_equation_source(self, value="AlamdariHammondUnstableHorizontal"):
-        """  Corresponds to IDD Field `simple_bouyancy_unstable_horizontal_equation_source`
+        """  Corresponds to IDD Field `Simple Bouyancy Unstable Horizontal Equation Source`
         Applies to zone with no HVAC or when HVAC is off
         This is for passive horizontal surfaces with heat flow for unstable thermal stratification
+        
+        {u'note': [u'Applies to zone with no HVAC or when HVAC is off', u'This is for passive horizontal surfaces with heat flow for unstable thermal stratification'], u'default': u'AlamdariHammondUnstableHorizontal', u'type': u'choice', u'key': [u'WaltonUnstableHorizontalOrTilt', u'AlamdariHammondUnstableHorizontal', u'UserCurve'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `simple_bouyancy_unstable_horizontal_equation_source`
+            value (str): value for IDD Field `Simple Bouyancy Unstable Horizontal Equation Source`
                 Accepted values are:
                       - WaltonUnstableHorizontalOrTilt
                       - AlamdariHammondUnstableHorizontal
@@ -3210,7 +3253,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `simple_bouyancy_unstable_horizontal_equation_source`'.format(value))
             if ',' in value:
@@ -3237,7 +3280,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `simple_bouyancy_unstable_horizontal_equation_source`'.format(value))
             value = vals[value_lower]
-
         self._data["Simple Bouyancy Unstable Horizontal Equation Source"] = value
 
     @property
@@ -3251,11 +3293,13 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
 
     @simple_bouyancy_unstable_horizontal_equation_user_curve_name.setter
     def simple_bouyancy_unstable_horizontal_equation_user_curve_name(self, value=None):
-        """  Corresponds to IDD Field `simple_bouyancy_unstable_horizontal_equation_user_curve_name`
+        """  Corresponds to IDD Field `Simple Bouyancy Unstable Horizontal Equation User Curve Name`
         The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
+        
+        {u'note': [u'The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve'], u'type': u'object-list', u'object-list': u'UserConvectionInsideModels', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `simple_bouyancy_unstable_horizontal_equation_user_curve_name`
+            value (str): value for IDD Field `Simple Bouyancy Unstable Horizontal Equation User Curve Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3265,7 +3309,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `simple_bouyancy_unstable_horizontal_equation_user_curve_name`'.format(value))
             if ',' in value:
@@ -3274,7 +3318,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `simple_bouyancy_unstable_horizontal_equation_user_curve_name`')
-
         self._data["Simple Bouyancy Unstable Horizontal Equation User Curve Name"] = value
 
     @property
@@ -3288,12 +3331,14 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
 
     @simple_bouyancy_stable_tilted_equation_source.setter
     def simple_bouyancy_stable_tilted_equation_source(self, value="WaltonStableHorizontalOrTilt"):
-        """  Corresponds to IDD Field `simple_bouyancy_stable_tilted_equation_source`
+        """  Corresponds to IDD Field `Simple Bouyancy Stable Tilted Equation Source`
         Applies to zone with no HVAC or when HVAC is off
         This is for tilted surfaces with heat flow for stable thermal stratification
+        
+        {u'note': [u'Applies to zone with no HVAC or when HVAC is off', u'This is for tilted surfaces with heat flow for stable thermal stratification'], u'default': u'WaltonStableHorizontalOrTilt', u'type': u'choice', u'key': [u'WaltonStableHorizontalOrTilt', u'AlamdariHammondStableHorizontal', u'UserCurve'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `simple_bouyancy_stable_tilted_equation_source`
+            value (str): value for IDD Field `Simple Bouyancy Stable Tilted Equation Source`
                 Accepted values are:
                       - WaltonStableHorizontalOrTilt
                       - AlamdariHammondStableHorizontal
@@ -3308,7 +3353,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `simple_bouyancy_stable_tilted_equation_source`'.format(value))
             if ',' in value:
@@ -3335,7 +3380,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `simple_bouyancy_stable_tilted_equation_source`'.format(value))
             value = vals[value_lower]
-
         self._data["Simple Bouyancy Stable Tilted Equation Source"] = value
 
     @property
@@ -3349,11 +3393,13 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
 
     @simple_bouyancy_stable_tilted_equation_user_curve_name.setter
     def simple_bouyancy_stable_tilted_equation_user_curve_name(self, value=None):
-        """  Corresponds to IDD Field `simple_bouyancy_stable_tilted_equation_user_curve_name`
+        """  Corresponds to IDD Field `Simple Bouyancy Stable Tilted Equation User Curve Name`
         The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
+        
+        {u'note': [u'The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve'], u'type': u'object-list', u'object-list': u'UserConvectionInsideModels', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `simple_bouyancy_stable_tilted_equation_user_curve_name`
+            value (str): value for IDD Field `Simple Bouyancy Stable Tilted Equation User Curve Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3363,7 +3409,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `simple_bouyancy_stable_tilted_equation_user_curve_name`'.format(value))
             if ',' in value:
@@ -3372,7 +3418,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `simple_bouyancy_stable_tilted_equation_user_curve_name`')
-
         self._data["Simple Bouyancy Stable Tilted Equation User Curve Name"] = value
 
     @property
@@ -3386,12 +3431,14 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
 
     @simple_bouyancy_unstable_tilted_equation_source.setter
     def simple_bouyancy_unstable_tilted_equation_source(self, value="WaltonUnstableHorizontalOrTilt"):
-        """  Corresponds to IDD Field `simple_bouyancy_unstable_tilted_equation_source`
+        """  Corresponds to IDD Field `Simple Bouyancy Unstable Tilted Equation Source`
         Applies to zone with no HVAC or when HVAC is off
         This is for tilted surfaces with heat flow for unstable thermal stratification
+        
+        {u'note': [u'Applies to zone with no HVAC or when HVAC is off', u'This is for tilted surfaces with heat flow for unstable thermal stratification'], u'default': u'WaltonUnstableHorizontalOrTilt', u'type': u'choice', u'key': [u'WaltonUnstableHorizontalOrTilt', u'AlamdariHammondUnstableHorizontal', u'UserCurve'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `simple_bouyancy_unstable_tilted_equation_source`
+            value (str): value for IDD Field `Simple Bouyancy Unstable Tilted Equation Source`
                 Accepted values are:
                       - WaltonUnstableHorizontalOrTilt
                       - AlamdariHammondUnstableHorizontal
@@ -3406,7 +3453,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `simple_bouyancy_unstable_tilted_equation_source`'.format(value))
             if ',' in value:
@@ -3433,7 +3480,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `simple_bouyancy_unstable_tilted_equation_source`'.format(value))
             value = vals[value_lower]
-
         self._data["Simple Bouyancy Unstable Tilted Equation Source"] = value
 
     @property
@@ -3447,11 +3493,13 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
 
     @simple_bouyancy_unstable_tilted_equation_user_curve_name.setter
     def simple_bouyancy_unstable_tilted_equation_user_curve_name(self, value=None):
-        """  Corresponds to IDD Field `simple_bouyancy_unstable_tilted_equation_user_curve_name`
+        """  Corresponds to IDD Field `Simple Bouyancy Unstable Tilted Equation User Curve Name`
         The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
+        
+        {u'note': [u'The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve'], u'type': u'object-list', u'object-list': u'UserConvectionInsideModels', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `simple_bouyancy_unstable_tilted_equation_user_curve_name`
+            value (str): value for IDD Field `Simple Bouyancy Unstable Tilted Equation User Curve Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3461,7 +3509,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `simple_bouyancy_unstable_tilted_equation_user_curve_name`'.format(value))
             if ',' in value:
@@ -3470,7 +3518,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `simple_bouyancy_unstable_tilted_equation_user_curve_name`')
-
         self._data["Simple Bouyancy Unstable Tilted Equation User Curve Name"] = value
 
     @property
@@ -3484,12 +3531,14 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
 
     @simple_bouyancy_windows_equation_source.setter
     def simple_bouyancy_windows_equation_source(self, value="ISO15099Windows"):
-        """  Corresponds to IDD Field `simple_bouyancy_windows_equation_source`
+        """  Corresponds to IDD Field `Simple Bouyancy Windows Equation Source`
         Applies to zone with no HVAC or when HVAC is off
         This is for all window surfaces
+        
+        {u'note': [u'Applies to zone with no HVAC or when HVAC is off', u'This is for all window surfaces'], u'default': u'ISO15099Windows', u'type': u'choice', u'key': [u'ASHRAEVerticalWall', u'AlamdariHammondVerticalWall', u'FohannoPolidoriVerticalWall', u'KaradagChilledCeiling', u'ISO15099Windows', u'UserCurve'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `simple_bouyancy_windows_equation_source`
+            value (str): value for IDD Field `Simple Bouyancy Windows Equation Source`
                 Accepted values are:
                       - ASHRAEVerticalWall
                       - AlamdariHammondVerticalWall
@@ -3507,7 +3556,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `simple_bouyancy_windows_equation_source`'.format(value))
             if ',' in value:
@@ -3537,7 +3586,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `simple_bouyancy_windows_equation_source`'.format(value))
             value = vals[value_lower]
-
         self._data["Simple Bouyancy Windows Equation Source"] = value
 
     @property
@@ -3551,11 +3599,13 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
 
     @simple_bouyancy_windows_equation_user_curve_name.setter
     def simple_bouyancy_windows_equation_user_curve_name(self, value=None):
-        """  Corresponds to IDD Field `simple_bouyancy_windows_equation_user_curve_name`
+        """  Corresponds to IDD Field `Simple Bouyancy Windows Equation User Curve Name`
         The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
+        
+        {u'note': [u'The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve'], u'type': u'object-list', u'object-list': u'UserConvectionInsideModels', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `simple_bouyancy_windows_equation_user_curve_name`
+            value (str): value for IDD Field `Simple Bouyancy Windows Equation User Curve Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3565,7 +3615,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `simple_bouyancy_windows_equation_user_curve_name`'.format(value))
             if ',' in value:
@@ -3574,7 +3624,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `simple_bouyancy_windows_equation_user_curve_name`')
-
         self._data["Simple Bouyancy Windows Equation User Curve Name"] = value
 
     @property
@@ -3588,12 +3637,14 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
 
     @floor_heat_ceiling_cool_vertical_wall_equation_source.setter
     def floor_heat_ceiling_cool_vertical_wall_equation_source(self, value="KhalifaEq3WallAwayFromHeat"):
-        """  Corresponds to IDD Field `floor_heat_ceiling_cool_vertical_wall_equation_source`
+        """  Corresponds to IDD Field `Floor Heat Ceiling Cool Vertical Wall Equation Source`
         Applies to zone with in-floor heating and/or in-ceiling cooling
         This is for vertical walls
+        
+        {u'note': [u'Applies to zone with in-floor heating and/or in-ceiling cooling', u'This is for vertical walls'], u'default': u'KhalifaEq3WallAwayFromHeat', u'type': u'choice', u'key': [u'ASHRAEVerticalWall', u'AlamdariHammondVerticalWall', u'KhalifaEq3WallAwayFromHeat', u'FohannoPolidoriVerticalWall', u'ISO15099Windows', u'UserCurve'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `floor_heat_ceiling_cool_vertical_wall_equation_source`
+            value (str): value for IDD Field `Floor Heat Ceiling Cool Vertical Wall Equation Source`
                 Accepted values are:
                       - ASHRAEVerticalWall
                       - AlamdariHammondVerticalWall
@@ -3611,7 +3662,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `floor_heat_ceiling_cool_vertical_wall_equation_source`'.format(value))
             if ',' in value:
@@ -3641,7 +3692,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `floor_heat_ceiling_cool_vertical_wall_equation_source`'.format(value))
             value = vals[value_lower]
-
         self._data["Floor Heat Ceiling Cool Vertical Wall Equation Source"] = value
 
     @property
@@ -3655,11 +3705,13 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
 
     @floor_heat_ceiling_cool_vertical_wall_equation_user_curve_name.setter
     def floor_heat_ceiling_cool_vertical_wall_equation_user_curve_name(self, value=None):
-        """  Corresponds to IDD Field `floor_heat_ceiling_cool_vertical_wall_equation_user_curve_name`
+        """  Corresponds to IDD Field `Floor Heat Ceiling Cool Vertical Wall Equation User Curve Name`
         The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
+        
+        {u'note': [u'The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve'], u'type': u'object-list', u'object-list': u'UserConvectionInsideModels', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `floor_heat_ceiling_cool_vertical_wall_equation_user_curve_name`
+            value (str): value for IDD Field `Floor Heat Ceiling Cool Vertical Wall Equation User Curve Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3669,7 +3721,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `floor_heat_ceiling_cool_vertical_wall_equation_user_curve_name`'.format(value))
             if ',' in value:
@@ -3678,7 +3730,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `floor_heat_ceiling_cool_vertical_wall_equation_user_curve_name`')
-
         self._data["Floor Heat Ceiling Cool Vertical Wall Equation User Curve Name"] = value
 
     @property
@@ -3692,12 +3743,14 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
 
     @floor_heat_ceiling_cool_stable_horizontal_equation_source.setter
     def floor_heat_ceiling_cool_stable_horizontal_equation_source(self, value="AlamdariHammondStableHorizontal"):
-        """  Corresponds to IDD Field `floor_heat_ceiling_cool_stable_horizontal_equation_source`
+        """  Corresponds to IDD Field `Floor Heat Ceiling Cool Stable Horizontal Equation Source`
         Applies to zone with in-floor heating and/or in-ceiling cooling
         This is for passive horizontal surfaces with heat flow for stable thermal stratification
+        
+        {u'note': [u'Applies to zone with in-floor heating and/or in-ceiling cooling', u'This is for passive horizontal surfaces with heat flow for stable thermal stratification'], u'default': u'AlamdariHammondStableHorizontal', u'type': u'choice', u'key': [u'WaltonStableHorizontalOrTilt', u'AlamdariHammondStableHorizontal', u'UserCurve'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `floor_heat_ceiling_cool_stable_horizontal_equation_source`
+            value (str): value for IDD Field `Floor Heat Ceiling Cool Stable Horizontal Equation Source`
                 Accepted values are:
                       - WaltonStableHorizontalOrTilt
                       - AlamdariHammondStableHorizontal
@@ -3712,7 +3765,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `floor_heat_ceiling_cool_stable_horizontal_equation_source`'.format(value))
             if ',' in value:
@@ -3739,7 +3792,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `floor_heat_ceiling_cool_stable_horizontal_equation_source`'.format(value))
             value = vals[value_lower]
-
         self._data["Floor Heat Ceiling Cool Stable Horizontal Equation Source"] = value
 
     @property
@@ -3753,11 +3805,13 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
 
     @floor_heat_ceiling_cool_stable_horizontal_equation_user_curve_name.setter
     def floor_heat_ceiling_cool_stable_horizontal_equation_user_curve_name(self, value=None):
-        """  Corresponds to IDD Field `floor_heat_ceiling_cool_stable_horizontal_equation_user_curve_name`
+        """  Corresponds to IDD Field `Floor Heat Ceiling Cool Stable Horizontal Equation User Curve Name`
         The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
+        
+        {u'note': [u'The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve'], u'type': u'object-list', u'object-list': u'UserConvectionInsideModels', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `floor_heat_ceiling_cool_stable_horizontal_equation_user_curve_name`
+            value (str): value for IDD Field `Floor Heat Ceiling Cool Stable Horizontal Equation User Curve Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3767,7 +3821,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `floor_heat_ceiling_cool_stable_horizontal_equation_user_curve_name`'.format(value))
             if ',' in value:
@@ -3776,7 +3830,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `floor_heat_ceiling_cool_stable_horizontal_equation_user_curve_name`')
-
         self._data["Floor Heat Ceiling Cool Stable Horizontal Equation User Curve Name"] = value
 
     @property
@@ -3790,12 +3843,14 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
 
     @floor_heat_ceiling_cool_unstable_horizontal_equation_source.setter
     def floor_heat_ceiling_cool_unstable_horizontal_equation_source(self, value="KhalifaEq4CeilingAwayFromHeat"):
-        """  Corresponds to IDD Field `floor_heat_ceiling_cool_unstable_horizontal_equation_source`
+        """  Corresponds to IDD Field `Floor Heat Ceiling Cool Unstable Horizontal Equation Source`
         Applies to zone with in-floor heating and/or in-ceiling cooling
         This is for passive horizontal surfaces with heat flow for unstable thermal stratification
+        
+        {u'note': [u'Applies to zone with in-floor heating and/or in-ceiling cooling', u'This is for passive horizontal surfaces with heat flow for unstable thermal stratification'], u'default': u'KhalifaEq4CeilingAwayFromHeat', u'type': u'choice', u'key': [u'WaltonUnstableHorizontalOrTilt', u'AlamdariHammondUnstableHorizontal', u'KhalifaEq4CeilingAwayFromHeat', u'UserCurve'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `floor_heat_ceiling_cool_unstable_horizontal_equation_source`
+            value (str): value for IDD Field `Floor Heat Ceiling Cool Unstable Horizontal Equation Source`
                 Accepted values are:
                       - WaltonUnstableHorizontalOrTilt
                       - AlamdariHammondUnstableHorizontal
@@ -3811,7 +3866,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `floor_heat_ceiling_cool_unstable_horizontal_equation_source`'.format(value))
             if ',' in value:
@@ -3839,7 +3894,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `floor_heat_ceiling_cool_unstable_horizontal_equation_source`'.format(value))
             value = vals[value_lower]
-
         self._data["Floor Heat Ceiling Cool Unstable Horizontal Equation Source"] = value
 
     @property
@@ -3853,11 +3907,13 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
 
     @floor_heat_ceiling_cool_unstable_horizontal_equation_user_curve_name.setter
     def floor_heat_ceiling_cool_unstable_horizontal_equation_user_curve_name(self, value=None):
-        """  Corresponds to IDD Field `floor_heat_ceiling_cool_unstable_horizontal_equation_user_curve_name`
+        """  Corresponds to IDD Field `Floor Heat Ceiling Cool Unstable Horizontal Equation User Curve Name`
         The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
+        
+        {u'note': [u'The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve'], u'type': u'object-list', u'object-list': u'UserConvectionInsideModels', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `floor_heat_ceiling_cool_unstable_horizontal_equation_user_curve_name`
+            value (str): value for IDD Field `Floor Heat Ceiling Cool Unstable Horizontal Equation User Curve Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3867,7 +3923,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `floor_heat_ceiling_cool_unstable_horizontal_equation_user_curve_name`'.format(value))
             if ',' in value:
@@ -3876,7 +3932,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `floor_heat_ceiling_cool_unstable_horizontal_equation_user_curve_name`')
-
         self._data["Floor Heat Ceiling Cool Unstable Horizontal Equation User Curve Name"] = value
 
     @property
@@ -3890,12 +3945,14 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
 
     @floor_heat_ceiling_cool_heated_floor_equation_source.setter
     def floor_heat_ceiling_cool_heated_floor_equation_source(self, value="AwbiHattonHeatedFloor"):
-        """  Corresponds to IDD Field `floor_heat_ceiling_cool_heated_floor_equation_source`
+        """  Corresponds to IDD Field `Floor Heat Ceiling Cool Heated Floor Equation Source`
         Applies to zone with in-floor heating and/or in-ceiling cooling
         This is for a floor with active heating elements
+        
+        {u'note': [u'Applies to zone with in-floor heating and/or in-ceiling cooling', u'This is for a floor with active heating elements'], u'default': u'AwbiHattonHeatedFloor', u'type': u'choice', u'key': [u'WaltonUnstableHorizontalOrTilt', u'AlamdariHammondUnstableHorizontal', u'AwbiHattonHeatedFloor', u'UserCurve'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `floor_heat_ceiling_cool_heated_floor_equation_source`
+            value (str): value for IDD Field `Floor Heat Ceiling Cool Heated Floor Equation Source`
                 Accepted values are:
                       - WaltonUnstableHorizontalOrTilt
                       - AlamdariHammondUnstableHorizontal
@@ -3911,7 +3968,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `floor_heat_ceiling_cool_heated_floor_equation_source`'.format(value))
             if ',' in value:
@@ -3939,7 +3996,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `floor_heat_ceiling_cool_heated_floor_equation_source`'.format(value))
             value = vals[value_lower]
-
         self._data["Floor Heat Ceiling Cool Heated Floor Equation Source"] = value
 
     @property
@@ -3953,11 +4009,13 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
 
     @floor_heat_ceiling_cool_heated_floor_equation_user_curve_name.setter
     def floor_heat_ceiling_cool_heated_floor_equation_user_curve_name(self, value=None):
-        """  Corresponds to IDD Field `floor_heat_ceiling_cool_heated_floor_equation_user_curve_name`
+        """  Corresponds to IDD Field `Floor Heat Ceiling Cool Heated Floor Equation User Curve Name`
         The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
+        
+        {u'note': [u'The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve'], u'type': u'object-list', u'object-list': u'UserConvectionInsideModels', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `floor_heat_ceiling_cool_heated_floor_equation_user_curve_name`
+            value (str): value for IDD Field `Floor Heat Ceiling Cool Heated Floor Equation User Curve Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3967,7 +4025,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `floor_heat_ceiling_cool_heated_floor_equation_user_curve_name`'.format(value))
             if ',' in value:
@@ -3976,7 +4034,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `floor_heat_ceiling_cool_heated_floor_equation_user_curve_name`')
-
         self._data["Floor Heat Ceiling Cool Heated Floor Equation User Curve Name"] = value
 
     @property
@@ -3990,12 +4047,14 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
 
     @floor_heat_ceiling_cool_chilled_ceiling_equation_source.setter
     def floor_heat_ceiling_cool_chilled_ceiling_equation_source(self, value="KaradagChilledCeiling"):
-        """  Corresponds to IDD Field `floor_heat_ceiling_cool_chilled_ceiling_equation_source`
+        """  Corresponds to IDD Field `Floor Heat Ceiling Cool Chilled Ceiling Equation Source`
         Applies to zone with in-floor heating and/or in-ceiling cooling
         This is for a ceiling with active cooling elements
+        
+        {u'note': [u'Applies to zone with in-floor heating and/or in-ceiling cooling', u'This is for a ceiling with active cooling elements'], u'default': u'KaradagChilledCeiling', u'type': u'choice', u'key': [u'WaltonUnstableHorizontalOrTilt', u'AlamdariHammondUnstableHorizontal', u'KaradagChilledCeiling', u'UserCurve'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `floor_heat_ceiling_cool_chilled_ceiling_equation_source`
+            value (str): value for IDD Field `Floor Heat Ceiling Cool Chilled Ceiling Equation Source`
                 Accepted values are:
                       - WaltonUnstableHorizontalOrTilt
                       - AlamdariHammondUnstableHorizontal
@@ -4011,7 +4070,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `floor_heat_ceiling_cool_chilled_ceiling_equation_source`'.format(value))
             if ',' in value:
@@ -4039,7 +4098,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `floor_heat_ceiling_cool_chilled_ceiling_equation_source`'.format(value))
             value = vals[value_lower]
-
         self._data["Floor Heat Ceiling Cool Chilled Ceiling Equation Source"] = value
 
     @property
@@ -4053,11 +4111,13 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
 
     @floor_heat_ceiling_cool_chilled_ceiling_equation_user_curve_name.setter
     def floor_heat_ceiling_cool_chilled_ceiling_equation_user_curve_name(self, value=None):
-        """  Corresponds to IDD Field `floor_heat_ceiling_cool_chilled_ceiling_equation_user_curve_name`
+        """  Corresponds to IDD Field `Floor Heat Ceiling Cool Chilled Ceiling Equation User Curve Name`
         The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
+        
+        {u'note': [u'The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve'], u'type': u'object-list', u'object-list': u'UserConvectionInsideModels', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `floor_heat_ceiling_cool_chilled_ceiling_equation_user_curve_name`
+            value (str): value for IDD Field `Floor Heat Ceiling Cool Chilled Ceiling Equation User Curve Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4067,7 +4127,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `floor_heat_ceiling_cool_chilled_ceiling_equation_user_curve_name`'.format(value))
             if ',' in value:
@@ -4076,7 +4136,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `floor_heat_ceiling_cool_chilled_ceiling_equation_user_curve_name`')
-
         self._data["Floor Heat Ceiling Cool Chilled Ceiling Equation User Curve Name"] = value
 
     @property
@@ -4090,12 +4149,14 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
 
     @floor_heat_ceiling_cool_stable_tilted_equation_source.setter
     def floor_heat_ceiling_cool_stable_tilted_equation_source(self, value="WaltonStableHorizontalOrTilt"):
-        """  Corresponds to IDD Field `floor_heat_ceiling_cool_stable_tilted_equation_source`
+        """  Corresponds to IDD Field `Floor Heat Ceiling Cool Stable Tilted Equation Source`
         Applies to zone with in-floor heating and/or in-ceiling cooling
         This is for tilted surfaces with heat flow for stable thermal stratification
+        
+        {u'note': [u'Applies to zone with in-floor heating and/or in-ceiling cooling', u'This is for tilted surfaces with heat flow for stable thermal stratification'], u'default': u'WaltonStableHorizontalOrTilt', u'type': u'choice', u'key': [u'WaltonStableHorizontalOrTilt', u'AlamdariHammondStableHorizontal', u'ISO15099Windows', u'UserCurve'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `floor_heat_ceiling_cool_stable_tilted_equation_source`
+            value (str): value for IDD Field `Floor Heat Ceiling Cool Stable Tilted Equation Source`
                 Accepted values are:
                       - WaltonStableHorizontalOrTilt
                       - AlamdariHammondStableHorizontal
@@ -4111,7 +4172,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `floor_heat_ceiling_cool_stable_tilted_equation_source`'.format(value))
             if ',' in value:
@@ -4139,7 +4200,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `floor_heat_ceiling_cool_stable_tilted_equation_source`'.format(value))
             value = vals[value_lower]
-
         self._data["Floor Heat Ceiling Cool Stable Tilted Equation Source"] = value
 
     @property
@@ -4153,11 +4213,13 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
 
     @floor_heat_ceiling_cool_stable_tilted_equation_user_curve_name.setter
     def floor_heat_ceiling_cool_stable_tilted_equation_user_curve_name(self, value=None):
-        """  Corresponds to IDD Field `floor_heat_ceiling_cool_stable_tilted_equation_user_curve_name`
+        """  Corresponds to IDD Field `Floor Heat Ceiling Cool Stable Tilted Equation User Curve Name`
         The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
+        
+        {u'note': [u'The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve'], u'type': u'object-list', u'object-list': u'UserConvectionInsideModels', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `floor_heat_ceiling_cool_stable_tilted_equation_user_curve_name`
+            value (str): value for IDD Field `Floor Heat Ceiling Cool Stable Tilted Equation User Curve Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4167,7 +4229,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `floor_heat_ceiling_cool_stable_tilted_equation_user_curve_name`'.format(value))
             if ',' in value:
@@ -4176,7 +4238,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `floor_heat_ceiling_cool_stable_tilted_equation_user_curve_name`')
-
         self._data["Floor Heat Ceiling Cool Stable Tilted Equation User Curve Name"] = value
 
     @property
@@ -4190,12 +4251,14 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
 
     @floor_heat_ceiling_cool_unstable_tilted_equation_source.setter
     def floor_heat_ceiling_cool_unstable_tilted_equation_source(self, value="WaltonUnstableHorizontalOrTilt"):
-        """  Corresponds to IDD Field `floor_heat_ceiling_cool_unstable_tilted_equation_source`
+        """  Corresponds to IDD Field `Floor Heat Ceiling Cool Unstable Tilted Equation Source`
         Applies to zone with in-floor heating and/or in-ceiling cooling
         This is for tilted surfaces with heat flow for unstable thermal stratification
+        
+        {u'note': [u'Applies to zone with in-floor heating and/or in-ceiling cooling', u'This is for tilted surfaces with heat flow for unstable thermal stratification'], u'default': u'WaltonUnstableHorizontalOrTilt', u'type': u'choice', u'key': [u'WaltonUnstableHorizontalOrTilt', u'AlamdariHammondUnstableHorizontal', u'ISO15099Windows', u'UserCurve'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `floor_heat_ceiling_cool_unstable_tilted_equation_source`
+            value (str): value for IDD Field `Floor Heat Ceiling Cool Unstable Tilted Equation Source`
                 Accepted values are:
                       - WaltonUnstableHorizontalOrTilt
                       - AlamdariHammondUnstableHorizontal
@@ -4211,7 +4274,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `floor_heat_ceiling_cool_unstable_tilted_equation_source`'.format(value))
             if ',' in value:
@@ -4239,7 +4302,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `floor_heat_ceiling_cool_unstable_tilted_equation_source`'.format(value))
             value = vals[value_lower]
-
         self._data["Floor Heat Ceiling Cool Unstable Tilted Equation Source"] = value
 
     @property
@@ -4253,11 +4315,13 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
 
     @floor_heat_ceiling_cool_unstable_tilted_equation_user_curve_name.setter
     def floor_heat_ceiling_cool_unstable_tilted_equation_user_curve_name(self, value=None):
-        """  Corresponds to IDD Field `floor_heat_ceiling_cool_unstable_tilted_equation_user_curve_name`
+        """  Corresponds to IDD Field `Floor Heat Ceiling Cool Unstable Tilted Equation User Curve Name`
         The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
+        
+        {u'note': [u'The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve'], u'type': u'object-list', u'object-list': u'UserConvectionInsideModels', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `floor_heat_ceiling_cool_unstable_tilted_equation_user_curve_name`
+            value (str): value for IDD Field `Floor Heat Ceiling Cool Unstable Tilted Equation User Curve Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4267,7 +4331,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `floor_heat_ceiling_cool_unstable_tilted_equation_user_curve_name`'.format(value))
             if ',' in value:
@@ -4276,7 +4340,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `floor_heat_ceiling_cool_unstable_tilted_equation_user_curve_name`')
-
         self._data["Floor Heat Ceiling Cool Unstable Tilted Equation User Curve Name"] = value
 
     @property
@@ -4290,12 +4353,14 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
 
     @floor_heat_ceiling_cool_window_equation_source.setter
     def floor_heat_ceiling_cool_window_equation_source(self, value="ISO15099Windows"):
-        """  Corresponds to IDD Field `floor_heat_ceiling_cool_window_equation_source`
+        """  Corresponds to IDD Field `Floor Heat Ceiling Cool Window Equation Source`
         Applies to zone with in-floor heating and/or in-ceiling cooling
         This is for all window surfaces
+        
+        {u'note': [u'Applies to zone with in-floor heating and/or in-ceiling cooling', u'This is for all window surfaces'], u'default': u'ISO15099Windows', u'type': u'choice', u'key': [u'ASHRAEVerticalWall', u'AlamdariHammondVerticalWall', u'ISO15099Windows', u'UserCurve'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `floor_heat_ceiling_cool_window_equation_source`
+            value (str): value for IDD Field `Floor Heat Ceiling Cool Window Equation Source`
                 Accepted values are:
                       - ASHRAEVerticalWall
                       - AlamdariHammondVerticalWall
@@ -4311,7 +4376,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `floor_heat_ceiling_cool_window_equation_source`'.format(value))
             if ',' in value:
@@ -4339,7 +4404,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `floor_heat_ceiling_cool_window_equation_source`'.format(value))
             value = vals[value_lower]
-
         self._data["Floor Heat Ceiling Cool Window Equation Source"] = value
 
     @property
@@ -4353,11 +4417,13 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
 
     @floor_heat_ceiling_cool_window_equation_user_curve_name.setter
     def floor_heat_ceiling_cool_window_equation_user_curve_name(self, value=None):
-        """  Corresponds to IDD Field `floor_heat_ceiling_cool_window_equation_user_curve_name`
+        """  Corresponds to IDD Field `Floor Heat Ceiling Cool Window Equation User Curve Name`
         The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
+        
+        {u'note': [u'The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve'], u'type': u'object-list', u'object-list': u'UserConvectionInsideModels', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `floor_heat_ceiling_cool_window_equation_user_curve_name`
+            value (str): value for IDD Field `Floor Heat Ceiling Cool Window Equation User Curve Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4367,7 +4433,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `floor_heat_ceiling_cool_window_equation_user_curve_name`'.format(value))
             if ',' in value:
@@ -4376,7 +4442,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `floor_heat_ceiling_cool_window_equation_user_curve_name`')
-
         self._data["Floor Heat Ceiling Cool Window Equation User Curve Name"] = value
 
     @property
@@ -4390,12 +4455,14 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
 
     @wall_panel_heating_vertical_wall_equation_source.setter
     def wall_panel_heating_vertical_wall_equation_source(self, value="KhalifaEq6NonHeatedWalls"):
-        """  Corresponds to IDD Field `wall_panel_heating_vertical_wall_equation_source`
+        """  Corresponds to IDD Field `Wall Panel Heating Vertical Wall Equation Source`
         Applies to zone with in-wall panel heating
         This is for vertical walls that are not actively heated
+        
+        {u'note': [u'Applies to zone with in-wall panel heating', u'This is for vertical walls that are not actively heated'], u'default': u'KhalifaEq6NonHeatedWalls', u'type': u'choice', u'key': [u'ASHRAEVerticalWall', u'AlamdariHammondVerticalWall', u'KhalifaEq6NonHeatedWalls', u'FohannoPolidoriVerticalWall', u'ISO15099Windows', u'UserCurve'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `wall_panel_heating_vertical_wall_equation_source`
+            value (str): value for IDD Field `Wall Panel Heating Vertical Wall Equation Source`
                 Accepted values are:
                       - ASHRAEVerticalWall
                       - AlamdariHammondVerticalWall
@@ -4413,7 +4480,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `wall_panel_heating_vertical_wall_equation_source`'.format(value))
             if ',' in value:
@@ -4443,7 +4510,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `wall_panel_heating_vertical_wall_equation_source`'.format(value))
             value = vals[value_lower]
-
         self._data["Wall Panel Heating Vertical Wall Equation Source"] = value
 
     @property
@@ -4457,11 +4523,13 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
 
     @wall_panel_heating_vertical_wall_equation_user_curve_name.setter
     def wall_panel_heating_vertical_wall_equation_user_curve_name(self, value=None):
-        """  Corresponds to IDD Field `wall_panel_heating_vertical_wall_equation_user_curve_name`
+        """  Corresponds to IDD Field `Wall Panel Heating Vertical Wall Equation User Curve Name`
         The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
+        
+        {u'note': [u'The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve'], u'type': u'object-list', u'object-list': u'UserConvectionInsideModels', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `wall_panel_heating_vertical_wall_equation_user_curve_name`
+            value (str): value for IDD Field `Wall Panel Heating Vertical Wall Equation User Curve Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4471,7 +4539,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `wall_panel_heating_vertical_wall_equation_user_curve_name`'.format(value))
             if ',' in value:
@@ -4480,7 +4548,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `wall_panel_heating_vertical_wall_equation_user_curve_name`')
-
         self._data["Wall Panel Heating Vertical Wall Equation User Curve Name"] = value
 
     @property
@@ -4494,12 +4561,14 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
 
     @wall_panel_heating_heated_wall_equation_source.setter
     def wall_panel_heating_heated_wall_equation_source(self, value="AwbiHattonHeatedWall"):
-        """  Corresponds to IDD Field `wall_panel_heating_heated_wall_equation_source`
+        """  Corresponds to IDD Field `Wall Panel Heating Heated Wall Equation Source`
         Applies to zone with in-wall panel heating
         This is for vertical walls that are being actively heated
+        
+        {u'note': [u'Applies to zone with in-wall panel heating', u'This is for vertical walls that are being actively heated'], u'default': u'AwbiHattonHeatedWall', u'type': u'choice', u'key': [u'ASHRAEVerticalWall', u'AlamdariHammondVerticalWall', u'KhalifaEq5WallNearHeat', u'AwbiHattonHeatedWall', u'FohannoPolidoriVerticalWall', u'ISO15099Windows', u'UserCurve'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `wall_panel_heating_heated_wall_equation_source`
+            value (str): value for IDD Field `Wall Panel Heating Heated Wall Equation Source`
                 Accepted values are:
                       - ASHRAEVerticalWall
                       - AlamdariHammondVerticalWall
@@ -4518,7 +4587,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `wall_panel_heating_heated_wall_equation_source`'.format(value))
             if ',' in value:
@@ -4549,7 +4618,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `wall_panel_heating_heated_wall_equation_source`'.format(value))
             value = vals[value_lower]
-
         self._data["Wall Panel Heating Heated Wall Equation Source"] = value
 
     @property
@@ -4563,11 +4631,13 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
 
     @wall_panel_heating_heated_wall_equation_user_curve_name.setter
     def wall_panel_heating_heated_wall_equation_user_curve_name(self, value=None):
-        """  Corresponds to IDD Field `wall_panel_heating_heated_wall_equation_user_curve_name`
+        """  Corresponds to IDD Field `Wall Panel Heating Heated Wall Equation User Curve Name`
         The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
+        
+        {u'note': [u'The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve'], u'type': u'object-list', u'object-list': u'UserConvectionInsideModels', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `wall_panel_heating_heated_wall_equation_user_curve_name`
+            value (str): value for IDD Field `Wall Panel Heating Heated Wall Equation User Curve Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4577,7 +4647,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `wall_panel_heating_heated_wall_equation_user_curve_name`'.format(value))
             if ',' in value:
@@ -4586,7 +4656,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `wall_panel_heating_heated_wall_equation_user_curve_name`')
-
         self._data["Wall Panel Heating Heated Wall Equation User Curve Name"] = value
 
     @property
@@ -4600,12 +4669,14 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
 
     @wall_panel_heating_stable_horizontal_equation_source.setter
     def wall_panel_heating_stable_horizontal_equation_source(self, value="AlamdariHammondStableHorizontal"):
-        """  Corresponds to IDD Field `wall_panel_heating_stable_horizontal_equation_source`
+        """  Corresponds to IDD Field `Wall Panel Heating Stable Horizontal Equation Source`
         Applies to zone with in-wall panel heating
         This is for horizontal surfaces with heat flow directed for stable thermal stratification
+        
+        {u'note': [u'Applies to zone with in-wall panel heating', u'This is for horizontal surfaces with heat flow directed for stable thermal stratification'], u'default': u'AlamdariHammondStableHorizontal', u'type': u'choice', u'key': [u'WaltonStableHorizontalOrTilt', u'AlamdariHammondStableHorizontal', u'UserCurve'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `wall_panel_heating_stable_horizontal_equation_source`
+            value (str): value for IDD Field `Wall Panel Heating Stable Horizontal Equation Source`
                 Accepted values are:
                       - WaltonStableHorizontalOrTilt
                       - AlamdariHammondStableHorizontal
@@ -4620,7 +4691,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `wall_panel_heating_stable_horizontal_equation_source`'.format(value))
             if ',' in value:
@@ -4647,7 +4718,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `wall_panel_heating_stable_horizontal_equation_source`'.format(value))
             value = vals[value_lower]
-
         self._data["Wall Panel Heating Stable Horizontal Equation Source"] = value
 
     @property
@@ -4661,11 +4731,13 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
 
     @wall_panel_heating_stable_horizontal_equation_user_curve_name.setter
     def wall_panel_heating_stable_horizontal_equation_user_curve_name(self, value=None):
-        """  Corresponds to IDD Field `wall_panel_heating_stable_horizontal_equation_user_curve_name`
+        """  Corresponds to IDD Field `Wall Panel Heating Stable Horizontal Equation User Curve Name`
         The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
+        
+        {u'note': [u'The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve'], u'type': u'object-list', u'object-list': u'UserConvectionInsideModels', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `wall_panel_heating_stable_horizontal_equation_user_curve_name`
+            value (str): value for IDD Field `Wall Panel Heating Stable Horizontal Equation User Curve Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4675,7 +4747,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `wall_panel_heating_stable_horizontal_equation_user_curve_name`'.format(value))
             if ',' in value:
@@ -4684,7 +4756,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `wall_panel_heating_stable_horizontal_equation_user_curve_name`')
-
         self._data["Wall Panel Heating Stable Horizontal Equation User Curve Name"] = value
 
     @property
@@ -4698,12 +4769,14 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
 
     @wall_panel_heating_unstable_horizontal_equation_source.setter
     def wall_panel_heating_unstable_horizontal_equation_source(self, value="KhalifaEq7Ceiling"):
-        """  Corresponds to IDD Field `wall_panel_heating_unstable_horizontal_equation_source`
+        """  Corresponds to IDD Field `Wall Panel Heating Unstable Horizontal Equation Source`
         Applies to zone with in-wall panel heating
         This is for horizontal surfaces with heat flow directed for unstable thermal stratification
+        
+        {u'note': [u'Applies to zone with in-wall panel heating', u'This is for horizontal surfaces with heat flow directed for unstable thermal stratification'], u'default': u'KhalifaEq7Ceiling', u'type': u'choice', u'key': [u'ASHRAEVerticalWall', u'WaltonUnstableHorizontalOrTilt', u'AlamdariHammondUnstableHorizontal', u'KhalifaEq7Ceiling', u'KaradagChilledCeiling', u'UserCurve'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `wall_panel_heating_unstable_horizontal_equation_source`
+            value (str): value for IDD Field `Wall Panel Heating Unstable Horizontal Equation Source`
                 Accepted values are:
                       - ASHRAEVerticalWall
                       - WaltonUnstableHorizontalOrTilt
@@ -4721,7 +4794,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `wall_panel_heating_unstable_horizontal_equation_source`'.format(value))
             if ',' in value:
@@ -4751,7 +4824,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `wall_panel_heating_unstable_horizontal_equation_source`'.format(value))
             value = vals[value_lower]
-
         self._data["Wall Panel Heating Unstable Horizontal Equation Source"] = value
 
     @property
@@ -4765,11 +4837,13 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
 
     @wall_panel_heating_unstable_horizontal_equation_user_curve_name.setter
     def wall_panel_heating_unstable_horizontal_equation_user_curve_name(self, value=None):
-        """  Corresponds to IDD Field `wall_panel_heating_unstable_horizontal_equation_user_curve_name`
+        """  Corresponds to IDD Field `Wall Panel Heating Unstable Horizontal Equation User Curve Name`
         The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
+        
+        {u'note': [u'The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve'], u'type': u'object-list', u'object-list': u'UserConvectionInsideModels', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `wall_panel_heating_unstable_horizontal_equation_user_curve_name`
+            value (str): value for IDD Field `Wall Panel Heating Unstable Horizontal Equation User Curve Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4779,7 +4853,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `wall_panel_heating_unstable_horizontal_equation_user_curve_name`'.format(value))
             if ',' in value:
@@ -4788,7 +4862,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `wall_panel_heating_unstable_horizontal_equation_user_curve_name`')
-
         self._data["Wall Panel Heating Unstable Horizontal Equation User Curve Name"] = value
 
     @property
@@ -4802,12 +4875,14 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
 
     @wall_panel_heating_stable_tilted_equation_source.setter
     def wall_panel_heating_stable_tilted_equation_source(self, value="WaltonStableHorizontalOrTilt"):
-        """  Corresponds to IDD Field `wall_panel_heating_stable_tilted_equation_source`
+        """  Corresponds to IDD Field `Wall Panel Heating Stable Tilted Equation Source`
         Applies to zone with in-wall panel heating
         This is for tilted surfaces with heat flow for stable thermal stratification
+        
+        {u'note': [u'Applies to zone with in-wall panel heating', u'This is for tilted surfaces with heat flow for stable thermal stratification'], u'default': u'WaltonStableHorizontalOrTilt', u'type': u'choice', u'key': [u'WaltonStableHorizontalOrTilt', u'AlamdariHammondStableHorizontal', u'ISO15099Windows', u'UserCurve'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `wall_panel_heating_stable_tilted_equation_source`
+            value (str): value for IDD Field `Wall Panel Heating Stable Tilted Equation Source`
                 Accepted values are:
                       - WaltonStableHorizontalOrTilt
                       - AlamdariHammondStableHorizontal
@@ -4823,7 +4898,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `wall_panel_heating_stable_tilted_equation_source`'.format(value))
             if ',' in value:
@@ -4851,7 +4926,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `wall_panel_heating_stable_tilted_equation_source`'.format(value))
             value = vals[value_lower]
-
         self._data["Wall Panel Heating Stable Tilted Equation Source"] = value
 
     @property
@@ -4865,11 +4939,13 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
 
     @wall_panel_heating_stable_tilted_equation_user_curve_name.setter
     def wall_panel_heating_stable_tilted_equation_user_curve_name(self, value=None):
-        """  Corresponds to IDD Field `wall_panel_heating_stable_tilted_equation_user_curve_name`
+        """  Corresponds to IDD Field `Wall Panel Heating Stable Tilted Equation User Curve Name`
         The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
+        
+        {u'note': [u'The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve'], u'type': u'object-list', u'object-list': u'UserConvectionInsideModels', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `wall_panel_heating_stable_tilted_equation_user_curve_name`
+            value (str): value for IDD Field `Wall Panel Heating Stable Tilted Equation User Curve Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4879,7 +4955,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `wall_panel_heating_stable_tilted_equation_user_curve_name`'.format(value))
             if ',' in value:
@@ -4888,7 +4964,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `wall_panel_heating_stable_tilted_equation_user_curve_name`')
-
         self._data["Wall Panel Heating Stable Tilted Equation User Curve Name"] = value
 
     @property
@@ -4902,12 +4977,14 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
 
     @wall_panel_heating_unstable_tilted_equation_source.setter
     def wall_panel_heating_unstable_tilted_equation_source(self, value="WaltonUnstableHorizontalOrTilt"):
-        """  Corresponds to IDD Field `wall_panel_heating_unstable_tilted_equation_source`
+        """  Corresponds to IDD Field `Wall Panel Heating Unstable Tilted Equation Source`
         Applies to zone with in-wall panel heating
         This is for tilted surfaces with heat flow for unstable thermal stratification
+        
+        {u'note': [u'Applies to zone with in-wall panel heating', u'This is for tilted surfaces with heat flow for unstable thermal stratification'], u'default': u'WaltonUnstableHorizontalOrTilt', u'type': u'choice', u'key': [u'WaltonUnstableHorizontalOrTilt', u'AlamdariHammondUnstableHorizontal', u'ISO15099Windows', u'UserCurve'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `wall_panel_heating_unstable_tilted_equation_source`
+            value (str): value for IDD Field `Wall Panel Heating Unstable Tilted Equation Source`
                 Accepted values are:
                       - WaltonUnstableHorizontalOrTilt
                       - AlamdariHammondUnstableHorizontal
@@ -4923,7 +5000,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `wall_panel_heating_unstable_tilted_equation_source`'.format(value))
             if ',' in value:
@@ -4951,7 +5028,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `wall_panel_heating_unstable_tilted_equation_source`'.format(value))
             value = vals[value_lower]
-
         self._data["Wall Panel Heating Unstable Tilted Equation Source"] = value
 
     @property
@@ -4965,11 +5041,13 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
 
     @wall_panel_heating_unstable_tilted_equation_user_curve_name.setter
     def wall_panel_heating_unstable_tilted_equation_user_curve_name(self, value=None):
-        """  Corresponds to IDD Field `wall_panel_heating_unstable_tilted_equation_user_curve_name`
+        """  Corresponds to IDD Field `Wall Panel Heating Unstable Tilted Equation User Curve Name`
         The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
+        
+        {u'note': [u'The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve'], u'type': u'object-list', u'object-list': u'UserConvectionInsideModels', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `wall_panel_heating_unstable_tilted_equation_user_curve_name`
+            value (str): value for IDD Field `Wall Panel Heating Unstable Tilted Equation User Curve Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4979,7 +5057,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `wall_panel_heating_unstable_tilted_equation_user_curve_name`'.format(value))
             if ',' in value:
@@ -4988,7 +5066,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `wall_panel_heating_unstable_tilted_equation_user_curve_name`')
-
         self._data["Wall Panel Heating Unstable Tilted Equation User Curve Name"] = value
 
     @property
@@ -5002,12 +5079,14 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
 
     @wall_panel_heating_window_equation_source.setter
     def wall_panel_heating_window_equation_source(self, value="ISO15099Windows"):
-        """  Corresponds to IDD Field `wall_panel_heating_window_equation_source`
+        """  Corresponds to IDD Field `Wall Panel Heating Window Equation Source`
         Applies to zone with in-wall panel heating
         This is for all window surfaces
+        
+        {u'note': [u'Applies to zone with in-wall panel heating', u'This is for all window surfaces'], u'default': u'ISO15099Windows', u'type': u'choice', u'key': [u'ASHRAEVerticalWall', u'AlamdariHammondVerticalWall', u'FohannoPolidoriVerticalWall', u'ISO15099Windows', u'UserCurve'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `wall_panel_heating_window_equation_source`
+            value (str): value for IDD Field `Wall Panel Heating Window Equation Source`
                 Accepted values are:
                       - ASHRAEVerticalWall
                       - AlamdariHammondVerticalWall
@@ -5024,7 +5103,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `wall_panel_heating_window_equation_source`'.format(value))
             if ',' in value:
@@ -5053,7 +5132,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `wall_panel_heating_window_equation_source`'.format(value))
             value = vals[value_lower]
-
         self._data["Wall Panel Heating Window Equation Source"] = value
 
     @property
@@ -5067,11 +5145,13 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
 
     @wall_panel_heating_window_equation_user_curve_name.setter
     def wall_panel_heating_window_equation_user_curve_name(self, value=None):
-        """  Corresponds to IDD Field `wall_panel_heating_window_equation_user_curve_name`
+        """  Corresponds to IDD Field `Wall Panel Heating Window Equation User Curve Name`
         The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
+        
+        {u'note': [u'The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve'], u'type': u'object-list', u'object-list': u'UserConvectionInsideModels', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `wall_panel_heating_window_equation_user_curve_name`
+            value (str): value for IDD Field `Wall Panel Heating Window Equation User Curve Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5081,7 +5161,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `wall_panel_heating_window_equation_user_curve_name`'.format(value))
             if ',' in value:
@@ -5090,7 +5170,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `wall_panel_heating_window_equation_user_curve_name`')
-
         self._data["Wall Panel Heating Window Equation User Curve Name"] = value
 
     @property
@@ -5104,12 +5183,14 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
 
     @convective_zone_heater_vertical_wall_equation_source.setter
     def convective_zone_heater_vertical_wall_equation_source(self, value="FohannoPolidoriVerticalWall"):
-        """  Corresponds to IDD Field `convective_zone_heater_vertical_wall_equation_source`
+        """  Corresponds to IDD Field `Convective Zone Heater Vertical Wall Equation Source`
         Applies to zone with convective heater
         This is for vertical walls not directly affected by heater
+        
+        {u'note': [u'Applies to zone with convective heater', u'This is for vertical walls not directly affected by heater'], u'default': u'FohannoPolidoriVerticalWall', u'type': u'choice', u'key': [u'ASHRAEVerticalWall', u'AlamdariHammondVerticalWall', u'KhalifaEq3WallAwayFromHeat', u'KhalifaEq6NonHeatedWalls', u'FohannoPolidoriVerticalWall', u'ISO15099Windows', u'UserCurve'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `convective_zone_heater_vertical_wall_equation_source`
+            value (str): value for IDD Field `Convective Zone Heater Vertical Wall Equation Source`
                 Accepted values are:
                       - ASHRAEVerticalWall
                       - AlamdariHammondVerticalWall
@@ -5128,7 +5209,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `convective_zone_heater_vertical_wall_equation_source`'.format(value))
             if ',' in value:
@@ -5159,7 +5240,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `convective_zone_heater_vertical_wall_equation_source`'.format(value))
             value = vals[value_lower]
-
         self._data["Convective Zone Heater Vertical Wall Equation Source"] = value
 
     @property
@@ -5173,11 +5253,13 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
 
     @convective_zone_heater_vertical_wall_equation_user_curve_name.setter
     def convective_zone_heater_vertical_wall_equation_user_curve_name(self, value=None):
-        """  Corresponds to IDD Field `convective_zone_heater_vertical_wall_equation_user_curve_name`
+        """  Corresponds to IDD Field `Convective Zone Heater Vertical Wall Equation User Curve Name`
         The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
+        
+        {u'note': [u'The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve'], u'type': u'object-list', u'object-list': u'UserConvectionInsideModels', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `convective_zone_heater_vertical_wall_equation_user_curve_name`
+            value (str): value for IDD Field `Convective Zone Heater Vertical Wall Equation User Curve Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5187,7 +5269,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `convective_zone_heater_vertical_wall_equation_user_curve_name`'.format(value))
             if ',' in value:
@@ -5196,7 +5278,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `convective_zone_heater_vertical_wall_equation_user_curve_name`')
-
         self._data["Convective Zone Heater Vertical Wall Equation User Curve Name"] = value
 
     @property
@@ -5210,13 +5291,15 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
 
     @convective_zone_heater_vertical_walls_near_heater_equation_source.setter
     def convective_zone_heater_vertical_walls_near_heater_equation_source(self, value="KhalifaEq5WallNearHeat"):
-        """  Corresponds to IDD Field `convective_zone_heater_vertical_walls_near_heater_equation_source`
+        """  Corresponds to IDD Field `Convective Zone Heater Vertical Walls Near Heater Equation Source`
         Applies to zone with convective heater
         This is for vertical walls that are directly affected by heater
         Walls are considered "near" when listed in field set for Fraction of Radiant Energy to Surface
+        
+        {u'note': [u'Applies to zone with convective heater', u'This is for vertical walls that are directly affected by heater', u'Walls are considered "near" when listed in field set for Fraction of Radiant Energy to Surface'], u'default': u'KhalifaEq5WallNearHeat', u'type': u'choice', u'key': [u'ASHRAEVerticalWall', u'AlamdariHammondVerticalWall', u'KhalifaEq5WallNearHeat', u'AwbiHattonHeatedWall', u'FohannoPolidoriVerticalWall', u'ISO15099Windows', u'UserCurve'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `convective_zone_heater_vertical_walls_near_heater_equation_source`
+            value (str): value for IDD Field `Convective Zone Heater Vertical Walls Near Heater Equation Source`
                 Accepted values are:
                       - ASHRAEVerticalWall
                       - AlamdariHammondVerticalWall
@@ -5235,7 +5318,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `convective_zone_heater_vertical_walls_near_heater_equation_source`'.format(value))
             if ',' in value:
@@ -5266,7 +5349,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `convective_zone_heater_vertical_walls_near_heater_equation_source`'.format(value))
             value = vals[value_lower]
-
         self._data["Convective Zone Heater Vertical Walls Near Heater Equation Source"] = value
 
     @property
@@ -5280,11 +5362,13 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
 
     @convective_zone_heater_vertical_walls_near_heater_equation_user_curve_name.setter
     def convective_zone_heater_vertical_walls_near_heater_equation_user_curve_name(self, value=None):
-        """  Corresponds to IDD Field `convective_zone_heater_vertical_walls_near_heater_equation_user_curve_name`
+        """  Corresponds to IDD Field `Convective Zone Heater Vertical Walls Near Heater Equation User Curve Name`
         The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
+        
+        {u'note': [u'The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve'], u'type': u'object-list', u'object-list': u'UserConvectionInsideModels', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `convective_zone_heater_vertical_walls_near_heater_equation_user_curve_name`
+            value (str): value for IDD Field `Convective Zone Heater Vertical Walls Near Heater Equation User Curve Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5294,7 +5378,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `convective_zone_heater_vertical_walls_near_heater_equation_user_curve_name`'.format(value))
             if ',' in value:
@@ -5303,7 +5387,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `convective_zone_heater_vertical_walls_near_heater_equation_user_curve_name`')
-
         self._data["Convective Zone Heater Vertical Walls Near Heater Equation User Curve Name"] = value
 
     @property
@@ -5317,12 +5400,14 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
 
     @convective_zone_heater_stable_horizontal_equation_source.setter
     def convective_zone_heater_stable_horizontal_equation_source(self, value="AlamdariHammondStableHorizontal"):
-        """  Corresponds to IDD Field `convective_zone_heater_stable_horizontal_equation_source`
+        """  Corresponds to IDD Field `Convective Zone Heater Stable Horizontal Equation Source`
         Applies to zone with convective heater
         This is for horizontal surfaces with heat flow directed for stable thermal stratification
+        
+        {u'note': [u'Applies to zone with convective heater', u'This is for horizontal surfaces with heat flow directed for stable thermal stratification'], u'default': u'AlamdariHammondStableHorizontal', u'type': u'choice', u'key': [u'WaltonStableHorizontalOrTilt', u'AlamdariHammondStableHorizontal', u'UserCurve'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `convective_zone_heater_stable_horizontal_equation_source`
+            value (str): value for IDD Field `Convective Zone Heater Stable Horizontal Equation Source`
                 Accepted values are:
                       - WaltonStableHorizontalOrTilt
                       - AlamdariHammondStableHorizontal
@@ -5337,7 +5422,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `convective_zone_heater_stable_horizontal_equation_source`'.format(value))
             if ',' in value:
@@ -5364,7 +5449,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `convective_zone_heater_stable_horizontal_equation_source`'.format(value))
             value = vals[value_lower]
-
         self._data["Convective Zone Heater Stable Horizontal Equation Source"] = value
 
     @property
@@ -5378,11 +5462,13 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
 
     @convective_zone_heater_stable_horizontal_equation_user_curve_name.setter
     def convective_zone_heater_stable_horizontal_equation_user_curve_name(self, value=None):
-        """  Corresponds to IDD Field `convective_zone_heater_stable_horizontal_equation_user_curve_name`
+        """  Corresponds to IDD Field `Convective Zone Heater Stable Horizontal Equation User Curve Name`
         The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
+        
+        {u'note': [u'The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve'], u'type': u'object-list', u'object-list': u'UserConvectionInsideModels', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `convective_zone_heater_stable_horizontal_equation_user_curve_name`
+            value (str): value for IDD Field `Convective Zone Heater Stable Horizontal Equation User Curve Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5392,7 +5478,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `convective_zone_heater_stable_horizontal_equation_user_curve_name`'.format(value))
             if ',' in value:
@@ -5401,7 +5487,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `convective_zone_heater_stable_horizontal_equation_user_curve_name`')
-
         self._data["Convective Zone Heater Stable Horizontal Equation User Curve Name"] = value
 
     @property
@@ -5415,12 +5500,14 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
 
     @convective_zone_heater_unstable_horizontal_equation_source.setter
     def convective_zone_heater_unstable_horizontal_equation_source(self, value="KhalifaEq7Ceiling"):
-        """  Corresponds to IDD Field `convective_zone_heater_unstable_horizontal_equation_source`
+        """  Corresponds to IDD Field `Convective Zone Heater Unstable Horizontal Equation Source`
         Applies to zone with convective heater
         This is for horizontal surfaces with heat flow directed for unstable thermal stratification
+        
+        {u'note': [u'Applies to zone with convective heater', u'This is for horizontal surfaces with heat flow directed for unstable thermal stratification'], u'default': u'KhalifaEq7Ceiling', u'type': u'choice', u'key': [u'WaltonUnstableHorizontalOrTilt', u'AlamdariHammondUnstableHorizontal', u'KhalifaEq4CeilingAwayFromHeat', u'KhalifaEq7Ceiling', u'UserCurve'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `convective_zone_heater_unstable_horizontal_equation_source`
+            value (str): value for IDD Field `Convective Zone Heater Unstable Horizontal Equation Source`
                 Accepted values are:
                       - WaltonUnstableHorizontalOrTilt
                       - AlamdariHammondUnstableHorizontal
@@ -5437,7 +5524,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `convective_zone_heater_unstable_horizontal_equation_source`'.format(value))
             if ',' in value:
@@ -5466,7 +5553,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `convective_zone_heater_unstable_horizontal_equation_source`'.format(value))
             value = vals[value_lower]
-
         self._data["Convective Zone Heater Unstable Horizontal Equation Source"] = value
 
     @property
@@ -5480,11 +5566,13 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
 
     @convective_zone_heater_unstable_horizontal_equation_user_curve_name.setter
     def convective_zone_heater_unstable_horizontal_equation_user_curve_name(self, value=None):
-        """  Corresponds to IDD Field `convective_zone_heater_unstable_horizontal_equation_user_curve_name`
+        """  Corresponds to IDD Field `Convective Zone Heater Unstable Horizontal Equation User Curve Name`
         The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
+        
+        {u'note': [u'The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve'], u'type': u'object-list', u'object-list': u'UserConvectionInsideModels', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `convective_zone_heater_unstable_horizontal_equation_user_curve_name`
+            value (str): value for IDD Field `Convective Zone Heater Unstable Horizontal Equation User Curve Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5494,7 +5582,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `convective_zone_heater_unstable_horizontal_equation_user_curve_name`'.format(value))
             if ',' in value:
@@ -5503,7 +5591,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `convective_zone_heater_unstable_horizontal_equation_user_curve_name`')
-
         self._data["Convective Zone Heater Unstable Horizontal Equation User Curve Name"] = value
 
     @property
@@ -5517,12 +5604,14 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
 
     @convective_zone_heater_stable_tilted_equation_source.setter
     def convective_zone_heater_stable_tilted_equation_source(self, value="WaltonStableHorizontalOrTilt"):
-        """  Corresponds to IDD Field `convective_zone_heater_stable_tilted_equation_source`
+        """  Corresponds to IDD Field `Convective Zone Heater Stable Tilted Equation Source`
         Applies to zone with convective heater
         This is for tilted surfaces with heat flow for stable thermal stratification
+        
+        {u'note': [u'Applies to zone with convective heater', u'This is for tilted surfaces with heat flow for stable thermal stratification'], u'default': u'WaltonStableHorizontalOrTilt', u'type': u'choice', u'key': [u'WaltonStableHorizontalOrTilt', u'AlamdariHammondStableHorizontal', u'UserCurve'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `convective_zone_heater_stable_tilted_equation_source`
+            value (str): value for IDD Field `Convective Zone Heater Stable Tilted Equation Source`
                 Accepted values are:
                       - WaltonStableHorizontalOrTilt
                       - AlamdariHammondStableHorizontal
@@ -5537,7 +5626,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `convective_zone_heater_stable_tilted_equation_source`'.format(value))
             if ',' in value:
@@ -5564,7 +5653,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `convective_zone_heater_stable_tilted_equation_source`'.format(value))
             value = vals[value_lower]
-
         self._data["Convective Zone Heater Stable Tilted Equation Source"] = value
 
     @property
@@ -5578,11 +5666,13 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
 
     @convective_zone_heater_stable_tilted_equation_user_curve_name.setter
     def convective_zone_heater_stable_tilted_equation_user_curve_name(self, value=None):
-        """  Corresponds to IDD Field `convective_zone_heater_stable_tilted_equation_user_curve_name`
+        """  Corresponds to IDD Field `Convective Zone Heater Stable Tilted Equation User Curve Name`
         The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
+        
+        {u'note': [u'The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve'], u'type': u'object-list', u'object-list': u'UserConvectionInsideModels', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `convective_zone_heater_stable_tilted_equation_user_curve_name`
+            value (str): value for IDD Field `Convective Zone Heater Stable Tilted Equation User Curve Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5592,7 +5682,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `convective_zone_heater_stable_tilted_equation_user_curve_name`'.format(value))
             if ',' in value:
@@ -5601,7 +5691,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `convective_zone_heater_stable_tilted_equation_user_curve_name`')
-
         self._data["Convective Zone Heater Stable Tilted Equation User Curve Name"] = value
 
     @property
@@ -5615,12 +5704,14 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
 
     @convective_zone_heater_unstable_tilted_equation_source.setter
     def convective_zone_heater_unstable_tilted_equation_source(self, value="WaltonUnstableHorizontalOrTilt"):
-        """  Corresponds to IDD Field `convective_zone_heater_unstable_tilted_equation_source`
+        """  Corresponds to IDD Field `Convective Zone Heater Unstable Tilted Equation Source`
         Applies to zone with convective heater
         This is for tilted surfaces with heat flow for unstable thermal stratification
+        
+        {u'note': [u'Applies to zone with convective heater', u'This is for tilted surfaces with heat flow for unstable thermal stratification'], u'default': u'WaltonUnstableHorizontalOrTilt', u'type': u'choice', u'key': [u'WaltonUnstableHorizontalOrTilt', u'AlamdariHammondUnstableHorizontal', u'UserCurve'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `convective_zone_heater_unstable_tilted_equation_source`
+            value (str): value for IDD Field `Convective Zone Heater Unstable Tilted Equation Source`
                 Accepted values are:
                       - WaltonUnstableHorizontalOrTilt
                       - AlamdariHammondUnstableHorizontal
@@ -5635,7 +5726,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `convective_zone_heater_unstable_tilted_equation_source`'.format(value))
             if ',' in value:
@@ -5662,7 +5753,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `convective_zone_heater_unstable_tilted_equation_source`'.format(value))
             value = vals[value_lower]
-
         self._data["Convective Zone Heater Unstable Tilted Equation Source"] = value
 
     @property
@@ -5676,11 +5766,13 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
 
     @convective_zone_heater_unstable_tilted_equation_user_curve_name.setter
     def convective_zone_heater_unstable_tilted_equation_user_curve_name(self, value=None):
-        """  Corresponds to IDD Field `convective_zone_heater_unstable_tilted_equation_user_curve_name`
+        """  Corresponds to IDD Field `Convective Zone Heater Unstable Tilted Equation User Curve Name`
         The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
+        
+        {u'note': [u'The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve'], u'type': u'object-list', u'object-list': u'UserConvectionInsideModels', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `convective_zone_heater_unstable_tilted_equation_user_curve_name`
+            value (str): value for IDD Field `Convective Zone Heater Unstable Tilted Equation User Curve Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5690,7 +5782,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `convective_zone_heater_unstable_tilted_equation_user_curve_name`'.format(value))
             if ',' in value:
@@ -5699,7 +5791,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `convective_zone_heater_unstable_tilted_equation_user_curve_name`')
-
         self._data["Convective Zone Heater Unstable Tilted Equation User Curve Name"] = value
 
     @property
@@ -5713,12 +5804,14 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
 
     @convective_zone_heater_windows_equation_source.setter
     def convective_zone_heater_windows_equation_source(self, value="ISO15099Windows"):
-        """  Corresponds to IDD Field `convective_zone_heater_windows_equation_source`
+        """  Corresponds to IDD Field `Convective Zone Heater Windows Equation Source`
         Applies to zone with convective heater
         This is for all window surfaces
+        
+        {u'note': [u'Applies to zone with convective heater', u'This is for all window surfaces'], u'default': u'ISO15099Windows', u'type': u'choice', u'key': [u'ASHRAEVerticalWall', u'AlamdariHammondVerticalWall', u'KhalifaEq3WallAwayFromHeat', u'FohannoPolidoriVerticalWall', u'ISO15099Windows', u'UserCurve'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `convective_zone_heater_windows_equation_source`
+            value (str): value for IDD Field `Convective Zone Heater Windows Equation Source`
                 Accepted values are:
                       - ASHRAEVerticalWall
                       - AlamdariHammondVerticalWall
@@ -5736,7 +5829,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `convective_zone_heater_windows_equation_source`'.format(value))
             if ',' in value:
@@ -5766,7 +5859,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `convective_zone_heater_windows_equation_source`'.format(value))
             value = vals[value_lower]
-
         self._data["Convective Zone Heater Windows Equation Source"] = value
 
     @property
@@ -5780,11 +5872,13 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
 
     @convective_zone_heater_windows_equation_user_curve_name.setter
     def convective_zone_heater_windows_equation_user_curve_name(self, value=None):
-        """  Corresponds to IDD Field `convective_zone_heater_windows_equation_user_curve_name`
+        """  Corresponds to IDD Field `Convective Zone Heater Windows Equation User Curve Name`
         The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
+        
+        {u'note': [u'The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve'], u'type': u'object-list', u'object-list': u'UserConvectionInsideModels', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `convective_zone_heater_windows_equation_user_curve_name`
+            value (str): value for IDD Field `Convective Zone Heater Windows Equation User Curve Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5794,7 +5888,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `convective_zone_heater_windows_equation_user_curve_name`'.format(value))
             if ',' in value:
@@ -5803,7 +5897,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `convective_zone_heater_windows_equation_user_curve_name`')
-
         self._data["Convective Zone Heater Windows Equation User Curve Name"] = value
 
     @property
@@ -5817,12 +5910,14 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
 
     @central_air_diffuser_wall_equation_source.setter
     def central_air_diffuser_wall_equation_source(self, value="GoldsteinNovoselacCeilingDiffuserWalls"):
-        """  Corresponds to IDD Field `central_air_diffuser_wall_equation_source`
+        """  Corresponds to IDD Field `Central Air Diffuser Wall Equation Source`
         Applies to zone with mechanical forced central air with diffusers
         This is for all wall surfaces
+        
+        {u'note': [u'Applies to zone with mechanical forced central air with diffusers', u'This is for all wall surfaces'], u'default': u'GoldsteinNovoselacCeilingDiffuserWalls', u'type': u'choice', u'key': [u'ASHRAEVerticalWall', u'FisherPedersenCeilingDiffuserWalls', u'AlamdariHammondVerticalWall', u'BeausoleilMorrisonMixedAssistedWall', u'BeausoleilMorrisonMixedOpposingWall', u'FohannoPolidoriVerticalWall', u'ISO15099Windows', u'GoldsteinNovoselacCeilingDiffuserWalls', u'UserCurve'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `central_air_diffuser_wall_equation_source`
+            value (str): value for IDD Field `Central Air Diffuser Wall Equation Source`
                 Accepted values are:
                       - ASHRAEVerticalWall
                       - FisherPedersenCeilingDiffuserWalls
@@ -5843,7 +5938,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `central_air_diffuser_wall_equation_source`'.format(value))
             if ',' in value:
@@ -5876,7 +5971,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `central_air_diffuser_wall_equation_source`'.format(value))
             value = vals[value_lower]
-
         self._data["Central Air Diffuser Wall Equation Source"] = value
 
     @property
@@ -5890,11 +5984,13 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
 
     @central_air_diffuser_wall_equation_user_curve_name.setter
     def central_air_diffuser_wall_equation_user_curve_name(self, value=None):
-        """  Corresponds to IDD Field `central_air_diffuser_wall_equation_user_curve_name`
+        """  Corresponds to IDD Field `Central Air Diffuser Wall Equation User Curve Name`
         The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
+        
+        {u'note': [u'The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve'], u'type': u'object-list', u'object-list': u'UserConvectionInsideModels', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `central_air_diffuser_wall_equation_user_curve_name`
+            value (str): value for IDD Field `Central Air Diffuser Wall Equation User Curve Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5904,7 +6000,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `central_air_diffuser_wall_equation_user_curve_name`'.format(value))
             if ',' in value:
@@ -5913,7 +6009,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `central_air_diffuser_wall_equation_user_curve_name`')
-
         self._data["Central Air Diffuser Wall Equation User Curve Name"] = value
 
     @property
@@ -5927,12 +6022,14 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
 
     @central_air_diffuser_ceiling_equation_source.setter
     def central_air_diffuser_ceiling_equation_source(self, value="FisherPedersenCeilingDiffuserCeiling"):
-        """  Corresponds to IDD Field `central_air_diffuser_ceiling_equation_source`
+        """  Corresponds to IDD Field `Central Air Diffuser Ceiling Equation Source`
         Applies to zone with mechanical forced central air with diffusers
         This is for all ceiling surfaces
+        
+        {u'note': [u'Applies to zone with mechanical forced central air with diffusers', u'This is for all ceiling surfaces'], u'default': u'FisherPedersenCeilingDiffuserCeiling', u'type': u'choice', u'key': [u'FisherPedersenCeilingDiffuserCeiling', u'BeausoleilMorrisonMixedStableCeiling', u'BeausoleilMorrisonMixedUnstableCeiling', u'UserCurve'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `central_air_diffuser_ceiling_equation_source`
+            value (str): value for IDD Field `Central Air Diffuser Ceiling Equation Source`
                 Accepted values are:
                       - FisherPedersenCeilingDiffuserCeiling
                       - BeausoleilMorrisonMixedStableCeiling
@@ -5948,7 +6045,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `central_air_diffuser_ceiling_equation_source`'.format(value))
             if ',' in value:
@@ -5976,7 +6073,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `central_air_diffuser_ceiling_equation_source`'.format(value))
             value = vals[value_lower]
-
         self._data["Central Air Diffuser Ceiling Equation Source"] = value
 
     @property
@@ -5990,11 +6086,13 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
 
     @central_air_diffuser_ceiling_equation_user_curve_name.setter
     def central_air_diffuser_ceiling_equation_user_curve_name(self, value=None):
-        """  Corresponds to IDD Field `central_air_diffuser_ceiling_equation_user_curve_name`
+        """  Corresponds to IDD Field `Central Air Diffuser Ceiling Equation User Curve Name`
         The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
+        
+        {u'note': [u'The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve'], u'type': u'object-list', u'object-list': u'UserConvectionInsideModels', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `central_air_diffuser_ceiling_equation_user_curve_name`
+            value (str): value for IDD Field `Central Air Diffuser Ceiling Equation User Curve Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6004,7 +6102,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `central_air_diffuser_ceiling_equation_user_curve_name`'.format(value))
             if ',' in value:
@@ -6013,7 +6111,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `central_air_diffuser_ceiling_equation_user_curve_name`')
-
         self._data["Central Air Diffuser Ceiling Equation User Curve Name"] = value
 
     @property
@@ -6027,12 +6124,14 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
 
     @central_air_diffuser_floor_equation_source.setter
     def central_air_diffuser_floor_equation_source(self, value="GoldsteinNovoselacCeilingDiffuserFloor"):
-        """  Corresponds to IDD Field `central_air_diffuser_floor_equation_source`
+        """  Corresponds to IDD Field `Central Air Diffuser Floor Equation Source`
         Applies to zone with mechanical forced central air with diffusers
         This is for all floor surfaces
+        
+        {u'note': [u'Applies to zone with mechanical forced central air with diffusers', u'This is for all floor surfaces'], u'default': u'GoldsteinNovoselacCeilingDiffuserFloor', u'type': u'choice', u'key': [u'FisherPedersenCeilingDiffuserFloor', u'BeausoleilMorrisonMixedStableFloor', u'BeausoleilMorrisonMixedUnstableFloor', u'GoldsteinNovoselacCeilingDiffuserFloor', u'UserCurve'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `central_air_diffuser_floor_equation_source`
+            value (str): value for IDD Field `Central Air Diffuser Floor Equation Source`
                 Accepted values are:
                       - FisherPedersenCeilingDiffuserFloor
                       - BeausoleilMorrisonMixedStableFloor
@@ -6049,7 +6148,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `central_air_diffuser_floor_equation_source`'.format(value))
             if ',' in value:
@@ -6078,7 +6177,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `central_air_diffuser_floor_equation_source`'.format(value))
             value = vals[value_lower]
-
         self._data["Central Air Diffuser Floor Equation Source"] = value
 
     @property
@@ -6092,11 +6190,13 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
 
     @central_air_diffuser_floor_equation_user_curve_name.setter
     def central_air_diffuser_floor_equation_user_curve_name(self, value=None):
-        """  Corresponds to IDD Field `central_air_diffuser_floor_equation_user_curve_name`
+        """  Corresponds to IDD Field `Central Air Diffuser Floor Equation User Curve Name`
         The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
+        
+        {u'note': [u'The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve'], u'type': u'object-list', u'object-list': u'UserConvectionInsideModels', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `central_air_diffuser_floor_equation_user_curve_name`
+            value (str): value for IDD Field `Central Air Diffuser Floor Equation User Curve Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6106,7 +6206,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `central_air_diffuser_floor_equation_user_curve_name`'.format(value))
             if ',' in value:
@@ -6115,7 +6215,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `central_air_diffuser_floor_equation_user_curve_name`')
-
         self._data["Central Air Diffuser Floor Equation User Curve Name"] = value
 
     @property
@@ -6129,12 +6228,14 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
 
     @central_air_diffuser_window_equation_source.setter
     def central_air_diffuser_window_equation_source(self, value="GoldsteinNovoselacCeilingDiffuserWindow"):
-        """  Corresponds to IDD Field `central_air_diffuser_window_equation_source`
+        """  Corresponds to IDD Field `Central Air Diffuser Window Equation Source`
         Applies to zone with mechanical forced central air with diffusers
         This is for all window surfaces
+        
+        {u'note': [u'Applies to zone with mechanical forced central air with diffusers', u'This is for all window surfaces'], u'default': u'GoldsteinNovoselacCeilingDiffuserWindow', u'type': u'choice', u'key': [u'ASHRAEVerticalWall', u'FisherPedersenCeilingDiffuserWalls', u'BeausoleilMorrisonMixedAssistedWall', u'BeausoleilMorrisonMixedOpposingWall', u'FohannoPolidoriVerticalWall', u'AlamdariHammondVerticalWall', u'ISO15099Windows', u'GoldsteinNovoselacCeilingDiffuserWindow', u'UserCurve'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `central_air_diffuser_window_equation_source`
+            value (str): value for IDD Field `Central Air Diffuser Window Equation Source`
                 Accepted values are:
                       - ASHRAEVerticalWall
                       - FisherPedersenCeilingDiffuserWalls
@@ -6155,7 +6256,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `central_air_diffuser_window_equation_source`'.format(value))
             if ',' in value:
@@ -6188,7 +6289,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `central_air_diffuser_window_equation_source`'.format(value))
             value = vals[value_lower]
-
         self._data["Central Air Diffuser Window Equation Source"] = value
 
     @property
@@ -6202,11 +6302,13 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
 
     @central_air_diffuser_window_equation_user_curve_name.setter
     def central_air_diffuser_window_equation_user_curve_name(self, value=None):
-        """  Corresponds to IDD Field `central_air_diffuser_window_equation_user_curve_name`
+        """  Corresponds to IDD Field `Central Air Diffuser Window Equation User Curve Name`
         The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
+        
+        {u'note': [u'The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve'], u'type': u'object-list', u'object-list': u'UserConvectionInsideModels', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `central_air_diffuser_window_equation_user_curve_name`
+            value (str): value for IDD Field `Central Air Diffuser Window Equation User Curve Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6216,7 +6318,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `central_air_diffuser_window_equation_user_curve_name`'.format(value))
             if ',' in value:
@@ -6225,7 +6327,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `central_air_diffuser_window_equation_user_curve_name`')
-
         self._data["Central Air Diffuser Window Equation User Curve Name"] = value
 
     @property
@@ -6239,11 +6340,13 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
 
     @mechanical_zone_fan_circulation_vertical_wall_equation_source.setter
     def mechanical_zone_fan_circulation_vertical_wall_equation_source(self, value="KhalifaEq3WallAwayFromHeat"):
-        """  Corresponds to IDD Field `mechanical_zone_fan_circulation_vertical_wall_equation_source`
+        """  Corresponds to IDD Field `Mechanical Zone Fan Circulation Vertical Wall Equation Source`
         reference choice fields
+        
+        {u'note': [u'reference choice fields'], u'default': u'KhalifaEq3WallAwayFromHeat', u'type': u'choice', u'key': [u'KhalifaEq3WallAwayFromHeat', u'ASHRAEVerticalWall', u'FisherPedersenCeilingDiffuserWalls', u'AlamdariHammondVerticalWall', u'BeausoleilMorrisonMixedAssistedWall', u'BeausoleilMorrisonMixedOpposingWall', u'FohannoPolidoriVerticalWall', u'ISO15099Windows', u'GoldsteinNovoselacCeilingDiffuserWalls', u'UserCurve'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `mechanical_zone_fan_circulation_vertical_wall_equation_source`
+            value (str): value for IDD Field `Mechanical Zone Fan Circulation Vertical Wall Equation Source`
                 Accepted values are:
                       - KhalifaEq3WallAwayFromHeat
                       - ASHRAEVerticalWall
@@ -6265,7 +6368,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `mechanical_zone_fan_circulation_vertical_wall_equation_source`'.format(value))
             if ',' in value:
@@ -6299,7 +6402,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `mechanical_zone_fan_circulation_vertical_wall_equation_source`'.format(value))
             value = vals[value_lower]
-
         self._data["Mechanical Zone Fan Circulation Vertical Wall Equation Source"] = value
 
     @property
@@ -6313,11 +6415,13 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
 
     @mechanical_zone_fan_circulation_vertical_wall_equation_user_curve_name.setter
     def mechanical_zone_fan_circulation_vertical_wall_equation_user_curve_name(self, value=None):
-        """  Corresponds to IDD Field `mechanical_zone_fan_circulation_vertical_wall_equation_user_curve_name`
+        """  Corresponds to IDD Field `Mechanical Zone Fan Circulation Vertical Wall Equation User Curve Name`
         The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
+        
+        {u'note': [u'The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve'], u'type': u'object-list', u'object-list': u'UserConvectionInsideModels', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `mechanical_zone_fan_circulation_vertical_wall_equation_user_curve_name`
+            value (str): value for IDD Field `Mechanical Zone Fan Circulation Vertical Wall Equation User Curve Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6327,7 +6431,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `mechanical_zone_fan_circulation_vertical_wall_equation_user_curve_name`'.format(value))
             if ',' in value:
@@ -6336,7 +6440,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `mechanical_zone_fan_circulation_vertical_wall_equation_user_curve_name`')
-
         self._data["Mechanical Zone Fan Circulation Vertical Wall Equation User Curve Name"] = value
 
     @property
@@ -6350,11 +6453,13 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
 
     @mechanical_zone_fan_circulation_stable_horizontal_equation_source.setter
     def mechanical_zone_fan_circulation_stable_horizontal_equation_source(self, value="AlamdariHammondStableHorizontal"):
-        """  Corresponds to IDD Field `mechanical_zone_fan_circulation_stable_horizontal_equation_source`
+        """  Corresponds to IDD Field `Mechanical Zone Fan Circulation Stable Horizontal Equation Source`
         reference choice fields
+        
+        {u'note': [u'reference choice fields'], u'default': u'AlamdariHammondStableHorizontal', u'type': u'choice', u'key': [u'WaltonStableHorizontalOrTilt', u'AlamdariHammondStableHorizontal', u'UserCurve'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `mechanical_zone_fan_circulation_stable_horizontal_equation_source`
+            value (str): value for IDD Field `Mechanical Zone Fan Circulation Stable Horizontal Equation Source`
                 Accepted values are:
                       - WaltonStableHorizontalOrTilt
                       - AlamdariHammondStableHorizontal
@@ -6369,7 +6474,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `mechanical_zone_fan_circulation_stable_horizontal_equation_source`'.format(value))
             if ',' in value:
@@ -6396,7 +6501,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `mechanical_zone_fan_circulation_stable_horizontal_equation_source`'.format(value))
             value = vals[value_lower]
-
         self._data["Mechanical Zone Fan Circulation Stable Horizontal Equation Source"] = value
 
     @property
@@ -6410,11 +6514,13 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
 
     @mechanical_zone_fan_circulation_stable_horizontal_equation_user_curve_name.setter
     def mechanical_zone_fan_circulation_stable_horizontal_equation_user_curve_name(self, value=None):
-        """  Corresponds to IDD Field `mechanical_zone_fan_circulation_stable_horizontal_equation_user_curve_name`
+        """  Corresponds to IDD Field `Mechanical Zone Fan Circulation Stable Horizontal Equation User Curve Name`
         The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
+        
+        {u'note': [u'The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve'], u'type': u'object-list', u'object-list': u'UserConvectionInsideModels', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `mechanical_zone_fan_circulation_stable_horizontal_equation_user_curve_name`
+            value (str): value for IDD Field `Mechanical Zone Fan Circulation Stable Horizontal Equation User Curve Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6424,7 +6530,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `mechanical_zone_fan_circulation_stable_horizontal_equation_user_curve_name`'.format(value))
             if ',' in value:
@@ -6433,7 +6539,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `mechanical_zone_fan_circulation_stable_horizontal_equation_user_curve_name`')
-
         self._data["Mechanical Zone Fan Circulation Stable Horizontal Equation User Curve Name"] = value
 
     @property
@@ -6447,11 +6552,13 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
 
     @mechanical_zone_fan_circulation_unstable_horizontal_equation_source.setter
     def mechanical_zone_fan_circulation_unstable_horizontal_equation_source(self, value="KhalifaEq4CeilingAwayFromHeat"):
-        """  Corresponds to IDD Field `mechanical_zone_fan_circulation_unstable_horizontal_equation_source`
+        """  Corresponds to IDD Field `Mechanical Zone Fan Circulation Unstable Horizontal Equation Source`
         reference choice fields
+        
+        {u'note': [u'reference choice fields'], u'default': u'KhalifaEq4CeilingAwayFromHeat', u'type': u'choice', u'key': [u'KhalifaEq4CeilingAwayFromHeat', u'WaltonUnstableHorizontalOrTilt', u'AlamdariHammondUnstableHorizontal', u'UserCurve'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `mechanical_zone_fan_circulation_unstable_horizontal_equation_source`
+            value (str): value for IDD Field `Mechanical Zone Fan Circulation Unstable Horizontal Equation Source`
                 Accepted values are:
                       - KhalifaEq4CeilingAwayFromHeat
                       - WaltonUnstableHorizontalOrTilt
@@ -6467,7 +6574,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `mechanical_zone_fan_circulation_unstable_horizontal_equation_source`'.format(value))
             if ',' in value:
@@ -6495,7 +6602,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `mechanical_zone_fan_circulation_unstable_horizontal_equation_source`'.format(value))
             value = vals[value_lower]
-
         self._data["Mechanical Zone Fan Circulation Unstable Horizontal Equation Source"] = value
 
     @property
@@ -6509,11 +6615,13 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
 
     @mechanical_zone_fan_circulation_unstable_horizontal_equation_user_curve_name.setter
     def mechanical_zone_fan_circulation_unstable_horizontal_equation_user_curve_name(self, value=None):
-        """  Corresponds to IDD Field `mechanical_zone_fan_circulation_unstable_horizontal_equation_user_curve_name`
+        """  Corresponds to IDD Field `Mechanical Zone Fan Circulation Unstable Horizontal Equation User Curve Name`
         The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
+        
+        {u'note': [u'The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve'], u'type': u'object-list', u'object-list': u'UserConvectionInsideModels', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `mechanical_zone_fan_circulation_unstable_horizontal_equation_user_curve_name`
+            value (str): value for IDD Field `Mechanical Zone Fan Circulation Unstable Horizontal Equation User Curve Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6523,7 +6631,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `mechanical_zone_fan_circulation_unstable_horizontal_equation_user_curve_name`'.format(value))
             if ',' in value:
@@ -6532,7 +6640,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `mechanical_zone_fan_circulation_unstable_horizontal_equation_user_curve_name`')
-
         self._data["Mechanical Zone Fan Circulation Unstable Horizontal Equation User Curve Name"] = value
 
     @property
@@ -6546,11 +6653,13 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
 
     @mechanical_zone_fan_circulation_stable_tilted_equation_source.setter
     def mechanical_zone_fan_circulation_stable_tilted_equation_source(self, value="WaltonStableHorizontalOrTilt"):
-        """  Corresponds to IDD Field `mechanical_zone_fan_circulation_stable_tilted_equation_source`
+        """  Corresponds to IDD Field `Mechanical Zone Fan Circulation Stable Tilted Equation Source`
         reference choice fields
+        
+        {u'note': [u'reference choice fields'], u'default': u'WaltonStableHorizontalOrTilt', u'type': u'choice', u'key': [u'WaltonStableHorizontalOrTilt', u'UserCurve'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `mechanical_zone_fan_circulation_stable_tilted_equation_source`
+            value (str): value for IDD Field `Mechanical Zone Fan Circulation Stable Tilted Equation Source`
                 Accepted values are:
                       - WaltonStableHorizontalOrTilt
                       - UserCurve
@@ -6564,7 +6673,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `mechanical_zone_fan_circulation_stable_tilted_equation_source`'.format(value))
             if ',' in value:
@@ -6590,7 +6699,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `mechanical_zone_fan_circulation_stable_tilted_equation_source`'.format(value))
             value = vals[value_lower]
-
         self._data["Mechanical Zone Fan Circulation Stable Tilted Equation Source"] = value
 
     @property
@@ -6604,11 +6712,13 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
 
     @mechanical_zone_fan_circulation_stable_tilted_equation_user_curve_name.setter
     def mechanical_zone_fan_circulation_stable_tilted_equation_user_curve_name(self, value=None):
-        """  Corresponds to IDD Field `mechanical_zone_fan_circulation_stable_tilted_equation_user_curve_name`
+        """  Corresponds to IDD Field `Mechanical Zone Fan Circulation Stable Tilted Equation User Curve Name`
         The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
+        
+        {u'note': [u'The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve'], u'type': u'object-list', u'object-list': u'UserConvectionInsideModels', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `mechanical_zone_fan_circulation_stable_tilted_equation_user_curve_name`
+            value (str): value for IDD Field `Mechanical Zone Fan Circulation Stable Tilted Equation User Curve Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6618,7 +6728,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `mechanical_zone_fan_circulation_stable_tilted_equation_user_curve_name`'.format(value))
             if ',' in value:
@@ -6627,7 +6737,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `mechanical_zone_fan_circulation_stable_tilted_equation_user_curve_name`')
-
         self._data["Mechanical Zone Fan Circulation Stable Tilted Equation User Curve Name"] = value
 
     @property
@@ -6641,11 +6750,13 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
 
     @mechanical_zone_fan_circulation_unstable_tilted_equation_source.setter
     def mechanical_zone_fan_circulation_unstable_tilted_equation_source(self, value="WaltonUnstableHorizontalOrTilt"):
-        """  Corresponds to IDD Field `mechanical_zone_fan_circulation_unstable_tilted_equation_source`
+        """  Corresponds to IDD Field `Mechanical Zone Fan Circulation Unstable Tilted Equation Source`
         reference choice fields
+        
+        {u'note': [u'reference choice fields'], u'default': u'WaltonUnstableHorizontalOrTilt', u'type': u'choice', u'key': [u'WaltonUnstableHorizontalOrTilt', u'AlamdariHammondUnstableHorizontal', u'UserCurve'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `mechanical_zone_fan_circulation_unstable_tilted_equation_source`
+            value (str): value for IDD Field `Mechanical Zone Fan Circulation Unstable Tilted Equation Source`
                 Accepted values are:
                       - WaltonUnstableHorizontalOrTilt
                       - AlamdariHammondUnstableHorizontal
@@ -6660,7 +6771,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `mechanical_zone_fan_circulation_unstable_tilted_equation_source`'.format(value))
             if ',' in value:
@@ -6687,7 +6798,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `mechanical_zone_fan_circulation_unstable_tilted_equation_source`'.format(value))
             value = vals[value_lower]
-
         self._data["Mechanical Zone Fan Circulation Unstable Tilted Equation Source"] = value
 
     @property
@@ -6701,11 +6811,13 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
 
     @mechanical_zone_fan_circulation_unstable_tilted_equation_user_curve_name.setter
     def mechanical_zone_fan_circulation_unstable_tilted_equation_user_curve_name(self, value=None):
-        """  Corresponds to IDD Field `mechanical_zone_fan_circulation_unstable_tilted_equation_user_curve_name`
+        """  Corresponds to IDD Field `Mechanical Zone Fan Circulation Unstable Tilted Equation User Curve Name`
         The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
+        
+        {u'note': [u'The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve'], u'type': u'object-list', u'object-list': u'UserConvectionInsideModels', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `mechanical_zone_fan_circulation_unstable_tilted_equation_user_curve_name`
+            value (str): value for IDD Field `Mechanical Zone Fan Circulation Unstable Tilted Equation User Curve Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6715,7 +6827,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `mechanical_zone_fan_circulation_unstable_tilted_equation_user_curve_name`'.format(value))
             if ',' in value:
@@ -6724,7 +6836,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `mechanical_zone_fan_circulation_unstable_tilted_equation_user_curve_name`')
-
         self._data["Mechanical Zone Fan Circulation Unstable Tilted Equation User Curve Name"] = value
 
     @property
@@ -6738,11 +6849,13 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
 
     @mechanical_zone_fan_circulation_window_equation_source.setter
     def mechanical_zone_fan_circulation_window_equation_source(self, value="ISO15099Windows"):
-        """  Corresponds to IDD Field `mechanical_zone_fan_circulation_window_equation_source`
+        """  Corresponds to IDD Field `Mechanical Zone Fan Circulation Window Equation Source`
         reference choice fields
+        
+        {u'note': [u'reference choice fields'], u'default': u'ISO15099Windows', u'type': u'choice', u'key': [u'ASHRAEVerticalWall', u'AlamdariHammondVerticalWall', u'FohannoPolidoriVerticalWall', u'ISO15099Windows', u'GoldsteinNovoselacCeilingDiffuserWindow', u'UserCurve'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `mechanical_zone_fan_circulation_window_equation_source`
+            value (str): value for IDD Field `Mechanical Zone Fan Circulation Window Equation Source`
                 Accepted values are:
                       - ASHRAEVerticalWall
                       - AlamdariHammondVerticalWall
@@ -6760,7 +6873,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `mechanical_zone_fan_circulation_window_equation_source`'.format(value))
             if ',' in value:
@@ -6790,7 +6903,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `mechanical_zone_fan_circulation_window_equation_source`'.format(value))
             value = vals[value_lower]
-
         self._data["Mechanical Zone Fan Circulation Window Equation Source"] = value
 
     @property
@@ -6804,11 +6916,13 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
 
     @mechanical_zone_fan_circulation_window_equation_user_curve_name.setter
     def mechanical_zone_fan_circulation_window_equation_user_curve_name(self, value=None):
-        """  Corresponds to IDD Field `mechanical_zone_fan_circulation_window_equation_user_curve_name`
+        """  Corresponds to IDD Field `Mechanical Zone Fan Circulation Window Equation User Curve Name`
         The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
+        
+        {u'note': [u'The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve'], u'type': u'object-list', u'object-list': u'UserConvectionInsideModels', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `mechanical_zone_fan_circulation_window_equation_user_curve_name`
+            value (str): value for IDD Field `Mechanical Zone Fan Circulation Window Equation User Curve Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6818,7 +6932,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `mechanical_zone_fan_circulation_window_equation_user_curve_name`'.format(value))
             if ',' in value:
@@ -6827,7 +6941,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `mechanical_zone_fan_circulation_window_equation_user_curve_name`')
-
         self._data["Mechanical Zone Fan Circulation Window Equation User Curve Name"] = value
 
     @property
@@ -6841,11 +6954,13 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
 
     @mixed_regime_bouyancy_assisting_flow_on_walls_equation_source.setter
     def mixed_regime_bouyancy_assisting_flow_on_walls_equation_source(self, value="BeausoleilMorrisonMixedAssistedWall"):
-        """  Corresponds to IDD Field `mixed_regime_bouyancy_assisting_flow_on_walls_equation_source`
+        """  Corresponds to IDD Field `Mixed Regime Bouyancy Assisting Flow on Walls Equation Source`
         reference choice fields
+        
+        {u'note': [u'reference choice fields'], u'default': u'BeausoleilMorrisonMixedAssistedWall', u'type': u'choice', u'key': [u'BeausoleilMorrisonMixedAssistedWall', u'AlamdariHammondVerticalWall', u'FohannoPolidoriVerticalWall', u'ASHRAEVerticalWall', u'FisherPedersenCeilingDiffuserWalls', u'GoldsteinNovoselacCeilingDiffuserWalls', u'UserCurve'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `mixed_regime_bouyancy_assisting_flow_on_walls_equation_source`
+            value (str): value for IDD Field `Mixed Regime Bouyancy Assisting Flow on Walls Equation Source`
                 Accepted values are:
                       - BeausoleilMorrisonMixedAssistedWall
                       - AlamdariHammondVerticalWall
@@ -6864,7 +6979,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `mixed_regime_bouyancy_assisting_flow_on_walls_equation_source`'.format(value))
             if ',' in value:
@@ -6895,7 +7010,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `mixed_regime_bouyancy_assisting_flow_on_walls_equation_source`'.format(value))
             value = vals[value_lower]
-
         self._data["Mixed Regime Bouyancy Assisting Flow on Walls Equation Source"] = value
 
     @property
@@ -6909,11 +7023,13 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
 
     @mixed_regime_bouyancy_assisting_flow_on_walls_equation_user_curve_name.setter
     def mixed_regime_bouyancy_assisting_flow_on_walls_equation_user_curve_name(self, value=None):
-        """  Corresponds to IDD Field `mixed_regime_bouyancy_assisting_flow_on_walls_equation_user_curve_name`
+        """  Corresponds to IDD Field `Mixed Regime Bouyancy Assisting Flow on Walls Equation User Curve Name`
         The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
+        
+        {u'note': [u'The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve'], u'type': u'object-list', u'object-list': u'UserConvectionInsideModels', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `mixed_regime_bouyancy_assisting_flow_on_walls_equation_user_curve_name`
+            value (str): value for IDD Field `Mixed Regime Bouyancy Assisting Flow on Walls Equation User Curve Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6923,7 +7039,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `mixed_regime_bouyancy_assisting_flow_on_walls_equation_user_curve_name`'.format(value))
             if ',' in value:
@@ -6932,7 +7048,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `mixed_regime_bouyancy_assisting_flow_on_walls_equation_user_curve_name`')
-
         self._data["Mixed Regime Bouyancy Assisting Flow on Walls Equation User Curve Name"] = value
 
     @property
@@ -6946,11 +7061,13 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
 
     @mixed_regime_bouyancy_oppossing_flow_on_walls_equation_source.setter
     def mixed_regime_bouyancy_oppossing_flow_on_walls_equation_source(self, value="BeausoleilMorrisonMixedOpposingWall"):
-        """  Corresponds to IDD Field `mixed_regime_bouyancy_oppossing_flow_on_walls_equation_source`
+        """  Corresponds to IDD Field `Mixed Regime Bouyancy Oppossing Flow on Walls Equation Source`
         reference choice fields
+        
+        {u'note': [u'reference choice fields'], u'default': u'BeausoleilMorrisonMixedOpposingWall', u'type': u'choice', u'key': [u'BeausoleilMorrisonMixedOpposingWall', u'AlamdariHammondVerticalWall', u'FohannoPolidoriVerticalWall', u'ASHRAEVerticalWall', u'FisherPedersenCeilingDiffuserWalls', u'GoldsteinNovoselacCeilingDiffuserWalls', u'UserCurve'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `mixed_regime_bouyancy_oppossing_flow_on_walls_equation_source`
+            value (str): value for IDD Field `Mixed Regime Bouyancy Oppossing Flow on Walls Equation Source`
                 Accepted values are:
                       - BeausoleilMorrisonMixedOpposingWall
                       - AlamdariHammondVerticalWall
@@ -6969,7 +7086,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `mixed_regime_bouyancy_oppossing_flow_on_walls_equation_source`'.format(value))
             if ',' in value:
@@ -7000,7 +7117,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `mixed_regime_bouyancy_oppossing_flow_on_walls_equation_source`'.format(value))
             value = vals[value_lower]
-
         self._data["Mixed Regime Bouyancy Oppossing Flow on Walls Equation Source"] = value
 
     @property
@@ -7014,11 +7130,13 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
 
     @mixed_regime_bouyancy_oppossing_flow_on_walls_equation_user_curve_name.setter
     def mixed_regime_bouyancy_oppossing_flow_on_walls_equation_user_curve_name(self, value=None):
-        """  Corresponds to IDD Field `mixed_regime_bouyancy_oppossing_flow_on_walls_equation_user_curve_name`
+        """  Corresponds to IDD Field `Mixed Regime Bouyancy Oppossing Flow on Walls Equation User Curve Name`
         The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
+        
+        {u'note': [u'The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve'], u'type': u'object-list', u'object-list': u'UserConvectionInsideModels', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `mixed_regime_bouyancy_oppossing_flow_on_walls_equation_user_curve_name`
+            value (str): value for IDD Field `Mixed Regime Bouyancy Oppossing Flow on Walls Equation User Curve Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7028,7 +7146,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `mixed_regime_bouyancy_oppossing_flow_on_walls_equation_user_curve_name`'.format(value))
             if ',' in value:
@@ -7037,7 +7155,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `mixed_regime_bouyancy_oppossing_flow_on_walls_equation_user_curve_name`')
-
         self._data["Mixed Regime Bouyancy Oppossing Flow on Walls Equation User Curve Name"] = value
 
     @property
@@ -7051,11 +7168,13 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
 
     @mixed_regime_stable_floor_equation_source.setter
     def mixed_regime_stable_floor_equation_source(self, value="BeausoleilMorrisonMixedStableFloor"):
-        """  Corresponds to IDD Field `mixed_regime_stable_floor_equation_source`
+        """  Corresponds to IDD Field `Mixed Regime Stable Floor Equation Source`
         reference choice fields
+        
+        {u'note': [u'reference choice fields'], u'default': u'BeausoleilMorrisonMixedStableFloor', u'type': u'choice', u'key': [u'BeausoleilMorrisonMixedStableFloor', u'WaltonStableHorizontalOrTilt', u'AlamdariHammondStableHorizontal', u'UserCurve'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `mixed_regime_stable_floor_equation_source`
+            value (str): value for IDD Field `Mixed Regime Stable Floor Equation Source`
                 Accepted values are:
                       - BeausoleilMorrisonMixedStableFloor
                       - WaltonStableHorizontalOrTilt
@@ -7071,7 +7190,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `mixed_regime_stable_floor_equation_source`'.format(value))
             if ',' in value:
@@ -7099,7 +7218,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `mixed_regime_stable_floor_equation_source`'.format(value))
             value = vals[value_lower]
-
         self._data["Mixed Regime Stable Floor Equation Source"] = value
 
     @property
@@ -7113,11 +7231,13 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
 
     @mixed_regime_stable_floor_equation_user_curve_name.setter
     def mixed_regime_stable_floor_equation_user_curve_name(self, value=None):
-        """  Corresponds to IDD Field `mixed_regime_stable_floor_equation_user_curve_name`
+        """  Corresponds to IDD Field `Mixed Regime Stable Floor Equation User Curve Name`
         The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
+        
+        {u'note': [u'The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve'], u'type': u'object-list', u'object-list': u'UserConvectionInsideModels', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `mixed_regime_stable_floor_equation_user_curve_name`
+            value (str): value for IDD Field `Mixed Regime Stable Floor Equation User Curve Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7127,7 +7247,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `mixed_regime_stable_floor_equation_user_curve_name`'.format(value))
             if ',' in value:
@@ -7136,7 +7256,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `mixed_regime_stable_floor_equation_user_curve_name`')
-
         self._data["Mixed Regime Stable Floor Equation User Curve Name"] = value
 
     @property
@@ -7150,11 +7269,13 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
 
     @mixed_regime_unstable_floor_equation_source.setter
     def mixed_regime_unstable_floor_equation_source(self, value="BeausoleilMorrisonMixedUnstableFloor"):
-        """  Corresponds to IDD Field `mixed_regime_unstable_floor_equation_source`
+        """  Corresponds to IDD Field `Mixed Regime Unstable Floor Equation Source`
         reference choice fields
+        
+        {u'note': [u'reference choice fields'], u'default': u'BeausoleilMorrisonMixedUnstableFloor', u'type': u'choice', u'key': [u'BeausoleilMorrisonMixedUnstableFloor', u'WaltonUnstableHorizontalOrTilt', u'AlamdariHammondUnstableHorizontal', u'UserCurve'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `mixed_regime_unstable_floor_equation_source`
+            value (str): value for IDD Field `Mixed Regime Unstable Floor Equation Source`
                 Accepted values are:
                       - BeausoleilMorrisonMixedUnstableFloor
                       - WaltonUnstableHorizontalOrTilt
@@ -7170,7 +7291,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `mixed_regime_unstable_floor_equation_source`'.format(value))
             if ',' in value:
@@ -7198,7 +7319,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `mixed_regime_unstable_floor_equation_source`'.format(value))
             value = vals[value_lower]
-
         self._data["Mixed Regime Unstable Floor Equation Source"] = value
 
     @property
@@ -7212,11 +7332,13 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
 
     @mixed_regime_unstable_floor_equation_user_curve_name.setter
     def mixed_regime_unstable_floor_equation_user_curve_name(self, value=None):
-        """  Corresponds to IDD Field `mixed_regime_unstable_floor_equation_user_curve_name`
+        """  Corresponds to IDD Field `Mixed Regime Unstable Floor Equation User Curve Name`
         The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
+        
+        {u'note': [u'The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve'], u'type': u'object-list', u'object-list': u'UserConvectionInsideModels', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `mixed_regime_unstable_floor_equation_user_curve_name`
+            value (str): value for IDD Field `Mixed Regime Unstable Floor Equation User Curve Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7226,7 +7348,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `mixed_regime_unstable_floor_equation_user_curve_name`'.format(value))
             if ',' in value:
@@ -7235,7 +7357,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `mixed_regime_unstable_floor_equation_user_curve_name`')
-
         self._data["Mixed Regime Unstable Floor Equation User Curve Name"] = value
 
     @property
@@ -7249,11 +7370,13 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
 
     @mixed_regime_stable_ceiling_equation_source.setter
     def mixed_regime_stable_ceiling_equation_source(self, value="BeausoleilMorrisonMixedStableCeiling"):
-        """  Corresponds to IDD Field `mixed_regime_stable_ceiling_equation_source`
+        """  Corresponds to IDD Field `Mixed Regime Stable Ceiling Equation Source`
         reference choice fields
+        
+        {u'note': [u'reference choice fields'], u'default': u'BeausoleilMorrisonMixedStableCeiling', u'type': u'choice', u'key': [u'BeausoleilMorrisonMixedStableCeiling', u'WaltonStableHorizontalOrTilt', u'AlamdariHammondStableHorizontal', u'UserCurve'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `mixed_regime_stable_ceiling_equation_source`
+            value (str): value for IDD Field `Mixed Regime Stable Ceiling Equation Source`
                 Accepted values are:
                       - BeausoleilMorrisonMixedStableCeiling
                       - WaltonStableHorizontalOrTilt
@@ -7269,7 +7392,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `mixed_regime_stable_ceiling_equation_source`'.format(value))
             if ',' in value:
@@ -7297,7 +7420,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `mixed_regime_stable_ceiling_equation_source`'.format(value))
             value = vals[value_lower]
-
         self._data["Mixed Regime Stable Ceiling Equation Source"] = value
 
     @property
@@ -7311,11 +7433,13 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
 
     @mixed_regime_stable_ceiling_equation_user_curve_name.setter
     def mixed_regime_stable_ceiling_equation_user_curve_name(self, value=None):
-        """  Corresponds to IDD Field `mixed_regime_stable_ceiling_equation_user_curve_name`
+        """  Corresponds to IDD Field `Mixed Regime Stable Ceiling Equation User Curve Name`
         The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
+        
+        {u'note': [u'The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve'], u'type': u'object-list', u'object-list': u'UserConvectionInsideModels', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `mixed_regime_stable_ceiling_equation_user_curve_name`
+            value (str): value for IDD Field `Mixed Regime Stable Ceiling Equation User Curve Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7325,7 +7449,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `mixed_regime_stable_ceiling_equation_user_curve_name`'.format(value))
             if ',' in value:
@@ -7334,7 +7458,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `mixed_regime_stable_ceiling_equation_user_curve_name`')
-
         self._data["Mixed Regime Stable Ceiling Equation User Curve Name"] = value
 
     @property
@@ -7348,11 +7471,13 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
 
     @mixed_regime_unstable_ceiling_equation_source.setter
     def mixed_regime_unstable_ceiling_equation_source(self, value="BeausoleilMorrisonMixedUnstableCeiling"):
-        """  Corresponds to IDD Field `mixed_regime_unstable_ceiling_equation_source`
+        """  Corresponds to IDD Field `Mixed Regime Unstable Ceiling Equation Source`
         reference choice fields
+        
+        {u'note': [u'reference choice fields'], u'default': u'BeausoleilMorrisonMixedUnstableCeiling', u'type': u'choice', u'key': [u'BeausoleilMorrisonMixedUnstableCeiling', u'WaltonUnstableHorizontalOrTilt', u'AlamdariHammondUnstableHorizontal', u'UserCurve'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `mixed_regime_unstable_ceiling_equation_source`
+            value (str): value for IDD Field `Mixed Regime Unstable Ceiling Equation Source`
                 Accepted values are:
                       - BeausoleilMorrisonMixedUnstableCeiling
                       - WaltonUnstableHorizontalOrTilt
@@ -7368,7 +7493,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `mixed_regime_unstable_ceiling_equation_source`'.format(value))
             if ',' in value:
@@ -7396,7 +7521,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `mixed_regime_unstable_ceiling_equation_source`'.format(value))
             value = vals[value_lower]
-
         self._data["Mixed Regime Unstable Ceiling Equation Source"] = value
 
     @property
@@ -7410,11 +7534,13 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
 
     @mixed_regime_unstable_ceiling_equation_user_curve_name.setter
     def mixed_regime_unstable_ceiling_equation_user_curve_name(self, value=None):
-        """  Corresponds to IDD Field `mixed_regime_unstable_ceiling_equation_user_curve_name`
+        """  Corresponds to IDD Field `Mixed Regime Unstable Ceiling Equation User Curve Name`
         The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
+        
+        {u'note': [u'The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve'], u'type': u'object-list', u'object-list': u'UserConvectionInsideModels', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `mixed_regime_unstable_ceiling_equation_user_curve_name`
+            value (str): value for IDD Field `Mixed Regime Unstable Ceiling Equation User Curve Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7424,7 +7550,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `mixed_regime_unstable_ceiling_equation_user_curve_name`'.format(value))
             if ',' in value:
@@ -7433,7 +7559,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `mixed_regime_unstable_ceiling_equation_user_curve_name`')
-
         self._data["Mixed Regime Unstable Ceiling Equation User Curve Name"] = value
 
     @property
@@ -7447,11 +7572,13 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
 
     @mixed_regime_window_equation_source.setter
     def mixed_regime_window_equation_source(self, value="GoldsteinNovoselacCeilingDiffuserWindow"):
-        """  Corresponds to IDD Field `mixed_regime_window_equation_source`
+        """  Corresponds to IDD Field `Mixed Regime Window Equation Source`
         reference choice fields
+        
+        {u'note': [u'reference choice fields'], u'default': u'GoldsteinNovoselacCeilingDiffuserWindow', u'type': u'choice', u'key': [u'GoldsteinNovoselacCeilingDiffuserWindow', u'ISO15099Windows', u'UserCurve'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `mixed_regime_window_equation_source`
+            value (str): value for IDD Field `Mixed Regime Window Equation Source`
                 Accepted values are:
                       - GoldsteinNovoselacCeilingDiffuserWindow
                       - ISO15099Windows
@@ -7466,7 +7593,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `mixed_regime_window_equation_source`'.format(value))
             if ',' in value:
@@ -7493,7 +7620,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `mixed_regime_window_equation_source`'.format(value))
             value = vals[value_lower]
-
         self._data["Mixed Regime Window Equation Source"] = value
 
     @property
@@ -7507,11 +7633,13 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
 
     @mixed_regime_window_equation_user_curve_name.setter
     def mixed_regime_window_equation_user_curve_name(self, value=None):
-        """  Corresponds to IDD Field `mixed_regime_window_equation_user_curve_name`
+        """  Corresponds to IDD Field `Mixed Regime Window Equation User Curve Name`
         The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve
+        
+        {u'note': [u'The SurfaceConvectionAlgorithm:Inside:UserCurve named in this field is used when the previous field is set to UserCurve'], u'type': u'object-list', u'object-list': u'UserConvectionInsideModels', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `mixed_regime_window_equation_user_curve_name`
+            value (str): value for IDD Field `Mixed Regime Window Equation User Curve Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7521,7 +7649,7 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `mixed_regime_window_equation_user_curve_name`'.format(value))
             if ',' in value:
@@ -7530,7 +7658,6 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `mixed_regime_window_equation_user_curve_name`')
-
         self._data["Mixed Regime Window Equation User Curve Name"] = value
 
     def check(self):
@@ -7708,10 +7835,12 @@ class SurfaceConvectionAlgorithmOutsideAdaptiveModelSelections(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {u'type': u'alpha', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7721,7 +7850,7 @@ class SurfaceConvectionAlgorithmOutsideAdaptiveModelSelections(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -7730,7 +7859,6 @@ class SurfaceConvectionAlgorithmOutsideAdaptiveModelSelections(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -7744,10 +7872,12 @@ class SurfaceConvectionAlgorithmOutsideAdaptiveModelSelections(object):
 
     @wind_convection_windward_vertical_wall_equation_source.setter
     def wind_convection_windward_vertical_wall_equation_source(self, value="TARPWindward"):
-        """  Corresponds to IDD Field `wind_convection_windward_vertical_wall_equation_source`
+        """  Corresponds to IDD Field `Wind Convection Windward Vertical Wall Equation Source`
+        
+        {u'default': u'TARPWindward', u'type': u'choice', u'key': [u'SimpleCombined', u'TARPWindward', u'MoWiTTWindward', u'DOE2Windward', u'NusseltJurges', u'McAdams', u'Mitchell', u'BlockenWindward', u'EmmelVertical', u'UserCurve'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `wind_convection_windward_vertical_wall_equation_source`
+            value (str): value for IDD Field `Wind Convection Windward Vertical Wall Equation Source`
                 Accepted values are:
                       - SimpleCombined
                       - TARPWindward
@@ -7769,7 +7899,7 @@ class SurfaceConvectionAlgorithmOutsideAdaptiveModelSelections(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `wind_convection_windward_vertical_wall_equation_source`'.format(value))
             if ',' in value:
@@ -7803,7 +7933,6 @@ class SurfaceConvectionAlgorithmOutsideAdaptiveModelSelections(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `wind_convection_windward_vertical_wall_equation_source`'.format(value))
             value = vals[value_lower]
-
         self._data["Wind Convection Windward Vertical Wall Equation Source"] = value
 
     @property
@@ -7817,11 +7946,13 @@ class SurfaceConvectionAlgorithmOutsideAdaptiveModelSelections(object):
 
     @wind_convection_windward_equation_vertical_wall_user_curve_name.setter
     def wind_convection_windward_equation_vertical_wall_user_curve_name(self, value=None):
-        """  Corresponds to IDD Field `wind_convection_windward_equation_vertical_wall_user_curve_name`
+        """  Corresponds to IDD Field `Wind Convection Windward Equation Vertical Wall User Curve Name`
         The SurfaceConvectionAlgorithm:Outside:UserCurve named in this field is used when the previous field is set to UserCurve
+        
+        {u'note': [u'The SurfaceConvectionAlgorithm:Outside:UserCurve named in this field is used when the previous field is set to UserCurve'], u'type': u'object-list', u'object-list': u'UserConvectionOutsideModels', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `wind_convection_windward_equation_vertical_wall_user_curve_name`
+            value (str): value for IDD Field `Wind Convection Windward Equation Vertical Wall User Curve Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7831,7 +7962,7 @@ class SurfaceConvectionAlgorithmOutsideAdaptiveModelSelections(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `wind_convection_windward_equation_vertical_wall_user_curve_name`'.format(value))
             if ',' in value:
@@ -7840,7 +7971,6 @@ class SurfaceConvectionAlgorithmOutsideAdaptiveModelSelections(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `wind_convection_windward_equation_vertical_wall_user_curve_name`')
-
         self._data["Wind Convection Windward Equation Vertical Wall User Curve Name"] = value
 
     @property
@@ -7854,10 +7984,12 @@ class SurfaceConvectionAlgorithmOutsideAdaptiveModelSelections(object):
 
     @wind_convection_leeward_vertical_wall_equation_source.setter
     def wind_convection_leeward_vertical_wall_equation_source(self, value="TARPLeeward"):
-        """  Corresponds to IDD Field `wind_convection_leeward_vertical_wall_equation_source`
+        """  Corresponds to IDD Field `Wind Convection Leeward Vertical Wall Equation Source`
+        
+        {u'default': u'TARPLeeward', u'type': u'choice', u'key': [u'SimpleCombined', u'TARPLeeward', u'MoWiTTLeeward', u'DOE2Leeward', u'EmmelVertical', u'NusseltJurges', u'McAdams', u'Mitchell', u'UserCurve'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `wind_convection_leeward_vertical_wall_equation_source`
+            value (str): value for IDD Field `Wind Convection Leeward Vertical Wall Equation Source`
                 Accepted values are:
                       - SimpleCombined
                       - TARPLeeward
@@ -7878,7 +8010,7 @@ class SurfaceConvectionAlgorithmOutsideAdaptiveModelSelections(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `wind_convection_leeward_vertical_wall_equation_source`'.format(value))
             if ',' in value:
@@ -7911,7 +8043,6 @@ class SurfaceConvectionAlgorithmOutsideAdaptiveModelSelections(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `wind_convection_leeward_vertical_wall_equation_source`'.format(value))
             value = vals[value_lower]
-
         self._data["Wind Convection Leeward Vertical Wall Equation Source"] = value
 
     @property
@@ -7925,11 +8056,13 @@ class SurfaceConvectionAlgorithmOutsideAdaptiveModelSelections(object):
 
     @wind_convection_leeward_vertical_wall_equation_user_curve_name.setter
     def wind_convection_leeward_vertical_wall_equation_user_curve_name(self, value=None):
-        """  Corresponds to IDD Field `wind_convection_leeward_vertical_wall_equation_user_curve_name`
+        """  Corresponds to IDD Field `Wind Convection Leeward Vertical Wall Equation User Curve Name`
         The SurfaceConvectionAlgorithm:Outside:UserCurve named in this field is used when the previous field is set to UserCurve
+        
+        {u'note': [u'The SurfaceConvectionAlgorithm:Outside:UserCurve named in this field is used when the previous field is set to UserCurve'], u'type': u'object-list', u'object-list': u'UserConvectionOutsideModels', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `wind_convection_leeward_vertical_wall_equation_user_curve_name`
+            value (str): value for IDD Field `Wind Convection Leeward Vertical Wall Equation User Curve Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7939,7 +8072,7 @@ class SurfaceConvectionAlgorithmOutsideAdaptiveModelSelections(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `wind_convection_leeward_vertical_wall_equation_user_curve_name`'.format(value))
             if ',' in value:
@@ -7948,7 +8081,6 @@ class SurfaceConvectionAlgorithmOutsideAdaptiveModelSelections(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `wind_convection_leeward_vertical_wall_equation_user_curve_name`')
-
         self._data["Wind Convection Leeward Vertical Wall Equation User Curve Name"] = value
 
     @property
@@ -7962,10 +8094,12 @@ class SurfaceConvectionAlgorithmOutsideAdaptiveModelSelections(object):
 
     @wind_convection_horizontal_roof_equation_source.setter
     def wind_convection_horizontal_roof_equation_source(self, value="ClearRoof"):
-        """  Corresponds to IDD Field `wind_convection_horizontal_roof_equation_source`
+        """  Corresponds to IDD Field `Wind Convection Horizontal Roof Equation Source`
+        
+        {u'default': u'ClearRoof', u'type': u'choice', u'key': [u'SimpleCombined', u'TARPWindward', u'MoWiTTWindward', u'DOE2Windward', u'NusseltJurges', u'McAdams', u'Mitchell', u'BlockenWindward', u'EmmelRoof', u'ClearRoof', u'UserCurve'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `wind_convection_horizontal_roof_equation_source`
+            value (str): value for IDD Field `Wind Convection Horizontal Roof Equation Source`
                 Accepted values are:
                       - SimpleCombined
                       - TARPWindward
@@ -7988,7 +8122,7 @@ class SurfaceConvectionAlgorithmOutsideAdaptiveModelSelections(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `wind_convection_horizontal_roof_equation_source`'.format(value))
             if ',' in value:
@@ -8023,7 +8157,6 @@ class SurfaceConvectionAlgorithmOutsideAdaptiveModelSelections(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `wind_convection_horizontal_roof_equation_source`'.format(value))
             value = vals[value_lower]
-
         self._data["Wind Convection Horizontal Roof Equation Source"] = value
 
     @property
@@ -8037,11 +8170,13 @@ class SurfaceConvectionAlgorithmOutsideAdaptiveModelSelections(object):
 
     @wind_convection_horizontal_roof_user_curve_name.setter
     def wind_convection_horizontal_roof_user_curve_name(self, value=None):
-        """  Corresponds to IDD Field `wind_convection_horizontal_roof_user_curve_name`
+        """  Corresponds to IDD Field `Wind Convection Horizontal Roof User Curve Name`
         The SurfaceConvectionAlgorithm:Outside:UserCurve named in this field is used when the previous field is set to UserCurve
+        
+        {u'note': [u'The SurfaceConvectionAlgorithm:Outside:UserCurve named in this field is used when the previous field is set to UserCurve'], u'type': u'object-list', u'object-list': u'UserConvectionOutsideModels', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `wind_convection_horizontal_roof_user_curve_name`
+            value (str): value for IDD Field `Wind Convection Horizontal Roof User Curve Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8051,7 +8186,7 @@ class SurfaceConvectionAlgorithmOutsideAdaptiveModelSelections(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `wind_convection_horizontal_roof_user_curve_name`'.format(value))
             if ',' in value:
@@ -8060,7 +8195,6 @@ class SurfaceConvectionAlgorithmOutsideAdaptiveModelSelections(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `wind_convection_horizontal_roof_user_curve_name`')
-
         self._data["Wind Convection Horizontal Roof User Curve Name"] = value
 
     @property
@@ -8074,11 +8208,13 @@ class SurfaceConvectionAlgorithmOutsideAdaptiveModelSelections(object):
 
     @natural_convection_vertical_wall_equation_source.setter
     def natural_convection_vertical_wall_equation_source(self, value="ASHRAEVerticalWall"):
-        """  Corresponds to IDD Field `natural_convection_vertical_wall_equation_source`
+        """  Corresponds to IDD Field `Natural Convection Vertical Wall Equation Source`
         This is for vertical walls
+        
+        {u'note': [u'This is for vertical walls'], u'default': u'ASHRAEVerticalWall', u'type': u'choice', u'key': [u'ASHRAEVerticalWall', u'AlamdariHammondVerticalWall', u'FohannoPolidoriVerticalWall', u'ISO15099Windows', u'UserCurve', u'None'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `natural_convection_vertical_wall_equation_source`
+            value (str): value for IDD Field `Natural Convection Vertical Wall Equation Source`
                 Accepted values are:
                       - ASHRAEVerticalWall
                       - AlamdariHammondVerticalWall
@@ -8096,7 +8232,7 @@ class SurfaceConvectionAlgorithmOutsideAdaptiveModelSelections(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `natural_convection_vertical_wall_equation_source`'.format(value))
             if ',' in value:
@@ -8126,7 +8262,6 @@ class SurfaceConvectionAlgorithmOutsideAdaptiveModelSelections(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `natural_convection_vertical_wall_equation_source`'.format(value))
             value = vals[value_lower]
-
         self._data["Natural Convection Vertical Wall Equation Source"] = value
 
     @property
@@ -8140,11 +8275,13 @@ class SurfaceConvectionAlgorithmOutsideAdaptiveModelSelections(object):
 
     @natural_convection_vertical_wall_equation_user_curve_name.setter
     def natural_convection_vertical_wall_equation_user_curve_name(self, value=None):
-        """  Corresponds to IDD Field `natural_convection_vertical_wall_equation_user_curve_name`
+        """  Corresponds to IDD Field `Natural Convection Vertical Wall Equation User Curve Name`
         The SurfaceConvectionAlgorithm:Outside:UserCurve named in this field is used when the previous field is set to UserCurve
+        
+        {u'note': [u'The SurfaceConvectionAlgorithm:Outside:UserCurve named in this field is used when the previous field is set to UserCurve'], u'type': u'object-list', u'object-list': u'UserConvectionOutsideModels', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `natural_convection_vertical_wall_equation_user_curve_name`
+            value (str): value for IDD Field `Natural Convection Vertical Wall Equation User Curve Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8154,7 +8291,7 @@ class SurfaceConvectionAlgorithmOutsideAdaptiveModelSelections(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `natural_convection_vertical_wall_equation_user_curve_name`'.format(value))
             if ',' in value:
@@ -8163,7 +8300,6 @@ class SurfaceConvectionAlgorithmOutsideAdaptiveModelSelections(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `natural_convection_vertical_wall_equation_user_curve_name`')
-
         self._data["Natural Convection Vertical Wall Equation User Curve Name"] = value
 
     @property
@@ -8177,11 +8313,13 @@ class SurfaceConvectionAlgorithmOutsideAdaptiveModelSelections(object):
 
     @natural_convection_stable_horizontal_equation_source.setter
     def natural_convection_stable_horizontal_equation_source(self, value="WaltonStableHorizontalOrTilt"):
-        """  Corresponds to IDD Field `natural_convection_stable_horizontal_equation_source`
+        """  Corresponds to IDD Field `Natural Convection Stable Horizontal Equation Source`
         This is for horizontal surfaces with heat flow directed for stable thermal stratification
+        
+        {u'note': [u'This is for horizontal surfaces with heat flow directed for stable thermal stratification'], u'default': u'WaltonStableHorizontalOrTilt', u'type': u'choice', u'key': [u'WaltonStableHorizontalOrTilt', u'AlamdariHammondStableHorizontal', u'UserCurve', u'None'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `natural_convection_stable_horizontal_equation_source`
+            value (str): value for IDD Field `Natural Convection Stable Horizontal Equation Source`
                 Accepted values are:
                       - WaltonStableHorizontalOrTilt
                       - AlamdariHammondStableHorizontal
@@ -8197,7 +8335,7 @@ class SurfaceConvectionAlgorithmOutsideAdaptiveModelSelections(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `natural_convection_stable_horizontal_equation_source`'.format(value))
             if ',' in value:
@@ -8225,7 +8363,6 @@ class SurfaceConvectionAlgorithmOutsideAdaptiveModelSelections(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `natural_convection_stable_horizontal_equation_source`'.format(value))
             value = vals[value_lower]
-
         self._data["Natural Convection Stable Horizontal Equation Source"] = value
 
     @property
@@ -8239,11 +8376,13 @@ class SurfaceConvectionAlgorithmOutsideAdaptiveModelSelections(object):
 
     @natural_convection_stable_horizontal_equation_user_curve_name.setter
     def natural_convection_stable_horizontal_equation_user_curve_name(self, value=None):
-        """  Corresponds to IDD Field `natural_convection_stable_horizontal_equation_user_curve_name`
+        """  Corresponds to IDD Field `Natural Convection Stable Horizontal Equation User Curve Name`
         The SurfaceConvectionAlgorithm:Outside:UserCurve named in this field is used when the previous field is set to UserCurve
+        
+        {u'note': [u'The SurfaceConvectionAlgorithm:Outside:UserCurve named in this field is used when the previous field is set to UserCurve'], u'type': u'object-list', u'object-list': u'UserConvectionOutsideModels', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `natural_convection_stable_horizontal_equation_user_curve_name`
+            value (str): value for IDD Field `Natural Convection Stable Horizontal Equation User Curve Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8253,7 +8392,7 @@ class SurfaceConvectionAlgorithmOutsideAdaptiveModelSelections(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `natural_convection_stable_horizontal_equation_user_curve_name`'.format(value))
             if ',' in value:
@@ -8262,7 +8401,6 @@ class SurfaceConvectionAlgorithmOutsideAdaptiveModelSelections(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `natural_convection_stable_horizontal_equation_user_curve_name`')
-
         self._data["Natural Convection Stable Horizontal Equation User Curve Name"] = value
 
     @property
@@ -8276,10 +8414,12 @@ class SurfaceConvectionAlgorithmOutsideAdaptiveModelSelections(object):
 
     @natural_convection_unstable_horizontal_equation_source.setter
     def natural_convection_unstable_horizontal_equation_source(self, value="WaltonUnstableHorizontalOrTilt"):
-        """  Corresponds to IDD Field `natural_convection_unstable_horizontal_equation_source`
+        """  Corresponds to IDD Field `Natural Convection Unstable Horizontal Equation Source`
+        
+        {u'default': u'WaltonUnstableHorizontalOrTilt', u'type': u'choice', u'key': [u'WaltonUnstableHorizontalOrTilt', u'AlamdariHammondUnstableHorizontal', u'UserCurve', u'None'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `natural_convection_unstable_horizontal_equation_source`
+            value (str): value for IDD Field `Natural Convection Unstable Horizontal Equation Source`
                 Accepted values are:
                       - WaltonUnstableHorizontalOrTilt
                       - AlamdariHammondUnstableHorizontal
@@ -8295,7 +8435,7 @@ class SurfaceConvectionAlgorithmOutsideAdaptiveModelSelections(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `natural_convection_unstable_horizontal_equation_source`'.format(value))
             if ',' in value:
@@ -8323,7 +8463,6 @@ class SurfaceConvectionAlgorithmOutsideAdaptiveModelSelections(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `natural_convection_unstable_horizontal_equation_source`'.format(value))
             value = vals[value_lower]
-
         self._data["Natural Convection Unstable Horizontal Equation Source"] = value
 
     @property
@@ -8337,11 +8476,13 @@ class SurfaceConvectionAlgorithmOutsideAdaptiveModelSelections(object):
 
     @natural_convection_unstable_horizontal_equation_user_curve_name.setter
     def natural_convection_unstable_horizontal_equation_user_curve_name(self, value=None):
-        """  Corresponds to IDD Field `natural_convection_unstable_horizontal_equation_user_curve_name`
+        """  Corresponds to IDD Field `Natural Convection Unstable Horizontal Equation User Curve Name`
         The SurfaceConvectionAlgorithm:Outside:UserCurve named in this field is used when the previous field is set to UserCurve
+        
+        {u'note': [u'The SurfaceConvectionAlgorithm:Outside:UserCurve named in this field is used when the previous field is set to UserCurve'], u'type': u'object-list', u'object-list': u'UserConvectionOutsideModels', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `natural_convection_unstable_horizontal_equation_user_curve_name`
+            value (str): value for IDD Field `Natural Convection Unstable Horizontal Equation User Curve Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8351,7 +8492,7 @@ class SurfaceConvectionAlgorithmOutsideAdaptiveModelSelections(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `natural_convection_unstable_horizontal_equation_user_curve_name`'.format(value))
             if ',' in value:
@@ -8360,7 +8501,6 @@ class SurfaceConvectionAlgorithmOutsideAdaptiveModelSelections(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `natural_convection_unstable_horizontal_equation_user_curve_name`')
-
         self._data["Natural Convection Unstable Horizontal Equation User Curve Name"] = value
 
     def check(self):
@@ -8481,10 +8621,12 @@ class SurfaceConvectionAlgorithmInsideUserCurve(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {'type': 'alpha', u'reference': u'UserConvectionModels', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8494,7 +8636,7 @@ class SurfaceConvectionAlgorithmInsideUserCurve(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -8503,7 +8645,6 @@ class SurfaceConvectionAlgorithmInsideUserCurve(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -8517,11 +8658,13 @@ class SurfaceConvectionAlgorithmInsideUserCurve(object):
 
     @reference_temperature_for_convection_heat_transfer.setter
     def reference_temperature_for_convection_heat_transfer(self, value=None):
-        """  Corresponds to IDD Field `reference_temperature_for_convection_heat_transfer`
+        """  Corresponds to IDD Field `Reference Temperature for Convection Heat Transfer`
         Controls which temperature is differenced from surface temperature when using the Hc value
+        
+        {u'note': [u'Controls which temperature is differenced from surface temperature when using the Hc value'], u'type': u'choice', u'key': [u'MeanAirTemperature', u'AdjacentAirTemperature', u'SupplyAirTemperature'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `reference_temperature_for_convection_heat_transfer`
+            value (str): value for IDD Field `Reference Temperature for Convection Heat Transfer`
                 Accepted values are:
                       - MeanAirTemperature
                       - AdjacentAirTemperature
@@ -8535,7 +8678,7 @@ class SurfaceConvectionAlgorithmInsideUserCurve(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `reference_temperature_for_convection_heat_transfer`'.format(value))
             if ',' in value:
@@ -8562,7 +8705,6 @@ class SurfaceConvectionAlgorithmInsideUserCurve(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `reference_temperature_for_convection_heat_transfer`'.format(value))
             value = vals[value_lower]
-
         self._data["Reference Temperature for Convection Heat Transfer"] = value
 
     @property
@@ -8576,12 +8718,14 @@ class SurfaceConvectionAlgorithmInsideUserCurve(object):
 
     @hc_function_of_temperature_difference_curve_name.setter
     def hc_function_of_temperature_difference_curve_name(self, value=None):
-        """  Corresponds to IDD Field `hc_function_of_temperature_difference_curve_name`
+        """  Corresponds to IDD Field `Hc Function of Temperature Difference Curve Name`
         Curve's "x" is absolute value of delta-T (Surface temperature minus reference temperature, (C))
         Table:OneIndependentVariable objects can also be used
+        
+        {u'note': [u'Curve\'s "x" is absolute value of delta-T (Surface temperature minus reference temperature, (C))', u'Table:OneIndependentVariable objects can also be used'], u'type': u'alpha', u'object-list': u'ExponentCurves', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `hc_function_of_temperature_difference_curve_name`
+            value (str): value for IDD Field `Hc Function of Temperature Difference Curve Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8591,7 +8735,7 @@ class SurfaceConvectionAlgorithmInsideUserCurve(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `hc_function_of_temperature_difference_curve_name`'.format(value))
             if ',' in value:
@@ -8600,7 +8744,6 @@ class SurfaceConvectionAlgorithmInsideUserCurve(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `hc_function_of_temperature_difference_curve_name`')
-
         self._data["Hc Function of Temperature Difference Curve Name"] = value
 
     @property
@@ -8614,13 +8757,15 @@ class SurfaceConvectionAlgorithmInsideUserCurve(object):
 
     @hc_function_of_temperature_difference_divided_by_height_curve_name.setter
     def hc_function_of_temperature_difference_divided_by_height_curve_name(self, value=None):
-        """  Corresponds to IDD Field `hc_function_of_temperature_difference_divided_by_height_curve_name`
+        """  Corresponds to IDD Field `Hc Function of Temperature Difference Divided by Height Curve Name`
         Curve's "x" is absolute value of delta-T/Height (Surface temp minus Air temp)/(vertical length scale), (C/m)
         when used for an inside face the vertical length scale is the zone's interior height
         Table:OneIndependentVariable object can also be used
+        
+        {u'note': [u'Curve\'s "x" is absolute value of delta-T/Height (Surface temp minus Air temp)/(vertical length scale), (C/m)', u"when used for an inside face the vertical length scale is the zone's interior height", u'Table:OneIndependentVariable object can also be used'], 'type': 'alpha', u'object-list': u'ExponentCurves', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `hc_function_of_temperature_difference_divided_by_height_curve_name`
+            value (str): value for IDD Field `Hc Function of Temperature Difference Divided by Height Curve Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8630,7 +8775,7 @@ class SurfaceConvectionAlgorithmInsideUserCurve(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `hc_function_of_temperature_difference_divided_by_height_curve_name`'.format(value))
             if ',' in value:
@@ -8639,7 +8784,6 @@ class SurfaceConvectionAlgorithmInsideUserCurve(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `hc_function_of_temperature_difference_divided_by_height_curve_name`')
-
         self._data["Hc Function of Temperature Difference Divided by Height Curve Name"] = value
 
     @property
@@ -8653,12 +8797,14 @@ class SurfaceConvectionAlgorithmInsideUserCurve(object):
 
     @hc_function_of_air_change_rate_curve_name.setter
     def hc_function_of_air_change_rate_curve_name(self, value=None):
-        """  Corresponds to IDD Field `hc_function_of_air_change_rate_curve_name`
+        """  Corresponds to IDD Field `Hc Function of Air Change Rate Curve Name`
         Curve's "x" is mechanical ACH (Air Changes per hour from mechanical air system), (1/hr)
         Table:OneIndependentVariable objects can also be used
+        
+        {u'note': [u'Curve\'s "x" is mechanical ACH (Air Changes per hour from mechanical air system), (1/hr)', u'Table:OneIndependentVariable objects can also be used'], 'type': 'alpha', u'object-list': u'ExponentCurves', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `hc_function_of_air_change_rate_curve_name`
+            value (str): value for IDD Field `Hc Function of Air Change Rate Curve Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8668,7 +8814,7 @@ class SurfaceConvectionAlgorithmInsideUserCurve(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `hc_function_of_air_change_rate_curve_name`'.format(value))
             if ',' in value:
@@ -8677,7 +8823,6 @@ class SurfaceConvectionAlgorithmInsideUserCurve(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `hc_function_of_air_change_rate_curve_name`')
-
         self._data["Hc Function of Air Change Rate Curve Name"] = value
 
     @property
@@ -8691,13 +8836,15 @@ class SurfaceConvectionAlgorithmInsideUserCurve(object):
 
     @hc_function_of_air_system_volume_flow_rate_divided_by_zone_perimeter_length_curve_name.setter
     def hc_function_of_air_system_volume_flow_rate_divided_by_zone_perimeter_length_curve_name(self, value=None):
-        """  Corresponds to IDD Field `hc_function_of_air_system_volume_flow_rate_divided_by_zone_perimeter_length_curve_name`
+        """  Corresponds to IDD Field `Hc Function of Air System Volume Flow Rate Divided by Zone Perimeter Length Curve Name`
         Curve's "x" is mechanical system air flow rate (m3/s) divided by zone's length along
         exterior walls (m).
         Table:OneIndependentVariable object can also be used
+        
+        {u'note': [u'Curve\'s "x" is mechanical system air flow rate (m3/s) divided by zone\'s length along', u'exterior walls (m).', u'Table:OneIndependentVariable object can also be used'], 'type': 'alpha', u'object-list': u'ExponentCurves', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `hc_function_of_air_system_volume_flow_rate_divided_by_zone_perimeter_length_curve_name`
+            value (str): value for IDD Field `Hc Function of Air System Volume Flow Rate Divided by Zone Perimeter Length Curve Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8707,7 +8854,7 @@ class SurfaceConvectionAlgorithmInsideUserCurve(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `hc_function_of_air_system_volume_flow_rate_divided_by_zone_perimeter_length_curve_name`'.format(value))
             if ',' in value:
@@ -8716,7 +8863,6 @@ class SurfaceConvectionAlgorithmInsideUserCurve(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `hc_function_of_air_system_volume_flow_rate_divided_by_zone_perimeter_length_curve_name`')
-
         self._data["Hc Function of Air System Volume Flow Rate Divided by Zone Perimeter Length Curve Name"] = value
 
     def check(self):
@@ -8829,10 +8975,12 @@ class SurfaceConvectionAlgorithmOutsideUserCurve(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {'type': 'alpha', u'reference': u'UserConvectionModels', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8842,7 +8990,7 @@ class SurfaceConvectionAlgorithmOutsideUserCurve(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -8851,7 +8999,6 @@ class SurfaceConvectionAlgorithmOutsideUserCurve(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -8865,10 +9012,12 @@ class SurfaceConvectionAlgorithmOutsideUserCurve(object):
 
     @wind_speed_type_for_curve.setter
     def wind_speed_type_for_curve(self, value="HeightAdjust"):
-        """  Corresponds to IDD Field `wind_speed_type_for_curve`
+        """  Corresponds to IDD Field `Wind Speed Type for Curve`
+        
+        {u'default': u'HeightAdjust', u'type': u'choice', u'key': [u'WeatherFile', u'HeightAdjust', u'ParallelComponent', u'ParallelComponentHeightAdjust'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `wind_speed_type_for_curve`
+            value (str): value for IDD Field `Wind Speed Type for Curve`
                 Accepted values are:
                       - WeatherFile
                       - HeightAdjust
@@ -8884,7 +9033,7 @@ class SurfaceConvectionAlgorithmOutsideUserCurve(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `wind_speed_type_for_curve`'.format(value))
             if ',' in value:
@@ -8912,7 +9061,6 @@ class SurfaceConvectionAlgorithmOutsideUserCurve(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `wind_speed_type_for_curve`'.format(value))
             value = vals[value_lower]
-
         self._data["Wind Speed Type for Curve"] = value
 
     @property
@@ -8926,12 +9074,14 @@ class SurfaceConvectionAlgorithmOutsideUserCurve(object):
 
     @hf_function_of_wind_speed_curve_name.setter
     def hf_function_of_wind_speed_curve_name(self, value=None):
-        """  Corresponds to IDD Field `hf_function_of_wind_speed_curve_name`
+        """  Corresponds to IDD Field `Hf Function of Wind Speed Curve Name`
         Curve's "x" is wind speed of the type determined in the previous field (m/s)
         Table:OneIndependentVariable objects can also be used
+        
+        {u'note': [u'Curve\'s "x" is wind speed of the type determined in the previous field (m/s)', u'Table:OneIndependentVariable objects can also be used'], 'type': 'alpha', u'object-list': u'ExponentCurves', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `hf_function_of_wind_speed_curve_name`
+            value (str): value for IDD Field `Hf Function of Wind Speed Curve Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8941,7 +9091,7 @@ class SurfaceConvectionAlgorithmOutsideUserCurve(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `hf_function_of_wind_speed_curve_name`'.format(value))
             if ',' in value:
@@ -8950,7 +9100,6 @@ class SurfaceConvectionAlgorithmOutsideUserCurve(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `hf_function_of_wind_speed_curve_name`')
-
         self._data["Hf Function of Wind Speed Curve Name"] = value
 
     @property
@@ -8964,12 +9113,14 @@ class SurfaceConvectionAlgorithmOutsideUserCurve(object):
 
     @hn_function_of_temperature_difference_curve_name.setter
     def hn_function_of_temperature_difference_curve_name(self, value=None):
-        """  Corresponds to IDD Field `hn_function_of_temperature_difference_curve_name`
+        """  Corresponds to IDD Field `Hn Function of Temperature Difference Curve Name`
         Curve's "x" is absolute value of delta-T (Surface temperature minus air temperature, (C))
         Table:OneIndependentVariable object can also be used
+        
+        {u'note': [u'Curve\'s "x" is absolute value of delta-T (Surface temperature minus air temperature, (C))', u'Table:OneIndependentVariable object can also be used'], 'type': 'alpha', u'object-list': u'ExponentCurves', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `hn_function_of_temperature_difference_curve_name`
+            value (str): value for IDD Field `Hn Function of Temperature Difference Curve Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8979,7 +9130,7 @@ class SurfaceConvectionAlgorithmOutsideUserCurve(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `hn_function_of_temperature_difference_curve_name`'.format(value))
             if ',' in value:
@@ -8988,7 +9139,6 @@ class SurfaceConvectionAlgorithmOutsideUserCurve(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `hn_function_of_temperature_difference_curve_name`')
-
         self._data["Hn Function of Temperature Difference Curve Name"] = value
 
     @property
@@ -9002,13 +9152,15 @@ class SurfaceConvectionAlgorithmOutsideUserCurve(object):
 
     @hn_function_of_temperature_difference_divided_by_height_curve_name.setter
     def hn_function_of_temperature_difference_divided_by_height_curve_name(self, value=None):
-        """  Corresponds to IDD Field `hn_function_of_temperature_difference_divided_by_height_curve_name`
+        """  Corresponds to IDD Field `Hn Function of Temperature Difference Divided by Height Curve Name`
         Curve's "x" is absolute value of delta-T/Height (Surface temp minus Air temp)/(vertical length scale), (C/m)
         when used for an outside face the vertical length scale is the exterior facade's overall height
         Table:OneIndependentVariable object can also be used
+        
+        {u'note': [u'Curve\'s "x" is absolute value of delta-T/Height (Surface temp minus Air temp)/(vertical length scale), (C/m)', u"when used for an outside face the vertical length scale is the exterior facade's overall height", u'Table:OneIndependentVariable object can also be used'], 'type': 'alpha', u'object-list': u'ExponentCurves', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `hn_function_of_temperature_difference_divided_by_height_curve_name`
+            value (str): value for IDD Field `Hn Function of Temperature Difference Divided by Height Curve Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9018,7 +9170,7 @@ class SurfaceConvectionAlgorithmOutsideUserCurve(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `hn_function_of_temperature_difference_divided_by_height_curve_name`'.format(value))
             if ',' in value:
@@ -9027,7 +9179,6 @@ class SurfaceConvectionAlgorithmOutsideUserCurve(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `hn_function_of_temperature_difference_divided_by_height_curve_name`')
-
         self._data["Hn Function of Temperature Difference Divided by Height Curve Name"] = value
 
     def check(self):
@@ -9193,10 +9344,12 @@ class SurfacePropertyConvectionCoefficients(object):
 
     @surface_name.setter
     def surface_name(self, value=None):
-        """  Corresponds to IDD Field `surface_name`
+        """  Corresponds to IDD Field `Surface Name`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `surface_name`
+            value (str): value for IDD Field `Surface Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9206,7 +9359,7 @@ class SurfacePropertyConvectionCoefficients(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `surface_name`'.format(value))
             if ',' in value:
@@ -9215,7 +9368,6 @@ class SurfacePropertyConvectionCoefficients(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `surface_name`')
-
         self._data["Surface Name"] = value
 
     @property
@@ -9229,10 +9381,12 @@ class SurfacePropertyConvectionCoefficients(object):
 
     @convection_coefficient_1_location.setter
     def convection_coefficient_1_location(self, value=None):
-        """  Corresponds to IDD Field `convection_coefficient_1_location`
+        """  Corresponds to IDD Field `Convection Coefficient 1 Location`
+        
+        {u'type': u'choice', u'key': [u'Outside', u'Inside'], u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `convection_coefficient_1_location`
+            value (str): value for IDD Field `Convection Coefficient 1 Location`
                 Accepted values are:
                       - Outside
                       - Inside
@@ -9245,7 +9399,7 @@ class SurfacePropertyConvectionCoefficients(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `convection_coefficient_1_location`'.format(value))
             if ',' in value:
@@ -9271,7 +9425,6 @@ class SurfacePropertyConvectionCoefficients(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `convection_coefficient_1_location`'.format(value))
             value = vals[value_lower]
-
         self._data["Convection Coefficient 1 Location"] = value
 
     @property
@@ -9285,10 +9438,12 @@ class SurfacePropertyConvectionCoefficients(object):
 
     @convection_coefficient_1_type.setter
     def convection_coefficient_1_type(self, value=None):
-        """  Corresponds to IDD Field `convection_coefficient_1_type`
+        """  Corresponds to IDD Field `Convection Coefficient 1 Type`
+        
+        {u'type': u'choice', u'key': [u'Value', u'Schedule', u'UserCurve', u'Simple', u'SimpleCombined', u'TARP', u'DOE-2', u'MoWitt', u'AdaptiveConvectionAlgorithm', u'ASHRAEVerticalWall', u'WaltonUnstableHorizontalOrTilt', u'WaltonStableHorizontalOrTilt', u'FisherPedersenCeilingDiffuserWalls', u'FisherPedersenCeilingDiffuserCeiling', u'FisherPedersenCeilingDiffuserFloor', u'AlamdariHammondStableHorizontal', u'AlamdariHammondUnstableHorizontal', u'AlamdariHammondVerticalWall', u'KhalifaEq3WallAwayFromHeat', u'KhalifaEq4CeilingAwayFromHeat', u'KhalifaEq5WallNearHeat', u'KhalifaEq6NonHeatedWalls', u'KhalifaEq7Ceiling', u'AwbiHattonHeatedFloor', u'AwbiHattonHeatedWall', u'BeausoleilMorrisonMixedAssistedWall', u'BeausoleilMorrisonMixedOpposingWall', u'BeausoleilMorrisonMixedStableFloor', u'BeausoleilMorrisonMixedUnstableFloor', u'BeausoleilMorrisonMixedStableCeiling', u'BeausoleilMorrisonMixedUnstableCeiling', u'FohannoPolidoriVerticalWall', u'KaradagChilledCeiling', u'ISO15099Windows', u'GoldsteinNovoselacCeilingDiffuserWindow', u'GoldsteinNovoselacCeilingDiffuserWalls', u'GoldsteinNovoselacCeilingDiffuserFloor', u'NusseltJurges', u'McAdams', u'Mitchell', u'EmmelVertical', u'EmmelRoof', u'ClearRoof'], u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `convection_coefficient_1_type`
+            value (str): value for IDD Field `Convection Coefficient 1 Type`
                 Accepted values are:
                       - Value
                       - Schedule
@@ -9342,7 +9497,7 @@ class SurfacePropertyConvectionCoefficients(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `convection_coefficient_1_type`'.format(value))
             if ',' in value:
@@ -9409,7 +9564,6 @@ class SurfacePropertyConvectionCoefficients(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `convection_coefficient_1_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Convection Coefficient 1 Type"] = value
 
     @property
@@ -9423,12 +9577,14 @@ class SurfacePropertyConvectionCoefficients(object):
 
     @convection_coefficient_1.setter
     def convection_coefficient_1(self, value=None):
-        """  Corresponds to IDD Field `convection_coefficient_1`
+        """  Corresponds to IDD Field `Convection Coefficient 1`
         used if Convection Type=Value, min and max limits are set in HeatBalanceAlgorithm object.
         Default limits are Minimum >= 0.1 and Maximum <= 1000
+        
+        {u'note': [u'used if Convection Type=Value, min and max limits are set in HeatBalanceAlgorithm object.', u'Default limits are Minimum >= 0.1 and Maximum <= 1000'], u'units': u'W/m2-K', 'type': 'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `convection_coefficient_1`
+            value (float): value for IDD Field `Convection Coefficient 1`
                 Units: W/m2-K
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -9439,10 +9595,9 @@ class SurfacePropertyConvectionCoefficients(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `convection_coefficient_1`'.format(value))
-
         self._data["Convection Coefficient 1"] = value
 
     @property
@@ -9456,12 +9611,14 @@ class SurfacePropertyConvectionCoefficients(object):
 
     @convection_coefficient_1_schedule_name.setter
     def convection_coefficient_1_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `convection_coefficient_1_schedule_name`
+        """  Corresponds to IDD Field `Convection Coefficient 1 Schedule Name`
         used if Convection Type=Schedule,  min and max limits are set in HeatBalanceAlgorithm object.
         Default limits are Minimum >= 0.1 and Maximum <= 1000
+        
+        {u'note': [u'used if Convection Type=Schedule,  min and max limits are set in HeatBalanceAlgorithm object.', u'Default limits are Minimum >= 0.1 and Maximum <= 1000'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `convection_coefficient_1_schedule_name`
+            value (str): value for IDD Field `Convection Coefficient 1 Schedule Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9471,7 +9628,7 @@ class SurfacePropertyConvectionCoefficients(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `convection_coefficient_1_schedule_name`'.format(value))
             if ',' in value:
@@ -9480,7 +9637,6 @@ class SurfacePropertyConvectionCoefficients(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `convection_coefficient_1_schedule_name`')
-
         self._data["Convection Coefficient 1 Schedule Name"] = value
 
     @property
@@ -9494,11 +9650,13 @@ class SurfacePropertyConvectionCoefficients(object):
 
     @convection_coefficient_1_user_curve_name.setter
     def convection_coefficient_1_user_curve_name(self, value=None):
-        """  Corresponds to IDD Field `convection_coefficient_1_user_curve_name`
+        """  Corresponds to IDD Field `Convection Coefficient 1 User Curve Name`
         used if Convection Type = UserCurve
+        
+        {u'note': [u'used if Convection Type = UserCurve'], u'type': u'object-list', u'object-list': u'UserConvectionModels', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `convection_coefficient_1_user_curve_name`
+            value (str): value for IDD Field `Convection Coefficient 1 User Curve Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9508,7 +9666,7 @@ class SurfacePropertyConvectionCoefficients(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `convection_coefficient_1_user_curve_name`'.format(value))
             if ',' in value:
@@ -9517,7 +9675,6 @@ class SurfacePropertyConvectionCoefficients(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `convection_coefficient_1_user_curve_name`')
-
         self._data["Convection Coefficient 1 User Curve Name"] = value
 
     @property
@@ -9531,10 +9688,12 @@ class SurfacePropertyConvectionCoefficients(object):
 
     @convection_coefficient_2_location.setter
     def convection_coefficient_2_location(self, value=None):
-        """  Corresponds to IDD Field `convection_coefficient_2_location`
+        """  Corresponds to IDD Field `Convection Coefficient 2 Location`
+        
+        {u'type': u'choice', u'key': [u'Outside', u'Inside'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `convection_coefficient_2_location`
+            value (str): value for IDD Field `Convection Coefficient 2 Location`
                 Accepted values are:
                       - Outside
                       - Inside
@@ -9547,7 +9706,7 @@ class SurfacePropertyConvectionCoefficients(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `convection_coefficient_2_location`'.format(value))
             if ',' in value:
@@ -9573,7 +9732,6 @@ class SurfacePropertyConvectionCoefficients(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `convection_coefficient_2_location`'.format(value))
             value = vals[value_lower]
-
         self._data["Convection Coefficient 2 Location"] = value
 
     @property
@@ -9587,10 +9745,12 @@ class SurfacePropertyConvectionCoefficients(object):
 
     @convection_coefficient_2_type.setter
     def convection_coefficient_2_type(self, value=None):
-        """  Corresponds to IDD Field `convection_coefficient_2_type`
+        """  Corresponds to IDD Field `Convection Coefficient 2 Type`
+        
+        {u'type': u'choice', u'key': [u'Value', u'Schedule', u'UserCurve', u'Simple', u'SimpleCombined', u'TARP', u'DOE-2', u'MoWitt', u'AdaptiveConvectionAlgorithm', u'ASHRAEVerticalWall', u'WaltonUnstableHorizontalOrTilt', u'WaltonStableHorizontalOrTilt', u'FisherPedersenCeilingDiffuserWalls', u'FisherPedersenCeilingDiffuserCeiling', u'FisherPedersenCeilingDiffuserFloor', u'AlamdariHammondStableHorizontal', u'AlamdariHammondUnstableHorizontal', u'AlamdariHammondVerticalWall', u'KhalifaEq3WallAwayFromHeat', u'KhalifaEq4CeilingAwayFromHeat', u'KhalifaEq5WallNearHeat', u'KhalifaEq6NonHeatedWalls', u'KhalifaEq7Ceiling', u'AwbiHattonHeatedFloor', u'AwbiHattonHeatedWall', u'BeausoleilMorrisonMixedAssistedWall', u'BeausoleilMorrisonMixedOpposingWall', u'BeausoleilMorrisonMixedStableFloor', u'BeausoleilMorrisonMixedUnstableFloor', u'BeausoleilMorrisonMixedStableCeiling', u'BeausoleilMorrisonMixedUnstableCeiling', u'FohannoPolidoriVerticalWall', u'KaradagChilledCeiling', u'ISO15099Windows', u'GoldsteinNovoselacCeilingDiffuserWindow', u'GoldsteinNovoselacCeilingDiffuserWalls', u'GoldsteinNovoselacCeilingDiffuserFloor', u'NusseltJurges', u'McAdams', u'Mitchell', u'EmmelVertical', u'EmmelRoof', u'ClearRoof'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `convection_coefficient_2_type`
+            value (str): value for IDD Field `Convection Coefficient 2 Type`
                 Accepted values are:
                       - Value
                       - Schedule
@@ -9644,7 +9804,7 @@ class SurfacePropertyConvectionCoefficients(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `convection_coefficient_2_type`'.format(value))
             if ',' in value:
@@ -9711,7 +9871,6 @@ class SurfacePropertyConvectionCoefficients(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `convection_coefficient_2_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Convection Coefficient 2 Type"] = value
 
     @property
@@ -9725,12 +9884,14 @@ class SurfacePropertyConvectionCoefficients(object):
 
     @convection_coefficient_2.setter
     def convection_coefficient_2(self, value=0.1 ):
-        """  Corresponds to IDD Field `convection_coefficient_2`
+        """  Corresponds to IDD Field `Convection Coefficient 2`
         used if Convection Type=Value, min and max limits are set in HeatBalanceAlgorithm object.
         Default limits are Minimum >= 0.1 and Maximum <= 1000
+        
+        {u'note': [u'used if Convection Type=Value, min and max limits are set in HeatBalanceAlgorithm object.', u'Default limits are Minimum >= 0.1 and Maximum <= 1000'], u'default': '0.1', u'units': u'W/m2-K', 'type': 'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `convection_coefficient_2`
+            value (float): value for IDD Field `Convection Coefficient 2`
                 Units: W/m2-K
                 Default value: 0.1
                 if `value` is None it will not be checked against the
@@ -9742,10 +9903,9 @@ class SurfacePropertyConvectionCoefficients(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `convection_coefficient_2`'.format(value))
-
         self._data["Convection Coefficient 2"] = value
 
     @property
@@ -9759,12 +9919,14 @@ class SurfacePropertyConvectionCoefficients(object):
 
     @convection_coefficient_2_schedule_name.setter
     def convection_coefficient_2_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `convection_coefficient_2_schedule_name`
+        """  Corresponds to IDD Field `Convection Coefficient 2 Schedule Name`
         used if Convection Type=Schedule,  min and max limits are set in HeatBalanceAlgorithm object.
         Default limits are Minimum >= 0.1 and Maximum <= 1000
+        
+        {u'note': [u'used if Convection Type=Schedule,  min and max limits are set in HeatBalanceAlgorithm object.', u'Default limits are Minimum >= 0.1 and Maximum <= 1000'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `convection_coefficient_2_schedule_name`
+            value (str): value for IDD Field `Convection Coefficient 2 Schedule Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9774,7 +9936,7 @@ class SurfacePropertyConvectionCoefficients(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `convection_coefficient_2_schedule_name`'.format(value))
             if ',' in value:
@@ -9783,7 +9945,6 @@ class SurfacePropertyConvectionCoefficients(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `convection_coefficient_2_schedule_name`')
-
         self._data["Convection Coefficient 2 Schedule Name"] = value
 
     @property
@@ -9797,11 +9958,13 @@ class SurfacePropertyConvectionCoefficients(object):
 
     @convection_coefficient_2_user_curve_name.setter
     def convection_coefficient_2_user_curve_name(self, value=None):
-        """  Corresponds to IDD Field `convection_coefficient_2_user_curve_name`
+        """  Corresponds to IDD Field `Convection Coefficient 2 User Curve Name`
         used if Convection Type = UserCurve
+        
+        {u'note': [u'used if Convection Type = UserCurve'], u'type': u'object-list', u'object-list': u'UserConvectionModels', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `convection_coefficient_2_user_curve_name`
+            value (str): value for IDD Field `Convection Coefficient 2 User Curve Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9811,7 +9974,7 @@ class SurfacePropertyConvectionCoefficients(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `convection_coefficient_2_user_curve_name`'.format(value))
             if ',' in value:
@@ -9820,7 +9983,6 @@ class SurfacePropertyConvectionCoefficients(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `convection_coefficient_2_user_curve_name`')
-
         self._data["Convection Coefficient 2 User Curve Name"] = value
 
     def check(self):
@@ -9986,10 +10148,12 @@ class SurfacePropertyConvectionCoefficientsMultipleSurface(object):
 
     @surface_type.setter
     def surface_type(self, value=None):
-        """  Corresponds to IDD Field `surface_type`
+        """  Corresponds to IDD Field `Surface Type`
+        
+        {u'type': u'choice', u'key': [u'AllExteriorSurfaces', u'AllExteriorWindows', u'AllExteriorWalls', u'AllExteriorRoofs', u'AllExteriorFloors', u'AllInteriorSurfaces', u'AllInteriorWalls', u'AllInteriorWindows', u'AllInteriorCeilings', u'AllInteriorFloors'], u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `surface_type`
+            value (str): value for IDD Field `Surface Type`
                 Accepted values are:
                       - AllExteriorSurfaces
                       - AllExteriorWindows
@@ -10010,7 +10174,7 @@ class SurfacePropertyConvectionCoefficientsMultipleSurface(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `surface_type`'.format(value))
             if ',' in value:
@@ -10044,7 +10208,6 @@ class SurfacePropertyConvectionCoefficientsMultipleSurface(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `surface_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Surface Type"] = value
 
     @property
@@ -10058,10 +10221,12 @@ class SurfacePropertyConvectionCoefficientsMultipleSurface(object):
 
     @convection_coefficient_1_location.setter
     def convection_coefficient_1_location(self, value=None):
-        """  Corresponds to IDD Field `convection_coefficient_1_location`
+        """  Corresponds to IDD Field `Convection Coefficient 1 Location`
+        
+        {u'type': u'choice', u'key': [u'Outside', u'Inside'], u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `convection_coefficient_1_location`
+            value (str): value for IDD Field `Convection Coefficient 1 Location`
                 Accepted values are:
                       - Outside
                       - Inside
@@ -10074,7 +10239,7 @@ class SurfacePropertyConvectionCoefficientsMultipleSurface(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `convection_coefficient_1_location`'.format(value))
             if ',' in value:
@@ -10100,7 +10265,6 @@ class SurfacePropertyConvectionCoefficientsMultipleSurface(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `convection_coefficient_1_location`'.format(value))
             value = vals[value_lower]
-
         self._data["Convection Coefficient 1 Location"] = value
 
     @property
@@ -10114,10 +10278,12 @@ class SurfacePropertyConvectionCoefficientsMultipleSurface(object):
 
     @convection_coefficient_1_type.setter
     def convection_coefficient_1_type(self, value=None):
-        """  Corresponds to IDD Field `convection_coefficient_1_type`
+        """  Corresponds to IDD Field `Convection Coefficient 1 Type`
+        
+        {u'type': u'choice', u'key': [u'Value', u'Schedule', u'Simple', u'SimpleCombined', u'TARP', u'DOE-2', u'MoWitt', u'AdaptiveConvectionAlgorithm', u'ASHRAEVerticalWall', u'WaltonUnstableHorizontalOrTilt', u'WaltonStableHorizontalOrTilt', u'FisherPedersenCeilingDiffuserWalls', u'FisherPedersenCeilingDiffuserCeiling', u'FisherPedersenCeilingDiffuserFloor', u'AlamdariHammondStableHorizontal', u'AlamdariHammondUnstableHorizontal', u'AlamdariHammondVerticalWall', u'KhalifaEq3WallAwayFromHeat', u'KhalifaEq4CeilingAwayFromHeat', u'KhalifaEq5WallNearHeat', u'KhalifaEq6NonHeatedWalls', u'KhalifaEq7Ceiling', u'AwbiHattonHeatedFloor', u'AwbiHattonHeatedWall', u'BeausoleilMorrisonMixedAssistedWall', u'BeausoleilMorrisonMixedOpposingWall', u'BeausoleilMorrisonMixedStableFloor', u'BeausoleilMorrisonMixedUnstableFloor', u'BeausoleilMorrisonMixedStableCeiling', u'BeausoleilMorrisonMixedUnstableCeiling', u'FohannoPolidoriVerticalWall', u'KaradagChilledCeiling', u'ISO15099Windows', u'GoldsteinNovoselacCeilingDiffuserWindow', u'GoldsteinNovoselacCeilingDiffuserWalls', u'GoldsteinNovoselacCeilingDiffuserFloor', u'NusseltJurges', u'McAdams', u'Mitchell', u'BlockenWindard', u'EmmelVertical', u'EmmelRoof', u'ClearRoof', u'UserCurve'], u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `convection_coefficient_1_type`
+            value (str): value for IDD Field `Convection Coefficient 1 Type`
                 Accepted values are:
                       - Value
                       - Schedule
@@ -10172,7 +10338,7 @@ class SurfacePropertyConvectionCoefficientsMultipleSurface(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `convection_coefficient_1_type`'.format(value))
             if ',' in value:
@@ -10240,7 +10406,6 @@ class SurfacePropertyConvectionCoefficientsMultipleSurface(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `convection_coefficient_1_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Convection Coefficient 1 Type"] = value
 
     @property
@@ -10254,12 +10419,14 @@ class SurfacePropertyConvectionCoefficientsMultipleSurface(object):
 
     @convection_coefficient_1.setter
     def convection_coefficient_1(self, value=None):
-        """  Corresponds to IDD Field `convection_coefficient_1`
+        """  Corresponds to IDD Field `Convection Coefficient 1`
         used if Convection Type=Value, min and max limits are set in HeatBalanceAlgorithm object.
         Default limits are Minimum >= 0.1 and Maximum <= 1000
+        
+        {u'note': [u'used if Convection Type=Value, min and max limits are set in HeatBalanceAlgorithm object.', u'Default limits are Minimum >= 0.1 and Maximum <= 1000'], u'units': u'W/m2-K', 'type': 'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `convection_coefficient_1`
+            value (float): value for IDD Field `Convection Coefficient 1`
                 Units: W/m2-K
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -10270,10 +10437,9 @@ class SurfacePropertyConvectionCoefficientsMultipleSurface(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `convection_coefficient_1`'.format(value))
-
         self._data["Convection Coefficient 1"] = value
 
     @property
@@ -10287,12 +10453,14 @@ class SurfacePropertyConvectionCoefficientsMultipleSurface(object):
 
     @convection_coefficient_1_schedule_name.setter
     def convection_coefficient_1_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `convection_coefficient_1_schedule_name`
+        """  Corresponds to IDD Field `Convection Coefficient 1 Schedule Name`
         used if Convection Type=Schedule,  min and max limits are set in HeatBalanceAlgorithm object.
         Default limits are Minimum >= 0.1 and Maximum <= 1000
+        
+        {u'note': [u'used if Convection Type=Schedule,  min and max limits are set in HeatBalanceAlgorithm object.', u'Default limits are Minimum >= 0.1 and Maximum <= 1000'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `convection_coefficient_1_schedule_name`
+            value (str): value for IDD Field `Convection Coefficient 1 Schedule Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -10302,7 +10470,7 @@ class SurfacePropertyConvectionCoefficientsMultipleSurface(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `convection_coefficient_1_schedule_name`'.format(value))
             if ',' in value:
@@ -10311,7 +10479,6 @@ class SurfacePropertyConvectionCoefficientsMultipleSurface(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `convection_coefficient_1_schedule_name`')
-
         self._data["Convection Coefficient 1 Schedule Name"] = value
 
     @property
@@ -10325,11 +10492,13 @@ class SurfacePropertyConvectionCoefficientsMultipleSurface(object):
 
     @convection_coefficient_1_user_curve_name.setter
     def convection_coefficient_1_user_curve_name(self, value=None):
-        """  Corresponds to IDD Field `convection_coefficient_1_user_curve_name`
+        """  Corresponds to IDD Field `Convection Coefficient 1 User Curve Name`
         used if Convection Type = UserCurve
+        
+        {u'note': [u'used if Convection Type = UserCurve'], u'type': u'object-list', u'object-list': u'UserConvectionModels', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `convection_coefficient_1_user_curve_name`
+            value (str): value for IDD Field `Convection Coefficient 1 User Curve Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -10339,7 +10508,7 @@ class SurfacePropertyConvectionCoefficientsMultipleSurface(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `convection_coefficient_1_user_curve_name`'.format(value))
             if ',' in value:
@@ -10348,7 +10517,6 @@ class SurfacePropertyConvectionCoefficientsMultipleSurface(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `convection_coefficient_1_user_curve_name`')
-
         self._data["Convection Coefficient 1 User Curve Name"] = value
 
     @property
@@ -10362,10 +10530,12 @@ class SurfacePropertyConvectionCoefficientsMultipleSurface(object):
 
     @convection_coefficient_2_location.setter
     def convection_coefficient_2_location(self, value=None):
-        """  Corresponds to IDD Field `convection_coefficient_2_location`
+        """  Corresponds to IDD Field `Convection Coefficient 2 Location`
+        
+        {u'type': u'choice', u'key': [u'Outside', u'Inside'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `convection_coefficient_2_location`
+            value (str): value for IDD Field `Convection Coefficient 2 Location`
                 Accepted values are:
                       - Outside
                       - Inside
@@ -10378,7 +10548,7 @@ class SurfacePropertyConvectionCoefficientsMultipleSurface(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `convection_coefficient_2_location`'.format(value))
             if ',' in value:
@@ -10404,7 +10574,6 @@ class SurfacePropertyConvectionCoefficientsMultipleSurface(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `convection_coefficient_2_location`'.format(value))
             value = vals[value_lower]
-
         self._data["Convection Coefficient 2 Location"] = value
 
     @property
@@ -10418,10 +10587,12 @@ class SurfacePropertyConvectionCoefficientsMultipleSurface(object):
 
     @convection_coefficient_2_type.setter
     def convection_coefficient_2_type(self, value=None):
-        """  Corresponds to IDD Field `convection_coefficient_2_type`
+        """  Corresponds to IDD Field `Convection Coefficient 2 Type`
+        
+        {u'type': u'choice', u'key': [u'Value', u'Schedule', u'Simple', u'SimpleCombined', u'TARP', u'DOE-2', u'MoWitt', u'AdaptiveConvectionAlgorithm', u'ASHRAEVerticalWall', u'WaltonUnstableHorizontalOrTilt', u'WaltonStableHorizontalOrTilt', u'FisherPedersenCeilingDiffuserWalls', u'FisherPedersenCeilingDiffuserCeiling', u'FisherPedersenCeilingDiffuserFloor', u'AlamdariHammondStableHorizontal', u'AlamdariHammondUnstableHorizontal', u'AlamdariHammondVerticalWall', u'KhalifaEq3WallAwayFromHeat', u'KhalifaEq4CeilingAwayFromHeat', u'KhalifaEq5WallNearHeat', u'KhalifaEq6NonHeatedWalls', u'KhalifaEq7Ceiling', u'AwbiHattonHeatedFloor', u'AwbiHattonHeatedWall', u'BeausoleilMorrisonMixedAssistedWall', u'BeausoleilMorrisonMixedOpposingWall', u'BeausoleilMorrisonMixedStableFloor', u'BeausoleilMorrisonMixedUnstableFloor', u'BeausoleilMorrisonMixedStableCeiling', u'BeausoleilMorrisonMixedUnstableCeiling', u'FohannoPolidoriVerticalWall', u'KaradagChilledCeiling', u'ISO15099Windows', u'GoldsteinNovoselacCeilingDiffuserWindow', u'GoldsteinNovoselacCeilingDiffuserWalls', u'GoldsteinNovoselacCeilingDiffuserFloor', u'NusseltJurges', u'McAdams', u'Mitchell', u'BlockenWindard', u'EmmelVertical', u'EmmelRoof', u'ClearRoof', u'UserCurve'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `convection_coefficient_2_type`
+            value (str): value for IDD Field `Convection Coefficient 2 Type`
                 Accepted values are:
                       - Value
                       - Schedule
@@ -10476,7 +10647,7 @@ class SurfacePropertyConvectionCoefficientsMultipleSurface(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `convection_coefficient_2_type`'.format(value))
             if ',' in value:
@@ -10544,7 +10715,6 @@ class SurfacePropertyConvectionCoefficientsMultipleSurface(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `convection_coefficient_2_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Convection Coefficient 2 Type"] = value
 
     @property
@@ -10558,12 +10728,14 @@ class SurfacePropertyConvectionCoefficientsMultipleSurface(object):
 
     @convection_coefficient_2.setter
     def convection_coefficient_2(self, value=0.1 ):
-        """  Corresponds to IDD Field `convection_coefficient_2`
+        """  Corresponds to IDD Field `Convection Coefficient 2`
         used if Convection Type=Value, min and max limits are set in HeatBalanceAlgorithm object.
         Default limits are Minimum >= 0.1 and Maximum <= 1000
+        
+        {u'note': [u'used if Convection Type=Value, min and max limits are set in HeatBalanceAlgorithm object.', u'Default limits are Minimum >= 0.1 and Maximum <= 1000'], u'default': '0.1', u'units': u'W/m2-K', 'type': 'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `convection_coefficient_2`
+            value (float): value for IDD Field `Convection Coefficient 2`
                 Units: W/m2-K
                 Default value: 0.1
                 if `value` is None it will not be checked against the
@@ -10575,10 +10747,9 @@ class SurfacePropertyConvectionCoefficientsMultipleSurface(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `convection_coefficient_2`'.format(value))
-
         self._data["Convection Coefficient 2"] = value
 
     @property
@@ -10592,12 +10763,14 @@ class SurfacePropertyConvectionCoefficientsMultipleSurface(object):
 
     @convection_coefficient_2_schedule_name.setter
     def convection_coefficient_2_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `convection_coefficient_2_schedule_name`
+        """  Corresponds to IDD Field `Convection Coefficient 2 Schedule Name`
         used if Convection Type=Schedule,  min and max limits are set in HeatBalanceAlgorithm object.
         Default limits are Minimum >= 0.1 and Maximum <= 1000
+        
+        {u'note': [u'used if Convection Type=Schedule,  min and max limits are set in HeatBalanceAlgorithm object.', u'Default limits are Minimum >= 0.1 and Maximum <= 1000'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `convection_coefficient_2_schedule_name`
+            value (str): value for IDD Field `Convection Coefficient 2 Schedule Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -10607,7 +10780,7 @@ class SurfacePropertyConvectionCoefficientsMultipleSurface(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `convection_coefficient_2_schedule_name`'.format(value))
             if ',' in value:
@@ -10616,7 +10789,6 @@ class SurfacePropertyConvectionCoefficientsMultipleSurface(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `convection_coefficient_2_schedule_name`')
-
         self._data["Convection Coefficient 2 Schedule Name"] = value
 
     @property
@@ -10630,11 +10802,13 @@ class SurfacePropertyConvectionCoefficientsMultipleSurface(object):
 
     @convection_coefficient_2_user_curve_name.setter
     def convection_coefficient_2_user_curve_name(self, value=None):
-        """  Corresponds to IDD Field `convection_coefficient_2_user_curve_name`
+        """  Corresponds to IDD Field `Convection Coefficient 2 User Curve Name`
         used if Convection Type = UserCurve
+        
+        {u'note': [u'used if Convection Type = UserCurve'], u'type': u'object-list', u'object-list': u'UserConvectionModels', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `convection_coefficient_2_user_curve_name`
+            value (str): value for IDD Field `Convection Coefficient 2 User Curve Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -10644,7 +10818,7 @@ class SurfacePropertyConvectionCoefficientsMultipleSurface(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `convection_coefficient_2_user_curve_name`'.format(value))
             if ',' in value:
@@ -10653,7 +10827,6 @@ class SurfacePropertyConvectionCoefficientsMultipleSurface(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `convection_coefficient_2_user_curve_name`')
-
         self._data["Convection Coefficient 2 User Curve Name"] = value
 
     def check(self):
@@ -10770,10 +10943,12 @@ class SurfacePropertiesVaporCoefficients(object):
 
     @surface_name.setter
     def surface_name(self, value=None):
-        """  Corresponds to IDD Field `surface_name`
+        """  Corresponds to IDD Field `Surface Name`
+        
+        {u'type': u'object-list', u'object-list': u'SurfaceNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `surface_name`
+            value (str): value for IDD Field `Surface Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -10783,7 +10958,7 @@ class SurfacePropertiesVaporCoefficients(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `surface_name`'.format(value))
             if ',' in value:
@@ -10792,7 +10967,6 @@ class SurfacePropertiesVaporCoefficients(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `surface_name`')
-
         self._data["Surface Name"] = value
 
     @property
@@ -10806,10 +10980,12 @@ class SurfacePropertiesVaporCoefficients(object):
 
     @constant_external_vapor_transfer_coefficient.setter
     def constant_external_vapor_transfer_coefficient(self, value="No"):
-        """  Corresponds to IDD Field `constant_external_vapor_transfer_coefficient`
+        """  Corresponds to IDD Field `Constant External Vapor Transfer Coefficient`
+        
+        {u'default': u'No', u'type': u'choice', u'key': [u'Yes', u'No'], u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `constant_external_vapor_transfer_coefficient`
+            value (str): value for IDD Field `Constant External Vapor Transfer Coefficient`
                 Accepted values are:
                       - Yes
                       - No
@@ -10823,7 +10999,7 @@ class SurfacePropertiesVaporCoefficients(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `constant_external_vapor_transfer_coefficient`'.format(value))
             if ',' in value:
@@ -10849,7 +11025,6 @@ class SurfacePropertiesVaporCoefficients(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `constant_external_vapor_transfer_coefficient`'.format(value))
             value = vals[value_lower]
-
         self._data["Constant External Vapor Transfer Coefficient"] = value
 
     @property
@@ -10863,10 +11038,12 @@ class SurfacePropertiesVaporCoefficients(object):
 
     @external_vapor_coefficient_value.setter
     def external_vapor_coefficient_value(self, value=0.0 ):
-        """  Corresponds to IDD Field `external_vapor_coefficient_value`
+        """  Corresponds to IDD Field `External Vapor Coefficient Value`
+        
+        {u'units': u'kg/Pa-s-m2', u'default': '0.0', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `external_vapor_coefficient_value`
+            value (float): value for IDD Field `External Vapor Coefficient Value`
                 Units: kg/Pa-s-m2
                 Default value: 0.0
                 value >= 0.0
@@ -10879,13 +11056,12 @@ class SurfacePropertiesVaporCoefficients(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `external_vapor_coefficient_value`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `external_vapor_coefficient_value`')
-
         self._data["External Vapor Coefficient Value"] = value
 
     @property
@@ -10899,10 +11075,12 @@ class SurfacePropertiesVaporCoefficients(object):
 
     @constant_internal_vapor_transfer_coefficient.setter
     def constant_internal_vapor_transfer_coefficient(self, value="No"):
-        """  Corresponds to IDD Field `constant_internal_vapor_transfer_coefficient`
+        """  Corresponds to IDD Field `Constant Internal vapor Transfer Coefficient`
+        
+        {u'default': u'No', u'type': u'choice', u'key': [u'Yes', u'No'], u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `constant_internal_vapor_transfer_coefficient`
+            value (str): value for IDD Field `Constant Internal vapor Transfer Coefficient`
                 Accepted values are:
                       - Yes
                       - No
@@ -10916,7 +11094,7 @@ class SurfacePropertiesVaporCoefficients(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `constant_internal_vapor_transfer_coefficient`'.format(value))
             if ',' in value:
@@ -10942,7 +11120,6 @@ class SurfacePropertiesVaporCoefficients(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `constant_internal_vapor_transfer_coefficient`'.format(value))
             value = vals[value_lower]
-
         self._data["Constant Internal vapor Transfer Coefficient"] = value
 
     @property
@@ -10956,10 +11133,12 @@ class SurfacePropertiesVaporCoefficients(object):
 
     @internal_vapor_coefficient_value.setter
     def internal_vapor_coefficient_value(self, value=0.0 ):
-        """  Corresponds to IDD Field `internal_vapor_coefficient_value`
+        """  Corresponds to IDD Field `Internal Vapor Coefficient Value`
+        
+        {u'units': u'kg/Pa-s-m2', u'default': '0.0', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `internal_vapor_coefficient_value`
+            value (float): value for IDD Field `Internal Vapor Coefficient Value`
                 Units: kg/Pa-s-m2
                 Default value: 0.0
                 value >= 0.0
@@ -10972,13 +11151,12 @@ class SurfacePropertiesVaporCoefficients(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `internal_vapor_coefficient_value`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `internal_vapor_coefficient_value`')
-
         self._data["Internal Vapor Coefficient Value"] = value
 
     def check(self):
@@ -11220,10 +11398,12 @@ class SurfacePropertyExteriorNaturalVentedCavity(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {u'type': u'alpha', u'reference': u'VentedCavityNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -11233,7 +11413,7 @@ class SurfacePropertyExteriorNaturalVentedCavity(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -11242,7 +11422,6 @@ class SurfacePropertyExteriorNaturalVentedCavity(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -11256,11 +11435,13 @@ class SurfacePropertyExteriorNaturalVentedCavity(object):
 
     @boundary_conditions_model_name.setter
     def boundary_conditions_model_name(self, value=None):
-        """  Corresponds to IDD Field `boundary_conditions_model_name`
+        """  Corresponds to IDD Field `Boundary Conditions Model Name`
         Enter the name of a SurfaceProperty:OtherSideConditionsModel object
+        
+        {u'note': [u'Enter the name of a SurfaceProperty:OtherSideConditionsModel object'], u'type': u'object-list', u'object-list': u'OSCMNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `boundary_conditions_model_name`
+            value (str): value for IDD Field `Boundary Conditions Model Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -11270,7 +11451,7 @@ class SurfacePropertyExteriorNaturalVentedCavity(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `boundary_conditions_model_name`'.format(value))
             if ',' in value:
@@ -11279,7 +11460,6 @@ class SurfacePropertyExteriorNaturalVentedCavity(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `boundary_conditions_model_name`')
-
         self._data["Boundary Conditions Model Name"] = value
 
     @property
@@ -11293,10 +11473,12 @@ class SurfacePropertyExteriorNaturalVentedCavity(object):
 
     @area_fraction_of_openings.setter
     def area_fraction_of_openings(self, value=None):
-        """  Corresponds to IDD Field `area_fraction_of_openings`
+        """  Corresponds to IDD Field `Area Fraction of Openings`
+        
+        {u'units': u'dimensionless', u'minimum>': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `area_fraction_of_openings`
+            value (float): value for IDD Field `Area Fraction of Openings`
                 Units: dimensionless
                 value > 0.0
                 value <= 1.0
@@ -11309,7 +11491,7 @@ class SurfacePropertyExteriorNaturalVentedCavity(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `area_fraction_of_openings`'.format(value))
             if value <= 0.0:
@@ -11318,7 +11500,6 @@ class SurfacePropertyExteriorNaturalVentedCavity(object):
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `area_fraction_of_openings`')
-
         self._data["Area Fraction of Openings"] = value
 
     @property
@@ -11332,10 +11513,12 @@ class SurfacePropertyExteriorNaturalVentedCavity(object):
 
     @thermal_emissivity_of_exterior_baffle_material.setter
     def thermal_emissivity_of_exterior_baffle_material(self, value=None):
-        """  Corresponds to IDD Field `thermal_emissivity_of_exterior_baffle_material`
+        """  Corresponds to IDD Field `Thermal Emissivity of Exterior Baffle Material`
+        
+        {u'units': u'dimensionless', u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `thermal_emissivity_of_exterior_baffle_material`
+            value (float): value for IDD Field `Thermal Emissivity of Exterior Baffle Material`
                 Units: dimensionless
                 value >= 0.0
                 value <= 1.0
@@ -11348,7 +11531,7 @@ class SurfacePropertyExteriorNaturalVentedCavity(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `thermal_emissivity_of_exterior_baffle_material`'.format(value))
             if value < 0.0:
@@ -11357,7 +11540,6 @@ class SurfacePropertyExteriorNaturalVentedCavity(object):
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `thermal_emissivity_of_exterior_baffle_material`')
-
         self._data["Thermal Emissivity of Exterior Baffle Material"] = value
 
     @property
@@ -11371,10 +11553,12 @@ class SurfacePropertyExteriorNaturalVentedCavity(object):
 
     @solar_absorbtivity_of_exterior_baffle.setter
     def solar_absorbtivity_of_exterior_baffle(self, value=None):
-        """  Corresponds to IDD Field `solar_absorbtivity_of_exterior_baffle`
+        """  Corresponds to IDD Field `Solar Absorbtivity of Exterior Baffle`
+        
+        {u'units': u'dimensionless', u'minimum': '0.0', u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `solar_absorbtivity_of_exterior_baffle`
+            value (float): value for IDD Field `Solar Absorbtivity of Exterior Baffle`
                 Units: dimensionless
                 value >= 0.0
                 value <= 1.0
@@ -11387,7 +11571,7 @@ class SurfacePropertyExteriorNaturalVentedCavity(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `solar_absorbtivity_of_exterior_baffle`'.format(value))
             if value < 0.0:
@@ -11396,7 +11580,6 @@ class SurfacePropertyExteriorNaturalVentedCavity(object):
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `solar_absorbtivity_of_exterior_baffle`')
-
         self._data["Solar Absorbtivity of Exterior Baffle"] = value
 
     @property
@@ -11410,10 +11593,12 @@ class SurfacePropertyExteriorNaturalVentedCavity(object):
 
     @height_scale_for_buoyancydriven_ventilation.setter
     def height_scale_for_buoyancydriven_ventilation(self, value=None):
-        """  Corresponds to IDD Field `height_scale_for_buoyancydriven_ventilation`
+        """  Corresponds to IDD Field `Height Scale for Buoyancy-Driven Ventilation`
+        
+        {u'units': u'm', u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `height_scale_for_buoyancydriven_ventilation`
+            value (float): value for IDD Field `Height Scale for Buoyancy-Driven Ventilation`
                 Units: m
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -11425,13 +11610,12 @@ class SurfacePropertyExteriorNaturalVentedCavity(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `height_scale_for_buoyancydriven_ventilation`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `height_scale_for_buoyancydriven_ventilation`')
-
         self._data["Height Scale for Buoyancy-Driven Ventilation"] = value
 
     @property
@@ -11445,11 +11629,13 @@ class SurfacePropertyExteriorNaturalVentedCavity(object):
 
     @effective_thickness_of_cavity_behind_exterior_baffle.setter
     def effective_thickness_of_cavity_behind_exterior_baffle(self, value=None):
-        """  Corresponds to IDD Field `effective_thickness_of_cavity_behind_exterior_baffle`
+        """  Corresponds to IDD Field `Effective Thickness of Cavity Behind Exterior Baffle`
         if corrugated, use average depth
+        
+        {u'units': u'm', u'note': [u'if corrugated, use average depth'], u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `effective_thickness_of_cavity_behind_exterior_baffle`
+            value (float): value for IDD Field `Effective Thickness of Cavity Behind Exterior Baffle`
                 Units: m
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -11461,13 +11647,12 @@ class SurfacePropertyExteriorNaturalVentedCavity(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `effective_thickness_of_cavity_behind_exterior_baffle`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `effective_thickness_of_cavity_behind_exterior_baffle`')
-
         self._data["Effective Thickness of Cavity Behind Exterior Baffle"] = value
 
     @property
@@ -11481,11 +11666,13 @@ class SurfacePropertyExteriorNaturalVentedCavity(object):
 
     @ratio_of_actual_surface_area_to_projected_surface_area.setter
     def ratio_of_actual_surface_area_to_projected_surface_area(self, value=1.0 ):
-        """  Corresponds to IDD Field `ratio_of_actual_surface_area_to_projected_surface_area`
+        """  Corresponds to IDD Field `Ratio of Actual Surface Area to Projected Surface Area`
         this parameter is used to help account for corrugations in the collector
+        
+        {'pytype': 'float', u'default': '1.0', u'maximum': '2.0', u'note': [u'this parameter is used to help account for corrugations in the collector'], u'minimum': '0.8', u'units': u'dimensionless', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `ratio_of_actual_surface_area_to_projected_surface_area`
+            value (float): value for IDD Field `Ratio of Actual Surface Area to Projected Surface Area`
                 Units: dimensionless
                 Default value: 1.0
                 value >= 0.8
@@ -11499,7 +11686,7 @@ class SurfacePropertyExteriorNaturalVentedCavity(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `ratio_of_actual_surface_area_to_projected_surface_area`'.format(value))
             if value < 0.8:
@@ -11508,7 +11695,6 @@ class SurfacePropertyExteriorNaturalVentedCavity(object):
             if value > 2.0:
                 raise ValueError('value need to be smaller 2.0 '
                                  'for field `ratio_of_actual_surface_area_to_projected_surface_area`')
-
         self._data["Ratio of Actual Surface Area to Projected Surface Area"] = value
 
     @property
@@ -11522,10 +11708,12 @@ class SurfacePropertyExteriorNaturalVentedCavity(object):
 
     @roughness_of_exterior_surface.setter
     def roughness_of_exterior_surface(self, value=None):
-        """  Corresponds to IDD Field `roughness_of_exterior_surface`
+        """  Corresponds to IDD Field `Roughness of Exterior Surface`
+        
+        {u'type': u'choice', u'key': [u'VeryRough', u'Rough', u'MediumRough', u'MediumSmooth', u'Smooth', u'VerySmooth'], u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `roughness_of_exterior_surface`
+            value (str): value for IDD Field `Roughness of Exterior Surface`
                 Accepted values are:
                       - VeryRough
                       - Rough
@@ -11542,7 +11730,7 @@ class SurfacePropertyExteriorNaturalVentedCavity(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `roughness_of_exterior_surface`'.format(value))
             if ',' in value:
@@ -11572,7 +11760,6 @@ class SurfacePropertyExteriorNaturalVentedCavity(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `roughness_of_exterior_surface`'.format(value))
             value = vals[value_lower]
-
         self._data["Roughness of Exterior Surface"] = value
 
     @property
@@ -11586,10 +11773,12 @@ class SurfacePropertyExteriorNaturalVentedCavity(object):
 
     @effectiveness_for_perforations_with_respect_to_wind.setter
     def effectiveness_for_perforations_with_respect_to_wind(self, value=0.25 ):
-        """  Corresponds to IDD Field `effectiveness_for_perforations_with_respect_to_wind`
+        """  Corresponds to IDD Field `Effectiveness for Perforations with Respect to Wind`
+        
+        {'pytype': 'float', u'default': '0.25', u'minimum>': '0.0', u'maximum': '1.5', u'units': u'dimensionless', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `effectiveness_for_perforations_with_respect_to_wind`
+            value (float): value for IDD Field `Effectiveness for Perforations with Respect to Wind`
                 Units: dimensionless
                 Default value: 0.25
                 value > 0.0
@@ -11603,7 +11792,7 @@ class SurfacePropertyExteriorNaturalVentedCavity(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `effectiveness_for_perforations_with_respect_to_wind`'.format(value))
             if value <= 0.0:
@@ -11612,7 +11801,6 @@ class SurfacePropertyExteriorNaturalVentedCavity(object):
             if value > 1.5:
                 raise ValueError('value need to be smaller 1.5 '
                                  'for field `effectiveness_for_perforations_with_respect_to_wind`')
-
         self._data["Effectiveness for Perforations with Respect to Wind"] = value
 
     @property
@@ -11626,10 +11814,12 @@ class SurfacePropertyExteriorNaturalVentedCavity(object):
 
     @discharge_coefficient_for_openings_with_respect_to_buoyancy_driven_flow.setter
     def discharge_coefficient_for_openings_with_respect_to_buoyancy_driven_flow(self, value=0.65 ):
-        """  Corresponds to IDD Field `discharge_coefficient_for_openings_with_respect_to_buoyancy_driven_flow`
+        """  Corresponds to IDD Field `Discharge Coefficient for Openings with Respect to Buoyancy Driven Flow`
+        
+        {'pytype': 'float', u'default': '0.65', u'minimum>': '0.0', u'maximum': '1.5', u'units': u'dimensionless', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `discharge_coefficient_for_openings_with_respect_to_buoyancy_driven_flow`
+            value (float): value for IDD Field `Discharge Coefficient for Openings with Respect to Buoyancy Driven Flow`
                 Units: dimensionless
                 Default value: 0.65
                 value > 0.0
@@ -11643,7 +11833,7 @@ class SurfacePropertyExteriorNaturalVentedCavity(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `discharge_coefficient_for_openings_with_respect_to_buoyancy_driven_flow`'.format(value))
             if value <= 0.0:
@@ -11652,7 +11842,6 @@ class SurfacePropertyExteriorNaturalVentedCavity(object):
             if value > 1.5:
                 raise ValueError('value need to be smaller 1.5 '
                                  'for field `discharge_coefficient_for_openings_with_respect_to_buoyancy_driven_flow`')
-
         self._data["Discharge Coefficient for Openings with Respect to Buoyancy Driven Flow"] = value
 
     @property
@@ -11666,10 +11855,12 @@ class SurfacePropertyExteriorNaturalVentedCavity(object):
 
     @surface_1_name.setter
     def surface_1_name(self, value=None):
-        """  Corresponds to IDD Field `surface_1_name`
+        """  Corresponds to IDD Field `Surface 1 Name`
+        
+        {'pytype': 'str', u'type': u'object-list', u'object-list': u'AllShadingAndHTSurfNames', u'required-field': True, u'begin-extensible': u''}
 
         Args:
-            value (str): value for IDD Field `surface_1_name`
+            value (str): value for IDD Field `Surface 1 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -11679,7 +11870,7 @@ class SurfacePropertyExteriorNaturalVentedCavity(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `surface_1_name`'.format(value))
             if ',' in value:
@@ -11688,7 +11879,6 @@ class SurfacePropertyExteriorNaturalVentedCavity(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `surface_1_name`')
-
         self._data["Surface 1 Name"] = value
 
     @property
@@ -11702,10 +11892,12 @@ class SurfacePropertyExteriorNaturalVentedCavity(object):
 
     @surface_2_name.setter
     def surface_2_name(self, value=None):
-        """  Corresponds to IDD Field `surface_2_name`
+        """  Corresponds to IDD Field `Surface 2 Name`
+        
+        {u'type': u'object-list', u'object-list': u'AllShadingAndHTSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `surface_2_name`
+            value (str): value for IDD Field `Surface 2 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -11715,7 +11907,7 @@ class SurfacePropertyExteriorNaturalVentedCavity(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `surface_2_name`'.format(value))
             if ',' in value:
@@ -11724,7 +11916,6 @@ class SurfacePropertyExteriorNaturalVentedCavity(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `surface_2_name`')
-
         self._data["Surface 2 Name"] = value
 
     @property
@@ -11738,10 +11929,12 @@ class SurfacePropertyExteriorNaturalVentedCavity(object):
 
     @surface_3_name.setter
     def surface_3_name(self, value=None):
-        """  Corresponds to IDD Field `surface_3_name`
+        """  Corresponds to IDD Field `Surface 3 Name`
+        
+        {u'type': u'object-list', u'object-list': u'AllShadingAndHTSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `surface_3_name`
+            value (str): value for IDD Field `Surface 3 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -11751,7 +11944,7 @@ class SurfacePropertyExteriorNaturalVentedCavity(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `surface_3_name`'.format(value))
             if ',' in value:
@@ -11760,7 +11953,6 @@ class SurfacePropertyExteriorNaturalVentedCavity(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `surface_3_name`')
-
         self._data["Surface 3 Name"] = value
 
     @property
@@ -11774,10 +11966,12 @@ class SurfacePropertyExteriorNaturalVentedCavity(object):
 
     @surface_4_name.setter
     def surface_4_name(self, value=None):
-        """  Corresponds to IDD Field `surface_4_name`
+        """  Corresponds to IDD Field `Surface 4 Name`
+        
+        {u'type': u'object-list', u'object-list': u'AllShadingAndHTSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `surface_4_name`
+            value (str): value for IDD Field `Surface 4 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -11787,7 +11981,7 @@ class SurfacePropertyExteriorNaturalVentedCavity(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `surface_4_name`'.format(value))
             if ',' in value:
@@ -11796,7 +11990,6 @@ class SurfacePropertyExteriorNaturalVentedCavity(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `surface_4_name`')
-
         self._data["Surface 4 Name"] = value
 
     @property
@@ -11810,10 +12003,12 @@ class SurfacePropertyExteriorNaturalVentedCavity(object):
 
     @surface_5_name.setter
     def surface_5_name(self, value=None):
-        """  Corresponds to IDD Field `surface_5_name`
+        """  Corresponds to IDD Field `Surface 5 Name`
+        
+        {u'type': u'object-list', u'object-list': u'AllShadingAndHTSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `surface_5_name`
+            value (str): value for IDD Field `Surface 5 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -11823,7 +12018,7 @@ class SurfacePropertyExteriorNaturalVentedCavity(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `surface_5_name`'.format(value))
             if ',' in value:
@@ -11832,7 +12027,6 @@ class SurfacePropertyExteriorNaturalVentedCavity(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `surface_5_name`')
-
         self._data["Surface 5 Name"] = value
 
     @property
@@ -11846,10 +12040,12 @@ class SurfacePropertyExteriorNaturalVentedCavity(object):
 
     @surface_6_name.setter
     def surface_6_name(self, value=None):
-        """  Corresponds to IDD Field `surface_6_name`
+        """  Corresponds to IDD Field `Surface 6 Name`
+        
+        {u'type': u'object-list', u'object-list': u'AllShadingAndHTSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `surface_6_name`
+            value (str): value for IDD Field `Surface 6 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -11859,7 +12055,7 @@ class SurfacePropertyExteriorNaturalVentedCavity(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `surface_6_name`'.format(value))
             if ',' in value:
@@ -11868,7 +12064,6 @@ class SurfacePropertyExteriorNaturalVentedCavity(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `surface_6_name`')
-
         self._data["Surface 6 Name"] = value
 
     @property
@@ -11882,10 +12077,12 @@ class SurfacePropertyExteriorNaturalVentedCavity(object):
 
     @surface_7_name.setter
     def surface_7_name(self, value=None):
-        """  Corresponds to IDD Field `surface_7_name`
+        """  Corresponds to IDD Field `Surface 7 Name`
+        
+        {u'type': u'object-list', u'object-list': u'AllShadingAndHTSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `surface_7_name`
+            value (str): value for IDD Field `Surface 7 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -11895,7 +12092,7 @@ class SurfacePropertyExteriorNaturalVentedCavity(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `surface_7_name`'.format(value))
             if ',' in value:
@@ -11904,7 +12101,6 @@ class SurfacePropertyExteriorNaturalVentedCavity(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `surface_7_name`')
-
         self._data["Surface 7 Name"] = value
 
     @property
@@ -11918,10 +12114,12 @@ class SurfacePropertyExteriorNaturalVentedCavity(object):
 
     @surface_8_name.setter
     def surface_8_name(self, value=None):
-        """  Corresponds to IDD Field `surface_8_name`
+        """  Corresponds to IDD Field `Surface 8 Name`
+        
+        {u'type': u'object-list', u'object-list': u'AllShadingAndHTSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `surface_8_name`
+            value (str): value for IDD Field `Surface 8 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -11931,7 +12129,7 @@ class SurfacePropertyExteriorNaturalVentedCavity(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `surface_8_name`'.format(value))
             if ',' in value:
@@ -11940,7 +12138,6 @@ class SurfacePropertyExteriorNaturalVentedCavity(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `surface_8_name`')
-
         self._data["Surface 8 Name"] = value
 
     @property
@@ -11954,10 +12151,12 @@ class SurfacePropertyExteriorNaturalVentedCavity(object):
 
     @surface_9_name.setter
     def surface_9_name(self, value=None):
-        """  Corresponds to IDD Field `surface_9_name`
+        """  Corresponds to IDD Field `Surface 9 Name`
+        
+        {u'type': u'object-list', u'object-list': u'AllShadingAndHTSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `surface_9_name`
+            value (str): value for IDD Field `Surface 9 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -11967,7 +12166,7 @@ class SurfacePropertyExteriorNaturalVentedCavity(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `surface_9_name`'.format(value))
             if ',' in value:
@@ -11976,7 +12175,6 @@ class SurfacePropertyExteriorNaturalVentedCavity(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `surface_9_name`')
-
         self._data["Surface 9 Name"] = value
 
     @property
@@ -11990,10 +12188,12 @@ class SurfacePropertyExteriorNaturalVentedCavity(object):
 
     @surface_10_name.setter
     def surface_10_name(self, value=None):
-        """  Corresponds to IDD Field `surface_10_name`
+        """  Corresponds to IDD Field `Surface 10 Name`
+        
+        {u'type': u'object-list', u'object-list': u'AllShadingAndHTSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `surface_10_name`
+            value (str): value for IDD Field `Surface 10 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -12003,7 +12203,7 @@ class SurfacePropertyExteriorNaturalVentedCavity(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `surface_10_name`'.format(value))
             if ',' in value:
@@ -12012,7 +12212,6 @@ class SurfacePropertyExteriorNaturalVentedCavity(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `surface_10_name`')
-
         self._data["Surface 10 Name"] = value
 
     def check(self):
@@ -12117,10 +12316,12 @@ class SurfacePropertySolarIncidentInside(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {'type': 'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -12130,7 +12331,7 @@ class SurfacePropertySolarIncidentInside(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -12139,7 +12340,6 @@ class SurfacePropertySolarIncidentInside(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -12153,10 +12353,12 @@ class SurfacePropertySolarIncidentInside(object):
 
     @surface_name.setter
     def surface_name(self, value=None):
-        """  Corresponds to IDD Field `surface_name`
+        """  Corresponds to IDD Field `Surface Name`
+        
+        {u'type': u'object-list', u'object-list': u'SurfaceNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `surface_name`
+            value (str): value for IDD Field `Surface Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -12166,7 +12368,7 @@ class SurfacePropertySolarIncidentInside(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `surface_name`'.format(value))
             if ',' in value:
@@ -12175,7 +12377,6 @@ class SurfacePropertySolarIncidentInside(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `surface_name`')
-
         self._data["Surface Name"] = value
 
     @property
@@ -12189,10 +12390,12 @@ class SurfacePropertySolarIncidentInside(object):
 
     @construction_name.setter
     def construction_name(self, value=None):
-        """  Corresponds to IDD Field `construction_name`
+        """  Corresponds to IDD Field `Construction Name`
+        
+        {u'type': u'object-list', u'object-list': u'ConstructionNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `construction_name`
+            value (str): value for IDD Field `Construction Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -12202,7 +12405,7 @@ class SurfacePropertySolarIncidentInside(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `construction_name`'.format(value))
             if ',' in value:
@@ -12211,7 +12414,6 @@ class SurfacePropertySolarIncidentInside(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `construction_name`')
-
         self._data["Construction Name"] = value
 
     @property
@@ -12225,10 +12427,12 @@ class SurfacePropertySolarIncidentInside(object):
 
     @inside_surface_incident_sun_solar_radiation_schedule_name.setter
     def inside_surface_incident_sun_solar_radiation_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `inside_surface_incident_sun_solar_radiation_schedule_name`
+        """  Corresponds to IDD Field `Inside Surface Incident Sun Solar Radiation Schedule Name`
+        
+        {u'memo': [u'Values in schedule are expected to be in W/m2'], u'type': u'object-list', u'object-list': u'ScheduleNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `inside_surface_incident_sun_solar_radiation_schedule_name`
+            value (str): value for IDD Field `Inside Surface Incident Sun Solar Radiation Schedule Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -12238,7 +12442,7 @@ class SurfacePropertySolarIncidentInside(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `inside_surface_incident_sun_solar_radiation_schedule_name`'.format(value))
             if ',' in value:
@@ -12247,7 +12451,6 @@ class SurfacePropertySolarIncidentInside(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `inside_surface_incident_sun_solar_radiation_schedule_name`')
-
         self._data["Inside Surface Incident Sun Solar Radiation Schedule Name"] = value
 
     def check(self):
@@ -12384,10 +12587,12 @@ class ComplexFenestrationPropertySolarAbsorbedLayers(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {'type': 'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -12397,7 +12602,7 @@ class ComplexFenestrationPropertySolarAbsorbedLayers(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -12406,7 +12611,6 @@ class ComplexFenestrationPropertySolarAbsorbedLayers(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -12420,10 +12624,12 @@ class ComplexFenestrationPropertySolarAbsorbedLayers(object):
 
     @fenestration_surface.setter
     def fenestration_surface(self, value=None):
-        """  Corresponds to IDD Field `fenestration_surface`
+        """  Corresponds to IDD Field `Fenestration Surface`
+        
+        {u'type': u'object-list', u'object-list': u'SubSurfNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `fenestration_surface`
+            value (str): value for IDD Field `Fenestration Surface`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -12433,7 +12639,7 @@ class ComplexFenestrationPropertySolarAbsorbedLayers(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `fenestration_surface`'.format(value))
             if ',' in value:
@@ -12442,7 +12648,6 @@ class ComplexFenestrationPropertySolarAbsorbedLayers(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `fenestration_surface`')
-
         self._data["Fenestration Surface"] = value
 
     @property
@@ -12456,10 +12661,12 @@ class ComplexFenestrationPropertySolarAbsorbedLayers(object):
 
     @construction_name.setter
     def construction_name(self, value=None):
-        """  Corresponds to IDD Field `construction_name`
+        """  Corresponds to IDD Field `Construction Name`
+        
+        {u'type': u'object-list', u'object-list': u'ComplexFenestrationStates', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `construction_name`
+            value (str): value for IDD Field `Construction Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -12469,7 +12676,7 @@ class ComplexFenestrationPropertySolarAbsorbedLayers(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `construction_name`'.format(value))
             if ',' in value:
@@ -12478,7 +12685,6 @@ class ComplexFenestrationPropertySolarAbsorbedLayers(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `construction_name`')
-
         self._data["Construction Name"] = value
 
     @property
@@ -12492,10 +12698,12 @@ class ComplexFenestrationPropertySolarAbsorbedLayers(object):
 
     @layer_1_solar_radiation_absorbed_schedule_name.setter
     def layer_1_solar_radiation_absorbed_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `layer_1_solar_radiation_absorbed_schedule_name`
+        """  Corresponds to IDD Field `Layer 1 Solar Radiation Absorbed Schedule Name`
+        
+        {u'memo': [u'Values in schedule are expected to be in W/m2'], u'type': u'object-list', u'object-list': u'ScheduleNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `layer_1_solar_radiation_absorbed_schedule_name`
+            value (str): value for IDD Field `Layer 1 Solar Radiation Absorbed Schedule Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -12505,7 +12713,7 @@ class ComplexFenestrationPropertySolarAbsorbedLayers(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `layer_1_solar_radiation_absorbed_schedule_name`'.format(value))
             if ',' in value:
@@ -12514,7 +12722,6 @@ class ComplexFenestrationPropertySolarAbsorbedLayers(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `layer_1_solar_radiation_absorbed_schedule_name`')
-
         self._data["Layer 1 Solar Radiation Absorbed Schedule Name"] = value
 
     @property
@@ -12528,10 +12735,12 @@ class ComplexFenestrationPropertySolarAbsorbedLayers(object):
 
     @layer_2_solar_radiation_absorbed_schedule_name.setter
     def layer_2_solar_radiation_absorbed_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `layer_2_solar_radiation_absorbed_schedule_name`
+        """  Corresponds to IDD Field `Layer 2 Solar Radiation Absorbed Schedule Name`
+        
+        {u'memo': [u'Values in schedule are expected to be in W/m2'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `layer_2_solar_radiation_absorbed_schedule_name`
+            value (str): value for IDD Field `Layer 2 Solar Radiation Absorbed Schedule Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -12541,7 +12750,7 @@ class ComplexFenestrationPropertySolarAbsorbedLayers(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `layer_2_solar_radiation_absorbed_schedule_name`'.format(value))
             if ',' in value:
@@ -12550,7 +12759,6 @@ class ComplexFenestrationPropertySolarAbsorbedLayers(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `layer_2_solar_radiation_absorbed_schedule_name`')
-
         self._data["Layer 2 Solar Radiation Absorbed Schedule Name"] = value
 
     @property
@@ -12564,10 +12772,12 @@ class ComplexFenestrationPropertySolarAbsorbedLayers(object):
 
     @layer_3_solar_radiation_absorbed_schedule_name.setter
     def layer_3_solar_radiation_absorbed_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `layer_3_solar_radiation_absorbed_schedule_name`
+        """  Corresponds to IDD Field `Layer 3 Solar Radiation Absorbed Schedule Name`
+        
+        {u'memo': [u'Values in schedule are expected to be in W/m2'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `layer_3_solar_radiation_absorbed_schedule_name`
+            value (str): value for IDD Field `Layer 3 Solar Radiation Absorbed Schedule Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -12577,7 +12787,7 @@ class ComplexFenestrationPropertySolarAbsorbedLayers(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `layer_3_solar_radiation_absorbed_schedule_name`'.format(value))
             if ',' in value:
@@ -12586,7 +12796,6 @@ class ComplexFenestrationPropertySolarAbsorbedLayers(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `layer_3_solar_radiation_absorbed_schedule_name`')
-
         self._data["Layer 3 Solar Radiation Absorbed Schedule Name"] = value
 
     @property
@@ -12600,10 +12809,12 @@ class ComplexFenestrationPropertySolarAbsorbedLayers(object):
 
     @layer_4_solar_radiation_absorbed_schedule_name.setter
     def layer_4_solar_radiation_absorbed_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `layer_4_solar_radiation_absorbed_schedule_name`
+        """  Corresponds to IDD Field `Layer 4 Solar Radiation Absorbed Schedule Name`
+        
+        {u'memo': [u'Values in schedule are expected to be in W/m2'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `layer_4_solar_radiation_absorbed_schedule_name`
+            value (str): value for IDD Field `Layer 4 Solar Radiation Absorbed Schedule Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -12613,7 +12824,7 @@ class ComplexFenestrationPropertySolarAbsorbedLayers(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `layer_4_solar_radiation_absorbed_schedule_name`'.format(value))
             if ',' in value:
@@ -12622,7 +12833,6 @@ class ComplexFenestrationPropertySolarAbsorbedLayers(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `layer_4_solar_radiation_absorbed_schedule_name`')
-
         self._data["Layer 4 Solar Radiation Absorbed Schedule Name"] = value
 
     @property
@@ -12636,10 +12846,12 @@ class ComplexFenestrationPropertySolarAbsorbedLayers(object):
 
     @layer_5_solar_radiation_absorbed_schedule_name.setter
     def layer_5_solar_radiation_absorbed_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `layer_5_solar_radiation_absorbed_schedule_name`
+        """  Corresponds to IDD Field `Layer 5 Solar Radiation Absorbed Schedule Name`
+        
+        {u'memo': [u'Values in schedule are expected to be in W/m2'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `layer_5_solar_radiation_absorbed_schedule_name`
+            value (str): value for IDD Field `Layer 5 Solar Radiation Absorbed Schedule Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -12649,7 +12861,7 @@ class ComplexFenestrationPropertySolarAbsorbedLayers(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `layer_5_solar_radiation_absorbed_schedule_name`'.format(value))
             if ',' in value:
@@ -12658,7 +12870,6 @@ class ComplexFenestrationPropertySolarAbsorbedLayers(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `layer_5_solar_radiation_absorbed_schedule_name`')
-
         self._data["Layer 5 Solar Radiation Absorbed Schedule Name"] = value
 
     def check(self):
@@ -15643,10 +15854,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @zone_name.setter
     def zone_name(self, value=None):
-        """  Corresponds to IDD Field `zone_name`
+        """  Corresponds to IDD Field `Zone Name`
+        
+        {u'type': u'object-list', u'object-list': u'ZoneNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `zone_name`
+            value (str): value for IDD Field `Zone Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -15656,7 +15869,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `zone_name`'.format(value))
             if ',' in value:
@@ -15665,7 +15878,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `zone_name`')
-
         self._data["Zone Name"] = value
 
     @property
@@ -15679,10 +15891,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @from_surface_1.setter
     def from_surface_1(self, value=None):
-        """  Corresponds to IDD Field `from_surface_1`
+        """  Corresponds to IDD Field `From Surface 1`
+        
+        {'pytype': 'str', u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', u'begin-extensible': u''}
 
         Args:
-            value (str): value for IDD Field `from_surface_1`
+            value (str): value for IDD Field `From Surface 1`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -15692,7 +15906,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `from_surface_1`'.format(value))
             if ',' in value:
@@ -15701,7 +15915,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `from_surface_1`')
-
         self._data["From Surface 1"] = value
 
     @property
@@ -15715,10 +15928,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @to_surface_1.setter
     def to_surface_1(self, value=None):
-        """  Corresponds to IDD Field `to_surface_1`
+        """  Corresponds to IDD Field `To Surface 1`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `to_surface_1`
+            value (str): value for IDD Field `To Surface 1`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -15728,7 +15943,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `to_surface_1`'.format(value))
             if ',' in value:
@@ -15737,7 +15952,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `to_surface_1`')
-
         self._data["To Surface 1"] = value
 
     @property
@@ -15751,11 +15965,13 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @view_factor_1.setter
     def view_factor_1(self, value=None):
-        """  Corresponds to IDD Field `view_factor_1`
+        """  Corresponds to IDD Field `View Factor 1`
         This value is the view factor value From Surface => To Surface
+        
+        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `view_factor_1`
+            value (float): value for IDD Field `View Factor 1`
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -15766,13 +15982,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `view_factor_1`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `view_factor_1`')
-
         self._data["View Factor 1"] = value
 
     @property
@@ -15786,10 +16001,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @from_surface_2.setter
     def from_surface_2(self, value=None):
-        """  Corresponds to IDD Field `from_surface_2`
+        """  Corresponds to IDD Field `From Surface 2`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `from_surface_2`
+            value (str): value for IDD Field `From Surface 2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -15799,7 +16016,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `from_surface_2`'.format(value))
             if ',' in value:
@@ -15808,7 +16025,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `from_surface_2`')
-
         self._data["From Surface 2"] = value
 
     @property
@@ -15822,10 +16038,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @to_surface_2.setter
     def to_surface_2(self, value=None):
-        """  Corresponds to IDD Field `to_surface_2`
+        """  Corresponds to IDD Field `To Surface 2`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `to_surface_2`
+            value (str): value for IDD Field `To Surface 2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -15835,7 +16053,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `to_surface_2`'.format(value))
             if ',' in value:
@@ -15844,7 +16062,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `to_surface_2`')
-
         self._data["To Surface 2"] = value
 
     @property
@@ -15858,11 +16075,13 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @view_factor_2.setter
     def view_factor_2(self, value=None):
-        """  Corresponds to IDD Field `view_factor_2`
+        """  Corresponds to IDD Field `View Factor 2`
         This value is the view factor value From Surface => To Surface
+        
+        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `view_factor_2`
+            value (float): value for IDD Field `View Factor 2`
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -15873,13 +16092,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `view_factor_2`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `view_factor_2`')
-
         self._data["View Factor 2"] = value
 
     @property
@@ -15893,10 +16111,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @from_surface_3.setter
     def from_surface_3(self, value=None):
-        """  Corresponds to IDD Field `from_surface_3`
+        """  Corresponds to IDD Field `From Surface 3`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `from_surface_3`
+            value (str): value for IDD Field `From Surface 3`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -15906,7 +16126,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `from_surface_3`'.format(value))
             if ',' in value:
@@ -15915,7 +16135,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `from_surface_3`')
-
         self._data["From Surface 3"] = value
 
     @property
@@ -15929,10 +16148,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @to_surface_3.setter
     def to_surface_3(self, value=None):
-        """  Corresponds to IDD Field `to_surface_3`
+        """  Corresponds to IDD Field `To Surface 3`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `to_surface_3`
+            value (str): value for IDD Field `To Surface 3`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -15942,7 +16163,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `to_surface_3`'.format(value))
             if ',' in value:
@@ -15951,7 +16172,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `to_surface_3`')
-
         self._data["To Surface 3"] = value
 
     @property
@@ -15965,11 +16185,13 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @view_factor_3.setter
     def view_factor_3(self, value=None):
-        """  Corresponds to IDD Field `view_factor_3`
+        """  Corresponds to IDD Field `View Factor 3`
         This value is the view factor value From Surface => To Surface
+        
+        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `view_factor_3`
+            value (float): value for IDD Field `View Factor 3`
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -15980,13 +16202,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `view_factor_3`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `view_factor_3`')
-
         self._data["View Factor 3"] = value
 
     @property
@@ -16000,10 +16221,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @from_surface_4.setter
     def from_surface_4(self, value=None):
-        """  Corresponds to IDD Field `from_surface_4`
+        """  Corresponds to IDD Field `From Surface 4`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `from_surface_4`
+            value (str): value for IDD Field `From Surface 4`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -16013,7 +16236,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `from_surface_4`'.format(value))
             if ',' in value:
@@ -16022,7 +16245,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `from_surface_4`')
-
         self._data["From Surface 4"] = value
 
     @property
@@ -16036,10 +16258,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @to_surface_4.setter
     def to_surface_4(self, value=None):
-        """  Corresponds to IDD Field `to_surface_4`
+        """  Corresponds to IDD Field `To Surface 4`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `to_surface_4`
+            value (str): value for IDD Field `To Surface 4`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -16049,7 +16273,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `to_surface_4`'.format(value))
             if ',' in value:
@@ -16058,7 +16282,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `to_surface_4`')
-
         self._data["To Surface 4"] = value
 
     @property
@@ -16072,11 +16295,13 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @view_factor_4.setter
     def view_factor_4(self, value=None):
-        """  Corresponds to IDD Field `view_factor_4`
+        """  Corresponds to IDD Field `View Factor 4`
         This value is the view factor value From Surface => To Surface
+        
+        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `view_factor_4`
+            value (float): value for IDD Field `View Factor 4`
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -16087,13 +16312,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `view_factor_4`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `view_factor_4`')
-
         self._data["View Factor 4"] = value
 
     @property
@@ -16107,10 +16331,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @from_surface_5.setter
     def from_surface_5(self, value=None):
-        """  Corresponds to IDD Field `from_surface_5`
+        """  Corresponds to IDD Field `From Surface 5`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `from_surface_5`
+            value (str): value for IDD Field `From Surface 5`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -16120,7 +16346,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `from_surface_5`'.format(value))
             if ',' in value:
@@ -16129,7 +16355,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `from_surface_5`')
-
         self._data["From Surface 5"] = value
 
     @property
@@ -16143,10 +16368,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @to_surface_5.setter
     def to_surface_5(self, value=None):
-        """  Corresponds to IDD Field `to_surface_5`
+        """  Corresponds to IDD Field `To Surface 5`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `to_surface_5`
+            value (str): value for IDD Field `To Surface 5`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -16156,7 +16383,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `to_surface_5`'.format(value))
             if ',' in value:
@@ -16165,7 +16392,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `to_surface_5`')
-
         self._data["To Surface 5"] = value
 
     @property
@@ -16179,11 +16405,13 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @view_factor_5.setter
     def view_factor_5(self, value=None):
-        """  Corresponds to IDD Field `view_factor_5`
+        """  Corresponds to IDD Field `View Factor 5`
         This value is the view factor value From Surface => To Surface
+        
+        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `view_factor_5`
+            value (float): value for IDD Field `View Factor 5`
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -16194,13 +16422,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `view_factor_5`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `view_factor_5`')
-
         self._data["View Factor 5"] = value
 
     @property
@@ -16214,10 +16441,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @from_surface_6.setter
     def from_surface_6(self, value=None):
-        """  Corresponds to IDD Field `from_surface_6`
+        """  Corresponds to IDD Field `From Surface 6`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `from_surface_6`
+            value (str): value for IDD Field `From Surface 6`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -16227,7 +16456,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `from_surface_6`'.format(value))
             if ',' in value:
@@ -16236,7 +16465,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `from_surface_6`')
-
         self._data["From Surface 6"] = value
 
     @property
@@ -16250,10 +16478,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @to_surface_6.setter
     def to_surface_6(self, value=None):
-        """  Corresponds to IDD Field `to_surface_6`
+        """  Corresponds to IDD Field `To Surface 6`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `to_surface_6`
+            value (str): value for IDD Field `To Surface 6`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -16263,7 +16493,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `to_surface_6`'.format(value))
             if ',' in value:
@@ -16272,7 +16502,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `to_surface_6`')
-
         self._data["To Surface 6"] = value
 
     @property
@@ -16286,11 +16515,13 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @view_factor_6.setter
     def view_factor_6(self, value=None):
-        """  Corresponds to IDD Field `view_factor_6`
+        """  Corresponds to IDD Field `View Factor 6`
         This value is the view factor value From Surface => To Surface
+        
+        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `view_factor_6`
+            value (float): value for IDD Field `View Factor 6`
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -16301,13 +16532,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `view_factor_6`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `view_factor_6`')
-
         self._data["View Factor 6"] = value
 
     @property
@@ -16321,10 +16551,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @from_surface_7.setter
     def from_surface_7(self, value=None):
-        """  Corresponds to IDD Field `from_surface_7`
+        """  Corresponds to IDD Field `From Surface 7`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `from_surface_7`
+            value (str): value for IDD Field `From Surface 7`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -16334,7 +16566,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `from_surface_7`'.format(value))
             if ',' in value:
@@ -16343,7 +16575,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `from_surface_7`')
-
         self._data["From Surface 7"] = value
 
     @property
@@ -16357,10 +16588,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @to_surface_7.setter
     def to_surface_7(self, value=None):
-        """  Corresponds to IDD Field `to_surface_7`
+        """  Corresponds to IDD Field `To Surface 7`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `to_surface_7`
+            value (str): value for IDD Field `To Surface 7`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -16370,7 +16603,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `to_surface_7`'.format(value))
             if ',' in value:
@@ -16379,7 +16612,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `to_surface_7`')
-
         self._data["To Surface 7"] = value
 
     @property
@@ -16393,11 +16625,13 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @view_factor_7.setter
     def view_factor_7(self, value=None):
-        """  Corresponds to IDD Field `view_factor_7`
+        """  Corresponds to IDD Field `View Factor 7`
         This value is the view factor value From Surface => To Surface
+        
+        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `view_factor_7`
+            value (float): value for IDD Field `View Factor 7`
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -16408,13 +16642,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `view_factor_7`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `view_factor_7`')
-
         self._data["View Factor 7"] = value
 
     @property
@@ -16428,10 +16661,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @from_surface_8.setter
     def from_surface_8(self, value=None):
-        """  Corresponds to IDD Field `from_surface_8`
+        """  Corresponds to IDD Field `From Surface 8`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `from_surface_8`
+            value (str): value for IDD Field `From Surface 8`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -16441,7 +16676,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `from_surface_8`'.format(value))
             if ',' in value:
@@ -16450,7 +16685,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `from_surface_8`')
-
         self._data["From Surface 8"] = value
 
     @property
@@ -16464,10 +16698,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @to_surface_8.setter
     def to_surface_8(self, value=None):
-        """  Corresponds to IDD Field `to_surface_8`
+        """  Corresponds to IDD Field `To Surface 8`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `to_surface_8`
+            value (str): value for IDD Field `To Surface 8`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -16477,7 +16713,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `to_surface_8`'.format(value))
             if ',' in value:
@@ -16486,7 +16722,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `to_surface_8`')
-
         self._data["To Surface 8"] = value
 
     @property
@@ -16500,11 +16735,13 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @view_factor_8.setter
     def view_factor_8(self, value=None):
-        """  Corresponds to IDD Field `view_factor_8`
+        """  Corresponds to IDD Field `View Factor 8`
         This value is the view factor value From Surface => To Surface
+        
+        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `view_factor_8`
+            value (float): value for IDD Field `View Factor 8`
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -16515,13 +16752,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `view_factor_8`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `view_factor_8`')
-
         self._data["View Factor 8"] = value
 
     @property
@@ -16535,10 +16771,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @from_surface_9.setter
     def from_surface_9(self, value=None):
-        """  Corresponds to IDD Field `from_surface_9`
+        """  Corresponds to IDD Field `From Surface 9`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `from_surface_9`
+            value (str): value for IDD Field `From Surface 9`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -16548,7 +16786,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `from_surface_9`'.format(value))
             if ',' in value:
@@ -16557,7 +16795,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `from_surface_9`')
-
         self._data["From Surface 9"] = value
 
     @property
@@ -16571,10 +16808,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @to_surface_9.setter
     def to_surface_9(self, value=None):
-        """  Corresponds to IDD Field `to_surface_9`
+        """  Corresponds to IDD Field `To Surface 9`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `to_surface_9`
+            value (str): value for IDD Field `To Surface 9`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -16584,7 +16823,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `to_surface_9`'.format(value))
             if ',' in value:
@@ -16593,7 +16832,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `to_surface_9`')
-
         self._data["To Surface 9"] = value
 
     @property
@@ -16607,11 +16845,13 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @view_factor_9.setter
     def view_factor_9(self, value=None):
-        """  Corresponds to IDD Field `view_factor_9`
+        """  Corresponds to IDD Field `View Factor 9`
         This value is the view factor value From Surface => To Surface
+        
+        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `view_factor_9`
+            value (float): value for IDD Field `View Factor 9`
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -16622,13 +16862,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `view_factor_9`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `view_factor_9`')
-
         self._data["View Factor 9"] = value
 
     @property
@@ -16642,10 +16881,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @from_surface_10.setter
     def from_surface_10(self, value=None):
-        """  Corresponds to IDD Field `from_surface_10`
+        """  Corresponds to IDD Field `From Surface 10`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `from_surface_10`
+            value (str): value for IDD Field `From Surface 10`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -16655,7 +16896,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `from_surface_10`'.format(value))
             if ',' in value:
@@ -16664,7 +16905,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `from_surface_10`')
-
         self._data["From Surface 10"] = value
 
     @property
@@ -16678,10 +16918,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @to_surface_10.setter
     def to_surface_10(self, value=None):
-        """  Corresponds to IDD Field `to_surface_10`
+        """  Corresponds to IDD Field `To Surface 10`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `to_surface_10`
+            value (str): value for IDD Field `To Surface 10`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -16691,7 +16933,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `to_surface_10`'.format(value))
             if ',' in value:
@@ -16700,7 +16942,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `to_surface_10`')
-
         self._data["To Surface 10"] = value
 
     @property
@@ -16714,11 +16955,13 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @view_factor_10.setter
     def view_factor_10(self, value=None):
-        """  Corresponds to IDD Field `view_factor_10`
+        """  Corresponds to IDD Field `View Factor 10`
         This value is the view factor value From Surface => To Surface
+        
+        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `view_factor_10`
+            value (float): value for IDD Field `View Factor 10`
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -16729,13 +16972,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `view_factor_10`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `view_factor_10`')
-
         self._data["View Factor 10"] = value
 
     @property
@@ -16749,10 +16991,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @from_surface_11.setter
     def from_surface_11(self, value=None):
-        """  Corresponds to IDD Field `from_surface_11`
+        """  Corresponds to IDD Field `From Surface 11`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `from_surface_11`
+            value (str): value for IDD Field `From Surface 11`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -16762,7 +17006,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `from_surface_11`'.format(value))
             if ',' in value:
@@ -16771,7 +17015,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `from_surface_11`')
-
         self._data["From Surface 11"] = value
 
     @property
@@ -16785,10 +17028,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @to_surface_11.setter
     def to_surface_11(self, value=None):
-        """  Corresponds to IDD Field `to_surface_11`
+        """  Corresponds to IDD Field `To Surface 11`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `to_surface_11`
+            value (str): value for IDD Field `To Surface 11`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -16798,7 +17043,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `to_surface_11`'.format(value))
             if ',' in value:
@@ -16807,7 +17052,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `to_surface_11`')
-
         self._data["To Surface 11"] = value
 
     @property
@@ -16821,11 +17065,13 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @view_factor_11.setter
     def view_factor_11(self, value=None):
-        """  Corresponds to IDD Field `view_factor_11`
+        """  Corresponds to IDD Field `View Factor 11`
         This value is the view factor value From Surface => To Surface
+        
+        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `view_factor_11`
+            value (float): value for IDD Field `View Factor 11`
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -16836,13 +17082,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `view_factor_11`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `view_factor_11`')
-
         self._data["View Factor 11"] = value
 
     @property
@@ -16856,10 +17101,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @from_surface_12.setter
     def from_surface_12(self, value=None):
-        """  Corresponds to IDD Field `from_surface_12`
+        """  Corresponds to IDD Field `From Surface 12`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `from_surface_12`
+            value (str): value for IDD Field `From Surface 12`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -16869,7 +17116,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `from_surface_12`'.format(value))
             if ',' in value:
@@ -16878,7 +17125,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `from_surface_12`')
-
         self._data["From Surface 12"] = value
 
     @property
@@ -16892,10 +17138,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @to_surface_12.setter
     def to_surface_12(self, value=None):
-        """  Corresponds to IDD Field `to_surface_12`
+        """  Corresponds to IDD Field `To Surface 12`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `to_surface_12`
+            value (str): value for IDD Field `To Surface 12`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -16905,7 +17153,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `to_surface_12`'.format(value))
             if ',' in value:
@@ -16914,7 +17162,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `to_surface_12`')
-
         self._data["To Surface 12"] = value
 
     @property
@@ -16928,11 +17175,13 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @view_factor_12.setter
     def view_factor_12(self, value=None):
-        """  Corresponds to IDD Field `view_factor_12`
+        """  Corresponds to IDD Field `View Factor 12`
         This value is the view factor value From Surface => To Surface
+        
+        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `view_factor_12`
+            value (float): value for IDD Field `View Factor 12`
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -16943,13 +17192,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `view_factor_12`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `view_factor_12`')
-
         self._data["View Factor 12"] = value
 
     @property
@@ -16963,10 +17211,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @from_surface_13.setter
     def from_surface_13(self, value=None):
-        """  Corresponds to IDD Field `from_surface_13`
+        """  Corresponds to IDD Field `From Surface 13`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `from_surface_13`
+            value (str): value for IDD Field `From Surface 13`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -16976,7 +17226,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `from_surface_13`'.format(value))
             if ',' in value:
@@ -16985,7 +17235,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `from_surface_13`')
-
         self._data["From Surface 13"] = value
 
     @property
@@ -16999,10 +17248,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @to_surface_13.setter
     def to_surface_13(self, value=None):
-        """  Corresponds to IDD Field `to_surface_13`
+        """  Corresponds to IDD Field `To Surface 13`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `to_surface_13`
+            value (str): value for IDD Field `To Surface 13`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -17012,7 +17263,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `to_surface_13`'.format(value))
             if ',' in value:
@@ -17021,7 +17272,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `to_surface_13`')
-
         self._data["To Surface 13"] = value
 
     @property
@@ -17035,11 +17285,13 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @view_factor_13.setter
     def view_factor_13(self, value=None):
-        """  Corresponds to IDD Field `view_factor_13`
+        """  Corresponds to IDD Field `View Factor 13`
         This value is the view factor value From Surface => To Surface
+        
+        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `view_factor_13`
+            value (float): value for IDD Field `View Factor 13`
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -17050,13 +17302,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `view_factor_13`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `view_factor_13`')
-
         self._data["View Factor 13"] = value
 
     @property
@@ -17070,10 +17321,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @from_surface_14.setter
     def from_surface_14(self, value=None):
-        """  Corresponds to IDD Field `from_surface_14`
+        """  Corresponds to IDD Field `From Surface 14`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `from_surface_14`
+            value (str): value for IDD Field `From Surface 14`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -17083,7 +17336,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `from_surface_14`'.format(value))
             if ',' in value:
@@ -17092,7 +17345,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `from_surface_14`')
-
         self._data["From Surface 14"] = value
 
     @property
@@ -17106,10 +17358,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @to_surface_14.setter
     def to_surface_14(self, value=None):
-        """  Corresponds to IDD Field `to_surface_14`
+        """  Corresponds to IDD Field `To Surface 14`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `to_surface_14`
+            value (str): value for IDD Field `To Surface 14`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -17119,7 +17373,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `to_surface_14`'.format(value))
             if ',' in value:
@@ -17128,7 +17382,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `to_surface_14`')
-
         self._data["To Surface 14"] = value
 
     @property
@@ -17142,11 +17395,13 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @view_factor_14.setter
     def view_factor_14(self, value=None):
-        """  Corresponds to IDD Field `view_factor_14`
+        """  Corresponds to IDD Field `View Factor 14`
         This value is the view factor value From Surface => To Surface
+        
+        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `view_factor_14`
+            value (float): value for IDD Field `View Factor 14`
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -17157,13 +17412,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `view_factor_14`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `view_factor_14`')
-
         self._data["View Factor 14"] = value
 
     @property
@@ -17177,10 +17431,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @from_surface_15.setter
     def from_surface_15(self, value=None):
-        """  Corresponds to IDD Field `from_surface_15`
+        """  Corresponds to IDD Field `From Surface 15`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `from_surface_15`
+            value (str): value for IDD Field `From Surface 15`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -17190,7 +17446,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `from_surface_15`'.format(value))
             if ',' in value:
@@ -17199,7 +17455,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `from_surface_15`')
-
         self._data["From Surface 15"] = value
 
     @property
@@ -17213,10 +17468,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @to_surface_15.setter
     def to_surface_15(self, value=None):
-        """  Corresponds to IDD Field `to_surface_15`
+        """  Corresponds to IDD Field `To Surface 15`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `to_surface_15`
+            value (str): value for IDD Field `To Surface 15`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -17226,7 +17483,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `to_surface_15`'.format(value))
             if ',' in value:
@@ -17235,7 +17492,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `to_surface_15`')
-
         self._data["To Surface 15"] = value
 
     @property
@@ -17249,11 +17505,13 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @view_factor_15.setter
     def view_factor_15(self, value=None):
-        """  Corresponds to IDD Field `view_factor_15`
+        """  Corresponds to IDD Field `View Factor 15`
         This value is the view factor value From Surface => To Surface
+        
+        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `view_factor_15`
+            value (float): value for IDD Field `View Factor 15`
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -17264,13 +17522,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `view_factor_15`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `view_factor_15`')
-
         self._data["View Factor 15"] = value
 
     @property
@@ -17284,10 +17541,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @from_surface_16.setter
     def from_surface_16(self, value=None):
-        """  Corresponds to IDD Field `from_surface_16`
+        """  Corresponds to IDD Field `From Surface 16`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `from_surface_16`
+            value (str): value for IDD Field `From Surface 16`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -17297,7 +17556,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `from_surface_16`'.format(value))
             if ',' in value:
@@ -17306,7 +17565,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `from_surface_16`')
-
         self._data["From Surface 16"] = value
 
     @property
@@ -17320,10 +17578,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @to_surface_16.setter
     def to_surface_16(self, value=None):
-        """  Corresponds to IDD Field `to_surface_16`
+        """  Corresponds to IDD Field `To Surface 16`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `to_surface_16`
+            value (str): value for IDD Field `To Surface 16`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -17333,7 +17593,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `to_surface_16`'.format(value))
             if ',' in value:
@@ -17342,7 +17602,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `to_surface_16`')
-
         self._data["To Surface 16"] = value
 
     @property
@@ -17356,11 +17615,13 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @view_factor_16.setter
     def view_factor_16(self, value=None):
-        """  Corresponds to IDD Field `view_factor_16`
+        """  Corresponds to IDD Field `View Factor 16`
         This value is the view factor value From Surface => To Surface
+        
+        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `view_factor_16`
+            value (float): value for IDD Field `View Factor 16`
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -17371,13 +17632,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `view_factor_16`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `view_factor_16`')
-
         self._data["View Factor 16"] = value
 
     @property
@@ -17391,10 +17651,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @from_surface_17.setter
     def from_surface_17(self, value=None):
-        """  Corresponds to IDD Field `from_surface_17`
+        """  Corresponds to IDD Field `From Surface 17`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `from_surface_17`
+            value (str): value for IDD Field `From Surface 17`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -17404,7 +17666,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `from_surface_17`'.format(value))
             if ',' in value:
@@ -17413,7 +17675,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `from_surface_17`')
-
         self._data["From Surface 17"] = value
 
     @property
@@ -17427,10 +17688,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @to_surface_17.setter
     def to_surface_17(self, value=None):
-        """  Corresponds to IDD Field `to_surface_17`
+        """  Corresponds to IDD Field `To Surface 17`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `to_surface_17`
+            value (str): value for IDD Field `To Surface 17`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -17440,7 +17703,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `to_surface_17`'.format(value))
             if ',' in value:
@@ -17449,7 +17712,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `to_surface_17`')
-
         self._data["To Surface 17"] = value
 
     @property
@@ -17463,11 +17725,13 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @view_factor_17.setter
     def view_factor_17(self, value=None):
-        """  Corresponds to IDD Field `view_factor_17`
+        """  Corresponds to IDD Field `View Factor 17`
         This value is the view factor value From Surface => To Surface
+        
+        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `view_factor_17`
+            value (float): value for IDD Field `View Factor 17`
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -17478,13 +17742,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `view_factor_17`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `view_factor_17`')
-
         self._data["View Factor 17"] = value
 
     @property
@@ -17498,10 +17761,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @from_surface_18.setter
     def from_surface_18(self, value=None):
-        """  Corresponds to IDD Field `from_surface_18`
+        """  Corresponds to IDD Field `From Surface 18`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `from_surface_18`
+            value (str): value for IDD Field `From Surface 18`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -17511,7 +17776,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `from_surface_18`'.format(value))
             if ',' in value:
@@ -17520,7 +17785,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `from_surface_18`')
-
         self._data["From Surface 18"] = value
 
     @property
@@ -17534,10 +17798,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @to_surface_18.setter
     def to_surface_18(self, value=None):
-        """  Corresponds to IDD Field `to_surface_18`
+        """  Corresponds to IDD Field `To Surface 18`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `to_surface_18`
+            value (str): value for IDD Field `To Surface 18`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -17547,7 +17813,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `to_surface_18`'.format(value))
             if ',' in value:
@@ -17556,7 +17822,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `to_surface_18`')
-
         self._data["To Surface 18"] = value
 
     @property
@@ -17570,11 +17835,13 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @view_factor_18.setter
     def view_factor_18(self, value=None):
-        """  Corresponds to IDD Field `view_factor_18`
+        """  Corresponds to IDD Field `View Factor 18`
         This value is the view factor value From Surface => To Surface
+        
+        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `view_factor_18`
+            value (float): value for IDD Field `View Factor 18`
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -17585,13 +17852,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `view_factor_18`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `view_factor_18`')
-
         self._data["View Factor 18"] = value
 
     @property
@@ -17605,10 +17871,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @from_surface_19.setter
     def from_surface_19(self, value=None):
-        """  Corresponds to IDD Field `from_surface_19`
+        """  Corresponds to IDD Field `From Surface 19`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `from_surface_19`
+            value (str): value for IDD Field `From Surface 19`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -17618,7 +17886,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `from_surface_19`'.format(value))
             if ',' in value:
@@ -17627,7 +17895,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `from_surface_19`')
-
         self._data["From Surface 19"] = value
 
     @property
@@ -17641,10 +17908,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @to_surface_19.setter
     def to_surface_19(self, value=None):
-        """  Corresponds to IDD Field `to_surface_19`
+        """  Corresponds to IDD Field `To Surface 19`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `to_surface_19`
+            value (str): value for IDD Field `To Surface 19`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -17654,7 +17923,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `to_surface_19`'.format(value))
             if ',' in value:
@@ -17663,7 +17932,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `to_surface_19`')
-
         self._data["To Surface 19"] = value
 
     @property
@@ -17677,11 +17945,13 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @view_factor_19.setter
     def view_factor_19(self, value=None):
-        """  Corresponds to IDD Field `view_factor_19`
+        """  Corresponds to IDD Field `View Factor 19`
         This value is the view factor value From Surface => To Surface
+        
+        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `view_factor_19`
+            value (float): value for IDD Field `View Factor 19`
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -17692,13 +17962,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `view_factor_19`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `view_factor_19`')
-
         self._data["View Factor 19"] = value
 
     @property
@@ -17712,10 +17981,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @from_surface_20.setter
     def from_surface_20(self, value=None):
-        """  Corresponds to IDD Field `from_surface_20`
+        """  Corresponds to IDD Field `From Surface 20`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `from_surface_20`
+            value (str): value for IDD Field `From Surface 20`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -17725,7 +17996,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `from_surface_20`'.format(value))
             if ',' in value:
@@ -17734,7 +18005,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `from_surface_20`')
-
         self._data["From Surface 20"] = value
 
     @property
@@ -17748,10 +18018,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @to_surface_20.setter
     def to_surface_20(self, value=None):
-        """  Corresponds to IDD Field `to_surface_20`
+        """  Corresponds to IDD Field `To Surface 20`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `to_surface_20`
+            value (str): value for IDD Field `To Surface 20`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -17761,7 +18033,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `to_surface_20`'.format(value))
             if ',' in value:
@@ -17770,7 +18042,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `to_surface_20`')
-
         self._data["To Surface 20"] = value
 
     @property
@@ -17784,11 +18055,13 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @view_factor_20.setter
     def view_factor_20(self, value=None):
-        """  Corresponds to IDD Field `view_factor_20`
+        """  Corresponds to IDD Field `View Factor 20`
         This value is the view factor value From Surface => To Surface
+        
+        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `view_factor_20`
+            value (float): value for IDD Field `View Factor 20`
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -17799,13 +18072,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `view_factor_20`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `view_factor_20`')
-
         self._data["View Factor 20"] = value
 
     @property
@@ -17819,10 +18091,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @from_surface_21.setter
     def from_surface_21(self, value=None):
-        """  Corresponds to IDD Field `from_surface_21`
+        """  Corresponds to IDD Field `From Surface 21`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `from_surface_21`
+            value (str): value for IDD Field `From Surface 21`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -17832,7 +18106,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `from_surface_21`'.format(value))
             if ',' in value:
@@ -17841,7 +18115,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `from_surface_21`')
-
         self._data["From Surface 21"] = value
 
     @property
@@ -17855,10 +18128,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @to_surface_21.setter
     def to_surface_21(self, value=None):
-        """  Corresponds to IDD Field `to_surface_21`
+        """  Corresponds to IDD Field `To Surface 21`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `to_surface_21`
+            value (str): value for IDD Field `To Surface 21`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -17868,7 +18143,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `to_surface_21`'.format(value))
             if ',' in value:
@@ -17877,7 +18152,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `to_surface_21`')
-
         self._data["To Surface 21"] = value
 
     @property
@@ -17891,11 +18165,13 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @view_factor_21.setter
     def view_factor_21(self, value=None):
-        """  Corresponds to IDD Field `view_factor_21`
+        """  Corresponds to IDD Field `View Factor 21`
         This value is the view factor value From Surface => To Surface
+        
+        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `view_factor_21`
+            value (float): value for IDD Field `View Factor 21`
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -17906,13 +18182,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `view_factor_21`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `view_factor_21`')
-
         self._data["View Factor 21"] = value
 
     @property
@@ -17926,10 +18201,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @from_surface_22.setter
     def from_surface_22(self, value=None):
-        """  Corresponds to IDD Field `from_surface_22`
+        """  Corresponds to IDD Field `From Surface 22`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `from_surface_22`
+            value (str): value for IDD Field `From Surface 22`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -17939,7 +18216,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `from_surface_22`'.format(value))
             if ',' in value:
@@ -17948,7 +18225,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `from_surface_22`')
-
         self._data["From Surface 22"] = value
 
     @property
@@ -17962,10 +18238,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @to_surface_22.setter
     def to_surface_22(self, value=None):
-        """  Corresponds to IDD Field `to_surface_22`
+        """  Corresponds to IDD Field `To Surface 22`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `to_surface_22`
+            value (str): value for IDD Field `To Surface 22`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -17975,7 +18253,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `to_surface_22`'.format(value))
             if ',' in value:
@@ -17984,7 +18262,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `to_surface_22`')
-
         self._data["To Surface 22"] = value
 
     @property
@@ -17998,11 +18275,13 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @view_factor_22.setter
     def view_factor_22(self, value=None):
-        """  Corresponds to IDD Field `view_factor_22`
+        """  Corresponds to IDD Field `View Factor 22`
         This value is the view factor value From Surface => To Surface
+        
+        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `view_factor_22`
+            value (float): value for IDD Field `View Factor 22`
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -18013,13 +18292,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `view_factor_22`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `view_factor_22`')
-
         self._data["View Factor 22"] = value
 
     @property
@@ -18033,10 +18311,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @from_surface_23.setter
     def from_surface_23(self, value=None):
-        """  Corresponds to IDD Field `from_surface_23`
+        """  Corresponds to IDD Field `From Surface 23`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `from_surface_23`
+            value (str): value for IDD Field `From Surface 23`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -18046,7 +18326,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `from_surface_23`'.format(value))
             if ',' in value:
@@ -18055,7 +18335,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `from_surface_23`')
-
         self._data["From Surface 23"] = value
 
     @property
@@ -18069,10 +18348,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @to_surface_23.setter
     def to_surface_23(self, value=None):
-        """  Corresponds to IDD Field `to_surface_23`
+        """  Corresponds to IDD Field `To Surface 23`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `to_surface_23`
+            value (str): value for IDD Field `To Surface 23`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -18082,7 +18363,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `to_surface_23`'.format(value))
             if ',' in value:
@@ -18091,7 +18372,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `to_surface_23`')
-
         self._data["To Surface 23"] = value
 
     @property
@@ -18105,11 +18385,13 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @view_factor_23.setter
     def view_factor_23(self, value=None):
-        """  Corresponds to IDD Field `view_factor_23`
+        """  Corresponds to IDD Field `View Factor 23`
         This value is the view factor value From Surface => To Surface
+        
+        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `view_factor_23`
+            value (float): value for IDD Field `View Factor 23`
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -18120,13 +18402,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `view_factor_23`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `view_factor_23`')
-
         self._data["View Factor 23"] = value
 
     @property
@@ -18140,10 +18421,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @from_surface_24.setter
     def from_surface_24(self, value=None):
-        """  Corresponds to IDD Field `from_surface_24`
+        """  Corresponds to IDD Field `From Surface 24`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `from_surface_24`
+            value (str): value for IDD Field `From Surface 24`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -18153,7 +18436,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `from_surface_24`'.format(value))
             if ',' in value:
@@ -18162,7 +18445,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `from_surface_24`')
-
         self._data["From Surface 24"] = value
 
     @property
@@ -18176,10 +18458,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @to_surface_24.setter
     def to_surface_24(self, value=None):
-        """  Corresponds to IDD Field `to_surface_24`
+        """  Corresponds to IDD Field `To Surface 24`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `to_surface_24`
+            value (str): value for IDD Field `To Surface 24`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -18189,7 +18473,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `to_surface_24`'.format(value))
             if ',' in value:
@@ -18198,7 +18482,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `to_surface_24`')
-
         self._data["To Surface 24"] = value
 
     @property
@@ -18212,11 +18495,13 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @view_factor_24.setter
     def view_factor_24(self, value=None):
-        """  Corresponds to IDD Field `view_factor_24`
+        """  Corresponds to IDD Field `View Factor 24`
         This value is the view factor value From Surface => To Surface
+        
+        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `view_factor_24`
+            value (float): value for IDD Field `View Factor 24`
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -18227,13 +18512,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `view_factor_24`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `view_factor_24`')
-
         self._data["View Factor 24"] = value
 
     @property
@@ -18247,10 +18531,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @from_surface_25.setter
     def from_surface_25(self, value=None):
-        """  Corresponds to IDD Field `from_surface_25`
+        """  Corresponds to IDD Field `From Surface 25`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `from_surface_25`
+            value (str): value for IDD Field `From Surface 25`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -18260,7 +18546,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `from_surface_25`'.format(value))
             if ',' in value:
@@ -18269,7 +18555,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `from_surface_25`')
-
         self._data["From Surface 25"] = value
 
     @property
@@ -18283,10 +18568,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @to_surface_25.setter
     def to_surface_25(self, value=None):
-        """  Corresponds to IDD Field `to_surface_25`
+        """  Corresponds to IDD Field `To Surface 25`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `to_surface_25`
+            value (str): value for IDD Field `To Surface 25`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -18296,7 +18583,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `to_surface_25`'.format(value))
             if ',' in value:
@@ -18305,7 +18592,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `to_surface_25`')
-
         self._data["To Surface 25"] = value
 
     @property
@@ -18319,11 +18605,13 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @view_factor_25.setter
     def view_factor_25(self, value=None):
-        """  Corresponds to IDD Field `view_factor_25`
+        """  Corresponds to IDD Field `View Factor 25`
         This value is the view factor value From Surface => To Surface
+        
+        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `view_factor_25`
+            value (float): value for IDD Field `View Factor 25`
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -18334,13 +18622,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `view_factor_25`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `view_factor_25`')
-
         self._data["View Factor 25"] = value
 
     @property
@@ -18354,10 +18641,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @from_surface_26.setter
     def from_surface_26(self, value=None):
-        """  Corresponds to IDD Field `from_surface_26`
+        """  Corresponds to IDD Field `From Surface 26`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `from_surface_26`
+            value (str): value for IDD Field `From Surface 26`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -18367,7 +18656,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `from_surface_26`'.format(value))
             if ',' in value:
@@ -18376,7 +18665,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `from_surface_26`')
-
         self._data["From Surface 26"] = value
 
     @property
@@ -18390,10 +18678,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @to_surface_26.setter
     def to_surface_26(self, value=None):
-        """  Corresponds to IDD Field `to_surface_26`
+        """  Corresponds to IDD Field `To Surface 26`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `to_surface_26`
+            value (str): value for IDD Field `To Surface 26`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -18403,7 +18693,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `to_surface_26`'.format(value))
             if ',' in value:
@@ -18412,7 +18702,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `to_surface_26`')
-
         self._data["To Surface 26"] = value
 
     @property
@@ -18426,11 +18715,13 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @view_factor_26.setter
     def view_factor_26(self, value=None):
-        """  Corresponds to IDD Field `view_factor_26`
+        """  Corresponds to IDD Field `View Factor 26`
         This value is the view factor value From Surface => To Surface
+        
+        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `view_factor_26`
+            value (float): value for IDD Field `View Factor 26`
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -18441,13 +18732,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `view_factor_26`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `view_factor_26`')
-
         self._data["View Factor 26"] = value
 
     @property
@@ -18461,10 +18751,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @from_surface_27.setter
     def from_surface_27(self, value=None):
-        """  Corresponds to IDD Field `from_surface_27`
+        """  Corresponds to IDD Field `From Surface 27`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `from_surface_27`
+            value (str): value for IDD Field `From Surface 27`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -18474,7 +18766,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `from_surface_27`'.format(value))
             if ',' in value:
@@ -18483,7 +18775,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `from_surface_27`')
-
         self._data["From Surface 27"] = value
 
     @property
@@ -18497,10 +18788,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @to_surface_27.setter
     def to_surface_27(self, value=None):
-        """  Corresponds to IDD Field `to_surface_27`
+        """  Corresponds to IDD Field `To Surface 27`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `to_surface_27`
+            value (str): value for IDD Field `To Surface 27`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -18510,7 +18803,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `to_surface_27`'.format(value))
             if ',' in value:
@@ -18519,7 +18812,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `to_surface_27`')
-
         self._data["To Surface 27"] = value
 
     @property
@@ -18533,11 +18825,13 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @view_factor_27.setter
     def view_factor_27(self, value=None):
-        """  Corresponds to IDD Field `view_factor_27`
+        """  Corresponds to IDD Field `View Factor 27`
         This value is the view factor value From Surface => To Surface
+        
+        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `view_factor_27`
+            value (float): value for IDD Field `View Factor 27`
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -18548,13 +18842,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `view_factor_27`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `view_factor_27`')
-
         self._data["View Factor 27"] = value
 
     @property
@@ -18568,10 +18861,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @from_surface_28.setter
     def from_surface_28(self, value=None):
-        """  Corresponds to IDD Field `from_surface_28`
+        """  Corresponds to IDD Field `From Surface 28`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `from_surface_28`
+            value (str): value for IDD Field `From Surface 28`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -18581,7 +18876,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `from_surface_28`'.format(value))
             if ',' in value:
@@ -18590,7 +18885,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `from_surface_28`')
-
         self._data["From Surface 28"] = value
 
     @property
@@ -18604,10 +18898,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @to_surface_28.setter
     def to_surface_28(self, value=None):
-        """  Corresponds to IDD Field `to_surface_28`
+        """  Corresponds to IDD Field `To Surface 28`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `to_surface_28`
+            value (str): value for IDD Field `To Surface 28`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -18617,7 +18913,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `to_surface_28`'.format(value))
             if ',' in value:
@@ -18626,7 +18922,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `to_surface_28`')
-
         self._data["To Surface 28"] = value
 
     @property
@@ -18640,11 +18935,13 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @view_factor_28.setter
     def view_factor_28(self, value=None):
-        """  Corresponds to IDD Field `view_factor_28`
+        """  Corresponds to IDD Field `View Factor 28`
         This value is the view factor value From Surface => To Surface
+        
+        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `view_factor_28`
+            value (float): value for IDD Field `View Factor 28`
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -18655,13 +18952,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `view_factor_28`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `view_factor_28`')
-
         self._data["View Factor 28"] = value
 
     @property
@@ -18675,10 +18971,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @from_surface_29.setter
     def from_surface_29(self, value=None):
-        """  Corresponds to IDD Field `from_surface_29`
+        """  Corresponds to IDD Field `From Surface 29`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `from_surface_29`
+            value (str): value for IDD Field `From Surface 29`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -18688,7 +18986,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `from_surface_29`'.format(value))
             if ',' in value:
@@ -18697,7 +18995,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `from_surface_29`')
-
         self._data["From Surface 29"] = value
 
     @property
@@ -18711,10 +19008,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @to_surface_29.setter
     def to_surface_29(self, value=None):
-        """  Corresponds to IDD Field `to_surface_29`
+        """  Corresponds to IDD Field `To Surface 29`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `to_surface_29`
+            value (str): value for IDD Field `To Surface 29`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -18724,7 +19023,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `to_surface_29`'.format(value))
             if ',' in value:
@@ -18733,7 +19032,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `to_surface_29`')
-
         self._data["To Surface 29"] = value
 
     @property
@@ -18747,11 +19045,13 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @view_factor_29.setter
     def view_factor_29(self, value=None):
-        """  Corresponds to IDD Field `view_factor_29`
+        """  Corresponds to IDD Field `View Factor 29`
         This value is the view factor value From Surface => To Surface
+        
+        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `view_factor_29`
+            value (float): value for IDD Field `View Factor 29`
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -18762,13 +19062,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `view_factor_29`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `view_factor_29`')
-
         self._data["View Factor 29"] = value
 
     @property
@@ -18782,10 +19081,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @from_surface_30.setter
     def from_surface_30(self, value=None):
-        """  Corresponds to IDD Field `from_surface_30`
+        """  Corresponds to IDD Field `From Surface 30`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `from_surface_30`
+            value (str): value for IDD Field `From Surface 30`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -18795,7 +19096,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `from_surface_30`'.format(value))
             if ',' in value:
@@ -18804,7 +19105,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `from_surface_30`')
-
         self._data["From Surface 30"] = value
 
     @property
@@ -18818,10 +19118,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @to_surface_30.setter
     def to_surface_30(self, value=None):
-        """  Corresponds to IDD Field `to_surface_30`
+        """  Corresponds to IDD Field `To Surface 30`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `to_surface_30`
+            value (str): value for IDD Field `To Surface 30`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -18831,7 +19133,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `to_surface_30`'.format(value))
             if ',' in value:
@@ -18840,7 +19142,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `to_surface_30`')
-
         self._data["To Surface 30"] = value
 
     @property
@@ -18854,11 +19155,13 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @view_factor_30.setter
     def view_factor_30(self, value=None):
-        """  Corresponds to IDD Field `view_factor_30`
+        """  Corresponds to IDD Field `View Factor 30`
         This value is the view factor value From Surface => To Surface
+        
+        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `view_factor_30`
+            value (float): value for IDD Field `View Factor 30`
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -18869,13 +19172,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `view_factor_30`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `view_factor_30`')
-
         self._data["View Factor 30"] = value
 
     @property
@@ -18889,10 +19191,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @from_surface_31.setter
     def from_surface_31(self, value=None):
-        """  Corresponds to IDD Field `from_surface_31`
+        """  Corresponds to IDD Field `From Surface 31`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `from_surface_31`
+            value (str): value for IDD Field `From Surface 31`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -18902,7 +19206,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `from_surface_31`'.format(value))
             if ',' in value:
@@ -18911,7 +19215,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `from_surface_31`')
-
         self._data["From Surface 31"] = value
 
     @property
@@ -18925,10 +19228,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @to_surface_31.setter
     def to_surface_31(self, value=None):
-        """  Corresponds to IDD Field `to_surface_31`
+        """  Corresponds to IDD Field `To Surface 31`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `to_surface_31`
+            value (str): value for IDD Field `To Surface 31`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -18938,7 +19243,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `to_surface_31`'.format(value))
             if ',' in value:
@@ -18947,7 +19252,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `to_surface_31`')
-
         self._data["To Surface 31"] = value
 
     @property
@@ -18961,11 +19265,13 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @view_factor_31.setter
     def view_factor_31(self, value=None):
-        """  Corresponds to IDD Field `view_factor_31`
+        """  Corresponds to IDD Field `View Factor 31`
         This value is the view factor value From Surface => To Surface
+        
+        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `view_factor_31`
+            value (float): value for IDD Field `View Factor 31`
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -18976,13 +19282,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `view_factor_31`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `view_factor_31`')
-
         self._data["View Factor 31"] = value
 
     @property
@@ -18996,10 +19301,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @from_surface_32.setter
     def from_surface_32(self, value=None):
-        """  Corresponds to IDD Field `from_surface_32`
+        """  Corresponds to IDD Field `From Surface 32`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `from_surface_32`
+            value (str): value for IDD Field `From Surface 32`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -19009,7 +19316,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `from_surface_32`'.format(value))
             if ',' in value:
@@ -19018,7 +19325,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `from_surface_32`')
-
         self._data["From Surface 32"] = value
 
     @property
@@ -19032,10 +19338,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @to_surface_32.setter
     def to_surface_32(self, value=None):
-        """  Corresponds to IDD Field `to_surface_32`
+        """  Corresponds to IDD Field `To Surface 32`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `to_surface_32`
+            value (str): value for IDD Field `To Surface 32`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -19045,7 +19353,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `to_surface_32`'.format(value))
             if ',' in value:
@@ -19054,7 +19362,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `to_surface_32`')
-
         self._data["To Surface 32"] = value
 
     @property
@@ -19068,11 +19375,13 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @view_factor_32.setter
     def view_factor_32(self, value=None):
-        """  Corresponds to IDD Field `view_factor_32`
+        """  Corresponds to IDD Field `View Factor 32`
         This value is the view factor value From Surface => To Surface
+        
+        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `view_factor_32`
+            value (float): value for IDD Field `View Factor 32`
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -19083,13 +19392,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `view_factor_32`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `view_factor_32`')
-
         self._data["View Factor 32"] = value
 
     @property
@@ -19103,10 +19411,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @from_surface_33.setter
     def from_surface_33(self, value=None):
-        """  Corresponds to IDD Field `from_surface_33`
+        """  Corresponds to IDD Field `From Surface 33`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `from_surface_33`
+            value (str): value for IDD Field `From Surface 33`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -19116,7 +19426,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `from_surface_33`'.format(value))
             if ',' in value:
@@ -19125,7 +19435,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `from_surface_33`')
-
         self._data["From Surface 33"] = value
 
     @property
@@ -19139,10 +19448,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @to_surface_33.setter
     def to_surface_33(self, value=None):
-        """  Corresponds to IDD Field `to_surface_33`
+        """  Corresponds to IDD Field `To Surface 33`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `to_surface_33`
+            value (str): value for IDD Field `To Surface 33`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -19152,7 +19463,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `to_surface_33`'.format(value))
             if ',' in value:
@@ -19161,7 +19472,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `to_surface_33`')
-
         self._data["To Surface 33"] = value
 
     @property
@@ -19175,11 +19485,13 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @view_factor_33.setter
     def view_factor_33(self, value=None):
-        """  Corresponds to IDD Field `view_factor_33`
+        """  Corresponds to IDD Field `View Factor 33`
         This value is the view factor value From Surface => To Surface
+        
+        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `view_factor_33`
+            value (float): value for IDD Field `View Factor 33`
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -19190,13 +19502,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `view_factor_33`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `view_factor_33`')
-
         self._data["View Factor 33"] = value
 
     @property
@@ -19210,10 +19521,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @from_surface_34.setter
     def from_surface_34(self, value=None):
-        """  Corresponds to IDD Field `from_surface_34`
+        """  Corresponds to IDD Field `From Surface 34`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `from_surface_34`
+            value (str): value for IDD Field `From Surface 34`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -19223,7 +19536,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `from_surface_34`'.format(value))
             if ',' in value:
@@ -19232,7 +19545,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `from_surface_34`')
-
         self._data["From Surface 34"] = value
 
     @property
@@ -19246,10 +19558,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @to_surface_34.setter
     def to_surface_34(self, value=None):
-        """  Corresponds to IDD Field `to_surface_34`
+        """  Corresponds to IDD Field `To Surface 34`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `to_surface_34`
+            value (str): value for IDD Field `To Surface 34`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -19259,7 +19573,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `to_surface_34`'.format(value))
             if ',' in value:
@@ -19268,7 +19582,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `to_surface_34`')
-
         self._data["To Surface 34"] = value
 
     @property
@@ -19282,11 +19595,13 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @view_factor_34.setter
     def view_factor_34(self, value=None):
-        """  Corresponds to IDD Field `view_factor_34`
+        """  Corresponds to IDD Field `View Factor 34`
         This value is the view factor value From Surface => To Surface
+        
+        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `view_factor_34`
+            value (float): value for IDD Field `View Factor 34`
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -19297,13 +19612,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `view_factor_34`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `view_factor_34`')
-
         self._data["View Factor 34"] = value
 
     @property
@@ -19317,10 +19631,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @from_surface_35.setter
     def from_surface_35(self, value=None):
-        """  Corresponds to IDD Field `from_surface_35`
+        """  Corresponds to IDD Field `From Surface 35`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `from_surface_35`
+            value (str): value for IDD Field `From Surface 35`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -19330,7 +19646,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `from_surface_35`'.format(value))
             if ',' in value:
@@ -19339,7 +19655,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `from_surface_35`')
-
         self._data["From Surface 35"] = value
 
     @property
@@ -19353,10 +19668,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @to_surface_35.setter
     def to_surface_35(self, value=None):
-        """  Corresponds to IDD Field `to_surface_35`
+        """  Corresponds to IDD Field `To Surface 35`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `to_surface_35`
+            value (str): value for IDD Field `To Surface 35`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -19366,7 +19683,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `to_surface_35`'.format(value))
             if ',' in value:
@@ -19375,7 +19692,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `to_surface_35`')
-
         self._data["To Surface 35"] = value
 
     @property
@@ -19389,11 +19705,13 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @view_factor_35.setter
     def view_factor_35(self, value=None):
-        """  Corresponds to IDD Field `view_factor_35`
+        """  Corresponds to IDD Field `View Factor 35`
         This value is the view factor value From Surface => To Surface
+        
+        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `view_factor_35`
+            value (float): value for IDD Field `View Factor 35`
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -19404,13 +19722,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `view_factor_35`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `view_factor_35`')
-
         self._data["View Factor 35"] = value
 
     @property
@@ -19424,10 +19741,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @from_surface_36.setter
     def from_surface_36(self, value=None):
-        """  Corresponds to IDD Field `from_surface_36`
+        """  Corresponds to IDD Field `From Surface 36`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `from_surface_36`
+            value (str): value for IDD Field `From Surface 36`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -19437,7 +19756,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `from_surface_36`'.format(value))
             if ',' in value:
@@ -19446,7 +19765,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `from_surface_36`')
-
         self._data["From Surface 36"] = value
 
     @property
@@ -19460,10 +19778,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @to_surface_36.setter
     def to_surface_36(self, value=None):
-        """  Corresponds to IDD Field `to_surface_36`
+        """  Corresponds to IDD Field `To Surface 36`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `to_surface_36`
+            value (str): value for IDD Field `To Surface 36`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -19473,7 +19793,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `to_surface_36`'.format(value))
             if ',' in value:
@@ -19482,7 +19802,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `to_surface_36`')
-
         self._data["To Surface 36"] = value
 
     @property
@@ -19496,11 +19815,13 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @view_factor_36.setter
     def view_factor_36(self, value=None):
-        """  Corresponds to IDD Field `view_factor_36`
+        """  Corresponds to IDD Field `View Factor 36`
         This value is the view factor value From Surface => To Surface
+        
+        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `view_factor_36`
+            value (float): value for IDD Field `View Factor 36`
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -19511,13 +19832,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `view_factor_36`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `view_factor_36`')
-
         self._data["View Factor 36"] = value
 
     @property
@@ -19531,10 +19851,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @from_surface_37.setter
     def from_surface_37(self, value=None):
-        """  Corresponds to IDD Field `from_surface_37`
+        """  Corresponds to IDD Field `From Surface 37`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `from_surface_37`
+            value (str): value for IDD Field `From Surface 37`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -19544,7 +19866,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `from_surface_37`'.format(value))
             if ',' in value:
@@ -19553,7 +19875,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `from_surface_37`')
-
         self._data["From Surface 37"] = value
 
     @property
@@ -19567,10 +19888,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @to_surface_37.setter
     def to_surface_37(self, value=None):
-        """  Corresponds to IDD Field `to_surface_37`
+        """  Corresponds to IDD Field `To Surface 37`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `to_surface_37`
+            value (str): value for IDD Field `To Surface 37`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -19580,7 +19903,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `to_surface_37`'.format(value))
             if ',' in value:
@@ -19589,7 +19912,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `to_surface_37`')
-
         self._data["To Surface 37"] = value
 
     @property
@@ -19603,11 +19925,13 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @view_factor_37.setter
     def view_factor_37(self, value=None):
-        """  Corresponds to IDD Field `view_factor_37`
+        """  Corresponds to IDD Field `View Factor 37`
         This value is the view factor value From Surface => To Surface
+        
+        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `view_factor_37`
+            value (float): value for IDD Field `View Factor 37`
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -19618,13 +19942,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `view_factor_37`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `view_factor_37`')
-
         self._data["View Factor 37"] = value
 
     @property
@@ -19638,10 +19961,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @from_surface_38.setter
     def from_surface_38(self, value=None):
-        """  Corresponds to IDD Field `from_surface_38`
+        """  Corresponds to IDD Field `From Surface 38`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `from_surface_38`
+            value (str): value for IDD Field `From Surface 38`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -19651,7 +19976,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `from_surface_38`'.format(value))
             if ',' in value:
@@ -19660,7 +19985,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `from_surface_38`')
-
         self._data["From Surface 38"] = value
 
     @property
@@ -19674,10 +19998,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @to_surface_38.setter
     def to_surface_38(self, value=None):
-        """  Corresponds to IDD Field `to_surface_38`
+        """  Corresponds to IDD Field `To Surface 38`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `to_surface_38`
+            value (str): value for IDD Field `To Surface 38`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -19687,7 +20013,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `to_surface_38`'.format(value))
             if ',' in value:
@@ -19696,7 +20022,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `to_surface_38`')
-
         self._data["To Surface 38"] = value
 
     @property
@@ -19710,11 +20035,13 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @view_factor_38.setter
     def view_factor_38(self, value=None):
-        """  Corresponds to IDD Field `view_factor_38`
+        """  Corresponds to IDD Field `View Factor 38`
         This value is the view factor value From Surface => To Surface
+        
+        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `view_factor_38`
+            value (float): value for IDD Field `View Factor 38`
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -19725,13 +20052,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `view_factor_38`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `view_factor_38`')
-
         self._data["View Factor 38"] = value
 
     @property
@@ -19745,10 +20071,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @from_surface_39.setter
     def from_surface_39(self, value=None):
-        """  Corresponds to IDD Field `from_surface_39`
+        """  Corresponds to IDD Field `From Surface 39`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `from_surface_39`
+            value (str): value for IDD Field `From Surface 39`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -19758,7 +20086,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `from_surface_39`'.format(value))
             if ',' in value:
@@ -19767,7 +20095,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `from_surface_39`')
-
         self._data["From Surface 39"] = value
 
     @property
@@ -19781,10 +20108,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @to_surface_39.setter
     def to_surface_39(self, value=None):
-        """  Corresponds to IDD Field `to_surface_39`
+        """  Corresponds to IDD Field `To Surface 39`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `to_surface_39`
+            value (str): value for IDD Field `To Surface 39`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -19794,7 +20123,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `to_surface_39`'.format(value))
             if ',' in value:
@@ -19803,7 +20132,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `to_surface_39`')
-
         self._data["To Surface 39"] = value
 
     @property
@@ -19817,11 +20145,13 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @view_factor_39.setter
     def view_factor_39(self, value=None):
-        """  Corresponds to IDD Field `view_factor_39`
+        """  Corresponds to IDD Field `View Factor 39`
         This value is the view factor value From Surface => To Surface
+        
+        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `view_factor_39`
+            value (float): value for IDD Field `View Factor 39`
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -19832,13 +20162,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `view_factor_39`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `view_factor_39`')
-
         self._data["View Factor 39"] = value
 
     @property
@@ -19852,10 +20181,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @from_surface_40.setter
     def from_surface_40(self, value=None):
-        """  Corresponds to IDD Field `from_surface_40`
+        """  Corresponds to IDD Field `From Surface 40`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `from_surface_40`
+            value (str): value for IDD Field `From Surface 40`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -19865,7 +20196,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `from_surface_40`'.format(value))
             if ',' in value:
@@ -19874,7 +20205,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `from_surface_40`')
-
         self._data["From Surface 40"] = value
 
     @property
@@ -19888,10 +20218,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @to_surface_40.setter
     def to_surface_40(self, value=None):
-        """  Corresponds to IDD Field `to_surface_40`
+        """  Corresponds to IDD Field `To Surface 40`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `to_surface_40`
+            value (str): value for IDD Field `To Surface 40`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -19901,7 +20233,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `to_surface_40`'.format(value))
             if ',' in value:
@@ -19910,7 +20242,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `to_surface_40`')
-
         self._data["To Surface 40"] = value
 
     @property
@@ -19924,11 +20255,13 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @view_factor_40.setter
     def view_factor_40(self, value=None):
-        """  Corresponds to IDD Field `view_factor_40`
+        """  Corresponds to IDD Field `View Factor 40`
         This value is the view factor value From Surface => To Surface
+        
+        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `view_factor_40`
+            value (float): value for IDD Field `View Factor 40`
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -19939,13 +20272,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `view_factor_40`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `view_factor_40`')
-
         self._data["View Factor 40"] = value
 
     @property
@@ -19959,10 +20291,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @from_surface_41.setter
     def from_surface_41(self, value=None):
-        """  Corresponds to IDD Field `from_surface_41`
+        """  Corresponds to IDD Field `From Surface 41`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `from_surface_41`
+            value (str): value for IDD Field `From Surface 41`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -19972,7 +20306,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `from_surface_41`'.format(value))
             if ',' in value:
@@ -19981,7 +20315,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `from_surface_41`')
-
         self._data["From Surface 41"] = value
 
     @property
@@ -19995,10 +20328,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @to_surface_41.setter
     def to_surface_41(self, value=None):
-        """  Corresponds to IDD Field `to_surface_41`
+        """  Corresponds to IDD Field `To Surface 41`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `to_surface_41`
+            value (str): value for IDD Field `To Surface 41`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -20008,7 +20343,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `to_surface_41`'.format(value))
             if ',' in value:
@@ -20017,7 +20352,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `to_surface_41`')
-
         self._data["To Surface 41"] = value
 
     @property
@@ -20031,11 +20365,13 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @view_factor_41.setter
     def view_factor_41(self, value=None):
-        """  Corresponds to IDD Field `view_factor_41`
+        """  Corresponds to IDD Field `View Factor 41`
         This value is the view factor value From Surface => To Surface
+        
+        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `view_factor_41`
+            value (float): value for IDD Field `View Factor 41`
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -20046,13 +20382,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `view_factor_41`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `view_factor_41`')
-
         self._data["View Factor 41"] = value
 
     @property
@@ -20066,10 +20401,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @from_surface_42.setter
     def from_surface_42(self, value=None):
-        """  Corresponds to IDD Field `from_surface_42`
+        """  Corresponds to IDD Field `From Surface 42`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `from_surface_42`
+            value (str): value for IDD Field `From Surface 42`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -20079,7 +20416,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `from_surface_42`'.format(value))
             if ',' in value:
@@ -20088,7 +20425,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `from_surface_42`')
-
         self._data["From Surface 42"] = value
 
     @property
@@ -20102,10 +20438,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @to_surface_42.setter
     def to_surface_42(self, value=None):
-        """  Corresponds to IDD Field `to_surface_42`
+        """  Corresponds to IDD Field `To Surface 42`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `to_surface_42`
+            value (str): value for IDD Field `To Surface 42`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -20115,7 +20453,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `to_surface_42`'.format(value))
             if ',' in value:
@@ -20124,7 +20462,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `to_surface_42`')
-
         self._data["To Surface 42"] = value
 
     @property
@@ -20138,11 +20475,13 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @view_factor_42.setter
     def view_factor_42(self, value=None):
-        """  Corresponds to IDD Field `view_factor_42`
+        """  Corresponds to IDD Field `View Factor 42`
         This value is the view factor value From Surface => To Surface
+        
+        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `view_factor_42`
+            value (float): value for IDD Field `View Factor 42`
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -20153,13 +20492,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `view_factor_42`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `view_factor_42`')
-
         self._data["View Factor 42"] = value
 
     @property
@@ -20173,10 +20511,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @from_surface_43.setter
     def from_surface_43(self, value=None):
-        """  Corresponds to IDD Field `from_surface_43`
+        """  Corresponds to IDD Field `From Surface 43`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `from_surface_43`
+            value (str): value for IDD Field `From Surface 43`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -20186,7 +20526,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `from_surface_43`'.format(value))
             if ',' in value:
@@ -20195,7 +20535,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `from_surface_43`')
-
         self._data["From Surface 43"] = value
 
     @property
@@ -20209,10 +20548,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @to_surface_43.setter
     def to_surface_43(self, value=None):
-        """  Corresponds to IDD Field `to_surface_43`
+        """  Corresponds to IDD Field `To Surface 43`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `to_surface_43`
+            value (str): value for IDD Field `To Surface 43`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -20222,7 +20563,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `to_surface_43`'.format(value))
             if ',' in value:
@@ -20231,7 +20572,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `to_surface_43`')
-
         self._data["To Surface 43"] = value
 
     @property
@@ -20245,11 +20585,13 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @view_factor_43.setter
     def view_factor_43(self, value=None):
-        """  Corresponds to IDD Field `view_factor_43`
+        """  Corresponds to IDD Field `View Factor 43`
         This value is the view factor value From Surface => To Surface
+        
+        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `view_factor_43`
+            value (float): value for IDD Field `View Factor 43`
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -20260,13 +20602,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `view_factor_43`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `view_factor_43`')
-
         self._data["View Factor 43"] = value
 
     @property
@@ -20280,10 +20621,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @from_surface_44.setter
     def from_surface_44(self, value=None):
-        """  Corresponds to IDD Field `from_surface_44`
+        """  Corresponds to IDD Field `From Surface 44`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `from_surface_44`
+            value (str): value for IDD Field `From Surface 44`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -20293,7 +20636,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `from_surface_44`'.format(value))
             if ',' in value:
@@ -20302,7 +20645,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `from_surface_44`')
-
         self._data["From Surface 44"] = value
 
     @property
@@ -20316,10 +20658,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @to_surface_44.setter
     def to_surface_44(self, value=None):
-        """  Corresponds to IDD Field `to_surface_44`
+        """  Corresponds to IDD Field `To Surface 44`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `to_surface_44`
+            value (str): value for IDD Field `To Surface 44`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -20329,7 +20673,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `to_surface_44`'.format(value))
             if ',' in value:
@@ -20338,7 +20682,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `to_surface_44`')
-
         self._data["To Surface 44"] = value
 
     @property
@@ -20352,11 +20695,13 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @view_factor_44.setter
     def view_factor_44(self, value=None):
-        """  Corresponds to IDD Field `view_factor_44`
+        """  Corresponds to IDD Field `View Factor 44`
         This value is the view factor value From Surface => To Surface
+        
+        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `view_factor_44`
+            value (float): value for IDD Field `View Factor 44`
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -20367,13 +20712,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `view_factor_44`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `view_factor_44`')
-
         self._data["View Factor 44"] = value
 
     @property
@@ -20387,10 +20731,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @from_surface_45.setter
     def from_surface_45(self, value=None):
-        """  Corresponds to IDD Field `from_surface_45`
+        """  Corresponds to IDD Field `From Surface 45`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `from_surface_45`
+            value (str): value for IDD Field `From Surface 45`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -20400,7 +20746,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `from_surface_45`'.format(value))
             if ',' in value:
@@ -20409,7 +20755,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `from_surface_45`')
-
         self._data["From Surface 45"] = value
 
     @property
@@ -20423,10 +20768,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @to_surface_45.setter
     def to_surface_45(self, value=None):
-        """  Corresponds to IDD Field `to_surface_45`
+        """  Corresponds to IDD Field `To Surface 45`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `to_surface_45`
+            value (str): value for IDD Field `To Surface 45`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -20436,7 +20783,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `to_surface_45`'.format(value))
             if ',' in value:
@@ -20445,7 +20792,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `to_surface_45`')
-
         self._data["To Surface 45"] = value
 
     @property
@@ -20459,11 +20805,13 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @view_factor_45.setter
     def view_factor_45(self, value=None):
-        """  Corresponds to IDD Field `view_factor_45`
+        """  Corresponds to IDD Field `View Factor 45`
         This value is the view factor value From Surface => To Surface
+        
+        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `view_factor_45`
+            value (float): value for IDD Field `View Factor 45`
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -20474,13 +20822,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `view_factor_45`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `view_factor_45`')
-
         self._data["View Factor 45"] = value
 
     @property
@@ -20494,10 +20841,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @from_surface_46.setter
     def from_surface_46(self, value=None):
-        """  Corresponds to IDD Field `from_surface_46`
+        """  Corresponds to IDD Field `From Surface 46`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `from_surface_46`
+            value (str): value for IDD Field `From Surface 46`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -20507,7 +20856,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `from_surface_46`'.format(value))
             if ',' in value:
@@ -20516,7 +20865,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `from_surface_46`')
-
         self._data["From Surface 46"] = value
 
     @property
@@ -20530,10 +20878,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @to_surface_46.setter
     def to_surface_46(self, value=None):
-        """  Corresponds to IDD Field `to_surface_46`
+        """  Corresponds to IDD Field `To Surface 46`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `to_surface_46`
+            value (str): value for IDD Field `To Surface 46`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -20543,7 +20893,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `to_surface_46`'.format(value))
             if ',' in value:
@@ -20552,7 +20902,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `to_surface_46`')
-
         self._data["To Surface 46"] = value
 
     @property
@@ -20566,11 +20915,13 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @view_factor_46.setter
     def view_factor_46(self, value=None):
-        """  Corresponds to IDD Field `view_factor_46`
+        """  Corresponds to IDD Field `View Factor 46`
         This value is the view factor value From Surface => To Surface
+        
+        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `view_factor_46`
+            value (float): value for IDD Field `View Factor 46`
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -20581,13 +20932,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `view_factor_46`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `view_factor_46`')
-
         self._data["View Factor 46"] = value
 
     @property
@@ -20601,10 +20951,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @from_surface_47.setter
     def from_surface_47(self, value=None):
-        """  Corresponds to IDD Field `from_surface_47`
+        """  Corresponds to IDD Field `From Surface 47`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `from_surface_47`
+            value (str): value for IDD Field `From Surface 47`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -20614,7 +20966,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `from_surface_47`'.format(value))
             if ',' in value:
@@ -20623,7 +20975,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `from_surface_47`')
-
         self._data["From Surface 47"] = value
 
     @property
@@ -20637,10 +20988,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @to_surface_47.setter
     def to_surface_47(self, value=None):
-        """  Corresponds to IDD Field `to_surface_47`
+        """  Corresponds to IDD Field `To Surface 47`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `to_surface_47`
+            value (str): value for IDD Field `To Surface 47`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -20650,7 +21003,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `to_surface_47`'.format(value))
             if ',' in value:
@@ -20659,7 +21012,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `to_surface_47`')
-
         self._data["To Surface 47"] = value
 
     @property
@@ -20673,11 +21025,13 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @view_factor_47.setter
     def view_factor_47(self, value=None):
-        """  Corresponds to IDD Field `view_factor_47`
+        """  Corresponds to IDD Field `View Factor 47`
         This value is the view factor value From Surface => To Surface
+        
+        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `view_factor_47`
+            value (float): value for IDD Field `View Factor 47`
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -20688,13 +21042,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `view_factor_47`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `view_factor_47`')
-
         self._data["View Factor 47"] = value
 
     @property
@@ -20708,10 +21061,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @from_surface_48.setter
     def from_surface_48(self, value=None):
-        """  Corresponds to IDD Field `from_surface_48`
+        """  Corresponds to IDD Field `From Surface 48`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `from_surface_48`
+            value (str): value for IDD Field `From Surface 48`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -20721,7 +21076,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `from_surface_48`'.format(value))
             if ',' in value:
@@ -20730,7 +21085,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `from_surface_48`')
-
         self._data["From Surface 48"] = value
 
     @property
@@ -20744,10 +21098,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @to_surface_48.setter
     def to_surface_48(self, value=None):
-        """  Corresponds to IDD Field `to_surface_48`
+        """  Corresponds to IDD Field `To Surface 48`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `to_surface_48`
+            value (str): value for IDD Field `To Surface 48`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -20757,7 +21113,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `to_surface_48`'.format(value))
             if ',' in value:
@@ -20766,7 +21122,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `to_surface_48`')
-
         self._data["To Surface 48"] = value
 
     @property
@@ -20780,11 +21135,13 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @view_factor_48.setter
     def view_factor_48(self, value=None):
-        """  Corresponds to IDD Field `view_factor_48`
+        """  Corresponds to IDD Field `View Factor 48`
         This value is the view factor value From Surface => To Surface
+        
+        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `view_factor_48`
+            value (float): value for IDD Field `View Factor 48`
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -20795,13 +21152,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `view_factor_48`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `view_factor_48`')
-
         self._data["View Factor 48"] = value
 
     @property
@@ -20815,10 +21171,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @from_surface_49.setter
     def from_surface_49(self, value=None):
-        """  Corresponds to IDD Field `from_surface_49`
+        """  Corresponds to IDD Field `From Surface 49`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `from_surface_49`
+            value (str): value for IDD Field `From Surface 49`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -20828,7 +21186,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `from_surface_49`'.format(value))
             if ',' in value:
@@ -20837,7 +21195,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `from_surface_49`')
-
         self._data["From Surface 49"] = value
 
     @property
@@ -20851,10 +21208,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @to_surface_49.setter
     def to_surface_49(self, value=None):
-        """  Corresponds to IDD Field `to_surface_49`
+        """  Corresponds to IDD Field `To Surface 49`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `to_surface_49`
+            value (str): value for IDD Field `To Surface 49`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -20864,7 +21223,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `to_surface_49`'.format(value))
             if ',' in value:
@@ -20873,7 +21232,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `to_surface_49`')
-
         self._data["To Surface 49"] = value
 
     @property
@@ -20887,11 +21245,13 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @view_factor_49.setter
     def view_factor_49(self, value=None):
-        """  Corresponds to IDD Field `view_factor_49`
+        """  Corresponds to IDD Field `View Factor 49`
         This value is the view factor value From Surface => To Surface
+        
+        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `view_factor_49`
+            value (float): value for IDD Field `View Factor 49`
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -20902,13 +21262,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `view_factor_49`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `view_factor_49`')
-
         self._data["View Factor 49"] = value
 
     @property
@@ -20922,10 +21281,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @from_surface_50.setter
     def from_surface_50(self, value=None):
-        """  Corresponds to IDD Field `from_surface_50`
+        """  Corresponds to IDD Field `From Surface 50`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `from_surface_50`
+            value (str): value for IDD Field `From Surface 50`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -20935,7 +21296,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `from_surface_50`'.format(value))
             if ',' in value:
@@ -20944,7 +21305,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `from_surface_50`')
-
         self._data["From Surface 50"] = value
 
     @property
@@ -20958,10 +21318,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @to_surface_50.setter
     def to_surface_50(self, value=None):
-        """  Corresponds to IDD Field `to_surface_50`
+        """  Corresponds to IDD Field `To Surface 50`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `to_surface_50`
+            value (str): value for IDD Field `To Surface 50`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -20971,7 +21333,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `to_surface_50`'.format(value))
             if ',' in value:
@@ -20980,7 +21342,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `to_surface_50`')
-
         self._data["To Surface 50"] = value
 
     @property
@@ -20994,11 +21355,13 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @view_factor_50.setter
     def view_factor_50(self, value=None):
-        """  Corresponds to IDD Field `view_factor_50`
+        """  Corresponds to IDD Field `View Factor 50`
         This value is the view factor value From Surface => To Surface
+        
+        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `view_factor_50`
+            value (float): value for IDD Field `View Factor 50`
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -21009,13 +21372,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `view_factor_50`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `view_factor_50`')
-
         self._data["View Factor 50"] = value
 
     @property
@@ -21029,10 +21391,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @from_surface_51.setter
     def from_surface_51(self, value=None):
-        """  Corresponds to IDD Field `from_surface_51`
+        """  Corresponds to IDD Field `From Surface 51`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `from_surface_51`
+            value (str): value for IDD Field `From Surface 51`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -21042,7 +21406,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `from_surface_51`'.format(value))
             if ',' in value:
@@ -21051,7 +21415,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `from_surface_51`')
-
         self._data["From Surface 51"] = value
 
     @property
@@ -21065,10 +21428,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @to_surface_51.setter
     def to_surface_51(self, value=None):
-        """  Corresponds to IDD Field `to_surface_51`
+        """  Corresponds to IDD Field `To Surface 51`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `to_surface_51`
+            value (str): value for IDD Field `To Surface 51`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -21078,7 +21443,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `to_surface_51`'.format(value))
             if ',' in value:
@@ -21087,7 +21452,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `to_surface_51`')
-
         self._data["To Surface 51"] = value
 
     @property
@@ -21101,11 +21465,13 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @view_factor_51.setter
     def view_factor_51(self, value=None):
-        """  Corresponds to IDD Field `view_factor_51`
+        """  Corresponds to IDD Field `View Factor 51`
         This value is the view factor value From Surface => To Surface
+        
+        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `view_factor_51`
+            value (float): value for IDD Field `View Factor 51`
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -21116,13 +21482,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `view_factor_51`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `view_factor_51`')
-
         self._data["View Factor 51"] = value
 
     @property
@@ -21136,10 +21501,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @from_surface_52.setter
     def from_surface_52(self, value=None):
-        """  Corresponds to IDD Field `from_surface_52`
+        """  Corresponds to IDD Field `From Surface 52`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `from_surface_52`
+            value (str): value for IDD Field `From Surface 52`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -21149,7 +21516,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `from_surface_52`'.format(value))
             if ',' in value:
@@ -21158,7 +21525,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `from_surface_52`')
-
         self._data["From Surface 52"] = value
 
     @property
@@ -21172,10 +21538,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @to_surface_52.setter
     def to_surface_52(self, value=None):
-        """  Corresponds to IDD Field `to_surface_52`
+        """  Corresponds to IDD Field `To Surface 52`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `to_surface_52`
+            value (str): value for IDD Field `To Surface 52`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -21185,7 +21553,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `to_surface_52`'.format(value))
             if ',' in value:
@@ -21194,7 +21562,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `to_surface_52`')
-
         self._data["To Surface 52"] = value
 
     @property
@@ -21208,11 +21575,13 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @view_factor_52.setter
     def view_factor_52(self, value=None):
-        """  Corresponds to IDD Field `view_factor_52`
+        """  Corresponds to IDD Field `View Factor 52`
         This value is the view factor value From Surface => To Surface
+        
+        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `view_factor_52`
+            value (float): value for IDD Field `View Factor 52`
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -21223,13 +21592,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `view_factor_52`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `view_factor_52`')
-
         self._data["View Factor 52"] = value
 
     @property
@@ -21243,10 +21611,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @from_surface_53.setter
     def from_surface_53(self, value=None):
-        """  Corresponds to IDD Field `from_surface_53`
+        """  Corresponds to IDD Field `From Surface 53`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `from_surface_53`
+            value (str): value for IDD Field `From Surface 53`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -21256,7 +21626,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `from_surface_53`'.format(value))
             if ',' in value:
@@ -21265,7 +21635,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `from_surface_53`')
-
         self._data["From Surface 53"] = value
 
     @property
@@ -21279,10 +21648,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @to_surface_53.setter
     def to_surface_53(self, value=None):
-        """  Corresponds to IDD Field `to_surface_53`
+        """  Corresponds to IDD Field `To Surface 53`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `to_surface_53`
+            value (str): value for IDD Field `To Surface 53`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -21292,7 +21663,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `to_surface_53`'.format(value))
             if ',' in value:
@@ -21301,7 +21672,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `to_surface_53`')
-
         self._data["To Surface 53"] = value
 
     @property
@@ -21315,11 +21685,13 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @view_factor_53.setter
     def view_factor_53(self, value=None):
-        """  Corresponds to IDD Field `view_factor_53`
+        """  Corresponds to IDD Field `View Factor 53`
         This value is the view factor value From Surface => To Surface
+        
+        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `view_factor_53`
+            value (float): value for IDD Field `View Factor 53`
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -21330,13 +21702,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `view_factor_53`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `view_factor_53`')
-
         self._data["View Factor 53"] = value
 
     @property
@@ -21350,10 +21721,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @from_surface_54.setter
     def from_surface_54(self, value=None):
-        """  Corresponds to IDD Field `from_surface_54`
+        """  Corresponds to IDD Field `From Surface 54`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `from_surface_54`
+            value (str): value for IDD Field `From Surface 54`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -21363,7 +21736,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `from_surface_54`'.format(value))
             if ',' in value:
@@ -21372,7 +21745,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `from_surface_54`')
-
         self._data["From Surface 54"] = value
 
     @property
@@ -21386,10 +21758,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @to_surface_54.setter
     def to_surface_54(self, value=None):
-        """  Corresponds to IDD Field `to_surface_54`
+        """  Corresponds to IDD Field `To Surface 54`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `to_surface_54`
+            value (str): value for IDD Field `To Surface 54`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -21399,7 +21773,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `to_surface_54`'.format(value))
             if ',' in value:
@@ -21408,7 +21782,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `to_surface_54`')
-
         self._data["To Surface 54"] = value
 
     @property
@@ -21422,11 +21795,13 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @view_factor_54.setter
     def view_factor_54(self, value=None):
-        """  Corresponds to IDD Field `view_factor_54`
+        """  Corresponds to IDD Field `View Factor 54`
         This value is the view factor value From Surface => To Surface
+        
+        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `view_factor_54`
+            value (float): value for IDD Field `View Factor 54`
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -21437,13 +21812,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `view_factor_54`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `view_factor_54`')
-
         self._data["View Factor 54"] = value
 
     @property
@@ -21457,10 +21831,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @from_surface_55.setter
     def from_surface_55(self, value=None):
-        """  Corresponds to IDD Field `from_surface_55`
+        """  Corresponds to IDD Field `From Surface 55`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `from_surface_55`
+            value (str): value for IDD Field `From Surface 55`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -21470,7 +21846,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `from_surface_55`'.format(value))
             if ',' in value:
@@ -21479,7 +21855,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `from_surface_55`')
-
         self._data["From Surface 55"] = value
 
     @property
@@ -21493,10 +21868,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @to_surface_55.setter
     def to_surface_55(self, value=None):
-        """  Corresponds to IDD Field `to_surface_55`
+        """  Corresponds to IDD Field `To Surface 55`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `to_surface_55`
+            value (str): value for IDD Field `To Surface 55`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -21506,7 +21883,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `to_surface_55`'.format(value))
             if ',' in value:
@@ -21515,7 +21892,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `to_surface_55`')
-
         self._data["To Surface 55"] = value
 
     @property
@@ -21529,11 +21905,13 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @view_factor_55.setter
     def view_factor_55(self, value=None):
-        """  Corresponds to IDD Field `view_factor_55`
+        """  Corresponds to IDD Field `View Factor 55`
         This value is the view factor value From Surface => To Surface
+        
+        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `view_factor_55`
+            value (float): value for IDD Field `View Factor 55`
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -21544,13 +21922,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `view_factor_55`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `view_factor_55`')
-
         self._data["View Factor 55"] = value
 
     @property
@@ -21564,10 +21941,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @from_surface_56.setter
     def from_surface_56(self, value=None):
-        """  Corresponds to IDD Field `from_surface_56`
+        """  Corresponds to IDD Field `From Surface 56`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `from_surface_56`
+            value (str): value for IDD Field `From Surface 56`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -21577,7 +21956,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `from_surface_56`'.format(value))
             if ',' in value:
@@ -21586,7 +21965,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `from_surface_56`')
-
         self._data["From Surface 56"] = value
 
     @property
@@ -21600,10 +21978,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @to_surface_56.setter
     def to_surface_56(self, value=None):
-        """  Corresponds to IDD Field `to_surface_56`
+        """  Corresponds to IDD Field `To Surface 56`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `to_surface_56`
+            value (str): value for IDD Field `To Surface 56`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -21613,7 +21993,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `to_surface_56`'.format(value))
             if ',' in value:
@@ -21622,7 +22002,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `to_surface_56`')
-
         self._data["To Surface 56"] = value
 
     @property
@@ -21636,11 +22015,13 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @view_factor_56.setter
     def view_factor_56(self, value=None):
-        """  Corresponds to IDD Field `view_factor_56`
+        """  Corresponds to IDD Field `View Factor 56`
         This value is the view factor value From Surface => To Surface
+        
+        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `view_factor_56`
+            value (float): value for IDD Field `View Factor 56`
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -21651,13 +22032,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `view_factor_56`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `view_factor_56`')
-
         self._data["View Factor 56"] = value
 
     @property
@@ -21671,10 +22051,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @from_surface_57.setter
     def from_surface_57(self, value=None):
-        """  Corresponds to IDD Field `from_surface_57`
+        """  Corresponds to IDD Field `From Surface 57`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `from_surface_57`
+            value (str): value for IDD Field `From Surface 57`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -21684,7 +22066,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `from_surface_57`'.format(value))
             if ',' in value:
@@ -21693,7 +22075,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `from_surface_57`')
-
         self._data["From Surface 57"] = value
 
     @property
@@ -21707,10 +22088,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @to_surface_57.setter
     def to_surface_57(self, value=None):
-        """  Corresponds to IDD Field `to_surface_57`
+        """  Corresponds to IDD Field `To Surface 57`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `to_surface_57`
+            value (str): value for IDD Field `To Surface 57`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -21720,7 +22103,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `to_surface_57`'.format(value))
             if ',' in value:
@@ -21729,7 +22112,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `to_surface_57`')
-
         self._data["To Surface 57"] = value
 
     @property
@@ -21743,11 +22125,13 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @view_factor_57.setter
     def view_factor_57(self, value=None):
-        """  Corresponds to IDD Field `view_factor_57`
+        """  Corresponds to IDD Field `View Factor 57`
         This value is the view factor value From Surface => To Surface
+        
+        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `view_factor_57`
+            value (float): value for IDD Field `View Factor 57`
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -21758,13 +22142,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `view_factor_57`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `view_factor_57`')
-
         self._data["View Factor 57"] = value
 
     @property
@@ -21778,10 +22161,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @from_surface_58.setter
     def from_surface_58(self, value=None):
-        """  Corresponds to IDD Field `from_surface_58`
+        """  Corresponds to IDD Field `From Surface 58`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `from_surface_58`
+            value (str): value for IDD Field `From Surface 58`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -21791,7 +22176,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `from_surface_58`'.format(value))
             if ',' in value:
@@ -21800,7 +22185,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `from_surface_58`')
-
         self._data["From Surface 58"] = value
 
     @property
@@ -21814,10 +22198,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @to_surface_58.setter
     def to_surface_58(self, value=None):
-        """  Corresponds to IDD Field `to_surface_58`
+        """  Corresponds to IDD Field `To Surface 58`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `to_surface_58`
+            value (str): value for IDD Field `To Surface 58`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -21827,7 +22213,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `to_surface_58`'.format(value))
             if ',' in value:
@@ -21836,7 +22222,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `to_surface_58`')
-
         self._data["To Surface 58"] = value
 
     @property
@@ -21850,11 +22235,13 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @view_factor_58.setter
     def view_factor_58(self, value=None):
-        """  Corresponds to IDD Field `view_factor_58`
+        """  Corresponds to IDD Field `View Factor 58`
         This value is the view factor value From Surface => To Surface
+        
+        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `view_factor_58`
+            value (float): value for IDD Field `View Factor 58`
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -21865,13 +22252,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `view_factor_58`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `view_factor_58`')
-
         self._data["View Factor 58"] = value
 
     @property
@@ -21885,10 +22271,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @from_surface_59.setter
     def from_surface_59(self, value=None):
-        """  Corresponds to IDD Field `from_surface_59`
+        """  Corresponds to IDD Field `From Surface 59`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `from_surface_59`
+            value (str): value for IDD Field `From Surface 59`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -21898,7 +22286,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `from_surface_59`'.format(value))
             if ',' in value:
@@ -21907,7 +22295,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `from_surface_59`')
-
         self._data["From Surface 59"] = value
 
     @property
@@ -21921,10 +22308,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @to_surface_59.setter
     def to_surface_59(self, value=None):
-        """  Corresponds to IDD Field `to_surface_59`
+        """  Corresponds to IDD Field `To Surface 59`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `to_surface_59`
+            value (str): value for IDD Field `To Surface 59`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -21934,7 +22323,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `to_surface_59`'.format(value))
             if ',' in value:
@@ -21943,7 +22332,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `to_surface_59`')
-
         self._data["To Surface 59"] = value
 
     @property
@@ -21957,11 +22345,13 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @view_factor_59.setter
     def view_factor_59(self, value=None):
-        """  Corresponds to IDD Field `view_factor_59`
+        """  Corresponds to IDD Field `View Factor 59`
         This value is the view factor value From Surface => To Surface
+        
+        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `view_factor_59`
+            value (float): value for IDD Field `View Factor 59`
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -21972,13 +22362,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `view_factor_59`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `view_factor_59`')
-
         self._data["View Factor 59"] = value
 
     @property
@@ -21992,10 +22381,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @from_surface_60.setter
     def from_surface_60(self, value=None):
-        """  Corresponds to IDD Field `from_surface_60`
+        """  Corresponds to IDD Field `From Surface 60`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `from_surface_60`
+            value (str): value for IDD Field `From Surface 60`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -22005,7 +22396,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `from_surface_60`'.format(value))
             if ',' in value:
@@ -22014,7 +22405,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `from_surface_60`')
-
         self._data["From Surface 60"] = value
 
     @property
@@ -22028,10 +22418,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @to_surface_60.setter
     def to_surface_60(self, value=None):
-        """  Corresponds to IDD Field `to_surface_60`
+        """  Corresponds to IDD Field `To Surface 60`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `to_surface_60`
+            value (str): value for IDD Field `To Surface 60`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -22041,7 +22433,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `to_surface_60`'.format(value))
             if ',' in value:
@@ -22050,7 +22442,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `to_surface_60`')
-
         self._data["To Surface 60"] = value
 
     @property
@@ -22064,11 +22455,13 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @view_factor_60.setter
     def view_factor_60(self, value=None):
-        """  Corresponds to IDD Field `view_factor_60`
+        """  Corresponds to IDD Field `View Factor 60`
         This value is the view factor value From Surface => To Surface
+        
+        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `view_factor_60`
+            value (float): value for IDD Field `View Factor 60`
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -22079,13 +22472,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `view_factor_60`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `view_factor_60`')
-
         self._data["View Factor 60"] = value
 
     @property
@@ -22099,10 +22491,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @from_surface_61.setter
     def from_surface_61(self, value=None):
-        """  Corresponds to IDD Field `from_surface_61`
+        """  Corresponds to IDD Field `From Surface 61`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `from_surface_61`
+            value (str): value for IDD Field `From Surface 61`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -22112,7 +22506,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `from_surface_61`'.format(value))
             if ',' in value:
@@ -22121,7 +22515,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `from_surface_61`')
-
         self._data["From Surface 61"] = value
 
     @property
@@ -22135,10 +22528,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @to_surface_61.setter
     def to_surface_61(self, value=None):
-        """  Corresponds to IDD Field `to_surface_61`
+        """  Corresponds to IDD Field `To Surface 61`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `to_surface_61`
+            value (str): value for IDD Field `To Surface 61`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -22148,7 +22543,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `to_surface_61`'.format(value))
             if ',' in value:
@@ -22157,7 +22552,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `to_surface_61`')
-
         self._data["To Surface 61"] = value
 
     @property
@@ -22171,11 +22565,13 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @view_factor_61.setter
     def view_factor_61(self, value=None):
-        """  Corresponds to IDD Field `view_factor_61`
+        """  Corresponds to IDD Field `View Factor 61`
         This value is the view factor value From Surface => To Surface
+        
+        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `view_factor_61`
+            value (float): value for IDD Field `View Factor 61`
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -22186,13 +22582,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `view_factor_61`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `view_factor_61`')
-
         self._data["View Factor 61"] = value
 
     @property
@@ -22206,10 +22601,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @from_surface_62.setter
     def from_surface_62(self, value=None):
-        """  Corresponds to IDD Field `from_surface_62`
+        """  Corresponds to IDD Field `From Surface 62`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `from_surface_62`
+            value (str): value for IDD Field `From Surface 62`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -22219,7 +22616,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `from_surface_62`'.format(value))
             if ',' in value:
@@ -22228,7 +22625,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `from_surface_62`')
-
         self._data["From Surface 62"] = value
 
     @property
@@ -22242,10 +22638,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @to_surface_62.setter
     def to_surface_62(self, value=None):
-        """  Corresponds to IDD Field `to_surface_62`
+        """  Corresponds to IDD Field `To Surface 62`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `to_surface_62`
+            value (str): value for IDD Field `To Surface 62`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -22255,7 +22653,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `to_surface_62`'.format(value))
             if ',' in value:
@@ -22264,7 +22662,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `to_surface_62`')
-
         self._data["To Surface 62"] = value
 
     @property
@@ -22278,11 +22675,13 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @view_factor_62.setter
     def view_factor_62(self, value=None):
-        """  Corresponds to IDD Field `view_factor_62`
+        """  Corresponds to IDD Field `View Factor 62`
         This value is the view factor value From Surface => To Surface
+        
+        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `view_factor_62`
+            value (float): value for IDD Field `View Factor 62`
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -22293,13 +22692,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `view_factor_62`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `view_factor_62`')
-
         self._data["View Factor 62"] = value
 
     @property
@@ -22313,10 +22711,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @from_surface_63.setter
     def from_surface_63(self, value=None):
-        """  Corresponds to IDD Field `from_surface_63`
+        """  Corresponds to IDD Field `From Surface 63`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `from_surface_63`
+            value (str): value for IDD Field `From Surface 63`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -22326,7 +22726,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `from_surface_63`'.format(value))
             if ',' in value:
@@ -22335,7 +22735,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `from_surface_63`')
-
         self._data["From Surface 63"] = value
 
     @property
@@ -22349,10 +22748,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @to_surface_63.setter
     def to_surface_63(self, value=None):
-        """  Corresponds to IDD Field `to_surface_63`
+        """  Corresponds to IDD Field `To Surface 63`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `to_surface_63`
+            value (str): value for IDD Field `To Surface 63`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -22362,7 +22763,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `to_surface_63`'.format(value))
             if ',' in value:
@@ -22371,7 +22772,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `to_surface_63`')
-
         self._data["To Surface 63"] = value
 
     @property
@@ -22385,11 +22785,13 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @view_factor_63.setter
     def view_factor_63(self, value=None):
-        """  Corresponds to IDD Field `view_factor_63`
+        """  Corresponds to IDD Field `View Factor 63`
         This value is the view factor value From Surface => To Surface
+        
+        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `view_factor_63`
+            value (float): value for IDD Field `View Factor 63`
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -22400,13 +22802,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `view_factor_63`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `view_factor_63`')
-
         self._data["View Factor 63"] = value
 
     @property
@@ -22420,10 +22821,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @from_surface_64.setter
     def from_surface_64(self, value=None):
-        """  Corresponds to IDD Field `from_surface_64`
+        """  Corresponds to IDD Field `From Surface 64`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `from_surface_64`
+            value (str): value for IDD Field `From Surface 64`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -22433,7 +22836,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `from_surface_64`'.format(value))
             if ',' in value:
@@ -22442,7 +22845,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `from_surface_64`')
-
         self._data["From Surface 64"] = value
 
     @property
@@ -22456,10 +22858,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @to_surface_64.setter
     def to_surface_64(self, value=None):
-        """  Corresponds to IDD Field `to_surface_64`
+        """  Corresponds to IDD Field `To Surface 64`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `to_surface_64`
+            value (str): value for IDD Field `To Surface 64`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -22469,7 +22873,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `to_surface_64`'.format(value))
             if ',' in value:
@@ -22478,7 +22882,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `to_surface_64`')
-
         self._data["To Surface 64"] = value
 
     @property
@@ -22492,11 +22895,13 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @view_factor_64.setter
     def view_factor_64(self, value=None):
-        """  Corresponds to IDD Field `view_factor_64`
+        """  Corresponds to IDD Field `View Factor 64`
         This value is the view factor value From Surface => To Surface
+        
+        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `view_factor_64`
+            value (float): value for IDD Field `View Factor 64`
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -22507,13 +22912,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `view_factor_64`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `view_factor_64`')
-
         self._data["View Factor 64"] = value
 
     @property
@@ -22527,10 +22931,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @from_surface_65.setter
     def from_surface_65(self, value=None):
-        """  Corresponds to IDD Field `from_surface_65`
+        """  Corresponds to IDD Field `From Surface 65`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `from_surface_65`
+            value (str): value for IDD Field `From Surface 65`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -22540,7 +22946,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `from_surface_65`'.format(value))
             if ',' in value:
@@ -22549,7 +22955,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `from_surface_65`')
-
         self._data["From Surface 65"] = value
 
     @property
@@ -22563,10 +22968,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @to_surface_65.setter
     def to_surface_65(self, value=None):
-        """  Corresponds to IDD Field `to_surface_65`
+        """  Corresponds to IDD Field `To Surface 65`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `to_surface_65`
+            value (str): value for IDD Field `To Surface 65`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -22576,7 +22983,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `to_surface_65`'.format(value))
             if ',' in value:
@@ -22585,7 +22992,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `to_surface_65`')
-
         self._data["To Surface 65"] = value
 
     @property
@@ -22599,11 +23005,13 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @view_factor_65.setter
     def view_factor_65(self, value=None):
-        """  Corresponds to IDD Field `view_factor_65`
+        """  Corresponds to IDD Field `View Factor 65`
         This value is the view factor value From Surface => To Surface
+        
+        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `view_factor_65`
+            value (float): value for IDD Field `View Factor 65`
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -22614,13 +23022,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `view_factor_65`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `view_factor_65`')
-
         self._data["View Factor 65"] = value
 
     @property
@@ -22634,10 +23041,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @from_surface_66.setter
     def from_surface_66(self, value=None):
-        """  Corresponds to IDD Field `from_surface_66`
+        """  Corresponds to IDD Field `From Surface 66`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `from_surface_66`
+            value (str): value for IDD Field `From Surface 66`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -22647,7 +23056,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `from_surface_66`'.format(value))
             if ',' in value:
@@ -22656,7 +23065,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `from_surface_66`')
-
         self._data["From Surface 66"] = value
 
     @property
@@ -22670,10 +23078,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @to_surface_66.setter
     def to_surface_66(self, value=None):
-        """  Corresponds to IDD Field `to_surface_66`
+        """  Corresponds to IDD Field `To Surface 66`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `to_surface_66`
+            value (str): value for IDD Field `To Surface 66`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -22683,7 +23093,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `to_surface_66`'.format(value))
             if ',' in value:
@@ -22692,7 +23102,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `to_surface_66`')
-
         self._data["To Surface 66"] = value
 
     @property
@@ -22706,11 +23115,13 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @view_factor_66.setter
     def view_factor_66(self, value=None):
-        """  Corresponds to IDD Field `view_factor_66`
+        """  Corresponds to IDD Field `View Factor 66`
         This value is the view factor value From Surface => To Surface
+        
+        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `view_factor_66`
+            value (float): value for IDD Field `View Factor 66`
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -22721,13 +23132,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `view_factor_66`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `view_factor_66`')
-
         self._data["View Factor 66"] = value
 
     @property
@@ -22741,10 +23151,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @from_surface_67.setter
     def from_surface_67(self, value=None):
-        """  Corresponds to IDD Field `from_surface_67`
+        """  Corresponds to IDD Field `From Surface 67`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `from_surface_67`
+            value (str): value for IDD Field `From Surface 67`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -22754,7 +23166,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `from_surface_67`'.format(value))
             if ',' in value:
@@ -22763,7 +23175,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `from_surface_67`')
-
         self._data["From Surface 67"] = value
 
     @property
@@ -22777,10 +23188,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @to_surface_67.setter
     def to_surface_67(self, value=None):
-        """  Corresponds to IDD Field `to_surface_67`
+        """  Corresponds to IDD Field `To Surface 67`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `to_surface_67`
+            value (str): value for IDD Field `To Surface 67`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -22790,7 +23203,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `to_surface_67`'.format(value))
             if ',' in value:
@@ -22799,7 +23212,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `to_surface_67`')
-
         self._data["To Surface 67"] = value
 
     @property
@@ -22813,11 +23225,13 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @view_factor_67.setter
     def view_factor_67(self, value=None):
-        """  Corresponds to IDD Field `view_factor_67`
+        """  Corresponds to IDD Field `View Factor 67`
         This value is the view factor value From Surface => To Surface
+        
+        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `view_factor_67`
+            value (float): value for IDD Field `View Factor 67`
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -22828,13 +23242,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `view_factor_67`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `view_factor_67`')
-
         self._data["View Factor 67"] = value
 
     @property
@@ -22848,10 +23261,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @from_surface_68.setter
     def from_surface_68(self, value=None):
-        """  Corresponds to IDD Field `from_surface_68`
+        """  Corresponds to IDD Field `From Surface 68`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `from_surface_68`
+            value (str): value for IDD Field `From Surface 68`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -22861,7 +23276,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `from_surface_68`'.format(value))
             if ',' in value:
@@ -22870,7 +23285,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `from_surface_68`')
-
         self._data["From Surface 68"] = value
 
     @property
@@ -22884,10 +23298,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @to_surface_68.setter
     def to_surface_68(self, value=None):
-        """  Corresponds to IDD Field `to_surface_68`
+        """  Corresponds to IDD Field `To Surface 68`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `to_surface_68`
+            value (str): value for IDD Field `To Surface 68`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -22897,7 +23313,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `to_surface_68`'.format(value))
             if ',' in value:
@@ -22906,7 +23322,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `to_surface_68`')
-
         self._data["To Surface 68"] = value
 
     @property
@@ -22920,11 +23335,13 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @view_factor_68.setter
     def view_factor_68(self, value=None):
-        """  Corresponds to IDD Field `view_factor_68`
+        """  Corresponds to IDD Field `View Factor 68`
         This value is the view factor value From Surface => To Surface
+        
+        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `view_factor_68`
+            value (float): value for IDD Field `View Factor 68`
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -22935,13 +23352,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `view_factor_68`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `view_factor_68`')
-
         self._data["View Factor 68"] = value
 
     @property
@@ -22955,10 +23371,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @from_surface_69.setter
     def from_surface_69(self, value=None):
-        """  Corresponds to IDD Field `from_surface_69`
+        """  Corresponds to IDD Field `From Surface 69`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `from_surface_69`
+            value (str): value for IDD Field `From Surface 69`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -22968,7 +23386,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `from_surface_69`'.format(value))
             if ',' in value:
@@ -22977,7 +23395,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `from_surface_69`')
-
         self._data["From Surface 69"] = value
 
     @property
@@ -22991,10 +23408,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @to_surface_69.setter
     def to_surface_69(self, value=None):
-        """  Corresponds to IDD Field `to_surface_69`
+        """  Corresponds to IDD Field `To Surface 69`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `to_surface_69`
+            value (str): value for IDD Field `To Surface 69`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -23004,7 +23423,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `to_surface_69`'.format(value))
             if ',' in value:
@@ -23013,7 +23432,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `to_surface_69`')
-
         self._data["To Surface 69"] = value
 
     @property
@@ -23027,11 +23445,13 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @view_factor_69.setter
     def view_factor_69(self, value=None):
-        """  Corresponds to IDD Field `view_factor_69`
+        """  Corresponds to IDD Field `View Factor 69`
         This value is the view factor value From Surface => To Surface
+        
+        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `view_factor_69`
+            value (float): value for IDD Field `View Factor 69`
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -23042,13 +23462,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `view_factor_69`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `view_factor_69`')
-
         self._data["View Factor 69"] = value
 
     @property
@@ -23062,10 +23481,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @from_surface_70.setter
     def from_surface_70(self, value=None):
-        """  Corresponds to IDD Field `from_surface_70`
+        """  Corresponds to IDD Field `From Surface 70`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `from_surface_70`
+            value (str): value for IDD Field `From Surface 70`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -23075,7 +23496,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `from_surface_70`'.format(value))
             if ',' in value:
@@ -23084,7 +23505,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `from_surface_70`')
-
         self._data["From Surface 70"] = value
 
     @property
@@ -23098,10 +23518,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @to_surface_70.setter
     def to_surface_70(self, value=None):
-        """  Corresponds to IDD Field `to_surface_70`
+        """  Corresponds to IDD Field `To Surface 70`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `to_surface_70`
+            value (str): value for IDD Field `To Surface 70`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -23111,7 +23533,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `to_surface_70`'.format(value))
             if ',' in value:
@@ -23120,7 +23542,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `to_surface_70`')
-
         self._data["To Surface 70"] = value
 
     @property
@@ -23134,11 +23555,13 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @view_factor_70.setter
     def view_factor_70(self, value=None):
-        """  Corresponds to IDD Field `view_factor_70`
+        """  Corresponds to IDD Field `View Factor 70`
         This value is the view factor value From Surface => To Surface
+        
+        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `view_factor_70`
+            value (float): value for IDD Field `View Factor 70`
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -23149,13 +23572,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `view_factor_70`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `view_factor_70`')
-
         self._data["View Factor 70"] = value
 
     @property
@@ -23169,10 +23591,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @from_surface_71.setter
     def from_surface_71(self, value=None):
-        """  Corresponds to IDD Field `from_surface_71`
+        """  Corresponds to IDD Field `From Surface 71`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `from_surface_71`
+            value (str): value for IDD Field `From Surface 71`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -23182,7 +23606,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `from_surface_71`'.format(value))
             if ',' in value:
@@ -23191,7 +23615,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `from_surface_71`')
-
         self._data["From Surface 71"] = value
 
     @property
@@ -23205,10 +23628,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @to_surface_71.setter
     def to_surface_71(self, value=None):
-        """  Corresponds to IDD Field `to_surface_71`
+        """  Corresponds to IDD Field `To Surface 71`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `to_surface_71`
+            value (str): value for IDD Field `To Surface 71`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -23218,7 +23643,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `to_surface_71`'.format(value))
             if ',' in value:
@@ -23227,7 +23652,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `to_surface_71`')
-
         self._data["To Surface 71"] = value
 
     @property
@@ -23241,11 +23665,13 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @view_factor_71.setter
     def view_factor_71(self, value=None):
-        """  Corresponds to IDD Field `view_factor_71`
+        """  Corresponds to IDD Field `View Factor 71`
         This value is the view factor value From Surface => To Surface
+        
+        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `view_factor_71`
+            value (float): value for IDD Field `View Factor 71`
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -23256,13 +23682,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `view_factor_71`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `view_factor_71`')
-
         self._data["View Factor 71"] = value
 
     @property
@@ -23276,10 +23701,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @from_surface_72.setter
     def from_surface_72(self, value=None):
-        """  Corresponds to IDD Field `from_surface_72`
+        """  Corresponds to IDD Field `From Surface 72`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `from_surface_72`
+            value (str): value for IDD Field `From Surface 72`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -23289,7 +23716,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `from_surface_72`'.format(value))
             if ',' in value:
@@ -23298,7 +23725,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `from_surface_72`')
-
         self._data["From Surface 72"] = value
 
     @property
@@ -23312,10 +23738,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @to_surface_72.setter
     def to_surface_72(self, value=None):
-        """  Corresponds to IDD Field `to_surface_72`
+        """  Corresponds to IDD Field `To Surface 72`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `to_surface_72`
+            value (str): value for IDD Field `To Surface 72`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -23325,7 +23753,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `to_surface_72`'.format(value))
             if ',' in value:
@@ -23334,7 +23762,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `to_surface_72`')
-
         self._data["To Surface 72"] = value
 
     @property
@@ -23348,11 +23775,13 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @view_factor_72.setter
     def view_factor_72(self, value=None):
-        """  Corresponds to IDD Field `view_factor_72`
+        """  Corresponds to IDD Field `View Factor 72`
         This value is the view factor value From Surface => To Surface
+        
+        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `view_factor_72`
+            value (float): value for IDD Field `View Factor 72`
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -23363,13 +23792,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `view_factor_72`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `view_factor_72`')
-
         self._data["View Factor 72"] = value
 
     @property
@@ -23383,10 +23811,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @from_surface_73.setter
     def from_surface_73(self, value=None):
-        """  Corresponds to IDD Field `from_surface_73`
+        """  Corresponds to IDD Field `From Surface 73`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `from_surface_73`
+            value (str): value for IDD Field `From Surface 73`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -23396,7 +23826,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `from_surface_73`'.format(value))
             if ',' in value:
@@ -23405,7 +23835,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `from_surface_73`')
-
         self._data["From Surface 73"] = value
 
     @property
@@ -23419,10 +23848,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @to_surface_73.setter
     def to_surface_73(self, value=None):
-        """  Corresponds to IDD Field `to_surface_73`
+        """  Corresponds to IDD Field `To Surface 73`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `to_surface_73`
+            value (str): value for IDD Field `To Surface 73`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -23432,7 +23863,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `to_surface_73`'.format(value))
             if ',' in value:
@@ -23441,7 +23872,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `to_surface_73`')
-
         self._data["To Surface 73"] = value
 
     @property
@@ -23455,11 +23885,13 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @view_factor_73.setter
     def view_factor_73(self, value=None):
-        """  Corresponds to IDD Field `view_factor_73`
+        """  Corresponds to IDD Field `View Factor 73`
         This value is the view factor value From Surface => To Surface
+        
+        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `view_factor_73`
+            value (float): value for IDD Field `View Factor 73`
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -23470,13 +23902,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `view_factor_73`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `view_factor_73`')
-
         self._data["View Factor 73"] = value
 
     @property
@@ -23490,10 +23921,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @from_surface_74.setter
     def from_surface_74(self, value=None):
-        """  Corresponds to IDD Field `from_surface_74`
+        """  Corresponds to IDD Field `From Surface 74`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `from_surface_74`
+            value (str): value for IDD Field `From Surface 74`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -23503,7 +23936,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `from_surface_74`'.format(value))
             if ',' in value:
@@ -23512,7 +23945,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `from_surface_74`')
-
         self._data["From Surface 74"] = value
 
     @property
@@ -23526,10 +23958,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @to_surface_74.setter
     def to_surface_74(self, value=None):
-        """  Corresponds to IDD Field `to_surface_74`
+        """  Corresponds to IDD Field `To Surface 74`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `to_surface_74`
+            value (str): value for IDD Field `To Surface 74`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -23539,7 +23973,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `to_surface_74`'.format(value))
             if ',' in value:
@@ -23548,7 +23982,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `to_surface_74`')
-
         self._data["To Surface 74"] = value
 
     @property
@@ -23562,11 +23995,13 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @view_factor_74.setter
     def view_factor_74(self, value=None):
-        """  Corresponds to IDD Field `view_factor_74`
+        """  Corresponds to IDD Field `View Factor 74`
         This value is the view factor value From Surface => To Surface
+        
+        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `view_factor_74`
+            value (float): value for IDD Field `View Factor 74`
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -23577,13 +24012,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `view_factor_74`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `view_factor_74`')
-
         self._data["View Factor 74"] = value
 
     @property
@@ -23597,10 +24031,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @from_surface_75.setter
     def from_surface_75(self, value=None):
-        """  Corresponds to IDD Field `from_surface_75`
+        """  Corresponds to IDD Field `From Surface 75`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `from_surface_75`
+            value (str): value for IDD Field `From Surface 75`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -23610,7 +24046,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `from_surface_75`'.format(value))
             if ',' in value:
@@ -23619,7 +24055,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `from_surface_75`')
-
         self._data["From Surface 75"] = value
 
     @property
@@ -23633,10 +24068,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @to_surface_75.setter
     def to_surface_75(self, value=None):
-        """  Corresponds to IDD Field `to_surface_75`
+        """  Corresponds to IDD Field `To Surface 75`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `to_surface_75`
+            value (str): value for IDD Field `To Surface 75`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -23646,7 +24083,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `to_surface_75`'.format(value))
             if ',' in value:
@@ -23655,7 +24092,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `to_surface_75`')
-
         self._data["To Surface 75"] = value
 
     @property
@@ -23669,11 +24105,13 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @view_factor_75.setter
     def view_factor_75(self, value=None):
-        """  Corresponds to IDD Field `view_factor_75`
+        """  Corresponds to IDD Field `View Factor 75`
         This value is the view factor value From Surface => To Surface
+        
+        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `view_factor_75`
+            value (float): value for IDD Field `View Factor 75`
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -23684,13 +24122,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `view_factor_75`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `view_factor_75`')
-
         self._data["View Factor 75"] = value
 
     @property
@@ -23704,10 +24141,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @from_surface_76.setter
     def from_surface_76(self, value=None):
-        """  Corresponds to IDD Field `from_surface_76`
+        """  Corresponds to IDD Field `From Surface 76`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `from_surface_76`
+            value (str): value for IDD Field `From Surface 76`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -23717,7 +24156,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `from_surface_76`'.format(value))
             if ',' in value:
@@ -23726,7 +24165,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `from_surface_76`')
-
         self._data["From Surface 76"] = value
 
     @property
@@ -23740,10 +24178,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @to_surface_76.setter
     def to_surface_76(self, value=None):
-        """  Corresponds to IDD Field `to_surface_76`
+        """  Corresponds to IDD Field `To Surface 76`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `to_surface_76`
+            value (str): value for IDD Field `To Surface 76`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -23753,7 +24193,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `to_surface_76`'.format(value))
             if ',' in value:
@@ -23762,7 +24202,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `to_surface_76`')
-
         self._data["To Surface 76"] = value
 
     @property
@@ -23776,11 +24215,13 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @view_factor_76.setter
     def view_factor_76(self, value=None):
-        """  Corresponds to IDD Field `view_factor_76`
+        """  Corresponds to IDD Field `View Factor 76`
         This value is the view factor value From Surface => To Surface
+        
+        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `view_factor_76`
+            value (float): value for IDD Field `View Factor 76`
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -23791,13 +24232,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `view_factor_76`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `view_factor_76`')
-
         self._data["View Factor 76"] = value
 
     @property
@@ -23811,10 +24251,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @from_surface_77.setter
     def from_surface_77(self, value=None):
-        """  Corresponds to IDD Field `from_surface_77`
+        """  Corresponds to IDD Field `From Surface 77`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `from_surface_77`
+            value (str): value for IDD Field `From Surface 77`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -23824,7 +24266,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `from_surface_77`'.format(value))
             if ',' in value:
@@ -23833,7 +24275,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `from_surface_77`')
-
         self._data["From Surface 77"] = value
 
     @property
@@ -23847,10 +24288,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @to_surface_77.setter
     def to_surface_77(self, value=None):
-        """  Corresponds to IDD Field `to_surface_77`
+        """  Corresponds to IDD Field `To Surface 77`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `to_surface_77`
+            value (str): value for IDD Field `To Surface 77`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -23860,7 +24303,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `to_surface_77`'.format(value))
             if ',' in value:
@@ -23869,7 +24312,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `to_surface_77`')
-
         self._data["To Surface 77"] = value
 
     @property
@@ -23883,11 +24325,13 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @view_factor_77.setter
     def view_factor_77(self, value=None):
-        """  Corresponds to IDD Field `view_factor_77`
+        """  Corresponds to IDD Field `View Factor 77`
         This value is the view factor value From Surface => To Surface
+        
+        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `view_factor_77`
+            value (float): value for IDD Field `View Factor 77`
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -23898,13 +24342,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `view_factor_77`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `view_factor_77`')
-
         self._data["View Factor 77"] = value
 
     @property
@@ -23918,10 +24361,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @from_surface_78.setter
     def from_surface_78(self, value=None):
-        """  Corresponds to IDD Field `from_surface_78`
+        """  Corresponds to IDD Field `From Surface 78`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `from_surface_78`
+            value (str): value for IDD Field `From Surface 78`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -23931,7 +24376,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `from_surface_78`'.format(value))
             if ',' in value:
@@ -23940,7 +24385,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `from_surface_78`')
-
         self._data["From Surface 78"] = value
 
     @property
@@ -23954,10 +24398,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @to_surface_78.setter
     def to_surface_78(self, value=None):
-        """  Corresponds to IDD Field `to_surface_78`
+        """  Corresponds to IDD Field `To Surface 78`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `to_surface_78`
+            value (str): value for IDD Field `To Surface 78`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -23967,7 +24413,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `to_surface_78`'.format(value))
             if ',' in value:
@@ -23976,7 +24422,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `to_surface_78`')
-
         self._data["To Surface 78"] = value
 
     @property
@@ -23990,11 +24435,13 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @view_factor_78.setter
     def view_factor_78(self, value=None):
-        """  Corresponds to IDD Field `view_factor_78`
+        """  Corresponds to IDD Field `View Factor 78`
         This value is the view factor value From Surface => To Surface
+        
+        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `view_factor_78`
+            value (float): value for IDD Field `View Factor 78`
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -24005,13 +24452,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `view_factor_78`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `view_factor_78`')
-
         self._data["View Factor 78"] = value
 
     @property
@@ -24025,10 +24471,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @from_surface_79.setter
     def from_surface_79(self, value=None):
-        """  Corresponds to IDD Field `from_surface_79`
+        """  Corresponds to IDD Field `From Surface 79`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `from_surface_79`
+            value (str): value for IDD Field `From Surface 79`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -24038,7 +24486,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `from_surface_79`'.format(value))
             if ',' in value:
@@ -24047,7 +24495,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `from_surface_79`')
-
         self._data["From Surface 79"] = value
 
     @property
@@ -24061,10 +24508,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @to_surface_79.setter
     def to_surface_79(self, value=None):
-        """  Corresponds to IDD Field `to_surface_79`
+        """  Corresponds to IDD Field `To Surface 79`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `to_surface_79`
+            value (str): value for IDD Field `To Surface 79`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -24074,7 +24523,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `to_surface_79`'.format(value))
             if ',' in value:
@@ -24083,7 +24532,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `to_surface_79`')
-
         self._data["To Surface 79"] = value
 
     @property
@@ -24097,11 +24545,13 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @view_factor_79.setter
     def view_factor_79(self, value=None):
-        """  Corresponds to IDD Field `view_factor_79`
+        """  Corresponds to IDD Field `View Factor 79`
         This value is the view factor value From Surface => To Surface
+        
+        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `view_factor_79`
+            value (float): value for IDD Field `View Factor 79`
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -24112,13 +24562,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `view_factor_79`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `view_factor_79`')
-
         self._data["View Factor 79"] = value
 
     @property
@@ -24132,10 +24581,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @from_surface_80.setter
     def from_surface_80(self, value=None):
-        """  Corresponds to IDD Field `from_surface_80`
+        """  Corresponds to IDD Field `From Surface 80`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `from_surface_80`
+            value (str): value for IDD Field `From Surface 80`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -24145,7 +24596,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `from_surface_80`'.format(value))
             if ',' in value:
@@ -24154,7 +24605,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `from_surface_80`')
-
         self._data["From Surface 80"] = value
 
     @property
@@ -24168,10 +24618,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @to_surface_80.setter
     def to_surface_80(self, value=None):
-        """  Corresponds to IDD Field `to_surface_80`
+        """  Corresponds to IDD Field `To Surface 80`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `to_surface_80`
+            value (str): value for IDD Field `To Surface 80`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -24181,7 +24633,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `to_surface_80`'.format(value))
             if ',' in value:
@@ -24190,7 +24642,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `to_surface_80`')
-
         self._data["To Surface 80"] = value
 
     @property
@@ -24204,11 +24655,13 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @view_factor_80.setter
     def view_factor_80(self, value=None):
-        """  Corresponds to IDD Field `view_factor_80`
+        """  Corresponds to IDD Field `View Factor 80`
         This value is the view factor value From Surface => To Surface
+        
+        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `view_factor_80`
+            value (float): value for IDD Field `View Factor 80`
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -24219,13 +24672,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `view_factor_80`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `view_factor_80`')
-
         self._data["View Factor 80"] = value
 
     @property
@@ -24239,10 +24691,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @from_surface_81.setter
     def from_surface_81(self, value=None):
-        """  Corresponds to IDD Field `from_surface_81`
+        """  Corresponds to IDD Field `From Surface 81`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `from_surface_81`
+            value (str): value for IDD Field `From Surface 81`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -24252,7 +24706,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `from_surface_81`'.format(value))
             if ',' in value:
@@ -24261,7 +24715,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `from_surface_81`')
-
         self._data["From Surface 81"] = value
 
     @property
@@ -24275,10 +24728,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @to_surface_81.setter
     def to_surface_81(self, value=None):
-        """  Corresponds to IDD Field `to_surface_81`
+        """  Corresponds to IDD Field `To Surface 81`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `to_surface_81`
+            value (str): value for IDD Field `To Surface 81`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -24288,7 +24743,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `to_surface_81`'.format(value))
             if ',' in value:
@@ -24297,7 +24752,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `to_surface_81`')
-
         self._data["To Surface 81"] = value
 
     @property
@@ -24311,11 +24765,13 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @view_factor_81.setter
     def view_factor_81(self, value=None):
-        """  Corresponds to IDD Field `view_factor_81`
+        """  Corresponds to IDD Field `View Factor 81`
         This value is the view factor value From Surface => To Surface
+        
+        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `view_factor_81`
+            value (float): value for IDD Field `View Factor 81`
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -24326,13 +24782,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `view_factor_81`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `view_factor_81`')
-
         self._data["View Factor 81"] = value
 
     @property
@@ -24346,10 +24801,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @from_surface_82.setter
     def from_surface_82(self, value=None):
-        """  Corresponds to IDD Field `from_surface_82`
+        """  Corresponds to IDD Field `From Surface 82`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `from_surface_82`
+            value (str): value for IDD Field `From Surface 82`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -24359,7 +24816,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `from_surface_82`'.format(value))
             if ',' in value:
@@ -24368,7 +24825,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `from_surface_82`')
-
         self._data["From Surface 82"] = value
 
     @property
@@ -24382,10 +24838,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @to_surface_82.setter
     def to_surface_82(self, value=None):
-        """  Corresponds to IDD Field `to_surface_82`
+        """  Corresponds to IDD Field `To Surface 82`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `to_surface_82`
+            value (str): value for IDD Field `To Surface 82`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -24395,7 +24853,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `to_surface_82`'.format(value))
             if ',' in value:
@@ -24404,7 +24862,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `to_surface_82`')
-
         self._data["To Surface 82"] = value
 
     @property
@@ -24418,11 +24875,13 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @view_factor_82.setter
     def view_factor_82(self, value=None):
-        """  Corresponds to IDD Field `view_factor_82`
+        """  Corresponds to IDD Field `View Factor 82`
         This value is the view factor value From Surface => To Surface
+        
+        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `view_factor_82`
+            value (float): value for IDD Field `View Factor 82`
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -24433,13 +24892,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `view_factor_82`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `view_factor_82`')
-
         self._data["View Factor 82"] = value
 
     @property
@@ -24453,10 +24911,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @from_surface_83.setter
     def from_surface_83(self, value=None):
-        """  Corresponds to IDD Field `from_surface_83`
+        """  Corresponds to IDD Field `From Surface 83`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `from_surface_83`
+            value (str): value for IDD Field `From Surface 83`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -24466,7 +24926,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `from_surface_83`'.format(value))
             if ',' in value:
@@ -24475,7 +24935,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `from_surface_83`')
-
         self._data["From Surface 83"] = value
 
     @property
@@ -24489,10 +24948,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @to_surface_83.setter
     def to_surface_83(self, value=None):
-        """  Corresponds to IDD Field `to_surface_83`
+        """  Corresponds to IDD Field `To Surface 83`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `to_surface_83`
+            value (str): value for IDD Field `To Surface 83`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -24502,7 +24963,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `to_surface_83`'.format(value))
             if ',' in value:
@@ -24511,7 +24972,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `to_surface_83`')
-
         self._data["To Surface 83"] = value
 
     @property
@@ -24525,11 +24985,13 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @view_factor_83.setter
     def view_factor_83(self, value=None):
-        """  Corresponds to IDD Field `view_factor_83`
+        """  Corresponds to IDD Field `View Factor 83`
         This value is the view factor value From Surface => To Surface
+        
+        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `view_factor_83`
+            value (float): value for IDD Field `View Factor 83`
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -24540,13 +25002,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `view_factor_83`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `view_factor_83`')
-
         self._data["View Factor 83"] = value
 
     @property
@@ -24560,10 +25021,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @from_surface_84.setter
     def from_surface_84(self, value=None):
-        """  Corresponds to IDD Field `from_surface_84`
+        """  Corresponds to IDD Field `From Surface 84`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `from_surface_84`
+            value (str): value for IDD Field `From Surface 84`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -24573,7 +25036,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `from_surface_84`'.format(value))
             if ',' in value:
@@ -24582,7 +25045,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `from_surface_84`')
-
         self._data["From Surface 84"] = value
 
     @property
@@ -24596,10 +25058,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @to_surface_84.setter
     def to_surface_84(self, value=None):
-        """  Corresponds to IDD Field `to_surface_84`
+        """  Corresponds to IDD Field `To Surface 84`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `to_surface_84`
+            value (str): value for IDD Field `To Surface 84`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -24609,7 +25073,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `to_surface_84`'.format(value))
             if ',' in value:
@@ -24618,7 +25082,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `to_surface_84`')
-
         self._data["To Surface 84"] = value
 
     @property
@@ -24632,11 +25095,13 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @view_factor_84.setter
     def view_factor_84(self, value=None):
-        """  Corresponds to IDD Field `view_factor_84`
+        """  Corresponds to IDD Field `View Factor 84`
         This value is the view factor value From Surface => To Surface
+        
+        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `view_factor_84`
+            value (float): value for IDD Field `View Factor 84`
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -24647,13 +25112,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `view_factor_84`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `view_factor_84`')
-
         self._data["View Factor 84"] = value
 
     @property
@@ -24667,10 +25131,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @from_surface_85.setter
     def from_surface_85(self, value=None):
-        """  Corresponds to IDD Field `from_surface_85`
+        """  Corresponds to IDD Field `From Surface 85`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `from_surface_85`
+            value (str): value for IDD Field `From Surface 85`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -24680,7 +25146,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `from_surface_85`'.format(value))
             if ',' in value:
@@ -24689,7 +25155,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `from_surface_85`')
-
         self._data["From Surface 85"] = value
 
     @property
@@ -24703,10 +25168,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @to_surface_85.setter
     def to_surface_85(self, value=None):
-        """  Corresponds to IDD Field `to_surface_85`
+        """  Corresponds to IDD Field `To Surface 85`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `to_surface_85`
+            value (str): value for IDD Field `To Surface 85`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -24716,7 +25183,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `to_surface_85`'.format(value))
             if ',' in value:
@@ -24725,7 +25192,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `to_surface_85`')
-
         self._data["To Surface 85"] = value
 
     @property
@@ -24739,11 +25205,13 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @view_factor_85.setter
     def view_factor_85(self, value=None):
-        """  Corresponds to IDD Field `view_factor_85`
+        """  Corresponds to IDD Field `View Factor 85`
         This value is the view factor value From Surface => To Surface
+        
+        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `view_factor_85`
+            value (float): value for IDD Field `View Factor 85`
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -24754,13 +25222,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `view_factor_85`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `view_factor_85`')
-
         self._data["View Factor 85"] = value
 
     @property
@@ -24774,10 +25241,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @from_surface_86.setter
     def from_surface_86(self, value=None):
-        """  Corresponds to IDD Field `from_surface_86`
+        """  Corresponds to IDD Field `From Surface 86`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `from_surface_86`
+            value (str): value for IDD Field `From Surface 86`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -24787,7 +25256,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `from_surface_86`'.format(value))
             if ',' in value:
@@ -24796,7 +25265,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `from_surface_86`')
-
         self._data["From Surface 86"] = value
 
     @property
@@ -24810,10 +25278,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @to_surface_86.setter
     def to_surface_86(self, value=None):
-        """  Corresponds to IDD Field `to_surface_86`
+        """  Corresponds to IDD Field `To Surface 86`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `to_surface_86`
+            value (str): value for IDD Field `To Surface 86`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -24823,7 +25293,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `to_surface_86`'.format(value))
             if ',' in value:
@@ -24832,7 +25302,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `to_surface_86`')
-
         self._data["To Surface 86"] = value
 
     @property
@@ -24846,11 +25315,13 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @view_factor_86.setter
     def view_factor_86(self, value=None):
-        """  Corresponds to IDD Field `view_factor_86`
+        """  Corresponds to IDD Field `View Factor 86`
         This value is the view factor value From Surface => To Surface
+        
+        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `view_factor_86`
+            value (float): value for IDD Field `View Factor 86`
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -24861,13 +25332,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `view_factor_86`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `view_factor_86`')
-
         self._data["View Factor 86"] = value
 
     @property
@@ -24881,10 +25351,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @from_surface_87.setter
     def from_surface_87(self, value=None):
-        """  Corresponds to IDD Field `from_surface_87`
+        """  Corresponds to IDD Field `From Surface 87`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `from_surface_87`
+            value (str): value for IDD Field `From Surface 87`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -24894,7 +25366,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `from_surface_87`'.format(value))
             if ',' in value:
@@ -24903,7 +25375,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `from_surface_87`')
-
         self._data["From Surface 87"] = value
 
     @property
@@ -24917,10 +25388,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @to_surface_87.setter
     def to_surface_87(self, value=None):
-        """  Corresponds to IDD Field `to_surface_87`
+        """  Corresponds to IDD Field `To Surface 87`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `to_surface_87`
+            value (str): value for IDD Field `To Surface 87`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -24930,7 +25403,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `to_surface_87`'.format(value))
             if ',' in value:
@@ -24939,7 +25412,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `to_surface_87`')
-
         self._data["To Surface 87"] = value
 
     @property
@@ -24953,11 +25425,13 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @view_factor_87.setter
     def view_factor_87(self, value=None):
-        """  Corresponds to IDD Field `view_factor_87`
+        """  Corresponds to IDD Field `View Factor 87`
         This value is the view factor value From Surface => To Surface
+        
+        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `view_factor_87`
+            value (float): value for IDD Field `View Factor 87`
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -24968,13 +25442,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `view_factor_87`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `view_factor_87`')
-
         self._data["View Factor 87"] = value
 
     @property
@@ -24988,10 +25461,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @from_surface_88.setter
     def from_surface_88(self, value=None):
-        """  Corresponds to IDD Field `from_surface_88`
+        """  Corresponds to IDD Field `From Surface 88`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `from_surface_88`
+            value (str): value for IDD Field `From Surface 88`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -25001,7 +25476,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `from_surface_88`'.format(value))
             if ',' in value:
@@ -25010,7 +25485,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `from_surface_88`')
-
         self._data["From Surface 88"] = value
 
     @property
@@ -25024,10 +25498,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @to_surface_88.setter
     def to_surface_88(self, value=None):
-        """  Corresponds to IDD Field `to_surface_88`
+        """  Corresponds to IDD Field `To Surface 88`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `to_surface_88`
+            value (str): value for IDD Field `To Surface 88`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -25037,7 +25513,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `to_surface_88`'.format(value))
             if ',' in value:
@@ -25046,7 +25522,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `to_surface_88`')
-
         self._data["To Surface 88"] = value
 
     @property
@@ -25060,11 +25535,13 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @view_factor_88.setter
     def view_factor_88(self, value=None):
-        """  Corresponds to IDD Field `view_factor_88`
+        """  Corresponds to IDD Field `View Factor 88`
         This value is the view factor value From Surface => To Surface
+        
+        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `view_factor_88`
+            value (float): value for IDD Field `View Factor 88`
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -25075,13 +25552,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `view_factor_88`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `view_factor_88`')
-
         self._data["View Factor 88"] = value
 
     @property
@@ -25095,10 +25571,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @from_surface_89.setter
     def from_surface_89(self, value=None):
-        """  Corresponds to IDD Field `from_surface_89`
+        """  Corresponds to IDD Field `From Surface 89`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `from_surface_89`
+            value (str): value for IDD Field `From Surface 89`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -25108,7 +25586,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `from_surface_89`'.format(value))
             if ',' in value:
@@ -25117,7 +25595,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `from_surface_89`')
-
         self._data["From Surface 89"] = value
 
     @property
@@ -25131,10 +25608,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @to_surface_89.setter
     def to_surface_89(self, value=None):
-        """  Corresponds to IDD Field `to_surface_89`
+        """  Corresponds to IDD Field `To Surface 89`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `to_surface_89`
+            value (str): value for IDD Field `To Surface 89`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -25144,7 +25623,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `to_surface_89`'.format(value))
             if ',' in value:
@@ -25153,7 +25632,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `to_surface_89`')
-
         self._data["To Surface 89"] = value
 
     @property
@@ -25167,11 +25645,13 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @view_factor_89.setter
     def view_factor_89(self, value=None):
-        """  Corresponds to IDD Field `view_factor_89`
+        """  Corresponds to IDD Field `View Factor 89`
         This value is the view factor value From Surface => To Surface
+        
+        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `view_factor_89`
+            value (float): value for IDD Field `View Factor 89`
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -25182,13 +25662,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `view_factor_89`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `view_factor_89`')
-
         self._data["View Factor 89"] = value
 
     @property
@@ -25202,10 +25681,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @from_surface_90.setter
     def from_surface_90(self, value=None):
-        """  Corresponds to IDD Field `from_surface_90`
+        """  Corresponds to IDD Field `From Surface 90`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `from_surface_90`
+            value (str): value for IDD Field `From Surface 90`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -25215,7 +25696,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `from_surface_90`'.format(value))
             if ',' in value:
@@ -25224,7 +25705,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `from_surface_90`')
-
         self._data["From Surface 90"] = value
 
     @property
@@ -25238,10 +25718,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @to_surface_90.setter
     def to_surface_90(self, value=None):
-        """  Corresponds to IDD Field `to_surface_90`
+        """  Corresponds to IDD Field `To Surface 90`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `to_surface_90`
+            value (str): value for IDD Field `To Surface 90`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -25251,7 +25733,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `to_surface_90`'.format(value))
             if ',' in value:
@@ -25260,7 +25742,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `to_surface_90`')
-
         self._data["To Surface 90"] = value
 
     @property
@@ -25274,11 +25755,13 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @view_factor_90.setter
     def view_factor_90(self, value=None):
-        """  Corresponds to IDD Field `view_factor_90`
+        """  Corresponds to IDD Field `View Factor 90`
         This value is the view factor value From Surface => To Surface
+        
+        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `view_factor_90`
+            value (float): value for IDD Field `View Factor 90`
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -25289,13 +25772,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `view_factor_90`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `view_factor_90`')
-
         self._data["View Factor 90"] = value
 
     @property
@@ -25309,10 +25791,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @from_surface_91.setter
     def from_surface_91(self, value=None):
-        """  Corresponds to IDD Field `from_surface_91`
+        """  Corresponds to IDD Field `From Surface 91`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `from_surface_91`
+            value (str): value for IDD Field `From Surface 91`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -25322,7 +25806,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `from_surface_91`'.format(value))
             if ',' in value:
@@ -25331,7 +25815,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `from_surface_91`')
-
         self._data["From Surface 91"] = value
 
     @property
@@ -25345,10 +25828,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @to_surface_91.setter
     def to_surface_91(self, value=None):
-        """  Corresponds to IDD Field `to_surface_91`
+        """  Corresponds to IDD Field `To Surface 91`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `to_surface_91`
+            value (str): value for IDD Field `To Surface 91`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -25358,7 +25843,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `to_surface_91`'.format(value))
             if ',' in value:
@@ -25367,7 +25852,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `to_surface_91`')
-
         self._data["To Surface 91"] = value
 
     @property
@@ -25381,11 +25865,13 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @view_factor_91.setter
     def view_factor_91(self, value=None):
-        """  Corresponds to IDD Field `view_factor_91`
+        """  Corresponds to IDD Field `View Factor 91`
         This value is the view factor value From Surface => To Surface
+        
+        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `view_factor_91`
+            value (float): value for IDD Field `View Factor 91`
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -25396,13 +25882,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `view_factor_91`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `view_factor_91`')
-
         self._data["View Factor 91"] = value
 
     @property
@@ -25416,10 +25901,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @from_surface_92.setter
     def from_surface_92(self, value=None):
-        """  Corresponds to IDD Field `from_surface_92`
+        """  Corresponds to IDD Field `From Surface 92`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `from_surface_92`
+            value (str): value for IDD Field `From Surface 92`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -25429,7 +25916,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `from_surface_92`'.format(value))
             if ',' in value:
@@ -25438,7 +25925,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `from_surface_92`')
-
         self._data["From Surface 92"] = value
 
     @property
@@ -25452,10 +25938,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @to_surface_92.setter
     def to_surface_92(self, value=None):
-        """  Corresponds to IDD Field `to_surface_92`
+        """  Corresponds to IDD Field `To Surface 92`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `to_surface_92`
+            value (str): value for IDD Field `To Surface 92`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -25465,7 +25953,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `to_surface_92`'.format(value))
             if ',' in value:
@@ -25474,7 +25962,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `to_surface_92`')
-
         self._data["To Surface 92"] = value
 
     @property
@@ -25488,11 +25975,13 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @view_factor_92.setter
     def view_factor_92(self, value=None):
-        """  Corresponds to IDD Field `view_factor_92`
+        """  Corresponds to IDD Field `View Factor 92`
         This value is the view factor value From Surface => To Surface
+        
+        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `view_factor_92`
+            value (float): value for IDD Field `View Factor 92`
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -25503,13 +25992,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `view_factor_92`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `view_factor_92`')
-
         self._data["View Factor 92"] = value
 
     @property
@@ -25523,10 +26011,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @from_surface_93.setter
     def from_surface_93(self, value=None):
-        """  Corresponds to IDD Field `from_surface_93`
+        """  Corresponds to IDD Field `From Surface 93`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `from_surface_93`
+            value (str): value for IDD Field `From Surface 93`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -25536,7 +26026,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `from_surface_93`'.format(value))
             if ',' in value:
@@ -25545,7 +26035,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `from_surface_93`')
-
         self._data["From Surface 93"] = value
 
     @property
@@ -25559,10 +26048,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @to_surface_93.setter
     def to_surface_93(self, value=None):
-        """  Corresponds to IDD Field `to_surface_93`
+        """  Corresponds to IDD Field `To Surface 93`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `to_surface_93`
+            value (str): value for IDD Field `To Surface 93`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -25572,7 +26063,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `to_surface_93`'.format(value))
             if ',' in value:
@@ -25581,7 +26072,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `to_surface_93`')
-
         self._data["To Surface 93"] = value
 
     @property
@@ -25595,11 +26085,13 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @view_factor_93.setter
     def view_factor_93(self, value=None):
-        """  Corresponds to IDD Field `view_factor_93`
+        """  Corresponds to IDD Field `View Factor 93`
         This value is the view factor value From Surface => To Surface
+        
+        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `view_factor_93`
+            value (float): value for IDD Field `View Factor 93`
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -25610,13 +26102,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `view_factor_93`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `view_factor_93`')
-
         self._data["View Factor 93"] = value
 
     @property
@@ -25630,10 +26121,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @from_surface_94.setter
     def from_surface_94(self, value=None):
-        """  Corresponds to IDD Field `from_surface_94`
+        """  Corresponds to IDD Field `From Surface 94`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `from_surface_94`
+            value (str): value for IDD Field `From Surface 94`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -25643,7 +26136,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `from_surface_94`'.format(value))
             if ',' in value:
@@ -25652,7 +26145,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `from_surface_94`')
-
         self._data["From Surface 94"] = value
 
     @property
@@ -25666,10 +26158,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @to_surface_94.setter
     def to_surface_94(self, value=None):
-        """  Corresponds to IDD Field `to_surface_94`
+        """  Corresponds to IDD Field `To Surface 94`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `to_surface_94`
+            value (str): value for IDD Field `To Surface 94`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -25679,7 +26173,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `to_surface_94`'.format(value))
             if ',' in value:
@@ -25688,7 +26182,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `to_surface_94`')
-
         self._data["To Surface 94"] = value
 
     @property
@@ -25702,11 +26195,13 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @view_factor_94.setter
     def view_factor_94(self, value=None):
-        """  Corresponds to IDD Field `view_factor_94`
+        """  Corresponds to IDD Field `View Factor 94`
         This value is the view factor value From Surface => To Surface
+        
+        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `view_factor_94`
+            value (float): value for IDD Field `View Factor 94`
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -25717,13 +26212,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `view_factor_94`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `view_factor_94`')
-
         self._data["View Factor 94"] = value
 
     @property
@@ -25737,10 +26231,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @from_surface_95.setter
     def from_surface_95(self, value=None):
-        """  Corresponds to IDD Field `from_surface_95`
+        """  Corresponds to IDD Field `From Surface 95`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `from_surface_95`
+            value (str): value for IDD Field `From Surface 95`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -25750,7 +26246,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `from_surface_95`'.format(value))
             if ',' in value:
@@ -25759,7 +26255,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `from_surface_95`')
-
         self._data["From Surface 95"] = value
 
     @property
@@ -25773,10 +26268,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @to_surface_95.setter
     def to_surface_95(self, value=None):
-        """  Corresponds to IDD Field `to_surface_95`
+        """  Corresponds to IDD Field `To Surface 95`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `to_surface_95`
+            value (str): value for IDD Field `To Surface 95`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -25786,7 +26283,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `to_surface_95`'.format(value))
             if ',' in value:
@@ -25795,7 +26292,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `to_surface_95`')
-
         self._data["To Surface 95"] = value
 
     @property
@@ -25809,11 +26305,13 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @view_factor_95.setter
     def view_factor_95(self, value=None):
-        """  Corresponds to IDD Field `view_factor_95`
+        """  Corresponds to IDD Field `View Factor 95`
         This value is the view factor value From Surface => To Surface
+        
+        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `view_factor_95`
+            value (float): value for IDD Field `View Factor 95`
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -25824,13 +26322,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `view_factor_95`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `view_factor_95`')
-
         self._data["View Factor 95"] = value
 
     @property
@@ -25844,10 +26341,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @from_surface_96.setter
     def from_surface_96(self, value=None):
-        """  Corresponds to IDD Field `from_surface_96`
+        """  Corresponds to IDD Field `From Surface 96`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `from_surface_96`
+            value (str): value for IDD Field `From Surface 96`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -25857,7 +26356,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `from_surface_96`'.format(value))
             if ',' in value:
@@ -25866,7 +26365,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `from_surface_96`')
-
         self._data["From Surface 96"] = value
 
     @property
@@ -25880,10 +26378,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @to_surface_96.setter
     def to_surface_96(self, value=None):
-        """  Corresponds to IDD Field `to_surface_96`
+        """  Corresponds to IDD Field `To Surface 96`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `to_surface_96`
+            value (str): value for IDD Field `To Surface 96`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -25893,7 +26393,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `to_surface_96`'.format(value))
             if ',' in value:
@@ -25902,7 +26402,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `to_surface_96`')
-
         self._data["To Surface 96"] = value
 
     @property
@@ -25916,11 +26415,13 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @view_factor_96.setter
     def view_factor_96(self, value=None):
-        """  Corresponds to IDD Field `view_factor_96`
+        """  Corresponds to IDD Field `View Factor 96`
         This value is the view factor value From Surface => To Surface
+        
+        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `view_factor_96`
+            value (float): value for IDD Field `View Factor 96`
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -25931,13 +26432,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `view_factor_96`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `view_factor_96`')
-
         self._data["View Factor 96"] = value
 
     @property
@@ -25951,10 +26451,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @from_surface_97.setter
     def from_surface_97(self, value=None):
-        """  Corresponds to IDD Field `from_surface_97`
+        """  Corresponds to IDD Field `From Surface 97`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `from_surface_97`
+            value (str): value for IDD Field `From Surface 97`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -25964,7 +26466,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `from_surface_97`'.format(value))
             if ',' in value:
@@ -25973,7 +26475,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `from_surface_97`')
-
         self._data["From Surface 97"] = value
 
     @property
@@ -25987,10 +26488,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @to_surface_97.setter
     def to_surface_97(self, value=None):
-        """  Corresponds to IDD Field `to_surface_97`
+        """  Corresponds to IDD Field `To Surface 97`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `to_surface_97`
+            value (str): value for IDD Field `To Surface 97`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -26000,7 +26503,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `to_surface_97`'.format(value))
             if ',' in value:
@@ -26009,7 +26512,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `to_surface_97`')
-
         self._data["To Surface 97"] = value
 
     @property
@@ -26023,11 +26525,13 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @view_factor_97.setter
     def view_factor_97(self, value=None):
-        """  Corresponds to IDD Field `view_factor_97`
+        """  Corresponds to IDD Field `View Factor 97`
         This value is the view factor value From Surface => To Surface
+        
+        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `view_factor_97`
+            value (float): value for IDD Field `View Factor 97`
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -26038,13 +26542,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `view_factor_97`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `view_factor_97`')
-
         self._data["View Factor 97"] = value
 
     @property
@@ -26058,10 +26561,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @from_surface_98.setter
     def from_surface_98(self, value=None):
-        """  Corresponds to IDD Field `from_surface_98`
+        """  Corresponds to IDD Field `From Surface 98`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `from_surface_98`
+            value (str): value for IDD Field `From Surface 98`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -26071,7 +26576,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `from_surface_98`'.format(value))
             if ',' in value:
@@ -26080,7 +26585,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `from_surface_98`')
-
         self._data["From Surface 98"] = value
 
     @property
@@ -26094,10 +26598,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @to_surface_98.setter
     def to_surface_98(self, value=None):
-        """  Corresponds to IDD Field `to_surface_98`
+        """  Corresponds to IDD Field `To Surface 98`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `to_surface_98`
+            value (str): value for IDD Field `To Surface 98`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -26107,7 +26613,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `to_surface_98`'.format(value))
             if ',' in value:
@@ -26116,7 +26622,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `to_surface_98`')
-
         self._data["To Surface 98"] = value
 
     @property
@@ -26130,11 +26635,13 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @view_factor_98.setter
     def view_factor_98(self, value=None):
-        """  Corresponds to IDD Field `view_factor_98`
+        """  Corresponds to IDD Field `View Factor 98`
         This value is the view factor value From Surface => To Surface
+        
+        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `view_factor_98`
+            value (float): value for IDD Field `View Factor 98`
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -26145,13 +26652,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `view_factor_98`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `view_factor_98`')
-
         self._data["View Factor 98"] = value
 
     @property
@@ -26165,10 +26671,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @from_surface_99.setter
     def from_surface_99(self, value=None):
-        """  Corresponds to IDD Field `from_surface_99`
+        """  Corresponds to IDD Field `From Surface 99`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `from_surface_99`
+            value (str): value for IDD Field `From Surface 99`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -26178,7 +26686,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `from_surface_99`'.format(value))
             if ',' in value:
@@ -26187,7 +26695,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `from_surface_99`')
-
         self._data["From Surface 99"] = value
 
     @property
@@ -26201,10 +26708,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @to_surface_99.setter
     def to_surface_99(self, value=None):
-        """  Corresponds to IDD Field `to_surface_99`
+        """  Corresponds to IDD Field `To Surface 99`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `to_surface_99`
+            value (str): value for IDD Field `To Surface 99`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -26214,7 +26723,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `to_surface_99`'.format(value))
             if ',' in value:
@@ -26223,7 +26732,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `to_surface_99`')
-
         self._data["To Surface 99"] = value
 
     @property
@@ -26237,11 +26745,13 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @view_factor_99.setter
     def view_factor_99(self, value=None):
-        """  Corresponds to IDD Field `view_factor_99`
+        """  Corresponds to IDD Field `View Factor 99`
         This value is the view factor value From Surface => To Surface
+        
+        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `view_factor_99`
+            value (float): value for IDD Field `View Factor 99`
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -26252,13 +26762,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `view_factor_99`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `view_factor_99`')
-
         self._data["View Factor 99"] = value
 
     @property
@@ -26272,10 +26781,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @from_surface_100.setter
     def from_surface_100(self, value=None):
-        """  Corresponds to IDD Field `from_surface_100`
+        """  Corresponds to IDD Field `From Surface 100`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `from_surface_100`
+            value (str): value for IDD Field `From Surface 100`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -26285,7 +26796,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `from_surface_100`'.format(value))
             if ',' in value:
@@ -26294,7 +26805,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `from_surface_100`')
-
         self._data["From Surface 100"] = value
 
     @property
@@ -26308,10 +26818,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @to_surface_100.setter
     def to_surface_100(self, value=None):
-        """  Corresponds to IDD Field `to_surface_100`
+        """  Corresponds to IDD Field `To Surface 100`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `to_surface_100`
+            value (str): value for IDD Field `To Surface 100`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -26321,7 +26833,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `to_surface_100`'.format(value))
             if ',' in value:
@@ -26330,7 +26842,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `to_surface_100`')
-
         self._data["To Surface 100"] = value
 
     @property
@@ -26344,11 +26855,13 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @view_factor_100.setter
     def view_factor_100(self, value=None):
-        """  Corresponds to IDD Field `view_factor_100`
+        """  Corresponds to IDD Field `View Factor 100`
         This value is the view factor value From Surface => To Surface
+        
+        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `view_factor_100`
+            value (float): value for IDD Field `View Factor 100`
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -26359,13 +26872,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `view_factor_100`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `view_factor_100`')
-
         self._data["View Factor 100"] = value
 
     @property
@@ -26379,10 +26891,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @from_surface_101.setter
     def from_surface_101(self, value=None):
-        """  Corresponds to IDD Field `from_surface_101`
+        """  Corresponds to IDD Field `From Surface 101`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `from_surface_101`
+            value (str): value for IDD Field `From Surface 101`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -26392,7 +26906,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `from_surface_101`'.format(value))
             if ',' in value:
@@ -26401,7 +26915,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `from_surface_101`')
-
         self._data["From Surface 101"] = value
 
     @property
@@ -26415,10 +26928,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @to_surface_101.setter
     def to_surface_101(self, value=None):
-        """  Corresponds to IDD Field `to_surface_101`
+        """  Corresponds to IDD Field `To Surface 101`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `to_surface_101`
+            value (str): value for IDD Field `To Surface 101`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -26428,7 +26943,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `to_surface_101`'.format(value))
             if ',' in value:
@@ -26437,7 +26952,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `to_surface_101`')
-
         self._data["To Surface 101"] = value
 
     @property
@@ -26451,11 +26965,13 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @view_factor_101.setter
     def view_factor_101(self, value=None):
-        """  Corresponds to IDD Field `view_factor_101`
+        """  Corresponds to IDD Field `View Factor 101`
         This value is the view factor value From Surface => To Surface
+        
+        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `view_factor_101`
+            value (float): value for IDD Field `View Factor 101`
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -26466,13 +26982,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `view_factor_101`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `view_factor_101`')
-
         self._data["View Factor 101"] = value
 
     @property
@@ -26486,10 +27001,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @from_surface_102.setter
     def from_surface_102(self, value=None):
-        """  Corresponds to IDD Field `from_surface_102`
+        """  Corresponds to IDD Field `From Surface 102`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `from_surface_102`
+            value (str): value for IDD Field `From Surface 102`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -26499,7 +27016,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `from_surface_102`'.format(value))
             if ',' in value:
@@ -26508,7 +27025,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `from_surface_102`')
-
         self._data["From Surface 102"] = value
 
     @property
@@ -26522,10 +27038,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @to_surface_102.setter
     def to_surface_102(self, value=None):
-        """  Corresponds to IDD Field `to_surface_102`
+        """  Corresponds to IDD Field `To Surface 102`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `to_surface_102`
+            value (str): value for IDD Field `To Surface 102`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -26535,7 +27053,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `to_surface_102`'.format(value))
             if ',' in value:
@@ -26544,7 +27062,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `to_surface_102`')
-
         self._data["To Surface 102"] = value
 
     @property
@@ -26558,11 +27075,13 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @view_factor_102.setter
     def view_factor_102(self, value=None):
-        """  Corresponds to IDD Field `view_factor_102`
+        """  Corresponds to IDD Field `View Factor 102`
         This value is the view factor value From Surface => To Surface
+        
+        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `view_factor_102`
+            value (float): value for IDD Field `View Factor 102`
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -26573,13 +27092,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `view_factor_102`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `view_factor_102`')
-
         self._data["View Factor 102"] = value
 
     @property
@@ -26593,10 +27111,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @from_surface_103.setter
     def from_surface_103(self, value=None):
-        """  Corresponds to IDD Field `from_surface_103`
+        """  Corresponds to IDD Field `From Surface 103`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `from_surface_103`
+            value (str): value for IDD Field `From Surface 103`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -26606,7 +27126,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `from_surface_103`'.format(value))
             if ',' in value:
@@ -26615,7 +27135,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `from_surface_103`')
-
         self._data["From Surface 103"] = value
 
     @property
@@ -26629,10 +27148,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @to_surface_103.setter
     def to_surface_103(self, value=None):
-        """  Corresponds to IDD Field `to_surface_103`
+        """  Corresponds to IDD Field `To Surface 103`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `to_surface_103`
+            value (str): value for IDD Field `To Surface 103`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -26642,7 +27163,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `to_surface_103`'.format(value))
             if ',' in value:
@@ -26651,7 +27172,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `to_surface_103`')
-
         self._data["To Surface 103"] = value
 
     @property
@@ -26665,11 +27185,13 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @view_factor_103.setter
     def view_factor_103(self, value=None):
-        """  Corresponds to IDD Field `view_factor_103`
+        """  Corresponds to IDD Field `View Factor 103`
         This value is the view factor value From Surface => To Surface
+        
+        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `view_factor_103`
+            value (float): value for IDD Field `View Factor 103`
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -26680,13 +27202,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `view_factor_103`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `view_factor_103`')
-
         self._data["View Factor 103"] = value
 
     @property
@@ -26700,10 +27221,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @from_surface_104.setter
     def from_surface_104(self, value=None):
-        """  Corresponds to IDD Field `from_surface_104`
+        """  Corresponds to IDD Field `From Surface 104`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `from_surface_104`
+            value (str): value for IDD Field `From Surface 104`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -26713,7 +27236,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `from_surface_104`'.format(value))
             if ',' in value:
@@ -26722,7 +27245,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `from_surface_104`')
-
         self._data["From Surface 104"] = value
 
     @property
@@ -26736,10 +27258,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @to_surface_104.setter
     def to_surface_104(self, value=None):
-        """  Corresponds to IDD Field `to_surface_104`
+        """  Corresponds to IDD Field `To Surface 104`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `to_surface_104`
+            value (str): value for IDD Field `To Surface 104`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -26749,7 +27273,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `to_surface_104`'.format(value))
             if ',' in value:
@@ -26758,7 +27282,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `to_surface_104`')
-
         self._data["To Surface 104"] = value
 
     @property
@@ -26772,11 +27295,13 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @view_factor_104.setter
     def view_factor_104(self, value=None):
-        """  Corresponds to IDD Field `view_factor_104`
+        """  Corresponds to IDD Field `View Factor 104`
         This value is the view factor value From Surface => To Surface
+        
+        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `view_factor_104`
+            value (float): value for IDD Field `View Factor 104`
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -26787,13 +27312,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `view_factor_104`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `view_factor_104`')
-
         self._data["View Factor 104"] = value
 
     @property
@@ -26807,10 +27331,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @from_surface_105.setter
     def from_surface_105(self, value=None):
-        """  Corresponds to IDD Field `from_surface_105`
+        """  Corresponds to IDD Field `From Surface 105`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `from_surface_105`
+            value (str): value for IDD Field `From Surface 105`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -26820,7 +27346,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `from_surface_105`'.format(value))
             if ',' in value:
@@ -26829,7 +27355,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `from_surface_105`')
-
         self._data["From Surface 105"] = value
 
     @property
@@ -26843,10 +27368,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @to_surface_105.setter
     def to_surface_105(self, value=None):
-        """  Corresponds to IDD Field `to_surface_105`
+        """  Corresponds to IDD Field `To Surface 105`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `to_surface_105`
+            value (str): value for IDD Field `To Surface 105`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -26856,7 +27383,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `to_surface_105`'.format(value))
             if ',' in value:
@@ -26865,7 +27392,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `to_surface_105`')
-
         self._data["To Surface 105"] = value
 
     @property
@@ -26879,11 +27405,13 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @view_factor_105.setter
     def view_factor_105(self, value=None):
-        """  Corresponds to IDD Field `view_factor_105`
+        """  Corresponds to IDD Field `View Factor 105`
         This value is the view factor value From Surface => To Surface
+        
+        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `view_factor_105`
+            value (float): value for IDD Field `View Factor 105`
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -26894,13 +27422,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `view_factor_105`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `view_factor_105`')
-
         self._data["View Factor 105"] = value
 
     @property
@@ -26914,10 +27441,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @from_surface_106.setter
     def from_surface_106(self, value=None):
-        """  Corresponds to IDD Field `from_surface_106`
+        """  Corresponds to IDD Field `From Surface 106`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `from_surface_106`
+            value (str): value for IDD Field `From Surface 106`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -26927,7 +27456,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `from_surface_106`'.format(value))
             if ',' in value:
@@ -26936,7 +27465,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `from_surface_106`')
-
         self._data["From Surface 106"] = value
 
     @property
@@ -26950,10 +27478,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @to_surface_106.setter
     def to_surface_106(self, value=None):
-        """  Corresponds to IDD Field `to_surface_106`
+        """  Corresponds to IDD Field `To Surface 106`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `to_surface_106`
+            value (str): value for IDD Field `To Surface 106`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -26963,7 +27493,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `to_surface_106`'.format(value))
             if ',' in value:
@@ -26972,7 +27502,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `to_surface_106`')
-
         self._data["To Surface 106"] = value
 
     @property
@@ -26986,11 +27515,13 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @view_factor_106.setter
     def view_factor_106(self, value=None):
-        """  Corresponds to IDD Field `view_factor_106`
+        """  Corresponds to IDD Field `View Factor 106`
         This value is the view factor value From Surface => To Surface
+        
+        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `view_factor_106`
+            value (float): value for IDD Field `View Factor 106`
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -27001,13 +27532,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `view_factor_106`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `view_factor_106`')
-
         self._data["View Factor 106"] = value
 
     @property
@@ -27021,10 +27551,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @from_surface_107.setter
     def from_surface_107(self, value=None):
-        """  Corresponds to IDD Field `from_surface_107`
+        """  Corresponds to IDD Field `From Surface 107`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `from_surface_107`
+            value (str): value for IDD Field `From Surface 107`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -27034,7 +27566,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `from_surface_107`'.format(value))
             if ',' in value:
@@ -27043,7 +27575,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `from_surface_107`')
-
         self._data["From Surface 107"] = value
 
     @property
@@ -27057,10 +27588,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @to_surface_107.setter
     def to_surface_107(self, value=None):
-        """  Corresponds to IDD Field `to_surface_107`
+        """  Corresponds to IDD Field `To Surface 107`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `to_surface_107`
+            value (str): value for IDD Field `To Surface 107`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -27070,7 +27603,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `to_surface_107`'.format(value))
             if ',' in value:
@@ -27079,7 +27612,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `to_surface_107`')
-
         self._data["To Surface 107"] = value
 
     @property
@@ -27093,11 +27625,13 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @view_factor_107.setter
     def view_factor_107(self, value=None):
-        """  Corresponds to IDD Field `view_factor_107`
+        """  Corresponds to IDD Field `View Factor 107`
         This value is the view factor value From Surface => To Surface
+        
+        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `view_factor_107`
+            value (float): value for IDD Field `View Factor 107`
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -27108,13 +27642,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `view_factor_107`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `view_factor_107`')
-
         self._data["View Factor 107"] = value
 
     @property
@@ -27128,10 +27661,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @from_surface_108.setter
     def from_surface_108(self, value=None):
-        """  Corresponds to IDD Field `from_surface_108`
+        """  Corresponds to IDD Field `From Surface 108`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `from_surface_108`
+            value (str): value for IDD Field `From Surface 108`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -27141,7 +27676,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `from_surface_108`'.format(value))
             if ',' in value:
@@ -27150,7 +27685,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `from_surface_108`')
-
         self._data["From Surface 108"] = value
 
     @property
@@ -27164,10 +27698,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @to_surface_108.setter
     def to_surface_108(self, value=None):
-        """  Corresponds to IDD Field `to_surface_108`
+        """  Corresponds to IDD Field `To Surface 108`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `to_surface_108`
+            value (str): value for IDD Field `To Surface 108`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -27177,7 +27713,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `to_surface_108`'.format(value))
             if ',' in value:
@@ -27186,7 +27722,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `to_surface_108`')
-
         self._data["To Surface 108"] = value
 
     @property
@@ -27200,11 +27735,13 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @view_factor_108.setter
     def view_factor_108(self, value=None):
-        """  Corresponds to IDD Field `view_factor_108`
+        """  Corresponds to IDD Field `View Factor 108`
         This value is the view factor value From Surface => To Surface
+        
+        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `view_factor_108`
+            value (float): value for IDD Field `View Factor 108`
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -27215,13 +27752,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `view_factor_108`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `view_factor_108`')
-
         self._data["View Factor 108"] = value
 
     @property
@@ -27235,10 +27771,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @from_surface_109.setter
     def from_surface_109(self, value=None):
-        """  Corresponds to IDD Field `from_surface_109`
+        """  Corresponds to IDD Field `From Surface 109`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `from_surface_109`
+            value (str): value for IDD Field `From Surface 109`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -27248,7 +27786,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `from_surface_109`'.format(value))
             if ',' in value:
@@ -27257,7 +27795,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `from_surface_109`')
-
         self._data["From Surface 109"] = value
 
     @property
@@ -27271,10 +27808,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @to_surface_109.setter
     def to_surface_109(self, value=None):
-        """  Corresponds to IDD Field `to_surface_109`
+        """  Corresponds to IDD Field `To Surface 109`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `to_surface_109`
+            value (str): value for IDD Field `To Surface 109`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -27284,7 +27823,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `to_surface_109`'.format(value))
             if ',' in value:
@@ -27293,7 +27832,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `to_surface_109`')
-
         self._data["To Surface 109"] = value
 
     @property
@@ -27307,11 +27845,13 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @view_factor_109.setter
     def view_factor_109(self, value=None):
-        """  Corresponds to IDD Field `view_factor_109`
+        """  Corresponds to IDD Field `View Factor 109`
         This value is the view factor value From Surface => To Surface
+        
+        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `view_factor_109`
+            value (float): value for IDD Field `View Factor 109`
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -27322,13 +27862,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `view_factor_109`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `view_factor_109`')
-
         self._data["View Factor 109"] = value
 
     @property
@@ -27342,10 +27881,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @from_surface_110.setter
     def from_surface_110(self, value=None):
-        """  Corresponds to IDD Field `from_surface_110`
+        """  Corresponds to IDD Field `From Surface 110`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `from_surface_110`
+            value (str): value for IDD Field `From Surface 110`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -27355,7 +27896,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `from_surface_110`'.format(value))
             if ',' in value:
@@ -27364,7 +27905,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `from_surface_110`')
-
         self._data["From Surface 110"] = value
 
     @property
@@ -27378,10 +27918,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @to_surface_110.setter
     def to_surface_110(self, value=None):
-        """  Corresponds to IDD Field `to_surface_110`
+        """  Corresponds to IDD Field `To Surface 110`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `to_surface_110`
+            value (str): value for IDD Field `To Surface 110`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -27391,7 +27933,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `to_surface_110`'.format(value))
             if ',' in value:
@@ -27400,7 +27942,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `to_surface_110`')
-
         self._data["To Surface 110"] = value
 
     @property
@@ -27414,11 +27955,13 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @view_factor_110.setter
     def view_factor_110(self, value=None):
-        """  Corresponds to IDD Field `view_factor_110`
+        """  Corresponds to IDD Field `View Factor 110`
         This value is the view factor value From Surface => To Surface
+        
+        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `view_factor_110`
+            value (float): value for IDD Field `View Factor 110`
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -27429,13 +27972,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `view_factor_110`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `view_factor_110`')
-
         self._data["View Factor 110"] = value
 
     @property
@@ -27449,10 +27991,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @from_surface_111.setter
     def from_surface_111(self, value=None):
-        """  Corresponds to IDD Field `from_surface_111`
+        """  Corresponds to IDD Field `From Surface 111`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `from_surface_111`
+            value (str): value for IDD Field `From Surface 111`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -27462,7 +28006,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `from_surface_111`'.format(value))
             if ',' in value:
@@ -27471,7 +28015,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `from_surface_111`')
-
         self._data["From Surface 111"] = value
 
     @property
@@ -27485,10 +28028,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @to_surface_111.setter
     def to_surface_111(self, value=None):
-        """  Corresponds to IDD Field `to_surface_111`
+        """  Corresponds to IDD Field `To Surface 111`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `to_surface_111`
+            value (str): value for IDD Field `To Surface 111`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -27498,7 +28043,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `to_surface_111`'.format(value))
             if ',' in value:
@@ -27507,7 +28052,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `to_surface_111`')
-
         self._data["To Surface 111"] = value
 
     @property
@@ -27521,11 +28065,13 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @view_factor_111.setter
     def view_factor_111(self, value=None):
-        """  Corresponds to IDD Field `view_factor_111`
+        """  Corresponds to IDD Field `View Factor 111`
         This value is the view factor value From Surface => To Surface
+        
+        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `view_factor_111`
+            value (float): value for IDD Field `View Factor 111`
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -27536,13 +28082,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `view_factor_111`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `view_factor_111`')
-
         self._data["View Factor 111"] = value
 
     @property
@@ -27556,10 +28101,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @from_surface_112.setter
     def from_surface_112(self, value=None):
-        """  Corresponds to IDD Field `from_surface_112`
+        """  Corresponds to IDD Field `From Surface 112`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `from_surface_112`
+            value (str): value for IDD Field `From Surface 112`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -27569,7 +28116,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `from_surface_112`'.format(value))
             if ',' in value:
@@ -27578,7 +28125,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `from_surface_112`')
-
         self._data["From Surface 112"] = value
 
     @property
@@ -27592,10 +28138,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @to_surface_112.setter
     def to_surface_112(self, value=None):
-        """  Corresponds to IDD Field `to_surface_112`
+        """  Corresponds to IDD Field `To Surface 112`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `to_surface_112`
+            value (str): value for IDD Field `To Surface 112`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -27605,7 +28153,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `to_surface_112`'.format(value))
             if ',' in value:
@@ -27614,7 +28162,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `to_surface_112`')
-
         self._data["To Surface 112"] = value
 
     @property
@@ -27628,11 +28175,13 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @view_factor_112.setter
     def view_factor_112(self, value=None):
-        """  Corresponds to IDD Field `view_factor_112`
+        """  Corresponds to IDD Field `View Factor 112`
         This value is the view factor value From Surface => To Surface
+        
+        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `view_factor_112`
+            value (float): value for IDD Field `View Factor 112`
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -27643,13 +28192,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `view_factor_112`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `view_factor_112`')
-
         self._data["View Factor 112"] = value
 
     @property
@@ -27663,10 +28211,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @from_surface_113.setter
     def from_surface_113(self, value=None):
-        """  Corresponds to IDD Field `from_surface_113`
+        """  Corresponds to IDD Field `From Surface 113`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `from_surface_113`
+            value (str): value for IDD Field `From Surface 113`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -27676,7 +28226,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `from_surface_113`'.format(value))
             if ',' in value:
@@ -27685,7 +28235,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `from_surface_113`')
-
         self._data["From Surface 113"] = value
 
     @property
@@ -27699,10 +28248,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @to_surface_113.setter
     def to_surface_113(self, value=None):
-        """  Corresponds to IDD Field `to_surface_113`
+        """  Corresponds to IDD Field `To Surface 113`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `to_surface_113`
+            value (str): value for IDD Field `To Surface 113`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -27712,7 +28263,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `to_surface_113`'.format(value))
             if ',' in value:
@@ -27721,7 +28272,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `to_surface_113`')
-
         self._data["To Surface 113"] = value
 
     @property
@@ -27735,11 +28285,13 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @view_factor_113.setter
     def view_factor_113(self, value=None):
-        """  Corresponds to IDD Field `view_factor_113`
+        """  Corresponds to IDD Field `View Factor 113`
         This value is the view factor value From Surface => To Surface
+        
+        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `view_factor_113`
+            value (float): value for IDD Field `View Factor 113`
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -27750,13 +28302,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `view_factor_113`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `view_factor_113`')
-
         self._data["View Factor 113"] = value
 
     @property
@@ -27770,10 +28321,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @from_surface_114.setter
     def from_surface_114(self, value=None):
-        """  Corresponds to IDD Field `from_surface_114`
+        """  Corresponds to IDD Field `From Surface 114`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `from_surface_114`
+            value (str): value for IDD Field `From Surface 114`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -27783,7 +28336,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `from_surface_114`'.format(value))
             if ',' in value:
@@ -27792,7 +28345,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `from_surface_114`')
-
         self._data["From Surface 114"] = value
 
     @property
@@ -27806,10 +28358,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @to_surface_114.setter
     def to_surface_114(self, value=None):
-        """  Corresponds to IDD Field `to_surface_114`
+        """  Corresponds to IDD Field `To Surface 114`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `to_surface_114`
+            value (str): value for IDD Field `To Surface 114`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -27819,7 +28373,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `to_surface_114`'.format(value))
             if ',' in value:
@@ -27828,7 +28382,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `to_surface_114`')
-
         self._data["To Surface 114"] = value
 
     @property
@@ -27842,11 +28395,13 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @view_factor_114.setter
     def view_factor_114(self, value=None):
-        """  Corresponds to IDD Field `view_factor_114`
+        """  Corresponds to IDD Field `View Factor 114`
         This value is the view factor value From Surface => To Surface
+        
+        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `view_factor_114`
+            value (float): value for IDD Field `View Factor 114`
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -27857,13 +28412,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `view_factor_114`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `view_factor_114`')
-
         self._data["View Factor 114"] = value
 
     @property
@@ -27877,10 +28431,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @from_surface_115.setter
     def from_surface_115(self, value=None):
-        """  Corresponds to IDD Field `from_surface_115`
+        """  Corresponds to IDD Field `From Surface 115`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `from_surface_115`
+            value (str): value for IDD Field `From Surface 115`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -27890,7 +28446,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `from_surface_115`'.format(value))
             if ',' in value:
@@ -27899,7 +28455,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `from_surface_115`')
-
         self._data["From Surface 115"] = value
 
     @property
@@ -27913,10 +28468,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @to_surface_115.setter
     def to_surface_115(self, value=None):
-        """  Corresponds to IDD Field `to_surface_115`
+        """  Corresponds to IDD Field `To Surface 115`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `to_surface_115`
+            value (str): value for IDD Field `To Surface 115`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -27926,7 +28483,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `to_surface_115`'.format(value))
             if ',' in value:
@@ -27935,7 +28492,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `to_surface_115`')
-
         self._data["To Surface 115"] = value
 
     @property
@@ -27949,11 +28505,13 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @view_factor_115.setter
     def view_factor_115(self, value=None):
-        """  Corresponds to IDD Field `view_factor_115`
+        """  Corresponds to IDD Field `View Factor 115`
         This value is the view factor value From Surface => To Surface
+        
+        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `view_factor_115`
+            value (float): value for IDD Field `View Factor 115`
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -27964,13 +28522,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `view_factor_115`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `view_factor_115`')
-
         self._data["View Factor 115"] = value
 
     @property
@@ -27984,10 +28541,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @from_surface_116.setter
     def from_surface_116(self, value=None):
-        """  Corresponds to IDD Field `from_surface_116`
+        """  Corresponds to IDD Field `From Surface 116`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `from_surface_116`
+            value (str): value for IDD Field `From Surface 116`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -27997,7 +28556,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `from_surface_116`'.format(value))
             if ',' in value:
@@ -28006,7 +28565,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `from_surface_116`')
-
         self._data["From Surface 116"] = value
 
     @property
@@ -28020,10 +28578,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @to_surface_116.setter
     def to_surface_116(self, value=None):
-        """  Corresponds to IDD Field `to_surface_116`
+        """  Corresponds to IDD Field `To Surface 116`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `to_surface_116`
+            value (str): value for IDD Field `To Surface 116`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -28033,7 +28593,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `to_surface_116`'.format(value))
             if ',' in value:
@@ -28042,7 +28602,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `to_surface_116`')
-
         self._data["To Surface 116"] = value
 
     @property
@@ -28056,11 +28615,13 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @view_factor_116.setter
     def view_factor_116(self, value=None):
-        """  Corresponds to IDD Field `view_factor_116`
+        """  Corresponds to IDD Field `View Factor 116`
         This value is the view factor value From Surface => To Surface
+        
+        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `view_factor_116`
+            value (float): value for IDD Field `View Factor 116`
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -28071,13 +28632,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `view_factor_116`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `view_factor_116`')
-
         self._data["View Factor 116"] = value
 
     @property
@@ -28091,10 +28651,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @from_surface_117.setter
     def from_surface_117(self, value=None):
-        """  Corresponds to IDD Field `from_surface_117`
+        """  Corresponds to IDD Field `From Surface 117`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `from_surface_117`
+            value (str): value for IDD Field `From Surface 117`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -28104,7 +28666,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `from_surface_117`'.format(value))
             if ',' in value:
@@ -28113,7 +28675,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `from_surface_117`')
-
         self._data["From Surface 117"] = value
 
     @property
@@ -28127,10 +28688,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @to_surface_117.setter
     def to_surface_117(self, value=None):
-        """  Corresponds to IDD Field `to_surface_117`
+        """  Corresponds to IDD Field `To Surface 117`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `to_surface_117`
+            value (str): value for IDD Field `To Surface 117`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -28140,7 +28703,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `to_surface_117`'.format(value))
             if ',' in value:
@@ -28149,7 +28712,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `to_surface_117`')
-
         self._data["To Surface 117"] = value
 
     @property
@@ -28163,11 +28725,13 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @view_factor_117.setter
     def view_factor_117(self, value=None):
-        """  Corresponds to IDD Field `view_factor_117`
+        """  Corresponds to IDD Field `View Factor 117`
         This value is the view factor value From Surface => To Surface
+        
+        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `view_factor_117`
+            value (float): value for IDD Field `View Factor 117`
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -28178,13 +28742,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `view_factor_117`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `view_factor_117`')
-
         self._data["View Factor 117"] = value
 
     @property
@@ -28198,10 +28761,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @from_surface_118.setter
     def from_surface_118(self, value=None):
-        """  Corresponds to IDD Field `from_surface_118`
+        """  Corresponds to IDD Field `From Surface 118`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `from_surface_118`
+            value (str): value for IDD Field `From Surface 118`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -28211,7 +28776,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `from_surface_118`'.format(value))
             if ',' in value:
@@ -28220,7 +28785,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `from_surface_118`')
-
         self._data["From Surface 118"] = value
 
     @property
@@ -28234,10 +28798,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @to_surface_118.setter
     def to_surface_118(self, value=None):
-        """  Corresponds to IDD Field `to_surface_118`
+        """  Corresponds to IDD Field `To Surface 118`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `to_surface_118`
+            value (str): value for IDD Field `To Surface 118`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -28247,7 +28813,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `to_surface_118`'.format(value))
             if ',' in value:
@@ -28256,7 +28822,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `to_surface_118`')
-
         self._data["To Surface 118"] = value
 
     @property
@@ -28270,11 +28835,13 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @view_factor_118.setter
     def view_factor_118(self, value=None):
-        """  Corresponds to IDD Field `view_factor_118`
+        """  Corresponds to IDD Field `View Factor 118`
         This value is the view factor value From Surface => To Surface
+        
+        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `view_factor_118`
+            value (float): value for IDD Field `View Factor 118`
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -28285,13 +28852,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `view_factor_118`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `view_factor_118`')
-
         self._data["View Factor 118"] = value
 
     @property
@@ -28305,10 +28871,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @from_surface_119.setter
     def from_surface_119(self, value=None):
-        """  Corresponds to IDD Field `from_surface_119`
+        """  Corresponds to IDD Field `From Surface 119`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `from_surface_119`
+            value (str): value for IDD Field `From Surface 119`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -28318,7 +28886,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `from_surface_119`'.format(value))
             if ',' in value:
@@ -28327,7 +28895,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `from_surface_119`')
-
         self._data["From Surface 119"] = value
 
     @property
@@ -28341,10 +28908,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @to_surface_119.setter
     def to_surface_119(self, value=None):
-        """  Corresponds to IDD Field `to_surface_119`
+        """  Corresponds to IDD Field `To Surface 119`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `to_surface_119`
+            value (str): value for IDD Field `To Surface 119`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -28354,7 +28923,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `to_surface_119`'.format(value))
             if ',' in value:
@@ -28363,7 +28932,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `to_surface_119`')
-
         self._data["To Surface 119"] = value
 
     @property
@@ -28377,11 +28945,13 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @view_factor_119.setter
     def view_factor_119(self, value=None):
-        """  Corresponds to IDD Field `view_factor_119`
+        """  Corresponds to IDD Field `View Factor 119`
         This value is the view factor value From Surface => To Surface
+        
+        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `view_factor_119`
+            value (float): value for IDD Field `View Factor 119`
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -28392,13 +28962,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `view_factor_119`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `view_factor_119`')
-
         self._data["View Factor 119"] = value
 
     @property
@@ -28412,10 +28981,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @from_surface_120.setter
     def from_surface_120(self, value=None):
-        """  Corresponds to IDD Field `from_surface_120`
+        """  Corresponds to IDD Field `From Surface 120`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `from_surface_120`
+            value (str): value for IDD Field `From Surface 120`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -28425,7 +28996,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `from_surface_120`'.format(value))
             if ',' in value:
@@ -28434,7 +29005,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `from_surface_120`')
-
         self._data["From Surface 120"] = value
 
     @property
@@ -28448,10 +29018,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @to_surface_120.setter
     def to_surface_120(self, value=None):
-        """  Corresponds to IDD Field `to_surface_120`
+        """  Corresponds to IDD Field `To Surface 120`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `to_surface_120`
+            value (str): value for IDD Field `To Surface 120`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -28461,7 +29033,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `to_surface_120`'.format(value))
             if ',' in value:
@@ -28470,7 +29042,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `to_surface_120`')
-
         self._data["To Surface 120"] = value
 
     @property
@@ -28484,11 +29055,13 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @view_factor_120.setter
     def view_factor_120(self, value=None):
-        """  Corresponds to IDD Field `view_factor_120`
+        """  Corresponds to IDD Field `View Factor 120`
         This value is the view factor value From Surface => To Surface
+        
+        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `view_factor_120`
+            value (float): value for IDD Field `View Factor 120`
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -28499,13 +29072,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `view_factor_120`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `view_factor_120`')
-
         self._data["View Factor 120"] = value
 
     @property
@@ -28519,10 +29091,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @from_surface_121.setter
     def from_surface_121(self, value=None):
-        """  Corresponds to IDD Field `from_surface_121`
+        """  Corresponds to IDD Field `From Surface 121`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `from_surface_121`
+            value (str): value for IDD Field `From Surface 121`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -28532,7 +29106,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `from_surface_121`'.format(value))
             if ',' in value:
@@ -28541,7 +29115,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `from_surface_121`')
-
         self._data["From Surface 121"] = value
 
     @property
@@ -28555,10 +29128,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @to_surface_121.setter
     def to_surface_121(self, value=None):
-        """  Corresponds to IDD Field `to_surface_121`
+        """  Corresponds to IDD Field `To Surface 121`
+        
+        {u'type': u'object-list', u'object-list': u'AllHeatTranSurfNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `to_surface_121`
+            value (str): value for IDD Field `To Surface 121`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -28568,7 +29143,7 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `to_surface_121`'.format(value))
             if ',' in value:
@@ -28577,7 +29152,6 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `to_surface_121`')
-
         self._data["To Surface 121"] = value
 
     @property
@@ -28591,11 +29165,13 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
 
     @view_factor_121.setter
     def view_factor_121(self, value=None):
-        """  Corresponds to IDD Field `view_factor_121`
+        """  Corresponds to IDD Field `View Factor 121`
         This value is the view factor value From Surface => To Surface
+        
+        {u'note': [u'This value is the view factor value From Surface => To Surface'], u'type': u'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `view_factor_121`
+            value (float): value for IDD Field `View Factor 121`
                 value <= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -28606,13 +29182,12 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `view_factor_121`'.format(value))
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `view_factor_121`')
-
         self._data["View Factor 121"] = value
 
     def check(self):

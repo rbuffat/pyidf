@@ -60,11 +60,13 @@ class GroundHeatTransferControl(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
         This field is included for consistency.11
+        
+        {u'note': [u'This field is included for consistency.11'], 'type': 'alpha', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -74,7 +76,7 @@ class GroundHeatTransferControl(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -83,7 +85,6 @@ class GroundHeatTransferControl(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -97,10 +98,12 @@ class GroundHeatTransferControl(object):
 
     @run_basement_preprocessor.setter
     def run_basement_preprocessor(self, value="No"):
-        """  Corresponds to IDD Field `run_basement_preprocessor`
+        """  Corresponds to IDD Field `Run Basement Preprocessor`
+        
+        {u'default': u'No', u'type': u'choice', u'key': [u'Yes', u'No'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `run_basement_preprocessor`
+            value (str): value for IDD Field `Run Basement Preprocessor`
                 Accepted values are:
                       - Yes
                       - No
@@ -114,7 +117,7 @@ class GroundHeatTransferControl(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `run_basement_preprocessor`'.format(value))
             if ',' in value:
@@ -140,7 +143,6 @@ class GroundHeatTransferControl(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `run_basement_preprocessor`'.format(value))
             value = vals[value_lower]
-
         self._data["Run Basement Preprocessor"] = value
 
     @property
@@ -154,10 +156,12 @@ class GroundHeatTransferControl(object):
 
     @run_slab_preprocessor.setter
     def run_slab_preprocessor(self, value="No"):
-        """  Corresponds to IDD Field `run_slab_preprocessor`
+        """  Corresponds to IDD Field `Run Slab Preprocessor`
+        
+        {u'default': u'No', u'type': u'choice', u'key': [u'Yes', u'No'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `run_slab_preprocessor`
+            value (str): value for IDD Field `Run Slab Preprocessor`
                 Accepted values are:
                       - Yes
                       - No
@@ -171,7 +175,7 @@ class GroundHeatTransferControl(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `run_slab_preprocessor`'.format(value))
             if ',' in value:
@@ -197,7 +201,6 @@ class GroundHeatTransferControl(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `run_slab_preprocessor`'.format(value))
             value = vals[value_lower]
-
         self._data["Run Slab Preprocessor"] = value
 
     def check(self):
@@ -341,12 +344,14 @@ class GroundHeatTransferSlabMaterials(object):
 
     @nmat_number_of_materials.setter
     def nmat_number_of_materials(self, value=None):
-        """  Corresponds to IDD Field `nmat_number_of_materials`
+        """  Corresponds to IDD Field `NMAT: Number of materials`
         This field specifies the number of different materials that will be used in the model.
         Typically only a ground material and a slab material are used. (2 materials)
+        
+        {u'note': [u'This field specifies the number of different materials that will be used in the model.', u'Typically only a ground material and a slab material are used. (2 materials)'], u'minimum>': '0.0', 'type': 'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `nmat_number_of_materials`
+            value (float): value for IDD Field `NMAT: Number of materials`
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -357,13 +362,12 @@ class GroundHeatTransferSlabMaterials(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `nmat_number_of_materials`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `nmat_number_of_materials`')
-
         self._data["NMAT: Number of materials"] = value
 
     @property
@@ -377,14 +381,16 @@ class GroundHeatTransferSlabMaterials(object):
 
     @albedo_surface_albedo_no_snow.setter
     def albedo_surface_albedo_no_snow(self, value=0.16 ):
-        """  Corresponds to IDD Field `albedo_surface_albedo_no_snow`
+        """  Corresponds to IDD Field `ALBEDO: Surface Albedo: No Snow`
         Two fields specify the albedo value of the surface: first for no snow coverage days;
         second for days with snow coverage. The albedo is the solar reflectivity of the surface,
         and can vary from 0.05 for blacktop to 0.95 for fresh snow.
         Typical values for North America reported by Bahnfleth range from 0.16 to 0.4.
+        
+        {'pytype': 'float', u'default': '0.16', u'maximum': '1.0', u'note': [u'Two fields specify the albedo value of the surface: first for no snow coverage days;', u'second for days with snow coverage. The albedo is the solar reflectivity of the surface,', u'and can vary from 0.05 for blacktop to 0.95 for fresh snow.', u'Typical values for North America reported by Bahnfleth range from 0.16 to 0.4.'], u'minimum': '0.0', 'type': 'real'}
 
         Args:
-            value (float): value for IDD Field `albedo_surface_albedo_no_snow`
+            value (float): value for IDD Field `ALBEDO: Surface Albedo: No Snow`
                 Default value: 0.16
                 value >= 0.0
                 value <= 1.0
@@ -397,7 +403,7 @@ class GroundHeatTransferSlabMaterials(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `albedo_surface_albedo_no_snow`'.format(value))
             if value < 0.0:
@@ -406,7 +412,6 @@ class GroundHeatTransferSlabMaterials(object):
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `albedo_surface_albedo_no_snow`')
-
         self._data["ALBEDO: Surface Albedo: No Snow"] = value
 
     @property
@@ -420,10 +425,12 @@ class GroundHeatTransferSlabMaterials(object):
 
     @albedo_surface_albedo_snow.setter
     def albedo_surface_albedo_snow(self, value=0.4 ):
-        """  Corresponds to IDD Field `albedo_surface_albedo_snow`
+        """  Corresponds to IDD Field `ALBEDO: Surface Albedo: Snow`
+        
+        {u'default': '0.4', u'minimum': '0.0', 'type': 'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `albedo_surface_albedo_snow`
+            value (float): value for IDD Field `ALBEDO: Surface Albedo: Snow`
                 Default value: 0.4
                 value >= 0.0
                 value <= 1.0
@@ -436,7 +443,7 @@ class GroundHeatTransferSlabMaterials(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `albedo_surface_albedo_snow`'.format(value))
             if value < 0.0:
@@ -445,7 +452,6 @@ class GroundHeatTransferSlabMaterials(object):
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `albedo_surface_albedo_snow`')
-
         self._data["ALBEDO: Surface Albedo: Snow"] = value
 
     @property
@@ -459,13 +465,15 @@ class GroundHeatTransferSlabMaterials(object):
 
     @epslw_surface_emissivity_no_snow.setter
     def epslw_surface_emissivity_no_snow(self, value=0.94 ):
-        """  Corresponds to IDD Field `epslw_surface_emissivity_no_snow`
+        """  Corresponds to IDD Field `EPSLW: Surface Emissivity: No Snow`
         EPSLW (No Snow and Snow) specifies the long wavelength (thermal) emissivity of the ground surface.
         primarily important for nighttime radiation to sky.
         typical value .95
+        
+        {u'note': [u'EPSLW (No Snow and Snow) specifies the long wavelength (thermal) emissivity of the ground surface.', u'primarily important for nighttime radiation to sky.', u'typical value .95'], u'default': '0.94', u'minimum>': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `epslw_surface_emissivity_no_snow`
+            value (float): value for IDD Field `EPSLW: Surface Emissivity: No Snow`
                 Default value: 0.94
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -477,13 +485,12 @@ class GroundHeatTransferSlabMaterials(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `epslw_surface_emissivity_no_snow`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `epslw_surface_emissivity_no_snow`')
-
         self._data["EPSLW: Surface Emissivity: No Snow"] = value
 
     @property
@@ -497,10 +504,12 @@ class GroundHeatTransferSlabMaterials(object):
 
     @epslw_surface_emissivity_snow.setter
     def epslw_surface_emissivity_snow(self, value=0.86 ):
-        """  Corresponds to IDD Field `epslw_surface_emissivity_snow`
+        """  Corresponds to IDD Field `EPSLW: Surface Emissivity: Snow`
+        
+        {u'default': '0.86', u'minimum>': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `epslw_surface_emissivity_snow`
+            value (float): value for IDD Field `EPSLW: Surface Emissivity: Snow`
                 Default value: 0.86
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -512,13 +521,12 @@ class GroundHeatTransferSlabMaterials(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `epslw_surface_emissivity_snow`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `epslw_surface_emissivity_snow`')
-
         self._data["EPSLW: Surface Emissivity: Snow"] = value
 
     @property
@@ -532,12 +540,14 @@ class GroundHeatTransferSlabMaterials(object):
 
     @z0_surface_roughness_no_snow.setter
     def z0_surface_roughness_no_snow(self, value=0.75 ):
-        """  Corresponds to IDD Field `z0_surface_roughness_no_snow`
+        """  Corresponds to IDD Field `Z0: Surface Roughness: No Snow`
         fields Z0 (No Snow and Snow) describe the height at which an experimentally velocity profile goes to zero.
         typical value= .75 cm
+        
+        {'pytype': 'float', u'default': '0.75', u'minimum>': '0.0', u'note': [u'fields Z0 (No Snow and Snow) describe the height at which an experimentally velocity profile goes to zero.', u'typical value= .75 cm'], u'units': u'cm', 'type': 'real'}
 
         Args:
-            value (float): value for IDD Field `z0_surface_roughness_no_snow`
+            value (float): value for IDD Field `Z0: Surface Roughness: No Snow`
                 Units: cm
                 Default value: 0.75
                 value > 0.0
@@ -550,13 +560,12 @@ class GroundHeatTransferSlabMaterials(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `z0_surface_roughness_no_snow`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `z0_surface_roughness_no_snow`')
-
         self._data["Z0: Surface Roughness: No Snow"] = value
 
     @property
@@ -570,11 +579,13 @@ class GroundHeatTransferSlabMaterials(object):
 
     @z0_surface_roughness_snow.setter
     def z0_surface_roughness_snow(self, value=0.25 ):
-        """  Corresponds to IDD Field `z0_surface_roughness_snow`
+        """  Corresponds to IDD Field `Z0: Surface Roughness: Snow`
         typical value= .05 cm
+        
+        {'pytype': 'float', u'default': '0.25', u'minimum>': '0.0', u'note': [u'typical value= .05 cm'], u'units': u'cm', 'type': 'real'}
 
         Args:
-            value (float): value for IDD Field `z0_surface_roughness_snow`
+            value (float): value for IDD Field `Z0: Surface Roughness: Snow`
                 Units: cm
                 Default value: 0.25
                 value > 0.0
@@ -587,13 +598,12 @@ class GroundHeatTransferSlabMaterials(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `z0_surface_roughness_snow`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `z0_surface_roughness_snow`')
-
         self._data["Z0: Surface Roughness: Snow"] = value
 
     @property
@@ -607,16 +617,18 @@ class GroundHeatTransferSlabMaterials(object):
 
     @hin_indoor_hconv_downward_flow.setter
     def hin_indoor_hconv_downward_flow(self, value=6.13 ):
-        """  Corresponds to IDD Field `hin_indoor_hconv_downward_flow`
+        """  Corresponds to IDD Field `HIN: Indoor HConv: Downward Flow`
         These fields specify the combined convective and radiative heat transfer coefficient between
         the slab top inside surface and the room air for the cases where heat is flowing downward,
         and upward. The program toggles between the two if the direction of the heat flux changes.
         Typical values can be found in the ASHRAE Handbook of Fundamentals, but should be
         about 6 W/(m2-K) for downward heat flow and 9 W/(m2-K) for upward heat flow.
         typical value= 4-10
+        
+        {'pytype': 'float', u'default': '6.13', u'minimum>': '0.0', u'note': [u'These fields specify the combined convective and radiative heat transfer coefficient between', u'the slab top inside surface and the room air for the cases where heat is flowing downward,', u'and upward. The program toggles between the two if the direction of the heat flux changes.', u'Typical values can be found in the ASHRAE Handbook of Fundamentals, but should be', u'about 6 W/(m2-K) for downward heat flow and 9 W/(m2-K) for upward heat flow.', u'typical value= 4-10'], u'units': u'W/m2-K', 'type': 'real'}
 
         Args:
-            value (float): value for IDD Field `hin_indoor_hconv_downward_flow`
+            value (float): value for IDD Field `HIN: Indoor HConv: Downward Flow`
                 Units: W/m2-K
                 Default value: 6.13
                 value > 0.0
@@ -629,13 +641,12 @@ class GroundHeatTransferSlabMaterials(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `hin_indoor_hconv_downward_flow`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `hin_indoor_hconv_downward_flow`')
-
         self._data["HIN: Indoor HConv: Downward Flow"] = value
 
     @property
@@ -649,11 +660,13 @@ class GroundHeatTransferSlabMaterials(object):
 
     @hin_indoor_hconv_upward.setter
     def hin_indoor_hconv_upward(self, value=9.26 ):
-        """  Corresponds to IDD Field `hin_indoor_hconv_upward`
+        """  Corresponds to IDD Field `HIN: Indoor HConv: Upward`
         typical value= 4-10
+        
+        {'pytype': 'float', u'default': '9.26', u'minimum>': '0.0', u'note': [u'typical value= 4-10'], u'units': u'W/m2-K', 'type': 'real'}
 
         Args:
-            value (float): value for IDD Field `hin_indoor_hconv_upward`
+            value (float): value for IDD Field `HIN: Indoor HConv: Upward`
                 Units: W/m2-K
                 Default value: 9.26
                 value > 0.0
@@ -666,13 +679,12 @@ class GroundHeatTransferSlabMaterials(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `hin_indoor_hconv_upward`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `hin_indoor_hconv_upward`')
-
         self._data["HIN: Indoor HConv: Upward"] = value
 
     def check(self):
@@ -793,12 +805,14 @@ class GroundHeatTransferSlabMatlProps(object):
 
     @rho_slab_material_density.setter
     def rho_slab_material_density(self, value=2300.0 ):
-        """  Corresponds to IDD Field `rho_slab_material_density`
+        """  Corresponds to IDD Field `RHO: Slab Material density`
         Density of Slab Material
         typical value= 2300.0
+        
+        {'pytype': 'float', u'default': '2300.0', u'minimum>': '0.0', u'note': [u'Density of Slab Material', u'typical value= 2300.0'], u'units': u'kg/m3', 'type': 'real'}
 
         Args:
-            value (float): value for IDD Field `rho_slab_material_density`
+            value (float): value for IDD Field `RHO: Slab Material density`
                 Units: kg/m3
                 Default value: 2300.0
                 value > 0.0
@@ -811,13 +825,12 @@ class GroundHeatTransferSlabMatlProps(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `rho_slab_material_density`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `rho_slab_material_density`')
-
         self._data["RHO: Slab Material density"] = value
 
     @property
@@ -831,12 +844,14 @@ class GroundHeatTransferSlabMatlProps(object):
 
     @rho_soil_density.setter
     def rho_soil_density(self, value=1200.0 ):
-        """  Corresponds to IDD Field `rho_soil_density`
+        """  Corresponds to IDD Field `RHO: Soil Density`
         Density of Soil Material
         typical value= 1200.0
+        
+        {'pytype': 'float', u'default': '1200.0', u'minimum>': '0.0', u'note': [u'Density of Soil Material', u'typical value= 1200.0'], u'units': u'kg/m3', 'type': 'real'}
 
         Args:
-            value (float): value for IDD Field `rho_soil_density`
+            value (float): value for IDD Field `RHO: Soil Density`
                 Units: kg/m3
                 Default value: 1200.0
                 value > 0.0
@@ -849,13 +864,12 @@ class GroundHeatTransferSlabMatlProps(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `rho_soil_density`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `rho_soil_density`')
-
         self._data["RHO: Soil Density"] = value
 
     @property
@@ -869,12 +883,14 @@ class GroundHeatTransferSlabMatlProps(object):
 
     @cp_slab_cp.setter
     def cp_slab_cp(self, value=650.0 ):
-        """  Corresponds to IDD Field `cp_slab_cp`
+        """  Corresponds to IDD Field `CP: Slab CP`
         Specific Heat of Slab Material
         typical value=650.0
+        
+        {'pytype': 'float', u'default': '650.0', u'minimum>': '0.0', u'note': [u'Specific Heat of Slab Material', u'typical value=650.0'], u'units': u'J/kg-K', 'type': 'real'}
 
         Args:
-            value (float): value for IDD Field `cp_slab_cp`
+            value (float): value for IDD Field `CP: Slab CP`
                 Units: J/kg-K
                 Default value: 650.0
                 value > 0.0
@@ -887,13 +903,12 @@ class GroundHeatTransferSlabMatlProps(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `cp_slab_cp`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `cp_slab_cp`')
-
         self._data["CP: Slab CP"] = value
 
     @property
@@ -907,12 +922,14 @@ class GroundHeatTransferSlabMatlProps(object):
 
     @cp_soil_cp.setter
     def cp_soil_cp(self, value=1200.0 ):
-        """  Corresponds to IDD Field `cp_soil_cp`
+        """  Corresponds to IDD Field `CP: Soil CP`
         Specific Heat of Soil Material
         typical value= 1200.0
+        
+        {'pytype': 'float', u'default': '1200.0', u'minimum>': '0.0', u'note': [u'Specific Heat of Soil Material', u'typical value= 1200.0'], u'units': u'J/kg-K', 'type': 'real'}
 
         Args:
-            value (float): value for IDD Field `cp_soil_cp`
+            value (float): value for IDD Field `CP: Soil CP`
                 Units: J/kg-K
                 Default value: 1200.0
                 value > 0.0
@@ -925,13 +942,12 @@ class GroundHeatTransferSlabMatlProps(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `cp_soil_cp`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `cp_soil_cp`')
-
         self._data["CP: Soil CP"] = value
 
     @property
@@ -945,12 +961,14 @@ class GroundHeatTransferSlabMatlProps(object):
 
     @tcon_slab_k.setter
     def tcon_slab_k(self, value=0.9 ):
-        """  Corresponds to IDD Field `tcon_slab_k`
+        """  Corresponds to IDD Field `TCON: Slab k`
         Conductivity of Slab Material
         typical value= .9
+        
+        {'pytype': 'float', u'default': '0.9', u'minimum>': '0.0', u'note': [u'Conductivity of Slab Material', u'typical value= .9'], u'units': u'W/m-K', 'type': 'real'}
 
         Args:
-            value (float): value for IDD Field `tcon_slab_k`
+            value (float): value for IDD Field `TCON: Slab k`
                 Units: W/m-K
                 Default value: 0.9
                 value > 0.0
@@ -963,13 +981,12 @@ class GroundHeatTransferSlabMatlProps(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `tcon_slab_k`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `tcon_slab_k`')
-
         self._data["TCON: Slab k"] = value
 
     @property
@@ -983,12 +1000,14 @@ class GroundHeatTransferSlabMatlProps(object):
 
     @tcon_soil_k.setter
     def tcon_soil_k(self, value=1.0 ):
-        """  Corresponds to IDD Field `tcon_soil_k`
+        """  Corresponds to IDD Field `TCON: Soil k`
         Conductivity of Soil Material
         typical value= 1.0
+        
+        {'pytype': 'float', u'default': '1.0', u'minimum>': '0.0', u'note': [u'Conductivity of Soil Material', u'typical value= 1.0'], u'units': u'W/m-K', 'type': 'real'}
 
         Args:
-            value (float): value for IDD Field `tcon_soil_k`
+            value (float): value for IDD Field `TCON: Soil k`
                 Units: W/m-K
                 Default value: 1.0
                 value > 0.0
@@ -1001,13 +1020,12 @@ class GroundHeatTransferSlabMatlProps(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `tcon_soil_k`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `tcon_soil_k`')
-
         self._data["TCON: Soil k"] = value
 
     def check(self):
@@ -1119,15 +1137,17 @@ class GroundHeatTransferSlabBoundConds(object):
 
     @evtr_is_surface_evapotranspiration_modeled.setter
     def evtr_is_surface_evapotranspiration_modeled(self, value=None):
-        """  Corresponds to IDD Field `evtr_is_surface_evapotranspiration_modeled`
+        """  Corresponds to IDD Field `EVTR: Is surface evapotranspiration modeled`
         This field specifies whether or not to use the evapotransporation model.
         The inclusion of evapotransporation in the calculation has the greatest
         effect in warm dry climates, primarily on the ground surface temperature.
         This field can be used to turn the evapotransporation off and on to check
         sensitivity to it.
+        
+        {u'note': [u'This field specifies whether or not to use the evapotransporation model.', u'The inclusion of evapotransporation in the calculation has the greatest', u'effect in warm dry climates, primarily on the ground surface temperature.', u'This field can be used to turn the evapotransporation off and on to check', u'sensitivity to it.'], u'type': u'choice', u'required-field': True, u'key': [u'TRUE', u'FALSE'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `evtr_is_surface_evapotranspiration_modeled`
+            value (str): value for IDD Field `EVTR: Is surface evapotranspiration modeled`
                 Accepted values are:
                       - TRUE
                       - FALSE
@@ -1140,7 +1160,7 @@ class GroundHeatTransferSlabBoundConds(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `evtr_is_surface_evapotranspiration_modeled`'.format(value))
             if ',' in value:
@@ -1166,7 +1186,6 @@ class GroundHeatTransferSlabBoundConds(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `evtr_is_surface_evapotranspiration_modeled`'.format(value))
             value = vals[value_lower]
-
         self._data["EVTR: Is surface evapotranspiration modeled"] = value
 
     @property
@@ -1180,14 +1199,16 @@ class GroundHeatTransferSlabBoundConds(object):
 
     @fixbc_is_the_lower_boundary_at_a_fixed_temperature.setter
     def fixbc_is_the_lower_boundary_at_a_fixed_temperature(self, value=None):
-        """  Corresponds to IDD Field `fixbc_is_the_lower_boundary_at_a_fixed_temperature`
+        """  Corresponds to IDD Field `FIXBC: is the lower boundary at a fixed temperature`
         This field permits using a fixed temperature at the lower surface of the model
         instead of a zero heat flux condition. This change normally has a very small
         effect on the results.
         FALSE selects the zero flux lower boundary condition
+        
+        {u'note': [u'This field permits using a fixed temperature at the lower surface of the model', u'instead of a zero heat flux condition. This change normally has a very small', u'effect on the results.', u'FALSE selects the zero flux lower boundary condition'], u'type': u'choice', u'required-field': True, u'key': [u'TRUE', u'FALSE'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `fixbc_is_the_lower_boundary_at_a_fixed_temperature`
+            value (str): value for IDD Field `FIXBC: is the lower boundary at a fixed temperature`
                 Accepted values are:
                       - TRUE
                       - FALSE
@@ -1200,7 +1221,7 @@ class GroundHeatTransferSlabBoundConds(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `fixbc_is_the_lower_boundary_at_a_fixed_temperature`'.format(value))
             if ',' in value:
@@ -1226,7 +1247,6 @@ class GroundHeatTransferSlabBoundConds(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `fixbc_is_the_lower_boundary_at_a_fixed_temperature`'.format(value))
             value = vals[value_lower]
-
         self._data["FIXBC: is the lower boundary at a fixed temperature"] = value
 
     @property
@@ -1240,12 +1260,14 @@ class GroundHeatTransferSlabBoundConds(object):
 
     @tdeepin.setter
     def tdeepin(self, value=None):
-        """  Corresponds to IDD Field `tdeepin`
+        """  Corresponds to IDD Field `TDEEPin`
         User input lower boundary temperature if FIXBC is TRUE
         Blank for FIXBC FALSE or to use the calculated 1-D deep ground temperature.
+        
+        {u'note': [u'User input lower boundary temperature if FIXBC is TRUE', u'Blank for FIXBC FALSE or to use the calculated 1-D deep ground temperature.'], u'units': u'C', 'type': 'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `tdeepin`
+            value (float): value for IDD Field `TDEEPin`
                 Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1256,10 +1278,9 @@ class GroundHeatTransferSlabBoundConds(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `tdeepin`'.format(value))
-
         self._data["TDEEPin"] = value
 
     @property
@@ -1273,14 +1294,16 @@ class GroundHeatTransferSlabBoundConds(object):
 
     @usrhflag_is_the_ground_surface_h_specified_by_the_user.setter
     def usrhflag_is_the_ground_surface_h_specified_by_the_user(self, value=None):
-        """  Corresponds to IDD Field `usrhflag_is_the_ground_surface_h_specified_by_the_user`
+        """  Corresponds to IDD Field `USRHflag: Is the ground surface h specified by the user?`
         This field flags the use of a user specified heat transfer coefficient
         on the ground surface. This condition is used primarily for testing.
         For normal runs (USPHflag is FALSE) and the program calculates the heat
         transfer coefficient using the weather conditions.
+        
+        {u'note': [u'This field flags the use of a user specified heat transfer coefficient', u'on the ground surface. This condition is used primarily for testing.', u'For normal runs (USPHflag is FALSE) and the program calculates the heat', u'transfer coefficient using the weather conditions.'], u'type': u'choice', u'required-field': True, u'key': [u'TRUE', u'FALSE'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `usrhflag_is_the_ground_surface_h_specified_by_the_user`
+            value (str): value for IDD Field `USRHflag: Is the ground surface h specified by the user?`
                 Accepted values are:
                       - TRUE
                       - FALSE
@@ -1293,7 +1316,7 @@ class GroundHeatTransferSlabBoundConds(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `usrhflag_is_the_ground_surface_h_specified_by_the_user`'.format(value))
             if ',' in value:
@@ -1319,7 +1342,6 @@ class GroundHeatTransferSlabBoundConds(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `usrhflag_is_the_ground_surface_h_specified_by_the_user`'.format(value))
             value = vals[value_lower]
-
         self._data["USRHflag: Is the ground surface h specified by the user?"] = value
 
     @property
@@ -1333,12 +1355,14 @@ class GroundHeatTransferSlabBoundConds(object):
 
     @userh_user_specified_ground_surface_heat_transfer_coefficient.setter
     def userh_user_specified_ground_surface_heat_transfer_coefficient(self, value=None):
-        """  Corresponds to IDD Field `userh_user_specified_ground_surface_heat_transfer_coefficient`
+        """  Corresponds to IDD Field `USERH: User specified ground surface heat transfer coefficient`
         Used only if USRHflag is TRUE and the heat transfer coefficient value is
         specified in this field.
+        
+        {u'note': [u'Used only if USRHflag is TRUE and the heat transfer coefficient value is', u'specified in this field.'], u'units': u'W/m2-K', 'type': 'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `userh_user_specified_ground_surface_heat_transfer_coefficient`
+            value (float): value for IDD Field `USERH: User specified ground surface heat transfer coefficient`
                 Units: W/m2-K
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1349,10 +1373,9 @@ class GroundHeatTransferSlabBoundConds(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `userh_user_specified_ground_surface_heat_transfer_coefficient`'.format(value))
-
         self._data["USERH: User specified ground surface heat transfer coefficient"] = value
 
     def check(self):
@@ -1568,15 +1591,17 @@ class GroundHeatTransferSlabBldgProps(object):
 
     @iyrs_number_of_years_to_iterate.setter
     def iyrs_number_of_years_to_iterate(self, value=10.0 ):
-        """  Corresponds to IDD Field `iyrs_number_of_years_to_iterate`
+        """  Corresponds to IDD Field `IYRS: Number of years to iterate`
         This field specifies the number of years to iterate.
         Either the ground heat transfer calculations come to an
         an annual steady periodic condition by converging to a tolerance
         (see ConvTol field) or it runs for this number of years.
         A ten year maximum is usually sufficient.
+        
+        {u'note': [u'This field specifies the number of years to iterate.', u'Either the ground heat transfer calculations come to an', u'an annual steady periodic condition by converging to a tolerance', u'(see ConvTol field) or it runs for this number of years.', u'A ten year maximum is usually sufficient.'], u'default': '10.0', u'minimum': '1.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `iyrs_number_of_years_to_iterate`
+            value (float): value for IDD Field `IYRS: Number of years to iterate`
                 Default value: 10.0
                 value >= 1.0
                 if `value` is None it will not be checked against the
@@ -1588,13 +1613,12 @@ class GroundHeatTransferSlabBldgProps(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `iyrs_number_of_years_to_iterate`'.format(value))
             if value < 1.0:
                 raise ValueError('value need to be greater or equal 1.0 '
                                  'for field `iyrs_number_of_years_to_iterate`')
-
         self._data["IYRS: Number of years to iterate"] = value
 
     @property
@@ -1608,11 +1632,13 @@ class GroundHeatTransferSlabBldgProps(object):
 
     @shape_slab_shape.setter
     def shape_slab_shape(self, value=None):
-        """  Corresponds to IDD Field `shape_slab_shape`
+        """  Corresponds to IDD Field `Shape: Slab shape`
         Use only the value 0 here. Only a rectangular shape is implemented.
+        
+        {u'note': [u'Use only the value 0 here. Only a rectangular shape is implemented.'], u'minimum': '0.0', 'type': 'real', u'maximum': '0.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `shape_slab_shape`
+            value (float): value for IDD Field `Shape: Slab shape`
                 value >= 0.0
                 value <= 0.0
                 if `value` is None it will not be checked against the
@@ -1624,7 +1650,7 @@ class GroundHeatTransferSlabBldgProps(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `shape_slab_shape`'.format(value))
             if value < 0.0:
@@ -1633,7 +1659,6 @@ class GroundHeatTransferSlabBldgProps(object):
             if value > 0.0:
                 raise ValueError('value need to be smaller 0.0 '
                                  'for field `shape_slab_shape`')
-
         self._data["Shape: Slab shape"] = value
 
     @property
@@ -1647,13 +1672,15 @@ class GroundHeatTransferSlabBldgProps(object):
 
     @hbldg_building_height.setter
     def hbldg_building_height(self, value=None):
-        """  Corresponds to IDD Field `hbldg_building_height`
+        """  Corresponds to IDD Field `HBLDG: Building height`
         This field supplies the building height. This is used to calculate
         the building shadowing on the ground.
         typical value= 0-20
+        
+        {u'note': [u'This field supplies the building height. This is used to calculate', u'the building shadowing on the ground.', u'typical value= 0-20'], u'units': u'm', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `hbldg_building_height`
+            value (float): value for IDD Field `HBLDG: Building height`
                 Units: m
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -1665,13 +1692,12 @@ class GroundHeatTransferSlabBldgProps(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `hbldg_building_height`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `hbldg_building_height`')
-
         self._data["HBLDG: Building height"] = value
 
     @property
@@ -1685,11 +1711,13 @@ class GroundHeatTransferSlabBldgProps(object):
 
     @tin1_january_indoor_average_temperature_setpoint.setter
     def tin1_january_indoor_average_temperature_setpoint(self, value=22.0 ):
-        """  Corresponds to IDD Field `tin1_january_indoor_average_temperature_setpoint`
+        """  Corresponds to IDD Field `TIN1: January Indoor Average Temperature Setpoint`
         see memo on object for more information
+        
+        {u'note': [u'see memo on object for more information'], u'default': '22.0', u'units': u'C', 'type': 'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `tin1_january_indoor_average_temperature_setpoint`
+            value (float): value for IDD Field `TIN1: January Indoor Average Temperature Setpoint`
                 Units: C
                 Default value: 22.0
                 if `value` is None it will not be checked against the
@@ -1701,10 +1729,9 @@ class GroundHeatTransferSlabBldgProps(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `tin1_january_indoor_average_temperature_setpoint`'.format(value))
-
         self._data["TIN1: January Indoor Average Temperature Setpoint"] = value
 
     @property
@@ -1718,11 +1745,13 @@ class GroundHeatTransferSlabBldgProps(object):
 
     @tin2_february_indoor_average_temperature_setpoint.setter
     def tin2_february_indoor_average_temperature_setpoint(self, value=22.0 ):
-        """  Corresponds to IDD Field `tin2_february_indoor_average_temperature_setpoint`
+        """  Corresponds to IDD Field `TIN2: February Indoor Average Temperature Setpoint`
         see memo on object for more information
+        
+        {u'note': [u'see memo on object for more information'], u'default': '22.0', u'units': u'C', 'type': 'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `tin2_february_indoor_average_temperature_setpoint`
+            value (float): value for IDD Field `TIN2: February Indoor Average Temperature Setpoint`
                 Units: C
                 Default value: 22.0
                 if `value` is None it will not be checked against the
@@ -1734,10 +1763,9 @@ class GroundHeatTransferSlabBldgProps(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `tin2_february_indoor_average_temperature_setpoint`'.format(value))
-
         self._data["TIN2: February Indoor Average Temperature Setpoint"] = value
 
     @property
@@ -1751,11 +1779,13 @@ class GroundHeatTransferSlabBldgProps(object):
 
     @tin3_march_indoor_average_temperature_setpoint.setter
     def tin3_march_indoor_average_temperature_setpoint(self, value=22.0 ):
-        """  Corresponds to IDD Field `tin3_march_indoor_average_temperature_setpoint`
+        """  Corresponds to IDD Field `TIN3: March Indoor Average Temperature Setpoint`
         see memo on object for more information
+        
+        {u'note': [u'see memo on object for more information'], u'default': '22.0', u'units': u'C', 'type': 'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `tin3_march_indoor_average_temperature_setpoint`
+            value (float): value for IDD Field `TIN3: March Indoor Average Temperature Setpoint`
                 Units: C
                 Default value: 22.0
                 if `value` is None it will not be checked against the
@@ -1767,10 +1797,9 @@ class GroundHeatTransferSlabBldgProps(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `tin3_march_indoor_average_temperature_setpoint`'.format(value))
-
         self._data["TIN3: March Indoor Average Temperature Setpoint"] = value
 
     @property
@@ -1784,11 +1813,13 @@ class GroundHeatTransferSlabBldgProps(object):
 
     @tin4_april_indoor_average_temperature_setpoint.setter
     def tin4_april_indoor_average_temperature_setpoint(self, value=22.0 ):
-        """  Corresponds to IDD Field `tin4_april_indoor_average_temperature_setpoint`
+        """  Corresponds to IDD Field `TIN4: April Indoor Average Temperature Setpoint`
         see memo on object for more information
+        
+        {u'note': [u'see memo on object for more information'], u'default': '22.0', u'units': u'C', 'type': 'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `tin4_april_indoor_average_temperature_setpoint`
+            value (float): value for IDD Field `TIN4: April Indoor Average Temperature Setpoint`
                 Units: C
                 Default value: 22.0
                 if `value` is None it will not be checked against the
@@ -1800,10 +1831,9 @@ class GroundHeatTransferSlabBldgProps(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `tin4_april_indoor_average_temperature_setpoint`'.format(value))
-
         self._data["TIN4: April Indoor Average Temperature Setpoint"] = value
 
     @property
@@ -1817,11 +1847,13 @@ class GroundHeatTransferSlabBldgProps(object):
 
     @tin5_may_indoor_average_temperature_setpoint.setter
     def tin5_may_indoor_average_temperature_setpoint(self, value=22.0 ):
-        """  Corresponds to IDD Field `tin5_may_indoor_average_temperature_setpoint`
+        """  Corresponds to IDD Field `TIN5: May Indoor Average Temperature Setpoint`
         see memo on object for more information
+        
+        {u'note': [u'see memo on object for more information'], u'default': '22.0', u'units': u'C', 'type': 'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `tin5_may_indoor_average_temperature_setpoint`
+            value (float): value for IDD Field `TIN5: May Indoor Average Temperature Setpoint`
                 Units: C
                 Default value: 22.0
                 if `value` is None it will not be checked against the
@@ -1833,10 +1865,9 @@ class GroundHeatTransferSlabBldgProps(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `tin5_may_indoor_average_temperature_setpoint`'.format(value))
-
         self._data["TIN5: May Indoor Average Temperature Setpoint"] = value
 
     @property
@@ -1850,11 +1881,13 @@ class GroundHeatTransferSlabBldgProps(object):
 
     @tin6_june_indoor_average_temperature_setpoint.setter
     def tin6_june_indoor_average_temperature_setpoint(self, value=22.0 ):
-        """  Corresponds to IDD Field `tin6_june_indoor_average_temperature_setpoint`
+        """  Corresponds to IDD Field `TIN6: June Indoor Average Temperature Setpoint`
         see memo on object for more information
+        
+        {u'note': [u'see memo on object for more information'], u'default': '22.0', u'units': u'C', 'type': 'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `tin6_june_indoor_average_temperature_setpoint`
+            value (float): value for IDD Field `TIN6: June Indoor Average Temperature Setpoint`
                 Units: C
                 Default value: 22.0
                 if `value` is None it will not be checked against the
@@ -1866,10 +1899,9 @@ class GroundHeatTransferSlabBldgProps(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `tin6_june_indoor_average_temperature_setpoint`'.format(value))
-
         self._data["TIN6: June Indoor Average Temperature Setpoint"] = value
 
     @property
@@ -1883,11 +1915,13 @@ class GroundHeatTransferSlabBldgProps(object):
 
     @tin7_july_indoor_average_temperature_setpoint.setter
     def tin7_july_indoor_average_temperature_setpoint(self, value=22.0 ):
-        """  Corresponds to IDD Field `tin7_july_indoor_average_temperature_setpoint`
+        """  Corresponds to IDD Field `TIN7: July Indoor Average Temperature Setpoint`
         see memo on object for more information
+        
+        {u'note': [u'see memo on object for more information'], u'default': '22.0', u'units': u'C', 'type': 'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `tin7_july_indoor_average_temperature_setpoint`
+            value (float): value for IDD Field `TIN7: July Indoor Average Temperature Setpoint`
                 Units: C
                 Default value: 22.0
                 if `value` is None it will not be checked against the
@@ -1899,10 +1933,9 @@ class GroundHeatTransferSlabBldgProps(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `tin7_july_indoor_average_temperature_setpoint`'.format(value))
-
         self._data["TIN7: July Indoor Average Temperature Setpoint"] = value
 
     @property
@@ -1916,11 +1949,13 @@ class GroundHeatTransferSlabBldgProps(object):
 
     @tin8_august_indoor_average_temperature_setpoint.setter
     def tin8_august_indoor_average_temperature_setpoint(self, value=22.0 ):
-        """  Corresponds to IDD Field `tin8_august_indoor_average_temperature_setpoint`
+        """  Corresponds to IDD Field `TIN8: August Indoor Average Temperature Setpoint`
         see memo on object for more information
+        
+        {u'note': [u'see memo on object for more information'], u'default': '22.0', u'units': u'C', 'type': 'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `tin8_august_indoor_average_temperature_setpoint`
+            value (float): value for IDD Field `TIN8: August Indoor Average Temperature Setpoint`
                 Units: C
                 Default value: 22.0
                 if `value` is None it will not be checked against the
@@ -1932,10 +1967,9 @@ class GroundHeatTransferSlabBldgProps(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `tin8_august_indoor_average_temperature_setpoint`'.format(value))
-
         self._data["TIN8: August Indoor Average Temperature Setpoint"] = value
 
     @property
@@ -1949,11 +1983,13 @@ class GroundHeatTransferSlabBldgProps(object):
 
     @tin9_september_indoor_average_temperature_setpoint.setter
     def tin9_september_indoor_average_temperature_setpoint(self, value=22.0 ):
-        """  Corresponds to IDD Field `tin9_september_indoor_average_temperature_setpoint`
+        """  Corresponds to IDD Field `TIN9: September Indoor Average Temperature Setpoint`
         see memo on object for more information
+        
+        {u'note': [u'see memo on object for more information'], u'default': '22.0', u'units': u'C', 'type': 'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `tin9_september_indoor_average_temperature_setpoint`
+            value (float): value for IDD Field `TIN9: September Indoor Average Temperature Setpoint`
                 Units: C
                 Default value: 22.0
                 if `value` is None it will not be checked against the
@@ -1965,10 +2001,9 @@ class GroundHeatTransferSlabBldgProps(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `tin9_september_indoor_average_temperature_setpoint`'.format(value))
-
         self._data["TIN9: September Indoor Average Temperature Setpoint"] = value
 
     @property
@@ -1982,11 +2017,13 @@ class GroundHeatTransferSlabBldgProps(object):
 
     @tin10_october_indoor_average_temperature_setpoint.setter
     def tin10_october_indoor_average_temperature_setpoint(self, value=22.0 ):
-        """  Corresponds to IDD Field `tin10_october_indoor_average_temperature_setpoint`
+        """  Corresponds to IDD Field `TIN10: October Indoor Average Temperature Setpoint`
         see memo on object for more information
+        
+        {u'note': [u'see memo on object for more information'], u'default': '22.0', u'units': u'C', 'type': 'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `tin10_october_indoor_average_temperature_setpoint`
+            value (float): value for IDD Field `TIN10: October Indoor Average Temperature Setpoint`
                 Units: C
                 Default value: 22.0
                 if `value` is None it will not be checked against the
@@ -1998,10 +2035,9 @@ class GroundHeatTransferSlabBldgProps(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `tin10_october_indoor_average_temperature_setpoint`'.format(value))
-
         self._data["TIN10: October Indoor Average Temperature Setpoint"] = value
 
     @property
@@ -2015,11 +2051,13 @@ class GroundHeatTransferSlabBldgProps(object):
 
     @tin11_november_indoor_average_temperature_setpoint.setter
     def tin11_november_indoor_average_temperature_setpoint(self, value=22.0 ):
-        """  Corresponds to IDD Field `tin11_november_indoor_average_temperature_setpoint`
+        """  Corresponds to IDD Field `TIN11: November Indoor Average Temperature Setpoint`
         see memo on object for more information
+        
+        {u'note': [u'see memo on object for more information'], u'default': '22.0', u'units': u'C', 'type': 'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `tin11_november_indoor_average_temperature_setpoint`
+            value (float): value for IDD Field `TIN11: November Indoor Average Temperature Setpoint`
                 Units: C
                 Default value: 22.0
                 if `value` is None it will not be checked against the
@@ -2031,10 +2069,9 @@ class GroundHeatTransferSlabBldgProps(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `tin11_november_indoor_average_temperature_setpoint`'.format(value))
-
         self._data["TIN11: November Indoor Average Temperature Setpoint"] = value
 
     @property
@@ -2048,11 +2085,13 @@ class GroundHeatTransferSlabBldgProps(object):
 
     @tin12_december_indoor_average_temperature_setpoint.setter
     def tin12_december_indoor_average_temperature_setpoint(self, value=22.0 ):
-        """  Corresponds to IDD Field `tin12_december_indoor_average_temperature_setpoint`
+        """  Corresponds to IDD Field `TIN12: December Indoor Average Temperature Setpoint`
         see memo on object for more information
+        
+        {u'note': [u'see memo on object for more information'], u'default': '22.0', u'units': u'C', 'type': 'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `tin12_december_indoor_average_temperature_setpoint`
+            value (float): value for IDD Field `TIN12: December Indoor Average Temperature Setpoint`
                 Units: C
                 Default value: 22.0
                 if `value` is None it will not be checked against the
@@ -2064,10 +2103,9 @@ class GroundHeatTransferSlabBldgProps(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `tin12_december_indoor_average_temperature_setpoint`'.format(value))
-
         self._data["TIN12: December Indoor Average Temperature Setpoint"] = value
 
     @property
@@ -2081,14 +2119,16 @@ class GroundHeatTransferSlabBldgProps(object):
 
     @tinamp_daily_indoor_sine_wave_variation_amplitude.setter
     def tinamp_daily_indoor_sine_wave_variation_amplitude(self, value=0.0 ):
-        """  Corresponds to IDD Field `tinamp_daily_indoor_sine_wave_variation_amplitude`
+        """  Corresponds to IDD Field `TINAmp: Daily Indoor sine wave variation amplitude`
         This field permits imposing a daily sinusoidal variation
         in the indoor setpoint temperature to simulate the effect
         of a setback profile.
         The value specified is the amplitude of the sine wave.
+        
+        {u'note': [u'This field permits imposing a daily sinusoidal variation', u'in the indoor setpoint temperature to simulate the effect', u'of a setback profile.', u'The value specified is the amplitude of the sine wave.'], u'default': '0.0', u'units': u'deltaC', 'type': 'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `tinamp_daily_indoor_sine_wave_variation_amplitude`
+            value (float): value for IDD Field `TINAmp: Daily Indoor sine wave variation amplitude`
                 Units: deltaC
                 Default value: 0.0
                 if `value` is None it will not be checked against the
@@ -2100,10 +2140,9 @@ class GroundHeatTransferSlabBldgProps(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `tinamp_daily_indoor_sine_wave_variation_amplitude`'.format(value))
-
         self._data["TINAmp: Daily Indoor sine wave variation amplitude"] = value
 
     @property
@@ -2117,13 +2156,15 @@ class GroundHeatTransferSlabBldgProps(object):
 
     @convtol_convergence_tolerance.setter
     def convtol_convergence_tolerance(self, value=0.1 ):
-        """  Corresponds to IDD Field `convtol_convergence_tolerance`
+        """  Corresponds to IDD Field `ConvTol: Convergence Tolerance`
         This field specifies the convergence tolerance used to
         control the iteration. When the temperature change of all nodes
         is less than the convergence value, iteration ceases.
+        
+        {u'note': [u'This field specifies the convergence tolerance used to', u'control the iteration. When the temperature change of all nodes', u'is less than the convergence value, iteration ceases.'], u'default': '0.1', 'type': 'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `convtol_convergence_tolerance`
+            value (float): value for IDD Field `ConvTol: Convergence Tolerance`
                 Default value: 0.1
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -2134,10 +2175,9 @@ class GroundHeatTransferSlabBldgProps(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `convtol_convergence_tolerance`'.format(value))
-
         self._data["ConvTol: Convergence Tolerance"] = value
 
     def check(self):
@@ -2251,14 +2291,16 @@ class GroundHeatTransferSlabInsulation(object):
 
     @rins_r_value_of_under_slab_insulation.setter
     def rins_r_value_of_under_slab_insulation(self, value=0.0 ):
-        """  Corresponds to IDD Field `rins_r_value_of_under_slab_insulation`
+        """  Corresponds to IDD Field `RINS: R value of under slab insulation`
         This field provides the thermal resistance value
         of the under slab insulation. It should be zero
         if the vertical insulation configuration is selected.
         typical value= 0-2.0
+        
+        {u'note': [u'This field provides the thermal resistance value', u'of the under slab insulation. It should be zero', u'if the vertical insulation configuration is selected.', u'typical value= 0-2.0'], u'units': u'm2-K/W', u'default': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `rins_r_value_of_under_slab_insulation`
+            value (float): value for IDD Field `RINS: R value of under slab insulation`
                 Units: m2-K/W
                 Default value: 0.0
                 if `value` is None it will not be checked against the
@@ -2270,10 +2312,9 @@ class GroundHeatTransferSlabInsulation(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `rins_r_value_of_under_slab_insulation`'.format(value))
-
         self._data["RINS: R value of under slab insulation"] = value
 
     @property
@@ -2287,14 +2328,16 @@ class GroundHeatTransferSlabInsulation(object):
 
     @dins_width_of_strip_of_under_slab_insulation.setter
     def dins_width_of_strip_of_under_slab_insulation(self, value=0.0 ):
-        """  Corresponds to IDD Field `dins_width_of_strip_of_under_slab_insulation`
+        """  Corresponds to IDD Field `DINS: Width of strip of under slab insulation`
         This specifies the width of the perimeter strip of insulation
         under the slab. It should be zero if for the vertical insulation
         configuration is selected.
         typical value= 0-2.0
+        
+        {u'note': [u'This specifies the width of the perimeter strip of insulation', u'under the slab. It should be zero if for the vertical insulation', u'configuration is selected.', u'typical value= 0-2.0'], u'units': u'm', u'default': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `dins_width_of_strip_of_under_slab_insulation`
+            value (float): value for IDD Field `DINS: Width of strip of under slab insulation`
                 Units: m
                 Default value: 0.0
                 if `value` is None it will not be checked against the
@@ -2306,10 +2349,9 @@ class GroundHeatTransferSlabInsulation(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `dins_width_of_strip_of_under_slab_insulation`'.format(value))
-
         self._data["DINS: Width of strip of under slab insulation"] = value
 
     @property
@@ -2323,14 +2365,16 @@ class GroundHeatTransferSlabInsulation(object):
 
     @rvins_r_value_of_vertical_insulation.setter
     def rvins_r_value_of_vertical_insulation(self, value=0.0 ):
-        """  Corresponds to IDD Field `rvins_r_value_of_vertical_insulation`
+        """  Corresponds to IDD Field `RVINS: R value of vertical insulation`
         This field specifies the thermal resistance of the vertical
         insulation. It should be zero if the under slab insulation
         configuration is selected.
         typical value= 0-3.0
+        
+        {u'note': [u'This field specifies the thermal resistance of the vertical', u'insulation. It should be zero if the under slab insulation', u'configuration is selected.', u'typical value= 0-3.0'], u'units': u'm2-K/W', u'default': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `rvins_r_value_of_vertical_insulation`
+            value (float): value for IDD Field `RVINS: R value of vertical insulation`
                 Units: m2-K/W
                 Default value: 0.0
                 if `value` is None it will not be checked against the
@@ -2342,10 +2386,9 @@ class GroundHeatTransferSlabInsulation(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `rvins_r_value_of_vertical_insulation`'.format(value))
-
         self._data["RVINS: R value of vertical insulation"] = value
 
     @property
@@ -2359,16 +2402,18 @@ class GroundHeatTransferSlabInsulation(object):
 
     @zvins_depth_of_vertical_insulation.setter
     def zvins_depth_of_vertical_insulation(self, value=0.0 ):
-        """  Corresponds to IDD Field `zvins_depth_of_vertical_insulation`
+        """  Corresponds to IDD Field `ZVINS: Depth of vertical insulation`
         This field specifies the depth of the vertical insulation
         into the ground in meters. It starts at the slab upper surface
         and extends into the ground.
         It should be zero if the under slab insulation
         configuration is selected.
         only use values= .2 .4 .6 .8 1.0 1.5 2.0 2.5 3.0
+        
+        {u'note': [u'This field specifies the depth of the vertical insulation', u'into the ground in meters. It starts at the slab upper surface', u'and extends into the ground.', u'It should be zero if the under slab insulation', u'configuration is selected.', u'only use values= .2 .4 .6 .8 1.0 1.5 2.0 2.5 3.0'], u'units': u'm', u'default': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `zvins_depth_of_vertical_insulation`
+            value (float): value for IDD Field `ZVINS: Depth of vertical insulation`
                 Units: m
                 Default value: 0.0
                 if `value` is None it will not be checked against the
@@ -2380,10 +2425,9 @@ class GroundHeatTransferSlabInsulation(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `zvins_depth_of_vertical_insulation`'.format(value))
-
         self._data["ZVINS: Depth of vertical insulation"] = value
 
     @property
@@ -2397,12 +2441,14 @@ class GroundHeatTransferSlabInsulation(object):
 
     @ivins_flag_is_there_vertical_insulation.setter
     def ivins_flag_is_there_vertical_insulation(self, value="0"):
-        """  Corresponds to IDD Field `ivins_flag_is_there_vertical_insulation`
+        """  Corresponds to IDD Field `IVINS: Flag: Is there vertical insulation`
         Specifies if the vertical insulation configuration is being used.
         values: 1=yes vertical insulation 0=no underslab insulation
+        
+        {'pytype': 'str', u'default': u'0', u'required-field': True, u'note': [u'Specifies if the vertical insulation configuration is being used.', u'values: 1=yes vertical insulation 0=no underslab insulation'], u'key': [u'0', u'1'], u'type': u'choice'}
 
         Args:
-            value (str): value for IDD Field `ivins_flag_is_there_vertical_insulation`
+            value (str): value for IDD Field `IVINS: Flag: Is there vertical insulation`
                 Accepted values are:
                       - 0
                       - 1
@@ -2416,7 +2462,7 @@ class GroundHeatTransferSlabInsulation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `ivins_flag_is_there_vertical_insulation`'.format(value))
             if ',' in value:
@@ -2442,7 +2488,6 @@ class GroundHeatTransferSlabInsulation(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `ivins_flag_is_there_vertical_insulation`'.format(value))
             value = vals[value_lower]
-
         self._data["IVINS: Flag: Is there vertical insulation"] = value
 
     def check(self):
@@ -2549,11 +2594,13 @@ class GroundHeatTransferSlabEquivalentSlab(object):
 
     @apratio_the_area_to_perimeter_ratio_for_this_slab.setter
     def apratio_the_area_to_perimeter_ratio_for_this_slab(self, value=None):
-        """  Corresponds to IDD Field `apratio_the_area_to_perimeter_ratio_for_this_slab`
+        """  Corresponds to IDD Field `APRatio: The area to perimeter ratio for this slab`
         Equivalent square slab is simulated,  side is 4*APRatio.
+        
+        {'pytype': 'float', u'maximum': '22.0', u'required-field': True, u'note': [u'Equivalent square slab is simulated,  side is 4*APRatio.'], u'minimum': '1.5', u'units': u'm', 'type': 'real'}
 
         Args:
-            value (float): value for IDD Field `apratio_the_area_to_perimeter_ratio_for_this_slab`
+            value (float): value for IDD Field `APRatio: The area to perimeter ratio for this slab`
                 Units: m
                 value >= 1.5
                 value <= 22.0
@@ -2566,7 +2613,7 @@ class GroundHeatTransferSlabEquivalentSlab(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `apratio_the_area_to_perimeter_ratio_for_this_slab`'.format(value))
             if value < 1.5:
@@ -2575,7 +2622,6 @@ class GroundHeatTransferSlabEquivalentSlab(object):
             if value > 22.0:
                 raise ValueError('value need to be smaller 22.0 '
                                  'for field `apratio_the_area_to_perimeter_ratio_for_this_slab`')
-
         self._data["APRatio: The area to perimeter ratio for this slab"] = value
 
     @property
@@ -2589,7 +2635,7 @@ class GroundHeatTransferSlabEquivalentSlab(object):
 
     @slabdepth_thickness_of_slab_on_grade.setter
     def slabdepth_thickness_of_slab_on_grade(self, value=0.1 ):
-        """  Corresponds to IDD Field `slabdepth_thickness_of_slab_on_grade`
+        """  Corresponds to IDD Field `SLABDEPTH: Thickness of slab on grade`
         This field specifies the thickness of the slab. The slab top surface is level
         with the ground surface, so this is the depth into the ground.
         The slab depth has a significant effect on the temperature calculation,
@@ -2597,9 +2643,11 @@ class GroundHeatTransferSlabEquivalentSlab(object):
         The finite difference grids are set in such a way that they use the slab thickness
         to determine the vertical grid spacing. Autogridding will fail if the slab thickness
         is specified larger than 0.25 meters.
+        
+        {u'note': [u'This field specifies the thickness of the slab. The slab top surface is level', u'with the ground surface, so this is the depth into the ground.', u'The slab depth has a significant effect on the temperature calculation,', u'and it is also important for the auto-grid process.', u'The finite difference grids are set in such a way that they use the slab thickness', u'to determine the vertical grid spacing. Autogridding will fail if the slab thickness', u'is specified larger than 0.25 meters.'], u'default': '0.1', u'units': u'm', 'type': 'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `slabdepth_thickness_of_slab_on_grade`
+            value (float): value for IDD Field `SLABDEPTH: Thickness of slab on grade`
                 Units: m
                 Default value: 0.1
                 if `value` is None it will not be checked against the
@@ -2611,10 +2659,9 @@ class GroundHeatTransferSlabEquivalentSlab(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `slabdepth_thickness_of_slab_on_grade`'.format(value))
-
         self._data["SLABDEPTH: Thickness of slab on grade"] = value
 
     @property
@@ -2628,14 +2675,16 @@ class GroundHeatTransferSlabEquivalentSlab(object):
 
     @clearance_distance_from_edge_of_slab_to_domain_edge.setter
     def clearance_distance_from_edge_of_slab_to_domain_edge(self, value=15.0 ):
-        """  Corresponds to IDD Field `clearance_distance_from_edge_of_slab_to_domain_edge`
+        """  Corresponds to IDD Field `CLEARANCE: Distance from edge of slab to domain edge`
         This field specifies the distance from the slab to the edge of
         the area that will be modeled with the grid system. It is the basic size
         dimension that is used to set the horizontal extent of the domain.
         15 meters is a reasonable value.
+        
+        {u'note': [u'This field specifies the distance from the slab to the edge of', u'the area that will be modeled with the grid system. It is the basic size', u'dimension that is used to set the horizontal extent of the domain.', u'15 meters is a reasonable value.'], u'default': '15.0', u'units': u'm', 'type': 'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `clearance_distance_from_edge_of_slab_to_domain_edge`
+            value (float): value for IDD Field `CLEARANCE: Distance from edge of slab to domain edge`
                 Units: m
                 Default value: 15.0
                 if `value` is None it will not be checked against the
@@ -2647,10 +2696,9 @@ class GroundHeatTransferSlabEquivalentSlab(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `clearance_distance_from_edge_of_slab_to_domain_edge`'.format(value))
-
         self._data["CLEARANCE: Distance from edge of slab to domain edge"] = value
 
     @property
@@ -2664,13 +2712,15 @@ class GroundHeatTransferSlabEquivalentSlab(object):
 
     @zclearance_distance_from_bottom_of_slab_to_domain_bottom.setter
     def zclearance_distance_from_bottom_of_slab_to_domain_bottom(self, value=15.0 ):
-        """  Corresponds to IDD Field `zclearance_distance_from_bottom_of_slab_to_domain_bottom`
+        """  Corresponds to IDD Field `ZCLEARANCE: Distance from bottom of slab to domain bottom`
         This field specifies the vertical distance from the slab to the
         bottom edge of the area that will be modeled with the grid system.
         15 meters is a reasonable value.
+        
+        {u'note': [u'This field specifies the vertical distance from the slab to the', u'bottom edge of the area that will be modeled with the grid system.', u'15 meters is a reasonable value.'], u'default': '15.0', u'units': u'm', 'type': 'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `zclearance_distance_from_bottom_of_slab_to_domain_bottom`
+            value (float): value for IDD Field `ZCLEARANCE: Distance from bottom of slab to domain bottom`
                 Units: m
                 Default value: 15.0
                 if `value` is None it will not be checked against the
@@ -2682,10 +2732,9 @@ class GroundHeatTransferSlabEquivalentSlab(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `zclearance_distance_from_bottom_of_slab_to_domain_bottom`'.format(value))
-
         self._data["ZCLEARANCE: Distance from bottom of slab to domain bottom"] = value
 
     def check(self):
@@ -2800,11 +2849,13 @@ class GroundHeatTransferSlabAutoGrid(object):
 
     @slabx_x_dimension_of_the_building_slab.setter
     def slabx_x_dimension_of_the_building_slab(self, value=None):
-        """  Corresponds to IDD Field `slabx_x_dimension_of_the_building_slab`
+        """  Corresponds to IDD Field `SLABX: X dimension of the building slab`
         typical values= 6 to 60.0
+        
+        {'pytype': 'float', u'required-field': True, u'note': [u'typical values= 6 to 60.0'], u'minimum': '6.0', u'units': u'm', 'type': 'real'}
 
         Args:
-            value (float): value for IDD Field `slabx_x_dimension_of_the_building_slab`
+            value (float): value for IDD Field `SLABX: X dimension of the building slab`
                 Units: m
                 value >= 6.0
                 if `value` is None it will not be checked against the
@@ -2816,13 +2867,12 @@ class GroundHeatTransferSlabAutoGrid(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `slabx_x_dimension_of_the_building_slab`'.format(value))
             if value < 6.0:
                 raise ValueError('value need to be greater or equal 6.0 '
                                  'for field `slabx_x_dimension_of_the_building_slab`')
-
         self._data["SLABX: X dimension of the building slab"] = value
 
     @property
@@ -2836,11 +2886,13 @@ class GroundHeatTransferSlabAutoGrid(object):
 
     @slaby_y_dimension_of_the_building_slab.setter
     def slaby_y_dimension_of_the_building_slab(self, value=None):
-        """  Corresponds to IDD Field `slaby_y_dimension_of_the_building_slab`
+        """  Corresponds to IDD Field `SLABY: Y dimension of the building slab`
         typical values= 6 to 60.0
+        
+        {'pytype': 'float', u'required-field': True, u'note': [u'typical values= 6 to 60.0'], u'minimum': '6.0', u'units': u'm', 'type': 'real'}
 
         Args:
-            value (float): value for IDD Field `slaby_y_dimension_of_the_building_slab`
+            value (float): value for IDD Field `SLABY: Y dimension of the building slab`
                 Units: m
                 value >= 6.0
                 if `value` is None it will not be checked against the
@@ -2852,13 +2904,12 @@ class GroundHeatTransferSlabAutoGrid(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `slaby_y_dimension_of_the_building_slab`'.format(value))
             if value < 6.0:
                 raise ValueError('value need to be greater or equal 6.0 '
                                  'for field `slaby_y_dimension_of_the_building_slab`')
-
         self._data["SLABY: Y dimension of the building slab"] = value
 
     @property
@@ -2872,10 +2923,12 @@ class GroundHeatTransferSlabAutoGrid(object):
 
     @slabdepth_thickness_of_slab_on_grade.setter
     def slabdepth_thickness_of_slab_on_grade(self, value=0.1 ):
-        """  Corresponds to IDD Field `slabdepth_thickness_of_slab_on_grade`
+        """  Corresponds to IDD Field `SLABDEPTH: Thickness of slab on grade`
+        
+        {u'default': '0.1', u'units': u'm', 'type': 'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `slabdepth_thickness_of_slab_on_grade`
+            value (float): value for IDD Field `SLABDEPTH: Thickness of slab on grade`
                 Units: m
                 Default value: 0.1
                 if `value` is None it will not be checked against the
@@ -2887,10 +2940,9 @@ class GroundHeatTransferSlabAutoGrid(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `slabdepth_thickness_of_slab_on_grade`'.format(value))
-
         self._data["SLABDEPTH: Thickness of slab on grade"] = value
 
     @property
@@ -2904,10 +2956,12 @@ class GroundHeatTransferSlabAutoGrid(object):
 
     @clearance_distance_from_edge_of_slab_to_domain_edge.setter
     def clearance_distance_from_edge_of_slab_to_domain_edge(self, value=15.0 ):
-        """  Corresponds to IDD Field `clearance_distance_from_edge_of_slab_to_domain_edge`
+        """  Corresponds to IDD Field `CLEARANCE: Distance from edge of slab to domain edge`
+        
+        {u'default': '15.0', u'units': u'm', 'type': 'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `clearance_distance_from_edge_of_slab_to_domain_edge`
+            value (float): value for IDD Field `CLEARANCE: Distance from edge of slab to domain edge`
                 Units: m
                 Default value: 15.0
                 if `value` is None it will not be checked against the
@@ -2919,10 +2973,9 @@ class GroundHeatTransferSlabAutoGrid(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `clearance_distance_from_edge_of_slab_to_domain_edge`'.format(value))
-
         self._data["CLEARANCE: Distance from edge of slab to domain edge"] = value
 
     @property
@@ -2936,10 +2989,12 @@ class GroundHeatTransferSlabAutoGrid(object):
 
     @zclearance_distance_from_bottom_of_slab_to_domain_bottom.setter
     def zclearance_distance_from_bottom_of_slab_to_domain_bottom(self, value=15.0 ):
-        """  Corresponds to IDD Field `zclearance_distance_from_bottom_of_slab_to_domain_bottom`
+        """  Corresponds to IDD Field `ZCLEARANCE: Distance from bottom of slab to domain bottom`
+        
+        {u'default': '15.0', u'units': u'm', 'type': 'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `zclearance_distance_from_bottom_of_slab_to_domain_bottom`
+            value (float): value for IDD Field `ZCLEARANCE: Distance from bottom of slab to domain bottom`
                 Units: m
                 Default value: 15.0
                 if `value` is None it will not be checked against the
@@ -2951,10 +3006,9 @@ class GroundHeatTransferSlabAutoGrid(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `zclearance_distance_from_bottom_of_slab_to_domain_bottom`'.format(value))
-
         self._data["ZCLEARANCE: Distance from bottom of slab to domain bottom"] = value
 
     def check(self):
@@ -3068,10 +3122,12 @@ class GroundHeatTransferSlabManualGrid(object):
 
     @nx_number_of_cells_in_the_x_direction.setter
     def nx_number_of_cells_in_the_x_direction(self, value=None):
-        """  Corresponds to IDD Field `nx_number_of_cells_in_the_x_direction`
+        """  Corresponds to IDD Field `NX: Number of cells in the X direction`
+        
+        {u'minimum': '1.0', 'type': 'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `nx_number_of_cells_in_the_x_direction`
+            value (float): value for IDD Field `NX: Number of cells in the X direction`
                 value >= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -3082,13 +3138,12 @@ class GroundHeatTransferSlabManualGrid(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `nx_number_of_cells_in_the_x_direction`'.format(value))
             if value < 1.0:
                 raise ValueError('value need to be greater or equal 1.0 '
                                  'for field `nx_number_of_cells_in_the_x_direction`')
-
         self._data["NX: Number of cells in the X direction"] = value
 
     @property
@@ -3102,10 +3157,12 @@ class GroundHeatTransferSlabManualGrid(object):
 
     @ny_number_of_cells_in_the_y_direction.setter
     def ny_number_of_cells_in_the_y_direction(self, value=None):
-        """  Corresponds to IDD Field `ny_number_of_cells_in_the_y_direction`
+        """  Corresponds to IDD Field `NY: Number of cells in the Y direction`
+        
+        {u'minimum': '1.0', 'type': 'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `ny_number_of_cells_in_the_y_direction`
+            value (float): value for IDD Field `NY: Number of cells in the Y direction`
                 value >= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -3116,13 +3173,12 @@ class GroundHeatTransferSlabManualGrid(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `ny_number_of_cells_in_the_y_direction`'.format(value))
             if value < 1.0:
                 raise ValueError('value need to be greater or equal 1.0 '
                                  'for field `ny_number_of_cells_in_the_y_direction`')
-
         self._data["NY: Number of cells in the Y direction"] = value
 
     @property
@@ -3136,10 +3192,12 @@ class GroundHeatTransferSlabManualGrid(object):
 
     @nz_number_of_cells_in_the_z_direction.setter
     def nz_number_of_cells_in_the_z_direction(self, value=None):
-        """  Corresponds to IDD Field `nz_number_of_cells_in_the_z_direction`
+        """  Corresponds to IDD Field `NZ: Number of cells in the Z direction`
+        
+        {u'minimum': '1.0', 'type': 'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `nz_number_of_cells_in_the_z_direction`
+            value (float): value for IDD Field `NZ: Number of cells in the Z direction`
                 value >= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -3150,13 +3208,12 @@ class GroundHeatTransferSlabManualGrid(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `nz_number_of_cells_in_the_z_direction`'.format(value))
             if value < 1.0:
                 raise ValueError('value need to be greater or equal 1.0 '
                                  'for field `nz_number_of_cells_in_the_z_direction`')
-
         self._data["NZ: Number of cells in the Z direction"] = value
 
     @property
@@ -3170,11 +3227,13 @@ class GroundHeatTransferSlabManualGrid(object):
 
     @ibox_x_direction_cell_indicator_of_slab_edge.setter
     def ibox_x_direction_cell_indicator_of_slab_edge(self, value=None):
-        """  Corresponds to IDD Field `ibox_x_direction_cell_indicator_of_slab_edge`
+        """  Corresponds to IDD Field `IBOX: X direction cell indicator of slab edge`
         typical values= 1-10
+        
+        {u'note': [u'typical values= 1-10'], 'type': 'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `ibox_x_direction_cell_indicator_of_slab_edge`
+            value (float): value for IDD Field `IBOX: X direction cell indicator of slab edge`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3184,10 +3243,9 @@ class GroundHeatTransferSlabManualGrid(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `ibox_x_direction_cell_indicator_of_slab_edge`'.format(value))
-
         self._data["IBOX: X direction cell indicator of slab edge"] = value
 
     @property
@@ -3201,11 +3259,13 @@ class GroundHeatTransferSlabManualGrid(object):
 
     @jbox_y_direction_cell_indicator_of_slab_edge.setter
     def jbox_y_direction_cell_indicator_of_slab_edge(self, value=None):
-        """  Corresponds to IDD Field `jbox_y_direction_cell_indicator_of_slab_edge`
+        """  Corresponds to IDD Field `JBOX: Y direction cell indicator of slab edge`
         typical values= 1-10
+        
+        {u'note': [u'typical values= 1-10'], 'type': 'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `jbox_y_direction_cell_indicator_of_slab_edge`
+            value (float): value for IDD Field `JBOX: Y direction cell indicator of slab edge`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3215,10 +3275,9 @@ class GroundHeatTransferSlabManualGrid(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `jbox_y_direction_cell_indicator_of_slab_edge`'.format(value))
-
         self._data["JBOX: Y direction cell indicator of slab edge"] = value
 
     def check(self):
@@ -3307,12 +3366,14 @@ class GroundHeatTransferBasementSimParameters(object):
 
     @f_multiplier_for_the_adi_solution.setter
     def f_multiplier_for_the_adi_solution(self, value=None):
-        """  Corresponds to IDD Field `f_multiplier_for_the_adi_solution`
+        """  Corresponds to IDD Field `F: Multiplier for the ADI solution`
         0<F<1.0,
         typically 0.1 (0.3 for high k soil - saturated sand is about 2.6 w/m-K)
+        
+        {u'note': [u'0<F<1.0,', u'typically 0.1 (0.3 for high k soil - saturated sand is about 2.6 w/m-K)'], u'minimum>': '0.0', 'type': 'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `f_multiplier_for_the_adi_solution`
+            value (float): value for IDD Field `F: Multiplier for the ADI solution`
                 value > 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
@@ -3324,7 +3385,7 @@ class GroundHeatTransferBasementSimParameters(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `f_multiplier_for_the_adi_solution`'.format(value))
             if value <= 0.0:
@@ -3333,7 +3394,6 @@ class GroundHeatTransferBasementSimParameters(object):
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `f_multiplier_for_the_adi_solution`')
-
         self._data["F: Multiplier for the ADI solution"] = value
 
     @property
@@ -3347,11 +3407,13 @@ class GroundHeatTransferBasementSimParameters(object):
 
     @iyrs_maximum_number_of_yearly_iterations.setter
     def iyrs_maximum_number_of_yearly_iterations(self, value=15.0 ):
-        """  Corresponds to IDD Field `iyrs_maximum_number_of_yearly_iterations`
+        """  Corresponds to IDD Field `IYRS: Maximum number of yearly iterations:`
         typically 15-30]
+        
+        {u'note': [u'typically 15-30]'], u'default': '15.0', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `iyrs_maximum_number_of_yearly_iterations`
+            value (float): value for IDD Field `IYRS: Maximum number of yearly iterations:`
                 Default value: 15.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -3363,13 +3425,12 @@ class GroundHeatTransferBasementSimParameters(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `iyrs_maximum_number_of_yearly_iterations`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `iyrs_maximum_number_of_yearly_iterations`')
-
         self._data["IYRS: Maximum number of yearly iterations:"] = value
 
     def check(self):
@@ -3595,10 +3656,12 @@ class GroundHeatTransferBasementMatlProps(object):
 
     @nmat_number_of_materials_in_this_domain.setter
     def nmat_number_of_materials_in_this_domain(self, value=None):
-        """  Corresponds to IDD Field `nmat_number_of_materials_in_this_domain`
+        """  Corresponds to IDD Field `NMAT: Number of materials in this domain`
+        
+        {'type': 'real', u'maximum': '6.0', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `nmat_number_of_materials_in_this_domain`
+            value (float): value for IDD Field `NMAT: Number of materials in this domain`
                 value <= 6.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -3609,13 +3672,12 @@ class GroundHeatTransferBasementMatlProps(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `nmat_number_of_materials_in_this_domain`'.format(value))
             if value > 6.0:
                 raise ValueError('value need to be smaller 6.0 '
                                  'for field `nmat_number_of_materials_in_this_domain`')
-
         self._data["NMAT: Number of materials in this domain"] = value
 
     @property
@@ -3629,10 +3691,12 @@ class GroundHeatTransferBasementMatlProps(object):
 
     @density_for_foundation_wall.setter
     def density_for_foundation_wall(self, value=2243.0 ):
-        """  Corresponds to IDD Field `density_for_foundation_wall`
+        """  Corresponds to IDD Field `Density for Foundation Wall`
+        
+        {u'default': '2243.0', u'units': u'kg/m3', u'minimum>': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `density_for_foundation_wall`
+            value (float): value for IDD Field `Density for Foundation Wall`
                 Units: kg/m3
                 Default value: 2243.0
                 value > 0.0
@@ -3645,13 +3709,12 @@ class GroundHeatTransferBasementMatlProps(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `density_for_foundation_wall`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `density_for_foundation_wall`')
-
         self._data["Density for Foundation Wall"] = value
 
     @property
@@ -3665,10 +3728,12 @@ class GroundHeatTransferBasementMatlProps(object):
 
     @density_for_floor_slab.setter
     def density_for_floor_slab(self, value=2243.0 ):
-        """  Corresponds to IDD Field `density_for_floor_slab`
+        """  Corresponds to IDD Field `density for Floor Slab`
+        
+        {u'default': '2243.0', u'units': u'kg/m3', u'minimum>': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `density_for_floor_slab`
+            value (float): value for IDD Field `density for Floor Slab`
                 Units: kg/m3
                 Default value: 2243.0
                 value > 0.0
@@ -3681,13 +3746,12 @@ class GroundHeatTransferBasementMatlProps(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `density_for_floor_slab`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `density_for_floor_slab`')
-
         self._data["density for Floor Slab"] = value
 
     @property
@@ -3701,10 +3765,12 @@ class GroundHeatTransferBasementMatlProps(object):
 
     @density_for_ceiling.setter
     def density_for_ceiling(self, value=311.0 ):
-        """  Corresponds to IDD Field `density_for_ceiling`
+        """  Corresponds to IDD Field `density for Ceiling`
+        
+        {u'default': '311.0', u'units': u'kg/m3', u'minimum>': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `density_for_ceiling`
+            value (float): value for IDD Field `density for Ceiling`
                 Units: kg/m3
                 Default value: 311.0
                 value > 0.0
@@ -3717,13 +3783,12 @@ class GroundHeatTransferBasementMatlProps(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `density_for_ceiling`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `density_for_ceiling`')
-
         self._data["density for Ceiling"] = value
 
     @property
@@ -3737,10 +3802,12 @@ class GroundHeatTransferBasementMatlProps(object):
 
     @density_for_soil.setter
     def density_for_soil(self, value=1500.0 ):
-        """  Corresponds to IDD Field `density_for_soil`
+        """  Corresponds to IDD Field `density for Soil`
+        
+        {u'default': '1500.0', u'units': u'kg/m3', u'minimum>': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `density_for_soil`
+            value (float): value for IDD Field `density for Soil`
                 Units: kg/m3
                 Default value: 1500.0
                 value > 0.0
@@ -3753,13 +3820,12 @@ class GroundHeatTransferBasementMatlProps(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `density_for_soil`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `density_for_soil`')
-
         self._data["density for Soil"] = value
 
     @property
@@ -3773,10 +3839,12 @@ class GroundHeatTransferBasementMatlProps(object):
 
     @density_for_gravel.setter
     def density_for_gravel(self, value=2000.0 ):
-        """  Corresponds to IDD Field `density_for_gravel`
+        """  Corresponds to IDD Field `density for Gravel`
+        
+        {u'default': '2000.0', u'units': u'kg/m3', u'minimum>': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `density_for_gravel`
+            value (float): value for IDD Field `density for Gravel`
                 Units: kg/m3
                 Default value: 2000.0
                 value > 0.0
@@ -3789,13 +3857,12 @@ class GroundHeatTransferBasementMatlProps(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `density_for_gravel`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `density_for_gravel`')
-
         self._data["density for Gravel"] = value
 
     @property
@@ -3809,10 +3876,12 @@ class GroundHeatTransferBasementMatlProps(object):
 
     @density_for_wood.setter
     def density_for_wood(self, value=449.0 ):
-        """  Corresponds to IDD Field `density_for_wood`
+        """  Corresponds to IDD Field `density for Wood`
+        
+        {u'default': '449.0', u'units': u'kg/m3', u'minimum>': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `density_for_wood`
+            value (float): value for IDD Field `density for Wood`
                 Units: kg/m3
                 Default value: 449.0
                 value > 0.0
@@ -3825,13 +3894,12 @@ class GroundHeatTransferBasementMatlProps(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `density_for_wood`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `density_for_wood`')
-
         self._data["density for Wood"] = value
 
     @property
@@ -3845,10 +3913,12 @@ class GroundHeatTransferBasementMatlProps(object):
 
     @specific_heat_for_foundation_wall.setter
     def specific_heat_for_foundation_wall(self, value=880.0 ):
-        """  Corresponds to IDD Field `specific_heat_for_foundation_wall`
+        """  Corresponds to IDD Field `Specific heat for foundation wall`
+        
+        {u'default': '880.0', u'units': u'J/kg-K', u'minimum>': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `specific_heat_for_foundation_wall`
+            value (float): value for IDD Field `Specific heat for foundation wall`
                 Units: J/kg-K
                 Default value: 880.0
                 value > 0.0
@@ -3861,13 +3931,12 @@ class GroundHeatTransferBasementMatlProps(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `specific_heat_for_foundation_wall`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `specific_heat_for_foundation_wall`')
-
         self._data["Specific heat for foundation wall"] = value
 
     @property
@@ -3881,10 +3950,12 @@ class GroundHeatTransferBasementMatlProps(object):
 
     @specific_heat_for_floor_slab.setter
     def specific_heat_for_floor_slab(self, value=880.0 ):
-        """  Corresponds to IDD Field `specific_heat_for_floor_slab`
+        """  Corresponds to IDD Field `Specific heat for floor slab`
+        
+        {u'default': '880.0', u'units': u'J/kg-K', u'minimum>': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `specific_heat_for_floor_slab`
+            value (float): value for IDD Field `Specific heat for floor slab`
                 Units: J/kg-K
                 Default value: 880.0
                 value > 0.0
@@ -3897,13 +3968,12 @@ class GroundHeatTransferBasementMatlProps(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `specific_heat_for_floor_slab`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `specific_heat_for_floor_slab`')
-
         self._data["Specific heat for floor slab"] = value
 
     @property
@@ -3917,10 +3987,12 @@ class GroundHeatTransferBasementMatlProps(object):
 
     @specific_heat_for_ceiling.setter
     def specific_heat_for_ceiling(self, value=1530.0 ):
-        """  Corresponds to IDD Field `specific_heat_for_ceiling`
+        """  Corresponds to IDD Field `Specific heat for ceiling`
+        
+        {u'default': '1530.0', u'units': u'J/kg-K', u'minimum>': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `specific_heat_for_ceiling`
+            value (float): value for IDD Field `Specific heat for ceiling`
                 Units: J/kg-K
                 Default value: 1530.0
                 value > 0.0
@@ -3933,13 +4005,12 @@ class GroundHeatTransferBasementMatlProps(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `specific_heat_for_ceiling`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `specific_heat_for_ceiling`')
-
         self._data["Specific heat for ceiling"] = value
 
     @property
@@ -3953,10 +4024,12 @@ class GroundHeatTransferBasementMatlProps(object):
 
     @specific_heat_for_soil.setter
     def specific_heat_for_soil(self, value=840.0 ):
-        """  Corresponds to IDD Field `specific_heat_for_soil`
+        """  Corresponds to IDD Field `Specific heat for soil`
+        
+        {u'default': '840.0', u'units': u'J/kg-K', u'minimum>': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `specific_heat_for_soil`
+            value (float): value for IDD Field `Specific heat for soil`
                 Units: J/kg-K
                 Default value: 840.0
                 value > 0.0
@@ -3969,13 +4042,12 @@ class GroundHeatTransferBasementMatlProps(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `specific_heat_for_soil`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `specific_heat_for_soil`')
-
         self._data["Specific heat for soil"] = value
 
     @property
@@ -3989,10 +4061,12 @@ class GroundHeatTransferBasementMatlProps(object):
 
     @specific_heat_for_gravel.setter
     def specific_heat_for_gravel(self, value=720.0 ):
-        """  Corresponds to IDD Field `specific_heat_for_gravel`
+        """  Corresponds to IDD Field `Specific heat for gravel`
+        
+        {u'default': '720.0', u'units': u'J/kg-K', u'minimum>': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `specific_heat_for_gravel`
+            value (float): value for IDD Field `Specific heat for gravel`
                 Units: J/kg-K
                 Default value: 720.0
                 value > 0.0
@@ -4005,13 +4079,12 @@ class GroundHeatTransferBasementMatlProps(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `specific_heat_for_gravel`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `specific_heat_for_gravel`')
-
         self._data["Specific heat for gravel"] = value
 
     @property
@@ -4025,10 +4098,12 @@ class GroundHeatTransferBasementMatlProps(object):
 
     @specific_heat_for_wood.setter
     def specific_heat_for_wood(self, value=1530.0 ):
-        """  Corresponds to IDD Field `specific_heat_for_wood`
+        """  Corresponds to IDD Field `Specific heat for wood`
+        
+        {u'default': '1530.0', u'units': u'J/kg-K', u'minimum>': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `specific_heat_for_wood`
+            value (float): value for IDD Field `Specific heat for wood`
                 Units: J/kg-K
                 Default value: 1530.0
                 value > 0.0
@@ -4041,13 +4116,12 @@ class GroundHeatTransferBasementMatlProps(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `specific_heat_for_wood`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `specific_heat_for_wood`')
-
         self._data["Specific heat for wood"] = value
 
     @property
@@ -4061,10 +4135,12 @@ class GroundHeatTransferBasementMatlProps(object):
 
     @thermal_conductivity_for_foundation_wall.setter
     def thermal_conductivity_for_foundation_wall(self, value=1.4 ):
-        """  Corresponds to IDD Field `thermal_conductivity_for_foundation_wall`
+        """  Corresponds to IDD Field `Thermal conductivity for foundation wall`
+        
+        {u'default': '1.4', u'units': u'W/m-K', u'minimum>': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `thermal_conductivity_for_foundation_wall`
+            value (float): value for IDD Field `Thermal conductivity for foundation wall`
                 Units: W/m-K
                 Default value: 1.4
                 value > 0.0
@@ -4077,13 +4153,12 @@ class GroundHeatTransferBasementMatlProps(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `thermal_conductivity_for_foundation_wall`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `thermal_conductivity_for_foundation_wall`')
-
         self._data["Thermal conductivity for foundation wall"] = value
 
     @property
@@ -4097,10 +4172,12 @@ class GroundHeatTransferBasementMatlProps(object):
 
     @thermal_conductivity_for_floor_slab.setter
     def thermal_conductivity_for_floor_slab(self, value=1.4 ):
-        """  Corresponds to IDD Field `thermal_conductivity_for_floor_slab`
+        """  Corresponds to IDD Field `Thermal conductivity for floor slab`
+        
+        {u'default': '1.4', u'units': u'W/m-K', u'minimum>': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `thermal_conductivity_for_floor_slab`
+            value (float): value for IDD Field `Thermal conductivity for floor slab`
                 Units: W/m-K
                 Default value: 1.4
                 value > 0.0
@@ -4113,13 +4190,12 @@ class GroundHeatTransferBasementMatlProps(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `thermal_conductivity_for_floor_slab`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `thermal_conductivity_for_floor_slab`')
-
         self._data["Thermal conductivity for floor slab"] = value
 
     @property
@@ -4133,10 +4209,12 @@ class GroundHeatTransferBasementMatlProps(object):
 
     @thermal_conductivity_for_ceiling.setter
     def thermal_conductivity_for_ceiling(self, value=0.09 ):
-        """  Corresponds to IDD Field `thermal_conductivity_for_ceiling`
+        """  Corresponds to IDD Field `Thermal conductivity for ceiling`
+        
+        {u'default': '0.09', u'units': u'W/m-K', u'minimum>': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `thermal_conductivity_for_ceiling`
+            value (float): value for IDD Field `Thermal conductivity for ceiling`
                 Units: W/m-K
                 Default value: 0.09
                 value > 0.0
@@ -4149,13 +4227,12 @@ class GroundHeatTransferBasementMatlProps(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `thermal_conductivity_for_ceiling`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `thermal_conductivity_for_ceiling`')
-
         self._data["Thermal conductivity for ceiling"] = value
 
     @property
@@ -4169,10 +4246,12 @@ class GroundHeatTransferBasementMatlProps(object):
 
     @thermal_conductivity_for_soil.setter
     def thermal_conductivity_for_soil(self, value=1.1 ):
-        """  Corresponds to IDD Field `thermal_conductivity_for_soil`
+        """  Corresponds to IDD Field `thermal conductivity for soil`
+        
+        {u'default': '1.1', u'units': u'W/m-K', u'minimum>': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `thermal_conductivity_for_soil`
+            value (float): value for IDD Field `thermal conductivity for soil`
                 Units: W/m-K
                 Default value: 1.1
                 value > 0.0
@@ -4185,13 +4264,12 @@ class GroundHeatTransferBasementMatlProps(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `thermal_conductivity_for_soil`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `thermal_conductivity_for_soil`')
-
         self._data["thermal conductivity for soil"] = value
 
     @property
@@ -4205,10 +4283,12 @@ class GroundHeatTransferBasementMatlProps(object):
 
     @thermal_conductivity_for_gravel.setter
     def thermal_conductivity_for_gravel(self, value=1.9 ):
-        """  Corresponds to IDD Field `thermal_conductivity_for_gravel`
+        """  Corresponds to IDD Field `thermal conductivity for gravel`
+        
+        {u'default': '1.9', u'units': u'W/m-K', u'minimum>': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `thermal_conductivity_for_gravel`
+            value (float): value for IDD Field `thermal conductivity for gravel`
                 Units: W/m-K
                 Default value: 1.9
                 value > 0.0
@@ -4221,13 +4301,12 @@ class GroundHeatTransferBasementMatlProps(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `thermal_conductivity_for_gravel`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `thermal_conductivity_for_gravel`')
-
         self._data["thermal conductivity for gravel"] = value
 
     @property
@@ -4241,10 +4320,12 @@ class GroundHeatTransferBasementMatlProps(object):
 
     @thermal_conductivity_for_wood.setter
     def thermal_conductivity_for_wood(self, value=0.12 ):
-        """  Corresponds to IDD Field `thermal_conductivity_for_wood`
+        """  Corresponds to IDD Field `thermal conductivity for wood`
+        
+        {u'default': '0.12', u'units': u'W/m-K', u'minimum>': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `thermal_conductivity_for_wood`
+            value (float): value for IDD Field `thermal conductivity for wood`
                 Units: W/m-K
                 Default value: 0.12
                 value > 0.0
@@ -4257,13 +4338,12 @@ class GroundHeatTransferBasementMatlProps(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `thermal_conductivity_for_wood`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `thermal_conductivity_for_wood`')
-
         self._data["thermal conductivity for wood"] = value
 
     def check(self):
@@ -4352,10 +4432,12 @@ class GroundHeatTransferBasementInsulation(object):
 
     @rext_r_value_of_any_exterior_insulation.setter
     def rext_r_value_of_any_exterior_insulation(self, value=None):
-        """  Corresponds to IDD Field `rext_r_value_of_any_exterior_insulation`
+        """  Corresponds to IDD Field `REXT: R Value of any exterior insulation`
+        
+        {u'units': u'm2-K/W', u'minimum>': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `rext_r_value_of_any_exterior_insulation`
+            value (float): value for IDD Field `REXT: R Value of any exterior insulation`
                 Units: m2-K/W
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -4367,13 +4449,12 @@ class GroundHeatTransferBasementInsulation(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `rext_r_value_of_any_exterior_insulation`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `rext_r_value_of_any_exterior_insulation`')
-
         self._data["REXT: R Value of any exterior insulation"] = value
 
     @property
@@ -4387,12 +4468,14 @@ class GroundHeatTransferBasementInsulation(object):
 
     @insfull_flag_is_the_wall_fully_insulated.setter
     def insfull_flag_is_the_wall_fully_insulated(self, value=None):
-        """  Corresponds to IDD Field `insfull_flag_is_the_wall_fully_insulated`
+        """  Corresponds to IDD Field `INSFULL: Flag: Is the wall fully insulated?`
         True for full insulation
         False for insulation half way down side wall from grade line
+        
+        {u'note': [u'True for full insulation', u'False for insulation half way down side wall from grade line'], u'type': u'choice', u'key': [u'TRUE', u'FALSE'], u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `insfull_flag_is_the_wall_fully_insulated`
+            value (str): value for IDD Field `INSFULL: Flag: Is the wall fully insulated?`
                 Accepted values are:
                       - TRUE
                       - FALSE
@@ -4405,7 +4488,7 @@ class GroundHeatTransferBasementInsulation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `insfull_flag_is_the_wall_fully_insulated`'.format(value))
             if ',' in value:
@@ -4431,7 +4514,6 @@ class GroundHeatTransferBasementInsulation(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `insfull_flag_is_the_wall_fully_insulated`'.format(value))
             value = vals[value_lower]
-
         self._data["INSFULL: Flag: Is the wall fully insulated?"] = value
 
     def check(self):
@@ -4560,10 +4642,12 @@ class GroundHeatTransferBasementSurfaceProps(object):
 
     @albedo_surface_albedo_for_no_snow_conditions.setter
     def albedo_surface_albedo_for_no_snow_conditions(self, value=0.16 ):
-        """  Corresponds to IDD Field `albedo_surface_albedo_for_no_snow_conditions`
+        """  Corresponds to IDD Field `ALBEDO: Surface albedo for No snow conditions`
+        
+        {u'default': '0.16', u'minimum': '0.0', 'type': 'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `albedo_surface_albedo_for_no_snow_conditions`
+            value (float): value for IDD Field `ALBEDO: Surface albedo for No snow conditions`
                 Default value: 0.16
                 value >= 0.0
                 value <= 1.0
@@ -4576,7 +4660,7 @@ class GroundHeatTransferBasementSurfaceProps(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `albedo_surface_albedo_for_no_snow_conditions`'.format(value))
             if value < 0.0:
@@ -4585,7 +4669,6 @@ class GroundHeatTransferBasementSurfaceProps(object):
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `albedo_surface_albedo_for_no_snow_conditions`')
-
         self._data["ALBEDO: Surface albedo for No snow conditions"] = value
 
     @property
@@ -4599,10 +4682,12 @@ class GroundHeatTransferBasementSurfaceProps(object):
 
     @albedo_surface_albedo_for_snow_conditions.setter
     def albedo_surface_albedo_for_snow_conditions(self, value=0.4 ):
-        """  Corresponds to IDD Field `albedo_surface_albedo_for_snow_conditions`
+        """  Corresponds to IDD Field `ALBEDO: Surface albedo for snow conditions`
+        
+        {u'default': '0.4', u'minimum': '0.0', 'type': 'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `albedo_surface_albedo_for_snow_conditions`
+            value (float): value for IDD Field `ALBEDO: Surface albedo for snow conditions`
                 Default value: 0.4
                 value >= 0.0
                 value <= 1.0
@@ -4615,7 +4700,7 @@ class GroundHeatTransferBasementSurfaceProps(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `albedo_surface_albedo_for_snow_conditions`'.format(value))
             if value < 0.0:
@@ -4624,7 +4709,6 @@ class GroundHeatTransferBasementSurfaceProps(object):
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `albedo_surface_albedo_for_snow_conditions`')
-
         self._data["ALBEDO: Surface albedo for snow conditions"] = value
 
     @property
@@ -4638,10 +4722,12 @@ class GroundHeatTransferBasementSurfaceProps(object):
 
     @epsln_surface_emissivity_no_snow.setter
     def epsln_surface_emissivity_no_snow(self, value=0.94 ):
-        """  Corresponds to IDD Field `epsln_surface_emissivity_no_snow`
+        """  Corresponds to IDD Field `EPSLN: Surface emissivity No Snow`
+        
+        {u'default': '0.94', u'minimum': '0.0', 'type': 'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `epsln_surface_emissivity_no_snow`
+            value (float): value for IDD Field `EPSLN: Surface emissivity No Snow`
                 Default value: 0.94
                 value >= 0.0
                 value <= 1.0
@@ -4654,7 +4740,7 @@ class GroundHeatTransferBasementSurfaceProps(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `epsln_surface_emissivity_no_snow`'.format(value))
             if value < 0.0:
@@ -4663,7 +4749,6 @@ class GroundHeatTransferBasementSurfaceProps(object):
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `epsln_surface_emissivity_no_snow`')
-
         self._data["EPSLN: Surface emissivity No Snow"] = value
 
     @property
@@ -4677,10 +4762,12 @@ class GroundHeatTransferBasementSurfaceProps(object):
 
     @epsln_surface_emissivity_with_snow.setter
     def epsln_surface_emissivity_with_snow(self, value=0.86 ):
-        """  Corresponds to IDD Field `epsln_surface_emissivity_with_snow`
+        """  Corresponds to IDD Field `EPSLN: Surface emissivity with Snow`
+        
+        {u'default': '0.86', u'minimum': '0.0', 'type': 'real', u'maximum': '1.0', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `epsln_surface_emissivity_with_snow`
+            value (float): value for IDD Field `EPSLN: Surface emissivity with Snow`
                 Default value: 0.86
                 value >= 0.0
                 value <= 1.0
@@ -4693,7 +4780,7 @@ class GroundHeatTransferBasementSurfaceProps(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `epsln_surface_emissivity_with_snow`'.format(value))
             if value < 0.0:
@@ -4702,7 +4789,6 @@ class GroundHeatTransferBasementSurfaceProps(object):
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `epsln_surface_emissivity_with_snow`')
-
         self._data["EPSLN: Surface emissivity with Snow"] = value
 
     @property
@@ -4716,10 +4802,12 @@ class GroundHeatTransferBasementSurfaceProps(object):
 
     @veght_surface_roughness_no_snow_conditions.setter
     def veght_surface_roughness_no_snow_conditions(self, value=6.0 ):
-        """  Corresponds to IDD Field `veght_surface_roughness_no_snow_conditions`
+        """  Corresponds to IDD Field `VEGHT: Surface roughness No snow conditions`
+        
+        {u'default': '6.0', u'units': u'cm', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `veght_surface_roughness_no_snow_conditions`
+            value (float): value for IDD Field `VEGHT: Surface roughness No snow conditions`
                 Units: cm
                 Default value: 6.0
                 value >= 0.0
@@ -4732,13 +4820,12 @@ class GroundHeatTransferBasementSurfaceProps(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `veght_surface_roughness_no_snow_conditions`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `veght_surface_roughness_no_snow_conditions`')
-
         self._data["VEGHT: Surface roughness No snow conditions"] = value
 
     @property
@@ -4752,10 +4839,12 @@ class GroundHeatTransferBasementSurfaceProps(object):
 
     @veght_surface_roughness_snow_conditions.setter
     def veght_surface_roughness_snow_conditions(self, value=0.25 ):
-        """  Corresponds to IDD Field `veght_surface_roughness_snow_conditions`
+        """  Corresponds to IDD Field `VEGHT: Surface roughness Snow conditions`
+        
+        {u'default': '0.25', u'units': u'cm', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `veght_surface_roughness_snow_conditions`
+            value (float): value for IDD Field `VEGHT: Surface roughness Snow conditions`
                 Units: cm
                 Default value: 0.25
                 value >= 0.0
@@ -4768,13 +4857,12 @@ class GroundHeatTransferBasementSurfaceProps(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `veght_surface_roughness_snow_conditions`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `veght_surface_roughness_snow_conditions`')
-
         self._data["VEGHT: Surface roughness Snow conditions"] = value
 
     @property
@@ -4788,11 +4876,13 @@ class GroundHeatTransferBasementSurfaceProps(object):
 
     @pet_flag_potential_evapotranspiration_on.setter
     def pet_flag_potential_evapotranspiration_on(self, value="FALSE"):
-        """  Corresponds to IDD Field `pet_flag_potential_evapotranspiration_on`
+        """  Corresponds to IDD Field `PET: Flag, Potential evapotranspiration on?`
         Typically, PET is False
+        
+        {'pytype': 'str', u'default': u'FALSE', u'required-field': True, u'note': [u'Typically, PET is False'], u'key': [u'TRUE', u'FALSE'], u'type': u'choice'}
 
         Args:
-            value (str): value for IDD Field `pet_flag_potential_evapotranspiration_on`
+            value (str): value for IDD Field `PET: Flag, Potential evapotranspiration on?`
                 Accepted values are:
                       - TRUE
                       - FALSE
@@ -4806,7 +4896,7 @@ class GroundHeatTransferBasementSurfaceProps(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `pet_flag_potential_evapotranspiration_on`'.format(value))
             if ',' in value:
@@ -4832,7 +4922,6 @@ class GroundHeatTransferBasementSurfaceProps(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `pet_flag_potential_evapotranspiration_on`'.format(value))
             value = vals[value_lower]
-
         self._data["PET: Flag, Potential evapotranspiration on?"] = value
 
     def check(self):
@@ -4945,10 +5034,12 @@ class GroundHeatTransferBasementBldgData(object):
 
     @dwall_wall_thickness.setter
     def dwall_wall_thickness(self, value=0.2 ):
-        """  Corresponds to IDD Field `dwall_wall_thickness`
+        """  Corresponds to IDD Field `DWALL: Wall thickness`
+        
+        {u'units': u'm', u'default': '0.2', u'minimum': '0.2', 'type': 'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `dwall_wall_thickness`
+            value (float): value for IDD Field `DWALL: Wall thickness`
                 Units: m
                 Default value: 0.2
                 value >= 0.2
@@ -4961,13 +5052,12 @@ class GroundHeatTransferBasementBldgData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `dwall_wall_thickness`'.format(value))
             if value < 0.2:
                 raise ValueError('value need to be greater or equal 0.2 '
                                  'for field `dwall_wall_thickness`')
-
         self._data["DWALL: Wall thickness"] = value
 
     @property
@@ -4981,10 +5071,12 @@ class GroundHeatTransferBasementBldgData(object):
 
     @dslab_floor_slab_thickness.setter
     def dslab_floor_slab_thickness(self, value=0.1 ):
-        """  Corresponds to IDD Field `dslab_floor_slab_thickness`
+        """  Corresponds to IDD Field `DSLAB: Floor slab thickness`
+        
+        {'pytype': 'float', u'default': '0.1', u'minimum>': '0.0', u'maximum': '0.25', u'units': u'm', 'type': 'real'}
 
         Args:
-            value (float): value for IDD Field `dslab_floor_slab_thickness`
+            value (float): value for IDD Field `DSLAB: Floor slab thickness`
                 Units: m
                 Default value: 0.1
                 value > 0.0
@@ -4998,7 +5090,7 @@ class GroundHeatTransferBasementBldgData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `dslab_floor_slab_thickness`'.format(value))
             if value <= 0.0:
@@ -5007,7 +5099,6 @@ class GroundHeatTransferBasementBldgData(object):
             if value > 0.25:
                 raise ValueError('value need to be smaller 0.25 '
                                  'for field `dslab_floor_slab_thickness`')
-
         self._data["DSLAB: Floor slab thickness"] = value
 
     @property
@@ -5021,10 +5112,12 @@ class GroundHeatTransferBasementBldgData(object):
 
     @dgravxy_width_of_gravel_pit_beside_basement_wall.setter
     def dgravxy_width_of_gravel_pit_beside_basement_wall(self, value=0.3 ):
-        """  Corresponds to IDD Field `dgravxy_width_of_gravel_pit_beside_basement_wall`
+        """  Corresponds to IDD Field `DGRAVXY: Width of gravel pit beside basement wall`
+        
+        {u'units': u'm', u'default': '0.3', u'minimum>': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `dgravxy_width_of_gravel_pit_beside_basement_wall`
+            value (float): value for IDD Field `DGRAVXY: Width of gravel pit beside basement wall`
                 Units: m
                 Default value: 0.3
                 value > 0.0
@@ -5037,13 +5130,12 @@ class GroundHeatTransferBasementBldgData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `dgravxy_width_of_gravel_pit_beside_basement_wall`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `dgravxy_width_of_gravel_pit_beside_basement_wall`')
-
         self._data["DGRAVXY: Width of gravel pit beside basement wall"] = value
 
     @property
@@ -5057,10 +5149,12 @@ class GroundHeatTransferBasementBldgData(object):
 
     @dgravzn_gravel_depth_extending_above_the_floor_slab.setter
     def dgravzn_gravel_depth_extending_above_the_floor_slab(self, value=0.2 ):
-        """  Corresponds to IDD Field `dgravzn_gravel_depth_extending_above_the_floor_slab`
+        """  Corresponds to IDD Field `DGRAVZN: Gravel depth extending above the floor slab`
+        
+        {u'units': u'm', u'default': '0.2', u'minimum>': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `dgravzn_gravel_depth_extending_above_the_floor_slab`
+            value (float): value for IDD Field `DGRAVZN: Gravel depth extending above the floor slab`
                 Units: m
                 Default value: 0.2
                 value > 0.0
@@ -5073,13 +5167,12 @@ class GroundHeatTransferBasementBldgData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `dgravzn_gravel_depth_extending_above_the_floor_slab`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `dgravzn_gravel_depth_extending_above_the_floor_slab`')
-
         self._data["DGRAVZN: Gravel depth extending above the floor slab"] = value
 
     @property
@@ -5093,10 +5186,12 @@ class GroundHeatTransferBasementBldgData(object):
 
     @dgravzp_gravel_depth_below_the_floor_slab.setter
     def dgravzp_gravel_depth_below_the_floor_slab(self, value=0.1 ):
-        """  Corresponds to IDD Field `dgravzp_gravel_depth_below_the_floor_slab`
+        """  Corresponds to IDD Field `DGRAVZP: Gravel depth below the floor slab`
+        
+        {u'units': u'm', u'default': '0.1', u'minimum>': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `dgravzp_gravel_depth_below_the_floor_slab`
+            value (float): value for IDD Field `DGRAVZP: Gravel depth below the floor slab`
                 Units: m
                 Default value: 0.1
                 value > 0.0
@@ -5109,13 +5204,12 @@ class GroundHeatTransferBasementBldgData(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `dgravzp_gravel_depth_below_the_floor_slab`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `dgravzp_gravel_depth_below_the_floor_slab`')
-
         self._data["DGRAVZP: Gravel depth below the floor slab"] = value
 
     def check(self):
@@ -5244,11 +5338,13 @@ class GroundHeatTransferBasementInterior(object):
 
     @cond_flag_is_the_basement_conditioned.setter
     def cond_flag_is_the_basement_conditioned(self, value="TRUE"):
-        """  Corresponds to IDD Field `cond_flag_is_the_basement_conditioned`
+        """  Corresponds to IDD Field `COND: Flag: Is the basement conditioned?`
         for EnergyPlus this should be TRUE
+        
+        {'pytype': 'str', u'default': u'TRUE', u'required-field': True, u'note': [u'for EnergyPlus this should be TRUE'], u'key': [u'TRUE', u'FALSE'], u'type': u'choice'}
 
         Args:
-            value (str): value for IDD Field `cond_flag_is_the_basement_conditioned`
+            value (str): value for IDD Field `COND: Flag: Is the basement conditioned?`
                 Accepted values are:
                       - TRUE
                       - FALSE
@@ -5262,7 +5358,7 @@ class GroundHeatTransferBasementInterior(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `cond_flag_is_the_basement_conditioned`'.format(value))
             if ',' in value:
@@ -5288,7 +5384,6 @@ class GroundHeatTransferBasementInterior(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `cond_flag_is_the_basement_conditioned`'.format(value))
             value = vals[value_lower]
-
         self._data["COND: Flag: Is the basement conditioned?"] = value
 
     @property
@@ -5302,10 +5397,12 @@ class GroundHeatTransferBasementInterior(object):
 
     @hin_downward_convection_only_heat_transfer_coefficient.setter
     def hin_downward_convection_only_heat_transfer_coefficient(self, value=0.92 ):
-        """  Corresponds to IDD Field `hin_downward_convection_only_heat_transfer_coefficient`
+        """  Corresponds to IDD Field `HIN: Downward convection only heat transfer coefficient`
+        
+        {u'units': u'W/m2-K', u'default': '0.92', u'minimum>': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `hin_downward_convection_only_heat_transfer_coefficient`
+            value (float): value for IDD Field `HIN: Downward convection only heat transfer coefficient`
                 Units: W/m2-K
                 Default value: 0.92
                 value > 0.0
@@ -5318,13 +5415,12 @@ class GroundHeatTransferBasementInterior(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `hin_downward_convection_only_heat_transfer_coefficient`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `hin_downward_convection_only_heat_transfer_coefficient`')
-
         self._data["HIN: Downward convection only heat transfer coefficient"] = value
 
     @property
@@ -5338,10 +5434,12 @@ class GroundHeatTransferBasementInterior(object):
 
     @hin_upward_convection_only_heat_transfer_coefficient.setter
     def hin_upward_convection_only_heat_transfer_coefficient(self, value=4.04 ):
-        """  Corresponds to IDD Field `hin_upward_convection_only_heat_transfer_coefficient`
+        """  Corresponds to IDD Field `HIN: Upward convection only heat transfer coefficient`
+        
+        {u'units': u'W/m2-K', u'default': '4.04', u'minimum>': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `hin_upward_convection_only_heat_transfer_coefficient`
+            value (float): value for IDD Field `HIN: Upward convection only heat transfer coefficient`
                 Units: W/m2-K
                 Default value: 4.04
                 value > 0.0
@@ -5354,13 +5452,12 @@ class GroundHeatTransferBasementInterior(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `hin_upward_convection_only_heat_transfer_coefficient`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `hin_upward_convection_only_heat_transfer_coefficient`')
-
         self._data["HIN: Upward convection only heat transfer coefficient"] = value
 
     @property
@@ -5374,10 +5471,12 @@ class GroundHeatTransferBasementInterior(object):
 
     @hin_horizontal_convection_only_heat_transfer_coefficient.setter
     def hin_horizontal_convection_only_heat_transfer_coefficient(self, value=3.08 ):
-        """  Corresponds to IDD Field `hin_horizontal_convection_only_heat_transfer_coefficient`
+        """  Corresponds to IDD Field `HIN: Horizontal convection only heat transfer coefficient`
+        
+        {u'units': u'W/m2-K', u'default': '3.08', u'minimum>': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `hin_horizontal_convection_only_heat_transfer_coefficient`
+            value (float): value for IDD Field `HIN: Horizontal convection only heat transfer coefficient`
                 Units: W/m2-K
                 Default value: 3.08
                 value > 0.0
@@ -5390,13 +5489,12 @@ class GroundHeatTransferBasementInterior(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `hin_horizontal_convection_only_heat_transfer_coefficient`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `hin_horizontal_convection_only_heat_transfer_coefficient`')
-
         self._data["HIN: Horizontal convection only heat transfer coefficient"] = value
 
     @property
@@ -5410,10 +5508,12 @@ class GroundHeatTransferBasementInterior(object):
 
     @hin_downward_combined_convection_and_radiation_heat_transfer_coefficient.setter
     def hin_downward_combined_convection_and_radiation_heat_transfer_coefficient(self, value=6.13 ):
-        """  Corresponds to IDD Field `hin_downward_combined_convection_and_radiation_heat_transfer_coefficient`
+        """  Corresponds to IDD Field `HIN: Downward combined (convection and radiation) heat transfer coefficient`
+        
+        {u'units': u'W/m2-K', u'default': '6.13', u'minimum>': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `hin_downward_combined_convection_and_radiation_heat_transfer_coefficient`
+            value (float): value for IDD Field `HIN: Downward combined (convection and radiation) heat transfer coefficient`
                 Units: W/m2-K
                 Default value: 6.13
                 value > 0.0
@@ -5426,13 +5526,12 @@ class GroundHeatTransferBasementInterior(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `hin_downward_combined_convection_and_radiation_heat_transfer_coefficient`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `hin_downward_combined_convection_and_radiation_heat_transfer_coefficient`')
-
         self._data["HIN: Downward combined (convection and radiation) heat transfer coefficient"] = value
 
     @property
@@ -5446,10 +5545,12 @@ class GroundHeatTransferBasementInterior(object):
 
     @hin_upward_combined_convection_and_radiation_heat_transfer_coefficient.setter
     def hin_upward_combined_convection_and_radiation_heat_transfer_coefficient(self, value=9.26 ):
-        """  Corresponds to IDD Field `hin_upward_combined_convection_and_radiation_heat_transfer_coefficient`
+        """  Corresponds to IDD Field `HIN: Upward combined (convection and radiation) heat transfer coefficient`
+        
+        {u'units': u'W/m2-K', u'default': '9.26', u'minimum>': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `hin_upward_combined_convection_and_radiation_heat_transfer_coefficient`
+            value (float): value for IDD Field `HIN: Upward combined (convection and radiation) heat transfer coefficient`
                 Units: W/m2-K
                 Default value: 9.26
                 value > 0.0
@@ -5462,13 +5563,12 @@ class GroundHeatTransferBasementInterior(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `hin_upward_combined_convection_and_radiation_heat_transfer_coefficient`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `hin_upward_combined_convection_and_radiation_heat_transfer_coefficient`')
-
         self._data["HIN: Upward combined (convection and radiation) heat transfer coefficient"] = value
 
     @property
@@ -5482,10 +5582,12 @@ class GroundHeatTransferBasementInterior(object):
 
     @hin_horizontal_combined_convection_and_radiation_heat_transfer_coefficient.setter
     def hin_horizontal_combined_convection_and_radiation_heat_transfer_coefficient(self, value=8.29 ):
-        """  Corresponds to IDD Field `hin_horizontal_combined_convection_and_radiation_heat_transfer_coefficient`
+        """  Corresponds to IDD Field `HIN: Horizontal combined (convection and radiation) heat transfer coefficient`
+        
+        {u'units': u'W/m2-K', u'default': '8.29', u'minimum>': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `hin_horizontal_combined_convection_and_radiation_heat_transfer_coefficient`
+            value (float): value for IDD Field `HIN: Horizontal combined (convection and radiation) heat transfer coefficient`
                 Units: W/m2-K
                 Default value: 8.29
                 value > 0.0
@@ -5498,13 +5600,12 @@ class GroundHeatTransferBasementInterior(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `hin_horizontal_combined_convection_and_radiation_heat_transfer_coefficient`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `hin_horizontal_combined_convection_and_radiation_heat_transfer_coefficient`')
-
         self._data["HIN: Horizontal combined (convection and radiation) heat transfer coefficient"] = value
 
     def check(self):
@@ -5680,10 +5781,12 @@ class GroundHeatTransferBasementComBldg(object):
 
     @january_average_temperature.setter
     def january_average_temperature(self, value=22.0 ):
-        """  Corresponds to IDD Field `january_average_temperature`
+        """  Corresponds to IDD Field `January average temperature`
+        
+        {u'units': u'C', u'default': '22.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `january_average_temperature`
+            value (float): value for IDD Field `January average temperature`
                 Units: C
                 Default value: 22.0
                 if `value` is None it will not be checked against the
@@ -5695,10 +5798,9 @@ class GroundHeatTransferBasementComBldg(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `january_average_temperature`'.format(value))
-
         self._data["January average temperature"] = value
 
     @property
@@ -5712,10 +5814,12 @@ class GroundHeatTransferBasementComBldg(object):
 
     @february_average_temperature.setter
     def february_average_temperature(self, value=22.0 ):
-        """  Corresponds to IDD Field `february_average_temperature`
+        """  Corresponds to IDD Field `February average temperature`
+        
+        {u'units': u'C', u'default': '22.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `february_average_temperature`
+            value (float): value for IDD Field `February average temperature`
                 Units: C
                 Default value: 22.0
                 if `value` is None it will not be checked against the
@@ -5727,10 +5831,9 @@ class GroundHeatTransferBasementComBldg(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `february_average_temperature`'.format(value))
-
         self._data["February average temperature"] = value
 
     @property
@@ -5744,10 +5847,12 @@ class GroundHeatTransferBasementComBldg(object):
 
     @march_average_temperature.setter
     def march_average_temperature(self, value=22.0 ):
-        """  Corresponds to IDD Field `march_average_temperature`
+        """  Corresponds to IDD Field `March average temperature`
+        
+        {u'units': u'C', u'default': '22.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `march_average_temperature`
+            value (float): value for IDD Field `March average temperature`
                 Units: C
                 Default value: 22.0
                 if `value` is None it will not be checked against the
@@ -5759,10 +5864,9 @@ class GroundHeatTransferBasementComBldg(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `march_average_temperature`'.format(value))
-
         self._data["March average temperature"] = value
 
     @property
@@ -5776,10 +5880,12 @@ class GroundHeatTransferBasementComBldg(object):
 
     @april_average_temperature.setter
     def april_average_temperature(self, value=22.0 ):
-        """  Corresponds to IDD Field `april_average_temperature`
+        """  Corresponds to IDD Field `April average temperature`
+        
+        {u'units': u'C', u'default': '22.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `april_average_temperature`
+            value (float): value for IDD Field `April average temperature`
                 Units: C
                 Default value: 22.0
                 if `value` is None it will not be checked against the
@@ -5791,10 +5897,9 @@ class GroundHeatTransferBasementComBldg(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `april_average_temperature`'.format(value))
-
         self._data["April average temperature"] = value
 
     @property
@@ -5808,10 +5913,12 @@ class GroundHeatTransferBasementComBldg(object):
 
     @may_average_temperature.setter
     def may_average_temperature(self, value=22.0 ):
-        """  Corresponds to IDD Field `may_average_temperature`
+        """  Corresponds to IDD Field `May average temperature`
+        
+        {u'units': u'C', u'default': '22.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `may_average_temperature`
+            value (float): value for IDD Field `May average temperature`
                 Units: C
                 Default value: 22.0
                 if `value` is None it will not be checked against the
@@ -5823,10 +5930,9 @@ class GroundHeatTransferBasementComBldg(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `may_average_temperature`'.format(value))
-
         self._data["May average temperature"] = value
 
     @property
@@ -5840,10 +5946,12 @@ class GroundHeatTransferBasementComBldg(object):
 
     @june_average_temperature.setter
     def june_average_temperature(self, value=22.0 ):
-        """  Corresponds to IDD Field `june_average_temperature`
+        """  Corresponds to IDD Field `June average temperature`
+        
+        {u'units': u'C', u'default': '22.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `june_average_temperature`
+            value (float): value for IDD Field `June average temperature`
                 Units: C
                 Default value: 22.0
                 if `value` is None it will not be checked against the
@@ -5855,10 +5963,9 @@ class GroundHeatTransferBasementComBldg(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `june_average_temperature`'.format(value))
-
         self._data["June average temperature"] = value
 
     @property
@@ -5872,10 +5979,12 @@ class GroundHeatTransferBasementComBldg(object):
 
     @july_average_temperature.setter
     def july_average_temperature(self, value=22.0 ):
-        """  Corresponds to IDD Field `july_average_temperature`
+        """  Corresponds to IDD Field `July average temperature`
+        
+        {u'units': u'C', u'default': '22.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `july_average_temperature`
+            value (float): value for IDD Field `July average temperature`
                 Units: C
                 Default value: 22.0
                 if `value` is None it will not be checked against the
@@ -5887,10 +5996,9 @@ class GroundHeatTransferBasementComBldg(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `july_average_temperature`'.format(value))
-
         self._data["July average temperature"] = value
 
     @property
@@ -5904,10 +6012,12 @@ class GroundHeatTransferBasementComBldg(object):
 
     @august_average_temperature.setter
     def august_average_temperature(self, value=22.0 ):
-        """  Corresponds to IDD Field `august_average_temperature`
+        """  Corresponds to IDD Field `August average temperature`
+        
+        {u'units': u'C', u'default': '22.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `august_average_temperature`
+            value (float): value for IDD Field `August average temperature`
                 Units: C
                 Default value: 22.0
                 if `value` is None it will not be checked against the
@@ -5919,10 +6029,9 @@ class GroundHeatTransferBasementComBldg(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `august_average_temperature`'.format(value))
-
         self._data["August average temperature"] = value
 
     @property
@@ -5936,10 +6045,12 @@ class GroundHeatTransferBasementComBldg(object):
 
     @september_average_temperature.setter
     def september_average_temperature(self, value=22.0 ):
-        """  Corresponds to IDD Field `september_average_temperature`
+        """  Corresponds to IDD Field `September average temperature`
+        
+        {u'units': u'C', u'default': '22.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `september_average_temperature`
+            value (float): value for IDD Field `September average temperature`
                 Units: C
                 Default value: 22.0
                 if `value` is None it will not be checked against the
@@ -5951,10 +6062,9 @@ class GroundHeatTransferBasementComBldg(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `september_average_temperature`'.format(value))
-
         self._data["September average temperature"] = value
 
     @property
@@ -5968,10 +6078,12 @@ class GroundHeatTransferBasementComBldg(object):
 
     @october_average_temperature.setter
     def october_average_temperature(self, value=22.0 ):
-        """  Corresponds to IDD Field `october_average_temperature`
+        """  Corresponds to IDD Field `October average temperature`
+        
+        {u'units': u'C', u'default': '22.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `october_average_temperature`
+            value (float): value for IDD Field `October average temperature`
                 Units: C
                 Default value: 22.0
                 if `value` is None it will not be checked against the
@@ -5983,10 +6095,9 @@ class GroundHeatTransferBasementComBldg(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `october_average_temperature`'.format(value))
-
         self._data["October average temperature"] = value
 
     @property
@@ -6000,10 +6111,12 @@ class GroundHeatTransferBasementComBldg(object):
 
     @november_average_temperature.setter
     def november_average_temperature(self, value=22.0 ):
-        """  Corresponds to IDD Field `november_average_temperature`
+        """  Corresponds to IDD Field `November average temperature`
+        
+        {u'units': u'C', u'default': '22.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `november_average_temperature`
+            value (float): value for IDD Field `November average temperature`
                 Units: C
                 Default value: 22.0
                 if `value` is None it will not be checked against the
@@ -6015,10 +6128,9 @@ class GroundHeatTransferBasementComBldg(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `november_average_temperature`'.format(value))
-
         self._data["November average temperature"] = value
 
     @property
@@ -6032,10 +6144,12 @@ class GroundHeatTransferBasementComBldg(object):
 
     @december_average_temperature.setter
     def december_average_temperature(self, value=22.0 ):
-        """  Corresponds to IDD Field `december_average_temperature`
+        """  Corresponds to IDD Field `December average temperature`
+        
+        {u'units': u'C', u'default': '22.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `december_average_temperature`
+            value (float): value for IDD Field `December average temperature`
                 Units: C
                 Default value: 22.0
                 if `value` is None it will not be checked against the
@@ -6047,10 +6161,9 @@ class GroundHeatTransferBasementComBldg(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `december_average_temperature`'.format(value))
-
         self._data["December average temperature"] = value
 
     @property
@@ -6064,11 +6177,13 @@ class GroundHeatTransferBasementComBldg(object):
 
     @daily_variation_sine_wave_amplitude.setter
     def daily_variation_sine_wave_amplitude(self, value=0.0 ):
-        """  Corresponds to IDD Field `daily_variation_sine_wave_amplitude`
+        """  Corresponds to IDD Field `Daily variation sine wave amplitude`
         (Normally zero, just for checking)
+        
+        {u'units': u'deltaC', u'default': '0.0', u'note': [u'(Normally zero, just for checking)'], 'type': 'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `daily_variation_sine_wave_amplitude`
+            value (float): value for IDD Field `Daily variation sine wave amplitude`
                 Units: deltaC
                 Default value: 0.0
                 if `value` is None it will not be checked against the
@@ -6080,10 +6195,9 @@ class GroundHeatTransferBasementComBldg(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `daily_variation_sine_wave_amplitude`'.format(value))
-
         self._data["Daily variation sine wave amplitude"] = value
 
     def check(self):
@@ -6173,10 +6287,12 @@ class GroundHeatTransferBasementEquivSlab(object):
 
     @apratio_the_area_to_perimeter_ratio_for_this_slab.setter
     def apratio_the_area_to_perimeter_ratio_for_this_slab(self, value=None):
-        """  Corresponds to IDD Field `apratio_the_area_to_perimeter_ratio_for_this_slab`
+        """  Corresponds to IDD Field `APRatio: The area to perimeter ratio for this slab`
+        
+        {u'units': u'm', u'minimum>': '0.0', 'type': 'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `apratio_the_area_to_perimeter_ratio_for_this_slab`
+            value (float): value for IDD Field `APRatio: The area to perimeter ratio for this slab`
                 Units: m
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -6188,13 +6304,12 @@ class GroundHeatTransferBasementEquivSlab(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `apratio_the_area_to_perimeter_ratio_for_this_slab`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `apratio_the_area_to_perimeter_ratio_for_this_slab`')
-
         self._data["APRatio: The area to perimeter ratio for this slab"] = value
 
     @property
@@ -6208,13 +6323,15 @@ class GroundHeatTransferBasementEquivSlab(object):
 
     @equivsizing_flag.setter
     def equivsizing_flag(self, value=None):
-        """  Corresponds to IDD Field `equivsizing_flag`
+        """  Corresponds to IDD Field `EquivSizing: Flag`
         Will the dimensions of an equivalent slab be calculated (TRUE)
         or will the dimensions be input directly? (FALSE)]
         Only advanced special simulations should use FALSE.
+        
+        {u'note': [u'Will the dimensions of an equivalent slab be calculated (TRUE)', u'or will the dimensions be input directly? (FALSE)]', u'Only advanced special simulations should use FALSE.'], u'type': u'choice', u'key': [u'TRUE', u'FALSE'], u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `equivsizing_flag`
+            value (str): value for IDD Field `EquivSizing: Flag`
                 Accepted values are:
                       - TRUE
                       - FALSE
@@ -6227,7 +6344,7 @@ class GroundHeatTransferBasementEquivSlab(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `equivsizing_flag`'.format(value))
             if ',' in value:
@@ -6253,7 +6370,6 @@ class GroundHeatTransferBasementEquivSlab(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `equivsizing_flag`'.format(value))
             value = vals[value_lower]
-
         self._data["EquivSizing: Flag"] = value
 
     def check(self):
@@ -6349,10 +6465,12 @@ class GroundHeatTransferBasementEquivAutoGrid(object):
 
     @clearance_distance_from_outside_of_wall_to_edge_of_3d_ground_domain.setter
     def clearance_distance_from_outside_of_wall_to_edge_of_3d_ground_domain(self, value=15.0 ):
-        """  Corresponds to IDD Field `clearance_distance_from_outside_of_wall_to_edge_of_3d_ground_domain`
+        """  Corresponds to IDD Field `CLEARANCE: Distance from outside of wall to edge of 3-D ground domain`
+        
+        {u'units': u'm', u'default': '15.0', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `clearance_distance_from_outside_of_wall_to_edge_of_3d_ground_domain`
+            value (float): value for IDD Field `CLEARANCE: Distance from outside of wall to edge of 3-D ground domain`
                 Units: m
                 Default value: 15.0
                 value >= 0.0
@@ -6365,13 +6483,12 @@ class GroundHeatTransferBasementEquivAutoGrid(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `clearance_distance_from_outside_of_wall_to_edge_of_3d_ground_domain`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `clearance_distance_from_outside_of_wall_to_edge_of_3d_ground_domain`')
-
         self._data["CLEARANCE: Distance from outside of wall to edge of 3-D ground domain"] = value
 
     @property
@@ -6385,10 +6502,12 @@ class GroundHeatTransferBasementEquivAutoGrid(object):
 
     @slabdepth_thickness_of_the_floor_slab.setter
     def slabdepth_thickness_of_the_floor_slab(self, value=0.1 ):
-        """  Corresponds to IDD Field `slabdepth_thickness_of_the_floor_slab`
+        """  Corresponds to IDD Field `SlabDepth: Thickness of the floor slab`
+        
+        {u'units': u'm', u'default': '0.1', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `slabdepth_thickness_of_the_floor_slab`
+            value (float): value for IDD Field `SlabDepth: Thickness of the floor slab`
                 Units: m
                 Default value: 0.1
                 value >= 0.0
@@ -6401,13 +6520,12 @@ class GroundHeatTransferBasementEquivAutoGrid(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `slabdepth_thickness_of_the_floor_slab`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `slabdepth_thickness_of_the_floor_slab`')
-
         self._data["SlabDepth: Thickness of the floor slab"] = value
 
     @property
@@ -6421,10 +6539,12 @@ class GroundHeatTransferBasementEquivAutoGrid(object):
 
     @basedepth_depth_of_the_basement_wall_below_grade.setter
     def basedepth_depth_of_the_basement_wall_below_grade(self, value=2.0 ):
-        """  Corresponds to IDD Field `basedepth_depth_of_the_basement_wall_below_grade`
+        """  Corresponds to IDD Field `BaseDepth: Depth of the basement wall below grade`
+        
+        {u'units': u'm', u'default': '2.0', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `basedepth_depth_of_the_basement_wall_below_grade`
+            value (float): value for IDD Field `BaseDepth: Depth of the basement wall below grade`
                 Units: m
                 Default value: 2.0
                 value >= 0.0
@@ -6437,13 +6557,12 @@ class GroundHeatTransferBasementEquivAutoGrid(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `basedepth_depth_of_the_basement_wall_below_grade`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `basedepth_depth_of_the_basement_wall_below_grade`')
-
         self._data["BaseDepth: Depth of the basement wall below grade"] = value
 
     def check(self):
@@ -6565,10 +6684,12 @@ class GroundHeatTransferBasementAutoGrid(object):
 
     @clearance_distance_from_outside_of_wall_to_edge_.setter
     def clearance_distance_from_outside_of_wall_to_edge_(self, value=15.0 ):
-        """  Corresponds to IDD Field `clearance_distance_from_outside_of_wall_to_edge_`
+        """  Corresponds to IDD Field `CLEARANCE: Distance from outside of wall to edge,`
+        
+        {u'units': u'm', u'default': '15.0', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `clearance_distance_from_outside_of_wall_to_edge_`
+            value (float): value for IDD Field `CLEARANCE: Distance from outside of wall to edge,`
                 Units: m
                 Default value: 15.0
                 value >= 0.0
@@ -6581,13 +6702,12 @@ class GroundHeatTransferBasementAutoGrid(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `clearance_distance_from_outside_of_wall_to_edge_`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `clearance_distance_from_outside_of_wall_to_edge_`')
-
         self._data["CLEARANCE: Distance from outside of wall to edge,"] = value
 
     @property
@@ -6601,10 +6721,12 @@ class GroundHeatTransferBasementAutoGrid(object):
 
     @slabx_x_dimension_of_the_building_slab.setter
     def slabx_x_dimension_of_the_building_slab(self, value=None):
-        """  Corresponds to IDD Field `slabx_x_dimension_of_the_building_slab`
+        """  Corresponds to IDD Field `SLABX: X dimension of the building slab`
+        
+        {'pytype': 'float', u'maximum': '60.0', u'required-field': True, u'minimum': '0.0', u'units': u'm', 'type': 'real'}
 
         Args:
-            value (float): value for IDD Field `slabx_x_dimension_of_the_building_slab`
+            value (float): value for IDD Field `SLABX: X dimension of the building slab`
                 Units: m
                 value >= 0.0
                 value <= 60.0
@@ -6617,7 +6739,7 @@ class GroundHeatTransferBasementAutoGrid(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `slabx_x_dimension_of_the_building_slab`'.format(value))
             if value < 0.0:
@@ -6626,7 +6748,6 @@ class GroundHeatTransferBasementAutoGrid(object):
             if value > 60.0:
                 raise ValueError('value need to be smaller 60.0 '
                                  'for field `slabx_x_dimension_of_the_building_slab`')
-
         self._data["SLABX: X dimension of the building slab"] = value
 
     @property
@@ -6640,10 +6761,12 @@ class GroundHeatTransferBasementAutoGrid(object):
 
     @slaby_y_dimension_of_the_building_slab.setter
     def slaby_y_dimension_of_the_building_slab(self, value=None):
-        """  Corresponds to IDD Field `slaby_y_dimension_of_the_building_slab`
+        """  Corresponds to IDD Field `SLABY: Y dimension of the building slab`
+        
+        {'pytype': 'float', u'maximum': '60.0', u'required-field': True, u'minimum': '0.0', u'units': u'm', 'type': 'real'}
 
         Args:
-            value (float): value for IDD Field `slaby_y_dimension_of_the_building_slab`
+            value (float): value for IDD Field `SLABY: Y dimension of the building slab`
                 Units: m
                 value >= 0.0
                 value <= 60.0
@@ -6656,7 +6779,7 @@ class GroundHeatTransferBasementAutoGrid(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `slaby_y_dimension_of_the_building_slab`'.format(value))
             if value < 0.0:
@@ -6665,7 +6788,6 @@ class GroundHeatTransferBasementAutoGrid(object):
             if value > 60.0:
                 raise ValueError('value need to be smaller 60.0 '
                                  'for field `slaby_y_dimension_of_the_building_slab`')
-
         self._data["SLABY: Y dimension of the building slab"] = value
 
     @property
@@ -6679,10 +6801,12 @@ class GroundHeatTransferBasementAutoGrid(object):
 
     @concagheight_height_of_the_foundation_wall_above_grade.setter
     def concagheight_height_of_the_foundation_wall_above_grade(self, value=0.0 ):
-        """  Corresponds to IDD Field `concagheight_height_of_the_foundation_wall_above_grade`
+        """  Corresponds to IDD Field `ConcAGHeight: Height of the foundation wall above grade`
+        
+        {u'units': u'm', u'default': '0.0', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `concagheight_height_of_the_foundation_wall_above_grade`
+            value (float): value for IDD Field `ConcAGHeight: Height of the foundation wall above grade`
                 Units: m
                 Default value: 0.0
                 value >= 0.0
@@ -6695,13 +6819,12 @@ class GroundHeatTransferBasementAutoGrid(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `concagheight_height_of_the_foundation_wall_above_grade`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `concagheight_height_of_the_foundation_wall_above_grade`')
-
         self._data["ConcAGHeight: Height of the foundation wall above grade"] = value
 
     @property
@@ -6715,10 +6838,12 @@ class GroundHeatTransferBasementAutoGrid(object):
 
     @slabdepth_thickness_of_the_floor_slab.setter
     def slabdepth_thickness_of_the_floor_slab(self, value=0.1 ):
-        """  Corresponds to IDD Field `slabdepth_thickness_of_the_floor_slab`
+        """  Corresponds to IDD Field `SlabDepth: Thickness of the floor slab`
+        
+        {u'units': u'm', u'default': '0.1', 'type': 'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `slabdepth_thickness_of_the_floor_slab`
+            value (float): value for IDD Field `SlabDepth: Thickness of the floor slab`
                 Units: m
                 Default value: 0.1
                 if `value` is None it will not be checked against the
@@ -6730,10 +6855,9 @@ class GroundHeatTransferBasementAutoGrid(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `slabdepth_thickness_of_the_floor_slab`'.format(value))
-
         self._data["SlabDepth: Thickness of the floor slab"] = value
 
     @property
@@ -6747,10 +6871,12 @@ class GroundHeatTransferBasementAutoGrid(object):
 
     @basedepth_depth_of_the_basement_wall_below_grade.setter
     def basedepth_depth_of_the_basement_wall_below_grade(self, value=2.0 ):
-        """  Corresponds to IDD Field `basedepth_depth_of_the_basement_wall_below_grade`
+        """  Corresponds to IDD Field `BaseDepth: Depth of the basement wall below grade`
+        
+        {u'units': u'm', u'default': '2.0', u'minimum': '0.0', 'type': 'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `basedepth_depth_of_the_basement_wall_below_grade`
+            value (float): value for IDD Field `BaseDepth: Depth of the basement wall below grade`
                 Units: m
                 Default value: 2.0
                 value >= 0.0
@@ -6763,13 +6889,12 @@ class GroundHeatTransferBasementAutoGrid(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `basedepth_depth_of_the_basement_wall_below_grade`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `basedepth_depth_of_the_basement_wall_below_grade`')
-
         self._data["BaseDepth: Depth of the basement wall below grade"] = value
 
     def check(self):
@@ -6897,10 +7022,12 @@ class GroundHeatTransferBasementManualGrid(object):
 
     @nx_number_of_cells_in_the_x_direction_20.setter
     def nx_number_of_cells_in_the_x_direction_20(self, value=None):
-        """  Corresponds to IDD Field `nx_number_of_cells_in_the_x_direction_20`
+        """  Corresponds to IDD Field `NX: Number of cells in the X direction: 20]`
+        
+        {u'minimum': '1.0', 'type': 'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `nx_number_of_cells_in_the_x_direction_20`
+            value (float): value for IDD Field `NX: Number of cells in the X direction: 20]`
                 value >= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -6911,13 +7038,12 @@ class GroundHeatTransferBasementManualGrid(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `nx_number_of_cells_in_the_x_direction_20`'.format(value))
             if value < 1.0:
                 raise ValueError('value need to be greater or equal 1.0 '
                                  'for field `nx_number_of_cells_in_the_x_direction_20`')
-
         self._data["NX: Number of cells in the X direction: 20]"] = value
 
     @property
@@ -6931,10 +7057,12 @@ class GroundHeatTransferBasementManualGrid(object):
 
     @ny_number_of_cells_in_the_y_direction_20.setter
     def ny_number_of_cells_in_the_y_direction_20(self, value=None):
-        """  Corresponds to IDD Field `ny_number_of_cells_in_the_y_direction_20`
+        """  Corresponds to IDD Field `NY: Number of cells in the Y direction: 20]`
+        
+        {u'minimum': '1.0', 'type': 'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `ny_number_of_cells_in_the_y_direction_20`
+            value (float): value for IDD Field `NY: Number of cells in the Y direction: 20]`
                 value >= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -6945,13 +7073,12 @@ class GroundHeatTransferBasementManualGrid(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `ny_number_of_cells_in_the_y_direction_20`'.format(value))
             if value < 1.0:
                 raise ValueError('value need to be greater or equal 1.0 '
                                  'for field `ny_number_of_cells_in_the_y_direction_20`')
-
         self._data["NY: Number of cells in the Y direction: 20]"] = value
 
     @property
@@ -6965,10 +7092,12 @@ class GroundHeatTransferBasementManualGrid(object):
 
     @nzag_number_of_cells_in_the_z_direction_above_grade_4_always.setter
     def nzag_number_of_cells_in_the_z_direction_above_grade_4_always(self, value=None):
-        """  Corresponds to IDD Field `nzag_number_of_cells_in_the_z_direction_above_grade_4_always`
+        """  Corresponds to IDD Field `NZAG: Number of cells in the Z direction. above grade: 4 Always]`
+        
+        {u'minimum': '1.0', 'type': 'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `nzag_number_of_cells_in_the_z_direction_above_grade_4_always`
+            value (float): value for IDD Field `NZAG: Number of cells in the Z direction. above grade: 4 Always]`
                 value >= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -6979,13 +7108,12 @@ class GroundHeatTransferBasementManualGrid(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `nzag_number_of_cells_in_the_z_direction_above_grade_4_always`'.format(value))
             if value < 1.0:
                 raise ValueError('value need to be greater or equal 1.0 '
                                  'for field `nzag_number_of_cells_in_the_z_direction_above_grade_4_always`')
-
         self._data["NZAG: Number of cells in the Z direction. above grade: 4 Always]"] = value
 
     @property
@@ -6999,10 +7127,12 @@ class GroundHeatTransferBasementManualGrid(object):
 
     @nzbg_number_of_cells_in_z_direction_below_grade_1035.setter
     def nzbg_number_of_cells_in_z_direction_below_grade_1035(self, value=None):
-        """  Corresponds to IDD Field `nzbg_number_of_cells_in_z_direction_below_grade_1035`
+        """  Corresponds to IDD Field `NZBG: Number of cells in Z direction. below grade: 10-35]`
+        
+        {u'minimum': '1.0', 'type': 'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `nzbg_number_of_cells_in_z_direction_below_grade_1035`
+            value (float): value for IDD Field `NZBG: Number of cells in Z direction. below grade: 10-35]`
                 value >= 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -7013,13 +7143,12 @@ class GroundHeatTransferBasementManualGrid(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `nzbg_number_of_cells_in_z_direction_below_grade_1035`'.format(value))
             if value < 1.0:
                 raise ValueError('value need to be greater or equal 1.0 '
                                  'for field `nzbg_number_of_cells_in_z_direction_below_grade_1035`')
-
         self._data["NZBG: Number of cells in Z direction. below grade: 10-35]"] = value
 
     @property
@@ -7033,10 +7162,12 @@ class GroundHeatTransferBasementManualGrid(object):
 
     @ibase_x_direction_cell_indicator_of_slab_edge_520.setter
     def ibase_x_direction_cell_indicator_of_slab_edge_520(self, value=None):
-        """  Corresponds to IDD Field `ibase_x_direction_cell_indicator_of_slab_edge_520`
+        """  Corresponds to IDD Field `IBASE: X direction cell indicator of slab edge: 5-20]`
+        
+        {'type': 'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `ibase_x_direction_cell_indicator_of_slab_edge_520`
+            value (float): value for IDD Field `IBASE: X direction cell indicator of slab edge: 5-20]`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7046,10 +7177,9 @@ class GroundHeatTransferBasementManualGrid(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `ibase_x_direction_cell_indicator_of_slab_edge_520`'.format(value))
-
         self._data["IBASE: X direction cell indicator of slab edge: 5-20]"] = value
 
     @property
@@ -7063,10 +7193,12 @@ class GroundHeatTransferBasementManualGrid(object):
 
     @jbase_y_direction_cell_indicator_of_slab_edge_520.setter
     def jbase_y_direction_cell_indicator_of_slab_edge_520(self, value=None):
-        """  Corresponds to IDD Field `jbase_y_direction_cell_indicator_of_slab_edge_520`
+        """  Corresponds to IDD Field `JBASE: Y direction cell indicator of slab edge: 5-20]`
+        
+        {'type': 'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `jbase_y_direction_cell_indicator_of_slab_edge_520`
+            value (float): value for IDD Field `JBASE: Y direction cell indicator of slab edge: 5-20]`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7076,10 +7208,9 @@ class GroundHeatTransferBasementManualGrid(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `jbase_y_direction_cell_indicator_of_slab_edge_520`'.format(value))
-
         self._data["JBASE: Y direction cell indicator of slab edge: 5-20]"] = value
 
     @property
@@ -7093,10 +7224,12 @@ class GroundHeatTransferBasementManualGrid(object):
 
     @kbase_z_direction_cell_indicator_of_the_top_of_the_floor_slab_520.setter
     def kbase_z_direction_cell_indicator_of_the_top_of_the_floor_slab_520(self, value=None):
-        """  Corresponds to IDD Field `kbase_z_direction_cell_indicator_of_the_top_of_the_floor_slab_520`
+        """  Corresponds to IDD Field `KBASE: Z direction cell indicator of the top of the floor slab: 5-20]`
+        
+        {'type': 'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `kbase_z_direction_cell_indicator_of_the_top_of_the_floor_slab_520`
+            value (float): value for IDD Field `KBASE: Z direction cell indicator of the top of the floor slab: 5-20]`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7106,10 +7239,9 @@ class GroundHeatTransferBasementManualGrid(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `kbase_z_direction_cell_indicator_of_the_top_of_the_floor_slab_520`'.format(value))
-
         self._data["KBASE: Z direction cell indicator of the top of the floor slab: 5-20]"] = value
 
     def check(self):

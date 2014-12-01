@@ -48,12 +48,14 @@ class ExternalInterface(object):
 
     @name_of_external_interface.setter
     def name_of_external_interface(self, value=None):
-        """  Corresponds to IDD Field `name_of_external_interface`
+        """  Corresponds to IDD Field `Name of External Interface`
         Name of External Interface
         Currently, the only valid entries are PtolemyServer, FunctionalMockupUnitImport, and FunctionalMockupUnitExport.
+        
+        {u'note': [u'Name of External Interface', u'Currently, the only valid entries are PtolemyServer, FunctionalMockupUnitImport, and FunctionalMockupUnitExport.'], u'type': u'choice', u'key': [u'PtolemyServer', u'FunctionalMockupUnitImport', u'FunctionalMockupUnitExport'], u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name_of_external_interface`
+            value (str): value for IDD Field `Name of External Interface`
                 Accepted values are:
                       - PtolemyServer
                       - FunctionalMockupUnitImport
@@ -67,7 +69,7 @@ class ExternalInterface(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name_of_external_interface`'.format(value))
             if ',' in value:
@@ -94,7 +96,6 @@ class ExternalInterface(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `name_of_external_interface`'.format(value))
             value = vals[value_lower]
-
         self._data["Name of External Interface"] = value
 
     def check(self):
@@ -191,10 +192,12 @@ class ExternalInterfaceSchedule(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {u'type': u'alpha', u'reference': u'ExternalInterfaceScheduleNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -204,7 +207,7 @@ class ExternalInterfaceSchedule(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -213,7 +216,6 @@ class ExternalInterfaceSchedule(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -227,10 +229,12 @@ class ExternalInterfaceSchedule(object):
 
     @schedule_type_limits_name.setter
     def schedule_type_limits_name(self, value=None):
-        """  Corresponds to IDD Field `schedule_type_limits_name`
+        """  Corresponds to IDD Field `Schedule Type Limits Name`
+        
+        {u'type': u'object-list', u'object-list': u'ScheduleTypeLimitsNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `schedule_type_limits_name`
+            value (str): value for IDD Field `Schedule Type Limits Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -240,7 +244,7 @@ class ExternalInterfaceSchedule(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `schedule_type_limits_name`'.format(value))
             if ',' in value:
@@ -249,7 +253,6 @@ class ExternalInterfaceSchedule(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `schedule_type_limits_name`')
-
         self._data["Schedule Type Limits Name"] = value
 
     @property
@@ -263,11 +266,13 @@ class ExternalInterfaceSchedule(object):
 
     @initial_value.setter
     def initial_value(self, value=None):
-        """  Corresponds to IDD Field `initial_value`
+        """  Corresponds to IDD Field `Initial Value`
         Used during warm-up and system sizing.
+        
+        {u'note': [u'Used during warm-up and system sizing.'], u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `initial_value`
+            value (float): value for IDD Field `Initial Value`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -277,10 +282,9 @@ class ExternalInterfaceSchedule(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `initial_value`'.format(value))
-
         self._data["Initial Value"] = value
 
     def check(self):
@@ -372,12 +376,14 @@ class ExternalInterfaceVariable(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
         This name becomes a variable for use in Erl programs
         no spaces allowed in name
+        
+        {u'note': [u'This name becomes a variable for use in Erl programs', u'no spaces allowed in name'], u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -387,7 +393,7 @@ class ExternalInterfaceVariable(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -396,7 +402,6 @@ class ExternalInterfaceVariable(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -410,11 +415,13 @@ class ExternalInterfaceVariable(object):
 
     @initial_value.setter
     def initial_value(self, value=None):
-        """  Corresponds to IDD Field `initial_value`
+        """  Corresponds to IDD Field `Initial Value`
         Used during warm-up and system sizing.
+        
+        {u'note': [u'Used during warm-up and system sizing.'], u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `initial_value`
+            value (float): value for IDD Field `Initial Value`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -424,10 +431,9 @@ class ExternalInterfaceVariable(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `initial_value`'.format(value))
-
         self._data["Initial Value"] = value
 
     def check(self):
@@ -539,12 +545,14 @@ class ExternalInterfaceActuator(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
         This name becomes a variable for use in Erl programs
         no spaces allowed in name
+        
+        {u'note': [u'This name becomes a variable for use in Erl programs', u'no spaces allowed in name'], u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -554,7 +562,7 @@ class ExternalInterfaceActuator(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -563,7 +571,6 @@ class ExternalInterfaceActuator(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -577,10 +584,12 @@ class ExternalInterfaceActuator(object):
 
     @actuated_component_unique_name.setter
     def actuated_component_unique_name(self, value=None):
-        """  Corresponds to IDD Field `actuated_component_unique_name`
+        """  Corresponds to IDD Field `Actuated Component Unique Name`
+        
+        {u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `actuated_component_unique_name`
+            value (str): value for IDD Field `Actuated Component Unique Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -590,7 +599,7 @@ class ExternalInterfaceActuator(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `actuated_component_unique_name`'.format(value))
             if ',' in value:
@@ -599,7 +608,6 @@ class ExternalInterfaceActuator(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `actuated_component_unique_name`')
-
         self._data["Actuated Component Unique Name"] = value
 
     @property
@@ -613,10 +621,12 @@ class ExternalInterfaceActuator(object):
 
     @actuated_component_type.setter
     def actuated_component_type(self, value=None):
-        """  Corresponds to IDD Field `actuated_component_type`
+        """  Corresponds to IDD Field `Actuated Component Type`
+        
+        {u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `actuated_component_type`
+            value (str): value for IDD Field `Actuated Component Type`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -626,7 +636,7 @@ class ExternalInterfaceActuator(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `actuated_component_type`'.format(value))
             if ',' in value:
@@ -635,7 +645,6 @@ class ExternalInterfaceActuator(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `actuated_component_type`')
-
         self._data["Actuated Component Type"] = value
 
     @property
@@ -649,10 +658,12 @@ class ExternalInterfaceActuator(object):
 
     @actuated_component_control_type.setter
     def actuated_component_control_type(self, value=None):
-        """  Corresponds to IDD Field `actuated_component_control_type`
+        """  Corresponds to IDD Field `Actuated Component Control Type`
+        
+        {u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `actuated_component_control_type`
+            value (str): value for IDD Field `Actuated Component Control Type`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -662,7 +673,7 @@ class ExternalInterfaceActuator(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `actuated_component_control_type`'.format(value))
             if ',' in value:
@@ -671,7 +682,6 @@ class ExternalInterfaceActuator(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `actuated_component_control_type`')
-
         self._data["Actuated Component Control Type"] = value
 
     @property
@@ -685,13 +695,15 @@ class ExternalInterfaceActuator(object):
 
     @optional_initial_value.setter
     def optional_initial_value(self, value=None):
-        """  Corresponds to IDD Field `optional_initial_value`
+        """  Corresponds to IDD Field `Optional Initial Value`
         If specified, it is used during warm-up and system sizing.
         If not specified, then the actuator only overwrites the
         actuated component after the warm-up and system sizing.
+        
+        {u'note': [u'If specified, it is used during warm-up and system sizing.', u'If not specified, then the actuator only overwrites the', u'actuated component after the warm-up and system sizing.'], u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `optional_initial_value`
+            value (float): value for IDD Field `Optional Initial Value`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -701,10 +713,9 @@ class ExternalInterfaceActuator(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `optional_initial_value`'.format(value))
-
         self._data["Optional Initial Value"] = value
 
     def check(self):
@@ -800,10 +811,12 @@ class ExternalInterfaceFunctionalMockupUnitImport(object):
 
     @fmu_file_name.setter
     def fmu_file_name(self, value=None):
-        """  Corresponds to IDD Field `fmu_file_name`
+        """  Corresponds to IDD Field `FMU File Name`
+        
+        {u'retaincase': u'', u'type': u'alpha', u'reference': u'FMUFilename', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `fmu_file_name`
+            value (str): value for IDD Field `FMU File Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -813,7 +826,7 @@ class ExternalInterfaceFunctionalMockupUnitImport(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `fmu_file_name`'.format(value))
             if ',' in value:
@@ -822,7 +835,6 @@ class ExternalInterfaceFunctionalMockupUnitImport(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `fmu_file_name`')
-
         self._data["FMU File Name"] = value
 
     @property
@@ -836,11 +848,13 @@ class ExternalInterfaceFunctionalMockupUnitImport(object):
 
     @fmu_timeout.setter
     def fmu_timeout(self, value=0.0 ):
-        """  Corresponds to IDD Field `fmu_timeout`
+        """  Corresponds to IDD Field `FMU Timeout`
         in milli-seconds
+        
+        {'pytype': 'float', u'default': '0.0', u'required-field': True, u'note': [u'in milli-seconds'], u'units': u'ms', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `fmu_timeout`
+            value (float): value for IDD Field `FMU Timeout`
                 Units: ms
                 Default value: 0.0
                 if `value` is None it will not be checked against the
@@ -852,10 +866,9 @@ class ExternalInterfaceFunctionalMockupUnitImport(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `fmu_timeout`'.format(value))
-
         self._data["FMU Timeout"] = value
 
     @property
@@ -869,10 +882,12 @@ class ExternalInterfaceFunctionalMockupUnitImport(object):
 
     @fmu_loggingon.setter
     def fmu_loggingon(self, value=0 ):
-        """  Corresponds to IDD Field `fmu_loggingon`
+        """  Corresponds to IDD Field `FMU LoggingOn`
+        
+        {u'default': '0', u'type': u'integer', u'required-field': True, 'pytype': 'int'}
 
         Args:
-            value (int): value for IDD Field `fmu_loggingon`
+            value (int): value for IDD Field `FMU LoggingOn`
                 Default value: 0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -883,10 +898,9 @@ class ExternalInterfaceFunctionalMockupUnitImport(object):
         if value is not None:
             try:
                 value = int(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type int '
                                  'for field `fmu_loggingon`'.format(value))
-
         self._data["FMU LoggingOn"] = value
 
     def check(self):
@@ -998,10 +1012,12 @@ class ExternalInterfaceFunctionalMockupUnitImportFromVariable(object):
 
     @outputvariable_index_key_name.setter
     def outputvariable_index_key_name(self, value=None):
-        """  Corresponds to IDD Field `outputvariable_index_key_name`
+        """  Corresponds to IDD Field `Output:Variable Index Key Name`
+        
+        {u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `outputvariable_index_key_name`
+            value (str): value for IDD Field `Output:Variable Index Key Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1011,7 +1027,7 @@ class ExternalInterfaceFunctionalMockupUnitImportFromVariable(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `outputvariable_index_key_name`'.format(value))
             if ',' in value:
@@ -1020,7 +1036,6 @@ class ExternalInterfaceFunctionalMockupUnitImportFromVariable(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `outputvariable_index_key_name`')
-
         self._data["Output:Variable Index Key Name"] = value
 
     @property
@@ -1034,10 +1049,12 @@ class ExternalInterfaceFunctionalMockupUnitImportFromVariable(object):
 
     @outputvariable_name.setter
     def outputvariable_name(self, value=None):
-        """  Corresponds to IDD Field `outputvariable_name`
+        """  Corresponds to IDD Field `Output:Variable Name`
+        
+        {u'external-list': u'autoRDDvariable', u'type': u'external-list', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `outputvariable_name`
+            value (str): value for IDD Field `Output:Variable Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1047,7 +1064,7 @@ class ExternalInterfaceFunctionalMockupUnitImportFromVariable(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `outputvariable_name`'.format(value))
             if ',' in value:
@@ -1056,7 +1073,6 @@ class ExternalInterfaceFunctionalMockupUnitImportFromVariable(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `outputvariable_name`')
-
         self._data["Output:Variable Name"] = value
 
     @property
@@ -1070,10 +1086,12 @@ class ExternalInterfaceFunctionalMockupUnitImportFromVariable(object):
 
     @fmu_file_name.setter
     def fmu_file_name(self, value=None):
-        """  Corresponds to IDD Field `fmu_file_name`
+        """  Corresponds to IDD Field `FMU File Name`
+        
+        {u'retaincase': u'', u'type': u'object-list', u'object-list': u'FMUFileName', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `fmu_file_name`
+            value (str): value for IDD Field `FMU File Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1083,7 +1101,7 @@ class ExternalInterfaceFunctionalMockupUnitImportFromVariable(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `fmu_file_name`'.format(value))
             if ',' in value:
@@ -1092,7 +1110,6 @@ class ExternalInterfaceFunctionalMockupUnitImportFromVariable(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `fmu_file_name`')
-
         self._data["FMU File Name"] = value
 
     @property
@@ -1106,10 +1123,12 @@ class ExternalInterfaceFunctionalMockupUnitImportFromVariable(object):
 
     @fmu_instance_name.setter
     def fmu_instance_name(self, value=None):
-        """  Corresponds to IDD Field `fmu_instance_name`
+        """  Corresponds to IDD Field `FMU Instance Name`
+        
+        {u'retaincase': u'', u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `fmu_instance_name`
+            value (str): value for IDD Field `FMU Instance Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1119,7 +1138,7 @@ class ExternalInterfaceFunctionalMockupUnitImportFromVariable(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `fmu_instance_name`'.format(value))
             if ',' in value:
@@ -1128,7 +1147,6 @@ class ExternalInterfaceFunctionalMockupUnitImportFromVariable(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `fmu_instance_name`')
-
         self._data["FMU Instance Name"] = value
 
     @property
@@ -1142,10 +1160,12 @@ class ExternalInterfaceFunctionalMockupUnitImportFromVariable(object):
 
     @fmu_variable_name.setter
     def fmu_variable_name(self, value=None):
-        """  Corresponds to IDD Field `fmu_variable_name`
+        """  Corresponds to IDD Field `FMU Variable Name`
+        
+        {u'retaincase': u'', u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `fmu_variable_name`
+            value (str): value for IDD Field `FMU Variable Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1155,7 +1175,7 @@ class ExternalInterfaceFunctionalMockupUnitImportFromVariable(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `fmu_variable_name`'.format(value))
             if ',' in value:
@@ -1164,7 +1184,6 @@ class ExternalInterfaceFunctionalMockupUnitImportFromVariable(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `fmu_variable_name`')
-
         self._data["FMU Variable Name"] = value
 
     def check(self):
@@ -1285,10 +1304,12 @@ class ExternalInterfaceFunctionalMockupUnitImportToSchedule(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {u'type': u'alpha', u'reference': u'ExternalInterfaceScheduleNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1298,7 +1319,7 @@ class ExternalInterfaceFunctionalMockupUnitImportToSchedule(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -1307,7 +1328,6 @@ class ExternalInterfaceFunctionalMockupUnitImportToSchedule(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -1321,10 +1341,12 @@ class ExternalInterfaceFunctionalMockupUnitImportToSchedule(object):
 
     @schedule_type_limits_names.setter
     def schedule_type_limits_names(self, value=None):
-        """  Corresponds to IDD Field `schedule_type_limits_names`
+        """  Corresponds to IDD Field `Schedule Type Limits Names`
+        
+        {u'type': u'object-list', u'object-list': u'ScheduleTypeLimitsNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `schedule_type_limits_names`
+            value (str): value for IDD Field `Schedule Type Limits Names`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1334,7 +1356,7 @@ class ExternalInterfaceFunctionalMockupUnitImportToSchedule(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `schedule_type_limits_names`'.format(value))
             if ',' in value:
@@ -1343,7 +1365,6 @@ class ExternalInterfaceFunctionalMockupUnitImportToSchedule(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `schedule_type_limits_names`')
-
         self._data["Schedule Type Limits Names"] = value
 
     @property
@@ -1357,10 +1378,12 @@ class ExternalInterfaceFunctionalMockupUnitImportToSchedule(object):
 
     @fmu_file_name.setter
     def fmu_file_name(self, value=None):
-        """  Corresponds to IDD Field `fmu_file_name`
+        """  Corresponds to IDD Field `FMU File Name`
+        
+        {u'retaincase': u'', u'type': u'object-list', u'object-list': u'FMUFileName', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `fmu_file_name`
+            value (str): value for IDD Field `FMU File Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1370,7 +1393,7 @@ class ExternalInterfaceFunctionalMockupUnitImportToSchedule(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `fmu_file_name`'.format(value))
             if ',' in value:
@@ -1379,7 +1402,6 @@ class ExternalInterfaceFunctionalMockupUnitImportToSchedule(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `fmu_file_name`')
-
         self._data["FMU File Name"] = value
 
     @property
@@ -1393,10 +1415,12 @@ class ExternalInterfaceFunctionalMockupUnitImportToSchedule(object):
 
     @fmu_instance_name.setter
     def fmu_instance_name(self, value=None):
-        """  Corresponds to IDD Field `fmu_instance_name`
+        """  Corresponds to IDD Field `FMU Instance Name`
+        
+        {u'retaincase': u'', u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `fmu_instance_name`
+            value (str): value for IDD Field `FMU Instance Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1406,7 +1430,7 @@ class ExternalInterfaceFunctionalMockupUnitImportToSchedule(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `fmu_instance_name`'.format(value))
             if ',' in value:
@@ -1415,7 +1439,6 @@ class ExternalInterfaceFunctionalMockupUnitImportToSchedule(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `fmu_instance_name`')
-
         self._data["FMU Instance Name"] = value
 
     @property
@@ -1429,10 +1452,12 @@ class ExternalInterfaceFunctionalMockupUnitImportToSchedule(object):
 
     @fmu_variable_name.setter
     def fmu_variable_name(self, value=None):
-        """  Corresponds to IDD Field `fmu_variable_name`
+        """  Corresponds to IDD Field `FMU Variable Name`
+        
+        {u'retaincase': u'', u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `fmu_variable_name`
+            value (str): value for IDD Field `FMU Variable Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1442,7 +1467,7 @@ class ExternalInterfaceFunctionalMockupUnitImportToSchedule(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `fmu_variable_name`'.format(value))
             if ',' in value:
@@ -1451,7 +1476,6 @@ class ExternalInterfaceFunctionalMockupUnitImportToSchedule(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `fmu_variable_name`')
-
         self._data["FMU Variable Name"] = value
 
     @property
@@ -1465,11 +1489,13 @@ class ExternalInterfaceFunctionalMockupUnitImportToSchedule(object):
 
     @initial_value.setter
     def initial_value(self, value=None):
-        """  Corresponds to IDD Field `initial_value`
+        """  Corresponds to IDD Field `Initial Value`
         Used during the first call of EnergyPlus.
+        
+        {u'note': [u'Used during the first call of EnergyPlus.'], u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `initial_value`
+            value (float): value for IDD Field `Initial Value`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1479,10 +1505,9 @@ class ExternalInterfaceFunctionalMockupUnitImportToSchedule(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `initial_value`'.format(value))
-
         self._data["Initial Value"] = value
 
     def check(self):
@@ -1619,12 +1644,14 @@ class ExternalInterfaceFunctionalMockupUnitImportToActuator(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
         This name becomes a read-only variable for use in Erl programs
         no spaces allowed in name
+        
+        {u'note': [u'This name becomes a read-only variable for use in Erl programs', u'no spaces allowed in name'], u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1634,7 +1661,7 @@ class ExternalInterfaceFunctionalMockupUnitImportToActuator(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -1643,7 +1670,6 @@ class ExternalInterfaceFunctionalMockupUnitImportToActuator(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -1657,10 +1683,12 @@ class ExternalInterfaceFunctionalMockupUnitImportToActuator(object):
 
     @actuated_component_unique_name.setter
     def actuated_component_unique_name(self, value=None):
-        """  Corresponds to IDD Field `actuated_component_unique_name`
+        """  Corresponds to IDD Field `Actuated Component Unique Name`
+        
+        {u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `actuated_component_unique_name`
+            value (str): value for IDD Field `Actuated Component Unique Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1670,7 +1698,7 @@ class ExternalInterfaceFunctionalMockupUnitImportToActuator(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `actuated_component_unique_name`'.format(value))
             if ',' in value:
@@ -1679,7 +1707,6 @@ class ExternalInterfaceFunctionalMockupUnitImportToActuator(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `actuated_component_unique_name`')
-
         self._data["Actuated Component Unique Name"] = value
 
     @property
@@ -1693,10 +1720,12 @@ class ExternalInterfaceFunctionalMockupUnitImportToActuator(object):
 
     @actuated_component_type.setter
     def actuated_component_type(self, value=None):
-        """  Corresponds to IDD Field `actuated_component_type`
+        """  Corresponds to IDD Field `Actuated Component Type`
+        
+        {u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `actuated_component_type`
+            value (str): value for IDD Field `Actuated Component Type`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1706,7 +1735,7 @@ class ExternalInterfaceFunctionalMockupUnitImportToActuator(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `actuated_component_type`'.format(value))
             if ',' in value:
@@ -1715,7 +1744,6 @@ class ExternalInterfaceFunctionalMockupUnitImportToActuator(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `actuated_component_type`')
-
         self._data["Actuated Component Type"] = value
 
     @property
@@ -1729,10 +1757,12 @@ class ExternalInterfaceFunctionalMockupUnitImportToActuator(object):
 
     @actuated_component_control_type.setter
     def actuated_component_control_type(self, value=None):
-        """  Corresponds to IDD Field `actuated_component_control_type`
+        """  Corresponds to IDD Field `Actuated Component Control Type`
+        
+        {u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `actuated_component_control_type`
+            value (str): value for IDD Field `Actuated Component Control Type`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1742,7 +1772,7 @@ class ExternalInterfaceFunctionalMockupUnitImportToActuator(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `actuated_component_control_type`'.format(value))
             if ',' in value:
@@ -1751,7 +1781,6 @@ class ExternalInterfaceFunctionalMockupUnitImportToActuator(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `actuated_component_control_type`')
-
         self._data["Actuated Component Control Type"] = value
 
     @property
@@ -1765,10 +1794,12 @@ class ExternalInterfaceFunctionalMockupUnitImportToActuator(object):
 
     @fmu_file_name.setter
     def fmu_file_name(self, value=None):
-        """  Corresponds to IDD Field `fmu_file_name`
+        """  Corresponds to IDD Field `FMU File Name`
+        
+        {u'retaincase': u'', u'type': u'object-list', u'object-list': u'FMUFileName', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `fmu_file_name`
+            value (str): value for IDD Field `FMU File Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1778,7 +1809,7 @@ class ExternalInterfaceFunctionalMockupUnitImportToActuator(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `fmu_file_name`'.format(value))
             if ',' in value:
@@ -1787,7 +1818,6 @@ class ExternalInterfaceFunctionalMockupUnitImportToActuator(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `fmu_file_name`')
-
         self._data["FMU File Name"] = value
 
     @property
@@ -1801,10 +1831,12 @@ class ExternalInterfaceFunctionalMockupUnitImportToActuator(object):
 
     @fmu_instance_name.setter
     def fmu_instance_name(self, value=None):
-        """  Corresponds to IDD Field `fmu_instance_name`
+        """  Corresponds to IDD Field `FMU Instance Name`
+        
+        {u'retaincase': u'', u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `fmu_instance_name`
+            value (str): value for IDD Field `FMU Instance Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1814,7 +1846,7 @@ class ExternalInterfaceFunctionalMockupUnitImportToActuator(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `fmu_instance_name`'.format(value))
             if ',' in value:
@@ -1823,7 +1855,6 @@ class ExternalInterfaceFunctionalMockupUnitImportToActuator(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `fmu_instance_name`')
-
         self._data["FMU Instance Name"] = value
 
     @property
@@ -1837,10 +1868,12 @@ class ExternalInterfaceFunctionalMockupUnitImportToActuator(object):
 
     @fmu_variable_name.setter
     def fmu_variable_name(self, value=None):
-        """  Corresponds to IDD Field `fmu_variable_name`
+        """  Corresponds to IDD Field `FMU Variable Name`
+        
+        {u'retaincase': u'', u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `fmu_variable_name`
+            value (str): value for IDD Field `FMU Variable Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1850,7 +1883,7 @@ class ExternalInterfaceFunctionalMockupUnitImportToActuator(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `fmu_variable_name`'.format(value))
             if ',' in value:
@@ -1859,7 +1892,6 @@ class ExternalInterfaceFunctionalMockupUnitImportToActuator(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `fmu_variable_name`')
-
         self._data["FMU Variable Name"] = value
 
     @property
@@ -1873,11 +1905,13 @@ class ExternalInterfaceFunctionalMockupUnitImportToActuator(object):
 
     @initial_value.setter
     def initial_value(self, value=None):
-        """  Corresponds to IDD Field `initial_value`
+        """  Corresponds to IDD Field `Initial Value`
         Used during the first call of EnergyPlus.
+        
+        {u'note': [u'Used during the first call of EnergyPlus.'], u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `initial_value`
+            value (float): value for IDD Field `Initial Value`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1887,10 +1921,9 @@ class ExternalInterfaceFunctionalMockupUnitImportToActuator(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `initial_value`'.format(value))
-
         self._data["Initial Value"] = value
 
     def check(self):
@@ -2003,12 +2036,14 @@ class ExternalInterfaceFunctionalMockupUnitImportToVariable(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
         This name becomes a variable for use in Erl programs
         no spaces allowed in name
+        
+        {u'note': [u'This name becomes a variable for use in Erl programs', u'no spaces allowed in name'], u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2018,7 +2053,7 @@ class ExternalInterfaceFunctionalMockupUnitImportToVariable(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -2027,7 +2062,6 @@ class ExternalInterfaceFunctionalMockupUnitImportToVariable(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -2041,10 +2075,12 @@ class ExternalInterfaceFunctionalMockupUnitImportToVariable(object):
 
     @fmu_file_name.setter
     def fmu_file_name(self, value=None):
-        """  Corresponds to IDD Field `fmu_file_name`
+        """  Corresponds to IDD Field `FMU File Name`
+        
+        {u'retaincase': u'', u'type': u'object-list', u'object-list': u'FMUFileName', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `fmu_file_name`
+            value (str): value for IDD Field `FMU File Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2054,7 +2090,7 @@ class ExternalInterfaceFunctionalMockupUnitImportToVariable(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `fmu_file_name`'.format(value))
             if ',' in value:
@@ -2063,7 +2099,6 @@ class ExternalInterfaceFunctionalMockupUnitImportToVariable(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `fmu_file_name`')
-
         self._data["FMU File Name"] = value
 
     @property
@@ -2077,10 +2112,12 @@ class ExternalInterfaceFunctionalMockupUnitImportToVariable(object):
 
     @fmu_instance_name.setter
     def fmu_instance_name(self, value=None):
-        """  Corresponds to IDD Field `fmu_instance_name`
+        """  Corresponds to IDD Field `FMU Instance Name`
+        
+        {u'retaincase': u'', u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `fmu_instance_name`
+            value (str): value for IDD Field `FMU Instance Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2090,7 +2127,7 @@ class ExternalInterfaceFunctionalMockupUnitImportToVariable(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `fmu_instance_name`'.format(value))
             if ',' in value:
@@ -2099,7 +2136,6 @@ class ExternalInterfaceFunctionalMockupUnitImportToVariable(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `fmu_instance_name`')
-
         self._data["FMU Instance Name"] = value
 
     @property
@@ -2113,10 +2149,12 @@ class ExternalInterfaceFunctionalMockupUnitImportToVariable(object):
 
     @fmu_variable_name.setter
     def fmu_variable_name(self, value=None):
-        """  Corresponds to IDD Field `fmu_variable_name`
+        """  Corresponds to IDD Field `FMU Variable Name`
+        
+        {u'retaincase': u'', u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `fmu_variable_name`
+            value (str): value for IDD Field `FMU Variable Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2126,7 +2164,7 @@ class ExternalInterfaceFunctionalMockupUnitImportToVariable(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `fmu_variable_name`'.format(value))
             if ',' in value:
@@ -2135,7 +2173,6 @@ class ExternalInterfaceFunctionalMockupUnitImportToVariable(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `fmu_variable_name`')
-
         self._data["FMU Variable Name"] = value
 
     @property
@@ -2149,11 +2186,13 @@ class ExternalInterfaceFunctionalMockupUnitImportToVariable(object):
 
     @initial_value.setter
     def initial_value(self, value=None):
-        """  Corresponds to IDD Field `initial_value`
+        """  Corresponds to IDD Field `Initial Value`
         Used during the first call of EnergyPlus.
+        
+        {u'note': [u'Used during the first call of EnergyPlus.'], u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `initial_value`
+            value (float): value for IDD Field `Initial Value`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2163,10 +2202,9 @@ class ExternalInterfaceFunctionalMockupUnitImportToVariable(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `initial_value`'.format(value))
-
         self._data["Initial Value"] = value
 
     def check(self):
@@ -2262,10 +2300,12 @@ class ExternalInterfaceFunctionalMockupUnitExportFromVariable(object):
 
     @outputvariable_index_key_name.setter
     def outputvariable_index_key_name(self, value=None):
-        """  Corresponds to IDD Field `outputvariable_index_key_name`
+        """  Corresponds to IDD Field `Output:Variable Index Key Name`
+        
+        {u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `outputvariable_index_key_name`
+            value (str): value for IDD Field `Output:Variable Index Key Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2275,7 +2315,7 @@ class ExternalInterfaceFunctionalMockupUnitExportFromVariable(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `outputvariable_index_key_name`'.format(value))
             if ',' in value:
@@ -2284,7 +2324,6 @@ class ExternalInterfaceFunctionalMockupUnitExportFromVariable(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `outputvariable_index_key_name`')
-
         self._data["Output:Variable Index Key Name"] = value
 
     @property
@@ -2298,10 +2337,12 @@ class ExternalInterfaceFunctionalMockupUnitExportFromVariable(object):
 
     @outputvariable_name.setter
     def outputvariable_name(self, value=None):
-        """  Corresponds to IDD Field `outputvariable_name`
+        """  Corresponds to IDD Field `Output:Variable Name`
+        
+        {u'external-list': u'autoRDDvariable', u'type': u'external-list', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `outputvariable_name`
+            value (str): value for IDD Field `Output:Variable Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2311,7 +2352,7 @@ class ExternalInterfaceFunctionalMockupUnitExportFromVariable(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `outputvariable_name`'.format(value))
             if ',' in value:
@@ -2320,7 +2361,6 @@ class ExternalInterfaceFunctionalMockupUnitExportFromVariable(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `outputvariable_name`')
-
         self._data["Output:Variable Name"] = value
 
     @property
@@ -2334,10 +2374,12 @@ class ExternalInterfaceFunctionalMockupUnitExportFromVariable(object):
 
     @fmu_variable_name.setter
     def fmu_variable_name(self, value=None):
-        """  Corresponds to IDD Field `fmu_variable_name`
+        """  Corresponds to IDD Field `FMU Variable Name`
+        
+        {u'retaincase': u'', u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `fmu_variable_name`
+            value (str): value for IDD Field `FMU Variable Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2347,7 +2389,7 @@ class ExternalInterfaceFunctionalMockupUnitExportFromVariable(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `fmu_variable_name`'.format(value))
             if ',' in value:
@@ -2356,7 +2398,6 @@ class ExternalInterfaceFunctionalMockupUnitExportFromVariable(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `fmu_variable_name`')
-
         self._data["FMU Variable Name"] = value
 
     def check(self):
@@ -2461,10 +2502,12 @@ class ExternalInterfaceFunctionalMockupUnitExportToSchedule(object):
 
     @schedule_name.setter
     def schedule_name(self, value=None):
-        """  Corresponds to IDD Field `schedule_name`
+        """  Corresponds to IDD Field `Schedule Name`
+        
+        {u'type': u'alpha', u'reference': u'ExternalInterfaceScheduleNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `schedule_name`
+            value (str): value for IDD Field `Schedule Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2474,7 +2517,7 @@ class ExternalInterfaceFunctionalMockupUnitExportToSchedule(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `schedule_name`'.format(value))
             if ',' in value:
@@ -2483,7 +2526,6 @@ class ExternalInterfaceFunctionalMockupUnitExportToSchedule(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `schedule_name`')
-
         self._data["Schedule Name"] = value
 
     @property
@@ -2497,10 +2539,12 @@ class ExternalInterfaceFunctionalMockupUnitExportToSchedule(object):
 
     @schedule_type_limits_names.setter
     def schedule_type_limits_names(self, value=None):
-        """  Corresponds to IDD Field `schedule_type_limits_names`
+        """  Corresponds to IDD Field `Schedule Type Limits Names`
+        
+        {u'type': u'object-list', u'object-list': u'ScheduleTypeLimitsNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `schedule_type_limits_names`
+            value (str): value for IDD Field `Schedule Type Limits Names`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2510,7 +2554,7 @@ class ExternalInterfaceFunctionalMockupUnitExportToSchedule(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `schedule_type_limits_names`'.format(value))
             if ',' in value:
@@ -2519,7 +2563,6 @@ class ExternalInterfaceFunctionalMockupUnitExportToSchedule(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `schedule_type_limits_names`')
-
         self._data["Schedule Type Limits Names"] = value
 
     @property
@@ -2533,10 +2576,12 @@ class ExternalInterfaceFunctionalMockupUnitExportToSchedule(object):
 
     @fmu_variable_name.setter
     def fmu_variable_name(self, value=None):
-        """  Corresponds to IDD Field `fmu_variable_name`
+        """  Corresponds to IDD Field `FMU Variable Name`
+        
+        {u'retaincase': u'', u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `fmu_variable_name`
+            value (str): value for IDD Field `FMU Variable Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2546,7 +2591,7 @@ class ExternalInterfaceFunctionalMockupUnitExportToSchedule(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `fmu_variable_name`'.format(value))
             if ',' in value:
@@ -2555,7 +2600,6 @@ class ExternalInterfaceFunctionalMockupUnitExportToSchedule(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `fmu_variable_name`')
-
         self._data["FMU Variable Name"] = value
 
     @property
@@ -2569,11 +2613,13 @@ class ExternalInterfaceFunctionalMockupUnitExportToSchedule(object):
 
     @initial_value.setter
     def initial_value(self, value=None):
-        """  Corresponds to IDD Field `initial_value`
+        """  Corresponds to IDD Field `Initial Value`
         Used during the first call of EnergyPlus.
+        
+        {u'note': [u'Used during the first call of EnergyPlus.'], u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `initial_value`
+            value (float): value for IDD Field `Initial Value`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2583,10 +2629,9 @@ class ExternalInterfaceFunctionalMockupUnitExportToSchedule(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `initial_value`'.format(value))
-
         self._data["Initial Value"] = value
 
     def check(self):
@@ -2707,12 +2752,14 @@ class ExternalInterfaceFunctionalMockupUnitExportToActuator(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
         This name becomes a read-only variable for use in Erl programs
         no spaces allowed in name
+        
+        {u'note': [u'This name becomes a read-only variable for use in Erl programs', u'no spaces allowed in name'], u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2722,7 +2769,7 @@ class ExternalInterfaceFunctionalMockupUnitExportToActuator(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -2731,7 +2778,6 @@ class ExternalInterfaceFunctionalMockupUnitExportToActuator(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -2745,10 +2791,12 @@ class ExternalInterfaceFunctionalMockupUnitExportToActuator(object):
 
     @actuated_component_unique_name.setter
     def actuated_component_unique_name(self, value=None):
-        """  Corresponds to IDD Field `actuated_component_unique_name`
+        """  Corresponds to IDD Field `Actuated Component Unique Name`
+        
+        {u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `actuated_component_unique_name`
+            value (str): value for IDD Field `Actuated Component Unique Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2758,7 +2806,7 @@ class ExternalInterfaceFunctionalMockupUnitExportToActuator(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `actuated_component_unique_name`'.format(value))
             if ',' in value:
@@ -2767,7 +2815,6 @@ class ExternalInterfaceFunctionalMockupUnitExportToActuator(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `actuated_component_unique_name`')
-
         self._data["Actuated Component Unique Name"] = value
 
     @property
@@ -2781,10 +2828,12 @@ class ExternalInterfaceFunctionalMockupUnitExportToActuator(object):
 
     @actuated_component_type.setter
     def actuated_component_type(self, value=None):
-        """  Corresponds to IDD Field `actuated_component_type`
+        """  Corresponds to IDD Field `Actuated Component Type`
+        
+        {u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `actuated_component_type`
+            value (str): value for IDD Field `Actuated Component Type`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2794,7 +2843,7 @@ class ExternalInterfaceFunctionalMockupUnitExportToActuator(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `actuated_component_type`'.format(value))
             if ',' in value:
@@ -2803,7 +2852,6 @@ class ExternalInterfaceFunctionalMockupUnitExportToActuator(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `actuated_component_type`')
-
         self._data["Actuated Component Type"] = value
 
     @property
@@ -2817,10 +2865,12 @@ class ExternalInterfaceFunctionalMockupUnitExportToActuator(object):
 
     @actuated_component_control_type.setter
     def actuated_component_control_type(self, value=None):
-        """  Corresponds to IDD Field `actuated_component_control_type`
+        """  Corresponds to IDD Field `Actuated Component Control Type`
+        
+        {u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `actuated_component_control_type`
+            value (str): value for IDD Field `Actuated Component Control Type`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2830,7 +2880,7 @@ class ExternalInterfaceFunctionalMockupUnitExportToActuator(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `actuated_component_control_type`'.format(value))
             if ',' in value:
@@ -2839,7 +2889,6 @@ class ExternalInterfaceFunctionalMockupUnitExportToActuator(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `actuated_component_control_type`')
-
         self._data["Actuated Component Control Type"] = value
 
     @property
@@ -2853,10 +2902,12 @@ class ExternalInterfaceFunctionalMockupUnitExportToActuator(object):
 
     @fmu_variable_name.setter
     def fmu_variable_name(self, value=None):
-        """  Corresponds to IDD Field `fmu_variable_name`
+        """  Corresponds to IDD Field `FMU Variable Name`
+        
+        {u'retaincase': u'', u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `fmu_variable_name`
+            value (str): value for IDD Field `FMU Variable Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2866,7 +2917,7 @@ class ExternalInterfaceFunctionalMockupUnitExportToActuator(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `fmu_variable_name`'.format(value))
             if ',' in value:
@@ -2875,7 +2926,6 @@ class ExternalInterfaceFunctionalMockupUnitExportToActuator(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `fmu_variable_name`')
-
         self._data["FMU Variable Name"] = value
 
     @property
@@ -2889,11 +2939,13 @@ class ExternalInterfaceFunctionalMockupUnitExportToActuator(object):
 
     @initial_value.setter
     def initial_value(self, value=None):
-        """  Corresponds to IDD Field `initial_value`
+        """  Corresponds to IDD Field `Initial Value`
         Used during the first call of EnergyPlus.
+        
+        {u'note': [u'Used during the first call of EnergyPlus.'], u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `initial_value`
+            value (float): value for IDD Field `Initial Value`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2903,10 +2955,9 @@ class ExternalInterfaceFunctionalMockupUnitExportToActuator(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `initial_value`'.format(value))
-
         self._data["Initial Value"] = value
 
     def check(self):
@@ -3003,12 +3054,14 @@ class ExternalInterfaceFunctionalMockupUnitExportToVariable(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
         This name becomes a variable for use in Erl programs
         no spaces allowed in name
+        
+        {u'note': [u'This name becomes a variable for use in Erl programs', u'no spaces allowed in name'], u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3018,7 +3071,7 @@ class ExternalInterfaceFunctionalMockupUnitExportToVariable(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -3027,7 +3080,6 @@ class ExternalInterfaceFunctionalMockupUnitExportToVariable(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -3041,10 +3093,12 @@ class ExternalInterfaceFunctionalMockupUnitExportToVariable(object):
 
     @fmu_variable_name.setter
     def fmu_variable_name(self, value=None):
-        """  Corresponds to IDD Field `fmu_variable_name`
+        """  Corresponds to IDD Field `FMU Variable Name`
+        
+        {u'retaincase': u'', u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `fmu_variable_name`
+            value (str): value for IDD Field `FMU Variable Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3054,7 +3108,7 @@ class ExternalInterfaceFunctionalMockupUnitExportToVariable(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `fmu_variable_name`'.format(value))
             if ',' in value:
@@ -3063,7 +3117,6 @@ class ExternalInterfaceFunctionalMockupUnitExportToVariable(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `fmu_variable_name`')
-
         self._data["FMU Variable Name"] = value
 
     @property
@@ -3077,11 +3130,13 @@ class ExternalInterfaceFunctionalMockupUnitExportToVariable(object):
 
     @initial_value.setter
     def initial_value(self, value=None):
-        """  Corresponds to IDD Field `initial_value`
+        """  Corresponds to IDD Field `Initial Value`
         Used during the first call of EnergyPlus.
+        
+        {u'note': [u'Used during the first call of EnergyPlus.'], u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `initial_value`
+            value (float): value for IDD Field `Initial Value`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3091,10 +3146,9 @@ class ExternalInterfaceFunctionalMockupUnitExportToVariable(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `initial_value`'.format(value))
-
         self._data["Initial Value"] = value
 
     def check(self):

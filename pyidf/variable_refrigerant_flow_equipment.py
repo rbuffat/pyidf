@@ -685,11 +685,13 @@ class AirConditionerVariableRefrigerantFlow(object):
 
     @heat_pump_name.setter
     def heat_pump_name(self, value=None):
-        """  Corresponds to IDD Field `heat_pump_name`
+        """  Corresponds to IDD Field `Heat Pump Name`
         Enter a unique name for this variable refrigerant flow heat pump.
+        
+        {u'note': [u'Enter a unique name for this variable refrigerant flow heat pump.'], u'type': u'alpha', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `heat_pump_name`
+            value (str): value for IDD Field `Heat Pump Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -699,7 +701,7 @@ class AirConditionerVariableRefrigerantFlow(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `heat_pump_name`'.format(value))
             if ',' in value:
@@ -708,7 +710,6 @@ class AirConditionerVariableRefrigerantFlow(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `heat_pump_name`')
-
         self._data["Heat Pump Name"] = value
 
     @property
@@ -722,15 +723,17 @@ class AirConditionerVariableRefrigerantFlow(object):
 
     @availability_schedule_name.setter
     def availability_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `availability_schedule_name`
+        """  Corresponds to IDD Field `Availability Schedule Name`
         Availability schedule name for this system. Schedule value > 0 means the system is available.
         If this field is blank, the system is always available.
         Enter the name of a schedule that defines the availability of the unit.
         Schedule values of 0 denote the unit is off. All other values denote the unit is available.
         If this field is left blank, the unit is available the entire simulation.
+        
+        {u'note': [u'Availability schedule name for this system. Schedule value > 0 means the system is available.', u'If this field is blank, the system is always available.', u'Enter the name of a schedule that defines the availability of the unit.', u'Schedule values of 0 denote the unit is off. All other values denote the unit is available.', u'If this field is left blank, the unit is available the entire simulation.'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `availability_schedule_name`
+            value (str): value for IDD Field `Availability Schedule Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -740,7 +743,7 @@ class AirConditionerVariableRefrigerantFlow(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `availability_schedule_name`'.format(value))
             if ',' in value:
@@ -749,7 +752,6 @@ class AirConditionerVariableRefrigerantFlow(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `availability_schedule_name`')
-
         self._data["Availability Schedule Name"] = value
 
     @property
@@ -763,12 +765,14 @@ class AirConditionerVariableRefrigerantFlow(object):
 
     @gross_rated_total_cooling_capacity.setter
     def gross_rated_total_cooling_capacity(self, value=None):
-        """  Corresponds to IDD Field `gross_rated_total_cooling_capacity`
+        """  Corresponds to IDD Field `Gross Rated Total Cooling Capacity`
         Enter the total cooling capacity in watts at rated conditions or set to autosize.
         Total cooling capacity not accounting for the effect of supply air fan heat
+        
+        {'pytype': 'float', u'minimum>': '0.0', u'note': [u'Enter the total cooling capacity in watts at rated conditions or set to autosize.', u'Total cooling capacity not accounting for the effect of supply air fan heat'], u'autosizable': u'', u'units': u'W', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `gross_rated_total_cooling_capacity`
+            value (float): value for IDD Field `Gross Rated Total Cooling Capacity`
                 Units: W
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -780,13 +784,12 @@ class AirConditionerVariableRefrigerantFlow(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `gross_rated_total_cooling_capacity`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `gross_rated_total_cooling_capacity`')
-
         self._data["Gross Rated Total Cooling Capacity"] = value
 
     @property
@@ -800,13 +803,15 @@ class AirConditionerVariableRefrigerantFlow(object):
 
     @gross_rated_cooling_cop.setter
     def gross_rated_cooling_cop(self, value=3.3 ):
-        """  Corresponds to IDD Field `gross_rated_cooling_cop`
+        """  Corresponds to IDD Field `Gross Rated Cooling COP`
         Enter the coefficient of performance at rated conditions or leave blank to use default.
         COP includes compressor and condenser fan electrical energy input
         COP does not include supply fan heat or supply fan electric power input
+        
+        {'pytype': 'float', u'default': '3.3', u'minimum>': '0.0', u'note': [u'Enter the coefficient of performance at rated conditions or leave blank to use default.', u'COP includes compressor and condenser fan electrical energy input', u'COP does not include supply fan heat or supply fan electric power input'], u'units': u'W/W', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `gross_rated_cooling_cop`
+            value (float): value for IDD Field `Gross Rated Cooling COP`
                 Units: W/W
                 Default value: 3.3
                 value > 0.0
@@ -819,13 +824,12 @@ class AirConditionerVariableRefrigerantFlow(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `gross_rated_cooling_cop`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `gross_rated_cooling_cop`')
-
         self._data["Gross Rated Cooling COP"] = value
 
     @property
@@ -839,12 +843,14 @@ class AirConditionerVariableRefrigerantFlow(object):
 
     @minimum_outdoor_temperature_in_cooling_mode.setter
     def minimum_outdoor_temperature_in_cooling_mode(self, value=-6.0 ):
-        """  Corresponds to IDD Field `minimum_outdoor_temperature_in_cooling_mode`
+        """  Corresponds to IDD Field `Minimum Outdoor Temperature in Cooling Mode`
         Enter the minimum outdoor temperature allowed for cooling operation.
         Cooling is disabled below this temperature.
+        
+        {u'units': u'C', u'default': '-6.0', u'note': [u'Enter the minimum outdoor temperature allowed for cooling operation.', u'Cooling is disabled below this temperature.'], u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `minimum_outdoor_temperature_in_cooling_mode`
+            value (float): value for IDD Field `Minimum Outdoor Temperature in Cooling Mode`
                 Units: C
                 Default value: -6.0
                 if `value` is None it will not be checked against the
@@ -856,10 +862,9 @@ class AirConditionerVariableRefrigerantFlow(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `minimum_outdoor_temperature_in_cooling_mode`'.format(value))
-
         self._data["Minimum Outdoor Temperature in Cooling Mode"] = value
 
     @property
@@ -873,12 +878,14 @@ class AirConditionerVariableRefrigerantFlow(object):
 
     @maximum_outdoor_temperature_in_cooling_mode.setter
     def maximum_outdoor_temperature_in_cooling_mode(self, value=43.0 ):
-        """  Corresponds to IDD Field `maximum_outdoor_temperature_in_cooling_mode`
+        """  Corresponds to IDD Field `Maximum Outdoor Temperature in Cooling Mode`
         Enter the maximum outdoor temperature allowed for cooling operation.
         Cooling is disabled above this temperature.
+        
+        {u'units': u'C', u'default': '43.0', u'note': [u'Enter the maximum outdoor temperature allowed for cooling operation.', u'Cooling is disabled above this temperature.'], u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `maximum_outdoor_temperature_in_cooling_mode`
+            value (float): value for IDD Field `Maximum Outdoor Temperature in Cooling Mode`
                 Units: C
                 Default value: 43.0
                 if `value` is None it will not be checked against the
@@ -890,10 +897,9 @@ class AirConditionerVariableRefrigerantFlow(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `maximum_outdoor_temperature_in_cooling_mode`'.format(value))
-
         self._data["Maximum Outdoor Temperature in Cooling Mode"] = value
 
     @property
@@ -907,15 +913,17 @@ class AirConditionerVariableRefrigerantFlow(object):
 
     @cooling_capacity_ratio_modifier_function_of_low_temperature_curve_name.setter
     def cooling_capacity_ratio_modifier_function_of_low_temperature_curve_name(self, value=None):
-        """  Corresponds to IDD Field `cooling_capacity_ratio_modifier_function_of_low_temperature_curve_name`
+        """  Corresponds to IDD Field `Cooling Capacity Ratio Modifier Function of Low Temperature Curve Name`
         Table:TwoIndependentVariables object can also be used
         Enter a curve name that represents full load cooling capacity ratio as a
         function of outdoor dry-bulb temperature and indoor wet-bulb temperature.
         Up to two curves are allowed if the performance cannot be represented by a single curve.
         The following two fields are used if two curves are required.
+        
+        {u'note': [u'Table:TwoIndependentVariables object can also be used', u'Enter a curve name that represents full load cooling capacity ratio as a', u'function of outdoor dry-bulb temperature and indoor wet-bulb temperature.', u'Up to two curves are allowed if the performance cannot be represented by a single curve.', u'The following two fields are used if two curves are required.'], u'type': u'object-list', u'object-list': u'BiQuadraticCurves', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `cooling_capacity_ratio_modifier_function_of_low_temperature_curve_name`
+            value (str): value for IDD Field `Cooling Capacity Ratio Modifier Function of Low Temperature Curve Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -925,7 +933,7 @@ class AirConditionerVariableRefrigerantFlow(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `cooling_capacity_ratio_modifier_function_of_low_temperature_curve_name`'.format(value))
             if ',' in value:
@@ -934,7 +942,6 @@ class AirConditionerVariableRefrigerantFlow(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `cooling_capacity_ratio_modifier_function_of_low_temperature_curve_name`')
-
         self._data["Cooling Capacity Ratio Modifier Function of Low Temperature Curve Name"] = value
 
     @property
@@ -948,16 +955,18 @@ class AirConditionerVariableRefrigerantFlow(object):
 
     @cooling_capacity_ratio_boundary_curve_name.setter
     def cooling_capacity_ratio_boundary_curve_name(self, value=None):
-        """  Corresponds to IDD Field `cooling_capacity_ratio_boundary_curve_name`
+        """  Corresponds to IDD Field `Cooling Capacity Ratio Boundary Curve Name`
         Table:OneIndependentVariable object can also be used
         This curve object is used to allow separate low and high cooling capacity ratio
         performance curves. This curve represents a line passing through the points where
         performance changes. The curve calculates outdoor dry-bulb temperature given weighted
         average indoor wet-bulb temperature. If a single performance curve is used,
         leave this field blank.
+        
+        {u'note': [u'Table:OneIndependentVariable object can also be used', u'This curve object is used to allow separate low and high cooling capacity ratio', u'performance curves. This curve represents a line passing through the points where', u'performance changes. The curve calculates outdoor dry-bulb temperature given weighted', u'average indoor wet-bulb temperature. If a single performance curve is used,', u'leave this field blank.'], u'type': u'object-list', u'object-list': u'QuadraticCubicCurves', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `cooling_capacity_ratio_boundary_curve_name`
+            value (str): value for IDD Field `Cooling Capacity Ratio Boundary Curve Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -967,7 +976,7 @@ class AirConditionerVariableRefrigerantFlow(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `cooling_capacity_ratio_boundary_curve_name`'.format(value))
             if ',' in value:
@@ -976,7 +985,6 @@ class AirConditionerVariableRefrigerantFlow(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `cooling_capacity_ratio_boundary_curve_name`')
-
         self._data["Cooling Capacity Ratio Boundary Curve Name"] = value
 
     @property
@@ -990,16 +998,18 @@ class AirConditionerVariableRefrigerantFlow(object):
 
     @cooling_capacity_ratio_modifier_function_of_high_temperature_curve_name.setter
     def cooling_capacity_ratio_modifier_function_of_high_temperature_curve_name(self, value=None):
-        """  Corresponds to IDD Field `cooling_capacity_ratio_modifier_function_of_high_temperature_curve_name`
+        """  Corresponds to IDD Field `Cooling Capacity Ratio Modifier Function of High Temperature Curve Name`
         Table:TwoIndependentVariables object can also be used
         This curve object is used to describe the high outdoor temperature
         performance curve used to describe cooling capacity ratio.
         This curve is used when a single performance curve does not accurately describe
         cooling capacity ratio as a function of temperature.
         If a single performance curve is used, leave this field blank.
+        
+        {u'note': [u'Table:TwoIndependentVariables object can also be used', u'This curve object is used to describe the high outdoor temperature', u'performance curve used to describe cooling capacity ratio.', u'This curve is used when a single performance curve does not accurately describe', u'cooling capacity ratio as a function of temperature.', u'If a single performance curve is used, leave this field blank.'], u'type': u'object-list', u'object-list': u'BiQuadraticCurves', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `cooling_capacity_ratio_modifier_function_of_high_temperature_curve_name`
+            value (str): value for IDD Field `Cooling Capacity Ratio Modifier Function of High Temperature Curve Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1009,7 +1019,7 @@ class AirConditionerVariableRefrigerantFlow(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `cooling_capacity_ratio_modifier_function_of_high_temperature_curve_name`'.format(value))
             if ',' in value:
@@ -1018,7 +1028,6 @@ class AirConditionerVariableRefrigerantFlow(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `cooling_capacity_ratio_modifier_function_of_high_temperature_curve_name`')
-
         self._data["Cooling Capacity Ratio Modifier Function of High Temperature Curve Name"] = value
 
     @property
@@ -1032,13 +1041,15 @@ class AirConditionerVariableRefrigerantFlow(object):
 
     @cooling_energy_input_ratio_modifier_function_of_low_temperature_curve_name.setter
     def cooling_energy_input_ratio_modifier_function_of_low_temperature_curve_name(self, value=None):
-        """  Corresponds to IDD Field `cooling_energy_input_ratio_modifier_function_of_low_temperature_curve_name`
+        """  Corresponds to IDD Field `Cooling Energy Input Ratio Modifier Function of Low Temperature Curve Name`
         Table:TwoIndependentVariables object can also be used
         Enter a curve name that represents cooling energy ratio as a function of
         outdoor dry-bulb temperature and indoor wet-bulb temperature
+        
+        {u'note': [u'Table:TwoIndependentVariables object can also be used', u'Enter a curve name that represents cooling energy ratio as a function of', u'outdoor dry-bulb temperature and indoor wet-bulb temperature'], u'type': u'object-list', u'object-list': u'BiQuadraticCurves', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `cooling_energy_input_ratio_modifier_function_of_low_temperature_curve_name`
+            value (str): value for IDD Field `Cooling Energy Input Ratio Modifier Function of Low Temperature Curve Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1048,7 +1059,7 @@ class AirConditionerVariableRefrigerantFlow(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `cooling_energy_input_ratio_modifier_function_of_low_temperature_curve_name`'.format(value))
             if ',' in value:
@@ -1057,7 +1068,6 @@ class AirConditionerVariableRefrigerantFlow(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `cooling_energy_input_ratio_modifier_function_of_low_temperature_curve_name`')
-
         self._data["Cooling Energy Input Ratio Modifier Function of Low Temperature Curve Name"] = value
 
     @property
@@ -1071,16 +1081,18 @@ class AirConditionerVariableRefrigerantFlow(object):
 
     @cooling_energy_input_ratio_boundary_curve_name.setter
     def cooling_energy_input_ratio_boundary_curve_name(self, value=None):
-        """  Corresponds to IDD Field `cooling_energy_input_ratio_boundary_curve_name`
+        """  Corresponds to IDD Field `Cooling Energy Input Ratio Boundary Curve Name`
         Table:OneIndependentVariable object can also be used
         This curve object is used to allow separate low and high cooling energy input ratio
         performance curves. This curve represents a line passing through the points where
         performance changes. The curve calculates outdoor dry-bulb temperature given weighted
         average indoor wet-bulb temperature. If a single performance curve is used,
         leave this field blank.
+        
+        {u'note': [u'Table:OneIndependentVariable object can also be used', u'This curve object is used to allow separate low and high cooling energy input ratio', u'performance curves. This curve represents a line passing through the points where', u'performance changes. The curve calculates outdoor dry-bulb temperature given weighted', u'average indoor wet-bulb temperature. If a single performance curve is used,', u'leave this field blank.'], u'type': u'object-list', u'object-list': u'QuadraticCubicCurves', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `cooling_energy_input_ratio_boundary_curve_name`
+            value (str): value for IDD Field `Cooling Energy Input Ratio Boundary Curve Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1090,7 +1102,7 @@ class AirConditionerVariableRefrigerantFlow(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `cooling_energy_input_ratio_boundary_curve_name`'.format(value))
             if ',' in value:
@@ -1099,7 +1111,6 @@ class AirConditionerVariableRefrigerantFlow(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `cooling_energy_input_ratio_boundary_curve_name`')
-
         self._data["Cooling Energy Input Ratio Boundary Curve Name"] = value
 
     @property
@@ -1113,15 +1124,17 @@ class AirConditionerVariableRefrigerantFlow(object):
 
     @cooling_energy_input_ratio_modifier_function_of_high_temperature_curve_name.setter
     def cooling_energy_input_ratio_modifier_function_of_high_temperature_curve_name(self, value=None):
-        """  Corresponds to IDD Field `cooling_energy_input_ratio_modifier_function_of_high_temperature_curve_name`
+        """  Corresponds to IDD Field `Cooling Energy Input Ratio Modifier Function of High Temperature Curve Name`
         Table:TwoIndependentVariables object can also be used
         This curve object is used to describe the high outdoor temperature
         performance curve used to describe cooling energy ratio.
         This curve is used when a single performance curve does not accurately describe
         cooling energy ratio as a function of temperature
+        
+        {u'note': [u'Table:TwoIndependentVariables object can also be used', u'This curve object is used to describe the high outdoor temperature', u'performance curve used to describe cooling energy ratio.', u'This curve is used when a single performance curve does not accurately describe', u'cooling energy ratio as a function of temperature'], u'type': u'object-list', u'object-list': u'BiQuadraticCurves', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `cooling_energy_input_ratio_modifier_function_of_high_temperature_curve_name`
+            value (str): value for IDD Field `Cooling Energy Input Ratio Modifier Function of High Temperature Curve Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1131,7 +1144,7 @@ class AirConditionerVariableRefrigerantFlow(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `cooling_energy_input_ratio_modifier_function_of_high_temperature_curve_name`'.format(value))
             if ',' in value:
@@ -1140,7 +1153,6 @@ class AirConditionerVariableRefrigerantFlow(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `cooling_energy_input_ratio_modifier_function_of_high_temperature_curve_name`')
-
         self._data["Cooling Energy Input Ratio Modifier Function of High Temperature Curve Name"] = value
 
     @property
@@ -1154,15 +1166,17 @@ class AirConditionerVariableRefrigerantFlow(object):
 
     @cooling_energy_input_ratio_modifier_function_of_low_partload_ratio_curve_name.setter
     def cooling_energy_input_ratio_modifier_function_of_low_partload_ratio_curve_name(self, value=None):
-        """  Corresponds to IDD Field `cooling_energy_input_ratio_modifier_function_of_low_partload_ratio_curve_name`
+        """  Corresponds to IDD Field `Cooling Energy Input Ratio Modifier Function of Low Part-Load Ratio Curve Name`
         Table:OneIndependentVariable object can also be used
         Enter a curve name that represents cooling energy ratio as a function of
         part-load ratio for part-load ratios less than or equal to 1.
         If this field is left blank, the model assumes energy is proportional to
         part-load ratio.
+        
+        {u'note': [u'Table:OneIndependentVariable object can also be used', u'Enter a curve name that represents cooling energy ratio as a function of', u'part-load ratio for part-load ratios less than or equal to 1.', u'If this field is left blank, the model assumes energy is proportional to', u'part-load ratio.'], u'type': u'object-list', u'object-list': u'QuadraticCubicCurves', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `cooling_energy_input_ratio_modifier_function_of_low_partload_ratio_curve_name`
+            value (str): value for IDD Field `Cooling Energy Input Ratio Modifier Function of Low Part-Load Ratio Curve Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1172,7 +1186,7 @@ class AirConditionerVariableRefrigerantFlow(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `cooling_energy_input_ratio_modifier_function_of_low_partload_ratio_curve_name`'.format(value))
             if ',' in value:
@@ -1181,7 +1195,6 @@ class AirConditionerVariableRefrigerantFlow(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `cooling_energy_input_ratio_modifier_function_of_low_partload_ratio_curve_name`')
-
         self._data["Cooling Energy Input Ratio Modifier Function of Low Part-Load Ratio Curve Name"] = value
 
     @property
@@ -1195,16 +1208,18 @@ class AirConditionerVariableRefrigerantFlow(object):
 
     @cooling_energy_input_ratio_modifier_function_of_high_partload_ratio_curve_name.setter
     def cooling_energy_input_ratio_modifier_function_of_high_partload_ratio_curve_name(self, value=None):
-        """  Corresponds to IDD Field `cooling_energy_input_ratio_modifier_function_of_high_partload_ratio_curve_name`
+        """  Corresponds to IDD Field `Cooling Energy Input Ratio Modifier Function of High Part-Load Ratio Curve Name`
         Table:OneIndependentVariable object can also be used
         Enter a curve name that represents cooling energy ratio as a function of
         part-load ratio for part-load ratios greater than 1. Part-load ratios
         can exceed 1 in variable speed compresson systems.
         If this field is left blank, the model assumes energy is proportional to
         part-load ratio.
+        
+        {u'note': [u'Table:OneIndependentVariable object can also be used', u'Enter a curve name that represents cooling energy ratio as a function of', u'part-load ratio for part-load ratios greater than 1. Part-load ratios', u'can exceed 1 in variable speed compresson systems.', u'If this field is left blank, the model assumes energy is proportional to', u'part-load ratio.'], u'type': u'object-list', u'object-list': u'QuadraticCubicCurves', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `cooling_energy_input_ratio_modifier_function_of_high_partload_ratio_curve_name`
+            value (str): value for IDD Field `Cooling Energy Input Ratio Modifier Function of High Part-Load Ratio Curve Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1214,7 +1229,7 @@ class AirConditionerVariableRefrigerantFlow(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `cooling_energy_input_ratio_modifier_function_of_high_partload_ratio_curve_name`'.format(value))
             if ',' in value:
@@ -1223,7 +1238,6 @@ class AirConditionerVariableRefrigerantFlow(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `cooling_energy_input_ratio_modifier_function_of_high_partload_ratio_curve_name`')
-
         self._data["Cooling Energy Input Ratio Modifier Function of High Part-Load Ratio Curve Name"] = value
 
     @property
@@ -1237,15 +1251,17 @@ class AirConditionerVariableRefrigerantFlow(object):
 
     @cooling_combination_ratio_correction_factor_curve_name.setter
     def cooling_combination_ratio_correction_factor_curve_name(self, value=None):
-        """  Corresponds to IDD Field `cooling_combination_ratio_correction_factor_curve_name`
+        """  Corresponds to IDD Field `Cooling Combination Ratio Correction Factor Curve Name`
         Table:OneIndependentVariable object can also be used
         This curve defines how rated capacity changes when the total indoor terminal unit cooling
         capacity is greater than the Gross Rated Total Cooling Capacity defined in this object.
         If this field is left blank, the model assumes total indoor terminal unit cooling
         capacity is equal to the Gross Rated Total Cooling Capacity defined above.
+        
+        {u'note': [u'Table:OneIndependentVariable object can also be used', u'This curve defines how rated capacity changes when the total indoor terminal unit cooling', u'capacity is greater than the Gross Rated Total Cooling Capacity defined in this object.', u'If this field is left blank, the model assumes total indoor terminal unit cooling', u'capacity is equal to the Gross Rated Total Cooling Capacity defined above.'], u'type': u'object-list', u'object-list': u'QuadraticCubicCurves', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `cooling_combination_ratio_correction_factor_curve_name`
+            value (str): value for IDD Field `Cooling Combination Ratio Correction Factor Curve Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1255,7 +1271,7 @@ class AirConditionerVariableRefrigerantFlow(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `cooling_combination_ratio_correction_factor_curve_name`'.format(value))
             if ',' in value:
@@ -1264,7 +1280,6 @@ class AirConditionerVariableRefrigerantFlow(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `cooling_combination_ratio_correction_factor_curve_name`')
-
         self._data["Cooling Combination Ratio Correction Factor Curve Name"] = value
 
     @property
@@ -1278,13 +1293,15 @@ class AirConditionerVariableRefrigerantFlow(object):
 
     @cooling_partload_fraction_correlation_curve_name.setter
     def cooling_partload_fraction_correlation_curve_name(self, value=None):
-        """  Corresponds to IDD Field `cooling_partload_fraction_correlation_curve_name`
+        """  Corresponds to IDD Field `Cooling Part-Load Fraction Correlation Curve Name`
         Table:OneIndependentVariable object can also be used
         This curve defines the cycling losses when the heat pump compressor cycles on and off
         below the Minimum Heat Pump Part-Load Ratio specified in the field below.
+        
+        {u'note': [u'Table:OneIndependentVariable object can also be used', u'This curve defines the cycling losses when the heat pump compressor cycles on and off', u'below the Minimum Heat Pump Part-Load Ratio specified in the field below.'], u'type': u'object-list', u'object-list': u'QuadraticCubicCurves', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `cooling_partload_fraction_correlation_curve_name`
+            value (str): value for IDD Field `Cooling Part-Load Fraction Correlation Curve Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1294,7 +1311,7 @@ class AirConditionerVariableRefrigerantFlow(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `cooling_partload_fraction_correlation_curve_name`'.format(value))
             if ',' in value:
@@ -1303,7 +1320,6 @@ class AirConditionerVariableRefrigerantFlow(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `cooling_partload_fraction_correlation_curve_name`')
-
         self._data["Cooling Part-Load Fraction Correlation Curve Name"] = value
 
     @property
@@ -1317,12 +1333,14 @@ class AirConditionerVariableRefrigerantFlow(object):
 
     @gross_rated_heating_capacity.setter
     def gross_rated_heating_capacity(self, value=None):
-        """  Corresponds to IDD Field `gross_rated_heating_capacity`
+        """  Corresponds to IDD Field `Gross Rated Heating Capacity`
         Enter the heating capacity in watts at rated conditions or set to autosize.
         Heating capacity not accounting for the effect of supply air fan heat
+        
+        {u'units': u'W', u'note': [u'Enter the heating capacity in watts at rated conditions or set to autosize.', u'Heating capacity not accounting for the effect of supply air fan heat'], u'autosizable': u'', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `gross_rated_heating_capacity`
+            value (float): value for IDD Field `Gross Rated Heating Capacity`
                 Units: W
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1333,10 +1351,9 @@ class AirConditionerVariableRefrigerantFlow(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `gross_rated_heating_capacity`'.format(value))
-
         self._data["Gross Rated Heating Capacity"] = value
 
     @property
@@ -1350,14 +1367,16 @@ class AirConditionerVariableRefrigerantFlow(object):
 
     @rated_heating_capacity_sizing_ratio.setter
     def rated_heating_capacity_sizing_ratio(self, value=1.0 ):
-        """  Corresponds to IDD Field `rated_heating_capacity_sizing_ratio`
+        """  Corresponds to IDD Field `Rated Heating Capacity Sizing Ratio`
         If the Gross Rated Heating Capacity is autosized, the heating capacity is sized
         to be equal to the cooling capacity multiplied by this sizing ratio. The zone
         terminal unit heating coils are also sized using this ratio unless the sizing
         ratio input in the ZoneHVAC:TerminalUnit:VariableRefrigerantFlow object is entered.
+        
+        {'pytype': 'float', u'default': '1.0', u'note': [u'If the Gross Rated Heating Capacity is autosized, the heating capacity is sized', u'to be equal to the cooling capacity multiplied by this sizing ratio. The zone', u'terminal unit heating coils are also sized using this ratio unless the sizing', u'ratio input in the ZoneHVAC:TerminalUnit:VariableRefrigerantFlow object is entered.'], u'minimum': '1.0', u'units': u'W/W', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `rated_heating_capacity_sizing_ratio`
+            value (float): value for IDD Field `Rated Heating Capacity Sizing Ratio`
                 Units: W/W
                 Default value: 1.0
                 value >= 1.0
@@ -1370,13 +1389,12 @@ class AirConditionerVariableRefrigerantFlow(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `rated_heating_capacity_sizing_ratio`'.format(value))
             if value < 1.0:
                 raise ValueError('value need to be greater or equal 1.0 '
                                  'for field `rated_heating_capacity_sizing_ratio`')
-
         self._data["Rated Heating Capacity Sizing Ratio"] = value
 
     @property
@@ -1390,12 +1408,14 @@ class AirConditionerVariableRefrigerantFlow(object):
 
     @gross_rated_heating_cop.setter
     def gross_rated_heating_cop(self, value=3.4 ):
-        """  Corresponds to IDD Field `gross_rated_heating_cop`
+        """  Corresponds to IDD Field `Gross Rated Heating COP`
         COP includes compressor and condenser fan electrical energy input
         COP does not include supply fan heat or supply fan electrical energy input
+        
+        {u'units': u'W/W', u'note': [u'COP includes compressor and condenser fan electrical energy input', u'COP does not include supply fan heat or supply fan electrical energy input'], u'default': '3.4', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `gross_rated_heating_cop`
+            value (float): value for IDD Field `Gross Rated Heating COP`
                 Units: W/W
                 Default value: 3.4
                 if `value` is None it will not be checked against the
@@ -1407,10 +1427,9 @@ class AirConditionerVariableRefrigerantFlow(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `gross_rated_heating_cop`'.format(value))
-
         self._data["Gross Rated Heating COP"] = value
 
     @property
@@ -1424,11 +1443,13 @@ class AirConditionerVariableRefrigerantFlow(object):
 
     @minimum_outdoor_temperature_in_heating_mode.setter
     def minimum_outdoor_temperature_in_heating_mode(self, value=-20.0 ):
-        """  Corresponds to IDD Field `minimum_outdoor_temperature_in_heating_mode`
+        """  Corresponds to IDD Field `Minimum Outdoor Temperature in Heating Mode`
         Enter the minimum outdoor temperature allowed for cooling operation.
+        
+        {u'units': u'C', u'default': '-20.0', u'note': [u'Enter the minimum outdoor temperature allowed for cooling operation.'], u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `minimum_outdoor_temperature_in_heating_mode`
+            value (float): value for IDD Field `Minimum Outdoor Temperature in Heating Mode`
                 Units: C
                 Default value: -20.0
                 if `value` is None it will not be checked against the
@@ -1440,10 +1461,9 @@ class AirConditionerVariableRefrigerantFlow(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `minimum_outdoor_temperature_in_heating_mode`'.format(value))
-
         self._data["Minimum Outdoor Temperature in Heating Mode"] = value
 
     @property
@@ -1457,11 +1477,13 @@ class AirConditionerVariableRefrigerantFlow(object):
 
     @maximum_outdoor_temperature_in_heating_mode.setter
     def maximum_outdoor_temperature_in_heating_mode(self, value=16.0 ):
-        """  Corresponds to IDD Field `maximum_outdoor_temperature_in_heating_mode`
+        """  Corresponds to IDD Field `Maximum Outdoor Temperature in Heating Mode`
         Enter the maximum outdoor temperature allowed for heating operation.
+        
+        {u'units': u'C', u'default': '16.0', u'note': [u'Enter the maximum outdoor temperature allowed for heating operation.'], u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `maximum_outdoor_temperature_in_heating_mode`
+            value (float): value for IDD Field `Maximum Outdoor Temperature in Heating Mode`
                 Units: C
                 Default value: 16.0
                 if `value` is None it will not be checked against the
@@ -1473,10 +1495,9 @@ class AirConditionerVariableRefrigerantFlow(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `maximum_outdoor_temperature_in_heating_mode`'.format(value))
-
         self._data["Maximum Outdoor Temperature in Heating Mode"] = value
 
     @property
@@ -1490,7 +1511,7 @@ class AirConditionerVariableRefrigerantFlow(object):
 
     @heating_capacity_ratio_modifier_function_of_low_temperature_curve_name.setter
     def heating_capacity_ratio_modifier_function_of_low_temperature_curve_name(self, value=None):
-        """  Corresponds to IDD Field `heating_capacity_ratio_modifier_function_of_low_temperature_curve_name`
+        """  Corresponds to IDD Field `Heating Capacity Ratio Modifier Function of Low Temperature Curve Name`
         Table:TwoIndependentVariables object can also be used
         Enter a curve name that represents full load heating capacity ratio as a
         function of outdoor wet-bulb temperature and indoor dry-bulb temperature.
@@ -1499,9 +1520,11 @@ class AirConditionerVariableRefrigerantFlow(object):
         outdoor temperature type to use.
         Up to two curves are allowed if the performance cannot be represented by a single curve.
         The following two fields are used if two curves are required.
+        
+        {u'note': [u'Table:TwoIndependentVariables object can also be used', u'Enter a curve name that represents full load heating capacity ratio as a', u'function of outdoor wet-bulb temperature and indoor dry-bulb temperature.', u'Outdoor dry-bulb temperature may be used if wet-bulb temperature data is unavailable.', u'See Heating Performance Curve Outdoor Temperature Type input below to determine which', u'outdoor temperature type to use.', u'Up to two curves are allowed if the performance cannot be represented by a single curve.', u'The following two fields are used if two curves are required.'], u'type': u'object-list', u'object-list': u'BiQuadraticCurves', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `heating_capacity_ratio_modifier_function_of_low_temperature_curve_name`
+            value (str): value for IDD Field `Heating Capacity Ratio Modifier Function of Low Temperature Curve Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1511,7 +1534,7 @@ class AirConditionerVariableRefrigerantFlow(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `heating_capacity_ratio_modifier_function_of_low_temperature_curve_name`'.format(value))
             if ',' in value:
@@ -1520,7 +1543,6 @@ class AirConditionerVariableRefrigerantFlow(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `heating_capacity_ratio_modifier_function_of_low_temperature_curve_name`')
-
         self._data["Heating Capacity Ratio Modifier Function of Low Temperature Curve Name"] = value
 
     @property
@@ -1534,7 +1556,7 @@ class AirConditionerVariableRefrigerantFlow(object):
 
     @heating_capacity_ratio_boundary_curve_name.setter
     def heating_capacity_ratio_boundary_curve_name(self, value=None):
-        """  Corresponds to IDD Field `heating_capacity_ratio_boundary_curve_name`
+        """  Corresponds to IDD Field `Heating Capacity Ratio Boundary Curve Name`
         Table:OneIndependentVariable object can also be used
         This curve object is used to allow separate low and high heating capacity ratio
         performance curves. This curve represents a line passing through the points where
@@ -1542,9 +1564,11 @@ class AirConditionerVariableRefrigerantFlow(object):
         given weighted average indoor dry-bulb temperature. See Heating Performance Curve
         Outdoor Temperature Type input below to determine which outdoor temperature type to use.
         If a single performance curve is used, leave this field blank.
+        
+        {u'note': [u'Table:OneIndependentVariable object can also be used', u'This curve object is used to allow separate low and high heating capacity ratio', u'performance curves. This curve represents a line passing through the points where', u'performance changes. The curve calculates outdoor dry-bulb or wet-bulb temperature', u'given weighted average indoor dry-bulb temperature. See Heating Performance Curve', u'Outdoor Temperature Type input below to determine which outdoor temperature type to use.', u'If a single performance curve is used, leave this field blank.'], u'type': u'object-list', u'object-list': u'QuadraticCubicCurves', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `heating_capacity_ratio_boundary_curve_name`
+            value (str): value for IDD Field `Heating Capacity Ratio Boundary Curve Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1554,7 +1578,7 @@ class AirConditionerVariableRefrigerantFlow(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `heating_capacity_ratio_boundary_curve_name`'.format(value))
             if ',' in value:
@@ -1563,7 +1587,6 @@ class AirConditionerVariableRefrigerantFlow(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `heating_capacity_ratio_boundary_curve_name`')
-
         self._data["Heating Capacity Ratio Boundary Curve Name"] = value
 
     @property
@@ -1577,16 +1600,18 @@ class AirConditionerVariableRefrigerantFlow(object):
 
     @heating_capacity_ratio_modifier_function_of_high_temperature_curve_name.setter
     def heating_capacity_ratio_modifier_function_of_high_temperature_curve_name(self, value=None):
-        """  Corresponds to IDD Field `heating_capacity_ratio_modifier_function_of_high_temperature_curve_name`
+        """  Corresponds to IDD Field `Heating Capacity Ratio Modifier Function of High Temperature Curve Name`
         Table:TwoIndependentVariables object can also be used
         This curve object is used to describe the high outdoor temperature
         performance curve used to describe heating capacity ratio.
         This curve is used when a single performance curve does not accurately describe
         heating capacity ratio as a function of temperature.
         If a single performance curve is used, leave this field blank.
+        
+        {u'note': [u'Table:TwoIndependentVariables object can also be used', u'This curve object is used to describe the high outdoor temperature', u'performance curve used to describe heating capacity ratio.', u'This curve is used when a single performance curve does not accurately describe', u'heating capacity ratio as a function of temperature.', u'If a single performance curve is used, leave this field blank.'], u'type': u'object-list', u'object-list': u'BiQuadraticCurves', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `heating_capacity_ratio_modifier_function_of_high_temperature_curve_name`
+            value (str): value for IDD Field `Heating Capacity Ratio Modifier Function of High Temperature Curve Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1596,7 +1621,7 @@ class AirConditionerVariableRefrigerantFlow(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `heating_capacity_ratio_modifier_function_of_high_temperature_curve_name`'.format(value))
             if ',' in value:
@@ -1605,7 +1630,6 @@ class AirConditionerVariableRefrigerantFlow(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `heating_capacity_ratio_modifier_function_of_high_temperature_curve_name`')
-
         self._data["Heating Capacity Ratio Modifier Function of High Temperature Curve Name"] = value
 
     @property
@@ -1619,16 +1643,18 @@ class AirConditionerVariableRefrigerantFlow(object):
 
     @heating_energy_input_ratio_modifier_function_of_low_temperature_curve_name.setter
     def heating_energy_input_ratio_modifier_function_of_low_temperature_curve_name(self, value=None):
-        """  Corresponds to IDD Field `heating_energy_input_ratio_modifier_function_of_low_temperature_curve_name`
+        """  Corresponds to IDD Field `Heating Energy Input Ratio Modifier Function of Low Temperature Curve Name`
         Table:TwoIndependentVariables object can also be used
         Enter a curve name that represents heating energy ratio as a function of
         outdoor wet-bulb temperature and indoor dry-bulb temperature
         Outdoor dry-bulb temperature may be used if wet-bulb temperature data is unavailable.
         See Heating Performance Curve Outdoor Temperature Type input below to determine which
         outdoor temperature type to use.
+        
+        {u'note': [u'Table:TwoIndependentVariables object can also be used', u'Enter a curve name that represents heating energy ratio as a function of', u'outdoor wet-bulb temperature and indoor dry-bulb temperature', u'Outdoor dry-bulb temperature may be used if wet-bulb temperature data is unavailable.', u'See Heating Performance Curve Outdoor Temperature Type input below to determine which', u'outdoor temperature type to use.'], u'type': u'object-list', u'object-list': u'BiQuadraticCurves', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `heating_energy_input_ratio_modifier_function_of_low_temperature_curve_name`
+            value (str): value for IDD Field `Heating Energy Input Ratio Modifier Function of Low Temperature Curve Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1638,7 +1664,7 @@ class AirConditionerVariableRefrigerantFlow(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `heating_energy_input_ratio_modifier_function_of_low_temperature_curve_name`'.format(value))
             if ',' in value:
@@ -1647,7 +1673,6 @@ class AirConditionerVariableRefrigerantFlow(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `heating_energy_input_ratio_modifier_function_of_low_temperature_curve_name`')
-
         self._data["Heating Energy Input Ratio Modifier Function of Low Temperature Curve Name"] = value
 
     @property
@@ -1661,7 +1686,7 @@ class AirConditionerVariableRefrigerantFlow(object):
 
     @heating_energy_input_ratio_boundary_curve_name.setter
     def heating_energy_input_ratio_boundary_curve_name(self, value=None):
-        """  Corresponds to IDD Field `heating_energy_input_ratio_boundary_curve_name`
+        """  Corresponds to IDD Field `Heating Energy Input Ratio Boundary Curve Name`
         Table:OneIndependentVariable object can also be used
         This curve object is used to allow separate low and high heating energy input ratio
         performance curves. This curve represents a line passing through the points where
@@ -1669,9 +1694,11 @@ class AirConditionerVariableRefrigerantFlow(object):
         given weighted average indoor dry-bulb temperature. See Heating Performance Curve
         Outdoor Temperature Type input below to determine which outdoor temperature type to use.
         If a single performance curve is used, leave this field blank.
+        
+        {u'note': [u'Table:OneIndependentVariable object can also be used', u'This curve object is used to allow separate low and high heating energy input ratio', u'performance curves. This curve represents a line passing through the points where', u'performance changes. The curve calculates outdoor dry-bulb or wet-bulb temperature', u'given weighted average indoor dry-bulb temperature. See Heating Performance Curve', u'Outdoor Temperature Type input below to determine which outdoor temperature type to use.', u'If a single performance curve is used, leave this field blank.'], u'type': u'object-list', u'object-list': u'QuadraticCubicCurves', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `heating_energy_input_ratio_boundary_curve_name`
+            value (str): value for IDD Field `Heating Energy Input Ratio Boundary Curve Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1681,7 +1708,7 @@ class AirConditionerVariableRefrigerantFlow(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `heating_energy_input_ratio_boundary_curve_name`'.format(value))
             if ',' in value:
@@ -1690,7 +1717,6 @@ class AirConditionerVariableRefrigerantFlow(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `heating_energy_input_ratio_boundary_curve_name`')
-
         self._data["Heating Energy Input Ratio Boundary Curve Name"] = value
 
     @property
@@ -1704,13 +1730,15 @@ class AirConditionerVariableRefrigerantFlow(object):
 
     @heating_energy_input_ratio_modifier_function_of_high_temperature_curve_name.setter
     def heating_energy_input_ratio_modifier_function_of_high_temperature_curve_name(self, value=None):
-        """  Corresponds to IDD Field `heating_energy_input_ratio_modifier_function_of_high_temperature_curve_name`
+        """  Corresponds to IDD Field `Heating Energy Input Ratio Modifier Function of High Temperature Curve Name`
         Table:TwoIndependentVariables object can also be used
         This curve object is used to allow separate performance curves for heating energy.
         If a single performance curve is used, leave this field blank.
+        
+        {u'note': [u'Table:TwoIndependentVariables object can also be used', u'This curve object is used to allow separate performance curves for heating energy.', u'If a single performance curve is used, leave this field blank.'], u'type': u'object-list', u'object-list': u'BiQuadraticCurves', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `heating_energy_input_ratio_modifier_function_of_high_temperature_curve_name`
+            value (str): value for IDD Field `Heating Energy Input Ratio Modifier Function of High Temperature Curve Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1720,7 +1748,7 @@ class AirConditionerVariableRefrigerantFlow(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `heating_energy_input_ratio_modifier_function_of_high_temperature_curve_name`'.format(value))
             if ',' in value:
@@ -1729,7 +1757,6 @@ class AirConditionerVariableRefrigerantFlow(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `heating_energy_input_ratio_modifier_function_of_high_temperature_curve_name`')
-
         self._data["Heating Energy Input Ratio Modifier Function of High Temperature Curve Name"] = value
 
     @property
@@ -1743,13 +1770,15 @@ class AirConditionerVariableRefrigerantFlow(object):
 
     @heating_performance_curve_outdoor_temperature_type.setter
     def heating_performance_curve_outdoor_temperature_type(self, value="WetBulbTemperature"):
-        """  Corresponds to IDD Field `heating_performance_curve_outdoor_temperature_type`
+        """  Corresponds to IDD Field `Heating Performance Curve Outdoor Temperature Type`
         Determines temperature type for heating capacity curves and heating energy curves.
         This input determines whether the outdoor air dry-bulb or wet-bulb temperature
         is used to evaluate these curves.
+        
+        {u'default': u'WetBulbTemperature', u'note': [u'Determines temperature type for heating capacity curves and heating energy curves.', u'This input determines whether the outdoor air dry-bulb or wet-bulb temperature', u'is used to evaluate these curves.'], u'type': u'choice', u'key': [u'DryBulbTemperature', u'WetBulbTemperature'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `heating_performance_curve_outdoor_temperature_type`
+            value (str): value for IDD Field `Heating Performance Curve Outdoor Temperature Type`
                 Accepted values are:
                       - DryBulbTemperature
                       - WetBulbTemperature
@@ -1763,7 +1792,7 @@ class AirConditionerVariableRefrigerantFlow(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `heating_performance_curve_outdoor_temperature_type`'.format(value))
             if ',' in value:
@@ -1789,7 +1818,6 @@ class AirConditionerVariableRefrigerantFlow(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `heating_performance_curve_outdoor_temperature_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Heating Performance Curve Outdoor Temperature Type"] = value
 
     @property
@@ -1803,12 +1831,14 @@ class AirConditionerVariableRefrigerantFlow(object):
 
     @heating_energy_input_ratio_modifier_function_of_low_partload_ratio_curve_name.setter
     def heating_energy_input_ratio_modifier_function_of_low_partload_ratio_curve_name(self, value=None):
-        """  Corresponds to IDD Field `heating_energy_input_ratio_modifier_function_of_low_partload_ratio_curve_name`
+        """  Corresponds to IDD Field `Heating Energy Input Ratio Modifier Function of Low Part-Load Ratio Curve Name`
         Table:OneIndependentVariable object can also be used
         This curve represents the heating energy input ratio for part-load ratios less than 1.
+        
+        {u'note': [u'Table:OneIndependentVariable object can also be used', u'This curve represents the heating energy input ratio for part-load ratios less than 1.'], u'type': u'object-list', u'object-list': u'QuadraticCubicCurves', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `heating_energy_input_ratio_modifier_function_of_low_partload_ratio_curve_name`
+            value (str): value for IDD Field `Heating Energy Input Ratio Modifier Function of Low Part-Load Ratio Curve Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1818,7 +1848,7 @@ class AirConditionerVariableRefrigerantFlow(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `heating_energy_input_ratio_modifier_function_of_low_partload_ratio_curve_name`'.format(value))
             if ',' in value:
@@ -1827,7 +1857,6 @@ class AirConditionerVariableRefrigerantFlow(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `heating_energy_input_ratio_modifier_function_of_low_partload_ratio_curve_name`')
-
         self._data["Heating Energy Input Ratio Modifier Function of Low Part-Load Ratio Curve Name"] = value
 
     @property
@@ -1841,12 +1870,14 @@ class AirConditionerVariableRefrigerantFlow(object):
 
     @heating_energy_input_ratio_modifier_function_of_high_partload_ratio_curve_name.setter
     def heating_energy_input_ratio_modifier_function_of_high_partload_ratio_curve_name(self, value=None):
-        """  Corresponds to IDD Field `heating_energy_input_ratio_modifier_function_of_high_partload_ratio_curve_name`
+        """  Corresponds to IDD Field `Heating Energy Input Ratio Modifier Function of High Part-Load Ratio Curve Name`
         Table:OneIndependentVariable object can also be used
         This curve represents the heating energy input ratio for part-load ratios greater than 1.
+        
+        {u'note': [u'Table:OneIndependentVariable object can also be used', u'This curve represents the heating energy input ratio for part-load ratios greater than 1.'], u'type': u'object-list', u'object-list': u'QuadraticCubicCurves', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `heating_energy_input_ratio_modifier_function_of_high_partload_ratio_curve_name`
+            value (str): value for IDD Field `Heating Energy Input Ratio Modifier Function of High Part-Load Ratio Curve Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1856,7 +1887,7 @@ class AirConditionerVariableRefrigerantFlow(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `heating_energy_input_ratio_modifier_function_of_high_partload_ratio_curve_name`'.format(value))
             if ',' in value:
@@ -1865,7 +1896,6 @@ class AirConditionerVariableRefrigerantFlow(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `heating_energy_input_ratio_modifier_function_of_high_partload_ratio_curve_name`')
-
         self._data["Heating Energy Input Ratio Modifier Function of High Part-Load Ratio Curve Name"] = value
 
     @property
@@ -1879,15 +1909,17 @@ class AirConditionerVariableRefrigerantFlow(object):
 
     @heating_combination_ratio_correction_factor_curve_name.setter
     def heating_combination_ratio_correction_factor_curve_name(self, value=None):
-        """  Corresponds to IDD Field `heating_combination_ratio_correction_factor_curve_name`
+        """  Corresponds to IDD Field `Heating Combination Ratio Correction Factor Curve Name`
         Table:OneIndependentVariable object can also be used
         This curve defines how rated capacity changes when the total indoor terminal unit heating
         capacity is greater than the Gross Rated Heating Capacity defined in this object.
         If this field is left blank, the model assumes total indoor terminal unit heating
         capacity is equal to the Gross Rated Heating Capacity defined above.
+        
+        {u'note': [u'Table:OneIndependentVariable object can also be used', u'This curve defines how rated capacity changes when the total indoor terminal unit heating', u'capacity is greater than the Gross Rated Heating Capacity defined in this object.', u'If this field is left blank, the model assumes total indoor terminal unit heating', u'capacity is equal to the Gross Rated Heating Capacity defined above.'], u'type': u'object-list', u'object-list': u'QuadraticCubicCurves', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `heating_combination_ratio_correction_factor_curve_name`
+            value (str): value for IDD Field `Heating Combination Ratio Correction Factor Curve Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1897,7 +1929,7 @@ class AirConditionerVariableRefrigerantFlow(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `heating_combination_ratio_correction_factor_curve_name`'.format(value))
             if ',' in value:
@@ -1906,7 +1938,6 @@ class AirConditionerVariableRefrigerantFlow(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `heating_combination_ratio_correction_factor_curve_name`')
-
         self._data["Heating Combination Ratio Correction Factor Curve Name"] = value
 
     @property
@@ -1920,13 +1951,15 @@ class AirConditionerVariableRefrigerantFlow(object):
 
     @heating_partload_fraction_correlation_curve_name.setter
     def heating_partload_fraction_correlation_curve_name(self, value=None):
-        """  Corresponds to IDD Field `heating_partload_fraction_correlation_curve_name`
+        """  Corresponds to IDD Field `Heating Part-Load Fraction Correlation Curve Name`
         Table:OneIndependentVariable object can also be used
         This curve defines the cycling losses when the heat pump compressor cycles on and off
         below the Minimum Heat Pump Part-Load Ratio specified in the following field.
+        
+        {u'note': [u'Table:OneIndependentVariable object can also be used', u'This curve defines the cycling losses when the heat pump compressor cycles on and off', u'below the Minimum Heat Pump Part-Load Ratio specified in the following field.'], u'type': u'object-list', u'object-list': u'QuadraticCubicCurves', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `heating_partload_fraction_correlation_curve_name`
+            value (str): value for IDD Field `Heating Part-Load Fraction Correlation Curve Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1936,7 +1969,7 @@ class AirConditionerVariableRefrigerantFlow(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `heating_partload_fraction_correlation_curve_name`'.format(value))
             if ',' in value:
@@ -1945,7 +1978,6 @@ class AirConditionerVariableRefrigerantFlow(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `heating_partload_fraction_correlation_curve_name`')
-
         self._data["Heating Part-Load Fraction Correlation Curve Name"] = value
 
     @property
@@ -1959,13 +1991,15 @@ class AirConditionerVariableRefrigerantFlow(object):
 
     @minimum_heat_pump_partload_ratio.setter
     def minimum_heat_pump_partload_ratio(self, value=0.15 ):
-        """  Corresponds to IDD Field `minimum_heat_pump_partload_ratio`
+        """  Corresponds to IDD Field `Minimum Heat Pump Part-Load Ratio`
         Enter the minimum heat pump part-load ratio (PLR). When the cooling or heating PLR is
         below this value, the heat pump compressor will cycle to meet the cooling or heating
         demand.
+        
+        {u'units': u'dimensionless', u'note': [u'Enter the minimum heat pump part-load ratio (PLR). When the cooling or heating PLR is', u'below this value, the heat pump compressor will cycle to meet the cooling or heating', u'demand.'], u'default': '0.15', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `minimum_heat_pump_partload_ratio`
+            value (float): value for IDD Field `Minimum Heat Pump Part-Load Ratio`
                 Units: dimensionless
                 Default value: 0.15
                 if `value` is None it will not be checked against the
@@ -1977,10 +2011,9 @@ class AirConditionerVariableRefrigerantFlow(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `minimum_heat_pump_partload_ratio`'.format(value))
-
         self._data["Minimum Heat Pump Part-Load Ratio"] = value
 
     @property
@@ -1994,11 +2027,13 @@ class AirConditionerVariableRefrigerantFlow(object):
 
     @zone_name_for_master_thermostat_location.setter
     def zone_name_for_master_thermostat_location(self, value=None):
-        """  Corresponds to IDD Field `zone_name_for_master_thermostat_location`
+        """  Corresponds to IDD Field `Zone Name for Master Thermostat Location`
         Enter the name of the zone where the master thermostat is located.
+        
+        {u'note': [u'Enter the name of the zone where the master thermostat is located.'], u'type': u'object-list', u'object-list': u'ZoneNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `zone_name_for_master_thermostat_location`
+            value (str): value for IDD Field `Zone Name for Master Thermostat Location`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2008,7 +2043,7 @@ class AirConditionerVariableRefrigerantFlow(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `zone_name_for_master_thermostat_location`'.format(value))
             if ',' in value:
@@ -2017,7 +2052,6 @@ class AirConditionerVariableRefrigerantFlow(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `zone_name_for_master_thermostat_location`')
-
         self._data["Zone Name for Master Thermostat Location"] = value
 
     @property
@@ -2031,12 +2065,14 @@ class AirConditionerVariableRefrigerantFlow(object):
 
     @master_thermostat_priority_control_type.setter
     def master_thermostat_priority_control_type(self, value="MasterThermostatPriority"):
-        """  Corresponds to IDD Field `master_thermostat_priority_control_type`
+        """  Corresponds to IDD Field `Master Thermostat Priority Control Type`
         Choose a thermostat control logic scheme. If these control types fail to control zone
         temperature within a reasonable limit, consider using multiple VRF systems
+        
+        {u'default': u'MasterThermostatPriority', u'note': [u'Choose a thermostat control logic scheme. If these control types fail to control zone', u'temperature within a reasonable limit, consider using multiple VRF systems'], u'type': u'choice', u'key': [u'LoadPriority', u'ZonePriority', u'ThermostatOffsetPriority', u'MasterThermostatPriority', u'Scheduled'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `master_thermostat_priority_control_type`
+            value (str): value for IDD Field `Master Thermostat Priority Control Type`
                 Accepted values are:
                       - LoadPriority
                       - ZonePriority
@@ -2053,7 +2089,7 @@ class AirConditionerVariableRefrigerantFlow(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `master_thermostat_priority_control_type`'.format(value))
             if ',' in value:
@@ -2082,7 +2118,6 @@ class AirConditionerVariableRefrigerantFlow(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `master_thermostat_priority_control_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Master Thermostat Priority Control Type"] = value
 
     @property
@@ -2096,12 +2131,14 @@ class AirConditionerVariableRefrigerantFlow(object):
 
     @thermostat_priority_schedule_name.setter
     def thermostat_priority_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `thermostat_priority_schedule_name`
+        """  Corresponds to IDD Field `Thermostat Priority Schedule Name`
         this field is required if Master Thermostat Priority Control Type is Scheduled.
         Schedule values of 0 denote cooling, 1 for heating, and all other values disable the system.
+        
+        {u'note': [u'this field is required if Master Thermostat Priority Control Type is Scheduled.', u'Schedule values of 0 denote cooling, 1 for heating, and all other values disable the system.'], u'type': u'alpha', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `thermostat_priority_schedule_name`
+            value (str): value for IDD Field `Thermostat Priority Schedule Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2111,7 +2148,7 @@ class AirConditionerVariableRefrigerantFlow(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `thermostat_priority_schedule_name`'.format(value))
             if ',' in value:
@@ -2120,7 +2157,6 @@ class AirConditionerVariableRefrigerantFlow(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `thermostat_priority_schedule_name`')
-
         self._data["Thermostat Priority Schedule Name"] = value
 
     @property
@@ -2134,12 +2170,14 @@ class AirConditionerVariableRefrigerantFlow(object):
 
     @zone_terminal_unit_list_name.setter
     def zone_terminal_unit_list_name(self, value=None):
-        """  Corresponds to IDD Field `zone_terminal_unit_list_name`
+        """  Corresponds to IDD Field `Zone Terminal Unit List Name`
         Enter the name of a ZoneTerminalUnitList. This list connects zone terminal units to this
         heat pump.
+        
+        {u'note': [u'Enter the name of a ZoneTerminalUnitList. This list connects zone terminal units to this', u'heat pump.'], u'type': u'object-list', u'object-list': u'ZoneTerminalUnitListNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `zone_terminal_unit_list_name`
+            value (str): value for IDD Field `Zone Terminal Unit List Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2149,7 +2187,7 @@ class AirConditionerVariableRefrigerantFlow(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `zone_terminal_unit_list_name`'.format(value))
             if ',' in value:
@@ -2158,7 +2196,6 @@ class AirConditionerVariableRefrigerantFlow(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `zone_terminal_unit_list_name`')
-
         self._data["Zone Terminal Unit List Name"] = value
 
     @property
@@ -2172,11 +2209,13 @@ class AirConditionerVariableRefrigerantFlow(object):
 
     @heat_pump_waste_heat_recovery.setter
     def heat_pump_waste_heat_recovery(self, value="No"):
-        """  Corresponds to IDD Field `heat_pump_waste_heat_recovery`
+        """  Corresponds to IDD Field `Heat Pump Waste Heat Recovery`
         This field is reserved for future use. The only valid choice is No.
+        
+        {u'default': u'No', u'note': [u'This field is reserved for future use. The only valid choice is No.'], u'type': u'choice', u'key': [u'No', u'Yes'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `heat_pump_waste_heat_recovery`
+            value (str): value for IDD Field `Heat Pump Waste Heat Recovery`
                 Accepted values are:
                       - No
                       - Yes
@@ -2190,7 +2229,7 @@ class AirConditionerVariableRefrigerantFlow(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `heat_pump_waste_heat_recovery`'.format(value))
             if ',' in value:
@@ -2216,7 +2255,6 @@ class AirConditionerVariableRefrigerantFlow(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `heat_pump_waste_heat_recovery`'.format(value))
             value = vals[value_lower]
-
         self._data["Heat Pump Waste Heat Recovery"] = value
 
     @property
@@ -2230,11 +2268,13 @@ class AirConditionerVariableRefrigerantFlow(object):
 
     @equivalent_piping_length_used_for_piping_correction_factor_in_cooling_mode.setter
     def equivalent_piping_length_used_for_piping_correction_factor_in_cooling_mode(self, value=None):
-        """  Corresponds to IDD Field `equivalent_piping_length_used_for_piping_correction_factor_in_cooling_mode`
+        """  Corresponds to IDD Field `Equivalent Piping Length used for Piping Correction Factor in Cooling Mode`
         Enter the equivalent length of the farthest terminal unit from the condenser
+        
+        {u'units': u'm', u'note': [u'Enter the equivalent length of the farthest terminal unit from the condenser'], u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `equivalent_piping_length_used_for_piping_correction_factor_in_cooling_mode`
+            value (float): value for IDD Field `Equivalent Piping Length used for Piping Correction Factor in Cooling Mode`
                 Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -2245,10 +2285,9 @@ class AirConditionerVariableRefrigerantFlow(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `equivalent_piping_length_used_for_piping_correction_factor_in_cooling_mode`'.format(value))
-
         self._data["Equivalent Piping Length used for Piping Correction Factor in Cooling Mode"] = value
 
     @property
@@ -2262,11 +2301,13 @@ class AirConditionerVariableRefrigerantFlow(object):
 
     @vertical_height_used_for_piping_correction_factor.setter
     def vertical_height_used_for_piping_correction_factor(self, value=None):
-        """  Corresponds to IDD Field `vertical_height_used_for_piping_correction_factor`
+        """  Corresponds to IDD Field `Vertical Height used for Piping Correction Factor`
         Enter the height difference between the highest and lowest terminal unit
+        
+        {u'units': u'm', u'note': [u'Enter the height difference between the highest and lowest terminal unit'], u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `vertical_height_used_for_piping_correction_factor`
+            value (float): value for IDD Field `Vertical Height used for Piping Correction Factor`
                 Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -2277,10 +2318,9 @@ class AirConditionerVariableRefrigerantFlow(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `vertical_height_used_for_piping_correction_factor`'.format(value))
-
         self._data["Vertical Height used for Piping Correction Factor"] = value
 
     @property
@@ -2294,16 +2334,18 @@ class AirConditionerVariableRefrigerantFlow(object):
 
     @piping_correction_factor_for_length_in_cooling_mode_curve_name.setter
     def piping_correction_factor_for_length_in_cooling_mode_curve_name(self, value=None):
-        """  Corresponds to IDD Field `piping_correction_factor_for_length_in_cooling_mode_curve_name`
+        """  Corresponds to IDD Field `Piping Correction Factor for Length in Cooling Mode Curve Name`
         Table:OneIndependentVariable object can also be used
         Table:TwoIndependentVariables object can also be used
         PCF = a0 + a1*L + a2*L^2 + a3*L^3 + a4*H
         PCF = a0 + a1*L + a2*L^2 + a3*CR + a4*CR^2 + a5*(L)(CR)
         where L = length and CR = combination ratio
         specifies coefficients for a0, a1, a2, and a3 in the PCF equation
+        
+        {u'note': [u'Table:OneIndependentVariable object can also be used', u'Table:TwoIndependentVariables object can also be used', u'PCF = a0 + a1*L + a2*L^2 + a3*L^3 + a4*H', u'PCF = a0 + a1*L + a2*L^2 + a3*CR + a4*CR^2 + a5*(L)(CR)', u'where L = length and CR = combination ratio', u'specifies coefficients for a0, a1, a2, and a3 in the PCF equation'], u'type': u'object-list', u'object-list': u'BiQuadraticCurves', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `piping_correction_factor_for_length_in_cooling_mode_curve_name`
+            value (str): value for IDD Field `Piping Correction Factor for Length in Cooling Mode Curve Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2313,7 +2355,7 @@ class AirConditionerVariableRefrigerantFlow(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `piping_correction_factor_for_length_in_cooling_mode_curve_name`'.format(value))
             if ',' in value:
@@ -2322,7 +2364,6 @@ class AirConditionerVariableRefrigerantFlow(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `piping_correction_factor_for_length_in_cooling_mode_curve_name`')
-
         self._data["Piping Correction Factor for Length in Cooling Mode Curve Name"] = value
 
     @property
@@ -2336,14 +2377,16 @@ class AirConditionerVariableRefrigerantFlow(object):
 
     @piping_correction_factor_for_height_in_cooling_mode_coefficient.setter
     def piping_correction_factor_for_height_in_cooling_mode_coefficient(self, value=0.0 ):
-        """  Corresponds to IDD Field `piping_correction_factor_for_height_in_cooling_mode_coefficient`
+        """  Corresponds to IDD Field `Piping Correction Factor for Height in Cooling Mode Coefficient`
         PCF = a0 + a1*L + a2*L^2 + a3*L^3 + a4*H
         PCF = a0 + a1*L + a2*L^2 + a3*CR + a4*CR^2 + a5*(L)(CR) + a6*H
         where L = length, H = height, and CR = combination ratio
         specifies coefficient a4 (or a6 for biquadratic) in the PCF equation
+        
+        {u'units': u'1/m', u'default': '0.0', u'note': [u'PCF = a0 + a1*L + a2*L^2 + a3*L^3 + a4*H', u'PCF = a0 + a1*L + a2*L^2 + a3*CR + a4*CR^2 + a5*(L)(CR) + a6*H', u'where L = length, H = height, and CR = combination ratio', u'specifies coefficient a4 (or a6 for biquadratic) in the PCF equation'], u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `piping_correction_factor_for_height_in_cooling_mode_coefficient`
+            value (float): value for IDD Field `Piping Correction Factor for Height in Cooling Mode Coefficient`
                 Units: 1/m
                 Default value: 0.0
                 if `value` is None it will not be checked against the
@@ -2355,10 +2398,9 @@ class AirConditionerVariableRefrigerantFlow(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `piping_correction_factor_for_height_in_cooling_mode_coefficient`'.format(value))
-
         self._data["Piping Correction Factor for Height in Cooling Mode Coefficient"] = value
 
     @property
@@ -2372,11 +2414,13 @@ class AirConditionerVariableRefrigerantFlow(object):
 
     @equivalent_piping_length_used_for_piping_correction_factor_in_heating_mode.setter
     def equivalent_piping_length_used_for_piping_correction_factor_in_heating_mode(self, value=None):
-        """  Corresponds to IDD Field `equivalent_piping_length_used_for_piping_correction_factor_in_heating_mode`
+        """  Corresponds to IDD Field `Equivalent Piping Length used for Piping Correction Factor in Heating Mode`
         Enter the equivalent length of the farthest terminal unit from the condenser
+        
+        {u'units': u'm', u'note': [u'Enter the equivalent length of the farthest terminal unit from the condenser'], u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `equivalent_piping_length_used_for_piping_correction_factor_in_heating_mode`
+            value (float): value for IDD Field `Equivalent Piping Length used for Piping Correction Factor in Heating Mode`
                 Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -2387,10 +2431,9 @@ class AirConditionerVariableRefrigerantFlow(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `equivalent_piping_length_used_for_piping_correction_factor_in_heating_mode`'.format(value))
-
         self._data["Equivalent Piping Length used for Piping Correction Factor in Heating Mode"] = value
 
     @property
@@ -2404,16 +2447,18 @@ class AirConditionerVariableRefrigerantFlow(object):
 
     @piping_correction_factor_for_length_in_heating_mode_curve_name.setter
     def piping_correction_factor_for_length_in_heating_mode_curve_name(self, value=None):
-        """  Corresponds to IDD Field `piping_correction_factor_for_length_in_heating_mode_curve_name`
+        """  Corresponds to IDD Field `Piping Correction Factor for Length in Heating Mode Curve Name`
         Table:OneIndependentVariable object can also be used
         Table:TwoIndependentVariables object can also be used
         PCF = a0 + a1*L + a2*L^2 + a3*L^3 + a4*H
         PCF = a0 + a1*L + a2*L^2 + a3*CR + a4*CR^2 + a5*(L)(CR) + a6*H
         where L = length and CR = combination ratio
         specifies coefficients for a0, a1, a2, and a3 (or a0-a5 for biquadratic) in the PCF equation
+        
+        {u'note': [u'Table:OneIndependentVariable object can also be used', u'Table:TwoIndependentVariables object can also be used', u'PCF = a0 + a1*L + a2*L^2 + a3*L^3 + a4*H', u'PCF = a0 + a1*L + a2*L^2 + a3*CR + a4*CR^2 + a5*(L)(CR) + a6*H', u'where L = length and CR = combination ratio', u'specifies coefficients for a0, a1, a2, and a3 (or a0-a5 for biquadratic) in the PCF equation'], u'type': u'object-list', u'object-list': u'BiQuadraticCurves', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `piping_correction_factor_for_length_in_heating_mode_curve_name`
+            value (str): value for IDD Field `Piping Correction Factor for Length in Heating Mode Curve Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2423,7 +2468,7 @@ class AirConditionerVariableRefrigerantFlow(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `piping_correction_factor_for_length_in_heating_mode_curve_name`'.format(value))
             if ',' in value:
@@ -2432,7 +2477,6 @@ class AirConditionerVariableRefrigerantFlow(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `piping_correction_factor_for_length_in_heating_mode_curve_name`')
-
         self._data["Piping Correction Factor for Length in Heating Mode Curve Name"] = value
 
     @property
@@ -2446,14 +2490,16 @@ class AirConditionerVariableRefrigerantFlow(object):
 
     @piping_correction_factor_for_height_in_heating_mode_coefficient.setter
     def piping_correction_factor_for_height_in_heating_mode_coefficient(self, value=0.0 ):
-        """  Corresponds to IDD Field `piping_correction_factor_for_height_in_heating_mode_coefficient`
+        """  Corresponds to IDD Field `Piping Correction Factor for Height in Heating Mode Coefficient`
         PCF = a0 + a1*L + a2*L^2 + a3*L^3 + a4*H
         PCF = a0 + a1*L + a2*L^2 + a3*CR + a4*CR^2 + a5*(L)(CR) + a6*H
         where L = length, H = height, and CR = combination ratio
         specifies coefficient a4 (or a6 for biquadratic) in the PCF equation
+        
+        {u'units': u'1/m', u'default': '0.0', u'note': [u'PCF = a0 + a1*L + a2*L^2 + a3*L^3 + a4*H', u'PCF = a0 + a1*L + a2*L^2 + a3*CR + a4*CR^2 + a5*(L)(CR) + a6*H', u'where L = length, H = height, and CR = combination ratio', u'specifies coefficient a4 (or a6 for biquadratic) in the PCF equation'], u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `piping_correction_factor_for_height_in_heating_mode_coefficient`
+            value (float): value for IDD Field `Piping Correction Factor for Height in Heating Mode Coefficient`
                 Units: 1/m
                 Default value: 0.0
                 if `value` is None it will not be checked against the
@@ -2465,10 +2511,9 @@ class AirConditionerVariableRefrigerantFlow(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `piping_correction_factor_for_height_in_heating_mode_coefficient`'.format(value))
-
         self._data["Piping Correction Factor for Height in Heating Mode Coefficient"] = value
 
     @property
@@ -2482,12 +2527,14 @@ class AirConditionerVariableRefrigerantFlow(object):
 
     @crankcase_heater_power_per_compressor.setter
     def crankcase_heater_power_per_compressor(self, value=33.0 ):
-        """  Corresponds to IDD Field `crankcase_heater_power_per_compressor`
+        """  Corresponds to IDD Field `Crankcase Heater Power per Compressor`
         Enter the value of the resistive heater located in the compressor(s). This heater
         is used to warm the refrigerant and oil when the compressor is off.
+        
+        {u'units': u'W', u'default': '33.0', u'note': [u'Enter the value of the resistive heater located in the compressor(s). This heater', u'is used to warm the refrigerant and oil when the compressor is off.'], u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `crankcase_heater_power_per_compressor`
+            value (float): value for IDD Field `Crankcase Heater Power per Compressor`
                 Units: W
                 Default value: 33.0
                 if `value` is None it will not be checked against the
@@ -2499,10 +2546,9 @@ class AirConditionerVariableRefrigerantFlow(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `crankcase_heater_power_per_compressor`'.format(value))
-
         self._data["Crankcase Heater Power per Compressor"] = value
 
     @property
@@ -2516,12 +2562,14 @@ class AirConditionerVariableRefrigerantFlow(object):
 
     @number_of_compressors.setter
     def number_of_compressors(self, value=2 ):
-        """  Corresponds to IDD Field `number_of_compressors`
+        """  Corresponds to IDD Field `Number of Compressors`
         Enter the total number of compressor. This input is used only for crankcase
         heater calculations.
+        
+        {u'units': u'dimensionless', u'default': '2', u'note': [u'Enter the total number of compressor. This input is used only for crankcase', u'heater calculations.'], u'type': u'integer', 'pytype': 'int'}
 
         Args:
-            value (int): value for IDD Field `number_of_compressors`
+            value (int): value for IDD Field `Number of Compressors`
                 Units: dimensionless
                 Default value: 2
                 if `value` is None it will not be checked against the
@@ -2533,10 +2581,9 @@ class AirConditionerVariableRefrigerantFlow(object):
         if value is not None:
             try:
                 value = int(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type int '
                                  'for field `number_of_compressors`'.format(value))
-
         self._data["Number of Compressors"] = value
 
     @property
@@ -2550,13 +2597,15 @@ class AirConditionerVariableRefrigerantFlow(object):
 
     @ratio_of_compressor_size_to_total_compressor_capacity.setter
     def ratio_of_compressor_size_to_total_compressor_capacity(self, value=0.5 ):
-        """  Corresponds to IDD Field `ratio_of_compressor_size_to_total_compressor_capacity`
+        """  Corresponds to IDD Field `Ratio of Compressor Size to Total Compressor Capacity`
         Enter the ratio of the first stage compressor to total compressor capacity.
         All other compressors are assumed to be equally sized. This inputs is used
         only for crankcase heater calculations.
+        
+        {u'units': u'W/W', u'default': '0.5', u'note': [u'Enter the ratio of the first stage compressor to total compressor capacity.', u'All other compressors are assumed to be equally sized. This inputs is used', u'only for crankcase heater calculations.'], u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `ratio_of_compressor_size_to_total_compressor_capacity`
+            value (float): value for IDD Field `Ratio of Compressor Size to Total Compressor Capacity`
                 Units: W/W
                 Default value: 0.5
                 if `value` is None it will not be checked against the
@@ -2568,10 +2617,9 @@ class AirConditionerVariableRefrigerantFlow(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `ratio_of_compressor_size_to_total_compressor_capacity`'.format(value))
-
         self._data["Ratio of Compressor Size to Total Compressor Capacity"] = value
 
     @property
@@ -2585,11 +2633,13 @@ class AirConditionerVariableRefrigerantFlow(object):
 
     @maximum_outdoor_drybulb_temperature_for_crankcase_heater.setter
     def maximum_outdoor_drybulb_temperature_for_crankcase_heater(self, value=5.0 ):
-        """  Corresponds to IDD Field `maximum_outdoor_drybulb_temperature_for_crankcase_heater`
+        """  Corresponds to IDD Field `Maximum Outdoor Dry-Bulb Temperature for Crankcase Heater`
         Enter the maximum outdoor temperature above which the crankcase heaters are disabled.
+        
+        {u'units': u'C', u'default': '5.0', u'note': [u'Enter the maximum outdoor temperature above which the crankcase heaters are disabled.'], u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `maximum_outdoor_drybulb_temperature_for_crankcase_heater`
+            value (float): value for IDD Field `Maximum Outdoor Dry-Bulb Temperature for Crankcase Heater`
                 Units: C
                 Default value: 5.0
                 if `value` is None it will not be checked against the
@@ -2601,10 +2651,9 @@ class AirConditionerVariableRefrigerantFlow(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `maximum_outdoor_drybulb_temperature_for_crankcase_heater`'.format(value))
-
         self._data["Maximum Outdoor Dry-Bulb Temperature for Crankcase Heater"] = value
 
     @property
@@ -2618,13 +2667,15 @@ class AirConditionerVariableRefrigerantFlow(object):
 
     @defrost_strategy.setter
     def defrost_strategy(self, value="Resistive"):
-        """  Corresponds to IDD Field `defrost_strategy`
+        """  Corresponds to IDD Field `Defrost Strategy`
         Select a defrost strategy. Reverse cycle reverses the operating mode from heating to cooling
         to melt frost formation on the condenser coil. The resistive strategy uses a resitive heater
         to melt the frost.
+        
+        {u'default': u'Resistive', u'note': [u'Select a defrost strategy. Reverse cycle reverses the operating mode from heating to cooling', u'to melt frost formation on the condenser coil. The resistive strategy uses a resitive heater', u'to melt the frost.'], u'type': u'choice', u'key': [u'ReverseCycle', u'Resistive'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `defrost_strategy`
+            value (str): value for IDD Field `Defrost Strategy`
                 Accepted values are:
                       - ReverseCycle
                       - Resistive
@@ -2638,7 +2689,7 @@ class AirConditionerVariableRefrigerantFlow(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `defrost_strategy`'.format(value))
             if ',' in value:
@@ -2664,7 +2715,6 @@ class AirConditionerVariableRefrigerantFlow(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `defrost_strategy`'.format(value))
             value = vals[value_lower]
-
         self._data["Defrost Strategy"] = value
 
     @property
@@ -2678,12 +2728,14 @@ class AirConditionerVariableRefrigerantFlow(object):
 
     @defrost_control.setter
     def defrost_control(self, value="Timed"):
-        """  Corresponds to IDD Field `defrost_control`
+        """  Corresponds to IDD Field `Defrost Control`
         Choose a defrost control type. Either use a fixed Timed defrost period or select
         OnDemand to defrost only when necessary.
+        
+        {u'default': u'Timed', u'note': [u'Choose a defrost control type. Either use a fixed Timed defrost period or select', u'OnDemand to defrost only when necessary.'], u'type': u'choice', u'key': [u'Timed', u'OnDemand'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `defrost_control`
+            value (str): value for IDD Field `Defrost Control`
                 Accepted values are:
                       - Timed
                       - OnDemand
@@ -2697,7 +2749,7 @@ class AirConditionerVariableRefrigerantFlow(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `defrost_control`'.format(value))
             if ',' in value:
@@ -2723,7 +2775,6 @@ class AirConditionerVariableRefrigerantFlow(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `defrost_control`'.format(value))
             value = vals[value_lower]
-
         self._data["Defrost Control"] = value
 
     @property
@@ -2737,12 +2788,14 @@ class AirConditionerVariableRefrigerantFlow(object):
 
     @defrost_energy_input_ratio_modifier_function_of_temperature_curve_name.setter
     def defrost_energy_input_ratio_modifier_function_of_temperature_curve_name(self, value=None):
-        """  Corresponds to IDD Field `defrost_energy_input_ratio_modifier_function_of_temperature_curve_name`
+        """  Corresponds to IDD Field `Defrost Energy Input Ratio Modifier Function of Temperature Curve Name`
         Table:TwoIndependentVariables object can also be used
         A valid performance curve must be used if reversecycle defrost strategy is selected.
+        
+        {u'note': [u'Table:TwoIndependentVariables object can also be used', u'A valid performance curve must be used if reversecycle defrost strategy is selected.'], u'type': u'object-list', u'object-list': u'BiQuadraticCurves', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `defrost_energy_input_ratio_modifier_function_of_temperature_curve_name`
+            value (str): value for IDD Field `Defrost Energy Input Ratio Modifier Function of Temperature Curve Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2752,7 +2805,7 @@ class AirConditionerVariableRefrigerantFlow(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `defrost_energy_input_ratio_modifier_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
@@ -2761,7 +2814,6 @@ class AirConditionerVariableRefrigerantFlow(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `defrost_energy_input_ratio_modifier_function_of_temperature_curve_name`')
-
         self._data["Defrost Energy Input Ratio Modifier Function of Temperature Curve Name"] = value
 
     @property
@@ -2775,12 +2827,14 @@ class AirConditionerVariableRefrigerantFlow(object):
 
     @defrost_time_period_fraction.setter
     def defrost_time_period_fraction(self, value=0.058333 ):
-        """  Corresponds to IDD Field `defrost_time_period_fraction`
+        """  Corresponds to IDD Field `Defrost Time Period Fraction`
         Fraction of time in defrost mode.
         Only applicable if timed defrost control is specified.
+        
+        {'pytype': 'float', u'default': '0.058333', u'note': [u'Fraction of time in defrost mode.', u'Only applicable if timed defrost control is specified.'], u'minimum': '0.0', u'units': u'dimensionless', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `defrost_time_period_fraction`
+            value (float): value for IDD Field `Defrost Time Period Fraction`
                 Units: dimensionless
                 Default value: 0.058333
                 value >= 0.0
@@ -2793,13 +2847,12 @@ class AirConditionerVariableRefrigerantFlow(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `defrost_time_period_fraction`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `defrost_time_period_fraction`')
-
         self._data["Defrost Time Period Fraction"] = value
 
     @property
@@ -2813,12 +2866,14 @@ class AirConditionerVariableRefrigerantFlow(object):
 
     @resistive_defrost_heater_capacity.setter
     def resistive_defrost_heater_capacity(self, value=0.0 ):
-        """  Corresponds to IDD Field `resistive_defrost_heater_capacity`
+        """  Corresponds to IDD Field `Resistive Defrost Heater Capacity`
         Enter the size of the resistive defrost heating element.
         Only applicable if resistive defrost strategy is specified
+        
+        {'pytype': 'float', u'default': '0.0', u'note': [u'Enter the size of the resistive defrost heating element.', u'Only applicable if resistive defrost strategy is specified'], u'ip-units': u'W', u'autosizable': u'', u'minimum': '0.0', u'units': u'W', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `resistive_defrost_heater_capacity`
+            value (float): value for IDD Field `Resistive Defrost Heater Capacity`
                 Units: W
                 IP-Units: W
                 Default value: 0.0
@@ -2832,13 +2887,12 @@ class AirConditionerVariableRefrigerantFlow(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `resistive_defrost_heater_capacity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `resistive_defrost_heater_capacity`')
-
         self._data["Resistive Defrost Heater Capacity"] = value
 
     @property
@@ -2852,11 +2906,13 @@ class AirConditionerVariableRefrigerantFlow(object):
 
     @maximum_outdoor_drybulb_temperature_for_defrost_operation.setter
     def maximum_outdoor_drybulb_temperature_for_defrost_operation(self, value=5.0 ):
-        """  Corresponds to IDD Field `maximum_outdoor_drybulb_temperature_for_defrost_operation`
+        """  Corresponds to IDD Field `Maximum Outdoor Dry-bulb Temperature for Defrost Operation`
         Enter the maximum outdoor temperature above which the crankcase heaters are disabled.
+        
+        {u'units': u'C', u'default': '5.0', u'note': [u'Enter the maximum outdoor temperature above which the crankcase heaters are disabled.'], u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `maximum_outdoor_drybulb_temperature_for_defrost_operation`
+            value (float): value for IDD Field `Maximum Outdoor Dry-bulb Temperature for Defrost Operation`
                 Units: C
                 Default value: 5.0
                 if `value` is None it will not be checked against the
@@ -2868,10 +2924,9 @@ class AirConditionerVariableRefrigerantFlow(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `maximum_outdoor_drybulb_temperature_for_defrost_operation`'.format(value))
-
         self._data["Maximum Outdoor Dry-bulb Temperature for Defrost Operation"] = value
 
     @property
@@ -2885,11 +2940,13 @@ class AirConditionerVariableRefrigerantFlow(object):
 
     @condenser_type.setter
     def condenser_type(self, value="AirCooled"):
-        """  Corresponds to IDD Field `condenser_type`
+        """  Corresponds to IDD Field `Condenser Type`
         Select either an air-cooled, evaporatively-cooled or water-cooled condenser.
+        
+        {u'default': u'AirCooled', u'note': [u'Select either an air-cooled, evaporatively-cooled or water-cooled condenser.'], u'type': u'choice', u'key': [u'AirCooled', u'EvaporativelyCooled', u'WaterCooled'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `condenser_type`
+            value (str): value for IDD Field `Condenser Type`
                 Accepted values are:
                       - AirCooled
                       - EvaporativelyCooled
@@ -2904,7 +2961,7 @@ class AirConditionerVariableRefrigerantFlow(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `condenser_type`'.format(value))
             if ',' in value:
@@ -2931,7 +2988,6 @@ class AirConditionerVariableRefrigerantFlow(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `condenser_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Condenser Type"] = value
 
     @property
@@ -2945,13 +3001,15 @@ class AirConditionerVariableRefrigerantFlow(object):
 
     @condenser_inlet_node_name.setter
     def condenser_inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `condenser_inlet_node_name`
+        """  Corresponds to IDD Field `Condenser Inlet Node Name`
         Choose an outside air node name or leave this field blank to use weather data.
         If this field is blank, the Condenser Type is assumed to be AirCooled.
         This input must be specified if Condenser Type = WaterCooled.
+        
+        {u'note': [u'Choose an outside air node name or leave this field blank to use weather data.', u'If this field is blank, the Condenser Type is assumed to be AirCooled.', u'This input must be specified if Condenser Type = WaterCooled.'], u'type': u'node', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `condenser_inlet_node_name`
+            value (str): value for IDD Field `Condenser Inlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2961,7 +3019,7 @@ class AirConditionerVariableRefrigerantFlow(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `condenser_inlet_node_name`'.format(value))
             if ',' in value:
@@ -2970,7 +3028,6 @@ class AirConditionerVariableRefrigerantFlow(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `condenser_inlet_node_name`')
-
         self._data["Condenser Inlet Node Name"] = value
 
     @property
@@ -2984,12 +3041,14 @@ class AirConditionerVariableRefrigerantFlow(object):
 
     @condenser_outlet_node_name.setter
     def condenser_outlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `condenser_outlet_node_name`
+        """  Corresponds to IDD Field `Condenser Outlet Node Name`
         Enter a water outlet node name if Condenser Type = WaterCooled.
         Leave this field blank if Condenser Type = Air or EvaporativelyCooled.
+        
+        {u'note': [u'Enter a water outlet node name if Condenser Type = WaterCooled.', u'Leave this field blank if Condenser Type = Air or EvaporativelyCooled.'], u'type': u'node', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `condenser_outlet_node_name`
+            value (str): value for IDD Field `Condenser Outlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2999,7 +3058,7 @@ class AirConditionerVariableRefrigerantFlow(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `condenser_outlet_node_name`'.format(value))
             if ',' in value:
@@ -3008,7 +3067,6 @@ class AirConditionerVariableRefrigerantFlow(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `condenser_outlet_node_name`')
-
         self._data["Condenser Outlet Node Name"] = value
 
     @property
@@ -3022,11 +3080,13 @@ class AirConditionerVariableRefrigerantFlow(object):
 
     @water_condenser_volume_flow_rate.setter
     def water_condenser_volume_flow_rate(self, value=None):
-        """  Corresponds to IDD Field `water_condenser_volume_flow_rate`
+        """  Corresponds to IDD Field `Water Condenser Volume Flow Rate`
         Only used when Condenser Type = WaterCooled.
+        
+        {u'units': u'm3/s', u'note': [u'Only used when Condenser Type = WaterCooled.'], u'autosizable': u'', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `water_condenser_volume_flow_rate`
+            value (float): value for IDD Field `Water Condenser Volume Flow Rate`
                 Units: m3/s
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -3037,10 +3097,9 @@ class AirConditionerVariableRefrigerantFlow(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `water_condenser_volume_flow_rate`'.format(value))
-
         self._data["Water Condenser Volume Flow Rate"] = value
 
     @property
@@ -3054,12 +3113,14 @@ class AirConditionerVariableRefrigerantFlow(object):
 
     @evaporative_condenser_effectiveness.setter
     def evaporative_condenser_effectiveness(self, value=0.9 ):
-        """  Corresponds to IDD Field `evaporative_condenser_effectiveness`
+        """  Corresponds to IDD Field `Evaporative Condenser Effectiveness`
         Enter the effectiveness of the evaporatively cooled condenser.
         This field is only used when the Condenser Type = EvaporativelyCooled.
+        
+        {'pytype': 'float', u'default': '0.9', u'maximum': '1.0', u'note': [u'Enter the effectiveness of the evaporatively cooled condenser.', u'This field is only used when the Condenser Type = EvaporativelyCooled.'], u'minimum': '0.0', u'units': u'dimensionless', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `evaporative_condenser_effectiveness`
+            value (float): value for IDD Field `Evaporative Condenser Effectiveness`
                 Units: dimensionless
                 Default value: 0.9
                 value >= 0.0
@@ -3073,7 +3134,7 @@ class AirConditionerVariableRefrigerantFlow(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `evaporative_condenser_effectiveness`'.format(value))
             if value < 0.0:
@@ -3082,7 +3143,6 @@ class AirConditionerVariableRefrigerantFlow(object):
             if value > 1.0:
                 raise ValueError('value need to be smaller 1.0 '
                                  'for field `evaporative_condenser_effectiveness`')
-
         self._data["Evaporative Condenser Effectiveness"] = value
 
     @property
@@ -3096,12 +3156,14 @@ class AirConditionerVariableRefrigerantFlow(object):
 
     @evaporative_condenser_air_flow_rate.setter
     def evaporative_condenser_air_flow_rate(self, value=None):
-        """  Corresponds to IDD Field `evaporative_condenser_air_flow_rate`
+        """  Corresponds to IDD Field `Evaporative Condenser Air Flow Rate`
         Used to calculate evaporative condenser water use.
         This field is only used when the Condenser Type = EvaporativelyCooled.
+        
+        {'pytype': 'float', u'minimum>': '0.0', u'note': [u'Used to calculate evaporative condenser water use.', u'This field is only used when the Condenser Type = EvaporativelyCooled.'], u'autosizable': u'', u'units': u'm3/s', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `evaporative_condenser_air_flow_rate`
+            value (float): value for IDD Field `Evaporative Condenser Air Flow Rate`
                 Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -3113,13 +3175,12 @@ class AirConditionerVariableRefrigerantFlow(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `evaporative_condenser_air_flow_rate`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `evaporative_condenser_air_flow_rate`')
-
         self._data["Evaporative Condenser Air Flow Rate"] = value
 
     @property
@@ -3133,12 +3194,14 @@ class AirConditionerVariableRefrigerantFlow(object):
 
     @evaporative_condenser_pump_rated_power_consumption.setter
     def evaporative_condenser_pump_rated_power_consumption(self, value=0.0 ):
-        """  Corresponds to IDD Field `evaporative_condenser_pump_rated_power_consumption`
+        """  Corresponds to IDD Field `Evaporative Condenser Pump Rated Power Consumption`
         Rated power consumed by the evaporative condenser's water pump.
         This field is only used when the Condenser Type = EvaporativelyCooled.
+        
+        {'pytype': 'float', u'default': '0.0', u'note': [u"Rated power consumed by the evaporative condenser's water pump.", u'This field is only used when the Condenser Type = EvaporativelyCooled.'], u'autosizable': u'', u'minimum': '0.0', u'units': u'W', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `evaporative_condenser_pump_rated_power_consumption`
+            value (float): value for IDD Field `Evaporative Condenser Pump Rated Power Consumption`
                 Units: W
                 Default value: 0.0
                 value >= 0.0
@@ -3151,13 +3214,12 @@ class AirConditionerVariableRefrigerantFlow(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `evaporative_condenser_pump_rated_power_consumption`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `evaporative_condenser_pump_rated_power_consumption`')
-
         self._data["Evaporative Condenser Pump Rated Power Consumption"] = value
 
     @property
@@ -3171,11 +3233,13 @@ class AirConditionerVariableRefrigerantFlow(object):
 
     @supply_water_storage_tank_name.setter
     def supply_water_storage_tank_name(self, value=None):
-        """  Corresponds to IDD Field `supply_water_storage_tank_name`
+        """  Corresponds to IDD Field `Supply Water Storage Tank Name`
         A separate storage tank may be used to supply an evaporatively cooled condenser.
+        
+        {u'note': [u'A separate storage tank may be used to supply an evaporatively cooled condenser.'], u'type': u'object-list', u'object-list': u'WaterStorageTankNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `supply_water_storage_tank_name`
+            value (str): value for IDD Field `Supply Water Storage Tank Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3185,7 +3249,7 @@ class AirConditionerVariableRefrigerantFlow(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `supply_water_storage_tank_name`'.format(value))
             if ',' in value:
@@ -3194,7 +3258,6 @@ class AirConditionerVariableRefrigerantFlow(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `supply_water_storage_tank_name`')
-
         self._data["Supply Water Storage Tank Name"] = value
 
     @property
@@ -3208,15 +3271,17 @@ class AirConditionerVariableRefrigerantFlow(object):
 
     @basin_heater_capacity.setter
     def basin_heater_capacity(self, value=0.0 ):
-        """  Corresponds to IDD Field `basin_heater_capacity`
+        """  Corresponds to IDD Field `Basin Heater Capacity`
         This field is only used for Condenser Type = EvaporativelyCooled and for periods
         when the basin heater is available (field Basin Heater Operating Schedule Name).
         For this situation, the heater maintains the basin water temperature at the basin heater
         setpoint temperature when the outdoor air temperature falls below the setpoint temperature.
         The basin heater only operates when the DX coil is off.
+        
+        {'pytype': 'float', u'default': '0.0', u'note': [u'This field is only used for Condenser Type = EvaporativelyCooled and for periods', u'when the basin heater is available (field Basin Heater Operating Schedule Name).', u'For this situation, the heater maintains the basin water temperature at the basin heater', u'setpoint temperature when the outdoor air temperature falls below the setpoint temperature.', u'The basin heater only operates when the DX coil is off.'], u'minimum': '0.0', u'units': u'W/K', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `basin_heater_capacity`
+            value (float): value for IDD Field `Basin Heater Capacity`
                 Units: W/K
                 Default value: 0.0
                 value >= 0.0
@@ -3229,13 +3294,12 @@ class AirConditionerVariableRefrigerantFlow(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `basin_heater_capacity`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
                                  'for field `basin_heater_capacity`')
-
         self._data["Basin Heater Capacity"] = value
 
     @property
@@ -3249,12 +3313,14 @@ class AirConditionerVariableRefrigerantFlow(object):
 
     @basin_heater_setpoint_temperature.setter
     def basin_heater_setpoint_temperature(self, value=2.0 ):
-        """  Corresponds to IDD Field `basin_heater_setpoint_temperature`
+        """  Corresponds to IDD Field `Basin Heater Setpoint Temperature`
         This field is only used for Condenser Type = EvaporativelyCooled.
         Enter the outdoor dry-bulb temperature when the basin heater turns on.
+        
+        {'pytype': 'float', u'default': '2.0', u'note': [u'This field is only used for Condenser Type = EvaporativelyCooled.', u'Enter the outdoor dry-bulb temperature when the basin heater turns on.'], u'minimum': '2.0', u'units': u'C', u'type': u'real'}
 
         Args:
-            value (float): value for IDD Field `basin_heater_setpoint_temperature`
+            value (float): value for IDD Field `Basin Heater Setpoint Temperature`
                 Units: C
                 Default value: 2.0
                 value >= 2.0
@@ -3267,13 +3333,12 @@ class AirConditionerVariableRefrigerantFlow(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `basin_heater_setpoint_temperature`'.format(value))
             if value < 2.0:
                 raise ValueError('value need to be greater or equal 2.0 '
                                  'for field `basin_heater_setpoint_temperature`')
-
         self._data["Basin Heater Setpoint Temperature"] = value
 
     @property
@@ -3287,15 +3352,17 @@ class AirConditionerVariableRefrigerantFlow(object):
 
     @basin_heater_operating_schedule_name.setter
     def basin_heater_operating_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `basin_heater_operating_schedule_name`
+        """  Corresponds to IDD Field `Basin Heater Operating Schedule Name`
         This field is only used for Condenser Type = EvaporativelyCooled.
         Schedule values greater than 0 allow the basin heater to operate whenever the outdoor
         air dry-bulb temperature is below the basin heater setpoint temperature.
         If a schedule name is not entered, the basin heater is allowed to operate
         throughout the entire simulation.
+        
+        {u'note': [u'This field is only used for Condenser Type = EvaporativelyCooled.', u'Schedule values greater than 0 allow the basin heater to operate whenever the outdoor', u'air dry-bulb temperature is below the basin heater setpoint temperature.', u'If a schedule name is not entered, the basin heater is allowed to operate', u'throughout the entire simulation.'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `basin_heater_operating_schedule_name`
+            value (str): value for IDD Field `Basin Heater Operating Schedule Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3305,7 +3372,7 @@ class AirConditionerVariableRefrigerantFlow(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `basin_heater_operating_schedule_name`'.format(value))
             if ',' in value:
@@ -3314,7 +3381,6 @@ class AirConditionerVariableRefrigerantFlow(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `basin_heater_operating_schedule_name`')
-
         self._data["Basin Heater Operating Schedule Name"] = value
 
     @property
@@ -3328,10 +3394,12 @@ class AirConditionerVariableRefrigerantFlow(object):
 
     @fuel_type.setter
     def fuel_type(self, value="Electricity"):
-        """  Corresponds to IDD Field `fuel_type`
+        """  Corresponds to IDD Field `Fuel Type`
+        
+        {u'default': u'Electricity', u'type': u'choice', u'key': [u'Electricity', u'NaturalGas', u'PropaneGas', u'Diesel', u'Gasoline', u'FuelOil#1', u'FuelOil#2', u'OtherFuel1', u'OtherFuel2'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `fuel_type`
+            value (str): value for IDD Field `Fuel Type`
                 Accepted values are:
                       - Electricity
                       - NaturalGas
@@ -3352,7 +3420,7 @@ class AirConditionerVariableRefrigerantFlow(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `fuel_type`'.format(value))
             if ',' in value:
@@ -3385,7 +3453,6 @@ class AirConditionerVariableRefrigerantFlow(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `fuel_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Fuel Type"] = value
 
     @property
@@ -3399,12 +3466,14 @@ class AirConditionerVariableRefrigerantFlow(object):
 
     @minimum_outdoor_temperature_in_heat_recovery_mode.setter
     def minimum_outdoor_temperature_in_heat_recovery_mode(self, value=None):
-        """  Corresponds to IDD Field `minimum_outdoor_temperature_in_heat_recovery_mode`
+        """  Corresponds to IDD Field `Minimum Outdoor Temperature in Heat Recovery Mode`
         The minimum outdoor temperature below which heat
         recovery mode will not operate.
+        
+        {u'units': u'C', u'note': [u'The minimum outdoor temperature below which heat', u'recovery mode will not operate.'], u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `minimum_outdoor_temperature_in_heat_recovery_mode`
+            value (float): value for IDD Field `Minimum Outdoor Temperature in Heat Recovery Mode`
                 Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -3415,10 +3484,9 @@ class AirConditionerVariableRefrigerantFlow(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `minimum_outdoor_temperature_in_heat_recovery_mode`'.format(value))
-
         self._data["Minimum Outdoor Temperature in Heat Recovery Mode"] = value
 
     @property
@@ -3432,12 +3500,14 @@ class AirConditionerVariableRefrigerantFlow(object):
 
     @maximum_outdoor_temperature_in_heat_recovery_mode.setter
     def maximum_outdoor_temperature_in_heat_recovery_mode(self, value=None):
-        """  Corresponds to IDD Field `maximum_outdoor_temperature_in_heat_recovery_mode`
+        """  Corresponds to IDD Field `Maximum Outdoor Temperature in Heat Recovery Mode`
         The maximum outdoor temperature above which heat
         recovery mode will not operate.
+        
+        {u'units': u'C', u'note': [u'The maximum outdoor temperature above which heat', u'recovery mode will not operate.'], u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `maximum_outdoor_temperature_in_heat_recovery_mode`
+            value (float): value for IDD Field `Maximum Outdoor Temperature in Heat Recovery Mode`
                 Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -3448,10 +3518,9 @@ class AirConditionerVariableRefrigerantFlow(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `maximum_outdoor_temperature_in_heat_recovery_mode`'.format(value))
-
         self._data["Maximum Outdoor Temperature in Heat Recovery Mode"] = value
 
     @property
@@ -3465,14 +3534,16 @@ class AirConditionerVariableRefrigerantFlow(object):
 
     @heat_recovery_cooling_capacity_modifier_curve_name.setter
     def heat_recovery_cooling_capacity_modifier_curve_name(self, value=None):
-        """  Corresponds to IDD Field `heat_recovery_cooling_capacity_modifier_curve_name`
+        """  Corresponds to IDD Field `Heat Recovery Cooling Capacity Modifier Curve Name`
         Table:TwoIndependentVariables object can also be used
         Enter the name of a performance curve which represents
         the change in cooling capacity when heat recovery is active
         A default constant of 0.9 is used if this input is blank
+        
+        {u'note': [u'Table:TwoIndependentVariables object can also be used', u'Enter the name of a performance curve which represents', u'the change in cooling capacity when heat recovery is active', u'A default constant of 0.9 is used if this input is blank'], u'type': u'object-list', u'object-list': u'BiQuadraticCurves', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `heat_recovery_cooling_capacity_modifier_curve_name`
+            value (str): value for IDD Field `Heat Recovery Cooling Capacity Modifier Curve Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3482,7 +3553,7 @@ class AirConditionerVariableRefrigerantFlow(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `heat_recovery_cooling_capacity_modifier_curve_name`'.format(value))
             if ',' in value:
@@ -3491,7 +3562,6 @@ class AirConditionerVariableRefrigerantFlow(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `heat_recovery_cooling_capacity_modifier_curve_name`')
-
         self._data["Heat Recovery Cooling Capacity Modifier Curve Name"] = value
 
     @property
@@ -3505,15 +3575,17 @@ class AirConditionerVariableRefrigerantFlow(object):
 
     @initial_heat_recovery_cooling_capacity_fraction.setter
     def initial_heat_recovery_cooling_capacity_fraction(self, value=0.5 ):
-        """  Corresponds to IDD Field `initial_heat_recovery_cooling_capacity_fraction`
+        """  Corresponds to IDD Field `Initial Heat Recovery Cooling Capacity Fraction`
         Enter the fractional capacity available at the start
         of heat recovery mode. The capacity exponentially approaches
         the steady-state value according to the inputs for
         Heat Recovery Cooling Capacity Modifier and Heat Recovery
         Cooling Capacity Time Constant
+        
+        {u'units': u'W/W', u'default': '0.5', u'note': [u'Enter the fractional capacity available at the start', u'of heat recovery mode. The capacity exponentially approaches', u'the steady-state value according to the inputs for', u'Heat Recovery Cooling Capacity Modifier and Heat Recovery', u'Cooling Capacity Time Constant'], u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `initial_heat_recovery_cooling_capacity_fraction`
+            value (float): value for IDD Field `Initial Heat Recovery Cooling Capacity Fraction`
                 Units: W/W
                 Default value: 0.5
                 if `value` is None it will not be checked against the
@@ -3525,10 +3597,9 @@ class AirConditionerVariableRefrigerantFlow(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `initial_heat_recovery_cooling_capacity_fraction`'.format(value))
-
         self._data["Initial Heat Recovery Cooling Capacity Fraction"] = value
 
     @property
@@ -3542,12 +3613,14 @@ class AirConditionerVariableRefrigerantFlow(object):
 
     @heat_recovery_cooling_capacity_time_constant.setter
     def heat_recovery_cooling_capacity_time_constant(self, value=0.15 ):
-        """  Corresponds to IDD Field `heat_recovery_cooling_capacity_time_constant`
+        """  Corresponds to IDD Field `Heat Recovery Cooling Capacity Time Constant`
         Enter the time constant used to model the transition
         from cooling only mode to heat recovery mode
+        
+        {u'units': u'hr', u'default': '0.15', u'note': [u'Enter the time constant used to model the transition', u'from cooling only mode to heat recovery mode'], u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `heat_recovery_cooling_capacity_time_constant`
+            value (float): value for IDD Field `Heat Recovery Cooling Capacity Time Constant`
                 Units: hr
                 Default value: 0.15
                 if `value` is None it will not be checked against the
@@ -3559,10 +3632,9 @@ class AirConditionerVariableRefrigerantFlow(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `heat_recovery_cooling_capacity_time_constant`'.format(value))
-
         self._data["Heat Recovery Cooling Capacity Time Constant"] = value
 
     @property
@@ -3576,14 +3648,16 @@ class AirConditionerVariableRefrigerantFlow(object):
 
     @heat_recovery_cooling_energy_modifier_curve_name.setter
     def heat_recovery_cooling_energy_modifier_curve_name(self, value=None):
-        """  Corresponds to IDD Field `heat_recovery_cooling_energy_modifier_curve_name`
+        """  Corresponds to IDD Field `Heat Recovery Cooling Energy Modifier Curve Name`
         Table:TwoIndependentVariables object can also be used
         Enter the name of a performance curve which represents
         the change in cooling energy when heat recovery is active
         A default constant of 1.1 is used if this input is blank
+        
+        {u'note': [u'Table:TwoIndependentVariables object can also be used', u'Enter the name of a performance curve which represents', u'the change in cooling energy when heat recovery is active', u'A default constant of 1.1 is used if this input is blank'], u'type': u'object-list', u'object-list': u'BiQuadraticCurves', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `heat_recovery_cooling_energy_modifier_curve_name`
+            value (str): value for IDD Field `Heat Recovery Cooling Energy Modifier Curve Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3593,7 +3667,7 @@ class AirConditionerVariableRefrigerantFlow(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `heat_recovery_cooling_energy_modifier_curve_name`'.format(value))
             if ',' in value:
@@ -3602,7 +3676,6 @@ class AirConditionerVariableRefrigerantFlow(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `heat_recovery_cooling_energy_modifier_curve_name`')
-
         self._data["Heat Recovery Cooling Energy Modifier Curve Name"] = value
 
     @property
@@ -3616,15 +3689,17 @@ class AirConditionerVariableRefrigerantFlow(object):
 
     @initial_heat_recovery_cooling_energy_fraction.setter
     def initial_heat_recovery_cooling_energy_fraction(self, value=1.0 ):
-        """  Corresponds to IDD Field `initial_heat_recovery_cooling_energy_fraction`
+        """  Corresponds to IDD Field `Initial Heat Recovery Cooling Energy Fraction`
         Enter the fractional electric consumption rate at the start
         of heat recovery mode. The electric consumption rate exponentially
         approaches the steady-state value according to the inputs for
         Heat Recovery Cooling Energy Modifier and Heat Recovery
         Cooling Energy Time Constant
+        
+        {u'units': u'W/W', u'default': '1.0', u'note': [u'Enter the fractional electric consumption rate at the start', u'of heat recovery mode. The electric consumption rate exponentially', u'approaches the steady-state value according to the inputs for', u'Heat Recovery Cooling Energy Modifier and Heat Recovery', u'Cooling Energy Time Constant'], u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `initial_heat_recovery_cooling_energy_fraction`
+            value (float): value for IDD Field `Initial Heat Recovery Cooling Energy Fraction`
                 Units: W/W
                 Default value: 1.0
                 if `value` is None it will not be checked against the
@@ -3636,10 +3711,9 @@ class AirConditionerVariableRefrigerantFlow(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `initial_heat_recovery_cooling_energy_fraction`'.format(value))
-
         self._data["Initial Heat Recovery Cooling Energy Fraction"] = value
 
     @property
@@ -3653,12 +3727,14 @@ class AirConditionerVariableRefrigerantFlow(object):
 
     @heat_recovery_cooling_energy_time_constant.setter
     def heat_recovery_cooling_energy_time_constant(self, value=0.0 ):
-        """  Corresponds to IDD Field `heat_recovery_cooling_energy_time_constant`
+        """  Corresponds to IDD Field `Heat Recovery Cooling Energy Time Constant`
         Enter the time constant used to model the transition
         from cooling only mode to heat recovery mode
+        
+        {u'units': u'hr', u'default': '0.0', u'note': [u'Enter the time constant used to model the transition', u'from cooling only mode to heat recovery mode'], u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `heat_recovery_cooling_energy_time_constant`
+            value (float): value for IDD Field `Heat Recovery Cooling Energy Time Constant`
                 Units: hr
                 Default value: 0.0
                 if `value` is None it will not be checked against the
@@ -3670,10 +3746,9 @@ class AirConditionerVariableRefrigerantFlow(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `heat_recovery_cooling_energy_time_constant`'.format(value))
-
         self._data["Heat Recovery Cooling Energy Time Constant"] = value
 
     @property
@@ -3687,14 +3762,16 @@ class AirConditionerVariableRefrigerantFlow(object):
 
     @heat_recovery_heating_capacity_modifier_curve_name.setter
     def heat_recovery_heating_capacity_modifier_curve_name(self, value=None):
-        """  Corresponds to IDD Field `heat_recovery_heating_capacity_modifier_curve_name`
+        """  Corresponds to IDD Field `Heat Recovery Heating Capacity Modifier Curve Name`
         Table:TwoIndependentVariables object can also be used
         Enter the name of a performance curve which represents
         the change in heating capacity when heat recovery is active
         A default constant of 1.1 is used if this input is blank
+        
+        {u'note': [u'Table:TwoIndependentVariables object can also be used', u'Enter the name of a performance curve which represents', u'the change in heating capacity when heat recovery is active', u'A default constant of 1.1 is used if this input is blank'], u'type': u'object-list', u'object-list': u'BiQuadraticCurves', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `heat_recovery_heating_capacity_modifier_curve_name`
+            value (str): value for IDD Field `Heat Recovery Heating Capacity Modifier Curve Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3704,7 +3781,7 @@ class AirConditionerVariableRefrigerantFlow(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `heat_recovery_heating_capacity_modifier_curve_name`'.format(value))
             if ',' in value:
@@ -3713,7 +3790,6 @@ class AirConditionerVariableRefrigerantFlow(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `heat_recovery_heating_capacity_modifier_curve_name`')
-
         self._data["Heat Recovery Heating Capacity Modifier Curve Name"] = value
 
     @property
@@ -3727,15 +3803,17 @@ class AirConditionerVariableRefrigerantFlow(object):
 
     @initial_heat_recovery_heating_capacity_fraction.setter
     def initial_heat_recovery_heating_capacity_fraction(self, value=1.0 ):
-        """  Corresponds to IDD Field `initial_heat_recovery_heating_capacity_fraction`
+        """  Corresponds to IDD Field `Initial Heat Recovery Heating Capacity Fraction`
         Enter the fractional capacity available at the start
         of heat recovery mode. The capacity exponentially approaches
         the steady-state value according to the inputs for
         Heat Recovery Heating Capacity Modifier and Heat Recovery
         Heating Capacity Time Constant
+        
+        {u'units': u'W/W', u'default': '1.0', u'note': [u'Enter the fractional capacity available at the start', u'of heat recovery mode. The capacity exponentially approaches', u'the steady-state value according to the inputs for', u'Heat Recovery Heating Capacity Modifier and Heat Recovery', u'Heating Capacity Time Constant'], u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `initial_heat_recovery_heating_capacity_fraction`
+            value (float): value for IDD Field `Initial Heat Recovery Heating Capacity Fraction`
                 Units: W/W
                 Default value: 1.0
                 if `value` is None it will not be checked against the
@@ -3747,10 +3825,9 @@ class AirConditionerVariableRefrigerantFlow(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `initial_heat_recovery_heating_capacity_fraction`'.format(value))
-
         self._data["Initial Heat Recovery Heating Capacity Fraction"] = value
 
     @property
@@ -3764,12 +3841,14 @@ class AirConditionerVariableRefrigerantFlow(object):
 
     @heat_recovery_heating_capacity_time_constant.setter
     def heat_recovery_heating_capacity_time_constant(self, value=0.15 ):
-        """  Corresponds to IDD Field `heat_recovery_heating_capacity_time_constant`
+        """  Corresponds to IDD Field `Heat Recovery Heating Capacity Time Constant`
         Enter the time constant used to model the transition
         from cooling only mode to heat recovery mode
+        
+        {u'units': u'hr', u'default': '0.15', u'note': [u'Enter the time constant used to model the transition', u'from cooling only mode to heat recovery mode'], u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `heat_recovery_heating_capacity_time_constant`
+            value (float): value for IDD Field `Heat Recovery Heating Capacity Time Constant`
                 Units: hr
                 Default value: 0.15
                 if `value` is None it will not be checked against the
@@ -3781,10 +3860,9 @@ class AirConditionerVariableRefrigerantFlow(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `heat_recovery_heating_capacity_time_constant`'.format(value))
-
         self._data["Heat Recovery Heating Capacity Time Constant"] = value
 
     @property
@@ -3798,14 +3876,16 @@ class AirConditionerVariableRefrigerantFlow(object):
 
     @heat_recovery_heating_energy_modifier_curve_name.setter
     def heat_recovery_heating_energy_modifier_curve_name(self, value=None):
-        """  Corresponds to IDD Field `heat_recovery_heating_energy_modifier_curve_name`
+        """  Corresponds to IDD Field `Heat Recovery Heating Energy Modifier Curve Name`
         Table:TwoIndependentVariables object can also be used
         Enter the name of a performance curve which represents
         the change in heating electric consumption rate when heat recovery is active
         A default constant of 1.1 is used if this input is blank
+        
+        {u'note': [u'Table:TwoIndependentVariables object can also be used', u'Enter the name of a performance curve which represents', u'the change in heating electric consumption rate when heat recovery is active', u'A default constant of 1.1 is used if this input is blank'], u'type': u'object-list', u'object-list': u'BiQuadraticCurves', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `heat_recovery_heating_energy_modifier_curve_name`
+            value (str): value for IDD Field `Heat Recovery Heating Energy Modifier Curve Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3815,7 +3895,7 @@ class AirConditionerVariableRefrigerantFlow(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `heat_recovery_heating_energy_modifier_curve_name`'.format(value))
             if ',' in value:
@@ -3824,7 +3904,6 @@ class AirConditionerVariableRefrigerantFlow(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `heat_recovery_heating_energy_modifier_curve_name`')
-
         self._data["Heat Recovery Heating Energy Modifier Curve Name"] = value
 
     @property
@@ -3838,15 +3917,17 @@ class AirConditionerVariableRefrigerantFlow(object):
 
     @initial_heat_recovery_heating_energy_fraction.setter
     def initial_heat_recovery_heating_energy_fraction(self, value=1.0 ):
-        """  Corresponds to IDD Field `initial_heat_recovery_heating_energy_fraction`
+        """  Corresponds to IDD Field `Initial Heat Recovery Heating Energy Fraction`
         Enter the fractional electric consumption rate at the start
         of heat recovery mode. The electric consumption rate exponentially
         approaches the steady-state value according to the inputs for
         Heat Recovery Cooling Energy Modifier and Heat Recovery
         Cooling Energy Time Constant
+        
+        {u'units': u'W/W', u'default': '1.0', u'note': [u'Enter the fractional electric consumption rate at the start', u'of heat recovery mode. The electric consumption rate exponentially', u'approaches the steady-state value according to the inputs for', u'Heat Recovery Cooling Energy Modifier and Heat Recovery', u'Cooling Energy Time Constant'], u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `initial_heat_recovery_heating_energy_fraction`
+            value (float): value for IDD Field `Initial Heat Recovery Heating Energy Fraction`
                 Units: W/W
                 Default value: 1.0
                 if `value` is None it will not be checked against the
@@ -3858,10 +3939,9 @@ class AirConditionerVariableRefrigerantFlow(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `initial_heat_recovery_heating_energy_fraction`'.format(value))
-
         self._data["Initial Heat Recovery Heating Energy Fraction"] = value
 
     @property
@@ -3875,12 +3955,14 @@ class AirConditionerVariableRefrigerantFlow(object):
 
     @heat_recovery_heating_energy_time_constant.setter
     def heat_recovery_heating_energy_time_constant(self, value=0.0 ):
-        """  Corresponds to IDD Field `heat_recovery_heating_energy_time_constant`
+        """  Corresponds to IDD Field `Heat Recovery Heating Energy Time Constant`
         Enter the time constant used to model the transition
         from cooling only mode to heat recovery mode
+        
+        {u'units': u'hr', u'default': '0.0', u'note': [u'Enter the time constant used to model the transition', u'from cooling only mode to heat recovery mode'], u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `heat_recovery_heating_energy_time_constant`
+            value (float): value for IDD Field `Heat Recovery Heating Energy Time Constant`
                 Units: hr
                 Default value: 0.0
                 if `value` is None it will not be checked against the
@@ -3892,10 +3974,9 @@ class AirConditionerVariableRefrigerantFlow(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `heat_recovery_heating_energy_time_constant`'.format(value))
-
         self._data["Heat Recovery Heating Energy Time Constant"] = value
 
     def check(self):
@@ -4137,10 +4218,12 @@ class ZoneTerminalUnitList(object):
 
     @zone_terminal_unit_list_name.setter
     def zone_terminal_unit_list_name(self, value=None):
-        """  Corresponds to IDD Field `zone_terminal_unit_list_name`
+        """  Corresponds to IDD Field `Zone Terminal Unit List Name`
+        
+        {u'type': u'alpha', u'reference': u'ZoneTerminalUnitListNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `zone_terminal_unit_list_name`
+            value (str): value for IDD Field `Zone Terminal Unit List Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4150,7 +4233,7 @@ class ZoneTerminalUnitList(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `zone_terminal_unit_list_name`'.format(value))
             if ',' in value:
@@ -4159,7 +4242,6 @@ class ZoneTerminalUnitList(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `zone_terminal_unit_list_name`')
-
         self._data["Zone Terminal Unit List Name"] = value
 
     @property
@@ -4173,10 +4255,12 @@ class ZoneTerminalUnitList(object):
 
     @zone_terminal_unit_name_1.setter
     def zone_terminal_unit_name_1(self, value=None):
-        """  Corresponds to IDD Field `zone_terminal_unit_name_1`
+        """  Corresponds to IDD Field `Zone Terminal Unit Name 1`
+        
+        {'pytype': 'str', u'type': u'object-list', u'object-list': u'ZoneTerminalUnitNames', u'required-field': True, u'begin-extensible': u''}
 
         Args:
-            value (str): value for IDD Field `zone_terminal_unit_name_1`
+            value (str): value for IDD Field `Zone Terminal Unit Name 1`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4186,7 +4270,7 @@ class ZoneTerminalUnitList(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `zone_terminal_unit_name_1`'.format(value))
             if ',' in value:
@@ -4195,7 +4279,6 @@ class ZoneTerminalUnitList(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `zone_terminal_unit_name_1`')
-
         self._data["Zone Terminal Unit Name 1"] = value
 
     @property
@@ -4209,10 +4292,12 @@ class ZoneTerminalUnitList(object):
 
     @zone_terminal_unit_name_2.setter
     def zone_terminal_unit_name_2(self, value=None):
-        """  Corresponds to IDD Field `zone_terminal_unit_name_2`
+        """  Corresponds to IDD Field `Zone Terminal Unit Name 2`
+        
+        {u'type': u'object-list', u'object-list': u'ZoneTerminalUnitNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `zone_terminal_unit_name_2`
+            value (str): value for IDD Field `Zone Terminal Unit Name 2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4222,7 +4307,7 @@ class ZoneTerminalUnitList(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `zone_terminal_unit_name_2`'.format(value))
             if ',' in value:
@@ -4231,7 +4316,6 @@ class ZoneTerminalUnitList(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `zone_terminal_unit_name_2`')
-
         self._data["Zone Terminal Unit Name 2"] = value
 
     @property
@@ -4245,10 +4329,12 @@ class ZoneTerminalUnitList(object):
 
     @zone_terminal_unit_name_3.setter
     def zone_terminal_unit_name_3(self, value=None):
-        """  Corresponds to IDD Field `zone_terminal_unit_name_3`
+        """  Corresponds to IDD Field `Zone Terminal Unit Name 3`
+        
+        {u'type': u'object-list', u'object-list': u'ZoneTerminalUnitNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `zone_terminal_unit_name_3`
+            value (str): value for IDD Field `Zone Terminal Unit Name 3`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4258,7 +4344,7 @@ class ZoneTerminalUnitList(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `zone_terminal_unit_name_3`'.format(value))
             if ',' in value:
@@ -4267,7 +4353,6 @@ class ZoneTerminalUnitList(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `zone_terminal_unit_name_3`')
-
         self._data["Zone Terminal Unit Name 3"] = value
 
     @property
@@ -4281,10 +4366,12 @@ class ZoneTerminalUnitList(object):
 
     @zone_terminal_unit_name_4.setter
     def zone_terminal_unit_name_4(self, value=None):
-        """  Corresponds to IDD Field `zone_terminal_unit_name_4`
+        """  Corresponds to IDD Field `Zone Terminal Unit Name 4`
+        
+        {u'type': u'object-list', u'object-list': u'ZoneTerminalUnitNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `zone_terminal_unit_name_4`
+            value (str): value for IDD Field `Zone Terminal Unit Name 4`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4294,7 +4381,7 @@ class ZoneTerminalUnitList(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `zone_terminal_unit_name_4`'.format(value))
             if ',' in value:
@@ -4303,7 +4390,6 @@ class ZoneTerminalUnitList(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `zone_terminal_unit_name_4`')
-
         self._data["Zone Terminal Unit Name 4"] = value
 
     @property
@@ -4317,10 +4403,12 @@ class ZoneTerminalUnitList(object):
 
     @zone_terminal_unit_name_5.setter
     def zone_terminal_unit_name_5(self, value=None):
-        """  Corresponds to IDD Field `zone_terminal_unit_name_5`
+        """  Corresponds to IDD Field `Zone Terminal Unit Name 5`
+        
+        {u'type': u'object-list', u'object-list': u'ZoneTerminalUnitNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `zone_terminal_unit_name_5`
+            value (str): value for IDD Field `Zone Terminal Unit Name 5`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4330,7 +4418,7 @@ class ZoneTerminalUnitList(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `zone_terminal_unit_name_5`'.format(value))
             if ',' in value:
@@ -4339,7 +4427,6 @@ class ZoneTerminalUnitList(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `zone_terminal_unit_name_5`')
-
         self._data["Zone Terminal Unit Name 5"] = value
 
     @property
@@ -4353,10 +4440,12 @@ class ZoneTerminalUnitList(object):
 
     @zone_terminal_unit_name_6.setter
     def zone_terminal_unit_name_6(self, value=None):
-        """  Corresponds to IDD Field `zone_terminal_unit_name_6`
+        """  Corresponds to IDD Field `Zone Terminal Unit Name 6`
+        
+        {u'type': u'object-list', u'object-list': u'ZoneTerminalUnitNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `zone_terminal_unit_name_6`
+            value (str): value for IDD Field `Zone Terminal Unit Name 6`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4366,7 +4455,7 @@ class ZoneTerminalUnitList(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `zone_terminal_unit_name_6`'.format(value))
             if ',' in value:
@@ -4375,7 +4464,6 @@ class ZoneTerminalUnitList(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `zone_terminal_unit_name_6`')
-
         self._data["Zone Terminal Unit Name 6"] = value
 
     @property
@@ -4389,10 +4477,12 @@ class ZoneTerminalUnitList(object):
 
     @zone_terminal_unit_name_7.setter
     def zone_terminal_unit_name_7(self, value=None):
-        """  Corresponds to IDD Field `zone_terminal_unit_name_7`
+        """  Corresponds to IDD Field `Zone Terminal Unit Name 7`
+        
+        {u'type': u'object-list', u'object-list': u'ZoneTerminalUnitNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `zone_terminal_unit_name_7`
+            value (str): value for IDD Field `Zone Terminal Unit Name 7`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4402,7 +4492,7 @@ class ZoneTerminalUnitList(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `zone_terminal_unit_name_7`'.format(value))
             if ',' in value:
@@ -4411,7 +4501,6 @@ class ZoneTerminalUnitList(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `zone_terminal_unit_name_7`')
-
         self._data["Zone Terminal Unit Name 7"] = value
 
     @property
@@ -4425,10 +4514,12 @@ class ZoneTerminalUnitList(object):
 
     @zone_terminal_unit_name_8.setter
     def zone_terminal_unit_name_8(self, value=None):
-        """  Corresponds to IDD Field `zone_terminal_unit_name_8`
+        """  Corresponds to IDD Field `Zone Terminal Unit Name 8`
+        
+        {u'type': u'object-list', u'object-list': u'ZoneTerminalUnitNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `zone_terminal_unit_name_8`
+            value (str): value for IDD Field `Zone Terminal Unit Name 8`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4438,7 +4529,7 @@ class ZoneTerminalUnitList(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `zone_terminal_unit_name_8`'.format(value))
             if ',' in value:
@@ -4447,7 +4538,6 @@ class ZoneTerminalUnitList(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `zone_terminal_unit_name_8`')
-
         self._data["Zone Terminal Unit Name 8"] = value
 
     @property
@@ -4461,10 +4551,12 @@ class ZoneTerminalUnitList(object):
 
     @zone_terminal_unit_name_9.setter
     def zone_terminal_unit_name_9(self, value=None):
-        """  Corresponds to IDD Field `zone_terminal_unit_name_9`
+        """  Corresponds to IDD Field `Zone Terminal Unit Name 9`
+        
+        {u'type': u'object-list', u'object-list': u'ZoneTerminalUnitNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `zone_terminal_unit_name_9`
+            value (str): value for IDD Field `Zone Terminal Unit Name 9`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4474,7 +4566,7 @@ class ZoneTerminalUnitList(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `zone_terminal_unit_name_9`'.format(value))
             if ',' in value:
@@ -4483,7 +4575,6 @@ class ZoneTerminalUnitList(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `zone_terminal_unit_name_9`')
-
         self._data["Zone Terminal Unit Name 9"] = value
 
     @property
@@ -4497,10 +4588,12 @@ class ZoneTerminalUnitList(object):
 
     @zone_terminal_unit_name_10.setter
     def zone_terminal_unit_name_10(self, value=None):
-        """  Corresponds to IDD Field `zone_terminal_unit_name_10`
+        """  Corresponds to IDD Field `Zone Terminal Unit Name 10`
+        
+        {u'type': u'object-list', u'object-list': u'ZoneTerminalUnitNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `zone_terminal_unit_name_10`
+            value (str): value for IDD Field `Zone Terminal Unit Name 10`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4510,7 +4603,7 @@ class ZoneTerminalUnitList(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `zone_terminal_unit_name_10`'.format(value))
             if ',' in value:
@@ -4519,7 +4612,6 @@ class ZoneTerminalUnitList(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `zone_terminal_unit_name_10`')
-
         self._data["Zone Terminal Unit Name 10"] = value
 
     @property
@@ -4533,10 +4625,12 @@ class ZoneTerminalUnitList(object):
 
     @zone_terminal_unit_name_11.setter
     def zone_terminal_unit_name_11(self, value=None):
-        """  Corresponds to IDD Field `zone_terminal_unit_name_11`
+        """  Corresponds to IDD Field `Zone Terminal Unit Name 11`
+        
+        {u'type': u'object-list', u'object-list': u'ZoneTerminalUnitNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `zone_terminal_unit_name_11`
+            value (str): value for IDD Field `Zone Terminal Unit Name 11`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4546,7 +4640,7 @@ class ZoneTerminalUnitList(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `zone_terminal_unit_name_11`'.format(value))
             if ',' in value:
@@ -4555,7 +4649,6 @@ class ZoneTerminalUnitList(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `zone_terminal_unit_name_11`')
-
         self._data["Zone Terminal Unit Name 11"] = value
 
     @property
@@ -4569,10 +4662,12 @@ class ZoneTerminalUnitList(object):
 
     @zone_terminal_unit_name_12.setter
     def zone_terminal_unit_name_12(self, value=None):
-        """  Corresponds to IDD Field `zone_terminal_unit_name_12`
+        """  Corresponds to IDD Field `Zone Terminal Unit Name 12`
+        
+        {u'type': u'object-list', u'object-list': u'ZoneTerminalUnitNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `zone_terminal_unit_name_12`
+            value (str): value for IDD Field `Zone Terminal Unit Name 12`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4582,7 +4677,7 @@ class ZoneTerminalUnitList(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `zone_terminal_unit_name_12`'.format(value))
             if ',' in value:
@@ -4591,7 +4686,6 @@ class ZoneTerminalUnitList(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `zone_terminal_unit_name_12`')
-
         self._data["Zone Terminal Unit Name 12"] = value
 
     @property
@@ -4605,10 +4699,12 @@ class ZoneTerminalUnitList(object):
 
     @zone_terminal_unit_name_13.setter
     def zone_terminal_unit_name_13(self, value=None):
-        """  Corresponds to IDD Field `zone_terminal_unit_name_13`
+        """  Corresponds to IDD Field `Zone Terminal Unit Name 13`
+        
+        {u'type': u'object-list', u'object-list': u'ZoneTerminalUnitNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `zone_terminal_unit_name_13`
+            value (str): value for IDD Field `Zone Terminal Unit Name 13`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4618,7 +4714,7 @@ class ZoneTerminalUnitList(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `zone_terminal_unit_name_13`'.format(value))
             if ',' in value:
@@ -4627,7 +4723,6 @@ class ZoneTerminalUnitList(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `zone_terminal_unit_name_13`')
-
         self._data["Zone Terminal Unit Name 13"] = value
 
     @property
@@ -4641,10 +4736,12 @@ class ZoneTerminalUnitList(object):
 
     @zone_terminal_unit_name_14.setter
     def zone_terminal_unit_name_14(self, value=None):
-        """  Corresponds to IDD Field `zone_terminal_unit_name_14`
+        """  Corresponds to IDD Field `Zone Terminal Unit Name 14`
+        
+        {u'type': u'object-list', u'object-list': u'ZoneTerminalUnitNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `zone_terminal_unit_name_14`
+            value (str): value for IDD Field `Zone Terminal Unit Name 14`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4654,7 +4751,7 @@ class ZoneTerminalUnitList(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `zone_terminal_unit_name_14`'.format(value))
             if ',' in value:
@@ -4663,7 +4760,6 @@ class ZoneTerminalUnitList(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `zone_terminal_unit_name_14`')
-
         self._data["Zone Terminal Unit Name 14"] = value
 
     @property
@@ -4677,10 +4773,12 @@ class ZoneTerminalUnitList(object):
 
     @zone_terminal_unit_name_15.setter
     def zone_terminal_unit_name_15(self, value=None):
-        """  Corresponds to IDD Field `zone_terminal_unit_name_15`
+        """  Corresponds to IDD Field `Zone Terminal Unit Name 15`
+        
+        {u'type': u'object-list', u'object-list': u'ZoneTerminalUnitNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `zone_terminal_unit_name_15`
+            value (str): value for IDD Field `Zone Terminal Unit Name 15`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4690,7 +4788,7 @@ class ZoneTerminalUnitList(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `zone_terminal_unit_name_15`'.format(value))
             if ',' in value:
@@ -4699,7 +4797,6 @@ class ZoneTerminalUnitList(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `zone_terminal_unit_name_15`')
-
         self._data["Zone Terminal Unit Name 15"] = value
 
     @property
@@ -4713,10 +4810,12 @@ class ZoneTerminalUnitList(object):
 
     @zone_terminal_unit_name_16.setter
     def zone_terminal_unit_name_16(self, value=None):
-        """  Corresponds to IDD Field `zone_terminal_unit_name_16`
+        """  Corresponds to IDD Field `Zone Terminal Unit Name 16`
+        
+        {u'type': u'object-list', u'object-list': u'ZoneTerminalUnitNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `zone_terminal_unit_name_16`
+            value (str): value for IDD Field `Zone Terminal Unit Name 16`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4726,7 +4825,7 @@ class ZoneTerminalUnitList(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `zone_terminal_unit_name_16`'.format(value))
             if ',' in value:
@@ -4735,7 +4834,6 @@ class ZoneTerminalUnitList(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `zone_terminal_unit_name_16`')
-
         self._data["Zone Terminal Unit Name 16"] = value
 
     @property
@@ -4749,10 +4847,12 @@ class ZoneTerminalUnitList(object):
 
     @zone_terminal_unit_name_17.setter
     def zone_terminal_unit_name_17(self, value=None):
-        """  Corresponds to IDD Field `zone_terminal_unit_name_17`
+        """  Corresponds to IDD Field `Zone Terminal Unit Name 17`
+        
+        {u'type': u'object-list', u'object-list': u'ZoneTerminalUnitNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `zone_terminal_unit_name_17`
+            value (str): value for IDD Field `Zone Terminal Unit Name 17`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4762,7 +4862,7 @@ class ZoneTerminalUnitList(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `zone_terminal_unit_name_17`'.format(value))
             if ',' in value:
@@ -4771,7 +4871,6 @@ class ZoneTerminalUnitList(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `zone_terminal_unit_name_17`')
-
         self._data["Zone Terminal Unit Name 17"] = value
 
     @property
@@ -4785,10 +4884,12 @@ class ZoneTerminalUnitList(object):
 
     @zone_terminal_unit_name_18.setter
     def zone_terminal_unit_name_18(self, value=None):
-        """  Corresponds to IDD Field `zone_terminal_unit_name_18`
+        """  Corresponds to IDD Field `Zone Terminal Unit Name 18`
+        
+        {u'type': u'object-list', u'object-list': u'ZoneTerminalUnitNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `zone_terminal_unit_name_18`
+            value (str): value for IDD Field `Zone Terminal Unit Name 18`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4798,7 +4899,7 @@ class ZoneTerminalUnitList(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `zone_terminal_unit_name_18`'.format(value))
             if ',' in value:
@@ -4807,7 +4908,6 @@ class ZoneTerminalUnitList(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `zone_terminal_unit_name_18`')
-
         self._data["Zone Terminal Unit Name 18"] = value
 
     @property
@@ -4821,10 +4921,12 @@ class ZoneTerminalUnitList(object):
 
     @zone_terminal_unit_name_19.setter
     def zone_terminal_unit_name_19(self, value=None):
-        """  Corresponds to IDD Field `zone_terminal_unit_name_19`
+        """  Corresponds to IDD Field `Zone Terminal Unit Name 19`
+        
+        {u'type': u'object-list', u'object-list': u'ZoneTerminalUnitNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `zone_terminal_unit_name_19`
+            value (str): value for IDD Field `Zone Terminal Unit Name 19`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4834,7 +4936,7 @@ class ZoneTerminalUnitList(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `zone_terminal_unit_name_19`'.format(value))
             if ',' in value:
@@ -4843,7 +4945,6 @@ class ZoneTerminalUnitList(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `zone_terminal_unit_name_19`')
-
         self._data["Zone Terminal Unit Name 19"] = value
 
     @property
@@ -4857,10 +4958,12 @@ class ZoneTerminalUnitList(object):
 
     @zone_terminal_unit_name_20.setter
     def zone_terminal_unit_name_20(self, value=None):
-        """  Corresponds to IDD Field `zone_terminal_unit_name_20`
+        """  Corresponds to IDD Field `Zone Terminal Unit Name 20`
+        
+        {u'type': u'object-list', u'object-list': u'ZoneTerminalUnitNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `zone_terminal_unit_name_20`
+            value (str): value for IDD Field `Zone Terminal Unit Name 20`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4870,7 +4973,7 @@ class ZoneTerminalUnitList(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `zone_terminal_unit_name_20`'.format(value))
             if ',' in value:
@@ -4879,7 +4982,6 @@ class ZoneTerminalUnitList(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `zone_terminal_unit_name_20`')
-
         self._data["Zone Terminal Unit Name 20"] = value
 
     def check(self):

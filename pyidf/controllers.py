@@ -111,10 +111,12 @@ class ControllerWaterCoil(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {u'type': u'alpha', u'reference': u'AirLoopControllers', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -124,7 +126,7 @@ class ControllerWaterCoil(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -133,7 +135,6 @@ class ControllerWaterCoil(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -147,15 +148,17 @@ class ControllerWaterCoil(object):
 
     @control_variable.setter
     def control_variable(self, value=None):
-        """  Corresponds to IDD Field `control_variable`
+        """  Corresponds to IDD Field `Control Variable`
         keys HumidityRatio or TemperatureAndHumidityRatio
         requires a ZoneControl:Humidistat object along
         with SetpointManager:SingleZone:Humidity:Maximum,
         SetpointManager:MultiZone:MaximumHumidity:Average, or
         SetpointManager:Multizone:Humidity:Maximum object
+        
+        {u'note': [u'keys HumidityRatio or TemperatureAndHumidityRatio', u'requires a ZoneControl:Humidistat object along', u'with SetpointManager:SingleZone:Humidity:Maximum,', u'SetpointManager:MultiZone:MaximumHumidity:Average, or', u'SetpointManager:Multizone:Humidity:Maximum object'], u'type': u'choice', u'key': [u'Temperature', u'HumidityRatio', u'TemperatureAndHumidityRatio'], u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `control_variable`
+            value (str): value for IDD Field `Control Variable`
                 Accepted values are:
                       - Temperature
                       - HumidityRatio
@@ -169,7 +172,7 @@ class ControllerWaterCoil(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `control_variable`'.format(value))
             if ',' in value:
@@ -196,7 +199,6 @@ class ControllerWaterCoil(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `control_variable`'.format(value))
             value = vals[value_lower]
-
         self._data["Control Variable"] = value
 
     @property
@@ -210,13 +212,15 @@ class ControllerWaterCoil(object):
 
     @action.setter
     def action(self, value=None):
-        """  Corresponds to IDD Field `action`
+        """  Corresponds to IDD Field `Action`
         Leave blank to have this automatically selected from coil type.
         Chilled water coils should be reverse action
         Hot water coils should be normal action
+        
+        {u'note': [u'Leave blank to have this automatically selected from coil type.', u'Chilled water coils should be reverse action', u'Hot water coils should be normal action'], u'type': u'choice', u'key': [u'Normal', u'Reverse'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `action`
+            value (str): value for IDD Field `Action`
                 Accepted values are:
                       - Normal
                       - Reverse
@@ -229,7 +233,7 @@ class ControllerWaterCoil(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `action`'.format(value))
             if ',' in value:
@@ -255,7 +259,6 @@ class ControllerWaterCoil(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `action`'.format(value))
             value = vals[value_lower]
-
         self._data["Action"] = value
 
     @property
@@ -269,10 +272,12 @@ class ControllerWaterCoil(object):
 
     @actuator_variable.setter
     def actuator_variable(self, value=None):
-        """  Corresponds to IDD Field `actuator_variable`
+        """  Corresponds to IDD Field `Actuator Variable`
+        
+        {u'type': u'choice', u'key': [u'Flow'], u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `actuator_variable`
+            value (str): value for IDD Field `Actuator Variable`
                 Accepted values are:
                       - Flow
                 if `value` is None it will not be checked against the
@@ -284,7 +289,7 @@ class ControllerWaterCoil(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `actuator_variable`'.format(value))
             if ',' in value:
@@ -309,7 +314,6 @@ class ControllerWaterCoil(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `actuator_variable`'.format(value))
             value = vals[value_lower]
-
         self._data["Actuator Variable"] = value
 
     @property
@@ -323,10 +327,12 @@ class ControllerWaterCoil(object):
 
     @sensor_node_name.setter
     def sensor_node_name(self, value=None):
-        """  Corresponds to IDD Field `sensor_node_name`
+        """  Corresponds to IDD Field `Sensor Node Name`
+        
+        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `sensor_node_name`
+            value (str): value for IDD Field `Sensor Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -336,7 +342,7 @@ class ControllerWaterCoil(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `sensor_node_name`'.format(value))
             if ',' in value:
@@ -345,7 +351,6 @@ class ControllerWaterCoil(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `sensor_node_name`')
-
         self._data["Sensor Node Name"] = value
 
     @property
@@ -359,10 +364,12 @@ class ControllerWaterCoil(object):
 
     @actuator_node_name.setter
     def actuator_node_name(self, value=None):
-        """  Corresponds to IDD Field `actuator_node_name`
+        """  Corresponds to IDD Field `Actuator Node Name`
+        
+        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `actuator_node_name`
+            value (str): value for IDD Field `Actuator Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -372,7 +379,7 @@ class ControllerWaterCoil(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `actuator_node_name`'.format(value))
             if ',' in value:
@@ -381,7 +388,6 @@ class ControllerWaterCoil(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `actuator_node_name`')
-
         self._data["Actuator Node Name"] = value
 
     @property
@@ -394,12 +400,15 @@ class ControllerWaterCoil(object):
         return self._data["Controller Convergence Tolerance"]
 
     @controller_convergence_tolerance.setter
-    def controller_convergence_tolerance(self, value=None):
-        """  Corresponds to IDD Field `controller_convergence_tolerance`
+    def controller_convergence_tolerance(self, value="autosize" ):
+        """  Corresponds to IDD Field `Controller Convergence Tolerance`
+        
+        {u'units': u'deltaC', u'default': '"autosize"', u'autosizable': u'', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `controller_convergence_tolerance`
+            value (float): value for IDD Field `Controller Convergence Tolerance`
                 Units: deltaC
+                Default value: "autosize"
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -409,10 +418,9 @@ class ControllerWaterCoil(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `controller_convergence_tolerance`'.format(value))
-
         self._data["Controller Convergence Tolerance"] = value
 
     @property
@@ -426,10 +434,12 @@ class ControllerWaterCoil(object):
 
     @maximum_actuated_flow.setter
     def maximum_actuated_flow(self, value=None):
-        """  Corresponds to IDD Field `maximum_actuated_flow`
+        """  Corresponds to IDD Field `Maximum Actuated Flow`
+        
+        {u'units': u'm3/s', u'autosizable': u'', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `maximum_actuated_flow`
+            value (float): value for IDD Field `Maximum Actuated Flow`
                 Units: m3/s
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -440,10 +450,9 @@ class ControllerWaterCoil(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `maximum_actuated_flow`'.format(value))
-
         self._data["Maximum Actuated Flow"] = value
 
     @property
@@ -457,10 +466,12 @@ class ControllerWaterCoil(object):
 
     @minimum_actuated_flow.setter
     def minimum_actuated_flow(self, value=1e-07 ):
-        """  Corresponds to IDD Field `minimum_actuated_flow`
+        """  Corresponds to IDD Field `Minimum Actuated Flow`
+        
+        {u'default': '1e-07', u'units': u'm3/s', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `minimum_actuated_flow`
+            value (float): value for IDD Field `Minimum Actuated Flow`
                 Units: m3/s
                 Default value: 1e-07
                 if `value` is None it will not be checked against the
@@ -472,10 +483,9 @@ class ControllerWaterCoil(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `minimum_actuated_flow`'.format(value))
-
         self._data["Minimum Actuated Flow"] = value
 
     def check(self):
@@ -756,10 +766,12 @@ class ControllerOutdoorAir(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {u'type': u'alpha', u'reference': u'OAControllerNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -769,7 +781,7 @@ class ControllerOutdoorAir(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -778,7 +790,6 @@ class ControllerOutdoorAir(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -792,10 +803,12 @@ class ControllerOutdoorAir(object):
 
     @relief_air_outlet_node_name.setter
     def relief_air_outlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `relief_air_outlet_node_name`
+        """  Corresponds to IDD Field `Relief Air Outlet Node Name`
+        
+        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `relief_air_outlet_node_name`
+            value (str): value for IDD Field `Relief Air Outlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -805,7 +818,7 @@ class ControllerOutdoorAir(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `relief_air_outlet_node_name`'.format(value))
             if ',' in value:
@@ -814,7 +827,6 @@ class ControllerOutdoorAir(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `relief_air_outlet_node_name`')
-
         self._data["Relief Air Outlet Node Name"] = value
 
     @property
@@ -828,10 +840,12 @@ class ControllerOutdoorAir(object):
 
     @return_air_node_name.setter
     def return_air_node_name(self, value=None):
-        """  Corresponds to IDD Field `return_air_node_name`
+        """  Corresponds to IDD Field `Return Air Node Name`
+        
+        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `return_air_node_name`
+            value (str): value for IDD Field `Return Air Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -841,7 +855,7 @@ class ControllerOutdoorAir(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `return_air_node_name`'.format(value))
             if ',' in value:
@@ -850,7 +864,6 @@ class ControllerOutdoorAir(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `return_air_node_name`')
-
         self._data["Return Air Node Name"] = value
 
     @property
@@ -864,10 +877,12 @@ class ControllerOutdoorAir(object):
 
     @mixed_air_node_name.setter
     def mixed_air_node_name(self, value=None):
-        """  Corresponds to IDD Field `mixed_air_node_name`
+        """  Corresponds to IDD Field `Mixed Air Node Name`
+        
+        {u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `mixed_air_node_name`
+            value (str): value for IDD Field `Mixed Air Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -877,7 +892,7 @@ class ControllerOutdoorAir(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `mixed_air_node_name`'.format(value))
             if ',' in value:
@@ -886,7 +901,6 @@ class ControllerOutdoorAir(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `mixed_air_node_name`')
-
         self._data["Mixed Air Node Name"] = value
 
     @property
@@ -900,11 +914,13 @@ class ControllerOutdoorAir(object):
 
     @actuator_node_name.setter
     def actuator_node_name(self, value=None):
-        """  Corresponds to IDD Field `actuator_node_name`
+        """  Corresponds to IDD Field `Actuator Node Name`
         Outdoor air inlet node entering the first pre-treat component if any
+        
+        {u'note': [u'Outdoor air inlet node entering the first pre-treat component if any'], u'type': u'node', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `actuator_node_name`
+            value (str): value for IDD Field `Actuator Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -914,7 +930,7 @@ class ControllerOutdoorAir(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `actuator_node_name`'.format(value))
             if ',' in value:
@@ -923,7 +939,6 @@ class ControllerOutdoorAir(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `actuator_node_name`')
-
         self._data["Actuator Node Name"] = value
 
     @property
@@ -937,10 +952,12 @@ class ControllerOutdoorAir(object):
 
     @minimum_outdoor_air_flow_rate.setter
     def minimum_outdoor_air_flow_rate(self, value=None):
-        """  Corresponds to IDD Field `minimum_outdoor_air_flow_rate`
+        """  Corresponds to IDD Field `Minimum Outdoor Air Flow Rate`
+        
+        {u'units': u'm3/s', u'autosizable': u'', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `minimum_outdoor_air_flow_rate`
+            value (float): value for IDD Field `Minimum Outdoor Air Flow Rate`
                 Units: m3/s
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -951,10 +968,9 @@ class ControllerOutdoorAir(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `minimum_outdoor_air_flow_rate`'.format(value))
-
         self._data["Minimum Outdoor Air Flow Rate"] = value
 
     @property
@@ -968,10 +984,12 @@ class ControllerOutdoorAir(object):
 
     @maximum_outdoor_air_flow_rate.setter
     def maximum_outdoor_air_flow_rate(self, value=None):
-        """  Corresponds to IDD Field `maximum_outdoor_air_flow_rate`
+        """  Corresponds to IDD Field `Maximum Outdoor Air Flow Rate`
+        
+        {u'units': u'm3/s', u'autosizable': u'', u'type': u'real', u'required-field': True, 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `maximum_outdoor_air_flow_rate`
+            value (float): value for IDD Field `Maximum Outdoor Air Flow Rate`
                 Units: m3/s
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -982,10 +1000,9 @@ class ControllerOutdoorAir(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `maximum_outdoor_air_flow_rate`'.format(value))
-
         self._data["Maximum Outdoor Air Flow Rate"] = value
 
     @property
@@ -999,10 +1016,12 @@ class ControllerOutdoorAir(object):
 
     @economizer_control_type.setter
     def economizer_control_type(self, value="NoEconomizer"):
-        """  Corresponds to IDD Field `economizer_control_type`
+        """  Corresponds to IDD Field `Economizer Control Type`
+        
+        {u'default': u'NoEconomizer', u'type': u'choice', u'key': [u'FixedDryBulb', u'FixedEnthalpy', u'DifferentialDryBulb', u'DifferentialEnthalpy', u'FixedDewPointAndDryBulb', u'ElectronicEnthalpy', u'DifferentialDryBulbAndEnthalpy', u'NoEconomizer'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `economizer_control_type`
+            value (str): value for IDD Field `Economizer Control Type`
                 Accepted values are:
                       - FixedDryBulb
                       - FixedEnthalpy
@@ -1022,7 +1041,7 @@ class ControllerOutdoorAir(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `economizer_control_type`'.format(value))
             if ',' in value:
@@ -1054,7 +1073,6 @@ class ControllerOutdoorAir(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `economizer_control_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Economizer Control Type"] = value
 
     @property
@@ -1068,10 +1086,12 @@ class ControllerOutdoorAir(object):
 
     @economizer_control_action_type.setter
     def economizer_control_action_type(self, value="ModulateFlow"):
-        """  Corresponds to IDD Field `economizer_control_action_type`
+        """  Corresponds to IDD Field `Economizer Control Action Type`
+        
+        {u'default': u'ModulateFlow', u'type': u'choice', u'key': [u'ModulateFlow', u'MinimumFlowWithBypass'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `economizer_control_action_type`
+            value (str): value for IDD Field `Economizer Control Action Type`
                 Accepted values are:
                       - ModulateFlow
                       - MinimumFlowWithBypass
@@ -1085,7 +1105,7 @@ class ControllerOutdoorAir(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `economizer_control_action_type`'.format(value))
             if ',' in value:
@@ -1111,7 +1131,6 @@ class ControllerOutdoorAir(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `economizer_control_action_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Economizer Control Action Type"] = value
 
     @property
@@ -1125,13 +1144,15 @@ class ControllerOutdoorAir(object):
 
     @economizer_maximum_limit_drybulb_temperature.setter
     def economizer_maximum_limit_drybulb_temperature(self, value=None):
-        """  Corresponds to IDD Field `economizer_maximum_limit_drybulb_temperature`
+        """  Corresponds to IDD Field `Economizer Maximum Limit Dry-Bulb Temperature`
         Enter the maximum outdoor dry-bulb temperature limit for FixedDryBulb
         economizer control type. No input or blank input means this limit is
         not operative. Limit is applied regardless of economizer control type.
+        
+        {u'units': u'C', u'note': [u'Enter the maximum outdoor dry-bulb temperature limit for FixedDryBulb', u'economizer control type. No input or blank input means this limit is', u'not operative. Limit is applied regardless of economizer control type.'], u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `economizer_maximum_limit_drybulb_temperature`
+            value (float): value for IDD Field `Economizer Maximum Limit Dry-Bulb Temperature`
                 Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1142,10 +1163,9 @@ class ControllerOutdoorAir(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `economizer_maximum_limit_drybulb_temperature`'.format(value))
-
         self._data["Economizer Maximum Limit Dry-Bulb Temperature"] = value
 
     @property
@@ -1159,13 +1179,15 @@ class ControllerOutdoorAir(object):
 
     @economizer_maximum_limit_enthalpy.setter
     def economizer_maximum_limit_enthalpy(self, value=None):
-        """  Corresponds to IDD Field `economizer_maximum_limit_enthalpy`
+        """  Corresponds to IDD Field `Economizer Maximum Limit Enthalpy`
         Enter the maximum outdoor enthalpy limit for FixedEnthalpy economizer control type.
         No input or blank input means this limit is not operative
         Limit is applied regardless of economizer control type.
+        
+        {u'units': u'J/kg', u'note': [u'Enter the maximum outdoor enthalpy limit for FixedEnthalpy economizer control type.', u'No input or blank input means this limit is not operative', u'Limit is applied regardless of economizer control type.'], u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `economizer_maximum_limit_enthalpy`
+            value (float): value for IDD Field `Economizer Maximum Limit Enthalpy`
                 Units: J/kg
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1176,10 +1198,9 @@ class ControllerOutdoorAir(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `economizer_maximum_limit_enthalpy`'.format(value))
-
         self._data["Economizer Maximum Limit Enthalpy"] = value
 
     @property
@@ -1193,13 +1214,15 @@ class ControllerOutdoorAir(object):
 
     @economizer_maximum_limit_dewpoint_temperature.setter
     def economizer_maximum_limit_dewpoint_temperature(self, value=None):
-        """  Corresponds to IDD Field `economizer_maximum_limit_dewpoint_temperature`
+        """  Corresponds to IDD Field `Economizer Maximum Limit Dewpoint Temperature`
         Enter the maximum outdoor dewpoint temperature limit for FixedDewPointAndDryBulb
         economizer control type. No input or blank input means this limit is not operative.
         Limit is applied regardless of economizer control type.
+        
+        {u'units': u'C', u'note': [u'Enter the maximum outdoor dewpoint temperature limit for FixedDewPointAndDryBulb', u'economizer control type. No input or blank input means this limit is not operative.', u'Limit is applied regardless of economizer control type.'], u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `economizer_maximum_limit_dewpoint_temperature`
+            value (float): value for IDD Field `Economizer Maximum Limit Dewpoint Temperature`
                 Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1210,10 +1233,9 @@ class ControllerOutdoorAir(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `economizer_maximum_limit_dewpoint_temperature`'.format(value))
-
         self._data["Economizer Maximum Limit Dewpoint Temperature"] = value
 
     @property
@@ -1227,15 +1249,17 @@ class ControllerOutdoorAir(object):
 
     @electronic_enthalpy_limit_curve_name.setter
     def electronic_enthalpy_limit_curve_name(self, value=None):
-        """  Corresponds to IDD Field `electronic_enthalpy_limit_curve_name`
+        """  Corresponds to IDD Field `Electronic Enthalpy Limit Curve Name`
         Table:OneIndependentVariable object can also be used
         Enter the name of a quadratic or cubic curve which defines the maximum outdoor
         humidity ratio (function of outdoor dry-bulb temperature) for ElectronicEnthalpy
         economizer control type. No input or blank input means this limit is not operative
         Limit is applied regardless of economizer control type.
+        
+        {u'note': [u'Table:OneIndependentVariable object can also be used', u'Enter the name of a quadratic or cubic curve which defines the maximum outdoor', u'humidity ratio (function of outdoor dry-bulb temperature) for ElectronicEnthalpy', u'economizer control type. No input or blank input means this limit is not operative', u'Limit is applied regardless of economizer control type.'], u'type': u'object-list', u'object-list': u'QuadraticCubicCurves', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `electronic_enthalpy_limit_curve_name`
+            value (str): value for IDD Field `Electronic Enthalpy Limit Curve Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1245,7 +1269,7 @@ class ControllerOutdoorAir(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `electronic_enthalpy_limit_curve_name`'.format(value))
             if ',' in value:
@@ -1254,7 +1278,6 @@ class ControllerOutdoorAir(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `electronic_enthalpy_limit_curve_name`')
-
         self._data["Electronic Enthalpy Limit Curve Name"] = value
 
     @property
@@ -1268,13 +1291,15 @@ class ControllerOutdoorAir(object):
 
     @economizer_minimum_limit_drybulb_temperature.setter
     def economizer_minimum_limit_drybulb_temperature(self, value=None):
-        """  Corresponds to IDD Field `economizer_minimum_limit_drybulb_temperature`
+        """  Corresponds to IDD Field `Economizer Minimum Limit Dry-Bulb Temperature`
         Enter the minimum outdoor dry-bulb temperature limit for economizer control.
         No input or blank input means this limit is not operative
         Limit is applied regardless of economizer control type.
+        
+        {u'units': u'C', u'note': [u'Enter the minimum outdoor dry-bulb temperature limit for economizer control.', u'No input or blank input means this limit is not operative', u'Limit is applied regardless of economizer control type.'], u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `economizer_minimum_limit_drybulb_temperature`
+            value (float): value for IDD Field `Economizer Minimum Limit Dry-Bulb Temperature`
                 Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1285,10 +1310,9 @@ class ControllerOutdoorAir(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `economizer_minimum_limit_drybulb_temperature`'.format(value))
-
         self._data["Economizer Minimum Limit Dry-Bulb Temperature"] = value
 
     @property
@@ -1302,10 +1326,12 @@ class ControllerOutdoorAir(object):
 
     @lockout_type.setter
     def lockout_type(self, value="NoLockout"):
-        """  Corresponds to IDD Field `lockout_type`
+        """  Corresponds to IDD Field `Lockout Type`
+        
+        {u'default': u'NoLockout', u'type': u'choice', u'key': [u'NoLockout', u'LockoutWithHeating', u'LockoutWithCompressor'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `lockout_type`
+            value (str): value for IDD Field `Lockout Type`
                 Accepted values are:
                       - NoLockout
                       - LockoutWithHeating
@@ -1320,7 +1346,7 @@ class ControllerOutdoorAir(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `lockout_type`'.format(value))
             if ',' in value:
@@ -1347,7 +1373,6 @@ class ControllerOutdoorAir(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `lockout_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Lockout Type"] = value
 
     @property
@@ -1361,10 +1386,12 @@ class ControllerOutdoorAir(object):
 
     @minimum_limit_type.setter
     def minimum_limit_type(self, value="ProportionalMinimum"):
-        """  Corresponds to IDD Field `minimum_limit_type`
+        """  Corresponds to IDD Field `Minimum Limit Type`
+        
+        {u'default': u'ProportionalMinimum', u'type': u'choice', u'key': [u'FixedMinimum', u'ProportionalMinimum'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `minimum_limit_type`
+            value (str): value for IDD Field `Minimum Limit Type`
                 Accepted values are:
                       - FixedMinimum
                       - ProportionalMinimum
@@ -1378,7 +1405,7 @@ class ControllerOutdoorAir(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `minimum_limit_type`'.format(value))
             if ',' in value:
@@ -1404,7 +1431,6 @@ class ControllerOutdoorAir(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `minimum_limit_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Minimum Limit Type"] = value
 
     @property
@@ -1418,11 +1444,13 @@ class ControllerOutdoorAir(object):
 
     @minimum_outdoor_air_schedule_name.setter
     def minimum_outdoor_air_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `minimum_outdoor_air_schedule_name`
+        """  Corresponds to IDD Field `Minimum Outdoor Air Schedule Name`
         Schedule values multiply the minimum outdoor air flow rate
+        
+        {u'note': [u'Schedule values multiply the minimum outdoor air flow rate'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `minimum_outdoor_air_schedule_name`
+            value (str): value for IDD Field `Minimum Outdoor Air Schedule Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1432,7 +1460,7 @@ class ControllerOutdoorAir(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `minimum_outdoor_air_schedule_name`'.format(value))
             if ',' in value:
@@ -1441,7 +1469,6 @@ class ControllerOutdoorAir(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `minimum_outdoor_air_schedule_name`')
-
         self._data["Minimum Outdoor Air Schedule Name"] = value
 
     @property
@@ -1455,11 +1482,13 @@ class ControllerOutdoorAir(object):
 
     @minimum_fraction_of_outdoor_air_schedule_name.setter
     def minimum_fraction_of_outdoor_air_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `minimum_fraction_of_outdoor_air_schedule_name`
+        """  Corresponds to IDD Field `Minimum Fraction of Outdoor Air Schedule Name`
         schedule values multiply the design/mixed air flow rate
+        
+        {u'note': [u'schedule values multiply the design/mixed air flow rate'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `minimum_fraction_of_outdoor_air_schedule_name`
+            value (str): value for IDD Field `Minimum Fraction of Outdoor Air Schedule Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1469,7 +1498,7 @@ class ControllerOutdoorAir(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `minimum_fraction_of_outdoor_air_schedule_name`'.format(value))
             if ',' in value:
@@ -1478,7 +1507,6 @@ class ControllerOutdoorAir(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `minimum_fraction_of_outdoor_air_schedule_name`')
-
         self._data["Minimum Fraction of Outdoor Air Schedule Name"] = value
 
     @property
@@ -1492,11 +1520,13 @@ class ControllerOutdoorAir(object):
 
     @maximum_fraction_of_outdoor_air_schedule_name.setter
     def maximum_fraction_of_outdoor_air_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `maximum_fraction_of_outdoor_air_schedule_name`
+        """  Corresponds to IDD Field `Maximum Fraction of Outdoor Air Schedule Name`
         schedule values multiply the design/mixed air flow rate
+        
+        {u'note': [u'schedule values multiply the design/mixed air flow rate'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `maximum_fraction_of_outdoor_air_schedule_name`
+            value (str): value for IDD Field `Maximum Fraction of Outdoor Air Schedule Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1506,7 +1536,7 @@ class ControllerOutdoorAir(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `maximum_fraction_of_outdoor_air_schedule_name`'.format(value))
             if ',' in value:
@@ -1515,7 +1545,6 @@ class ControllerOutdoorAir(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `maximum_fraction_of_outdoor_air_schedule_name`')
-
         self._data["Maximum Fraction of Outdoor Air Schedule Name"] = value
 
     @property
@@ -1529,13 +1558,15 @@ class ControllerOutdoorAir(object):
 
     @mechanical_ventilation_controller_name.setter
     def mechanical_ventilation_controller_name(self, value=None):
-        """  Corresponds to IDD Field `mechanical_ventilation_controller_name`
+        """  Corresponds to IDD Field `Mechanical Ventilation Controller Name`
         Enter the name of a Controller:MechanicalVentilation object.
         Optional field for defining outdoor ventilation air based on flow rate per unit floor
         area and flow rate per person. Simplified method of demand-controlled ventilation.
+        
+        {u'note': [u'Enter the name of a Controller:MechanicalVentilation object.', u'Optional field for defining outdoor ventilation air based on flow rate per unit floor', u'area and flow rate per person. Simplified method of demand-controlled ventilation.'], u'type': u'object-list', u'object-list': u'ControllerMechanicalVentNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `mechanical_ventilation_controller_name`
+            value (str): value for IDD Field `Mechanical Ventilation Controller Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1545,7 +1576,7 @@ class ControllerOutdoorAir(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `mechanical_ventilation_controller_name`'.format(value))
             if ',' in value:
@@ -1554,7 +1585,6 @@ class ControllerOutdoorAir(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `mechanical_ventilation_controller_name`')
-
         self._data["Mechanical Ventilation Controller Name"] = value
 
     @property
@@ -1568,15 +1598,17 @@ class ControllerOutdoorAir(object):
 
     @time_of_day_economizer_control_schedule_name.setter
     def time_of_day_economizer_control_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `time_of_day_economizer_control_schedule_name`
+        """  Corresponds to IDD Field `Time of Day Economizer Control Schedule Name`
         Optional schedule to simulate "push-button" type economizer control.
         Schedule values greater than 0 indicate time-of-day economizer control is enabled.
         Economizer control may be used with or without the high humidity control option.
         When used together, high humidity control has priority over economizer control.
         If the field Economizer Control Type = NoEconomizer, then this option is disabled.
+        
+        {u'note': [u'Optional schedule to simulate "push-button" type economizer control.', u'Schedule values greater than 0 indicate time-of-day economizer control is enabled.', u'Economizer control may be used with or without the high humidity control option.', u'When used together, high humidity control has priority over economizer control.', u'If the field Economizer Control Type = NoEconomizer, then this option is disabled.'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `time_of_day_economizer_control_schedule_name`
+            value (str): value for IDD Field `Time of Day Economizer Control Schedule Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1586,7 +1618,7 @@ class ControllerOutdoorAir(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `time_of_day_economizer_control_schedule_name`'.format(value))
             if ',' in value:
@@ -1595,7 +1627,6 @@ class ControllerOutdoorAir(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `time_of_day_economizer_control_schedule_name`')
-
         self._data["Time of Day Economizer Control Schedule Name"] = value
 
     @property
@@ -1609,14 +1640,16 @@ class ControllerOutdoorAir(object):
 
     @high_humidity_control.setter
     def high_humidity_control(self, value="No"):
-        """  Corresponds to IDD Field `high_humidity_control`
+        """  Corresponds to IDD Field `High Humidity Control`
         Optional field to enable modified outdoor air flow rates based on zone relative humidity.
         Select Yes to modify outdoor air flow rate based on a zone humidistat.
         Select No to disable this feature.
         If the field Economizer Control Type = NoEconomizer, then this option is disabled.
+        
+        {u'default': u'No', u'note': [u'Optional field to enable modified outdoor air flow rates based on zone relative humidity.', u'Select Yes to modify outdoor air flow rate based on a zone humidistat.', u'Select No to disable this feature.', u'If the field Economizer Control Type = NoEconomizer, then this option is disabled.'], u'type': u'choice', u'key': [u'Yes', u'No'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `high_humidity_control`
+            value (str): value for IDD Field `High Humidity Control`
                 Accepted values are:
                       - Yes
                       - No
@@ -1630,7 +1663,7 @@ class ControllerOutdoorAir(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `high_humidity_control`'.format(value))
             if ',' in value:
@@ -1656,7 +1689,6 @@ class ControllerOutdoorAir(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `high_humidity_control`'.format(value))
             value = vals[value_lower]
-
         self._data["High Humidity Control"] = value
 
     @property
@@ -1670,12 +1702,14 @@ class ControllerOutdoorAir(object):
 
     @humidistat_control_zone_name.setter
     def humidistat_control_zone_name(self, value=None):
-        """  Corresponds to IDD Field `humidistat_control_zone_name`
+        """  Corresponds to IDD Field `Humidistat Control Zone Name`
         Enter the name of the zone where the humidistat is located.
         This field is only used when the field High Humidity Control = Yes.
+        
+        {u'note': [u'Enter the name of the zone where the humidistat is located.', u'This field is only used when the field High Humidity Control = Yes.'], u'type': u'object-list', u'object-list': u'ZoneNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `humidistat_control_zone_name`
+            value (str): value for IDD Field `Humidistat Control Zone Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1685,7 +1719,7 @@ class ControllerOutdoorAir(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `humidistat_control_zone_name`'.format(value))
             if ',' in value:
@@ -1694,7 +1728,6 @@ class ControllerOutdoorAir(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `humidistat_control_zone_name`')
-
         self._data["Humidistat Control Zone Name"] = value
 
     @property
@@ -1708,14 +1741,16 @@ class ControllerOutdoorAir(object):
 
     @high_humidity_outdoor_air_flow_ratio.setter
     def high_humidity_outdoor_air_flow_ratio(self, value=1.0 ):
-        """  Corresponds to IDD Field `high_humidity_outdoor_air_flow_ratio`
+        """  Corresponds to IDD Field `High Humidity Outdoor Air Flow Ratio`
         Enter the ratio of outdoor air to the maximum outdoor air flow rate when modified air
         flow rates are active based on high indoor humidity.
         The minimum value must be greater than 0.
         This field is only used when the field High Humidity Control = Yes.
+        
+        {u'default': '1.0', u'note': [u'Enter the ratio of outdoor air to the maximum outdoor air flow rate when modified air', u'flow rates are active based on high indoor humidity.', u'The minimum value must be greater than 0.', u'This field is only used when the field High Humidity Control = Yes.'], u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `high_humidity_outdoor_air_flow_ratio`
+            value (float): value for IDD Field `High Humidity Outdoor Air Flow Ratio`
                 Default value: 1.0
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -1727,13 +1762,12 @@ class ControllerOutdoorAir(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `high_humidity_outdoor_air_flow_ratio`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `high_humidity_outdoor_air_flow_ratio`')
-
         self._data["High Humidity Outdoor Air Flow Ratio"] = value
 
     @property
@@ -1747,15 +1781,17 @@ class ControllerOutdoorAir(object):
 
     @control_high_indoor_humidity_based_on_outdoor_humidity_ratio.setter
     def control_high_indoor_humidity_based_on_outdoor_humidity_ratio(self, value="Yes"):
-        """  Corresponds to IDD Field `control_high_indoor_humidity_based_on_outdoor_humidity_ratio`
+        """  Corresponds to IDD Field `Control High Indoor Humidity Based on Outdoor Humidity Ratio`
         If No is selected, the outdoor air flow rate is modified any time indoor relative
         humidity is above the humidistat setpoint. If Yes is selected, the outdoor air
         flow rate is modified any time the indoor relative humidity is above the humidistat
         setpoint and the outdoor humidity ratio is less than the indoor humidity ratio.
         This field is only used when the field High Humidity Control = Yes.
+        
+        {u'default': u'Yes', u'note': [u'If No is selected, the outdoor air flow rate is modified any time indoor relative', u'humidity is above the humidistat setpoint. If Yes is selected, the outdoor air', u'flow rate is modified any time the indoor relative humidity is above the humidistat', u'setpoint and the outdoor humidity ratio is less than the indoor humidity ratio.', u'This field is only used when the field High Humidity Control = Yes.'], u'type': u'choice', u'key': [u'Yes', u'No'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `control_high_indoor_humidity_based_on_outdoor_humidity_ratio`
+            value (str): value for IDD Field `Control High Indoor Humidity Based on Outdoor Humidity Ratio`
                 Accepted values are:
                       - Yes
                       - No
@@ -1769,7 +1805,7 @@ class ControllerOutdoorAir(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `control_high_indoor_humidity_based_on_outdoor_humidity_ratio`'.format(value))
             if ',' in value:
@@ -1795,7 +1831,6 @@ class ControllerOutdoorAir(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `control_high_indoor_humidity_based_on_outdoor_humidity_ratio`'.format(value))
             value = vals[value_lower]
-
         self._data["Control High Indoor Humidity Based on Outdoor Humidity Ratio"] = value
 
     @property
@@ -1809,16 +1844,18 @@ class ControllerOutdoorAir(object):
 
     @heat_recovery_bypass_control_type.setter
     def heat_recovery_bypass_control_type(self, value="BypassWhenWithinEconomizerLimits"):
-        """  Corresponds to IDD Field `heat_recovery_bypass_control_type`
+        """  Corresponds to IDD Field `Heat Recovery Bypass Control Type`
         BypassWhenWithinEconomizerLimits specifies that heat recovery
         is active only when the economizer is off because conditions
         are outside the economizer control limits
         BypassWhenOAFlowGreaterThanMinimum specifies enhanced economizer
         controls to allow heat recovery when economizer is active
         (within limits) but the outdoor air flow rate is at the minimum.
+        
+        {u'default': u'BypassWhenWithinEconomizerLimits', u'note': [u'BypassWhenWithinEconomizerLimits specifies that heat recovery', u'is active only when the economizer is off because conditions', u'are outside the economizer control limits', u'BypassWhenOAFlowGreaterThanMinimum specifies enhanced economizer', u'controls to allow heat recovery when economizer is active', u'(within limits) but the outdoor air flow rate is at the minimum.'], u'type': u'Choice', u'key': [u'BypassWhenWithinEconomizerLimits', u'BypassWhenOAFlowGreaterThanMinimum'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `heat_recovery_bypass_control_type`
+            value (str): value for IDD Field `Heat Recovery Bypass Control Type`
                 Default value: BypassWhenWithinEconomizerLimits
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1829,7 +1866,7 @@ class ControllerOutdoorAir(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `heat_recovery_bypass_control_type`'.format(value))
             if ',' in value:
@@ -1838,7 +1875,6 @@ class ControllerOutdoorAir(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `heat_recovery_bypass_control_type`')
-
         self._data["Heat Recovery Bypass Control Type"] = value
 
     def check(self):
@@ -3156,10 +3192,12 @@ class ControllerMechanicalVentilation(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {u'type': u'alpha', u'reference': u'ControllerMechanicalVentNames', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3169,7 +3207,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -3178,7 +3216,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -3192,12 +3229,14 @@ class ControllerMechanicalVentilation(object):
 
     @availability_schedule_name.setter
     def availability_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `availability_schedule_name`
+        """  Corresponds to IDD Field `Availability Schedule Name`
         If this field is blank, the controller uses the values from the associated Controller:OutdoorAir.
         Schedule values greater than 0 indicate mechanical ventilation is enabled
+        
+        {u'note': [u'If this field is blank, the controller uses the values from the associated Controller:OutdoorAir.', u'Schedule values greater than 0 indicate mechanical ventilation is enabled'], u'type': u'object-list', u'object-list': u'ScheduleNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `availability_schedule_name`
+            value (str): value for IDD Field `Availability Schedule Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3207,7 +3246,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `availability_schedule_name`'.format(value))
             if ',' in value:
@@ -3216,7 +3255,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `availability_schedule_name`')
-
         self._data["Availability Schedule Name"] = value
 
     @property
@@ -3230,10 +3268,12 @@ class ControllerMechanicalVentilation(object):
 
     @demand_controlled_ventilation.setter
     def demand_controlled_ventilation(self, value="No"):
-        """  Corresponds to IDD Field `demand_controlled_ventilation`
+        """  Corresponds to IDD Field `Demand Controlled Ventilation`
+        
+        {u'default': u'No', u'type': u'choice', u'key': [u'Yes', u'No'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `demand_controlled_ventilation`
+            value (str): value for IDD Field `Demand Controlled Ventilation`
                 Accepted values are:
                       - Yes
                       - No
@@ -3247,7 +3287,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `demand_controlled_ventilation`'.format(value))
             if ',' in value:
@@ -3273,7 +3313,6 @@ class ControllerMechanicalVentilation(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `demand_controlled_ventilation`'.format(value))
             value = vals[value_lower]
-
         self._data["Demand Controlled Ventilation"] = value
 
     @property
@@ -3287,10 +3326,12 @@ class ControllerMechanicalVentilation(object):
 
     @system_outdoor_air_method.setter
     def system_outdoor_air_method(self, value="VentilationRateProcedure"):
-        """  Corresponds to IDD Field `system_outdoor_air_method`
+        """  Corresponds to IDD Field `System Outdoor Air Method`
+        
+        {u'default': u'VentilationRateProcedure', u'type': u'choice', u'key': [u'ZoneSum', u'VentilationRateProcedure', u'IndoorAirQualityProcedure', u'ProportionalControl', u'IndoorAirQualityProcedureGenericContaminant'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `system_outdoor_air_method`
+            value (str): value for IDD Field `System Outdoor Air Method`
                 Accepted values are:
                       - ZoneSum
                       - VentilationRateProcedure
@@ -3307,7 +3348,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `system_outdoor_air_method`'.format(value))
             if ',' in value:
@@ -3336,7 +3377,6 @@ class ControllerMechanicalVentilation(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `system_outdoor_air_method`'.format(value))
             value = vals[value_lower]
-
         self._data["System Outdoor Air Method"] = value
 
     @property
@@ -3350,10 +3390,12 @@ class ControllerMechanicalVentilation(object):
 
     @zone_maximum_outdoor_air_fraction.setter
     def zone_maximum_outdoor_air_fraction(self, value=1.0 ):
-        """  Corresponds to IDD Field `zone_maximum_outdoor_air_fraction`
+        """  Corresponds to IDD Field `Zone Maximum Outdoor Air Fraction`
+        
+        {u'default': '1.0', u'units': u'dimensionless', u'minimum>': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `zone_maximum_outdoor_air_fraction`
+            value (float): value for IDD Field `Zone Maximum Outdoor Air Fraction`
                 Units: dimensionless
                 Default value: 1.0
                 value > 0.0
@@ -3366,13 +3408,12 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `zone_maximum_outdoor_air_fraction`'.format(value))
             if value <= 0.0:
                 raise ValueError('value need to be greater 0.0 '
                                  'for field `zone_maximum_outdoor_air_fraction`')
-
         self._data["Zone Maximum Outdoor Air Fraction"] = value
 
     @property
@@ -3386,11 +3427,13 @@ class ControllerMechanicalVentilation(object):
 
     @zone_1_name.setter
     def zone_1_name(self, value=None):
-        """  Corresponds to IDD Field `zone_1_name`
+        """  Corresponds to IDD Field `Zone 1 Name`
         A zone name or a zone list name may be used here
+        
+        {'pytype': 'str', u'begin-extensible': u'', u'required-field': True, u'note': [u'A zone name or a zone list name may be used here'], u'object-list': u'ZoneAndZoneListNames', u'type': u'object-list'}
 
         Args:
-            value (str): value for IDD Field `zone_1_name`
+            value (str): value for IDD Field `Zone 1 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3400,7 +3443,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `zone_1_name`'.format(value))
             if ',' in value:
@@ -3409,7 +3452,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `zone_1_name`')
-
         self._data["Zone 1 Name"] = value
 
     @property
@@ -3423,10 +3465,12 @@ class ControllerMechanicalVentilation(object):
 
     @design_specification_outdoor_air_object_name_1.setter
     def design_specification_outdoor_air_object_name_1(self, value=None):
-        """  Corresponds to IDD Field `design_specification_outdoor_air_object_name_1`
+        """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 1`
+        
+        {u'type': u'object-list', u'object-list': u'DesignSpecificationOutdoorAirNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `design_specification_outdoor_air_object_name_1`
+            value (str): value for IDD Field `Design Specification Outdoor Air Object Name 1`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3436,7 +3480,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `design_specification_outdoor_air_object_name_1`'.format(value))
             if ',' in value:
@@ -3445,7 +3489,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `design_specification_outdoor_air_object_name_1`')
-
         self._data["Design Specification Outdoor Air Object Name 1"] = value
 
     @property
@@ -3459,10 +3502,12 @@ class ControllerMechanicalVentilation(object):
 
     @design_specification_zone_air_distribution_object_name_1.setter
     def design_specification_zone_air_distribution_object_name_1(self, value=None):
-        """  Corresponds to IDD Field `design_specification_zone_air_distribution_object_name_1`
+        """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 1`
+        
+        {u'type': u'object-list', u'object-list': u'DesignSpecificationZoneAirDistributionNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `design_specification_zone_air_distribution_object_name_1`
+            value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 1`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3472,7 +3517,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `design_specification_zone_air_distribution_object_name_1`'.format(value))
             if ',' in value:
@@ -3481,7 +3526,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `design_specification_zone_air_distribution_object_name_1`')
-
         self._data["Design Specification Zone Air Distribution Object Name 1"] = value
 
     @property
@@ -3495,11 +3539,13 @@ class ControllerMechanicalVentilation(object):
 
     @zone_2_name.setter
     def zone_2_name(self, value=None):
-        """  Corresponds to IDD Field `zone_2_name`
+        """  Corresponds to IDD Field `Zone 2 Name`
         A zone name or a zone list name may be used here
+        
+        {u'note': [u'A zone name or a zone list name may be used here'], u'type': u'object-list', u'object-list': u'ZoneAndZoneListNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `zone_2_name`
+            value (str): value for IDD Field `Zone 2 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3509,7 +3555,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `zone_2_name`'.format(value))
             if ',' in value:
@@ -3518,7 +3564,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `zone_2_name`')
-
         self._data["Zone 2 Name"] = value
 
     @property
@@ -3532,10 +3577,12 @@ class ControllerMechanicalVentilation(object):
 
     @design_specification_outdoor_air_object_name_2.setter
     def design_specification_outdoor_air_object_name_2(self, value=None):
-        """  Corresponds to IDD Field `design_specification_outdoor_air_object_name_2`
+        """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 2`
+        
+        {u'type': u'object-list', u'object-list': u'DesignSpecificationOutdoorAirNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `design_specification_outdoor_air_object_name_2`
+            value (str): value for IDD Field `Design Specification Outdoor Air Object Name 2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3545,7 +3592,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `design_specification_outdoor_air_object_name_2`'.format(value))
             if ',' in value:
@@ -3554,7 +3601,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `design_specification_outdoor_air_object_name_2`')
-
         self._data["Design Specification Outdoor Air Object Name 2"] = value
 
     @property
@@ -3568,10 +3614,12 @@ class ControllerMechanicalVentilation(object):
 
     @design_specification_zone_air_distribution_object_name_2.setter
     def design_specification_zone_air_distribution_object_name_2(self, value=None):
-        """  Corresponds to IDD Field `design_specification_zone_air_distribution_object_name_2`
+        """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 2`
+        
+        {u'type': u'object-list', u'object-list': u'DesignSpecificationZoneAirDistributionNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `design_specification_zone_air_distribution_object_name_2`
+            value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 2`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3581,7 +3629,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `design_specification_zone_air_distribution_object_name_2`'.format(value))
             if ',' in value:
@@ -3590,7 +3638,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `design_specification_zone_air_distribution_object_name_2`')
-
         self._data["Design Specification Zone Air Distribution Object Name 2"] = value
 
     @property
@@ -3604,11 +3651,13 @@ class ControllerMechanicalVentilation(object):
 
     @zone_3_name.setter
     def zone_3_name(self, value=None):
-        """  Corresponds to IDD Field `zone_3_name`
+        """  Corresponds to IDD Field `Zone 3 Name`
         A zone name or a zone list name may be used here
+        
+        {u'note': [u'A zone name or a zone list name may be used here'], u'type': u'object-list', u'object-list': u'ZoneAndZoneListNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `zone_3_name`
+            value (str): value for IDD Field `Zone 3 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3618,7 +3667,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `zone_3_name`'.format(value))
             if ',' in value:
@@ -3627,7 +3676,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `zone_3_name`')
-
         self._data["Zone 3 Name"] = value
 
     @property
@@ -3641,10 +3689,12 @@ class ControllerMechanicalVentilation(object):
 
     @design_specification_outdoor_air_object_name_3.setter
     def design_specification_outdoor_air_object_name_3(self, value=None):
-        """  Corresponds to IDD Field `design_specification_outdoor_air_object_name_3`
+        """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 3`
+        
+        {u'type': u'object-list', u'object-list': u'DesignSpecificationOutdoorAirNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `design_specification_outdoor_air_object_name_3`
+            value (str): value for IDD Field `Design Specification Outdoor Air Object Name 3`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3654,7 +3704,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `design_specification_outdoor_air_object_name_3`'.format(value))
             if ',' in value:
@@ -3663,7 +3713,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `design_specification_outdoor_air_object_name_3`')
-
         self._data["Design Specification Outdoor Air Object Name 3"] = value
 
     @property
@@ -3677,10 +3726,12 @@ class ControllerMechanicalVentilation(object):
 
     @design_specification_zone_air_distribution_object_name_3.setter
     def design_specification_zone_air_distribution_object_name_3(self, value=None):
-        """  Corresponds to IDD Field `design_specification_zone_air_distribution_object_name_3`
+        """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 3`
+        
+        {u'type': u'object-list', u'object-list': u'DesignSpecificationZoneAirDistributionNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `design_specification_zone_air_distribution_object_name_3`
+            value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 3`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3690,7 +3741,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `design_specification_zone_air_distribution_object_name_3`'.format(value))
             if ',' in value:
@@ -3699,7 +3750,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `design_specification_zone_air_distribution_object_name_3`')
-
         self._data["Design Specification Zone Air Distribution Object Name 3"] = value
 
     @property
@@ -3713,11 +3763,13 @@ class ControllerMechanicalVentilation(object):
 
     @zone_4_name.setter
     def zone_4_name(self, value=None):
-        """  Corresponds to IDD Field `zone_4_name`
+        """  Corresponds to IDD Field `Zone 4 Name`
         A zone name or a zone list name may be used here
+        
+        {u'note': [u'A zone name or a zone list name may be used here'], u'type': u'object-list', u'object-list': u'ZoneAndZoneListNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `zone_4_name`
+            value (str): value for IDD Field `Zone 4 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3727,7 +3779,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `zone_4_name`'.format(value))
             if ',' in value:
@@ -3736,7 +3788,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `zone_4_name`')
-
         self._data["Zone 4 Name"] = value
 
     @property
@@ -3750,10 +3801,12 @@ class ControllerMechanicalVentilation(object):
 
     @design_specification_outdoor_air_object_name_4.setter
     def design_specification_outdoor_air_object_name_4(self, value=None):
-        """  Corresponds to IDD Field `design_specification_outdoor_air_object_name_4`
+        """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 4`
+        
+        {u'type': u'object-list', u'object-list': u'DesignSpecificationOutdoorAirNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `design_specification_outdoor_air_object_name_4`
+            value (str): value for IDD Field `Design Specification Outdoor Air Object Name 4`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3763,7 +3816,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `design_specification_outdoor_air_object_name_4`'.format(value))
             if ',' in value:
@@ -3772,7 +3825,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `design_specification_outdoor_air_object_name_4`')
-
         self._data["Design Specification Outdoor Air Object Name 4"] = value
 
     @property
@@ -3786,10 +3838,12 @@ class ControllerMechanicalVentilation(object):
 
     @design_specification_zone_air_distribution_object_name_4.setter
     def design_specification_zone_air_distribution_object_name_4(self, value=None):
-        """  Corresponds to IDD Field `design_specification_zone_air_distribution_object_name_4`
+        """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 4`
+        
+        {u'type': u'object-list', u'object-list': u'DesignSpecificationZoneAirDistributionNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `design_specification_zone_air_distribution_object_name_4`
+            value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 4`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3799,7 +3853,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `design_specification_zone_air_distribution_object_name_4`'.format(value))
             if ',' in value:
@@ -3808,7 +3862,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `design_specification_zone_air_distribution_object_name_4`')
-
         self._data["Design Specification Zone Air Distribution Object Name 4"] = value
 
     @property
@@ -3822,11 +3875,13 @@ class ControllerMechanicalVentilation(object):
 
     @zone_5_name.setter
     def zone_5_name(self, value=None):
-        """  Corresponds to IDD Field `zone_5_name`
+        """  Corresponds to IDD Field `Zone 5 Name`
         A zone name or a zone list name may be used here
+        
+        {u'note': [u'A zone name or a zone list name may be used here'], u'type': u'object-list', u'object-list': u'ZoneAndZoneListNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `zone_5_name`
+            value (str): value for IDD Field `Zone 5 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3836,7 +3891,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `zone_5_name`'.format(value))
             if ',' in value:
@@ -3845,7 +3900,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `zone_5_name`')
-
         self._data["Zone 5 Name"] = value
 
     @property
@@ -3859,10 +3913,12 @@ class ControllerMechanicalVentilation(object):
 
     @design_specification_outdoor_air_object_name_5.setter
     def design_specification_outdoor_air_object_name_5(self, value=None):
-        """  Corresponds to IDD Field `design_specification_outdoor_air_object_name_5`
+        """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 5`
+        
+        {u'type': u'object-list', u'object-list': u'DesignSpecificationOutdoorAirNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `design_specification_outdoor_air_object_name_5`
+            value (str): value for IDD Field `Design Specification Outdoor Air Object Name 5`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3872,7 +3928,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `design_specification_outdoor_air_object_name_5`'.format(value))
             if ',' in value:
@@ -3881,7 +3937,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `design_specification_outdoor_air_object_name_5`')
-
         self._data["Design Specification Outdoor Air Object Name 5"] = value
 
     @property
@@ -3895,10 +3950,12 @@ class ControllerMechanicalVentilation(object):
 
     @design_specification_zone_air_distribution_object_name_5.setter
     def design_specification_zone_air_distribution_object_name_5(self, value=None):
-        """  Corresponds to IDD Field `design_specification_zone_air_distribution_object_name_5`
+        """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 5`
+        
+        {u'type': u'object-list', u'object-list': u'DesignSpecificationZoneAirDistributionNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `design_specification_zone_air_distribution_object_name_5`
+            value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 5`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3908,7 +3965,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `design_specification_zone_air_distribution_object_name_5`'.format(value))
             if ',' in value:
@@ -3917,7 +3974,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `design_specification_zone_air_distribution_object_name_5`')
-
         self._data["Design Specification Zone Air Distribution Object Name 5"] = value
 
     @property
@@ -3931,11 +3987,13 @@ class ControllerMechanicalVentilation(object):
 
     @zone_6_name.setter
     def zone_6_name(self, value=None):
-        """  Corresponds to IDD Field `zone_6_name`
+        """  Corresponds to IDD Field `Zone 6 Name`
         A zone name or a zone list name may be used here
+        
+        {u'note': [u'A zone name or a zone list name may be used here'], u'type': u'object-list', u'object-list': u'ZoneAndZoneListNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `zone_6_name`
+            value (str): value for IDD Field `Zone 6 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3945,7 +4003,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `zone_6_name`'.format(value))
             if ',' in value:
@@ -3954,7 +4012,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `zone_6_name`')
-
         self._data["Zone 6 Name"] = value
 
     @property
@@ -3968,10 +4025,12 @@ class ControllerMechanicalVentilation(object):
 
     @design_specification_outdoor_air_object_name_6.setter
     def design_specification_outdoor_air_object_name_6(self, value=None):
-        """  Corresponds to IDD Field `design_specification_outdoor_air_object_name_6`
+        """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 6`
+        
+        {u'type': u'object-list', u'object-list': u'DesignSpecificationOutdoorAirNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `design_specification_outdoor_air_object_name_6`
+            value (str): value for IDD Field `Design Specification Outdoor Air Object Name 6`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3981,7 +4040,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `design_specification_outdoor_air_object_name_6`'.format(value))
             if ',' in value:
@@ -3990,7 +4049,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `design_specification_outdoor_air_object_name_6`')
-
         self._data["Design Specification Outdoor Air Object Name 6"] = value
 
     @property
@@ -4004,10 +4062,12 @@ class ControllerMechanicalVentilation(object):
 
     @design_specification_zone_air_distribution_object_name_6.setter
     def design_specification_zone_air_distribution_object_name_6(self, value=None):
-        """  Corresponds to IDD Field `design_specification_zone_air_distribution_object_name_6`
+        """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 6`
+        
+        {u'type': u'object-list', u'object-list': u'DesignSpecificationZoneAirDistributionNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `design_specification_zone_air_distribution_object_name_6`
+            value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 6`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4017,7 +4077,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `design_specification_zone_air_distribution_object_name_6`'.format(value))
             if ',' in value:
@@ -4026,7 +4086,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `design_specification_zone_air_distribution_object_name_6`')
-
         self._data["Design Specification Zone Air Distribution Object Name 6"] = value
 
     @property
@@ -4040,11 +4099,13 @@ class ControllerMechanicalVentilation(object):
 
     @zone_7_name.setter
     def zone_7_name(self, value=None):
-        """  Corresponds to IDD Field `zone_7_name`
+        """  Corresponds to IDD Field `Zone 7 Name`
         A zone name or a zone list name may be used here
+        
+        {u'note': [u'A zone name or a zone list name may be used here'], u'type': u'object-list', u'object-list': u'ZoneAndZoneListNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `zone_7_name`
+            value (str): value for IDD Field `Zone 7 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4054,7 +4115,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `zone_7_name`'.format(value))
             if ',' in value:
@@ -4063,7 +4124,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `zone_7_name`')
-
         self._data["Zone 7 Name"] = value
 
     @property
@@ -4077,10 +4137,12 @@ class ControllerMechanicalVentilation(object):
 
     @design_specification_outdoor_air_object_name_7.setter
     def design_specification_outdoor_air_object_name_7(self, value=None):
-        """  Corresponds to IDD Field `design_specification_outdoor_air_object_name_7`
+        """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 7`
+        
+        {u'type': u'object-list', u'object-list': u'DesignSpecificationOutdoorAirNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `design_specification_outdoor_air_object_name_7`
+            value (str): value for IDD Field `Design Specification Outdoor Air Object Name 7`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4090,7 +4152,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `design_specification_outdoor_air_object_name_7`'.format(value))
             if ',' in value:
@@ -4099,7 +4161,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `design_specification_outdoor_air_object_name_7`')
-
         self._data["Design Specification Outdoor Air Object Name 7"] = value
 
     @property
@@ -4113,10 +4174,12 @@ class ControllerMechanicalVentilation(object):
 
     @design_specification_zone_air_distribution_object_name_7.setter
     def design_specification_zone_air_distribution_object_name_7(self, value=None):
-        """  Corresponds to IDD Field `design_specification_zone_air_distribution_object_name_7`
+        """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 7`
+        
+        {u'type': u'object-list', u'object-list': u'DesignSpecificationZoneAirDistributionNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `design_specification_zone_air_distribution_object_name_7`
+            value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 7`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4126,7 +4189,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `design_specification_zone_air_distribution_object_name_7`'.format(value))
             if ',' in value:
@@ -4135,7 +4198,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `design_specification_zone_air_distribution_object_name_7`')
-
         self._data["Design Specification Zone Air Distribution Object Name 7"] = value
 
     @property
@@ -4149,11 +4211,13 @@ class ControllerMechanicalVentilation(object):
 
     @zone_8_name.setter
     def zone_8_name(self, value=None):
-        """  Corresponds to IDD Field `zone_8_name`
+        """  Corresponds to IDD Field `Zone 8 Name`
         A zone name or a zone list name may be used here
+        
+        {u'note': [u'A zone name or a zone list name may be used here'], u'type': u'object-list', u'object-list': u'ZoneAndZoneListNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `zone_8_name`
+            value (str): value for IDD Field `Zone 8 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4163,7 +4227,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `zone_8_name`'.format(value))
             if ',' in value:
@@ -4172,7 +4236,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `zone_8_name`')
-
         self._data["Zone 8 Name"] = value
 
     @property
@@ -4186,10 +4249,12 @@ class ControllerMechanicalVentilation(object):
 
     @design_specification_outdoor_air_object_name_8.setter
     def design_specification_outdoor_air_object_name_8(self, value=None):
-        """  Corresponds to IDD Field `design_specification_outdoor_air_object_name_8`
+        """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 8`
+        
+        {u'type': u'object-list', u'object-list': u'DesignSpecificationOutdoorAirNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `design_specification_outdoor_air_object_name_8`
+            value (str): value for IDD Field `Design Specification Outdoor Air Object Name 8`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4199,7 +4264,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `design_specification_outdoor_air_object_name_8`'.format(value))
             if ',' in value:
@@ -4208,7 +4273,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `design_specification_outdoor_air_object_name_8`')
-
         self._data["Design Specification Outdoor Air Object Name 8"] = value
 
     @property
@@ -4222,10 +4286,12 @@ class ControllerMechanicalVentilation(object):
 
     @design_specification_zone_air_distribution_object_name_8.setter
     def design_specification_zone_air_distribution_object_name_8(self, value=None):
-        """  Corresponds to IDD Field `design_specification_zone_air_distribution_object_name_8`
+        """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 8`
+        
+        {u'type': u'object-list', u'object-list': u'DesignSpecificationZoneAirDistributionNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `design_specification_zone_air_distribution_object_name_8`
+            value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 8`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4235,7 +4301,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `design_specification_zone_air_distribution_object_name_8`'.format(value))
             if ',' in value:
@@ -4244,7 +4310,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `design_specification_zone_air_distribution_object_name_8`')
-
         self._data["Design Specification Zone Air Distribution Object Name 8"] = value
 
     @property
@@ -4258,11 +4323,13 @@ class ControllerMechanicalVentilation(object):
 
     @zone_9_name.setter
     def zone_9_name(self, value=None):
-        """  Corresponds to IDD Field `zone_9_name`
+        """  Corresponds to IDD Field `Zone 9 Name`
         A zone name or a zone list name may be used here
+        
+        {u'note': [u'A zone name or a zone list name may be used here'], u'type': u'object-list', u'object-list': u'ZoneAndZoneListNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `zone_9_name`
+            value (str): value for IDD Field `Zone 9 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4272,7 +4339,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `zone_9_name`'.format(value))
             if ',' in value:
@@ -4281,7 +4348,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `zone_9_name`')
-
         self._data["Zone 9 Name"] = value
 
     @property
@@ -4295,10 +4361,12 @@ class ControllerMechanicalVentilation(object):
 
     @design_specification_outdoor_air_object_name_9.setter
     def design_specification_outdoor_air_object_name_9(self, value=None):
-        """  Corresponds to IDD Field `design_specification_outdoor_air_object_name_9`
+        """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 9`
+        
+        {u'type': u'object-list', u'object-list': u'DesignSpecificationOutdoorAirNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `design_specification_outdoor_air_object_name_9`
+            value (str): value for IDD Field `Design Specification Outdoor Air Object Name 9`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4308,7 +4376,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `design_specification_outdoor_air_object_name_9`'.format(value))
             if ',' in value:
@@ -4317,7 +4385,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `design_specification_outdoor_air_object_name_9`')
-
         self._data["Design Specification Outdoor Air Object Name 9"] = value
 
     @property
@@ -4331,10 +4398,12 @@ class ControllerMechanicalVentilation(object):
 
     @design_specification_zone_air_distribution_object_name_9.setter
     def design_specification_zone_air_distribution_object_name_9(self, value=None):
-        """  Corresponds to IDD Field `design_specification_zone_air_distribution_object_name_9`
+        """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 9`
+        
+        {u'type': u'object-list', u'object-list': u'DesignSpecificationZoneAirDistributionNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `design_specification_zone_air_distribution_object_name_9`
+            value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 9`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4344,7 +4413,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `design_specification_zone_air_distribution_object_name_9`'.format(value))
             if ',' in value:
@@ -4353,7 +4422,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `design_specification_zone_air_distribution_object_name_9`')
-
         self._data["Design Specification Zone Air Distribution Object Name 9"] = value
 
     @property
@@ -4367,11 +4435,13 @@ class ControllerMechanicalVentilation(object):
 
     @zone_10_name.setter
     def zone_10_name(self, value=None):
-        """  Corresponds to IDD Field `zone_10_name`
+        """  Corresponds to IDD Field `Zone 10 Name`
         A zone name or a zone list name may be used here
+        
+        {u'note': [u'A zone name or a zone list name may be used here'], u'type': u'object-list', u'object-list': u'ZoneAndZoneListNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `zone_10_name`
+            value (str): value for IDD Field `Zone 10 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4381,7 +4451,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `zone_10_name`'.format(value))
             if ',' in value:
@@ -4390,7 +4460,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `zone_10_name`')
-
         self._data["Zone 10 Name"] = value
 
     @property
@@ -4404,10 +4473,12 @@ class ControllerMechanicalVentilation(object):
 
     @design_specification_outdoor_air_object_name_10.setter
     def design_specification_outdoor_air_object_name_10(self, value=None):
-        """  Corresponds to IDD Field `design_specification_outdoor_air_object_name_10`
+        """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 10`
+        
+        {u'type': u'object-list', u'object-list': u'DesignSpecificationOutdoorAirNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `design_specification_outdoor_air_object_name_10`
+            value (str): value for IDD Field `Design Specification Outdoor Air Object Name 10`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4417,7 +4488,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `design_specification_outdoor_air_object_name_10`'.format(value))
             if ',' in value:
@@ -4426,7 +4497,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `design_specification_outdoor_air_object_name_10`')
-
         self._data["Design Specification Outdoor Air Object Name 10"] = value
 
     @property
@@ -4440,10 +4510,12 @@ class ControllerMechanicalVentilation(object):
 
     @design_specification_zone_air_distribution_object_name_10.setter
     def design_specification_zone_air_distribution_object_name_10(self, value=None):
-        """  Corresponds to IDD Field `design_specification_zone_air_distribution_object_name_10`
+        """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 10`
+        
+        {u'type': u'object-list', u'object-list': u'DesignSpecificationZoneAirDistributionNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `design_specification_zone_air_distribution_object_name_10`
+            value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 10`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4453,7 +4525,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `design_specification_zone_air_distribution_object_name_10`'.format(value))
             if ',' in value:
@@ -4462,7 +4534,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `design_specification_zone_air_distribution_object_name_10`')
-
         self._data["Design Specification Zone Air Distribution Object Name 10"] = value
 
     @property
@@ -4476,11 +4547,13 @@ class ControllerMechanicalVentilation(object):
 
     @zone_11_name.setter
     def zone_11_name(self, value=None):
-        """  Corresponds to IDD Field `zone_11_name`
+        """  Corresponds to IDD Field `Zone 11 Name`
         A zone name or a zone list name may be used here
+        
+        {u'note': [u'A zone name or a zone list name may be used here'], u'type': u'object-list', u'object-list': u'ZoneAndZoneListNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `zone_11_name`
+            value (str): value for IDD Field `Zone 11 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4490,7 +4563,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `zone_11_name`'.format(value))
             if ',' in value:
@@ -4499,7 +4572,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `zone_11_name`')
-
         self._data["Zone 11 Name"] = value
 
     @property
@@ -4513,10 +4585,12 @@ class ControllerMechanicalVentilation(object):
 
     @design_specification_outdoor_air_object_name_11.setter
     def design_specification_outdoor_air_object_name_11(self, value=None):
-        """  Corresponds to IDD Field `design_specification_outdoor_air_object_name_11`
+        """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 11`
+        
+        {u'type': u'object-list', u'object-list': u'DesignSpecificationOutdoorAirNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `design_specification_outdoor_air_object_name_11`
+            value (str): value for IDD Field `Design Specification Outdoor Air Object Name 11`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4526,7 +4600,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `design_specification_outdoor_air_object_name_11`'.format(value))
             if ',' in value:
@@ -4535,7 +4609,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `design_specification_outdoor_air_object_name_11`')
-
         self._data["Design Specification Outdoor Air Object Name 11"] = value
 
     @property
@@ -4549,10 +4622,12 @@ class ControllerMechanicalVentilation(object):
 
     @design_specification_zone_air_distribution_object_name_11.setter
     def design_specification_zone_air_distribution_object_name_11(self, value=None):
-        """  Corresponds to IDD Field `design_specification_zone_air_distribution_object_name_11`
+        """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 11`
+        
+        {u'type': u'object-list', u'object-list': u'DesignSpecificationZoneAirDistributionNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `design_specification_zone_air_distribution_object_name_11`
+            value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 11`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4562,7 +4637,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `design_specification_zone_air_distribution_object_name_11`'.format(value))
             if ',' in value:
@@ -4571,7 +4646,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `design_specification_zone_air_distribution_object_name_11`')
-
         self._data["Design Specification Zone Air Distribution Object Name 11"] = value
 
     @property
@@ -4585,11 +4659,13 @@ class ControllerMechanicalVentilation(object):
 
     @zone_12_name.setter
     def zone_12_name(self, value=None):
-        """  Corresponds to IDD Field `zone_12_name`
+        """  Corresponds to IDD Field `Zone 12 Name`
         A zone name or a zone list name may be used here
+        
+        {u'note': [u'A zone name or a zone list name may be used here'], u'type': u'object-list', u'object-list': u'ZoneAndZoneListNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `zone_12_name`
+            value (str): value for IDD Field `Zone 12 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4599,7 +4675,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `zone_12_name`'.format(value))
             if ',' in value:
@@ -4608,7 +4684,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `zone_12_name`')
-
         self._data["Zone 12 Name"] = value
 
     @property
@@ -4622,10 +4697,12 @@ class ControllerMechanicalVentilation(object):
 
     @design_specification_outdoor_air_object_name_12.setter
     def design_specification_outdoor_air_object_name_12(self, value=None):
-        """  Corresponds to IDD Field `design_specification_outdoor_air_object_name_12`
+        """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 12`
+        
+        {u'type': u'object-list', u'object-list': u'DesignSpecificationOutdoorAirNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `design_specification_outdoor_air_object_name_12`
+            value (str): value for IDD Field `Design Specification Outdoor Air Object Name 12`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4635,7 +4712,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `design_specification_outdoor_air_object_name_12`'.format(value))
             if ',' in value:
@@ -4644,7 +4721,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `design_specification_outdoor_air_object_name_12`')
-
         self._data["Design Specification Outdoor Air Object Name 12"] = value
 
     @property
@@ -4658,10 +4734,12 @@ class ControllerMechanicalVentilation(object):
 
     @design_specification_zone_air_distribution_object_name_12.setter
     def design_specification_zone_air_distribution_object_name_12(self, value=None):
-        """  Corresponds to IDD Field `design_specification_zone_air_distribution_object_name_12`
+        """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 12`
+        
+        {u'type': u'object-list', u'object-list': u'DesignSpecificationZoneAirDistributionNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `design_specification_zone_air_distribution_object_name_12`
+            value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 12`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4671,7 +4749,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `design_specification_zone_air_distribution_object_name_12`'.format(value))
             if ',' in value:
@@ -4680,7 +4758,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `design_specification_zone_air_distribution_object_name_12`')
-
         self._data["Design Specification Zone Air Distribution Object Name 12"] = value
 
     @property
@@ -4694,11 +4771,13 @@ class ControllerMechanicalVentilation(object):
 
     @zone_13_name.setter
     def zone_13_name(self, value=None):
-        """  Corresponds to IDD Field `zone_13_name`
+        """  Corresponds to IDD Field `Zone 13 Name`
         A zone name or a zone list name may be used here
+        
+        {u'note': [u'A zone name or a zone list name may be used here'], u'type': u'object-list', u'object-list': u'ZoneAndZoneListNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `zone_13_name`
+            value (str): value for IDD Field `Zone 13 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4708,7 +4787,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `zone_13_name`'.format(value))
             if ',' in value:
@@ -4717,7 +4796,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `zone_13_name`')
-
         self._data["Zone 13 Name"] = value
 
     @property
@@ -4731,10 +4809,12 @@ class ControllerMechanicalVentilation(object):
 
     @design_specification_outdoor_air_object_name_13.setter
     def design_specification_outdoor_air_object_name_13(self, value=None):
-        """  Corresponds to IDD Field `design_specification_outdoor_air_object_name_13`
+        """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 13`
+        
+        {u'type': u'object-list', u'object-list': u'DesignSpecificationOutdoorAirNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `design_specification_outdoor_air_object_name_13`
+            value (str): value for IDD Field `Design Specification Outdoor Air Object Name 13`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4744,7 +4824,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `design_specification_outdoor_air_object_name_13`'.format(value))
             if ',' in value:
@@ -4753,7 +4833,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `design_specification_outdoor_air_object_name_13`')
-
         self._data["Design Specification Outdoor Air Object Name 13"] = value
 
     @property
@@ -4767,10 +4846,12 @@ class ControllerMechanicalVentilation(object):
 
     @design_specification_zone_air_distribution_object_name_13.setter
     def design_specification_zone_air_distribution_object_name_13(self, value=None):
-        """  Corresponds to IDD Field `design_specification_zone_air_distribution_object_name_13`
+        """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 13`
+        
+        {u'type': u'object-list', u'object-list': u'DesignSpecificationZoneAirDistributionNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `design_specification_zone_air_distribution_object_name_13`
+            value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 13`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4780,7 +4861,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `design_specification_zone_air_distribution_object_name_13`'.format(value))
             if ',' in value:
@@ -4789,7 +4870,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `design_specification_zone_air_distribution_object_name_13`')
-
         self._data["Design Specification Zone Air Distribution Object Name 13"] = value
 
     @property
@@ -4803,11 +4883,13 @@ class ControllerMechanicalVentilation(object):
 
     @zone_14_name.setter
     def zone_14_name(self, value=None):
-        """  Corresponds to IDD Field `zone_14_name`
+        """  Corresponds to IDD Field `Zone 14 Name`
         A zone name or a zone list name may be used here
+        
+        {u'note': [u'A zone name or a zone list name may be used here'], u'type': u'object-list', u'object-list': u'ZoneAndZoneListNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `zone_14_name`
+            value (str): value for IDD Field `Zone 14 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4817,7 +4899,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `zone_14_name`'.format(value))
             if ',' in value:
@@ -4826,7 +4908,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `zone_14_name`')
-
         self._data["Zone 14 Name"] = value
 
     @property
@@ -4840,10 +4921,12 @@ class ControllerMechanicalVentilation(object):
 
     @design_specification_outdoor_air_object_name_14.setter
     def design_specification_outdoor_air_object_name_14(self, value=None):
-        """  Corresponds to IDD Field `design_specification_outdoor_air_object_name_14`
+        """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 14`
+        
+        {u'type': u'object-list', u'object-list': u'DesignSpecificationOutdoorAirNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `design_specification_outdoor_air_object_name_14`
+            value (str): value for IDD Field `Design Specification Outdoor Air Object Name 14`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4853,7 +4936,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `design_specification_outdoor_air_object_name_14`'.format(value))
             if ',' in value:
@@ -4862,7 +4945,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `design_specification_outdoor_air_object_name_14`')
-
         self._data["Design Specification Outdoor Air Object Name 14"] = value
 
     @property
@@ -4876,10 +4958,12 @@ class ControllerMechanicalVentilation(object):
 
     @design_specification_zone_air_distribution_object_name_14.setter
     def design_specification_zone_air_distribution_object_name_14(self, value=None):
-        """  Corresponds to IDD Field `design_specification_zone_air_distribution_object_name_14`
+        """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 14`
+        
+        {u'type': u'object-list', u'object-list': u'DesignSpecificationZoneAirDistributionNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `design_specification_zone_air_distribution_object_name_14`
+            value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 14`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4889,7 +4973,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `design_specification_zone_air_distribution_object_name_14`'.format(value))
             if ',' in value:
@@ -4898,7 +4982,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `design_specification_zone_air_distribution_object_name_14`')
-
         self._data["Design Specification Zone Air Distribution Object Name 14"] = value
 
     @property
@@ -4912,11 +4995,13 @@ class ControllerMechanicalVentilation(object):
 
     @zone_15_name.setter
     def zone_15_name(self, value=None):
-        """  Corresponds to IDD Field `zone_15_name`
+        """  Corresponds to IDD Field `Zone 15 Name`
         A zone name or a zone list name may be used here
+        
+        {u'note': [u'A zone name or a zone list name may be used here'], u'type': u'object-list', u'object-list': u'ZoneAndZoneListNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `zone_15_name`
+            value (str): value for IDD Field `Zone 15 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4926,7 +5011,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `zone_15_name`'.format(value))
             if ',' in value:
@@ -4935,7 +5020,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `zone_15_name`')
-
         self._data["Zone 15 Name"] = value
 
     @property
@@ -4949,10 +5033,12 @@ class ControllerMechanicalVentilation(object):
 
     @design_specification_outdoor_air_object_name_15.setter
     def design_specification_outdoor_air_object_name_15(self, value=None):
-        """  Corresponds to IDD Field `design_specification_outdoor_air_object_name_15`
+        """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 15`
+        
+        {u'type': u'object-list', u'object-list': u'DesignSpecificationOutdoorAirNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `design_specification_outdoor_air_object_name_15`
+            value (str): value for IDD Field `Design Specification Outdoor Air Object Name 15`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4962,7 +5048,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `design_specification_outdoor_air_object_name_15`'.format(value))
             if ',' in value:
@@ -4971,7 +5057,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `design_specification_outdoor_air_object_name_15`')
-
         self._data["Design Specification Outdoor Air Object Name 15"] = value
 
     @property
@@ -4985,10 +5070,12 @@ class ControllerMechanicalVentilation(object):
 
     @design_specification_zone_air_distribution_object_name_15.setter
     def design_specification_zone_air_distribution_object_name_15(self, value=None):
-        """  Corresponds to IDD Field `design_specification_zone_air_distribution_object_name_15`
+        """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 15`
+        
+        {u'type': u'object-list', u'object-list': u'DesignSpecificationZoneAirDistributionNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `design_specification_zone_air_distribution_object_name_15`
+            value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 15`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4998,7 +5085,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `design_specification_zone_air_distribution_object_name_15`'.format(value))
             if ',' in value:
@@ -5007,7 +5094,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `design_specification_zone_air_distribution_object_name_15`')
-
         self._data["Design Specification Zone Air Distribution Object Name 15"] = value
 
     @property
@@ -5021,11 +5107,13 @@ class ControllerMechanicalVentilation(object):
 
     @zone_16_name.setter
     def zone_16_name(self, value=None):
-        """  Corresponds to IDD Field `zone_16_name`
+        """  Corresponds to IDD Field `Zone 16 Name`
         A zone name or a zone list name may be used here
+        
+        {u'note': [u'A zone name or a zone list name may be used here'], u'type': u'object-list', u'object-list': u'ZoneAndZoneListNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `zone_16_name`
+            value (str): value for IDD Field `Zone 16 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5035,7 +5123,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `zone_16_name`'.format(value))
             if ',' in value:
@@ -5044,7 +5132,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `zone_16_name`')
-
         self._data["Zone 16 Name"] = value
 
     @property
@@ -5058,10 +5145,12 @@ class ControllerMechanicalVentilation(object):
 
     @design_specification_outdoor_air_object_name_16.setter
     def design_specification_outdoor_air_object_name_16(self, value=None):
-        """  Corresponds to IDD Field `design_specification_outdoor_air_object_name_16`
+        """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 16`
+        
+        {u'type': u'object-list', u'object-list': u'DesignSpecificationOutdoorAirNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `design_specification_outdoor_air_object_name_16`
+            value (str): value for IDD Field `Design Specification Outdoor Air Object Name 16`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5071,7 +5160,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `design_specification_outdoor_air_object_name_16`'.format(value))
             if ',' in value:
@@ -5080,7 +5169,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `design_specification_outdoor_air_object_name_16`')
-
         self._data["Design Specification Outdoor Air Object Name 16"] = value
 
     @property
@@ -5094,10 +5182,12 @@ class ControllerMechanicalVentilation(object):
 
     @design_specification_zone_air_distribution_object_name_16.setter
     def design_specification_zone_air_distribution_object_name_16(self, value=None):
-        """  Corresponds to IDD Field `design_specification_zone_air_distribution_object_name_16`
+        """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 16`
+        
+        {u'type': u'object-list', u'object-list': u'DesignSpecificationZoneAirDistributionNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `design_specification_zone_air_distribution_object_name_16`
+            value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 16`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5107,7 +5197,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `design_specification_zone_air_distribution_object_name_16`'.format(value))
             if ',' in value:
@@ -5116,7 +5206,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `design_specification_zone_air_distribution_object_name_16`')
-
         self._data["Design Specification Zone Air Distribution Object Name 16"] = value
 
     @property
@@ -5130,11 +5219,13 @@ class ControllerMechanicalVentilation(object):
 
     @zone_17_name.setter
     def zone_17_name(self, value=None):
-        """  Corresponds to IDD Field `zone_17_name`
+        """  Corresponds to IDD Field `Zone 17 Name`
         A zone name or a zone list name may be used here
+        
+        {u'note': [u'A zone name or a zone list name may be used here'], u'type': u'object-list', u'object-list': u'ZoneAndZoneListNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `zone_17_name`
+            value (str): value for IDD Field `Zone 17 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5144,7 +5235,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `zone_17_name`'.format(value))
             if ',' in value:
@@ -5153,7 +5244,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `zone_17_name`')
-
         self._data["Zone 17 Name"] = value
 
     @property
@@ -5167,10 +5257,12 @@ class ControllerMechanicalVentilation(object):
 
     @design_specification_outdoor_air_object_name_17.setter
     def design_specification_outdoor_air_object_name_17(self, value=None):
-        """  Corresponds to IDD Field `design_specification_outdoor_air_object_name_17`
+        """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 17`
+        
+        {u'type': u'object-list', u'object-list': u'DesignSpecificationOutdoorAirNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `design_specification_outdoor_air_object_name_17`
+            value (str): value for IDD Field `Design Specification Outdoor Air Object Name 17`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5180,7 +5272,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `design_specification_outdoor_air_object_name_17`'.format(value))
             if ',' in value:
@@ -5189,7 +5281,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `design_specification_outdoor_air_object_name_17`')
-
         self._data["Design Specification Outdoor Air Object Name 17"] = value
 
     @property
@@ -5203,10 +5294,12 @@ class ControllerMechanicalVentilation(object):
 
     @design_specification_zone_air_distribution_object_name_17.setter
     def design_specification_zone_air_distribution_object_name_17(self, value=None):
-        """  Corresponds to IDD Field `design_specification_zone_air_distribution_object_name_17`
+        """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 17`
+        
+        {u'type': u'object-list', u'object-list': u'DesignSpecificationZoneAirDistributionNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `design_specification_zone_air_distribution_object_name_17`
+            value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 17`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5216,7 +5309,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `design_specification_zone_air_distribution_object_name_17`'.format(value))
             if ',' in value:
@@ -5225,7 +5318,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `design_specification_zone_air_distribution_object_name_17`')
-
         self._data["Design Specification Zone Air Distribution Object Name 17"] = value
 
     @property
@@ -5239,11 +5331,13 @@ class ControllerMechanicalVentilation(object):
 
     @zone_18_name.setter
     def zone_18_name(self, value=None):
-        """  Corresponds to IDD Field `zone_18_name`
+        """  Corresponds to IDD Field `Zone 18 Name`
         A zone name or a zone list name may be used here
+        
+        {u'note': [u'A zone name or a zone list name may be used here'], u'type': u'object-list', u'object-list': u'ZoneAndZoneListNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `zone_18_name`
+            value (str): value for IDD Field `Zone 18 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5253,7 +5347,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `zone_18_name`'.format(value))
             if ',' in value:
@@ -5262,7 +5356,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `zone_18_name`')
-
         self._data["Zone 18 Name"] = value
 
     @property
@@ -5276,10 +5369,12 @@ class ControllerMechanicalVentilation(object):
 
     @design_specification_outdoor_air_object_name_18.setter
     def design_specification_outdoor_air_object_name_18(self, value=None):
-        """  Corresponds to IDD Field `design_specification_outdoor_air_object_name_18`
+        """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 18`
+        
+        {u'type': u'object-list', u'object-list': u'DesignSpecificationOutdoorAirNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `design_specification_outdoor_air_object_name_18`
+            value (str): value for IDD Field `Design Specification Outdoor Air Object Name 18`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5289,7 +5384,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `design_specification_outdoor_air_object_name_18`'.format(value))
             if ',' in value:
@@ -5298,7 +5393,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `design_specification_outdoor_air_object_name_18`')
-
         self._data["Design Specification Outdoor Air Object Name 18"] = value
 
     @property
@@ -5312,10 +5406,12 @@ class ControllerMechanicalVentilation(object):
 
     @design_specification_zone_air_distribution_object_name_18.setter
     def design_specification_zone_air_distribution_object_name_18(self, value=None):
-        """  Corresponds to IDD Field `design_specification_zone_air_distribution_object_name_18`
+        """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 18`
+        
+        {u'type': u'object-list', u'object-list': u'DesignSpecificationZoneAirDistributionNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `design_specification_zone_air_distribution_object_name_18`
+            value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 18`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5325,7 +5421,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `design_specification_zone_air_distribution_object_name_18`'.format(value))
             if ',' in value:
@@ -5334,7 +5430,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `design_specification_zone_air_distribution_object_name_18`')
-
         self._data["Design Specification Zone Air Distribution Object Name 18"] = value
 
     @property
@@ -5348,11 +5443,13 @@ class ControllerMechanicalVentilation(object):
 
     @zone_19_name.setter
     def zone_19_name(self, value=None):
-        """  Corresponds to IDD Field `zone_19_name`
+        """  Corresponds to IDD Field `Zone 19 Name`
         A zone name or a zone list name may be used here
+        
+        {u'note': [u'A zone name or a zone list name may be used here'], u'type': u'object-list', u'object-list': u'ZoneAndZoneListNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `zone_19_name`
+            value (str): value for IDD Field `Zone 19 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5362,7 +5459,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `zone_19_name`'.format(value))
             if ',' in value:
@@ -5371,7 +5468,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `zone_19_name`')
-
         self._data["Zone 19 Name"] = value
 
     @property
@@ -5385,10 +5481,12 @@ class ControllerMechanicalVentilation(object):
 
     @design_specification_outdoor_air_object_name_19.setter
     def design_specification_outdoor_air_object_name_19(self, value=None):
-        """  Corresponds to IDD Field `design_specification_outdoor_air_object_name_19`
+        """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 19`
+        
+        {u'type': u'object-list', u'object-list': u'DesignSpecificationOutdoorAirNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `design_specification_outdoor_air_object_name_19`
+            value (str): value for IDD Field `Design Specification Outdoor Air Object Name 19`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5398,7 +5496,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `design_specification_outdoor_air_object_name_19`'.format(value))
             if ',' in value:
@@ -5407,7 +5505,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `design_specification_outdoor_air_object_name_19`')
-
         self._data["Design Specification Outdoor Air Object Name 19"] = value
 
     @property
@@ -5421,10 +5518,12 @@ class ControllerMechanicalVentilation(object):
 
     @design_specification_zone_air_distribution_object_name_19.setter
     def design_specification_zone_air_distribution_object_name_19(self, value=None):
-        """  Corresponds to IDD Field `design_specification_zone_air_distribution_object_name_19`
+        """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 19`
+        
+        {u'type': u'object-list', u'object-list': u'DesignSpecificationZoneAirDistributionNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `design_specification_zone_air_distribution_object_name_19`
+            value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 19`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5434,7 +5533,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `design_specification_zone_air_distribution_object_name_19`'.format(value))
             if ',' in value:
@@ -5443,7 +5542,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `design_specification_zone_air_distribution_object_name_19`')
-
         self._data["Design Specification Zone Air Distribution Object Name 19"] = value
 
     @property
@@ -5457,11 +5555,13 @@ class ControllerMechanicalVentilation(object):
 
     @zone_20_name.setter
     def zone_20_name(self, value=None):
-        """  Corresponds to IDD Field `zone_20_name`
+        """  Corresponds to IDD Field `Zone 20 Name`
         A zone name or a zone list name may be used here
+        
+        {u'note': [u'A zone name or a zone list name may be used here'], u'type': u'object-list', u'object-list': u'ZoneAndZoneListNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `zone_20_name`
+            value (str): value for IDD Field `Zone 20 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5471,7 +5571,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `zone_20_name`'.format(value))
             if ',' in value:
@@ -5480,7 +5580,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `zone_20_name`')
-
         self._data["Zone 20 Name"] = value
 
     @property
@@ -5494,10 +5593,12 @@ class ControllerMechanicalVentilation(object):
 
     @design_specification_outdoor_air_object_name_20.setter
     def design_specification_outdoor_air_object_name_20(self, value=None):
-        """  Corresponds to IDD Field `design_specification_outdoor_air_object_name_20`
+        """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 20`
+        
+        {u'type': u'object-list', u'object-list': u'DesignSpecificationOutdoorAirNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `design_specification_outdoor_air_object_name_20`
+            value (str): value for IDD Field `Design Specification Outdoor Air Object Name 20`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5507,7 +5608,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `design_specification_outdoor_air_object_name_20`'.format(value))
             if ',' in value:
@@ -5516,7 +5617,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `design_specification_outdoor_air_object_name_20`')
-
         self._data["Design Specification Outdoor Air Object Name 20"] = value
 
     @property
@@ -5530,10 +5630,12 @@ class ControllerMechanicalVentilation(object):
 
     @design_specification_zone_air_distribution_object_name_20.setter
     def design_specification_zone_air_distribution_object_name_20(self, value=None):
-        """  Corresponds to IDD Field `design_specification_zone_air_distribution_object_name_20`
+        """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 20`
+        
+        {u'type': u'object-list', u'object-list': u'DesignSpecificationZoneAirDistributionNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `design_specification_zone_air_distribution_object_name_20`
+            value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 20`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5543,7 +5645,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `design_specification_zone_air_distribution_object_name_20`'.format(value))
             if ',' in value:
@@ -5552,7 +5654,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `design_specification_zone_air_distribution_object_name_20`')
-
         self._data["Design Specification Zone Air Distribution Object Name 20"] = value
 
     @property
@@ -5566,11 +5667,13 @@ class ControllerMechanicalVentilation(object):
 
     @zone_21_name.setter
     def zone_21_name(self, value=None):
-        """  Corresponds to IDD Field `zone_21_name`
+        """  Corresponds to IDD Field `Zone 21 Name`
         A zone name or a zone list name may be used here
+        
+        {u'note': [u'A zone name or a zone list name may be used here'], u'type': u'object-list', u'object-list': u'ZoneAndZoneListNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `zone_21_name`
+            value (str): value for IDD Field `Zone 21 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5580,7 +5683,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `zone_21_name`'.format(value))
             if ',' in value:
@@ -5589,7 +5692,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `zone_21_name`')
-
         self._data["Zone 21 Name"] = value
 
     @property
@@ -5603,10 +5705,12 @@ class ControllerMechanicalVentilation(object):
 
     @design_specification_outdoor_air_object_name_21.setter
     def design_specification_outdoor_air_object_name_21(self, value=None):
-        """  Corresponds to IDD Field `design_specification_outdoor_air_object_name_21`
+        """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 21`
+        
+        {u'type': u'object-list', u'object-list': u'DesignSpecificationOutdoorAirNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `design_specification_outdoor_air_object_name_21`
+            value (str): value for IDD Field `Design Specification Outdoor Air Object Name 21`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5616,7 +5720,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `design_specification_outdoor_air_object_name_21`'.format(value))
             if ',' in value:
@@ -5625,7 +5729,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `design_specification_outdoor_air_object_name_21`')
-
         self._data["Design Specification Outdoor Air Object Name 21"] = value
 
     @property
@@ -5639,10 +5742,12 @@ class ControllerMechanicalVentilation(object):
 
     @design_specification_zone_air_distribution_object_name_21.setter
     def design_specification_zone_air_distribution_object_name_21(self, value=None):
-        """  Corresponds to IDD Field `design_specification_zone_air_distribution_object_name_21`
+        """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 21`
+        
+        {u'type': u'object-list', u'object-list': u'DesignSpecificationZoneAirDistributionNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `design_specification_zone_air_distribution_object_name_21`
+            value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 21`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5652,7 +5757,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `design_specification_zone_air_distribution_object_name_21`'.format(value))
             if ',' in value:
@@ -5661,7 +5766,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `design_specification_zone_air_distribution_object_name_21`')
-
         self._data["Design Specification Zone Air Distribution Object Name 21"] = value
 
     @property
@@ -5675,11 +5779,13 @@ class ControllerMechanicalVentilation(object):
 
     @zone_22_name.setter
     def zone_22_name(self, value=None):
-        """  Corresponds to IDD Field `zone_22_name`
+        """  Corresponds to IDD Field `Zone 22 Name`
         A zone name or a zone list name may be used here
+        
+        {u'note': [u'A zone name or a zone list name may be used here'], u'type': u'object-list', u'object-list': u'ZoneAndZoneListNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `zone_22_name`
+            value (str): value for IDD Field `Zone 22 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5689,7 +5795,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `zone_22_name`'.format(value))
             if ',' in value:
@@ -5698,7 +5804,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `zone_22_name`')
-
         self._data["Zone 22 Name"] = value
 
     @property
@@ -5712,10 +5817,12 @@ class ControllerMechanicalVentilation(object):
 
     @design_specification_outdoor_air_object_name_22.setter
     def design_specification_outdoor_air_object_name_22(self, value=None):
-        """  Corresponds to IDD Field `design_specification_outdoor_air_object_name_22`
+        """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 22`
+        
+        {u'type': u'object-list', u'object-list': u'DesignSpecificationOutdoorAirNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `design_specification_outdoor_air_object_name_22`
+            value (str): value for IDD Field `Design Specification Outdoor Air Object Name 22`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5725,7 +5832,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `design_specification_outdoor_air_object_name_22`'.format(value))
             if ',' in value:
@@ -5734,7 +5841,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `design_specification_outdoor_air_object_name_22`')
-
         self._data["Design Specification Outdoor Air Object Name 22"] = value
 
     @property
@@ -5748,10 +5854,12 @@ class ControllerMechanicalVentilation(object):
 
     @design_specification_zone_air_distribution_object_name_22.setter
     def design_specification_zone_air_distribution_object_name_22(self, value=None):
-        """  Corresponds to IDD Field `design_specification_zone_air_distribution_object_name_22`
+        """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 22`
+        
+        {u'type': u'object-list', u'object-list': u'DesignSpecificationZoneAirDistributionNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `design_specification_zone_air_distribution_object_name_22`
+            value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 22`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5761,7 +5869,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `design_specification_zone_air_distribution_object_name_22`'.format(value))
             if ',' in value:
@@ -5770,7 +5878,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `design_specification_zone_air_distribution_object_name_22`')
-
         self._data["Design Specification Zone Air Distribution Object Name 22"] = value
 
     @property
@@ -5784,11 +5891,13 @@ class ControllerMechanicalVentilation(object):
 
     @zone_23_name.setter
     def zone_23_name(self, value=None):
-        """  Corresponds to IDD Field `zone_23_name`
+        """  Corresponds to IDD Field `Zone 23 Name`
         A zone name or a zone list name may be used here
+        
+        {u'note': [u'A zone name or a zone list name may be used here'], u'type': u'object-list', u'object-list': u'ZoneAndZoneListNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `zone_23_name`
+            value (str): value for IDD Field `Zone 23 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5798,7 +5907,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `zone_23_name`'.format(value))
             if ',' in value:
@@ -5807,7 +5916,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `zone_23_name`')
-
         self._data["Zone 23 Name"] = value
 
     @property
@@ -5821,10 +5929,12 @@ class ControllerMechanicalVentilation(object):
 
     @design_specification_outdoor_air_object_name_23.setter
     def design_specification_outdoor_air_object_name_23(self, value=None):
-        """  Corresponds to IDD Field `design_specification_outdoor_air_object_name_23`
+        """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 23`
+        
+        {u'type': u'object-list', u'object-list': u'DesignSpecificationOutdoorAirNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `design_specification_outdoor_air_object_name_23`
+            value (str): value for IDD Field `Design Specification Outdoor Air Object Name 23`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5834,7 +5944,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `design_specification_outdoor_air_object_name_23`'.format(value))
             if ',' in value:
@@ -5843,7 +5953,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `design_specification_outdoor_air_object_name_23`')
-
         self._data["Design Specification Outdoor Air Object Name 23"] = value
 
     @property
@@ -5857,10 +5966,12 @@ class ControllerMechanicalVentilation(object):
 
     @design_specification_zone_air_distribution_object_name_23.setter
     def design_specification_zone_air_distribution_object_name_23(self, value=None):
-        """  Corresponds to IDD Field `design_specification_zone_air_distribution_object_name_23`
+        """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 23`
+        
+        {u'type': u'object-list', u'object-list': u'DesignSpecificationZoneAirDistributionNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `design_specification_zone_air_distribution_object_name_23`
+            value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 23`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5870,7 +5981,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `design_specification_zone_air_distribution_object_name_23`'.format(value))
             if ',' in value:
@@ -5879,7 +5990,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `design_specification_zone_air_distribution_object_name_23`')
-
         self._data["Design Specification Zone Air Distribution Object Name 23"] = value
 
     @property
@@ -5893,11 +6003,13 @@ class ControllerMechanicalVentilation(object):
 
     @zone_24_name.setter
     def zone_24_name(self, value=None):
-        """  Corresponds to IDD Field `zone_24_name`
+        """  Corresponds to IDD Field `Zone 24 Name`
         A zone name or a zone list name may be used here
+        
+        {u'note': [u'A zone name or a zone list name may be used here'], u'type': u'object-list', u'object-list': u'ZoneAndZoneListNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `zone_24_name`
+            value (str): value for IDD Field `Zone 24 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5907,7 +6019,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `zone_24_name`'.format(value))
             if ',' in value:
@@ -5916,7 +6028,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `zone_24_name`')
-
         self._data["Zone 24 Name"] = value
 
     @property
@@ -5930,10 +6041,12 @@ class ControllerMechanicalVentilation(object):
 
     @design_specification_outdoor_air_object_name_24.setter
     def design_specification_outdoor_air_object_name_24(self, value=None):
-        """  Corresponds to IDD Field `design_specification_outdoor_air_object_name_24`
+        """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 24`
+        
+        {u'type': u'object-list', u'object-list': u'DesignSpecificationOutdoorAirNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `design_specification_outdoor_air_object_name_24`
+            value (str): value for IDD Field `Design Specification Outdoor Air Object Name 24`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5943,7 +6056,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `design_specification_outdoor_air_object_name_24`'.format(value))
             if ',' in value:
@@ -5952,7 +6065,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `design_specification_outdoor_air_object_name_24`')
-
         self._data["Design Specification Outdoor Air Object Name 24"] = value
 
     @property
@@ -5966,10 +6078,12 @@ class ControllerMechanicalVentilation(object):
 
     @design_specification_zone_air_distribution_object_name_24.setter
     def design_specification_zone_air_distribution_object_name_24(self, value=None):
-        """  Corresponds to IDD Field `design_specification_zone_air_distribution_object_name_24`
+        """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 24`
+        
+        {u'type': u'object-list', u'object-list': u'DesignSpecificationZoneAirDistributionNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `design_specification_zone_air_distribution_object_name_24`
+            value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 24`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5979,7 +6093,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `design_specification_zone_air_distribution_object_name_24`'.format(value))
             if ',' in value:
@@ -5988,7 +6102,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `design_specification_zone_air_distribution_object_name_24`')
-
         self._data["Design Specification Zone Air Distribution Object Name 24"] = value
 
     @property
@@ -6002,11 +6115,13 @@ class ControllerMechanicalVentilation(object):
 
     @zone_25_name.setter
     def zone_25_name(self, value=None):
-        """  Corresponds to IDD Field `zone_25_name`
+        """  Corresponds to IDD Field `Zone 25 Name`
         A zone name or a zone list name may be used here
+        
+        {u'note': [u'A zone name or a zone list name may be used here'], u'type': u'object-list', u'object-list': u'ZoneAndZoneListNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `zone_25_name`
+            value (str): value for IDD Field `Zone 25 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6016,7 +6131,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `zone_25_name`'.format(value))
             if ',' in value:
@@ -6025,7 +6140,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `zone_25_name`')
-
         self._data["Zone 25 Name"] = value
 
     @property
@@ -6039,10 +6153,12 @@ class ControllerMechanicalVentilation(object):
 
     @design_specification_outdoor_air_object_name_25.setter
     def design_specification_outdoor_air_object_name_25(self, value=None):
-        """  Corresponds to IDD Field `design_specification_outdoor_air_object_name_25`
+        """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 25`
+        
+        {u'type': u'object-list', u'object-list': u'DesignSpecificationOutdoorAirNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `design_specification_outdoor_air_object_name_25`
+            value (str): value for IDD Field `Design Specification Outdoor Air Object Name 25`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6052,7 +6168,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `design_specification_outdoor_air_object_name_25`'.format(value))
             if ',' in value:
@@ -6061,7 +6177,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `design_specification_outdoor_air_object_name_25`')
-
         self._data["Design Specification Outdoor Air Object Name 25"] = value
 
     @property
@@ -6075,10 +6190,12 @@ class ControllerMechanicalVentilation(object):
 
     @design_specification_zone_air_distribution_object_name_25.setter
     def design_specification_zone_air_distribution_object_name_25(self, value=None):
-        """  Corresponds to IDD Field `design_specification_zone_air_distribution_object_name_25`
+        """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 25`
+        
+        {u'type': u'object-list', u'object-list': u'DesignSpecificationZoneAirDistributionNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `design_specification_zone_air_distribution_object_name_25`
+            value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 25`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6088,7 +6205,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `design_specification_zone_air_distribution_object_name_25`'.format(value))
             if ',' in value:
@@ -6097,7 +6214,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `design_specification_zone_air_distribution_object_name_25`')
-
         self._data["Design Specification Zone Air Distribution Object Name 25"] = value
 
     @property
@@ -6111,11 +6227,13 @@ class ControllerMechanicalVentilation(object):
 
     @zone_26_name.setter
     def zone_26_name(self, value=None):
-        """  Corresponds to IDD Field `zone_26_name`
+        """  Corresponds to IDD Field `Zone 26 Name`
         A zone name or a zone list name may be used here
+        
+        {u'note': [u'A zone name or a zone list name may be used here'], u'type': u'object-list', u'object-list': u'ZoneAndZoneListNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `zone_26_name`
+            value (str): value for IDD Field `Zone 26 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6125,7 +6243,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `zone_26_name`'.format(value))
             if ',' in value:
@@ -6134,7 +6252,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `zone_26_name`')
-
         self._data["Zone 26 Name"] = value
 
     @property
@@ -6148,10 +6265,12 @@ class ControllerMechanicalVentilation(object):
 
     @design_specification_outdoor_air_object_name_26.setter
     def design_specification_outdoor_air_object_name_26(self, value=None):
-        """  Corresponds to IDD Field `design_specification_outdoor_air_object_name_26`
+        """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 26`
+        
+        {u'type': u'object-list', u'object-list': u'DesignSpecificationOutdoorAirNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `design_specification_outdoor_air_object_name_26`
+            value (str): value for IDD Field `Design Specification Outdoor Air Object Name 26`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6161,7 +6280,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `design_specification_outdoor_air_object_name_26`'.format(value))
             if ',' in value:
@@ -6170,7 +6289,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `design_specification_outdoor_air_object_name_26`')
-
         self._data["Design Specification Outdoor Air Object Name 26"] = value
 
     @property
@@ -6184,10 +6302,12 @@ class ControllerMechanicalVentilation(object):
 
     @design_specification_zone_air_distribution_object_name_26.setter
     def design_specification_zone_air_distribution_object_name_26(self, value=None):
-        """  Corresponds to IDD Field `design_specification_zone_air_distribution_object_name_26`
+        """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 26`
+        
+        {u'type': u'object-list', u'object-list': u'DesignSpecificationZoneAirDistributionNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `design_specification_zone_air_distribution_object_name_26`
+            value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 26`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6197,7 +6317,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `design_specification_zone_air_distribution_object_name_26`'.format(value))
             if ',' in value:
@@ -6206,7 +6326,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `design_specification_zone_air_distribution_object_name_26`')
-
         self._data["Design Specification Zone Air Distribution Object Name 26"] = value
 
     @property
@@ -6220,11 +6339,13 @@ class ControllerMechanicalVentilation(object):
 
     @zone_27_name.setter
     def zone_27_name(self, value=None):
-        """  Corresponds to IDD Field `zone_27_name`
+        """  Corresponds to IDD Field `Zone 27 Name`
         A zone name or a zone list name may be used here
+        
+        {u'note': [u'A zone name or a zone list name may be used here'], u'type': u'object-list', u'object-list': u'ZoneAndZoneListNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `zone_27_name`
+            value (str): value for IDD Field `Zone 27 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6234,7 +6355,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `zone_27_name`'.format(value))
             if ',' in value:
@@ -6243,7 +6364,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `zone_27_name`')
-
         self._data["Zone 27 Name"] = value
 
     @property
@@ -6257,10 +6377,12 @@ class ControllerMechanicalVentilation(object):
 
     @design_specification_outdoor_air_object_name_27.setter
     def design_specification_outdoor_air_object_name_27(self, value=None):
-        """  Corresponds to IDD Field `design_specification_outdoor_air_object_name_27`
+        """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 27`
+        
+        {u'type': u'object-list', u'object-list': u'DesignSpecificationOutdoorAirNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `design_specification_outdoor_air_object_name_27`
+            value (str): value for IDD Field `Design Specification Outdoor Air Object Name 27`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6270,7 +6392,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `design_specification_outdoor_air_object_name_27`'.format(value))
             if ',' in value:
@@ -6279,7 +6401,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `design_specification_outdoor_air_object_name_27`')
-
         self._data["Design Specification Outdoor Air Object Name 27"] = value
 
     @property
@@ -6293,10 +6414,12 @@ class ControllerMechanicalVentilation(object):
 
     @design_specification_zone_air_distribution_object_name_27.setter
     def design_specification_zone_air_distribution_object_name_27(self, value=None):
-        """  Corresponds to IDD Field `design_specification_zone_air_distribution_object_name_27`
+        """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 27`
+        
+        {u'type': u'object-list', u'object-list': u'DesignSpecificationZoneAirDistributionNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `design_specification_zone_air_distribution_object_name_27`
+            value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 27`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6306,7 +6429,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `design_specification_zone_air_distribution_object_name_27`'.format(value))
             if ',' in value:
@@ -6315,7 +6438,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `design_specification_zone_air_distribution_object_name_27`')
-
         self._data["Design Specification Zone Air Distribution Object Name 27"] = value
 
     @property
@@ -6329,11 +6451,13 @@ class ControllerMechanicalVentilation(object):
 
     @zone_28_name.setter
     def zone_28_name(self, value=None):
-        """  Corresponds to IDD Field `zone_28_name`
+        """  Corresponds to IDD Field `Zone 28 Name`
         A zone name or a zone list name may be used here
+        
+        {u'note': [u'A zone name or a zone list name may be used here'], u'type': u'object-list', u'object-list': u'ZoneAndZoneListNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `zone_28_name`
+            value (str): value for IDD Field `Zone 28 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6343,7 +6467,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `zone_28_name`'.format(value))
             if ',' in value:
@@ -6352,7 +6476,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `zone_28_name`')
-
         self._data["Zone 28 Name"] = value
 
     @property
@@ -6366,10 +6489,12 @@ class ControllerMechanicalVentilation(object):
 
     @design_specification_outdoor_air_object_name_28.setter
     def design_specification_outdoor_air_object_name_28(self, value=None):
-        """  Corresponds to IDD Field `design_specification_outdoor_air_object_name_28`
+        """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 28`
+        
+        {u'type': u'object-list', u'object-list': u'DesignSpecificationOutdoorAirNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `design_specification_outdoor_air_object_name_28`
+            value (str): value for IDD Field `Design Specification Outdoor Air Object Name 28`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6379,7 +6504,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `design_specification_outdoor_air_object_name_28`'.format(value))
             if ',' in value:
@@ -6388,7 +6513,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `design_specification_outdoor_air_object_name_28`')
-
         self._data["Design Specification Outdoor Air Object Name 28"] = value
 
     @property
@@ -6402,10 +6526,12 @@ class ControllerMechanicalVentilation(object):
 
     @design_specification_zone_air_distribution_object_name_28.setter
     def design_specification_zone_air_distribution_object_name_28(self, value=None):
-        """  Corresponds to IDD Field `design_specification_zone_air_distribution_object_name_28`
+        """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 28`
+        
+        {u'type': u'object-list', u'object-list': u'DesignSpecificationZoneAirDistributionNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `design_specification_zone_air_distribution_object_name_28`
+            value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 28`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6415,7 +6541,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `design_specification_zone_air_distribution_object_name_28`'.format(value))
             if ',' in value:
@@ -6424,7 +6550,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `design_specification_zone_air_distribution_object_name_28`')
-
         self._data["Design Specification Zone Air Distribution Object Name 28"] = value
 
     @property
@@ -6438,11 +6563,13 @@ class ControllerMechanicalVentilation(object):
 
     @zone_29_name.setter
     def zone_29_name(self, value=None):
-        """  Corresponds to IDD Field `zone_29_name`
+        """  Corresponds to IDD Field `Zone 29 Name`
         A zone name or a zone list name may be used here
+        
+        {u'note': [u'A zone name or a zone list name may be used here'], u'type': u'object-list', u'object-list': u'ZoneAndZoneListNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `zone_29_name`
+            value (str): value for IDD Field `Zone 29 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6452,7 +6579,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `zone_29_name`'.format(value))
             if ',' in value:
@@ -6461,7 +6588,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `zone_29_name`')
-
         self._data["Zone 29 Name"] = value
 
     @property
@@ -6475,10 +6601,12 @@ class ControllerMechanicalVentilation(object):
 
     @design_specification_outdoor_air_object_name_29.setter
     def design_specification_outdoor_air_object_name_29(self, value=None):
-        """  Corresponds to IDD Field `design_specification_outdoor_air_object_name_29`
+        """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 29`
+        
+        {u'type': u'object-list', u'object-list': u'DesignSpecificationOutdoorAirNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `design_specification_outdoor_air_object_name_29`
+            value (str): value for IDD Field `Design Specification Outdoor Air Object Name 29`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6488,7 +6616,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `design_specification_outdoor_air_object_name_29`'.format(value))
             if ',' in value:
@@ -6497,7 +6625,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `design_specification_outdoor_air_object_name_29`')
-
         self._data["Design Specification Outdoor Air Object Name 29"] = value
 
     @property
@@ -6511,10 +6638,12 @@ class ControllerMechanicalVentilation(object):
 
     @design_specification_zone_air_distribution_object_name_29.setter
     def design_specification_zone_air_distribution_object_name_29(self, value=None):
-        """  Corresponds to IDD Field `design_specification_zone_air_distribution_object_name_29`
+        """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 29`
+        
+        {u'type': u'object-list', u'object-list': u'DesignSpecificationZoneAirDistributionNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `design_specification_zone_air_distribution_object_name_29`
+            value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 29`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6524,7 +6653,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `design_specification_zone_air_distribution_object_name_29`'.format(value))
             if ',' in value:
@@ -6533,7 +6662,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `design_specification_zone_air_distribution_object_name_29`')
-
         self._data["Design Specification Zone Air Distribution Object Name 29"] = value
 
     @property
@@ -6547,11 +6675,13 @@ class ControllerMechanicalVentilation(object):
 
     @zone_30_name.setter
     def zone_30_name(self, value=None):
-        """  Corresponds to IDD Field `zone_30_name`
+        """  Corresponds to IDD Field `Zone 30 Name`
         A zone name or a zone list name may be used here
+        
+        {u'note': [u'A zone name or a zone list name may be used here'], u'type': u'object-list', u'object-list': u'ZoneAndZoneListNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `zone_30_name`
+            value (str): value for IDD Field `Zone 30 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6561,7 +6691,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `zone_30_name`'.format(value))
             if ',' in value:
@@ -6570,7 +6700,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `zone_30_name`')
-
         self._data["Zone 30 Name"] = value
 
     @property
@@ -6584,10 +6713,12 @@ class ControllerMechanicalVentilation(object):
 
     @design_specification_outdoor_air_object_name_30.setter
     def design_specification_outdoor_air_object_name_30(self, value=None):
-        """  Corresponds to IDD Field `design_specification_outdoor_air_object_name_30`
+        """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 30`
+        
+        {u'type': u'object-list', u'object-list': u'DesignSpecificationOutdoorAirNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `design_specification_outdoor_air_object_name_30`
+            value (str): value for IDD Field `Design Specification Outdoor Air Object Name 30`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6597,7 +6728,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `design_specification_outdoor_air_object_name_30`'.format(value))
             if ',' in value:
@@ -6606,7 +6737,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `design_specification_outdoor_air_object_name_30`')
-
         self._data["Design Specification Outdoor Air Object Name 30"] = value
 
     @property
@@ -6620,10 +6750,12 @@ class ControllerMechanicalVentilation(object):
 
     @design_specification_zone_air_distribution_object_name_30.setter
     def design_specification_zone_air_distribution_object_name_30(self, value=None):
-        """  Corresponds to IDD Field `design_specification_zone_air_distribution_object_name_30`
+        """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 30`
+        
+        {u'type': u'object-list', u'object-list': u'DesignSpecificationZoneAirDistributionNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `design_specification_zone_air_distribution_object_name_30`
+            value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 30`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6633,7 +6765,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `design_specification_zone_air_distribution_object_name_30`'.format(value))
             if ',' in value:
@@ -6642,7 +6774,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `design_specification_zone_air_distribution_object_name_30`')
-
         self._data["Design Specification Zone Air Distribution Object Name 30"] = value
 
     @property
@@ -6656,11 +6787,13 @@ class ControllerMechanicalVentilation(object):
 
     @zone_31_name.setter
     def zone_31_name(self, value=None):
-        """  Corresponds to IDD Field `zone_31_name`
+        """  Corresponds to IDD Field `Zone 31 Name`
         A zone name or a zone list name may be used here
+        
+        {u'note': [u'A zone name or a zone list name may be used here'], u'type': u'object-list', u'object-list': u'ZoneAndZoneListNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `zone_31_name`
+            value (str): value for IDD Field `Zone 31 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6670,7 +6803,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `zone_31_name`'.format(value))
             if ',' in value:
@@ -6679,7 +6812,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `zone_31_name`')
-
         self._data["Zone 31 Name"] = value
 
     @property
@@ -6693,10 +6825,12 @@ class ControllerMechanicalVentilation(object):
 
     @design_specification_outdoor_air_object_name_31.setter
     def design_specification_outdoor_air_object_name_31(self, value=None):
-        """  Corresponds to IDD Field `design_specification_outdoor_air_object_name_31`
+        """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 31`
+        
+        {u'type': u'object-list', u'object-list': u'DesignSpecificationOutdoorAirNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `design_specification_outdoor_air_object_name_31`
+            value (str): value for IDD Field `Design Specification Outdoor Air Object Name 31`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6706,7 +6840,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `design_specification_outdoor_air_object_name_31`'.format(value))
             if ',' in value:
@@ -6715,7 +6849,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `design_specification_outdoor_air_object_name_31`')
-
         self._data["Design Specification Outdoor Air Object Name 31"] = value
 
     @property
@@ -6729,10 +6862,12 @@ class ControllerMechanicalVentilation(object):
 
     @design_specification_zone_air_distribution_object_name_31.setter
     def design_specification_zone_air_distribution_object_name_31(self, value=None):
-        """  Corresponds to IDD Field `design_specification_zone_air_distribution_object_name_31`
+        """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 31`
+        
+        {u'type': u'object-list', u'object-list': u'DesignSpecificationZoneAirDistributionNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `design_specification_zone_air_distribution_object_name_31`
+            value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 31`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6742,7 +6877,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `design_specification_zone_air_distribution_object_name_31`'.format(value))
             if ',' in value:
@@ -6751,7 +6886,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `design_specification_zone_air_distribution_object_name_31`')
-
         self._data["Design Specification Zone Air Distribution Object Name 31"] = value
 
     @property
@@ -6765,11 +6899,13 @@ class ControllerMechanicalVentilation(object):
 
     @zone_32_name.setter
     def zone_32_name(self, value=None):
-        """  Corresponds to IDD Field `zone_32_name`
+        """  Corresponds to IDD Field `Zone 32 Name`
         A zone name or a zone list name may be used here
+        
+        {u'note': [u'A zone name or a zone list name may be used here'], u'type': u'object-list', u'object-list': u'ZoneAndZoneListNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `zone_32_name`
+            value (str): value for IDD Field `Zone 32 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6779,7 +6915,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `zone_32_name`'.format(value))
             if ',' in value:
@@ -6788,7 +6924,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `zone_32_name`')
-
         self._data["Zone 32 Name"] = value
 
     @property
@@ -6802,10 +6937,12 @@ class ControllerMechanicalVentilation(object):
 
     @design_specification_outdoor_air_object_name_32.setter
     def design_specification_outdoor_air_object_name_32(self, value=None):
-        """  Corresponds to IDD Field `design_specification_outdoor_air_object_name_32`
+        """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 32`
+        
+        {u'type': u'object-list', u'object-list': u'DesignSpecificationOutdoorAirNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `design_specification_outdoor_air_object_name_32`
+            value (str): value for IDD Field `Design Specification Outdoor Air Object Name 32`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6815,7 +6952,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `design_specification_outdoor_air_object_name_32`'.format(value))
             if ',' in value:
@@ -6824,7 +6961,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `design_specification_outdoor_air_object_name_32`')
-
         self._data["Design Specification Outdoor Air Object Name 32"] = value
 
     @property
@@ -6838,10 +6974,12 @@ class ControllerMechanicalVentilation(object):
 
     @design_specification_zone_air_distribution_object_name_32.setter
     def design_specification_zone_air_distribution_object_name_32(self, value=None):
-        """  Corresponds to IDD Field `design_specification_zone_air_distribution_object_name_32`
+        """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 32`
+        
+        {u'type': u'object-list', u'object-list': u'DesignSpecificationZoneAirDistributionNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `design_specification_zone_air_distribution_object_name_32`
+            value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 32`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6851,7 +6989,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `design_specification_zone_air_distribution_object_name_32`'.format(value))
             if ',' in value:
@@ -6860,7 +6998,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `design_specification_zone_air_distribution_object_name_32`')
-
         self._data["Design Specification Zone Air Distribution Object Name 32"] = value
 
     @property
@@ -6874,11 +7011,13 @@ class ControllerMechanicalVentilation(object):
 
     @zone_33_name.setter
     def zone_33_name(self, value=None):
-        """  Corresponds to IDD Field `zone_33_name`
+        """  Corresponds to IDD Field `Zone 33 Name`
         A zone name or a zone list name may be used here
+        
+        {u'note': [u'A zone name or a zone list name may be used here'], u'type': u'object-list', u'object-list': u'ZoneAndZoneListNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `zone_33_name`
+            value (str): value for IDD Field `Zone 33 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6888,7 +7027,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `zone_33_name`'.format(value))
             if ',' in value:
@@ -6897,7 +7036,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `zone_33_name`')
-
         self._data["Zone 33 Name"] = value
 
     @property
@@ -6911,10 +7049,12 @@ class ControllerMechanicalVentilation(object):
 
     @design_specification_outdoor_air_object_name_33.setter
     def design_specification_outdoor_air_object_name_33(self, value=None):
-        """  Corresponds to IDD Field `design_specification_outdoor_air_object_name_33`
+        """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 33`
+        
+        {u'type': u'object-list', u'object-list': u'DesignSpecificationOutdoorAirNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `design_specification_outdoor_air_object_name_33`
+            value (str): value for IDD Field `Design Specification Outdoor Air Object Name 33`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6924,7 +7064,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `design_specification_outdoor_air_object_name_33`'.format(value))
             if ',' in value:
@@ -6933,7 +7073,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `design_specification_outdoor_air_object_name_33`')
-
         self._data["Design Specification Outdoor Air Object Name 33"] = value
 
     @property
@@ -6947,10 +7086,12 @@ class ControllerMechanicalVentilation(object):
 
     @design_specification_zone_air_distribution_object_name_33.setter
     def design_specification_zone_air_distribution_object_name_33(self, value=None):
-        """  Corresponds to IDD Field `design_specification_zone_air_distribution_object_name_33`
+        """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 33`
+        
+        {u'type': u'object-list', u'object-list': u'DesignSpecificationZoneAirDistributionNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `design_specification_zone_air_distribution_object_name_33`
+            value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 33`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6960,7 +7101,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `design_specification_zone_air_distribution_object_name_33`'.format(value))
             if ',' in value:
@@ -6969,7 +7110,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `design_specification_zone_air_distribution_object_name_33`')
-
         self._data["Design Specification Zone Air Distribution Object Name 33"] = value
 
     @property
@@ -6983,11 +7123,13 @@ class ControllerMechanicalVentilation(object):
 
     @zone_34_name.setter
     def zone_34_name(self, value=None):
-        """  Corresponds to IDD Field `zone_34_name`
+        """  Corresponds to IDD Field `Zone 34 Name`
         A zone name or a zone list name may be used here
+        
+        {u'note': [u'A zone name or a zone list name may be used here'], u'type': u'object-list', u'object-list': u'ZoneAndZoneListNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `zone_34_name`
+            value (str): value for IDD Field `Zone 34 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6997,7 +7139,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `zone_34_name`'.format(value))
             if ',' in value:
@@ -7006,7 +7148,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `zone_34_name`')
-
         self._data["Zone 34 Name"] = value
 
     @property
@@ -7020,10 +7161,12 @@ class ControllerMechanicalVentilation(object):
 
     @design_specification_outdoor_air_object_name_34.setter
     def design_specification_outdoor_air_object_name_34(self, value=None):
-        """  Corresponds to IDD Field `design_specification_outdoor_air_object_name_34`
+        """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 34`
+        
+        {u'type': u'object-list', u'object-list': u'DesignSpecificationOutdoorAirNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `design_specification_outdoor_air_object_name_34`
+            value (str): value for IDD Field `Design Specification Outdoor Air Object Name 34`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7033,7 +7176,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `design_specification_outdoor_air_object_name_34`'.format(value))
             if ',' in value:
@@ -7042,7 +7185,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `design_specification_outdoor_air_object_name_34`')
-
         self._data["Design Specification Outdoor Air Object Name 34"] = value
 
     @property
@@ -7056,10 +7198,12 @@ class ControllerMechanicalVentilation(object):
 
     @design_specification_zone_air_distribution_object_name_34.setter
     def design_specification_zone_air_distribution_object_name_34(self, value=None):
-        """  Corresponds to IDD Field `design_specification_zone_air_distribution_object_name_34`
+        """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 34`
+        
+        {u'type': u'object-list', u'object-list': u'DesignSpecificationZoneAirDistributionNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `design_specification_zone_air_distribution_object_name_34`
+            value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 34`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7069,7 +7213,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `design_specification_zone_air_distribution_object_name_34`'.format(value))
             if ',' in value:
@@ -7078,7 +7222,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `design_specification_zone_air_distribution_object_name_34`')
-
         self._data["Design Specification Zone Air Distribution Object Name 34"] = value
 
     @property
@@ -7092,11 +7235,13 @@ class ControllerMechanicalVentilation(object):
 
     @zone_35_name.setter
     def zone_35_name(self, value=None):
-        """  Corresponds to IDD Field `zone_35_name`
+        """  Corresponds to IDD Field `Zone 35 Name`
         A zone name or a zone list name may be used here
+        
+        {u'note': [u'A zone name or a zone list name may be used here'], u'type': u'object-list', u'object-list': u'ZoneAndZoneListNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `zone_35_name`
+            value (str): value for IDD Field `Zone 35 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7106,7 +7251,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `zone_35_name`'.format(value))
             if ',' in value:
@@ -7115,7 +7260,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `zone_35_name`')
-
         self._data["Zone 35 Name"] = value
 
     @property
@@ -7129,10 +7273,12 @@ class ControllerMechanicalVentilation(object):
 
     @design_specification_outdoor_air_object_name_35.setter
     def design_specification_outdoor_air_object_name_35(self, value=None):
-        """  Corresponds to IDD Field `design_specification_outdoor_air_object_name_35`
+        """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 35`
+        
+        {u'type': u'object-list', u'object-list': u'DesignSpecificationOutdoorAirNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `design_specification_outdoor_air_object_name_35`
+            value (str): value for IDD Field `Design Specification Outdoor Air Object Name 35`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7142,7 +7288,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `design_specification_outdoor_air_object_name_35`'.format(value))
             if ',' in value:
@@ -7151,7 +7297,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `design_specification_outdoor_air_object_name_35`')
-
         self._data["Design Specification Outdoor Air Object Name 35"] = value
 
     @property
@@ -7165,10 +7310,12 @@ class ControllerMechanicalVentilation(object):
 
     @design_specification_zone_air_distribution_object_name_35.setter
     def design_specification_zone_air_distribution_object_name_35(self, value=None):
-        """  Corresponds to IDD Field `design_specification_zone_air_distribution_object_name_35`
+        """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 35`
+        
+        {u'type': u'object-list', u'object-list': u'DesignSpecificationZoneAirDistributionNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `design_specification_zone_air_distribution_object_name_35`
+            value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 35`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7178,7 +7325,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `design_specification_zone_air_distribution_object_name_35`'.format(value))
             if ',' in value:
@@ -7187,7 +7334,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `design_specification_zone_air_distribution_object_name_35`')
-
         self._data["Design Specification Zone Air Distribution Object Name 35"] = value
 
     @property
@@ -7201,11 +7347,13 @@ class ControllerMechanicalVentilation(object):
 
     @zone_36_name.setter
     def zone_36_name(self, value=None):
-        """  Corresponds to IDD Field `zone_36_name`
+        """  Corresponds to IDD Field `Zone 36 Name`
         A zone name or a zone list name may be used here
+        
+        {u'note': [u'A zone name or a zone list name may be used here'], u'type': u'object-list', u'object-list': u'ZoneAndZoneListNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `zone_36_name`
+            value (str): value for IDD Field `Zone 36 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7215,7 +7363,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `zone_36_name`'.format(value))
             if ',' in value:
@@ -7224,7 +7372,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `zone_36_name`')
-
         self._data["Zone 36 Name"] = value
 
     @property
@@ -7238,10 +7385,12 @@ class ControllerMechanicalVentilation(object):
 
     @design_specification_outdoor_air_object_name_36.setter
     def design_specification_outdoor_air_object_name_36(self, value=None):
-        """  Corresponds to IDD Field `design_specification_outdoor_air_object_name_36`
+        """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 36`
+        
+        {u'type': u'object-list', u'object-list': u'DesignSpecificationOutdoorAirNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `design_specification_outdoor_air_object_name_36`
+            value (str): value for IDD Field `Design Specification Outdoor Air Object Name 36`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7251,7 +7400,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `design_specification_outdoor_air_object_name_36`'.format(value))
             if ',' in value:
@@ -7260,7 +7409,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `design_specification_outdoor_air_object_name_36`')
-
         self._data["Design Specification Outdoor Air Object Name 36"] = value
 
     @property
@@ -7274,10 +7422,12 @@ class ControllerMechanicalVentilation(object):
 
     @design_specification_zone_air_distribution_object_name_36.setter
     def design_specification_zone_air_distribution_object_name_36(self, value=None):
-        """  Corresponds to IDD Field `design_specification_zone_air_distribution_object_name_36`
+        """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 36`
+        
+        {u'type': u'object-list', u'object-list': u'DesignSpecificationZoneAirDistributionNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `design_specification_zone_air_distribution_object_name_36`
+            value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 36`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7287,7 +7437,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `design_specification_zone_air_distribution_object_name_36`'.format(value))
             if ',' in value:
@@ -7296,7 +7446,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `design_specification_zone_air_distribution_object_name_36`')
-
         self._data["Design Specification Zone Air Distribution Object Name 36"] = value
 
     @property
@@ -7310,11 +7459,13 @@ class ControllerMechanicalVentilation(object):
 
     @zone_37_name.setter
     def zone_37_name(self, value=None):
-        """  Corresponds to IDD Field `zone_37_name`
+        """  Corresponds to IDD Field `Zone 37 Name`
         A zone name or a zone list name may be used here
+        
+        {u'note': [u'A zone name or a zone list name may be used here'], u'type': u'object-list', u'object-list': u'ZoneAndZoneListNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `zone_37_name`
+            value (str): value for IDD Field `Zone 37 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7324,7 +7475,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `zone_37_name`'.format(value))
             if ',' in value:
@@ -7333,7 +7484,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `zone_37_name`')
-
         self._data["Zone 37 Name"] = value
 
     @property
@@ -7347,10 +7497,12 @@ class ControllerMechanicalVentilation(object):
 
     @design_specification_outdoor_air_object_name_37.setter
     def design_specification_outdoor_air_object_name_37(self, value=None):
-        """  Corresponds to IDD Field `design_specification_outdoor_air_object_name_37`
+        """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 37`
+        
+        {u'type': u'object-list', u'object-list': u'DesignSpecificationOutdoorAirNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `design_specification_outdoor_air_object_name_37`
+            value (str): value for IDD Field `Design Specification Outdoor Air Object Name 37`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7360,7 +7512,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `design_specification_outdoor_air_object_name_37`'.format(value))
             if ',' in value:
@@ -7369,7 +7521,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `design_specification_outdoor_air_object_name_37`')
-
         self._data["Design Specification Outdoor Air Object Name 37"] = value
 
     @property
@@ -7383,10 +7534,12 @@ class ControllerMechanicalVentilation(object):
 
     @design_specification_zone_air_distribution_object_name_37.setter
     def design_specification_zone_air_distribution_object_name_37(self, value=None):
-        """  Corresponds to IDD Field `design_specification_zone_air_distribution_object_name_37`
+        """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 37`
+        
+        {u'type': u'object-list', u'object-list': u'DesignSpecificationZoneAirDistributionNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `design_specification_zone_air_distribution_object_name_37`
+            value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 37`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7396,7 +7549,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `design_specification_zone_air_distribution_object_name_37`'.format(value))
             if ',' in value:
@@ -7405,7 +7558,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `design_specification_zone_air_distribution_object_name_37`')
-
         self._data["Design Specification Zone Air Distribution Object Name 37"] = value
 
     @property
@@ -7419,11 +7571,13 @@ class ControllerMechanicalVentilation(object):
 
     @zone_38_name.setter
     def zone_38_name(self, value=None):
-        """  Corresponds to IDD Field `zone_38_name`
+        """  Corresponds to IDD Field `Zone 38 Name`
         A zone name or a zone list name may be used here
+        
+        {u'note': [u'A zone name or a zone list name may be used here'], u'type': u'object-list', u'object-list': u'ZoneAndZoneListNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `zone_38_name`
+            value (str): value for IDD Field `Zone 38 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7433,7 +7587,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `zone_38_name`'.format(value))
             if ',' in value:
@@ -7442,7 +7596,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `zone_38_name`')
-
         self._data["Zone 38 Name"] = value
 
     @property
@@ -7456,10 +7609,12 @@ class ControllerMechanicalVentilation(object):
 
     @design_specification_outdoor_air_object_name_38.setter
     def design_specification_outdoor_air_object_name_38(self, value=None):
-        """  Corresponds to IDD Field `design_specification_outdoor_air_object_name_38`
+        """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 38`
+        
+        {u'type': u'object-list', u'object-list': u'DesignSpecificationOutdoorAirNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `design_specification_outdoor_air_object_name_38`
+            value (str): value for IDD Field `Design Specification Outdoor Air Object Name 38`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7469,7 +7624,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `design_specification_outdoor_air_object_name_38`'.format(value))
             if ',' in value:
@@ -7478,7 +7633,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `design_specification_outdoor_air_object_name_38`')
-
         self._data["Design Specification Outdoor Air Object Name 38"] = value
 
     @property
@@ -7492,10 +7646,12 @@ class ControllerMechanicalVentilation(object):
 
     @design_specification_zone_air_distribution_object_name_38.setter
     def design_specification_zone_air_distribution_object_name_38(self, value=None):
-        """  Corresponds to IDD Field `design_specification_zone_air_distribution_object_name_38`
+        """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 38`
+        
+        {u'type': u'object-list', u'object-list': u'DesignSpecificationZoneAirDistributionNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `design_specification_zone_air_distribution_object_name_38`
+            value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 38`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7505,7 +7661,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `design_specification_zone_air_distribution_object_name_38`'.format(value))
             if ',' in value:
@@ -7514,7 +7670,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `design_specification_zone_air_distribution_object_name_38`')
-
         self._data["Design Specification Zone Air Distribution Object Name 38"] = value
 
     @property
@@ -7528,11 +7683,13 @@ class ControllerMechanicalVentilation(object):
 
     @zone_39_name.setter
     def zone_39_name(self, value=None):
-        """  Corresponds to IDD Field `zone_39_name`
+        """  Corresponds to IDD Field `Zone 39 Name`
         A zone name or a zone list name may be used here
+        
+        {u'note': [u'A zone name or a zone list name may be used here'], u'type': u'object-list', u'object-list': u'ZoneAndZoneListNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `zone_39_name`
+            value (str): value for IDD Field `Zone 39 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7542,7 +7699,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `zone_39_name`'.format(value))
             if ',' in value:
@@ -7551,7 +7708,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `zone_39_name`')
-
         self._data["Zone 39 Name"] = value
 
     @property
@@ -7565,10 +7721,12 @@ class ControllerMechanicalVentilation(object):
 
     @design_specification_outdoor_air_object_name_39.setter
     def design_specification_outdoor_air_object_name_39(self, value=None):
-        """  Corresponds to IDD Field `design_specification_outdoor_air_object_name_39`
+        """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 39`
+        
+        {u'type': u'object-list', u'object-list': u'DesignSpecificationOutdoorAirNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `design_specification_outdoor_air_object_name_39`
+            value (str): value for IDD Field `Design Specification Outdoor Air Object Name 39`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7578,7 +7736,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `design_specification_outdoor_air_object_name_39`'.format(value))
             if ',' in value:
@@ -7587,7 +7745,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `design_specification_outdoor_air_object_name_39`')
-
         self._data["Design Specification Outdoor Air Object Name 39"] = value
 
     @property
@@ -7601,10 +7758,12 @@ class ControllerMechanicalVentilation(object):
 
     @design_specification_zone_air_distribution_object_name_39.setter
     def design_specification_zone_air_distribution_object_name_39(self, value=None):
-        """  Corresponds to IDD Field `design_specification_zone_air_distribution_object_name_39`
+        """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 39`
+        
+        {u'type': u'object-list', u'object-list': u'DesignSpecificationZoneAirDistributionNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `design_specification_zone_air_distribution_object_name_39`
+            value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 39`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7614,7 +7773,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `design_specification_zone_air_distribution_object_name_39`'.format(value))
             if ',' in value:
@@ -7623,7 +7782,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `design_specification_zone_air_distribution_object_name_39`')
-
         self._data["Design Specification Zone Air Distribution Object Name 39"] = value
 
     @property
@@ -7637,11 +7795,13 @@ class ControllerMechanicalVentilation(object):
 
     @zone_40_name.setter
     def zone_40_name(self, value=None):
-        """  Corresponds to IDD Field `zone_40_name`
+        """  Corresponds to IDD Field `Zone 40 Name`
         A zone name or a zone list name may be used here
+        
+        {u'note': [u'A zone name or a zone list name may be used here'], u'type': u'object-list', u'object-list': u'ZoneAndZoneListNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `zone_40_name`
+            value (str): value for IDD Field `Zone 40 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7651,7 +7811,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `zone_40_name`'.format(value))
             if ',' in value:
@@ -7660,7 +7820,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `zone_40_name`')
-
         self._data["Zone 40 Name"] = value
 
     @property
@@ -7674,10 +7833,12 @@ class ControllerMechanicalVentilation(object):
 
     @design_specification_outdoor_air_object_name_40.setter
     def design_specification_outdoor_air_object_name_40(self, value=None):
-        """  Corresponds to IDD Field `design_specification_outdoor_air_object_name_40`
+        """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 40`
+        
+        {u'type': u'object-list', u'object-list': u'DesignSpecificationOutdoorAirNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `design_specification_outdoor_air_object_name_40`
+            value (str): value for IDD Field `Design Specification Outdoor Air Object Name 40`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7687,7 +7848,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `design_specification_outdoor_air_object_name_40`'.format(value))
             if ',' in value:
@@ -7696,7 +7857,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `design_specification_outdoor_air_object_name_40`')
-
         self._data["Design Specification Outdoor Air Object Name 40"] = value
 
     @property
@@ -7710,10 +7870,12 @@ class ControllerMechanicalVentilation(object):
 
     @design_specification_zone_air_distribution_object_name_40.setter
     def design_specification_zone_air_distribution_object_name_40(self, value=None):
-        """  Corresponds to IDD Field `design_specification_zone_air_distribution_object_name_40`
+        """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 40`
+        
+        {u'type': u'object-list', u'object-list': u'DesignSpecificationZoneAirDistributionNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `design_specification_zone_air_distribution_object_name_40`
+            value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 40`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7723,7 +7885,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `design_specification_zone_air_distribution_object_name_40`'.format(value))
             if ',' in value:
@@ -7732,7 +7894,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `design_specification_zone_air_distribution_object_name_40`')
-
         self._data["Design Specification Zone Air Distribution Object Name 40"] = value
 
     @property
@@ -7746,11 +7907,13 @@ class ControllerMechanicalVentilation(object):
 
     @zone_41_name.setter
     def zone_41_name(self, value=None):
-        """  Corresponds to IDD Field `zone_41_name`
+        """  Corresponds to IDD Field `Zone 41 Name`
         A zone name or a zone list name may be used here
+        
+        {u'note': [u'A zone name or a zone list name may be used here'], u'type': u'object-list', u'object-list': u'ZoneAndZoneListNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `zone_41_name`
+            value (str): value for IDD Field `Zone 41 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7760,7 +7923,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `zone_41_name`'.format(value))
             if ',' in value:
@@ -7769,7 +7932,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `zone_41_name`')
-
         self._data["Zone 41 Name"] = value
 
     @property
@@ -7783,10 +7945,12 @@ class ControllerMechanicalVentilation(object):
 
     @design_specification_outdoor_air_object_name_41.setter
     def design_specification_outdoor_air_object_name_41(self, value=None):
-        """  Corresponds to IDD Field `design_specification_outdoor_air_object_name_41`
+        """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 41`
+        
+        {u'type': u'object-list', u'object-list': u'DesignSpecificationOutdoorAirNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `design_specification_outdoor_air_object_name_41`
+            value (str): value for IDD Field `Design Specification Outdoor Air Object Name 41`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7796,7 +7960,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `design_specification_outdoor_air_object_name_41`'.format(value))
             if ',' in value:
@@ -7805,7 +7969,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `design_specification_outdoor_air_object_name_41`')
-
         self._data["Design Specification Outdoor Air Object Name 41"] = value
 
     @property
@@ -7819,10 +7982,12 @@ class ControllerMechanicalVentilation(object):
 
     @design_specification_zone_air_distribution_object_name_41.setter
     def design_specification_zone_air_distribution_object_name_41(self, value=None):
-        """  Corresponds to IDD Field `design_specification_zone_air_distribution_object_name_41`
+        """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 41`
+        
+        {u'type': u'object-list', u'object-list': u'DesignSpecificationZoneAirDistributionNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `design_specification_zone_air_distribution_object_name_41`
+            value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 41`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7832,7 +7997,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `design_specification_zone_air_distribution_object_name_41`'.format(value))
             if ',' in value:
@@ -7841,7 +8006,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `design_specification_zone_air_distribution_object_name_41`')
-
         self._data["Design Specification Zone Air Distribution Object Name 41"] = value
 
     @property
@@ -7855,11 +8019,13 @@ class ControllerMechanicalVentilation(object):
 
     @zone_42_name.setter
     def zone_42_name(self, value=None):
-        """  Corresponds to IDD Field `zone_42_name`
+        """  Corresponds to IDD Field `Zone 42 Name`
         A zone name or a zone list name may be used here
+        
+        {u'note': [u'A zone name or a zone list name may be used here'], u'type': u'object-list', u'object-list': u'ZoneAndZoneListNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `zone_42_name`
+            value (str): value for IDD Field `Zone 42 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7869,7 +8035,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `zone_42_name`'.format(value))
             if ',' in value:
@@ -7878,7 +8044,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `zone_42_name`')
-
         self._data["Zone 42 Name"] = value
 
     @property
@@ -7892,10 +8057,12 @@ class ControllerMechanicalVentilation(object):
 
     @design_specification_outdoor_air_object_name_42.setter
     def design_specification_outdoor_air_object_name_42(self, value=None):
-        """  Corresponds to IDD Field `design_specification_outdoor_air_object_name_42`
+        """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 42`
+        
+        {u'type': u'object-list', u'object-list': u'DesignSpecificationOutdoorAirNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `design_specification_outdoor_air_object_name_42`
+            value (str): value for IDD Field `Design Specification Outdoor Air Object Name 42`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7905,7 +8072,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `design_specification_outdoor_air_object_name_42`'.format(value))
             if ',' in value:
@@ -7914,7 +8081,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `design_specification_outdoor_air_object_name_42`')
-
         self._data["Design Specification Outdoor Air Object Name 42"] = value
 
     @property
@@ -7928,10 +8094,12 @@ class ControllerMechanicalVentilation(object):
 
     @design_specification_zone_air_distribution_object_name_42.setter
     def design_specification_zone_air_distribution_object_name_42(self, value=None):
-        """  Corresponds to IDD Field `design_specification_zone_air_distribution_object_name_42`
+        """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 42`
+        
+        {u'type': u'object-list', u'object-list': u'DesignSpecificationZoneAirDistributionNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `design_specification_zone_air_distribution_object_name_42`
+            value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 42`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7941,7 +8109,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `design_specification_zone_air_distribution_object_name_42`'.format(value))
             if ',' in value:
@@ -7950,7 +8118,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `design_specification_zone_air_distribution_object_name_42`')
-
         self._data["Design Specification Zone Air Distribution Object Name 42"] = value
 
     @property
@@ -7964,11 +8131,13 @@ class ControllerMechanicalVentilation(object):
 
     @zone_43_name.setter
     def zone_43_name(self, value=None):
-        """  Corresponds to IDD Field `zone_43_name`
+        """  Corresponds to IDD Field `Zone 43 Name`
         A zone name or a zone list name may be used here
+        
+        {u'note': [u'A zone name or a zone list name may be used here'], u'type': u'object-list', u'object-list': u'ZoneAndZoneListNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `zone_43_name`
+            value (str): value for IDD Field `Zone 43 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7978,7 +8147,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `zone_43_name`'.format(value))
             if ',' in value:
@@ -7987,7 +8156,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `zone_43_name`')
-
         self._data["Zone 43 Name"] = value
 
     @property
@@ -8001,10 +8169,12 @@ class ControllerMechanicalVentilation(object):
 
     @design_specification_outdoor_air_object_name_43.setter
     def design_specification_outdoor_air_object_name_43(self, value=None):
-        """  Corresponds to IDD Field `design_specification_outdoor_air_object_name_43`
+        """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 43`
+        
+        {u'type': u'object-list', u'object-list': u'DesignSpecificationOutdoorAirNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `design_specification_outdoor_air_object_name_43`
+            value (str): value for IDD Field `Design Specification Outdoor Air Object Name 43`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8014,7 +8184,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `design_specification_outdoor_air_object_name_43`'.format(value))
             if ',' in value:
@@ -8023,7 +8193,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `design_specification_outdoor_air_object_name_43`')
-
         self._data["Design Specification Outdoor Air Object Name 43"] = value
 
     @property
@@ -8037,10 +8206,12 @@ class ControllerMechanicalVentilation(object):
 
     @design_specification_zone_air_distribution_object_name_43.setter
     def design_specification_zone_air_distribution_object_name_43(self, value=None):
-        """  Corresponds to IDD Field `design_specification_zone_air_distribution_object_name_43`
+        """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 43`
+        
+        {u'type': u'object-list', u'object-list': u'DesignSpecificationZoneAirDistributionNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `design_specification_zone_air_distribution_object_name_43`
+            value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 43`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8050,7 +8221,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `design_specification_zone_air_distribution_object_name_43`'.format(value))
             if ',' in value:
@@ -8059,7 +8230,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `design_specification_zone_air_distribution_object_name_43`')
-
         self._data["Design Specification Zone Air Distribution Object Name 43"] = value
 
     @property
@@ -8073,11 +8243,13 @@ class ControllerMechanicalVentilation(object):
 
     @zone_44_name.setter
     def zone_44_name(self, value=None):
-        """  Corresponds to IDD Field `zone_44_name`
+        """  Corresponds to IDD Field `Zone 44 Name`
         A zone name or a zone list name may be used here
+        
+        {u'note': [u'A zone name or a zone list name may be used here'], u'type': u'object-list', u'object-list': u'ZoneAndZoneListNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `zone_44_name`
+            value (str): value for IDD Field `Zone 44 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8087,7 +8259,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `zone_44_name`'.format(value))
             if ',' in value:
@@ -8096,7 +8268,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `zone_44_name`')
-
         self._data["Zone 44 Name"] = value
 
     @property
@@ -8110,10 +8281,12 @@ class ControllerMechanicalVentilation(object):
 
     @design_specification_outdoor_air_object_name_44.setter
     def design_specification_outdoor_air_object_name_44(self, value=None):
-        """  Corresponds to IDD Field `design_specification_outdoor_air_object_name_44`
+        """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 44`
+        
+        {u'type': u'object-list', u'object-list': u'DesignSpecificationOutdoorAirNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `design_specification_outdoor_air_object_name_44`
+            value (str): value for IDD Field `Design Specification Outdoor Air Object Name 44`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8123,7 +8296,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `design_specification_outdoor_air_object_name_44`'.format(value))
             if ',' in value:
@@ -8132,7 +8305,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `design_specification_outdoor_air_object_name_44`')
-
         self._data["Design Specification Outdoor Air Object Name 44"] = value
 
     @property
@@ -8146,10 +8318,12 @@ class ControllerMechanicalVentilation(object):
 
     @design_specification_zone_air_distribution_object_name_44.setter
     def design_specification_zone_air_distribution_object_name_44(self, value=None):
-        """  Corresponds to IDD Field `design_specification_zone_air_distribution_object_name_44`
+        """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 44`
+        
+        {u'type': u'object-list', u'object-list': u'DesignSpecificationZoneAirDistributionNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `design_specification_zone_air_distribution_object_name_44`
+            value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 44`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8159,7 +8333,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `design_specification_zone_air_distribution_object_name_44`'.format(value))
             if ',' in value:
@@ -8168,7 +8342,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `design_specification_zone_air_distribution_object_name_44`')
-
         self._data["Design Specification Zone Air Distribution Object Name 44"] = value
 
     @property
@@ -8182,11 +8355,13 @@ class ControllerMechanicalVentilation(object):
 
     @zone_45_name.setter
     def zone_45_name(self, value=None):
-        """  Corresponds to IDD Field `zone_45_name`
+        """  Corresponds to IDD Field `Zone 45 Name`
         A zone name or a zone list name may be used here
+        
+        {u'note': [u'A zone name or a zone list name may be used here'], u'type': u'object-list', u'object-list': u'ZoneAndZoneListNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `zone_45_name`
+            value (str): value for IDD Field `Zone 45 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8196,7 +8371,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `zone_45_name`'.format(value))
             if ',' in value:
@@ -8205,7 +8380,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `zone_45_name`')
-
         self._data["Zone 45 Name"] = value
 
     @property
@@ -8219,10 +8393,12 @@ class ControllerMechanicalVentilation(object):
 
     @design_specification_outdoor_air_object_name_45.setter
     def design_specification_outdoor_air_object_name_45(self, value=None):
-        """  Corresponds to IDD Field `design_specification_outdoor_air_object_name_45`
+        """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 45`
+        
+        {u'type': u'object-list', u'object-list': u'DesignSpecificationOutdoorAirNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `design_specification_outdoor_air_object_name_45`
+            value (str): value for IDD Field `Design Specification Outdoor Air Object Name 45`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8232,7 +8408,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `design_specification_outdoor_air_object_name_45`'.format(value))
             if ',' in value:
@@ -8241,7 +8417,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `design_specification_outdoor_air_object_name_45`')
-
         self._data["Design Specification Outdoor Air Object Name 45"] = value
 
     @property
@@ -8255,10 +8430,12 @@ class ControllerMechanicalVentilation(object):
 
     @design_specification_zone_air_distribution_object_name_45.setter
     def design_specification_zone_air_distribution_object_name_45(self, value=None):
-        """  Corresponds to IDD Field `design_specification_zone_air_distribution_object_name_45`
+        """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 45`
+        
+        {u'type': u'object-list', u'object-list': u'DesignSpecificationZoneAirDistributionNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `design_specification_zone_air_distribution_object_name_45`
+            value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 45`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8268,7 +8445,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `design_specification_zone_air_distribution_object_name_45`'.format(value))
             if ',' in value:
@@ -8277,7 +8454,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `design_specification_zone_air_distribution_object_name_45`')
-
         self._data["Design Specification Zone Air Distribution Object Name 45"] = value
 
     @property
@@ -8291,11 +8467,13 @@ class ControllerMechanicalVentilation(object):
 
     @zone_46_name.setter
     def zone_46_name(self, value=None):
-        """  Corresponds to IDD Field `zone_46_name`
+        """  Corresponds to IDD Field `Zone 46 Name`
         A zone name or a zone list name may be used here
+        
+        {u'note': [u'A zone name or a zone list name may be used here'], u'type': u'object-list', u'object-list': u'ZoneAndZoneListNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `zone_46_name`
+            value (str): value for IDD Field `Zone 46 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8305,7 +8483,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `zone_46_name`'.format(value))
             if ',' in value:
@@ -8314,7 +8492,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `zone_46_name`')
-
         self._data["Zone 46 Name"] = value
 
     @property
@@ -8328,10 +8505,12 @@ class ControllerMechanicalVentilation(object):
 
     @design_specification_outdoor_air_object_name_46.setter
     def design_specification_outdoor_air_object_name_46(self, value=None):
-        """  Corresponds to IDD Field `design_specification_outdoor_air_object_name_46`
+        """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 46`
+        
+        {u'type': u'object-list', u'object-list': u'DesignSpecificationOutdoorAirNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `design_specification_outdoor_air_object_name_46`
+            value (str): value for IDD Field `Design Specification Outdoor Air Object Name 46`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8341,7 +8520,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `design_specification_outdoor_air_object_name_46`'.format(value))
             if ',' in value:
@@ -8350,7 +8529,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `design_specification_outdoor_air_object_name_46`')
-
         self._data["Design Specification Outdoor Air Object Name 46"] = value
 
     @property
@@ -8364,10 +8542,12 @@ class ControllerMechanicalVentilation(object):
 
     @design_specification_zone_air_distribution_object_name_46.setter
     def design_specification_zone_air_distribution_object_name_46(self, value=None):
-        """  Corresponds to IDD Field `design_specification_zone_air_distribution_object_name_46`
+        """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 46`
+        
+        {u'type': u'object-list', u'object-list': u'DesignSpecificationZoneAirDistributionNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `design_specification_zone_air_distribution_object_name_46`
+            value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 46`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8377,7 +8557,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `design_specification_zone_air_distribution_object_name_46`'.format(value))
             if ',' in value:
@@ -8386,7 +8566,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `design_specification_zone_air_distribution_object_name_46`')
-
         self._data["Design Specification Zone Air Distribution Object Name 46"] = value
 
     @property
@@ -8400,11 +8579,13 @@ class ControllerMechanicalVentilation(object):
 
     @zone_47_name.setter
     def zone_47_name(self, value=None):
-        """  Corresponds to IDD Field `zone_47_name`
+        """  Corresponds to IDD Field `Zone 47 Name`
         A zone name or a zone list name may be used here
+        
+        {u'note': [u'A zone name or a zone list name may be used here'], u'type': u'object-list', u'object-list': u'ZoneAndZoneListNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `zone_47_name`
+            value (str): value for IDD Field `Zone 47 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8414,7 +8595,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `zone_47_name`'.format(value))
             if ',' in value:
@@ -8423,7 +8604,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `zone_47_name`')
-
         self._data["Zone 47 Name"] = value
 
     @property
@@ -8437,10 +8617,12 @@ class ControllerMechanicalVentilation(object):
 
     @design_specification_outdoor_air_object_name_47.setter
     def design_specification_outdoor_air_object_name_47(self, value=None):
-        """  Corresponds to IDD Field `design_specification_outdoor_air_object_name_47`
+        """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 47`
+        
+        {u'type': u'object-list', u'object-list': u'DesignSpecificationOutdoorAirNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `design_specification_outdoor_air_object_name_47`
+            value (str): value for IDD Field `Design Specification Outdoor Air Object Name 47`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8450,7 +8632,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `design_specification_outdoor_air_object_name_47`'.format(value))
             if ',' in value:
@@ -8459,7 +8641,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `design_specification_outdoor_air_object_name_47`')
-
         self._data["Design Specification Outdoor Air Object Name 47"] = value
 
     @property
@@ -8473,10 +8654,12 @@ class ControllerMechanicalVentilation(object):
 
     @design_specification_zone_air_distribution_object_name_47.setter
     def design_specification_zone_air_distribution_object_name_47(self, value=None):
-        """  Corresponds to IDD Field `design_specification_zone_air_distribution_object_name_47`
+        """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 47`
+        
+        {u'type': u'object-list', u'object-list': u'DesignSpecificationZoneAirDistributionNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `design_specification_zone_air_distribution_object_name_47`
+            value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 47`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8486,7 +8669,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `design_specification_zone_air_distribution_object_name_47`'.format(value))
             if ',' in value:
@@ -8495,7 +8678,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `design_specification_zone_air_distribution_object_name_47`')
-
         self._data["Design Specification Zone Air Distribution Object Name 47"] = value
 
     @property
@@ -8509,11 +8691,13 @@ class ControllerMechanicalVentilation(object):
 
     @zone_48_name.setter
     def zone_48_name(self, value=None):
-        """  Corresponds to IDD Field `zone_48_name`
+        """  Corresponds to IDD Field `Zone 48 Name`
         A zone name or a zone list name may be used here
+        
+        {u'note': [u'A zone name or a zone list name may be used here'], u'type': u'object-list', u'object-list': u'ZoneAndZoneListNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `zone_48_name`
+            value (str): value for IDD Field `Zone 48 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8523,7 +8707,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `zone_48_name`'.format(value))
             if ',' in value:
@@ -8532,7 +8716,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `zone_48_name`')
-
         self._data["Zone 48 Name"] = value
 
     @property
@@ -8546,10 +8729,12 @@ class ControllerMechanicalVentilation(object):
 
     @design_specification_outdoor_air_object_name_48.setter
     def design_specification_outdoor_air_object_name_48(self, value=None):
-        """  Corresponds to IDD Field `design_specification_outdoor_air_object_name_48`
+        """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 48`
+        
+        {u'type': u'object-list', u'object-list': u'DesignSpecificationOutdoorAirNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `design_specification_outdoor_air_object_name_48`
+            value (str): value for IDD Field `Design Specification Outdoor Air Object Name 48`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8559,7 +8744,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `design_specification_outdoor_air_object_name_48`'.format(value))
             if ',' in value:
@@ -8568,7 +8753,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `design_specification_outdoor_air_object_name_48`')
-
         self._data["Design Specification Outdoor Air Object Name 48"] = value
 
     @property
@@ -8582,10 +8766,12 @@ class ControllerMechanicalVentilation(object):
 
     @design_specification_zone_air_distribution_object_name_48.setter
     def design_specification_zone_air_distribution_object_name_48(self, value=None):
-        """  Corresponds to IDD Field `design_specification_zone_air_distribution_object_name_48`
+        """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 48`
+        
+        {u'type': u'object-list', u'object-list': u'DesignSpecificationZoneAirDistributionNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `design_specification_zone_air_distribution_object_name_48`
+            value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 48`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8595,7 +8781,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `design_specification_zone_air_distribution_object_name_48`'.format(value))
             if ',' in value:
@@ -8604,7 +8790,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `design_specification_zone_air_distribution_object_name_48`')
-
         self._data["Design Specification Zone Air Distribution Object Name 48"] = value
 
     @property
@@ -8618,11 +8803,13 @@ class ControllerMechanicalVentilation(object):
 
     @zone_49_name.setter
     def zone_49_name(self, value=None):
-        """  Corresponds to IDD Field `zone_49_name`
+        """  Corresponds to IDD Field `Zone 49 Name`
         A zone name or a zone list name may be used here
+        
+        {u'note': [u'A zone name or a zone list name may be used here'], u'type': u'object-list', u'object-list': u'ZoneAndZoneListNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `zone_49_name`
+            value (str): value for IDD Field `Zone 49 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8632,7 +8819,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `zone_49_name`'.format(value))
             if ',' in value:
@@ -8641,7 +8828,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `zone_49_name`')
-
         self._data["Zone 49 Name"] = value
 
     @property
@@ -8655,10 +8841,12 @@ class ControllerMechanicalVentilation(object):
 
     @design_specification_outdoor_air_object_name_49.setter
     def design_specification_outdoor_air_object_name_49(self, value=None):
-        """  Corresponds to IDD Field `design_specification_outdoor_air_object_name_49`
+        """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 49`
+        
+        {u'type': u'object-list', u'object-list': u'DesignSpecificationOutdoorAirNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `design_specification_outdoor_air_object_name_49`
+            value (str): value for IDD Field `Design Specification Outdoor Air Object Name 49`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8668,7 +8856,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `design_specification_outdoor_air_object_name_49`'.format(value))
             if ',' in value:
@@ -8677,7 +8865,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `design_specification_outdoor_air_object_name_49`')
-
         self._data["Design Specification Outdoor Air Object Name 49"] = value
 
     @property
@@ -8691,10 +8878,12 @@ class ControllerMechanicalVentilation(object):
 
     @design_specification_zone_air_distribution_object_name_49.setter
     def design_specification_zone_air_distribution_object_name_49(self, value=None):
-        """  Corresponds to IDD Field `design_specification_zone_air_distribution_object_name_49`
+        """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 49`
+        
+        {u'type': u'object-list', u'object-list': u'DesignSpecificationZoneAirDistributionNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `design_specification_zone_air_distribution_object_name_49`
+            value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 49`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8704,7 +8893,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `design_specification_zone_air_distribution_object_name_49`'.format(value))
             if ',' in value:
@@ -8713,7 +8902,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `design_specification_zone_air_distribution_object_name_49`')
-
         self._data["Design Specification Zone Air Distribution Object Name 49"] = value
 
     @property
@@ -8727,11 +8915,13 @@ class ControllerMechanicalVentilation(object):
 
     @zone_50_name.setter
     def zone_50_name(self, value=None):
-        """  Corresponds to IDD Field `zone_50_name`
+        """  Corresponds to IDD Field `Zone 50 Name`
         A zone name or a zone list name may be used here
+        
+        {u'note': [u'A zone name or a zone list name may be used here'], u'type': u'object-list', u'object-list': u'ZoneAndZoneListNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `zone_50_name`
+            value (str): value for IDD Field `Zone 50 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8741,7 +8931,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `zone_50_name`'.format(value))
             if ',' in value:
@@ -8750,7 +8940,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `zone_50_name`')
-
         self._data["Zone 50 Name"] = value
 
     @property
@@ -8764,10 +8953,12 @@ class ControllerMechanicalVentilation(object):
 
     @design_specification_outdoor_air_object_name_50.setter
     def design_specification_outdoor_air_object_name_50(self, value=None):
-        """  Corresponds to IDD Field `design_specification_outdoor_air_object_name_50`
+        """  Corresponds to IDD Field `Design Specification Outdoor Air Object Name 50`
+        
+        {u'type': u'object-list', u'object-list': u'DesignSpecificationOutdoorAirNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `design_specification_outdoor_air_object_name_50`
+            value (str): value for IDD Field `Design Specification Outdoor Air Object Name 50`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8777,7 +8968,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `design_specification_outdoor_air_object_name_50`'.format(value))
             if ',' in value:
@@ -8786,7 +8977,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `design_specification_outdoor_air_object_name_50`')
-
         self._data["Design Specification Outdoor Air Object Name 50"] = value
 
     @property
@@ -8800,10 +8990,12 @@ class ControllerMechanicalVentilation(object):
 
     @design_specification_zone_air_distribution_object_name_50.setter
     def design_specification_zone_air_distribution_object_name_50(self, value=None):
-        """  Corresponds to IDD Field `design_specification_zone_air_distribution_object_name_50`
+        """  Corresponds to IDD Field `Design Specification Zone Air Distribution Object Name 50`
+        
+        {u'type': u'object-list', u'object-list': u'DesignSpecificationZoneAirDistributionNames', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `design_specification_zone_air_distribution_object_name_50`
+            value (str): value for IDD Field `Design Specification Zone Air Distribution Object Name 50`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8813,7 +9005,7 @@ class ControllerMechanicalVentilation(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `design_specification_zone_air_distribution_object_name_50`'.format(value))
             if ',' in value:
@@ -8822,7 +9014,6 @@ class ControllerMechanicalVentilation(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `design_specification_zone_air_distribution_object_name_50`')
-
         self._data["Design Specification Zone Air Distribution Object Name 50"] = value
 
     def check(self):
@@ -9030,10 +9221,12 @@ class AirLoopHvacControllerList(object):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `name`
+        """  Corresponds to IDD Field `Name`
+        
+        {u'type': u'alpha', u'reference': u'ControllerLists', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `name`
+            value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9043,7 +9236,7 @@ class AirLoopHvacControllerList(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `name`'.format(value))
             if ',' in value:
@@ -9052,7 +9245,6 @@ class AirLoopHvacControllerList(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `name`')
-
         self._data["Name"] = value
 
     @property
@@ -9066,10 +9258,12 @@ class AirLoopHvacControllerList(object):
 
     @controller_1_object_type.setter
     def controller_1_object_type(self, value=None):
-        """  Corresponds to IDD Field `controller_1_object_type`
+        """  Corresponds to IDD Field `Controller 1 Object Type`
+        
+        {u'type': u'choice', u'key': [u'Controller:WaterCoil', u'Controller:OutdoorAir'], u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `controller_1_object_type`
+            value (str): value for IDD Field `Controller 1 Object Type`
                 Accepted values are:
                       - Controller:WaterCoil
                       - Controller:OutdoorAir
@@ -9082,7 +9276,7 @@ class AirLoopHvacControllerList(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `controller_1_object_type`'.format(value))
             if ',' in value:
@@ -9108,7 +9302,6 @@ class AirLoopHvacControllerList(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `controller_1_object_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Controller 1 Object Type"] = value
 
     @property
@@ -9122,10 +9315,12 @@ class AirLoopHvacControllerList(object):
 
     @controller_1_name.setter
     def controller_1_name(self, value=None):
-        """  Corresponds to IDD Field `controller_1_name`
+        """  Corresponds to IDD Field `Controller 1 Name`
+        
+        {u'type': u'object-list', u'object-list': u'AirLoopControllers', u'required-field': True, 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `controller_1_name`
+            value (str): value for IDD Field `Controller 1 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9135,7 +9330,7 @@ class AirLoopHvacControllerList(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `controller_1_name`'.format(value))
             if ',' in value:
@@ -9144,7 +9339,6 @@ class AirLoopHvacControllerList(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `controller_1_name`')
-
         self._data["Controller 1 Name"] = value
 
     @property
@@ -9158,10 +9352,12 @@ class AirLoopHvacControllerList(object):
 
     @controller_2_object_type.setter
     def controller_2_object_type(self, value=None):
-        """  Corresponds to IDD Field `controller_2_object_type`
+        """  Corresponds to IDD Field `Controller 2 Object Type`
+        
+        {u'type': u'choice', u'key': [u'Controller:WaterCoil', u'Controller:OutdoorAir'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `controller_2_object_type`
+            value (str): value for IDD Field `Controller 2 Object Type`
                 Accepted values are:
                       - Controller:WaterCoil
                       - Controller:OutdoorAir
@@ -9174,7 +9370,7 @@ class AirLoopHvacControllerList(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `controller_2_object_type`'.format(value))
             if ',' in value:
@@ -9200,7 +9396,6 @@ class AirLoopHvacControllerList(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `controller_2_object_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Controller 2 Object Type"] = value
 
     @property
@@ -9214,10 +9409,12 @@ class AirLoopHvacControllerList(object):
 
     @controller_2_name.setter
     def controller_2_name(self, value=None):
-        """  Corresponds to IDD Field `controller_2_name`
+        """  Corresponds to IDD Field `Controller 2 Name`
+        
+        {u'type': u'object-list', u'object-list': u'AirLoopControllers', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `controller_2_name`
+            value (str): value for IDD Field `Controller 2 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9227,7 +9424,7 @@ class AirLoopHvacControllerList(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `controller_2_name`'.format(value))
             if ',' in value:
@@ -9236,7 +9433,6 @@ class AirLoopHvacControllerList(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `controller_2_name`')
-
         self._data["Controller 2 Name"] = value
 
     @property
@@ -9250,10 +9446,12 @@ class AirLoopHvacControllerList(object):
 
     @controller_3_object_type.setter
     def controller_3_object_type(self, value=None):
-        """  Corresponds to IDD Field `controller_3_object_type`
+        """  Corresponds to IDD Field `Controller 3 Object Type`
+        
+        {u'type': u'choice', u'key': [u'Controller:WaterCoil', u'Controller:OutdoorAir'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `controller_3_object_type`
+            value (str): value for IDD Field `Controller 3 Object Type`
                 Accepted values are:
                       - Controller:WaterCoil
                       - Controller:OutdoorAir
@@ -9266,7 +9464,7 @@ class AirLoopHvacControllerList(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `controller_3_object_type`'.format(value))
             if ',' in value:
@@ -9292,7 +9490,6 @@ class AirLoopHvacControllerList(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `controller_3_object_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Controller 3 Object Type"] = value
 
     @property
@@ -9306,10 +9503,12 @@ class AirLoopHvacControllerList(object):
 
     @controller_3_name.setter
     def controller_3_name(self, value=None):
-        """  Corresponds to IDD Field `controller_3_name`
+        """  Corresponds to IDD Field `Controller 3 Name`
+        
+        {u'type': u'object-list', u'object-list': u'AirLoopControllers', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `controller_3_name`
+            value (str): value for IDD Field `Controller 3 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9319,7 +9518,7 @@ class AirLoopHvacControllerList(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `controller_3_name`'.format(value))
             if ',' in value:
@@ -9328,7 +9527,6 @@ class AirLoopHvacControllerList(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `controller_3_name`')
-
         self._data["Controller 3 Name"] = value
 
     @property
@@ -9342,10 +9540,12 @@ class AirLoopHvacControllerList(object):
 
     @controller_4_object_type.setter
     def controller_4_object_type(self, value=None):
-        """  Corresponds to IDD Field `controller_4_object_type`
+        """  Corresponds to IDD Field `Controller 4 Object Type`
+        
+        {u'type': u'choice', u'key': [u'Controller:WaterCoil', u'Controller:OutdoorAir'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `controller_4_object_type`
+            value (str): value for IDD Field `Controller 4 Object Type`
                 Accepted values are:
                       - Controller:WaterCoil
                       - Controller:OutdoorAir
@@ -9358,7 +9558,7 @@ class AirLoopHvacControllerList(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `controller_4_object_type`'.format(value))
             if ',' in value:
@@ -9384,7 +9584,6 @@ class AirLoopHvacControllerList(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `controller_4_object_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Controller 4 Object Type"] = value
 
     @property
@@ -9398,10 +9597,12 @@ class AirLoopHvacControllerList(object):
 
     @controller_4_name.setter
     def controller_4_name(self, value=None):
-        """  Corresponds to IDD Field `controller_4_name`
+        """  Corresponds to IDD Field `Controller 4 Name`
+        
+        {u'type': u'object-list', u'object-list': u'AirLoopControllers', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `controller_4_name`
+            value (str): value for IDD Field `Controller 4 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9411,7 +9612,7 @@ class AirLoopHvacControllerList(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `controller_4_name`'.format(value))
             if ',' in value:
@@ -9420,7 +9621,6 @@ class AirLoopHvacControllerList(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `controller_4_name`')
-
         self._data["Controller 4 Name"] = value
 
     @property
@@ -9434,10 +9634,12 @@ class AirLoopHvacControllerList(object):
 
     @controller_5_object_type.setter
     def controller_5_object_type(self, value=None):
-        """  Corresponds to IDD Field `controller_5_object_type`
+        """  Corresponds to IDD Field `Controller 5 Object Type`
+        
+        {u'type': u'choice', u'key': [u'Controller:WaterCoil', u'Controller:OutdoorAir'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `controller_5_object_type`
+            value (str): value for IDD Field `Controller 5 Object Type`
                 Accepted values are:
                       - Controller:WaterCoil
                       - Controller:OutdoorAir
@@ -9450,7 +9652,7 @@ class AirLoopHvacControllerList(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `controller_5_object_type`'.format(value))
             if ',' in value:
@@ -9476,7 +9678,6 @@ class AirLoopHvacControllerList(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `controller_5_object_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Controller 5 Object Type"] = value
 
     @property
@@ -9490,10 +9691,12 @@ class AirLoopHvacControllerList(object):
 
     @controller_5_name.setter
     def controller_5_name(self, value=None):
-        """  Corresponds to IDD Field `controller_5_name`
+        """  Corresponds to IDD Field `Controller 5 Name`
+        
+        {u'type': u'object-list', u'object-list': u'AirLoopControllers', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `controller_5_name`
+            value (str): value for IDD Field `Controller 5 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9503,7 +9706,7 @@ class AirLoopHvacControllerList(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `controller_5_name`'.format(value))
             if ',' in value:
@@ -9512,7 +9715,6 @@ class AirLoopHvacControllerList(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `controller_5_name`')
-
         self._data["Controller 5 Name"] = value
 
     @property
@@ -9526,10 +9728,12 @@ class AirLoopHvacControllerList(object):
 
     @controller_6_object_type.setter
     def controller_6_object_type(self, value=None):
-        """  Corresponds to IDD Field `controller_6_object_type`
+        """  Corresponds to IDD Field `Controller 6 Object Type`
+        
+        {u'type': u'choice', u'key': [u'Controller:WaterCoil', u'Controller:OutdoorAir'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `controller_6_object_type`
+            value (str): value for IDD Field `Controller 6 Object Type`
                 Accepted values are:
                       - Controller:WaterCoil
                       - Controller:OutdoorAir
@@ -9542,7 +9746,7 @@ class AirLoopHvacControllerList(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `controller_6_object_type`'.format(value))
             if ',' in value:
@@ -9568,7 +9772,6 @@ class AirLoopHvacControllerList(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `controller_6_object_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Controller 6 Object Type"] = value
 
     @property
@@ -9582,10 +9785,12 @@ class AirLoopHvacControllerList(object):
 
     @controller_6_name.setter
     def controller_6_name(self, value=None):
-        """  Corresponds to IDD Field `controller_6_name`
+        """  Corresponds to IDD Field `Controller 6 Name`
+        
+        {u'type': u'object-list', u'object-list': u'AirLoopControllers', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `controller_6_name`
+            value (str): value for IDD Field `Controller 6 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9595,7 +9800,7 @@ class AirLoopHvacControllerList(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `controller_6_name`'.format(value))
             if ',' in value:
@@ -9604,7 +9809,6 @@ class AirLoopHvacControllerList(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `controller_6_name`')
-
         self._data["Controller 6 Name"] = value
 
     @property
@@ -9618,10 +9822,12 @@ class AirLoopHvacControllerList(object):
 
     @controller_7_object_type.setter
     def controller_7_object_type(self, value=None):
-        """  Corresponds to IDD Field `controller_7_object_type`
+        """  Corresponds to IDD Field `Controller 7 Object Type`
+        
+        {u'type': u'choice', u'key': [u'Controller:WaterCoil', u'Controller:OutdoorAir'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `controller_7_object_type`
+            value (str): value for IDD Field `Controller 7 Object Type`
                 Accepted values are:
                       - Controller:WaterCoil
                       - Controller:OutdoorAir
@@ -9634,7 +9840,7 @@ class AirLoopHvacControllerList(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `controller_7_object_type`'.format(value))
             if ',' in value:
@@ -9660,7 +9866,6 @@ class AirLoopHvacControllerList(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `controller_7_object_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Controller 7 Object Type"] = value
 
     @property
@@ -9674,10 +9879,12 @@ class AirLoopHvacControllerList(object):
 
     @controller_7_name.setter
     def controller_7_name(self, value=None):
-        """  Corresponds to IDD Field `controller_7_name`
+        """  Corresponds to IDD Field `Controller 7 Name`
+        
+        {u'type': u'object-list', u'object-list': u'AirLoopControllers', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `controller_7_name`
+            value (str): value for IDD Field `Controller 7 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9687,7 +9894,7 @@ class AirLoopHvacControllerList(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `controller_7_name`'.format(value))
             if ',' in value:
@@ -9696,7 +9903,6 @@ class AirLoopHvacControllerList(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `controller_7_name`')
-
         self._data["Controller 7 Name"] = value
 
     @property
@@ -9710,10 +9916,12 @@ class AirLoopHvacControllerList(object):
 
     @controller_8_object_type.setter
     def controller_8_object_type(self, value=None):
-        """  Corresponds to IDD Field `controller_8_object_type`
+        """  Corresponds to IDD Field `Controller 8 Object Type`
+        
+        {u'type': u'choice', u'key': [u'Controller:WaterCoil', u'Controller:OutdoorAir'], 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `controller_8_object_type`
+            value (str): value for IDD Field `Controller 8 Object Type`
                 Accepted values are:
                       - Controller:WaterCoil
                       - Controller:OutdoorAir
@@ -9726,7 +9934,7 @@ class AirLoopHvacControllerList(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `controller_8_object_type`'.format(value))
             if ',' in value:
@@ -9752,7 +9960,6 @@ class AirLoopHvacControllerList(object):
                     raise ValueError('value {} is not an accepted value for '
                                      'field `controller_8_object_type`'.format(value))
             value = vals[value_lower]
-
         self._data["Controller 8 Object Type"] = value
 
     @property
@@ -9766,10 +9973,12 @@ class AirLoopHvacControllerList(object):
 
     @controller_8_name.setter
     def controller_8_name(self, value=None):
-        """  Corresponds to IDD Field `controller_8_name`
+        """  Corresponds to IDD Field `Controller 8 Name`
+        
+        {u'type': u'object-list', u'object-list': u'AirLoopControllers', 'pytype': 'str'}
 
         Args:
-            value (str): value for IDD Field `controller_8_name`
+            value (str): value for IDD Field `Controller 8 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9779,7 +9988,7 @@ class AirLoopHvacControllerList(object):
         if value is not None:
             try:
                 value = str(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type str '
                                  'for field `controller_8_name`'.format(value))
             if ',' in value:
@@ -9788,7 +9997,6 @@ class AirLoopHvacControllerList(object):
             if '!' in value:
                 raise ValueError('value should not contain a ! '
                                  'for field `controller_8_name`')
-
         self._data["Controller 8 Name"] = value
 
     def check(self):

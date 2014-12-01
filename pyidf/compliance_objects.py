@@ -43,12 +43,14 @@ class ComplianceBuilding(object):
 
     @building_rotation_for_appendix_g.setter
     def building_rotation_for_appendix_g(self, value=0.0 ):
-        """  Corresponds to IDD Field `building_rotation_for_appendix_g`
+        """  Corresponds to IDD Field `Building Rotation for Appendix G`
         Additional degrees of rotation to be used with the requirement in ASHRAE Standard 90.1 Appendix G
         that states that the baseline building should be rotated in four directions.
+        
+        {u'note': [u'Additional degrees of rotation to be used with the requirement in ASHRAE Standard 90.1 Appendix G', u'that states that the baseline building should be rotated in four directions.'], u'units': u'deg', u'default': '0.0', u'type': u'real', 'pytype': 'float'}
 
         Args:
-            value (float): value for IDD Field `building_rotation_for_appendix_g`
+            value (float): value for IDD Field `Building Rotation for Appendix G`
                 Units: deg
                 Default value: 0.0
                 if `value` is None it will not be checked against the
@@ -60,10 +62,9 @@ class ComplianceBuilding(object):
         if value is not None:
             try:
                 value = float(value)
-            except:
+            except ValueError:
                 raise ValueError('value {} need to be of type float '
                                  'for field `building_rotation_for_appendix_g`'.format(value))
-
         self._data["Building Rotation for Appendix G"] = value
 
     def check(self):
