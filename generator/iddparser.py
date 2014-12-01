@@ -18,7 +18,7 @@ class IDDParser():
     field_attributes = []
 
     def _is_new_group(self, line):
-        return re.search(r"^\s*\\group", line) is not None
+        return re.search(r"^\s*\\group", line, re.IGNORECASE) is not None
 
     def _is_new_field(self, line):
         if self._is_new_group(line):
@@ -46,13 +46,13 @@ class IDDParser():
         return internal_name
 
     def _parse_group_name(self, line):
-        match_group_name = re.search(r"^\s*\\group\w*([a-zA-Z0-9 ]*[a-zA-Z0-9])", line)
+        match_group_name = re.search(r"^\s*\\group\w*([a-zA-Z0-9 ]*[a-zA-Z0-9])", line, re.IGNORECASE)
         assert match_group_name is not None
         return match_group_name.group(1)
 
     def _parse_field_name(self, line):
         # print "NewField:\t", line
-        match_field_name = re.search(r"\\field\s(.*)$", line)
+        match_field_name = re.search(r"\\field\s(.*)$", line, re.IGNORECASE)
         match_field_type = re.search(r"^\s*([AN])", line)
 
         if match_field_name is None or match_field_type is None:
@@ -75,7 +75,8 @@ class IDDParser():
             no_value_attributes = ["required-field",
                                    "unique-object",
                                    "required-object",
-                                   "autocalculatable"]
+                                   "autocalculatable",
+                                   "autosizable"]
 
             if attribute_name in no_value_attributes:
                 return attribute_name, True

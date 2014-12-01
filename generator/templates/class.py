@@ -50,17 +50,15 @@ class {{ obj.class_name }}(object):
         return self._data["{{ field.internal_name }}"]
 
     @{{field.field_name}}.setter
-    def {{field.field_name}}(self, value={%- if field.attributes.default and not field.attributes.pytype == "str" %}{{ field.attributes.default}} {% elif field.attributes.default and (field.attributes.pytype == "str") %}"{{field.attributes.default}}"{% else %}None{% endif %}):
+    def {{field.field_name}}(self, value={%- if field.attributes.default and not field.attributes.pytype == "str" %}{{ field.attributes.default}}{% elif field.attributes.default and (field.attributes.pytype == "str") %}"{{field.attributes.default}}"{% else %}None{% endif %}):
         """  Corresponds to IDD Field `{{field.internal_name}}`
 
         {%- for comment in field.attributes.note %}
         {{comment}}
         {%- endfor %}
-        
-        {{ field.attributes }}
 
         Args:
-            value ({{ field.attributes.pytype }} {%- if field.attributes.autocalculatable %} or "Autocalculate" {%- endif %}): value for IDD Field `{{field.internal_name}}`
+            value ({{ field.attributes.pytype }}{%- if field.attributes.autocalculatable %} or "Autocalculate"{%- endif %}{%- if field.attributes.autosizable %} or "Autosize"{%- endif %}): value for IDD Field `{{field.internal_name}}`
                 {%- if field.attributes.type == "choice" %}
                 Accepted values are:
                     {%- for k in field.attributes.key %}
@@ -104,6 +102,16 @@ class {{ obj.class_name }}(object):
                 value_lower = str(value).lower()
                 if value_lower == "autocalculate":
                     self._data["{{ field.internal_name }}"] = "Autocalculate"
+                    return
+            except ValueError:
+                pass
+
+            {%- endif %}
+            {%- if field.attributes.autosizable and not field.attributes.pytype == "alpha" %}
+            try:
+                value_lower = str(value).lower()
+                if value_lower == "autosize":
+                    self._data["{{ field.internal_name }}"] = "Autosize"
                     return
             except ValueError:
                 pass

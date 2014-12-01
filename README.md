@@ -14,7 +14,6 @@ Python library to read, modify and create EnergyPlus idf files
   * begin-extensible
   * unitsBasedOnField
   * deprecated
-  * autosizeable
   * type: object-list, external-list, node
   * retaincase
   * object-list
