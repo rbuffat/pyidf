@@ -72,7 +72,7 @@ class IDDParser():
 
         match_attribute_name = re.match(r"\s*\\([^\s]+)", line)
         if match_attribute_name is not None:
-            attribute_name = match_attribute_name.group(1).strip()
+            attribute_name = match_attribute_name.group(1).strip().lower()
 
             no_value_attributes = ["required-field",
                                    "unique-object",
@@ -86,9 +86,9 @@ class IDDParser():
 
             match_value = re.search(r"\s*\\[^\s]+\s?(.*)", line)
             if match_value is not None:
-                attribute_value = match_value.group(1).strip()
+                attribute_value = match_value.group(1).split('!')[0].strip() #TODO
 
-        return attribute_name, attribute_value
+        return attribute_name.lower(), attribute_value
 
     def __init__(self):
         self.current_object = None

@@ -19,7 +19,7 @@ if __name__ == '__main__':
         files[obj.file_name].append(obj)
 
     for fname in files:
-        source_files = ["from collections import OrderedDict"]
+        source_files = ["from collections import OrderedDict\nimport logging\nimport re"]
         for obj in files[fname]:
             source_files.append(generate_class(obj))
 

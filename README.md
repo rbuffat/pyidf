@@ -18,7 +18,6 @@ Python library to read, modify and create EnergyPlus idf files
   * external-list
   * reference
 * object level comments not yet implemented
-  * min-fields
   * obsolete
   * extensible
   * begin-extensible

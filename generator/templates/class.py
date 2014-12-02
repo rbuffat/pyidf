@@ -1,11 +1,11 @@
 class {{ obj.class_name }}(object):
     """ Corresponds to IDD object `{{ obj.internal_name }}`
+
     {%- if obj.attributes.memo  %}
     {%- for memo in obj.attributes.memo %}
         {{ memo }}
     {%- endfor %}
     {%- endif %}
-    
     """
     internal_name = "{{ obj.internal_name }}"
     field_count = {{ obj.fields|count }}
@@ -18,15 +18,16 @@ class {{ obj.class_name }}(object):
     {%- for field in obj.fields %}
         self._data["{{ field.internal_name }}"] = None
     {%- endfor %}
-        self.accept_substring = False
+        self.strict = True
 
-    def read(self, vals, accept_substring=True):
+    def read(self, vals, strict=False):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
-        self.accept_substring = accept_substring
+        old_strict = self.strict
+        self.strict = strict
         i = 0
         {%- for field in obj.fields %}
         if len(vals[i]) == 0:
@@ -37,6 +38,7 @@ class {{ obj.class_name }}(object):
         if i >= len(vals):
             return
         {%- endfor %}
+        self.strict = old_strict
 
     {%- for field in obj.fields %}
 
@@ -77,8 +79,8 @@ class {{ obj.class_name }}(object):
                 {%- if field.attributes['ip-units'] %}
                 IP-Units: {{ field.attributes['ip-units'] }}
                 {%- endif %}
-                {%- if field.attributes['unitsBasedOnField'] %}
-                Units are based on field `{{ field.attributes['unitsBasedOnField'] }}`
+                {%- if field.attributes['unitsbasedonfield'] %}
+                Units are based on field `{{ field.attributes['unitsbasedonfield'] }}`
                 {%- endif %}
                 {%- if field.attributes.default %}
                 Default value: {{ field.attributes.default }}
@@ -112,6 +114,11 @@ class {{ obj.class_name }}(object):
                 if value_lower == "autocalculate":
                     self._data["{{ field.internal_name }}"] = "Autocalculate"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autocalculate" '
+                                 'for field `{{field.field_name}}`'.format(value))
+                    self._data["{{ field.internal_name }}"] = "Autocalculate"
+                    return
             except ValueError:
                 pass
 
@@ -122,6 +129,11 @@ class {{ obj.class_name }}(object):
                 if value_lower == "autosize":
                     self._data["{{ field.internal_name }}"] = "Autosize"
                     return
+                if not self.strict and "auto" in value_lower:
+                    logging.warn('Accept value {} as "Autosize" '
+                                 'for field `{{field.field_name}}`'.format(value))
+                    self._data["{{ field.internal_name }}"] = "Autosize"
+                    return
             except ValueError:
                 pass
 
@@ -129,8 +141,20 @@ class {{ obj.class_name }}(object):
             try:
                 value = {{ field.attributes.pytype }}(value)
             except ValueError:
-                raise ValueError('value {} need to be of type {{ field.attributes.pytype }} '
+                {%- if field.attributes.type == "integer" %}
+                if not self.strict:
+                    try:
+                        conv_value = int(float(value))
+                        logging.warn('Cast float {} to int {}, precision may be lost '
+                                     'for field `{{field.field_name}}`'.format(value, conv_value))
+                        value = conv_value
+                    except ValueError:
+                        raise ValueError('value {} need to be of type {{ field.attributes.pytype }} '
+                                         'for field `{{field.field_name}}`'.format(value))
+                {%- else %}
+                raise ValueError('value {} need to be of type {{ field.attributes.pytype }} {%- if field.attributes.autocalculatable %} or "Autocalculate"{%- endif %}{%- if field.attributes.autosizable %} or "Autosize"{%- endif %}'
                                  'for field `{{field.field_name}}`'.format(value))
+                {%- endif %}
             {%- if field.attributes.pytype == "str" %}
             if ',' in value:
                 raise ValueError('value should not contain a comma '
@@ -171,16 +195,26 @@ class {{ obj.class_name }}(object):
             value_lower = value.lower()
             if value_lower not in vals:
                 found = False
-                if self.accept_substring:
+                if not self.strict:
                     for key in vals:
-                        if key in value_lower:
+                        if key in value_lower or value_lower in key:
                             value_lower = key
                             found = True
                             break
-
+                    if not found:
+                        value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
+                        for key in vals:
+                            key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
+                            if key_stripped == value_stripped:
+                                value_lower = key
+                                found = True
+                                break
                 if not found:
                     raise ValueError('value {} is not an accepted value for '
                                      'field `{{field.field_name}}`'.format(value))
+                else:
+                    logging.warn('change value {} to accepted value {} for '
+                                 'field `{{field.field_name}}`'.format(value, vals[value_lower]))
             value = vals[value_lower]
             {%- endif %}
         {%- endif %}
